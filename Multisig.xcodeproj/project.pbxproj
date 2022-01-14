@@ -371,6 +371,7 @@
 		0ABAFDB324ACB3B6007EBB92 /* SnackbarCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */; };
 		0ABC898F2576B857005D555B /* SCGModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC898E2576B857005D555B /* SCGModels.swift */; };
 		0ABE6983279177A4003338AF /* TransactionEstimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE6982279177A4003338AF /* TransactionEstimationController.swift */; };
+		0ABE69852791B47B003338AF /* Fee1559FormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE69842791B47B003338AF /* Fee1559FormModel.swift */; };
 		0AC2A3C726FB6802002CB26A /* CollectiblesUnsupportedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC2A3C526FB6802002CB26A /* CollectiblesUnsupportedViewController.swift */; };
 		0AC2A3C826FB6802002CB26A /* CollectiblesUnsupportedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC2A3C626FB6802002CB26A /* CollectiblesUnsupportedViewController.xib */; };
 		0AC2A3CA26FB6B84002CB26A /* WebAppURLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC2A3C926FB6B84002CB26A /* WebAppURLBuilder.swift */; };
@@ -1059,6 +1060,7 @@
 		0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarCenter.swift; sourceTree = "<group>"; };
 		0ABC898E2576B857005D555B /* SCGModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCGModels.swift; sourceTree = "<group>"; };
 		0ABE6982279177A4003338AF /* TransactionEstimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEstimationController.swift; sourceTree = "<group>"; };
+		0ABE69842791B47B003338AF /* Fee1559FormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fee1559FormModel.swift; sourceTree = "<group>"; };
 		0AC2A3C526FB6802002CB26A /* CollectiblesUnsupportedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesUnsupportedViewController.swift; sourceTree = "<group>"; };
 		0AC2A3C626FB6802002CB26A /* CollectiblesUnsupportedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectiblesUnsupportedViewController.xib; sourceTree = "<group>"; };
 		0AC2A3C926FB6B84002CB26A /* WebAppURLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAppURLBuilder.swift; sourceTree = "<group>"; };
@@ -3147,6 +3149,7 @@
 				0A04507E278DAD9000650F71 /* DisclosureWithContentCell.swift */,
 				0A04507F278DAD9000650F71 /* DisclosureWithContentCell.xib */,
 				0A9366B6279067A7001918A9 /* FeeLegacyFormModel.swift */,
+				0ABE69842791B47B003338AF /* Fee1559FormModel.swift */,
 				0A9366A4278EE8FE001918A9 /* FormViewController.swift */,
 				0A9366B2278F1EA0001918A9 /* HyperlinkButtonView.swift */,
 				0A9366B4278F1EAC001918A9 /* HyperlinkButtonView.xib */,
@@ -3909,6 +3912,7 @@
 				5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */,
 				0A465C2E246C196900AFA467 /* Theme.swift in Sources */,
 				049A9DD026020C0B00CA5723 /* SelectFiatViewController.swift in Sources */,
+				0ABE69852791B47B003338AF /* Fee1559FormModel.swift in Sources */,
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
 				0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */,
 				0A04506F278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift in Sources */,

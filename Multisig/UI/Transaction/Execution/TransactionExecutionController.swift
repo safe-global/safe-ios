@@ -12,6 +12,16 @@ import Version
 import SafeAbi
 import Ethereum
 
+struct UserDefinedTransactionParameters: Equatable {
+    var nonce: Sol.UInt64?
+    var gas: Sol.UInt64?
+
+    var gasPrice: Sol.UInt256?
+
+    var maxFeePerGas: Sol.UInt256?
+    var maxPriorityFee: Sol.UInt256?
+}
+
 class TransactionExecutionController {
     private var safe: Safe
     private var chain: Chain
@@ -20,6 +30,15 @@ class TransactionExecutionController {
     private let estimationController: TransactionEstimationController
 
     var ethTransaction: EthTransaction?
+
+    // 1.5 gwei in wei (1.5 x 10^9)
+    let defaultMinerTip: Sol.UInt256 = 1_500_000_000
+
+    var userParameters = UserDefinedTransactionParameters() {
+        didSet {
+            updateEthTransactionWithUserValues()
+        }
+    }
 
     var chainId: String {
         chain.id!
@@ -128,18 +147,22 @@ class TransactionExecutionController {
         do {
             let keyAddress = selectedKey?.key.address
             let solAddress = try keyAddress.map { try Sol.Address($0.data32) } ?? Sol.Address()
-            tx = try ethTransaction(from: solAddress)
+
+            let minerTip = userParameters.maxPriorityFee ?? defaultMinerTip
+            tx = try ethTransaction(from: solAddress, minerTip: minerTip)
         } catch {
             completion(error)
             return nil
         }
-        
+
         let task = estimationController.estimate(transaction: tx) { result in
             switch result {
             case .failure(let error):
                 completion(error)
             case .success(let estimatedTx):
+                // at this point the estimatedTx contains parameters estimated by API
                 self.ethTransaction = estimatedTx
+                self.updateEthTransactionWithUserValues()
                 completion(nil)
             }
         }
@@ -154,7 +177,7 @@ class TransactionExecutionController {
     //
     // safe must have the version and address set
     // chain must have l2 and chainId set
-    func ethTransaction(from: Sol.Address) throws -> EthTransaction {
+    func ethTransaction(from: Sol.Address, minerTip: Sol.UInt256) throws -> EthTransaction {
         guard
             let txData = transaction.txData,
             let executionInfo = transaction.detailedExecutionInfo,
@@ -233,11 +256,15 @@ class TransactionExecutionController {
 
         let isEIP1559 = chainFeatures.contains("EIP1559")
         if isEIP1559 {
+            let unestimatedMaxFee = minerTip
             result = try Eth.TransactionEip1559(
                 chainId: chainId,
                 from: from,
                 to: Sol.Address(safeAddress.data32),
-                input: Sol.Bytes(storage: input)
+                input: Sol.Bytes(storage: input),
+                fee: Eth.Fee1559(
+                    maxFeePerGas: unestimatedMaxFee,
+                    maxPriorityFee: minerTip)
             )
         } else {
             result = try Eth.TransactionLegacy(
@@ -249,6 +276,34 @@ class TransactionExecutionController {
         }
 
         return result
+    }
+
+    func updateEthTransactionWithUserValues() {
+        if userParameters == UserDefinedTransactionParameters() {
+            // no changes in the values.
+            return
+        }
+
+        // take the values only if they were set by user (not nil)
+        switch ethTransaction {
+        case var ethTx as Eth.TransactionLegacy:
+            ethTx.fee.gas = userParameters.gas ?? ethTx.fee.gas
+            ethTx.fee.gasPrice = userParameters.gasPrice ?? ethTx.fee.gasPrice
+            ethTx.nonce = userParameters.nonce ?? ethTx.nonce
+
+            self.ethTransaction = ethTx
+
+        case var ethTx as Eth.TransactionEip1559:
+            ethTx.fee.gas = userParameters.gas ?? ethTx.fee.gas
+            ethTx.fee.maxFeePerGas = userParameters.maxFeePerGas ?? ethTx.fee.maxFeePerGas
+            ethTx.fee.maxPriorityFee = userParameters.maxPriorityFee ?? ethTx.fee.maxPriorityFee
+            ethTx.nonce = userParameters.nonce ?? ethTx.nonce
+
+            self.ethTransaction = ethTx
+
+        default:
+            break
+        }
     }
 }
 

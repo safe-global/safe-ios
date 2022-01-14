@@ -140,17 +140,118 @@ class ReviewExecutionViewController: ContainerViewController {
     }
 
     @IBAction func didTapFee(_ sender: Any) {
-        let formModel = FeeLegacyFormModel(
-            nonce: 22,
-            gas: 53000,
-            gasPriceInWei: 12,
-            nativeCurrency: chain.nativeCurrency!)
+        let formModel: FormModel
+        var initialValues = UserDefinedTransactionParameters()
+
+        switch controller.ethTransaction {
+        case let ethTx as Eth.TransactionLegacy:
+            let model = FeeLegacyFormModel(
+                nonce: ethTx.nonce,
+                gas: ethTx.fee.gas,
+                gasPriceInWei: ethTx.fee.gasPrice,
+                nativeCurrency: chain.nativeCurrency!
+            )
+            initialValues.nonce = model.nonce
+            initialValues.gas = model.gas
+            initialValues.gasPrice = model.gasPriceInWei
+
+            formModel = model
+
+        case let ethTx as Eth.TransactionEip1559:
+            let model = Fee1559FormModel(
+                nonce: ethTx.nonce,
+                gas: ethTx.fee.gas,
+                maxFeePerGasInWei: ethTx.fee.maxFeePerGas,
+                maxPriorityFeePerGasInWei: ethTx.fee.maxPriorityFee,
+                nativeCurrency: chain.nativeCurrency!
+            )
+            initialValues.nonce = model.nonce
+            initialValues.gas = model.gas
+            initialValues.maxFeePerGas = model.maxFeePerGasInWei
+            initialValues.maxPriorityFee = model.maxPriorityFeePerGasInWei
+
+            formModel = model
+
+        default:
+            if chain.features?.contains("EIP1559") == true {
+                formModel = Fee1559FormModel(
+                    nonce: nil,
+                    gas: nil,
+                    maxFeePerGasInWei: nil,
+                    maxPriorityFeePerGasInWei: nil,
+                    nativeCurrency: chain.nativeCurrency!
+                )
+            } else {
+                formModel = FeeLegacyFormModel(
+                    nonce: nil,
+                    gas: nil,
+                    gasPriceInWei: nil,
+                    nativeCurrency: chain.nativeCurrency!
+                )
+            }
+        }
+
         let formVC = FormViewController(model: formModel) { [weak self] in
-            // on close
+            // on close - ignore any changes
+            self?.dismiss(animated: true)
+        }
+
+        formVC.onSave = { [weak self, weak formModel] in
+            // on save - update the parameters that were changed.
             self?.dismiss(animated: true, completion: {
-                // update estimation parameters, etc.
+                guard let self = self, let formModel = formModel else { return }
+
+                // collect the saved values
+
+                var savedValues = UserDefinedTransactionParameters()
+
+                switch formModel {
+                case let model as FeeLegacyFormModel:
+                    savedValues.nonce = model.nonce
+                    savedValues.gas = model.gas
+                    savedValues.gasPrice = model.gasPriceInWei
+
+                case let model as Fee1559FormModel:
+                    savedValues.nonce = model.nonce
+                    savedValues.gas = model.gas
+                    savedValues.maxFeePerGas = model.maxFeePerGasInWei
+                    savedValues.maxPriorityFee = model.maxPriorityFeePerGasInWei
+
+                default:
+                    break
+                }
+
+                // compare the initial snapshot and saved snapshot
+                // memberwise and remember only those values that changed.
+
+                if savedValues.nonce != initialValues.nonce {
+                    self.controller.userParameters.nonce = savedValues.nonce
+                }
+
+                if savedValues.gas != initialValues.gas {
+                    self.controller.userParameters.gas = savedValues.gas
+                }
+
+                if savedValues.gasPrice != initialValues.gasPrice {
+                    self.controller.userParameters.gasPrice = savedValues.gasPrice
+                }
+
+                if savedValues.maxFeePerGas != initialValues.maxFeePerGas {
+                    self.controller.userParameters.maxFeePerGas = savedValues.maxFeePerGas
+                }
+
+                if savedValues.maxPriorityFee != initialValues.maxPriorityFee {
+                    self.controller.userParameters.maxPriorityFee = savedValues.maxPriorityFee
+                }
+
+                // react to changes
+
+                if savedValues != initialValues {
+                    self.didChangeTransactionParameters()
+                }
             })
         }
+
         formVC.navigationItem.title = "Edit transaction fee"
 
         let nav = UINavigationController(rootViewController: formVC)
@@ -238,5 +339,9 @@ class ReviewExecutionViewController: ContainerViewController {
         } else {
             contentVC.model?.executionOptions.feeState = .empty
         }
+    }
+
+    func didChangeTransactionParameters() {
+        didChangeEstimation()
     }
 }
