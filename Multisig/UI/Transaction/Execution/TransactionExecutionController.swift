@@ -84,7 +84,10 @@ class TransactionExecutionController {
             }
         }
     }
-    var requiredBalance: Sol.UInt256 = 0
+
+    var requiredBalance: Sol.UInt256? {
+        ethTransaction?.requiredBalance
+    }
 
     let keySelectionPolicy = OwnerKeySelectionPolicy()
 
@@ -98,7 +101,7 @@ class TransactionExecutionController {
 
         // make network request to fetch balances
         let balanceLoader = DefaultAccountBalanceLoader(chain: chain)
-        balanceLoader.requiredBalance = requiredBalance
+        balanceLoader.requiredBalance = requiredBalance ?? 0
 
         let task = balanceLoader.loadBalances(for: keys) { [weak self] result in
             guard let self = self else { return }
@@ -139,7 +142,7 @@ class TransactionExecutionController {
 
         let bestCandidate = self.keySelectionPolicy.defaultExecutionKey(
             in: candidates,
-            requiredAmount: self.requiredBalance
+            requiredAmount: self.requiredBalance ?? 0
         )
         if let bestCandidate = bestCandidate {
             let result = zip(keys, balances).first { $0.0 == bestCandidate.key }!
@@ -153,9 +156,9 @@ class TransactionExecutionController {
         var tx: EthTransaction
         do {
             let keyAddress = selectedKey?.key.address
-            let solAddress = try keyAddress.map { try Sol.Address($0.data32) } ?? Sol.Address()
-
+            let solAddress = try keyAddress.map { try Sol.Address($0.data32) }
             let minerTip = userParameters.maxPriorityFee ?? defaultMinerTip
+
             tx = try ethTransaction(from: solAddress, minerTip: minerTip)
         } catch {
             completion(error)
@@ -184,7 +187,7 @@ class TransactionExecutionController {
     //
     // safe must have the version and address set
     // chain must have l2 and chainId set
-    func ethTransaction(from: Sol.Address, minerTip: Sol.UInt256) throws -> EthTransaction {
+    func ethTransaction(from: Sol.Address?, minerTip: Sol.UInt256) throws -> EthTransaction {
         guard
             let txData = transaction.txData,
             let executionInfo = transaction.detailedExecutionInfo,
@@ -264,15 +267,12 @@ class TransactionExecutionController {
 
         let isEIP1559 = chainFeatures.contains("EIP1559")
         if isEIP1559 {
-            let unestimatedMaxFee = minerTip
             result = try Eth.TransactionEip1559(
                 chainId: chainId,
                 from: from,
                 to: Sol.Address(safeAddress.data32),
                 input: Sol.Bytes(storage: input),
-                fee: Eth.Fee1559(
-                    maxFeePerGas: unestimatedMaxFee,
-                    maxPriorityFee: minerTip)
+                fee: .init(maxPriorityFee: minerTip)
             )
         } else {
             result = try Eth.TransactionLegacy(
@@ -287,11 +287,6 @@ class TransactionExecutionController {
     }
 
     func updateEthTransactionWithUserValues() {
-        if userParameters == UserDefinedTransactionParameters() {
-            // no changes in the values.
-            return
-        }
-
         // take the values only if they were set by user (not nil)
         switch ethTransaction {
         case var ethTx as Eth.TransactionLegacy:
@@ -312,6 +307,28 @@ class TransactionExecutionController {
         default:
             break
         }
+    }
+
+    var isValid: Bool = false
+    var errorMessage: String?
+
+    func validate() {
+        isValid = false
+
+        guard let key = selectedKey, let keyBalance = key.balance.amount else {
+            return
+        }
+
+        guard let requiredBalance = requiredBalance else {
+            return
+        }
+
+        guard keyBalance >= requiredBalance else {
+            errorMessage = "Insufficient balance for network fees"
+            return
+        }
+
+        isValid = true
     }
 }
 

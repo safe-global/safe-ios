@@ -372,6 +372,8 @@
 		0ABC898F2576B857005D555B /* SCGModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC898E2576B857005D555B /* SCGModels.swift */; };
 		0ABE6983279177A4003338AF /* TransactionEstimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE6982279177A4003338AF /* TransactionEstimationController.swift */; };
 		0ABE69852791B47B003338AF /* Fee1559FormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE69842791B47B003338AF /* Fee1559FormModel.swift */; };
+		0ABE698827920294003338AF /* ErrorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE698627920294003338AF /* ErrorTableViewCell.swift */; };
+		0ABE698927920294003338AF /* ErrorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABE698727920294003338AF /* ErrorTableViewCell.xib */; };
 		0AC2A3C726FB6802002CB26A /* CollectiblesUnsupportedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC2A3C526FB6802002CB26A /* CollectiblesUnsupportedViewController.swift */; };
 		0AC2A3C826FB6802002CB26A /* CollectiblesUnsupportedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC2A3C626FB6802002CB26A /* CollectiblesUnsupportedViewController.xib */; };
 		0AC2A3CA26FB6B84002CB26A /* WebAppURLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC2A3C926FB6B84002CB26A /* WebAppURLBuilder.swift */; };
@@ -1061,6 +1063,8 @@
 		0ABC898E2576B857005D555B /* SCGModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCGModels.swift; sourceTree = "<group>"; };
 		0ABE6982279177A4003338AF /* TransactionEstimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEstimationController.swift; sourceTree = "<group>"; };
 		0ABE69842791B47B003338AF /* Fee1559FormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fee1559FormModel.swift; sourceTree = "<group>"; };
+		0ABE698627920294003338AF /* ErrorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTableViewCell.swift; sourceTree = "<group>"; };
+		0ABE698727920294003338AF /* ErrorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorTableViewCell.xib; sourceTree = "<group>"; };
 		0AC2A3C526FB6802002CB26A /* CollectiblesUnsupportedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesUnsupportedViewController.swift; sourceTree = "<group>"; };
 		0AC2A3C626FB6802002CB26A /* CollectiblesUnsupportedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectiblesUnsupportedViewController.xib; sourceTree = "<group>"; };
 		0AC2A3C926FB6B84002CB26A /* WebAppURLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAppURLBuilder.swift; sourceTree = "<group>"; };
@@ -3159,6 +3163,8 @@
 				0A045076278DACC400650F71 /* MiniAccountAndBalancePiece.xib */,
 				0A9366BA27908717001918A9 /* OwnerKeySelectionPolicy.swift */,
 				0A04506E278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift */,
+				0ABE698627920294003338AF /* ErrorTableViewCell.swift */,
+				0ABE698727920294003338AF /* ErrorTableViewCell.xib */,
 				0A04506C278D973C00650F71 /* ReviewExecutionContentViewController.swift */,
 				0A045068278D800700650F71 /* ReviewExecutionViewController.swift */,
 				0A045069278D800700650F71 /* ReviewExecutionViewController.xib */,
@@ -3468,6 +3474,7 @@
 				04D1323625E43C560032FA03 /* DetailRejectionInfoCell.xib in Resources */,
 				0468EE9E26148A3B008270BF /* PrivacyProtectionScreenViewController.xib in Resources */,
 				049A9DB225FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib in Resources */,
+				0ABE698927920294003338AF /* ErrorTableViewCell.xib in Resources */,
 				04077B38278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.xib in Resources */,
 				049A9D2025F7CF7400CA5723 /* OwnerKeysListTableViewCell.xib in Resources */,
 				0A9A1A33257924C600B44405 /* DetailMultiAccountsCell.xib in Resources */,
@@ -3893,6 +3900,7 @@
 				0A465C37246C2ECD00AFA467 /* GetInTouchView.swift in Sources */,
 				0ACEF00124C1DE620040A058 /* AddressImage.swift in Sources */,
 				0A096CBE2608D9370034E6BC /* NetworkStatusObserver.swift in Sources */,
+				0ABE698827920294003338AF /* ErrorTableViewCell.swift in Sources */,
 				D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				0A57C5AF2577F02100420303 /* ConfirmationCreatedPiece.swift in Sources */,

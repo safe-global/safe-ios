@@ -56,7 +56,6 @@ class ReviewExecutionContentViewController: UITableViewController {
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48
-
         tableView.allowsSelection = false
 
         // TODO: handling app notifications

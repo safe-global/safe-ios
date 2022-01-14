@@ -98,13 +98,13 @@ public enum EthRpc1 {
         /// Must be in range [0xc0, 0xfe]
         public var type: Quantity<Sol.UInt64> = .init(0xc0)
 
-        public var nonce: Quantity<Sol.UInt64>
+        public var nonce: Quantity<Sol.UInt64>?
 
         /// to address
         public var to: EthRpc1.Data?
 
         /// gas limit
-        public var gas: Quantity<Sol.UInt64>
+        public var gas: Quantity<Sol.UInt64>?
 
         public var value: Quantity<Sol.UInt256>
 
@@ -112,7 +112,7 @@ public enum EthRpc1 {
         public var input: EthRpc1.Data
 
         /// The gas price willing to be paid by the sender in wei
-        public var gasPrice: Quantity<Sol.UInt256>
+        public var gasPrice: Quantity<Sol.UInt256>?
 
         /// Chain ID that this transaction is valid on.
         ///
@@ -140,7 +140,7 @@ public enum EthRpc1 {
         /// Signature 's' component
         public var s: Quantity<Sol.UInt256>?
 
-        public init(type: EthRpc1.Quantity<Sol.UInt64>, nonce: EthRpc1.Quantity<Sol.UInt64>, to: EthRpc1.Data?, gas: EthRpc1.Quantity<Sol.UInt64>, value: EthRpc1.Quantity<Sol.UInt256>, input: EthRpc1.Data, gasPrice: EthRpc1.Quantity<Sol.UInt256>, chainId: EthRpc1.Quantity<Sol.UInt256>?, from: EthRpc1.Data?, blockHash: EthRpc1.Data?, blockNumber: EthRpc1.Quantity<Sol.UInt256>?, hash: EthRpc1.Data?, transactionIndex: EthRpc1.Quantity<Sol.UInt64>?, v: EthRpc1.Quantity<Sol.UInt256>?, r: EthRpc1.Quantity<Sol.UInt256>?, s: EthRpc1.Quantity<Sol.UInt256>?) {
+        public init(type: EthRpc1.Quantity<Sol.UInt64> = .init(0xc0), nonce: EthRpc1.Quantity<Sol.UInt64>?, to: EthRpc1.Data?, gas: EthRpc1.Quantity<Sol.UInt64>?, value: EthRpc1.Quantity<Sol.UInt256>, input: EthRpc1.Data, gasPrice: EthRpc1.Quantity<Sol.UInt256>?, chainId: EthRpc1.Quantity<Sol.UInt256>?, from: EthRpc1.Data?, blockHash: EthRpc1.Data?, blockNumber: EthRpc1.Quantity<Sol.UInt256>?, hash: EthRpc1.Data?, transactionIndex: EthRpc1.Quantity<Sol.UInt64>?, v: EthRpc1.Quantity<Sol.UInt256>?, r: EthRpc1.Quantity<Sol.UInt256>?, s: EthRpc1.Quantity<Sol.UInt256>?) {
             self.type = type
             self.nonce = nonce
             self.to = to
@@ -167,13 +167,13 @@ public enum EthRpc1 {
         /// Must be 0x01 per specification
         public var type: Quantity<Sol.UInt64> = .init(0x01)
 
-        public var nonce: Quantity<Sol.UInt64>
+        public var nonce: Quantity<Sol.UInt64>?
 
         /// to address
         public var to: EthRpc1.Data?
 
         /// gas limit
-        public var gas: Quantity<Sol.UInt64>
+        public var gas: Quantity<Sol.UInt64>?
 
         public var value: Quantity<Sol.UInt256>
 
@@ -181,7 +181,7 @@ public enum EthRpc1 {
         public var input: EthRpc1.Data
 
         /// The gas price willing to be paid by the sender in wei
-        public var gasPrice: Quantity<Sol.UInt256>
+        public var gasPrice: Quantity<Sol.UInt256>?
 
         /// EIP-2930 access list
         public var accessList: [AccessListEntry]
@@ -210,7 +210,7 @@ public enum EthRpc1 {
         /// Signature 's' component
         public var s: Quantity<Sol.UInt256>?
 
-        public init(type: EthRpc1.Quantity<Sol.UInt64>, nonce: EthRpc1.Quantity<Sol.UInt64>, to: EthRpc1.Data?, gas: EthRpc1.Quantity<Sol.UInt64>, value: EthRpc1.Quantity<Sol.UInt256>, input: EthRpc1.Data, gasPrice: EthRpc1.Quantity<Sol.UInt256>, accessList: [EthRpc1.AccessListEntry], chainId: EthRpc1.Quantity<Sol.UInt256>, from: EthRpc1.Data?, blockHash: EthRpc1.Data?, blockNumber: EthRpc1.Quantity<Sol.UInt256>?, hash: EthRpc1.Data?, transactionIndex: EthRpc1.Quantity<Sol.UInt64>?, yParity: EthRpc1.Quantity<Sol.UInt256>?, r: EthRpc1.Quantity<Sol.UInt256>?, s: EthRpc1.Quantity<Sol.UInt256>?) {
+        public init(type: EthRpc1.Quantity<Sol.UInt64> = .init(0x01), nonce: EthRpc1.Quantity<Sol.UInt64>?, to: EthRpc1.Data?, gas: EthRpc1.Quantity<Sol.UInt64>?, value: EthRpc1.Quantity<Sol.UInt256>, input: EthRpc1.Data, gasPrice: EthRpc1.Quantity<Sol.UInt256>?, accessList: [EthRpc1.AccessListEntry], chainId: EthRpc1.Quantity<Sol.UInt256>, from: EthRpc1.Data?, blockHash: EthRpc1.Data?, blockNumber: EthRpc1.Quantity<Sol.UInt256>?, hash: EthRpc1.Data?, transactionIndex: EthRpc1.Quantity<Sol.UInt64>?, yParity: EthRpc1.Quantity<Sol.UInt256>?, r: EthRpc1.Quantity<Sol.UInt256>?, s: EthRpc1.Quantity<Sol.UInt256>?) {
             self.type = type
             self.nonce = nonce
             self.to = to
@@ -238,13 +238,13 @@ public enum EthRpc1 {
         /// Must be 0x02 per specification
         public var type: Quantity<Sol.UInt64> = .init(0x02)
 
-        public var nonce: Quantity<Sol.UInt64>
+        public var nonce: Quantity<Sol.UInt64>?
 
         /// to address
         public var to: EthRpc1.Data? = nil
 
         /// gas limit
-        public var gas: Quantity<Sol.UInt64>
+        public var gas: Quantity<Sol.UInt64>?
 
         public var value: Quantity<Sol.UInt256>
 
@@ -252,10 +252,10 @@ public enum EthRpc1 {
         public var input: EthRpc1.Data
 
         /// Maximum fee per gas the sender is willing to pay to miners in wei
-        public var maxPriorityFeePerGas: Quantity<Sol.UInt256>
+        public var maxPriorityFeePerGas: Quantity<Sol.UInt256>?
 
         /// The maximum total fee per gas the sender is willing to pay (includes the network / base fee and miner / priority fee) in wei
-        public var maxFeePerGas: Quantity<Sol.UInt256>
+        public var maxFeePerGas: Quantity<Sol.UInt256>?
 
         /// EIP-2930 access list
         public var accessList: [AccessListEntry]
@@ -284,7 +284,7 @@ public enum EthRpc1 {
         /// Signature 's' component
         public var s: Quantity<Sol.UInt256>? = nil
 
-        public init(type: EthRpc1.Quantity<Sol.UInt64> = .init(0x02), nonce: EthRpc1.Quantity<Sol.UInt64>, to: EthRpc1.Data? = nil, gas: EthRpc1.Quantity<Sol.UInt64>, value: EthRpc1.Quantity<Sol.UInt256>, input: EthRpc1.Data, maxPriorityFeePerGas: EthRpc1.Quantity<Sol.UInt256>, maxFeePerGas: EthRpc1.Quantity<Sol.UInt256>, accessList: [EthRpc1.AccessListEntry], chainId: EthRpc1.Quantity<Sol.UInt256>, from: EthRpc1.Data? = nil, blockHash: EthRpc1.Data? = nil, blockNumber: EthRpc1.Quantity<Sol.UInt256>? = nil, hash: EthRpc1.Data? = nil, transactionIndex: EthRpc1.Quantity<Sol.UInt64>? = nil, yParity: EthRpc1.Quantity<Sol.UInt256>? = nil, r: EthRpc1.Quantity<Sol.UInt256>? = nil, s: EthRpc1.Quantity<Sol.UInt256>? = nil) {
+        public init(type: EthRpc1.Quantity<Sol.UInt64> = .init(0x02), nonce: EthRpc1.Quantity<Sol.UInt64>?, to: EthRpc1.Data? = nil, gas: EthRpc1.Quantity<Sol.UInt64>?, value: EthRpc1.Quantity<Sol.UInt256>, input: EthRpc1.Data, maxPriorityFeePerGas: EthRpc1.Quantity<Sol.UInt256>?, maxFeePerGas: EthRpc1.Quantity<Sol.UInt256>?, accessList: [EthRpc1.AccessListEntry], chainId: EthRpc1.Quantity<Sol.UInt256>, from: EthRpc1.Data? = nil, blockHash: EthRpc1.Data? = nil, blockNumber: EthRpc1.Quantity<Sol.UInt256>? = nil, hash: EthRpc1.Data? = nil, transactionIndex: EthRpc1.Quantity<Sol.UInt64>? = nil, yParity: EthRpc1.Quantity<Sol.UInt256>? = nil, r: EthRpc1.Quantity<Sol.UInt256>? = nil, s: EthRpc1.Quantity<Sol.UInt256>? = nil) {
             self.type = type
             self.nonce = nonce
             self.to = to
@@ -304,7 +304,7 @@ public enum EthRpc1 {
             self.r = r
             self.s = s
         }
-}
+    }
 
     public struct Log: Codable {
         public var removed: Bool?
@@ -643,9 +643,9 @@ extension EthRpc1 {
 }
 
 extension EthRpc1.Data: Codable {
-//    A Data value MUST be hex-encoded.
-//    A Data value MUST be “0x”-prefixed.
-//    A Data value MUST be expressed using two hex digits per byte.
+    //    A Data value MUST be hex-encoded.
+    //    A Data value MUST be “0x”-prefixed.
+    //    A Data value MUST be expressed using two hex digits per byte.
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         var string = try container.decode(String.self)
@@ -894,10 +894,10 @@ public enum Eth {
     }
 
     public struct FeeLegacy {
-        public var gas: Sol.UInt64 = 0
-        public var gasPrice: Sol.UInt256 = 0
+        public var gas: Sol.UInt64? = nil
+        public var gasPrice: Sol.UInt256? = nil
 
-        public init(gas: Sol.UInt64 = 0, gasPrice: Sol.UInt256 = 0) {
+        public init(gas: Sol.UInt64? = nil, gasPrice: Sol.UInt256? = nil) {
             self.gas = gas
             self.gasPrice = gasPrice
         }
@@ -959,12 +959,11 @@ public enum Eth {
     }
 
     public struct Fee2930 {
-        public var gas: Sol.UInt64 = 0
-        public var gasPrice: Sol.UInt256 = 0
+        public var gas: Sol.UInt64? = nil
+        public var gasPrice: Sol.UInt256? = nil
         public var accessList: AccessList = .init()
 
-
-        public init(gas: Sol.UInt64 = 0, gasPrice: Sol.UInt256 = 0, accessList: Eth.AccessList = .init()) {
+        public init(gas: Sol.UInt64? = nil, gasPrice: Sol.UInt256? = nil, accessList: Eth.AccessList = .init()) {
             self.gas = gas
             self.gasPrice = gasPrice
             self.accessList = accessList
@@ -1034,12 +1033,12 @@ public enum Eth {
     }
 
     public struct Fee1559 {
-        public var gas: Sol.UInt64 = 0
-        public var maxFeePerGas: Sol.UInt256 = 0
-        public var maxPriorityFee: Sol.UInt256 = 0
+        public var gas: Sol.UInt64? = nil
+        public var maxFeePerGas: Sol.UInt256? = nil
+        public var maxPriorityFee: Sol.UInt256? = nil
         public var accessList: AccessList = .init()
 
-        public init(gas: Sol.UInt64 = 0, maxFeePerGas: Sol.UInt256 = 0, maxPriorityFee: Sol.UInt256 = 0, accessList: Eth.AccessList = .init()) {
+        public init(gas: Sol.UInt64? = nil, maxFeePerGas: Sol.UInt256? = nil, maxPriorityFee: Sol.UInt256? = nil, accessList: Eth.AccessList = .init()) {
             self.gas = gas
             self.maxFeePerGas = maxFeePerGas
             self.maxPriorityFee = maxPriorityFee
@@ -1188,6 +1187,7 @@ public protocol EthTransaction: EthSignable, EthRawTransaction {
 
     mutating func update(gas: Sol.UInt64, transactionCount: Sol.UInt64, baseFee: Sol.UInt256)
     mutating func updateSignature(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256)
+    mutating func removeFee()
 }
 
 extension Eth.TransactionEip1559: EthSignable {
@@ -1199,9 +1199,9 @@ extension Eth.TransactionEip1559: EthSignable {
         let array: [RlpCodable] = [
             chainId,
             nonce,
-            fee.maxPriorityFee,
-            fee.maxFeePerGas,
-            fee.gas,
+            fee.maxPriorityFee ?? 0,
+            fee.maxFeePerGas ?? 0,
+            fee.gas ?? 0,
             to,
             value,
             input,
@@ -1217,7 +1217,7 @@ extension Eth.TransactionEip1559: EthTransaction {
     public mutating func update(gas: Sol.UInt64, transactionCount: Sol.UInt64, baseFee: Sol.UInt256) {
         nonce = transactionCount
         fee.gas = gas
-        fee.maxFeePerGas = fee.maxPriorityFee + baseFee
+        fee.maxFeePerGas = (fee.maxPriorityFee ?? 0) + baseFee
     }
 
     public mutating func updateSignature(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256) {
@@ -1229,22 +1229,26 @@ extension Eth.TransactionEip1559: EthTransaction {
     }
 
     public var totalFee: Sol.UInt256 {
-        Sol.UInt256(fee.gas) * fee.maxFeePerGas
+        Sol.UInt256(fee.gas ?? 0) * (fee.maxFeePerGas ?? 0)
+    }
+
+    public mutating func removeFee() {
+        fee = .init()
     }
 }
 
 extension Eth.TransactionEip1559: EthRawTransaction {
-//        // rlp-encode transaction items
-//        let rlpTransaction = RlpCoder().encode([chain_id, nonce, max_priority_fee_per_gas, max_fee_per_gas, gas_limit, destination, amount, data, access_list as [RlpCodable]])
+    //        // rlp-encode transaction items
+    //        let rlpTransaction = RlpCoder().encode([chain_id, nonce, max_priority_fee_per_gas, max_fee_per_gas, gas_limit, destination, amount, data, access_list as [RlpCodable]])
 
     public func rawTransaction() -> EthRpc1.Data {
         let signature = self.signature ?? Eth.Signature(yParity: 0, r: 0, s: 0)
         let array: [RlpCodable] = [
             chainId,
             nonce,
-            fee.maxPriorityFee,
-            fee.maxFeePerGas,
-            fee.gas,
+            fee.maxPriorityFee ?? 0,
+            fee.maxFeePerGas ?? 0,
+            fee.gas ?? 0,
             to,
             value,
             input,
@@ -1280,11 +1284,11 @@ extension EthRpc1.Transaction1559 {
             type: EthRpc1.Quantity<Sol.UInt64>(tx.type),
             nonce: EthRpc1.Quantity<Sol.UInt64>(tx.nonce),
             to: EthRpc1.Data(tx.to),
-            gas: EthRpc1.Quantity<Sol.UInt64>(tx.fee.gas),
+            gas: tx.fee.gas.map(EthRpc1.Quantity<Sol.UInt64>.init),
             value: EthRpc1.Quantity<Sol.UInt256>(tx.value),
             input: EthRpc1.Data(tx.input),
-            maxPriorityFeePerGas: EthRpc1.Quantity<Sol.UInt256>(tx.fee.maxPriorityFee),
-            maxFeePerGas: EthRpc1.Quantity<Sol.UInt256>(tx.fee.maxFeePerGas),
+            maxPriorityFeePerGas: tx.fee.maxPriorityFee.map(EthRpc1.Quantity<Sol.UInt256>.init),
+            maxFeePerGas: tx.fee.maxFeePerGas.map(EthRpc1.Quantity<Sol.UInt256>.init),
             accessList: [EthRpc1.AccessListEntry](tx.fee.accessList),
             chainId: EthRpc1.Quantity<Sol.UInt256>(tx.chainId),
             from: tx.from.map { EthRpc1.Data($0) },
@@ -1305,8 +1309,8 @@ extension Eth.TransactionEip2930: EthSignable {
         let array: [RlpCodable] = [
             chainId,
             nonce,
-            fee.gasPrice,
-            fee.gas,
+            fee.gasPrice ?? 0,
+            fee.gas ?? 0,
             to,
             value,
             input,
@@ -1324,8 +1328,8 @@ extension Eth.TransactionEip2930: EthRawTransaction {
         let array: [RlpCodable] = [
             chainId,
             nonce,
-            fee.gasPrice,
-            fee.gas,
+            fee.gasPrice ?? 0,
+            fee.gas ?? 0,
             to,
             value,
             input,
@@ -1356,7 +1360,11 @@ extension Eth.TransactionEip2930: EthTransaction {
     }
 
     public var totalFee: Sol.UInt256 {
-        Sol.UInt256(fee.gas) * fee.gasPrice
+        Sol.UInt256(fee.gas ?? 0) * (fee.gasPrice ?? 0)
+    }
+
+    public mutating func removeFee() {
+        fee = .init()
     }
 }
 
@@ -1367,10 +1375,10 @@ extension EthRpc1.Transaction2930 {
             type: EthRpc1.Quantity<Sol.UInt64>(tx.type),
             nonce: EthRpc1.Quantity<Sol.UInt64>(tx.nonce),
             to: EthRpc1.Data(tx.to),
-            gas: EthRpc1.Quantity<Sol.UInt64>(tx.fee.gas),
+            gas: tx.fee.gas.map(EthRpc1.Quantity<Sol.UInt64>.init),
             value: EthRpc1.Quantity<Sol.UInt256>(tx.value),
             input: EthRpc1.Data(tx.input),
-            gasPrice: EthRpc1.Quantity<Sol.UInt256>(tx.fee.gasPrice),
+            gasPrice: tx.fee.gasPrice.map(EthRpc1.Quantity<Sol.UInt256>.init),
             accessList: [EthRpc1.AccessListEntry](tx.fee.accessList),
             chainId: EthRpc1.Quantity<Sol.UInt256>(tx.chainId),
             from: tx.from.map { EthRpc1.Data($0) },
@@ -1393,8 +1401,8 @@ extension Eth.TransactionLegacy: EthSignable {
             // (nonce, gasprice, startgas, to, value, data, chainid, 0, 0)
             array = [
                 nonce,
-                fee.gasPrice,
-                fee.gas,
+                fee.gasPrice ?? 0,
+                fee.gas ?? 0,
                 to,
                 value,
                 input,
@@ -1406,8 +1414,8 @@ extension Eth.TransactionLegacy: EthSignable {
             // (nonce, gasprice, startgas, to, value, data)
             array = [
                 nonce,
-                fee.gasPrice,
-                fee.gas,
+                fee.gasPrice ?? 0,
+                fee.gas ?? 0,
                 to,
                 value,
                 input
@@ -1428,8 +1436,8 @@ extension Eth.TransactionLegacy: EthRawTransaction {
         let signature = self.signature ?? Eth.SignatureLegacy(v: 0, r: 0, s: 0, chainId: chainId)
         let array: [RlpCodable] = [
             nonce,
-            fee.gasPrice,
-            fee.gas,
+            fee.gasPrice ?? 0,
+            fee.gas ?? 0,
             to,
             value,
             input,
@@ -1461,7 +1469,11 @@ extension Eth.TransactionLegacy: EthTransaction {
     }
 
     public var totalFee: Sol.UInt256 {
-        Sol.UInt256(fee.gas) * fee.gasPrice
+        Sol.UInt256(fee.gas ?? 0) * (fee.gasPrice ?? 0)
+    }
+
+    public mutating func removeFee() {
+        fee = .init()
     }
 }
 
@@ -1473,10 +1485,10 @@ extension EthRpc1.TransactionLegacy {
             type: EthRpc1.Quantity<Sol.UInt64>(Sol.UInt64(tx.rawTransaction().storage[0])),
             nonce: EthRpc1.Quantity<Sol.UInt64>(tx.nonce),
             to: EthRpc1.Data(tx.to),
-            gas: EthRpc1.Quantity<Sol.UInt64>(tx.fee.gas),
+            gas: tx.fee.gas.map(EthRpc1.Quantity<Sol.UInt64>.init),
             value: EthRpc1.Quantity<Sol.UInt256>(tx.value),
             input: EthRpc1.Data(tx.input),
-            gasPrice: EthRpc1.Quantity<Sol.UInt256>(tx.fee.gasPrice),
+            gasPrice: tx.fee.gasPrice.map(EthRpc1.Quantity<Sol.UInt256>.init),
             chainId: EthRpc1.Quantity<Sol.UInt256>(tx.chainId ?? 0),
             from: tx.from.map { EthRpc1.Data($0) },
             blockHash: (tx.locationInBlock?.blockHash).map { EthRpc1.Data($0) },
@@ -1538,9 +1550,9 @@ extension Eth {
 extension Eth.Amount where UnitType: EthDimension {
     public mutating func convert(to otherUnit: UnitType) {
         // convert self.value from self.unit to otherUnit
-            // convert self.value to base unit
+        // convert self.value to base unit
         let valueInBaseUnits = self.unit.converter.baseUnitValue(from: self.value)
-            // convert base unit to other unit
+        // convert base unit to other unit
         let valueInOtherUnits = otherUnit.converter.value(from: valueInBaseUnits)
         self.value = valueInOtherUnits
         self.unit = otherUnit
@@ -1681,7 +1693,7 @@ extension Eth.TokenAmount {
 
         let maybeNumber: String
         let symbol: String
-        
+
         if parts.count == 1 {
             maybeNumber = parts[0]
             symbol = ""

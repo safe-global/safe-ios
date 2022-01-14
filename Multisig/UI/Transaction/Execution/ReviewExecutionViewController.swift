@@ -74,6 +74,7 @@ class ReviewExecutionViewController: ContainerViewController {
 
         // configure submit button
         submitButton.setText("Submit", .filled)
+        submitButton.isEnabled = controller.isValid
 
         // configure close button
         closeButton = UIBarButtonItem(
@@ -83,7 +84,7 @@ class ReviewExecutionViewController: ContainerViewController {
 
         navigationItem.leftBarButtonItem = closeButton
 
-        findDefaultKey()
+        estimateTransaction()
     }
 
     func action(_ selector: Selector) -> () -> Void {
@@ -122,13 +123,16 @@ class ReviewExecutionViewController: ContainerViewController {
             guard let self = self, let picker = keyPickerVC else { return }
             let balance = selectedKeyInfo.flatMap { picker.accountBalance(for: $0) }
 
+            let previousKey = self.controller.selectedKey?.key
             // update selection
             if let key = selectedKeyInfo, let balance = balance {
                 self.controller.selectedKey = (key, balance)
             } else {
                 self.controller.selectedKey = nil
             }
-            self.didChangeSelectedKey()
+            if selectedKeyInfo != previousKey {
+                self.didChangeSelectedKey()
+            }
 
             self.dismiss(animated: true)
         }
@@ -266,13 +270,42 @@ class ReviewExecutionViewController: ContainerViewController {
         print("Submit!")
     }
 
+    func estimateTransaction() {
+        txEstimationTask?.cancel()
+        resetErrors()
+
+        contentVC.model?.executionOptions.feeState = .loading
+
+        let task = controller.estimate { [weak self] error in
+            guard let self = self else { return }
+            // TODO: display estimation error
+            self.didChangeEstimation()
+
+            // if we haven't search default
+            if !self.didSearchDefaultKey && self.controller.selectedKey == nil {
+                self.findDefaultKey()
+            }
+        }
+
+        txEstimationTask = task
+    }
+
+    var didSearchDefaultKey: Bool = false
+
     func findDefaultKey() {
+        resetErrors()
         defaultKeyTask?.cancel()
 
         self.contentVC.model?.executionOptions.accountState = .loading
 
+        let previousKey = self.controller.selectedKey?.key
+
         let task = controller.findDefaultKey { [weak self] in
-            self?.didChangeSelectedKey()
+            guard let self = self else { return }
+            self.didSearchDefaultKey = true
+            if previousKey != self.controller.selectedKey?.key {
+                self.didChangeSelectedKey()
+            }
         }
 
         self.defaultKeyTask = task
@@ -289,28 +322,19 @@ class ReviewExecutionViewController: ContainerViewController {
                 balance: selection.balance.displayAmount
             )
             self.contentVC.model?.executionOptions.accountState = .filled(model)
+
+            // re-estimate if the key changed.
+            estimateTransaction()
         } else {
             contentVC.model?.executionOptions.accountState = .empty
         }
 
-        // we should reestimate (again) after changing the key.
-        estimateTransaction()
+        validate()
     }
 
-    func estimateTransaction() {
-        txEstimationTask?.cancel()
-
-        contentVC.model?.executionOptions.feeState = .loading
-
-        let task = controller.estimate { [weak self] error in
-            // TODO: display estimation error
-            self?.didChangeEstimation()
-        }
-
-        txEstimationTask = task
+    func didChangeTransactionParameters() {
+        didChangeEstimation()
     }
-
-    // set the required amoun!
 
     func didChangeEstimation() {
         if let tx = controller.ethTransaction {
@@ -340,9 +364,20 @@ class ReviewExecutionViewController: ContainerViewController {
         } else {
             contentVC.model?.executionOptions.feeState = .empty
         }
+
+        validate()
     }
 
-    func didChangeTransactionParameters() {
-        didChangeEstimation()
+    func resetErrors() {
+        controller.errorMessage = nil
+        contentVC?.model?.errorMessage = nil
     }
+
+    func validate() {
+        resetErrors()
+        controller.validate()
+        contentVC?.model?.errorMessage = controller.errorMessage
+        submitButton.isEnabled = controller.isValid
+    }
+
 }

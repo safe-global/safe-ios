@@ -36,16 +36,14 @@ class TransactionEstimationController {
 
     // TODO: estimate gas price using the chain config (oracles, or fixed price)
 
-    // completion returned on the main thread
-
-    // estimates with the data in the 'pending' block
-    // tx.from must not be nil or it will crash
-    // completion may be called on background thread
     func estimateTransactionWithRpc(tx: EthTransaction, completion: @escaping (Result<(gas: Sol.UInt64, transactionCount: Sol.UInt64, gasPrice: Sol.UInt256), Error>) -> Void) -> URLSessionTask? {
-        assert(tx.from != nil, "From must be set for estimation")
-
+        // remove the fee because we want to estimate it.
+        var tx = tx
+        tx.removeFee()
         let getEstimate = EthRpc1.eth_estimateGas(tx)
-        let getTransactionCount = EthRpc1.eth_getTransactionCount(address: EthRpc1.Data(tx.from!), block: .tag(.pending))
+
+        let getTransactionCount = EthRpc1.eth_getTransactionCount(address: EthRpc1.Data(tx.from ?? .init()), block: .tag(.pending))
+
         let getPrice = EthRpc1.eth_gasPrice()
 
         let batch: JsonRpc2.BatchRequest

@@ -23,6 +23,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         self.safe = safe
 
         tableView.registerCell(BorderedInnerTableCell.self)
+        tableView.registerCell(ErrorTableViewCell.self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Spacer")
     }
 
@@ -36,6 +37,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         buildAssetContract(model.transaction)
         buildSpacing()
         buildExecutionOptions(model.executionOptions)
+        buildErrors(model.errorMessage)
         return result
     }
 
@@ -140,6 +142,17 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         let advancedCell = tableView.dequeueCell(SecondaryDetailDisclosureCell.self)
         advancedCell.setText("Advanced parameters")
         return advancedCell
+    }
+
+    func buildErrors(_ errorText: String?) {
+        guard let errorText = errorText else {
+            return
+        }
+
+        let cell = newCell(ErrorTableViewCell.self)
+        cell.setText(errorText)
+        cell.separatorInset = UIEdgeInsets(top: 0, left: .greatestFiniteMagnitude, bottom: 0, right: 0)
+        result.append(cell)
     }
 
     // MARK: New Transfer Header
@@ -256,6 +269,7 @@ struct TokenAmountUIModel {
 struct ExecutionReviewUIModel {
     var transaction: SCGModels.TransactionDetails
     var executionOptions: ExecutionOptionsUIModel
+    var errorMessage: String?
 }
 
 struct ExecutionOptionsUIModel {
