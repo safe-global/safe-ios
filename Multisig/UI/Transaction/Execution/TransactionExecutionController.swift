@@ -76,7 +76,14 @@ class TransactionExecutionController {
         return validKeys
     }
 
-    var selectedKey: (key: KeyInfo, balance: AccountBalanceUIModel)?
+    var selectedKey: (key: KeyInfo, balance: AccountBalanceUIModel)? {
+        didSet {
+            // the old user parameters for nonce or other values will be invalid for a different key, so we reset.
+            if oldValue?.key != selectedKey?.key {
+                userParameters = .init()
+            }
+        }
+    }
     var requiredBalance: Sol.UInt256 = 0
 
     let keySelectionPolicy = OwnerKeySelectionPolicy()
@@ -238,6 +245,7 @@ class TransactionExecutionController {
             confirmation.signature.data
         }.joined()
 
+        // build safe transaction
         input = try ExecTransactionAbiFunctionType.init(
             to:  Sol.Address(txData.to.value.data32),
             value: Sol.UInt256(txData.value.data32),

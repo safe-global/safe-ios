@@ -84,7 +84,6 @@ class ReviewExecutionViewController: ContainerViewController {
         navigationItem.leftBarButtonItem = closeButton
 
         findDefaultKey()
-        estimateTransaction()
     }
 
     func action(_ selector: Selector) -> () -> Void {
@@ -310,6 +309,8 @@ class ReviewExecutionViewController: ContainerViewController {
 
         txEstimationTask = task
     }
+
+    // set the required amoun!
 
     func didChangeEstimation() {
         if let tx = controller.ethTransaction {
