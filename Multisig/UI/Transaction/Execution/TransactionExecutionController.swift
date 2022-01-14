@@ -8,23 +8,26 @@
 
 import Foundation
 import Solidity
+import Version
+import SafeAbi
+import Ethereum
 
 class TransactionExecutionController {
     private var safe: Safe
     private var chain: Chain
     private var transaction: SCGModels.TransactionDetails
+    private var scgChain: SCGModels.Chain
+    private var scgSafe: SCGModels.SafeInfoExtended
 
     var chainId: String {
         chain.id!
     }
 
-    var selectedKeyIndex: Int? {
-        executionKeys().isEmpty ? nil : 0
-    }
-
-    init(safe: Safe, chain: Chain, transaction: SCGModels.TransactionDetails) {
+    init(safe: Safe, scgSafe: SCGModels.SafeInfoExtended, chain: Chain, scgChain: SCGModels.Chain, transaction: SCGModels.TransactionDetails) {
         self.safe = safe
+        self.scgSafe = scgSafe
         self.chain = chain
+        self.scgChain = scgChain
         self.transaction = transaction
     }
 
@@ -51,10 +54,6 @@ class TransactionExecutionController {
         }
 
         return validKeys
-    }
-
-    func selectKey(_ key: KeyInfo?) {
-        
     }
 
     var selectedKey: (key: KeyInfo, balance: AccountBalanceUIModel)?
@@ -123,4 +122,104 @@ class TransactionExecutionController {
         }
     }
 
+    // returns unestimated transaction based on the safe contract version and chain.
+    //
+    // transaction must be a multisig transaction with the txData and detailed execution info set.
+    // all the values must be valid solidity types (addresses, integers, etc.)
+    func ethTransaction(from: Sol.Address) throws -> EthTransaction {
+        guard
+            let txData = transaction.txData,
+            let executionInfo = transaction.detailedExecutionInfo,
+            case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigDetails) = executionInfo
+        else {
+            throw TransactionExecutionError(code: -1, message: "Execution of non-multisig transactions is not supported")
+        }
+
+        // build the 'input' data
+
+        let input: Data
+
+        // select the appropriate Gnosis Safe contract ABI version
+        let safeVersion = Version(scgSafe.version) ?? Version(1, 3, 0)
+        let isL2Contract = scgChain.l2 && safeVersion >= Version(1, 3, 0)
+
+
+        let ExecTransactionAbiFunctionType: GnosisSafeExecTransaction.Type
+
+        if isL2Contract {
+            // l2 1.3.0 abi
+            // GnosisSafeL2_v1_3_0
+            ExecTransactionAbiFunctionType = GnosisSafeL2_v1_3_0.execTransaction.self
+        } else {
+            // ? ..< 1.1.1
+            if safeVersion < Version(1, 1, 1) {
+                ExecTransactionAbiFunctionType = GnosisSafe_v1_0_0.execTransaction.self
+            }
+            // 1.1.1 ..< 1.2.0
+            else if safeVersion < Version(1, 2, 0) {
+                ExecTransactionAbiFunctionType = GnosisSafe_v1_1_1.execTransaction.self
+            }
+            // 1.2.0 ..< 1.3.0
+            else if safeVersion < Version(1, 3, 0) {
+                ExecTransactionAbiFunctionType = GnosisSafe_v1_2_0.execTransaction.self
+            }
+            // >= 1.3.0
+            else { // safeVersion >= Version(1, 3, 0)
+                ExecTransactionAbiFunctionType = GnosisSafe_v1_3_0.execTransaction.self
+            }
+        }
+
+        // build the EVM call data
+
+        // All the signatures are sorted by the signer hex address and concatenated
+        let signatures = multisigDetails.confirmations.sorted { lhs, rhs in
+            lhs.signer.value.address.hexadecimal < rhs.signer.value.address.hexadecimal
+        }.map { confirmation in
+            confirmation.signature.data
+        }.joined()
+
+        input = try ExecTransactionAbiFunctionType.init(
+            to:  Sol.Address(txData.to.value.data32),
+            value: Sol.UInt256(txData.value.data32),
+            data: Sol.Bytes(storage: txData.hexData?.data ?? Data()),
+            operation: Sol.UInt8(txData.operation.rawValue),
+            safeTxGas: Sol.UInt256(multisigDetails.safeTxGas.data32),
+            baseGas: Sol.UInt256(multisigDetails.baseGas.data32),
+            gasPrice: Sol.UInt256(multisigDetails.gasPrice.data32),
+            gasToken: Sol.Address(multisigDetails.gasToken.data32),
+            refundReceiver: Sol.Address(multisigDetails.refundReceiver.value.data32),
+            signatures: Sol.Bytes(storage: Data(signatures))
+        ).encode()
+
+        // build ethereum transaction, unestimated.
+        let result: EthTransaction
+
+        let isEIP1559 = scgChain.features.contains("EIP1559")
+        if isEIP1559 {
+            result = try Eth.TransactionEip1559(
+                chainId: Sol.UInt256(scgChain.chainId.data32),
+                from: from,
+                to: Sol.Address(scgSafe.address.value.data32),
+                input: Sol.Bytes(storage: input)
+            )
+        } else {
+            result = try Eth.TransactionLegacy(
+                chainId: Sol.UInt256(scgChain.chainId.data32),
+                from: from,
+                to: Sol.Address(scgSafe.address.value.data32),
+                input: Sol.Bytes(storage: input)
+            )
+        }
+
+        return result
+    }
+}
+
+struct TransactionExecutionError: LocalizedError {
+    let code: Int
+    let message: String
+
+    var errorDescription: String? {
+        "\(message) (Error \(code))"
+    }
 }

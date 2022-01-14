@@ -28,6 +28,7 @@ class ReviewExecutionViewController: ContainerViewController {
     var closeButton: UIBarButtonItem!
 
     private var defaultKeyTask: URLSessionTask?
+    private var txEstimationTask: URLSessionTask?
 
     convenience init(safe: Safe, chain: Chain, transaction: SCGModels.TransactionDetails, onClose: @escaping () -> Void) {
         // create from the nib named as the self's class name
@@ -190,7 +191,4 @@ class ReviewExecutionViewController: ContainerViewController {
             contentVC.model?.executionOptions.accountState = .empty
         }
     }
-
-    // we need connector from the controller.selectedKey (+ balance) to the contentVC execution
-    // as well from the controller to the fee options
 }

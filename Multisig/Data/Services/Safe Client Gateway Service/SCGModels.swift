@@ -554,7 +554,10 @@ extension SCGModels {
         let theme: Theme
         let ensRegistryAddress: AddressString?
         let shortName: String
-        
+        let l2: Bool
+        let features: [String]
+        let gasPrice: [GasPrice]
+
         var id: String {
             chainId.description
         }
@@ -572,6 +575,37 @@ extension SCGModels {
         var prefixString: String {
             AppSettings.prependingChainPrefixToAddresses ? "\(shortName):" : "" 
         }
+    }
+
+    enum GasPrice: Decodable {
+        case oracle(GasPriceOracle)
+        case fixed(GasPriceFixed)
+        case unknown
+
+        init(from decoder: Decoder) throws {
+            enum Keys: String, CodingKey { case type }
+            let container = try decoder.container(keyedBy: Keys.self)
+            let type = try container.decode(String.self, forKey: .type)
+
+            switch type {
+            case "ORACLE":
+                self = try .oracle(GasPriceOracle(from: decoder))
+            case "FIXED":
+                self = try .fixed(GasPriceFixed(from: decoder))
+            default:
+                self = .unknown
+            }
+        }
+    }
+
+    struct GasPriceOracle: Decodable {
+        var uri: String
+        var gasParameter: String
+        var gweiFactor: String
+    }
+
+    struct GasPriceFixed: Decodable {
+        var weiValue: String
     }
 
     struct RpcAuthentication: Codable {
