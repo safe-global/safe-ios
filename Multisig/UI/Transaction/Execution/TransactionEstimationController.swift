@@ -13,18 +13,14 @@ import Solidity
 
 class TransactionEstimationController {
 
-    let transaction: EthTransaction
-    let chain: Chain
     let rpcClient: JsonRpc2.Client
 
-    init(transaction: EthTransaction, chain: Chain) {
-        self.transaction = transaction
-        self.chain = chain
-        self.rpcClient = JsonRpc2.Client(transport: JsonRpc2.ClientHTTPTransport(url: chain.authenticatedRpcUrl.absoluteString), serializer: JsonRpc2.DefaultSerializer())
+    init(rpcUri: String) {
+        self.rpcClient = JsonRpc2.Client(transport: JsonRpc2.ClientHTTPTransport(url: rpcUri), serializer: JsonRpc2.DefaultSerializer())
     }
 
-    // main function
-    func estimate(completion: @escaping (Result<EthTransaction, Error>) -> Void) -> URLSessionTask? {
+    // main function, the estimated transaction 
+    func estimate(transaction: EthTransaction, completion: @escaping (Result<EthTransaction, Error>) -> Void) -> URLSessionTask? {
         var tx = transaction
         let task = estimateTransactionWithRpc(tx: tx) { estimationResult in
             let result = estimationResult.map { (gas: Sol.UInt64, transactionCount: Sol.UInt64, gasPrice: Sol.UInt256) -> EthTransaction in
@@ -40,13 +36,13 @@ class TransactionEstimationController {
 
     // TODO: estimate gas price using the chain config (oracles, or fixed price)
 
-    // on completion:
+    // completion returned on the main thread
 
     // estimates with the data in the 'pending' block
     // tx.from must not be nil or it will crash
     // completion may be called on background thread
     func estimateTransactionWithRpc(tx: EthTransaction, completion: @escaping (Result<(gas: Sol.UInt64, transactionCount: Sol.UInt64, gasPrice: Sol.UInt256), Error>) -> Void) -> URLSessionTask? {
-        assert(transaction.from != nil, "From must be set for estimation")
+        assert(tx.from != nil, "From must be set for estimation")
 
         let getEstimate = EthRpc1.eth_estimateGas(tx)
         let getTransactionCount = EthRpc1.eth_getTransactionCount(address: EthRpc1.Data(tx.from!), block: .tag(.pending))
@@ -67,14 +63,14 @@ class TransactionEstimationController {
                 getEstimateRequest, getTransactionCountRequest, getPriceRequest
             ])
         } catch {
-            completion(.failure(error))
+            dispatchOnMainThread(completion(.failure(error)))
             return nil
         }
 
         let task = rpcClient.send(request: batch) { batchResponse in
             guard let batchResponse = batchResponse else {
                 // no response is a failed batch request
-                completion(.failure(TransactionEstimationError(code: -1, message: "Server did not respond")))
+                dispatchOnMainThread(completion(.failure(TransactionEstimationError(code: -1, message: "Server did not respond"))))
                 return
             }
 
@@ -82,9 +78,9 @@ class TransactionEstimationController {
             case .response(let response):
                 // single response is a failed batch request
                 if let error = response.error {
-                    completion(.failure(error))
+                    dispatchOnMainThread(completion(.failure(error)))
                 } else {
-                    completion(.failure(TransactionEstimationError(code: -2, message: "Failed to estimate transaction.")))
+                    dispatchOnMainThread(completion(.failure(TransactionEstimationError(code: -2, message: "Failed to estimate transaction."))))
                 }
 
             case .array(let responses):
@@ -93,7 +89,7 @@ class TransactionEstimationController {
                 // reason for failing on any error is to make this estimation implementation simpler
                 let allErrors = responses.compactMap(\.error)
                 if let error = allErrors.first {
-                    completion(.failure(error))
+                    dispatchOnMainThread(completion(.failure(error)))
                     return
                 }
 
@@ -109,9 +105,9 @@ class TransactionEstimationController {
                     let transactionCount: EthRpc1.Quantity<Sol.UInt64> = try getTransactionCount.result(from: transactionCountResult)
                     let baseFee: EthRpc1.Quantity<Sol.UInt256> = try getPrice.result(from: priceResult)
 
-                    completion(.success((gas: gasEstimate.storage, transactionCount: transactionCount.storage, gasPrice: baseFee.storage)))
+                    dispatchOnMainThread(completion(.success((gas: gasEstimate.storage, transactionCount: transactionCount.storage, gasPrice: baseFee.storage))))
                 } catch {
-                    completion(.failure(error))
+                    dispatchOnMainThread(completion(.failure(error)))
                 }
             }
         }

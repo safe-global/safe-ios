@@ -16,19 +16,20 @@ class TransactionExecutionController {
     private var safe: Safe
     private var chain: Chain
     private var transaction: SCGModels.TransactionDetails
-    private var scgChain: SCGModels.Chain
-    private var scgSafe: SCGModels.SafeInfoExtended
+
+    private let estimationController: TransactionEstimationController
+
+    var ethTransaction: EthTransaction?
 
     var chainId: String {
         chain.id!
     }
 
-    init(safe: Safe, scgSafe: SCGModels.SafeInfoExtended, chain: Chain, scgChain: SCGModels.Chain, transaction: SCGModels.TransactionDetails) {
+    init(safe: Safe, chain: Chain, transaction: SCGModels.TransactionDetails) {
         self.safe = safe
-        self.scgSafe = scgSafe
         self.chain = chain
-        self.scgChain = scgChain
         self.transaction = transaction
+        self.estimationController = TransactionEstimationController(rpcUri: chain.authenticatedRpcUrl.absoluteString)
     }
 
     // returns the execution keys valid for executing this transaction
@@ -122,10 +123,37 @@ class TransactionExecutionController {
         }
     }
 
+    func estimate(completion: @escaping (Error?) -> Void) -> URLSessionTask? {
+        var tx: EthTransaction
+        do {
+            let keyAddress = selectedKey?.key.address
+            let solAddress = try keyAddress.map { try Sol.Address($0.data32) } ?? Sol.Address()
+            tx = try ethTransaction(from: solAddress)
+        } catch {
+            completion(error)
+            return nil
+        }
+        
+        let task = estimationController.estimate(transaction: tx) { result in
+            switch result {
+            case .failure(let error):
+                completion(error)
+            case .success(let estimatedTx):
+                self.ethTransaction = estimatedTx
+                completion(nil)
+            }
+        }
+
+        return task
+    }
+
     // returns unestimated transaction based on the safe contract version and chain.
     //
     // transaction must be a multisig transaction with the txData and detailed execution info set.
     // all the values must be valid solidity types (addresses, integers, etc.)
+    //
+    // safe must have the version and address set
+    // chain must have l2 and chainId set
     func ethTransaction(from: Sol.Address) throws -> EthTransaction {
         guard
             let txData = transaction.txData,
@@ -135,20 +163,29 @@ class TransactionExecutionController {
             throw TransactionExecutionError(code: -1, message: "Execution of non-multisig transactions is not supported")
         }
 
+        guard let safeVersionString = safe.version,
+              let chainIdString = chain.id,
+              let chainId = Sol.UInt256(chainIdString),
+              let chainFeatures = chain.features
+        else {
+            throw TransactionExecutionError(code: -2, message: "Missing required parameters of safe and chain information.")
+        }
+        let chainIsL2 = chain.l2
+        let safeAddress = safe.addressValue
+
         // build the 'input' data
 
         let input: Data
 
         // select the appropriate Gnosis Safe contract ABI version
-        let safeVersion = Version(scgSafe.version) ?? Version(1, 3, 0)
-        let isL2Contract = scgChain.l2 && safeVersion >= Version(1, 3, 0)
+        let safeVersion = Version(safeVersionString) ?? Version(1, 3, 0)
+        let isL2Contract = chainIsL2 && safeVersion >= Version(1, 3, 0)
 
 
         let ExecTransactionAbiFunctionType: GnosisSafeExecTransaction.Type
 
         if isL2Contract {
             // l2 1.3.0 abi
-            // GnosisSafeL2_v1_3_0
             ExecTransactionAbiFunctionType = GnosisSafeL2_v1_3_0.execTransaction.self
         } else {
             // ? ..< 1.1.1
@@ -194,19 +231,19 @@ class TransactionExecutionController {
         // build ethereum transaction, unestimated.
         let result: EthTransaction
 
-        let isEIP1559 = scgChain.features.contains("EIP1559")
+        let isEIP1559 = chainFeatures.contains("EIP1559")
         if isEIP1559 {
             result = try Eth.TransactionEip1559(
-                chainId: Sol.UInt256(scgChain.chainId.data32),
+                chainId: chainId,
                 from: from,
-                to: Sol.Address(scgSafe.address.value.data32),
+                to: Sol.Address(safeAddress.data32),
                 input: Sol.Bytes(storage: input)
             )
         } else {
             result = try Eth.TransactionLegacy(
-                chainId: Sol.UInt256(scgChain.chainId.data32),
+                chainId: chainId,
                 from: from,
-                to: Sol.Address(scgSafe.address.value.data32),
+                to: Sol.Address(safeAddress.data32),
                 input: Sol.Bytes(storage: input)
             )
         }

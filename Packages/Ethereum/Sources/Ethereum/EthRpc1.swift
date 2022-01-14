@@ -1184,6 +1184,8 @@ public protocol EthTransaction: EthSignable, EthRawTransaction {
     // derived from the fee and value
     var requiredBalance: Sol.UInt256 { get }
 
+    var totalFee: Sol.UInt256 { get }
+
     mutating func update(gas: Sol.UInt64, transactionCount: Sol.UInt64, baseFee: Sol.UInt256)
     mutating func updateSignature(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256)
 }
@@ -1223,7 +1225,11 @@ extension Eth.TransactionEip1559: EthTransaction {
     }
 
     public var requiredBalance: Sol.UInt256 {
-        Sol.UInt256(fee.gas) * fee.maxFeePerGas + value
+        totalFee + value
+    }
+
+    public var totalFee: Sol.UInt256 {
+        Sol.UInt256(fee.gas) * fee.maxFeePerGas
     }
 }
 
@@ -1346,7 +1352,11 @@ extension Eth.TransactionEip2930: EthTransaction {
     }
 
     public var requiredBalance: Sol.UInt256 {
-        Sol.UInt256(fee.gas) * fee.gasPrice + value
+        totalFee + value
+    }
+
+    public var totalFee: Sol.UInt256 {
+        Sol.UInt256(fee.gas) * fee.gasPrice
     }
 }
 
@@ -1447,7 +1457,11 @@ extension Eth.TransactionLegacy: EthTransaction {
     }
 
     public var requiredBalance: Sol.UInt256 {
-        Sol.UInt256(fee.gas) * fee.gasPrice + value
+        totalFee + value
+    }
+
+    public var totalFee: Sol.UInt256 {
+        Sol.UInt256(fee.gas) * fee.gasPrice
     }
 }
 

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Ethereum
+import SwiftCryptoTokenFormatter
 
 // wrapper around the content
 class ReviewExecutionViewController: ContainerViewController {
@@ -82,6 +84,7 @@ class ReviewExecutionViewController: ContainerViewController {
         navigationItem.leftBarButtonItem = closeButton
 
         findDefaultKey()
+        estimateTransaction()
     }
 
     func action(_ selector: Selector) -> () -> Void {
@@ -169,8 +172,7 @@ class ReviewExecutionViewController: ContainerViewController {
         self.contentVC.model?.executionOptions.accountState = .loading
 
         let task = controller.findDefaultKey { [weak self] in
-            guard let self = self else { return }
-            self.didChangeSelectedKey()
+            self?.didChangeSelectedKey()
         }
 
         self.defaultKeyTask = task
@@ -189,6 +191,52 @@ class ReviewExecutionViewController: ContainerViewController {
             self.contentVC.model?.executionOptions.accountState = .filled(model)
         } else {
             contentVC.model?.executionOptions.accountState = .empty
+        }
+
+        // we should reestimate (again) after changing the key.
+        estimateTransaction()
+    }
+
+    func estimateTransaction() {
+        txEstimationTask?.cancel()
+
+        contentVC.model?.executionOptions.feeState = .loading
+
+        let task = controller.estimate { [weak self] error in
+            // TODO: display estimation error
+            self?.didChangeEstimation()
+        }
+
+        txEstimationTask = task
+    }
+
+    func didChangeEstimation() {
+        if let tx = controller.ethTransaction {
+
+            let feeInWei = tx.totalFee
+
+            let nativeCoinDecimals = chain.nativeCurrency!.decimals
+            let nativeCoinSymbol = chain.nativeCurrency!.symbol!
+
+            let decimalAmount = BigDecimal(Int256(feeInWei.big()), Int(nativeCoinDecimals))
+            let value = TokenFormatter().string(
+                from: decimalAmount,
+                decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
+                thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",",
+                forcePlusSign: false
+            )
+
+            let tokenAmount: String = "\(value) \(nativeCoinSymbol)"
+
+            // TODO: fetch fiat amount
+
+            let model = EstimatedFeeUIModel(
+                tokenAmount: tokenAmount,
+                fiatAmount: nil)
+
+            contentVC.model?.executionOptions.feeState = .loaded(model)
+        } else {
+            contentVC.model?.executionOptions.feeState = .empty
         }
     }
 }
