@@ -27,7 +27,7 @@ class TransactionExecutionController {
     private var chain: Chain
     private var transaction: SCGModels.TransactionDetails
 
-    private let estimationController: TransactionEstimationController
+    let estimationController: TransactionEstimationController
 
     var ethTransaction: EthTransaction?
 

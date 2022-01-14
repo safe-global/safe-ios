@@ -9,6 +9,8 @@
 import UIKit
 import Ethereum
 import SwiftCryptoTokenFormatter
+import Web3
+import Solidity
 
 // wrapper around the content
 class ReviewExecutionViewController: ContainerViewController {
@@ -31,6 +33,7 @@ class ReviewExecutionViewController: ContainerViewController {
 
     private var defaultKeyTask: URLSessionTask?
     private var txEstimationTask: URLSessionTask?
+    private var sendingTask: URLSessionTask?
 
     convenience init(safe: Safe, chain: Chain, transaction: SCGModels.TransactionDetails, onClose: @escaping () -> Void) {
         // create from the nib named as the self's class name
@@ -267,7 +270,117 @@ class ReviewExecutionViewController: ContainerViewController {
     }
 
     @IBAction func didTapSubmit(_ sender: Any) {
-        print("Submit!")
+        guard let keyInfo = controller.selectedKey?.key, var ethTx = controller.ethTransaction, ethTx.from != nil else {
+            return
+        }
+
+            switch keyInfo.keyType {
+            case .deviceImported, .deviceGenerated:
+                do {
+                    // request passcode
+
+                    let txHash = ethTx.hashForSigning()
+
+                    guard let pk = try keyInfo.privateKey() else {
+                        App.shared.snackbar.show(message: "Private key not available")
+                        return
+                    }
+
+                    let signature = try pk._store.sign(hash: Array(txHash.storage.storage))
+
+                    try ethTx.updateSignature(
+                        v: Sol.UInt256(signature.v),
+                        r: Sol.UInt256(Data(signature.r)),
+                        s: Sol.UInt256(Data(signature.s))
+                    )
+
+                    let publicKey = try EthereumPublicKey(
+                        message: ethTx.preImageForSigning().bytes,
+                        v: EthereumQuantity(quantity: BigUInt(signature.v)),
+                        r: EthereumQuantity(signature.r),
+                        s: EthereumQuantity(signature.s))
+
+                    guard publicKey.address.hex(eip55: false) == ethTx.from!.description else {
+                        App.shared.snackbar.show(message: "Signature does not match signing key")
+                        return
+                    }
+
+
+                    let rawTransaction = ethTx.rawTransaction()
+
+                    let sendRawTxMethod = EthRpc1.eth_sendRawTransaction(transaction: rawTransaction)
+                    let request = try sendRawTxMethod.request(id: .int(1))
+
+
+                    // disable submit button
+
+                    sendingTask?.cancel()
+                    let client = controller.estimationController.rpcClient
+
+                    let task = client.send(request: request) { response in
+                        DispatchQueue.main.async {
+
+                            // enable submit button
+
+                            guard let response = response else {
+                                App.shared.snackbar.show(message: "No response from server")
+                                return
+                            }
+
+                            if let error = response.error {
+                                App.shared.snackbar.show(message: error.localizedDescription)
+                                return
+                            }
+
+                            // remember the tx hash and start monitoring it.
+                            guard let result = response.result else {
+                                App.shared.snackbar.show(message: "No result from server")
+                                return
+                            }
+
+                            do {
+                                let transactionHashOrZeroHash = try sendRawTxMethod.result(from: result)
+
+                                ethTx.hash = Eth.Hash(transactionHashOrZeroHash.storage)
+
+                                App.shared.snackbar.show(message: "Sent with tx hash: \(transactionHashOrZeroHash)")
+
+                                self.didTapClose(self)
+                            } catch {
+                                App.shared.snackbar.show(message: "Error decoding response: \(error)")
+                            }
+                        }
+                    }
+                    sendingTask = task
+
+
+                } catch {
+                    App.shared.snackbar.show(message: "Failed to sign transaction")
+                }
+
+            case .walletConnect:
+//                rejectWithWalletConnect(rejectionTransaction, keyInfo: keyInfo)
+                fallthrough
+
+            case .ledgerNanoX:
+//                let request = SignRequest(title: "Reject Transaction",
+//                                          tracking: ["action" : "reject"],
+//                                          signer: keyInfo,
+//                                          hexToSign: rejectionTransaction.safeTxHash.description)
+//                let vc = LedgerSignerViewController(request: request)
+//                present(vc, animated: true, completion: nil)
+//
+//                vc.completion = { [weak self] signature in
+//                    self?.rejectAndCloseController(signature: signature)
+//                }
+//                vc.onClose = { [weak self] in
+//                    self?.endLoading()
+//                }
+                fallthrough
+
+            default:
+                App.shared.snackbar.show(message: "Key not supported")
+            }
     }
 
     func estimateTransaction() {
