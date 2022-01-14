@@ -78,9 +78,9 @@ class TransactionExecutionController {
 
     var selectedKey: (key: KeyInfo, balance: AccountBalanceUIModel)? {
         didSet {
-            // the old user parameters for nonce or other values will be invalid for a different key, so we reset.
             if oldValue?.key != selectedKey?.key {
-                userParameters = .init()
+                // the old user parameters for nonce will be incorrect anymore
+                userParameters.nonce = nil
             }
         }
     }

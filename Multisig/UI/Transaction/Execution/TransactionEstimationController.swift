@@ -34,8 +34,6 @@ class TransactionEstimationController {
         return task
     }
 
-    // TODO: estimate gas price using the chain config (oracles, or fixed price)
-
     func estimateTransactionWithRpc(tx: EthTransaction, completion: @escaping (Result<(gas: Sol.UInt64, transactionCount: Sol.UInt64, gasPrice: Sol.UInt256), Error>) -> Void) -> URLSessionTask? {
         // remove the fee because we want to estimate it.
         var tx = tx

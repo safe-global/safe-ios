@@ -257,7 +257,6 @@ struct TokenAmountUIModel {
     }
 
     var formattedFiatValue: String {
-        // TODO: Fetch fiat amount
         detail ?? ""
     }
 

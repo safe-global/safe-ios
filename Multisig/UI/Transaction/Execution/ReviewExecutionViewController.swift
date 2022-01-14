@@ -278,7 +278,6 @@ class ReviewExecutionViewController: ContainerViewController {
 
         let task = controller.estimate { [weak self] error in
             guard let self = self else { return }
-            // TODO: display estimation error
             self.didChangeEstimation()
 
             // if we haven't search default
@@ -353,8 +352,6 @@ class ReviewExecutionViewController: ContainerViewController {
             )
 
             let tokenAmount: String = "\(value) \(nativeCoinSymbol)"
-
-            // TODO: fetch fiat amount
 
             let model = EstimatedFeeUIModel(
                 tokenAmount: tokenAmount,
