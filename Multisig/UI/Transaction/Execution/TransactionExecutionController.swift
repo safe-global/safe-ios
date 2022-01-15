@@ -11,6 +11,10 @@ import Solidity
 import Version
 import SafeAbi
 import Ethereum
+import Web3
+import JsonRpc2
+import CryptoSwift
+import WalletConnectSwift
 
 struct UserDefinedTransactionParameters: Equatable {
     var nonce: Sol.UInt64?
@@ -329,6 +333,186 @@ class TransactionExecutionController {
         }
 
         isValid = true
+    }
+
+    func update(signature: String) throws {
+        // r{32}s{32}v{1} bytes
+        guard let data = Data(exactlyHex: signature), data.count == 65 else {
+            throw TransactionExecutionError(code: -6, message: "Signature format invalid")
+        }
+        let r = data[0..<32]
+        let s = data[32..<64]
+        var v = data[64]
+
+        // safe signature for eth_sign
+        if v == 31 || v == 32 {
+            v -= 31
+        } else if v == 27 || v == 28 {
+            // eip-155 w/o chain id
+            v -= 27
+        } else if v >= 35 {
+            // eip-155 with chain id
+            v -= 35 + (UInt8(chainId) ?? 0) * 2
+        }
+
+        assert(v == 0 || v == 1, "v  must be 0, got: \(v)")
+
+        try update(signature: (UInt(v), Array(r), Array(s)))
+    }
+
+    func preimageForSigning() -> Data {
+        guard let tx = self.ethTransaction else {
+            preconditionFailure("transaction must exist")
+        }
+        return tx.preImageForSigning()
+    }
+
+    func hashForSigning() -> Data {
+        guard let tx = self.ethTransaction else {
+            preconditionFailure("transaction must exist")
+        }
+        return tx.hashForSigning().storage.storage
+    }
+
+    func update(signature: (v: UInt, r: [UInt8], s: [UInt8])) throws {
+        guard var tx = self.ethTransaction else { return }
+
+        let preimage = preimageForSigning()
+        let publicKey = try EthereumPublicKey(
+            message: preimage.bytes,
+            v: EthereumQuantity(quantity: BigUInt(signature.v)),
+            r: EthereumQuantity(signature.r),
+            s: EthereumQuantity(signature.s))
+
+        guard publicKey.address.hex(eip55: false) == tx.from!.description else {
+            throw TransactionExecutionError(code: -3, message: "Signature does not match the signer address")
+        }
+
+        try tx.updateSignature(
+            v: Sol.UInt256(signature.v),
+            r: Sol.UInt256(Data(signature.r)),
+            s: Sol.UInt256(Data(signature.s))
+        )
+
+        ethTransaction = tx
+    }
+
+    func walletConnectTransaction() -> Client.Transaction? {
+        guard let ethTransaction = ethTransaction else {
+            return nil
+        }
+        let clientTx: Client.Transaction
+
+        switch ethTransaction {
+        case let tx as Eth.TransactionLegacy:
+            let rpcTx = EthRpc1.TransactionLegacy(tx)
+            clientTx = .init(
+                from: rpcTx.from!.hex,
+                to: rpcTx.to?.hex,
+                data: rpcTx.input.hex,
+                gas: rpcTx.gas?.hex,
+                gasPrice: rpcTx.gasPrice?.hex,
+                value: rpcTx.value.hex,
+                nonce: rpcTx.nonce?.hex,
+                type: rpcTx.type.hex,
+                accessList: nil,
+                chainId: rpcTx.chainId?.hex,
+                maxPriorityFeePerGas: nil,
+                maxFeePerGas: nil
+            )
+
+        case let tx as Eth.TransactionEip2930:
+            let rpcTx = EthRpc1.Transaction2930(tx)
+            clientTx = .init(
+                from: rpcTx.from!.hex,
+                to: rpcTx.to?.hex,
+                data: rpcTx.input.hex,
+                gas: rpcTx.gas?.hex,
+                gasPrice: rpcTx.gasPrice?.hex,
+                value: rpcTx.value.hex,
+                nonce: rpcTx.nonce?.hex,
+                type: rpcTx.type.hex,
+                accessList: nil, // access list initializer is not accessible
+                chainId: rpcTx.chainId.hex,
+                maxPriorityFeePerGas: nil,
+                maxFeePerGas: nil
+            )
+
+        case let tx as Eth.TransactionEip1559:
+            let rpcTx = EthRpc1.Transaction1559(tx)
+            clientTx = .init(
+                from: rpcTx.from!.hex,
+                to: rpcTx.to?.hex,
+                data: rpcTx.input.hex,
+                gas: rpcTx.gas?.hex,
+                gasPrice: nil,
+                value: rpcTx.value.hex,
+                nonce: rpcTx.nonce?.hex,
+                type: rpcTx.type.hex,
+                accessList: nil, // wallet connect lib doesn't provide initializer
+                chainId: rpcTx.chainId.hex,
+                maxPriorityFeePerGas: rpcTx.maxPriorityFeePerGas?.hex,
+                maxFeePerGas: rpcTx.maxFeePerGas?.hex
+            )
+        default:
+            return nil
+        }
+
+        return clientTx
+    }
+
+    func send(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
+        guard var tx = self.ethTransaction else { return nil }
+
+        let rawTransaction = tx.rawTransaction()
+
+        let sendRawTxMethod = EthRpc1.eth_sendRawTransaction(transaction: rawTransaction)
+
+        let request: JsonRpc2.Request
+
+        do {
+            request = try sendRawTxMethod.request(id: .int(1))
+        } catch {
+            dispatchOnMainThread(completion(.failure(error)))
+            return nil
+        }
+
+        let client = estimationController.rpcClient
+
+        let task = client.send(request: request) { [weak self] response in
+            guard let self = self else { return }
+
+            guard let response = response else {
+                let error = TransactionExecutionError(code: -4, message: "No response from server")
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            if let error = response.error {
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            guard let result = response.result else {
+                let error = TransactionExecutionError(code: -5, message: "No result from server")
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            let txHash: EthRpc1.Data
+            do {
+                txHash = try sendRawTxMethod.result(from: result)
+            } catch {
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            tx.hash = Eth.Hash(txHash.storage)
+            self.ethTransaction = tx
+
+            dispatchOnMainThread(completion(.success(())))
+        }
+        return task
     }
 }
 

@@ -11,6 +11,7 @@ import Ethereum
 import SwiftCryptoTokenFormatter
 import Web3
 import Solidity
+import WalletConnectSwift
 
 // wrapper around the content
 class ReviewExecutionViewController: ContainerViewController {
@@ -270,117 +271,22 @@ class ReviewExecutionViewController: ContainerViewController {
     }
 
     @IBAction func didTapSubmit(_ sender: Any) {
-        guard let keyInfo = controller.selectedKey?.key, var ethTx = controller.ethTransaction, ethTx.from != nil else {
-            return
-        }
+        // request passcode if needed and sign
+        if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
+            let passcodeVC = EnterPasscodeViewController()
+            passcodeVC.passcodeCompletion = { [weak self] success in
+                self?.dismiss(animated: true) {
+                    guard let `self` = self else { return }
 
-            switch keyInfo.keyType {
-            case .deviceImported, .deviceGenerated:
-                do {
-                    // request passcode
-
-                    let txHash = ethTx.hashForSigning()
-
-                    guard let pk = try keyInfo.privateKey() else {
-                        App.shared.snackbar.show(message: "Private key not available")
-                        return
+                    if success {
+                        self.sign()
                     }
-
-                    let signature = try pk._store.sign(hash: Array(txHash.storage.storage))
-
-                    try ethTx.updateSignature(
-                        v: Sol.UInt256(signature.v),
-                        r: Sol.UInt256(Data(signature.r)),
-                        s: Sol.UInt256(Data(signature.s))
-                    )
-
-                    let publicKey = try EthereumPublicKey(
-                        message: ethTx.preImageForSigning().bytes,
-                        v: EthereumQuantity(quantity: BigUInt(signature.v)),
-                        r: EthereumQuantity(signature.r),
-                        s: EthereumQuantity(signature.s))
-
-                    guard publicKey.address.hex(eip55: false) == ethTx.from!.description else {
-                        App.shared.snackbar.show(message: "Signature does not match signing key")
-                        return
-                    }
-
-
-                    let rawTransaction = ethTx.rawTransaction()
-
-                    let sendRawTxMethod = EthRpc1.eth_sendRawTransaction(transaction: rawTransaction)
-                    let request = try sendRawTxMethod.request(id: .int(1))
-
-
-                    // disable submit button
-
-                    sendingTask?.cancel()
-                    let client = controller.estimationController.rpcClient
-
-                    let task = client.send(request: request) { response in
-                        DispatchQueue.main.async {
-
-                            // enable submit button
-
-                            guard let response = response else {
-                                App.shared.snackbar.show(message: "No response from server")
-                                return
-                            }
-
-                            if let error = response.error {
-                                App.shared.snackbar.show(message: error.localizedDescription)
-                                return
-                            }
-
-                            // remember the tx hash and start monitoring it.
-                            guard let result = response.result else {
-                                App.shared.snackbar.show(message: "No result from server")
-                                return
-                            }
-
-                            do {
-                                let transactionHashOrZeroHash = try sendRawTxMethod.result(from: result)
-
-                                ethTx.hash = Eth.Hash(transactionHashOrZeroHash.storage)
-
-                                App.shared.snackbar.show(message: "Sent with tx hash: \(transactionHashOrZeroHash)")
-
-                                self.didTapClose(self)
-                            } catch {
-                                App.shared.snackbar.show(message: "Error decoding response: \(error)")
-                            }
-                        }
-                    }
-                    sendingTask = task
-
-
-                } catch {
-                    App.shared.snackbar.show(message: "Failed to sign transaction")
                 }
-
-            case .walletConnect:
-//                rejectWithWalletConnect(rejectionTransaction, keyInfo: keyInfo)
-                fallthrough
-
-            case .ledgerNanoX:
-//                let request = SignRequest(title: "Reject Transaction",
-//                                          tracking: ["action" : "reject"],
-//                                          signer: keyInfo,
-//                                          hexToSign: rejectionTransaction.safeTxHash.description)
-//                let vc = LedgerSignerViewController(request: request)
-//                present(vc, animated: true, completion: nil)
-//
-//                vc.completion = { [weak self] signature in
-//                    self?.rejectAndCloseController(signature: signature)
-//                }
-//                vc.onClose = { [weak self] in
-//                    self?.endLoading()
-//                }
-                fallthrough
-
-            default:
-                App.shared.snackbar.show(message: "Key not supported")
             }
+            present(passcodeVC, animated: true)
+        } else {
+            sign()
+        }
     }
 
     func estimateTransaction() {
@@ -488,6 +394,109 @@ class ReviewExecutionViewController: ContainerViewController {
         controller.validate()
         contentVC?.model?.errorMessage = controller.errorMessage
         submitButton.isEnabled = controller.isValid
+    }
+
+    func sign() {
+        guard let keyInfo = controller.selectedKey?.key else {
+            return
+        }
+
+        switch keyInfo.keyType {
+        case .deviceImported, .deviceGenerated:
+            do {
+                let txHash = controller.hashForSigning()
+
+                guard let pk = try keyInfo.privateKey() else {
+                    App.shared.snackbar.show(message: "Private key not available")
+                    return
+                }
+                let signature = try pk._store.sign(hash: Array(txHash))
+
+                try controller.update(signature: signature)
+            } catch {
+                let gsError = GSError.error(description: "Signing failed", error: error)
+                App.shared.snackbar.show(error: gsError)
+                return
+            }
+            submit()
+
+        case .walletConnect:
+            guard let clientTx = controller.walletConnectTransaction() else {
+                let gsError = GSError.error(description: "Unsupported transaction type")
+                App.shared.snackbar.show(error: gsError)
+                return
+            }
+
+            let wcVC = WCPendingConfirmationViewController(
+                clientTx,
+                keyInfo: keyInfo,
+                title: "Sign Transaction"
+            )
+
+            wcVC.sign { [weak self] signature in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+
+                    do {
+                        try self.controller.update(signature: signature)
+                    } catch {
+                        let gsError = GSError.error(description: "Signing failed", error: error)
+                        App.shared.snackbar.show(error: gsError)
+                        return
+                    }
+
+                    self.submit()
+                }
+            }
+            present(wcVC, animated: true)
+
+
+        case .ledgerNanoX:
+            let txHash = controller.hashForSigning().toHexStringWithPrefix()
+
+            let request = SignRequest(title: "Sign Transaction",
+                                      tracking: ["action" : "signTx"],
+                                      signer: keyInfo,
+                                      hexToSign: txHash)
+
+            let vc = LedgerSignerViewController(request: request)
+
+            vc.completion = { [weak self] signature in
+                guard let self = self else { return }
+
+                do {
+                    try self.controller.update(signature: signature)
+                } catch {
+                    let gsError = GSError.error(description: "Signing failed", error: error)
+                    App.shared.snackbar.show(error: gsError)
+                    return
+                }
+
+                self.submit()
+            }
+
+            vc.onClose = { [weak self] in
+                // cancelled, enable submission.
+            }
+            present(vc, animated: true, completion: nil)
+
+        }
+
+    }
+
+    func submit() {
+        sendingTask?.cancel()
+        sendingTask = controller.send(completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                let gsError = GSError.error(description: "Submitting failed", error: error)
+                App.shared.snackbar.show(error: gsError)
+
+            case .success:
+                self.didTapClose(self)
+            }
+        })
     }
 
 }

@@ -615,6 +615,12 @@ extension EthRpc1.Quantity: Codable {
     }
 
     public func encode(to encoder: Encoder) throws {
+        let value: String = hex
+        var container = encoder.singleValueContainer()
+        try container.encode(value)
+    }
+
+    public var hex: String {
         let value: String
         if storage == 0 {
             value = "0x0"
@@ -623,8 +629,7 @@ extension EthRpc1.Quantity: Codable {
             let minHexDigits = String(hex.drop { $0 == "0" })
             value = "0x" + minHexDigits
         }
-        var container = encoder.singleValueContainer()
-        try container.encode(value)
+        return value
     }
 }
 
@@ -687,9 +692,14 @@ extension EthRpc1.Data: Codable {
     }
 
     public func encode(to encoder: Encoder) throws {
-        let value = "0x" + storage.compactMap { String(format: "%02x", Int($0)) }.joined()
+        let value = hex
         var container = encoder.singleValueContainer()
         try container.encode(value)
+    }
+
+    public var hex: String {
+        let value = "0x" + storage.compactMap { String(format: "%02x", Int($0)) }.joined()
+        return value
     }
 }
 
@@ -912,13 +922,17 @@ public enum Eth {
         // v = {0, 1}
         // r, s are from the secp256k1 signature
         public init(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256, chainId: Sol.UInt256? = nil) {
-            // EIP-155
-            // If you do, then the v of the signature MUST be set to {0,1} + CHAIN_ID * 2 + 35
-            // otherwise then v continues to be set to {0,1} + 27 as previously.
-            if let chainId = chainId {
-                self.v = v + chainId * 2 + 35
+            if v < 2 {
+                // EIP-155
+                // If you do, then the v of the signature MUST be set to {0,1} + CHAIN_ID * 2 + 35
+                // otherwise then v continues to be set to {0,1} + 27 as previously.
+                if let chainId = chainId {
+                    self.v = v + chainId * 2 + 35
+                } else {
+                    self.v = v + 27
+                }
             } else {
-                self.v = v + 27
+                self.v = v
             }
             self.r = r
             self.s = s
