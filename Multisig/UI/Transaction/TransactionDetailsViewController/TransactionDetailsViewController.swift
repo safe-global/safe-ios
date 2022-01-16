@@ -122,7 +122,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         }
     }
 
-    private func trackScreenWithLfoadingFailure() {
+    private func trackScreenWithLoadingFailure() {
         // failed to load the status, track without parameters
         if !didTrackScreen {
             Tracker.trackEvent(.transactionsDetails)
@@ -483,7 +483,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 }
                 self.onError(GSError.error(description: "Failed to load transaction details", error: error))
 
-                trackScreenWithLoadingFailure()
+                self.trackScreenWithLoadingFailure()
             }
         case .success(let details):
             DispatchQueue.main.async { [weak self] in
