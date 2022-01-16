@@ -1621,3 +1621,168 @@ extension Eth {
         public static let teraether = Eth.Unit(symbol: "TΞ", converter: UnitConverterLinear(coefficient: "1000000000000000000000000000000"))
     }
 }
+
+extension Eth {
+    public struct TokenAmount<T> where T: WordUnsignedInteger {
+        public var symbol: String
+        public var value: T {
+            get { storage.storage }
+            set { storage.storage = newValue }
+        }
+        public var decimals: Int {
+            get { storage.exponent }
+            set { storage.exponent = newValue }
+        }
+        public var storage: Sol.UnsignedFixedPoint<T>
+
+        public init(value: T, decimals: Int, symbol: String = "") {
+            storage = .init(storage: value, exponent: decimals)
+            self.symbol = symbol
+        }
+
+        public init(value: Sol.UnsignedFixedPoint<T>, symbol: String) {
+            storage = value
+            self.symbol = symbol
+        }
+    }
+}
+
+
+import WordInteger
+
+extension Eth.TokenAmount {
+    public func converted(to decimals: Int) -> Eth.TokenAmount<T> {
+        let diff = self.decimals - decimals
+        let powerOf10 = pow(10 as T, abs(diff))
+        let value = diff >= 0 ? value * powerOf10 : value / powerOf10
+        return .init(value: value, decimals: decimals, symbol: symbol)
+    }
+
+    /// converts from string to decimal with each part in the same radix
+    /// accepted dot symbols: .,٫ (COMMA, ARABIC DECIMAL SEPARATOR, FULL STOP)
+    /// does not recognize thousand separators.
+    public init?(_ value: String, radix: Int, decimals: Int) {
+        // get suffix
+        let parts = value.split(separator: " ").map(String.init)
+
+        let maybeNumber: String
+        let symbol: String
+        
+        if parts.count == 1 {
+            maybeNumber = parts[0]
+            symbol = ""
+        } else if parts.count == 2 {
+            maybeNumber = parts[0]
+            symbol = parts[1]
+        } else {
+            return nil
+        }
+
+        if maybeNumber.isEmpty {
+            return nil
+        }
+
+        let dotSymbol = ".,٫"
+        let containsDot = maybeNumber.contains(where: { dotSymbol.contains($0) })
+
+        var (integerPart, fractionalPart) = ("", "")
+
+        // if contains dot - then fractional
+        if containsDot {
+            let numberParts = maybeNumber.split(whereSeparator: { dotSymbol.contains($0) }).map(String.init)
+
+            if numberParts.isEmpty {
+                // only dot inside - not a number
+                return nil
+            } else if numberParts.count == 1 {
+                let isDotInFront = dotSymbol.contains(maybeNumber.first!)
+
+                if isDotInFront {
+                    fractionalPart = numberParts[0]
+                } else {
+                    // dot at the end
+                    integerPart = numberParts[1]
+                }
+
+            } else if numberParts.count == 2 {
+                // dot in the middle
+                (integerPart, fractionalPart) = (numberParts[0], numberParts[1])
+
+            } else {
+                // multiple dots
+                return nil
+            }
+        } else {
+            integerPart = maybeNumber
+        }
+
+        if fractionalPart.isEmpty && integerPart.isEmpty {
+            return nil
+        }
+
+        if fractionalPart.count < decimals {
+            fractionalPart = fractionalPart + String(repeating: "0", count: decimals - fractionalPart.count)
+        }
+
+        if fractionalPart.count > decimals {
+            return nil
+        }
+
+        let baseUnitValue = integerPart + fractionalPart
+        guard let value = T(baseUnitValue, radix: radix) else {
+            return nil
+        }
+
+        self.storage = Sol.UnsignedFixedPoint(storage: value, exponent: decimals)
+        self.symbol = symbol
+    }
+}
+
+extension Eth.TokenAmount: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(storage)
+        hasher.combine(symbol)
+    }
+
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        guard lhs.symbol == rhs.symbol else { return false }
+        if lhs.decimals == rhs.decimals {
+            return lhs.storage == rhs.storage
+        } else if lhs.decimals < rhs.decimals {
+            return lhs.converted(to: rhs.decimals) == rhs
+        } else {
+            return rhs.converted(to: lhs.decimals) == lhs
+        }
+    }
+}
+
+extension Eth.TokenAmount: CustomStringConvertible {
+    public var description: String {
+        var string = String(value, radix: 10)
+        if string.count > decimals {
+            // more than 1
+            string.insert(".", at: string.index(string.endIndex, offsetBy: -decimals))
+        } else {
+            // less than 1, needs padding
+            let padding = decimals - string.count
+            string = "0." + String(repeating: "0", count: padding) + string
+        }
+        // remove trailing zeroes from fractional part
+        while string.hasSuffix("0") {
+            string.removeLast()
+        }
+        // remove trailing dot.
+        if string.hasSuffix(".") {
+            string.removeLast()
+        }
+
+        let result = string + (symbol.isEmpty ? "" : (" " + symbol))
+        return result
+    }
+}
+
+extension String {
+    public init<T>(_ value: Eth.TokenAmount<T>) {
+        self = value.description
+    }
+}
