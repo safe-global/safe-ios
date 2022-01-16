@@ -237,13 +237,28 @@ class ReviewSendFundsTransactionViewController: UIViewController {
     }
     
     private func showTransactionSucess(transaction: SCGModels.TransactionDetails) {
-        let vc = TransactionSuccessViewController(
-            amount: amount,
-            token: tokenBalance.symbol,
-            transactionDetails: transaction,
+        let token = tokenBalance.symbol
+
+        let title = "Your transaction is queued!"
+        let body = "Your request to send \(amount ?? "0") \(token) is submitted and needs to be confirmed by other owners."
+        let done = "View details"
+
+        let successVC = TransactionSuccessViewController(
+            titleText: title,
+            bodyText: body,
+            doneTitle: done,
             trackingEvent: .assetsTransferSuccess)
-        
-        show(vc, sender: self)
+
+        successVC.onDone = { [weak self] in
+            guard let self = self else { return }
+            NotificationCenter.default.post(
+                name: .initiateTxNotificationReceived,
+                object: self,
+                userInfo: ["transactionDetails": transaction])
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+
+        show(successVC, sender: self)
     }
 }
 

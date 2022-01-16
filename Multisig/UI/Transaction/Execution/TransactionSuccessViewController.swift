@@ -11,23 +11,26 @@ import UIKit
 class TransactionSuccessViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var viewDetailsButton: UIButton!
-    
-    private var amount: String = ""
-    private var token: String = ""
-    private var transactionDetails: SCGModels.TransactionDetails?
+    @IBOutlet weak var bodyLabel: UILabel!
+    @IBOutlet weak var doneButton: UIButton!
+
+    private var titleText: String?
+    private var bodyText: String?
+    private var doneTitle: String?
     private var trackingEvent: TrackingEvent!
+
+    var onDone: () -> Void = { }
     
     convenience init(
-        amount: String,
-        token: String,
-        transactionDetails: SCGModels.TransactionDetails? = nil,
-        trackingEvent: TrackingEvent = .assetsTransferSuccess) {
+        titleText: String?,
+        bodyText: String?,
+        doneTitle: String?,
+        trackingEvent: TrackingEvent
+    ) {
         self.init(nibName: nil, bundle: nil)
-        self.amount = amount
-        self.token = token
-        self.transactionDetails = transactionDetails
+        self.titleText = titleText
+        self.bodyText = bodyText
+        self.doneTitle = doneTitle
         self.trackingEvent = trackingEvent
     }
     
@@ -37,9 +40,11 @@ class TransactionSuccessViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true
 
         titleLabel.setStyle(.headline)
-        statusLabel.setStyle(.primary)
-        statusLabel.text = "Your request to send \(amount) \(token) is submitted and needs to be confirmed by other owners."
-        viewDetailsButton.setText("View details", .filled)
+        bodyLabel.setStyle(.primary)
+
+        titleLabel.text = titleText
+        bodyLabel.text = bodyText
+        doneButton.setText(doneTitle ?? "Done", .filled)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -48,11 +53,9 @@ class TransactionSuccessViewController: UIViewController {
     }
     
     @IBAction func viewDetailsClicked(_ sender: Any) {
-        NotificationCenter.default.post(name: .initiateTxNotificationReceived,
-                                        object: self,
-                                        userInfo: transactionDetails == nil ? nil : ["transactionDetails": transactionDetails!])
         //TODO check if resetting of the property is needed
-        navigationController?.isNavigationBarHidden = false
-        navigationController?.popToRootViewController(animated: true)
+        self.navigationController?.isNavigationBarHidden = false
+
+        onDone()
     }
 }

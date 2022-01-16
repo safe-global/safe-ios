@@ -18,27 +18,38 @@ class LedgerPendingConfirmationViewController: UIViewController {
     var onClose: (() -> Void)?
     var onSign: ((String?, String?) -> Void)?
 
+    var onTxSign: ((Result<(v: UInt8, r: Data, s: Data), Error>) -> Void)?
+
     private var headerText = "Confirm Transaction"
     private var ledgerHash: String!
 
     private var ledgerController: LedgerController!
-    private var hexToSign: String!
     private var deviceId: UUID!
     private var derivationPath: String!
+
+    private var signRequest: SignRequest!
 
     @IBAction private func cancel(_ sender: Any) {
         close()
     }
 
-    convenience init(headerText: String? = nil, bluetoothController: BaseBluetoothController, hexToSign: String, deviceId: UUID, derivationPath: String) {
+    convenience init(headerText: String? = nil, bluetoothController: BaseBluetoothController, signRequest: SignRequest, deviceId: UUID, derivationPath: String) {
         self.init(nibName: nil, bundle: nil)
         self.ledgerHash = ledgerHash
         if let headerText = headerText {
             self.headerText = headerText
         }
         ledgerController = LedgerController(bluetoothController: bluetoothController)
-        self.hexToSign = hexToSign
-        self.ledgerHash = Data(hex: hexToSign).sha256().toHexString().uppercased()
+        self.signRequest = signRequest
+
+        switch signRequest.payload {
+        case .hash(let hexToSign):
+            self.ledgerHash = Data(hex: hexToSign).sha256().toHexString().uppercased()
+
+        case .rawTx:
+            self.ledgerHash = nil
+        }
+
         self.deviceId = deviceId
         self.derivationPath = derivationPath
     }
@@ -58,17 +69,38 @@ class LedgerPendingConfirmationViewController: UIViewController {
         headerLabel.text = headerText
         headerLabel.setStyle(.headline)
         descriptionLabel.setStyle(.callout)
-        safeTxHashLabel.attributedText = highlightedLedgerHash
+
+        switch signRequest.payload {
+        case .hash:
+            safeTxHashLabel.attributedText = highlightedLedgerHash
+
+        case .rawTx:
+            safeTxHashLabel.text = nil
+            descriptionLabel.text = "Please confirm the transaction on your Ledger Nano X."
+        }
+
         cancelButton.setText("Cancel", .plain)
 
         sign()
     }
 
     private func sign() {
-        ledgerController!.sign(messageHash: hexToSign,
-                               deviceId: deviceId,
-                               path: derivationPath) { [weak self] signature, error in
-            self?.onSign?(signature, error)
+        switch signRequest.payload {
+        case .hash(let hexToSign):
+            ledgerController!.sign(messageHash: hexToSign,
+                                   deviceId: deviceId,
+                                   path: derivationPath) { [weak self] signature, error in
+                self?.onSign?(signature, error)
+            }
+        case let .rawTx(data: data, chainId: chainId, isLegacy: isLegacy):
+            ledgerController!.sign(
+                chainId: chainId,
+                isLegacy: isLegacy,
+                rawTransaction: data,
+                deviceId: deviceId,
+                path: derivationPath) { [weak self] result in
+                    self?.onTxSign?(result)
+                }
         }
     }
 

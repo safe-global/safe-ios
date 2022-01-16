@@ -12,8 +12,8 @@ import SwiftCryptoTokenFormatter
 import Web3
 import Solidity
 import WalletConnectSwift
+import SafariServices
 
-// wrapper around the content
 class ReviewExecutionViewController: ContainerViewController {
 
     private var safe: Safe!
@@ -23,6 +23,8 @@ class ReviewExecutionViewController: ContainerViewController {
     private var controller: TransactionExecutionController!
 
     private var onClose: () -> Void = { }
+
+    var onSuccess: () -> Void = { }
 
     private var contentVC: ReviewExecutionContentViewController!
 
@@ -271,8 +273,11 @@ class ReviewExecutionViewController: ContainerViewController {
     }
 
     @IBAction func didTapSubmit(_ sender: Any) {
+        
         // request passcode if needed and sign
         if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
+            self.submitButton.isEnabled = false
+
             let passcodeVC = EnterPasscodeViewController()
             passcodeVC.passcodeCompletion = { [weak self] success in
                 self?.dismiss(animated: true) {
@@ -281,6 +286,8 @@ class ReviewExecutionViewController: ContainerViewController {
                     if success {
                         self.sign()
                     }
+
+                    self.submitButton.isEnabled = true
                 }
             }
             present(passcodeVC, animated: true)
@@ -452,20 +459,22 @@ class ReviewExecutionViewController: ContainerViewController {
 
 
         case .ledgerNanoX:
-            let txHash = controller.hashForSigning().toHexStringWithPrefix()
+            let rawTransaction = controller.preimageForSigning()
+            let chainId = controller.intChainId
+            let isLegacy = controller.isLegacyTx
 
             let request = SignRequest(title: "Sign Transaction",
                                       tracking: ["action" : "signTx"],
                                       signer: keyInfo,
-                                      hexToSign: txHash)
+                                      payload: .rawTx(data: rawTransaction, chainId: chainId, isLegacy: isLegacy))
 
             let vc = LedgerSignerViewController(request: request)
 
-            vc.completion = { [weak self] signature in
+            vc.txCompletion = { [weak self] signature in
                 guard let self = self else { return }
 
                 do {
-                    try self.controller.update(signature: signature)
+                    try self.controller.update(signature: (UInt(signature.v), Array(signature.r), Array(signature.s)))
                 } catch {
                     let gsError = GSError.error(description: "Signing failed", error: error)
                     App.shared.snackbar.show(error: gsError)
@@ -475,28 +484,68 @@ class ReviewExecutionViewController: ContainerViewController {
                 self.submit()
             }
 
-            vc.onClose = { [weak self] in
-                // cancelled, enable submission.
-            }
             present(vc, animated: true, completion: nil)
-
         }
 
     }
 
     func submit() {
+        self.submitButton.isEnabled = false
+
         sendingTask?.cancel()
         sendingTask = controller.send(completion: { [weak self] result in
             guard let self = self else { return }
+
             switch result {
             case .failure(let error):
+                self.submitButton.isEnabled = true
+
                 let gsError = GSError.error(description: "Submitting failed", error: error)
                 App.shared.snackbar.show(error: gsError)
 
             case .success:
-                self.didTapClose(self)
+                let txHash = self.controller.ethTransaction?.hash ?? .init()
+                LogService.shared.debug("Submitted tx: \(txHash.storage.storage.toHexStringWithPrefix())")
+
+                let successVC = TransactionSuccessViewController(
+                    titleText: "Your transaction is submitted!",
+                    bodyText: "It normally takes some time for a transaction to be executed.",
+                    doneTitle: "View details",
+                    trackingEvent: .executeSuccess
+                )
+
+                successVC.onDone = { [weak self] in
+                    guard let self = self else { return }
+
+                    guard let txHash = self.controller.ethTransaction?.hash,
+                          let template = self.chain.blockExplorerUrlTxHash
+                    else {
+                        self.onSuccess()
+                        return
+                    }
+                    let hexTxHash = txHash.storage.storage.toHexStringWithPrefix()
+                    let urlString = template.replacingOccurrences(of: "{{txHash}}", with: hexTxHash)
+
+                    guard let url = URL(string: urlString) else {
+                        self.onSuccess()
+                        return
+                    }
+
+                    let safari = SFSafariViewController(url: url)
+                    safari.delegate = self
+                    safari.modalPresentationStyle = .formSheet
+                    self.present(safari, animated: true)
+                }
+
+                self.show(successVC, sender: self)
             }
         })
     }
 
+}
+
+extension ReviewExecutionViewController: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        self.onSuccess()
+    }
 }

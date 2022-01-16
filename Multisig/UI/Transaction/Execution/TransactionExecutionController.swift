@@ -360,6 +360,35 @@ class TransactionExecutionController {
         try update(signature: (UInt(v), Array(r), Array(s)))
     }
 
+    var intChainId: Int {
+        guard let ethTransaction = ethTransaction else {
+            return 0
+        }
+
+        switch ethTransaction {
+        case let tx as Eth.TransactionLegacy:
+            return tx.chainId.map { Int(truncatingIfNeeded: $0) } ?? 0
+
+        case let tx as Eth.TransactionEip2930:
+            return Int(truncatingIfNeeded: tx.chainId)
+
+        case let tx as Eth.TransactionEip1559:
+            return Int(truncatingIfNeeded: tx.chainId)
+
+        default:
+            return 0
+        }
+    }
+
+    var isLegacyTx: Bool {
+        guard let ethTransaction = ethTransaction else {
+            return false
+        }
+
+        let result = ethTransaction is Eth.TransactionLegacy
+        return result
+    }
+
     func preimageForSigning() -> Data {
         guard let tx = self.ethTransaction else {
             preconditionFailure("transaction must exist")

@@ -13,11 +13,24 @@ struct SignRequest {
     var title: String
     var tracking: [String: Any]
     var signer: KeyInfo
-    var hexToSign: String
+    var payload: Payload
+
+    enum Payload {
+        case hash(String)
+        case rawTx(data: Data, chainId: Int, isLegacy: Bool)
+    }
+}
+
+extension SignRequest {
+    init(title: String, tracking: [String: Any], signer: KeyInfo, hexToSign: String) {
+        self.init(title: title, tracking: tracking, signer: signer, payload: .hash(hexToSign))
+    }
 }
 
 class LedgerSignerViewController: UINavigationController {
     var completion: ((String) -> Void)!
+    var txCompletion: (((v: UInt8, r: Data, s: Data)) -> Void)?
+
     var onClose: (() -> Void)? {
         didSet {
             if let vc = viewControllers.first as? SelectLedgerDeviceViewController {
@@ -50,7 +63,7 @@ extension LedgerSignerViewController: SelectLedgerDeviceDelegate {
         let confirmVC = LedgerPendingConfirmationViewController(
             headerText: request.title,
             bluetoothController: bluetoothController,
-            hexToSign: request.hexToSign,
+            signRequest: request,
             deviceId: deviceId,
             derivationPath: metadata.path)
 
@@ -62,6 +75,27 @@ extension LedgerSignerViewController: SelectLedgerDeviceDelegate {
         confirmVC.onClose = { [unowned controller] in
             controller.reloadData()
             controller.onClose?()
+        }
+
+        confirmVC.onTxSign = { [weak self, unowned controller] result in
+            guard let self = self else { return }
+
+            // dismiss Ledger Pending Confirmation overlay
+            self.dismiss(animated: true, completion: nil)
+
+            switch result {
+            case .failure(let error):
+                let gsError = GSError.error(description: "The operation failed.", error: error)
+                App.shared.snackbar.show(error: gsError)
+
+                controller.reloadData()
+
+            case .success(let signature):
+                // got signature, dismiss the first SelectDevice screen.
+                self.dismiss(animated: true, completion: nil)
+
+                self.txCompletion?(signature)
+            }
         }
 
         confirmVC.onSign = { [weak self, unowned controller] signature, errorMessage in
@@ -93,7 +127,10 @@ extension LedgerSignerViewController: SelectLedgerDeviceDelegate {
             let v = signatureData[64]
 
             // original message signed by Ledger has Ethereum prefix according to eth_sign
-            let originalHash = Data(hex: self.request.hexToSign)
+            guard case let SignRequest.Payload.hash(hexToSign) = self.request!.payload else {
+                preconditionFailure("Unexpected payload: \(self.request!.payload)")
+            }
+            let originalHash = Data(hex: hexToSign)
             let prefix = "\u{19}Ethereum Signed Message:\n\(originalHash.count)"
             let prefixedMessage = prefix.data(using: .utf8)! + originalHash
 

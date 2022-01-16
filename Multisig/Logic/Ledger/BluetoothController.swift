@@ -77,9 +77,14 @@ class BaseBluetoothController: NSObject {
 
     // Sends asynchronous command to the device and gets called back via completion.
     // Commands are binary data
-    func sendCommand(device: BaseBluetoothDevice, command: Data, completion: @escaping (Result<Data, Error>) -> Void) {
+    func sendCommand(device: BaseBluetoothDevice, command: Data, index: UInt16 = 0, completion: @escaping (Result<Data, Error>) -> Void) {
         preconditionFailure()
     }
+
+    func sendCommand(device: BaseBluetoothDevice, commands: [Data], completion: @escaping (Result<Data, Error>) -> Void) {
+        preconditionFailure()
+    }
+
 }
 
 class BluetoothController: BaseBluetoothController {
@@ -117,15 +122,48 @@ class BluetoothController: BaseBluetoothController {
         deviceFor(deviceId: id) as? BluetoothDevice
     }
 
-    override func sendCommand(device: BaseBluetoothDevice, command: Data, completion: @escaping (Result<Data, Error>) -> Void) {
+    override func sendCommand(device: BaseBluetoothDevice, command: Data, index: UInt16 = 0, completion: @escaping (Result<Data, Error>) -> Void) {
         guard let device = device as? BluetoothDevice else {
             preconditionFailure("Expecting bluetooth device")
         }
         centralManager.connect(device.peripheral, options: nil)
         writeCommands[device.peripheral.identifier] = { [weak self] in
-            let apduData = APDUController.prepareAPDU(message: command)
+
+            let packetSequenceIndex = withUnsafeBytes(of: index.bigEndian, Array.init)
+            let apduLen = withUnsafeBytes(of: UInt16(command.count).bigEndian, Array.init)
+
+            let transportData: Data = Data([
+                // Communication channel ID 0101 - A similar encoding is used over BLE, without the Communication channel ID. not needed
+                // 0x01, 0x01,
+                // command tag - TAG_ADPU (0x05)
+                0x05,
+            ]) +
+            // packet sequence index (big endian) - uint16
+            Data(packetSequenceIndex) +
+            // payload - variable
+            // apdu length
+            Data(apduLen) +
+            // APDU
+            command
+
             self?.responses[device.peripheral.identifier] = completion
-            device.peripheral.writeValue(apduData, for: device.writeCharacteristic!, type: .withResponse)
+            device.peripheral.writeValue(transportData, for: device.writeCharacteristic!, type: .withResponse)
+        }
+    }
+
+    override func sendCommand(device: BaseBluetoothDevice, commands: [Data], completion: @escaping (Result<Data, Error>) -> Void) {
+        guard let device = device as? BluetoothDevice else {
+            preconditionFailure("Expecting bluetooth device")
+        }
+        centralManager.connect(device.peripheral, options: nil)
+        writeCommands[device.peripheral.identifier] = { [weak self] in
+            self?.responses[device.peripheral.identifier] = completion
+
+            for (index, command) in commands.enumerated() {
+                let apduData = APDUController.prepareAPDU(message: command)
+                let isLast = index == commands.count - 1
+                device.peripheral.writeValue(apduData, for: device.writeCharacteristic!, type: .withResponse)
+            }
         }
     }
 }
@@ -212,6 +250,32 @@ extension BluetoothController: CBPeripheralDelegate {
         }
     }
 
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
+        print("BLE:", peripheral, characteristic, error)
+    }
+
+    func peripheralIsReady(toSendWriteWithoutResponse peripheral: CBPeripheral) {
+        print("BLE:", peripheral)
+    }
+
+    func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
+        print("BLE:", peripheral, characteristic, error)
+
+        if let error = error {
+            LogService.shared.info("Failed to connect with bluetooth device", error: error)
+        }
+        if let message = characteristic.value, let data = APDUController.parseAPDU(message: message) {
+            print("APDU data: \(data)")
+        } else {
+            LogService.shared.error(
+                "Could not parse APDU for message: \(characteristic.value?.toHexString() ?? "nil")")
+        }
+
+        if let d = characteristic.value, let str = String(data: d, encoding: .utf8) {
+            print("Message: ", str)
+        }
+    }
+
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         if supportedDeviceNotifyUuids.contains(characteristic.uuid) {
             // skip if response is not awaited anymore
@@ -260,7 +324,7 @@ class SimulatedBluetoothController: BaseBluetoothController {
 
     var keys: [Address: PrivateKey] = [:]
 
-    override func sendCommand(device: BaseBluetoothDevice, command: Data, completion: @escaping (Result<Data, Error>) -> Void) {
+    override func sendCommand(device: BaseBluetoothDevice, command: Data, index: UInt16 = 0, completion: @escaping (Result<Data, Error>) -> Void) {
         DispatchQueue.global().async {
             // get address command
             if command.starts(with: [0xe0, 0x02]) {
