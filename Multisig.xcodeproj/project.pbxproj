@@ -374,6 +374,7 @@
 		0ABE69852791B47B003338AF /* Fee1559FormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE69842791B47B003338AF /* Fee1559FormModel.swift */; };
 		0ABE698827920294003338AF /* ErrorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE698627920294003338AF /* ErrorTableViewCell.swift */; };
 		0ABE698927920294003338AF /* ErrorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABE698727920294003338AF /* ErrorTableViewCell.xib */; };
+		0AC0948127945B5900FA1B83 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0948027945B5900FA1B83 /* CircleView.swift */; };
 		0AC2A3C726FB6802002CB26A /* CollectiblesUnsupportedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC2A3C526FB6802002CB26A /* CollectiblesUnsupportedViewController.swift */; };
 		0AC2A3C826FB6802002CB26A /* CollectiblesUnsupportedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC2A3C626FB6802002CB26A /* CollectiblesUnsupportedViewController.xib */; };
 		0AC2A3CA26FB6B84002CB26A /* WebAppURLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC2A3C926FB6B84002CB26A /* WebAppURLBuilder.swift */; };
@@ -1065,6 +1066,7 @@
 		0ABE69842791B47B003338AF /* Fee1559FormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fee1559FormModel.swift; sourceTree = "<group>"; };
 		0ABE698627920294003338AF /* ErrorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTableViewCell.swift; sourceTree = "<group>"; };
 		0ABE698727920294003338AF /* ErrorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorTableViewCell.xib; sourceTree = "<group>"; };
+		0AC0948027945B5900FA1B83 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		0AC2A3C526FB6802002CB26A /* CollectiblesUnsupportedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesUnsupportedViewController.swift; sourceTree = "<group>"; };
 		0AC2A3C626FB6802002CB26A /* CollectiblesUnsupportedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectiblesUnsupportedViewController.xib; sourceTree = "<group>"; };
 		0AC2A3C926FB6B84002CB26A /* WebAppURLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAppURLBuilder.swift; sourceTree = "<group>"; };
@@ -2943,6 +2945,7 @@
 				0422005F25EFDF3700CAC173 /* TagView.swift */,
 				0422006F25EFDF4E00CAC173 /* TagView.xib */,
 				04273E5F26D43F0400A14E95 /* IdenticonView.swift */,
+				0AC0948027945B5900FA1B83 /* CircleView.swift */,
 				04273E6126D43F1700A14E95 /* IdenticonView.xib */,
 				D80B5A062769D05D00D6E024 /* BaseCustomView.swift */,
 				D88FA81C2770869E0023B77F /* TokenAmountField.swift */,
@@ -3865,6 +3868,7 @@
 				0AB5DF8F270DD185005BFB43 /* CreateDelegateRequest.swift in Sources */,
 				55CA3EB9250A234F0080DF7F /* SecureStore.swift in Sources */,
 				0A451C06252DDB93001DB7D2 /* NetworkContentView.swift in Sources */,
+				0AC0948127945B5900FA1B83 /* CircleView.swift in Sources */,
 				0A93DDBB24461F4800688050 /* Buttons.swift in Sources */,
 				04FA1A342580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift in Sources */,
 				0A3DAD9B26270F5500743E38 /* IDN.swift in Sources */,

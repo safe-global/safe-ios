@@ -11,20 +11,13 @@ import UIKit
 class IdenticonView: UINibView {
     @IBOutlet private weak var identiconImageView: UIImageView!
     @IBOutlet private weak var badgeImageView: UIImageView!
-    @IBOutlet weak var badgeFrameView: UIView!
+    @IBOutlet weak var badgeFrameView: CircleView!
 
     override func commonInit() {
         super.commonInit()
         badgeFrameView.clipsToBounds = true
         badgeFrameView.layer.borderColor = UIColor.whiteOrBlack.cgColor
         badgeFrameView.backgroundColor = .secondaryLabel
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        let halfSize = badgeFrameView.frame.height / 2
-        badgeFrameView.layer.cornerRadius = halfSize
-        badgeFrameView.layer.borderWidth = halfSize < 16 ? 1 : 2
     }
 
     func set(address: Address, imageURL: URL? = nil, badgeName: String? = nil) {

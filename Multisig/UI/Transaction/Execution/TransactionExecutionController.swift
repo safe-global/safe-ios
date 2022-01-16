@@ -76,6 +76,10 @@ class TransactionExecutionController {
             // else use the key
             return true
         }
+        .filter {
+            // filter out the ledger keys until they are supported
+            return $0.keyType != .ledgerNanoX
+        }
 
         return validKeys
     }

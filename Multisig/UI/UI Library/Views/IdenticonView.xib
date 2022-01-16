@@ -29,7 +29,7 @@
                         <constraint firstAttribute="width" secondItem="AR4-Or-uAh" secondAttribute="height" multiplier="1:1" id="Q06-6b-sGO"/>
                     </constraints>
                 </imageView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0dR-3L-KoS" userLabel="BadgeFrameView">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0dR-3L-KoS" userLabel="BadgeFrameView" customClass="CircleView" customModule="Multisig" customModuleProvider="target">
                     <rect key="frame" x="18" y="18" width="24" height="24"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4X5-SV-Sri" userLabel="Badge">
