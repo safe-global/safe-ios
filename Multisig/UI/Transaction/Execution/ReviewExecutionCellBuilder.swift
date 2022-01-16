@@ -88,13 +88,24 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         cell.setText("Execute with")
         switch model {
         case .loading:
-            break
+            let skeleton = UILabel()
+            skeleton.textAlignment = .right
+            skeleton.isSkeletonable = true
+            skeleton.skeletonTextLineHeight = .fixed(25)
+            skeleton.showSkeleton(delay: 0.2)
+            cell.setContent(skeleton)
+            
         case .empty:
-            break
+            let label = UILabel()
+            label.textAlignment = .right
+            label.setStyle(.secondary)
+            label.text = "Not selected"
+            cell.setContent(label)
+
         case .filled(let accountModel):
-            let detail = MiniAccountAndBalancePiece()
-            detail.setModel(accountModel)
-            cell.setContent(detail)
+            let content = MiniAccountAndBalancePiece()
+            content.setModel(accountModel)
+            cell.setContent(content)
         }
         return cell
     }

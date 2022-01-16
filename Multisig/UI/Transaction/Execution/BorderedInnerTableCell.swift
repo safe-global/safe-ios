@@ -35,8 +35,8 @@ class BorderedInnerTableCell: UITableViewCell, UITableViewDelegate, UITableViewD
         tableView.reloadData()
 
         // adjust the table height to show full content
-        tableHeightConstraint.constant = tableView.contentSize.height
-        setNeedsUpdateConstraints()
+        let height = cells.map { $0.frame.height }.reduce(0, +)
+        self.tableHeightConstraint.constant = height
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

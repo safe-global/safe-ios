@@ -18,16 +18,16 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ko-2K-UOJ">
-                        <rect key="frame" x="16" y="0.0" width="41.5" height="60"/>
+                        <rect key="frame" x="16" y="0.0" width="41.5" height="61"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJl-Fk-AYb" userLabel="DetailContentView">
-                        <rect key="frame" x="73.5" y="0.0" width="206" height="60"/>
+                        <rect key="frame" x="73.5" y="0.0" width="206" height="61"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="60" id="G3s-DX-ikc"/>
+                            <constraint firstAttribute="height" priority="999" constant="60" identifier="DisclosureWithContentCell.contentView.Height" id="G3s-DX-ikc"/>
                         </constraints>
                     </view>
                 </subviews>

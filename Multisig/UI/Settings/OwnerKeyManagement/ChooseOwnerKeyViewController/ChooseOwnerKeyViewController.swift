@@ -8,6 +8,7 @@
 
 import UIKit
 import WalletConnectSwift
+import Solidity
 
 protocol AccountBalanceLoader {
     // must call completion handler on the main thread
@@ -18,8 +19,9 @@ protocol AccountBalanceLoader {
 }
 
 struct AccountBalanceUIModel {
-    var balance: String
+    var displayAmount: String
     var isEnabled: Bool
+    var amount: Sol.UInt256?
 }
 
 class ChooseOwnerKeyViewController: UIViewController {
@@ -30,7 +32,7 @@ class ChooseOwnerKeyViewController: UIViewController {
     private var owners: [KeyInfo] = []
     private var chainID: String?
     private var descriptionText: String!
-    private(set) var selectedIndex: Int? = nil
+    private(set) var selectedKey: KeyInfo? = nil
     private var requestsPassCode: Bool = true
 
     private var balancesLoader: AccountBalanceLoader? = nil
@@ -52,7 +54,7 @@ class ChooseOwnerKeyViewController: UIViewController {
         titleText: String = "Select owner key",
         descriptionText: String,
         requestsPasscode: Bool = true,
-        selectedIndex: Int? = nil,
+        selectedKey: KeyInfo? = nil,
         // when passed in, then this controller will show account balances.
         balancesLoader: AccountBalanceLoader? = nil,
         completionHandler: ((KeyInfo?) -> Void)? = nil
@@ -63,7 +65,7 @@ class ChooseOwnerKeyViewController: UIViewController {
         self.titleText = titleText
         self.descriptionText = descriptionText
         self.requestsPassCode = requestsPasscode
-        self.selectedIndex = selectedIndex
+        self.selectedKey = selectedKey
         self.balancesLoader = balancesLoader
         self.completionHandler = completionHandler
     }
@@ -184,6 +186,13 @@ class ChooseOwnerKeyViewController: UIViewController {
             }
         })
     }
+
+    func accountBalance(for keyInfo: KeyInfo) -> AccountBalanceUIModel? {
+        if let index = owners.firstIndex(of: keyInfo), let balances = accountBalances, index < balances.count {
+            return balances[index]
+        }
+        return nil
+    }
 }
 
 extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSource {
@@ -197,7 +206,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
         cell.selectionStyle = .none
 
         var accessoryImage: UIImage? = UIImage()
-        if let selection = selectedIndex, selection == indexPath.row {
+        if let selection = selectedKey, keyInfo == selection {
             accessoryImage = UIImage(systemName: "checkmark")?.withTintColor(.button)
         }
 
@@ -205,7 +214,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
         var isEnabled = true
         if let balances = accountBalances, indexPath.row < balances.count {
             let model = balances[indexPath.row]
-            accountBalance = model.balance.isEmpty ? nil : model.balance
+            accountBalance = model.displayAmount.isEmpty ? nil : model.displayAmount
             isEnabled = model.isEnabled
         }
 
@@ -229,7 +238,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let keyInfo = owners[indexPath.row]
-        selectedIndex = indexPath.row
+        selectedKey = keyInfo
         // For WalletConnect key check that it is still connected
         if keyInfo.keyType == .walletConnect {
             switch KeyConnectionStatus.init(keyInfo: keyInfo, chainID: chainID) {

@@ -27,6 +27,8 @@ class ReviewExecutionViewController: ContainerViewController {
 
     var closeButton: UIBarButtonItem!
 
+    private var defaultKeyTask: URLSessionTask?
+
     convenience init(safe: Safe, chain: Chain, transaction: SCGModels.TransactionDetails, onClose: @escaping () -> Void) {
         // create from the nib named as the self's class name
         self.init(namedClass: nil)
@@ -53,9 +55,16 @@ class ReviewExecutionViewController: ContainerViewController {
         contentVC.onTapAccount = action(#selector(didTapAccount(_:)))
         contentVC.onTapFee = action(#selector(didTapFee(_:)))
         contentVC.onTapAdvanced = action(#selector(didTapAdvanced(_:)))
-
+        contentVC.model = ExecutionReviewUIModel(
+            transaction: transaction,
+            executionOptions: ExecutionOptionsUIModel(
+                accountState: .loading,
+                feeState: .loading
+            )
+        )
         self.viewControllers = [contentVC]
         self.displayChild(at: 0, in: contentView)
+
 
         // configure ribbon view
         ribbonView.update(chain: chain)
@@ -70,6 +79,8 @@ class ReviewExecutionViewController: ContainerViewController {
             action: #selector(didTapClose(_:)))
 
         navigationItem.leftBarButtonItem = closeButton
+
+        findDefaultKey()
     }
 
     func action(_ selector: Selector) -> () -> Void {
@@ -90,7 +101,6 @@ class ReviewExecutionViewController: ContainerViewController {
 
     @IBAction func didTapAccount(_ sender: Any) {
         let keys = controller.executionKeys()
-        let selectedIndex = controller.selectedKeyIndex
         let balancesLoader = DefaultAccountBalanceLoader(chain: chain)
 
         let keyPickerVC = ChooseOwnerKeyViewController(
@@ -99,20 +109,27 @@ class ReviewExecutionViewController: ContainerViewController {
             titleText: "Select an execution key",
             descriptionText: "The selected key will be used to execute this transaction.",
             requestsPasscode: false,
-            selectedIndex: selectedIndex,
+            selectedKey: controller.selectedKey?.key,
             balancesLoader: balancesLoader
-        ) { [weak self] selectedKeyInfo in
-            // dismiss
-            guard let self = self else { return }
-            self.dismiss(animated: true) {
-                // when dismissed, change the selected key
-                if let keyInfo = selectedKeyInfo {
-                    print(keyInfo)
-                } else {
-                    print("nothing selected")
-                }
+        )
+        // this way of returning the results from the view controller is just because
+        // there was already existing code depending on the completion handler.
+        // modified with minimum changes to the existing API.
+        let completion: (KeyInfo?) -> Void = { [weak self, weak keyPickerVC] selectedKeyInfo in
+            guard let self = self, let picker = keyPickerVC else { return }
+            let balance = selectedKeyInfo.flatMap { picker.accountBalance(for: $0) }
+
+            // update selection
+            if let key = selectedKeyInfo, let balance = balance {
+                self.controller.selectedKey = (key, balance)
+            } else {
+                self.controller.selectedKey = nil
             }
+            self.didChangeSelectedKey()
+
+            self.dismiss(animated: true)
         }
+        keyPickerVC.completionHandler = completion
 
         let navigationController = UINavigationController(rootViewController: keyPickerVC)
         present(navigationController, animated: true)
@@ -144,4 +161,36 @@ class ReviewExecutionViewController: ContainerViewController {
     @IBAction func didTapSubmit(_ sender: Any) {
         print("Submit!")
     }
+
+    func findDefaultKey() {
+        defaultKeyTask?.cancel()
+
+        self.contentVC.model?.executionOptions.accountState = .loading
+
+        let task = controller.findDefaultKey { [weak self] in
+            guard let self = self else { return }
+            self.didChangeSelectedKey()
+        }
+
+        self.defaultKeyTask = task
+    }
+
+    func didChangeSelectedKey() {
+        if let selection = controller.selectedKey {
+            let model = MiniAccountInfoUIModel(
+                prefix: self.chain.shortName,
+                address: selection.key.address,
+                label: selection.key.name,
+                imageUri: nil,
+                badge: selection.key.keyType.imageName,
+                balance: selection.balance.displayAmount
+            )
+            self.contentVC.model?.executionOptions.accountState = .filled(model)
+        } else {
+            contentVC.model?.executionOptions.accountState = .empty
+        }
+    }
+
+    // we need connector from the controller.selectedKey (+ balance) to the contentVC execution
+    // as well from the controller to the fee options
 }

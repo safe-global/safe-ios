@@ -31,10 +31,16 @@ class DisclosureWithContentCell: UITableViewCell {
         }
         guard let view = view else { return }
 
-        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.frame = detailContentView.bounds
+        view.translatesAutoresizingMaskIntoConstraints = false
 
         detailContentView.addSubview(view)
+
+        detailContentView.addConstraints([
+            view.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor),
+            view.topAnchor.constraint(equalTo: detailContentView.topAnchor),
+            view.bottomAnchor.constraint(equalTo: detailContentView.bottomAnchor)
+        ])
     }
 
 }

@@ -26,9 +26,11 @@ class DefaultAccountBalanceLoader: AccountBalanceLoader {
             transport: JsonRpc2.ClientHTTPTransport(url: chain.authenticatedRpcUrl.absoluteString),
             serializer: JsonRpc2.DefaultSerializer())
     }
-    // must call completion handler on the main thread
-    // resulting balances list must have the same count as the keys
-    // the task must be resumed
+    /// will call completion handler on the main thread.
+    ///
+    /// resulting balances list must have the same count as the keys.
+    ///
+    /// The returned task is laredy resumed.
     func loadBalances(for keys: [KeyInfo], completion: @escaping (Result<[AccountBalanceUIModel], Error>) -> Void) -> URLSessionTask? {
         func onMainThread(_ closure: @autoclosure @escaping () -> Void) {
             if Thread.isMainThread {
@@ -114,7 +116,7 @@ class DefaultAccountBalanceLoader: AccountBalanceLoader {
                         }
 
                         // format to string
-                        var model = AccountBalanceUIModel(balance: "", isEnabled: true)
+                        var model = AccountBalanceUIModel(displayAmount: "", isEnabled: true, amount: balance)
 
                         if let balance = balance {
                             let decimalAmount = BigDecimal(Int256(balance.big()), Int(nativeCoinDecimals))
@@ -125,7 +127,7 @@ class DefaultAccountBalanceLoader: AccountBalanceLoader {
                                 forcePlusSign: false
                             )
 
-                            model.balance = "\(value) \(nativeCoinSymbol)"
+                            model.displayAmount = "\(value) \(nativeCoinSymbol)"
                             model.isEnabled = balance >= requiredBalance
                         }
 
