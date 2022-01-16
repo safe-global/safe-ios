@@ -159,6 +159,18 @@ extension Chain {
         nativeCurrency?.symbol = chainInfo.nativeCurrency.symbol
         nativeCurrency?.decimals = Int32(chainInfo.nativeCurrency.decimals)
         nativeCurrency?.logoUrl = chainInfo.nativeCurrency.logoUri
+
+        l2 = chainInfo.l2
+        features = chainInfo.features
+    }
+
+    var features: [String]? {
+        get {
+            featuresCommaSeparated?.split(separator: ",").map(String.init)
+        }
+        set {
+            featuresCommaSeparated = newValue?.joined(separator: ",")
+        }
     }
 
     func browserURL(address: String) -> URL {

@@ -46,6 +46,8 @@ enum TrackingEvent: String, Trackable {
     case assetsTransferAdvancedParams               = "screen_asset_transfer_advanced_params"
     case assetsTransferSuccess                      = "screen_asset_transfer_success"
 
+    case executeSuccess                             = "screen_execute_success"
+
     case safeReceive                                = "screen_safe_receive"
     case safeSwitch                                 = "screen_safe_switch"
     case safeAddAddress                             = "screen_safe_add_address"

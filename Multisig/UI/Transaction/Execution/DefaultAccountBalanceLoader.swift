@@ -32,16 +32,8 @@ class DefaultAccountBalanceLoader: AccountBalanceLoader {
     ///
     /// The returned task is laredy resumed.
     func loadBalances(for keys: [KeyInfo], completion: @escaping (Result<[AccountBalanceUIModel], Error>) -> Void) -> URLSessionTask? {
-        func onMainThread(_ closure: @autoclosure @escaping () -> Void) {
-            if Thread.isMainThread {
-                closure()
-            } else {
-                DispatchQueue.main.async(execute: closure)
-            }
-        }
-
         guard !keys.isEmpty else {
-            onMainThread(completion(.success([])))
+            dispatchOnMainThread(completion(.success([])))
             return nil
         }
 
@@ -69,7 +61,7 @@ class DefaultAccountBalanceLoader: AccountBalanceLoader {
             batch = try JsonRpc2.BatchRequest(requests: requests)
         } catch {
             let gsError = GSError.error(description: "Failed to load balances due to internal error", error: error)
-            onMainThread(completion(.failure(gsError)))
+            dispatchOnMainThread(completion(.failure(gsError)))
             return nil
         }
 
@@ -81,11 +73,11 @@ class DefaultAccountBalanceLoader: AccountBalanceLoader {
                 // we expect to have response because all of the requests are not notifications (have id)
                 let error = NSError(domain: "DefaultBalanceLoader", code: 0, userInfo: [:])
                 let gsError = GSError.error(description: serverErrorMessage, error: error)
-                onMainThread(completion(.failure(gsError)))
+                dispatchOnMainThread(completion(.failure(gsError)))
 
             case .response(let response):
                 let gsError = GSError.error(description: serverErrorMessage, error: response.error)
-                onMainThread(completion(.failure(gsError)))
+                dispatchOnMainThread(completion(.failure(gsError)))
 
             case .array(let responses):
                 // at this point there exists a response for each sent request.
@@ -93,7 +85,7 @@ class DefaultAccountBalanceLoader: AccountBalanceLoader {
                 // there should be the same number of responses.
                 guard responses.count == requests.count else {
                     let gsError = GSError.error(description: serverErrorMessage)
-                    onMainThread(completion(.failure(gsError)))
+                    dispatchOnMainThread(completion(.failure(gsError)))
                     return
                 }
 
@@ -134,8 +126,16 @@ class DefaultAccountBalanceLoader: AccountBalanceLoader {
                         return model
                 }
 
-                onMainThread(completion(.success(balances)))
+                dispatchOnMainThread(completion(.success(balances)))
             }
         }
+    }
+}
+
+func dispatchOnMainThread(_ closure: @autoclosure @escaping () -> Void) {
+    if Thread.isMainThread {
+        closure()
+    } else {
+        DispatchQueue.main.async(execute: closure)
     }
 }

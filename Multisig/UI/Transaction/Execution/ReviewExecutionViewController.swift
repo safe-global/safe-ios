@@ -7,8 +7,13 @@
 //
 
 import UIKit
+import Ethereum
+import SwiftCryptoTokenFormatter
+import Web3
+import Solidity
+import WalletConnectSwift
+import SafariServices
 
-// wrapper around the content
 class ReviewExecutionViewController: ContainerViewController {
 
     private var safe: Safe!
@@ -19,6 +24,8 @@ class ReviewExecutionViewController: ContainerViewController {
 
     private var onClose: () -> Void = { }
 
+    var onSuccess: () -> Void = { }
+
     private var contentVC: ReviewExecutionContentViewController!
 
     @IBOutlet weak var ribbonView: RibbonView!
@@ -28,6 +35,8 @@ class ReviewExecutionViewController: ContainerViewController {
     var closeButton: UIBarButtonItem!
 
     private var defaultKeyTask: URLSessionTask?
+    private var txEstimationTask: URLSessionTask?
+    private var sendingTask: URLSessionTask?
 
     convenience init(safe: Safe, chain: Chain, transaction: SCGModels.TransactionDetails, onClose: @escaping () -> Void) {
         // create from the nib named as the self's class name
@@ -71,6 +80,7 @@ class ReviewExecutionViewController: ContainerViewController {
 
         // configure submit button
         submitButton.setText("Submit", .filled)
+        submitButton.isEnabled = controller.isValid
 
         // configure close button
         closeButton = UIBarButtonItem(
@@ -80,7 +90,7 @@ class ReviewExecutionViewController: ContainerViewController {
 
         navigationItem.leftBarButtonItem = closeButton
 
-        findDefaultKey()
+        estimateTransaction()
     }
 
     func action(_ selector: Selector) -> () -> Void {
@@ -119,13 +129,16 @@ class ReviewExecutionViewController: ContainerViewController {
             guard let self = self, let picker = keyPickerVC else { return }
             let balance = selectedKeyInfo.flatMap { picker.accountBalance(for: $0) }
 
+            let previousKey = self.controller.selectedKey?.key
             // update selection
             if let key = selectedKeyInfo, let balance = balance {
                 self.controller.selectedKey = (key, balance)
             } else {
                 self.controller.selectedKey = nil
             }
-            self.didChangeSelectedKey()
+            if selectedKeyInfo != previousKey {
+                self.didChangeSelectedKey()
+            }
 
             self.dismiss(animated: true)
         }
@@ -136,17 +149,118 @@ class ReviewExecutionViewController: ContainerViewController {
     }
 
     @IBAction func didTapFee(_ sender: Any) {
-        let formModel = FeeLegacyFormModel(
-            nonce: 22,
-            gas: 53000,
-            gasPriceInWei: 12,
-            nativeCurrency: chain.nativeCurrency!)
+        let formModel: FormModel
+        var initialValues = UserDefinedTransactionParameters()
+
+        switch controller.ethTransaction {
+        case let ethTx as Eth.TransactionLegacy:
+            let model = FeeLegacyFormModel(
+                nonce: ethTx.nonce,
+                gas: ethTx.fee.gas,
+                gasPriceInWei: ethTx.fee.gasPrice,
+                nativeCurrency: chain.nativeCurrency!
+            )
+            initialValues.nonce = model.nonce
+            initialValues.gas = model.gas
+            initialValues.gasPrice = model.gasPriceInWei
+
+            formModel = model
+
+        case let ethTx as Eth.TransactionEip1559:
+            let model = Fee1559FormModel(
+                nonce: ethTx.nonce,
+                gas: ethTx.fee.gas,
+                maxFeePerGasInWei: ethTx.fee.maxFeePerGas,
+                maxPriorityFeePerGasInWei: ethTx.fee.maxPriorityFee,
+                nativeCurrency: chain.nativeCurrency!
+            )
+            initialValues.nonce = model.nonce
+            initialValues.gas = model.gas
+            initialValues.maxFeePerGas = model.maxFeePerGasInWei
+            initialValues.maxPriorityFee = model.maxPriorityFeePerGasInWei
+
+            formModel = model
+
+        default:
+            if chain.features?.contains("EIP1559") == true {
+                formModel = Fee1559FormModel(
+                    nonce: nil,
+                    gas: nil,
+                    maxFeePerGasInWei: nil,
+                    maxPriorityFeePerGasInWei: nil,
+                    nativeCurrency: chain.nativeCurrency!
+                )
+            } else {
+                formModel = FeeLegacyFormModel(
+                    nonce: nil,
+                    gas: nil,
+                    gasPriceInWei: nil,
+                    nativeCurrency: chain.nativeCurrency!
+                )
+            }
+        }
+
         let formVC = FormViewController(model: formModel) { [weak self] in
-            // on close
+            // on close - ignore any changes
+            self?.dismiss(animated: true)
+        }
+
+        formVC.onSave = { [weak self, weak formModel] in
+            // on save - update the parameters that were changed.
             self?.dismiss(animated: true, completion: {
-                // update estimation parameters, etc.
+                guard let self = self, let formModel = formModel else { return }
+
+                // collect the saved values
+
+                var savedValues = UserDefinedTransactionParameters()
+
+                switch formModel {
+                case let model as FeeLegacyFormModel:
+                    savedValues.nonce = model.nonce
+                    savedValues.gas = model.gas
+                    savedValues.gasPrice = model.gasPriceInWei
+
+                case let model as Fee1559FormModel:
+                    savedValues.nonce = model.nonce
+                    savedValues.gas = model.gas
+                    savedValues.maxFeePerGas = model.maxFeePerGasInWei
+                    savedValues.maxPriorityFee = model.maxPriorityFeePerGasInWei
+
+                default:
+                    break
+                }
+
+                // compare the initial snapshot and saved snapshot
+                // memberwise and remember only those values that changed.
+
+                if savedValues.nonce != initialValues.nonce {
+                    self.controller.userParameters.nonce = savedValues.nonce
+                }
+
+                if savedValues.gas != initialValues.gas {
+                    self.controller.userParameters.gas = savedValues.gas
+                }
+
+                if savedValues.gasPrice != initialValues.gasPrice {
+                    self.controller.userParameters.gasPrice = savedValues.gasPrice
+                }
+
+                if savedValues.maxFeePerGas != initialValues.maxFeePerGas {
+                    self.controller.userParameters.maxFeePerGas = savedValues.maxFeePerGas
+                }
+
+                if savedValues.maxPriorityFee != initialValues.maxPriorityFee {
+                    self.controller.userParameters.maxPriorityFee = savedValues.maxPriorityFee
+                }
+
+                // react to changes
+
+                if savedValues != initialValues {
+                    self.didChangeTransactionParameters()
+                }
             })
         }
+
         formVC.navigationItem.title = "Edit transaction fee"
 
         let nav = UINavigationController(rootViewController: formVC)
@@ -159,17 +273,64 @@ class ReviewExecutionViewController: ContainerViewController {
     }
 
     @IBAction func didTapSubmit(_ sender: Any) {
-        print("Submit!")
+        
+        // request passcode if needed and sign
+        if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
+            self.submitButton.isEnabled = false
+
+            let passcodeVC = EnterPasscodeViewController()
+            passcodeVC.passcodeCompletion = { [weak self] success in
+                self?.dismiss(animated: true) {
+                    guard let `self` = self else { return }
+
+                    if success {
+                        self.sign()
+                    }
+
+                    self.submitButton.isEnabled = true
+                }
+            }
+            present(passcodeVC, animated: true)
+        } else {
+            sign()
+        }
     }
 
+    func estimateTransaction() {
+        txEstimationTask?.cancel()
+        resetErrors()
+
+        contentVC.model?.executionOptions.feeState = .loading
+
+        let task = controller.estimate { [weak self] error in
+            guard let self = self else { return }
+            self.didChangeEstimation()
+
+            // if we haven't search default
+            if !self.didSearchDefaultKey && self.controller.selectedKey == nil {
+                self.findDefaultKey()
+            }
+        }
+
+        txEstimationTask = task
+    }
+
+    var didSearchDefaultKey: Bool = false
+
     func findDefaultKey() {
+        resetErrors()
         defaultKeyTask?.cancel()
 
         self.contentVC.model?.executionOptions.accountState = .loading
 
+        let previousKey = self.controller.selectedKey?.key
+
         let task = controller.findDefaultKey { [weak self] in
             guard let self = self else { return }
-            self.didChangeSelectedKey()
+            self.didSearchDefaultKey = true
+            if previousKey != self.controller.selectedKey?.key {
+                self.didChangeSelectedKey()
+            }
         }
 
         self.defaultKeyTask = task
@@ -186,11 +347,205 @@ class ReviewExecutionViewController: ContainerViewController {
                 balance: selection.balance.displayAmount
             )
             self.contentVC.model?.executionOptions.accountState = .filled(model)
+
+            // re-estimate if the key changed.
+            estimateTransaction()
         } else {
             contentVC.model?.executionOptions.accountState = .empty
         }
+
+        validate()
     }
 
-    // we need connector from the controller.selectedKey (+ balance) to the contentVC execution
-    // as well from the controller to the fee options
+    func didChangeTransactionParameters() {
+        didChangeEstimation()
+    }
+
+    func didChangeEstimation() {
+        if let tx = controller.ethTransaction {
+
+            let feeInWei = tx.totalFee
+
+            let nativeCoinDecimals = chain.nativeCurrency!.decimals
+            let nativeCoinSymbol = chain.nativeCurrency!.symbol!
+
+            let decimalAmount = BigDecimal(Int256(feeInWei.big()), Int(nativeCoinDecimals))
+            let value = TokenFormatter().string(
+                from: decimalAmount,
+                decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
+                thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",",
+                forcePlusSign: false
+            )
+
+            let tokenAmount: String = "\(value) \(nativeCoinSymbol)"
+
+            let model = EstimatedFeeUIModel(
+                tokenAmount: tokenAmount,
+                fiatAmount: nil)
+
+            contentVC.model?.executionOptions.feeState = .loaded(model)
+        } else {
+            contentVC.model?.executionOptions.feeState = .empty
+        }
+
+        validate()
+    }
+
+    func resetErrors() {
+        controller.errorMessage = nil
+        contentVC?.model?.errorMessage = nil
+    }
+
+    func validate() {
+        resetErrors()
+        controller.validate()
+        contentVC?.model?.errorMessage = controller.errorMessage
+        submitButton.isEnabled = controller.isValid
+    }
+
+    func sign() {
+        guard let keyInfo = controller.selectedKey?.key else {
+            return
+        }
+
+        switch keyInfo.keyType {
+        case .deviceImported, .deviceGenerated:
+            do {
+                let txHash = controller.hashForSigning()
+
+                guard let pk = try keyInfo.privateKey() else {
+                    App.shared.snackbar.show(message: "Private key not available")
+                    return
+                }
+                let signature = try pk._store.sign(hash: Array(txHash))
+
+                try controller.update(signature: signature)
+            } catch {
+                let gsError = GSError.error(description: "Signing failed", error: error)
+                App.shared.snackbar.show(error: gsError)
+                return
+            }
+            submit()
+
+        case .walletConnect:
+            guard let clientTx = controller.walletConnectTransaction() else {
+                let gsError = GSError.error(description: "Unsupported transaction type")
+                App.shared.snackbar.show(error: gsError)
+                return
+            }
+
+            let wcVC = WCPendingConfirmationViewController(
+                clientTx,
+                keyInfo: keyInfo,
+                title: "Sign Transaction"
+            )
+
+            wcVC.sign { [weak self] signature in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+
+                    do {
+                        try self.controller.update(signature: signature)
+                    } catch {
+                        let gsError = GSError.error(description: "Signing failed", error: error)
+                        App.shared.snackbar.show(error: gsError)
+                        return
+                    }
+
+                    self.submit()
+                }
+            }
+            present(wcVC, animated: true)
+
+
+        case .ledgerNanoX:
+            let rawTransaction = controller.preimageForSigning()
+            let chainId = controller.intChainId
+            let isLegacy = controller.isLegacyTx
+
+            let request = SignRequest(title: "Sign Transaction",
+                                      tracking: ["action" : "signTx"],
+                                      signer: keyInfo,
+                                      payload: .rawTx(data: rawTransaction, chainId: chainId, isLegacy: isLegacy))
+
+            let vc = LedgerSignerViewController(request: request)
+
+            vc.txCompletion = { [weak self] signature in
+                guard let self = self else { return }
+
+                do {
+                    try self.controller.update(signature: (UInt(signature.v), Array(signature.r), Array(signature.s)))
+                } catch {
+                    let gsError = GSError.error(description: "Signing failed", error: error)
+                    App.shared.snackbar.show(error: gsError)
+                    return
+                }
+
+                self.submit()
+            }
+
+            present(vc, animated: true, completion: nil)
+        }
+
+    }
+
+    func submit() {
+        self.submitButton.isEnabled = false
+
+        sendingTask?.cancel()
+        sendingTask = controller.send(completion: { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .failure(let error):
+                self.submitButton.isEnabled = true
+
+                let gsError = GSError.error(description: "Submitting failed", error: error)
+                App.shared.snackbar.show(error: gsError)
+
+            case .success:
+                let txHash = self.controller.ethTransaction?.hash ?? .init()
+                LogService.shared.debug("Submitted tx: \(txHash.storage.storage.toHexStringWithPrefix())")
+
+                let successVC = TransactionSuccessViewController(
+                    titleText: "Your transaction is submitted!",
+                    bodyText: "It normally takes some time for a transaction to be executed.",
+                    doneTitle: "View details",
+                    trackingEvent: .executeSuccess
+                )
+
+                successVC.onDone = { [weak self] in
+                    guard let self = self else { return }
+
+                    guard let txHash = self.controller.ethTransaction?.hash,
+                          let template = self.chain.blockExplorerUrlTxHash
+                    else {
+                        self.onSuccess()
+                        return
+                    }
+                    let hexTxHash = txHash.storage.storage.toHexStringWithPrefix()
+                    let urlString = template.replacingOccurrences(of: "{{txHash}}", with: hexTxHash)
+
+                    guard let url = URL(string: urlString) else {
+                        self.onSuccess()
+                        return
+                    }
+
+                    let safari = SFSafariViewController(url: url)
+                    safari.delegate = self
+                    safari.modalPresentationStyle = .formSheet
+                    self.present(safari, animated: true)
+                }
+
+                self.show(successVC, sender: self)
+            }
+        })
+    }
+
+}
+
+extension ReviewExecutionViewController: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        self.onSuccess()
+    }
 }

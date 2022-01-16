@@ -70,6 +70,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         App.shared.clientGatewayHostObserver.startObserving()
 
+        PendingTransactionMonitor.scheduleMonitoring()
+
         privacyShieldWindow?.isHidden = true
 
         if let viewController = updateAppWindow?.rootViewController as? UpdateAppViewController, viewController.style == .required {
@@ -79,6 +81,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillResignActive(_ scene: UIScene) {
         App.shared.clientGatewayHostObserver.stopObserving()
+
+        PendingTransactionMonitor.stopMonitoring()
 
         if presentedWindow === tabBarWindow {
             privacyShieldWindow?.isHidden = false

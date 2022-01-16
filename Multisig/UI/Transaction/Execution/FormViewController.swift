@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 /// Responsible for creating the fields and field validation
-protocol FormModel {
+protocol FormModel: AnyObject {
     /// Will be set by the form view controller
     var delegate: FieldDelegate? { get set }
     /// Whether the form is valid.

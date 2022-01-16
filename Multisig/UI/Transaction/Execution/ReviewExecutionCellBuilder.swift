@@ -23,6 +23,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         self.safe = safe
 
         tableView.registerCell(BorderedInnerTableCell.self)
+        tableView.registerCell(ErrorTableViewCell.self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Spacer")
     }
 
@@ -36,6 +37,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         buildAssetContract(model.transaction)
         buildSpacing()
         buildExecutionOptions(model.executionOptions)
+        buildErrors(model.errorMessage)
         return result
     }
 
@@ -77,30 +79,16 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
     }
 
     func buildExecutedWithAccount(_ model: ExecuteWithAccountCellState, tableView: UITableView) -> UITableViewCell {
-        // 'loading' status for automatic selection process
-            // skeleton loading view
-        // 'empty' with call to action to select something
-            // label
-        // 'filled' state for the account and balance
-            // account and balance piece
-
         let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
         cell.setText("Execute with")
         switch model {
         case .loading:
-            let skeleton = UILabel()
-            skeleton.textAlignment = .right
-            skeleton.isSkeletonable = true
-            skeleton.skeletonTextLineHeight = .fixed(25)
-            skeleton.showSkeleton(delay: 0.2)
-            cell.setContent(skeleton)
+            let content = loadingView()
+            cell.setContent(content)
             
         case .empty:
-            let label = UILabel()
-            label.textAlignment = .right
-            label.setStyle(.secondary)
-            label.text = "Not selected"
-            cell.setContent(label)
+            let content = textView("Not selected")
+            cell.setContent(content)
 
         case .filled(let accountModel):
             let content = MiniAccountAndBalancePiece()
@@ -111,27 +99,60 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
     }
 
     func buildEstimatedGasFee(_ model: EstimatedFeeCellState, tableView: UITableView) -> UITableViewCell {
-        // 'loading'
-            // skeleton / loading view
-        // 'loaded'
-            // amount and value piece
+        let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
+        cell.setText("Estimated gas fee")
 
-        let estimatedFeeCell = tableView.dequeueCell(DisclosureWithContentCell.self)
-        estimatedFeeCell.setText("Estimated gas fee")
+        switch model {
+        case .loading:
+            let content = loadingView()
+            cell.setContent(content)
 
-        let amountPiece = AmountAndValuePiece()
-        amountPiece.setAmount("Some amount")
-        amountPiece.setFiatAmount("some fiat")
+        case .empty:
+            let content = textView("Not set")
+            cell.setContent(content)
 
-        estimatedFeeCell.setContent(amountPiece)
+        case .loaded(let feeModel):
+            let amountPiece = AmountAndValuePiece()
+            amountPiece.setAmount(feeModel.tokenAmount)
+            amountPiece.setFiatAmount(feeModel.fiatAmount)
+            cell.setContent(amountPiece)
+        }
 
-        return estimatedFeeCell
+        return cell
+    }
+
+    func textView(_ text: String?) -> UIView {
+        let label = UILabel()
+        label.textAlignment = .right
+        label.setStyle(.secondary)
+        label.text = text
+        return label
+    }
+
+    func loadingView() -> UIView {
+        let skeleton = UILabel()
+        skeleton.textAlignment = .right
+        skeleton.isSkeletonable = true
+        skeleton.skeletonTextLineHeight = .fixed(25)
+        skeleton.showSkeleton(delay: 0.2)
+        return skeleton
     }
 
     func buildAdvancedParameters(tableView: UITableView) -> UITableViewCell {
         let advancedCell = tableView.dequeueCell(SecondaryDetailDisclosureCell.self)
         advancedCell.setText("Advanced parameters")
         return advancedCell
+    }
+
+    func buildErrors(_ errorText: String?) {
+        guard let errorText = errorText else {
+            return
+        }
+
+        let cell = newCell(ErrorTableViewCell.self)
+        cell.setText(errorText)
+        cell.separatorInset = UIEdgeInsets(top: 0, left: .greatestFiniteMagnitude, bottom: 0, right: 0)
+        result.append(cell)
     }
 
     // MARK: New Transfer Header
@@ -236,8 +257,7 @@ struct TokenAmountUIModel {
     }
 
     var formattedFiatValue: String {
-        // TODO: Fetch fiat amount
-        detail ?? "fiat amount"
+        detail ?? ""
     }
 
     var tokenLogoURL: URL? {
@@ -248,6 +268,7 @@ struct TokenAmountUIModel {
 struct ExecutionReviewUIModel {
     var transaction: SCGModels.TransactionDetails
     var executionOptions: ExecutionOptionsUIModel
+    var errorMessage: String?
 }
 
 struct ExecutionOptionsUIModel {
@@ -272,6 +293,7 @@ struct MiniAccountInfoUIModel {
 
 enum EstimatedFeeCellState {
     case loading
+    case empty
     case loaded(EstimatedFeeUIModel)
 }
 

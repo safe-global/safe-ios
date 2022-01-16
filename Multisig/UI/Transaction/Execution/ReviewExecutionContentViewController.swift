@@ -56,14 +56,7 @@ class ReviewExecutionContentViewController: UITableViewController {
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48
-
         tableView.allowsSelection = false
-
-        // TODO: handling app notifications
-            // owner key imported, removed, updated - for selecting keys
-            // chain info changed - for execution options and policies
-            // address book changed - for displaying names
-            // selected safe updated or changed? - for safe address
 
         // build everything
         reloadData()

@@ -135,6 +135,30 @@ class WalletConnectClientController {
         }
     }
 
+    func sign(transaction: Client.Transaction, completion: @escaping (String?) -> Void) {
+        guard let session = session,
+              let client = client
+        else {
+            completion(nil)
+            return
+        }
+        do {
+            try client.eth_signTransaction(url: session.url, transaction: transaction, completion: { response in
+                
+                let signature: String?
+                do {
+                    signature = try response.result(as: String.self)
+                } catch {
+                    signature = nil
+                }
+                
+                completion(signature)
+            })
+        } catch {
+            completion(nil)
+        }
+    }
+
     private func wcSign(transaction: Transaction, completion: @escaping (Result<String, Error>) -> Void) {
         guard let session = session,
               let client = client,

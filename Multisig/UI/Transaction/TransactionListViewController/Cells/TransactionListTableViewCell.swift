@@ -106,7 +106,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         switch status {
         case .awaitingExecution, .awaitingConfirmations, .awaitingYourConfirmation, .pending:
             return .pending
-        case .failed:
+        case .failed, .pendingFailed:
             return .error
         case .cancelled:
             return .secondaryLabel

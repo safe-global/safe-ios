@@ -267,7 +267,13 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             chain: chain,
             transaction: tx
         ) { [weak self] in
+            // on close
             self?.dismiss(animated: true, completion: nil)
+        }
+
+        reviewVC.onSuccess = { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+            self?.reloadData()
         }
 
         let navigationController = UINavigationController(rootViewController: reviewVC)
@@ -473,6 +479,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             self.tx!.txStatus = .awaitingYourConfirmation
         }
 
+        let transformer = TransactionDataTransformer(safe: self.safe, chain: self.safe.chain!)
+        self.tx = transformer.transformed(transaction: self.tx!)
+
         cells = builder.build(self.tx!)
     }
 
@@ -528,7 +537,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     // returns true if the app has means to execute the transaction and the transaction has all required confirmations
     func needsYourExecution(tx: SCGModels.TransactionDetails) -> Bool {
-        if tx.txStatus == .awaitingExecution,
+        if tx.txStatus == .awaitingExecution || tx.txStatus == .pendingFailed,
            let multisigInfo = tx.multisigInfo,
            // unclear why the confirmations only count ecdsa
            tx.ecdsaConfirmations.count >= multisigInfo.confirmationsRequired,

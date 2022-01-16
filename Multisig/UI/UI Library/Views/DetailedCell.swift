@@ -30,8 +30,13 @@ class DetailedCell: UITableViewCell {
         iconImageView.kf.setImage(with: url, placeholder: placeholder)
     }
 
-    func setHeader(_ text: String?) {
+    func setImage(_ image: UIImage?) {
+        iconImageView.image = image
+    }
+
+    func setHeader(_ text: String?, style: GNOTextStyle = .headline) {
         headerLabel.text = text
+        headerLabel.setStyle(style)
     }
 
     func setDescription(_ text: String?) {

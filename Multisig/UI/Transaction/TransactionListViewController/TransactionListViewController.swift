@@ -102,6 +102,10 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
 
                 DispatchQueue.main.async { [weak self] in
                     guard let `self` = self else { return }
+
+                    let transformer = TransactionDataTransformer(safe: self.safe, chain: self.safe.chain!)
+                    model.items = transformer.transformed(list: model.items)
+
                     self.model = model
                     self.onSuccess()
                 }
@@ -174,6 +178,9 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
 
                     DispatchQueue.main.async { [weak self] in
                         guard let `self` = self else { return }
+                        let transformer = TransactionDataTransformer(safe: self.safe, chain: self.safe.chain!)
+                        model.items = transformer.transformed(list: model.items)
+                        
                         self.model.append(from: model)
                         self.onSuccess()
                         self.pageLoadingState = .idle

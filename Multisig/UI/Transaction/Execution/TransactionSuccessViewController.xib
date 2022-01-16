@@ -11,10 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TransactionSuccessViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
-                <outlet property="statusLabel" destination="vWJ-lb-hId" id="M3i-ln-AXv"/>
+                <outlet property="bodyLabel" destination="vWJ-lb-hId" id="M3i-ln-AXv"/>
+                <outlet property="doneButton" destination="9w2-V0-5fP" id="hLw-3G-CnZ"/>
                 <outlet property="titleLabel" destination="2cy-o0-Tus" id="Nh3-8m-t0k"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outlet property="viewDetailsButton" destination="9w2-V0-5fP" id="hLw-3G-CnZ"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
