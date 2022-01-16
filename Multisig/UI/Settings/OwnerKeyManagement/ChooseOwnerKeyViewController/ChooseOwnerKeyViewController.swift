@@ -46,6 +46,7 @@ class ChooseOwnerKeyViewController: UIViewController {
     // `wcDidConnectClient` happens when app eneters foreground. This parameter should throttle unexpected events
     private var waitingForSession = false
 
+    var trackingEvent: TrackingEvent = .chooseOwner
     var completionHandler: ((KeyInfo?) -> Void)?
 
     convenience init(
@@ -72,7 +73,7 @@ class ChooseOwnerKeyViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.chooseOwner)
+        Tracker.trackEvent(trackingEvent)
     }
 
     override func viewDidLoad() {

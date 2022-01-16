@@ -101,9 +101,8 @@ class ReviewExecutionViewController: ContainerViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // tracking
+        Tracker.trackEvent(.reviewExecution)
     }
-
 
     @IBAction func didTapClose(_ sender: Any) {
         self.onClose()
@@ -122,6 +121,8 @@ class ReviewExecutionViewController: ContainerViewController {
             selectedKey: controller.selectedKey?.key,
             balancesLoader: balancesLoader
         )
+        keyPickerVC.trackingEvent = .reviewExecutionSelectKey
+
         // this way of returning the results from the view controller is just because
         // there was already existing code depending on the completion handler.
         // modified with minimum changes to the existing API.
@@ -137,6 +138,7 @@ class ReviewExecutionViewController: ContainerViewController {
                 self.controller.selectedKey = nil
             }
             if selectedKeyInfo != previousKey {
+                Tracker.trackEvent(.reviewExecutionSelectedKeyChanged)
                 self.didChangeSelectedKey()
             }
 
@@ -205,6 +207,8 @@ class ReviewExecutionViewController: ContainerViewController {
             self?.dismiss(animated: true)
         }
 
+        formVC.trackingEvent = .reviewExecutionEditFee
+
         formVC.onSave = { [weak self, weak formModel] in
             // on save - update the parameters that were changed.
             self?.dismiss(animated: true, completion: {
@@ -233,30 +237,45 @@ class ReviewExecutionViewController: ContainerViewController {
                 // compare the initial snapshot and saved snapshot
                 // memberwise and remember only those values that changed.
 
+                var changedFieldTrackingIds: [String] = []
+
                 if savedValues.nonce != initialValues.nonce {
                     self.controller.userParameters.nonce = savedValues.nonce
+
+                    changedFieldTrackingIds.append("nonce")
                 }
 
                 if savedValues.gas != initialValues.gas {
                     self.controller.userParameters.gas = savedValues.gas
+
+                    changedFieldTrackingIds.append("gasLimit")
                 }
 
                 if savedValues.gasPrice != initialValues.gasPrice {
                     self.controller.userParameters.gasPrice = savedValues.gasPrice
+
+                    changedFieldTrackingIds.append("gasPrice")
                 }
 
                 if savedValues.maxFeePerGas != initialValues.maxFeePerGas {
                     self.controller.userParameters.maxFeePerGas = savedValues.maxFeePerGas
+
+                    changedFieldTrackingIds.append("maxFee")
                 }
 
                 if savedValues.maxPriorityFee != initialValues.maxPriorityFee {
                     self.controller.userParameters.maxPriorityFee = savedValues.maxPriorityFee
+
+                    changedFieldTrackingIds.append("maxPriorityFee")
                 }
 
                 // react to changes
 
                 if savedValues != initialValues {
                     self.didChangeTransactionParameters()
+
+                    let changedFields = changedFieldTrackingIds.joined(separator: ",")
+                    Tracker.trackEvent(.reviewExecutionFieldEdited, parameters: ["fields": changedFields])
                 }
             })
         }
@@ -269,6 +288,7 @@ class ReviewExecutionViewController: ContainerViewController {
 
     @IBAction func didTapAdvanced(_ sender: Any) {
         let advancedVC = AdvancedTransactionDetailsViewController(transaction, chain: chain)
+        advancedVC.trackingEvent = .reviewExecutionAdvanced
         show(advancedVC, sender: self)
     }
 
@@ -503,6 +523,10 @@ class ReviewExecutionViewController: ContainerViewController {
                 let gsError = GSError.error(description: "Submitting failed", error: error)
                 App.shared.snackbar.show(error: gsError)
 
+                Tracker.trackEvent(.executeFailure, parameters: [
+                    "chainId": self.controller.chainId
+                ])
+
             case .success:
                 let txHash = self.controller.ethTransaction?.hash ?? .init()
                 LogService.shared.debug("Submitted tx: \(txHash.storage.storage.toHexStringWithPrefix())")
@@ -513,6 +537,30 @@ class ReviewExecutionViewController: ContainerViewController {
                     doneTitle: "View details",
                     trackingEvent: .executeSuccess
                 )
+
+                // track key type
+                if let key = self.controller.selectedKey?.key {
+                    let trackedKeyType: String
+
+                    switch key.keyType {
+                    case .deviceImported:
+                        trackedKeyType = "imported"
+
+                    case .deviceGenerated:
+                        trackedKeyType = "generated"
+
+                    case .walletConnect:
+                        trackedKeyType = "wallet_connect"
+
+                    case .ledgerNanoX:
+                        trackedKeyType = "ledger_nano_x"
+                    }
+                    
+                    successVC.trackingParams = [
+                        "keyType": trackedKeyType,
+                        "chainId": self.controller.chainId
+                    ]
+                }
 
                 successVC.onDone = { [weak self] in
                     guard let self = self else { return }

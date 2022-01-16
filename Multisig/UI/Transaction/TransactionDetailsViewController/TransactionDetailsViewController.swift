@@ -36,6 +36,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         case data(SCGModels.TransactionDetails)
     }
 
+    private var didTrackScreen: Bool = false
+    private var trackedTxStatus: SCGModels.TxStatus?
+
     private var txSource: TransactionSource!
 
     private var ledgerKeyInfo: KeyInfo?
@@ -107,7 +110,23 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.transactionsDetails)
+        trackScreen()
+    }
+
+    private func trackScreen() {
+        if !didTrackScreen, let status = trackedTxStatus {
+            Tracker.trackEvent(.transactionsDetails, parameters: [
+                "status": status.rawValue
+            ])
+            didTrackScreen = true
+        }
+    }
+
+    private func trackScreenWithLoadingFailure() {
+        // failed to load the status, track without parameters
+        if !didTrackScreen {
+            Tracker.trackEvent(.transactionsDetails)
+        }
     }
 
     // MARK: - Events
@@ -340,7 +359,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                                       hexToSign: safeTxHash)
             let vc = LedgerSignerViewController(request: request)
 
-            present(vc, animated: true, completion: nil)
+            present(vc, animated: true, completion: {
+                Tracker.trackEvent(.reviewExecutionLedger)
+            })
 
             vc.completion = { [weak self] signature in
                 self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: .ledgerNanoX)
@@ -461,6 +482,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                     return
                 }
                 self.onError(GSError.error(description: "Failed to load transaction details", error: error))
+
+                self.trackScreenWithLoadingFailure()
             }
         case .success(let details):
             DispatchQueue.main.async { [weak self] in
@@ -481,6 +504,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         let transformer = TransactionDataTransformer(safe: self.safe, chain: self.safe.chain!)
         self.tx = transformer.transformed(transaction: self.tx!)
+
+        trackScreen()
 
         cells = builder.build(self.tx!)
     }

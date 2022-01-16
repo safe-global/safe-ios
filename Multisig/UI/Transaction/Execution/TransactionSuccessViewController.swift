@@ -19,6 +19,8 @@ class TransactionSuccessViewController: UIViewController {
     private var doneTitle: String?
     private var trackingEvent: TrackingEvent!
 
+    var trackingParams: [String: Any]? = nil
+
     var onDone: () -> Void = { }
     
     convenience init(
@@ -49,7 +51,7 @@ class TransactionSuccessViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(trackingEvent)
+        Tracker.trackEvent(trackingEvent, parameters: trackingParams)
     }
     
     @IBAction func viewDetailsClicked(_ sender: Any) {
