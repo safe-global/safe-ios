@@ -375,6 +375,8 @@
 		0ABE698827920294003338AF /* ErrorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE698627920294003338AF /* ErrorTableViewCell.swift */; };
 		0ABE698927920294003338AF /* ErrorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABE698727920294003338AF /* ErrorTableViewCell.xib */; };
 		0AC0948127945B5900FA1B83 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0948027945B5900FA1B83 /* CircleView.swift */; };
+		0AC0948327946B6600FA1B83 /* PendingTransactionMontior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0948227946B6600FA1B83 /* PendingTransactionMontior.swift */; };
+		0AC0948527948BD900FA1B83 /* TransactionDataTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0948427948BD900FA1B83 /* TransactionDataTransformer.swift */; };
 		0AC2A3C726FB6802002CB26A /* CollectiblesUnsupportedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC2A3C526FB6802002CB26A /* CollectiblesUnsupportedViewController.swift */; };
 		0AC2A3C826FB6802002CB26A /* CollectiblesUnsupportedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC2A3C626FB6802002CB26A /* CollectiblesUnsupportedViewController.xib */; };
 		0AC2A3CA26FB6B84002CB26A /* WebAppURLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC2A3C926FB6B84002CB26A /* WebAppURLBuilder.swift */; };
@@ -1067,6 +1069,8 @@
 		0ABE698627920294003338AF /* ErrorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTableViewCell.swift; sourceTree = "<group>"; };
 		0ABE698727920294003338AF /* ErrorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorTableViewCell.xib; sourceTree = "<group>"; };
 		0AC0948027945B5900FA1B83 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
+		0AC0948227946B6600FA1B83 /* PendingTransactionMontior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingTransactionMontior.swift; sourceTree = "<group>"; };
+		0AC0948427948BD900FA1B83 /* TransactionDataTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDataTransformer.swift; sourceTree = "<group>"; };
 		0AC2A3C526FB6802002CB26A /* CollectiblesUnsupportedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesUnsupportedViewController.swift; sourceTree = "<group>"; };
 		0AC2A3C626FB6802002CB26A /* CollectiblesUnsupportedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectiblesUnsupportedViewController.xib; sourceTree = "<group>"; };
 		0AC2A3C926FB6B84002CB26A /* WebAppURLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAppURLBuilder.swift; sourceTree = "<group>"; };
@@ -2417,6 +2421,7 @@
 				0468FB8525912E6800541536 /* HistoryTransactionsViewController.swift */,
 				0468FB8325912E6800541536 /* QueuedTransactionsViewController.swift */,
 				0ADA911125656FEC0004DEC0 /* TransactionListViewController.swift */,
+				0AC0948427948BD900FA1B83 /* TransactionDataTransformer.swift */,
 			);
 			path = TransactionListViewController;
 			sourceTree = "<group>";
@@ -3175,6 +3180,7 @@
 				0A045079278DAD4000650F71 /* SecondaryDetailDisclosureCell.xib */,
 				0A9366B8279073E3001918A9 /* TextValidator.swift */,
 				0A04508A278E283D00650F71 /* TransactionExecutionController.swift */,
+				0AC0948227946B6600FA1B83 /* PendingTransactionMontior.swift */,
 				0ABE6982279177A4003338AF /* TransactionEstimationController.swift */,
 				D865177F27687E0B000B4C04 /* TransactionSuccessViewController.swift */,
 				D865178027687E0B000B4C04 /* TransactionSuccessViewController.xib */,
@@ -3782,6 +3788,7 @@
 				04273E5C26B41A3700A14E95 /* APDUController.swift in Sources */,
 				0A8AEB1825A4726E002A3FE1 /* ActionDetailExpandableCell.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
+				0AC0948327946B6600FA1B83 /* PendingTransactionMontior.swift in Sources */,
 				0A63C7B42602087E00D36B22 /* SafeInfoRequest.swift in Sources */,
 				0A57C5D72577F9E600420303 /* ConfirmationStatusPiece.swift in Sources */,
 				04077B3D278CB85000AF6376 /* ActivityButtonView.swift in Sources */,
@@ -3874,6 +3881,7 @@
 				0A3DAD9B26270F5500743E38 /* IDN.swift in Sources */,
 				550FB1B626691D9500C13D54 /* DetailedCell.swift in Sources */,
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
+				0AC0948527948BD900FA1B83 /* TransactionDataTransformer.swift in Sources */,
 				0A451C0C252DDBE5001DB7D2 /* CollectibleListSection.swift in Sources */,
 				0A9275C525ADDEE700755881 /* CollecitbleSectionSeparatorView.swift in Sources */,
 				55BCFC2A2551C9C200020CE7 /* UITableView+Reusable.swift in Sources */,

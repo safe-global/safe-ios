@@ -27,8 +27,8 @@ extension SCGModels {
     }
 
     struct TransactionSummaryItemTransaction: Decodable {
-        let transaction: TxSummary
-        let conflictType: ConflictType
+        var transaction: TxSummary
+        var conflictType: ConflictType
     }
 
     struct TransactionSummaryItemConflictHeader: Decodable {
@@ -122,7 +122,10 @@ extension SCGModels {
         case cancelled = "CANCELLED"
         case failed = "FAILED"
         case success = "SUCCESS"
+        // UI-only status when tx was submitted to the mempool(cgw status is AWAITING_EXECUTION)
         case pending = "PENDING"
+        // UI-only status when submitted transaction failed. (cgw status is AWAITING_EXECUTION)
+        case pendingFailed = "PENDING_FAILED"
     }
 
     enum ExecutionInfo: Decodable {

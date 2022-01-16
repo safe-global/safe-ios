@@ -31,6 +31,16 @@
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="sessionRenewedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
+    <entity name="CDEthTransaction" representedClassName="CDEthTransaction" syncable="YES" codeGenerationType="class">
+        <attribute name="chainId" optional="YES" attributeType="String"/>
+        <attribute name="dateExecutedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateSubmittedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateUpdatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="ethTxHash" optional="YES" attributeType="String"/>
+        <attribute name="safeAddress" optional="YES" attributeType="String"/>
+        <attribute name="safeTxHash" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="Chain" representedClassName="Chain" syncable="YES" codeGenerationType="class">
         <attribute name="blockExplorerUrlAddress" optional="YES" attributeType="String"/>
         <attribute name="blockExplorerUrlTxHash" optional="YES" attributeType="String"/>
@@ -108,5 +118,6 @@
         <element name="Selection" positionX="165.51171875" positionY="-15.453125" width="128" height="58"/>
         <element name="WCKeySession" positionX="54" positionY="135" width="128" height="89"/>
         <element name="WCSession" positionX="54" positionY="18" width="128" height="119"/>
+        <element name="CDEthTransaction" positionX="54" positionY="144" width="128" height="149"/>
     </elements>
 </model>

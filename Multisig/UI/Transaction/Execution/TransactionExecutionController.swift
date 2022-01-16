@@ -543,7 +543,23 @@ class TransactionExecutionController {
             tx.hash = Eth.Hash(txHash.storage)
             self.ethTransaction = tx
 
-            dispatchOnMainThread(completion(.success(())))
+            DispatchQueue.main.async {
+                // save the tx information for monitoring purposes
+                let context = App.shared.coreDataStack.viewContext
+                let cdTx = CDEthTransaction(context: context)
+                cdTx.ethTxHash = txHash.storage.toHexStringWithPrefix()
+                cdTx.safeTxHash = self.transaction.multisigInfo?.safeTxHash.description
+                cdTx.status = SCGModels.TxStatus.pending.rawValue
+                cdTx.safeAddress = self.safe.address
+                cdTx.chainId = self.chainId
+                cdTx.dateSubmittedAt = Date()
+                App.shared.coreDataStack.saveContext()
+
+                // Notify the observers about tx changes
+                NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
+
+                completion(.success(()))
+            }
         }
         return task
     }
