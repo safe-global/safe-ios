@@ -7,10 +7,12 @@ public class TooltipSource: TooltipDelegate {
 
     private weak var tooltip: Tooltip?
     private weak var target: UIView?
-
+    
     private var onTap: (() -> Void)?
     private var onAppear: (() -> Void)?
     private var onDisappear: (() -> Void)?
+    
+    private var windowTapRecognizer: UITapGestureRecognizer!
 
     public var isActive: Bool = true
     public var message: String?
@@ -29,17 +31,31 @@ public class TooltipSource: TooltipDelegate {
         tapRecognizer.cancelsTouchesInView = false
         target.addGestureRecognizer(tapRecognizer)
         target.isUserInteractionEnabled = true
+        
+        windowTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideTooltip))
+    }
+    
+    @objc private func hideTooltip() {
+        
+        if let tooltip = self.tooltip, tooltip.isVisible {
+            tooltip.hide()
+        }
     }
 
     @objc private func didTap() {
+        
         if let tooltip = self.tooltip, tooltip.isVisible {
-            tooltip.hide()
             return
         }
+       
         guard isActive,
               let message = self.message, !message.isEmpty,
               let window = UIApplication.shared.keyWindow,
               let target = target else { return }
+        
+        window.rootViewController?.presentedViewController?.view.isUserInteractionEnabled = false
+        window.addGestureRecognizer(windowTapRecognizer)
+        
         tooltip = Tooltip.show(
             for: target,
             in: window,
@@ -47,6 +63,7 @@ public class TooltipSource: TooltipDelegate {
             aboveTarget: aboveTarget,
             hideAutomatically: hideAutomatically,
             delegate: self)
+        
         onTap?()
     }
 
@@ -56,5 +73,8 @@ public class TooltipSource: TooltipDelegate {
 
     public func tooltipWillDisappear(_ tooltip: Tooltip) {
         onDisappear?()
+        guard let window = UIApplication.shared.keyWindow else { return }
+        window.removeGestureRecognizer(windowTapRecognizer)
+        window.rootViewController?.presentedViewController?.view.isUserInteractionEnabled = true
     }
 }
