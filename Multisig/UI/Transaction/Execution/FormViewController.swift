@@ -44,6 +44,7 @@ class FormViewController: UITableViewController {
     var model: FormModel!
     var onClose: () -> Void = {}
     var onSave: () -> Void = {}
+    var trackingEvent: TrackingEvent?
 
     var keyboardBehavior: KeyboardAvoidingBehavior!
     var closeButton: UIBarButtonItem!
@@ -102,6 +103,13 @@ class FormViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         keyboardBehavior.start()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let trackingEvent = trackingEvent {
+            Tracker.trackEvent(trackingEvent)
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {

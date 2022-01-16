@@ -11,6 +11,9 @@ import UIKit
 class AdvancedTransactionDetailsViewController: UITableViewController {
     private var sections: [Section] = []
     private var chain: Chain!
+
+    var trackingEvent: TrackingEvent = .transactionsDetailsAdvanced
+
     convenience init(_ tx: SCGModels.TransactionDetails, chain: Chain) {
         self.init()
         self.chain = chain
@@ -19,7 +22,7 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.transactionsDetailsAdvanced)
+        Tracker.trackEvent(trackingEvent)
     }
 
     override func viewDidLoad() {
