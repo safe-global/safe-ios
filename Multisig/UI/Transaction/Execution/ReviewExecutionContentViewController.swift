@@ -14,6 +14,7 @@ class ReviewExecutionContentViewController: UITableViewController {
     var onTapAccount: () -> Void = {}
     var onTapFee: () -> Void = {}
     var onTapAdvanced: () -> Void = {}
+    var onReload: () -> Void = {}
 
     var model: ExecutionReviewUIModel? {
         didSet {
@@ -25,6 +26,7 @@ class ReviewExecutionContentViewController: UITableViewController {
     private var safe: Safe!
     private var chain: Chain!
     private var transaction: SCGModels.TransactionDetails!
+    private var pullToRefreshControl: UIRefreshControl!
 
     private var builder: ReviewExecutionCellBuilder!
 
@@ -57,9 +59,22 @@ class ReviewExecutionContentViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48
         tableView.allowsSelection = false
+        pullToRefreshControl = UIRefreshControl()
+        pullToRefreshControl.addTarget(self,
+                                       action: #selector(pullToRefreshChanged),
+                                       for: .valueChanged)
+        tableView.refreshControl = pullToRefreshControl
 
         // build everything
         reloadData()
+    }
+
+    @objc private func pullToRefreshChanged() {
+        onReload()
+    }
+
+    func didEndReloading() {
+        pullToRefreshControl.endRefreshing()
     }
 
     func reloadData() {
