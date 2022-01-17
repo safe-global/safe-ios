@@ -71,6 +71,7 @@ class ReviewExecutionViewController: ContainerViewController {
                 feeState: .loading
             )
         )
+        contentVC.onReload = action(#selector(didTriggerReload(_:)))
         self.viewControllers = [contentVC]
         self.displayChild(at: 0, in: contentView)
 
@@ -102,6 +103,10 @@ class ReviewExecutionViewController: ContainerViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.reviewExecution)
+    }
+
+    @IBAction func didTriggerReload(_ sender: Any) {
+        estimateTransaction()
     }
 
     @IBAction func didTapClose(_ sender: Any) {
@@ -325,6 +330,7 @@ class ReviewExecutionViewController: ContainerViewController {
         let task = controller.estimate { [weak self] error in
             guard let self = self else { return }
             self.didChangeEstimation()
+            self.contentVC.didEndReloading()
 
             // if we haven't search default
             if !self.didSearchDefaultKey && self.controller.selectedKey == nil {
