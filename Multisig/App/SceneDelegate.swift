@@ -204,16 +204,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else if shouldShowPasscode {
             showWindow(makeEnterPasscodeWindow())
         } else {
-            showWindow(tabBarWindow)
+            showMainContentWindow()
         }
+    }
+    
+    func showMainContentWindow() {
+        showWindow(tabBarWindow)
+        App.shared.intercomConfig.appDidShowMainContent()
     }
 
     func onTermsCompletion() {
-        showWindow(tabBarWindow)
+        showMainContentWindow()
     }
 
     func onEnterPasscodeCompletion() {
-        showWindow(tabBarWindow)
+        showMainContentWindow()
     }
 
     func onTabBarAppearance(of tabBar: MainTabBarViewController) {
