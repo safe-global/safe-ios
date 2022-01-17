@@ -21,6 +21,8 @@ struct TokenBalance: Identifiable, Hashable {
     let symbol: String
     let balance: String
     let fiatBalance: String
+    let balanceValue: BigDecimal
+    let decimals: Int
 }
 
 extension TokenBalance {
@@ -35,7 +37,14 @@ extension TokenBalance {
                   code: code)
     }
 
-    init(address: Address, name: String?, symbol: String?, logoUri: String?, tokenBalance: UInt256String, decimals: UInt256String?, fiatBalance: String, code: String) {
+    init(address: Address,
+         name: String?,
+         symbol: String?,
+         logoUri: String?,
+         tokenBalance: UInt256String,
+         decimals: UInt256String?,
+         fiatBalance: String,
+         code: String) {
         self.address = address.checksummed
         let coin = Chain.nativeCoin
 
@@ -47,8 +56,10 @@ extension TokenBalance {
         let amount = Int256(tokenBalance.value)
         let precision = decimals?.value ?? (coin?.decimals).map(UInt256.init(clamping:)) ?? 18
 
+        self.decimals = Int(clamping: precision)
+        self.balanceValue = BigDecimal(amount, self.decimals)
         self.balance = tokenFormatter.string(
-            from: BigDecimal(amount, Int(clamping: precision)),
+            from: balanceValue,
             decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
             thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",")
 

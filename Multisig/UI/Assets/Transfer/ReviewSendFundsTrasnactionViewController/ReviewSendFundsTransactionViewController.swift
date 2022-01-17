@@ -8,6 +8,7 @@
 
 import UIKit
 import Version
+import SwiftCryptoTokenFormatter
 
 fileprivate protocol SectionItem {}
 
@@ -24,7 +25,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
 
     private var currentDataTask: URLSessionTask?
     var address: Address!
-    var amount: String!
+    var amount: BigDecimal!
     var safe: Safe!
     var tokenBalance: TokenBalance!
     var nonce: UInt256String!
@@ -41,7 +42,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
     convenience init(safe: Safe,
                      address: Address,
                      tokenBalance: TokenBalance,
-                     amount: String) {
+                     amount: BigDecimal) {
         self.init(namedClass: ReviewSendFundsTransactionViewController.self)
         self.safe = safe
         self.address = address
@@ -87,6 +88,11 @@ class ReviewSendFundsTransactionViewController: UIViewController {
             let navigationController = UINavigationController(rootViewController: vc)
             self.present(navigationController, animated: true)
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.assetsTransferReview)
     }
 
     @IBAction func retryButtonTouched(_ sender: Any) {
@@ -164,7 +170,55 @@ class ReviewSendFundsTransactionViewController: UIViewController {
     }
 
     private func sign(_ keyInfo: KeyInfo) {
+        guard let transaction = Transaction(safe: safe,
+                                            toAddress: address,
+                                            tokenAddress: Address(stringLiteral: tokenBalance.address),
+                                            amount: UInt256String(amount.value),
+                                            safeTxGas: safeTxGas,
+                                            nonce: nonce),
+              let safeTxHash = transaction.safeTxHash?.description else {
+            preconditionFailure("Unexpected Error")
+        }
 
+        switch keyInfo.keyType {
+        case .deviceImported, .deviceGenerated:
+            do {
+                let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
+                confirm(transaction: transaction, keyInfo: keyInfo, signature: signature.hexadecimal)
+            } catch {
+                App.shared.snackbar.show(error: GSError.error(description: "Failed to confirm transaction", error: error))
+            }
+
+        case .walletConnect:
+            let vc = WCPendingConfirmationViewController(transaction, keyInfo: keyInfo, title: "Confirm Transaction")
+
+            vc.onClose = { [weak self] in
+                self?.endConfirm()
+            }
+
+            present(vc, animated: true)
+
+            vc.sign() { [weak self] signature in
+                self?.confirm(transaction: transaction, keyInfo: keyInfo, signature: signature)
+            }
+
+        case .ledgerNanoX:
+            let request = SignRequest(title: "Confirm Transaction",
+                                      tracking: ["action" : "confirm"],
+                                      signer: keyInfo,
+                                      hexToSign: safeTxHash)
+            let vc = LedgerSignerViewController(request: request)
+
+            present(vc, animated: true, completion: nil)
+
+            vc.completion = { [weak self] signature in
+                self?.confirm(transaction: transaction, keyInfo: keyInfo, signature: signature)
+            }
+
+            vc.onClose = { [weak self] in
+                self?.endConfirm()
+            }
+        }
     }
 
     private func confirm(transaction: Transaction, keyInfo: KeyInfo, signature: String) {
@@ -206,7 +260,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         cell.setFromAddress(safe.addressValue, label: safe.name, prefix: prefix)
         let (name, imageURL) = NamingPolicy.name(for: address, info: nil, chainId: safe.chain!.id!)
         cell.setToAddress(address, label: name, imageUri: imageURL, prefix: prefix)
-        cell.setToken(text: tokenBalance.symbol, details: "13213", image: tokenBalance.imageURL)
+        cell.setToken(amount: TokenFormatter().string(from: amount), symbol: tokenBalance.symbol, fiatBalance:  "", image: tokenBalance.imageURL)
 
         return cell
     }
@@ -245,7 +299,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         let token = tokenBalance.symbol
 
         let title = "Your transaction is queued!"
-        let body = "Your request to send \(amount ?? "0") \(token) is submitted and needs to be confirmed by other owners."
+        let body = "Your request to send \(TokenFormatter().string(from: amount) ?? "0") \(token) is submitted and needs to be confirmed by other owners."
         let done = "View details"
 
         let successVC = TransactionSuccessViewController(

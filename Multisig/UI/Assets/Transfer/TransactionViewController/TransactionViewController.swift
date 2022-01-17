@@ -8,6 +8,7 @@
 
 import UIKit
 import Web3
+import SwiftCryptoTokenFormatter
 
 class TransactionViewController: UIViewController {
     @IBOutlet private weak var safeAddressInfoView: AddressInfoView!
@@ -20,7 +21,9 @@ class TransactionViewController: UIViewController {
     @IBOutlet private weak var scrollView: UIScrollView!
 
     var address: Address? { addressField?.address }
-    var amount: String? { amountTextField.balance.isEmpty ? nil : amountTextField.balance }
+    var amount: BigDecimal? {
+        amountTextField.balance.isEmpty ? nil : BigDecimal.create(string: amountTextField.balance, precision: tokenBalance.decimals)
+    }
     var tokenBalance: TokenBalance!
     var gatewayService = App.shared.clientGatewayService
     var safe: Safe!
@@ -41,6 +44,7 @@ class TransactionViewController: UIViewController {
 
         navigationItem.title = "Send " + tokenBalance.symbol
         maxButton.setText("Send max", .primary)
+        maxButton.contentHorizontalAlignment = .right
 
         safeAddressInfoView.setAddress(safe.addressValue,
                                        label: safe.name,
@@ -66,6 +70,7 @@ class TransactionViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        Tracker.trackEvent(.assetsTransferInit)
         keyboardBehavior.start()
     }
 
@@ -152,8 +157,27 @@ class TransactionViewController: UIViewController {
     }
 
     func verifyInput() {
-        // TODO: Verify that amount is less than balance
-        reviewButton.isEnabled = address != nil && amount != nil
+        amountTextField.showError(message: nil)
+        reviewButton.isEnabled = false
+
+        guard let amount = amount else { return }
+
+        var message: String? = nil
+
+        if amount.value <= 0 {
+            message = "Amount should be greater than 0"
+        }
+
+        else if amountTextField.balance.numberOfDecimals > tokenBalance.decimals {
+            message = "Should be 1 to \(tokenBalance.decimals) decimals"
+        }
+
+        else if amount.value > tokenBalance.balanceValue.value {
+            message = "Insufficient funds"
+        }
+
+        reviewButton.isEnabled = message == nil && address != nil
+        amountTextField.showError(message: message)
     }
 }
 
@@ -180,5 +204,44 @@ extension TransactionViewController: UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         keyboardBehavior.activeTextField = textField
+    }
+}
+
+
+extension BigDecimal {
+    static func create(string: String, precision: Int) -> BigDecimal? {
+        TokenFormatter().number(from: string, precision: precision)
+    }
+}
+
+//extension BigDecimal {
+//    static func create(string: String) -> BigDecimal? {
+//        var precision: Int = 0
+//        let tokenFormatter = TokenFormatter()
+//        let decimalSeparator = Locale.autoupdatingCurrent.decimalSeparator ?? "."
+//
+//        let parts = string.removingTrailingZeroes.components(separatedBy: CharacterSet(charactersIn: decimalSeparator))
+//        if parts.count == 1 { precision = 0 }
+//        if parts.count > 2 { precision = parts.last?.count ?? 0 }
+//
+//        return tokenFormatter.number(from: string, precision: precision)
+//    }
+//}
+//
+extension String {
+    var removingTrailingZeroes: String {
+        var result = self
+        while result.last == "0" {
+            result.removeLast()
+        }
+        return result
+    }
+
+    var numberOfDecimals: Int {
+        let decimalSeparator = Locale.autoupdatingCurrent.decimalSeparator ?? "."
+        let parts = removingTrailingZeroes.components(separatedBy: decimalSeparator)
+        if parts.count >= 2 { return parts.last?.count ?? 0 }
+
+        return 0
     }
 }

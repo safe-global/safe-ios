@@ -43,10 +43,16 @@ class TokenAmountField: UINibView {
         errorLabel.isHidden = true
     }
     
-    func showError(message: String) {
-        errorLabel.text = message
-        errorLabel.isHidden = false
-        borderImage.tintColor = .error
+    func showError(message: String?) {
+        if let message = message {
+            errorLabel.text = message
+            errorLabel.isHidden = false
+            borderImage.tintColor = .error
+        } else {
+            errorLabel.text = nil
+            errorLabel.isHidden = true
+            borderImage.tintColor = .gray4
+        }
     }
 }
 

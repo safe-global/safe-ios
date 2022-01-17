@@ -23,7 +23,6 @@
                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCj-uC-YBc">
                     <rect key="frame" x="0.0" y="22" width="414" height="118"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="confirm"/>
                     <connections>
                         <action selector="actionButtonTouched:" destination="-1" eventType="touchUpInside" id="pzG-x0-CxK"/>
                     </connections>

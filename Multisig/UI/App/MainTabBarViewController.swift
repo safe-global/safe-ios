@@ -181,8 +181,8 @@ class MainTabBarViewController: UITabBarController {
         return nav
     }
     
-    @objc private func handleInitiateTransactionNotificationReceived(_ info: [String : Any]?) {
-        if let transactionDetails = info?["transactionDetails"] as? SCGModels.TransactionDetails {
+    @objc private func handleInitiateTransactionNotificationReceived(_ notification: Notification) {
+        if let transactionDetails = notification.userInfo?["transactionDetails"] as? SCGModels.TransactionDetails {
             showTransactionDetails(transactionDetails: transactionDetails)
         } else {
             showQueuedTransactions()
