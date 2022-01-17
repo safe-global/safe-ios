@@ -90,6 +90,11 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.assetsTransferReview)
+    }
+
     @IBAction func retryButtonTouched(_ sender: Any) {
         loadData()
     }

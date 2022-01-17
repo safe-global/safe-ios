@@ -70,6 +70,7 @@ class TransactionViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        Tracker.trackEvent(.assetsTransferInit)
         keyboardBehavior.start()
     }
 
