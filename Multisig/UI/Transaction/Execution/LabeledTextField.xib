@@ -19,13 +19,18 @@
             <rect key="frame" x="0.0" y="0.0" width="110" height="129"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6pn-6e-ZEk" customClass="InfoLabel" customModule="Multisig" customModuleProvider="target">
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="6nn-tb-nyW">
                     <rect key="frame" x="16" y="12" width="78" height="24"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="24" id="lYn-CJ-dhn"/>
-                    </constraints>
-                </view>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6pn-6e-ZEk" customClass="InfoLabel" customModule="Multisig" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="78" height="24"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="24" id="lYn-CJ-dhn"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ybm-7F-L1V" customClass="GNOTextField" customModule="Multisig" customModuleProvider="target">
                     <rect key="frame" x="16" y="44" width="78" height="60"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
