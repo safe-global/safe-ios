@@ -96,9 +96,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Messaging.messaging().appDidReceiveMessage(userInfo)
 
         if Intercom.isIntercomPushNotification(userInfo) {
-            Intercom.handlePushNotification(userInfo)
             LogService.shared.debug("PUSH: didReceiveRemoteNotification Intercom push notification with userInfo: \(userInfo)")
-            App.shared.intercomConfig.presentMessenger = true
+            App.shared.intercomConfig.pushNotificationUserInfo = userInfo
         }
 
         completionHandler(.noData)
