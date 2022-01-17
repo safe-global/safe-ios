@@ -63,7 +63,6 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
         String(checksummed.dropFirst(2))
     }
 
-
     var hexadecimal: String {
         _store.hex(eip55: false)
     }
