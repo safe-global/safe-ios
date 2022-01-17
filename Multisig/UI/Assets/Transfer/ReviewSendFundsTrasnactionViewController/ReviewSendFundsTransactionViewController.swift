@@ -59,6 +59,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         assert(tokenBalance != nil)
 
         navigationItem.title = "Review"
+       
         retryButton.setText("Retry", .filled)
         descriptionLabel.setStyle(.footnote2)
 

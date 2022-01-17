@@ -43,6 +43,9 @@ class TransactionViewController: UIViewController {
         assert(safe != nil)
 
         navigationItem.title = "Send " + tokenBalance.symbol
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+        
         maxButton.setText("Send max", .primary)
         maxButton.contentHorizontalAlignment = .right
 
@@ -62,7 +65,7 @@ class TransactionViewController: UIViewController {
         totalBalanceLabel.text = tokenBalance.balanceWithSymbol
 
         reviewButton.setText("Review", .filled)
-        amountTextField.setToken(symbol: tokenBalance.symbol, logoURL: tokenBalance.imageURL)
+        amountTextField.setToken(logoURL: tokenBalance.imageURL)
         amountTextField.delegate = self
         
         keyboardBehavior = KeyboardAvoidingBehavior(scrollView: scrollView)
