@@ -1,0 +1,80 @@
+//
+//  ReviewExecutionContentViewController.swift
+//  Multisig
+//
+//  Created by Dmitry Bespalov on 11.01.22.
+//  Copyright © 2022 Gnosis Ltd. All rights reserved.
+//
+
+import UIKit
+
+class ReviewExecutionContentViewController: UITableViewController {
+
+    typealias Transaction = SCGModels.TransactionDetails
+    var onTapAccount: () -> Void = {}
+    var onTapFee: () -> Void = {}
+    var onTapAdvanced: () -> Void = {}
+
+    var model: ExecutionReviewUIModel? {
+        didSet {
+            guard isViewLoaded else { return }
+            reloadData()
+        }
+    }
+
+    private var safe: Safe!
+    private var chain: Chain!
+    private var transaction: SCGModels.TransactionDetails!
+
+    private var builder: ReviewExecutionCellBuilder!
+
+    private var cells: [UITableViewCell] = []
+
+    convenience init(safe: Safe, chain: Chain, transaction: Transaction) {
+        self.init(nibName: nil, bundle: nil)
+
+        self.safe = safe
+        self.chain = chain
+        self.transaction = transaction
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        assert(safe != nil)
+        assert(chain != nil)
+        assert(transaction != nil)
+
+        builder = ReviewExecutionCellBuilder(
+            vc: self,
+            tableView: tableView,
+            chain: chain,
+            safe: safe
+        )
+        builder.onTapAccount = onTapAccount
+        builder.onTapFee = onTapFee
+        builder.onTapAdvanced = onTapAdvanced
+
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 48
+        tableView.allowsSelection = false
+
+        // build everything
+        reloadData()
+    }
+
+    func reloadData() {
+        guard let model = model else { return }
+        cells = builder.build(model)
+        tableView.reloadData()
+    }
+
+    // MARK: UITableView delegate and data source
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        cells.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        cells[indexPath.row]
+    }
+
+}

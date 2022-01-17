@@ -23,11 +23,12 @@ class BasicCell: UITableViewCell {
         setDetail(nil)
     }
 
-    func setTitle(_ value: String?) {
+    func setTitle(_ value: String?, style: GNOTextStyle = .primary) {
         titleLabel.text = value
+        titleLabel.setStyle(style)
     }
     
-    func setIcon(_ value: String?) {
+    func setIcon(_ value: String?, tintColor: UIColor? = nil) {
         guard let value = value else {
             iconImage.isHidden = true
             return
@@ -35,6 +36,7 @@ class BasicCell: UITableViewCell {
         let image = UIImage(named: value) ?? UIImage(systemName: value)
         iconImage.image = image
         iconImage.isHidden = false
+        iconImage.tintColor = tintColor
     }
 
     func setDetail(_ value: String?) {

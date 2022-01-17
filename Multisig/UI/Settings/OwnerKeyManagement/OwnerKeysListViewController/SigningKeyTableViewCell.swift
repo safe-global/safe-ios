@@ -7,29 +7,49 @@
 //
 
 import UIKit
+import SkeletonView
 
 class SigningKeyTableViewCell: UITableViewCell {
     @IBOutlet weak var addressInfoView: AddressInfoView!
     @IBOutlet weak var connectionStatusImageView: UIImageView!
 
+    @IBOutlet weak var cellDetailLabel: UILabel!
+    @IBOutlet weak var cellDetailImageView: UIImageView!
+
     static let height: CGFloat = 68
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        addressInfoView.copyEnabled = false
+        addressInfoView.setCopyAddressEnabled(false)
+        cellDetailLabel.setStyle(.primary)
+        cellDetailImageView.isHidden = true
+
+        cellDetailLabel.isSkeletonable = true
+        cellDetailLabel.skeletonTextLineHeight = .relativeToConstraints
+        cellDetailLabel.textAlignment = .right
     }
 
-    func configure(keyInfo: KeyInfo, chainID: String?) {
-        set(address: keyInfo.address, name: keyInfo.displayName, badgeName: keyInfo.keyType.imageName)
-        set(connectionStatus: KeyConnectionStatus.init(keyInfo: keyInfo, chainID: chainID))
-    }
+    func configure(keyInfo: KeyInfo, chainID: String?, detail: String? = nil, accessoryImage: UIImage? = nil, enabled: Bool = true, isLoading: Bool = false) {
+        addressInfoView.setAddress(
+            keyInfo.address,
+            label: keyInfo.displayName,
+            badgeName: keyInfo.keyType.imageName)
 
-    func set(address: Address,
-             name: String,
-             badgeName: String,
-             connectionStatus: KeyConnectionStatus = .none) {
-        addressInfoView.setAddress(address, label: name, badgeName: badgeName)
-        set(connectionStatus: connectionStatus)
+        set(connectionStatus: KeyConnectionStatus(keyInfo: keyInfo, chainID: chainID))
+
+        cellDetailLabel.text = detail
+
+        if isLoading {
+            cellDetailLabel.showSkeleton(delay: 0.2)
+        } else {
+            cellDetailLabel.hideSkeleton()
+        }
+
+        cellDetailImageView.image = accessoryImage
+        cellDetailImageView.isHidden = accessoryImage == nil
+
+
+        contentView.alpha = enabled ? 1 : 0.5
     }
 
     private func set(connectionStatus: KeyConnectionStatus) {

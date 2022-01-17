@@ -96,12 +96,14 @@ extension UILabel {
             let attributedText = NSMutableAttributedString(string: "\(prefixText) ", attributes: prefixStyle.attributes)
             result.append(attributedText)
         }
-        
-        let attributedLinkText = NSMutableAttributedString(string: "\(linkText) ")
+
+        // text + non-breaking space
+        let attributedLinkText = NSMutableAttributedString(string: "\(linkText)\u{00A0}")
         attributedLinkText.addAttributes(GNOTextStyle.primaryButton.attributes, range: NSRange(location: 0, length: attributedLinkText.length))
         attributedLinkText.addAttributes([NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue], range: NSRange(location: 0, length: attributedLinkText.length))
 
         result.append(attributedLinkText)
+        
         let attachment = NSTextAttachment()
         attachment.image = UIImage(named: "icon-external-link")?.withTintColor(.button)
         let attachmentString = NSAttributedString(attachment: attachment)

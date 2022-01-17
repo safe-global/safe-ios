@@ -36,6 +36,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         case data(SCGModels.TransactionDetails)
     }
 
+    private var didTrackScreen: Bool = false
+    private var trackedTxStatus: SCGModels.TxStatus?
+
     private var txSource: TransactionSource!
 
     private var ledgerKeyInfo: KeyInfo?
@@ -80,8 +83,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                              .chainInfoChanged,
                              .addressbookChanged,
                              .selectedSafeUpdated,
-                             .selectedSafeChanged,
-                             .chainInfoChanged] {
+                             .selectedSafeChanged] {
             notificationCenter.addObserver(
                 self,
                 selector: #selector(lazyReloadData),
@@ -108,7 +110,23 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.transactionsDetails)
+        trackScreen()
+    }
+
+    private func trackScreen() {
+        if !didTrackScreen, let status = trackedTxStatus {
+            Tracker.trackEvent(.transactionsDetails, parameters: [
+                "status": status.rawValue
+            ])
+            didTrackScreen = true
+        }
+    }
+
+    private func trackScreenWithLoadingFailure() {
+        // failed to load the status, track without parameters
+        if !didTrackScreen {
+            Tracker.trackEvent(.transactionsDetails)
+        }
     }
 
     // MARK: - Events
@@ -209,7 +227,10 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         guard let nonce = safe.nonce, nonce == tx?.multisigInfo?.nonce.value else {
             return false
         }
-        return tx?.needsYourExecution ?? false
+        guard let tx = tx else {
+            return false
+        }
+        return needsYourExecution(tx: tx)
     }
 
     private var enableRejectionButton: Bool {
@@ -255,9 +276,31 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     @objc private func didTapExecute() {
-        guard let signers = tx?.multisigInfo?.executionKeys() else {
-            return
+        guard let safe = self.safe,
+              let chain = self.safe.chain,
+              let tx = self.tx else {
+              return
+          }
+        let reviewVC = ReviewExecutionViewController(
+            safe: safe,
+            chain: chain,
+            transaction: tx
+        ) { [weak self] in
+            // on close
+            self?.dismiss(animated: true, completion: nil)
         }
+
+        reviewVC.onSuccess = { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+            self?.reloadData()
+        }
+
+        let navigationController = UINavigationController(rootViewController: reviewVC)
+        present(navigationController, animated: true)
+    }
+
+    @objc private func legacyDidTapExecute() {
+        let signers = executionKeys()
 
         let descriptionText = "You are about to execute this transaction. Please select which owner key to use."
         let vc = ChooseOwnerKeyViewController(owners: signers,
@@ -316,7 +359,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                                       hexToSign: safeTxHash)
             let vc = LedgerSignerViewController(request: request)
 
-            present(vc, animated: true, completion: nil)
+            present(vc, animated: true, completion: {
+                Tracker.trackEvent(.reviewExecutionLedger)
+            })
 
             vc.completion = { [weak self] signature in
                 self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: .ledgerNanoX)
@@ -365,7 +410,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
               var transaction = Transaction(tx: tx),
               let multisigInfo = tx.multisigInfo,
               keyInfo.keyType == .walletConnect else {
-            preconditionFailure("Unexpected Error")
+                  // other implementation is not supported for now
+                  return
         }
 
         do {
@@ -436,6 +482,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                     return
                 }
                 self.onError(GSError.error(description: "Failed to load transaction details", error: error))
+
+                self.trackScreenWithLoadingFailure()
             }
         case .success(let details):
             DispatchQueue.main.async { [weak self] in
@@ -453,6 +501,11 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         if self.tx!.needsYourConfirmation {
             self.tx!.txStatus = .awaitingYourConfirmation
         }
+
+        let transformer = TransactionDataTransformer(safe: self.safe, chain: self.safe.chain!)
+        self.tx = transformer.transformed(transaction: self.tx!)
+
+        trackScreen()
 
         cells = builder.build(self.tx!)
     }
@@ -473,6 +526,51 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         }
     }
 
+    // returns the execution keys valid for executing this transaction
+    func executionKeys() -> [KeyInfo] {
+        // we only know now how to exeucte a safe transaction
+        guard tx?.multisigInfo != nil else {
+            return []
+        }
+
+        guard let safe = safe, let chain = safe.chain else {
+            return []
+        }
+
+        // all keys that can sign this tx on its chain.
+            // currently, only wallet connect keys are chain-specific, so we filter those out.
+        guard let allKeys = try? KeyInfo.all(), !allKeys.isEmpty else {
+            return []
+        }
+
+        let validKeys = allKeys.filter { keyInfo in
+            // if it's a wallet connect key which chain doesn't match then do not use it
+            if keyInfo.keyType == .walletConnect,
+               let data = keyInfo.metadata,
+               let connection = KeyInfo.WalletConnectKeyMetadata.from(data: data),
+               // when chainId is 0 then it is 'any' chain
+               connection.walletInfo.chainId != 0 &&
+                String(describing: connection.walletInfo.chainId) != chain.id {
+                return false
+            }
+            // else use the key
+            return true
+        }
+
+        return validKeys
+    }
+
+    // returns true if the app has means to execute the transaction and the transaction has all required confirmations
+    func needsYourExecution(tx: SCGModels.TransactionDetails) -> Bool {
+        if tx.txStatus == .awaitingExecution || tx.txStatus == .pendingFailed,
+           let multisigInfo = tx.multisigInfo,
+           // unclear why the confirmations only count ecdsa
+           tx.ecdsaConfirmations.count >= multisigInfo.confirmationsRequired,
+           !executionKeys().isEmpty {
+            return true
+        }
+        return false
+    }
 }
 
 extension SCGModels.TransactionDetails {
@@ -481,16 +579,6 @@ extension SCGModels.TransactionDetails {
            let multisigInfo = multisigInfo,
            !multisigInfo.signerKeys().isEmpty,
            multisigInfo.needsMoreSignatures {
-            return true
-        }
-        return false
-    }
-
-    var needsYourExecution: Bool {
-        if txStatus == .awaitingExecution,
-           let multisigInfo = multisigInfo,
-           ecdsaConfirmations.count >= multisigInfo.confirmationsRequired,
-           !multisigInfo.executionKeys().isEmpty {
             return true
         }
         return false
@@ -537,20 +625,6 @@ extension SCGModels.TransactionDetails.DetailedExecutionInfo.Multisig {
         }).map( { $0.address } )
 
         return (try? KeyInfo.keys(addresses: remainingSigners)) ?? []
-    }
-
-    // In general, a transaction can be executed with any ethereum key.
-    // However, we restrict the ability to execute only to owners for additional protection.
-    func executionKeys() -> [KeyInfo] {
-        let signerAddresses = signers.map(\.value).map( { $0.address } )
-        guard !((try? KeyInfo.keys(addresses: signerAddresses)) ?? []).isEmpty else {
-            return []
-        }
-
-        // but any WalletConnect key can execute a transaction
-        let keys = (try? KeyInfo.all()) ?? []
-        let selectedSafeChainId = try! Safe.getSelected()!.chain!.id
-        return keys.filter { $0.keyType == .walletConnect }
     }
 
     func rejectorKeys() -> [KeyInfo] {

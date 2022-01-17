@@ -15,10 +15,11 @@ extension JsonRpc2 {
             self.url = url
         }
 
-        public func send(data: Data, completion: @escaping (Result<Data, Swift.Error>) -> Void) {
+        @discardableResult
+        public func send(data: Data, completion: @escaping (Result<Data, Swift.Error>) -> Void) -> URLSessionTask? {
             guard var urlRequest = URL(string: url).map({ URLRequest.init(url: $0) }) else {
                 completion(.failure(JsonRpc2.Error.invalidServerUrl))
-                return
+                return nil
             }
             urlRequest.httpMethod = "POST"
             urlRequest.httpBody = data
@@ -39,7 +40,7 @@ extension JsonRpc2 {
                     completion(.failure(JsonRpc2.Error.urlSessionError))
                 }
             }
-            dataTask.resume()
+            return dataTask
         }
     }
 }

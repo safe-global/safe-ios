@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WalletConnectSwift
 
 class WCPendingConfirmationViewController: UIViewController {
     @IBOutlet private weak var bottomView: UIView!
@@ -20,6 +21,7 @@ class WCPendingConfirmationViewController: UIViewController {
 
     private var transaction: Transaction?
     private var message: String?
+    private var clientTransaction: Client.Transaction?
 
     var onClose: (() -> Void)?
 
@@ -30,6 +32,11 @@ class WCPendingConfirmationViewController: UIViewController {
     convenience init(_ transaction: Transaction, keyInfo: KeyInfo, title: String? = nil) {
         self.init(keyInfo, title: title)
         self.transaction = transaction
+    }
+
+    convenience init(_ transaction: Client.Transaction, keyInfo: KeyInfo, title: String? = nil) {
+        self.init(keyInfo, title: title)
+        self.clientTransaction = transaction
     }
 
     convenience init(_ message: String, keyInfo: KeyInfo, title: String? = nil) {
@@ -80,6 +87,10 @@ class WCPendingConfirmationViewController: UIViewController {
             }
         } else if let message = message {
             WalletConnectClientController.shared.sign(message: message) { [weak self] signature in
+                self?.handleSignResponse(signature: signature, completion: completion)
+            }
+        } else if let clientTransaction = clientTransaction {
+            WalletConnectClientController.shared.sign(transaction: clientTransaction) { [weak self] signature in
                 self?.handleSignResponse(signature: signature, completion: completion)
             }
         } else {

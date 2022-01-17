@@ -8,38 +8,77 @@
 
 import UIKit
 import WalletConnectSwift
+import Solidity
+
+protocol AccountBalanceLoader {
+    // must call completion handler on the main thread
+    // resulting balances list must have the same count as the keys
+    //   it is possible to receive empty string - in this case the balance will not be shown
+    // the task must not be resumed yet
+    func loadBalances(for keys: [KeyInfo], completion: @escaping (Result<[AccountBalanceUIModel], Error>) -> Void) -> URLSessionTask?
+}
+
+struct AccountBalanceUIModel {
+    var displayAmount: String
+    var isEnabled: Bool
+    var amount: Sol.UInt256?
+}
 
 class ChooseOwnerKeyViewController: UIViewController {
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var tableView: UITableView!
 
+    private var titleText: String!
     private var owners: [KeyInfo] = []
     private var chainID: String?
     private var descriptionText: String!
+    private(set) var selectedKey: KeyInfo? = nil
+    private var requestsPassCode: Bool = true
+
+    private var balancesLoader: AccountBalanceLoader? = nil
+    private var loadingTask: URLSessionTask?
+    private var accountBalances: [AccountBalanceUIModel]?
+    private var isLoading: Bool = false
+    private var pullToRefreshControl: UIRefreshControl!
 
     // technically it is possible to select several wallets but to finish connection with one of them
     private var walletPerTopic = [String: InstalledWallet]()
     // `wcDidConnectClient` happens when app eneters foreground. This parameter should throttle unexpected events
     private var waitingForSession = false
 
+    var trackingEvent: TrackingEvent = .chooseOwner
     var completionHandler: ((KeyInfo?) -> Void)?
 
-    convenience init(owners: [KeyInfo], chainID: String?, descriptionText: String, completionHandler: ((KeyInfo?) -> Void)? = nil) {
+    convenience init(
+        owners: [KeyInfo],
+        chainID: String?,
+        titleText: String = "Select owner key",
+        descriptionText: String,
+        requestsPasscode: Bool = true,
+        selectedKey: KeyInfo? = nil,
+        // when passed in, then this controller will show account balances.
+        balancesLoader: AccountBalanceLoader? = nil,
+        completionHandler: ((KeyInfo?) -> Void)? = nil
+    ) {
         self.init()
         self.owners = owners
         self.chainID = chainID
+        self.titleText = titleText
         self.descriptionText = descriptionText
+        self.requestsPassCode = requestsPasscode
+        self.selectedKey = selectedKey
+        self.balancesLoader = balancesLoader
         self.completionHandler = completionHandler
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.chooseOwner)
+        Tracker.trackEvent(trackingEvent)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Select an owner key"
+        navigationItem.title = titleText
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
         
@@ -60,6 +99,14 @@ class ChooseOwnerKeyViewController: UIViewController {
             selector: #selector(reload),
             name: .wcDidDisconnectClient,
             object: nil)
+
+        pullToRefreshControl = UIRefreshControl()
+        pullToRefreshControl.addTarget(self,
+                                       action: #selector(pullToRefreshChanged),
+                                       for: .valueChanged)
+        tableView.refreshControl = pullToRefreshControl
+
+        reloadBalances()
     }
 
     @objc private func reload() {
@@ -71,6 +118,12 @@ class ChooseOwnerKeyViewController: UIViewController {
     @objc private func didTapCloseButton() {
         dismiss(animated: true, completion: nil)
     }
+
+    @objc private func pullToRefreshChanged() {
+        reloadBalances()
+    }
+
+    // MARK: - Wallet Connect
 
     @objc private func walletConnectSessionCreated(_ notification: Notification) {
         guard waitingForSession else { return }
@@ -102,6 +155,45 @@ class ChooseOwnerKeyViewController: UIViewController {
             tableView.reloadData()
         }
     }
+
+    // MARK: - Balances Loading
+
+    func reloadBalances() {
+        guard let loader = balancesLoader else { return }
+        loadingTask?.cancel()
+
+        self.isLoading = true
+        self.tableView.reloadData()
+
+        loadingTask = loader.loadBalances(for: owners, completion: { [weak self] result in
+            guard let self = self else { return }
+
+            self.isLoading = false
+            self.pullToRefreshControl.endRefreshing()
+
+            switch result {
+            case .failure(let error):
+                if (error as NSError).code == URLError.cancelled.rawValue &&
+                    (error as NSError).domain == NSURLErrorDomain {
+                    return
+                }
+                let gsError = GSError.error(description: "Failed to load account balances", error: error)
+                App.shared.snackbar.show(error: gsError)
+
+            case .success(let balances):
+                // reload data
+                self.accountBalances = balances
+                self.tableView.reloadData()
+            }
+        })
+    }
+
+    func accountBalance(for keyInfo: KeyInfo) -> AccountBalanceUIModel? {
+        if let index = owners.firstIndex(of: keyInfo), let balances = accountBalances, index < balances.count {
+            return balances[index]
+        }
+        return nil
+    }
 }
 
 extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSource {
@@ -113,14 +205,41 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
         let keyInfo = owners[indexPath.row]
         let cell = tableView.dequeueCell(SigningKeyTableViewCell.self, for: indexPath)
         cell.selectionStyle = .none
-        cell.configure(keyInfo: keyInfo, chainID: chainID)
+
+        var accessoryImage: UIImage? = UIImage()
+        if let selection = selectedKey, keyInfo == selection {
+            accessoryImage = UIImage(systemName: "checkmark")?.withTintColor(.button)
+        }
+
+        var accountBalance: String? = nil
+        var isEnabled = true
+        if let balances = accountBalances, indexPath.row < balances.count {
+            let model = balances[indexPath.row]
+            accountBalance = model.displayAmount.isEmpty ? nil : model.displayAmount
+            isEnabled = model.isEnabled
+        }
+
+        cell.configure(keyInfo: keyInfo,
+                       chainID: chainID,
+                       detail: accountBalance,
+                       accessoryImage: accessoryImage,
+                       enabled: isEnabled,
+                       isLoading: isLoading)
+
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if let balances = accountBalances, indexPath.row < balances.count, !balances[indexPath.row].isEnabled {
+            return nil
+        }
+        return indexPath
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let keyInfo = owners[indexPath.row]
-
+        selectedKey = keyInfo
         // For WalletConnect key check that it is still connected
         if keyInfo.keyType == .walletConnect {
             switch KeyConnectionStatus.init(keyInfo: keyInfo, chainID: chainID) {
@@ -133,7 +252,9 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
             }
         } else if keyInfo.keyType == .ledgerNanoX {
             completionHandler?(keyInfo)
-        } else if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
+        } else if requestsPassCode &&
+                    App.shared.auth.isPasscodeSetAndAvailable &&
+                    AppSettings.passcodeOptions.contains(.useForConfirmation) {
             let vc = EnterPasscodeViewController()
             vc.passcodeCompletion = { [weak self] success in
                 guard let `self` = self else { return }

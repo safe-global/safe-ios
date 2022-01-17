@@ -9,55 +9,8 @@ import Foundation
 import BigInt
 
 // MARK: - Unsigned Integer
-public protocol WordInteger {
-    static var bitWidth: Int { get }
-    var storage: [UInt] { get set }
-    init()
-    init(storage: [UInt])
-}
 
 public protocol WordUnsignedInteger: WordInteger, UnsignedInteger, FixedWidthInteger, ExpressibleByStringLiteral where Self.Stride: WordSignedInteger, Self.IntegerLiteralType == UInt {
-}
-
-extension WordInteger {
-    static func storage(truncating storage: [UInt], signed: Bool) -> [UInt] {
-        let wordCount = (Self.bitWidth - 1) / UInt.bitWidth + 1
-
-        precondition(wordCount > 0)
-        var result: [UInt]
-
-        if storage.count == wordCount {
-            result = storage
-        } else if storage.count < wordCount {
-            // extend to words
-            let difference = wordCount - storage.count
-
-            let signExtension: UInt
-            // negative integers are in 2's complement, so we extend sign bit
-            if signed && !storage.isEmpty {
-                let isNegative = storage[storage.count - 1].leadingZeroBitCount == 0
-                signExtension = isNegative ? .max : 0
-            } else {
-                signExtension = 0
-            }
-
-            let padding = [UInt](repeating: signExtension, count: difference)
-
-            result = storage + padding
-        } else {
-            // more than enough words: truncate words
-            result = Array(storage[0..<wordCount])
-        }
-
-        // truncate to bitWidth
-        var bitMask = [UInt](repeating: .max, count: wordCount)
-        bitMask[wordCount - 1] >>= wordCount * UInt.bitWidth - Self.bitWidth
-
-        result = zip(result, bitMask).map(&)
-
-        return result
-    }
-
 }
 
 // MARK: Helper
@@ -72,7 +25,7 @@ extension WordUnsignedInteger {
         self.storage = Self.storage(truncating: storage, signed: false)
     }
 
-    func big() -> BigUInt {
+    public func big() -> BigUInt {
         BigUInt(words: storage)
     }
 
@@ -80,8 +33,18 @@ extension WordUnsignedInteger {
         ~self &+ 1
     }
 
-    init(big v: BigUInt) {
+    /// truncates the value
+    public init(big v: BigUInt) {
         self.init(storage: [UInt](v.words))
+    }
+
+    /// nil if it's not representable
+    public init?(exactlyBig v: BigUInt) {
+        let truncated = Self(big: v)
+        if truncated.big() != v {
+            return nil
+        }
+        self = truncated
     }
 }
 
@@ -92,6 +55,7 @@ extension WordInteger {
 }
 
 extension WordUnsignedInteger {
+    #warning("truncates")
     public init(integerLiteral value: IntegerLiteralType) {
         self.init(storage: [value])
     }
@@ -104,19 +68,28 @@ extension WordUnsignedInteger {
 }
 
 extension WordUnsignedInteger {
-    public init(stringLiteral value: String) {
-        let v = BigUInt(stringLiteral: value)
-        self.init(big: v)
+    public init(stringLiteral literalValue: String) {
+        let v = BigUInt(stringLiteral: literalValue)
+        guard let value = Self(exactlyBig: v) else {
+            preconditionFailure("The value \(literalValue) is bigger than maximum value")
+        }
+        self = value
     }
 
-    public init(extendedGraphemeClusterLiteral value: String) {
-        let v = BigUInt(extendedGraphemeClusterLiteral: value)
-        self.init(big: v)
+    public init(extendedGraphemeClusterLiteral literalValue: String) {
+        let v = BigUInt(extendedGraphemeClusterLiteral: literalValue)
+        guard let value = Self(exactlyBig: v) else {
+            preconditionFailure("The value \(literalValue) is bigger than maximum value")
+        }
+        self = value
     }
 
-    public init(unicodeScalarLiteral value: UnicodeScalar) {
-        let v = BigUInt(unicodeScalarLiteral: value)
-        self.init(big: v)
+    public init(unicodeScalarLiteral literalValue: UnicodeScalar) {
+        let v = BigUInt(unicodeScalarLiteral: literalValue)
+        guard let value = Self(exactlyBig: v) else {
+            preconditionFailure("The value \(literalValue) is bigger than maximum value")
+        }
+        self = value
     }
 }
 
@@ -183,7 +156,9 @@ extension WordUnsignedInteger {
         if Self.bitWidth < source.bitWidth {
             return nil
         }
-        self.init(storage: [UInt](source.words))
+        let truncated = Self(storage: [UInt](source.words))
+        guard truncated == source else { return nil }
+        self = truncated
     }
 
     public static func *= (lhs: inout Self, rhs: Self) {
@@ -388,7 +363,7 @@ extension WordUnsignedInteger {
 extension WordUnsignedInteger {
     public init?<S: StringProtocol>(_ text: S, radix: Int = 10) {
         guard let big = BigUInt(text, radix: radix) else { return nil }
-        self.init(big: big)
+        self.init(exactlyBig: big)
     }
 
     public init<T: BinaryInteger>(truncatingIfNeeded source: T) {

@@ -46,6 +46,16 @@ enum TrackingEvent: String, Trackable {
     case assetsTransferAdvancedParams               = "screen_asset_transfer_advanced_params"
     case assetsTransferSuccess                      = "screen_asset_transfer_success"
 
+    case reviewExecution                            = "screen_exec_tx_review"
+    case reviewExecutionEditFee                     = "screen_edit_exec_tx_fee"
+    case reviewExecutionAdvanced                    = "screen_exec_tx_review_advanced"
+    case reviewExecutionSelectKey                   = "screen_select_exec_key"
+    case reviewExecutionLedger                      = "screen_exec_tx_ledger_confirm"
+    case executeSuccess                             = "screen_exec_tx_submitted"
+    case executeFailure                             = "user_exec_tx_failed"
+    case reviewExecutionFieldEdited                 = "user_edit_exec_tx_fee_fields"
+    case reviewExecutionSelectedKeyChanged          = "user_select_exec_key_change"
+
     case safeReceive                                = "screen_safe_receive"
     case safeSwitch                                 = "screen_safe_switch"
     case safeAddAddress                             = "screen_safe_add_address"

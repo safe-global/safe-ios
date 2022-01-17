@@ -280,7 +280,8 @@ class ReviewSendFundsTransactionViewController: UIViewController {
 
         let vc = AdvancedParametersViewController(nonce: nonce,
                                                   minimalNonce: minimalNonce.value,
-                                                  safeTxGas: safeTxGas) { [weak self] nonce, safeTxGas in
+                                                  safeTxGas: safeTxGas,
+                                                  trackingEvent: .assetsTransferAdvancedParams) { [weak self] nonce, safeTxGas in
             guard let `self` = self else { return }
             self.nonce = nonce
             self.safeTxGas = safeTxGas
@@ -289,14 +290,30 @@ class ReviewSendFundsTransactionViewController: UIViewController {
 
         present(ViewControllerFactory.modal(viewController: vc), animated: true)
     }
-
+    
     private func showTransactionSucess(transaction: SCGModels.TransactionDetails) {
-        let vc = TransactionSuccessScreen(amount: TokenFormatter().string(from: amount),
-                                          token: tokenBalance.symbol,
-                                          transactionDetails: transaction,
-                                          trackingEvent: .assetsTransferSuccess)
+        let token = tokenBalance.symbol
 
-        show(vc, sender: self)
+        let title = "Your transaction is queued!"
+        let body = "Your request to send \(TokenFormatter().string(from: amount) ?? "0") \(token) is submitted and needs to be confirmed by other owners."
+        let done = "View details"
+
+        let successVC = TransactionSuccessViewController(
+            titleText: title,
+            bodyText: body,
+            doneTitle: done,
+            trackingEvent: .assetsTransferSuccess)
+
+        successVC.onDone = { [weak self] in
+            guard let self = self else { return }
+            NotificationCenter.default.post(
+                name: .initiateTxNotificationReceived,
+                object: self,
+                userInfo: ["transactionDetails": transaction])
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+
+        show(successVC, sender: self)
     }
 }
 

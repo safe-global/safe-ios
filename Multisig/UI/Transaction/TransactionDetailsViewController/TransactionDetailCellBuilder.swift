@@ -17,7 +17,7 @@ class TransactionDetailCellBuilder {
     private weak var tableView: UITableView!
 
     // needed for proper safe selection for known addresses functionality. Also used to select the block explorer url.
-    private var chain: Chain
+    private(set) var chain: Chain
 
     private lazy var dateFormatter: DateFormatter = {
         let d = DateFormatter()
@@ -673,8 +673,8 @@ class TransactionDetailCellBuilder {
         result.append(cell)
     }
 
-    func newCell<T: UITableViewCell>(_ cls: T.Type) -> T {
-        tableView.dequeueCell(cls)
+    func newCell<T: UITableViewCell>(_ cls: T.Type, reuseId: String? = nil) -> T {
+        tableView.dequeueCell(cls, reuseID: reuseId)
     }
 }
 

@@ -76,6 +76,10 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
         Data(_store.rawAddress)
     }
 
+    var data32: Data {
+        Data(repeating: 0, count: 32 - data.count) + data
+    }
+
     var count: Int {
         _store.rawAddress.count
     }

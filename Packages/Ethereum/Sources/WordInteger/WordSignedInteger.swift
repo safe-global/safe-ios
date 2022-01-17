@@ -10,9 +10,8 @@ import BigInt
 
 // MARK: - Signed Integer
 
-public protocol WordSignedInteger: WordInteger, SignedInteger, FixedWidthInteger, ExpressibleByStringLiteral where Self.Magnitude: WordUnsignedInteger, Self.IntegerLiteralType == Int, Self.Words == [UInt] {
+public protocol WordSignedInteger: WordInteger, SignedInteger, FixedWidthInteger, ExpressibleByStringLiteral where Self.Magnitude: WordUnsignedInteger, Self.IntegerLiteralType == Int, Self.Words == [UInt], Self.Stride == Self {
 }
-
 
 extension WordSignedInteger {
     public init(storage: [UInt]) {
@@ -35,7 +34,8 @@ extension WordSignedInteger {
         return storage[storage.count - 1] >> shift == 1
     }
 
-    init(big v: BigInt) {
+    /// truncating init
+    public init(big v: BigInt) {
         let m = Magnitude(big: v.magnitude)
         if v.sign == .minus {
             self.init(storage: m.twosComplement.storage)
@@ -44,16 +44,26 @@ extension WordSignedInteger {
         }
     }
 
-    func big() -> BigInt {
+    /// nil if it's not representable
+    public init?(exactlyBig v: BigInt) {
+        let truncated = Self(big: v)
+        if truncated.big() != v {
+            return nil
+        }
+        self = truncated
+    }
+
+    public func big() -> BigInt {
         BigInt(sign: isNegative ? .minus : .plus, magnitude: magnitude.big())
     }
 
-    func unsigned() -> Magnitude {
+    public func unsigned() -> Magnitude {
         Magnitude(storage: storage)
     }
 }
 
 extension WordSignedInteger {
+    #warning("truncates")
     public init(integerLiteral value: IntegerLiteralType) {
         self.init(storage: [UInt(bitPattern: value)])
     }
@@ -67,7 +77,7 @@ extension WordSignedInteger {
 
 extension WordSignedInteger {
     public func hash(into hasher: inout Hasher) {
-        fatalError()
+        words.forEach { hasher.combine($0) }
     }
 }
 
@@ -102,17 +112,14 @@ extension WordSignedInteger {
 
 extension WordSignedInteger {
     public func advanced(by n: Stride) -> Self {
-        fatalError()
+        let b = Self(storage: n.storage)
+        let c = self + b
+        return c
     }
 
     public func distance(to other: Self) -> Stride {
-        fatalError()
-    }
-}
-
-extension WordSignedInteger {
-    public init?(_ description: String) {
-        nil
+        let distance = other - self
+        return Stride(storage: distance.storage)
     }
 }
 
@@ -127,32 +134,48 @@ extension WordSignedInteger {
     }
 
     public init?<T>(exactly source: T) where T : BinaryInteger {
-        nil
+        if Self.bitWidth < source.bitWidth {
+            return nil
+        }
+        let truncated = Self(storage: [UInt](source.words))
+        guard truncated == source else { return nil }
+        self = truncated
     }
 
     public static func *= (lhs: inout Self, rhs: Self) {
-        fatalError()
+        lhs = lhs * rhs
     }
 
     public static func * (lhs: Self, rhs: Self) -> Self {
-        fatalError()
+        let (partialValue, overflow) = lhs.multipliedReportingOverflow(by: rhs)
+        precondition(!overflow)
+        return partialValue
     }
 }
 
 extension WordSignedInteger {
-    public init(stringLiteral value: String) {
-        let v = BigInt(stringLiteral: value)
-        self.init(big: v)
+    public init(stringLiteral literalValue: String) {
+        let v = BigInt(stringLiteral: literalValue)
+        guard let value = Self(exactlyBig: v) else {
+            preconditionFailure("The value \(literalValue) is bigger than maximum value")
+        }
+        self = value
     }
 
-    public init(extendedGraphemeClusterLiteral value: String) {
-        let v = BigInt(extendedGraphemeClusterLiteral: value)
-        self.init(big: v)
+    public init(extendedGraphemeClusterLiteral literalValue: String) {
+        let v = BigInt(extendedGraphemeClusterLiteral: literalValue)
+        guard let value = Self(exactlyBig: v) else {
+            preconditionFailure("The value \(literalValue) is bigger than maximum value")
+        }
+        self = value
     }
 
-    public init(unicodeScalarLiteral value: UnicodeScalar) {
-        let v = BigInt(unicodeScalarLiteral: value)
-        self.init(big: v)
+    public init(unicodeScalarLiteral literalValue: UnicodeScalar) {
+        let v = BigInt(unicodeScalarLiteral: literalValue)
+        guard let value = Self(exactlyBig: v) else {
+            preconditionFailure("The value \(literalValue) is bigger than maximum value")
+        }
+        self = value
     }
 }
 
@@ -368,7 +391,7 @@ extension WordSignedInteger {
 extension WordSignedInteger {
     public init?<S: StringProtocol>(_ text: S, radix: Int = 10) {
         guard let big = BigInt(text, radix: radix) else { return nil }
-        self.init(big: big)
+        self.init(exactlyBig: big)
     }
 
     public init<T: BinaryInteger>(truncatingIfNeeded source: T) {
