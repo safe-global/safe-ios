@@ -133,6 +133,7 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
             saveButton.isEnabled = true
             
         } else {
+            safeTxGasTextField.setError(nil)
             saveButton.isEnabled = false
         }
     }
