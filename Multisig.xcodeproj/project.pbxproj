@@ -126,8 +126,6 @@
 		04D1323625E43C560032FA03 /* DetailRejectionInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1323425E43C550032FA03 /* DetailRejectionInfoCell.xib */; };
 		04D968D4276B872D00CE4A9E /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D968D2276B872D00CE4A9E /* TransactionViewController.swift */; };
 		04D968D5276B872D00CE4A9E /* TransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D968D3276B872D00CE4A9E /* TransactionViewController.xib */; };
-		04E4CD62277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E4CD60277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.swift */; };
-		04E4CD63277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E4CD61277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.xib */; };
 		04E4CD65277752A500B558F4 /* TokenAmountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E4CD64277752A500B558F4 /* TokenAmountInfoView.swift */; };
 		04E4CD67277752C400B558F4 /* TokenAmountInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E4CD66277752C400B558F4 /* TokenAmountInfoView.xib */; };
 		04FA1A2E2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */; };
@@ -803,8 +801,6 @@
 		04D1323425E43C550032FA03 /* DetailRejectionInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailRejectionInfoCell.xib; sourceTree = "<group>"; };
 		04D968D2276B872D00CE4A9E /* TransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
 		04D968D3276B872D00CE4A9E /* TransactionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionViewController.xib; sourceTree = "<group>"; };
-		04E4CD60277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTransactionHeaderTableViewCell.swift; sourceTree = "<group>"; };
-		04E4CD61277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewTransactionHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		04E4CD64277752A500B558F4 /* TokenAmountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAmountInfoView.swift; sourceTree = "<group>"; };
 		04E4CD66277752C400B558F4 /* TokenAmountInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenAmountInfoView.xib; sourceTree = "<group>"; };
 		04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueuedTransactionsSummaryListRequest.swift; sourceTree = "<group>"; };
@@ -1369,6 +1365,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04077B40278E22C300AF6376 /* ReviewSendFundsTrasnactionCells */ = {
+			isa = PBXGroup;
+			children = (
+				04C5ED3827878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift */,
+				04C5ED3927878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.xib */,
+				04077B35278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.swift */,
+				04077B36278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.xib */,
+			);
+			path = ReviewSendFundsTrasnactionCells;
+			sourceTree = "<group>";
+		};
 		0428DA5725CBFBEA002CF4A9 /* HelpLinkUITableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1490,16 +1497,12 @@
 		047588152774D6A2001DD992 /* ReviewSendFundsTrasnactionViewController */ = {
 			isa = PBXGroup;
 			children = (
+				D865177527620649000B4C04 /* SelectAssetViewController.swift */,
 				047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */,
 				047588172774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib */,
-				04E4CD60277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.swift */,
-				04E4CD61277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.xib */,
-				04E4CD64277752A500B558F4 /* TokenAmountInfoView.swift */,
-				04E4CD66277752C400B558F4 /* TokenAmountInfoView.xib */,
-				04C5ED3827878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift */,
-				04C5ED3927878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.xib */,
-				04077B35278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.swift */,
-				04077B36278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.xib */,
+				D8A6B12B2779D01900438460 /* AdvancedParametersViewController.swift */,
+				D8A6B12C2779D01900438460 /* AdvancedParametersViewController.xib */,
+				04077B40278E22C300AF6376 /* ReviewSendFundsTrasnactionCells */,
 			);
 			path = ReviewSendFundsTrasnactionViewController;
 			sourceTree = "<group>";
@@ -2891,6 +2894,8 @@
 				D88FA81C2770869E0023B77F /* TokenAmountField.swift */,
 				D88FA81D2770869E0023B77F /* TokenAmountField.xib */,
 				D8A6B12F277A0E8800438460 /* InfoLabel.swift */,
+				04E4CD64277752A500B558F4 /* TokenAmountInfoView.swift */,
+				04E4CD66277752C400B558F4 /* TokenAmountInfoView.xib */,
 				04077B3C278CB84F00AF6376 /* ActivityButtonView.swift */,
 				04077B3E278CB85F00AF6376 /* ActivityButtonView.xib */,
 			);
@@ -3065,11 +3070,8 @@
 		D865177427620628000B4C04 /* Transfer */ = {
 			isa = PBXGroup;
 			children = (
-				047588152774D6A2001DD992 /* ReviewSendFundsTrasnactionViewController */,
 				04D968D1276B872D00CE4A9E /* TransactionViewController */,
-				D865177527620649000B4C04 /* SelectAssetViewController.swift */,
-				D8A6B12B2779D01900438460 /* AdvancedParametersViewController.swift */,
-				D8A6B12C2779D01900438460 /* AdvancedParametersViewController.xib */,
+				047588152774D6A2001DD992 /* ReviewSendFundsTrasnactionViewController */,
 			);
 			path = Transfer;
 			sourceTree = "<group>";
@@ -3336,7 +3338,6 @@
 				049A9D7125F9303000CA5723 /* ChooseOwnerKeyViewController.xib in Resources */,
 				D88FA81F2770869E0023B77F /* TokenAmountField.xib in Resources */,
 				047588192774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib in Resources */,
-				04E4CD63277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.xib in Resources */,
 				D80B5A0B2769F95000D6E024 /* AssetsViewController.xib in Resources */,
 				0A86EE7B25CC2C600059876E /* IdleFooterView.xib in Resources */,
 				04E4CD67277752C400B558F4 /* TokenAmountInfoView.xib in Resources */,
@@ -3527,7 +3528,6 @@
 				557D80D2270B33BA0036D6D0 /* ConfirmConnectionHeaderView.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				0AF1C80725408B5000E28669 /* UIImageViewExtensions.swift in Sources */,
-				04E4CD62277750EA00B558F4 /* ReviewTransactionHeaderTableViewCell.swift in Sources */,
 				0468FB9425912E8300541536 /* TransactionsListConflictHeaderTableViewCell.swift in Sources */,
 				04D1323525E43C560032FA03 /* DetailRejectionInfoCell.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
