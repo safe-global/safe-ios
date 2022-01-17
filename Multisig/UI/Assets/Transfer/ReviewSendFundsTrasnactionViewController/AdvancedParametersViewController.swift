@@ -22,6 +22,7 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
     private var minimalNonce: UInt256!
     // should be nil for contracts of v1.3.0 and higher
     private var safeTxGas: UInt256String?
+    private var proposedSafeTxGas: UInt256?
     private var trackingEvent: TrackingEvent!
     private var onUpdate: ((UInt256String, UInt256String?) -> Void)!
 
@@ -41,6 +42,9 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
         self.nonce = nonce
         self.minimalNonce = minimalNonce
         self.safeTxGas = safeTxGas
+        if let safeTxGas = safeTxGas {
+            self.proposedSafeTxGas = safeTxGas.value
+        }
         self.trackingEvent = trackingEvent
         self.onUpdate = onUpdate
     }
@@ -119,8 +123,17 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
             .trimmingCharacters(in: .whitespacesAndNewlines), !safeTxGasText.isEmpty,
            let safeTxGas = UInt256(safeTxGasText) {
             self.safeTxGas = UInt256String(safeTxGas)
+            
+            if safeTxGas < proposedSafeTxGas! {
+                safeTxGasTextField.setError("Transaction may fail due to insufficient safeTxGas")
+            } else {
+                safeTxGasTextField.setError(nil)
+            }
+            
             saveButton.isEnabled = true
+            
         } else {
+            safeTxGasTextField.setError(nil)
             saveButton.isEnabled = false
         }
     }
