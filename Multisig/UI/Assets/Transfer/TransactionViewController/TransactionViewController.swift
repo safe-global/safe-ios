@@ -9,6 +9,8 @@
 import UIKit
 import Web3
 import SwiftCryptoTokenFormatter
+import Ethereum
+import Solidity
 
 class TransactionViewController: UIViewController {
     @IBOutlet private weak var safeAddressInfoView: AddressInfoView!
@@ -83,7 +85,12 @@ class TransactionViewController: UIViewController {
     }
 
     @IBAction func maxButtonTouched(_ sender: Any) {
-        amountTextField.balance = tokenBalance.balance
+        // string will format full amount without any rounding
+        let value = Sol.UInt256(big: tokenBalance.balanceValue.value.magnitude)
+        let tokenAmount = Eth.TokenAmount(
+            value: value,
+            decimals: tokenBalance.decimals)
+        amountTextField.balance = tokenAmount.description
         verifyInput()
     }
 
@@ -217,20 +224,6 @@ extension BigDecimal {
     }
 }
 
-//extension BigDecimal {
-//    static func create(string: String) -> BigDecimal? {
-//        var precision: Int = 0
-//        let tokenFormatter = TokenFormatter()
-//        let decimalSeparator = Locale.autoupdatingCurrent.decimalSeparator ?? "."
-//
-//        let parts = string.removingTrailingZeroes.components(separatedBy: CharacterSet(charactersIn: decimalSeparator))
-//        if parts.count == 1 { precision = 0 }
-//        if parts.count > 2 { precision = parts.last?.count ?? 0 }
-//
-//        return tokenFormatter.number(from: string, precision: precision)
-//    }
-//}
-//
 extension String {
     var removingTrailingZeroes: String {
         var result = self

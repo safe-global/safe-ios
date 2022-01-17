@@ -87,13 +87,25 @@ class ReviewSendFundsTransactionViewController: UIViewController {
             }
 
             let navigationController = UINavigationController(rootViewController: vc)
-            self.present(navigationController, animated: true)
+            self.presentModal(navigationController)
         }
+
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapBackground))
+        view.addGestureRecognizer(tapRecognizer)
+    }
+
+    @objc private func didTapBackground() {
+        TooltipSource.hideAll()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.assetsTransferReview)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        TooltipSource.hideAll()
     }
 
     @IBAction func retryButtonTouched(_ sender: Any) {
@@ -197,7 +209,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
                 self?.endConfirm()
             }
 
-            present(vc, animated: true)
+            presentModal(vc)
 
             vc.sign() { [weak self] signature in
                 self?.confirm(transaction: transaction, keyInfo: keyInfo, signature: signature)
@@ -210,7 +222,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
                                       hexToSign: safeTxHash)
             let vc = LedgerSignerViewController(request: request)
 
-            present(vc, animated: true, completion: nil)
+            presentModal(vc)
 
             vc.completion = { [weak self] signature in
                 self?.confirm(transaction: transaction, keyInfo: keyInfo, signature: signature)
@@ -219,6 +231,12 @@ class ReviewSendFundsTransactionViewController: UIViewController {
             vc.onClose = { [weak self] in
                 self?.endConfirm()
             }
+        }
+    }
+
+    func presentModal(_ vc: UIViewController) {
+        present(vc, animated: true) {
+            TooltipSource.hideAll()
         }
     }
 
@@ -293,7 +311,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
             self.bindData()
         }
 
-        present(ViewControllerFactory.modal(viewController: vc), animated: true)
+        presentModal(ViewControllerFactory.modal(viewController: vc))
     }
     
     private func showTransactionSucess(transaction: SCGModels.TransactionDetails) {

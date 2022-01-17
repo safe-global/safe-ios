@@ -36,6 +36,7 @@ class InfoLabel : UILabel {
             
             if let description = description {
                 tooltipSource = TooltipSource(target: self)
+                tooltipSource?.hideAutomatically = true
                 tooltipSource?.message = description
                 tooltipSource?.aboveTarget = false
             } else {

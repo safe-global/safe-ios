@@ -76,11 +76,23 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
         helpArticleButton.setTitle("", for: .normal)
         
         validateInputs()
+
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapBackground))
+        view.addGestureRecognizer(tapRecognizer)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(trackingEvent)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        TooltipSource.hideAll()
+    }
+
+    @objc private func didTapBackground() {
+        TooltipSource.hideAll()
     }
     
     @objc private func save() {

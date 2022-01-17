@@ -18,9 +18,6 @@ class LabeledTextField: UINibView {
     @IBOutlet weak var gnoTextField: GNOTextField!
     @IBOutlet weak var captionLabel: UILabel!
 
-//    static let textFieldHeight: CGFloat = 40
-//    private var textFieldHeightConstraint: NSLayoutConstraint!
-
     private var debounceTimer: Timer!
     private let debounceDuration: TimeInterval = 0.250
 
@@ -29,8 +26,6 @@ class LabeledTextField: UINibView {
 
     override func commonInit() {
         super.commonInit()
-//        textFieldHeightConstraint = gnoTextField.textField.heightAnchor.constraint(equalToConstant: Self.textFieldHeight)
-//        textFieldHeightConstraint.isActive = true
         setCaption(nil)
         gnoTextField.textField.delegate = self
     }
