@@ -117,7 +117,11 @@ class ReviewSendFundsTransactionViewController: UIViewController {
                 self.minimalNonce = estimationResult.currentNonce
                 self.nonce = estimationResult.recommendedNonce
 
-                if let estimatedSafeTxGas = UInt256(estimationResult.safeTxGas) {
+                if let contractVersion = self.safe.contractVersion,
+                   let version = Version(contractVersion),
+                   version >= Version(1, 3, 0) {
+                    self.safeTxGas = UInt256String(0)
+                } else if let estimatedSafeTxGas = UInt256(estimationResult.safeTxGas) {
                     self.safeTxGas = UInt256String(estimatedSafeTxGas)
                 }
 
