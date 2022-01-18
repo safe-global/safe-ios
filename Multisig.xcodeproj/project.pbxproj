@@ -648,6 +648,8 @@
 		55F9B7A026D66630003D1C68 /* LedgerPendingConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F9B79F26D66630003D1C68 /* LedgerPendingConfirmationViewController.xib */; };
 		55F9B7A226D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9B7A126D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift */; };
 		55FBC2D526BA91E4002C2553 /* SelectLedgerDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */; };
+		6ADEB01B2795AB410062ADFE /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB0192795AB410062ADFE /* InfoLabel.swift */; };
+		6ADEB01C2795AB410062ADFE /* InfoLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB01A2795AB410062ADFE /* InfoLabel.xib */; };
 		93D9013E27727E2500624B29 /* WhatsNewKit in Frameworks */ = {isa = PBXBuildFile; productRef = 93D9013D27727E2500624B29 /* WhatsNewKit */; };
 		93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */; };
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
@@ -672,7 +674,6 @@
 		D88FA81F2770869E0023B77F /* TokenAmountField.xib in Resources */ = {isa = PBXBuildFile; fileRef = D88FA81D2770869E0023B77F /* TokenAmountField.xib */; };
 		D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6B12B2779D01900438460 /* AdvancedParametersViewController.swift */; };
 		D8A6B12E2779D01900438460 /* AdvancedParametersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8A6B12C2779D01900438460 /* AdvancedParametersViewController.xib */; };
-		D8A6B130277A0E8800438460 /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6B12F277A0E8800438460 /* InfoLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1349,6 +1350,8 @@
 		55F9B79F26D66630003D1C68 /* LedgerPendingConfirmationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LedgerPendingConfirmationViewController.xib; sourceTree = "<group>"; };
 		55F9B7A126D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerPendingConfirmationViewController.swift; sourceTree = "<group>"; };
 		55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLedgerDeviceViewController.swift; sourceTree = "<group>"; };
+		6ADEB0192795AB410062ADFE /* InfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
+		6ADEB01A2795AB410062ADFE /* InfoLabel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoLabel.xib; sourceTree = "<group>"; };
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
 		AD3035EE31CD4171C56B475B /* WhatsNewHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsNewHandler.swift; sourceTree = "<group>"; };
 		D80B5A022769CEAD00D6E024 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
@@ -1370,7 +1373,6 @@
 		D88FA81D2770869E0023B77F /* TokenAmountField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenAmountField.xib; sourceTree = "<group>"; };
 		D8A6B12B2779D01900438460 /* AdvancedParametersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedParametersViewController.swift; sourceTree = "<group>"; };
 		D8A6B12C2779D01900438460 /* AdvancedParametersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdvancedParametersViewController.xib; sourceTree = "<group>"; };
-		D8A6B12F277A0E8800438460 /* InfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2955,11 +2957,12 @@
 				D80B5A062769D05D00D6E024 /* BaseCustomView.swift */,
 				D88FA81C2770869E0023B77F /* TokenAmountField.swift */,
 				D88FA81D2770869E0023B77F /* TokenAmountField.xib */,
-				D8A6B12F277A0E8800438460 /* InfoLabel.swift */,
 				04E4CD64277752A500B558F4 /* TokenAmountInfoView.swift */,
 				04E4CD66277752C400B558F4 /* TokenAmountInfoView.xib */,
 				04077B3C278CB84F00AF6376 /* ActivityButtonView.swift */,
 				04077B3E278CB85F00AF6376 /* ActivityButtonView.xib */,
+				6ADEB0192795AB410062ADFE /* InfoLabel.swift */,
+				6ADEB01A2795AB410062ADFE /* InfoLabel.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3309,6 +3312,7 @@
 				TargetAttributes = {
 					0A93DD522445CC8A00688050 = {
 						CreatedOnToolsVersion = 11.4;
+						LastSwiftMigration = 1320;
 					};
 					0A93DD6B2445CC8C00688050 = {
 						CreatedOnToolsVersion = 11.4;
@@ -3395,6 +3399,7 @@
 				55F9B7A026D66630003D1C68 /* LedgerPendingConfirmationViewController.xib in Resources */,
 				0AE5A9C3267A4BDC00468C90 /* ImportKeyBannerCell.xib in Resources */,
 				558836712565385F0014E8C7 /* RemoveCell.xib in Resources */,
+				6ADEB01C2795AB410062ADFE /* InfoLabel.xib in Resources */,
 				04077B3F278CB85F00AF6376 /* ActivityButtonView.xib in Resources */,
 				55DA0665269DD52E006C9AA5 /* dapps-polygon.json in Resources */,
 				5580BF1B276B213000CA288F /* dapps-avalanche.json in Resources */,
@@ -3636,6 +3641,7 @@
 				0468FB9425912E8300541536 /* TransactionsListConflictHeaderTableViewCell.swift in Sources */,
 				04D1323525E43C560032FA03 /* DetailRejectionInfoCell.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
+				6ADEB01B2795AB410062ADFE /* InfoLabel.swift in Sources */,
 				0A045086278DC04C00650F71 /* BorderedInnerTableCell.swift in Sources */,
 				04B4B60225B84D6900CFE24B /* AccountInfoView.swift in Sources */,
 				0A2F1A76267A5E5B00C09F03 /* BalanceCell.swift in Sources */,
@@ -3887,7 +3893,6 @@
 				0AEEBC73258CDF9400F3A6F9 /* CollectibleDetailViewController.swift in Sources */,
 				5532D4932448A1960067505A /* Safe.swift in Sources */,
 				0AF1C7F42540887300E28669 /* HeaderViewController.swift in Sources */,
-				D8A6B130277A0E8800438460 /* InfoLabel.swift in Sources */,
 				0A6886E72589080A0045CAB5 /* GNOTextField.swift in Sources */,
 				04D131DB25E416FC0032FA03 /* RejectionCreatedPiece.swift in Sources */,
 				0A478D3B25B863D60038363E /* DerivedKeyTableViewCell.swift in Sources */,
@@ -4239,6 +4244,7 @@
 		0A93DD762445CC8C00688050 /* Debug.Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Multisig/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -4255,6 +4261,7 @@
 				MARKETING_VERSION = 0.2.0;
 				PRODUCT_MODULE_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -4263,6 +4270,7 @@
 		0A93DD772445CC8C00688050 /* Release.Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Multisig/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -4435,6 +4443,7 @@
 		0ACDC00B249252AD002035A2 /* Debug.Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Multisig/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -4451,6 +4460,7 @@
 				MARKETING_VERSION = 0.2.0;
 				PRODUCT_MODULE_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -4558,6 +4568,7 @@
 		0ACDC00F249252B6002035A2 /* Release.Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Multisig/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -5109,6 +5120,7 @@
 		0AF7F771247FC50400527014 /* Release.Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Multisig/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -5238,6 +5250,7 @@
 		0AF7F775247FC50E00527014 /* Debug.Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Multisig/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -5254,6 +5267,7 @@
 				MARKETING_VERSION = 0.2.0;
 				PRODUCT_MODULE_NAME = Multisig;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

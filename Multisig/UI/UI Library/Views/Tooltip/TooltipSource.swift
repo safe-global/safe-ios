@@ -7,6 +7,7 @@ public class TooltipSource: TooltipDelegate {
 
     private weak var tooltip: Tooltip?
     private weak var target: UIView?
+    private var arrowTarget: UIView?
     
     private var onTap: (() -> Void)?
     private var onAppear: (() -> Void)?
@@ -18,10 +19,12 @@ public class TooltipSource: TooltipDelegate {
     public var hideAutomatically: Bool = false
 
     public init(target: UIView,
+                arrowTarget: UIView? = nil,
                 onTap: (() -> Void)? = nil,
                 onAppear: (() -> Void)? = nil,
                 onDisappear: (() -> Void)? = nil) {
         self.target = target
+        self.arrowTarget = arrowTarget
         self.onTap = onTap
         self.onAppear = onAppear
         self.onDisappear = onDisappear
@@ -52,11 +55,12 @@ public class TooltipSource: TooltipDelegate {
         
         tooltip = Tooltip.show(
             for: target,
-            in: window,
-            message: message,
-            aboveTarget: aboveTarget,
-            hideAutomatically: hideAutomatically,
-            delegate: self)
+               in: window,
+               message: message,
+               arrowTarget: arrowTarget,
+               aboveTarget: aboveTarget,
+               hideAutomatically: hideAutomatically,
+               delegate: self)
         
         onTap?()
     }

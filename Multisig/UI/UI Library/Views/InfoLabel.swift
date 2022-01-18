@@ -2,48 +2,34 @@
 //  InfoLabel.swift
 //  Multisig
 //
-//  Created by Vitaly Katz on 27.12.21.
-//  Copyright © 2021 Gnosis Ltd. All rights reserved.
+//  Created by Vitaly on 17.01.22.
+//  Copyright © 2022 Gnosis Ltd. All rights reserved.
 //
 
 import UIKit
 
-// label with tooltip
-class InfoLabel : UILabel {
+class InfoLabel: UINibView {
+
+    @IBOutlet weak var labelText: UILabel!
+    @IBOutlet weak var labelIcon: UIImageView!
     
     private var tooltipSource: TooltipSource?
-    
-    required init?(coder decoder: NSCoder) {
-        super.init(coder: decoder)
+
+    override func commonInit() {
+        super.commonInit()
+        labelText.setStyle(.headline)
     }
     
     func setText(_ text: String = "", description: String? = nil, style: GNOTextStyle = .headline) {
-
-        if !text.isEmpty {
-            
-            let attributedText = NSMutableAttributedString(string: "\(text) ", attributes: style.attributes)
-            
-            let attachment = NSTextAttachment()
-            attachment.image = UIImage(systemName: "info.circle")?.withTintColor(.gray2)
-            let imageOffsetY: CGFloat = -3.0
-            attachment.bounds = CGRect(x:0, y:imageOffsetY, width: attachment.image!.size.width, height:attachment.image!.size.height)
-            
-            let attachmentString = NSAttributedString(attachment: attachment)
-            
-            attributedText.append(attachmentString)
-
-            self.attributedText = attributedText
-            
-            if let description = description {
-                tooltipSource = TooltipSource(target: self)
-                tooltipSource?.hideAutomatically = true
-                tooltipSource?.message = description
-                tooltipSource?.aboveTarget = false
-            } else {
-                tooltipSource = nil
-            }
+        
+        labelText.setStyle(style)
+        labelText.text = text
+        
+        if let description = description {
+            tooltipSource = TooltipSource(target: self, arrowTarget: labelIcon)
+            tooltipSource?.message = description
+            tooltipSource?.aboveTarget = false
         } else {
-            attributedText = nil
             tooltipSource = nil
         }
     }
