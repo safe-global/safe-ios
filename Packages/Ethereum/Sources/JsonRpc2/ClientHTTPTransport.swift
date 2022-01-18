@@ -36,6 +36,9 @@ extension JsonRpc2 {
                 //
                 // If the request fails, the data parameter is nil and the error parameter
                 // contain information about the failure.
+                if let dataOrNil = dataOrNil, let str = String(data: dataOrNil, encoding: .utf8) {
+                    print("JsonRpc2 <<<", str)
+                }
                 if let data = dataOrNil, errorOrNil == nil {
                     completion(.success(data))
                 } else if let error = errorOrNil {

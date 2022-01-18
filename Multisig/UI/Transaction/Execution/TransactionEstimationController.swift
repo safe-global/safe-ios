@@ -20,6 +20,12 @@ class TransactionEstimationController {
         "246",
         // Volta
         "73799",
+        // arbitrm one
+        "42161",
+        // binance smart chain
+        "56",
+        // optimism
+        "10",
     ]
 
     let rpcClient: JsonRpc2.Client
