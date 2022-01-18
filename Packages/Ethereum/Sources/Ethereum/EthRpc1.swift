@@ -1741,9 +1741,8 @@ extension Eth.TokenAmount {
                     fractionalPart = numberParts[0]
                 } else {
                     // dot at the end
-                    integerPart = numberParts[1]
+                    integerPart = numberParts[0]
                 }
-
             } else if numberParts.count == 2 {
                 // dot in the middle
                 (integerPart, fractionalPart) = (numberParts[0], numberParts[1])

@@ -143,6 +143,7 @@ class ReviewExecutionViewController: ContainerViewController {
                 self.controller.selectedKey = nil
             }
             if selectedKeyInfo != previousKey {
+                self.resetErrors()
                 Tracker.trackEvent(.reviewExecutionSelectedKeyChanged)
                 self.didChangeSelectedKey()
             }
@@ -277,6 +278,7 @@ class ReviewExecutionViewController: ContainerViewController {
                 // react to changes
 
                 if savedValues != initialValues {
+                    self.resetErrors()
                     self.didChangeTransactionParameters()
 
                     let changedFields = changedFieldTrackingIds.joined(separator: ",")
@@ -327,7 +329,7 @@ class ReviewExecutionViewController: ContainerViewController {
 
         contentVC.model?.executionOptions.feeState = .loading
 
-        let task = controller.estimate { [weak self] error in
+        let task = controller.estimate { [weak self] in
             guard let self = self else { return }
             self.didChangeEstimation()
             self.contentVC.didEndReloading()
@@ -423,7 +425,6 @@ class ReviewExecutionViewController: ContainerViewController {
     }
 
     func validate() {
-        resetErrors()
         controller.validate()
         contentVC?.model?.errorMessage = controller.errorMessage
         submitButton.isEnabled = controller.isValid

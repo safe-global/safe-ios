@@ -20,14 +20,29 @@ class DetailExpandableTextCell: UITableViewCell {
     private var textToCopy: String?
     private var isExpanded: Bool = false
 
+    var titleStyle: GNOTextStyle = .headline
+    var expandableTitleStyle: (collapsed: GNOTextStyle, expanded: GNOTextStyle) = (.secondary, .secondary)
+    var contentStyle: (collapsed: GNOTextStyle, expanded: GNOTextStyle) = (.secondary, .primary)
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.setStyle(.headline)
-        expandableTitleLabel.setStyle(.secondary)
+        titleLabel.setStyle(titleStyle)
+        expandableTitleLabel.setStyle(expandableTitleStyle.collapsed)
         expandableIconImageView.tintColor = .secondaryLabel
         setExpandableTitle(nil)
         setCopyText(nil)
         updateExpanded()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        isExpanded = false
+        titleStyle = .headline
+        expandableTitleStyle = (.secondary, .secondary)
+        contentStyle = (.secondary, .primary)
+        titleLabel.setStyle(titleStyle)
+        contentLabel.setStyle(contentStyle.collapsed)
+        expandableTitleLabel.setStyle(expandableTitleStyle.collapsed)
     }
 
     func setText(_ text: String) {
@@ -37,13 +52,16 @@ class DetailExpandableTextCell: UITableViewCell {
     func setTitle(_ text: String?) {
         titleLabel.text = text
         titleLabel.isHidden = text == nil
+        titleLabel.setStyle(titleStyle)
     }
 
+    // nil argument indicates that the cell is not expandable, i.e. it will show the main content
     func setExpandableTitle(_ text: String?) {
         let isExpandable: Bool = text == nil
         expanableContainerStackView.isHidden = isExpandable
         expandableTitleLabel.text = text
-        let contentStyle: GNOTextStyle = isExpandable ? .secondary : .primary
+        expandableTitleLabel.setStyle(expandableTitleStyle.collapsed)
+        let contentStyle: GNOTextStyle = isExpandable && !isExpanded ? contentStyle.collapsed : contentStyle.expanded
         contentLabel.setStyle(contentStyle)
         contentLabel.isHidden = isExpandable ? false : !isExpanded
     }
@@ -65,6 +83,8 @@ class DetailExpandableTextCell: UITableViewCell {
 
         tableView?.beginUpdates()
         contentLabel.isHidden = !isExpanded
+        contentLabel.setStyle(isExpanded ? contentStyle.expanded : contentStyle.collapsed)
+        expandableTitleLabel.setStyle(isExpanded ? expandableTitleStyle.expanded : expandableTitleStyle.collapsed)
         tableView?.endUpdates()
     }
 
