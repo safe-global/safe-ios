@@ -185,7 +185,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
 
         // to
         let (recipientLabel, recipientLogo) = NamingPolicy.name(for: transferTx.recipient, chainId: chain.id!)
-        let recipientUrl = chain.browserURL(address: transferTx.sender.value.address.checksummed)
+        let recipientUrl = chain.browserURL(address: transferTx.recipient.value.address.checksummed)
 
         self.addresses([
             (address: transferTx.sender.value.address, label: senderLabel,

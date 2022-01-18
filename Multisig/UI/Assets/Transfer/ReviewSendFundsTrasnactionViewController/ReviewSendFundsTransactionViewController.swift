@@ -335,8 +335,6 @@ class ReviewSendFundsTransactionViewController: UIViewController {
                     object: self,
                     userInfo: ["transactionDetails": transaction])
             }
-
-//            self.navigationController?.popToRootViewController(animated: true)
         }
 
         show(successVC, sender: self)
