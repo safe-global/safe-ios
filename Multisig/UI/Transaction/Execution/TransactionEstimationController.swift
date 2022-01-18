@@ -13,9 +13,20 @@ import Solidity
 
 class TransactionEstimationController {
 
-    let rpcClient: JsonRpc2.Client
+    let legacyEstimateGasChainIds = [
+        // xDai
+        "100",
+        // Energey Web Chain
+        "246",
+        // Volta
+        "73799",
+    ]
 
-    init(rpcUri: String) {
+    let rpcClient: JsonRpc2.Client
+    let chain: Chain
+
+    init(rpcUri: String, chain: Chain) {
+        self.chain = chain
         self.rpcClient = JsonRpc2.Client(transport: JsonRpc2.ClientHTTPTransport(url: rpcUri), serializer: JsonRpc2.DefaultSerializer())
     }
 
@@ -25,7 +36,11 @@ class TransactionEstimationController {
         // remove the fee because we want to estimate it.
         var tx = tx
         tx.removeFee()
-        let getEstimate = EthRpc1.eth_estimateGas(tx)
+
+        let getEstimateNew = EthRpc1.eth_estimateGas(tx)
+        let getEstimateLegacy = EthRpc1.eth_estimateGasLegacyApi(tx)
+
+        let usingLegacyGasApi = chain.id != nil && legacyEstimateGasChainIds.contains(chain.id!)
 
         let getTransactionCount = EthRpc1.eth_getTransactionCount(address: EthRpc1.Data(tx.from ?? .init()), block: .tag(.pending))
 
@@ -38,7 +53,7 @@ class TransactionEstimationController {
 
 
         do {
-            getEstimateRequest = try getEstimate.request(id: .int(1))
+            getEstimateRequest = try usingLegacyGasApi ? getEstimateLegacy.request(id: .int(1)) : getEstimateNew.request(id: .int(1))
             getTransactionCountRequest = try getTransactionCount.request(id: .int(2))
             getPriceRequest = try getPrice.request(id: .int(3))
 
@@ -83,7 +98,9 @@ class TransactionEstimationController {
                         return .failure(error)
                     }
                 }
-                let gasResult = result(request: getEstimateRequest, method: getEstimate, responses: responses).map(\.storage)
+                let gasResult = usingLegacyGasApi ?
+                    result(request: getEstimateRequest, method: getEstimateLegacy, responses: responses).map(\.storage)
+                    : result(request: getEstimateRequest, method: getEstimateNew, responses: responses).map(\.storage)
                 let txCountResult = result(request: getTransactionCountRequest, method: getTransactionCount, responses: responses).map(\.storage)
                 let priceResult = result(request: getPriceRequest, method: getPrice, responses: responses).map(\.storage)
 

@@ -278,7 +278,12 @@ extension Chain {
 
 extension Chain {
     var authenticatedRpcUrl: URL {
-        rpcUrl!.appendingPathComponent(App.configuration.services.infuraKey)
+        switch self.rpcUrlAuthentication {
+        case SCGModels.RpcAuthentication.Authentication.apiKeyPath.rawValue:
+            return rpcUrl!.appendingPathComponent(App.configuration.services.infuraKey)
+        default:
+            return rpcUrl!
+        }
     }
 
     var textColor: UIColor? {

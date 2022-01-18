@@ -306,6 +306,49 @@ public enum EthRpc1 {
         }
     }
 
+    public struct EstimateGasLegacyTransaction: Codable {
+        public var type: Quantity<Sol.UInt64>?
+
+        public var nonce: Quantity<Sol.UInt64>?
+
+        /// to address
+        public var to: EthRpc1.Data? = nil
+
+        /// gas limit
+        public var gas: Quantity<Sol.UInt64>?
+
+        /// The gas price willing to be paid by the sender in wei
+        public var gasPrice: Quantity<Sol.UInt256>?
+
+        public var value: Quantity<Sol.UInt256>
+
+        /// input data
+        public var data: EthRpc1.Data
+
+        /// Maximum fee per gas the sender is willing to pay to miners in wei
+        public var maxPriorityFeePerGas: Quantity<Sol.UInt256>?
+
+        /// The maximum total fee per gas the sender is willing to pay (includes the network / base fee and miner / priority fee) in wei
+        public var maxFeePerGas: Quantity<Sol.UInt256>?
+
+        /// from address
+        public var from: EthRpc1.Data? = nil
+
+
+        public init(type: EthRpc1.Quantity<Sol.UInt64>?, nonce: EthRpc1.Quantity<Sol.UInt64>?, to: EthRpc1.Data? = nil, gas: EthRpc1.Quantity<Sol.UInt64>?, gasPrice: EthRpc1.Quantity<Sol.UInt256>?, value: EthRpc1.Quantity<Sol.UInt256>, data: EthRpc1.Data, maxPriorityFeePerGas: EthRpc1.Quantity<Sol.UInt256>?, maxFeePerGas: EthRpc1.Quantity<Sol.UInt256>?, from: EthRpc1.Data? = nil) {
+            self.type = type
+            self.nonce = nonce
+            self.to = to
+            self.gas = gas
+            self.gasPrice = gasPrice
+            self.value = value
+            self.data = data
+            self.maxPriorityFeePerGas = maxPriorityFeePerGas
+            self.maxFeePerGas = maxFeePerGas
+            self.from = from
+        }
+    }
+
     public struct Log: Codable {
         public var removed: Bool?
         public var logIndex: String?
@@ -364,9 +407,9 @@ public enum EthRpc1 {
         public var status: String?
 
         /// The actual value per gas deducted from the senders account. Before EIP-1559, this is equal to the transaction's gas price. After, it is equal to baseFeePerGas + min(maxFeePerGas - baseFeePerGas, maxPriorityFeePerGas).
-        public var effectiveGasPrice: String
+        public var effectiveGasPrice: String?
 
-        public init(transactionHash: String, transactionIndex: String, blockHash: String, blockNumber: String, from: String, to: String?, cumulativeGasUsed: String, gasUsed: String, contractAddress: String?, logs: [EthRpc1.Log], logsBloom: String, root: String?, status: String?, effectiveGasPrice: String) {
+        public init(transactionHash: String, transactionIndex: String, blockHash: String, blockNumber: String, from: String, to: String?, cumulativeGasUsed: String, gasUsed: String, contractAddress: String?, logs: [EthRpc1.Log], logsBloom: String, root: String?, status: String?, effectiveGasPrice: String?) {
             self.transactionHash = transactionHash
             self.transactionIndex = transactionIndex
             self.blockHash = blockHash
@@ -445,14 +488,21 @@ extension EthRpc1 {
     }
 
     /// Generates and returns an estimate of how much gas is necessary to allow the transaction to complete.
-    public struct eth_estimateGas: JsonRpc2Method, EthRpc1TransactionParams {
+    public struct eth_estimateGas: EthEstimateGasAbi, JsonRpc2Method, EthRpc1TransactionParams {
         /// Transaction. NOTE: `from` field MUST be present.
         public var transaction: Transaction
 
-        /// Gas used
-        public typealias Return = Quantity<Sol.UInt64>
-
         public init(transaction: EthRpc1.Transaction) {
+            self.transaction = transaction
+        }
+    }
+
+    public struct eth_estimateGasLegacyApi: EthEstimateGasAbi, JsonRpc2Method, EthRpc1TransactionParams {
+        public static var name: String { "eth_estimateGas" }
+
+        public var transaction: EstimateGasLegacyTransaction
+
+        public init(transaction: EthRpc1.EstimateGasLegacyTransaction) {
             self.transaction = transaction
         }
     }
@@ -556,6 +606,12 @@ extension EthRpc1TransactionParams {
         var container = encoder.unkeyedContainer()
         try container.encode(transaction)
     }
+}
+
+public protocol EthEstimateGasAbi {}
+
+extension EthEstimateGasAbi where Self: JsonRpc2Method, Self: EthRpc1TransactionParams {
+    public typealias Return = EthRpc1.Quantity<Sol.UInt64>
 }
 
 extension EthRpc1.eth_getTransactionReceipt: Codable {
@@ -1205,7 +1261,7 @@ public protocol EthTransaction: EthSignable, EthRawTransaction {
 }
 
 extension Eth.TransactionEip1559: EthSignable {
-    // The signature_y_parity, signature_r, signature_s elements of this transaction represent a
+    // The signature_y_parity, signature_r, signature_s elements of this transactin represent a
     // secp256k1 signature over
     // keccak256(0x02 || rlp([chain_id, nonce, max_priority_fee_per_gas, max_fee_per_gas, gas_limit, destination, amount, data, access_list]))
 
@@ -1292,6 +1348,21 @@ extension EthRpc1.eth_estimateGas {
     }
 }
 
+extension EthRpc1.eth_estimateGasLegacyApi {
+    public init(_ tx: EthTransaction) {
+        switch tx {
+        case let eip1559 as Eth.TransactionEip1559:
+            self.init(transaction: EthRpc1.EstimateGasLegacyTransaction(eip1559))
+        case let eip2930 as Eth.TransactionEip2930:
+            self.init(transaction: EthRpc1.EstimateGasLegacyTransaction(eip2930))
+        case let legacy as Eth.TransactionLegacy:
+            self.init(transaction: EthRpc1.EstimateGasLegacyTransaction(legacy))
+        default:
+            fatalError("Not implemented")
+        }
+    }
+}
+
 extension EthRpc1.Transaction1559 {
     public init(_ tx: Eth.TransactionEip1559) {
         self.init(
@@ -1313,6 +1384,24 @@ extension EthRpc1.Transaction1559 {
             yParity: (tx.signature?.yParity).map { EthRpc1.Quantity<Sol.UInt256>($0) },
             r: (tx.signature?.r).map { EthRpc1.Quantity<Sol.UInt256>($0) },
             s: (tx.signature?.s).map { EthRpc1.Quantity<Sol.UInt256>($0) }
+        )
+    }
+}
+
+
+extension EthRpc1.EstimateGasLegacyTransaction {
+    public init(_ tx: Eth.TransactionEip1559) {
+        self.init(
+            type: EthRpc1.Quantity<Sol.UInt64>(tx.type),
+            nonce: EthRpc1.Quantity<Sol.UInt64>(tx.nonce),
+            to: EthRpc1.Data(tx.to),
+            gas: tx.fee.gas.map(EthRpc1.Quantity<Sol.UInt64>.init),
+            gasPrice: nil,
+            value: EthRpc1.Quantity<Sol.UInt256>(tx.value),
+            data: EthRpc1.Data(tx.input),
+            maxPriorityFeePerGas: tx.fee.maxPriorityFee.map(EthRpc1.Quantity<Sol.UInt256>.init),
+            maxFeePerGas: tx.fee.maxFeePerGas.map(EthRpc1.Quantity<Sol.UInt256>.init),
+            from: tx.from.map { EthRpc1.Data($0) }
         )
     }
 }
@@ -1406,6 +1495,24 @@ extension EthRpc1.Transaction2930 {
         )
     }
 }
+
+extension EthRpc1.EstimateGasLegacyTransaction {
+    public init(_ tx: Eth.TransactionEip2930) {
+        self.init(
+            type: EthRpc1.Quantity<Sol.UInt64>(tx.type),
+            nonce: EthRpc1.Quantity<Sol.UInt64>(tx.nonce),
+            to: EthRpc1.Data(tx.to),
+            gas: tx.fee.gas.map(EthRpc1.Quantity<Sol.UInt64>.init),
+            gasPrice: tx.fee.gasPrice.map(EthRpc1.Quantity<Sol.UInt256>.init),
+            value: EthRpc1.Quantity<Sol.UInt256>(tx.value),
+            data: EthRpc1.Data(tx.input),
+            maxPriorityFeePerGas: nil,
+            maxFeePerGas: nil,
+            from: tx.from.map { EthRpc1.Data($0) }
+        )
+    }
+}
+
 
 // MARK: Legacy
 extension Eth.TransactionLegacy: EthSignable {
@@ -1512,6 +1619,23 @@ extension EthRpc1.TransactionLegacy {
             v: (tx.signature?.v).map { EthRpc1.Quantity<Sol.UInt256>($0) },
             r: (tx.signature?.r).map { EthRpc1.Quantity<Sol.UInt256>($0) },
             s: (tx.signature?.s).map { EthRpc1.Quantity<Sol.UInt256>($0) }
+        )
+    }
+}
+
+extension EthRpc1.EstimateGasLegacyTransaction {
+    public init(_ tx: Eth.TransactionLegacy) {
+        self.init(
+            type: nil,
+            nonce: EthRpc1.Quantity<Sol.UInt64>(tx.nonce),
+            to: EthRpc1.Data(tx.to),
+            gas: tx.fee.gas.map(EthRpc1.Quantity<Sol.UInt64>.init),
+            gasPrice: tx.fee.gasPrice.map(EthRpc1.Quantity<Sol.UInt256>.init),
+            value: EthRpc1.Quantity<Sol.UInt256>(tx.value),
+            data: EthRpc1.Data(tx.input),
+            maxPriorityFeePerGas: nil,
+            maxFeePerGas: nil,
+            from: tx.from.map { EthRpc1.Data($0) }
         )
     }
 }
