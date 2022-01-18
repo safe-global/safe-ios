@@ -572,24 +572,7 @@ class ReviewExecutionViewController: ContainerViewController {
                 successVC.onDone = { [weak self] in
                     guard let self = self else { return }
 
-                    guard let txHash = self.controller.ethTransaction?.hash,
-                          let template = self.chain.blockExplorerUrlTxHash
-                    else {
-                        self.onSuccess()
-                        return
-                    }
-                    let hexTxHash = txHash.storage.storage.toHexStringWithPrefix()
-                    let urlString = template.replacingOccurrences(of: "{{txHash}}", with: hexTxHash)
-
-                    guard let url = URL(string: urlString) else {
-                        self.onSuccess()
-                        return
-                    }
-
-                    let safari = SFSafariViewController(url: url)
-                    safari.delegate = self
-                    safari.modalPresentationStyle = .formSheet
-                    self.present(safari, animated: true)
+                    self.onSuccess()
                 }
 
                 self.show(successVC, sender: self)
@@ -597,10 +580,4 @@ class ReviewExecutionViewController: ContainerViewController {
         })
     }
 
-}
-
-extension ReviewExecutionViewController: SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        self.onSuccess()
-    }
 }
