@@ -160,7 +160,7 @@ class TransactionExecutionController {
         }
     }
 
-    func estimate(completion: @escaping (Error?) -> Void) -> URLSessionTask? {
+    func estimate(completion: @escaping () -> Void) -> URLSessionTask? {
         var tx: EthTransaction
         do {
             let keyAddress = selectedKey?.key.address
@@ -169,22 +169,56 @@ class TransactionExecutionController {
 
             tx = try ethTransaction(from: solAddress, minerTip: minerTip)
         } catch {
-            completion(error)
+            self.errorMessage = error.localizedDescription
+            completion()
             return nil
         }
 
-        let task = estimationController.estimate(transaction: tx) { result in
-            switch result {
+        let task = estimationController.estimateTransactionWithRpc(tx: tx) { [weak self] estimationResult in
+            guard let self = self else { return }
+            // at this point the estimatedTx contains parameters estimated by API
+
+            switch estimationResult {
             case .failure(let error):
-                completion(error)
-            case .success(let estimatedTx):
-                // at this point the estimatedTx contains parameters estimated by API
-                self.ethTransaction = estimatedTx
+                self.ethTransaction = tx
                 self.updateEthTransactionWithUserValues()
-                completion(nil)
+                self.errorMessage = error.localizedDescription
+                completion()
+
+            case .success(let partialResults):
+                var errors: [Error] = []
+                var gas: Sol.UInt64?
+                var txCount: Sol.UInt64?
+                var gasPrice: Sol.UInt256?
+
+                do {
+                    gas = try partialResults.gas.get()
+                } catch {
+                    errors.append(error)
+                }
+
+                do {
+                    txCount = try partialResults.transactionCount.get()
+                } catch {
+                    errors.append(error)
+                }
+
+                do {
+                    gasPrice = try partialResults.gasPrice.get()
+                } catch {
+                    errors.append(error)
+                }
+
+                tx.update(gas: gas ?? 0, transactionCount: txCount ?? 0, baseFee: gasPrice ?? 0)
+                self.ethTransaction = tx
+                self.updateEthTransactionWithUserValues()
+
+                let resultError: Error? = errors.isEmpty ? nil : TransactionExecutionAggregateError(errors: errors)
+                self.errorMessage = resultError?.localizedDescription
+                
+                completion()
             }
         }
-
         return task
     }
 
@@ -322,6 +356,10 @@ class TransactionExecutionController {
 
     func validate() {
         isValid = false
+
+        guard errorMessage == nil else {
+            return
+        }
 
         guard let key = selectedKey, let keyBalance = key.balance.amount else {
             return
@@ -571,5 +609,21 @@ struct TransactionExecutionError: LocalizedError {
 
     var errorDescription: String? {
         "\(message) (Error \(code))"
+    }
+}
+
+struct TransactionExecutionAggregateError: LocalizedError {
+    var errors: [Error]
+
+    var errorDescription: String? {
+        var result: String = "This transaction will most likely fail. To save gas costs, avoid executing the transaction."
+        if errors.isEmpty {
+            result = ""
+        } else if errors.count == 1 {
+            result += "\n\n" + errors[0].localizedDescription
+        } else {
+            result += "\n\n" + errors.map { "- \($0.localizedDescription)" }.joined(separator: "\n")
+        }
+        return result.isEmpty ? nil : result
     }
 }
