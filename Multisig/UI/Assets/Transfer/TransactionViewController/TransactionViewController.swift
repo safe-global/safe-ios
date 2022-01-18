@@ -116,7 +116,7 @@ class TransactionViewController: UIViewController {
             guard let self = self else { return }
             let vc = QRCodeScannerViewController()
             vc.scannedValueValidator = { value in
-                if Address(value) != nil {
+                if let _ = try? Address.addressWithPrefix(text: value) {
                     return .success(value)
                 } else {
                     return .failure(GSError.error(description: "Can’t use this QR code",
