@@ -24,6 +24,10 @@ extension JsonRpc2 {
             urlRequest.httpMethod = "POST"
             urlRequest.httpBody = data
             urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            urlRequest.setValue("\(data.count)", forHTTPHeaderField: "Content-Length")
+
+            print("JsonRpc2 >>>", urlRequest)
+            print("JsonRpc2 >>>", String(data: data, encoding: .utf8) ?? "''")
 
             let dataTask = URLSession.shared.dataTask(with: urlRequest) { dataOrNil, _, errorOrNil in
                 // From the docs:

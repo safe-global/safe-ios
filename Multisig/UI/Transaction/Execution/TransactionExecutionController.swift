@@ -52,7 +52,7 @@ class TransactionExecutionController {
         self.safe = safe
         self.chain = chain
         self.transaction = transaction
-        self.estimationController = TransactionEstimationController(rpcUri: chain.authenticatedRpcUrl.absoluteString)
+        self.estimationController = TransactionEstimationController(rpcUri: chain.authenticatedRpcUrl.absoluteString, chain: chain)
     }
 
     // returns the execution keys valid for executing this transaction
