@@ -177,7 +177,8 @@ class ChooseOwnerKeyViewController: UIViewController {
                     (error as NSError).domain == NSURLErrorDomain {
                     return
                 }
-                let gsError = GSError.error(description: "Failed to load account balances", error: error)
+                LogService.shared.error("Balances loading failed: \(error)")
+                let gsError = GSError.error(description: "Failed to load account balances")
                 App.shared.snackbar.show(error: gsError)
 
             case .success(let balances):

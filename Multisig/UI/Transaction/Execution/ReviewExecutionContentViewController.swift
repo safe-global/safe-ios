@@ -47,7 +47,7 @@ class ReviewExecutionContentViewController: UITableViewController {
         assert(transaction != nil)
 
         builder = ReviewExecutionCellBuilder(
-            vc: self,
+            vc: self.parent ?? self,
             tableView: tableView,
             chain: chain,
             safe: safe
@@ -58,7 +58,6 @@ class ReviewExecutionContentViewController: UITableViewController {
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48
-        tableView.allowsSelection = false
         pullToRefreshControl = UIRefreshControl()
         pullToRefreshControl.addTarget(self,
                                        action: #selector(pullToRefreshChanged),
@@ -92,4 +91,16 @@ class ReviewExecutionContentViewController: UITableViewController {
         cells[indexPath.row]
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let cell = tableView.cellForRow(at: indexPath)
+        if let disclosureCell = cell as? DetailDisclosingCell {
+            disclosureCell.action()
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        let cell = tableView.cellForRow(at: indexPath)
+        return cell is DetailDisclosingCell ? indexPath : nil
+    }
 }
