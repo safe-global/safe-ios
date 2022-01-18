@@ -17,9 +17,7 @@ class InfoLabel: UINibView {
 
     override func commonInit() {
         super.commonInit()
-        
         labelText.setStyle(.headline)
-//        labelIcon.image = UIImage(systemName: "info.circle")?.withTintColor(.gray2)
     }
     
     func setText(_ text: String = "", description: String? = nil, style: GNOTextStyle = .headline) {
