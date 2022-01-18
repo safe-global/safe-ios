@@ -174,12 +174,10 @@ class ReviewSendFundsTransactionViewController: UIViewController {
 
     private func startConfirm() {
         self.confirmButtonView.state = .loading
-        navigationItem.hidesBackButton = true
     }
 
     private func endConfirm() {
         self.confirmButtonView.state = .normal
-        navigationItem.hidesBackButton = false
     }
 
     private func sign(_ keyInfo: KeyInfo) {
@@ -329,11 +327,16 @@ class ReviewSendFundsTransactionViewController: UIViewController {
 
         successVC.onDone = { [weak self] in
             guard let self = self else { return }
-            NotificationCenter.default.post(
-                name: .initiateTxNotificationReceived,
-                object: self,
-                userInfo: ["transactionDetails": transaction])
-            self.navigationController?.popToRootViewController(animated: true)
+
+            
+            self.dismiss(animated: true) {
+                NotificationCenter.default.post(
+                    name: .initiateTxNotificationReceived,
+                    object: self,
+                    userInfo: ["transactionDetails": transaction])
+            }
+
+//            self.navigationController?.popToRootViewController(animated: true)
         }
 
         show(successVC, sender: self)

@@ -80,8 +80,9 @@ class AssetsViewController: ContainerViewController {
     
     private func showSelectAssetsViewContoller() {
         guard let balances = self.balances else { return }
-        let vc = SelectAssetViewController(balances: balances)
-        self.show(vc, sender: self)
+        let selectAssetVC = SelectAssetViewController(balances: balances)
+        let nav = UINavigationController(rootViewController: selectAssetVC)
+        present(nav, animated: true)
     }
     
     @objc private func balanceLoading() {
