@@ -43,6 +43,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
 
     func buildSpacing() {
         let cell = newCell(UITableViewCell.self, reuseId: "Spacer")
+        cell.contentView.heightAnchor.constraint(equalToConstant: 16).isActive = true
         result.append(cell)
     }
 
@@ -149,9 +150,19 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
             return
         }
 
-        let cell = newCell(ErrorTableViewCell.self)
+        // restrict to 1 tweet length
+        let errorPreview = errorText.count <= 144 ? nil : (String(errorText.prefix(144)) + "…")
+
+        let cell = newCell(DetailExpandableTextCell.self)
+        cell.tableView = tableView
+        cell.titleStyle = .error.weight(.medium)
+        cell.expandableTitleStyle = (collapsed: .error, expanded: .error)
+        cell.contentStyle = (collapsed: .error, expanded: .secondary)
+        cell.setTitle("⚠️ Error")
         cell.setText(errorText)
-        cell.separatorInset = UIEdgeInsets(top: 0, left: .greatestFiniteMagnitude, bottom: 0, right: 0)
+        cell.setCopyText(errorText)
+        cell.setExpandableTitle(errorPreview)
+
         result.append(cell)
     }
 
@@ -174,7 +185,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
 
         // to
         let (recipientLabel, recipientLogo) = NamingPolicy.name(for: transferTx.recipient, chainId: chain.id!)
-        let recipientUrl = chain.browserURL(address: transferTx.sender.value.address.checksummed)
+        let recipientUrl = chain.browserURL(address: transferTx.recipient.value.address.checksummed)
 
         self.addresses([
             (address: transferTx.sender.value.address, label: senderLabel,

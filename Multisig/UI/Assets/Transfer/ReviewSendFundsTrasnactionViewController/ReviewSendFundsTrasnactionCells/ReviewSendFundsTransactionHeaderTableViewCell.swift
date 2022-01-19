@@ -10,7 +10,7 @@ import UIKit
 
 class ReviewSendFundsTransactionHeaderTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var tokenInfoView: TokenInfoView!
+    @IBOutlet private weak var tokenInfoView: TokenInfoView!
     @IBOutlet private weak var fromAddressInfoView: AddressInfoView!
     @IBOutlet private weak var toAddressInfoView: AddressInfoView!
     @IBOutlet private weak var amountLabel: UILabel!
@@ -33,9 +33,9 @@ class ReviewSendFundsTransactionHeaderTableViewCell: UITableViewCell {
         toAddressInfoView.setAddress(address, label: label, imageUri: imageUri, prefix: prefix)
     }
 
-    func setToken(text: String, details: String?, image url: URL?) {
-        tokenInfoView.setText(text, style: .title4)
-        tokenInfoView.setDetail(details, style: .footnote4)
+    func setToken(amount: String, symbol: String, fiatBalance: String?, image url: URL?) {
+        tokenInfoView.setText("\(amount) \(symbol)", style: .title4)
+        tokenInfoView.setDetail(fiatBalance, style: .footnote4)
         tokenInfoView.setImage(url)
     }
 }

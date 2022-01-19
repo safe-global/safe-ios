@@ -97,9 +97,10 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = TransactionViewController()
-        vc.tokenBalance = filteredBalances[indexPath.row]
-        show(vc, sender: self)
+        let transferFundsVC = TransactionViewController()
+        let ribbon = RibbonViewController(rootViewController: transferFundsVC)
+        transferFundsVC.tokenBalance = filteredBalances[indexPath.row]
+        show(ribbon, sender: self)
     }
 }
 

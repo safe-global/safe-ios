@@ -103,6 +103,7 @@ public final class Tooltip: BaseCustomView {
     public static func show(for view: UIView,
                             in superview: UIView,
                             message: String,
+                            arrowTarget: UIView? = nil,
                             aboveTarget: Bool = true,
                             hideAutomatically: Bool = true,
                             delegate: TooltipDelegate? = nil) -> Tooltip {
@@ -138,14 +139,28 @@ public final class Tooltip: BaseCustomView {
         // then the target view posiition was changed by auto-layout.
         // swiftlint:disable line_length
         let maxTooltipWidth = superview.bounds.width - 2 * tooltip.horizontalEdgeInset
+        
         let viewInSuperview = superview.convert(view.bounds, from: view)
-        let constraints = [
+        var constraints = [
             tooltip.centerXAnchor.constraint(equalTo: superview.leadingAnchor, constant: viewInSuperview.midX),
             tooltip.leadingAnchor.constraint(greaterThanOrEqualTo: superview.leadingAnchor, constant: tooltip.horizontalEdgeInset),
             tooltip.trailingAnchor.constraint(lessThanOrEqualTo: superview.trailingAnchor, constant: -tooltip.horizontalEdgeInset),
-            tooltip.widthAnchor.constraint(lessThanOrEqualToConstant: maxTooltipWidth),
-            tooltip.arrow.centerXAnchor.constraint(equalTo: superview.leadingAnchor, constant: viewInSuperview.midX)
+            tooltip.widthAnchor.constraint(lessThanOrEqualToConstant: maxTooltipWidth)
         ]
+        
+        if let arrowTarget = arrowTarget {
+            
+            let arrowInSuperview = superview.convert(arrowTarget.bounds, from: arrowTarget)
+            
+            constraints.append(
+                tooltip.arrow.centerXAnchor.constraint(equalTo: superview.leadingAnchor, constant: arrowInSuperview.midX)
+            )
+            
+        } else {
+            constraints.append(
+                tooltip.arrow.centerXAnchor.constraint(equalTo: superview.leadingAnchor, constant: viewInSuperview.midX)
+            )
+        }
 
         // we reduce the priority of the tooltip centering constraint in order to be within the viewport bounds
         constraints[0].priority = .defaultHigh

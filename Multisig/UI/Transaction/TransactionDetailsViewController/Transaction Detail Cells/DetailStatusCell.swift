@@ -69,7 +69,7 @@ class DetailStatusCell: UITableViewCell {
 }
 
 extension SCGModels.TxStatus {
-    static let queueStatuses = [awaitingConfirmations, .awaitingExecution, .awaitingYourConfirmation]
+    static let queueStatuses = [awaitingConfirmations, .awaitingExecution, .awaitingYourConfirmation, .pending, .pendingFailed]
     static let historyStatuses = [success, .failed, .cancelled]
     static let failedStatuses = [failed, .cancelled]
 

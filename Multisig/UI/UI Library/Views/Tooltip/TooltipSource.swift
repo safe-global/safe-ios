@@ -7,12 +7,11 @@ public class TooltipSource: TooltipDelegate {
 
     private weak var tooltip: Tooltip?
     private weak var target: UIView?
+    private var arrowTarget: UIView?
     
     private var onTap: (() -> Void)?
     private var onAppear: (() -> Void)?
     private var onDisappear: (() -> Void)?
-    
-    private var windowTapRecognizer: UITapGestureRecognizer!
 
     public var isActive: Bool = true
     public var message: String?
@@ -20,10 +19,12 @@ public class TooltipSource: TooltipDelegate {
     public var hideAutomatically: Bool = false
 
     public init(target: UIView,
+                arrowTarget: UIView? = nil,
                 onTap: (() -> Void)? = nil,
                 onAppear: (() -> Void)? = nil,
                 onDisappear: (() -> Void)? = nil) {
         self.target = target
+        self.arrowTarget = arrowTarget
         self.onTap = onTap
         self.onAppear = onAppear
         self.onDisappear = onDisappear
@@ -31,20 +32,17 @@ public class TooltipSource: TooltipDelegate {
         tapRecognizer.cancelsTouchesInView = false
         target.addGestureRecognizer(tapRecognizer)
         target.isUserInteractionEnabled = true
-        
-        windowTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideTooltip))
     }
     
     @objc private func hideTooltip() {
-        
         if let tooltip = self.tooltip, tooltip.isVisible {
             tooltip.hide()
         }
     }
 
     @objc private func didTap() {
-        
         if let tooltip = self.tooltip, tooltip.isVisible {
+            tooltip.hide()
             return
         }
        
@@ -52,17 +50,17 @@ public class TooltipSource: TooltipDelegate {
               let message = self.message, !message.isEmpty,
               let window = UIApplication.shared.keyWindow,
               let target = target else { return }
-        
-        window.rootViewController?.presentedViewController?.view.isUserInteractionEnabled = false
-        window.addGestureRecognizer(windowTapRecognizer)
+        // show only one at all times
+        Self.hideAll()
         
         tooltip = Tooltip.show(
             for: target,
-            in: window,
-            message: message,
-            aboveTarget: aboveTarget,
-            hideAutomatically: hideAutomatically,
-            delegate: self)
+               in: window,
+               message: message,
+               arrowTarget: arrowTarget,
+               aboveTarget: aboveTarget,
+               hideAutomatically: hideAutomatically,
+               delegate: self)
         
         onTap?()
     }
@@ -73,8 +71,13 @@ public class TooltipSource: TooltipDelegate {
 
     public func tooltipWillDisappear(_ tooltip: Tooltip) {
         onDisappear?()
+    }
+
+    static func hideAll() {
         guard let window = UIApplication.shared.keyWindow else { return }
-        window.removeGestureRecognizer(windowTapRecognizer)
-        window.rootViewController?.presentedViewController?.view.isUserInteractionEnabled = true
+        let allTooltips = window.subviews.compactMap { $0 as? Tooltip }
+        for tooltip in allTooltips {
+            tooltip.hide()
+        }
     }
 }

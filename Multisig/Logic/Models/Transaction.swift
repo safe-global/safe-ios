@@ -8,6 +8,11 @@
 
 import Foundation
 import Version
+import Ethereum
+import JsonRpc2
+import CryptoSwift
+import Solidity
+import Web3
 
 // Transaction domain model based on https://docs.gnosis.io/safe/docs/contracts_tx_execution/#transaction-hash
 struct Transaction: Codable {
@@ -98,6 +103,77 @@ extension Transaction {
         gasPrice = "0"
         gasToken = AddressString.zero
         refundReceiver = AddressString.zero
+
+        updateSafeTxHash()
+    }
+
+    init?(safe: Safe,
+          toAddress: Address,
+          tokenAddress: Address,
+          amount: UInt256String?,
+          safeTxGas: UInt256String?,
+          nonce: UInt256String) {
+
+        if tokenAddress == Address.zero {
+            self.init(safeAddress: safe.addressValue,
+                      chainId: safe.chain!.id!,
+                      toAddress: toAddress,
+                      contractVersion: safe.contractVersion!,
+                      amount: amount,
+                      data: Data(),
+                      safeTxGas: safeTxGas,
+                      nonce: nonce)
+        } else {
+            let input = ERC20.transfer(
+                to: Sol.Address(stringLiteral: toAddress.checksummedWithoutPrefix),
+                value: Sol.UInt256(amount?.value ?? 0)
+            ).encode()
+
+            self.init(safeAddress: safe.addressValue,
+                      chainId: safe.chain!.id!,
+                      toAddress: tokenAddress,
+                      contractVersion: safe.contractVersion!,
+                      amount: "0",
+                      data: input,
+                      safeTxGas: safeTxGas,
+                      nonce: nonce)
+        }
+    }
+
+    init?(safeAddress: Address,
+          chainId: String,
+          toAddress: Address,
+          contractVersion: String,
+          amount: UInt256String?,
+          data: Data,
+          safeTxGas: UInt256String?,
+          nonce: UInt256String,
+          operation: SCGModels.Operation = .call,
+          baseGas: UInt256String = "0",
+          gasPrice: UInt256String = "0",
+          gasToken: Address = Address.zero,
+          refundReceiver: Address = Address.zero) {
+        self.safe = AddressString(safeAddress)
+        self.chainId = chainId
+        self.safeVersion = Version(contractVersion)
+
+        self.to = AddressString(toAddress)
+        self.value = amount ?? "0"
+        self.data = DataString(data)
+        self.operation = operation
+        self.safeTxGas = safeTxGas ?? "0"
+
+        self.nonce = nonce
+
+        // For contracts starting 1.3.0 we setup safeTxGas to zero
+        if self.safeVersion! >= Version(1, 3, 0) {
+            self.safeTxGas = UInt256String(0)
+        }
+
+        self.baseGas = baseGas
+        self.gasPrice = gasPrice
+        self.gasToken = AddressString(gasToken)
+        self.refundReceiver = AddressString(refundReceiver)
 
         updateSafeTxHash()
     }

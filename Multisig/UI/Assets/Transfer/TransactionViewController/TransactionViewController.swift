@@ -8,6 +8,9 @@
 
 import UIKit
 import Web3
+import SwiftCryptoTokenFormatter
+import Ethereum
+import Solidity
 
 class TransactionViewController: UIViewController {
     @IBOutlet private weak var safeAddressInfoView: AddressInfoView!
@@ -20,7 +23,9 @@ class TransactionViewController: UIViewController {
     @IBOutlet private weak var scrollView: UIScrollView!
 
     var address: Address? { addressField?.address }
-    var amount: String? { amountTextField.balance.isEmpty ? nil : amountTextField.balance }
+    var amount: BigDecimal? {
+        amountTextField.balance.isEmpty ? nil : BigDecimal.create(string: amountTextField.balance, precision: tokenBalance.decimals)
+    }
     var tokenBalance: TokenBalance!
     var gatewayService = App.shared.clientGatewayService
     var safe: Safe!
@@ -40,7 +45,11 @@ class TransactionViewController: UIViewController {
         assert(safe != nil)
 
         navigationItem.title = "Send " + tokenBalance.symbol
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+        
         maxButton.setText("Send max", .primary)
+        maxButton.contentHorizontalAlignment = .right
 
         safeAddressInfoView.setAddress(safe.addressValue,
                                        label: safe.name,
@@ -58,7 +67,7 @@ class TransactionViewController: UIViewController {
         totalBalanceLabel.text = tokenBalance.balanceWithSymbol
 
         reviewButton.setText("Review", .filled)
-        amountTextField.setToken(symbol: tokenBalance.symbol, logoURL: tokenBalance.imageURL)
+        amountTextField.setToken(logoURL: tokenBalance.imageURL)
         amountTextField.delegate = self
         
         keyboardBehavior = KeyboardAvoidingBehavior(scrollView: scrollView)
@@ -66,6 +75,7 @@ class TransactionViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        Tracker.trackEvent(.assetsTransferInit)
         keyboardBehavior.start()
     }
 
@@ -75,18 +85,24 @@ class TransactionViewController: UIViewController {
     }
 
     @IBAction func maxButtonTouched(_ sender: Any) {
-        amountTextField.balance = tokenBalance.balance
+        // string will format full amount without any rounding
+        let value = Sol.UInt256(big: tokenBalance.balanceValue.value.magnitude)
+        let tokenAmount = Eth.TokenAmount(
+            value: value,
+            decimals: tokenBalance.decimals)
+        amountTextField.balance = tokenAmount.description
         verifyInput()
     }
 
     @IBAction private func didTapReviewButton(_ sender: Any) {
         guard let amount = amount, let address = address else { return }
-
+    
         let vc = ReviewSendFundsTransactionViewController(safe: safe,
                                                           address: address,
                                                           tokenBalance: tokenBalance,
                                                           amount: amount)
-        show(vc, sender: self)
+        let ribbon = RibbonViewController(rootViewController: vc)
+        show(ribbon, sender: self)
     }
 
     private func didTapAddressField() {
@@ -101,7 +117,7 @@ class TransactionViewController: UIViewController {
             guard let self = self else { return }
             let vc = QRCodeScannerViewController()
             vc.scannedValueValidator = { value in
-                if Address(value) != nil {
+                if let _ = try? Address.addressWithPrefix(text: value) {
                     return .success(value)
                 } else {
                     return .failure(GSError.error(description: "Can’t use this QR code",
@@ -152,8 +168,27 @@ class TransactionViewController: UIViewController {
     }
 
     func verifyInput() {
-        // TODO: Verify that amount is less than balance
-        reviewButton.isEnabled = address != nil && amount != nil
+        amountTextField.showError(message: nil)
+        reviewButton.isEnabled = false
+
+        guard let amount = amount else { return }
+
+        var message: String? = nil
+
+        if amount.value <= 0 {
+            message = "Amount should be greater than 0"
+        }
+
+        else if amountTextField.balance.numberOfDecimals > tokenBalance.decimals {
+            message = "Should be 1 to \(tokenBalance.decimals) decimals"
+        }
+
+        else if amount.value > tokenBalance.balanceValue.value {
+            message = "Insufficient funds"
+        }
+
+        reviewButton.isEnabled = message == nil && address != nil
+        amountTextField.showError(message: message)
     }
 }
 
@@ -180,5 +215,30 @@ extension TransactionViewController: UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         keyboardBehavior.activeTextField = textField
+    }
+}
+
+
+extension BigDecimal {
+    static func create(string: String, precision: Int) -> BigDecimal? {
+        TokenFormatter().number(from: string, precision: precision)
+    }
+}
+
+extension String {
+    var removingTrailingZeroes: String {
+        var result = self
+        while result.last == "0" {
+            result.removeLast()
+        }
+        return result
+    }
+
+    var numberOfDecimals: Int {
+        let decimalSeparator = Locale.autoupdatingCurrent.decimalSeparator ?? "."
+        let parts = removingTrailingZeroes.components(separatedBy: decimalSeparator)
+        if parts.count >= 2 { return parts.last?.count ?? 0 }
+
+        return 0
     }
 }

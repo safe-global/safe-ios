@@ -375,3 +375,17 @@ extension JsonRpc2.Error {
         return newValue
     }
 }
+
+extension JsonRpc2.Error: LocalizedError {
+    public var errorDescription: String? {
+        var result = "Error \(code): \(message)"
+        if let json = data {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
+            if let data = try? encoder.encode(json), let string = String(data: data, encoding: .utf8) {
+                result += "\nData: \(string)"
+            }
+        }
+        return result
+    }
+}

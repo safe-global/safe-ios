@@ -13,32 +13,40 @@ import Solidity
 
 class TransactionEstimationController {
 
-    let rpcClient: JsonRpc2.Client
+    let legacyEstimateGasChainIds = [
+        // xDai
+        "100",
+        // Energey Web Chain
+        "246",
+        // Volta
+        "73799",
+        // arbitrm one
+        "42161",
+        // binance smart chain
+        "56",
+        // optimism
+        "10",
+    ]
 
-    init(rpcUri: String) {
+    let rpcClient: JsonRpc2.Client
+    let chain: Chain
+
+    init(rpcUri: String, chain: Chain) {
+        self.chain = chain
         self.rpcClient = JsonRpc2.Client(transport: JsonRpc2.ClientHTTPTransport(url: rpcUri), serializer: JsonRpc2.DefaultSerializer())
     }
 
-    // main function, the estimated transaction 
-    func estimate(transaction: EthTransaction, completion: @escaping (Result<EthTransaction, Error>) -> Void) -> URLSessionTask? {
-        var tx = transaction
-        let task = estimateTransactionWithRpc(tx: tx) { estimationResult in
-            let result = estimationResult.map { (gas: Sol.UInt64, transactionCount: Sol.UInt64, gasPrice: Sol.UInt256) -> EthTransaction in
-                tx.update(gas: gas,
-                          transactionCount: transactionCount,
-                          baseFee: gasPrice)
-                return tx
-            }
-            completion(result)
-        }
-        return task
-    }
+    typealias EstimateCompletion = (Result<(gas: Result<Sol.UInt64, Error>, transactionCount: Result<Sol.UInt64, Error>, gasPrice: Result<Sol.UInt256, Error>), Error>) -> Void
 
-    func estimateTransactionWithRpc(tx: EthTransaction, completion: @escaping (Result<(gas: Sol.UInt64, transactionCount: Sol.UInt64, gasPrice: Sol.UInt256), Error>) -> Void) -> URLSessionTask? {
+    func estimateTransactionWithRpc(tx: EthTransaction, completion: @escaping EstimateCompletion) -> URLSessionTask? {
         // remove the fee because we want to estimate it.
         var tx = tx
         tx.removeFee()
-        let getEstimate = EthRpc1.eth_estimateGas(tx)
+
+        let getEstimateNew = EthRpc1.eth_estimateGas(tx)
+        let getEstimateLegacy = EthRpc1.eth_estimateGasLegacyApi(tx)
+
+        let usingLegacyGasApi = chain.id != nil && legacyEstimateGasChainIds.contains(chain.id!)
 
         let getTransactionCount = EthRpc1.eth_getTransactionCount(address: EthRpc1.Data(tx.from ?? .init()), block: .tag(.pending))
 
@@ -51,7 +59,7 @@ class TransactionEstimationController {
 
 
         do {
-            getEstimateRequest = try getEstimate.request(id: .int(1))
+            getEstimateRequest = try usingLegacyGasApi ? getEstimateLegacy.request(id: .int(1)) : getEstimateNew.request(id: .int(1))
             getTransactionCountRequest = try getTransactionCount.request(id: .int(2))
             getPriceRequest = try getPrice.request(id: .int(3))
 
@@ -81,30 +89,28 @@ class TransactionEstimationController {
 
             case .array(let responses):
                 // at this point it is guaranteed that there's a response object for each request.
-
-                // reason for failing on any error is to make this estimation implementation simpler
-                let allErrors = responses.compactMap(\.error)
-                if let error = allErrors.first {
-                    dispatchOnMainThread(completion(.failure(error)))
-                    return
+                // we get the result or error for each request
+                func result<T: JsonRpc2Method>(request: JsonRpc2.Request, method: T, responses: [JsonRpc2.Response]) -> Result<T.Return, Error> where T.Return: Decodable {
+                    let id = request.id
+                    let resp = responses.first { $0.id == id }!
+                    if let error = resp.error {
+                        return .failure(error)
+                    }
+                    let json = resp.result!
+                    do {
+                        let result = try method.result(from: json)
+                        return .success(result)
+                    } catch {
+                        return .failure(error)
+                    }
                 }
+                let gasResult = usingLegacyGasApi ?
+                    result(request: getEstimateRequest, method: getEstimateLegacy, responses: responses).map(\.storage)
+                    : result(request: getEstimateRequest, method: getEstimateNew, responses: responses).map(\.storage)
+                let txCountResult = result(request: getTransactionCountRequest, method: getTransactionCount, responses: responses).map(\.storage)
+                let priceResult = result(request: getPriceRequest, method: getPrice, responses: responses).map(\.storage)
 
-                // if there are no errors, then it is guaranteed that responses have results.
-                let gasEstimateResult = responses.first(where: { $0.id == getEstimateRequest.id })!.result!
-                let transactionCountResult = responses.first(where: { $0.id == getTransactionCountRequest.id })!.result!
-                let priceResult = responses.first(where: { $0.id == getPriceRequest.id })!.result!
-
-
-                do {
-                    // converting from json values to the API types
-                    let gasEstimate: EthRpc1.Quantity<Sol.UInt64> = try getEstimate.result(from: gasEstimateResult)
-                    let transactionCount: EthRpc1.Quantity<Sol.UInt64> = try getTransactionCount.result(from: transactionCountResult)
-                    let baseFee: EthRpc1.Quantity<Sol.UInt256> = try getPrice.result(from: priceResult)
-
-                    dispatchOnMainThread(completion(.success((gas: gasEstimate.storage, transactionCount: transactionCount.storage, gasPrice: baseFee.storage))))
-                } catch {
-                    dispatchOnMainThread(completion(.failure(error)))
-                }
+                dispatchOnMainThread(completion(.success((gasResult, txCountResult, priceResult))))
             }
         }
         return task

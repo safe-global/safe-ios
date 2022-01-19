@@ -187,7 +187,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     private var showsActionsViewContrainer: Bool  {
-        tx?.multisigInfo?.canSign == true && (showsRejectButton || showsConfirmButton || showsExecuteButton)
+        // allow executing to anyone with a key
+        tx?.multisigInfo?.canSign == true && (showsRejectButton || showsConfirmButton || showsExecuteButton) || showsExecuteButton
     }
 
     private var showsRejectButton: Bool {
@@ -196,7 +197,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             return false
         default:
             guard let multisigInfo = tx?.multisigInfo,
-                  let status = tx?.txStatus
+                  let status = tx?.txStatus,
+                  multisigInfo.canSign
                     else { return false }
 
             if status == .awaitingExecution && !multisigInfo.isRejected() && !pendingExecution {
@@ -230,7 +232,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         guard let tx = tx else {
             return false
         }
-        return needsYourExecution(tx: tx)
+        let result = needsYourExecution(tx: tx)
+        return result
     }
 
     private var enableRejectionButton: Bool {
@@ -555,6 +558,10 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             }
             // else use the key
             return true
+        }
+        .filter {
+            // filter out ledger until it is supported
+            $0.keyType != .ledgerNanoX
         }
 
         return validKeys

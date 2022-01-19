@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Json
 
 extension JsonRpc2 {
     // The Client is defined as the origin of Request objects and the handler of Response objects.
@@ -88,7 +89,12 @@ extension JsonRpc2 {
                     do {
                         response = try serializer.fromJson(data: jsonResponse)
                     } catch let swiftDecodingError {
-                        completion(validator.error(for: request, value: .parseResponseError.with(error: swiftDecodingError)))
+                        let jsonString = String(data: jsonResponse, encoding: .utf8) ?? "<n/a>"
+                        let data = Json.Element.object(Json.Object(members: [
+                            "response": Json.Element.string(jsonString),
+                            "swiftError": Json.NSError(swiftDecodingError as NSError).toJson()
+                        ]))
+                        completion(validator.error(for: request, value: .parseResponseError.with(data: data)))
                         return
                     }
 

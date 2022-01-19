@@ -31,14 +31,17 @@ class ActivityButtonView: UINibView {
                 actionButton.isEnabled = false
                 activityIndicator.isHidden = false
                 activityIndicator.startAnimating()
+                actionButton.setText("", .filled)
             case .normal:
                 actionButton.isEnabled = true
                 activityIndicator.isHidden = true
                 activityIndicator.stopAnimating()
+                actionButton.setText(title, .filled)
             case .disabled:
                 actionButton.isEnabled = false
                 activityIndicator.isHidden = true
                 activityIndicator.stopAnimating()
+                actionButton.setText("", .filled)
             }
         }
     }
@@ -46,7 +49,6 @@ class ActivityButtonView: UINibView {
     override func awakeFromNib() {
         super.awakeFromNib()
         actionButton.setText(title, .filled)
-        actionButton.setTitle("", for: .disabled)
     }
 
     @IBAction private func actionButtonTouched(_ sender: Any) {

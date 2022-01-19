@@ -65,6 +65,7 @@ class KeyboardAvoidingBehavior {
         if let responder = activeResponder {
             deactivate(responder)
         }
+        TooltipSource.hideAll()
     }
 
     @objc func didShowKeyboard(_ notification: NSNotification) {

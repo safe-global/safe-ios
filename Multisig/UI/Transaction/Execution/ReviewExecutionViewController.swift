@@ -71,6 +71,7 @@ class ReviewExecutionViewController: ContainerViewController {
                 feeState: .loading
             )
         )
+        contentVC.onReload = action(#selector(didTriggerReload(_:)))
         self.viewControllers = [contentVC]
         self.displayChild(at: 0, in: contentView)
 
@@ -104,6 +105,10 @@ class ReviewExecutionViewController: ContainerViewController {
         Tracker.trackEvent(.reviewExecution)
     }
 
+    @IBAction func didTriggerReload(_ sender: Any) {
+        estimateTransaction()
+    }
+
     @IBAction func didTapClose(_ sender: Any) {
         self.onClose()
     }
@@ -129,7 +134,6 @@ class ReviewExecutionViewController: ContainerViewController {
         let completion: (KeyInfo?) -> Void = { [weak self, weak keyPickerVC] selectedKeyInfo in
             guard let self = self, let picker = keyPickerVC else { return }
             let balance = selectedKeyInfo.flatMap { picker.accountBalance(for: $0) }
-
             let previousKey = self.controller.selectedKey?.key
             // update selection
             if let key = selectedKeyInfo, let balance = balance {
@@ -138,6 +142,7 @@ class ReviewExecutionViewController: ContainerViewController {
                 self.controller.selectedKey = nil
             }
             if selectedKeyInfo != previousKey {
+                self.resetErrors()
                 Tracker.trackEvent(.reviewExecutionSelectedKeyChanged)
                 self.didChangeSelectedKey()
             }
@@ -158,6 +163,7 @@ class ReviewExecutionViewController: ContainerViewController {
         case let ethTx as Eth.TransactionLegacy:
             let model = FeeLegacyFormModel(
                 nonce: ethTx.nonce,
+                minimalNonce: controller.minNonce,
                 gas: ethTx.fee.gas,
                 gasPriceInWei: ethTx.fee.gasPrice,
                 nativeCurrency: chain.nativeCurrency!
@@ -171,6 +177,7 @@ class ReviewExecutionViewController: ContainerViewController {
         case let ethTx as Eth.TransactionEip1559:
             let model = Fee1559FormModel(
                 nonce: ethTx.nonce,
+                minimalNonce: controller.minNonce,
                 gas: ethTx.fee.gas,
                 maxFeePerGasInWei: ethTx.fee.maxFeePerGas,
                 maxPriorityFeePerGasInWei: ethTx.fee.maxPriorityFee,
@@ -272,6 +279,7 @@ class ReviewExecutionViewController: ContainerViewController {
                 // react to changes
 
                 if savedValues != initialValues {
+                    self.resetErrors()
                     self.didChangeTransactionParameters()
 
                     let changedFields = changedFieldTrackingIds.joined(separator: ",")
@@ -281,15 +289,16 @@ class ReviewExecutionViewController: ContainerViewController {
         }
 
         formVC.navigationItem.title = "Edit transaction fee"
-
-        let nav = UINavigationController(rootViewController: formVC)
+        let ribbon = RibbonViewController(rootViewController: formVC)
+        let nav = UINavigationController(rootViewController: ribbon)
         present(nav, animated: true, completion: nil)
     }
 
     @IBAction func didTapAdvanced(_ sender: Any) {
         let advancedVC = AdvancedTransactionDetailsViewController(transaction, chain: chain)
+        let ribbon = RibbonViewController(rootViewController: advancedVC)
         advancedVC.trackingEvent = .reviewExecutionAdvanced
-        show(advancedVC, sender: self)
+        show(ribbon, sender: self)
     }
 
     @IBAction func didTapSubmit(_ sender: Any) {
@@ -322,9 +331,10 @@ class ReviewExecutionViewController: ContainerViewController {
 
         contentVC.model?.executionOptions.feeState = .loading
 
-        let task = controller.estimate { [weak self] error in
+        let task = controller.estimate { [weak self] in
             guard let self = self else { return }
             self.didChangeEstimation()
+            self.contentVC.didEndReloading()
 
             // if we haven't search default
             if !self.didSearchDefaultKey && self.controller.selectedKey == nil {
@@ -417,7 +427,6 @@ class ReviewExecutionViewController: ContainerViewController {
     }
 
     func validate() {
-        resetErrors()
         controller.validate()
         contentVC?.model?.errorMessage = controller.errorMessage
         submitButton.isEnabled = controller.isValid
@@ -565,24 +574,7 @@ class ReviewExecutionViewController: ContainerViewController {
                 successVC.onDone = { [weak self] in
                     guard let self = self else { return }
 
-                    guard let txHash = self.controller.ethTransaction?.hash,
-                          let template = self.chain.blockExplorerUrlTxHash
-                    else {
-                        self.onSuccess()
-                        return
-                    }
-                    let hexTxHash = txHash.storage.storage.toHexStringWithPrefix()
-                    let urlString = template.replacingOccurrences(of: "{{txHash}}", with: hexTxHash)
-
-                    guard let url = URL(string: urlString) else {
-                        self.onSuccess()
-                        return
-                    }
-
-                    let safari = SFSafariViewController(url: url)
-                    safari.delegate = self
-                    safari.modalPresentationStyle = .formSheet
-                    self.present(safari, animated: true)
+                    self.onSuccess()
                 }
 
                 self.show(successVC, sender: self)
@@ -590,10 +582,4 @@ class ReviewExecutionViewController: ContainerViewController {
         })
     }
 
-}
-
-extension ReviewExecutionViewController: SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        self.onSuccess()
-    }
 }

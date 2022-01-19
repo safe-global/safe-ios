@@ -59,6 +59,10 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
         _store.hex(eip55: true)
     }
 
+    var checksummedWithoutPrefix: String {
+        String(checksummed.dropFirst(2))
+    }
+
     var hexadecimal: String {
         _store.hex(eip55: false)
     }

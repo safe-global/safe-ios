@@ -115,6 +115,7 @@ class FormViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         keyboardBehavior.stop()
+        TooltipSource.hideAll()
     }
 
     func reloadData() {

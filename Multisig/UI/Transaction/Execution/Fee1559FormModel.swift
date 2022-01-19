@@ -16,6 +16,7 @@ class Fee1559FormModel: FormModel {
     var isValid: Bool?
 
     var nonce: Sol.UInt64?
+    var minimalNonce: Sol.UInt64!
     var gas: Sol.UInt64?
     var maxFeePerGasInWei: Sol.UInt256?
     var maxPriorityFeePerGasInWei: Sol.UInt256?
@@ -88,8 +89,9 @@ class Fee1559FormModel: FormModel {
         return result
     }
 
-    init(nonce: Sol.UInt64?, gas: Sol.UInt64?, maxFeePerGasInWei: Sol.UInt256?, maxPriorityFeePerGasInWei: Sol.UInt256?, nativeCurrency: ChainToken) {
+    init(nonce: Sol.UInt64?, minimalNonce: Sol.UInt64 = 0, gas: Sol.UInt64?, maxFeePerGasInWei: Sol.UInt256?, maxPriorityFeePerGasInWei: Sol.UInt256?, nativeCurrency: ChainToken) {
         self.nonce = nonce
+        self.minimalNonce = minimalNonce
         self.gas = gas
         self.maxFeePerGasInWei = maxFeePerGasInWei
         self.maxPriorityFeePerGasInWei = maxPriorityFeePerGasInWei
@@ -203,6 +205,11 @@ class Fee1559FormModel: FormModel {
 
         guard let value = Sol.UInt64(text, radix: 10) else {
             nonceField.gnoTextField.setErrorText("Value is not a valid number")
+            return false
+        }
+        
+        if value < minimalNonce {
+            nonceField.gnoTextField.setErrorText("Transaction with this nonce is already executed")
             return false
         }
 
