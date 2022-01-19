@@ -34,7 +34,8 @@ class TransactionExecutionController {
     let estimationController: TransactionEstimationController
 
     var ethTransaction: EthTransaction?
-
+    var minNonce: Sol.UInt64 = 0
+    
     // 1.5 gwei in wei (1.5 x 10^9)
     let defaultMinerTip: Sol.UInt256 = 1_500_000_000
 
@@ -177,7 +178,6 @@ class TransactionExecutionController {
         let task = estimationController.estimateTransactionWithRpc(tx: tx) { [weak self] estimationResult in
             guard let self = self else { return }
             // at this point the estimatedTx contains parameters estimated by API
-
             switch estimationResult {
             case .failure(let error):
                 self.ethTransaction = tx
@@ -210,6 +210,7 @@ class TransactionExecutionController {
                 }
 
                 tx.update(gas: gas ?? 0, transactionCount: txCount ?? 0, baseFee: gasPrice ?? 0)
+                self.minNonce = txCount ?? 0
                 self.ethTransaction = tx
                 self.updateEthTransactionWithUserValues()
 

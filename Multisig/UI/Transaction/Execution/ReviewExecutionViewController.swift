@@ -134,7 +134,6 @@ class ReviewExecutionViewController: ContainerViewController {
         let completion: (KeyInfo?) -> Void = { [weak self, weak keyPickerVC] selectedKeyInfo in
             guard let self = self, let picker = keyPickerVC else { return }
             let balance = selectedKeyInfo.flatMap { picker.accountBalance(for: $0) }
-
             let previousKey = self.controller.selectedKey?.key
             // update selection
             if let key = selectedKeyInfo, let balance = balance {
@@ -164,6 +163,7 @@ class ReviewExecutionViewController: ContainerViewController {
         case let ethTx as Eth.TransactionLegacy:
             let model = FeeLegacyFormModel(
                 nonce: ethTx.nonce,
+                minimalNonce: controller.minNonce,
                 gas: ethTx.fee.gas,
                 gasPriceInWei: ethTx.fee.gasPrice,
                 nativeCurrency: chain.nativeCurrency!
@@ -177,6 +177,7 @@ class ReviewExecutionViewController: ContainerViewController {
         case let ethTx as Eth.TransactionEip1559:
             let model = Fee1559FormModel(
                 nonce: ethTx.nonce,
+                minimalNonce: controller.minNonce,
                 gas: ethTx.fee.gas,
                 maxFeePerGasInWei: ethTx.fee.maxFeePerGas,
                 maxPriorityFeePerGasInWei: ethTx.fee.maxPriorityFee,

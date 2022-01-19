@@ -16,6 +16,7 @@ class FeeLegacyFormModel: FormModel {
     var isValid: Bool?
 
     var nonce: Sol.UInt64?
+    var minimalNonce: Sol.UInt64!
     var gas: Sol.UInt64?
     var gasPriceInWei: Sol.UInt256?
 
@@ -67,8 +68,9 @@ class FeeLegacyFormModel: FormModel {
         return result
     }
 
-    init(nonce: Sol.UInt64?, gas: Sol.UInt64?, gasPriceInWei: Sol.UInt256?, nativeCurrency: ChainToken) {
+    init(nonce: Sol.UInt64?, minimalNonce: Sol.UInt64 = 0, gas: Sol.UInt64?, gasPriceInWei: Sol.UInt256?, nativeCurrency: ChainToken) {
         self.nonce = nonce
+        self.minimalNonce = minimalNonce
         self.gas = gas
         self.gasPriceInWei = gasPriceInWei
         self.nativeCurrency = nativeCurrency
@@ -163,6 +165,11 @@ class FeeLegacyFormModel: FormModel {
             return false
         }
 
+        if value < minimalNonce {
+            nonceField.gnoTextField.setErrorText("Transaction with this nonce is already executed")
+            return false
+        }
+        
         nonce = value
         return true
     }
