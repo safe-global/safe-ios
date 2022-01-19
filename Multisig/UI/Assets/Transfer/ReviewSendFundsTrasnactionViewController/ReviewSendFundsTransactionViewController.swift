@@ -308,8 +308,9 @@ class ReviewSendFundsTransactionViewController: UIViewController {
             self.safeTxGas = safeTxGas
             self.bindData()
         }
+        let ribbon = RibbonViewController(rootViewController: vc)
 
-        presentModal(ViewControllerFactory.modal(viewController: vc))
+        presentModal(ViewControllerFactory.modal(viewController: ribbon))
     }
     
     private func showTransactionSucess(transaction: SCGModels.TransactionDetails) {

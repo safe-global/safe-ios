@@ -289,15 +289,16 @@ class ReviewExecutionViewController: ContainerViewController {
         }
 
         formVC.navigationItem.title = "Edit transaction fee"
-
-        let nav = UINavigationController(rootViewController: formVC)
+        let ribbon = RibbonViewController(rootViewController: formVC)
+        let nav = UINavigationController(rootViewController: ribbon)
         present(nav, animated: true, completion: nil)
     }
 
     @IBAction func didTapAdvanced(_ sender: Any) {
         let advancedVC = AdvancedTransactionDetailsViewController(transaction, chain: chain)
+        let ribbon = RibbonViewController(rootViewController: advancedVC)
         advancedVC.trackingEvent = .reviewExecutionAdvanced
-        show(advancedVC, sender: self)
+        show(ribbon, sender: self)
     }
 
     @IBAction func didTapSubmit(_ sender: Any) {
