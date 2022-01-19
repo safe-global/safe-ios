@@ -89,14 +89,27 @@ class WCPendingConfirmationViewController: UIViewController {
             WalletConnectClientController.shared.sign(message: message) { [weak self] signature in
                 self?.handleSignResponse(signature: signature, completion: completion)
             }
-        } else if let clientTransaction = clientTransaction {
-            WalletConnectClientController.shared.sign(transaction: clientTransaction) { [weak self] signature in
-                self?.handleSignResponse(signature: signature, completion: completion)
-            }
         } else {
             return
         }
 
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+            WalletConnectClientController.openWalletIfInstalled(keyInfo: self.keyInfo)
+        }
+    }
+
+    func send(completion: @escaping (String?) -> Void) {
+        guard let clientTransaction = clientTransaction else {
+            completion(nil)
+            return
+        }
+        WalletConnectClientController.shared.send(transaction: clientTransaction) { [weak self] txHash in
+            guard let self = self else { return }
+            // dismiss the overlay
+            self.dismiss(animated: true) {
+                completion(txHash)
+            }
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
             WalletConnectClientController.openWalletIfInstalled(keyInfo: self.keyInfo)
         }

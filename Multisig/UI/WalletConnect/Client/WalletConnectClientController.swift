@@ -135,27 +135,27 @@ class WalletConnectClientController {
         }
     }
 
-    func sign(transaction: Client.Transaction, completion: @escaping (String?) -> Void) {
+    func send(transaction: Client.Transaction, completion: @escaping (String?) -> Void) {
         guard let session = session,
               let client = client
         else {
-            completion(nil)
+            dispatchOnMainThread(completion(nil))
             return
         }
         do {
-            try client.eth_signTransaction(url: session.url, transaction: transaction, completion: { response in
+            try client.eth_sendTransaction(url: session.url, transaction: transaction, completion: { response in
                 
-                let signature: String?
+                let txHash: String?
                 do {
-                    signature = try response.result(as: String.self)
+                    txHash = try response.result(as: HashString.self).description
                 } catch {
-                    signature = nil
+                    txHash = nil
                 }
                 
-                completion(signature)
+                dispatchOnMainThread(completion(txHash))
             })
         } catch {
-            completion(nil)
+            dispatchOnMainThread(completion(nil))
         }
     }
 
