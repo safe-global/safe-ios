@@ -76,7 +76,7 @@ extension TokenBalance {
     static func displayCurrency(from serverValue: String, code: String) -> String {
         let number = serverCurrencyFormatter.number(from: serverValue) ?? 0
         let formatter = TokenFormatter()
-        let amount = Int256(number.doubleValue) * 100
+        let amount = Int256(number.doubleValue * 100)
         let precision = 2
         let currencyCode = code
         let value = formatter.string(from: BigDecimal(amount, precision),
