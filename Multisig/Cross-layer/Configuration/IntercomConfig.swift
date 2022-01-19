@@ -29,6 +29,10 @@ class IntercomConfig {
         Intercom.presentMessenger()
     }
 
+    func hide() {
+        Intercom.hide()
+    }
+
     func appDidShowMainContent() {
         // adding delay hack to handle the case when this shows right after app start -  in that case we would see the
         // black window background behind the intercom window. We give the app time to initialize.
