@@ -178,7 +178,6 @@ class TransactionExecutionController {
         let task = estimationController.estimateTransactionWithRpc(tx: tx) { [weak self] estimationResult in
             guard let self = self else { return }
             // at this point the estimatedTx contains parameters estimated by API
-            
             switch estimationResult {
             case .failure(let error):
                 self.ethTransaction = tx

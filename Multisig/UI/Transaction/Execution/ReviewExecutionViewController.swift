@@ -134,7 +134,6 @@ class ReviewExecutionViewController: ContainerViewController {
         let completion: (KeyInfo?) -> Void = { [weak self, weak keyPickerVC] selectedKeyInfo in
             guard let self = self, let picker = keyPickerVC else { return }
             let balance = selectedKeyInfo.flatMap { picker.accountBalance(for: $0) }
-            
             let previousKey = self.controller.selectedKey?.key
             // update selection
             if let key = selectedKeyInfo, let balance = balance {
