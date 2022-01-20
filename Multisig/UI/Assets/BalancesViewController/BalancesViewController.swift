@@ -47,7 +47,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
         tableView.registerCell(BalanceTableViewCell.self)
         tableView.registerCell(BannerTableViewCell.self)
-        
+
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
         tableView.backgroundColor = tableBackgroundColor
@@ -215,7 +215,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         let transferFundsVC = TransactionViewController()
         transferFundsVC.tokenBalance = balance
         let ribbon = ViewControllerFactory.ribbonWith(viewController: transferFundsVC)
-        show(ribbon, sender: self)
+        present(ViewControllerFactory.modal(viewController: ribbon), animated: true)
     }
 
     private func importKeyBanner(indexPath: IndexPath) -> UITableViewCell {
