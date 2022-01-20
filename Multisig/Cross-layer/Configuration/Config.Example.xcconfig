@@ -112,7 +112,7 @@ PRIVACY_URL     = https:/$()/gnosis-safe.io/privacy/
 LICENSES_URL    = https:/$()/gnosis-safe.io/licenses/
 
 // Contact Information
-DISCORD_URL             = https:/$()/discord.gg/AjG7AQD9Qn
+DISCORD_URL             = https:/$()/discord.gg/TaNjuFzS6X
 TWITTER_URL             = https:/$()/twitter.com/gnosisSafe
 HELP_CENTER_URL         = https:/$()/help.gnosis-safe.io/
 FEATURE_SUGGESTION_URL  = https:/$()/safe.cnflx.io/
