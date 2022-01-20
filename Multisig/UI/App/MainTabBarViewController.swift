@@ -68,6 +68,16 @@ class MainTabBarViewController: UITabBarController {
             selector: #selector(updateTabs),
             name: .updatedExperemental,
             object: nil)
+
+        NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(appMovedToBackground),
+                name: UIApplication.willResignActiveNotification,
+                object: nil)
+    }
+
+    @objc func appMovedToBackground() {
+        App.shared.intercomConfig.hide()
     }
 
     override func viewDidAppear(_ animated: Bool) {
