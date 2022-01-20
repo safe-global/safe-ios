@@ -83,7 +83,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                              .chainInfoChanged,
                              .addressbookChanged,
                              .selectedSafeUpdated,
-                             .selectedSafeChanged] {
+                             .selectedSafeChanged,
+                             .transactionDataInvalidated] {
             notificationCenter.addObserver(
                 self,
                 selector: #selector(lazyReloadData),
@@ -289,13 +290,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             chain: chain,
             transaction: tx
         ) { [weak self] in
-            // on close
             self?.dismiss(animated: true, completion: nil)
-        }
-
-        reviewVC.onSuccess = { [weak self] in
+        } onSuccess: { [weak self] in
             self?.dismiss(animated: true, completion: nil)
-            self?.reloadData()
         }
 
         let navigationController = UINavigationController(rootViewController: reviewVC)

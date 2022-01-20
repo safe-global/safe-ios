@@ -317,7 +317,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         let token = tokenBalance.symbol
 
         let title = "Your transaction is queued!"
-        let body = "Your request to send \(TokenFormatter().string(from: amount) ?? "0") \(token) is submitted and needs to be confirmed by other owners."
+        let body = "Your request to send \(TokenFormatter().string(from: amount)) \(token) is submitted and needs to be confirmed by other owners."
         let done = "View details"
 
         let successVC = TransactionSuccessViewController(
