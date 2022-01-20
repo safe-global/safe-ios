@@ -102,9 +102,11 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZL3-GC-nIt">
-                                        <rect key="frame" x="239" y="8" width="49" height="0.0"/>
+                                        <rect key="frame" x="263" y="8" width="25" height="0.0"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Edit"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Edit">
+                                            <directionalEdgeInsets key="contentInsets" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
+                                        </buttonConfiguration>
                                         <connections>
                                             <action selector="editButtonTouched:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="sFT-5e-ub4"/>
                                         </connections>

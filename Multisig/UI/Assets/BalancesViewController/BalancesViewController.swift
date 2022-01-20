@@ -48,8 +48,6 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         tableView.registerCell(BalanceTableViewCell.self)
         tableView.registerCell(BannerTableViewCell.self)
         
-        tableView.allowsSelection = false
-        
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
         tableView.backgroundColor = tableBackgroundColor
@@ -186,6 +184,14 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         }
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if case .balances(items: let items) = sections[indexPath.section] {
+            let transferFundsVC = TransactionViewController()
+            transferFundsVC.tokenBalance = items[indexPath.row]
+            present(UINavigationController(rootViewController: transferFundsVC), animated: true)
+        }
+    }
+
     private func importKeyBanner(indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(BannerTableViewCell.self, for: indexPath)
         cell.setHeader(ImportKeyBanner.Strings.header)
@@ -209,6 +215,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             present(vc, animated: true)
             Tracker.trackEvent(.bannerImportOwnerKeyAdd)
         }
+        cell.selectionStyle = .none
         return cell
     }
 
@@ -237,6 +244,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             present(nav, animated: true)
             Tracker.trackEvent(.setupPasscodeFromBanner)
         }
+        cell.selectionStyle = .none
         return cell
     }
 

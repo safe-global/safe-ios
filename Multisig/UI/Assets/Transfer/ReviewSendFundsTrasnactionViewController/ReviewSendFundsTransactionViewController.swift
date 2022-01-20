@@ -26,6 +26,9 @@ class ReviewSendFundsTransactionViewController: UIViewController {
     private var currentDataTask: URLSessionTask?
     var address: Address!
     var amount: BigDecimal!
+    var formattedAmount: String {
+        TokenFormatter().string(from: amount, shortFormat: false)
+    }
     var safe: Safe!
     var tokenBalance: TokenBalance!
     var nonce: UInt256String!
@@ -277,7 +280,10 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         cell.setFromAddress(safe.addressValue, label: safe.name, prefix: prefix)
         let (name, imageURL) = NamingPolicy.name(for: address, info: nil, chainId: safe.chain!.id!)
         cell.setToAddress(address, label: name, imageUri: imageURL, prefix: prefix)
-        cell.setToken(amount: TokenFormatter().string(from: amount), symbol: tokenBalance.symbol, fiatBalance:  "", image: tokenBalance.imageURL)
+        cell.setToken(amount: formattedAmount,
+                      symbol: tokenBalance.symbol,
+                      fiatBalance:  "",
+                      image: tokenBalance.imageURL)
 
         return cell
     }
@@ -316,7 +322,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         let token = tokenBalance.symbol
 
         let title = "Your transaction is queued!"
-        let body = "Your request to send \(TokenFormatter().string(from: amount) ?? "0") \(token) is submitted and needs to be confirmed by other owners."
+        let body = "Your request to send \(formattedAmount) \(token) is submitted and needs to be confirmed by other owners."
         let done = "View details"
 
         let successVC = TransactionSuccessViewController(

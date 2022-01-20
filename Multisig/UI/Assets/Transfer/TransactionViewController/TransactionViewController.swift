@@ -34,7 +34,7 @@ class TransactionViewController: UIViewController {
     private let debounceDuration: TimeInterval = 0.250
 
 
-    private var nextButton: UIBarButtonItem!
+    private var reviewBarButton: UIBarButtonItem!
 
     private var keyboardBehavior: KeyboardAvoidingBehavior!
 
@@ -47,6 +47,8 @@ class TransactionViewController: UIViewController {
         navigationItem.title = "Send " + tokenBalance.symbol
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+        reviewBarButton = UIBarButtonItem(title: "Review", style: .done, target: self, action: #selector(review))
+        navigationItem.rightBarButtonItem = reviewBarButton
         
         maxButton.setText("Send max", .primary)
         maxButton.contentHorizontalAlignment = .right
@@ -58,7 +60,7 @@ class TransactionViewController: UIViewController {
         addressField.setPlaceholderText("Recipient's address")
         addressField.onTap = { [weak self] in self?.didTapAddressField() }
 
-        reviewButton.isEnabled = false
+        enableRiviewButtons(false)
 
         balanceLabel.setStyle(.secondary)
         totalBalanceLabel.setStyle(.headline)
@@ -95,6 +97,10 @@ class TransactionViewController: UIViewController {
     }
 
     @IBAction private func didTapReviewButton(_ sender: Any) {
+        review()
+    }
+
+    @objc private func review() {
         guard let amount = amount, let address = address else { return }
 
         let vc = ReviewSendFundsTransactionViewController(safe: safe,
@@ -136,7 +142,7 @@ class TransactionViewController: UIViewController {
 
     private func didEnterText(_ text: String?) {
         addressField.clear()
-        reviewButton.isEnabled = false
+        enableRiviewButtons(false)
 
         guard let text = text?.trimmingCharacters(in: .whitespacesAndNewlines) else {
             return
@@ -166,27 +172,28 @@ class TransactionViewController: UIViewController {
         verifyInput()
     }
 
+    private func enableRiviewButtons(_ enabled: Bool) {
+        reviewButton.isEnabled = enabled
+        reviewBarButton.isEnabled = enabled
+    }
+
     func verifyInput() {
         amountTextField.showError(message: nil)
-        reviewButton.isEnabled = false
+        enableRiviewButtons(false)
 
         guard let amount = amount else { return }
 
         var message: String? = nil
 
-        if amount.value <= 0 {
-            message = "Amount should be greater than 0"
-        }
-
-        else if amountTextField.balance.numberOfDecimals > tokenBalance.decimals {
+        if amountTextField.balance.numberOfDecimals > tokenBalance.decimals {
             message = "Should be 1 to \(tokenBalance.decimals) decimals"
-        }
-
-        else if amount.value > tokenBalance.balanceValue.value {
+        } else if amount.value <= 0 {
+            message = "Amount should be greater than 0"
+        } else if amount.value > tokenBalance.balanceValue.value {
             message = "Insufficient funds"
         }
 
-        reviewButton.isEnabled = message == nil && address != nil
+        enableRiviewButtons(message == nil && address != nil)
         amountTextField.showError(message: message)
     }
 }
