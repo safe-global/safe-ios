@@ -215,7 +215,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         let transferFundsVC = TransactionViewController()
         transferFundsVC.tokenBalance = balance
         let ribbon = ViewControllerFactory.ribbonWith(viewController: transferFundsVC)
-        show(ribbon, sender: self)
+        present(ViewControllerFactory.modal(viewController: ribbon), animated: true)
     }
 
     private func importKeyBanner(indexPath: IndexPath) -> UITableViewCell {
@@ -241,6 +241,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             present(vc, animated: true)
             Tracker.trackEvent(.bannerImportOwnerKeyAdd)
         }
+        cell.selectionStyle = .none
         return cell
     }
 
@@ -269,6 +270,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             present(nav, animated: true)
             Tracker.trackEvent(.setupPasscodeFromBanner)
         }
+        cell.selectionStyle = .none
         return cell
     }
 
