@@ -117,6 +117,10 @@ class ReviewExecutionViewController: ContainerViewController {
         let keys = controller.executionKeys()
         let balancesLoader = DefaultAccountBalanceLoader(chain: chain)
 
+        if let tx = controller.ethTransaction {
+            balancesLoader.requiredBalance = tx.requiredBalance
+        }
+
         let keyPickerVC = ChooseOwnerKeyViewController(
             owners: keys,
             chainID: controller.chainId,
