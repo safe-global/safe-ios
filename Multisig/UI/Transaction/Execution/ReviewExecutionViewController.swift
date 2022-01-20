@@ -38,6 +38,8 @@ class ReviewExecutionViewController: ContainerViewController {
     private var txEstimationTask: URLSessionTask?
     private var sendingTask: URLSessionTask?
 
+    var wcConnector: WCWalletConnectionController!
+
     convenience init(safe: Safe, chain: Chain, transaction: SCGModels.TransactionDetails, onClose: @escaping () -> Void) {
         // create from the nib named as the self's class name
         self.init(namedClass: nil)
@@ -462,25 +464,38 @@ class ReviewExecutionViewController: ContainerViewController {
                 return
             }
 
-            let wcVC = WCPendingConfirmationViewController(
-                clientTx,
-                keyInfo: keyInfo,
-                title: "Sign Transaction"
-            )
+            wcConnector = WCWalletConnectionController()
+            wcConnector.connect(keyInfo: keyInfo, from: self) { [weak self] success in
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) { [weak self] in
+                    guard let self = self else { return }
 
-            wcVC.send { [weak self] txHash in
-                guard let self = self else { return }
-                assert(Thread.isMainThread)
+                    defer { self.wcConnector = nil }
 
-                if let hexHash = txHash {
-                    self.controller.didSubmitTransaction(txHash: Eth.Hash(Data(hex: hexHash)))
-                    self.didSubmitSuccess()
-                } else {
-                    self.didSubmitFailed(nil)
+                    guard success else {
+                        return
+                    }
+
+                    let wcVC = WCPendingConfirmationViewController(
+                        clientTx,
+                        keyInfo: keyInfo,
+                        title: "Sign Transaction"
+                    )
+
+                    wcVC.send { [weak self] txHash in
+                        guard let self = self else { return }
+                        assert(Thread.isMainThread)
+
+                        if let hexHash = txHash {
+                            self.controller.didSubmitTransaction(txHash: Eth.Hash(Data(hex: hexHash)))
+                            self.didSubmitSuccess()
+                        } else {
+                            self.didSubmitFailed(nil)
+                        }
+                    }
+
+                    self.present(wcVC, animated: true)
                 }
             }
-            present(wcVC, animated: true)
-
 
         case .ledgerNanoX:
             let rawTransaction = controller.preimageForSigning()
