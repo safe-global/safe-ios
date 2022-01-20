@@ -156,7 +156,6 @@ extension Tracker {
                 .transactionDetailsTxConfirmedWC,
                 .transactionDetailsTransactionRejected,
                 .transactionDetailsTxRejectedWC,
-                .transactionDetailsTxExecutedWC,
                 .dappConnectedWithScanButton,
                 .dappConnectedWithUniversalLink,
                 .collectiblesOpenInWeb

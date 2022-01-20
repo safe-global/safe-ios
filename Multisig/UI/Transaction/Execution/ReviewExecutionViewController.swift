@@ -473,19 +473,15 @@ class ReviewExecutionViewController: ContainerViewController {
                 title: "Sign Transaction"
             )
 
-            wcVC.sign { [weak self] signature in
-                DispatchQueue.main.async {
-                    guard let self = self else { return }
+            wcVC.send { [weak self] txHash in
+                guard let self = self else { return }
+                assert(Thread.isMainThread)
 
-                    do {
-                        try self.controller.update(signature: signature)
-                    } catch {
-                        let gsError = GSError.error(description: "Signing failed", error: error)
-                        App.shared.snackbar.show(error: gsError)
-                        return
-                    }
-
-                    self.submit()
+                if let hexHash = txHash {
+                    self.controller.didSubmitTransaction(txHash: Eth.Hash(Data(hex: hexHash)))
+                    self.didSubmitSuccess()
+                } else {
+                    self.didSubmitFailed(nil)
                 }
             }
             present(wcVC, animated: true)
@@ -532,58 +528,65 @@ class ReviewExecutionViewController: ContainerViewController {
             switch result {
             case .failure(let error):
                 self.submitButton.isEnabled = true
-
-                let gsError = GSError.error(description: "Submitting failed", error: error)
-                App.shared.snackbar.show(error: gsError)
-
-                Tracker.trackEvent(.executeFailure, parameters: [
-                    "chainId": self.controller.chainId
-                ])
+                self.didSubmitFailed(error)
 
             case .success:
-                let txHash = self.controller.ethTransaction?.hash ?? .init()
-                LogService.shared.debug("Submitted tx: \(txHash.storage.storage.toHexStringWithPrefix())")
-
-                let successVC = TransactionSuccessViewController(
-                    titleText: "Your transaction is submitted!",
-                    bodyText: "It normally takes some time for a transaction to be executed.",
-                    doneTitle: "View details",
-                    trackingEvent: .executeSuccess
-                )
-
-                // track key type
-                if let key = self.controller.selectedKey?.key {
-                    let trackedKeyType: String
-
-                    switch key.keyType {
-                    case .deviceImported:
-                        trackedKeyType = "imported"
-
-                    case .deviceGenerated:
-                        trackedKeyType = "generated"
-
-                    case .walletConnect:
-                        trackedKeyType = "wallet_connect"
-
-                    case .ledgerNanoX:
-                        trackedKeyType = "ledger_nano_x"
-                    }
-                    
-                    successVC.trackingParams = [
-                        "keyType": trackedKeyType,
-                        "chainId": self.controller.chainId
-                    ]
-                }
-
-                successVC.onDone = { [weak self] in
-                    guard let self = self else { return }
-
-                    self.onSuccess()
-                }
-
-                self.show(successVC, sender: self)
+                self.didSubmitSuccess()
             }
         })
+    }
+
+    func didSubmitFailed(_ error: Error?) {
+        let gsError = GSError.error(description: "Submitting failed", error: error)
+        App.shared.snackbar.show(error: gsError)
+
+        Tracker.trackEvent(.executeFailure, parameters: [
+            "chainId": self.controller.chainId
+        ])
+    }
+
+    func didSubmitSuccess() {
+        let txHash = self.controller.ethTransaction?.hash ?? .init()
+        LogService.shared.debug("Submitted tx: \(txHash.storage.storage.toHexStringWithPrefix())")
+
+        let successVC = TransactionSuccessViewController(
+            titleText: "Your transaction is submitted!",
+            bodyText: "It normally takes some time for a transaction to be executed.",
+            doneTitle: "View details",
+            trackingEvent: .executeSuccess
+        )
+
+        // track key type
+        if let key = self.controller.selectedKey?.key {
+            let trackedKeyType: String
+
+            switch key.keyType {
+            case .deviceImported:
+                trackedKeyType = "imported"
+
+            case .deviceGenerated:
+                trackedKeyType = "generated"
+
+            case .walletConnect:
+                trackedKeyType = "wallet_connect"
+
+            case .ledgerNanoX:
+                trackedKeyType = "ledger_nano_x"
+            }
+
+            successVC.trackingParams = [
+                "keyType": trackedKeyType,
+                "chainId": self.controller.chainId
+            ]
+        }
+
+        successVC.onDone = { [weak self] in
+            guard let self = self else { return }
+
+            self.onSuccess()
+        }
+
+        self.show(successVC, sender: self)
     }
 
 }
