@@ -84,7 +84,6 @@ enum TrackingEvent: String, Trackable {
     case transactionDetailsTransactionRejected      = "user_transaction_rejected"
     case transactionDetailsTxRejectedWC             = "user_transaction_rejected_walletconnect"
     case transactionDetailsTxRejectedLedgerNanoX    = "user_transaction_rejected_ledger_nano_x"
-    case transactionDetailsTxExecutedWC             = "user_transaction_executed_walletconnect"
 
     case dapps                                      = "screen_dapps"
     case dappsNoSafe                                = "screen_dapps_no_safe"
