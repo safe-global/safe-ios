@@ -354,20 +354,6 @@ extension Session {
     }
 }
 
-extension Request {
-    static func nonce(for address: String, session: Session) -> Request {
-        return try! Request(url: session.url, method: "eth_getTransactionCount", params: [address, "latest"])
-    }
-
-    static func estimateGas(transaction: Client.Transaction, session: Session) -> Request {
-        return try! Request(url: session.url, method: "eth_estimateGas", params: [transaction])
-    }
-
-    static func gasPrice(session: Session) -> Request {
-        return Request(url: session.url, method: "eth_gasPrice")
-    }
-}
-
 extension Client.Transaction {
     static func from(address: String,
                      transaction: Transaction,
