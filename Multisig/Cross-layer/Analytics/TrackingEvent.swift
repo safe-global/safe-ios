@@ -45,6 +45,7 @@ enum TrackingEvent: String, Trackable {
     case assetsTransferReview                       = "screen_review_asset_transfer"
     case assetsTransferAdvancedParams               = "screen_asset_transfer_advanced_params"
     case assetsTransferSuccess                      = "screen_asset_transfer_success"
+    case assetsTransferSelectedAsset                = "screen_assets_transfer_selected_asset"
 
     case reviewExecution                            = "screen_exec_tx_review"
     case reviewExecutionEditFee                     = "screen_edit_exec_tx_fee"
