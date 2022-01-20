@@ -114,9 +114,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
             ribbon.chain = vc.chain
             vc.completion = { (address, name)  in
                 AddressBookEntry.create(address: address.checksummed, name: name, chainInfo: chain)
-                NotificationCenter.default.post(name: .addressbookChanged, object: self, userInfo: nil)
                 navigationController?.popToViewController(self, animated: true)
-                self.reloadData()
                 App.shared.snackbar.show(message: "Address book entry added")
             }
             self.show(ribbon, sender: self)
