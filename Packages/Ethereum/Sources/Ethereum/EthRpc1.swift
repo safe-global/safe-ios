@@ -1935,11 +1935,10 @@ extension Eth.TokenAmount: CustomStringConvertible {
         while string.hasSuffix("0") {
             string.removeLast()
         }
-        // remove trailing dot.
-        if string.hasSuffix(".") {
+        // remove trailing decimalSeparator.
+        if string.hasSuffix("\(decimalSeparator)") {
             string.removeLast()
         }
-
         let result = string + (symbol.isEmpty ? "" : (" " + symbol))
         return result
     }

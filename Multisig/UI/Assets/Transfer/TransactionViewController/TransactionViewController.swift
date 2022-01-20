@@ -22,6 +22,8 @@ class TransactionViewController: UIViewController {
     @IBOutlet private weak var reviewButton: UIButton!
     @IBOutlet private weak var scrollView: UIScrollView!
 
+    private var tooltipSource: TooltipSource?
+
     var address: Address? { addressField?.address }
     var amount: BigDecimal? {
         amountTextField.balance.isEmpty ? nil : BigDecimal.create(string: amountTextField.balance, precision: tokenBalance.decimals)
@@ -68,6 +70,10 @@ class TransactionViewController: UIViewController {
         
         totalBalanceLabel.text = tokenBalance.balanceWithSymbol
 
+        tooltipSource = TooltipSource(target: totalBalanceLabel, arrowTarget: totalBalanceLabel)
+        tooltipSource?.message = tokenBalance.fullBalanceWithSymbol
+        tooltipSource?.aboveTarget = false
+
         reviewButton.setText("Review", .filled)
         amountTextField.setToken(logoURL: tokenBalance.imageURL)
         amountTextField.delegate = self
@@ -84,6 +90,7 @@ class TransactionViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         keyboardBehavior.stop()
+        TooltipSource.hideAll()
     }
 
     @IBAction func maxButtonTouched(_ sender: Any) {
@@ -94,6 +101,7 @@ class TransactionViewController: UIViewController {
             decimals: tokenBalance.decimals)
         amountTextField.balance = tokenAmount.description
         verifyInput()
+        TooltipSource.hideAll()
     }
 
     @IBAction private func didTapReviewButton(_ sender: Any) {
