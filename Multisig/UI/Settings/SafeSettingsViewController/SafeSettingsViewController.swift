@@ -102,7 +102,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     @objc func update() {
         do {
-            safe = try Safe.getSelected()!
+            // it may happen that data is deleted, so we should just finish gracefully.
+            guard let selectedSsafe = try Safe.getSelected() else {
+                return
+            }
+            safe = selectedSsafe
             updateSections()
         } catch {
             onError(GSError.error(description: "Failed to load safe settings", error: error))
