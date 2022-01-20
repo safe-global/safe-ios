@@ -60,7 +60,7 @@ class TransactionViewController: UIViewController {
         addressField.setPlaceholderText("Recipient's address")
         addressField.onTap = { [weak self] in self?.didTapAddressField() }
 
-        enableRiviewButtons(false)
+        enableReviewButtons(false)
 
         balanceLabel.setStyle(.secondary)
         totalBalanceLabel.setStyle(.headline)
@@ -143,7 +143,7 @@ class TransactionViewController: UIViewController {
 
     private func didEnterText(_ text: String?) {
         addressField.clear()
-        enableRiviewButtons(false)
+        enableReviewButtons(false)
 
         guard let text = text?.trimmingCharacters(in: .whitespacesAndNewlines) else {
             return
@@ -173,14 +173,14 @@ class TransactionViewController: UIViewController {
         verifyInput()
     }
 
-    private func enableRiviewButtons(_ enabled: Bool) {
+    private func enableReviewButtons(_ enabled: Bool) {
         reviewButton.isEnabled = enabled
         reviewBarButton.isEnabled = enabled
     }
 
     func verifyInput() {
         amountTextField.showError(message: nil)
-        enableRiviewButtons(false)
+        enableReviewButtons(false)
 
         guard let amount = amount else { return }
 
@@ -194,7 +194,7 @@ class TransactionViewController: UIViewController {
             message = "Insufficient funds"
         }
 
-        enableRiviewButtons(message == nil && address != nil)
+        enableReviewButtons(message == nil && address != nil)
         amountTextField.showError(message: message)
     }
 }
