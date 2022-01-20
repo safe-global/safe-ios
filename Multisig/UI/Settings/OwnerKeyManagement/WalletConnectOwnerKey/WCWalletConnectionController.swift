@@ -25,7 +25,6 @@ class WCWalletConnectionController {
         self.presenter = vc
         self.completion = completion
 
-        // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(walletConnectSessionCreated(_:)),
