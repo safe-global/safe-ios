@@ -102,12 +102,13 @@ class TransactionViewController: UIViewController {
 
     @objc private func review() {
         guard let amount = amount, let address = address else { return }
-
+    
         let vc = ReviewSendFundsTransactionViewController(safe: safe,
                                                           address: address,
                                                           tokenBalance: tokenBalance,
                                                           amount: amount)
-        show(vc, sender: self)
+        let ribbon = RibbonViewController(rootViewController: vc)
+        show(ribbon, sender: self)
     }
 
     private func didTapAddressField() {
