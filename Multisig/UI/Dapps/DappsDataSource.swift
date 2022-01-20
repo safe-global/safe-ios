@@ -20,7 +20,7 @@ class DappsDataSource {
 
     init() {
         guard let chain = try? Safe.getSelected()?.chain else {
-            assertionFailure("Developer error: expect to have selected safe with network")
+            // it may happen that the data was deleted and we get updated from a notifictaion.
             dapps = []
             return
         }
