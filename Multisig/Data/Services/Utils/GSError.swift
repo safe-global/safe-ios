@@ -193,7 +193,7 @@ enum GSError {
     struct UnprocessableEntity: DetailedLocalizedError {
         let description = "HTTP 422 Unprocessable Entity"
         let reason: String
-        let howToFix = "Please reach out to the Safe support"
+        let howToFix = "Please try again later"
         let domain = networkErrorDomain
         let code: Int
         let loggable = true
