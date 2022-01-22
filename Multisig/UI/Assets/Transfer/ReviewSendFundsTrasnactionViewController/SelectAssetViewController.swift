@@ -50,6 +50,7 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
         
         navigationItem.title = "Select an asset"
         navigationItem.searchController = searchController
+        navigationItem.backButtonTitle = "Back"
         
         tableView.registerCell(BalanceTableViewCell.self)
         

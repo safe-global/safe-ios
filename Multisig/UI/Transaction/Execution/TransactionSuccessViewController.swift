@@ -40,6 +40,7 @@ class TransactionSuccessViewController: UIViewController {
         super.viewDidLoad()
         
         navigationController?.isNavigationBarHidden = true
+        navigationItem.backButtonTitle = "Back"
 
         titleLabel.setStyle(.headline)
         bodyLabel.setStyle(.primary)

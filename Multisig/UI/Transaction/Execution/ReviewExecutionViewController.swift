@@ -55,7 +55,8 @@ class ReviewExecutionViewController: ContainerViewController {
         assert(transaction != nil)
 
         title = "Execute"
-
+        navigationItem.backButtonTitle = "Back"
+        
         // configure content
         contentVC = ReviewExecutionContentViewController(
             safe: safe,
