@@ -38,13 +38,18 @@ class ReviewExecutionViewController: ContainerViewController {
     private var txEstimationTask: URLSessionTask?
     private var sendingTask: URLSessionTask?
 
-    convenience init(safe: Safe, chain: Chain, transaction: SCGModels.TransactionDetails, onClose: @escaping () -> Void) {
+    convenience init(safe: Safe,
+                     chain: Chain,
+                     transaction: SCGModels.TransactionDetails,
+                     onClose: @escaping () -> Void,
+                     onSuccess: @escaping () -> Void) {
         // create from the nib named as the self's class name
         self.init(namedClass: nil)
         self.safe = safe
         self.chain = chain
         self.transaction = transaction
         self.onClose = onClose
+        self.onSuccess = onSuccess
         self.controller = TransactionExecutionController(safe: safe, chain: chain, transaction: transaction)
     }
 
@@ -55,7 +60,8 @@ class ReviewExecutionViewController: ContainerViewController {
         assert(transaction != nil)
 
         title = "Execute"
-
+        navigationItem.backButtonTitle = "Back"
+        
         // configure content
         contentVC = ReviewExecutionContentViewController(
             safe: safe,

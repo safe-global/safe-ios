@@ -53,7 +53,8 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
         super.viewDidLoad()
         
         navigationItem.title = "Edit advanced parameters"
-
+        navigationItem.backButtonTitle = "Back"
+        
         saveButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(save))
         navigationItem.rightBarButtonItem = saveButton
 

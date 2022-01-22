@@ -47,6 +47,7 @@ class TransactionViewController: UIViewController {
         assert(safe != nil)
 
         navigationItem.title = "Send " + tokenBalance.symbol
+        navigationItem.backButtonTitle = "Back"
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
         reviewBarButton = UIBarButtonItem(title: "Review", style: .done, target: self, action: #selector(review))
