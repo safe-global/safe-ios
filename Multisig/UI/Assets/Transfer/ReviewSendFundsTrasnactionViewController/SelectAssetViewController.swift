@@ -50,6 +50,7 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
         
         navigationItem.title = "Select an asset"
         navigationItem.searchController = searchController
+        navigationItem.backButtonTitle = "Back"
         
         tableView.registerCell(BalanceTableViewCell.self)
         
@@ -76,6 +77,10 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
         super.viewDidAppear(animated)
         onSuccess()
         Tracker.trackEvent(.assetsTransferSelect)
+    }
+    
+    @objc override func willEnterForeground() {
+        onSuccess()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

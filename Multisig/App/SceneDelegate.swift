@@ -87,6 +87,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if presentedWindow === tabBarWindow {
             privacyShieldWindow?.isHidden = false
         }
+        App.shared.intercomConfig.hide()
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {

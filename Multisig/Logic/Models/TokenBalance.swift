@@ -9,6 +9,8 @@
 import Foundation
 import SwiftCryptoTokenFormatter
 import UIKit
+import Solidity
+import Ethereum
 
 struct TokenBalance: Identifiable, Hashable {
     var id: String {
@@ -87,5 +89,14 @@ extension TokenBalance {
 
     var balanceWithSymbol: String {
         "\(balance) \(symbol)"
+    }
+
+    var fullBalanceWithSymbol: String {
+        let value = Sol.UInt256(big: balanceValue.value.magnitude)
+        let tokenAmount = Eth.TokenAmount(
+                value: value,
+                decimals: decimals)
+        let fullBalance = tokenAmount.description
+        return "\(fullBalance) \(symbol)"
     }
 }
