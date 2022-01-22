@@ -45,6 +45,7 @@ enum TrackingEvent: String, Trackable {
     case assetsTransferReview                       = "screen_review_asset_transfer"
     case assetsTransferAdvancedParams               = "screen_asset_transfer_advanced_params"
     case assetsTransferSuccess                      = "screen_asset_transfer_success"
+    case assetsTransferSelectedAsset                = "screen_assets_transfer_selected_asset"
 
     case reviewExecution                            = "screen_exec_tx_review"
     case reviewExecutionEditFee                     = "screen_edit_exec_tx_fee"
@@ -84,7 +85,6 @@ enum TrackingEvent: String, Trackable {
     case transactionDetailsTransactionRejected      = "user_transaction_rejected"
     case transactionDetailsTxRejectedWC             = "user_transaction_rejected_walletconnect"
     case transactionDetailsTxRejectedLedgerNanoX    = "user_transaction_rejected_ledger_nano_x"
-    case transactionDetailsTxExecutedWC             = "user_transaction_executed_walletconnect"
 
     case dapps                                      = "screen_dapps"
     case dappsNoSafe                                = "screen_dapps_no_safe"

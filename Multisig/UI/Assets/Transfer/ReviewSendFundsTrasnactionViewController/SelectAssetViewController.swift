@@ -79,6 +79,10 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
         Tracker.trackEvent(.assetsTransferSelect)
     }
     
+    @objc override func willEnterForeground() {
+        onSuccess()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         filteredBalances.count
     }

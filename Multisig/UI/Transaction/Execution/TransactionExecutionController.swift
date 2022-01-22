@@ -475,6 +475,7 @@ class TransactionExecutionController {
         }
         let clientTx: Client.Transaction
 
+        // NOTE: only legacy parameters seem to work with current wallets.
         switch ethTransaction {
         case let tx as Eth.TransactionLegacy:
             let rpcTx = EthRpc1.TransactionLegacy(tx)
@@ -486,9 +487,9 @@ class TransactionExecutionController {
                 gasPrice: rpcTx.gasPrice?.hex,
                 value: rpcTx.value.hex,
                 nonce: rpcTx.nonce?.hex,
-                type: rpcTx.type.hex,
+                type: nil,
                 accessList: nil,
-                chainId: rpcTx.chainId?.hex,
+                chainId: nil,
                 maxPriorityFeePerGas: nil,
                 maxFeePerGas: nil
             )
@@ -503,9 +504,9 @@ class TransactionExecutionController {
                 gasPrice: rpcTx.gasPrice?.hex,
                 value: rpcTx.value.hex,
                 nonce: rpcTx.nonce?.hex,
-                type: rpcTx.type.hex,
-                accessList: nil, // access list initializer is not accessible
-                chainId: rpcTx.chainId.hex,
+                type: nil,
+                accessList: nil,
+                chainId: nil,
                 maxPriorityFeePerGas: nil,
                 maxFeePerGas: nil
             )
@@ -517,14 +518,14 @@ class TransactionExecutionController {
                 to: rpcTx.to?.hex,
                 data: rpcTx.input.hex,
                 gas: rpcTx.gas?.hex,
-                gasPrice: nil,
+                gasPrice: rpcTx.maxFeePerGas?.hex,
                 value: rpcTx.value.hex,
                 nonce: rpcTx.nonce?.hex,
-                type: rpcTx.type.hex,
-                accessList: nil, // wallet connect lib doesn't provide initializer
-                chainId: rpcTx.chainId.hex,
-                maxPriorityFeePerGas: rpcTx.maxPriorityFeePerGas?.hex,
-                maxFeePerGas: rpcTx.maxFeePerGas?.hex
+                type: nil,
+                accessList: nil,
+                chainId: nil,
+                maxPriorityFeePerGas: nil,
+                maxFeePerGas: nil
             )
         default:
             return nil
@@ -579,28 +580,30 @@ class TransactionExecutionController {
                 return
             }
 
-            tx.hash = Eth.Hash(txHash.storage)
-            self.ethTransaction = tx
-
             DispatchQueue.main.async {
-                // save the tx information for monitoring purposes
-                let context = App.shared.coreDataStack.viewContext
-                let cdTx = CDEthTransaction(context: context)
-                cdTx.ethTxHash = txHash.storage.toHexStringWithPrefix()
-                cdTx.safeTxHash = self.transaction.multisigInfo?.safeTxHash.description
-                cdTx.status = SCGModels.TxStatus.pending.rawValue
-                cdTx.safeAddress = self.safe.address
-                cdTx.chainId = self.chainId
-                cdTx.dateSubmittedAt = Date()
-                App.shared.coreDataStack.saveContext()
-
-                // Notify the observers about tx changes
-                NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
-
+                self.didSubmitTransaction(txHash: Eth.Hash(txHash.storage))
                 completion(.success(()))
             }
         }
         return task
+    }
+
+    func didSubmitTransaction(txHash: Eth.Hash) {
+        self.ethTransaction?.hash = txHash
+
+        // save the tx information for monitoring purposes
+        let context = App.shared.coreDataStack.viewContext
+        let cdTx = CDEthTransaction(context: context)
+        cdTx.ethTxHash = txHash.storage.storage.toHexStringWithPrefix()
+        cdTx.safeTxHash = self.transaction.multisigInfo?.safeTxHash.description
+        cdTx.status = SCGModels.TxStatus.pending.rawValue
+        cdTx.safeAddress = self.safe.address
+        cdTx.chainId = self.chainId
+        cdTx.dateSubmittedAt = Date()
+        App.shared.coreDataStack.saveContext()
+
+        // Notify the observers about tx changes
+        NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
     }
 }
 

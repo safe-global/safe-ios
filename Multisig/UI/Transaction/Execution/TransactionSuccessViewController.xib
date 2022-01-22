@@ -34,7 +34,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your request to send 10 ETH is submitted and needs to be confirmed by other owners." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWJ-lb-hId">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Your request to send 10 ETH is submitted and needs to be confirmed by other owners." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWJ-lb-hId">
                             <rect key="frame" x="0.0" y="178.5" width="382" height="41"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
@@ -56,7 +56,6 @@
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="9w2-V0-5fP" firstAttribute="top" secondItem="vWJ-lb-hId" secondAttribute="bottom" constant="24" id="IJv-aq-DaP"/>
                         <constraint firstItem="9w2-V0-5fP" firstAttribute="top" secondItem="vWJ-lb-hId" secondAttribute="bottom" constant="24" id="T2J-eU-Zzs"/>
                         <constraint firstItem="2cy-o0-Tus" firstAttribute="top" secondItem="hpa-kC-4yd" secondAttribute="bottom" constant="32" id="TiH-Fe-fPK"/>
                         <constraint firstItem="vWJ-lb-hId" firstAttribute="top" secondItem="2cy-o0-Tus" secondAttribute="bottom" constant="16" id="km2-m4-039"/>
@@ -69,7 +68,6 @@
                 <constraint firstItem="1QG-6Q-dsy" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="7fz-lZ-gf9"/>
                 <constraint firstItem="1QG-6Q-dsy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="iO8-fC-5Xj"/>
                 <constraint firstAttribute="trailing" secondItem="1QG-6Q-dsy" secondAttribute="trailing" constant="16" id="ndR-zk-14h"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="1QG-6Q-dsy" secondAttribute="trailing" constant="16" id="qkG-5q-pwa"/>
             </constraints>
             <point key="canvasLocation" x="131.8840579710145" y="116.51785714285714"/>
         </view>
