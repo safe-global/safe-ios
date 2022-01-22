@@ -101,6 +101,8 @@ extension AddressBookEntry {
 
         updateCachedNames()
 
+        NotificationCenter.default.post(name: .addressbookChanged, object: nil)
+
         return entry
     }
 
