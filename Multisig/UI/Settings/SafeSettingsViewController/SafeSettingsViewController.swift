@@ -102,7 +102,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     @objc func update() {
         do {
-            safe = try Safe.getSelected()!
+            // it may happen that data is deleted, so we should just finish gracefully.
+            guard let selectedSsafe = try Safe.getSelected() else {
+                return
+            }
+            safe = selectedSsafe
             updateSections()
         } catch {
             onError(GSError.error(description: "Failed to load safe settings", error: error))
@@ -169,15 +173,29 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     // MARK: - Table view data source
 
+    // validate index path to prevent crashes due to racing when using async network calls
+    func isValid(path indexPath: IndexPath) -> Bool {
+        indexPath.section < sections.count && indexPath.row < sections[indexPath.section].items.count
+    }
+
+    // validate sections path to prevent crashes due to racing when using async network calls
+    func isValid(section: Int) -> Bool {
+        section < sections.count
+    }
+
     func numberOfSections(in tableView: UITableView) -> Int {
         sections.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        sections[section].items.count
+        guard isValid(section: section) else { return 0 }
+        return sections[section].items.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard isValid(path: indexPath) else {
+            return UITableViewCell()
+        }
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.Name.name(let name):
@@ -276,6 +294,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     // MARK: - Table view delegate
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard isValid(path: indexPath) else {
+            return
+        }
         tableView.deselectRow(at: indexPath, animated: true)
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
@@ -299,6 +320,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard isValid(path: indexPath) else {
+            return 0
+        }
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.OwnerAddresses.ownerInfo:
@@ -319,6 +343,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {
+        guard isValid(section: _section) else {
+            return nil
+        }
         let section = sections[_section].section
         let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
         switch section {
@@ -345,6 +372,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
+        guard isValid(section: _section) else {
+            return 0
+        }
         let section = sections[_section].section
         switch section {
         case Section.name:
