@@ -47,9 +47,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
         tableView.registerCell(BalanceTableViewCell.self)
         tableView.registerCell(BannerTableViewCell.self)
-        
-        tableView.allowsSelection = false
-        
+
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
         tableView.backgroundColor = tableBackgroundColor
@@ -186,6 +184,40 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         }
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch sections[indexPath.section] {
+        case .balances(items: let items):
+            do {
+                let item = items[indexPath.row]
+                guard let safe = try Safe.getSelected() else { return }
+                if safe.isReadOnly {
+                    let vc = AddOwnerFirstViewController()
+                    vc.onSuccess = { [weak self, unowned safe] in
+                        if !safe.isReadOnly {
+                            self?.showSend(balance: item)
+                        }
+                    }
+                    let navigationController = UINavigationController(rootViewController: vc)
+                    self.present(navigationController, animated: true)
+                } else {
+                    self.showSend(balance: item)
+                }
+            } catch {
+                App.shared.snackbar.show(
+                    error: GSError.error(description: "Failed to update selected safe", error: error))
+            }
+        default: break
+        }
+    }
+
+    private func showSend(balance: TokenBalance) {
+        Tracker.trackEvent(.assetsTransferSelectedAsset)
+        let transferFundsVC = TransactionViewController()
+        transferFundsVC.tokenBalance = balance
+        let ribbon = ViewControllerFactory.ribbonWith(viewController: transferFundsVC)
+        present(ViewControllerFactory.modal(viewController: ribbon), animated: true)
+    }
+
     private func importKeyBanner(indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(BannerTableViewCell.self, for: indexPath)
         cell.setHeader(ImportKeyBanner.Strings.header)
@@ -209,6 +241,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             present(vc, animated: true)
             Tracker.trackEvent(.bannerImportOwnerKeyAdd)
         }
+        cell.selectionStyle = .none
         return cell
     }
 
@@ -237,6 +270,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             present(nav, animated: true)
             Tracker.trackEvent(.setupPasscodeFromBanner)
         }
+        cell.selectionStyle = .none
         return cell
     }
 

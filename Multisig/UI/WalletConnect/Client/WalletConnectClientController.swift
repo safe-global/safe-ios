@@ -223,78 +223,6 @@ class WalletConnectClientController {
         }
     }
 
-    func execute(transaction: Transaction,
-                 confirmations: [SCGModels.Confirmation],
-                 confirmationsRequired: UInt64,
-                 rpcURL: URL,
-                 onSend: @escaping (Result<Void, Error>) -> Void,
-                 onResult: @escaping (Result<Void, Error>) -> Void) {
-
-        guard let session = session,
-              let client = client,
-              let walletAddress = session.walletInfo?.accounts.first else {
-            onSend(.failure(GSError.WalletNotConnected(description: "Could not execute transaction")))
-            return
-        }
-
-        DispatchQueue.global().async {
-            do {
-                // get wallet nonce
-                let nonceJSONResponse = try App.shared.nodeService.rawCall(
-                    payload: Request.nonce(for: walletAddress, session: session).jsonString,
-                    rpcURL: rpcURL)
-                let nonceResponse = try Response(url: session.url, jsonString: nonceJSONResponse)
-                let nonce = try nonceResponse.result(as: String.self)
-
-                // estimage tx gas
-                let clientTxNotEstimated = Client.Transaction.from(
-                    address: walletAddress,
-                    transaction: transaction,
-                    rpcURL: rpcURL,
-                    confirmations: confirmations,
-                    confirmationsRequired: confirmationsRequired,
-                    nonce: nonce)
-                let gasJSONResponse = try App.shared.nodeService.rawCall(
-                    payload: Request.estimateGas(transaction: clientTxNotEstimated, session: session).jsonString,
-                    rpcURL: rpcURL)
-                let gasResponse = try Response(url: session.url, jsonString: gasJSONResponse)
-                let gas = try gasResponse.result(as: String.self)
-
-                // Estimate tx gasPrice. For now we use RPC node, but we will improve it in future
-                // using our service.
-                let gasPriceJSONResponse = try App.shared.nodeService.rawCall(
-                    payload: Request.gasPrice(session: session).jsonString,
-                    rpcURL: rpcURL)
-                let gasPriceResponse = try Response(url: session.url, jsonString: gasPriceJSONResponse)
-                let gasPrice = try gasPriceResponse.result(as: String.self)
-
-                // Need to create it again as `Client.Transaction` fields are not public
-                let clientTransaction = Client.Transaction.from(
-                    address: walletAddress,
-                    transaction: transaction,
-                    rpcURL: rpcURL,
-                    confirmations: confirmations,
-                    confirmationsRequired: confirmationsRequired,
-                    nonce: nonce,
-                    gas: gas,
-                    gasPrice: gasPrice)
-
-                try client.eth_sendTransaction(url: session.url, transaction: clientTransaction) { response in
-                    do {
-                        let _ = try response.result(as: HashString.self)
-                        onResult(.success(()))
-                    } catch {
-                        onResult(.failure(GSError.CouldNotSignWithWalletConnect()))
-                    }
-                }
-
-                onSend(.success(()))
-            } catch {
-                onSend(.failure(error))
-            }
-        }
-    }
-
     // https://developer.apple.com/documentation/security/1399291-secrandomcopybytes
     // used as a secret key for initiating new session
     private func randomKey() -> String? {
@@ -423,20 +351,6 @@ extension Session {
 
     static func from(data: Data) -> Self? {
         try? JSONDecoder().decode(Self.self, from: data)
-    }
-}
-
-extension Request {
-    static func nonce(for address: String, session: Session) -> Request {
-        return try! Request(url: session.url, method: "eth_getTransactionCount", params: [address, "latest"])
-    }
-
-    static func estimateGas(transaction: Client.Transaction, session: Session) -> Request {
-        return try! Request(url: session.url, method: "eth_estimateGas", params: [transaction])
-    }
-
-    static func gasPrice(session: Session) -> Request {
-        return Request(url: session.url, method: "eth_gasPrice")
     }
 }
 

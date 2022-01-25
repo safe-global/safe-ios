@@ -83,7 +83,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                              .chainInfoChanged,
                              .addressbookChanged,
                              .selectedSafeUpdated,
-                             .selectedSafeChanged] {
+                             .selectedSafeChanged,
+                             .transactionDataInvalidated] {
             notificationCenter.addObserver(
                 self,
                 selector: #selector(lazyReloadData),
@@ -289,34 +290,12 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             chain: chain,
             transaction: tx
         ) { [weak self] in
-            // on close
             self?.dismiss(animated: true, completion: nil)
-        }
-
-        reviewVC.onSuccess = { [weak self] in
+        } onSuccess: { [weak self] in
             self?.dismiss(animated: true, completion: nil)
-            self?.reloadData()
         }
 
         let navigationController = UINavigationController(rootViewController: reviewVC)
-        present(navigationController, animated: true)
-    }
-
-    @objc private func legacyDidTapExecute() {
-        let signers = executionKeys()
-
-        let descriptionText = "You are about to execute this transaction. Please select which owner key to use."
-        let vc = ChooseOwnerKeyViewController(owners: signers,
-                                              chainID: safe.chain!.id,
-                                              descriptionText: descriptionText) { [unowned self] keyInfo in
-            dismiss(animated: true) {
-                if let keyInfo = keyInfo {
-                    execute(keyInfo)
-                }
-            }
-        }
-
-        let navigationController = UINavigationController(rootViewController: vc)
         present(navigationController, animated: true)
     }
 
@@ -406,42 +385,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 self?.onLoadingCompleted(result: result)
             }
         }
-    }
-
-    private func execute(_ keyInfo: KeyInfo) {
-        guard let tx = tx,
-              var transaction = Transaction(tx: tx),
-              let multisigInfo = tx.multisigInfo,
-              keyInfo.keyType == .walletConnect else {
-                  // other implementation is not supported for now
-                  return
-        }
-
-        do {
-            let safeAddress = try Address(from: safe.address!)
-            transaction.safe = AddressString(safeAddress)
-            transaction.chainId = safe.chain!.id
-        } catch {
-            onError(GSError.error(description: "Failed to execute transaction", error: error))
-        }
-
-        let pendingConfirmationVC = WCPendingConfirmationViewController(transaction,
-                                                                        keyInfo: keyInfo,
-                                                                        title: "Pending Execution")
-
-        pendingConfirmationVC.onClose = { [unowned self] in
-            self.reloadData()
-        }
-
-        pendingConfirmationVC.execute(ecdsaConfirmations: tx.ecdsaConfirmations, confirmationsRequired: multisigInfo.confirmationsRequired, authenticatedRpcUrl: safe.chain!.authenticatedRpcUrl) {
-            DispatchQueue.main.async { [weak self] in
-                self?.pendingExecution = true
-                self?.reloadData()
-                Tracker.trackEvent(.transactionDetailsTxExecutedWC)
-            }
-        }
-
-        present(pendingConfirmationVC, animated: false)
     }
 
     // MARK: - Loading Data

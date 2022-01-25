@@ -22,6 +22,8 @@ class TransactionViewController: UIViewController {
     @IBOutlet private weak var reviewButton: UIButton!
     @IBOutlet private weak var scrollView: UIScrollView!
 
+    private var tooltipSource: TooltipSource?
+
     var address: Address? { addressField?.address }
     var amount: BigDecimal? {
         amountTextField.balance.isEmpty ? nil : BigDecimal.create(string: amountTextField.balance, precision: tokenBalance.decimals)
@@ -34,7 +36,7 @@ class TransactionViewController: UIViewController {
     private let debounceDuration: TimeInterval = 0.250
 
 
-    private var nextButton: UIBarButtonItem!
+    private var reviewBarButton: UIBarButtonItem!
 
     private var keyboardBehavior: KeyboardAvoidingBehavior!
 
@@ -45,8 +47,11 @@ class TransactionViewController: UIViewController {
         assert(safe != nil)
 
         navigationItem.title = "Send " + tokenBalance.symbol
+        navigationItem.backButtonTitle = "Back"
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+        reviewBarButton = UIBarButtonItem(title: "Review", style: .done, target: self, action: #selector(review))
+        navigationItem.rightBarButtonItem = reviewBarButton
         
         maxButton.setText("Send max", .primary)
         maxButton.contentHorizontalAlignment = .right
@@ -58,13 +63,17 @@ class TransactionViewController: UIViewController {
         addressField.setPlaceholderText("Recipient's address")
         addressField.onTap = { [weak self] in self?.didTapAddressField() }
 
-        reviewButton.isEnabled = false
+        enableReviewButtons(false)
 
         balanceLabel.setStyle(.secondary)
         totalBalanceLabel.setStyle(.headline)
 
         
         totalBalanceLabel.text = tokenBalance.balanceWithSymbol
+
+        tooltipSource = TooltipSource(target: totalBalanceLabel, arrowTarget: totalBalanceLabel)
+        tooltipSource?.message = tokenBalance.fullBalanceWithSymbol
+        tooltipSource?.aboveTarget = false
 
         reviewButton.setText("Review", .filled)
         amountTextField.setToken(logoURL: tokenBalance.imageURL)
@@ -82,6 +91,7 @@ class TransactionViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         keyboardBehavior.stop()
+        TooltipSource.hideAll()
     }
 
     @IBAction func maxButtonTouched(_ sender: Any) {
@@ -92,16 +102,22 @@ class TransactionViewController: UIViewController {
             decimals: tokenBalance.decimals)
         amountTextField.balance = tokenAmount.description
         verifyInput()
+        TooltipSource.hideAll()
     }
 
     @IBAction private func didTapReviewButton(_ sender: Any) {
-        guard let amount = amount, let address = address else { return }
+        review()
+    }
 
+    @objc private func review() {
+        guard let amount = amount, let address = address else { return }
+    
         let vc = ReviewSendFundsTransactionViewController(safe: safe,
                                                           address: address,
                                                           tokenBalance: tokenBalance,
                                                           amount: amount)
-        show(vc, sender: self)
+        let ribbon = RibbonViewController(rootViewController: vc)
+        show(ribbon, sender: self)
     }
 
     private func didTapAddressField() {
@@ -136,7 +152,7 @@ class TransactionViewController: UIViewController {
 
     private func didEnterText(_ text: String?) {
         addressField.clear()
-        reviewButton.isEnabled = false
+        enableReviewButtons(false)
 
         guard let text = text?.trimmingCharacters(in: .whitespacesAndNewlines) else {
             return
@@ -166,27 +182,28 @@ class TransactionViewController: UIViewController {
         verifyInput()
     }
 
+    private func enableReviewButtons(_ enabled: Bool) {
+        reviewButton.isEnabled = enabled
+        reviewBarButton.isEnabled = enabled
+    }
+
     func verifyInput() {
         amountTextField.showError(message: nil)
-        reviewButton.isEnabled = false
+        enableReviewButtons(false)
 
         guard let amount = amount else { return }
 
         var message: String? = nil
 
-        if amount.value <= 0 {
-            message = "Amount should be greater than 0"
-        }
-
-        else if amountTextField.balance.numberOfDecimals > tokenBalance.decimals {
+        if amountTextField.balance.numberOfDecimals > tokenBalance.decimals {
             message = "Should be 1 to \(tokenBalance.decimals) decimals"
-        }
-
-        else if amount.value > tokenBalance.balanceValue.value {
+        } else if amount.value <= 0 {
+            message = "Amount should be greater than 0"
+        } else if amount.value > tokenBalance.balanceValue.value {
             message = "Insufficient funds"
         }
 
-        reviewButton.isEnabled = message == nil && address != nil
+        enableReviewButtons(message == nil && address != nil)
         amountTextField.showError(message: message)
     }
 }

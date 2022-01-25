@@ -40,13 +40,18 @@ class ReviewExecutionViewController: ContainerViewController {
 
     var wcConnector: WCWalletConnectionController!
 
-    convenience init(safe: Safe, chain: Chain, transaction: SCGModels.TransactionDetails, onClose: @escaping () -> Void) {
+    convenience init(safe: Safe,
+                     chain: Chain,
+                     transaction: SCGModels.TransactionDetails,
+                     onClose: @escaping () -> Void,
+                     onSuccess: @escaping () -> Void) {
         // create from the nib named as the self's class name
         self.init(namedClass: nil)
         self.safe = safe
         self.chain = chain
         self.transaction = transaction
         self.onClose = onClose
+        self.onSuccess = onSuccess
         self.controller = TransactionExecutionController(safe: safe, chain: chain, transaction: transaction)
     }
 
@@ -57,7 +62,8 @@ class ReviewExecutionViewController: ContainerViewController {
         assert(transaction != nil)
 
         title = "Execute"
-
+        navigationItem.backButtonTitle = "Back"
+        
         // configure content
         contentVC = ReviewExecutionContentViewController(
             safe: safe,
@@ -118,6 +124,10 @@ class ReviewExecutionViewController: ContainerViewController {
     @IBAction func didTapAccount(_ sender: Any) {
         let keys = controller.executionKeys()
         let balancesLoader = DefaultAccountBalanceLoader(chain: chain)
+
+        if let tx = controller.ethTransaction {
+            balancesLoader.requiredBalance = tx.requiredBalance
+        }
 
         let keyPickerVC = ChooseOwnerKeyViewController(
             owners: keys,
@@ -291,15 +301,16 @@ class ReviewExecutionViewController: ContainerViewController {
         }
 
         formVC.navigationItem.title = "Edit transaction fee"
-
-        let nav = UINavigationController(rootViewController: formVC)
+        let ribbon = RibbonViewController(rootViewController: formVC)
+        let nav = UINavigationController(rootViewController: ribbon)
         present(nav, animated: true, completion: nil)
     }
 
     @IBAction func didTapAdvanced(_ sender: Any) {
         let advancedVC = AdvancedTransactionDetailsViewController(transaction, chain: chain)
+        let ribbon = RibbonViewController(rootViewController: advancedVC)
         advancedVC.trackingEvent = .reviewExecutionAdvanced
-        show(advancedVC, sender: self)
+        show(ribbon, sender: self)
     }
 
     @IBAction func didTapSubmit(_ sender: Any) {

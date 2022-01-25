@@ -30,7 +30,7 @@ class DefaultAccountBalanceLoader: AccountBalanceLoader {
     ///
     /// resulting balances list must have the same count as the keys.
     ///
-    /// The returned task is laredy resumed.
+    /// The returned task is already resumed.
     func loadBalances(for keys: [KeyInfo], completion: @escaping (Result<[AccountBalanceUIModel], Error>) -> Void) -> URLSessionTask? {
         guard !keys.isEmpty else {
             dispatchOnMainThread(completion(.success([])))

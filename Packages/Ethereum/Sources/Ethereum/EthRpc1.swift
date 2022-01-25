@@ -1921,24 +1921,24 @@ extension Eth.TokenAmount: Hashable {
 
 extension Eth.TokenAmount: CustomStringConvertible {
     public var description: String {
+        let decimalSeparator = Character(Locale.current.decimalSeparator ?? ".")
         var string = String(value, radix: 10)
         if string.count > decimals {
             // more than 1
-            string.insert(".", at: string.index(string.endIndex, offsetBy: -decimals))
+            string.insert(decimalSeparator, at: string.index(string.endIndex, offsetBy: -decimals))
         } else {
             // less than 1, needs padding
             let padding = decimals - string.count
-            string = "0." + String(repeating: "0", count: padding) + string
+            string = "0\(decimalSeparator)" + String(repeating: "0", count: padding) + string
         }
         // remove trailing zeroes from fractional part
         while string.hasSuffix("0") {
             string.removeLast()
         }
-        // remove trailing dot.
-        if string.hasSuffix(".") {
+        // remove trailing decimalSeparator.
+        if string.hasSuffix("\(decimalSeparator)") {
             string.removeLast()
         }
-
         let result = string + (symbol.isEmpty ? "" : (" " + symbol))
         return result
     }

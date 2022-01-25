@@ -50,6 +50,7 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
         
         navigationItem.title = "Select an asset"
         navigationItem.searchController = searchController
+        navigationItem.backButtonTitle = "Back"
         
         tableView.registerCell(BalanceTableViewCell.self)
         
@@ -78,6 +79,10 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
         Tracker.trackEvent(.assetsTransferSelect)
     }
     
+    @objc override func willEnterForeground() {
+        onSuccess()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         filteredBalances.count
     }
@@ -98,8 +103,9 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let transferFundsVC = TransactionViewController()
+        let ribbon = RibbonViewController(rootViewController: transferFundsVC)
         transferFundsVC.tokenBalance = filteredBalances[indexPath.row]
-        show(transferFundsVC, sender: self)
+        show(ribbon, sender: self)
     }
 }
 

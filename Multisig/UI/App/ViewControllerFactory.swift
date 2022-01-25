@@ -71,6 +71,10 @@ enum ViewControllerFactory {
         return navController
     }
 
+    static func ribbonWith(viewController: UIViewController) -> UIViewController {
+        RibbonViewController(rootViewController: viewController)
+    }
+
     static func modal(viewController: UIViewController) -> UIViewController {
         viewController.navigationItem.leftBarButtonItem =
             UIBarButtonItem(barButtonSystemItem: .close, target: viewController, action: #selector(CloseModal.closeModal))
