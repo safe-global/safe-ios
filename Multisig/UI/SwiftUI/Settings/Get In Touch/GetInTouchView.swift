@@ -36,7 +36,7 @@ struct GetInTouchView: View {
         .onAppear {
             Tracker.trackEvent(.settingsAppSupport)
         }
-        .navigationBarTitle("Get In Touch", displayMode: .inline)
+        .navigationBarTitle("Help Center", displayMode: .inline)
     }
 }
 
