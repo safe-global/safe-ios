@@ -100,7 +100,7 @@ class AppSettingsViewController: UITableViewController {
             ]),
             (section: .support("Support & Feedback"), items: [
                 Section.Support.chatWithUs("Chat with us"),
-                Section.Support.getSupport("Get Support")
+                Section.Support.getSupport("Help Center")
             ]),
             (section: .advanced("Advanced"), items: [
                 Section.Advanced.advanced("Advanced")
