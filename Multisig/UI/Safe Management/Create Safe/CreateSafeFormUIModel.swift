@@ -31,6 +31,10 @@ class CreateSafeFormUIModel {
     var state: CreateSafeFormUIState = .initial
 
     private var debounceTimer: Timer?
+    private var estimationTask: URLSessionTask?
+    private var sendingTask: URLSessionTask?
+
+    private var estimationController: TransactionEstimationController!
 
     weak var delegate: CreateSafeFormUIModelDelegate?
 
@@ -145,8 +149,21 @@ class CreateSafeFormUIModel {
         state == .ready
     }
 
+    var isLoadingDeployer: Bool {
+        // estimation will also re-fetch key balance, so it should have loading state
+        state == .searchingKey || state == .estimating
+    }
+
+    var isLoadingFee: Bool {
+        state == .estimating
+    }
+
     func didEdit() {
         guard isEditingEnabled else { return }
+        // remove errors after editing
+        if state == .error {
+            self.error = nil
+        }
         update(to: .changed)
     }
 
@@ -328,7 +345,26 @@ class CreateSafeFormUIModel {
     // MARK: - Estimate
 
     func estimate(_ completion: @escaping (Result<Void, Error>) -> Void) {
+        estimationTask?.cancel()
 
+        precondition(chain != nil, "Chain not set")
+
+        do {
+            transaction = try makeEthTransaction()
+        } catch {
+            completion(.failure(error))
+        }
+
+        estimationController = TransactionEstimationController(
+            rpcUri: chain.authenticatedRpcUrl.absoluteString,
+            chain: chain
+        )
+
+        estimationController.estimateTransactionWithRpc(tx: transaction) { [weak self] result in
+            guard let self = self else { return }
+
+            
+        }
     }
 
     // MARK: - Find Default Key
@@ -359,11 +395,6 @@ class CreateSafeFormUIModel {
 
     var thresholdText: String {
         "\(threshold) out of \(owners.count)"
-    }
-
-    var isLoadingDeployer: Bool {
-        // estimation will also re-fetch key balance, so it should have loading state
-        state == .searchingKey || state == .estimating
     }
 
     var deployerAccountInfoModel: MiniAccountInfoUIModel? {
@@ -398,10 +429,6 @@ class CreateSafeFormUIModel {
             balance: formattedBalance
         )
         return result
-    }
-
-    var isLoadingFee: Bool {
-        state == .estimating
     }
 
     var estimatedFeeModel: EstimatedFeeUIModel? {
