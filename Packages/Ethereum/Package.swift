@@ -10,7 +10,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "Ethereum",
-            targets: ["Json", "JsonRpc2", "Ethereum", "Solidity", "SafeAbi"]),
+            targets: ["Json", "JsonRpc2", "Ethereum", "Solidity", "SafeAbi", "SafeDeployments"]),
 
         .executable(name: "potato", targets: ["potato", "SafeDeployments"]),
     ],

@@ -10,6 +10,8 @@ import Foundation
 import Solidity
 import Ethereum
 import SwiftCryptoTokenFormatter
+import SafeDeployments
+import SafeAbi
 
 protocol CreateSafeFormUIModelDelegate: AnyObject {
     func updateUI(model: CreateSafeFormUIModel)
@@ -72,7 +74,8 @@ class CreateSafeFormUIModel {
         chain = Chain.mainnetChain()
         owners = makeDefaultOwners()
         threshold = 1
-        transaction = makeEthTransaction()
+        // TODO: potential transition to error state.
+        transaction = try handleError(makeEthTransaction())
         sectionHeaders = makeSectionHeaders()
         delegate?.updateUI(model: self)
         update(to: .estimating)
@@ -108,32 +111,117 @@ class CreateSafeFormUIModel {
         return privateKey
     }
 
-    private func makeEthTransaction() -> EthTransaction {
-        // get deployment for the chain
+    private func handleError<T>(_ closure: @autoclosure () throws -> T) -> T? {
+        do {
+            return try closure()
+        } catch {
+            self.error = error
+            return nil
+        }
+    }
 
-        // get fallback handler address
+    private func makeEthTransaction() throws -> EthTransaction {
+        // get deployments for the chain
+        let deploymentVersion = SafeDeployments.Safe.Version.v1_3_0
+        let proxyFactoryAddress = try address(of: .ProxyFactory, version: deploymentVersion)
+        let fallbackHandlerAddress = try address(of: .CompatibilityFallbackHandler, version: deploymentVersion)
+        let safeL1Address = try address(of: .GnosisSafe, version: deploymentVersion)
+        let safeL2Address = try address(of: .GnosisSafeL2, version: deploymentVersion)
 
-        // SafeL2 or Safe?
         // get setupFunction from safe
             // set owners, threshold
             // other params to zero or nil or empty
+        let setupFunctionType: GnosisSafeSetup_v1_3_0.Type = chain.l2 ? GnosisSafeL2_v1_3_0.setup.self : GnosisSafe_v1_3_0.setup.self
+
+        let ownerAddresses: [Sol.Address]
+        do {
+            ownerAddresses = try owners.map { owner -> Sol.Address in
+                try Sol.Address(owner.address.data32)
+            }
+        } catch {
+            throw CreateSafeError(errorCode: -5, message: "Failed to create owner addresses", cause: error)
+        }
+
+        let setupFunction = setupFunctionType.init(
+            _owners: Sol.Array<Sol.Address>(elements: ownerAddresses),
+            _threshold: Sol.UInt256(threshold),
+            to: 0,
+            data: Sol.Bytes(),
+            fallbackHandler: fallbackHandlerAddress,
+            paymentToken: 0,
+            payment: 0,
+            paymentReceiver: 0
+        )
+        let setupAbi = setupFunction.encode()
 
         // generate salt
+        var saltBytes: [UInt8] = .init(repeating: 0, count: 32)
+        let randomSaltResult = SecRandomCopyBytes(kSecRandomDefault, saltBytes.count, &saltBytes)
 
-        // get proxy factory
+        guard randomSaltResult == errSecSuccess else {
+            throw CreateSafeError(errorCode: -6, message: "Failed to create random salt (sec error \(randomSaltResult))")
+        }
+
+        let saltNonce: Sol.UInt256
+
+        do {
+            saltNonce = try Sol.UInt256(Data(saltBytes))
+        } catch {
+            throw CreateSafeError(errorCode: -7, message: "Failed to create random salt from bytes", cause: error)
+        }
+
         // create proxy with nonce
-            // safe impl address
-            // setup abi encoded
-            // salt
+        let createFunction = GnosisSafeProxyFactory_v1_3_0.createProxyWithNonce(
+            _singleton: chain.l2 ? safeL2Address : safeL1Address,
+            initializer: Sol.Bytes(storage: setupAbi),
+            saltNonce: saltNonce
+        )
 
         // encode to abi
+        let createAbi = createFunction.encode()
 
-        // destination is to proxy factory address
+        // create safe creation transaction
+            // destination is proxy factory
+            // data is the create call abi
 
-        // support eip1559 or not - create the appropriate tx
+        let result: EthTransaction
 
-        // return result
-        return Eth.TransactionEip1559()
+        let chainId = Sol.UInt256(chain.id!)!
+
+        let isEIP1559 = chain.features?.contains("EIP1559") ?? false
+        if isEIP1559 {
+            result = Eth.TransactionEip1559(
+                chainId: chainId,
+                to: proxyFactoryAddress,
+                input: Sol.Bytes(storage: createAbi)
+            )
+        } else {
+            result = Eth.TransactionLegacy(
+                chainId: chainId,
+                to: proxyFactoryAddress,
+                input: Sol.Bytes(storage: createAbi)
+            )
+        }
+
+        return result
+    }
+
+    private func address(of contract: SafeDeployments.Safe.ContractId, version: SafeDeployments.Safe.Version) throws -> Sol.Address {
+        let deployment: SafeDeployments.Safe.Deployment?
+        do {
+            deployment = try SafeDeployments.Safe.Deployment.find(contract: contract, version: version)
+        } catch {
+            throw CreateSafeError(errorCode: -1, message: "Safe deployment search failed for: \(contract.rawValue)", cause: error)
+        }
+
+        guard let deployment = deployment else {
+            throw CreateSafeError(errorCode: -2, message: "Safe deployment not found for: \(contract.rawValue)", cause: error)
+        }
+
+        guard let address = deployment.address(for: chain.id!) else {
+            throw CreateSafeError(errorCode: -3, message: "Contract address not found: \(contract.rawValue), for chain: \(chain.id!)", cause: error)
+        }
+        return address
     }
 
     private func makeSectionHeaders() -> [CreateSafeFormSectionHeader] {
@@ -167,7 +255,7 @@ class CreateSafeFormUIModel {
     }
 
     var isLoadingDeployer: Bool {
-        // estimation will also re-fetch key balance.
+        // estimation will also re-fetch key balance, so it should have loading state
         state == .searchingKey || state == .estimating
     }
 
@@ -280,4 +368,19 @@ enum CreateSafeFormUIState {
     case sending
     case sent
     case error
+}
+
+struct CreateSafeError: CustomNSError {
+    static var errorDomain: String { "io.gnosis.safe.createSafeModel" }
+    var errorCode: Int
+    var message: String
+    var cause: Error? = nil
+
+    var errorUserInfo: [String : Any] {
+        var result: [String: Any] = [NSLocalizedDescriptionKey: message]
+        if let cause = cause {
+            result[NSUnderlyingErrorKey]  = cause
+        }
+        return result
+    }
 }
