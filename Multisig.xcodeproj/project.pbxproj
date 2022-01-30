@@ -312,6 +312,13 @@
 		0A8AEB1925A4726E002A3FE1 /* ActionDetailExpandableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8AEB1725A4726E002A3FE1 /* ActionDetailExpandableCell.xib */; };
 		0A8AEB2025A4764F002A3FE1 /* ActionDetailAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8AEB1E25A4764F002A3FE1 /* ActionDetailAddressCell.swift */; };
 		0A8AEB2125A4764F002A3FE1 /* ActionDetailAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8AEB1F25A4764F002A3FE1 /* ActionDetailAddressCell.xib */; };
+		0A8CDD4627A5A5C70020066C /* CreateSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4427A5A5C70020066C /* CreateSafeViewController.swift */; };
+		0A8CDD4727A5A5C70020066C /* CreateSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4527A5A5C70020066C /* CreateSafeViewController.xib */; };
+		0A8CDD4927A5AE860020066C /* CreateSafeFormUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4827A5AE860020066C /* CreateSafeFormUIModel.swift */; };
+		0A8CDD4B27A5C6F60020066C /* InfoSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4A27A5C6F60020066C /* InfoSectionHeaderView.swift */; };
+		0A8CDD4D27A5C7020020066C /* InfoSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4C27A5C7020020066C /* InfoSectionHeaderView.xib */; };
+		0A8CDD5027A682CF0020066C /* StepperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */; };
+		0A8CDD5127A682CF0020066C /* StepperTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */; };
 		0A9275C525ADDEE700755881 /* CollecitbleSectionSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9275C425ADDEE700755881 /* CollecitbleSectionSeparatorView.swift */; };
 		0A9275D525ADDF1500755881 /* CollecitbleSectionSeparatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9275D425ADDF1500755881 /* CollecitbleSectionSeparatorView.xib */; };
 		0A9366A5278EE8FE001918A9 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9366A4278EE8FE001918A9 /* FormViewController.swift */; };
@@ -999,6 +1006,13 @@
 		0A8AEB1725A4726E002A3FE1 /* ActionDetailExpandableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionDetailExpandableCell.xib; sourceTree = "<group>"; };
 		0A8AEB1E25A4764F002A3FE1 /* ActionDetailAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDetailAddressCell.swift; sourceTree = "<group>"; };
 		0A8AEB1F25A4764F002A3FE1 /* ActionDetailAddressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionDetailAddressCell.xib; sourceTree = "<group>"; };
+		0A8CDD4427A5A5C70020066C /* CreateSafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSafeViewController.swift; sourceTree = "<group>"; };
+		0A8CDD4527A5A5C70020066C /* CreateSafeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateSafeViewController.xib; sourceTree = "<group>"; };
+		0A8CDD4827A5AE860020066C /* CreateSafeFormUIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSafeFormUIModel.swift; sourceTree = "<group>"; };
+		0A8CDD4A27A5C6F60020066C /* InfoSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSectionHeaderView.swift; sourceTree = "<group>"; };
+		0A8CDD4C27A5C7020020066C /* InfoSectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoSectionHeaderView.xib; sourceTree = "<group>"; };
+		0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperTableViewCell.swift; sourceTree = "<group>"; };
+		0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepperTableViewCell.xib; sourceTree = "<group>"; };
 		0A9275C425ADDEE700755881 /* CollecitbleSectionSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollecitbleSectionSeparatorView.swift; sourceTree = "<group>"; };
 		0A9275D425ADDF1500755881 /* CollecitbleSectionSeparatorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollecitbleSectionSeparatorView.xib; sourceTree = "<group>"; };
 		0A9366A4278EE8FE001918A9 /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
@@ -2099,6 +2113,7 @@
 		0A6886B02588FB370045CAB5 /* Safe Management */ = {
 			isa = PBXGroup;
 			children = (
+				0A8CDD4327A5A5AF0020066C /* Create Safe */,
 				048B3B0B25A5E7850005219B /* Edit Safe */,
 				0AB9F4C8254C64740044395F /* SwitchSafesViewController */,
 				0A6886982588FADF0045CAB5 /* Add Safe */,
@@ -2173,6 +2188,20 @@
 				0A74EEFC268DF37100EB0EFB /* RibbonViewController.xib */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		0A8CDD4327A5A5AF0020066C /* Create Safe */ = {
+			isa = PBXGroup;
+			children = (
+				0A8CDD4827A5AE860020066C /* CreateSafeFormUIModel.swift */,
+				0A8CDD4427A5A5C70020066C /* CreateSafeViewController.swift */,
+				0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */,
+				0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */,
+				0A8CDD4A27A5C6F60020066C /* InfoSectionHeaderView.swift */,
+				0A8CDD4C27A5C7020020066C /* InfoSectionHeaderView.xib */,
+				0A8CDD4527A5A5C70020066C /* CreateSafeViewController.xib */,
+			);
+			path = "Create Safe";
 			sourceTree = "<group>";
 		};
 		0A93DD4A2445CC8A00688050 = {
@@ -3411,6 +3440,7 @@
 				0A109E272689CB9A00226708 /* RibbonView.xib in Resources */,
 				3E373F762631781A00D8107A /* EnterUnstoppableNameViewController.xib in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
+				0A8CDD4727A5A5C70020066C /* CreateSafeViewController.xib in Resources */,
 				5588365525652E4B0014E8C7 /* LoadingValueCell.xib in Resources */,
 				557D80B2270B32F80036D6D0 /* WCEditParametersViewController.xib in Resources */,
 				D865178227687E0B000B4C04 /* TransactionSuccessViewController.xib in Resources */,
@@ -3450,6 +3480,7 @@
 				0A6886ED258908150045CAB5 /* GNOTextField.xib in Resources */,
 				5559A915276758B500237A5D /* dapps-bsc.json in Resources */,
 				049A9D3B25F81F2C00CA5723 /* EditOwnerKeyViewController.xib in Resources */,
+				0A8CDD5127A682CF0020066C /* StepperTableViewCell.xib in Resources */,
 				0ADD19A8265E53C600EB0F2B /* QRCodeView.xib in Resources */,
 				0A2F1A78267A5E5B00C09F03 /* TotalCell.xib in Resources */,
 				04273E6226D43F1700A14E95 /* IdenticonView.xib in Resources */,
@@ -3461,6 +3492,7 @@
 				0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */,
 				04D968D5276B872D00CE4A9E /* TransactionViewController.xib in Resources */,
 				5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */,
+				0A8CDD4D27A5C7020020066C /* InfoSectionHeaderView.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
 				0AEEBC80258CE25700F3A6F9 /* WebImageView.xib in Resources */,
 				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
@@ -3596,6 +3628,7 @@
 				557D80B6270B32F80036D6D0 /* WCKeysRequestsHandler.swift in Sources */,
 				558835EF255BFEDB0014E8C7 /* AddressInfoView.swift in Sources */,
 				0A57C5E42577FBD900420303 /* DetailConfirmationCell.swift in Sources */,
+				0A8CDD5027A682CF0020066C /* StepperTableViewCell.swift in Sources */,
 				550FB1B426691D9500C13D54 /* ExternalLinkHeaderFooterView.swift in Sources */,
 				0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */,
 				0422006025EFDF3700CAC173 /* TagView.swift in Sources */,
@@ -3850,6 +3883,7 @@
 				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,
 				0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */,
 				043963832704E25800018F74 /* AdvancedTransactionDetailsViewController.swift in Sources */,
+				0A8CDD4627A5A5C70020066C /* CreateSafeViewController.swift in Sources */,
 				0A4F44542754DE3D00423ABB /* GetDelegateRequest.swift in Sources */,
 				0A0EFCA6246EAF3700D3D8BF /* DisplayURL.swift in Sources */,
 				55B66E89247FE09A00249E98 /* BottomOverlayView.swift in Sources */,
@@ -3918,6 +3952,7 @@
 				0ACEF00124C1DE620040A058 /* AddressImage.swift in Sources */,
 				0A096CBE2608D9370034E6BC /* NetworkStatusObserver.swift in Sources */,
 				0ABE698827920294003338AF /* ErrorTableViewCell.swift in Sources */,
+				0A8CDD4927A5AE860020066C /* CreateSafeFormUIModel.swift in Sources */,
 				D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				0A57C5AF2577F02100420303 /* ConfirmationCreatedPiece.swift in Sources */,
@@ -3968,6 +4003,7 @@
 				04077B37278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.swift in Sources */,
 				557D80CF270B33BA0036D6D0 /* PairingOwnerKeyCell.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
+				0A8CDD4B27A5C6F60020066C /* InfoSectionHeaderView.swift in Sources */,
 				5562DD732693425E00B56722 /* NetworkIndicatorHeaderView.swift in Sources */,
 				0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */,
 				55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */,

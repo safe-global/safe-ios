@@ -80,6 +80,14 @@ class MainTabBarViewController: UITabBarController {
         onFirstAppear(self)
 
         WhatsNewHandler().whatsNewViewController?.present(on: self)
+
+        let createSafeVC = CreateSafeViewController(nibName: nil, bundle: nil)
+        createSafeVC.onClose = { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
+        let nav = UINavigationController(rootViewController: createSafeVC)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
     }
 
     private func balancesTabViewController() -> UIViewController {
