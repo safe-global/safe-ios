@@ -15,6 +15,7 @@ import SafeAbi
 
 protocol CreateSafeFormUIModelDelegate: AnyObject {
     func updateUI(model: CreateSafeFormUIModel)
+    func createSafeModelDidFinish()
 }
 
 class CreateSafeFormUIModel {
@@ -25,11 +26,11 @@ class CreateSafeFormUIModel {
     var deployerAccount: EthAccount?
     var transaction: EthTransaction!
     var error: Error?
-    var isCreateEnabled: Bool = false
-    var isChanged: Bool = false
     var userTxParameters: UserDefinedTransactionParameters?
     var sectionHeaders: [CreateSafeFormSectionHeader] = []
-    var state: CreateSafeFormUIState = .setup
+    var state: CreateSafeFormUIState = .initial
+
+    private var debounceTimer: Timer?
 
     weak var delegate: CreateSafeFormUIModelDelegate?
 
@@ -38,33 +39,120 @@ class CreateSafeFormUIModel {
     }
 
     private func update(to newState: CreateSafeFormUIState) {
+        assert(Thread.isMainThread)
+
+        state = newState
+
         switch newState {
+        case .initial:
+            update(to: .setup)
+
         case .setup:
-            state = newState
             setup()
+            update(to: .changed)
+
+        case .changed:
+            debounceTimer?.invalidate()
+            debounceTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false, block: { [weak self] _ in
+                guard let self = self else { return }
+                if self.error != nil {
+                    self.update(to: .error)
+                } else {
+                    self.update(to: .estimating)
+                }
+            })
+
         case .estimating:
-            break
+            estimate { [weak self] result in
+                guard let self = self else { return }
+
+                let _ = self.handleError({ try result.get() })
+
+                if self.error != nil {
+                    self.update(to: .changed)
+                } else if self.selectedKey != nil {
+                    self.update(to: .ready)
+                } else {
+                    self.update(to: .searchingKey)
+                }
+            }
+
         case .searchingKey:
-            break
-        case .keyFound:
-            break
+            findDefaultKey { [weak self] in
+                guard let self = self else { return }
+
+                if self.selectedKey == nil {
+                    self.update(to: .keyNotFound)
+                } else {
+                    self.update(to: .changed)
+                }
+            }
+
+        case .signing:
+            sign { [weak self] result in
+                guard let self = self else { return }
+
+                let _ = self.handleError({ try result.get() })
+
+                if self.error != nil {
+                    self.update(to: .changed)
+                } else {
+                    self.update(to: .sending)
+                }
+            }
+
+        case .sending:
+            send { [weak self] result in
+                guard let self = self else { return }
+
+                let _ = self.handleError({ try result.get() })
+
+                if self.error != nil {
+                    self.update(to: .changed)
+                } else {
+                    self.update(to: .final)
+                }
+            }
+
         case .keyNotFound:
             break
+
         case .ready:
             break
-        case .changed:
-            break
-        case .signing:
-            break
-        case .signed:
-            break
-        case .sending:
-            break
-        case .sent:
-            break
+
         case .error:
+            assert(error != nil)
             break
+
+        case .final:
+            // at the final state we want to update ui one more time before finishing
+            // while at other states we just want to update ui after they have executed update action.
+            delegate?.updateUI(model: self)
+            delegate?.createSafeModelDidFinish()
+            return
         }
+
+        delegate?.updateUI(model: self)
+    }
+
+    // MARK: - UI Events
+
+    var isEditingEnabled: Bool {
+        state == .ready || state == .changed || state == .error || state == .keyNotFound
+    }
+
+    var isCreateEnabled: Bool {
+        state == .ready
+    }
+
+    func didEdit() {
+        guard isEditingEnabled else { return }
+        update(to: .changed)
+    }
+
+    func didCreate() {
+        guard isCreateEnabled else { return }
+        update(to: .signing)
     }
 
     // MARK: - Setup
@@ -72,17 +160,14 @@ class CreateSafeFormUIModel {
     private func setup() {
         // select default chain
         chain = Chain.mainnetChain()
-        owners = makeDefaultOwners()
+        owners = makeDefaultOwners(count: 3)
         threshold = 1
-        // TODO: potential transition to error state.
-        transaction = try handleError(makeEthTransaction())
+        transaction = handleError(try makeEthTransaction())
         sectionHeaders = makeSectionHeaders()
-        delegate?.updateUI(model: self)
-        update(to: .estimating)
     }
 
-    private func makeDefaultOwners() -> [CreateSafeFormOwner] {
-        let result = (0..<3).map { index -> CreateSafeFormOwner in
+    private func makeDefaultOwners(count: Int) -> [CreateSafeFormOwner] {
+        let result = (0..<count).map { index -> CreateSafeFormOwner in
             let key = generatePrivateKey()
             let defaultName = "Generated Owner #\(index + 1)"
             let (resolvedName, imageUri) = NamingPolicy.name(
@@ -240,6 +325,28 @@ class CreateSafeFormUIModel {
         return result
     }
 
+    // MARK: - Estimate
+
+    func estimate(_ completion: @escaping (Result<Void, Error>) -> Void) {
+
+    }
+
+    // MARK: - Find Default Key
+
+    func findDefaultKey(_ completion: @escaping () -> Void) {
+
+    }
+
+    // MARK: - Signing
+
+    func sign(_ completion: @escaping (Result<Void, Error>) -> Void) {
+
+    }
+
+    // MARK: - Sending
+    func send(_ completion: @escaping (Result<Void, Error>) -> Void) {
+    }
+
     // MARK: - UI Data
 
     var minThreshold: Int {
@@ -356,18 +463,17 @@ struct EthAccount {
 }
 
 enum CreateSafeFormUIState {
+    case initial
     case setup
-    case estimating
-    case searchingKey
-    case keyFound
-    case keyNotFound
-    case ready
     case changed
+    case estimating
+    case ready
+    case searchingKey
+    case keyNotFound
     case signing
-    case signed
     case sending
-    case sent
     case error
+    case final
 }
 
 struct CreateSafeError: CustomNSError {
