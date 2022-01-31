@@ -85,6 +85,9 @@ class MainTabBarViewController: UITabBarController {
         createSafeVC.onClose = { [weak self] in
             self?.dismiss(animated: true, completion: nil)
         }
+        createSafeVC.onFinish = { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
         let nav = UINavigationController(rootViewController: createSafeVC)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)

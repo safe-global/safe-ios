@@ -319,6 +319,7 @@
 		0A8CDD4D27A5C7020020066C /* InfoSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4C27A5C7020020066C /* InfoSectionHeaderView.xib */; };
 		0A8CDD5027A682CF0020066C /* StepperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */; };
 		0A8CDD5127A682CF0020066C /* StepperTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */; };
+		0A8CDD5327A85C0D0020066C /* TransactionExecutionLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8CDD5227A85C0D0020066C /* TransactionExecutionLookup.swift */; };
 		0A9275C525ADDEE700755881 /* CollecitbleSectionSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9275C425ADDEE700755881 /* CollecitbleSectionSeparatorView.swift */; };
 		0A9275D525ADDF1500755881 /* CollecitbleSectionSeparatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9275D425ADDF1500755881 /* CollecitbleSectionSeparatorView.xib */; };
 		0A9366A5278EE8FE001918A9 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9366A4278EE8FE001918A9 /* FormViewController.swift */; };
@@ -1013,6 +1014,7 @@
 		0A8CDD4C27A5C7020020066C /* InfoSectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoSectionHeaderView.xib; sourceTree = "<group>"; };
 		0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperTableViewCell.swift; sourceTree = "<group>"; };
 		0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepperTableViewCell.xib; sourceTree = "<group>"; };
+		0A8CDD5227A85C0D0020066C /* TransactionExecutionLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionExecutionLookup.swift; sourceTree = "<group>"; };
 		0A9275C425ADDEE700755881 /* CollecitbleSectionSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollecitbleSectionSeparatorView.swift; sourceTree = "<group>"; };
 		0A9275D425ADDF1500755881 /* CollecitbleSectionSeparatorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollecitbleSectionSeparatorView.xib; sourceTree = "<group>"; };
 		0A9366A4278EE8FE001918A9 /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
@@ -3204,6 +3206,7 @@
 				0A045070278DAC9100650F71 /* MiniAccountAndBalancePiece.swift */,
 				0A045076278DACC400650F71 /* MiniAccountAndBalancePiece.xib */,
 				0A9366BA27908717001918A9 /* OwnerKeySelectionPolicy.swift */,
+				0A8CDD5227A85C0D0020066C /* TransactionExecutionLookup.swift */,
 				0A04506E278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift */,
 				0ABE698627920294003338AF /* ErrorTableViewCell.swift */,
 				0ABE698727920294003338AF /* ErrorTableViewCell.xib */,
@@ -3752,6 +3755,7 @@
 				041DAAE9274BC4DD000829C8 /* WalletConnectKeyAddedViewController.swift in Sources */,
 				0A8AEB1025A4712B002A3FE1 /* ActionDetailTextCell.swift in Sources */,
 				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
+				0A8CDD5327A85C0D0020066C /* TransactionExecutionLookup.swift in Sources */,
 				0A04506D278D973C00650F71 /* ReviewExecutionContentViewController.swift in Sources */,
 				D86517732760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift in Sources */,
 				0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */,

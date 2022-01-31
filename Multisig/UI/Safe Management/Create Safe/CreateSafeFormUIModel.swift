@@ -23,7 +23,7 @@ class CreateSafeFormUIModel {
     var owners: [CreateSafeFormOwner] = []
     var threshold: Int = 0
     var selectedKey: KeyInfo?
-    var deployerAccount: EthAccount?
+    var deployerBalance: Sol.UInt256?
     var transaction: EthTransaction!
     var error: Error?
     var userTxParameters: UserDefinedTransactionParameters?
@@ -32,6 +32,7 @@ class CreateSafeFormUIModel {
 
     private var debounceTimer: Timer?
     private var estimationTask: URLSessionTask?
+    private var getBalanceTask: URLSessionTask?
     private var sendingTask: URLSessionTask?
 
     private var estimationController: TransactionEstimationController!
@@ -295,7 +296,8 @@ class CreateSafeFormUIModel {
             result = Eth.TransactionEip1559(
                 chainId: chainId,
                 to: proxyFactoryAddress,
-                input: Sol.Bytes(storage: createAbi)
+                input: Sol.Bytes(storage: createAbi),
+                fee: .init(maxPriorityFee: Self.defaultMinerTip)
             )
         } else {
             result = Eth.TransactionLegacy(
@@ -344,8 +346,9 @@ class CreateSafeFormUIModel {
 
     // MARK: - Estimate
 
+    static let defaultMinerTip: Sol.UInt256 = 1_500_000_000
+
     func estimate(_ completion: @escaping (Result<Void, Error>) -> Void) {
-        estimationTask?.cancel()
 
         precondition(chain != nil, "Chain not set")
 
@@ -360,17 +363,97 @@ class CreateSafeFormUIModel {
             chain: chain
         )
 
-        estimationController.estimateTransactionWithRpc(tx: transaction) { [weak self] result in
+        estimationTask?.cancel()
+        estimationTask = estimationController.estimateTransactionWithRpc(tx: transaction) { [weak self] result in
             guard let self = self else { return }
 
-            
+            do {
+                let estimationResults = try result.get()
+                let gas = try self.userTxParameters?.gas ?? estimationResults.gas.get()
+                let gasPrice = try self.userTxParameters?.gasPrice ?? self.userTxParameters?.maxFeePerGas ?? estimationResults.gasPrice.get()
+                let txCount = try self.userTxParameters?.nonce ?? estimationResults.transactionCount.get()
+
+                self.transaction.update(gas: gas, transactionCount: txCount, baseFee: gasPrice)
+
+                completion(.success(()))
+            } catch {
+                completion(.failure(CreateSafeError(errorCode: -8, message: "Estimation failed", cause: error)))
+            }
         }
     }
 
     // MARK: - Find Default Key
 
+    // TODO: generalize / refactor with a different key selection policy
     func findDefaultKey(_ completion: @escaping () -> Void) {
+        // get all keys
+        let keys = executionKeys()
 
+        guard !keys.isEmpty else {
+            completion()
+            return
+        }
+
+        // get all balances
+        let balancesFetcher = DefaultAccountBalanceLoader(chain: chain)
+        balancesFetcher.requiredBalance = transaction.requiredBalance
+
+        getBalanceTask?.cancel()
+        getBalanceTask = balancesFetcher.loadBalances(for: keys, completion: { [weak self] result in
+            guard let self = self else { return }
+
+            do {
+                let balances = try result.get()
+
+                let balancesSortedDesc = zip(keys, balances)
+                    .map { (key: $0, balanceModel: $1) }
+                    .filter { $0.balanceModel.amount != nil }
+                    .sorted { lhs, rhs in
+                        lhs.balanceModel.amount! > rhs.balanceModel.amount!
+                    }
+
+                // get the topmost key
+                if let highestBalance = balancesSortedDesc.first {
+                    self.selectedKey = highestBalance.key
+                    self.deployerBalance = highestBalance.balanceModel.amount
+                }
+
+                completion()
+            } catch {
+                LogService.shared.error("Failed to fetch balances: \(error)")
+                completion()
+            }
+        })
+    }
+
+    // TODO: generalize / refactor
+    // returns the execution keys valid for executing this transaction
+    func executionKeys() -> [KeyInfo] {
+        // all keys that can sign this tx on its chain.
+            // currently, only wallet connect keys are chain-specific, so we filter those out.
+        guard let allKeys = try? KeyInfo.all(), !allKeys.isEmpty else {
+            return []
+        }
+
+        let validKeys = allKeys.filter { keyInfo in
+            // if it's a wallet connect key which chain doesn't match then do not use it
+            if keyInfo.keyType == .walletConnect,
+               let data = keyInfo.metadata,
+               let connection = KeyInfo.WalletConnectKeyMetadata.from(data: data),
+               // when chainId is 0 then it is 'any' chain
+               connection.walletInfo.chainId != 0 &&
+                String(describing: connection.walletInfo.chainId) != chain.id {
+                return false
+            }
+            // else use the key
+            return true
+        }
+        .filter {
+            // filter out the ledger keys until they are supported
+            return $0.keyType != .ledgerNanoX
+        }
+
+        return validKeys
     }
 
     // MARK: - Signing
@@ -381,6 +464,53 @@ class CreateSafeFormUIModel {
 
     // MARK: - Sending
     func send(_ completion: @escaping (Result<Void, Error>) -> Void) {
+        guard var tx = self.ethTransaction else { return nil }
+
+        let rawTransaction = tx.rawTransaction()
+
+        let sendRawTxMethod = EthRpc1.eth_sendRawTransaction(transaction: rawTransaction)
+
+        let request: JsonRpc2.Request
+
+        do {
+            request = try sendRawTxMethod.request(id: .int(1))
+        } catch {
+            dispatchOnMainThread(completion(.failure(error)))
+            return nil
+        }
+
+        sendingTask?.cancel()
+        sendingTask = estimationController.rpcClient.send(request: request) { [weak self] response in
+            guard let self = self else { return }
+
+            guard let response = response else {
+                let error = TransactionExecutionError(code: -4, message: "No response from server")
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            if let error = response.error {
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            guard let result = response.result else {
+                let error = TransactionExecutionError(code: -5, message: "No result from server")
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            let txHash: EthRpc1.Data
+            do {
+                txHash = try sendRawTxMethod.result(from: result)
+            } catch {
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            self.transaction.hash = Eth.Hash(txHash.storage)
+            dispatchOnMainThread(completion(.success(())))
+        }
     }
 
     // MARK: - UI Data
@@ -405,7 +535,7 @@ class CreateSafeFormUIModel {
             chainId: chain.id!)
         var formattedBalance: String? = nil
 
-        if let balance = deployerAccount?.balance {
+        if let balance = deployerBalance {
             let nativeCoinDecimals = chain.nativeCurrency!.decimals
             let nativeCoinSymbol = chain.nativeCurrency!.symbol!
 
@@ -481,12 +611,6 @@ enum CreateSafeFormSectionId {
     case threshold
     case deployment
     case error
-}
-
-struct EthAccount {
-    var address: Sol.Address
-    var transactionCount: Sol.UInt64
-    var balance: Sol.UInt256
 }
 
 enum CreateSafeFormUIState {

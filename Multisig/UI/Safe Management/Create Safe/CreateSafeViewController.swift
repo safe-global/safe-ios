@@ -16,6 +16,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     private var refreshControl: UIRefreshControl!
 
     var onClose: () -> Void = {}
+    var onFinish: () -> Void = {}
 
     private var uiModel = CreateSafeFormUIModel()
 
@@ -54,6 +55,11 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func updateUI(model: CreateSafeFormUIModel) {
         tableView.reloadData()
         createButton.isEnabled = model.isCreateEnabled
+    }
+
+    func createSafeModelDidFinish() {
+        // TODO: open next screen!
+        onFinish()
     }
 
     // MARK: - UI Events
