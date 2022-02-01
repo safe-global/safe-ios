@@ -39,6 +39,15 @@ class TransactionEstimationController {
     typealias EstimateCompletion = (Result<(gas: Result<Sol.UInt64, Error>, transactionCount: Result<Sol.UInt64, Error>, gasPrice: Result<Sol.UInt256, Error>), Error>) -> Void
 
     func estimateTransactionWithRpc(tx: EthTransaction, completion: @escaping EstimateCompletion) -> URLSessionTask? {
+        // check if we have hint from the chain configuration about the gas price. For now support only fixed.
+        // find the first 'fixed' gas price
+        var fixedGasPrice: Sol.UInt256? = nil
+
+        for case SCGModels.GasPrice.fixed(let fixed) in chain.gasPrice where Sol.UInt256(fixed.weiValue) != nil {
+            fixedGasPrice = Sol.UInt256(fixed.weiValue)!
+            break
+        }
+
         // remove the fee because we want to estimate it.
         var tx = tx
         tx.removeFee()
@@ -108,7 +117,7 @@ class TransactionEstimationController {
                     result(request: getEstimateRequest, method: getEstimateLegacy, responses: responses).map(\.storage)
                     : result(request: getEstimateRequest, method: getEstimateNew, responses: responses).map(\.storage)
                 let txCountResult = result(request: getTransactionCountRequest, method: getTransactionCount, responses: responses).map(\.storage)
-                let priceResult = result(request: getPriceRequest, method: getPrice, responses: responses).map(\.storage)
+                let priceResult = fixedGasPrice.map { .success($0) } ?? result(request: getPriceRequest, method: getPrice, responses: responses).map(\.storage)
 
                 dispatchOnMainThread(completion(.success((gasResult, txCountResult, priceResult))))
             }
