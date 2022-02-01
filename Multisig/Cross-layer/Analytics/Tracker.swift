@@ -158,6 +158,7 @@ extension Tracker {
                 .transactionDetailsTxRejectedWC,
                 .dappConnectedWithScanButton,
                 .dappConnectedWithUniversalLink,
+                .selectDapp,
                 .collectiblesOpenInWeb
             ].contains(event)
     }

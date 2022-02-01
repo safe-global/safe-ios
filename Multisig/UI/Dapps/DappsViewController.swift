@@ -210,6 +210,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
         let item = sections[indexPath.section].items[indexPath.row]
         if case Section.Dapp.dapp(let dapp) = item {
             UIApplication.shared.open(dapp.url)
+            Tracker.trackEvent(.selectDapp, parameters: ["dapp_name" : dapp.name.prefix(100)])
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -258,7 +259,7 @@ extension DappsViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
         do {
             try WalletConnectSafesServerController.shared.connect(url: code)
-            Tracker.trackEvent(.dappConnectedWithScanButton)
+            WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithScanButton            
             dismiss(animated: true, completion: nil)
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)
