@@ -173,6 +173,7 @@ enum TrackingEvent: String, Trackable {
     case connectExternalWallet                      = "user_owner_connected_external_wallet"
     case dappConnectedWithUniversalLink             = "user_dapp_connected_universal_link"
     case dappConnectedWithScanButton                = "user_dapp_connected_scan_button"
+    case selectDapp                                 = "user_dapp_select_dapp"
 
     case walletConnectIncomingTransaction           = "screen_wc_incoming_transaction"
     case walletConnectEditParameters                = "screen_wc_edit_parameters"
