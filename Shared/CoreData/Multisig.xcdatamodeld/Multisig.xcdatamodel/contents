@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AddressBookEntry" representedClassName="AddressBookEntry" syncable="YES" codeGenerationType="class">
         <attribute name="additionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="address" optional="YES" attributeType="String"/>
@@ -52,6 +52,7 @@
         <attribute name="rpcUrl" attributeType="URI"/>
         <attribute name="rpcUrlAuthentication" attributeType="String" defaultValueString="API_KEY_PATH"/>
         <attribute name="shortName" optional="YES" attributeType="String"/>
+        <relationship name="gasPriceSource" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ChainGasPriceSource" inverseName="chain" inverseEntity="ChainGasPriceSource"/>
         <relationship name="nativeCurrency" maxCount="1" deletionRule="Cascade" destinationEntity="ChainToken" inverseName="chain" inverseEntity="ChainToken"/>
         <relationship name="safe" toMany="YES" deletionRule="Cascade" destinationEntity="Safe" inverseName="chain" inverseEntity="Safe"/>
         <relationship name="theme" maxCount="1" deletionRule="Cascade" destinationEntity="ChainTheme" inverseName="chain" inverseEntity="ChainTheme"/>
@@ -60,6 +61,14 @@
                 <constraint value="id"/>
             </uniquenessConstraint>
         </uniquenessConstraints>
+    </entity>
+    <entity name="ChainGasPriceSource" representedClassName="ChainGasPriceSource" syncable="YES" codeGenerationType="class">
+        <attribute name="gasParameter" optional="YES" attributeType="String"/>
+        <attribute name="gweiFactor" optional="YES" attributeType="String"/>
+        <attribute name="sourceType" optional="YES" attributeType="String"/>
+        <attribute name="uri" optional="YES" attributeType="String"/>
+        <attribute name="weiValue" optional="YES" attributeType="String"/>
+        <relationship name="chain" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Chain" inverseName="gasPriceSource" inverseEntity="Chain"/>
     </entity>
     <entity name="ChainTheme" representedClassName="ChainTheme" syncable="YES" codeGenerationType="class">
         <attribute name="backgroundColor" attributeType="String"/>
@@ -110,7 +119,8 @@
         <element name="AddressBookEntry" positionX="54" positionY="135" width="128" height="89"/>
         <element name="AppSettings" positionX="54" positionY="18" width="128" height="284"/>
         <element name="AppUser" positionX="54" positionY="63" width="128" height="89"/>
-        <element name="Chain" positionX="54" positionY="117" width="128" height="224"/>
+        <element name="CDEthTransaction" positionX="54" positionY="144" width="128" height="149"/>
+        <element name="Chain" positionX="54" positionY="117" width="128" height="239"/>
         <element name="ChainTheme" positionX="72" positionY="135" width="128" height="74"/>
         <element name="ChainToken" positionX="63" positionY="126" width="128" height="104"/>
         <element name="KeyInfo" positionX="63" positionY="72" width="128" height="119"/>
@@ -118,6 +128,6 @@
         <element name="Selection" positionX="165.51171875" positionY="-15.453125" width="128" height="58"/>
         <element name="WCKeySession" positionX="54" positionY="135" width="128" height="89"/>
         <element name="WCSession" positionX="54" positionY="18" width="128" height="119"/>
-        <element name="CDEthTransaction" positionX="54" positionY="144" width="128" height="149"/>
+        <element name="ChainGasPriceSource" positionX="54" positionY="144" width="128" height="119"/>
     </elements>
 </model>
