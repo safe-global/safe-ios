@@ -118,7 +118,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         try? WalletConnectSafesServerController.shared.connect(url: wcURL)
-        Tracker.trackEvent(.dappConnectedWithUniversalLink)
+        WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithUniversalLink
     }
 
     // MARK: - Window Management

@@ -258,7 +258,7 @@ extension DappsViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
         do {
             try WalletConnectSafesServerController.shared.connect(url: code)
-            Tracker.trackEvent(.dappConnectedWithScanButton)
+            WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithScanButton            
             dismiss(animated: true, completion: nil)
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)

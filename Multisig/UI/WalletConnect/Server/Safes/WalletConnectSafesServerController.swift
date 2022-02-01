@@ -12,6 +12,8 @@ import WalletConnectSwift
 class WalletConnectSafesServerController: WalletConnectServerController {
     static let shared = WalletConnectSafesServerController()
 
+    var dappConnectedTrackingEvent: TrackingEvent?
+
     override init() {
         super.init()
         
@@ -80,6 +82,13 @@ class WalletConnectSafesServerController: WalletConnectServerController {
             peerMeta: walletMeta)
 
         completion(walletInfo)
+
+        if let dappConnectedTrackingEvent = dappConnectedTrackingEvent {
+            // parameter names should not exceed 100 chars
+            let dappName = session.dAppInfo.peerMeta.name.prefix(100)
+            Tracker.trackEvent(dappConnectedTrackingEvent, parameters: ["dapp_name" : dappName])
+            self.dappConnectedTrackingEvent = nil
+        }
     }
 
     func reconnectAllSessions() {
