@@ -314,7 +314,6 @@ class ReviewExecutionViewController: ContainerViewController {
     }
 
     @IBAction func didTapSubmit(_ sender: Any) {
-        
         // request passcode if needed and sign
         if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
             self.submitButton.isEnabled = false
@@ -331,7 +330,9 @@ class ReviewExecutionViewController: ContainerViewController {
                     self.submitButton.isEnabled = true
                 }
             }
-            present(passcodeVC, animated: true)
+            let nav = UINavigationController(rootViewController: passcodeVC)
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: true)
         } else {
             sign()
         }
