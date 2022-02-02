@@ -146,6 +146,38 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     }
 
+    // select network
+        // show network selection screen
+        // get the selected network back
+        // selection changed? notify the model about editing
+
+    // add owner
+        // show the key selection screen with the ability to add a key and handling of 'no keys' case
+        // when key selected or added
+        // is it not in the list? notify the model about editing
+
+    // delete owner
+        // delete the owner in model
+        // notify the model about editing
+
+    // change threshold
+        // connect the stepper to the label
+        // connect stepper's max and min to the uimodel's max and min
+        // did it change value? notify the model about editing
+
+    // select deployer
+        // show deployers with balances
+        // did it change? notify the model
+
+    // edit fees
+        // use the fee form or generalize it somehow
+        // load existing user defined properties merged with the transaction values, i.e. updated transaction value.
+        // create form fields
+        // saved - has changes from the initial values? which? save them. notify the model.
+
+    // create button tapped
+        // notify the model
+
     // MARK: - Cells
 
     func networkCell(for indexPath: IndexPath) -> UITableViewCell {

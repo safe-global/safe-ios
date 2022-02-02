@@ -36,6 +36,7 @@ class CreateSafeFormUIModel {
     private var sendingTask: URLSessionTask?
 
     private var estimationController: TransactionEstimationController!
+    private var transactionSender: TransactionSender!
 
     weak var delegate: CreateSafeFormUIModelDelegate?
 
@@ -93,6 +94,9 @@ class CreateSafeFormUIModel {
                 }
             }
 
+        case .authenticating:
+            break
+
         case .signing:
             sign { [weak self] result in
                 guard let self = self else { return }
@@ -118,6 +122,12 @@ class CreateSafeFormUIModel {
                     self.update(to: .final)
                 }
             }
+
+        case .pending:
+            break
+
+        case .indexing:
+            break
 
         case .keyNotFound:
             break
@@ -456,62 +466,52 @@ class CreateSafeFormUIModel {
         return validKeys
     }
 
+    // MARK: - Authenticating
+
+    // check if need authentication based on app settings
+
+    // call delegate to authenticate.
+
     // MARK: - Signing
 
     func sign(_ completion: @escaping (Result<Void, Error>) -> Void) {
-
+        // for non-private keys, call delegate to sign
+        // if result returns signature, continue to sending
+        // otherwise if returns hash, continue to pending
     }
 
     // MARK: - Sending
     func send(_ completion: @escaping (Result<Void, Error>) -> Void) {
-        guard var tx = self.ethTransaction else { return nil }
-
-        let rawTransaction = tx.rawTransaction()
-
-        let sendRawTxMethod = EthRpc1.eth_sendRawTransaction(transaction: rawTransaction)
-
-        let request: JsonRpc2.Request
-
-        do {
-            request = try sendRawTxMethod.request(id: .int(1))
-        } catch {
-            dispatchOnMainThread(completion(.failure(error)))
-            return nil
-        }
-
+        transactionSender = TransactionSender(chain: chain)
         sendingTask?.cancel()
-        sendingTask = estimationController.rpcClient.send(request: request) { [weak self] response in
+        sendingTask = transactionSender.send(tx: transaction, completion: { [weak self] result in
             guard let self = self else { return }
-
-            guard let response = response else {
-                let error = TransactionExecutionError(code: -4, message: "No response from server")
-                dispatchOnMainThread(completion(.failure(error)))
-                return
-            }
-
-            if let error = response.error {
-                dispatchOnMainThread(completion(.failure(error)))
-                return
-            }
-
-            guard let result = response.result else {
-                let error = TransactionExecutionError(code: -5, message: "No result from server")
-                dispatchOnMainThread(completion(.failure(error)))
-                return
-            }
-
-            let txHash: EthRpc1.Data
             do {
-                txHash = try sendRawTxMethod.result(from: result)
+                self.transaction.hash = try result.get()
+                completion(.success(()))
             } catch {
-                dispatchOnMainThread(completion(.failure(error)))
-                return
+                completion(.failure(error))
             }
-
-            self.transaction.hash = Eth.Hash(txHash.storage)
-            dispatchOnMainThread(completion(.success(())))
-        }
+        })
     }
+
+    // MARK: - Pending
+
+    // check for receipt
+    // if no receipt yet, schedule timer to check again.
+        // encapsulate algorithm to get waiting time.
+
+    // if has receipt and failure, go back to ready with error.
+
+    // if success, get the safe address, go to indexing
+
+    // MARK: - Indexing
+
+    // check for safe info by address
+    // if not found or any error, schedule timer to retry
+    // if found, then add safe
+    // use some generated name for that safe.
+    // then go to final state.
 
     // MARK: - UI Data
 
@@ -621,8 +621,11 @@ enum CreateSafeFormUIState {
     case ready
     case searchingKey
     case keyNotFound
+    case authenticating
     case signing
     case sending
+    case pending
+    case indexing
     case error
     case final
 }
