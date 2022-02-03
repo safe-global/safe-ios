@@ -12,10 +12,12 @@ import Ethereum
 import SwiftCryptoTokenFormatter
 import SafeDeployments
 import SafeAbi
+import JsonRpc2
 
 protocol CreateSafeFormUIModelDelegate: AnyObject {
     func updateUI(model: CreateSafeFormUIModel)
     func createSafeModelDidFinish()
+    func authenticateUser(_ completion: @escaping (Bool) -> Void)
 }
 
 class CreateSafeFormUIModel {
@@ -28,12 +30,15 @@ class CreateSafeFormUIModel {
     var error: Error?
     var userTxParameters: UserDefinedTransactionParameters?
     var sectionHeaders: [CreateSafeFormSectionHeader] = []
+    var safeAddress: Address?
     var state: CreateSafeFormUIState = .initial
 
     private var debounceTimer: Timer?
     private var estimationTask: URLSessionTask?
     private var getBalanceTask: URLSessionTask?
     private var sendingTask: URLSessionTask?
+    private var receiptTask: URLSessionTask?
+    private var safeInfoTask: URLSessionTask?
 
     private var estimationController: TransactionEstimationController!
     private var transactionSender: TransactionSender!
@@ -124,9 +129,14 @@ class CreateSafeFormUIModel {
             }
 
         case .pending:
+            // if not mined, schedule timer to pending again
+            // if success, go to indexing
+            // else go back to ready with error
             break
 
         case .indexing:
+            // if found, go to final
+            // if not found, schedule timer to indexing again.
             break
 
         case .keyNotFound:
@@ -383,6 +393,8 @@ class CreateSafeFormUIModel {
                 let gasPrice = try self.userTxParameters?.gasPrice ?? self.userTxParameters?.maxFeePerGas ?? estimationResults.gasPrice.get()
                 let txCount = try self.userTxParameters?.nonce ?? estimationResults.transactionCount.get()
 
+                // TODO: handle the tx call result which will have the contract address
+
                 self.transaction.update(gas: gas, transactionCount: txCount, baseFee: gasPrice)
 
                 completion(.success(()))
@@ -468,16 +480,23 @@ class CreateSafeFormUIModel {
 
     // MARK: - Authenticating
 
-    // check if need authentication based on app settings
+    func authenticate(_ completion: @escaping (Bool) -> Void) {
+        let AUTHENTICATED = true
+        guard App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) else {
+            completion(AUTHENTICATED)
+            return
+        }
 
-    // call delegate to authenticate.
+        delegate?.authenticateUser(completion)
+    }
 
     // MARK: - Signing
 
     func sign(_ completion: @escaping (Result<Void, Error>) -> Void) {
-        // for non-private keys, call delegate to sign
-        // if result returns signature, continue to sending
-        // otherwise if returns hash, continue to pending
+        // ask delegate to sign
+        // response can be either signature or transaction hash directly. We actually want it to be signature only.
+        // then update the signature in transsaction.
+        // success.
     }
 
     // MARK: - Sending
@@ -496,14 +515,50 @@ class CreateSafeFormUIModel {
     }
 
     // MARK: - Pending
+    private var rpcClient: JsonRpc2.Client!
+    // get response
+        // can be null - json rpc bug right now...
+            // then schedule one-time timer
+// encapsulate algorithm to get waiting time.
+// if has receipt and failure, go back to ready with error.
+// if success, get the safe address, go to indexing
 
-    // check for receipt
-    // if no receipt yet, schedule timer to check again.
-        // encapsulate algorithm to get waiting time.
+    func fetchReceipt(_ completion: @escaping (Bool?) -> Void) {
+        let FAILED = false
+        let SUCCESS = true
+        let NOT_MINED: Bool? = nil
 
-    // if has receipt and failure, go back to ready with error.
-
-    // if success, get the safe address, go to indexing
+        rpcClient = JsonRpc2.Client(
+            transport: JsonRpc2.ClientHTTPTransport(url: chain.authenticatedRpcUrl.absoluteString),
+            serializer: JsonRpc2.DefaultSerializer()
+        )
+        let hash = EthRpc1.Data(transaction.hash!)
+        let method = EthRpc1.eth_getTransactionReceipt(transactionHash: hash)
+        let request: JsonRpc2.Request
+        do {
+            request = try method.request(id: .int(0))
+        } catch {
+            completion(FAILED)
+            return
+        }
+        // send request
+        receiptTask?.cancel()
+        receiptTask = rpcClient.send(request: request, completion: { response in
+            guard
+                let result = response?.result,
+                let receipt = (try? method.result(from: result)),
+                let status = receipt.status
+            else {
+                completion(NOT_MINED)
+                return
+            }
+            if status == "0x1" {
+                completion(SUCCESS)
+            } else {
+                completion(FAILED)
+            }
+        })
+    }
 
     // MARK: - Indexing
 
@@ -512,6 +567,19 @@ class CreateSafeFormUIModel {
     // if found, then add safe
     // use some generated name for that safe.
     // then go to final state.
+    func fetchSafeInfo(_ completion: @escaping (Bool) -> Void) {
+        let FOUND: Bool = true
+        let NOT_FOUND: Bool = false
+        App.shared.clientGatewayService.asyncSafeInfo(safeAddress: safeAddress!, chainId: chain.id!) { result in
+            //
+            do {
+                let _ = try result.get()
+                completion(FOUND)
+            } catch {
+                completion(NOT_FOUND)
+            }
+        }
+    }
 
     // MARK: - UI Data
 

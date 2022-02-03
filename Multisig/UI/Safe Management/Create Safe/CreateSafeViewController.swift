@@ -62,6 +62,10 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         onFinish()
     }
 
+    func authenticateUser(_ completion: @escaping (Bool) -> Void) {
+        // show passcode
+    }
+
     // MARK: - UI Events
 
     @objc private func didTapCloseButton() {
