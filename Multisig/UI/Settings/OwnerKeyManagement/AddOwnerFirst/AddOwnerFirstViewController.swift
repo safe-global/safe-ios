@@ -30,6 +30,11 @@ class AddOwnerFirstViewController: UIViewController {
         messageLabel.setStyle(.secondary)
         addOwnerKeyButton.setText("Add owner key", .filled)
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.assetsTransferAddOwner)
+    }
     
     @IBAction func addOwnerKeyClicked(_ sender: Any) {
         let vc = AddOwnerKeyViewController(showsCloseButton: false) { [unowned self] in
