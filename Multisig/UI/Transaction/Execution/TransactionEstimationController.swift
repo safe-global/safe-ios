@@ -61,7 +61,8 @@ class TransactionEstimationController {
 
         let getPrice = EthRpc1.eth_gasPrice()
 
-        let ethCall = EthRpc1.eth_call(transaction: EthRpc1.Transaction(tx), block: .tag(.pending))
+        let ethCallNew = EthRpc1.eth_call(transaction: EthRpc1.Transaction(tx), block: .tag(.pending))
+        let ethCallLegacy = EthRpc1.eth_callLegacyApi(transaction: EthRpc1.EstimateGasLegacyTransaction(tx), block: .tag(.pending))
 
         let batch: JsonRpc2.BatchRequest
         let getEstimateRequest: JsonRpc2.Request
@@ -74,7 +75,7 @@ class TransactionEstimationController {
             getEstimateRequest = try usingLegacyGasApi ? getEstimateLegacy.request(id: .int(1)) : getEstimateNew.request(id: .int(1))
             getTransactionCountRequest = try getTransactionCount.request(id: .int(2))
             getPriceRequest = try getPrice.request(id: .int(3))
-            ethCallRequest = try ethCall.request(id: .int(4))
+            ethCallRequest = try usingLegacyGasApi ? ethCallLegacy.request(id: .int(4)) : ethCallNew.request(id: .int(4))
 
             batch = try JsonRpc2.BatchRequest(requests: [
                 getEstimateRequest, getTransactionCountRequest, getPriceRequest, ethCallRequest
@@ -122,7 +123,9 @@ class TransactionEstimationController {
                     : result(request: getEstimateRequest, method: getEstimateNew, responses: responses).map(\.storage)
                 let txCountResult = result(request: getTransactionCountRequest, method: getTransactionCount, responses: responses).map(\.storage)
                 let priceResult = fixedGasPrice.map { .success($0) } ?? result(request: getPriceRequest, method: getPrice, responses: responses).map(\.storage)
-                let callResult = result(request: ethCallRequest, method: ethCall, responses: responses).map(\.storage)
+                let callResult = usingLegacyGasApi ?
+                    result(request: ethCallRequest, method: ethCallLegacy, responses: responses).map(\.storage)
+                    : result(request: ethCallRequest, method: ethCallNew, responses: responses).map(\.storage)
 
                 dispatchOnMainThread(completion(.success((gasResult, txCountResult, priceResult, callResult))))
             }
