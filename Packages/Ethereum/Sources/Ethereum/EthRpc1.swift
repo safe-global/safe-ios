@@ -490,6 +490,21 @@ extension EthRpc1 {
         }
     }
 
+    public struct eth_callLegacyApi: JsonRpc2Method {
+        public static var name: String { "eth_call" }
+
+        public var transaction: EstimateGasLegacyTransaction
+
+        public var block: EthRpc1.BlockSpecifier
+
+        public typealias Return = EthRpc1.Data
+
+        public init(transaction: EstimateGasLegacyTransaction, block: EthRpc1.BlockSpecifier) {
+            self.transaction = transaction
+            self.block = block
+        }
+    }
+
     /// Generates and returns an estimate of how much gas is necessary to allow the transaction to complete.
     public struct eth_estimateGas: EthEstimateGasAbi, JsonRpc2Method, EthRpc1TransactionParams {
         /// Transaction. NOTE: `from` field MUST be present.
@@ -615,6 +630,21 @@ extension EthRpc1.eth_call: Codable {
     public init(from decoder: Decoder) throws {
         var container = try decoder.unkeyedContainer()
         let transaction = try container.decode(EthRpc1.Transaction.self)
+        let block = try container.decode(EthRpc1.BlockSpecifier.self)
+        self.init(transaction: transaction, block: block)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.unkeyedContainer()
+        try container.encode(transaction)
+        try container.encode(block)
+    }
+}
+
+extension EthRpc1.eth_callLegacyApi: Codable {
+    public init(from decoder: Decoder) throws {
+        var container = try decoder.unkeyedContainer()
+        let transaction = try container.decode(EthRpc1.EstimateGasLegacyTransaction.self)
         let block = try container.decode(EthRpc1.BlockSpecifier.self)
         self.init(transaction: transaction, block: block)
     }
@@ -1374,13 +1404,19 @@ extension EthRpc1.Transaction {
 
 extension EthRpc1.eth_estimateGasLegacyApi {
     public init(_ tx: EthTransaction) {
+        self.init(transaction: EthRpc1.EstimateGasLegacyTransaction(tx))
+    }
+}
+
+extension EthRpc1.EstimateGasLegacyTransaction {
+    public init(_ tx: EthTransaction) {
         switch tx {
         case let eip1559 as Eth.TransactionEip1559:
-            self.init(transaction: EthRpc1.EstimateGasLegacyTransaction(eip1559))
+            self.init(eip1559)
         case let eip2930 as Eth.TransactionEip2930:
-            self.init(transaction: EthRpc1.EstimateGasLegacyTransaction(eip2930))
+            self.init(eip2930)
         case let legacy as Eth.TransactionLegacy:
-            self.init(transaction: EthRpc1.EstimateGasLegacyTransaction(legacy))
+            self.init(legacy)
         default:
             fatalError("Not implemented")
         }
