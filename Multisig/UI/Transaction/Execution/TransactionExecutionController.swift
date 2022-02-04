@@ -214,9 +214,11 @@ class TransactionExecutionController {
                     gas = try partialResults.gas.get()
 
                     let execTransactionSuccess = try partialResults.ethCall.get()
-                    let success = try Sol.Bool(execTransactionSuccess).storage
-                    guard success else {
-                        throw TransactionExecutionError(code: -7, message: "Internal Gnosis Safe transaction fails. Please double check whether this transaction is valid with the current state of the Safe.")
+                    if !execTransactionSuccess.isEmpty {
+                        let success = try Sol.Bool(execTransactionSuccess).storage
+                        guard success else {
+                            throw TransactionExecutionError(code: -7, message: "Internal Gnosis Safe transaction fails. Please double check whether this transaction is valid with the current state of the Safe.")
+                        }
                     }
                 } catch {
                     errors.append(error)
