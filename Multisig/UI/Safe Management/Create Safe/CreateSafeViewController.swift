@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Ethereum
 
 class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CreateSafeFormUIModelDelegate {
 
@@ -224,10 +225,9 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         switch index {
         case DEPLOYER_ROW:
             selectDeploymentKey()
-            break
 
         case FEE_ROW:
-            break
+            editParameters()
 
         default:
             break
@@ -301,10 +301,168 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     // edit fees
-        // use the fee form or generalize it somehow
-        // load existing user defined properties merged with the transaction values, i.e. updated transaction value.
-        // create form fields
-        // saved - has changes from the initial values? which? save them. notify the model.
+    func editParameters() {
+        let formModel: FormModel
+        var initialValues = UserDefinedTransactionParameters()
+
+        switch uiModel.transaction {
+        case let ethTx as Eth.TransactionLegacy:
+            let model = FeeLegacyFormModel(
+                    nonce: ethTx.nonce,
+                    minimalNonce: uiModel.minNonce,
+                    gas: ethTx.fee.gas,
+                    gasPriceInWei: ethTx.fee.gasPrice,
+                    nativeCurrency: uiModel.chain.nativeCurrency!
+            )
+            initialValues.nonce = model.nonce
+            initialValues.gas = model.gas
+            initialValues.gasPrice = model.gasPriceInWei
+
+            formModel = model
+
+        case let ethTx as Eth.TransactionEip1559:
+            let model = Fee1559FormModel(
+                    nonce: ethTx.nonce,
+                    minimalNonce: uiModel.minNonce,
+                    gas: ethTx.fee.gas,
+                    maxFeePerGasInWei: ethTx.fee.maxFeePerGas,
+                    maxPriorityFeePerGasInWei: ethTx.fee.maxPriorityFee,
+                    nativeCurrency: uiModel.chain.nativeCurrency!
+            )
+            initialValues.nonce = model.nonce
+            initialValues.gas = model.gas
+            initialValues.maxFeePerGas = model.maxFeePerGasInWei
+            initialValues.maxPriorityFee = model.maxPriorityFeePerGasInWei
+
+            formModel = model
+
+        default:
+            if uiModel.chain.features?.contains("EIP1559") == true {
+                formModel = Fee1559FormModel(
+                        nonce: nil,
+                        gas: nil,
+                        maxFeePerGasInWei: nil,
+                        maxPriorityFeePerGasInWei: nil,
+                        nativeCurrency: uiModel.chain.nativeCurrency!
+                )
+            } else {
+                formModel = FeeLegacyFormModel(
+                        nonce: nil,
+                        gas: nil,
+                        gasPriceInWei: nil,
+                        nativeCurrency: uiModel.chain.nativeCurrency!
+                )
+            }
+        }
+
+        let formVC = FormViewController(model: formModel) { [weak self] in
+            // on close - ignore any changes
+//            self?.dismiss(animated: true)
+            self?.navigationController?.popToRootViewController(animated: true)
+        }
+        formVC.showsCloseButton = false
+
+        // TODO: tracking of form
+//        formVC.trackingEvent = .reviewExecutionEditFee
+
+        formVC.onSave = { [weak self, weak formModel] in
+            // on save - update the parameters that were changed.
+            self?.navigationController?.popToRootViewController(animated: true)
+//            self?.dismiss(animated: true, completion: {
+                guard let self = self, let formModel = formModel else { return }
+
+                // collect the saved values
+
+                var savedValues = UserDefinedTransactionParameters()
+
+                switch formModel {
+                case let model as FeeLegacyFormModel:
+                    savedValues.nonce = model.nonce
+                    savedValues.gas = model.gas
+                    savedValues.gasPrice = model.gasPriceInWei
+
+                case let model as Fee1559FormModel:
+                    savedValues.nonce = model.nonce
+                    savedValues.gas = model.gas
+                    savedValues.maxFeePerGas = model.maxFeePerGasInWei
+                    savedValues.maxPriorityFee = model.maxPriorityFeePerGasInWei
+
+                default:
+                    break
+                }
+
+                // compare the initial snapshot and saved snapshot
+                // memberwise and remember only those values that changed.
+
+                var changedFieldTrackingIds: [String] = []
+
+                if savedValues.nonce != initialValues.nonce {
+                    self.uiModel.userTxParameters?.nonce = savedValues.nonce
+
+                    changedFieldTrackingIds.append("nonce")
+                }
+
+                if savedValues.gas != initialValues.gas {
+                    self.uiModel.userTxParameters?.gas = savedValues.gas
+
+                    changedFieldTrackingIds.append("gasLimit")
+                }
+
+                if savedValues.gasPrice != initialValues.gasPrice {
+                    self.uiModel.userTxParameters?.gasPrice = savedValues.gasPrice
+
+                    changedFieldTrackingIds.append("gasPrice")
+                }
+
+                if savedValues.maxFeePerGas != initialValues.maxFeePerGas {
+                    self.uiModel.userTxParameters?.maxFeePerGas = savedValues.maxFeePerGas
+
+                    changedFieldTrackingIds.append("maxFee")
+                }
+
+                if savedValues.maxPriorityFee != initialValues.maxPriorityFee {
+                    self.uiModel.userTxParameters?.maxPriorityFee = savedValues.maxPriorityFee
+
+                    changedFieldTrackingIds.append("maxPriorityFee")
+                }
+
+                // react to changes
+
+                if savedValues != initialValues {
+                        // take the values only if they were set by user (not nil)
+                    switch self.uiModel.transaction {
+                    case var ethTx as Eth.TransactionLegacy:
+                        ethTx.fee.gas = self.uiModel.userTxParameters?.gas ?? ethTx.fee.gas
+                        ethTx.fee.gasPrice = self.uiModel.userTxParameters?.gasPrice ?? ethTx.fee.gasPrice
+                        ethTx.nonce = self.uiModel.userTxParameters?.nonce ?? ethTx.nonce
+
+                        self.uiModel.transaction = ethTx
+
+                    case var ethTx as Eth.TransactionEip1559:
+                        ethTx.fee.gas = self.uiModel.userTxParameters?.gas ?? ethTx.fee.gas
+                        ethTx.fee.maxFeePerGas = self.uiModel.userTxParameters?.maxFeePerGas ?? ethTx.fee.maxFeePerGas
+                        ethTx.fee.maxPriorityFee = self.uiModel.userTxParameters?.maxPriorityFee ?? ethTx.fee.maxPriorityFee
+                        ethTx.nonce = self.uiModel.userTxParameters?.nonce ?? ethTx.nonce
+
+                        self.uiModel.transaction = ethTx
+
+                    default:
+                        break
+                    }
+                    self.uiModel.didEdit()
+                    // TODO: track changes
+//                    let changedFields = changedFieldTrackingIds.joined(separator: ",")
+//                    Tracker.trackEvent(.reviewExecutionFieldEdited, parameters: ["fields": changedFields])
+                }
+//            })
+        }
+
+        formVC.navigationItem.title = "Edit transaction fee"
+        let ribbon = RibbonViewController(rootViewController: formVC)
+//        let nav = UINavigationController(rootViewController: ribbon)
+//        present(nav, animated: true, completion: nil)
+        show(ribbon, sender: self)
+    }
 
     // create button tapped
         // notify the model

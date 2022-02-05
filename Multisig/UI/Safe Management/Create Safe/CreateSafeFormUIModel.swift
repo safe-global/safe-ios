@@ -26,6 +26,7 @@ class CreateSafeFormUIModel {
     var threshold: Int = 0
     var selectedKey: KeyInfo?
     var deployerBalance: Sol.UInt256?
+    var minNonce: Sol.UInt64 = 0
     var transaction: EthTransaction!
     var error: Error?
     var userTxParameters: UserDefinedTransactionParameters?
@@ -423,7 +424,7 @@ class CreateSafeFormUIModel {
                 let txCount = try self.userTxParameters?.nonce ?? estimationResults.transactionCount.get()
 
                 // TODO: handle the tx call result which will have the contract address
-
+                self.minNonce = try estimationResults.transactionCount.get()
                 self.transaction.update(gas: gas, transactionCount: txCount, baseFee: gasPrice)
 
                 completion(.success(()))
