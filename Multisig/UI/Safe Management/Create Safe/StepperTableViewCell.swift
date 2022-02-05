@@ -13,6 +13,8 @@ class StepperTableViewCell: UITableViewCell {
     @IBOutlet weak var cellLabel: UILabel!
     @IBOutlet weak var stepper: UIStepper!
 
+    var onChange: (Int) -> Void = { _ in }
+
     func setText(_ text: String?, style: GNOTextStyle = .primary) {
         cellLabel.text = text
         cellLabel.setStyle(style)
@@ -29,6 +31,6 @@ class StepperTableViewCell: UITableViewCell {
     }
 
     @IBAction func didChangeStepperValue(_ sender: Any) {
-        // TODO: change text and model
+        onChange(Int(stepper.value))
     }
 }

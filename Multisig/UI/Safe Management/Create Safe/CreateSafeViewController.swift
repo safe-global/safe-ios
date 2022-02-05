@@ -156,6 +156,8 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         switch uiModel.sectionHeaders[indexPath.section].id {
         case .network:
             selectNetwork()
+        case .deployment:
+            selectDeploymentRow(indexPath.row)
         default:
             break
         }
@@ -218,14 +220,85 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         uiModel.addOwnerAddress(string)
     }
 
-    // change threshold
-        // connect the stepper to the label
-        // connect stepper's max and min to the uimodel's max and min
-        // did it change value? notify the model about editing
+    func selectDeploymentRow(_ index: Int) {
+        switch index {
+        case DEPLOYER_ROW:
+            selectDeploymentKey()
+            break
+
+        case FEE_ROW:
+            break
+
+        default:
+            break
+        }
+    }
 
     // select deployer
-        // show deployers with balances
-        // did it change? notify the model
+    func selectDeploymentKey() {
+        let keys = uiModel.executionKeys()
+
+        if keys.isEmpty {
+            let addOwnerVC = AddOwnerFirstViewController()
+            addOwnerVC.onSuccess = { [weak self] in
+                guard let self = self else { return }
+                self.navigationController?.popViewController(animated: true)
+                self.uiModel.selectedKey = self.uiModel.executionKeys().first
+                self.uiModel.didEdit()
+            }
+            addOwnerVC.showsCloseButton = false
+            show(addOwnerVC, sender: self)
+            return
+        }
+
+        let balancesLoader = DefaultAccountBalanceLoader(chain: uiModel.chain)
+
+        if let tx = uiModel.transaction {
+            balancesLoader.requiredBalance = tx.requiredBalance
+        }
+
+        let keyPickerVC = ChooseOwnerKeyViewController(
+                owners: keys,
+                chainID: uiModel.chain.id,
+                titleText: "Deployer Account",
+                descriptionText: "The selected account will be used to deploy the Safe.",
+                requestsPasscode: false,
+                selectedKey: uiModel.selectedKey,
+                balancesLoader: balancesLoader
+        )
+        keyPickerVC.showsCloseButton = false
+
+        // TODO: Tracking on key change
+//        keyPickerVC.trackingEvent = .reviewExecutionSelectKey
+
+        // this way of returning the results from the view controller is just because
+        // there was already existing code depending on the completion handler.
+        // modified with minimum changes to the existing API.
+        let completion: (KeyInfo?) -> Void = { [weak self, weak keyPickerVC] selectedKeyInfo in
+            guard let self = self, let picker = keyPickerVC else { return }
+            let balance = selectedKeyInfo.flatMap { picker.accountBalance(for: $0) }
+            let previousKey = self.uiModel.selectedKey
+
+            // update selection
+            if let key = selectedKeyInfo, let balance = balance {
+                self.uiModel.selectedKey = key
+                self.uiModel.deployerBalance = balance.amount
+            } else {
+                self.uiModel.selectedKey = nil
+                self.uiModel.deployerBalance = nil
+            }
+            if selectedKeyInfo != previousKey {
+                // TODO: Tracking on change key
+//                Tracker.trackEvent(.reviewExecutionSelectedKeyChanged)
+                self.uiModel.didEdit()
+            }
+
+            self.navigationController?.popViewController(animated: true)
+        }
+        keyPickerVC.completionHandler = completion
+
+        show(keyPickerVC, sender: self)
+    }
 
     // edit fees
         // use the fee form or generalize it somehow
@@ -261,12 +334,19 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.setText(uiModel.thresholdText)
         cell.setRange(min: uiModel.minThreshold, max: uiModel.maxThreshold)
         cell.setValue(uiModel.threshold)
+        cell.onChange = { [weak self, unowned cell] newThreshold in
+            guard let self = self else { return }
+            self.uiModel.threshold = newThreshold
+            cell.setText(self.uiModel.thresholdText)
+            self.uiModel.didEdit()
+        }
         return cell
     }
 
+    let DEPLOYER_ROW = 0
+    let FEE_ROW = 1
+
     func deploymentCell(for indexPath: IndexPath) -> UITableViewCell {
-        let DEPLOYER_ROW = 0
-        let FEE_ROW = 1
         switch indexPath.row {
         case DEPLOYER_ROW:
             let cell = deployerAccountCell(for: indexPath)

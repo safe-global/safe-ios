@@ -15,16 +15,21 @@ class AddOwnerFirstViewController: UIViewController {
     @IBOutlet weak var messageLabel: UILabel!
     
     @IBOutlet weak var addOwnerKeyButton: UIButton!
+
+    var showsCloseButton: Bool = true
     
     var onSuccess: (() -> ())?
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = "Add Owner Key"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .close,
-            target: self,
-            action: #selector(CloseModal.closeModal))
+
+        if showsCloseButton {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(
+                    barButtonSystemItem: .close,
+                    target: self,
+                    action: #selector(CloseModal.closeModal))
+        }
 
         titleLabel.setStyle(.headline)
         messageLabel.setStyle(.secondary)
@@ -33,7 +38,7 @@ class AddOwnerFirstViewController: UIViewController {
     
     @IBAction func addOwnerKeyClicked(_ sender: Any) {
         let vc = AddOwnerKeyViewController(showsCloseButton: false) { [unowned self] in
-            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popToRootViewController(animated: true)
             self.onSuccess?()
         }
         show(vc, sender: self)
