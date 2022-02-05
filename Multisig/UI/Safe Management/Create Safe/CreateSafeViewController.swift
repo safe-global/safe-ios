@@ -80,6 +80,10 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.endRefreshing()
     }
 
+    @objc private func didTapAddOwnerButton(_ sender: Any) {
+        addOwner()
+    }
+
     // MARK: - Table View Data and Views
 
     private func isValid(section: Int) -> Bool {
@@ -105,6 +109,9 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         let view = tableView.dequeueHeaderFooterView(InfoSectionHeaderView.self)
         view.infoLabel.setText(sectionData.title, description: sectionData.tooltip)
         view.accessoryButton.isHidden = !sectionData.actionable
+        if view.accessoryButton.allTargets.isEmpty {
+            view.accessoryButton.addTarget(nil, action: #selector(didTapAddOwnerButton(_:)), for: .touchUpInside)
+        }
         return view
     }
 
@@ -145,24 +152,71 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        guard isValid(indexPath: indexPath) else { return }
+        switch uiModel.sectionHeaders[indexPath.section].id {
+        case .network:
+            selectNetwork()
+        default:
+            break
+        }
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete else { return }
+        uiModel.deleteOwnerAt(indexPath.row)
     }
 
     // select network
+    func selectNetwork() {
         // show network selection screen
+        let selectNetworkVC = SelectNetworkViewController()
+        selectNetworkVC.screenTitle = "Select Network"
+        selectNetworkVC.descriptionText = "Choose a network on which to create your Safe"
         // get the selected network back
-        // selection changed? notify the model about editing
+        selectNetworkVC.completion = { [weak self] chain in
+            guard let self = self else { return }
+            self.uiModel.setChainId(chain.id)
 
-    // add owner
-        // show the key selection screen with the ability to add a key and handling of 'no keys' case
-        // when key selected or added
-        // is it not in the list? notify the model about editing
+            // hide the screen
+            self.navigationController?.popViewController(animated: true)
+        }
+        show(selectNetworkVC, sender: self)
+    }
 
-    // delete owner
-        // delete the owner in model
-        // notify the model about editing
+    func addOwner() {
+        // add address using existing methods
+        let alertVC = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+        alertVC.addAction(UIAlertAction(title: "Paste from Clipboard", style: .default, handler: { [weak self] _ in
+            let text = Pasteboard.string
+            self?.didAddOwnerAddress(text)
+        }))
+
+        alertVC.addAction(UIAlertAction(title: "Scan QR Code", style: .default, handler: { [weak self] _ in
+            guard let self = self else { return }
+            let vc = QRCodeScannerViewController()
+            vc.scannedValueValidator = { value in
+                if let _ = try? Address.addressWithPrefix(text: value) {
+                    return .success(value)
+                } else {
+                    return .failure(GSError.error(description: "Can’t use this QR code",
+                            error: GSError.SafeAddressNotValid()))
+                }
+            }
+            vc.modalPresentationStyle = .overFullScreen
+            vc.delegate = self
+            vc.setup()
+            self.present(vc, animated: true, completion: nil)
+        }))
+
+        alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        present(alertVC, animated: true, completion: nil)
+    }
+
+    func didAddOwnerAddress(_ string: String?) {
+        uiModel.addOwnerAddress(string)
+    }
 
     // change threshold
         // connect the stepper to the label
@@ -294,5 +348,16 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.setCopyText(errorText)
         cell.setExpandableTitle(errorPreview)
         return cell
+    }
+}
+
+extension CreateSafeViewController: QRCodeScannerViewControllerDelegate {
+    func scannerViewControllerDidCancel() {
+        dismiss(animated: true, completion: nil)
+    }
+
+    func scannerViewControllerDidScan(_ code: String) {
+        didAddOwnerAddress(code)
+        dismiss(animated: true, completion: nil)
     }
 }

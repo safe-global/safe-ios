@@ -208,23 +208,52 @@ class CreateSafeFormUIModel {
         let result = (0..<count).map { index -> CreateSafeFormOwner in
             let key = generatePrivateKey()
             let defaultName = "Generated Owner #\(index + 1)"
-            let (resolvedName, imageUri) = NamingPolicy.name(
-                for: key.address,
+            var owner = self.owner(from: key.address, defaultName: defaultName)
+            owner.privateKey = key
+            return owner
+        }
+        return result
+    }
+
+    func setChainId(_ chainId: String) {
+        guard chainId != chain.id, let newChain = Chain.by(chainId) else { return }
+        chain = newChain
+        didEdit()
+    }
+
+    func addOwnerAddress(_ string: String?) {
+        guard let string = string, let address = Address(string) else { return }
+        guard !owners.contains(where: { owner in owner.address == address }) else { return }
+        let newOwner = self.owner(from: address)
+        owners.append(newOwner)
+        // update item count in sections
+        sectionHeaders = makeSectionHeaders()
+        didEdit()
+    }
+
+    func deleteOwnerAt(_ index: Int) {
+        guard index < owners.count else { return }
+        owners.remove(at: index)
+        sectionHeaders = makeSectionHeaders()
+        didEdit()
+    }
+
+    func owner(from address: Address, defaultName: String = "Owner") -> CreateSafeFormOwner {
+        let (resolvedName, imageUri) = NamingPolicy.name(
+                for: address,
                 info: nil,
                 chainId: chain.id!)
-            let name = resolvedName ?? defaultName
-            let url = chain.browserURL(address: key.address.checksummed)
-            let owner = CreateSafeFormOwner(
+        let name = resolvedName ?? defaultName
+        let url = chain.browserURL(address: address.checksummed)
+        let owner = CreateSafeFormOwner(
                 prefix: chain.shortName,
-                address: key.address,
+                address: address,
                 name: name,
                 imageUri: imageUri,
                 browseUri: url,
                 keyInfo: nil,
-                privateKey: key)
-            return owner
-        }
-        return result
+                privateKey: nil)
+        return owner
     }
 
     private func generatePrivateKey() -> PrivateKey {
