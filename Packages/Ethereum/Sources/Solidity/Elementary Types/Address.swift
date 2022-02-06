@@ -9,7 +9,6 @@ import Foundation
 
 // MARK: - Sol.Address
 extension Sol {
-    // TODO: init with string
     public struct Address {
         public var storage: UInt160
         public init() { storage = 0 }
@@ -52,7 +51,7 @@ public extension Sol.Address {
         guard let uint = Sol.UInt160(string, radix: 16) else {
             return nil
         }
-        self.storage = uint
+        storage = uint
     }
 
     init(data: Data) throws {
@@ -64,6 +63,19 @@ public extension Sol.Address {
         } else {
             storage = try Sol.UInt160(data)
         }
+    }
+}
 
+extension Sol.Address: ExpressibleByStringLiteral {
+    public init(stringLiteral value: String) {
+        self.init(hex: value)!
+    }
+
+    public init(extendedGraphemeClusterLiteral value: String) {
+        self.init(hex: value)!
+    }
+
+    public init(unicodeScalarLiteral value: String) {
+        self.init(hex: value)!
     }
 }

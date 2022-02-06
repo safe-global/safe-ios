@@ -117,5 +117,61 @@ extension JsonRpc2 {
             task?.resume()
             return task
         }
+
+        // MARK: - Convenience methods
+        public func call(_ method: JsonRpc2MethodCall) -> URLSessionTask? {
+            let request: JsonRpc2.Request
+            do {
+                request = try method.request(id: .int(0))
+            } catch {
+                method.handle(error: error)
+                return nil
+            }
+            return send(request: request) { response in
+                if let response = response {
+                    method.handle(response: response)
+                }
+            }
+        }
+
+        public func call(_ methods: [JsonRpc2MethodCall], completion: @escaping () -> Void = {}) -> URLSessionTask? {
+            let batch: JsonRpc2.BatchRequest
+            do {
+                let requests = try methods.enumerated().map { index, method in
+                    try method.request(id: .int(index))
+                }
+                batch = try JsonRpc2.BatchRequest(requests: requests)
+            } catch {
+                methods.forEach { method in method.handle(error: error) }
+                completion()
+                return nil
+            }
+            return send(request: batch) { response in
+
+                guard let response = response else {
+                    // else all requests are notifications: not possible because we assigned ids to them.
+                    return
+                }
+                switch response {
+                case .response(let singleResponse):
+                    guard let error = singleResponse.error else {
+                        // must be error, other options not possible here according to JsonRpc2
+                        return
+                    }
+                    methods.forEach { method in method.handle(error: error) }
+                    completion()
+
+                case .array(let array):
+                    // we should match array of responses by the method ids
+                    methods.enumerated().forEach { id, method in
+                        guard let response = array.first(where: { response in response.id == .int(id) }) else {
+                            return
+                        }
+                        method.handle(response: response)
+                    }
+                    completion()
+                }
+            }
+        }
     }
 }
