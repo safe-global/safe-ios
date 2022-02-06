@@ -305,6 +305,10 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         let formModel: FormModel
         var initialValues = UserDefinedTransactionParameters()
 
+        if uiModel.userTxParameters == nil {
+            uiModel.userTxParameters = initialValues
+        }
+
         switch uiModel.transaction {
         case let ethTx as Eth.TransactionLegacy:
             let model = FeeLegacyFormModel(
