@@ -28,7 +28,7 @@ extension Node {
             completion: @escaping (Account) -> Void
     ) -> URLSessionTask? {
         let account = Account(address: address)
-        let task = client.call([
+        let methodCalls: [JsonRpc2MethodCall] = [
             eth_getBalance(address: address, block: block) { result in
                 account.balance = try? result.get()
             },
@@ -38,7 +38,8 @@ extension Node {
             eth_getCode(address: address, block: block) { result in
                 account.code = try? result.get()
             }
-        ]) {
+        ]
+        let task = client.call(methodCalls) {
             completion(account)
         }
         return task

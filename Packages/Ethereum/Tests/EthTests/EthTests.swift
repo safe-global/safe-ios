@@ -78,4 +78,45 @@ class TransactionTests: XCTestCase {
         }
         waitForExpectations(timeout: 5)
     }
+
+    func testTransactionLegacy() {
+        let hash: Node.Hash = "0xa65ffc6bcf0fdce0ac70803a446fa50d7b958589c49a65237316df5a21c9c486"
+        let exp = expectation(description: "get transaction")
+        _ = client.call(Node.eth_getTransactionByHash(hash: hash) { result in
+            defer { exp.fulfill() }
+            do {
+                let transaction = try result.get()
+                guard let legacy = transaction as? Node.TransactionLegacy else {
+                    XCTFail("Unexpected transaction type: \(transaction ?? "<nil>")")
+                    return
+                }
+
+                XCTAssertEqual(legacy.feeLegacy.gasPrice, 104500000000)
+            } catch {
+                XCTFail("Error: \(error)")
+            }
+        })
+        waitForExpectations(timeout: 5)
+    }
+
+    func testTransaction1559() {
+        let hash: Node.Hash = "0xbbde8eb76e55c61807493653453c71b82dfec03c3204e80fca47622741da3607"
+        let exp = expectation(description: "get transaction")
+        _ = client.call(Node.eth_getTransactionByHash(hash: hash) { result in
+            defer { exp.fulfill() }
+            do {
+                let transaction = try result.get()
+                guard let legacy = transaction as? Node.Transaction1559 else {
+                    XCTFail("Unexpected transaction type: \(transaction ?? "<nil>")")
+                    return
+                }
+
+//                XCTAssertEqual(legacy.fee1559.gasPrice, 104500000000)
+            } catch {
+                XCTFail("Error: \(error)")
+            }
+        })
+        waitForExpectations(timeout: 5)
+
+    }
 }

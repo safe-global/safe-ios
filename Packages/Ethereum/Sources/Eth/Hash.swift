@@ -4,16 +4,19 @@
 
 import Foundation
 import Solidity
+import CryptoSwift
 
-public struct Hash {
-    public init(storage: Sol.Bytes32) {
-        self.storage = storage
+extension Node {
+    public struct Hash {
+        public init(storage: Sol.Bytes32) {
+            self.storage = storage
+        }
+
+        public var storage: Sol.Bytes32
     }
-
-    public var storage: Sol.Bytes32
 }
 
-extension Hash: NodeDataCodable {
+extension Node.Hash: NodeDataCodable {
     public init() {
         self.init(storage: .init())
     }
@@ -24,5 +27,17 @@ extension Hash: NodeDataCodable {
 
     public func encodeNodeData() throws -> Data {
         storage.encode()
+    }
+}
+
+extension Node.Hash: ExpressibleByStringLiteral {
+    public init(stringLiteral value: String) {
+        let data = Data(hex: value)
+        storage = try! Sol.Bytes32(data)
+    }
+
+    public init(unicodeScalarLiteral value: String) {
+        let data = Data(hex: value)
+        storage = try! Sol.Bytes32(data)
     }
 }

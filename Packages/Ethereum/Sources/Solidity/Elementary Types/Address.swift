@@ -58,7 +58,7 @@ public extension Sol.Address {
         if data.isEmpty {
             storage = 0
         } else if data.count == 20 {
-            let padded = Data(repeating: 0, count: 32 - 20)
+            let padded = Data(repeating: 0, count: 32 - 20) + data
             storage = try Sol.UInt160(padded)
         } else {
             storage = try Sol.UInt160(data)
@@ -77,5 +77,11 @@ extension Sol.Address: ExpressibleByStringLiteral {
 
     public init(unicodeScalarLiteral value: String) {
         self.init(hex: value)!
+    }
+}
+
+extension Sol.Address: ExpressibleByIntegerLiteral {
+    public init(integerLiteral value: UInt) {
+        self.init(storage: Sol.UInt160(value))
     }
 }

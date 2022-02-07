@@ -7,7 +7,7 @@ import Solidity
 
 public enum NodeBlockId {
     case blockNumber(Sol.UInt256)
-    case blockHash(Hash, canonical: Bool = false)
+    case blockHash(Node.Hash, canonical: Bool = false)
     case blockTag(NodeBlockTag)
     /// Legacy parameter, use `blockNumber` instead.
     case number(Sol.UInt256)
@@ -18,7 +18,7 @@ struct NodeBlockNumber: Codable {
 }
 
 struct NodeBlockHash: Codable {
-    var blockHash: NodeData<Hash>
+    var blockHash: NodeData<Node.Hash>
     var requireCanonical: Bool? = false
 }
 

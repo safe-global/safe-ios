@@ -341,6 +341,7 @@ public protocol JsonRpc2MethodCall {
 public protocol JsonRpc2MethodWithCompletion: JsonRpc2MethodCall {
     var completion: (Result<ReturnType, Error>) -> Void { get }
     associatedtype ReturnType
+    func convert(json: Json.Element) throws -> ReturnType
 }
 
 extension JsonRpc2MethodCall {
@@ -369,11 +370,15 @@ extension JsonRpc2MethodWithCompletion where ReturnType: Decodable {
             return
         }
         do {
-            let result = try json.convert(to: ReturnType.self)
+            let result = try convert(json: json)
             completion(.success(result))
         } catch {
             handle(error: error)
         }
+    }
+
+    public func convert(json: Json.Element) throws -> ReturnType {
+        try json.convert(to: ReturnType.self)
     }
 
     public func handle(error: Error) {
