@@ -40,7 +40,7 @@ class QRCodeScannerViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        footerLabel.attributedText = label?.highlight()
+        footerLabel.text = label
         view.bringSubviewToFront(cameraFrameView)
     }
 
