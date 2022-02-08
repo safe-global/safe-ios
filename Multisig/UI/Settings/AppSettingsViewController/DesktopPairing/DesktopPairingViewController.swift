@@ -64,7 +64,7 @@ class DesktopPairingViewController: UITableViewController {
     }
 
     private func scan() {
-        let vc = QRCodeScannerViewController()
+        let vc = QRCodeScannerViewController(label: "Go to Gnosis Safe Web and select Connect wallet.")
         vc.scannedValueValidator = { value in
             guard value.starts(with: "wc:") else {
                 return .failure(GSError.InvalidWalletConnectQRCode())

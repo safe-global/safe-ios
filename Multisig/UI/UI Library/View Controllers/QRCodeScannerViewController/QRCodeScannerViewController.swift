@@ -20,7 +20,7 @@ class QRCodeScannerViewController: UIViewController {
     var previewLayer: AVCaptureVideoPreviewLayer!
     var captureSession: AVCaptureSession!
     var delegate: QRCodeScannerViewControllerDelegate?
-    var header: String?
+    var label: String?
     var scannedValueValidator: ((String) -> Result<String, Error>)?
     var trackingParameters: [String: Any]?
 
@@ -33,10 +33,14 @@ class QRCodeScannerViewController: UIViewController {
         static let scannerNotSupportedMessage = NSLocalizedString("scanner_not_supported_message", comment: "")
         static let ok = NSLocalizedString("ok", comment: "")
     }
-    
+
+    convenience init(label: String) {
+        self.init()
+        self.label = label
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        headerLabel.text = header
+        headerLabel.attributedText = label?.highlight()
         view.bringSubviewToFront(cameraFrameView)
     }
 
