@@ -8,30 +8,21 @@
 
 import UIKit
 
-class DesktopPairingHeaderView: UITableViewHeaderFooterView, ExternalURLSource {
+class DesktopPairingHeaderView: UITableViewHeaderFooterView {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var scanButton: UIButton!
-    @IBOutlet private weak var learnMoreButton: UIButton!
-    @IBOutlet private weak var learnMoreLabel: UILabel!
 
     var onScan: (() -> Void)?
-    private(set) var url: URL?
 
     @IBAction func scan(_ sender: Any) {
         onScan?()
     }
 
-    @IBAction func onLearnMore(_ sender: Any) {
-        openExternalURL()
-        Tracker.trackEvent(.desktopPairingLearnMore)
-    }
-
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.setStyle(.title3)
-        scanButton.setText("Scan QR Code", .filled)
-        learnMoreButton.setTitle("", for: .normal)
-        learnMoreLabel.hyperLinkLabel(linkText: "Learn more")
-        url = App.configuration.help.desktopPairingURL
+//        scanButton.setText("Scan Code2", .filled)
+        scanButton.setTitle("Scan Code", for: .normal)
+        scanButton.setImage(UIImage(named: "ico-qr-scanner"), for: .normal)
     }
 }

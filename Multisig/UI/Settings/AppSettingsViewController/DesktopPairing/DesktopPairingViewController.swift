@@ -9,7 +9,8 @@
 import UIKit
 import WalletConnectSwift
 
-class DesktopPairingViewController: UITableViewController {
+class DesktopPairingViewController: UITableViewController, ExternalURLSource {
+    @IBOutlet private var infoButton: UIBarButtonItem!
     private var sessions = [WCKeySession]()
     private let wcServerController = WalletConnectKeysServerController.shared
     private lazy var relativeDateFormatter: RelativeDateTimeFormatter = {
@@ -18,11 +19,14 @@ class DesktopPairingViewController: UITableViewController {
         formatter.unitsStyle = .full
         return formatter
     }()
+    var url: URL?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Desktop Pairing"
+        url = App.configuration.help.desktopPairingURL
+
+        title = "Connect to Web"
 
         wcServerController.delegate = self
 
@@ -31,6 +35,12 @@ class DesktopPairingViewController: UITableViewController {
         tableView.registerHeaderFooterView(DesktopPairingHeaderView.self)
         tableView.sectionHeaderHeight = UITableView.automaticDimension
 
+        infoButton = UIBarButtonItem(image: UIImage.init(named: "ico-info"),
+                style: UIBarButtonItem.Style.plain,
+                target: self,
+                action: #selector(openHelpUrl))
+        navigationItem.rightBarButtonItem = infoButton
+        
         subscribeToNotifications()
         update()
     }
@@ -47,6 +57,11 @@ class DesktopPairingViewController: UITableViewController {
          .wcDidFailToConnectKeyServer].forEach {
             NotificationCenter.default.addObserver(self, selector: #selector(update), name: $0, object: nil)
          }
+    }
+
+    @objc private func openHelpUrl() {
+        openExternalURL()
+        Tracker.trackEvent(.desktopPairingLearnMore)
     }
 
     @objc private func update() {
