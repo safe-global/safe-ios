@@ -15,7 +15,7 @@ protocol QRCodeScannerViewControllerDelegate {
 }
 
 class QRCodeScannerViewController: UIViewController {
-    @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak var footerLabel: UILabel!
     @IBOutlet weak var cameraFrameView: UIImageView!
     var previewLayer: AVCaptureVideoPreviewLayer!
     var captureSession: AVCaptureSession!
@@ -40,7 +40,7 @@ class QRCodeScannerViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        headerLabel.attributedText = label?.highlight()
+        footerLabel.attributedText = label?.highlight()
         view.bringSubviewToFront(cameraFrameView)
     }
 

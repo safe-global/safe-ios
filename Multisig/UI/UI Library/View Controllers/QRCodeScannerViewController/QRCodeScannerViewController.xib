@@ -11,7 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QRCodeScannerViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="cameraFrameView" destination="mnN-Rm-O4v" id="Ts4-lR-fPs"/>
-                <outlet property="headerLabel" destination="0SR-B8-4pu" id="Lrr-Eq-gyQ"/>
+                <outlet property="footerLabel" destination="0SR-B8-4pu" id="Lrr-Eq-gyQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
