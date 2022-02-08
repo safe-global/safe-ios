@@ -66,10 +66,12 @@ class DesktopPairingViewController: UITableViewController {
     private func scan() {
         let vc = QRCodeScannerViewController(label: "Go to Gnosis Safe Web and select Connect wallet.")
         vc.scannedValueValidator = { value in
-            guard value.starts(with: "wc:") else {
+            guard value.starts(with: "safe-wc:") else {
                 return .failure(GSError.InvalidWalletConnectQRCode())
             }
-            return .success(value)
+            var url = value
+            url.removeFirst("safe-".count)
+            return .success(url)
         }
         vc.modalPresentationStyle = .overFullScreen
         vc.delegate = self
