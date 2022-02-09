@@ -448,6 +448,8 @@
 		0AE8C0A2257947CF00E62B34 /* DetailStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8C0A0257947CF00E62B34 /* DetailStatusCell.swift */; };
 		0AE8C0A3257947CF00E62B34 /* DetailStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE8C0A1257947CF00E62B34 /* DetailStatusCell.xib */; };
 		0AE8D32627B2AE5E00B59656 /* CDWCConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8D32527B2AE5E00B59656 /* CDWCConnection.swift */; };
+		0AE8D32E27B3FC4B00B59656 /* ActionPanelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE8D32D27B3FC4B00B59656 /* ActionPanelView.xib */; };
+		0AE8D33027B3FD0D00B59656 /* ActionPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8D32F27B3FD0D00B59656 /* ActionPanelView.swift */; };
 		0AEDCE0B2472946600A1EC80 /* BarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEDCE0A2472946600A1EC80 /* BarButton.swift */; };
 		0AEE149F2540233C00046EE7 /* UINibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEE149E2540233C00046EE7 /* UINibView.swift */; };
 		0AEEBC73258CDF9400F3A6F9 /* CollectibleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEEBC71258CDF9400F3A6F9 /* CollectibleDetailViewController.swift */; };
@@ -656,6 +658,8 @@
 		93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */; };
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
 		AD303414E96F6CD45E31FBE7 /* WhatsNewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3035EE31CD4171C56B475B /* WhatsNewHandler.swift */; };
+		B0D61365AA0F8C84BE5376CB /* WebConnectionRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D611CC822CFD9920550BC5 /* WebConnectionRequestViewController.swift */; };
+		B0D61E76F524DFB1ADC23E8A /* WebConnectionRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0D61B59F73247602A0BF05B /* WebConnectionRequestViewController.xib */; };
 		D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A022769CEAD00D6E024 /* Tooltip.swift */; };
 		D80B5A052769CF1B00D6E024 /* TooltipSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A042769CF1B00D6E024 /* TooltipSource.swift */; };
 		D80B5A072769D05D00D6E024 /* BaseCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A062769D05D00D6E024 /* BaseCustomView.swift */; };
@@ -1136,6 +1140,8 @@
 		0AE8C0A0257947CF00E62B34 /* DetailStatusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailStatusCell.swift; sourceTree = "<group>"; };
 		0AE8C0A1257947CF00E62B34 /* DetailStatusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailStatusCell.xib; sourceTree = "<group>"; };
 		0AE8D32527B2AE5E00B59656 /* CDWCConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDWCConnection.swift; sourceTree = "<group>"; };
+		0AE8D32D27B3FC4B00B59656 /* ActionPanelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionPanelView.xib; sourceTree = "<group>"; };
+		0AE8D32F27B3FD0D00B59656 /* ActionPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionPanelView.swift; sourceTree = "<group>"; };
 		0AEDCE0A2472946600A1EC80 /* BarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButton.swift; sourceTree = "<group>"; };
 		0AEE149E2540233C00046EE7 /* UINibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINibView.swift; sourceTree = "<group>"; };
 		0AEEBC71258CDF9400F3A6F9 /* CollectibleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleDetailViewController.swift; sourceTree = "<group>"; };
@@ -1358,6 +1364,8 @@
 		6ADEB01A2795AB410062ADFE /* InfoLabel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoLabel.xib; sourceTree = "<group>"; };
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
 		AD3035EE31CD4171C56B475B /* WhatsNewHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsNewHandler.swift; sourceTree = "<group>"; };
+		B0D611CC822CFD9920550BC5 /* WebConnectionRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionRequestViewController.swift; sourceTree = "<group>"; };
+		B0D61B59F73247602A0BF05B /* WebConnectionRequestViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebConnectionRequestViewController.xib; sourceTree = "<group>"; };
 		D80B5A022769CEAD00D6E024 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
 		D80B5A042769CF1B00D6E024 /* TooltipSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipSource.swift; sourceTree = "<group>"; };
 		D80B5A062769D05D00D6E024 /* BaseCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCustomView.swift; sourceTree = "<group>"; };
@@ -2889,6 +2897,10 @@
 				557D80C2270B33BA0036D6D0 /* DesktopPairingHeaderView.swift */,
 				557D80CB270B33BA0036D6D0 /* DesktopPairingHeaderView.xib */,
 				557D80CA270B33BA0036D6D0 /* DesktopPairingViewController.swift */,
+				B0D611CC822CFD9920550BC5 /* WebConnectionRequestViewController.swift */,
+				B0D61B59F73247602A0BF05B /* WebConnectionRequestViewController.xib */,
+				0AE8D32D27B3FC4B00B59656 /* ActionPanelView.xib */,
+				0AE8D32F27B3FD0D00B59656 /* ActionPanelView.swift */,
 			);
 			path = DesktopPairing;
 			sourceTree = "<group>";
@@ -3379,6 +3391,7 @@
 				0A9366B5278F1EAC001918A9 /* HyperlinkButtonView.xib in Resources */,
 				0A9E8E7825B9CA4200256AD3 /* BannerTableViewCell.xib in Resources */,
 				0AE5A9C7267A4BEB00468C90 /* CreatePasscodeBannerCell.xib in Resources */,
+				0AE8D32E27B3FC4B00B59656 /* ActionPanelView.xib in Resources */,
 				557D80B4270B32F80036D6D0 /* EditCell.xib in Resources */,
 				0A045075278DACBD00650F71 /* AmountAndValuePiece.xib in Resources */,
 				0AF1C8AB2541AE0600E28669 /* LoadingView.xib in Resources */,
@@ -3532,6 +3545,7 @@
 				0A93DD602445CC8B00688050 /* Assets.xcassets in Resources */,
 				5534F7382760C7670018E655 /* CreatePasscodeSuggestionViewController.xib in Resources */,
 				0A93DDAB244604A400688050 /* Averta-Regular.otf in Resources */,
+				B0D61E76F524DFB1ADC23E8A /* WebConnectionRequestViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3924,6 +3938,7 @@
 				D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				0A57C5AF2577F02100420303 /* ConfirmationCreatedPiece.swift in Sources */,
+				0AE8D33027B3FD0D00B59656 /* ActionPanelView.swift in Sources */,
 				047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */,
 				555DA311250A4C7C00C3A0BE /* KeychainKey.swift in Sources */,
 				04E4CD65277752A500B558F4 /* TokenAmountInfoView.swift in Sources */,
@@ -4009,6 +4024,7 @@
 				550FB19F26691CA300C13D54 /* DappsDataSource.swift in Sources */,
 				0A74EEFD268DF37100EB0EFB /* RibbonViewController.swift in Sources */,
 				AD303414E96F6CD45E31FBE7 /* WhatsNewHandler.swift in Sources */,
+				B0D61365AA0F8C84BE5376CB /* WebConnectionRequestViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
