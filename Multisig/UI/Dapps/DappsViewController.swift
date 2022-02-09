@@ -257,7 +257,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
 
 extension DappsViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ url: String) {
-        if (url.starts(with: "safe-")) {
+        if (url.starts(with: "safe-wc:")) {
             let vc = DesktopPairingViewController()
             show(vc, sender: self)
             dismiss(animated: true, completion: nil)
