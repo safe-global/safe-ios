@@ -47,12 +47,12 @@
                                         <constraint firstAttribute="height" id="QeB-8A-NWX"/>
                                     </constraints>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S0A-qS-bbj">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S0A-qS-bbj">
                                     <rect key="frame" x="20" y="239" width="347" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="cXW-Lc-son"/>
                                     </constraints>
-                                    <state key="normal" title="Scan QR Code"/>
+                                    <state key="normal" title="Scan QR Code" image="ico-qr-scanner"/>
                                     <connections>
                                         <action selector="scan:" destination="-2" eventType="touchUpInside" id="vqC-wq-qj7"/>
                                     </connections>
@@ -91,6 +91,7 @@
     </objects>
     <resources>
         <image name="connect-key" width="289" height="218"/>
+        <image name="ico-qr-scanner" width="16" height="16"/>
         <namedColor name="primaryBackground">
             <color red="0.96862745098039216" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
