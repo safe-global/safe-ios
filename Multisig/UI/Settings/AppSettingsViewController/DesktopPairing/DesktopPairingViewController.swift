@@ -9,7 +9,8 @@
 import UIKit
 import WalletConnectSwift
 
-class DesktopPairingViewController: UITableViewController {
+class DesktopPairingViewController: UITableViewController, ExternalURLSource {
+    @IBOutlet private var infoButton: UIBarButtonItem!
     private var sessions = [WCKeySession]()
     private let wcServerController = WalletConnectKeysServerController.shared
     private lazy var relativeDateFormatter: RelativeDateTimeFormatter = {
@@ -18,11 +19,14 @@ class DesktopPairingViewController: UITableViewController {
         formatter.unitsStyle = .full
         return formatter
     }()
+    var url: URL?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Desktop Pairing"
+        url = App.configuration.help.desktopPairingURL
+
+        title = "Connect to Web"
 
         wcServerController.delegate = self
 
@@ -31,6 +35,12 @@ class DesktopPairingViewController: UITableViewController {
         tableView.registerHeaderFooterView(DesktopPairingHeaderView.self)
         tableView.sectionHeaderHeight = UITableView.automaticDimension
 
+        infoButton = UIBarButtonItem(image: UIImage(named: "ico-info"),
+                style: UIBarButtonItem.Style.plain,
+                target: self,
+                action: #selector(openHelpUrl))
+        navigationItem.rightBarButtonItem = infoButton
+        
         subscribeToNotifications()
         update()
     }
@@ -49,6 +59,11 @@ class DesktopPairingViewController: UITableViewController {
          }
     }
 
+    @objc private func openHelpUrl() {
+        openExternalURL()
+        Tracker.trackEvent(.desktopPairingLearnMore)
+    }
+
     @objc private func update() {
         do {
             sessions = try WCKeySession.getAll().filter {
@@ -65,11 +80,22 @@ class DesktopPairingViewController: UITableViewController {
 
     private func scan() {
         let vc = QRCodeScannerViewController()
+
+        let string = "Go to Gnosis Safe Web and select Connect wallet." as NSString
+        let textStyle = GNOTextStyle.primary.color(.white)
+        let highlightStyle = textStyle.weight(.bold)
+        let label = NSMutableAttributedString(string: string as String, attributes: textStyle.attributes)
+        label.setAttributes(highlightStyle.attributes, range: string.range(of: "Gnosis Safe Web"))
+        label.setAttributes(highlightStyle.attributes, range: string.range(of: "Connect wallet"))
+        vc.attributedLabel = label
+
         vc.scannedValueValidator = { value in
-            guard value.starts(with: "wc:") else {
+            guard value.starts(with: "safe-wc:") else {
                 return .failure(GSError.InvalidWalletConnectQRCode())
             }
-            return .success(value)
+            var url = value
+            url.removeFirst("safe-".count)
+            return .success(url)
         }
         vc.modalPresentationStyle = .overFullScreen
         vc.delegate = self

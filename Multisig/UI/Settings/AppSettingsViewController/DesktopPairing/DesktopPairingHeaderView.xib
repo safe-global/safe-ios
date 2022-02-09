@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19158" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19141"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,57 +22,24 @@
                             <rect key="frame" x="16" y="0.0" width="387" height="289"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="256-zv-xIE">
-                                    <rect key="frame" x="88.5" y="0.0" width="210" height="173"/>
+                                    <rect key="frame" x="15.5" y="0.0" width="356.5" height="215"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="connect-key" translatesAutoresizingMaskIntoConstraints="NO" id="7Ma-Ra-CMV">
-                                            <rect key="frame" x="15" y="0.0" width="180" height="120"/>
+                                            <rect key="frame" x="88" y="0.0" width="180" height="120"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="120" id="AgC-1v-bMj"/>
                                                 <constraint firstAttribute="width" constant="180" id="SsG-b1-lRC"/>
                                             </constraints>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVe-kt-LT4">
-                                            <rect key="frame" x="0.0" y="120" width="210" height="53"/>
-                                            <string key="text">Connect your device to the 
-Gnosis Safe on desktop</string>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan the code on Gnosis Safe Web to connect your key and sign transactions." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVe-kt-LT4">
+                                            <rect key="frame" x="0.0" y="120" width="356.5" height="95"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </stackView>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eAu-WN-oWa">
-                                    <rect key="frame" x="125" y="185" width="137" height="30"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Learn more" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="96V-9t-P0A">
-                                            <rect key="frame" x="0.0" y="0.0" width="137" height="30"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ir3-Vr-Y3Y">
-                                            <rect key="frame" x="0.0" y="0.0" width="137" height="30"/>
-                                            <state key="normal" title="Button"/>
-                                            <buttonConfiguration key="configuration" style="plain"/>
-                                            <connections>
-                                                <action selector="onLearnMore:" destination="-2" eventType="touchUpInside" id="u4g-xw-qqE"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstItem="96V-9t-P0A" firstAttribute="top" secondItem="eAu-WN-oWa" secondAttribute="top" id="Fdv-Xh-s4U"/>
-                                        <constraint firstAttribute="height" constant="30" id="GV8-iG-Qxq"/>
-                                        <constraint firstAttribute="trailing" secondItem="Ir3-Vr-Y3Y" secondAttribute="trailing" id="M5l-XD-LWq"/>
-                                        <constraint firstAttribute="bottom" secondItem="96V-9t-P0A" secondAttribute="bottom" id="j8n-V9-urO"/>
-                                        <constraint firstAttribute="trailing" secondItem="96V-9t-P0A" secondAttribute="trailing" id="mr6-UG-VFb"/>
-                                        <constraint firstAttribute="bottom" secondItem="Ir3-Vr-Y3Y" secondAttribute="bottom" id="nMC-cD-Nhn"/>
-                                        <constraint firstItem="Ir3-Vr-Y3Y" firstAttribute="top" secondItem="eAu-WN-oWa" secondAttribute="top" id="nPx-4u-SfR"/>
-                                        <constraint firstItem="Ir3-Vr-Y3Y" firstAttribute="leading" secondItem="eAu-WN-oWa" secondAttribute="leading" id="sIG-rl-UvQ"/>
-                                        <constraint firstItem="96V-9t-P0A" firstAttribute="leading" secondItem="eAu-WN-oWa" secondAttribute="leading" id="spH-jy-Wxu"/>
-                                    </constraints>
-                                </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bck-OG-YU1" userLabel="Spacing">
                                     <rect key="frame" x="73.5" y="227" width="240" height="0.0"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -80,12 +47,13 @@ Gnosis Safe on desktop</string>
                                         <constraint firstAttribute="height" id="QeB-8A-NWX"/>
                                     </constraints>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S0A-qS-bbj">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S0A-qS-bbj">
                                     <rect key="frame" x="20" y="239" width="347" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="cXW-Lc-son"/>
                                     </constraints>
-                                    <state key="normal" title="Scan QR Code"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
+                                    <state key="normal" title="Scan Code" image="ico-qr-scanner"/>
                                     <connections>
                                         <action selector="scan:" destination="-2" eventType="touchUpInside" id="vqC-wq-qj7"/>
                                     </connections>
@@ -116,8 +84,6 @@ Gnosis Safe on desktop</string>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="learnMoreButton" destination="Ir3-Vr-Y3Y" id="Ryd-EB-UcK"/>
-                <outlet property="learnMoreLabel" destination="96V-9t-P0A" id="mYr-1t-PSm"/>
                 <outlet property="scanButton" destination="S0A-qS-bbj" id="rmE-Sj-JEi"/>
                 <outlet property="titleLabel" destination="TVe-kt-LT4" id="Xif-fR-OuU"/>
             </connections>
@@ -126,6 +92,7 @@ Gnosis Safe on desktop</string>
     </objects>
     <resources>
         <image name="connect-key" width="289" height="218"/>
+        <image name="ico-qr-scanner" width="16" height="16"/>
         <namedColor name="primaryBackground">
             <color red="0.96862745098039216" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
