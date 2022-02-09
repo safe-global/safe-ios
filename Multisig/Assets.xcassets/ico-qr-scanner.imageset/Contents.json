@@ -3,6 +3,16 @@
     {
       "filename" : "ico-qr-scanner.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-qr-scanner-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

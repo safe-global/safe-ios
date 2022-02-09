@@ -35,7 +35,7 @@ class DesktopPairingViewController: UITableViewController, ExternalURLSource {
         tableView.registerHeaderFooterView(DesktopPairingHeaderView.self)
         tableView.sectionHeaderHeight = UITableView.automaticDimension
 
-        infoButton = UIBarButtonItem(image: UIImage.init(named: "ico-info"),
+        infoButton = UIBarButtonItem(image: UIImage(named: "ico-info"),
                 style: UIBarButtonItem.Style.plain,
                 target: self,
                 action: #selector(openHelpUrl))
