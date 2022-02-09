@@ -38,10 +38,12 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBAction func scan(_ sender: Any) {
         let vc = QRCodeScannerViewController()
         vc.scannedValueValidator = { value in
-            guard value.starts(with: "wc:") else {
+            guard (value.starts(with: "wc:") || value.starts(with: "safe-wc:")) else {
                 return .failure(GSError.InvalidWalletConnectQRCode())
             }
-            return .success(value)
+            var url = value
+            url.removeFirst("safe-".count)
+            return .success(url)
         }
         vc.modalPresentationStyle = .overFullScreen
         vc.delegate = self
@@ -259,7 +261,7 @@ extension DappsViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
         do {
             try WalletConnectSafesServerController.shared.connect(url: code)
-            WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithScanButton            
+            WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithScanButton
             dismiss(animated: true, completion: nil)
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)
