@@ -21,7 +21,6 @@ class DesktopPairingHeaderView: UITableViewHeaderFooterView {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.setStyle(.title3)
-        scanButton.setText(" Scan Code", .filled)
-        scanButton.setImage(UIImage(named: "ico-qr-scanner"), for: .normal)
+        scanButton.setText("Scan Code", .filled)
     }
 }

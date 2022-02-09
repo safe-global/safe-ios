@@ -52,6 +52,7 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="cXW-Lc-son"/>
                                     </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
                                     <state key="normal" title="Scan QR Code" image="ico-qr-scanner"/>
                                     <connections>
                                         <action selector="scan:" destination="-2" eventType="touchUpInside" id="vqC-wq-qj7"/>
