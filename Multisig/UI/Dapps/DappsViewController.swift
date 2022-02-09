@@ -259,9 +259,12 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
 
 extension DappsViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
+        let wcServerController = WalletConnectKeysServerController.shared
+        wcServerController.delegate = self
+
         do {
-            try WalletConnectSafesServerController.shared.connect(url: code)
-            WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithScanButton
+            try wcServerController.connect(url: code)
+            //WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithScanButton
             dismiss(animated: true, completion: nil)
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)
@@ -270,5 +273,39 @@ extension DappsViewController: QRCodeScannerViewControllerDelegate {
 
     func scannerViewControllerDidCancel() {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension DappsViewController: WalletConnectKeysServerControllerDelegate {
+    func shouldStart(session: Session, completion: @escaping ([KeyInfo]) -> Void) {
+        guard let keys = try? KeyInfo.all(), !keys.isEmpty else {
+            DispatchQueue.main.async {
+                App.shared.snackbar.show(message: "Please import an owner key to pair with desktop")
+            }
+            completion([])
+            return
+        }
+        guard keys.filter({ $0.keyType != .walletConnect}).count != 0 else {
+            DispatchQueue.main.async {
+                App.shared.snackbar.show(message: "Connected via WalletConnect keys can not be paired with the desktop. Please import supported owner key types.")
+            }
+            completion([])
+            return
+        }
+
+        DispatchQueue.main.async { [unowned self] in
+            let vc = ConfirmConnectionViewController(dappInfo: session.dAppInfo.peerMeta)
+            vc.onConnect = { [unowned vc] keys in
+                vc.dismiss(animated: true) {
+                    completion(keys)
+                }
+            }
+            vc.onCancel = { [unowned vc] in
+                vc.dismiss(animated: true) {
+                    completion([])
+                }
+            }
+            self.present(UINavigationController(rootViewController: vc), animated: true)
+        }
     }
 }
