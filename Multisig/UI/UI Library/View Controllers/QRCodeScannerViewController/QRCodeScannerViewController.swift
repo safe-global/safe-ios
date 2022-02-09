@@ -21,6 +21,7 @@ class QRCodeScannerViewController: UIViewController {
     var captureSession: AVCaptureSession!
     var delegate: QRCodeScannerViewControllerDelegate?
     var label: String?
+    var attributedLabel: NSAttributedString?
     var scannedValueValidator: ((String) -> Result<String, Error>)?
     var trackingParameters: [String: Any]?
 
@@ -34,13 +35,14 @@ class QRCodeScannerViewController: UIViewController {
         static let ok = NSLocalizedString("ok", comment: "")
     }
 
-    convenience init(label: String) {
-        self.init()
-        self.label = label
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        footerLabel.text = label
+        if let attributedLabel = attributedLabel {
+            footerLabel.attributedText = attributedLabel
+        } else {
+            footerLabel.text = label
+            footerLabel.setStyle(.primary.color(.white))
+        }
         view.bringSubviewToFront(cameraFrameView)
     }
 

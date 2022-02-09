@@ -79,7 +79,16 @@ class DesktopPairingViewController: UITableViewController, ExternalURLSource {
     }
 
     private func scan() {
-        let vc = QRCodeScannerViewController(label: "Go to Gnosis Safe Web and select Connect wallet.")
+        let vc = QRCodeScannerViewController()
+
+        let string = "Go to Gnosis Safe Web and select Connect wallet." as NSString
+        let textStyle = GNOTextStyle.primary.color(.white)
+        let highlightStyle = textStyle.weight(.bold)
+        let label = NSMutableAttributedString(string: string as String, attributes: textStyle.attributes)
+        label.setAttributes(highlightStyle.attributes, range: string.range(of: "Gnosis Safe Web"))
+        label.setAttributes(highlightStyle.attributes, range: string.range(of: "Connect wallet"))
+        vc.attributedLabel = label
+
         vc.scannedValueValidator = { value in
             guard value.starts(with: "safe-wc:") else {
                 return .failure(GSError.InvalidWalletConnectQRCode())
