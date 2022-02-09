@@ -17,6 +17,13 @@ class WebConnectionRequestViewController: ContainerViewController {
     var chooseOwnerKeyVC: ChooseOwnerKeyViewController!
     var addFirstKeyVC: AddOwnerFirstViewController!
 
+    let connectionURL: WebConnectionURL
+
+    init(url: WebConnectionURL) {
+        connectionURL = url
+        self.init(nibName: nil, bundle: nil)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
