@@ -6,7 +6,7 @@
 import Foundation
 import WalletConnectSwift
 
-struct WebConnectionURL {
+struct WebConnectionURL: Hashable {
     var wcURL: WCURL
 
     var handshakeChannelId: String {

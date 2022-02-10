@@ -17,42 +17,53 @@ class WebConnectionRequestViewController: ContainerViewController {
     var chooseOwnerKeyVC: ChooseOwnerKeyViewController!
     var addFirstKeyVC: AddOwnerFirstViewController!
 
-    let connectionURL: WebConnectionURL
-
-    init(url: WebConnectionURL) {
-        connectionURL = url
-        self.init(nibName: nil, bundle: nil)
-    }
+    // set from outside
+    var connectionController: WebConnectionController!
+    var connection: WebConnection!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "Connection requested"
 
-        // ui wip
-        let chain = Chain.mainnetChain()
-        ribbonView.update(chain: chain)
+//        ribbonView.update(chain: controller.chain(for: connectionURL))
 
-        // if we have owners to select from, show selector
-        // otherwise show the 'add first key'
-            // after adding, show the selector with the added key.
-
-        chooseOwnerKeyVC = ChooseOwnerKeyViewController(
-            owners: [],
-            chainID: nil,
-            descriptionText: "Gnosis Safe requests to connect to your key",
-            requestsPasscode: false,
-            selectedKey: nil,
-            balancesLoader: nil,
-            completionHandler: nil
-        )
-        addFirstKeyVC = AddOwnerFirstViewController()
-        viewControllers = [chooseOwnerKeyVC, addFirstKeyVC]
-
-        displayChild(at: 0, in: contentView)
+        let keys = connectionController.accountKeys()
+        if keys.isEmpty {
+            showAddFirstKey()
+        } else {
+            showKeyPicker()
+        }
 
         closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
         navigationItem.leftBarButtonItem = closeButton
+    }
+
+    func showAddFirstKey() {
+        addFirstKeyVC = AddOwnerFirstViewController()
+        viewControllers = [addFirstKeyVC]
+        displayChild(at: 0, in: contentView)
+
+        addFirstKeyVC.onSuccess = { [weak self] in
+            guard let self = self else { return }
+            self.navigationController?.popToRootViewController(animated: true)
+            self.showKeyPicker()
+        }
+    }
+
+    func showKeyPicker() {
+        chooseOwnerKeyVC = ChooseOwnerKeyViewController(
+                owners: [], // keys,
+                chainID: nil,
+                descriptionText: "Gnosis Safe requests to connect to your key",
+                requestsPasscode: false,
+                selectedKey: nil,
+                balancesLoader: nil
+        )  { selectedKey in
+
+        }
+        viewControllers = [chooseOwnerKeyVC]
+        displayChild(at: 0, in: contentView)
     }
 
     @objc func didTapCloseButton() {

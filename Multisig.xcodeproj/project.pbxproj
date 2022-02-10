@@ -447,7 +447,6 @@
 		0AE8C08F25793B9400E62B34 /* DetailArrowPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8C08E25793B9400E62B34 /* DetailArrowPiece.swift */; };
 		0AE8C0A2257947CF00E62B34 /* DetailStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8C0A0257947CF00E62B34 /* DetailStatusCell.swift */; };
 		0AE8C0A3257947CF00E62B34 /* DetailStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE8C0A1257947CF00E62B34 /* DetailStatusCell.xib */; };
-		0AE8D32627B2AE5E00B59656 /* CDWCConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8D32527B2AE5E00B59656 /* CDWCConnection.swift */; };
 		0AE8D32E27B3FC4B00B59656 /* ActionPanelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE8D32D27B3FC4B00B59656 /* ActionPanelView.xib */; };
 		0AE8D33027B3FD0D00B59656 /* ActionPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8D32F27B3FD0D00B59656 /* ActionPanelView.swift */; };
 		0AEDCE0B2472946600A1EC80 /* BarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEDCE0A2472946600A1EC80 /* BarButton.swift */; };
@@ -658,9 +657,14 @@
 		93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */; };
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
 		AD303414E96F6CD45E31FBE7 /* WhatsNewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3035EE31CD4171C56B475B /* WhatsNewHandler.swift */; };
+		B0D6124C9C9BD23CEA564FB0 /* WebConnectionPeerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61BC2743996AF20F6A763 /* WebConnectionPeerInfo.swift */; };
 		B0D61365AA0F8C84BE5376CB /* WebConnectionRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D611CC822CFD9920550BC5 /* WebConnectionRequestViewController.swift */; };
-		B0D61697E2F061823BA17E50 /* WebConnectionURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6136F961CEB75AC409927 /* WebConnectionURL.swift */; };
+		B0D613D923ACCC84D02EB44A /* CDWCConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61F6B156CDDE9405FB039 /* CDWCConnection.swift */; };
+		B0D61653865644E64433E6C8 /* WebConnectionURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D613DD6D2577287DCF2172 /* WebConnectionURL.swift */; };
+		B0D6168498756276AA4E411F /* WebConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D617BA99B9952C69306087 /* WebConnectionController.swift */; };
+		B0D6197966475BFBB856B0F2 /* WebConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D612B0DFB4A9FAD81CEC3B /* WebConnection.swift */; };
 		B0D61E76F524DFB1ADC23E8A /* WebConnectionRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0D61B59F73247602A0BF05B /* WebConnectionRequestViewController.xib */; };
+		B0D61E7DDDCE664A30713EF0 /* GnosisSafeWebPeerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6159561800C1BA8A0C094 /* GnosisSafeWebPeerInfo.swift */; };
 		D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A022769CEAD00D6E024 /* Tooltip.swift */; };
 		D80B5A052769CF1B00D6E024 /* TooltipSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A042769CF1B00D6E024 /* TooltipSource.swift */; };
 		D80B5A072769D05D00D6E024 /* BaseCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A062769D05D00D6E024 /* BaseCustomView.swift */; };
@@ -1140,7 +1144,6 @@
 		0AE8C08E25793B9400E62B34 /* DetailArrowPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailArrowPiece.swift; sourceTree = "<group>"; };
 		0AE8C0A0257947CF00E62B34 /* DetailStatusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailStatusCell.swift; sourceTree = "<group>"; };
 		0AE8C0A1257947CF00E62B34 /* DetailStatusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailStatusCell.xib; sourceTree = "<group>"; };
-		0AE8D32527B2AE5E00B59656 /* CDWCConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDWCConnection.swift; sourceTree = "<group>"; };
 		0AE8D32D27B3FC4B00B59656 /* ActionPanelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionPanelView.xib; sourceTree = "<group>"; };
 		0AE8D32F27B3FD0D00B59656 /* ActionPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionPanelView.swift; sourceTree = "<group>"; };
 		0AEDCE0A2472946600A1EC80 /* BarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButton.swift; sourceTree = "<group>"; };
@@ -1366,8 +1369,13 @@
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
 		AD3035EE31CD4171C56B475B /* WhatsNewHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsNewHandler.swift; sourceTree = "<group>"; };
 		B0D611CC822CFD9920550BC5 /* WebConnectionRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionRequestViewController.swift; sourceTree = "<group>"; };
-		B0D6136F961CEB75AC409927 /* WebConnectionURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionURL.swift; sourceTree = "<group>"; };
+		B0D612B0DFB4A9FAD81CEC3B /* WebConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnection.swift; sourceTree = "<group>"; };
+		B0D613DD6D2577287DCF2172 /* WebConnectionURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionURL.swift; sourceTree = "<group>"; };
+		B0D6159561800C1BA8A0C094 /* GnosisSafeWebPeerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GnosisSafeWebPeerInfo.swift; sourceTree = "<group>"; };
+		B0D617BA99B9952C69306087 /* WebConnectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionController.swift; sourceTree = "<group>"; };
 		B0D61B59F73247602A0BF05B /* WebConnectionRequestViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebConnectionRequestViewController.xib; sourceTree = "<group>"; };
+		B0D61BC2743996AF20F6A763 /* WebConnectionPeerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionPeerInfo.swift; sourceTree = "<group>"; };
+		B0D61F6B156CDDE9405FB039 /* CDWCConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDWCConnection.swift; sourceTree = "<group>"; };
 		D80B5A022769CEAD00D6E024 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
 		D80B5A042769CF1B00D6E024 /* TooltipSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipSource.swift; sourceTree = "<group>"; };
 		D80B5A062769D05D00D6E024 /* BaseCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCustomView.swift; sourceTree = "<group>"; };
@@ -2611,8 +2619,7 @@
 				550FB1AB26691D6700C13D54 /* WCSession.swift */,
 				04CE3F9724B611FC00826AEE /* Collectible */,
 				55A585352501417E005E778B /* PrivateKey */,
-				0AE8D32527B2AE5E00B59656 /* CDWCConnection.swift */,
-				B0D6136F961CEB75AC409927 /* WebConnectionURL.swift */,
+				B0D611D30BEF2ABDD3C7200D /* WebConnection */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2825,6 +2832,7 @@
 			isa = PBXGroup;
 			children = (
 				55CA3EB7250A23280080DF7F /* Secure Store */,
+				B0D618370FDC49237B932135 /* CoreData */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -3133,6 +3141,26 @@
 				04273E5B26B41A3700A14E95 /* APDUController.swift */,
 			);
 			path = Ledger;
+			sourceTree = "<group>";
+		};
+		B0D611D30BEF2ABDD3C7200D /* WebConnection */ = {
+			isa = PBXGroup;
+			children = (
+				B0D613DD6D2577287DCF2172 /* WebConnectionURL.swift */,
+				B0D612B0DFB4A9FAD81CEC3B /* WebConnection.swift */,
+				B0D61BC2743996AF20F6A763 /* WebConnectionPeerInfo.swift */,
+				B0D6159561800C1BA8A0C094 /* GnosisSafeWebPeerInfo.swift */,
+				B0D617BA99B9952C69306087 /* WebConnectionController.swift */,
+			);
+			path = WebConnection;
+			sourceTree = "<group>";
+		};
+		B0D618370FDC49237B932135 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				B0D61F6B156CDDE9405FB039 /* CDWCConnection.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		D80B5A012769CE8800D6E024 /* Tooltip */ = {
@@ -3964,7 +3992,6 @@
 				0A04506F278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift in Sources */,
 				0A478D1B25B860240038363E /* KeyPickerController.swift in Sources */,
 				0AF2737724DD48AD007E4012 /* NotificationPayload.swift in Sources */,
-				0AE8D32627B2AE5E00B59656 /* CDWCConnection.swift in Sources */,
 				55B6465B253050200050BD95 /* SignatureString.swift in Sources */,
 				0468EE9D26148A3B008270BF /* PrivacyProtectionScreenViewController.swift in Sources */,
 				55A5853D2501479C005E778B /* BIP39.swift in Sources */,
@@ -4028,7 +4055,12 @@
 				0A74EEFD268DF37100EB0EFB /* RibbonViewController.swift in Sources */,
 				AD303414E96F6CD45E31FBE7 /* WhatsNewHandler.swift in Sources */,
 				B0D61365AA0F8C84BE5376CB /* WebConnectionRequestViewController.swift in Sources */,
-				B0D61697E2F061823BA17E50 /* WebConnectionURL.swift in Sources */,
+				B0D61653865644E64433E6C8 /* WebConnectionURL.swift in Sources */,
+				B0D613D923ACCC84D02EB44A /* CDWCConnection.swift in Sources */,
+				B0D6197966475BFBB856B0F2 /* WebConnection.swift in Sources */,
+				B0D6124C9C9BD23CEA564FB0 /* WebConnectionPeerInfo.swift in Sources */,
+				B0D61E7DDDCE664A30713EF0 /* GnosisSafeWebPeerInfo.swift in Sources */,
+				B0D6168498756276AA4E411F /* WebConnectionController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
