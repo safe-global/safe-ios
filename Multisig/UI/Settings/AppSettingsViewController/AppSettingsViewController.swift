@@ -94,7 +94,8 @@ class AppSettingsViewController: UITableViewController {
                 Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),
                 Section.App.chainPrefix("Chain prefix"),
                 Section.App.appearance("Appearance"),
-                Section.App.experimental("Experimental")
+                // we do not have experimental features at the moment
+                //Section.App.experimental("Experimental")
             ]),
             (section: .support("Support & Feedback"), items: [
                 Section.Support.chatWithUs("Chat with us"),
