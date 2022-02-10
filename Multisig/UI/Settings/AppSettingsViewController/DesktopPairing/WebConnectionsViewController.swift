@@ -37,7 +37,10 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
         //tableView.registerCell(DetailedCell.self)
         tableView.registerCell(WebConnectionTableViewCell.self)
         tableView.registerHeaderFooterView(DesktopPairingHeaderView.self)
-        //tableView.sectionHeaderHeight = UITableView.automaticDimension
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 98
 
         infoButton = UIBarButtonItem(image: UIImage(named: "ico-info-toolbar"),
                 style: UIBarButtonItem.Style.plain,

@@ -10,13 +10,14 @@ import UIKit
 
 class WebConnectionOwnerView: UINibView {
 
+    @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var keyIdenticon: IdenticonView!
     @IBOutlet weak var keyLabel: UILabel!
     
     override func commonInit() {
         super.commonInit()
-        clipsToBounds = true
-        layer.cornerRadius = 4
+        backgroundView.layer.cornerRadius = 4
+        backgroundView.clipsToBounds = true
         keyLabel.setStyle(.footnote3)
     }
     
