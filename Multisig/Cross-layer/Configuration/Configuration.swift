@@ -125,6 +125,7 @@ struct AppConfiguration {
         var bridgeURL: URL
     }
 
+    //TODO: remove featue toggles for desktop pairing
     struct FeatureToggles {
         @UserDefault(key: "io.gnosis.multisig.experimental.desktopPairing")
         private var desktopPairingEnabledSetting: Bool?
