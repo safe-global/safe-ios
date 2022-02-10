@@ -9,8 +9,10 @@
 import UIKit
 import WalletConnectSwift
 
-class DesktopPairingViewController: UITableViewController, ExternalURLSource {
+class WebConnectionsViewController: UITableViewController, ExternalURLSource {
+    
     @IBOutlet private var infoButton: UIBarButtonItem!
+
     private var sessions = [WCKeySession]()
     private let wcServerController = WalletConnectKeysServerController.shared
     private lazy var relativeDateFormatter: RelativeDateTimeFormatter = {
@@ -35,7 +37,7 @@ class DesktopPairingViewController: UITableViewController, ExternalURLSource {
         tableView.registerHeaderFooterView(DesktopPairingHeaderView.self)
         tableView.sectionHeaderHeight = UITableView.automaticDimension
 
-        infoButton = UIBarButtonItem(image: UIImage(named: "ico-info"),
+        infoButton = UIBarButtonItem(image: UIImage(named: "ico-info-toolbar"),
                 style: UIBarButtonItem.Style.plain,
                 target: self,
                 action: #selector(openHelpUrl))
@@ -158,7 +160,7 @@ class DesktopPairingViewController: UITableViewController, ExternalURLSource {
     }
 }
 
-extension DesktopPairingViewController: QRCodeScannerViewControllerDelegate {
+extension WebConnectionsViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
         do {
             try wcServerController.connect(url: code)
@@ -173,7 +175,7 @@ extension DesktopPairingViewController: QRCodeScannerViewControllerDelegate {
     }
 }
 
-extension DesktopPairingViewController: WalletConnectKeysServerControllerDelegate {
+extension WebConnectionsViewController: WalletConnectKeysServerControllerDelegate {
     func shouldStart(session: Session, completion: @escaping ([KeyInfo]) -> Void) {
         guard let keys = try? KeyInfo.all(), !keys.isEmpty else {
             DispatchQueue.main.async {

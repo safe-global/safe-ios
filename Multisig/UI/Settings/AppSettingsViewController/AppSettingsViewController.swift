@@ -85,11 +85,9 @@ class AppSettingsViewController: UITableViewController {
 
     private func buildSections() {
         sections = []
-        if App.configuration.toggles.desktopPairingEnabled {
-            sections.append((section: .app, items: [Section.App.desktopPairing("Pair your Desktop")]))
-        }
         sections += [
             (section: .app, items: [
+                Section.App.desktopPairing("Connect to Web"),
                 Section.App.ownerKeys("Owner keys", "\(KeyInfo.count())"),
                 Section.App.addressBook("Address Book"),
                 Section.App.passcode("Passcode"),
@@ -138,7 +136,7 @@ class AppSettingsViewController: UITableViewController {
     }
 
     private func showDesktopPairing() {
-        let vc = DesktopPairingViewController()
+        let vc = WebConnectionsViewController()
         show(vc, sender: self)
     }
 
