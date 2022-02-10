@@ -26,12 +26,12 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bpc-nf-Jd6">
-                    <rect key="frame" x="338" y="786" width="60" height="60"/>
+                    <rect key="frame" x="329" y="778" width="80" height="80"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="9fc-eC-rB9"/>
                         <constraint firstAttribute="width" constant="60" id="I3y-c4-w9x"/>
                     </constraints>
-                    <state key="normal" image="scan-button"/>
+                    <state key="normal" backgroundImage="scan-button"/>
                     <connections>
                         <action selector="scan:" destination="-1" eventType="touchUpInside" id="UYs-Jr-nJ3"/>
                     </connections>
