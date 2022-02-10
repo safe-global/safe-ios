@@ -654,6 +654,8 @@
 		6ADEB01C2795AB410062ADFE /* InfoLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB01A2795AB410062ADFE /* InfoLabel.xib */; };
 		6ADEB02327B3FAE30062ADFE /* WebConnectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB02127B3FAE30062ADFE /* WebConnectionTableViewCell.swift */; };
 		6ADEB02427B3FAE30062ADFE /* WebConnectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB02227B3FAE30062ADFE /* WebConnectionTableViewCell.xib */; };
+		6ADEB02727B559370062ADFE /* WebConnectionOwnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */; };
+		6ADEB02827B559370062ADFE /* WebConnectionOwnerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */; };
 		93D9013E27727E2500624B29 /* WhatsNewKit in Frameworks */ = {isa = PBXBuildFile; productRef = 93D9013D27727E2500624B29 /* WhatsNewKit */; };
 		93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */; };
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
@@ -1360,6 +1362,8 @@
 		6ADEB01A2795AB410062ADFE /* InfoLabel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoLabel.xib; sourceTree = "<group>"; };
 		6ADEB02127B3FAE30062ADFE /* WebConnectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnectionTableViewCell.swift; sourceTree = "<group>"; };
 		6ADEB02227B3FAE30062ADFE /* WebConnectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebConnectionTableViewCell.xib; sourceTree = "<group>"; };
+		6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnectionOwnerView.swift; sourceTree = "<group>"; };
+		6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebConnectionOwnerView.xib; sourceTree = "<group>"; };
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
 		AD3035EE31CD4171C56B475B /* WhatsNewHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsNewHandler.swift; sourceTree = "<group>"; };
 		D80B5A022769CEAD00D6E024 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
@@ -2975,6 +2979,8 @@
 				04077B3E278CB85F00AF6376 /* ActivityButtonView.xib */,
 				6ADEB0192795AB410062ADFE /* InfoLabel.swift */,
 				6ADEB01A2795AB410062ADFE /* InfoLabel.xib */,
+				6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */,
+				6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3514,6 +3520,7 @@
 				0AE5A9CB267A4C2800468C90 /* BannerView.xib in Resources */,
 				550FB1A026691CA300C13D54 /* DappsViewController.xib in Resources */,
 				0AE8C08925793B8C00E62B34 /* DetailArrowPiece.xib in Resources */,
+				6ADEB02827B559370062ADFE /* WebConnectionOwnerView.xib in Resources */,
 				0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */,
 				557D80CE270B33BA0036D6D0 /* ConfirmConnectionViewController.xib in Resources */,
 				0A22E12825E4FA3200D24DE1 /* SwitchTableViewCell.xib in Resources */,
@@ -3827,6 +3834,7 @@
 				93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */,
 				04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */,
 				557D80B8270B32F80036D6D0 /* WCIncomingKeyRequestViewController.swift in Sources */,
+				6ADEB02727B559370062ADFE /* WebConnectionOwnerView.swift in Sources */,
 				551DDEE9244F183500C719D3 /* Selection.swift in Sources */,
 				04FC26B625CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift in Sources */,
 				0AF1C91F2541DB3F00E28669 /* BalanceTableViewCell.swift in Sources */,

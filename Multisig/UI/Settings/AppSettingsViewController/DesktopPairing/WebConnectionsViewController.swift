@@ -33,9 +33,11 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
         wcServerController.delegate = self
 
         tableView.backgroundColor = .primaryBackground
-        tableView.registerCell(DetailedCell.self)
+        //TODO: remove
+        //tableView.registerCell(DetailedCell.self)
+        tableView.registerCell(WebConnectionTableViewCell.self)
         tableView.registerHeaderFooterView(DesktopPairingHeaderView.self)
-        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        //tableView.sectionHeaderHeight = UITableView.automaticDimension
 
         infoButton = UIBarButtonItem(image: UIImage(named: "ico-info-toolbar"),
                 style: UIBarButtonItem.Style.plain,
@@ -108,35 +110,44 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        sessions.count
+        1//sessions.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let session = sessions[indexPath.row]
+        //let session = sessions[indexPath.row]
 
-        switch session.status {
-        case .connecting:
-            return tableView.detailedCell(
-                imageUrl: nil,
-                header: "Connecting...",
-                description: nil,
-                indexPath: indexPath,
-                canSelect: false,
-                placeholderImage: UIImage(named: "ico-empty-circle"))
+        return tableView.webConnectionCell(
+            imageUrl: nil,
+            header: "Connecting...",
+            description: nil,
+            indexPath: indexPath,
+            canSelect: false,
+            placeholderImage: UIImage(named: "ico-empty-circle"))
 
-        case .connected:
-            let relativeTime = relativeDateFormatter.localizedString(for: session.created!, relativeTo: Date())
-            let session = try! Session.from(session)
-            let dappIcon = session.dAppInfo.peerMeta.icons.isEmpty ? nil : session.dAppInfo.peerMeta.icons[0]
-
-            return tableView.detailedCell(
-                imageUrl: dappIcon,
-                header: session.dAppInfo.peerMeta.name,
-                description: relativeTime,
-                indexPath: indexPath,
-                canSelect: false,
-                placeholderImage: UIImage(named: "ico-empty-circle"))
-        }
+//
+//        switch session.status {
+//        case .connecting:
+//            return tableView.detailedCell(
+//                imageUrl: nil,
+//                header: "Connecting...",
+//                description: nil,
+//                indexPath: indexPath,
+//                canSelect: false,
+//                placeholderImage: UIImage(named: "ico-empty-circle"))
+//
+//        case .connected:
+//            let relativeTime = relativeDateFormatter.localizedString(for: session.created!, relativeTo: Date())
+//            let session = try! Session.from(session)
+//            let dappIcon = session.dAppInfo.peerMeta.icons.isEmpty ? nil : session.dAppInfo.peerMeta.icons[0]
+//
+//            return tableView.detailedCell(
+//                imageUrl: dappIcon,
+//                header: session.dAppInfo.peerMeta.name,
+//                description: relativeTime,
+//                indexPath: indexPath,
+//                canSelect: false,
+//                placeholderImage: UIImage(named: "ico-empty-circle"))
+//        }
     }
 
     // MARK: - Table view delegate
