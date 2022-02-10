@@ -582,7 +582,7 @@
 		557D80D0270B33BA0036D6D0 /* PairingOwnerKeyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557D80C7270B33BA0036D6D0 /* PairingOwnerKeyCell.xib */; };
 		557D80D1270B33BA0036D6D0 /* ConfirmConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557D80C8270B33BA0036D6D0 /* ConfirmConnectionViewController.swift */; };
 		557D80D2270B33BA0036D6D0 /* ConfirmConnectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557D80C9270B33BA0036D6D0 /* ConfirmConnectionHeaderView.swift */; };
-		557D80D3270B33BA0036D6D0 /* DesktopPairingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557D80CA270B33BA0036D6D0 /* DesktopPairingViewController.swift */; };
+		557D80D3270B33BA0036D6D0 /* WebConnectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557D80CA270B33BA0036D6D0 /* WebConnectionsViewController.swift */; };
 		557D80D4270B33BA0036D6D0 /* DesktopPairingHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557D80CB270B33BA0036D6D0 /* DesktopPairingHeaderView.xib */; };
 		5580BF1B276B213000CA288F /* dapps-avalanche.json in Resources */ = {isa = PBXBuildFile; fileRef = 5580BF1A276B213000CA288F /* dapps-avalanche.json */; };
 		558835E0255A907B0014E8C7 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */; };
@@ -652,6 +652,8 @@
 		55FBC2D526BA91E4002C2553 /* SelectLedgerDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */; };
 		6ADEB01B2795AB410062ADFE /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB0192795AB410062ADFE /* InfoLabel.swift */; };
 		6ADEB01C2795AB410062ADFE /* InfoLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB01A2795AB410062ADFE /* InfoLabel.xib */; };
+		6ADEB02327B3FAE30062ADFE /* WebConnectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB02127B3FAE30062ADFE /* WebConnectionTableViewCell.swift */; };
+		6ADEB02427B3FAE30062ADFE /* WebConnectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB02227B3FAE30062ADFE /* WebConnectionTableViewCell.xib */; };
 		93D9013E27727E2500624B29 /* WhatsNewKit in Frameworks */ = {isa = PBXBuildFile; productRef = 93D9013D27727E2500624B29 /* WhatsNewKit */; };
 		93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */; };
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
@@ -1282,7 +1284,7 @@
 		557D80C7270B33BA0036D6D0 /* PairingOwnerKeyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PairingOwnerKeyCell.xib; sourceTree = "<group>"; };
 		557D80C8270B33BA0036D6D0 /* ConfirmConnectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmConnectionViewController.swift; sourceTree = "<group>"; };
 		557D80C9270B33BA0036D6D0 /* ConfirmConnectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmConnectionHeaderView.swift; sourceTree = "<group>"; };
-		557D80CA270B33BA0036D6D0 /* DesktopPairingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesktopPairingViewController.swift; sourceTree = "<group>"; };
+		557D80CA270B33BA0036D6D0 /* WebConnectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionsViewController.swift; sourceTree = "<group>"; };
 		557D80CB270B33BA0036D6D0 /* DesktopPairingHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DesktopPairingHeaderView.xib; sourceTree = "<group>"; };
 		5580BF1A276B213000CA288F /* dapps-avalanche.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dapps-avalanche.json"; sourceTree = "<group>"; };
 		558835DF255A907B0014E8C7 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
@@ -1356,6 +1358,8 @@
 		55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLedgerDeviceViewController.swift; sourceTree = "<group>"; };
 		6ADEB0192795AB410062ADFE /* InfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
 		6ADEB01A2795AB410062ADFE /* InfoLabel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoLabel.xib; sourceTree = "<group>"; };
+		6ADEB02127B3FAE30062ADFE /* WebConnectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnectionTableViewCell.swift; sourceTree = "<group>"; };
+		6ADEB02227B3FAE30062ADFE /* WebConnectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebConnectionTableViewCell.xib; sourceTree = "<group>"; };
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
 		AD3035EE31CD4171C56B475B /* WhatsNewHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsNewHandler.swift; sourceTree = "<group>"; };
 		D80B5A022769CEAD00D6E024 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
@@ -2888,7 +2892,9 @@
 				557D80C3270B33BA0036D6D0 /* ConfirmConnection */,
 				557D80C2270B33BA0036D6D0 /* DesktopPairingHeaderView.swift */,
 				557D80CB270B33BA0036D6D0 /* DesktopPairingHeaderView.xib */,
-				557D80CA270B33BA0036D6D0 /* DesktopPairingViewController.swift */,
+				557D80CA270B33BA0036D6D0 /* WebConnectionsViewController.swift */,
+				6ADEB02127B3FAE30062ADFE /* WebConnectionTableViewCell.swift */,
+				6ADEB02227B3FAE30062ADFE /* WebConnectionTableViewCell.xib */,
 			);
 			path = DesktopPairing;
 			sourceTree = "<group>";
@@ -3435,6 +3441,7 @@
 				0A9366AD278F0175001918A9 /* ContainerTableViewCell.xib in Resources */,
 				0A74EEFE268DF37100EB0EFB /* RibbonViewController.xib in Resources */,
 				0AC60C572549AF3900A63AE2 /* NoSafeBarView.xib in Resources */,
+				6ADEB02427B3FAE30062ADFE /* WebConnectionTableViewCell.xib in Resources */,
 				5562DD722693425E00B56722 /* NetworkIndicatorHeaderView.xib in Resources */,
 				0A8AEB2125A4764F002A3FE1 /* ActionDetailAddressCell.xib in Resources */,
 				0468FB9525912E8300541536 /* TransactionListHeaderTableViewCell.xib in Resources */,
@@ -3633,7 +3640,7 @@
 				0A86EE6325CC2B350059876E /* LoadingFooterView.swift in Sources */,
 				0438C9212760120D009A0E31 /* DeleteDelegateKeyRequest.swift in Sources */,
 				0AE5A9C6267A4BEB00468C90 /* CreatePasscodeBannerCell.swift in Sources */,
-				557D80D3270B33BA0036D6D0 /* DesktopPairingViewController.swift in Sources */,
+				557D80D3270B33BA0036D6D0 /* WebConnectionsViewController.swift in Sources */,
 				0A2F1A7B267A5E9E00C09F03 /* GSImageView.swift in Sources */,
 				04248BD9272DF18C00431397 /* NamingPolicy.swift in Sources */,
 				04B964412734427D00A21EE9 /* ChainSettingsTableViewController.swift in Sources */,
@@ -3926,6 +3933,7 @@
 				0A57C5AF2577F02100420303 /* ConfirmationCreatedPiece.swift in Sources */,
 				047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */,
 				555DA311250A4C7C00C3A0BE /* KeychainKey.swift in Sources */,
+				6ADEB02327B3FAE30062ADFE /* WebConnectionTableViewCell.swift in Sources */,
 				04E4CD65277752A500B558F4 /* TokenAmountInfoView.swift in Sources */,
 				0ADD19C5265EA23200EB0F2B /* SeedWordCollectionViewCell.swift in Sources */,
 				D865178127687E0B000B4C04 /* TransactionSuccessViewController.swift in Sources */,
