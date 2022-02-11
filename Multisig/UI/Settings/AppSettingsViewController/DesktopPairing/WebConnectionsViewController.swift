@@ -12,6 +12,8 @@ import WalletConnectSwift
 class WebConnectionsViewController: UITableViewController, ExternalURLSource {
     
     @IBOutlet private var infoButton: UIBarButtonItem!
+    
+    private weak var timer: Timer?
 
     private var connections = [CDWCConnection]()
     private let wcServerController = WalletConnectKeysServerController.shared
@@ -47,7 +49,10 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
         navigationItem.rightBarButtonItem = infoButton
         
         subscribeToNotifications()
+        
         update()
+        
+        startTimer()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -76,6 +81,10 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
         DispatchQueue.main.async { [unowned self] in
             self.tableView.reloadData()
         }
+    }
+    
+    @objc func updateConnectionsTimeInfo() {
+        tableView.reloadData()
     }
 
     private func scan() {
@@ -110,13 +119,13 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let connection = connections[indexPath.row]
+        let connection = connections[indexPath.row]
 
         return tableView.webConnectionCell(
             imageName: nil,//connection.remote_icons,
             header: "Gnosis Safe",//connection.remote_name,
             connectionInfo: "gnosis-safe.io",
-            connectionTimeInfo: nil,
+            connectionTimeInfo: nil,//connection.createdDate?.timeAgo(),
             keyName: "my key",
             keyAddress: Address("0xbabF0d060AcF8A28dec066A16126F2566bAbdA81"),
             indexPath: indexPath,
@@ -168,6 +177,18 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
                 //WalletConnectKeysServerController.shared.disconnect(topic: session.topic!)
             }]
         return UISwipeActionsConfiguration(actions: actions)
+    }
+    
+    func startTimer() {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(updateConnectionsTimeInfo), userInfo: nil, repeats: true)    }
+
+    func stopTimer() {
+        timer?.invalidate()
+    }
+    
+    deinit {
+        stopTimer()
     }
 }
 
