@@ -12,6 +12,9 @@ import WalletConnectSwift
 class DesktopPairingViewController: UITableViewController {
     private var sessions = [WCKeySession]()
 
+    // Change to switch the implementations for debugging or testing
+    private let usesNewImplementation = false
+
     private let wcServerController = WalletConnectKeysServerController.shared
     private var connectionController = WebConnectionController.shared
 
@@ -69,12 +72,14 @@ class DesktopPairingViewController: UITableViewController {
 
     private func scan() {
         let vc = QRCodeScannerViewController()
-        vc.scannedValueValidator = { value in
+        vc.scannedValueValidator = { [unowned self] value in
             guard value.starts(with: "safe-wc:") else {
                 return .failure(GSError.InvalidWalletConnectQRCode())
             }
             var value = value
-            value.removeFirst("safe-".count)
+            if !usesNewImplementation {
+                value.removeFirst("safe-".count)
+            }
             return .success(value)
         }
         vc.modalPresentationStyle = .overFullScreen
@@ -140,17 +145,24 @@ class DesktopPairingViewController: UITableViewController {
 
 extension DesktopPairingViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
+        if usesNewImplementation {
+            didScanNewImplementation(code)
+        } else {
+            didScanOldImplementation(code: code)
+        }
+    }
+
+    func scannerViewControllerDidCancel() {
+        dismiss(animated: true, completion: nil)
+    }
+
+    private func didScanOldImplementation(code: String) {
         do {
             try wcServerController.connect(url: code)
             dismiss(animated: true, completion: nil)
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)
         }
-        // didScanNewImplementation(code)
-    }
-
-    func scannerViewControllerDidCancel() {
-        dismiss(animated: true, completion: nil)
     }
 
     func didScanNewImplementation(_ code: String) {
