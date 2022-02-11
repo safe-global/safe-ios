@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WebConnectionRequestViewController: ContainerViewController {
+class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePresentationControllerDelegate {
     @IBOutlet weak var ribbonView: RibbonView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var actionPanelView: ActionPanelView!
@@ -17,16 +17,28 @@ class WebConnectionRequestViewController: ContainerViewController {
     var chooseOwnerKeyVC: ChooseOwnerKeyViewController!
     var addFirstKeyVC: AddOwnerFirstViewController!
 
-    // set from outside
+    var selectedKey: KeyInfo? {
+        chooseOwnerKeyVC?.selectedKey
+    }
+
     var connectionController: WebConnectionController!
     var connection: WebConnection!
+    var chain: Chain!
+
+    var onFinish: () -> Void = { }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "Connection requested"
 
-//        ribbonView.update(chain: controller.chain(for: connectionURL))
+        assert(connection != nil)
+        assert(connectionController != nil)
+        assert(connection.chainId != nil)
+
+        chain = Chain.by(String(connection.chainId!))!
+
+        ribbonView.update(chain: chain)
 
         let keys = connectionController.accountKeys()
         if keys.isEmpty {
@@ -34,9 +46,27 @@ class WebConnectionRequestViewController: ContainerViewController {
         } else {
             showKeyPicker()
         }
+        didUpdateSelection()
 
         closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
         navigationItem.leftBarButtonItem = closeButton
+
+        actionPanelView.onConfirm = { [unowned self] in
+            assert(selectedKey != nil)
+            connection.accounts = [selectedKey!.address]
+            connectionController.userDidApprove(connection)
+            onFinish()
+        }
+
+        actionPanelView.onReject = { [unowned self] in
+            connectionController.userDidReject(connection)
+            onFinish()
+        }
+    }
+
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        parent?.presentationController?.delegate = self
     }
 
     func showAddFirstKey() {
@@ -52,21 +82,35 @@ class WebConnectionRequestViewController: ContainerViewController {
     }
 
     func showKeyPicker() {
+        let keys = connectionController.accountKeys()
         chooseOwnerKeyVC = ChooseOwnerKeyViewController(
-                owners: [], // keys,
-                chainID: nil,
+                owners: keys,
+                chainID: String(connection.chainId!),
                 descriptionText: "Gnosis Safe requests to connect to your key",
                 requestsPasscode: false,
-                selectedKey: nil,
+                selectedKey: keys.first,
                 balancesLoader: nil
-        )  { selectedKey in
-
+        )  { [unowned self] _ in
+            didUpdateSelection()
         }
         viewControllers = [chooseOwnerKeyVC]
         displayChild(at: 0, in: contentView)
     }
 
-    @objc func didTapCloseButton() {
-
+    func didUpdateSelection() {
+        let enabled = selectedKey != nil
+        actionPanelView.setConfirmEnabled(enabled)
     }
+
+    @objc func didTapCloseButton() {
+        connectionController.userDidCancel(connection)
+        onFinish()
+    }
+
+    // Called when user swipes down the modal screen
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        connectionController.userDidCancel(connection)
+        onFinish()
+    }
+
 }

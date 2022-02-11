@@ -6,42 +6,33 @@
 import Foundation
 import WalletConnectSwift
 
-struct WebConnectionError: CustomNSError {
-    private(set) static var errorDomain: String = "io.gnosis.safe.WebConnection"
-    var errorCode: Int
-    var message: String
-    var cause: Error? = nil
-    var errorUserInfo: [String: Any] {
-        var result: [String: Any] = [NSLocalizedDescriptionKey: message]
-        if let error = cause {
-            result[NSUnderlyingErrorKey]  = error
-        }
-        return result
-    }
-}
-
-extension WebConnectionError {
-    static let urlNotSupported = WebConnectionError(errorCode: -1, message: "This URL type is not supported.")
-    static func connectionFailure(_ error: Error) -> WebConnectionError {
-        WebConnectionError(errorCode: -2, message: "Failed to connect.", cause: error)
-    }
-    static let connectionStartFailed = WebConnectionError(errorCode: -2, message: "Failed to start connection. Please try again.")
-    static let canceled = WebConnectionError(errorCode: -3, message: "Canceled by user")
-    static let rejected = WebConnectionError(errorCode: -3, message: "Rejected by user")
-}
-
+/// Delegate that reacts to the connection events
 protocol WebConnectionControllerDelegate: AnyObject {
-    func respondToConnection(_ connection: WebConnection, completion: @escaping () -> Void)
+    /// Indicates that the new connection request is received and we need response from the user
+    ///
+    /// - Parameter connection: pending connection with information about local and remote peers populated.
+    func respondToConnection(_ connection: WebConnection)
+
+    /// Indicates that an error occurred. The error can be displayed in the UI.
+    ///
+    /// - Parameter error: error to show
     func didFail(with error: Error)
 }
 
+/// Controller implementing the business-logic of managing connections and handling incoming requests.
+///
+/// Use the `shared` instance since the controller's lifetime is the same as the app's lifetime.
+///
+/// Remember to set the `delegate` in order to respond to connection events.
 class WebConnectionController: ServerDelegate, RequestHandler {
 
     static let shared = WebConnectionController()
 
-    let server: Server
     weak var delegate: WebConnectionControllerDelegate?
-    var connectionRequestClosures: [WebConnectionURL: (Session.WalletInfo) -> ()] = [:]
+
+    private var server: Server!
+    private let connectionRepository = WebConnectionRepository()
+    private let sessionTransformer = WebConnectionToSessionTransformer()
 
     init() {
         server = WalletConnectSwift.Server(delegate: self)
@@ -57,21 +48,42 @@ class WebConnectionController: ServerDelegate, RequestHandler {
     /// - Returns: all keys that can be connected.
     func accountKeys() -> [KeyInfo] {
         do {
-            try KeyInfo.all()
+            let result = try KeyInfo.all()
+            return result
         } catch {
             return []
         }
     }
 
-    // create url if it's a valid string
-//    func connectionURL(from string: String) -> WebConnectionURL? {
-//        guard string.hasPrefix("safe-wc:") else { return nil }
-//        WebConnectionURL(string: string)
-//    }
-
     // MARK: - Connecting
 
-    func update(_ connection: WebConnection, to newStatus: WebConnectionStatus) {
+    func connect(to string: String) throws {
+        var remotePeerType: WebConnectionPeerType = .dapp
+        // create connection from the url string
+        var string = string
+        if string.hasPrefix("safe-wc:") {
+            string.removeFirst("safe-".count)
+            remotePeerType = .gnosisSafeWeb
+        }
+        // for now only handle 'safe web' to 'wallet' connections
+        guard remotePeerType == .gnosisSafeWeb, let url = WebConnectionURL(string: string) else {
+            throw WebConnectionError.urlNotSupported
+        }
+        if let connection = connection(for: url) {
+            // if already exists, resume from the current status
+            update(connection, to: connection.status)
+        } else {
+            let connection = createConnection(from: url)
+            update(connection, to: .handshaking)
+        }
+    }
+
+    /// Implements the state machine transitions of a connection. Persists the connection.
+    ///
+    /// - Parameters:
+    ///   - connection: a connection to transition to another state
+    ///   - newStatus: new state.
+    private func update(_ connection: WebConnection, to newStatus: WebConnectionStatus) {
         connection.status = newStatus
         save(connection)
 
@@ -79,33 +91,38 @@ class WebConnectionController: ServerDelegate, RequestHandler {
         case .initial:
             // do nothing
             break
-        case .urlReceived:
-            // created connection
-            update(connection, to: .handshakeStarted)
-        case .handshakeStarted:
+
+        case .handshaking:
             do {
                 try start(connection)
             } catch {
                 handle(error: error, in: connection)
             }
+
         case .approving:
-            askUserForConnectionRequest(connection)
+            delegate?.respondToConnection(connection)
+
         case .approved:
-            approve(connection)
+            respondToSessionCreation(connection)
             update(connection, to: .opened)
+
         case .rejected:
-            reject(connection)
+            respondToSessionCreation(connection)
             update(connection, to: .final)
+
         case .canceled:
             cancel(connection)
             update(connection, to: .final)
+
         case .opened:
             didOpen(connection: connection)
+
         case .updateReceived:
             // close connection
             // or change network
             // or reject update / ignore it
             break
+
         case .updateSent:
             // if was not approved, close connection
             // else move back to opened
@@ -146,7 +163,7 @@ class WebConnectionController: ServerDelegate, RequestHandler {
             // go to final
             break
         case .final:
-            // delete connection
+            delete(connection)
             break
         case .unknown:
             // stay here
@@ -154,38 +171,7 @@ class WebConnectionController: ServerDelegate, RequestHandler {
         }
     }
 
-    private func didOpen(connection: WebConnection) {
-        connection.createdDate = Date()
-        connection.lastActivityDate = Date()
-        let secondsIn24Hours = 24 * 60 * 60
-        connection.expirationDate = connection.createdDate!.addingTimeInterval(secondsIn24Hours)
-        save(connection)
-    }
-
-    private func handle(error: Error, in: WebConnection) {
-        delegate?.didFail(with: error)
-        update(`in`, to: .final)
-    }
-
-    // connect to url
-    func connect(to string: String) throws -> WebConnection {
-        var remotePeerType: WebConnectionPeerType = .dapp
-        // create connection from the url string
-        var string = string
-        if string.hasPrefix("safe-wc:") {
-            string.removeFirst("safe-".count)
-            remotePeerType = .gnosisSafeWeb
-        }
-        // for now only handle 'safe web' to 'wallet' connections
-        guard remotePeerType == .gnosisSafeWeb, let url = WebConnectionURL(string: string) else {
-            throw WebConnectionError.urlNotSupported
-        }
-        var connection = WebConnection(connectionURL: url)
-        // TODO: create local peer, local chain id
-        update(connection, to: .urlReceived)
-    }
-
-    func start(_ connection: WebConnection) throws {
+    private func start(_ connection: WebConnection) throws {
         do {
             try server.connect(to: connection.connectionURL.wcURL)
         } catch {
@@ -193,16 +179,145 @@ class WebConnectionController: ServerDelegate, RequestHandler {
         }
     }
 
-    // received connection request
+    private func didOpen(connection: WebConnection) {
+        connection.lastActivityDate = Date()
+        let secondsIn24Hours: TimeInterval = 24 * 60 * 60
+        connection.expirationDate = connection.createdDate!.addingTimeInterval(secondsIn24Hours)
+        save(connection)
+    }
+
+    private func handle(error: Error, in connection: WebConnection) {
+        delegate?.didFail(with: error)
+        update(connection, to: .final)
+    }
+
+    private func respondToSessionCreation(_ connection: WebConnection) {
+        guard
+            let session = sessionTransformer.session(from: connection),
+            let request = connection.pendingRequest,
+            let requestId = sessionTransformer.requestId(from: request),
+            let walletInfo = session.walletInfo
+        else {
+            assertionFailure("Expected to have a valid connection")
+            return
+        }
+        server.sendCreateSessionResponse(for: requestId, session: session, walletInfo: walletInfo)
+        connection.pendingRequest = nil
+    }
+
+    private func cancel(_ connection: WebConnection) {
+        // do not send anything back to server
+        connection.pendingRequest = nil
+    }
+
+    // MARK: - Managing WebConnection
+
+    private func connection(for session: Session) -> WebConnection? {
+        connection(for: session.url)
+    }
+
+    private func connection(for url: WCURL) -> WebConnection? {
+        connection(for: WebConnectionURL(wcURL: url))
+    }
+
+    func connection(for url: WebConnectionURL) -> WebConnection? {
+        connectionRepository.connection(url: url)
+    }
+
+    /// Creates new wallet to gnosis safe web app connection. The dapp information is set to placeholder data except
+    /// for the `peerType` and `role`.
+    ///
+    /// - Parameter url: the URL to connect to
+    /// - Returns: new WebConnection with populated url, local peer, remote peer, and the created date set to the current time.
+    func createConnection(from url: WebConnectionURL) -> WebConnection {
+        // create the new connection with the information about this app and expectation about the dapp to be
+        // a gnosis safe web app.
+        let connection = WebConnection(connectionURL: url)
+        connection.createdDate = Date()
+        connection.localPeer = WebConnectionPeerInfo(
+                peerId: UUID().uuidString,
+                peerType: .thisApp,
+                role: .wallet,
+                url: URL(string: "https://gnosis-safe.io/")!,
+                name: "Gnosis Safe",
+                description: "The most trusted platform to manage digital assets",
+                icons: [URL(string: "https://gnosis-safe.io/app/favicon.ico")!],
+                deeplinkScheme: "gnosissafe:"
+        )
+        connection.remotePeer = GnosisSafeWebPeerInfo(
+                peerId: "",
+                peerType: .gnosisSafeWeb,
+                role: .dapp,
+                url: URL(string: "https://gnosis-safe.io/")!,
+                name: "",
+                description: nil,
+                icons: [],
+                deeplinkScheme: nil)
+        return connection
+    }
+
+    /// Saves the connection to the persistence store
+    ///
+    /// - Parameter connection: connection to save
+    func save(_ connection: WebConnection) {
+        connectionRepository.save(connection)
+    }
+
+    /// Deletes the connection from the persistence store
+    ///
+    /// - Parameter connection: connection to delete
+    func delete(_ connection: WebConnection) {
+        connectionRepository.delete(connection)
+    }
+
+    // MARK: - User events
+
+    /// Expected to be called by the UI when user approves connection
+    ///
+    /// - Parameter connection: a connection
+    func userDidApprove(_ connection: WebConnection) {
+        update(connection, to: .approved)
+    }
+
+    /// Expected to be called by UI when user rejects connection
+    ///
+    /// - Parameter connection: a connection
+    func userDidReject(_ connection: WebConnection) {
+        update(connection, to: .rejected)
+    }
+
+    /// Expected to be called by UI when user cancels connection
+    ///
+    /// - Parameter connection: a connection
+    func userDidCancel(_ connection: WebConnection) {
+        update(connection, to: .canceled)
+    }
+
+    // MARK: - Server Delegate (Server events)
+
     func server(_ server: Server, shouldStart session: Session, completion: @escaping (Session.WalletInfo) -> ()) {
-        guard let connection = connection(for: session), connection.status == .handshakeStarted else { return }
-        update(connection, with: session)
-        connectionRequestClosures[connection.connectionURL] = completion
-        update(connection, to: .approving)
+        // ignore this, because we implement another method - didReceiveConnectionRequest
+    }
+
+    func server(_ server: Server, didReceiveConnectionRequest requestId: RequestID, for session: Session) {
+        // we save the information from the request and wait until user responds with some action.
+        // main thread needed because of the CoreData dependency
+        DispatchQueue.main.async { [unowned self] in
+            guard let connection = connection(for: session) else {
+                return
+            }
+            assert(connection.status == .handshaking)
+            sessionTransformer.update(connection: connection, with: session)
+            connection.pendingRequest = sessionTransformer.request(id: requestId)
+            update(connection, to: .approving)
+        }
     }
 
     func server(_ server: Server, didFailToConnect url: WCURL) {
-        guard let connection = connection(for: url), connection.status == .handshakeStarted else { return }
+        // the connection process failed
+        guard let connection = connection(for: url) else { return }
+        assert(connection.status == .handshaking || connection.status == .approving,
+                "Unexpected connection failure in the status \(connection.status)")
         let error = WebConnectionError.connectionStartFailed
         handle(error: error, in: connection)
     }
@@ -210,78 +325,23 @@ class WebConnectionController: ServerDelegate, RequestHandler {
     func server(_ server: Server, didConnect session: Session) {
         // when connection to the session is established
         // when re-connection to session is established
+        print("connected")
     }
 
     func server(_ server: Server, didDisconnect session: Session) {
         // when the connection is closed from outside
+        print("disconnected")
     }
 
     func server(_ server: Server, didUpdate session: Session) {
         // update recieved
+        print("updated")
     }
 
-    func askUserForConnectionRequest(_ connection: WebConnection) {
-        delegate?.respondToConnection(connection) { [weak self] (result: Result<Void, Error>) in
-            guard let self = self else { return }
-            do {
-                _ = try result.get()
-                self.update(connection, to: .approved)
-            } catch WebConnectionError.canceled {
-                self.update(connection, to: .canceled)
-            } catch {
-                self.update(connection, to: .rejected)
-            }
-        }
-    }
-
-    func reject(_ connection: WebConnection) {
-        guard let closure = connectionRequestClosures[connection.connectionURL] else { return }
-        let rejectedResponse = Session.WalletInfo(approved: false, accounts: [], chainId: 0, peerId: "", peerMeta: peerMeta(from: connection.localPeer))
-        closure(rejectedResponse)
-        connectionRequestClosures.removeValue(forKey: connection.connectionURL)
-    }
-
-    func approve(_ connection: WebConnection) {
-        guard let closure = connectionRequestClosures[connection.connectionURL] else { return }
-        let approvedResponse = Session.WalletInfo(
-                approved: true,
-                accounts: connection.accounts.map { $0.checksummed },
-                chainId: connection.chainId!,
-                peerId: connection.localPeer!.peerId,
-                peerMeta: peerMeta(from: connection.localPeer)
-        )
-        closure(approvedResponse)
-        connectionRequestClosures.removeValue(forKey: connection.connectionURL)
-    }
-
-    func peerMeta(from: WebConnectionPeerInfo) -> Session.ClientMeta {
-        fatalError()
-    }
-
-    func cancel(_ connection: WebConnection) {
-        guard let closure = connectionRequestClosures[connection.connectionURL] else { return }
-        connectionRequestClosures.removeValue(forKey: connection.connectionURL)
-        // do not send anything back
-    }
-
-    func connection(for session: Session) -> WebConnection? {
-        // find database connection by the url
-        // convert database object to the Connection
-        nil
-    }
-
-    func update(_ connection: WebConnection, with session: Session) {
-
-    }
-
-    func save(_ connection: WebConnection) {
-        // update or create a database connection
-        // update the fields
-        // save the database
-    }
+    // MARK: - Server Request Handling
 
     func canHandle(request: Request) -> Bool {
-        fatalError("canHandle(request:) has not been implemented")
+        false
     }
 
     func handle(request: Request) {
@@ -361,4 +421,35 @@ class WebConnectionController: ServerDelegate, RequestHandler {
 
 
     // record last activity on the connection
+}
+
+/// User-visible error
+struct WebConnectionError: CustomNSError {
+    private(set) static var errorDomain: String = "io.gnosis.safe.WebConnection"
+    var errorCode: Int
+    var message: String
+    var cause: Error? = nil
+    var errorUserInfo: [String: Any] {
+        var result: [String: Any] = [NSLocalizedDescriptionKey: message]
+        if let error = cause {
+            result[NSUnderlyingErrorKey]  = error
+        }
+        return result
+    }
+}
+
+extension WebConnectionError {
+    /// When the connection URL is not of expected type
+    static let urlNotSupported = WebConnectionError(errorCode: -1, message: "This URL type is not supported.")
+
+    /// When the connection failed to establish
+    ///
+    /// - Parameter error: underlying error
+    /// - Returns: an error value
+    static func connectionFailure(_ error: Error) -> WebConnectionError {
+        WebConnectionError(errorCode: -2, message: "Failed to connect.", cause: error)
+    }
+
+    /// When the connection failed to start and can be retried.
+    static let connectionStartFailed = WebConnectionError(errorCode: -3, message: "Failed to start connection. Please try again.")
 }

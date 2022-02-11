@@ -5,17 +5,20 @@
 
 import Foundation
 
+/// Information about a participant in the connection.
 class WebConnectionPeerInfo {
+    /// The identifier of a communication channel. Range of values: UUID values
     var peerId: String
     var peerType: WebConnectionPeerType
     var role: WebConnectionPeerRole
     var url: URL
     var name: String
-    var description: String
+    var description: String?
     var icons: [URL]
-    var deeplinkScheme: String
+    /// Deep link to open in order to switch to the peer's app
+    var deeplinkScheme: String?
 
-    init(peerId: String, peerType: WebConnectionPeerType, role: WebConnectionPeerRole, url: URL, name: String, description: String, icons: [URL], deeplinkScheme: String) {
+    init(peerId: String, peerType: WebConnectionPeerType, role: WebConnectionPeerRole, url: URL, name: String, description: String?, icons: [URL], deeplinkScheme: String?) {
         self.peerId = peerId
         self.peerType = peerType
         self.role = role
@@ -27,7 +30,7 @@ class WebConnectionPeerInfo {
     }
 }
 
-
+/// Type of a peer
 enum WebConnectionPeerType: Int16 {
     /// connection to a dapp via wallet connect
     case dapp = 0
@@ -45,8 +48,11 @@ enum WebConnectionPeerType: Int16 {
     case unknown = -1
 }
 
+/// Peer's role in the connection
 enum WebConnectionPeerRole: Int16 {
+    /// Wallet is (mostly) handler of the requests from the dapp.
     case wallet = 0
+    /// Dapp is (mostly) initiator of the requests to the wallet.
     case dapp = 1
     case unknown = -1
 }

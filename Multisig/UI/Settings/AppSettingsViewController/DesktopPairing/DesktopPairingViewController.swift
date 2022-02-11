@@ -11,7 +11,10 @@ import WalletConnectSwift
 
 class DesktopPairingViewController: UITableViewController {
     private var sessions = [WCKeySession]()
+
     private let wcServerController = WalletConnectKeysServerController.shared
+    private var connectionController = WebConnectionController.shared
+
     private lazy var relativeDateFormatter: RelativeDateTimeFormatter = {
         let formatter = RelativeDateTimeFormatter()
         formatter.dateTimeStyle = .named
@@ -25,6 +28,7 @@ class DesktopPairingViewController: UITableViewController {
         title = "Desktop Pairing"
 
         wcServerController.delegate = self
+        connectionController.delegate = self
 
         tableView.backgroundColor = .primaryBackground
         tableView.registerCell(DetailedCell.self)
@@ -66,9 +70,11 @@ class DesktopPairingViewController: UITableViewController {
     private func scan() {
         let vc = QRCodeScannerViewController()
         vc.scannedValueValidator = { value in
-            guard value.starts(with: "wc:") else {
+            guard value.starts(with: "safe-wc:") else {
                 return .failure(GSError.InvalidWalletConnectQRCode())
             }
+            var value = value
+            value.removeFirst("safe-".count)
             return .success(value)
         }
         vc.modalPresentationStyle = .overFullScreen
@@ -140,10 +146,38 @@ extension DesktopPairingViewController: QRCodeScannerViewControllerDelegate {
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)
         }
+        // didScanNewImplementation(code)
     }
 
     func scannerViewControllerDidCancel() {
         dismiss(animated: true, completion: nil)
+    }
+
+    func didScanNewImplementation(_ code: String) {
+        dismiss(animated: true) {
+            do {
+                try WebConnectionController.shared.connect(to: code)
+            } catch {
+                App.shared.snackbar.show(message: error.localizedDescription)
+            }
+        }
+    }
+}
+
+extension DesktopPairingViewController: WebConnectionControllerDelegate {
+    func respondToConnection(_ connection: WebConnection) {
+        let connectionVC = WebConnectionRequestViewController()
+        connectionVC.connectionController = WebConnectionController.shared
+        connectionVC.connection = connection
+        connectionVC.onFinish = { [weak self] in
+            self?.dismiss(animated: true)
+        }
+        let nav = UINavigationController(rootViewController: connectionVC)
+        present(nav, animated: true)
+    }
+
+    func didFail(with error: Error) {
+        App.shared.snackbar.show(message: error.localizedDescription)
     }
 }
 

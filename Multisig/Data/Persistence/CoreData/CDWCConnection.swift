@@ -10,30 +10,25 @@ import Foundation
 
 /// CoreData object to persist information about the connections to other wallets and dapps
 extension CDWCConnection {
-
-    /// Type of the remote peer in this connection
-    var remotePeerType: WebConnectionPeerType {
-        get {
-            WebConnectionPeerType(rawValue: remote_rawPeerType) ?? .unknown
-        }
-        set {
-            remote_rawPeerType = newValue.rawValue
+    /// Find a connection by the url string
+    ///
+    /// - Parameter url: a connection URL
+    /// - Returns: connection or nil if not foudn or encountered error
+    static func connection(by url: String) -> CDWCConnection? {
+        do {
+            let context = App.shared.coreDataStack.viewContext
+            let fetchRequest = CDWCConnection.fetchRequest()
+            fetchRequest.sortDescriptors = []
+            fetchRequest.predicate = NSPredicate(format: "connectionURL == %@", url)
+            fetchRequest.fetchLimit = 1
+            let results = try context.fetch(fetchRequest)
+            let result = results.first
+            return result
+        } catch {
+            LogService.shared.error("Failed to fetch connection: \(error)")
+            return nil
         }
     }
-
-    /// Current connection status
-    var connectionStatus: WebConnectionStatus {
-        get {
-            WebConnectionStatus(rawValue: rawConnectionStatus) ?? .unknown
-        }
-        set {
-            rawConnectionStatus = newValue.rawValue
-        }
-    }
-
-    // TODO: placeholders for the future methods
-
-    // connection identifier - what is it? wcurl?
 
     // get all connections
 
@@ -41,12 +36,25 @@ extension CDWCConnection {
 
     // get connection by wallet connect session
 
-    // create new connection
+    /// Creates new connection without saving it in the database
+    static func create() -> CDWCConnection {
+        let context = App.shared.coreDataStack.viewContext
+        let result = CDWCConnection(context: context)
+        return result
+    }
 
-    // delete connection
+    /// Deletes a connection if it exists. Idempotent.
+    ///
+    /// - Parameter url: connection URL
+    static func delete(by url: String) {
+        let context = App.shared.coreDataStack.viewContext
+        if let connection = connection(by: url) {
+            context.delete(connection)
+        }
+        App.shared.coreDataStack.saveContext()
+    }
 
     // update connection with network, address
 
-    // convert to/from WalletConnect objects (ClientMeta, Session, WCURL, etc.)
 }
 

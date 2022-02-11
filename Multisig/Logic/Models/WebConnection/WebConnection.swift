@@ -13,7 +13,7 @@ class WebConnection {
     var status: WebConnectionStatus = .initial
 
     /// Currently selected chain id. Required.
-    var chainId: String? = nil
+    var chainId: Int? = nil
 
     /// Currently selected account addresses. Empty for pending connections.
     var accounts: [Address] = []
@@ -33,11 +33,13 @@ class WebConnection {
     /// Information about the remote application. Nil if not yet fetched.
     var remotePeer: WebConnectionPeerInfo? = nil
 
+    var pendingRequest: WebConnectionRequest? = nil
+
     init(connectionURL: WebConnectionURL) {
         self.connectionURL = connectionURL
     }
 
-    init(connectionURL: WebConnectionURL, status: WebConnectionStatus, chainId: String?, accounts: [Address], createdDate: Date?, expirationDate: Date?, lastActivityDate: Date?, localPeer: WebConnectionPeerInfo?, remotePeer: WebConnectionPeerInfo?) {
+    init(connectionURL: WebConnectionURL, status: WebConnectionStatus, chainId: Int?, accounts: [Address], createdDate: Date?, expirationDate: Date?, lastActivityDate: Date?, localPeer: WebConnectionPeerInfo?, remotePeer: WebConnectionPeerInfo?, pendingRequest: WebConnectionRequest?) {
         self.connectionURL = connectionURL
         self.status = status
         self.chainId = chainId
@@ -47,15 +49,14 @@ class WebConnection {
         self.lastActivityDate = lastActivityDate
         self.localPeer = localPeer
         self.remotePeer = remotePeer
+        self.pendingRequest = pendingRequest
     }
 }
-
 
 enum WebConnectionStatus: Int16 {
     case initial 
     
-    case urlReceived 
-    case handshakeStarted 
+    case handshaking
 
     case approving
     case approved
