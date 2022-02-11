@@ -14,9 +14,9 @@ class WebConnectionTableViewCell: UITableViewCell {
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var connectionLabel: UILabel!
     @IBOutlet weak var statusIcon: UIImageView!
-    
-    @IBOutlet weak var ownerKeyView: WebConnectionOwnerView!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var ownerKeyView: WebConnectionOwnerView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         headerLabel.setStyle(.headline)
@@ -39,6 +39,10 @@ class WebConnectionTableViewCell: UITableViewCell {
     func setHeader(_ text: String?, style: GNOTextStyle = .headline) {
         headerLabel.text = text
         headerLabel.setStyle(style)
+    }
+    
+    func setKey(_ name: String, address: Address) {
+        ownerKeyView.set(name: name, address: address)
     }
 
 //    func setDescription(_ text: String?) {

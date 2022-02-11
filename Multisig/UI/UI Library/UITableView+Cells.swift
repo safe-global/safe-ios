@@ -55,6 +55,7 @@ extension UITableView {
         let cell = dequeueCell(WebConnectionTableViewCell.self, for: indexPath)
         cell.setImage(url: imageUrl, placeholder: placeholderImage)
         cell.setHeader(header)
+        cell.setKey("my key", address: Address("0xbabF0d060AcF8A28dec066A16126F2566bAbdA81"))
         //cell.setDescription(description)
         if !canSelect {
             cell.selectionStyle = .none

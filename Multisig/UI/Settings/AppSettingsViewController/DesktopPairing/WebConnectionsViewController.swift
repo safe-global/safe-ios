@@ -33,8 +33,6 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
         wcServerController.delegate = self
 
         tableView.backgroundColor = .primaryBackground
-        //TODO: remove
-        //tableView.registerCell(DetailedCell.self)
         tableView.registerCell(WebConnectionTableViewCell.self)
         tableView.registerHeaderFooterView(DesktopPairingHeaderView.self)
         tableView.sectionHeaderHeight = UITableView.automaticDimension
@@ -125,7 +123,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
             description: nil,
             indexPath: indexPath,
             canSelect: false,
-            placeholderImage: UIImage(named: "ico-empty-circle"))
+            placeholderImage: UIImage(named: "connection-placeholder"))
 
 //
 //        switch session.status {

@@ -18,11 +18,11 @@ class WebConnectionOwnerView: UINibView {
         super.commonInit()
         backgroundView.layer.cornerRadius = 4
         backgroundView.clipsToBounds = true
-        keyLabel.setStyle(.footnote3)
+        keyLabel.setStyle(.footnote2)
     }
     
     func set(name: String, address: Address) {
         keyIdenticon.set(address: address)
-        keyLabel.text = "\(name) (\(address.ellipsized(prefix: 4, suffix: 4, checksummed: true)))"
+        keyLabel.text = "\(name) (\(address.ellipsized(prefix: 6, suffix: 4, checksummed: true)))"
     }
 }
