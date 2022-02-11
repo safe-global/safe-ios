@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 extension CDWCConnection {
 
@@ -35,6 +36,16 @@ extension CDWCConnection {
     // connection identifier - what is it? wcurl?
 
     // get all connections
+    static func getAll() throws -> [CDWCConnection] {
+        do {
+            let context = App.shared.coreDataStack.viewContext
+            let fr = CDWCConnection.fetchRequest().all()
+            let connections = try context.fetch(fr)
+            return connections
+        } catch {
+            throw GSError.DatabaseError(reason: error.localizedDescription)
+        }
+    }
 
     // get all expired connections (to remove it)?
 
@@ -84,4 +95,11 @@ enum ConnectionStatus: Int16 {
 
     /// compatibility for future versions
     case unknown = -1
+}
+
+extension NSFetchRequest where ResultType == CDWCConnection {
+    func all() -> Self {
+        sortDescriptors = [NSSortDescriptor(keyPath: \CDWCConnection.createdDate, ascending: true)]
+        return self
+    }
 }
