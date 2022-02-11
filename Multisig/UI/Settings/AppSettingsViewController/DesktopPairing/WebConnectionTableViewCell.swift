@@ -24,12 +24,16 @@ class WebConnectionTableViewCell: UITableViewCell {
         statusLabel.setStyle(.secondary)
     }
     
-    func setImage(url: URL?, placeholder: UIImage?) {
-        guard let url = url else {
+    func setImage(name: String?, placeholder: UIImage?) {
+        guard let name = name else {
             iconImageView.image = placeholder
             return
         }
-        iconImageView.kf.setImage(with: url, placeholder: placeholder)
+        guard let image = UIImage(named: name) ?? UIImage(systemName: name) else {
+            iconImageView.image = placeholder
+            return
+        }
+        iconImageView.image = image
     }
 
     func setImage(_ image: UIImage?) {
@@ -41,13 +45,26 @@ class WebConnectionTableViewCell: UITableViewCell {
         headerLabel.setStyle(style)
     }
     
+    func setConnectionInfo(_ text: String?, style: GNOTextStyle = .secondary) {
+        connectionLabel.text = text
+        connectionLabel.setStyle(style)
+    }
+    
+    func setConnectionTimeInfo(_ text: String?, style: GNOTextStyle = .secondary) {
+        guard let text = text else {
+            statusIcon.isHidden = true
+            statusLabel.isHidden = true
+            return
+        }
+        statusIcon.isHidden = false
+        statusLabel.isHidden = false
+        statusLabel.text = text
+        statusLabel.setStyle(style)
+    }
+    
     func setKey(_ name: String, address: Address) {
         ownerKeyView.set(name: name, address: address)
     }
-
-//    func setDescription(_ text: String?) {
-//        descriptionLabel.text = text
-//    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

@@ -46,17 +46,21 @@ extension UITableView {
         return cell
     }
     
-    func webConnectionCell(imageUrl: URL?,
+    func webConnectionCell(imageName: String?,
                       header: String?,
-                      description: String?,
+                      connectionInfo: String?,
+                      connectionTimeInfo: String?,
+                      keyName: String,
+                      keyAddress: Address,
                       indexPath: IndexPath,
                       canSelect: Bool = true,
                       placeholderImage: UIImage? = nil) -> UITableViewCell {
         let cell = dequeueCell(WebConnectionTableViewCell.self, for: indexPath)
-        cell.setImage(url: imageUrl, placeholder: placeholderImage)
+        cell.setImage(name: imageName, placeholder: placeholderImage)
         cell.setHeader(header)
-        cell.setKey("my key", address: Address("0xbabF0d060AcF8A28dec066A16126F2566bAbdA81"))
-        //cell.setDescription(description)
+        cell.setConnectionInfo(connectionInfo)
+        cell.setConnectionTimeInfo(connectionTimeInfo)
+        cell.setKey(keyName, address: keyAddress)
         if !canSelect {
             cell.selectionStyle = .none
         }

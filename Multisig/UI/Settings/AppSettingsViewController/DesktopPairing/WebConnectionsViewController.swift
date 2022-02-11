@@ -110,12 +110,15 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let session = sessions[indexPath.row]
+        //let connection = connections[indexPath.row]
 
         return tableView.webConnectionCell(
-            imageUrl: nil,
-            header: "Connecting...",
-            description: nil,
+            imageName: nil,//connection.remote_icons,
+            header: "Gnosis Safe",//connection.remote_name,
+            connectionInfo: "gnosis-safe.io",
+            connectionTimeInfo: nil,
+            keyName: "my key",
+            keyAddress: Address("0xbabF0d060AcF8A28dec066A16126F2566bAbdA81"),
             indexPath: indexPath,
             canSelect: false,
             placeholderImage: UIImage(named: "connection-placeholder"))
@@ -124,7 +127,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
 //        switch session.status {
 //        case .connecting:
 //            return tableView.detailedCell(
-//                imageUrl: nil,
+//                imageUrl: nil,Ï
 //                header: "Connecting...",
 //                description: nil,
 //                indexPath: indexPath,
