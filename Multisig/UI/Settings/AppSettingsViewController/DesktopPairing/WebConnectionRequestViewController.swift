@@ -82,11 +82,19 @@ class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePre
     }
 
     func showKeyPicker() {
+        guard let remotePeer = connection.remotePeer else {
+            assertionFailure("Expected to have the remote app data")
+            return
+        }
         let keys = connectionController.accountKeys()
         chooseOwnerKeyVC = ChooseOwnerKeyViewController(
                 owners: keys,
                 chainID: String(connection.chainId!),
-                descriptionText: "Gnosis Safe requests to connect to your key",
+                header: .detail(
+                    imageUri: remotePeer.icons.first,
+                    placeholder: UIImage(named: "connection-placeholder"),
+                    title: "\(remotePeer.name.prefix(75)) requests to connect to your key",
+                    detail: remotePeer.url.absoluteString),
                 requestsPasscode: false,
                 selectedKey: keys.first,
                 balancesLoader: nil

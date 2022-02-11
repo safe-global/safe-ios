@@ -315,11 +315,13 @@ class WebConnectionController: ServerDelegate, RequestHandler {
 
     func server(_ server: Server, didFailToConnect url: WCURL) {
         // the connection process failed
-        guard let connection = connection(for: url) else { return }
-        assert(connection.status == .handshaking || connection.status == .approving,
-                "Unexpected connection failure in the status \(connection.status)")
-        let error = WebConnectionError.connectionStartFailed
-        handle(error: error, in: connection)
+        DispatchQueue.main.async { [unowned self] in
+            guard let connection = connection(for: url) else { return }
+            assert(connection.status == .handshaking || connection.status == .approving,
+                    "Unexpected connection failure in the status \(connection.status)")
+            let error = WebConnectionError.connectionStartFailed
+            handle(error: error, in: connection)
+        }
     }
 
     func server(_ server: Server, didConnect session: Session) {

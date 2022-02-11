@@ -189,6 +189,9 @@ extension DesktopPairingViewController: WebConnectionControllerDelegate {
     }
 
     func didFail(with error: Error) {
+        if presentedViewController != nil {
+            dismiss(animated: true)
+        }
         App.shared.snackbar.show(message: error.localizedDescription)
     }
 }

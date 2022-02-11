@@ -27,13 +27,14 @@ struct AccountBalanceUIModel {
 class ChooseOwnerKeyViewController: UIViewController {
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var headerContentView: UIView!
 
     private var titleText: String!
     private var owners: [KeyInfo] = []
     private var chainID: String?
-    private var descriptionText: String!
     private(set) var selectedKey: KeyInfo? = nil
     private var requestsPassCode: Bool = true
+    private var header: Header = .none
 
     private var balancesLoader: AccountBalanceLoader? = nil
     private var loadingTask: URLSessionTask?
@@ -49,11 +50,17 @@ class ChooseOwnerKeyViewController: UIViewController {
     var trackingEvent: TrackingEvent = .chooseOwner
     var completionHandler: ((KeyInfo?) -> Void)?
 
+    enum Header {
+        case text(description: String)
+        case detail(imageUri: URL?, placeholder: UIImage?, title: String, detail: String)
+        case none
+    }
+
     convenience init(
         owners: [KeyInfo],
         chainID: String?,
         titleText: String = "Select owner key",
-        descriptionText: String,
+        header: Header = .none,
         requestsPasscode: Bool = true,
         selectedKey: KeyInfo? = nil,
         // when passed in, then this controller will show account balances.
@@ -64,7 +71,7 @@ class ChooseOwnerKeyViewController: UIViewController {
         self.owners = owners
         self.chainID = chainID
         self.titleText = titleText
-        self.descriptionText = descriptionText
+        self.header = header
         self.requestsPassCode = requestsPasscode
         self.selectedKey = selectedKey
         self.balancesLoader = balancesLoader
@@ -85,8 +92,7 @@ class ChooseOwnerKeyViewController: UIViewController {
         tableView.registerCell(ChooseOwnerTableViewCell.self)
         tableView.registerCell(SigningKeyTableViewCell.self)
 
-        descriptionLabel.text = descriptionText
-        descriptionLabel.setStyle(.primary)
+        configureHeader()
 
         NotificationCenter.default.addObserver(
             self,
@@ -121,6 +127,35 @@ class ChooseOwnerKeyViewController: UIViewController {
 
     @objc private func pullToRefreshChanged() {
         reloadBalances()
+    }
+
+    private func configureHeader() {
+        switch header {
+        case .none:
+            headerContentView.heightAnchor.constraint(equalToConstant: 0).isActive = true
+
+        case .text(description: let text):
+            let view = ChooseOwnerBasicHeaderView()
+            view.textLabel.text = text
+            view.translatesAutoresizingMaskIntoConstraints = false
+            headerContentView.addSubview(view)
+            headerContentView.wrapAroundView(view)
+
+        case let .detail(imageUri: imageUri, placeholder: placeholder, title: title, detail: detail):
+            let view = ChooseOwnerDetailHeaderView()
+            view.textLabel.text = title
+            view.detailTextLabel.text = detail
+            view.imageView.kf.setImage(with: imageUri, placeholder: placeholder) { [weak view, weak placeholder] result in
+                do {
+                    _ = try result.get()
+                } catch {
+                    view?.imageView.image = placeholder
+                }
+            }
+            view.translatesAutoresizingMaskIntoConstraints = false
+            headerContentView.addSubview(view)
+            headerContentView.wrapAroundView(view)
+        }
     }
 
     // MARK: - Wallet Connect
