@@ -15,12 +15,13 @@ protocol QRCodeScannerViewControllerDelegate {
 }
 
 class QRCodeScannerViewController: UIViewController {
-    @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak var footerLabel: UILabel!
     @IBOutlet weak var cameraFrameView: UIImageView!
     var previewLayer: AVCaptureVideoPreviewLayer!
     var captureSession: AVCaptureSession!
     var delegate: QRCodeScannerViewControllerDelegate?
-    var header: String?
+    var label: String?
+    var attributedLabel: NSAttributedString?
     var scannedValueValidator: ((String) -> Result<String, Error>)?
     var trackingParameters: [String: Any]?
 
@@ -33,10 +34,15 @@ class QRCodeScannerViewController: UIViewController {
         static let scannerNotSupportedMessage = NSLocalizedString("scanner_not_supported_message", comment: "")
         static let ok = NSLocalizedString("ok", comment: "")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        headerLabel.text = header
+        if let attributedLabel = attributedLabel {
+            footerLabel.attributedText = attributedLabel
+        } else {
+            footerLabel.text = label
+            footerLabel.setStyle(.primary.color(.white))
+        }
         view.bringSubviewToFront(cameraFrameView)
     }
 
