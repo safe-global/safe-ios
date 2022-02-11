@@ -13,7 +13,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
     
     @IBOutlet private var infoButton: UIBarButtonItem!
 
-    private var sessions = [WCKeySession]()
+    private var connections = [CDWCConnection]()
     private let wcServerController = WalletConnectKeysServerController.shared
     private lazy var relativeDateFormatter: RelativeDateTimeFormatter = {
         let formatter = RelativeDateTimeFormatter()
@@ -70,13 +70,8 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
     }
 
     @objc private func update() {
-        do {
-            sessions = try WCKeySession.getAll().filter {
-                $0.session != nil && (try? Session.from($0)) != nil
-            }
-        } catch {
-            LogService.shared.error("Failed to get WCKeySession: \(error.localizedDescription)")
-        }
+       
+        connections = WebConnectionProvider.allConnections()
 
         DispatchQueue.main.async { [unowned self] in
             self.tableView.reloadData()
@@ -163,10 +158,11 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
 
     override func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let session = sessions[indexPath.row]
+        let connection = connections[indexPath.row]
         let actions = [
             UIContextualAction(style: .destructive, title: "Disconnect") { _, _, completion in
-                WalletConnectKeysServerController.shared.disconnect(topic: session.topic!)
+                //TODO: disconnect connection
+                //WalletConnectKeysServerController.shared.disconnect(topic: session.topic!)
             }]
         return UISwipeActionsConfiguration(actions: actions)
     }
@@ -218,5 +214,18 @@ extension WebConnectionsViewController: WalletConnectKeysServerControllerDelegat
             }
             self.present(UINavigationController(rootViewController: vc), animated: true)
         }
+    }
+}
+
+class WebConnectionProvider {
+    
+    static func allConnections() -> [CDWCConnection] {
+        var connections: [CDWCConnection] = []
+        do {
+            connections = try CDWCConnection.getAll()
+        } catch {
+            LogService.shared.error("Failed to get Web Connections: \(error.localizedDescription)")
+        }
+        return connections
     }
 }
