@@ -329,7 +329,15 @@ class WebConnectionController: ServerDelegate, RequestHandler, WebConnectionSubj
             assert(connection.status == .handshaking)
             sessionTransformer.update(connection: connection, with: session)
             connection.pendingRequest = sessionTransformer.request(id: requestId)
-            update(connection, to: .approving)
+
+            // check that the chain id exists in the app
+            if let chainId = connection.chainId, let exists = (try? Chain.exists("\(chainId)")), !exists {
+                // respond with rejection and exit with error
+                respondToSessionCreation(connection)
+                handle(error: WebConnectionError.unsupportedNetwork, in: connection)
+            } else {
+                update(connection, to: .approving)
+            }
         }
     }
 
@@ -474,4 +482,6 @@ extension WebConnectionError {
 
     /// When the connection failed to start and can be retried.
     static let connectionStartFailed = WebConnectionError(errorCode: -3, message: "Failed to start connection. Please try again.")
+
+    static let unsupportedNetwork = WebConnectionError(errorCode: -4, message: "Failed to connect. Requested network is not supported.")
 }
