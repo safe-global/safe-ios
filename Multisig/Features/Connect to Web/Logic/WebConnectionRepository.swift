@@ -79,6 +79,7 @@ class WebConnectionRepository {
         cdConnection.expirationDate = other.expirationDate
         cdConnection.lastActivityDate = other.lastActivityDate
         cdConnection.status = other.status.rawValue
+        cdConnection.lastError = other.lastError
     }
 
     private func update(cdPeer: CDWCPeerInfo, with other: WebConnectionPeerInfo) {
@@ -128,6 +129,7 @@ class WebConnectionRepository {
         let localPeer = other.localPeer.flatMap(peer(from:))
         let remotePeer = other.remotePeer.flatMap(peer(from:))
         let pendingRequest = other.pendingRequest.flatMap(request(from:))
+        let lastError: String? = other.lastError
 
         let result = WebConnection(
             connectionURL: connectionURL,
@@ -139,7 +141,8 @@ class WebConnectionRepository {
             lastActivityDate: lastActivityDate,
             localPeer: localPeer,
             remotePeer: remotePeer,
-            pendingRequest: pendingRequest
+            pendingRequest: pendingRequest,
+            lastError: lastError
         )
         return result
     }

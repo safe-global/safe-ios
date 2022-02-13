@@ -35,7 +35,6 @@ class DesktopPairingViewController: UITableViewController, ExternalURLSource {
         title = "Connect to Web"
 
         wcServerController.delegate = self
-        connectionController.delegate = self
 
         tableView.backgroundColor = .primaryBackground
         tableView.registerCell(DetailedCell.self)
@@ -190,33 +189,21 @@ extension DesktopPairingViewController: QRCodeScannerViewControllerDelegate {
     }
 
     func didScanNewImplementation(_ code: String) {
-        dismiss(animated: true) {
+        dismiss(animated: true) { [unowned self] in
             do {
-                try WebConnectionController.shared.connect(to: code)
+                let connection = try WebConnectionController.shared.connect(to: code)
+                let connectionVC = WebConnectionRequestViewController()
+                connectionVC.connectionController = WebConnectionController.shared
+                connectionVC.connection = connection
+                connectionVC.onFinish = { [weak self] in
+                    self?.dismiss(animated: true)
+                }
+                let nav = UINavigationController(rootViewController: connectionVC)
+                present(nav, animated: true)
             } catch {
                 App.shared.snackbar.show(message: error.localizedDescription)
             }
         }
-    }
-}
-
-extension DesktopPairingViewController: WebConnectionControllerDelegate {
-    func respondToConnection(_ connection: WebConnection) {
-        let connectionVC = WebConnectionRequestViewController()
-        connectionVC.connectionController = WebConnectionController.shared
-        connectionVC.connection = connection
-        connectionVC.onFinish = { [weak self] in
-            self?.dismiss(animated: true)
-        }
-        let nav = UINavigationController(rootViewController: connectionVC)
-        present(nav, animated: true)
-    }
-
-    func didFail(with error: Error) {
-        if presentedViewController != nil {
-            dismiss(animated: true)
-        }
-        App.shared.snackbar.show(message: error.localizedDescription)
     }
 }
 

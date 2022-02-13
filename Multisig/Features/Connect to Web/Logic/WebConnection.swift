@@ -35,11 +35,13 @@ class WebConnection {
 
     var pendingRequest: WebConnectionRequest? = nil
 
+    var lastError: String? = nil
+
     init(connectionURL: WebConnectionURL) {
         self.connectionURL = connectionURL
     }
 
-    init(connectionURL: WebConnectionURL, status: WebConnectionStatus, chainId: Int?, accounts: [Address], createdDate: Date?, expirationDate: Date?, lastActivityDate: Date?, localPeer: WebConnectionPeerInfo?, remotePeer: WebConnectionPeerInfo?, pendingRequest: WebConnectionRequest?) {
+    init(connectionURL: WebConnectionURL, status: WebConnectionStatus, chainId: Int?, accounts: [Address], createdDate: Date?, expirationDate: Date?, lastActivityDate: Date?, localPeer: WebConnectionPeerInfo?, remotePeer: WebConnectionPeerInfo?, pendingRequest: WebConnectionRequest?, lastError: String?) {
         self.connectionURL = connectionURL
         self.status = status
         self.chainId = chainId
@@ -50,24 +52,35 @@ class WebConnection {
         self.localPeer = localPeer
         self.remotePeer = remotePeer
         self.pendingRequest = pendingRequest
+        self.lastError = lastError
     }
 }
 
 enum WebConnectionStatus: Int16 {
+    // connection with a url set
     case initial 
-    
+
+    // connection that started to receive the connection request
     case handshaking
 
+    // connection received connection request, waits for user response
     case approving
-    case approved
-    case rejected 
-    case canceled 
 
-    case opened 
+    // connection will send ok response
+    case approved
+
+    // connection will send rejected response
+    case rejected
+
+    // connection successfully sent connected response, ready to receive other requests
+    case opened
+
+    // connection successfully sent 'closed' response, no requests will be received
     case closed 
 
-    case updateReceived 
-    case updateSent 
+    case updateReceived
+
+    case updateSent
 
     case changingNetwork 
     case changingAccount 
@@ -79,6 +92,7 @@ enum WebConnectionStatus: Int16 {
     case requestProcessing 
     case responseSent 
 
+    // connection is about to be deleted
     case final 
 
     /// compatibility for future versions

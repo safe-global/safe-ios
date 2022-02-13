@@ -6,17 +6,14 @@
 import Foundation
 import WalletConnectSwift
 
-/// Delegate that reacts to the connection events
-protocol WebConnectionControllerDelegate: AnyObject {
-    /// Indicates that the new connection request is received and we need response from the user
-    ///
-    /// - Parameter connection: pending connection with information about local and remote peers populated.
-    func respondToConnection(_ connection: WebConnection)
+protocol WebConnectionObserver: AnyObject {
+    func didUpdate(connection: WebConnection)
+}
 
-    /// Indicates that an error occurred. The error can be displayed in the UI.
-    ///
-    /// - Parameter error: error to show
-    func didFail(with error: Error)
+protocol WebConnectionSubject: AnyObject {
+    func attach(observer: WebConnectionObserver, to connection: WebConnection)
+    func detach(observer: WebConnectionObserver)
+    func notifyObservers(of connection: WebConnection)
 }
 
 /// Controller implementing the business-logic of managing connections and handling incoming requests.
@@ -24,11 +21,9 @@ protocol WebConnectionControllerDelegate: AnyObject {
 /// Use the `shared` instance since the controller's lifetime is the same as the app's lifetime.
 ///
 /// Remember to set the `delegate` in order to respond to connection events.
-class WebConnectionController: ServerDelegate, RequestHandler {
+class WebConnectionController: ServerDelegate, RequestHandler, WebConnectionSubject {
 
     static let shared = WebConnectionController()
-
-    weak var delegate: WebConnectionControllerDelegate?
 
     private var server: Server!
     private let connectionRepository = WebConnectionRepository()
@@ -41,6 +36,33 @@ class WebConnectionController: ServerDelegate, RequestHandler {
 
     deinit {
         server.unregister(handler: self)
+    }
+
+    private var observers: [WebConnectionURL: [WebConnectionObserver]] = [:]
+
+    func attach(observer: WebConnectionObserver, to connection: WebConnection) {
+        if var existing = observers[connection.connectionURL] {
+            existing.append(observer)
+            observers[connection.connectionURL] = existing
+        } else {
+            observers[connection.connectionURL] = [observer]
+        }
+    }
+
+    func detach(observer: WebConnectionObserver) {
+        for key in observers.keys {
+            if var existing = observers[key], let index = existing.firstIndex(where: { $0 === observer }) {
+                existing.remove(at: index)
+                observers[key] = existing
+            }
+        }
+    }
+
+    func notifyObservers(of connection: WebConnection) {
+        guard let toNotify = observers[connection.connectionURL] else { return }
+        for observer in toNotify {
+            observer.didUpdate(connection: connection)
+        }
     }
 
     /// Returns list of keys that can be used as wallets for this connection.
@@ -57,7 +79,7 @@ class WebConnectionController: ServerDelegate, RequestHandler {
 
     // MARK: - Connecting
 
-    func connect(to string: String) throws {
+    func connect(to string: String) throws -> WebConnection {
         var remotePeerType: WebConnectionPeerType = .dapp
         // create connection from the url string
         var string = string
@@ -72,9 +94,11 @@ class WebConnectionController: ServerDelegate, RequestHandler {
         if let connection = connection(for: url) {
             // if already exists, resume from the current status
             update(connection, to: connection.status)
+            return connection
         } else {
             let connection = createConnection(from: url)
             update(connection, to: .handshaking)
+            return connection
         }
     }
 
@@ -84,6 +108,10 @@ class WebConnectionController: ServerDelegate, RequestHandler {
     ///   - connection: a connection to transition to another state
     ///   - newStatus: new state.
     private func update(_ connection: WebConnection, to newStatus: WebConnectionStatus) {
+        defer {
+            notifyObservers(of: connection)
+        }
+
         connection.status = newStatus
         save(connection)
 
@@ -100,7 +128,8 @@ class WebConnectionController: ServerDelegate, RequestHandler {
             }
 
         case .approving:
-            delegate?.respondToConnection(connection)
+            // wait for user response, do nothing
+            break
 
         case .approved:
             respondToSessionCreation(connection)
@@ -108,10 +137,6 @@ class WebConnectionController: ServerDelegate, RequestHandler {
 
         case .rejected:
             respondToSessionCreation(connection)
-            update(connection, to: .final)
-
-        case .canceled:
-            cancel(connection)
             update(connection, to: .final)
 
         case .opened:
@@ -187,7 +212,7 @@ class WebConnectionController: ServerDelegate, RequestHandler {
     }
 
     private func handle(error: Error, in connection: WebConnection) {
-        delegate?.didFail(with: error)
+        connection.lastError = error.localizedDescription
         update(connection, to: .final)
     }
 
@@ -202,11 +227,6 @@ class WebConnectionController: ServerDelegate, RequestHandler {
             return
         }
         server.sendCreateSessionResponse(for: requestId, session: session, walletInfo: walletInfo)
-        connection.pendingRequest = nil
-    }
-
-    private func cancel(_ connection: WebConnection) {
-        // do not send anything back to server
         connection.pendingRequest = nil
     }
 
@@ -290,7 +310,7 @@ class WebConnectionController: ServerDelegate, RequestHandler {
     ///
     /// - Parameter connection: a connection
     func userDidCancel(_ connection: WebConnection) {
-        update(connection, to: .canceled)
+        update(connection, to: .rejected)
     }
 
     // MARK: - Server Delegate (Server events)

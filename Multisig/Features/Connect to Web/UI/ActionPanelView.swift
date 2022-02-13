@@ -9,12 +9,16 @@
 import Foundation
 import UIKit
 
+protocol ActionPanelViewDelegate: AnyObject {
+    func didReject()
+    func didConfirm()
+}
+
 class ActionPanelView: UINibView {
     @IBOutlet private weak var confirmButton: UIButton!
     @IBOutlet private weak var rejectButton: UIButton!
 
-    var onConfirm: () -> Void = { }
-    var onReject: () -> Void = { }
+    weak var delegate: ActionPanelViewDelegate?
 
     override func commonInit() {
         super.commonInit()
@@ -36,10 +40,10 @@ class ActionPanelView: UINibView {
     }
 
     @IBAction func didTapReject(_ sender: Any) {
-        onReject()
+        delegate?.didReject()
     }
 
     @IBAction func didTapConfirm(_ sender: Any) {
-        onConfirm()
+        delegate?.didConfirm()
     }
 }
