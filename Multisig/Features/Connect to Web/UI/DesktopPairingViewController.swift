@@ -14,7 +14,7 @@ class DesktopPairingViewController: UITableViewController, ExternalURLSource {
     private var sessions = [WCKeySession]()
 
     // Change to switch the implementations for debugging or testing
-    private let usesNewImplementation = true
+    private let usesNewImplementation = false
 
     private let wcServerController = WalletConnectKeysServerController.shared
     private var connectionController = WebConnectionController.shared

@@ -209,5 +209,4 @@ class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePre
         connectionController.detach(observer: self)
         onFinish()
     }
-
 }

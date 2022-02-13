@@ -138,8 +138,15 @@ class AppSettingsViewController: UITableViewController {
     }
 
     private func showDesktopPairing() {
-        let vc = DesktopPairingViewController()
-        show(vc, sender: self)
+        let keys = WebConnectionController.shared.accountKeys()
+        if keys.isEmpty {
+            let addOwnersVC = AddOwnerFirstViewController()
+            let nav = UINavigationController(rootViewController: addOwnersVC)
+            present(nav, animated: true)
+        } else {
+            let connectionsVC = DesktopPairingViewController()
+            show(connectionsVC, sender: self)
+        }
     }
 
     private func showOwnerKeys() {
