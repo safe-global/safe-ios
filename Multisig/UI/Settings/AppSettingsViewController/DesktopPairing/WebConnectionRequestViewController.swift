@@ -71,6 +71,7 @@ class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePre
 
     func showAddFirstKey() {
         addFirstKeyVC = AddOwnerFirstViewController()
+        addFirstKeyVC.descriptionText = "To connect to Gnosis Safe import at least one owner key. Keys are used to confirm transactions."
         viewControllers = [addFirstKeyVC]
         displayChild(at: 0, in: contentView)
 
@@ -78,6 +79,7 @@ class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePre
             guard let self = self else { return }
             self.navigationController?.popToRootViewController(animated: true)
             self.showKeyPicker()
+            self.didUpdateSelection()
         }
     }
 

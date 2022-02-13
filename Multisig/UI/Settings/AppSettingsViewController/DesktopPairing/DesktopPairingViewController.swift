@@ -14,7 +14,7 @@ class DesktopPairingViewController: UITableViewController, ExternalURLSource {
     private var sessions = [WCKeySession]()
 
     // Change to switch the implementations for debugging or testing
-    private let usesNewImplementation = false
+    private let usesNewImplementation = true
 
     private let wcServerController = WalletConnectKeysServerController.shared
     private var connectionController = WebConnectionController.shared
@@ -101,7 +101,9 @@ class DesktopPairingViewController: UITableViewController, ExternalURLSource {
                 return .failure(GSError.InvalidWalletConnectQRCode())
             }
             var url = value
-            url.removeFirst("safe-".count)
+            if !usesNewImplementation {
+                url.removeFirst("safe-".count)
+            }
             return .success(url)
         }
         vc.modalPresentationStyle = .overFullScreen
