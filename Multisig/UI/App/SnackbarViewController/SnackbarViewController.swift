@@ -18,6 +18,7 @@ class SnackbarViewController: UIViewController {
     // bottom constraint to animate showing/hiding of the message
     @IBOutlet private weak var bottom: NSLayoutConstraint?
     @IBOutlet private weak var textLabel: UILabel?
+    @IBOutlet private weak var iconImageView: UIImageView!
 
     // storage of the bottom anchor for when the message is visible
     private var bottomAnchor: CGFloat = ScreenMetrics.aboveTabBar
@@ -38,11 +39,20 @@ class SnackbarViewController: UIViewController {
     private struct Message: Hashable {
         var value: String
         var duration: TimeInterval = 4
+        var icon: IconSource = .none
+    }
+
+    enum IconSource: Hashable {
+        case image(UIImage)
+        case success
+        case none
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         textLabel?.text = ""
+        iconImageView.image = nil
+        iconImageView.isHidden = iconImageView.image == nil
         moveSnackbarBottom(to: ScreenMetrics.offscreen)
         // to prevent keyboard overlaying the snackbar message
         notificationCenter.addObserver(self,
@@ -55,9 +65,9 @@ class SnackbarViewController: UIViewController {
                                        object: nil)
     }
 
-    static func show(_ message: String, duration: TimeInterval = 4) {
+    static func show(_ message: String, duration: TimeInterval = 4, icon: IconSource = .none) {
         dispatchPrecondition(condition: .onQueue(.main))
-        instance?.enqueue(Message(value: message, duration: duration))
+        instance?.enqueue(Message(value: message, duration: duration, icon: icon))
         instance?.process()
     }
 
@@ -101,7 +111,19 @@ class SnackbarViewController: UIViewController {
         currentMessage = message
 
         textLabel?.text = message.value
+        switch message.icon {
+        case .none:
+            iconImageView.image = nil
 
+        case .image(let image):
+            iconImageView.image = image
+
+        case .success:
+            let icon = UIImage(systemName: "checkmark.circle.fill")?.withTintColor(.button)
+            iconImageView.image = icon
+        }
+        iconImageView.isHidden = iconImageView.image == nil
+        
         showAnimated()
 
         processingTimer?.invalidate()

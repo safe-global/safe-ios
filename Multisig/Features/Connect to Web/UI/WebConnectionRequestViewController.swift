@@ -55,6 +55,7 @@ class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePre
             assert(selectedKey != nil)
             connection.accounts = [selectedKey!.address]
             connectionController.userDidApprove(connection)
+            App.shared.snackbar.show(message: "Connected to Gnosis Safe.", icon: .success)
             onFinish()
         }
 
