@@ -76,10 +76,6 @@ class WalletConnectServerController: ServerDelegate {
         preconditionFailure("Subclass should override createSession method")
     }
 
-    func server(_ server: Server, didReceiveConnectionRequest requestId: RequestID, for session: Session) {
-        // ignore
-    }
-
     func server(_ server: Server, didConnect session: Session) {
         DispatchQueue.main.async { [unowned self] in
             self.update(session: session, status: .connected)

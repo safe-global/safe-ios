@@ -42,7 +42,7 @@
         <attribute name="status" optional="YES" attributeType="String"/>
     </entity>
     <entity name="CDWCConnection" representedClassName="CDWCConnection" syncable="YES" codeGenerationType="class">
-        <attribute name="chainId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="chainId" optional="YES" attributeType="Integer 64" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="connectionURL" optional="YES" attributeType="String"/>
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="expirationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>

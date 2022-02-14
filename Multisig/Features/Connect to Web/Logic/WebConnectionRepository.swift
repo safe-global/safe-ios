@@ -8,6 +8,12 @@ import Foundation
 /// Responsible for back-and-forth between the in-memory WebConnection-related objects and persisted CoreData objects.
 class WebConnectionRepository {
 
+    // -1 values are 'marker' or 'sentinel' values that indicate that the database's primitve value is nil.
+    private static let CHAIN_ID_NIL: Int64 = -1
+    private static let REQUEST_ID_INT_NIL = -1
+    private static let REQUEST_ID_DOUBLE_NIL: Double = -1
+    private static let ICONS_SEPARATOR: String = "|"
+
     func connection(url: WebConnectionURL) -> WebConnection? {
         guard let cdConnection = CDWCConnection.connection(by: url.absoluteString) else { return nil }
         return connection(from: cdConnection)
@@ -70,8 +76,6 @@ class WebConnectionRepository {
         App.shared.coreDataStack.saveContext()
     }
 
-    private static let CHAIN_ID_NIL: Int64 = -99
-
     private func update(cdConnection: CDWCConnection, with other: WebConnection) {
         cdConnection.connectionURL = other.connectionURL.absoluteString
         cdConnection.chainId = other.chainId.map { Int64($0) } ?? Self.CHAIN_ID_NIL
@@ -88,13 +92,11 @@ class WebConnectionRepository {
         cdPeer.role = other.role.rawValue
         cdPeer.name = other.name
         cdPeer.peerDescription = other.description
-        cdPeer.icons = other.icons.map(\.absoluteString).joined(separator: "|")
+        cdPeer.icons = other.icons.map(\.absoluteString).joined(separator: Self.ICONS_SEPARATOR)
         cdPeer.deeplinkScheme = other.deeplinkScheme
         cdPeer.url = other.url
     }
 
-    private static let REQUEST_ID_INT_NIL = -1
-    private static let REQUEST_ID_DOUBLE_NIL: Double = -1
 
     private func update(cdRequest: CDWCRequest, with other: WebConnectionRequest) {
         cdRequest.id_int = Int64(other.id.intValue ?? Self.REQUEST_ID_INT_NIL)
@@ -156,9 +158,8 @@ class WebConnectionRepository {
         else {
             return nil
         }
-        let icons: [URL] = rawIcons.split(separator: "|")
-                .map(String.init)
-                .compactMap(URL.init(string:))
+        let iconParts: [Substring] = rawIcons.split(separator: Character(Self.ICONS_SEPARATOR))
+        let icons: [URL] = iconParts.compactMap { URL(string: String($0)) }
 
         let peerType = WebConnectionPeerType(rawValue: other.peerType) ?? .unknown
         let role = WebConnectionPeerRole(rawValue: other.role) ?? .unknown

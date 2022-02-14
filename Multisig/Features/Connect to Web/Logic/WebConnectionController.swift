@@ -21,7 +21,7 @@ protocol WebConnectionSubject: AnyObject {
 /// Use the `shared` instance since the controller's lifetime is the same as the app's lifetime.
 ///
 /// Remember to set the `delegate` in order to respond to connection events.
-class WebConnectionController: ServerDelegate, RequestHandler, WebConnectionSubject {
+class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSubject {
 
     static let shared = WebConnectionController()
 

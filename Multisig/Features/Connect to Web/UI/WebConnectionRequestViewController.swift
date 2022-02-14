@@ -16,7 +16,6 @@ class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePre
 
     var closeButton: UIBarButtonItem!
     var chooseOwnerKeyVC: ChooseOwnerKeyViewController!
-    var addFirstKeyVC: AddOwnerFirstViewController!
 
     var selectedKey: KeyInfo? {
         chooseOwnerKeyVC?.selectedKey
@@ -31,8 +30,6 @@ class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePre
     enum State {
         case initial
         case loading
-        case loaded
-        case empty
         case active
         case connecting
         case connected
@@ -71,7 +68,7 @@ class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePre
             updateState(.loading)
 
         case .approving:
-            updateState(.loaded)
+            updateState(.active)
 
         case .approved:
             updateState(.connecting)
@@ -107,23 +104,9 @@ class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePre
             activityIndicator.startAnimating()
             actionPanelView.setEnabled(false)
 
-        case .loaded:
+        case .active:
             chain = Chain.by(String(connection.chainId!))!
             ribbonView.update(chain: chain)
-            let keys = connectionController.accountKeys()
-            if keys.isEmpty {
-                updateState(.empty)
-            } else {
-                updateState(.active)
-            }
-
-        case .empty:
-            activityIndicator.stopAnimating()
-            actionPanelView.setConfirmEnabled(false)
-            actionPanelView.setRejectEnabled(true)
-            showAddFirstKey()
-
-        case .active:
             contentView.isUserInteractionEnabled = true
             activityIndicator.stopAnimating()
             actionPanelView.setEnabled(true)
@@ -147,19 +130,6 @@ class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePre
         super.willMove(toParent: parent)
         // needed to react to the "swipe down" to close the modal screen
         parent?.presentationController?.delegate = self
-    }
-
-    func showAddFirstKey() {
-        addFirstKeyVC = AddOwnerFirstViewController()
-        addFirstKeyVC.descriptionText = "To connect to Gnosis Safe import at least one owner key. Keys are used to confirm transactions."
-        viewControllers = [addFirstKeyVC]
-        displayChild(at: 0, in: contentView)
-
-        addFirstKeyVC.onSuccess = { [weak self] in
-            guard let self = self else { return }
-            self.navigationController?.popToRootViewController(animated: true)
-            self.updateState(.active)
-        }
     }
 
     func showKeyPicker() {
