@@ -78,9 +78,11 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         confirmButtonView.onClick = { [weak self] in
             guard let `self` = self else { return }
             let descriptionText = "An owner key will be used to confirm this transaction."
-            let vc = ChooseOwnerKeyViewController(owners: KeyInfo.owners(safe: self.safe),
-                                                  chainID: self.safe.chain!.id,
-                                                  descriptionText: descriptionText) { [weak self] keyInfo in
+            let vc = ChooseOwnerKeyViewController(
+                owners: KeyInfo.owners(safe: self.safe),
+                chainID: self.safe.chain!.id,
+                header: .text(description: descriptionText)
+            ) { [weak self] keyInfo in
                 guard let `self` = self else { return }
                 self.dismiss(animated: true) {
                     if let info = keyInfo {

@@ -82,9 +82,10 @@ class CoreDataStack: CoreDataProtocol {
             NotificationCenter.default
                 .publisher(for: Notification.Name.NSManagedObjectContextDidSave)
                 .receive(on: RunLoop.main)
-                .sink { [unowned container] notification in
+                .sink { [weak container] notification in
                     let savedMOC = notification.object as! NSManagedObjectContext
-                    guard savedMOC != container.viewContext,
+                    guard let container = container,
+                          savedMOC != container.viewContext,
                           savedMOC.persistentStoreCoordinator == container.persistentStoreCoordinator else { return }
                     container.viewContext.mergeChanges(fromContextDidSave: notification)
                 }
