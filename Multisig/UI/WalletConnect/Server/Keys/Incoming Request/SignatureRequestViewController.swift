@@ -74,7 +74,8 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
                         dismiss(animated: true, completion: nil)
                         App.shared.snackbar.show(message: "Signed successfully")
                     }
-                    Tracker.trackEvent(.dpSignRequestConfirmedPhoneKey)
+                    Tracker.trackEvent(.desktopPairingSignRequestConfirmed,
+                                       parameters: ["key_type" : keyInfo.keyType == .deviceGenerated ? "generated" : "imported"])
                 } catch {
                     DispatchQueue.main.async {
                         App.shared.snackbar.show(
@@ -87,7 +88,7 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
             preconditionFailure("Developer error")
         case .ledgerNanoX:
             let request = SignRequest(title: "Sign Transaction",
-                                      tracking: ["action" : "wc_key_incoming_sign"],
+                                      tracking: [:],
                                       signer: keyInfo,
                                       hexToSign: hash.description)
             let vc = LedgerSignerViewController(request: request)
@@ -101,7 +102,8 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
                 sig -= 4
                 self?.onSign?(String(sig, radix: 16))
                 App.shared.snackbar.show(message: "Signed successfully")
-                Tracker.trackEvent(.dpSignRequestConfirmedLedger)
+                Tracker.trackEvent(.desktopPairingSignRequestConfirmed,
+                                   parameters: ["key_type" : "ledger_nano_x"])
             }
         }
     }
