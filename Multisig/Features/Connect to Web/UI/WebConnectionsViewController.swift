@@ -12,7 +12,7 @@ import WalletConnectSwift
 class WebConnectionsViewController: UITableViewController, ExternalURLSource {
     
     @IBOutlet private var infoButton: UIBarButtonItem!
-    
+
     private weak var timer: Timer?
 
     private var connections = [CDWCConnection]()
@@ -47,11 +47,11 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
                 target: self,
                 action: #selector(openHelpUrl))
         navigationItem.rightBarButtonItem = infoButton
-        
+
         subscribeToNotifications()
-        
+
         update()
-        
+
         startTimer()
     }
 
@@ -75,14 +75,14 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
     }
 
     @objc private func update() {
-       
+
         connections = WebConnectionProvider.allConnections()
 
         DispatchQueue.main.async { [unowned self] in
             self.tableView.reloadData()
         }
     }
-    
+
     @objc func updateConnectionsTimeInfo() {
         tableView.reloadData()
     }
@@ -178,7 +178,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
             }]
         return UISwipeActionsConfiguration(actions: actions)
     }
-    
+
     func startTimer() {
         timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(updateConnectionsTimeInfo), userInfo: nil, repeats: true)    }
@@ -186,7 +186,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
     func stopTimer() {
         timer?.invalidate()
     }
-    
+
     deinit {
         stopTimer()
     }

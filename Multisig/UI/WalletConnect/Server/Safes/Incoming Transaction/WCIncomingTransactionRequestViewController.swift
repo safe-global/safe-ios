@@ -64,7 +64,11 @@ class WCIncomingTransactionRequestViewController: UIViewController {
     @IBAction private func submit(_ sender: Any) {
         let owners = (try? KeyInfo.keys(addresses: importedKeysForSafe)) ?? []
         let descriptionText = "You are about to confirm this transaction. This happens off-chain. Please select which owner key to use."
-        let vc = ChooseOwnerKeyViewController(owners: owners, chainID: safe.chain!.id, descriptionText: descriptionText) {
+        let vc = ChooseOwnerKeyViewController(
+            owners: owners,
+            chainID: safe.chain!.id,
+            header: .text(description: descriptionText)
+        ) {
             [unowned self] keyInfo in
 
             // dismiss presented ChooseOwnerKeyViewController right after receiving the completion
