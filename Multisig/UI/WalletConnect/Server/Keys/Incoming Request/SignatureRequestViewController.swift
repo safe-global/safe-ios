@@ -10,19 +10,19 @@ import UIKit
 import BigInt
 import WalletConnectSwift
 
-class WCIncomingKeyRequestViewController: UIViewController {
+class SignatureRequestViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
     @IBOutlet private weak var dappImageView: UIImageView!
     @IBOutlet private weak var dappNameLabel: UILabel!
-    @IBOutlet private weak var signerAddressInfoView: AddressInfoView!
+    @IBOutlet private weak var signerAddressView: TitledMiniPieceView!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var detailsLabel: UILabel!
     @IBOutlet private weak var rejectButton: UIButton!
     @IBOutlet private weak var confirmButton: UIButton!
+    @IBOutlet private weak var urlLabel: UILabel!
 
     private var dAppMeta: Session.ClientMeta!
     private var keyInfo: KeyInfo!
     private var message: String!
-    private var ledgerController: LedgerController?
 
     var onReject: (() -> Void)?
     var onSign: ((String) -> Void)?
@@ -36,7 +36,7 @@ class WCIncomingKeyRequestViewController: UIViewController {
     @IBAction func confirm(_ sender: Any) {
         if App.shared.auth.isPasscodeSetAndAvailable &&
             AppSettings.passcodeOptions.contains(.useForConfirmation) &&
-            keyInfo.keyType != .ledgerNanoX {
+            [.deviceImported, .deviceGenerated].contains(keyInfo.keyType) {
 
             let vc = EnterPasscodeViewController()
             vc.passcodeCompletion = { [weak self] success in
@@ -84,7 +84,6 @@ class WCIncomingKeyRequestViewController: UIViewController {
 
         case .walletConnect:
             preconditionFailure("Developer error")
-
         case .ledgerNanoX:
             let request = SignRequest(title: "Sign Transaction",
                                       tracking: ["action" : "wc_key_incoming_sign"],
@@ -119,19 +118,103 @@ class WCIncomingKeyRequestViewController: UIViewController {
         super.viewDidLoad()
 
         dappImageView.kf.setImage(with: dAppMeta.icons.first, placeholder: UIImage(named: "ico-empty-circle"))
-        dappNameLabel.setStyle(.headline)
+        dappNameLabel.setStyle(.primary)
         dappNameLabel.text = dAppMeta.name
-        signerAddressInfoView.setAddress(keyInfo.address, label: keyInfo.name)
-        titleLabel.setStyle(.caption1)
+        urlLabel.setStyle(.tertiary)
+        urlLabel.text = dAppMeta.url.host
+
+        titleLabel.setStyle(.secondary)
         detailsLabel.setStyle(.primary)
         detailsLabel.text = message
 
         rejectButton.setText("Reject", .filledError)
         confirmButton.setText("Confirm", .filled)
+        navigationItem.title = "Signature request"
+
+        let content = MiniAccountAndBalancePiece()
+        //content.setModel(accountModel)
+        signerAddressView.setContent(content)
+        signerAddressView.setTitle("Selected key")
+    }
+
+    // cancellable process to find a default execution key
+    func findDefaultKey(completion: @escaping () -> Void) -> URLSessionTask? {
+        // use safe's owner addresses
+        let ownerAddresses = safe.ownersInfo?.map { $0.address } ?? []
+
+        // make database query to get all keys
+        let keys = executionKeys()
+
+        // make network request to fetch balances
+        let balanceLoader = DefaultAccountBalanceLoader(chain: chain)
+        balanceLoader.requiredBalance = requiredBalance ?? 0
+
+        let task = balanceLoader.loadBalances(for: keys) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                // if request cancelled, do nothing, don't call completion.
+                if (error as NSError).code == URLError.cancelled.rawValue &&
+                    (error as NSError).domain == NSURLErrorDomain {
+                    return
+                }
+                // if request fails with some error treat as if balances are set to 0
+                let balances: [AccountBalanceUIModel] = .init(
+                    repeating: AccountBalanceUIModel(displayAmount: "", isEnabled: true), count: keys.count)
+                self.findDefaultKey(keys: keys, balances: balances, ownerAddresses: ownerAddresses)
+                completion()
+
+            case .success(let balances):
+                self.findDefaultKey(keys: keys, balances: balances, ownerAddresses: ownerAddresses)
+
+                completion()
+            }
+        }
+        return task
+    }
+
+    private func findDefaultKey(
+        keys: [KeyInfo],
+        balances: [AccountBalanceUIModel],
+        ownerAddresses: [Address]
+    ) {
+        assert(keys.count == balances.count)
+        let candidates = zip(keys, balances).map { key, balance in
+            OwnerKeySelectionPolicy.KeyCandidate(
+                key: key,
+                balance: balance.amount ?? 0,
+                isOwner: ownerAddresses.contains(key.address))
+        }
+
+        let bestCandidate = self.keySelectionPolicy.defaultExecutionKey(
+            in: candidates,
+            requiredAmount: self.requiredBalance ?? 0
+        )
+        if let bestCandidate = bestCandidate {
+            let result = zip(keys, balances).first { $0.0 == bestCandidate.key }!
+            self.selectedKey = result
+        } else {
+            self.selectedKey = nil
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.desktopPairingSignRequest)
+    }
+
+    override func closeModal() {
+        reject(self)
+    }
+
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        // needed to react to the "swipe down" to close the modal screen
+        parent?.presentationController?.delegate = self
+    }
+
+    // Called when user swipes down the modal screen
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        reject(self)
     }
 }

@@ -29,8 +29,10 @@ class WCKeysRequestsHandler: RequestHandler {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
         guard let wcKeySession = WCKeySession.get(topic: request.url.topic),
-              let session = try? Session.from(wcKeySession) else {
+              let session = try? Session.from(wcKeySession),
+              let walletInfo = session.walletInfo else {
                   server.send(try! Response(request: request, error: .requestRejected))
+
                   return
               }
 
@@ -44,7 +46,7 @@ class WCKeysRequestsHandler: RequestHandler {
 
             // present incoming key request controller
             DispatchQueue.main.async {
-                let controller = WCIncomingKeyRequestViewController(dAppMeta: session.dAppInfo.peerMeta,
+                let controller = SignatureRequestViewController(dAppMeta: session.dAppInfo.peerMeta,
                                                                     keyInfo: keyInfo,
                                                                     message: message)
 
@@ -56,9 +58,9 @@ class WCKeysRequestsHandler: RequestHandler {
                     self.server.send(try! Response(url: session.url, value: signature, id: request.id!.description))
                 }
 
-                let navController = UINavigationController(rootViewController: controller)
                 let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
-                sceneDelegate.present(navController)
+                let vc = ViewControllerFactory.modalWithRibbon(viewController: controller, storedChain: Chain.by("\(walletInfo.chainId)"))
+                sceneDelegate.present(vc)
             }
         }
     }
