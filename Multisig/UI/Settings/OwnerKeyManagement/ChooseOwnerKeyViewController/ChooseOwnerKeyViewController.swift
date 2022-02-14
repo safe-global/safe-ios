@@ -106,16 +106,18 @@ class ChooseOwnerKeyViewController: UIViewController {
             name: .wcDidDisconnectClient,
             object: nil)
 
-        pullToRefreshControl = UIRefreshControl()
-        pullToRefreshControl.addTarget(self,
-                                       action: #selector(pullToRefreshChanged),
-                                       for: .valueChanged)
-        tableView.refreshControl = pullToRefreshControl
+        if balancesLoader != nil {
+            pullToRefreshControl = UIRefreshControl()
+            pullToRefreshControl.addTarget(self,
+                    action: #selector(pullToRefreshChanged),
+                    for: .valueChanged)
+            tableView.refreshControl = pullToRefreshControl
+        }
 
         reloadBalances()
     }
 
-    @objc private func reload() {
+    @objc func reload() {
         DispatchQueue.main.async { [unowned self] in
             self.tableView.reloadData()
         }

@@ -178,9 +178,10 @@ class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePre
                     detail: remotePeer.url.absoluteString),
                 requestsPasscode: false,
                 selectedKey: keys.first,
-                balancesLoader: nil
-        )  { _ in
-            // do nothing
+                balancesLoader: nil,
+                completionHandler: nil)
+        chooseOwnerKeyVC.completionHandler = { [weak chooseOwnerKeyVC] _ in
+            chooseOwnerKeyVC?.reload()
         }
         viewControllers = [chooseOwnerKeyVC]
         displayChild(at: 0, in: contentView)
