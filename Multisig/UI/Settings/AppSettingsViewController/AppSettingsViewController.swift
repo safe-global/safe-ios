@@ -141,6 +141,7 @@ class AppSettingsViewController: UITableViewController {
         let keys = WebConnectionController.shared.accountKeys()
         if keys.isEmpty {
             let addOwnersVC = AddOwnerFirstViewController()
+            addOwnersVC.descriptionText = "To connect to Gnosis Safe import at least one owner key. Keys are used to confirm transactions."
             let nav = UINavigationController(rootViewController: addOwnersVC)
             present(nav, animated: true)
         } else {
