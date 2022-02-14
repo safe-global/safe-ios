@@ -144,7 +144,7 @@ class AppSettingsViewController: UITableViewController {
             let nav = UINavigationController(rootViewController: addOwnersVC)
             present(nav, animated: true)
         } else {
-            let connectionsVC = DesktopPairingViewController()
+            let connectionsVC = WebConnectionsViewController()
             show(connectionsVC, sender: self)
         }
     }

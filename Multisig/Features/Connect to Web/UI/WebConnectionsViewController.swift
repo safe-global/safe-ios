@@ -13,16 +13,22 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
     
     @IBOutlet private var infoButton: UIBarButtonItem!
 
+    // Change to switch the implementations for debugging or testing
+    private let usesNewImplementation = false
+
     private weak var timer: Timer?
 
     private var connections = [CDWCConnection]()
     private let wcServerController = WalletConnectKeysServerController.shared
+    private var connectionController = WebConnectionController.shared
+
     private lazy var relativeDateFormatter: RelativeDateTimeFormatter = {
         let formatter = RelativeDateTimeFormatter()
         formatter.dateTimeStyle = .named
         formatter.unitsStyle = .full
         return formatter
     }()
+
     var url: URL?
 
     override func viewDidLoad() {
@@ -194,6 +200,18 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
 
 extension WebConnectionsViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
+        if usesNewImplementation {
+            didScanNewImplementation(code)
+        } else {
+            didScanOldImplementation(code: code)
+        }
+    }
+
+    func scannerViewControllerDidCancel() {
+        dismiss(animated: true, completion: nil)
+    }
+
+    private func didScanOldImplementation(code: String) {
         do {
             try wcServerController.connect(url: code)
             dismiss(animated: true, completion: nil)
@@ -202,8 +220,22 @@ extension WebConnectionsViewController: QRCodeScannerViewControllerDelegate {
         }
     }
 
-    func scannerViewControllerDidCancel() {
-        dismiss(animated: true, completion: nil)
+    func didScanNewImplementation(_ code: String) {
+        dismiss(animated: true) { [unowned self] in
+            do {
+                let connection = try WebConnectionController.shared.connect(to: code)
+                let connectionVC = WebConnectionRequestViewController()
+                connectionVC.connectionController = WebConnectionController.shared
+                connectionVC.connection = connection
+                connectionVC.onFinish = { [weak self] in
+                    self?.dismiss(animated: true)
+                }
+                let nav = UINavigationController(rootViewController: connectionVC)
+                present(nav, animated: true)
+            } catch {
+                App.shared.snackbar.show(message: error.localizedDescription)
+            }
+        }
     }
 }
 

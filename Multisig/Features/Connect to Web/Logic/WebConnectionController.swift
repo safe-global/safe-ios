@@ -16,6 +16,16 @@ protocol WebConnectionSubject: AnyObject {
     func notifyObservers(of connection: WebConnection)
 }
 
+protocol WebConnectionListObserver: AnyObject {
+    func didUpdateConnections()
+}
+
+protocol WebConnectionListSubject: AnyObject {
+    func attach(observer: WebConnectionListObserver)
+    func detach(observer: WebConnectionListObserver)
+    func notifyListObservers()
+}
+
 /// Controller implementing the business-logic of managing connections and handling incoming requests.
 ///
 /// Use the `shared` instance since the controller's lifetime is the same as the app's lifetime.
@@ -189,7 +199,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             break
         case .final:
             delete(connection)
-            break
         case .unknown:
             // stay here
             break

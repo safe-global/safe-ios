@@ -191,24 +191,6 @@
         }
       },
       {
-        "package": "Starscream",
-        "repositoryURL": "https://github.com/daltoniam/Starscream.git",
-        "state": {
-          "branch": null,
-          "revision": "e6b65c6d9077ea48b4a7bdda8994a1d3c6969c8d",
-          "version": "3.1.1"
-        }
-      },
-      {
-        "package": "swift-nio-zlib-support",
-        "repositoryURL": "https://github.com/apple/swift-nio-zlib-support.git",
-        "state": {
-          "branch": null,
-          "revision": "37760e9a52030bb9011972c5213c3350fa9d41fd",
-          "version": "1.0.0"
-        }
-      },
-      {
         "package": "SwiftProtobuf",
         "repositoryURL": "https://github.com/apple/swift-protobuf.git",
         "state": {
@@ -260,15 +242,6 @@
           "branch": null,
           "revision": "1fe824b80d89201652e7eca7c9252269a1d85e25",
           "version": "2.0.1"
-        }
-      },
-      {
-        "package": "WalletConnectSwift",
-        "repositoryURL": "https://github.com/gnosis/WalletConnectSwift.git",
-        "state": {
-          "branch": "gnosis-safe-ios",
-          "revision": "e49d8ca990ef63399f2abd263c6c8dab38b132b6",
-          "version": null
         }
       },
       {
