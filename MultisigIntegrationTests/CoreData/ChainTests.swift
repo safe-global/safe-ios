@@ -316,18 +316,23 @@ class NetworkTests: CoreDataTestCase {
                          themeTextColor: String,
                          themeBackgroundColor: String) -> SCGModels.Chain {
 
-        SCGModels.Chain(chainId: UInt256String(id),
-                        chainName: chainName,
-                        rpcUri: SCGModels.RpcAuthentication(authentication: rpcUrlAuthentication, value: rpcUrl),
-                        blockExplorerUriTemplate: SCGModels.BlockExplorerUriTemplate(address: blockExplorerUrlAddress,
-                                                                                     txHash: blockExplorerUrlTxHash),
-                        nativeCurrency: SCGModels.Currency(name: currencyName,
-                                                           symbol: currencySymbl,
-                                                           decimals: currencyDecimals,
-                                                           logoUri: currencyLogo),
-                        theme: SCGModels.Theme(textColor: themeTextColor,
-                                               backgroundColor: themeBackgroundColor),
-                        ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e", shortName: shortName)
+        SCGModels.Chain(
+                chainId: UInt256String(id),
+                chainName: chainName,
+                rpcUri: SCGModels.RpcAuthentication(authentication: rpcUrlAuthentication, value: rpcUrl),
+                blockExplorerUriTemplate: SCGModels.BlockExplorerUriTemplate(address: blockExplorerUrlAddress,
+                                                                             txHash: blockExplorerUrlTxHash),
+                nativeCurrency: SCGModels.Currency(name: currencyName,
+                                                   symbol: currencySymbl,
+                                                   decimals: currencyDecimals,
+                                                   logoUri: currencyLogo),
+                theme: SCGModels.Theme(textColor: themeTextColor,
+                                       backgroundColor: themeBackgroundColor),
+                ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e",
+                shortName: shortName,
+                l2: false,
+                features: [],
+                gasPrice: [])
     }
 
     func makeMainnetInfo() -> SCGModels.Chain {

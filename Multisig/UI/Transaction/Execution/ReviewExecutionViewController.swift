@@ -133,7 +133,7 @@ class ReviewExecutionViewController: ContainerViewController {
             owners: keys,
             chainID: controller.chainId,
             titleText: "Select an execution key",
-            descriptionText: "The selected key will be used to execute this transaction.",
+            header: .text(description: "The selected key will be used to execute this transaction."),
             requestsPasscode: false,
             selectedKey: controller.selectedKey?.key,
             balancesLoader: balancesLoader

@@ -30,6 +30,9 @@
                             <state key="normal" title="Reject">
                                 <color key="titleColor" red="0.050980392159999999" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <connections>
+                                <action selector="didTapReject:" destination="-1" eventType="touchUpInside" id="7aU-X6-xOq"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pI3-BL-Hnk">
                             <rect key="frame" x="199" y="0.0" width="183" height="56"/>
@@ -40,6 +43,9 @@
                             <state key="normal" title="Confirm">
                                 <color key="titleColor" red="0.050980392159999999" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <connections>
+                                <action selector="didTapConfirm:" destination="-1" eventType="touchUpInside" id="qdM-Py-Whw"/>
+                            </connections>
                         </button>
                     </subviews>
                 </stackView>

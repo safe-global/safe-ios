@@ -67,13 +67,13 @@ class SnackbarCenter: ObservableObject {
         }
     }
 
-    func show(message content: String, duration: TimeInterval? = nil) {
+    func show(message content: String, duration: TimeInterval? = nil, icon: SnackbarViewController.IconSource = .none) {
         // The average adult reading speed is 200 to 250 words a minute, which is around 4 words a second
         // It also takes some time to switch context to notification message, so we will add 1 second for that
         let words =  content.split { !$0.isLetter }.count
         let estimatedReadingTime = TimeInterval(words) / 4 + 2
         let reasonableDuration = max(displayDuration, estimatedReadingTime)
-        SnackbarViewController.show(content, duration: duration ?? reasonableDuration)
+        SnackbarViewController.show(content, duration: duration ?? reasonableDuration, icon: icon)
     }
 
     func hide() {

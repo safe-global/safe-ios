@@ -12,7 +12,13 @@ import WalletConnectSwift
 class DesktopPairingViewController: UITableViewController, ExternalURLSource {
     @IBOutlet private var infoButton: UIBarButtonItem!
     private var sessions = [WCKeySession]()
+
+    // Change to switch the implementations for debugging or testing
+    private let usesNewImplementation = false
+
     private let wcServerController = WalletConnectKeysServerController.shared
+    private var connectionController = WebConnectionController.shared
+
     private lazy var relativeDateFormatter: RelativeDateTimeFormatter = {
         let formatter = RelativeDateTimeFormatter()
         formatter.dateTimeStyle = .named
@@ -89,12 +95,14 @@ class DesktopPairingViewController: UITableViewController, ExternalURLSource {
         label.setAttributes(highlightStyle.attributes, range: string.range(of: "Connect wallet"))
         vc.attributedLabel = label
 
-        vc.scannedValueValidator = { value in
+        vc.scannedValueValidator = { [unowned self] value in
             guard value.starts(with: "safe-wc:") else {
                 return .failure(GSError.InvalidWalletConnectQRCode())
             }
             var url = value
-            url.removeFirst("safe-".count)
+            if !usesNewImplementation {
+                url.removeFirst("safe-".count)
+            }
             return .success(url)
         }
         vc.modalPresentationStyle = .overFullScreen
@@ -160,6 +168,18 @@ class DesktopPairingViewController: UITableViewController, ExternalURLSource {
 
 extension DesktopPairingViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
+        if usesNewImplementation {
+            didScanNewImplementation(code)
+        } else {
+            didScanOldImplementation(code: code)
+        }
+    }
+
+    func scannerViewControllerDidCancel() {
+        dismiss(animated: true, completion: nil)
+    }
+
+    private func didScanOldImplementation(code: String) {
         do {
             try wcServerController.connect(url: code)
             dismiss(animated: true, completion: nil)
@@ -168,8 +188,22 @@ extension DesktopPairingViewController: QRCodeScannerViewControllerDelegate {
         }
     }
 
-    func scannerViewControllerDidCancel() {
-        dismiss(animated: true, completion: nil)
+    func didScanNewImplementation(_ code: String) {
+        dismiss(animated: true) { [unowned self] in
+            do {
+                let connection = try WebConnectionController.shared.connect(to: code)
+                let connectionVC = WebConnectionRequestViewController()
+                connectionVC.connectionController = WebConnectionController.shared
+                connectionVC.connection = connection
+                connectionVC.onFinish = { [weak self] in
+                    self?.dismiss(animated: true)
+                }
+                let nav = UINavigationController(rootViewController: connectionVC)
+                present(nav, animated: true)
+            } catch {
+                App.shared.snackbar.show(message: error.localizedDescription)
+            }
+        }
     }
 }
 

@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WebConnectionRequestViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="actionPanelView" destination="6y3-di-ySF" id="4Ci-97-DVs"/>
+                <outlet property="activityIndicator" destination="CLO-9s-YOw" id="jPQ-9W-Gfa"/>
                 <outlet property="contentView" destination="TDe-7t-YGG" id="mjo-Vq-7dy"/>
                 <outlet property="ribbonView" destination="5ek-FV-qEu" id="zY1-On-g2L"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -42,14 +43,19 @@
                         </view>
                     </subviews>
                 </stackView>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="CLO-9s-YOw">
+                    <rect key="frame" x="197" y="438" width="20" height="20"/>
+                </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="Vt3-5S-O95" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="N5i-Dd-kcC"/>
+                <constraint firstItem="CLO-9s-YOw" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="lB2-wR-nLB"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Vt3-5S-O95" secondAttribute="bottom" id="mYT-Vr-xeI"/>
                 <constraint firstItem="Vt3-5S-O95" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="okW-Pq-p1k"/>
                 <constraint firstItem="Vt3-5S-O95" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="wbQ-i5-j46"/>
+                <constraint firstItem="CLO-9s-YOw" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="xnm-qi-a85"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <point key="canvasLocation" x="137.68115942028987" y="153.34821428571428"/>
