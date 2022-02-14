@@ -23,6 +23,7 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
     private var dAppMeta: Session.ClientMeta!
     private var keyInfo: KeyInfo!
     private var message: String!
+    private var chain: Chain!
 
     var onReject: (() -> Void)?
     var onSign: ((String) -> Void)?
@@ -107,11 +108,13 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
 
     convenience init(dAppMeta: Session.ClientMeta,
                      keyInfo: KeyInfo,
-                     message: String) {
+                     message: String,
+                     chain: Chain) {
         self.init()
         self.dAppMeta = dAppMeta
         self.keyInfo = keyInfo
         self.message = message
+        self.chain = chain
     }
 
     override func viewDidLoad() {
@@ -131,25 +134,17 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
         confirmButton.setText("Confirm", .filled)
         navigationItem.title = "Signature request"
 
-        let content = MiniAccountAndBalancePiece()
-        //content.setModel(accountModel)
-        signerAddressView.setContent(content)
-        signerAddressView.setTitle("Selected key")
+
+        signerAddressView.setContent(loadingView())
+        signerAddressView.setTitle("Sign with")
+
+        loadAccountBalance()
     }
 
-    // cancellable process to find a default execution key
-    func findDefaultKey(completion: @escaping () -> Void) -> URLSessionTask? {
-        // use safe's owner addresses
-        let ownerAddresses = safe.ownersInfo?.map { $0.address } ?? []
-
-        // make database query to get all keys
-        let keys = executionKeys()
-
-        // make network request to fetch balances
+    func loadAccountBalance() {
         let balanceLoader = DefaultAccountBalanceLoader(chain: chain)
-        balanceLoader.requiredBalance = requiredBalance ?? 0
 
-        let task = balanceLoader.loadBalances(for: keys) { [weak self] result in
+        let task = balanceLoader.loadBalances(for: [keyInfo]) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .failure(let error):
@@ -158,44 +153,41 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
                     (error as NSError).domain == NSURLErrorDomain {
                     return
                 }
-                // if request fails with some error treat as if balances are set to 0
-                let balances: [AccountBalanceUIModel] = .init(
-                    repeating: AccountBalanceUIModel(displayAmount: "", isEnabled: true), count: keys.count)
-                self.findDefaultKey(keys: keys, balances: balances, ownerAddresses: ownerAddresses)
-                completion()
+
+                self.display(balance: AccountBalanceUIModel(displayAmount: "", isEnabled: true))
 
             case .success(let balances):
-                self.findDefaultKey(keys: keys, balances: balances, ownerAddresses: ownerAddresses)
-
-                completion()
+                guard let balance = balances.first else {
+                    self.display(balance: AccountBalanceUIModel(displayAmount: "", isEnabled: true))
+                    return
+                }
+                self.display(balance: balance)
             }
         }
-        return task
     }
 
-    private func findDefaultKey(
-        keys: [KeyInfo],
-        balances: [AccountBalanceUIModel],
-        ownerAddresses: [Address]
-    ) {
-        assert(keys.count == balances.count)
-        let candidates = zip(keys, balances).map { key, balance in
-            OwnerKeySelectionPolicy.KeyCandidate(
-                key: key,
-                balance: balance.amount ?? 0,
-                isOwner: ownerAddresses.contains(key.address))
-        }
-
-        let bestCandidate = self.keySelectionPolicy.defaultExecutionKey(
-            in: candidates,
-            requiredAmount: self.requiredBalance ?? 0
+    private func display(balance: AccountBalanceUIModel) {
+        let content = MiniAccountAndBalancePiece()
+        let model = MiniAccountInfoUIModel(
+            prefix: self.chain.shortName,
+            address: keyInfo.address,
+            label: keyInfo.name,
+            imageUri: nil,
+            badge: nil,
+            balance: balance.displayAmount
         )
-        if let bestCandidate = bestCandidate {
-            let result = zip(keys, balances).first { $0.0 == bestCandidate.key }!
-            self.selectedKey = result
-        } else {
-            self.selectedKey = nil
-        }
+
+        content.setModel(model)
+        signerAddressView.setContent(content)
+    }
+
+    func loadingView() -> UIView {
+        let skeleton = UILabel()
+        skeleton.textAlignment = .right
+        skeleton.isSkeletonable = true
+        skeleton.skeletonTextLineHeight = .fixed(25)
+        skeleton.showSkeleton(delay: 0.2)
+        return skeleton
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -213,6 +205,9 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
         parent?.presentationController?.delegate = self
     }
 
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+
+    }
     // Called when user swipes down the modal screen
     func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
         reject(self)

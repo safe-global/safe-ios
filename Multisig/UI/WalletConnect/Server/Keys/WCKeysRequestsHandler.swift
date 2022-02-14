@@ -37,18 +37,20 @@ class WCKeysRequestsHandler: RequestHandler {
               }
 
         if request.method == "eth_sign" {
-            guard let address = try? request.parameter(of: AddressString.self, at: 0),
-                  let keyInfo = try? KeyInfo.keys(addresses: [address.address]).first,
-                  let message = try? request.parameter(of: String.self, at: 1) else {
-                      server.send(try! Response(request: request, error: .requestRejected))
-                      return
-                  }
-
             // present incoming key request controller
             DispatchQueue.main.async {
+                guard let address = try? request.parameter(of: AddressString.self, at: 0),
+                      let keyInfo = try? KeyInfo.keys(addresses: [address.address]).first,
+                      let message = try? request.parameter(of: String.self, at: 1),
+                      let chain = Chain.by("\(walletInfo.chainId)") else {
+                          self.server.send(try! Response(request: request, error: .requestRejected))
+                          return
+                      }
+
                 let controller = SignatureRequestViewController(dAppMeta: session.dAppInfo.peerMeta,
                                                                     keyInfo: keyInfo,
-                                                                    message: message)
+                                                                    message: message,
+                                                                    chain: chain)
 
                 controller.onReject = { [unowned self] in
                     self.server.send(try! Response(request: request, error: .requestRejected))
@@ -59,7 +61,7 @@ class WCKeysRequestsHandler: RequestHandler {
                 }
 
                 let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
-                let vc = ViewControllerFactory.modalWithRibbon(viewController: controller, storedChain: Chain.by("\(walletInfo.chainId)"))
+                let vc = ViewControllerFactory.modalWithRibbon(viewController: controller, storedChain: chain)
                 sceneDelegate.present(vc)
             }
         }
