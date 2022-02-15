@@ -167,11 +167,10 @@ class DesktopPairingViewController: UITableViewController, ExternalURLSource {
 }
 
 extension DesktopPairingViewController: QRCodeScannerViewControllerDelegate {
+
     func scannerViewControllerDidScan(_ code: String) {
-        if usesNewImplementation {
-            didScanNewImplementation(code)
-        } else {
-            didScanOldImplementation(code: code)
+        dismiss(animated: true) { [unowned self] in
+            connect(to: code)
         }
     }
 
@@ -179,32 +178,42 @@ extension DesktopPairingViewController: QRCodeScannerViewControllerDelegate {
         dismiss(animated: true, completion: nil)
     }
 
+    fileprivate func connect(to code: String) {
+        if usesNewImplementation {
+            didScanNewImplementation(code)
+        } else {
+            didScanOldImplementation(code: code)
+        }
+    }
+
     private func didScanOldImplementation(code: String) {
+        var code = code
+        if code.starts(with: "safe-wc:") {
+            code.removeFirst("safe-".count)
+        }
         do {
             try wcServerController.connect(url: code)
-            dismiss(animated: true, completion: nil)
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)
         }
     }
 
     func didScanNewImplementation(_ code: String) {
-        dismiss(animated: true) { [unowned self] in
-            do {
-                let connection = try WebConnectionController.shared.connect(to: code)
-                let connectionVC = WebConnectionRequestViewController()
-                connectionVC.connectionController = WebConnectionController.shared
-                connectionVC.connection = connection
-                connectionVC.onFinish = { [weak self] in
-                    self?.dismiss(animated: true)
-                }
-                let nav = UINavigationController(rootViewController: connectionVC)
-                present(nav, animated: true)
-            } catch {
-                App.shared.snackbar.show(message: error.localizedDescription)
+        do {
+            let connection = try WebConnectionController.shared.connect(to: code)
+            let connectionVC = WebConnectionRequestViewController()
+            connectionVC.connectionController = WebConnectionController.shared
+            connectionVC.connection = connection
+            connectionVC.onFinish = { [weak self] in
+                self?.dismiss(animated: true)
             }
+            let nav = UINavigationController(rootViewController: connectionVC)
+            present(nav, animated: true)
+        } catch {
+            App.shared.snackbar.show(message: error.localizedDescription)
         }
     }
+
 }
 
 extension DesktopPairingViewController: WalletConnectKeysServerControllerDelegate {
@@ -237,6 +246,18 @@ extension DesktopPairingViewController: WalletConnectKeysServerControllerDelegat
                 }
             }
             self.present(UINavigationController(rootViewController: vc), animated: true)
+        }
+    }
+}
+
+extension DesktopPairingViewController: NavigationRouter {
+    func canNavigate(to route: NavigationRoute) -> Bool {
+        route.path == NavigationRoute.connectToWeb().path
+    }
+
+    func navigate(to route: NavigationRoute) {
+        if let code = route.info["code"] as? String {
+            connect(to: code)
         }
     }
 }
