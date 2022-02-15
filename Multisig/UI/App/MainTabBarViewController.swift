@@ -17,6 +17,9 @@ class MainTabBarViewController: UITabBarController {
     private weak var transactionsSegementControl: SegmentViewController?
     private var appearsFirstTime: Bool = true
 
+    static fileprivate let SETTINGS_TAB_INDEX = 3
+    static fileprivate let APP_SETTINGS_SEGMENT_INDEX = 0
+
     lazy var balancesTabVC: UIViewController = {
         balancesTabViewController()
     }()
@@ -157,11 +160,11 @@ class MainTabBarViewController: UITabBarController {
             appSettingsVC,
             noSafesVC
         ]
-        segmentVC.selectedIndex = 0
+        segmentVC.selectedIndex = Self.APP_SETTINGS_SEGMENT_INDEX
         let ribbonVC = RibbonViewController(rootViewController: segmentVC)
         
         let tabRoot = HeaderViewController(rootViewController: ribbonVC)
-        let settingsTabVC = settingsTabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: 3)
+        let settingsTabVC = settingsTabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: Self.SETTINGS_TAB_INDEX)
         settingsTabVC.segmentViewController = segmentVC
         settingsTabVC.appSettingsViewController = appSettingsVC
         return settingsTabVC
@@ -234,8 +237,8 @@ extension MainTabBarViewController: NavigationRouter {
               let appSettingsVC = settingsNav.appSettingsViewController else {
             return
         }
-        selectedIndex = 3
-        segmentVC.selectedIndex = 0
+        selectedIndex = Self.SETTINGS_TAB_INDEX
+        segmentVC.selectedIndex = Self.APP_SETTINGS_SEGMENT_INDEX
         appSettingsVC.navigate(to: route)
     }
 }
