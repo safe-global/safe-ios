@@ -2899,18 +2899,8 @@
 			children = (
 				557D80A1270B32F80036D6D0 /* WCKeysRequestsHandler.swift */,
 				557D80A2270B32F80036D6D0 /* WalletConnectKeysServerController.swift */,
-				557D80A3270B32F80036D6D0 /* Incoming Request */,
 			);
 			path = Keys;
-			sourceTree = "<group>";
-		};
-		557D80A3270B32F80036D6D0 /* Incoming Request */ = {
-			isa = PBXGroup;
-			children = (
-				557D80A4270B32F80036D6D0 /* SignatureRequestViewController.swift */,
-				557D80A5270B32F80036D6D0 /* SignatureRequestViewController.xib */,
-			);
-			path = "Incoming Request";
 			sourceTree = "<group>";
 		};
 		557D80A6270B32F80036D6D0 /* Client */ = {
@@ -3184,6 +3174,8 @@
 		B0D61BC51DC924AF458E9FBB /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				557D80A4270B32F80036D6D0 /* SignatureRequestViewController.swift */,
+				557D80A5270B32F80036D6D0 /* SignatureRequestViewController.xib */,
 				B0D61352D30ACB7D294C526D /* ActionPanelView.swift */,
 				B0D61FB05FC8C6D45FAC1246 /* ActionPanelView.xib */,
 				B0D61D08EC35504630794D01 /* ConfirmConnection */,

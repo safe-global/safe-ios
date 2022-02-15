@@ -27,3 +27,8 @@ struct WebConnectionRequestId {
         self.doubleValue = doubleValue
     }
 }
+
+struct WebConnectionSignatureRequest {
+    var message: Data
+    var account: Address
+}

@@ -47,22 +47,23 @@ class WCKeysRequestsHandler: RequestHandler {
                           return
                       }
 
-                let controller = SignatureRequestViewController(dAppMeta: session.dAppInfo.peerMeta,
-                                                                    keyInfo: keyInfo,
-                                                                    message: message,
-                                                                    chain: chain)
+                // TODO: Adjust for use in the controller
+//                let controller = SignatureRequestViewController(dAppMeta: session.dAppInfo.peerMeta,
+//                                                                    keyInfo: keyInfo,
+//                                                                    message: message,
+//                                                                    chain: chain)
+//
+//                controller.onReject = { [unowned self] in
+//                    self.server.send(try! Response(request: request, error: .requestRejected))
+//                }
+//
+//                controller.onSign = { [unowned self] signature in
+//                    self.server.send(try! Response(url: session.url, value: signature, id: request.id!.description))
+//                }
 
-                controller.onReject = { [unowned self] in
-                    self.server.send(try! Response(request: request, error: .requestRejected))
-                }
-
-                controller.onSign = { [unowned self] signature in
-                    self.server.send(try! Response(url: session.url, value: signature, id: request.id!.description))
-                }
-
-                let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
-                let vc = ViewControllerFactory.modalWithRibbon(viewController: controller, storedChain: chain)
-                sceneDelegate.present(vc)
+//                let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
+//                let vc = ViewControllerFactory.modalWithRibbon(viewController: controller, storedChain: chain)
+//                sceneDelegate.present(vc)
             }
         }
     }
