@@ -173,8 +173,8 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
         let connection = connections[indexPath.row]
         let actions = [
             UIContextualAction(style: .destructive, title: "Disconnect") { _, _, completion in
-                //TODO: disconnect connection
-                //connectionController.delete(connection: connection)
+                //TODO: send disconnect
+                self.connectionController.delete(connection)
                 //WalletConnectKeysServerController.shared.disconnect(topic: session.topic!)
             }]
         return UISwipeActionsConfiguration(actions: actions)
