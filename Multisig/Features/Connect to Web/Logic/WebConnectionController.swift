@@ -149,7 +149,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         case .handshaking:
             do {
                 try start(connection)
-                notifyListObservers()
             } catch {
                 handle(error: error, in: connection)
             }
@@ -168,6 +167,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
         case .opened:
             didOpen(connection: connection)
+            notifyListObservers()
 
         case .updateReceived:
             // close connection
@@ -341,6 +341,10 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     /// - Parameter connection: a connection
     func userDidCancel(_ connection: WebConnection) {
         update(connection, to: .rejected)
+    }
+
+    func userDidDelete(_ connection: WebConnection) {
+        update(connection, to: .final)
     }
 
     // MARK: - Server Delegate (Server events)

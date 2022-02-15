@@ -45,28 +45,6 @@ extension UITableView {
 
         return cell
     }
-    
-    func webConnectionCell(imageUrl: URL?,
-                      header: String?,
-                      connectionInfo: String?,
-                      connectionTimeInfo: String?,
-                      keyName: String,
-                      keyAddress: Address,
-                      indexPath: IndexPath,
-                      canSelect: Bool = true,
-                      placeholderImage: UIImage? = nil) -> UITableViewCell {
-        let cell = dequeueCell(WebConnectionTableViewCell.self, for: indexPath)
-        cell.setImage(url: imageUrl, placeholder: placeholderImage)
-        cell.setHeader(header)
-        cell.setConnectionInfo(connectionInfo)
-        cell.setConnectionTimeInfo(connectionTimeInfo)
-        cell.setKey(keyName, address: keyAddress)
-        if !canSelect {
-            cell.selectionStyle = .none
-        }
-
-        return cell
-    }
 
     func infoCell(name: String,
                   info: String,

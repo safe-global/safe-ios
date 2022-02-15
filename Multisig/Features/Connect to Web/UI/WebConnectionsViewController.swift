@@ -14,13 +14,15 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
     @IBOutlet private var infoButton: UIBarButtonItem!
 
     // Change to switch the implementations for debugging or testing
-    private let usesNewImplementation = false
+    private let usesNewImplementation = true
 
     private weak var timer: Timer?
 
     private var connections = [WebConnection]()
     private let wcServerController = WalletConnectKeysServerController.shared
     private var connectionController = WebConnectionController.shared
+
+    private static let relativeDateTimerUpdateInterval: TimeInterval = 15
 
     private lazy var relativeDateFormatter: RelativeDateTimeFormatter = {
         let formatter = RelativeDateTimeFormatter()
@@ -84,7 +86,6 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
     }
 
     @objc private func update() {
-
         connections = connectionController.connections()
 
         DispatchQueue.main.async { [unowned self] in
@@ -115,9 +116,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
             guard value.starts(with: "safe-wc:") else {
                 return .failure(GSError.InvalidWalletConnectQRCode())
             }
-            var url = value
-            url.removeFirst("safe-".count)
-            return .success(url)
+            return .success(value)
         }
         vc.modalPresentationStyle = .overFullScreen
         vc.delegate = self
@@ -132,30 +131,25 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard indexPath.row < connections.count else { return UITableViewCell() }
         let connection = connections[indexPath.row]
+        let header = connection.remotePeer?.name ?? "Connection"
+        let peerIconUrl: URL? = connection.remotePeer?.icons.first
+        let chainId = connection.chainId.map(String.init) ?? Chain.ChainID.ethereumMainnet
+        let keyAddress: Address? = connection.accounts.first
+        let keyName: String? = keyAddress.flatMap { NamingPolicy.name(for: $0, chainId: chainId).name }
 
-        var peerIconUrl: URL?
-        if let peerIcons = connection.remotePeer?.icons, !peerIcons.isEmpty {
-            peerIconUrl = peerIcons[0]
-        }
+        let cell = tableView.dequeueCell(WebConnectionTableViewCell.self, for: indexPath)
+        cell.setImage(url: peerIconUrl, placeholder: UIImage(named: "connection-placeholder"))
+        cell.setHeader(header)
+        cell.setConnectionInfo(connection.remotePeer?.url.host)
+        cell.setConnectionTimeInfo(connection.createdDate?.timeAgo())
+        cell.setKey(keyName, address: keyAddress)
+        return cell
+    }
 
-        var chainId = Chain.ChainID.ethereumMainnet
-        if let connectionChainId = connection.chainId {
-            chainId = String(connection.chainId!)
-        }
-
-        var peerName = NamingPolicy.name(for: connection.accounts[0], chainId: chainId).name ?? ""
-
-        return tableView.webConnectionCell(
-            imageUrl: peerIconUrl,
-            header: connection.remotePeer?.name,
-            connectionInfo: connection.remotePeer?.peerId,
-            connectionTimeInfo: connection.createdDate?.timeAgo(),
-            keyName: peerName,
-            keyAddress: connection.accounts[0],
-            indexPath: indexPath,
-            canSelect: false,
-            placeholderImage: UIImage(named: "connection-placeholder"))
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     // MARK: - Table view delegate
@@ -173,8 +167,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
         let connection = connections[indexPath.row]
         let actions = [
             UIContextualAction(style: .destructive, title: "Disconnect") { _, _, completion in
-                //TODO: send disconnect
-                self.connectionController.delete(connection)
+                self.connectionController.userDidDelete(connection)
                 //WalletConnectKeysServerController.shared.disconnect(topic: session.topic!)
             }]
         return UISwipeActionsConfiguration(actions: actions)
@@ -182,7 +175,13 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
 
     func startTimer() {
         timer?.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(updateConnectionsTimeInfo), userInfo: nil, repeats: true)    }
+        timer = Timer.scheduledTimer(
+            timeInterval: Self.relativeDateTimerUpdateInterval,
+            target: self,
+            selector: #selector(updateConnectionsTimeInfo),
+            userInfo: nil,
+            repeats: true)
+    }
 
     func stopTimer() {
         timer?.invalidate()
@@ -277,7 +276,7 @@ extension WebConnectionsViewController: WalletConnectKeysServerControllerDelegat
     }
 }
 
-extension DesktopPairingViewController: NavigationRouter {
+extension WebConnectionsViewController: NavigationRouter {
     func canNavigate(to route: NavigationRoute) -> Bool {
         route.path == NavigationRoute.connectToWeb().path
     }

@@ -71,12 +71,10 @@ class WebConnectionTableViewCell: UITableViewCell {
         statusLabel.setStyle(style)
     }
     
-    func setKey(_ name: String, address: Address) {
-        ownerKeyView.set(name: name, address: address)
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
+    func setKey(_ name: String?, address: Address?) {
+        if let address = address, let name = name {
+            ownerKeyView.set(name: name, address: address)
+        }
+        ownerKeyView.isHidden = address == nil
     }
 }

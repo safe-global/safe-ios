@@ -136,7 +136,7 @@ class AppSettingsViewController: UITableViewController {
         }
     }
 
-    private func showDesktopPairing() -> DesktopPairingViewController? {
+    private func showDesktopPairing() -> WebConnectionsViewController? {
         let keys = WebConnectionController.shared.accountKeys()
         if keys.isEmpty {
             let addOwnersVC = AddOwnerFirstViewController()

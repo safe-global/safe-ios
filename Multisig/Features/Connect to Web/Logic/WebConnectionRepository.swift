@@ -17,10 +17,7 @@ class WebConnectionRepository {
     func connections() -> [WebConnection] {
         var connections: [WebConnection] = []
         do {
-            let nillableConnectionList = try CDWCConnection.getAll().map { connection(from: $0) }.filter { $0 != nil }
-            nillableConnectionList.forEach {
-                connections.append($0!)
-            }
+            connections = try CDWCConnection.getAll().compactMap(connection(from:))
         } catch {
             LogService.shared.error("Failed to get Web Connections: \(error.localizedDescription)")
         }
