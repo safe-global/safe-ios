@@ -238,6 +238,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 }
 
+extension SceneDelegate: NavigationRouter {
+    func canNavigate(to route: NavigationRoute) -> Bool {
+        guard let tabWindow = tabBarWindow, let tabBarVC = tabWindow.rootViewController as? MainTabBarViewController else { return false }
+        return tabBarVC.canNavigate(to: route)
+    }
+
+    func navigate(to route: NavigationRoute) {
+        guard let tabWindow = tabBarWindow, let tabBarVC = tabWindow.rootViewController as? MainTabBarViewController else { return }
+        tabBarVC.navigate(to: route)
+    }
+}
+
 // Window that can keep some view always on top of other views
 class WindowWithViewOnTop: UIWindow {
 
