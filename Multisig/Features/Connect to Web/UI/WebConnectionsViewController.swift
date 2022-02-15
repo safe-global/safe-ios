@@ -139,12 +139,19 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
             peerIconUrl = peerIcons[0]
         }
 
+        var chainId = Chain.ChainID.ethereumMainnet
+        if let connectionChainId = connection.chainId {
+            chainId = String(connection.chainId!)
+        }
+
+        var peerName = NamingPolicy.name(for: connection.accounts[0], chainId: chainId).name ?? ""
+
         return tableView.webConnectionCell(
             imageUrl: peerIconUrl,
             header: connection.remotePeer?.name,
             connectionInfo: connection.remotePeer?.peerId,
             connectionTimeInfo: connection.createdDate?.timeAgo(),
-            keyName: "",//connection.accounts[0].n,
+            keyName: peerName,
             keyAddress: connection.accounts[0],
             indexPath: indexPath,
             canSelect: false,
