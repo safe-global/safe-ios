@@ -22,8 +22,7 @@
           "width" : 1
         },
         "mode" : "9-part"
-      },
-      "scale" : "1x"
+      }
     },
     {
       "alignment-insets" : {
@@ -53,36 +52,7 @@
           "width" : 1
         },
         "mode" : "9-part"
-      },
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "3x"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "idiom" : "universal",
-      "scale" : "3x"
+      }
     }
   ],
   "info" : {

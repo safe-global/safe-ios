@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 /// CoreData object to persist information about the connections to other wallets and dapps
 extension CDWCConnection {
@@ -17,10 +18,7 @@ extension CDWCConnection {
     static func connection(by url: String) -> CDWCConnection? {
         do {
             let context = App.shared.coreDataStack.viewContext
-            let fetchRequest = CDWCConnection.fetchRequest()
-            fetchRequest.sortDescriptors = []
-            fetchRequest.predicate = NSPredicate(format: "connectionURL == %@", url)
-            fetchRequest.fetchLimit = 1
+            let fetchRequest = CDWCConnection.fetchRequest().by(url: url)
             let results = try context.fetch(fetchRequest)
             let result = results.first
             return result
@@ -31,6 +29,16 @@ extension CDWCConnection {
     }
 
     // get all connections
+    static func getAll() throws -> [CDWCConnection] {
+        do {
+            let context = App.shared.coreDataStack.viewContext
+            let fr = CDWCConnection.fetchRequest().all()
+            let connections = try context.fetch(fr)
+            return connections
+        } catch {
+            throw GSError.DatabaseError(reason: error.localizedDescription)
+        }
+    }
 
     // get all expired connections (to remove it)?
 
@@ -58,3 +66,16 @@ extension CDWCConnection {
 
 }
 
+extension NSFetchRequest where ResultType == CDWCConnection {
+    func all() -> Self {
+        sortDescriptors = [NSSortDescriptor(keyPath: \CDWCConnection.createdDate, ascending: true)]
+        return self
+    }
+
+    func by(url: String) -> Self {
+        sortDescriptors = []
+        predicate = NSPredicate(format: "connectionURL == %@", url)
+        fetchLimit = 1
+        return self
+    }
+}

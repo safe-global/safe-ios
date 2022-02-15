@@ -85,18 +85,17 @@ class AppSettingsViewController: UITableViewController {
 
     private func buildSections() {
         sections = []
-        if App.configuration.toggles.desktopPairingEnabled {
-            sections.append((section: .app, items: [Section.App.desktopPairing("Pair your Desktop")]))
-        }
         sections += [
             (section: .app, items: [
+                Section.App.desktopPairing("Connect to Web"),
                 Section.App.ownerKeys("Owner keys", "\(KeyInfo.count())"),
                 Section.App.addressBook("Address Book"),
                 Section.App.passcode("Passcode"),
                 Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),
                 Section.App.chainPrefix("Chain prefix"),
                 Section.App.appearance("Appearance"),
-                Section.App.experimental("Experimental")
+                // we do not have experimental features at the moment
+                //Section.App.experimental("Experimental")
             ]),
             (section: .support("Support & Feedback"), items: [
                 Section.Support.chatWithUs("Chat with us"),
@@ -137,7 +136,7 @@ class AppSettingsViewController: UITableViewController {
         }
     }
 
-    private func showDesktopPairing() -> DesktopPairingViewController? {
+    private func showDesktopPairing() -> WebConnectionsViewController? {
         let keys = WebConnectionController.shared.accountKeys()
         if keys.isEmpty {
             let addOwnersVC = AddOwnerFirstViewController()
@@ -146,7 +145,7 @@ class AppSettingsViewController: UITableViewController {
             present(nav, animated: true)
             return nil
         } else {
-            let connectionsVC = DesktopPairingViewController()
+            let connectionsVC = WebConnectionsViewController()
             show(connectionsVC, sender: self)
             return connectionsVC
         }
