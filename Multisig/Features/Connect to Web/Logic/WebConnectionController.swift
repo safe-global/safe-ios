@@ -240,6 +240,9 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     }
 
     // MARK: - Managing WebConnection
+    func connections() -> [WebConnection] {
+        connectionRepository.connections()
+    }
 
     private func connection(for session: Session) -> WebConnection? {
         connection(for: session.url)

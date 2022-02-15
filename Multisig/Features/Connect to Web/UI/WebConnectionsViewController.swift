@@ -18,7 +18,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
 
     private weak var timer: Timer?
 
-    private var connections = [CDWCConnection]()
+    private var connections = [WebConnection]()
     private let wcServerController = WalletConnectKeysServerController.shared
     private var connectionController = WebConnectionController.shared
 
@@ -82,7 +82,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
 
     @objc private func update() {
 
-        connections = WebConnectionProvider.allConnections()
+        connections = connectionController.connections()
 
         DispatchQueue.main.async { [unowned self] in
             self.tableView.reloadData()
@@ -125,7 +125,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let connection = connections[indexPath.row]
+        //let connection = connections[indexPath.row]
 
         return tableView.webConnectionCell(
             imageName: nil,//connection.remote_icons,
@@ -137,31 +137,6 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
             indexPath: indexPath,
             canSelect: false,
             placeholderImage: UIImage(named: "connection-placeholder"))
-
-//
-//        switch session.status {
-//        case .connecting:
-//            return tableView.detailedCell(
-//                imageUrl: nil,Ï
-//                header: "Connecting...",
-//                description: nil,
-//                indexPath: indexPath,
-//                canSelect: false,
-//                placeholderImage: UIImage(named: "ico-empty-circle"))
-//
-//        case .connected:
-//            let relativeTime = relativeDateFormatter.localizedString(for: session.created!, relativeTo: Date())
-//            let session = try! Session.from(session)
-//            let dappIcon = session.dAppInfo.peerMeta.icons.isEmpty ? nil : session.dAppInfo.peerMeta.icons[0]
-//
-//            return tableView.detailedCell(
-//                imageUrl: dappIcon,
-//                header: session.dAppInfo.peerMeta.name,
-//                description: relativeTime,
-//                indexPath: indexPath,
-//                canSelect: false,
-//                placeholderImage: UIImage(named: "ico-empty-circle"))
-//        }
     }
 
     // MARK: - Table view delegate
@@ -270,18 +245,5 @@ extension WebConnectionsViewController: WalletConnectKeysServerControllerDelegat
             }
             self.present(UINavigationController(rootViewController: vc), animated: true)
         }
-    }
-}
-
-class WebConnectionProvider {
-    
-    static func allConnections() -> [CDWCConnection] {
-        var connections: [CDWCConnection] = []
-        do {
-            connections = try CDWCConnection.getAll()
-        } catch {
-            LogService.shared.error("Failed to get Web Connections: \(error.localizedDescription)")
-        }
-        return connections
     }
 }

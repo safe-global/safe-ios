@@ -14,6 +14,19 @@ class WebConnectionRepository {
     private static let REQUEST_ID_DOUBLE_NIL: Double = -1
     private static let ICONS_SEPARATOR: String = "|"
 
+    func connections() -> [WebConnection] {
+        var connections: [WebConnection] = []
+        do {
+            let nillableConnectionList = try CDWCConnection.getAll().map { connection(from: $0) }.filter { $0 != nil }
+            nillableConnectionList.forEach {
+                connections.append($0!)
+            }
+        } catch {
+            LogService.shared.error("Failed to get Web Connections: \(error.localizedDescription)")
+        }
+        return connections
+    }
+
     func connection(url: WebConnectionURL) -> WebConnection? {
         guard let cdConnection = CDWCConnection.connection(by: url.absoluteString) else { return nil }
         return connection(from: cdConnection)
