@@ -146,23 +146,28 @@ class MainTabBarViewController: UITabBarController {
         noSafesVC.hasSafeViewController = SafeSettingsViewController()
         noSafesVC.noSafeViewController = loadSafeViewController
 
+        let appSettingsVC = AppSettingsViewController()
+
         let segmentVC = SegmentViewController(namedClass: nil)
         segmentVC.segmentItems = [
             SegmentBarItem(image: UIImage(named: "ico-app-settings")!, title: "App Settings"),
             SegmentBarItem(image: UIImage(named: "ico-safe-settings")!, title: "Safe Settings")
         ]
         segmentVC.viewControllers = [
-            AppSettingsViewController(),
+            appSettingsVC,
             noSafesVC
         ]
         segmentVC.selectedIndex = 0
         let ribbonVC = RibbonViewController(rootViewController: segmentVC)
         
         let tabRoot = HeaderViewController(rootViewController: ribbonVC)
-        return settingsTabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: 3)
+        let settingsTabVC = settingsTabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: 3)
+        settingsTabVC.segmentViewController = segmentVC
+        settingsTabVC.appSettingsViewController = appSettingsVC
+        return settingsTabVC
     }
 
-    private func settingsTabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> UIViewController {
+    private func settingsTabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> SettingsUINavigationController {
         let nav = SettingsUINavigationController(rootViewController: root)
         let tabItem = UITabBarItem(title: title, image: image, tag: tag)
         nav.tabBarItem = tabItem

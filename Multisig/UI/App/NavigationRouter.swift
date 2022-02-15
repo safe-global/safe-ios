@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct NavigationRoute {
     var path: String
@@ -29,5 +30,15 @@ class DefaultNavigationRouter: NavigationRouter {
 
     func navigate(to route: NavigationRoute) {
         sceneDelegate?.navigate(to: route)
+    }
+}
+
+extension NavigationRoute {
+    static func connectToWeb(_ code: String? = nil) -> NavigationRoute {
+        var route = NavigationRoute(path: "/settings/connectToWeb")
+        if let code = code {
+            route.info["code"] = code
+        }
+        return route
     }
 }

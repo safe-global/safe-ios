@@ -137,16 +137,18 @@ class AppSettingsViewController: UITableViewController {
         }
     }
 
-    private func showDesktopPairing() {
+    private func showDesktopPairing() -> DesktopPairingViewController? {
         let keys = WebConnectionController.shared.accountKeys()
         if keys.isEmpty {
             let addOwnersVC = AddOwnerFirstViewController()
             addOwnersVC.descriptionText = "To connect to Gnosis Safe import at least one owner key. Keys are used to confirm transactions."
             let nav = UINavigationController(rootViewController: addOwnersVC)
             present(nav, animated: true)
+            return nil
         } else {
             let connectionsVC = DesktopPairingViewController()
             show(connectionsVC, sender: self)
+            return connectionsVC
         }
     }
 
@@ -327,19 +329,11 @@ extension AppSettingsViewController: NavigationRouter {
     }
 
     func navigate(to route: NavigationRoute) {
-        showDesktopPairing()
-        if let code = route.info["code"] {
-            // show connection request
+        let pairingVC = showDesktopPairing()
+        DispatchQueue.main.async {
+            if let vc = pairingVC {
+                vc.navigate(to: route)
+            }
         }
-    }
-}
-
-extension NavigationRoute {
-    static func connectToWeb(_ code: String? = nil) -> NavigationRoute {
-        var route = NavigationRoute(path: "/settings/connectToWeb")
-        if let code = code {
-            route["code"] = code
-        }
-        return route
     }
 }
