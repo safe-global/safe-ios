@@ -258,9 +258,12 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
 extension DappsViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ url: String) {
         if (url.starts(with: "safe-wc:")) {
-            let vc = DesktopPairingViewController()
-            show(vc, sender: self)
-            dismiss(animated: true, completion: nil)
+            dismiss(animated: true) {
+                let route = NavigationRoute.connectToWeb(url)
+                if DefaultNavigationRouter.shared.canNavigate(to: route) {
+                    DefaultNavigationRouter.shared.navigate(to: route)
+                }
+            }
         } else {
             do {
                 try WalletConnectSafesServerController.shared.connect(url: url)

@@ -215,7 +215,30 @@ class MainTabBarViewController: UITabBarController {
     }
 }
 
+extension MainTabBarViewController: NavigationRouter {
+    func canNavigate(to route: NavigationRoute) -> Bool {
+        if route.path.starts(with: "/settings/") {
+            return true
+        }
+        return false
+    }
+
+    func navigate(to route: NavigationRoute) {
+        guard let settingsNav = settingsTabVC as? SettingsUINavigationController,
+              let segmentVC = settingsNav.segmentViewController,
+              let appSettingsVC = settingsNav.appSettingsViewController else {
+            return
+        }
+        selectedIndex = 3
+        segmentVC.selectedIndex = 0
+        appSettingsVC.navigate(to: route)
+    }
+}
+
 class SettingsUINavigationController: UINavigationController {
+    weak var segmentViewController: SegmentViewController?
+    weak var appSettingsViewController: AppSettingsViewController?
+
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
         NotificationCenter.default.addObserver(

@@ -309,3 +309,29 @@ class AppSettingsViewController: UITableViewController {
         }
     }
 }
+
+extension AppSettingsViewController: NavigationRouter {
+    func canNavigate(to route: NavigationRoute) -> Bool {
+        if route.path == NavigationRoute.connectToWeb().path {
+            return true
+        }
+        return false
+    }
+
+    func navigate(to route: NavigationRoute) {
+        showDesktopPairing()
+        if let code = route.info["code"] {
+            // show connection request
+        }
+    }
+}
+
+extension NavigationRoute {
+    static func connectToWeb(_ code: String? = nil) -> NavigationRoute {
+        var route = NavigationRoute(path: "/settings/connectToWeb")
+        if let code = code {
+            route["code"] = code
+        }
+        return route
+    }
+}
