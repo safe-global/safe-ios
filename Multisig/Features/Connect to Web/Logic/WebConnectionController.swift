@@ -31,7 +31,7 @@ protocol WebConnectionListSubject: AnyObject {
 /// Use the `shared` instance since the controller's lifetime is the same as the app's lifetime.
 ///
 /// Remember to set the `delegate` in order to respond to connection events.
-class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSubject {
+class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSubject, WebConnectionListSubject {
 
     static let shared = WebConnectionController()
 
@@ -50,6 +50,18 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
     private var observers: [WebConnectionURL: [WebConnectionObserver]] = [:]
 
+    // only one screen dealing with connections list at the moment
+    // can be changed to a list of observers if needed
+    private var listObserver: WebConnectionListObserver?
+
+    func attach(observer: WebConnectionListObserver) {
+        listObserver = observer
+    }
+
+    func detach(observer: WebConnectionListObserver) {
+        listObserver = nil
+    }
+
     func attach(observer: WebConnectionObserver, to connection: WebConnection) {
         if var existing = observers[connection.connectionURL] {
             existing.append(observer)
@@ -66,6 +78,10 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 observers[key] = existing
             }
         }
+    }
+
+    func notifyListObservers() {
+        listObserver?.didUpdateConnections()
     }
 
     func notifyObservers(of connection: WebConnection) {
@@ -133,6 +149,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         case .handshaking:
             do {
                 try start(connection)
+                notifyListObservers()
             } catch {
                 handle(error: error, in: connection)
             }
@@ -199,6 +216,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             break
         case .final:
             delete(connection)
+            notifyListObservers()
         case .unknown:
             // stay here
             break
