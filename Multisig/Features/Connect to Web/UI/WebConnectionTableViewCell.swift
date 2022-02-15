@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class WebConnectionTableViewCell: UITableViewCell {
 
@@ -22,6 +23,14 @@ class WebConnectionTableViewCell: UITableViewCell {
         headerLabel.setStyle(.headline)
         connectionLabel.setStyle(.secondary)
         statusLabel.setStyle(.secondary)
+    }
+
+    func setImage(url: URL?, placeholder: UIImage?) {
+        guard let url = url else {
+            iconImageView.image = placeholder
+            return
+        }
+        iconImageView.kf.setImage(with: url, placeholder: placeholder)
     }
     
     func setImage(name: String?, placeholder: UIImage?) {

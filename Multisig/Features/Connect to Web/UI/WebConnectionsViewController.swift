@@ -9,8 +9,8 @@
 import UIKit
 import WalletConnectSwift
 
-class WebConnectionsViewController: UITableViewController, ExternalURLSource {
-    
+class WebConnectionsViewController: UITableViewController, ExternalURLSource, WebConnectionListObserver {
+
     @IBOutlet private var infoButton: UIBarButtonItem!
 
     // Change to switch the implementations for debugging or testing
@@ -67,12 +67,15 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
     }
 
     private func subscribeToNotifications() {
+
         [NSNotification.Name.wcConnectingKeyServer,
          .wcDidConnectKeyServer,
          .wcDidDisconnectKeyServer,
          .wcDidFailToConnectKeyServer].forEach {
             NotificationCenter.default.addObserver(self, selector: #selector(update), name: $0, object: nil)
          }
+
+        connectionController.attach(observer: self)
     }
 
     @objc private func openHelpUrl() {
@@ -87,6 +90,10 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
         DispatchQueue.main.async { [unowned self] in
             self.tableView.reloadData()
         }
+    }
+
+    func didUpdateConnections() {
+        update()
     }
 
     @objc func updateConnectionsTimeInfo() {
@@ -121,19 +128,24 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1//sessions.count
+        connections.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let connection = connections[indexPath.row]
+        let connection = connections[indexPath.row]
+
+        var peerIconUrl: URL?
+        if let peerIcons = connection.remotePeer?.icons, !peerIcons.isEmpty {
+            peerIconUrl = peerIcons[0]
+        }
 
         return tableView.webConnectionCell(
-            imageName: nil,//connection.remote_icons,
-            header: "Gnosis Safe",//connection.remote_name,
-            connectionInfo: "gnosis-safe.io",
-            connectionTimeInfo: nil,//connection.createdDate?.timeAgo(),
-            keyName: "my key",
-            keyAddress: Address("0xbabF0d060AcF8A28dec066A16126F2566bAbdA81"),
+            imageUrl: peerIconUrl,
+            header: connection.remotePeer?.name,
+            connectionInfo: connection.remotePeer?.peerId,
+            connectionTimeInfo: connection.createdDate?.timeAgo(),
+            keyName: "",//connection.accounts[0].n,
+            keyAddress: connection.accounts[0],
             indexPath: indexPath,
             canSelect: false,
             placeholderImage: UIImage(named: "connection-placeholder"))
@@ -155,6 +167,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
         let actions = [
             UIContextualAction(style: .destructive, title: "Disconnect") { _, _, completion in
                 //TODO: disconnect connection
+                //connectionController.delete(connection: connection)
                 //WalletConnectKeysServerController.shared.disconnect(topic: session.topic!)
             }]
         return UISwipeActionsConfiguration(actions: actions)
@@ -170,6 +183,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource {
 
     deinit {
         stopTimer()
+        connectionController.detach(observer: self)
     }
 }
 

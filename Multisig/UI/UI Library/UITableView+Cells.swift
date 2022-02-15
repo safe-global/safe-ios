@@ -46,7 +46,7 @@ extension UITableView {
         return cell
     }
     
-    func webConnectionCell(imageName: String?,
+    func webConnectionCell(imageUrl: URL?,
                       header: String?,
                       connectionInfo: String?,
                       connectionTimeInfo: String?,
@@ -56,7 +56,7 @@ extension UITableView {
                       canSelect: Bool = true,
                       placeholderImage: UIImage? = nil) -> UITableViewCell {
         let cell = dequeueCell(WebConnectionTableViewCell.self, for: indexPath)
-        cell.setImage(name: imageName, placeholder: placeholderImage)
+        cell.setImage(url: imageUrl, placeholder: placeholderImage)
         cell.setHeader(header)
         cell.setConnectionInfo(connectionInfo)
         cell.setConnectionTimeInfo(connectionTimeInfo)
