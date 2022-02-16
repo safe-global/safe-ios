@@ -571,7 +571,6 @@
 		557D80B3270B32F80036D6D0 /* EditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557D809D270B32F80036D6D0 /* EditCell.swift */; };
 		557D80B4270B32F80036D6D0 /* EditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557D809E270B32F80036D6D0 /* EditCell.xib */; };
 		557D80B5270B32F80036D6D0 /* WCSendTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557D809F270B32F80036D6D0 /* WCSendTransactionRequest.swift */; };
-		557D80B6270B32F80036D6D0 /* WCKeysRequestsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557D80A1270B32F80036D6D0 /* WCKeysRequestsHandler.swift */; };
 		557D80B7270B32F80036D6D0 /* WalletConnectKeysServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557D80A2270B32F80036D6D0 /* WalletConnectKeysServerController.swift */; };
 		557D80B8270B32F80036D6D0 /* SignatureRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557D80A4270B32F80036D6D0 /* SignatureRequestViewController.swift */; };
 		557D80B9270B32F80036D6D0 /* SignatureRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557D80A5270B32F80036D6D0 /* SignatureRequestViewController.xib */; };
@@ -2897,7 +2896,6 @@
 		557D80A0270B32F80036D6D0 /* Keys */ = {
 			isa = PBXGroup;
 			children = (
-				557D80A1270B32F80036D6D0 /* WCKeysRequestsHandler.swift */,
 				557D80A2270B32F80036D6D0 /* WalletConnectKeysServerController.swift */,
 			);
 			path = Keys;
@@ -3174,6 +3172,7 @@
 		B0D61BC51DC924AF458E9FBB /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				557D80A1270B32F80036D6D0 /* WCKeysRequestsHandler.swift */,
 				557D80A4270B32F80036D6D0 /* SignatureRequestViewController.swift */,
 				557D80A5270B32F80036D6D0 /* SignatureRequestViewController.xib */,
 				B0D61352D30ACB7D294C526D /* ActionPanelView.swift */,
@@ -3682,7 +3681,6 @@
 				049EB0FF25AF713700F66CEA /* TimeZone+Offset.swift in Sources */,
 				049A9DDA2602211500CA5723 /* FiatCodesRequest.swift in Sources */,
 				3E373F772631781A00D8107A /* EnterUnstoppableNameViewController.swift in Sources */,
-				557D80B6270B32F80036D6D0 /* WCKeysRequestsHandler.swift in Sources */,
 				558835EF255BFEDB0014E8C7 /* AddressInfoView.swift in Sources */,
 				0A57C5E42577FBD900420303 /* DetailConfirmationCell.swift in Sources */,
 				550FB1B426691D9500C13D54 /* ExternalLinkHeaderFooterView.swift in Sources */,

@@ -20,9 +20,6 @@ class WalletConnectKeysServerController: WalletConnectServerController {
 
     override init() {
         super.init()
-
-        server.register(handler: WCKeysRequestsHandler(server: server))
-
         connectingNotification = .wcConnectingKeyServer
         disconnectingNotification = .wcDidDisconnectKeyServer
         didFailToConnectNotificatoin = .wcDidFailToConnectKeyServer

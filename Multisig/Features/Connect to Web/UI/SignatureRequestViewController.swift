@@ -79,21 +79,16 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
 
     // called from the close button by the CloseModal default protocol implementation
     override func closeModal() {
-        didCancel()
+        reject()
     }
 
     // Called when user swipes down the modal screen
     func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
-        didCancel()
-    }
-
-    func didCancel() {
-        // TODO: reject in the end
+        reject()
     }
 
     func didReject() {
-        onReject?()
-        Tracker.trackEvent(.desktopPairingSignRequestRejected)
+        reject()
     }
 
     func didConfirm() {
@@ -197,7 +192,7 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
                 let preimage = "\u{19}Ethereum Signed Message:\n\(request.message.count)".data(using: .utf8)! + request.message
                 let signatureParts = try pk._store.sign(message: preimage.bytes)
                 let signature = Data(signatureParts.r) + Data(signatureParts.s) + Data([UInt8(signatureParts.v)])
-                didSign(signature:  signature)
+                confirm(signature:  signature)
             } catch {
                 didFail(error: error)
             }
@@ -226,7 +221,7 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
                         guard let self = self else { return }
                         assert(Thread.isMainThread)
                         let signature = Data(hex: hexSignature)
-                        self.didSign(signature: signature)
+                        self.confirm(signature: signature)
                     }
 
                     self.present(wcVC, animated: true)
@@ -250,12 +245,12 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
                 var signature = Data(hex: hexSignature)
                 assert(signature.count == 65)
                 signature[64] -= 4
-                self?.didSign(signature: signature)
+                self?.confirm(signature: signature)
             }
         }
     }
 
-    private func didSign(signature: Data) {
+    private func confirm(signature: Data) {
         // track result
         //                    Tracker.trackEvent(.desktopPairingSignRequestConfirmed,
         //                                       parameters: ["key_type" : keyInfo.keyType == .deviceGenerated ? "generated" : "imported"])
@@ -263,6 +258,12 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
         //        Tracker.trackEvent(.desktopPairingSignRequestConfirmed,
         //                           parameters: ["key_type" : "ledger_nano_x"])
         // send response
+//        controller.respond(to: request, in: connection, with: requset.response(with: signature))
+    }
+
+    private func reject() {
+        // Tracker.trackEvent(.desktopPairingSignRequestRejected)
+//        controller.respond(to: request, in: connection, with: request.response(with: error))
     }
 
     private func didFail(error: Error) {

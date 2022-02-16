@@ -29,6 +29,6 @@ struct WebConnectionRequestId {
 }
 
 struct WebConnectionSignatureRequest {
-    var message: Data
     var account: Address
+    var message: Data
 }

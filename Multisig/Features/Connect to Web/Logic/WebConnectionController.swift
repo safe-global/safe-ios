@@ -232,11 +232,11 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
     // MARK: - Managing WebConnection
 
-    private func connection(for session: Session) -> WebConnection? {
+    func connection(for session: Session) -> WebConnection? {
         connection(for: session.url)
     }
 
-    private func connection(for url: WCURL) -> WebConnection? {
+    func connection(for url: WCURL) -> WebConnection? {
         connection(for: WebConnectionURL(wcURL: url))
     }
 
