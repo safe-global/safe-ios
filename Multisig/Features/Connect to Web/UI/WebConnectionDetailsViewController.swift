@@ -49,29 +49,48 @@ class WebConnectionDetailsViewController: UITableViewController {
 //            detailView.imageView.image?.
             cell.setContent(detailView)
             cell.textLabel?.text = "Gnosis Safe"
-            cell.detailTextLabel?.text = "8 hours ago"
+            if let connection = connection {
+            cell.detailTextLabel?.text = relativeDateFormatter.localizedString(for: connection.createdDate!, relativeTo: Date())
+            }
             // configure cell  with ChooseOwnerDetailHeaderView
             return cell
         } else if indexPath.row > 0 && indexPath.row < 5 {
             let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
+            cell.accessoryType = .none
             switch indexPath.row {
             case 1:
                 cell.setText("Key")
                 //cell.setContent(view: nil)
+                let content = MiniAccountAndBalancePiece()
+                if let accounts = connection?.accounts {
+                    if accounts.count > 0 {
+                        let address = accounts[0]
+                        let balance = accounts[0].ellipsized()
+                        content.setModel(MiniAccountInfoUIModel(address: address, label: NamingPolicy.name(for: address, chainId: "\(connection?.chainId)").name, balance: balance))
+                    } else {
+                        content.setModel(MiniAccountInfoUIModel( address: Address.zero, label: "Not set"))
+                    }
+                } else {
+                    content.setModel(MiniAccountInfoUIModel( address: Address.zero, label: "Not set"))
+                }
+                cell.setContent(content)
 
             case 2:
                 cell.setText("Network")
                 let content = NetworkIndicator()
-//                content.textStyle = .footnote3
                 content.textStyle = .primary
-//                content.text = session?.chainId
+                if let connection = connection {
+                    let chain = Chain.by(String(connection.chainId!))!
+                    content.text = chain.name
+                    content.dotColor = chain.backgroundColor
+                }
                 cell.setContent(content)
             case 3:
                 cell.setText("Version")
                 let content = UILabel()
 //                content.text = session?.description
                 if let connection = connection {
-                    content.text = relativeDateFormatter.localizedString(for: connection.createdDate!, relativeTo: Date())
+                    content.text = connection.
                 } else {
                     content.text = "Unknown Version"
                 }
