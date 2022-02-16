@@ -45,14 +45,11 @@ class WebConnectionDetailsViewController: UITableViewController {
             let cell = tableView.dequeueCell(ContainerTableViewCell.self)
             let detailView = ChooseOwnerDetailHeaderView()
             detailView.imageView.image = UIImage(named: "safe-logo")
-//            detailView.imageView.image = UIImage(named: "launchscreen-logo")
-//            detailView.imageView.image?.
             cell.setContent(detailView)
             cell.textLabel?.text = "Gnosis Safe"
             if let connection = connection {
             cell.detailTextLabel?.text = relativeDateFormatter.localizedString(for: connection.createdDate!, relativeTo: Date())
             }
-            // configure cell  with ChooseOwnerDetailHeaderView
             return cell
         } else if indexPath.row > 0 && indexPath.row < 5 {
             let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
@@ -60,13 +57,12 @@ class WebConnectionDetailsViewController: UITableViewController {
             switch indexPath.row {
             case 1:
                 cell.setText("Key")
-                //cell.setContent(view: nil)
                 let content = MiniAccountAndBalancePiece()
                 if let accounts = connection?.accounts {
                     if accounts.count > 0 {
                         let address = accounts[0]
                         let balance = accounts[0].ellipsized()
-                        content.setModel(MiniAccountInfoUIModel(address: address, label: NamingPolicy.name(for: address, chainId: "\(connection?.chainId)").name, balance: balance))
+                        content.setModel(MiniAccountInfoUIModel(address: address, label: NamingPolicy.name(for: address, chainId: "1").name, balance: balance))
                     } else {
                         content.setModel(MiniAccountInfoUIModel( address: Address.zero, label: "Not set"))
                     }
@@ -88,31 +84,25 @@ class WebConnectionDetailsViewController: UITableViewController {
             case 3:
                 cell.setText("Version")
                 let content = UILabel()
-//                content.text = session?.description
-                if let connection = connection {
-                    content.text = connection.
-                } else {
-                    content.text = "Unknown Version"
-                }
+                content.text = "soon"
                 cell.setContent(content)
-
             case 4:
                 cell.setText("Browser")
                 let content = UILabel()
-//                content.text = session?.debugDescription
-                content.text = "Status: \(connection?.status)"
+                content.text = "soon"
                 cell.setContent(content)
             default:
                 break
             }
-
-            //cell.setContent(<#T##view: UIView?##UIKit.UIView?#>)
             return cell
         }
-        return tableView.dequeueCell(ButtonTableViewCell.self)
-    }
 
-    // MARK: - UITableViewDelegate
+       let  cell = tableView.dequeueCell(ButtonTableViewCell.self)
+        cell.setText("Disconnect") {
+            // TODD
+        }
+        return cell
+    }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
@@ -121,8 +111,9 @@ class WebConnectionDetailsViewController: UITableViewController {
         return 66
     }
 
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 
 //    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 //        nil
