@@ -68,6 +68,7 @@ class AssetsViewController: ContainerViewController {
                     if !safe.isReadOnly {
                         self?.showSelectAssetsViewContoller()
                     }
+                    self?.dismiss(animated: true)
                 }
                 let navigationController = UINavigationController(rootViewController: vc)
                 self?.present(navigationController, animated: true)

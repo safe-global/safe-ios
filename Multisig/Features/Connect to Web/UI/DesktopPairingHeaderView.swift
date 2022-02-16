@@ -20,7 +20,7 @@ class DesktopPairingHeaderView: UITableViewHeaderFooterView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.setStyle(.title3)
+        titleLabel.setStyle(.secondary)
         scanButton.setText("Scan Code", .filled)
     }
 }

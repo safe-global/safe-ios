@@ -194,11 +194,6 @@ extension Tracker {
         Tracker.shared.setUserProperty(property, for: TrackingUserProperty.walletConnectForDappsEnabled)
     }
 
-    static func setDesktopPairingEnabled(_ enabled: Bool) {
-        let property = enabled ? "true" : "false"
-        Tracker.shared.setUserProperty(property, for: TrackingUserProperty.desktopPairingEnabled)
-    }
-
     static func append(handler: TrackingHandler) {
         Tracker.shared.append(handler: handler)
     }

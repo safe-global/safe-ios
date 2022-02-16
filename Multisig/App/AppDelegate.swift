@@ -44,7 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Tracker.setNumKeys(KeyInfo.count(.ledgerNanoX), type: .ledgerNanoX)
         Tracker.setPasscodeIsSet(to: App.shared.auth.isPasscodeSetAndAvailable)        
         Tracker.setWalletConnectForDappsEnabled(true)
-        Tracker.setDesktopPairingEnabled(App.configuration.toggles.desktopPairingEnabled)
 
         Safe.updateCachedNames()
         AddressBookEntry.updateCachedNames()

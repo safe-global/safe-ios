@@ -40,7 +40,6 @@ class AddOwnerFirstViewController: UIViewController {
     
     @IBAction func addOwnerKeyClicked(_ sender: Any) {
         let vc = AddOwnerKeyViewController(showsCloseButton: false) { [unowned self] in
-            self.dismiss(animated: true, completion: nil)
             self.onSuccess?()
         }
         show(vc, sender: self)

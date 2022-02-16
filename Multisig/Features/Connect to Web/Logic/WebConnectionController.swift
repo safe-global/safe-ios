@@ -16,12 +16,22 @@ protocol WebConnectionSubject: AnyObject {
     func notifyObservers(of connection: WebConnection)
 }
 
+protocol WebConnectionListObserver: AnyObject {
+    func didUpdateConnections()
+}
+
+protocol WebConnectionListSubject: AnyObject {
+    func attach(observer: WebConnectionListObserver)
+    func detach(observer: WebConnectionListObserver)
+    func notifyListObservers()
+}
+
 /// Controller implementing the business-logic of managing connections and handling incoming requests.
 ///
 /// Use the `shared` instance since the controller's lifetime is the same as the app's lifetime.
 ///
 /// Remember to set the `delegate` in order to respond to connection events.
-class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSubject {
+class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSubject, WebConnectionListSubject {
 
     static let shared = WebConnectionController()
 
@@ -40,6 +50,18 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
     private var observers: [WebConnectionURL: [WebConnectionObserver]] = [:]
 
+    // only one screen dealing with connections list at the moment
+    // can be changed to a list of observers if needed
+    private var listObserver: WebConnectionListObserver?
+
+    func attach(observer: WebConnectionListObserver) {
+        listObserver = observer
+    }
+
+    func detach(observer: WebConnectionListObserver) {
+        listObserver = nil
+    }
+
     func attach(observer: WebConnectionObserver, to connection: WebConnection) {
         if var existing = observers[connection.connectionURL] {
             existing.append(observer)
@@ -56,6 +78,10 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 observers[key] = existing
             }
         }
+    }
+
+    func notifyListObservers() {
+        listObserver?.didUpdateConnections()
     }
 
     func notifyObservers(of connection: WebConnection) {
@@ -141,6 +167,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
         case .opened:
             didOpen(connection: connection)
+            notifyListObservers()
 
         case .updateReceived:
             // close connection
@@ -189,7 +216,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             break
         case .final:
             delete(connection)
-            break
+            notifyListObservers()
         case .unknown:
             // stay here
             break
@@ -231,6 +258,9 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     }
 
     // MARK: - Managing WebConnection
+    func connections() -> [WebConnection] {
+        connectionRepository.connections()
+    }
 
     func connection(for session: Session) -> WebConnection? {
         connection(for: session.url)
@@ -311,6 +341,10 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     /// - Parameter connection: a connection
     func userDidCancel(_ connection: WebConnection) {
         update(connection, to: .rejected)
+    }
+
+    func userDidDelete(_ connection: WebConnection) {
+        update(connection, to: .final)
     }
 
     // MARK: - Server Delegate (Server events)

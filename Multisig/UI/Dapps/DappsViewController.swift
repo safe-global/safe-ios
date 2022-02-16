@@ -38,7 +38,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBAction func scan(_ sender: Any) {
         let vc = QRCodeScannerViewController()
         vc.scannedValueValidator = { value in
-            guard value.starts(with: "wc:") else {
+            guard (value.starts(with: "wc:") || value.starts(with: "safe-wc:")) else {
                 return .failure(GSError.InvalidWalletConnectQRCode())
             }
             return .success(value)
@@ -256,13 +256,22 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
 }
 
 extension DappsViewController: QRCodeScannerViewControllerDelegate {
-    func scannerViewControllerDidScan(_ code: String) {
-        do {
-            try WalletConnectSafesServerController.shared.connect(url: code)
-            WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithScanButton            
-            dismiss(animated: true, completion: nil)
-        } catch {
-            App.shared.snackbar.show(message: error.localizedDescription)
+    func scannerViewControllerDidScan(_ url: String) {
+        if (url.starts(with: "safe-wc:")) {
+            dismiss(animated: true) {
+                let route = NavigationRoute.connectToWeb(url)
+                if DefaultNavigationRouter.shared.canNavigate(to: route) {
+                    DefaultNavigationRouter.shared.navigate(to: route)
+                }
+            }
+        } else {
+            do {
+                try WalletConnectSafesServerController.shared.connect(url: url)
+                WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithScanButton
+                dismiss(animated: true, completion: nil)
+            } catch {
+                App.shared.snackbar.show(message: error.localizedDescription)
+            }
         }
     }
 

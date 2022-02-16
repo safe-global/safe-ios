@@ -9,15 +9,20 @@
 import UIKit
 import WalletConnectSwift
 
-class DesktopPairingViewController: UITableViewController, ExternalURLSource {
+class WebConnectionsViewController: UITableViewController, ExternalURLSource, WebConnectionListObserver {
+
     @IBOutlet private var infoButton: UIBarButtonItem!
-    private var sessions = [WCKeySession]()
 
     // Change to switch the implementations for debugging or testing
-    private let usesNewImplementation = false
+    private let usesNewImplementation = true
 
+    private weak var timer: Timer?
+
+    private var connections = [WebConnection]()
     private let wcServerController = WalletConnectKeysServerController.shared
     private var connectionController = WebConnectionController.shared
+
+    private static let relativeDateTimerUpdateInterval: TimeInterval = 15
 
     private lazy var relativeDateFormatter: RelativeDateTimeFormatter = {
         let formatter = RelativeDateTimeFormatter()
@@ -25,6 +30,7 @@ class DesktopPairingViewController: UITableViewController, ExternalURLSource {
         formatter.unitsStyle = .full
         return formatter
     }()
+
     var url: URL?
 
     override func viewDidLoad() {
@@ -37,18 +43,24 @@ class DesktopPairingViewController: UITableViewController, ExternalURLSource {
         wcServerController.delegate = self
 
         tableView.backgroundColor = .primaryBackground
-        tableView.registerCell(DetailedCell.self)
+        tableView.registerCell(WebConnectionTableViewCell.self)
         tableView.registerHeaderFooterView(DesktopPairingHeaderView.self)
         tableView.sectionHeaderHeight = UITableView.automaticDimension
 
-        infoButton = UIBarButtonItem(image: UIImage(named: "ico-info"),
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 98
+
+        infoButton = UIBarButtonItem(image: UIImage(named: "ico-info-toolbar"),
                 style: UIBarButtonItem.Style.plain,
                 target: self,
                 action: #selector(openHelpUrl))
         navigationItem.rightBarButtonItem = infoButton
-        
+
         subscribeToNotifications()
+
         update()
+
+        startTimer()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -57,12 +69,15 @@ class DesktopPairingViewController: UITableViewController, ExternalURLSource {
     }
 
     private func subscribeToNotifications() {
+
         [NSNotification.Name.wcConnectingKeyServer,
          .wcDidConnectKeyServer,
          .wcDidDisconnectKeyServer,
          .wcDidFailToConnectKeyServer].forEach {
             NotificationCenter.default.addObserver(self, selector: #selector(update), name: $0, object: nil)
          }
+
+        connectionController.attach(observer: self)
     }
 
     @objc private func openHelpUrl() {
@@ -71,17 +86,19 @@ class DesktopPairingViewController: UITableViewController, ExternalURLSource {
     }
 
     @objc private func update() {
-        do {
-            sessions = try WCKeySession.getAll().filter {
-                $0.session != nil && (try? Session.from($0)) != nil
-            }
-        } catch {
-            LogService.shared.error("Failed to get WCKeySession: \(error.localizedDescription)")
-        }
+        connections = connectionController.connections()
 
         DispatchQueue.main.async { [unowned self] in
             self.tableView.reloadData()
         }
+    }
+
+    func didUpdateConnections() {
+        update()
+    }
+
+    @objc func updateConnectionsTimeInfo() {
+        tableView.reloadData()
     }
 
     private func scan() {
@@ -95,15 +112,11 @@ class DesktopPairingViewController: UITableViewController, ExternalURLSource {
         label.setAttributes(highlightStyle.attributes, range: string.range(of: "Connect wallet"))
         vc.attributedLabel = label
 
-        vc.scannedValueValidator = { [unowned self] value in
+        vc.scannedValueValidator = { value in
             guard value.starts(with: "safe-wc:") else {
                 return .failure(GSError.InvalidWalletConnectQRCode())
             }
-            var url = value
-            if !usesNewImplementation {
-                url.removeFirst("safe-".count)
-            }
-            return .success(url)
+            return .success(value)
         }
         vc.modalPresentationStyle = .overFullScreen
         vc.delegate = self
@@ -114,35 +127,29 @@ class DesktopPairingViewController: UITableViewController, ExternalURLSource {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        sessions.count
+        connections.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let session = sessions[indexPath.row]
+        guard indexPath.row < connections.count else { return UITableViewCell() }
+        let connection = connections[indexPath.row]
+        let header = connection.remotePeer?.name ?? "Connection"
+        let peerIconUrl: URL? = connection.remotePeer?.icons.first
+        let chainId = connection.chainId.map(String.init) ?? Chain.ChainID.ethereumMainnet
+        let keyAddress: Address? = connection.accounts.first
+        let keyName: String? = keyAddress.flatMap { NamingPolicy.name(for: $0, chainId: chainId).name }
 
-        switch session.status {
-        case .connecting:
-            return tableView.detailedCell(
-                imageUrl: nil,
-                header: "Connecting...",
-                description: nil,
-                indexPath: indexPath,
-                canSelect: false,
-                placeholderImage: UIImage(named: "ico-empty-circle"))
+        let cell = tableView.dequeueCell(WebConnectionTableViewCell.self, for: indexPath)
+        cell.setImage(url: peerIconUrl, placeholder: UIImage(named: "connection-placeholder"))
+        cell.setHeader(header)
+        cell.setConnectionInfo(connection.remotePeer?.url.host)
+        cell.setConnectionTimeInfo(connection.createdDate?.timeAgo())
+        cell.setKey(keyName, address: keyAddress)
+        return cell
+    }
 
-        case .connected:
-            let relativeTime = relativeDateFormatter.localizedString(for: session.created!, relativeTo: Date())
-            let session = try! Session.from(session)
-            let dappIcon = session.dAppInfo.peerMeta.icons.isEmpty ? nil : session.dAppInfo.peerMeta.icons[0]
-
-            return tableView.detailedCell(
-                imageUrl: dappIcon,
-                header: session.dAppInfo.peerMeta.name,
-                description: relativeTime,
-                indexPath: indexPath,
-                canSelect: false,
-                placeholderImage: UIImage(named: "ico-empty-circle"))
-        }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     // MARK: - Table view delegate
@@ -157,21 +164,39 @@ class DesktopPairingViewController: UITableViewController, ExternalURLSource {
 
     override func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let session = sessions[indexPath.row]
+        let connection = connections[indexPath.row]
         let actions = [
             UIContextualAction(style: .destructive, title: "Disconnect") { _, _, completion in
-                WalletConnectKeysServerController.shared.disconnect(topic: session.topic!)
+                self.connectionController.userDidDelete(connection)
+                //WalletConnectKeysServerController.shared.disconnect(topic: session.topic!)
             }]
         return UISwipeActionsConfiguration(actions: actions)
     }
+
+    func startTimer() {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(
+            timeInterval: Self.relativeDateTimerUpdateInterval,
+            target: self,
+            selector: #selector(updateConnectionsTimeInfo),
+            userInfo: nil,
+            repeats: true)
+    }
+
+    func stopTimer() {
+        timer?.invalidate()
+    }
+
+    deinit {
+        stopTimer()
+        connectionController.detach(observer: self)
+    }
 }
 
-extension DesktopPairingViewController: QRCodeScannerViewControllerDelegate {
+extension WebConnectionsViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
-        if usesNewImplementation {
-            didScanNewImplementation(code)
-        } else {
-            didScanOldImplementation(code: code)
+        dismiss(animated: true) { [unowned self] in
+            connect(to: code)
         }
     }
 
@@ -179,35 +204,45 @@ extension DesktopPairingViewController: QRCodeScannerViewControllerDelegate {
         dismiss(animated: true, completion: nil)
     }
 
+    fileprivate func connect(to code: String) {
+        if usesNewImplementation {
+            didScanNewImplementation(code)
+        } else {
+            didScanOldImplementation(code: code)
+        }
+    }
+
     private func didScanOldImplementation(code: String) {
+        var code = code
+        if code.starts(with: "safe-wc:") {
+            code.removeFirst("safe-".count)
+        }
         do {
             try wcServerController.connect(url: code)
-            dismiss(animated: true, completion: nil)
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)
         }
     }
 
     func didScanNewImplementation(_ code: String) {
-        dismiss(animated: true) { [unowned self] in
-            do {
-                let connection = try WebConnectionController.shared.connect(to: code)
-                let connectionVC = WebConnectionRequestViewController()
-                connectionVC.connectionController = WebConnectionController.shared
-                connectionVC.connection = connection
-                connectionVC.onFinish = { [weak self] in
-                    self?.dismiss(animated: true)
-                }
-                let nav = UINavigationController(rootViewController: connectionVC)
-                present(nav, animated: true)
-            } catch {
-                App.shared.snackbar.show(message: error.localizedDescription)
+        do {
+            let connection = try WebConnectionController.shared.connect(to: code)
+            let connectionVC = WebConnectionRequestViewController()
+            connectionVC.connectionController = WebConnectionController.shared
+            connectionVC.connection = connection
+            connectionVC.onFinish = { [weak self] in
+                self?.dismiss(animated: true)
             }
+            let nav = UINavigationController(rootViewController: connectionVC)
+            present(nav, animated: true)
+        } catch {
+            App.shared.snackbar.show(message: error.localizedDescription)
         }
     }
+
 }
 
-extension DesktopPairingViewController: WalletConnectKeysServerControllerDelegate {
+extension WebConnectionsViewController: WalletConnectKeysServerControllerDelegate {
     func shouldStart(session: Session, completion: @escaping ([KeyInfo]) -> Void) {
         guard let keys = try? KeyInfo.all(), !keys.isEmpty else {
             DispatchQueue.main.async {
@@ -237,6 +272,18 @@ extension DesktopPairingViewController: WalletConnectKeysServerControllerDelegat
                 }
             }
             self.present(UINavigationController(rootViewController: vc), animated: true)
+        }
+    }
+}
+
+extension WebConnectionsViewController: NavigationRouter {
+    func canNavigate(to route: NavigationRoute) -> Bool {
+        route.path == NavigationRoute.connectToWeb().path
+    }
+
+    func navigate(to route: NavigationRoute) {
+        if let code = route.info["code"] as? String {
+            connect(to: code)
         }
     }
 }

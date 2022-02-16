@@ -17,6 +17,9 @@ class MainTabBarViewController: UITabBarController {
     private weak var transactionsSegementControl: SegmentViewController?
     private var appearsFirstTime: Bool = true
 
+    static fileprivate let SETTINGS_TAB_INDEX = 3
+    static fileprivate let APP_SETTINGS_SEGMENT_INDEX = 0
+
     lazy var balancesTabVC: UIViewController = {
         balancesTabViewController()
     }()
@@ -146,23 +149,28 @@ class MainTabBarViewController: UITabBarController {
         noSafesVC.hasSafeViewController = SafeSettingsViewController()
         noSafesVC.noSafeViewController = loadSafeViewController
 
+        let appSettingsVC = AppSettingsViewController()
+
         let segmentVC = SegmentViewController(namedClass: nil)
         segmentVC.segmentItems = [
             SegmentBarItem(image: UIImage(named: "ico-app-settings")!, title: "App Settings"),
             SegmentBarItem(image: UIImage(named: "ico-safe-settings")!, title: "Safe Settings")
         ]
         segmentVC.viewControllers = [
-            AppSettingsViewController(),
+            appSettingsVC,
             noSafesVC
         ]
-        segmentVC.selectedIndex = 0
+        segmentVC.selectedIndex = Self.APP_SETTINGS_SEGMENT_INDEX
         let ribbonVC = RibbonViewController(rootViewController: segmentVC)
         
         let tabRoot = HeaderViewController(rootViewController: ribbonVC)
-        return settingsTabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: 3)
+        let settingsTabVC = settingsTabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: Self.SETTINGS_TAB_INDEX)
+        settingsTabVC.segmentViewController = segmentVC
+        settingsTabVC.appSettingsViewController = appSettingsVC
+        return settingsTabVC
     }
 
-    private func settingsTabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> UIViewController {
+    private func settingsTabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> SettingsUINavigationController {
         let nav = SettingsUINavigationController(rootViewController: root)
         let tabItem = UITabBarItem(title: title, image: image, tag: tag)
         nav.tabBarItem = tabItem
@@ -215,7 +223,30 @@ class MainTabBarViewController: UITabBarController {
     }
 }
 
+extension MainTabBarViewController: NavigationRouter {
+    func canNavigate(to route: NavigationRoute) -> Bool {
+        if route.path.starts(with: "/settings/") {
+            return true
+        }
+        return false
+    }
+
+    func navigate(to route: NavigationRoute) {
+        guard let settingsNav = settingsTabVC as? SettingsUINavigationController,
+              let segmentVC = settingsNav.segmentViewController,
+              let appSettingsVC = settingsNav.appSettingsViewController else {
+            return
+        }
+        selectedIndex = Self.SETTINGS_TAB_INDEX
+        segmentVC.selectedIndex = Self.APP_SETTINGS_SEGMENT_INDEX
+        appSettingsVC.navigate(to: route)
+    }
+}
+
 class SettingsUINavigationController: UINavigationController {
+    weak var segmentViewController: SegmentViewController?
+    weak var appSettingsViewController: AppSettingsViewController?
+
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
         NotificationCenter.default.addObserver(
