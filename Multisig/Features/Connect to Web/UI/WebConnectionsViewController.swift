@@ -150,6 +150,13 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let connection = connections[indexPath.row]
+        if let cell = tableView.cellForRow(at: indexPath) as? WebConnectionTableViewCell {
+            let vc = WebConnectionDetailsViewController()
+            vc.connection = connection
+            let navController = UINavigationController(rootViewController: vc)
+            present(navController, animated: true, completion: nil)
+        }
     }
 
     // MARK: - Table view delegate
