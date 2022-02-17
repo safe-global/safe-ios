@@ -37,6 +37,11 @@ class WebConnectionRepository {
         return connection(from: cdConnection)
     }
 
+    func connections(expiredAt date: Date) -> [WebConnection] {
+        let result = CDWCConnection.connections(expiredAt: date).compactMap(connection(from:))
+        return result
+    }
+
     func delete(_ connection: WebConnection) {
         CDWCConnection.delete(by: connection.connectionURL.absoluteString)
     }

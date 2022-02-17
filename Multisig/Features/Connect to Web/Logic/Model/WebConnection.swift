@@ -73,7 +73,7 @@ enum WebConnectionStatus: Int16 {
     // connection successfully sent connected response, ready to receive other requests
     case opened
 
-    // connection successfully sent 'closed' response, no requests will be received
+    // connection is closed
     case closed
 
     // connection is about to be deleted

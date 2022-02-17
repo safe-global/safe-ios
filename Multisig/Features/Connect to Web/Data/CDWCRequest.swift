@@ -64,7 +64,7 @@ extension CDWCRequest {
             format: "connection.connectionURL == %@ AND method == %@ AND status == %@",
             connectionURL.absoluteString,
             method,
-            status.rawValue
+            NSNumber(value: status.rawValue)
         )
         let result = request(predicate: predicate)
         return result

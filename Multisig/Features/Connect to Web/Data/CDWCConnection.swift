@@ -41,17 +41,27 @@ extension CDWCConnection {
     }
 
     static func connections(by status: Int16) -> [CDWCConnection] {
+        let predicate = NSPredicate(format: "status == %@", NSNumber(value: status))
+        let results = connections(predicate: predicate)
+        return results
+    }
+
+    static func connections(expiredAt date: Date) -> [CDWCConnection] {
+        connections(predicate: NSPredicate(format: "!(expirationDate = nil) AND expirationDate <= %@", date as NSDate))
+    }
+
+    private static func connections(predicate: NSPredicate) -> [CDWCConnection] {
+        let results: [CDWCConnection]
         do {
             let context = App.shared.coreDataStack.viewContext
-            let fetchRequest = CDWCConnection.fetchRequest()
-            fetchRequest.sortDescriptors = []
-            fetchRequest.predicate = NSPredicate(format: "status == %@", NSNumber(value: status))
-            let results = try context.fetch(fetchRequest)
-            return results
+            let fetchRequest = CDWCConnection.fetchRequest().all()
+            fetchRequest.predicate = predicate
+            results = try context.fetch(fetchRequest)
         } catch {
             LogService.shared.error("Failed to fetch connection: \(error)")
-            return []
+            results = []
         }
+        return results
     }
 
     // get all expired connections (to remove it)?
@@ -82,7 +92,7 @@ extension CDWCConnection {
 
 extension NSFetchRequest where ResultType == CDWCConnection {
     func all() -> Self {
-        sortDescriptors = [NSSortDescriptor(keyPath: \CDWCConnection.createdDate, ascending: true)]
+        sortDescriptors = [NSSortDescriptor(key: "createdDate", ascending: true)]
         return self
     }
 

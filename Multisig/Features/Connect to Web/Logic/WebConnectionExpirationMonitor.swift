@@ -29,18 +29,7 @@ class WebConnectionExpirationMonitor {
     private var controller: WebConnectionController = WebConnectionController.shared
 
     func checkConnections() {
-
-        let now = Date()
-
-        let connections = controller.connections()
-        for connection in connections {
-            if let expirationDate = connection.expirationDate, expirationDate <= now {
-                cleanUpConnection(connection)
-            }
-        }
+        controller.handleExpiredConnections()
     }
 
-    private func cleanUpConnection(_ connection: WebConnection) {
-        controller.delete(connection)
-    }
 }
