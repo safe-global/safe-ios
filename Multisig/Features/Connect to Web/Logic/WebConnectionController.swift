@@ -333,7 +333,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             do {
                 try server.disconnect(from: session)
             } catch {
-                // do nothing
+                LogService.shared.error("Failed to disconnect connection \(error)")
             }
         }
     }
