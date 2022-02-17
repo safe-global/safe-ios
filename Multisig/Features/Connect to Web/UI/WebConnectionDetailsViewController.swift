@@ -44,6 +44,7 @@ class WebConnectionDetailsViewController: UITableViewController {
             let cell = tableView.dequeueCell(ContainerTableViewCell.self)
             let detailView = ChooseOwnerDetailHeaderView()
             detailView.imageView.image = UIImage(named: "safe-logo")
+            //detailView.imageHeight = NSLayoutConstraint()
             cell.setContent(detailView)
             cell.textLabel?.text = "Gnosis Safe"
             if let connection = connection {
