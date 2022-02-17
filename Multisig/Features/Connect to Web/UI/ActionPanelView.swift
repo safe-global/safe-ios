@@ -26,6 +26,10 @@ class ActionPanelView: UINibView {
         rejectButton.setText("Reject", .filledError)
     }
 
+    func setConfirmText(_ text: String) {
+        confirmButton.setText(text, .filled)
+    }
+
     func setConfirmEnabled(_ enabled: Bool) {
         confirmButton.isEnabled = enabled
     }

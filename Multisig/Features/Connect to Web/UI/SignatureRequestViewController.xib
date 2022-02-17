@@ -25,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="1sB-VV-80p">
-                    <rect key="frame" x="16" y="185" width="382" height="125"/>
+                    <rect key="frame" x="16" y="185" width="382" height="129"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vkY-Eh-HPy">
                             <rect key="frame" x="0.0" y="0.0" width="382" height="49"/>
@@ -45,10 +45,10 @@
                             </subviews>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cvu-eb-LJb" customClass="TitledMiniPieceView" customModule="Multisig" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="65" width="382" height="60"/>
+                            <rect key="frame" x="0.0" y="65" width="382" height="64"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="60" id="lGx-9v-Ac6"/>
+                                <constraint firstAttribute="height" constant="64" id="lGx-9v-Ac6"/>
                             </constraints>
                         </view>
                     </subviews>

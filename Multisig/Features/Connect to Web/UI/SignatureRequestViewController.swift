@@ -27,14 +27,14 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
 
     private var wcConnector: WCWalletConnectionController!
 
-    var onReject: (() -> Void)?
-    var onSign: ((String) -> Void)?
+    var onFinish: () -> Void = { }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let chainId = connection.chainId,
-            let chain = Chain.by(String(chainId)),
+        connection = controller.connection(for: request)
+
+        if let chain = controller.chain(for: request),
             let account = connection.accounts.first,
             let keyInfo = (try? KeyInfo.firstKey(address: account)) {
             self.chain = chain
@@ -60,6 +60,7 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
         signerAddressView.setTitle("Sign with")
 
         actionPanelView.delegate = self
+        actionPanelView.setConfirmText("Submit")
 
         loadAccountBalance()
     }
@@ -194,7 +195,7 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
                 let signature = Data(signatureParts.r) + Data(signatureParts.s) + Data([UInt8(signatureParts.v)])
                 confirm(signature:  signature)
             } catch {
-                didFail(error: error)
+                App.shared.snackbar.show(message: "Failed to sign: \(error.localizedDescription)")
             }
 
         case .walletConnect:
@@ -251,22 +252,37 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
     }
 
     private func confirm(signature: Data) {
-        // track result
-        //                    Tracker.trackEvent(.desktopPairingSignRequestConfirmed,
-        //                                       parameters: ["key_type" : keyInfo.keyType == .deviceGenerated ? "generated" : "imported"])
-
-        //        Tracker.trackEvent(.desktopPairingSignRequestConfirmed,
-        //                           parameters: ["key_type" : "ledger_nano_x"])
-        // send response
-//        controller.respond(to: request, in: connection, with: requset.response(with: signature))
+        if let keyInfo = keyInfo {
+            Tracker.trackEvent(.desktopPairingSignRequestConfirmed, parameters: TrackingEvent.keyTypeParameters(keyInfo))
+        }
+        controller.respond(request: request, with: WebConnectionSignatureRequest.response(signature: signature))
+        onFinish()
     }
 
     private func reject() {
-        // Tracker.trackEvent(.desktopPairingSignRequestRejected)
-//        controller.respond(to: request, in: connection, with: request.response(with: error))
+        Tracker.trackEvent(.desktopPairingSignRequestRejected)
+        controller.respond(request: request, errorCode: WebConnectionRequest.ErrorCode.requestRejected.rawValue, message: "User rejected the request")
+        onFinish()
     }
+}
 
-    private func didFail(error: Error) {
-        // show error message
+extension TrackingEvent {
+    static func keyTypeParameters(_ keyInfo: KeyInfo) -> [String: Any] {
+        ["key_type": keyInfo.keyType.trackingValue]
+    }
+}
+
+extension KeyType {
+    var trackingValue: String {
+        switch self {
+        case .deviceGenerated:
+            return "generated"
+        case .deviceImported:
+            return "imported"
+        case .ledgerNanoX:
+            return "ledger_nano_x"
+        case .walletConnect:
+            return "connected"
+        }
     }
 }
