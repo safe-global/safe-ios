@@ -10,7 +10,7 @@ import UIKit
 import BigInt
 import WalletConnectSwift
 
-class SignatureRequestViewController: UIViewController, UIAdaptivePresentationControllerDelegate, ActionPanelViewDelegate {
+class SignatureRequestViewController: UIViewController, UIAdaptivePresentationControllerDelegate, ActionPanelViewDelegate, WebConnectionRequestObserver {
     @IBOutlet private weak var headerView: ChooseOwnerDetailHeaderView!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var detailsLabel: UILabel!
@@ -63,6 +63,12 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
         actionPanelView.setConfirmText("Submit")
 
         loadAccountBalance()
+
+        controller.attach(observer: self, to: request)
+    }
+
+    deinit {
+        controller.detach(observer: self)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -76,7 +82,7 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
         parent?.presentationController?.delegate = self
     }
 
-    // MARK: - User Events
+    // MARK: - Events
 
     // called from the close button by the CloseModal default protocol implementation
     override func closeModal() {
@@ -94,6 +100,12 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
 
     func didConfirm() {
         authorizeAndSign()
+    }
+
+    func didUpdate(request: WebConnectionRequest) {
+        if request.status == .success || request.status == .failed {
+            onFinish()
+        }
     }
 
     // MARK: - Loading Balance
@@ -256,13 +268,11 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
             Tracker.trackEvent(.desktopPairingSignRequestConfirmed, parameters: TrackingEvent.keyTypeParameters(keyInfo))
         }
         controller.respond(request: request, with: WebConnectionSignatureRequest.response(signature: signature))
-        onFinish()
     }
 
     private func reject() {
         Tracker.trackEvent(.desktopPairingSignRequestRejected)
         controller.respond(request: request, errorCode: WebConnectionRequest.ErrorCode.requestRejected.rawValue, message: "User rejected the request")
-        onFinish()
     }
 }
 

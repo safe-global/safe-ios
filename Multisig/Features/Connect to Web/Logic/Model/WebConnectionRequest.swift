@@ -27,6 +27,16 @@ class WebConnectionRequest {
     }
 }
 
+struct WebRequestIdentifier: Hashable {
+    var connectionURL: WebConnectionURL
+    var requestId: WebConnectionRequestId
+
+    init(_ connectionURL: WebConnectionURL, _ requestId: WebConnectionRequestId) {
+        self.connectionURL = connectionURL
+        self.requestId = requestId
+    }
+}
+
 enum WebConnectionRequestStatus: Int16 {
     case initial
     case pending
@@ -35,7 +45,7 @@ enum WebConnectionRequestStatus: Int16 {
     case unknown
 }
 
-struct WebConnectionRequestId {
+struct WebConnectionRequestId: Hashable {
     var intValue: Int?
     var stringValue: String?
     var doubleValue: Double?

@@ -288,6 +288,7 @@ class SettingsUINavigationController: UINavigationController {
 
 extension MainTabBarViewController: WebConnectionRequestObserver {
     func didUpdate(request: WebConnectionRequest) {
+        guard request.status == .pending else { return }
         requestQueue.append(request)
         debounceTimer?.invalidate()
         debounceTimer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false, block: { [weak self] _ in

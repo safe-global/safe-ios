@@ -36,18 +36,24 @@ protocol WebConnectionRequestSubject: AnyObject {
     func notifyObservers(of request: WebConnectionRequest)
 }
 
+protocol WebConnectionSingleRequestSubject: AnyObject {
+    func attach(observer: WebConnectionRequestObserver, to request: WebConnectionRequest)
+    func notifyObservers(of request: WebConnectionRequest)
+}
 /// Controller implementing the business-logic of managing connections and handling incoming requests.
 ///
 /// Use the `shared` instance since the controller's lifetime is the same as the app's lifetime.
 ///
 /// Remember to set the `delegate` in order to respond to connection events.
-class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSubject, WebConnectionListSubject, WebConnectionRequestSubject {
+class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSubject, WebConnectionListSubject, WebConnectionRequestSubject, WebConnectionSingleRequestSubject {
 
     static let shared = WebConnectionController()
 
     private var server: Server!
     private let connectionRepository = WebConnectionRepository()
     private let sessionTransformer = WebConnectionToSessionTransformer()
+
+    private static let connectionLoadingTimeout: TimeInterval = 30
 
     init() {
         server = WalletConnectSwift.Server(delegate: self)
@@ -111,22 +117,44 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
     // MARK: - Request Observer
 
-    private var requestObservers: [WebConnectionRequestObserver] = []
+    private var requestListObservers: [WebConnectionRequestObserver] = []
+    private var requestObservers: [WebRequestIdentifier: [WebConnectionRequestObserver]] = [:]
 
     func attach(observer: WebConnectionRequestObserver) {
-        guard !requestObservers.contains(where: { $0 === observer }) else { return }
-        requestObservers.append(observer)
+        guard !requestListObservers.contains(where: { $0 === observer }) else { return }
+        requestListObservers.append(observer)
+    }
+
+    func attach(observer: WebConnectionRequestObserver, to request: WebConnectionRequest) {
+        guard let url = request.connectionURL, let id = request.id else { return }
+        var requestListObservers = requestObservers[WebRequestIdentifier(url, id)] ?? []
+        guard !requestListObservers.contains(where: { $0 === observer }) else { return }
+        requestListObservers.append(observer)
+        requestObservers[WebRequestIdentifier(url, id)] = requestListObservers
     }
 
     func detach(observer: WebConnectionRequestObserver) {
-        if let index = requestObservers.firstIndex(where: { $0 === observer }) {
-            requestObservers.remove(at: index)
+        if let index = requestListObservers.firstIndex(where: { $0 === observer }) {
+            requestListObservers.remove(at: index)
+        }
+        for key in requestObservers.keys {
+            var list = requestObservers[key]!
+            if let index = list.firstIndex(where: { $0 === observer }) {
+                list.remove(at: index)
+                requestObservers[key] = list
+            }
         }
     }
 
     func notifyObservers(of request: WebConnectionRequest) {
-        for observer in requestObservers {
+        for observer in requestListObservers {
             observer.didUpdate(request: request)
+        }
+
+        if let url = request.connectionURL, let id = request.id, let list = requestObservers[WebRequestIdentifier(url, id)] {
+            for observer in list {
+                observer.didUpdate(request: request)
+            }
         }
     }
 
@@ -188,6 +216,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         case .handshaking:
             do {
                 try start(connection)
+                scheduleTimeout(connectionURL: connection.connectionURL)
             } catch {
                 handle(error: error, in: connection)
             }
@@ -209,11 +238,14 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             notifyListObservers()
 
         case .closed:
-            // go to final
-            break
+            disconnect(connection)
+            update(connection, to: .final)
+
         case .final:
+            deleteOutstandingRequests(connection)
             delete(connection)
             notifyListObservers()
+
         case .unknown:
             // stay here
             break
@@ -225,6 +257,17 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             try server.connect(to: connection.connectionURL.wcURL)
         } catch {
             throw WebConnectionError.connectionFailure(error)
+        }
+    }
+
+    // if connection still waiting to receive 'connection request' from the other side after
+    // timeout, then we close it with error.
+    private func scheduleTimeout(connectionURL: WebConnectionURL) {
+        Timer.scheduledTimer(withTimeInterval: Self.connectionLoadingTimeout, repeats: false) { [weak self] _ in
+            guard let self = self else { return }
+            if let connection = self.connection(for: connectionURL), connection.status == .handshaking {
+                self.handle(error: WebConnectionError.connectionStartTimeout, in: connection)
+            }
         }
     }
 
@@ -247,7 +290,8 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             let requestId = request.id.flatMap(sessionTransformer.requestId(id:)),
             let walletInfo = session.walletInfo
         else {
-            assertionFailure("Expected to have a valid connection")
+            assertionFailure("Expected to have a valid connection with pending connection request")
+            update(connection, to: .closed)
             return
         }
         server.sendCreateSessionResponse(for: requestId, session: session, walletInfo: walletInfo)
@@ -269,6 +313,14 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         let allPendingRequests: [WebConnectionRequest] = pendingRequests()
         for request in allPendingRequests {
             notifyObservers(of: request)
+        }
+    }
+
+    func handleExpiredConnections() {
+        let now = Date()
+        let connections = connectionRepository.connections(expiredAt: now)
+        for connection in connections {
+            expire(connection)
         }
     }
 
@@ -356,6 +408,33 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         connectionRepository.delete(request: request)
     }
 
+    /// Disconnects the connection from gnosis safe web app
+    ///
+    /// - Parameter connection: connection to disconnect
+    func disconnect(_ connection: WebConnection) {
+        if let session = sessionTransformer.session(from: connection) {
+            do {
+                try server.disconnect(from: session)
+            } catch {
+                LogService.shared.error("Failed to disconnect: \(error)")
+            }
+        }
+    }
+
+    func expire(_ connection: WebConnection) {
+        update(connection, to: .closed)
+    }
+
+    func deleteOutstandingRequests(_ connection: WebConnection) {
+        let requests = connectionRepository.pendingRequests(connection: connection)
+        for request in requests {
+            request.status = .failed
+            save(request)
+            notifyObservers(of: request)
+            delete(request)
+        }
+    }
+
     // MARK: - User events
 
     /// Expected to be called by the UI when user approves connection
@@ -379,8 +458,15 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         update(connection, to: .rejected)
     }
 
-    func userDidDelete(_ connection: WebConnection) {
-        update(connection, to: .final)
+    func userDidDisconnect(_ connection: WebConnection) {
+        update(connection, to: .closed)
+    }
+
+    func userDidDelete(account: Address) {
+        let connections = connectionRepository.connections(account: account)
+        for connection in connections {
+            update(connection, to: .closed)
+        }
     }
 
     // MARK: - Server Delegate (Server events)
@@ -405,7 +491,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 handle(error: WebConnectionError.connectionStartFailed, in: connection)
                 return
             }
-
+            request.status = .pending
             save(request)
 
             // check that the chain id exists in the app
@@ -422,28 +508,29 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     func server(_ server: Server, didFailToConnect url: WCURL) {
         // the connection process failed
         DispatchQueue.main.async { [unowned self] in
-            guard let connection = connection(for: url) else { return }
-            assert(connection.status == .handshaking || connection.status == .approving,
-                    "Unexpected connection failure in the status \(connection.status)")
+            guard let connection = connection(for: url) else {
+                return
+            }
             let error = WebConnectionError.connectionStartFailed
             handle(error: error, in: connection)
         }
     }
 
     func server(_ server: Server, didConnect session: Session) {
-        // when connection to the session is established
-        // when re-connection to session is established
-        print("connected")
+        // ignore
     }
 
     func server(_ server: Server, didDisconnect session: Session) {
         // when the connection is closed from outside
-        print("disconnected")
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            guard let connection = self.connection(for: session) else { return }
+            self.update(connection, to: .final)
+        }
     }
 
     func server(_ server: Server, didUpdate session: Session) {
-        // update recieved
-        print("updated")
+        // update received
     }
 
     // MARK: - Server Request Handling
@@ -492,19 +579,20 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         guard
             let connectionURL = request.connectionURL,
             let requestId = request.id,
-            let connection = connection(for: connectionURL),
-            connection.status == .opened,
             let id = sessionTransformer.requestId(id: requestId),
             let request = self.request(connectionURL, requestId),
             request.status == .pending
         else { return }
-        request.status = .success
-        save(request)
-        do {
-            try server.send(Response(url: connectionURL.wcURL, value: value, id: id))
-        } catch {
-            LogService.shared.error("Failed to respond to WC server: \(error)")
+
+        if let connection = connection(for: connectionURL), connection.status == .opened {
+            do {
+                try server.send(Response(url: connectionURL.wcURL, value: value, id: id))
+            } catch {
+                LogService.shared.error("Failed to respond to WC server: \(error)")
+            }
         }
+        request.status = .success
+        notifyObservers(of: request)
         delete(request)
     }
 
@@ -512,19 +600,19 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         guard
             let connectionURL = request.connectionURL,
             let requestId = request.id,
-            let connection = connection(for: connectionURL),
-            connection.status == .opened,
             let id = sessionTransformer.requestId(id: requestId),
             let request = self.request(connectionURL, requestId),
             request.status == .pending
         else { return }
-        request.status = .failed
-        save(request)
-        do {
-            try server.send(Response(url: connectionURL.wcURL, errorCode: errorCode, message: message, id: id))
-        } catch {
-            LogService.shared.error("Failed to return error to WC server: \(error)")
+        if let connection = connection(for: connectionURL), connection.status == .opened {
+            do {
+                try server.send(Response(url: connectionURL.wcURL, errorCode: errorCode, message: message, id: id))
+            } catch {
+                LogService.shared.error("Failed to return error to WC server: \(error)")
+            }
         }
+        request.status = .failed
+        notifyObservers(of: request)
         delete(request)
     }
 
@@ -570,29 +658,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     // user changed account(s)
 
     // confirm change account(s) request
-
-
-    // MARK: - Disconnecting
-
-    // user asked to disconnect
-
-    // confirm disconnect request
-
-
-    // received disconnect request
-
-    // close the connection
-
-
-    // received timer event to check for connection session expirations
-
-    // make connection session expired
-
-
-    // user asked to reconnect expired connection session
-
-
-    // record last activity on the connection
 }
 
 /// User-visible error
@@ -604,7 +669,7 @@ struct WebConnectionError: CustomNSError {
     var errorUserInfo: [String: Any] {
         var result: [String: Any] = [NSLocalizedDescriptionKey: message]
         if let error = cause {
-            result[NSUnderlyingErrorKey]  = error
+            result[NSUnderlyingErrorKey] = error
         }
         return result
     }
@@ -626,4 +691,6 @@ extension WebConnectionError {
     static let connectionStartFailed = WebConnectionError(errorCode: -3, message: "Failed to start connection. Please try again.")
 
     static let unsupportedNetwork = WebConnectionError(errorCode: -4, message: "Failed to connect. Requested network is not supported.")
+
+    static let connectionStartTimeout = WebConnectionError(errorCode: -5, message: "Connection timeout. Please reload web app.")
 }

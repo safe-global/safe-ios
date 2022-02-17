@@ -9,33 +9,16 @@ import CoreData
 extension CDWCRequest {
 
     static func all() -> [CDWCRequest] {
-        do {
-            let context = App.shared.coreDataStack.viewContext
-            let fetchRequest = CDWCRequest.fetchRequest()
-            fetchRequest.sortDescriptors = []
-            let result = try context.fetch(fetchRequest)
-            return result
-        } catch {
-            LogService.shared.error("Failed to get existing request from CoreData: \(error)")
-            return []
-        }
+        requests()
     }
 
     // all requests with opened connections and this status sorted by creation date
     static func all(status: Int16) -> [CDWCRequest] {
-        do {
-            let context = App.shared.coreDataStack.viewContext
-            let fetchRequest = CDWCRequest.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "status == %@ AND connection.status == %@", NSNumber(value: status), NSNumber(value: WebConnectionStatus.opened.rawValue))
-            fetchRequest.sortDescriptors = [
-                NSSortDescriptor(key: "createdDate", ascending: true)
-            ]
-            let result = try context.fetch(fetchRequest)
-            return result
-        } catch {
-            LogService.shared.error("Failed to get existing request from CoreData: \(error)")
-            return []
-        }
+        requests(predicate: NSPredicate(format: "status == %@ AND connection.status == %@", NSNumber(value: status), NSNumber(value: WebConnectionStatus.opened.rawValue)))
+    }
+
+    static func all(url: String, status: Int16) -> [CDWCRequest] {
+        requests(predicate: NSPredicate(format: "status = %@ AND connection.connectionURL = %@", NSNumber(value: status), url))
     }
 
     static func request(url: String, id_int: Int64, id_double: Double, id_string: String?) -> CDWCRequest? {
@@ -50,7 +33,9 @@ extension CDWCRequest {
             let fetchRequest = CDWCRequest.fetchRequest()
             fetchRequest.predicate = predicate
             fetchRequest.fetchLimit = 1
-            fetchRequest.sortDescriptors = []
+            fetchRequest.sortDescriptors = [
+                NSSortDescriptor(key: "createdDate", ascending: false)
+            ]
             let result = try context.fetch(fetchRequest).first
             return result
         } catch {
@@ -59,12 +44,28 @@ extension CDWCRequest {
         }
     }
 
+    fileprivate static func requests(predicate: NSPredicate? = nil) -> [CDWCRequest] {
+        do {
+            let context = App.shared.coreDataStack.viewContext
+            let fetchRequest = CDWCRequest.fetchRequest()
+            fetchRequest.predicate = predicate
+            fetchRequest.sortDescriptors = [
+                NSSortDescriptor(key: "createdDate", ascending: true)
+            ]
+            let result = try context.fetch(fetchRequest)
+            return result
+        } catch {
+            LogService.shared.error("Failed to get existing request from CoreData: \(error)")
+            return []
+        }
+    }
+
     static func request(connectionURL: WebConnectionURL, method: String, status: WebConnectionRequestStatus) -> CDWCRequest? {
         let predicate = NSPredicate(
             format: "connection.connectionURL == %@ AND method == %@ AND status == %@",
             connectionURL.absoluteString,
             method,
-            status.rawValue
+            NSNumber(value: status.rawValue)
         )
         let result = request(predicate: predicate)
         return result

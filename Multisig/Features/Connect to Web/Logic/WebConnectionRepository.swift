@@ -37,6 +37,17 @@ class WebConnectionRepository {
         return connection(from: cdConnection)
     }
 
+    func connections(expiredAt date: Date) -> [WebConnection] {
+        let result = CDWCConnection.connections(expiredAt: date).compactMap(connection(from:))
+        return result
+    }
+
+    func connections(account: Address) -> [WebConnection] {
+        guard let keyInfo = (try? KeyInfo.firstKey(address: account)), let cdConnections = keyInfo.connections else { return [] }
+        let result = cdConnections.allObjects.compactMap { $0 as? CDWCConnection }.compactMap(connection(from:))
+        return result
+    }
+
     func delete(_ connection: WebConnection) {
         CDWCConnection.delete(by: connection.connectionURL.absoluteString)
     }
@@ -319,10 +330,11 @@ class WebConnectionRepository {
         return result
     }
 
-    func pendingRequests() -> [WebConnectionRequest] {
-        let result = CDWCRequest
-            .all(status: WebConnectionRequestStatus.pending.rawValue)
-            .compactMap(request(from:))
+    func pendingRequests(connection: WebConnection? = nil) -> [WebConnectionRequest] {
+        let cdRequests = connection == nil ?
+                CDWCRequest.all(status: WebConnectionRequestStatus.pending.rawValue) :
+                CDWCRequest.all(url: connection!.connectionURL.absoluteString, status: WebConnectionRequestStatus.pending.rawValue)
+        let result = cdRequests.compactMap(request(from:))
         return result
     }
 
