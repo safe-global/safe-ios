@@ -71,6 +71,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         App.shared.clientGatewayHostObserver.startObserving()
 
         PendingTransactionMonitor.scheduleMonitoring()
+        WebConnectionExpirationMonitor.scheduleMonitoring()
 
         privacyShieldWindow?.isHidden = true
 
@@ -83,6 +84,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         App.shared.clientGatewayHostObserver.stopObserving()
 
         PendingTransactionMonitor.stopMonitoring()
+        WebConnectionExpirationMonitor.stopMonitoring()
 
         if presentedWindow === tabBarWindow {
             privacyShieldWindow?.isHidden = false

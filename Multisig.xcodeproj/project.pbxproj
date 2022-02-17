@@ -651,6 +651,7 @@
 		6ADEB01C2795AB410062ADFE /* InfoLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB01A2795AB410062ADFE /* InfoLabel.xib */; };
 		6ADEB02727B559370062ADFE /* WebConnectionOwnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */; };
 		6ADEB02827B559370062ADFE /* WebConnectionOwnerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */; };
+		8D7DFB2CEBACCDB9E9CCF6BC /* WebConnectionExpirationMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7DF152EC9E12AF6029DA1E /* WebConnectionExpirationMonitor.swift */; };
 		93D9013E27727E2500624B29 /* WhatsNewKit in Frameworks */ = {isa = PBXBuildFile; productRef = 93D9013D27727E2500624B29 /* WhatsNewKit */; };
 		93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */; };
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
@@ -667,6 +668,7 @@
 		B0D6151A3877F2EE63900833 /* PairingOwnerKeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61B05AC80BE6689567D43 /* PairingOwnerKeyCell.swift */; };
 		B0D615BF62964F8832DAF74A /* PairingOwnerKeyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0D6185C23118394B65AB058 /* PairingOwnerKeyCell.xib */; };
 		B0D6163F11595712629A9FE7 /* ConfirmConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61392A483F1DDA72C10F9 /* ConfirmConnectionViewController.swift */; };
+		B0D61701855BDBDFF8963B8B /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6139BAED9DCB484456724 /* NavigationRouter.swift */; };
 		B0D6178FC710D4E943B4F9F5 /* WebConnectionRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0D610E20B243B7AEB248725 /* WebConnectionRequestViewController.xib */; };
 		B0D61871594F4DCE72FAD3BD /* WebConnectionRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61A4428032BDABE9C94CE /* WebConnectionRequestViewController.swift */; };
 		B0D618BE28AD77EA68D0551C /* WebConnectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D613C0E251EC2E801E8818 /* WebConnectionsViewController.swift */; };
@@ -677,7 +679,6 @@
 		B0D61F04D9893AFC182380AF /* GnosisSafeWebPeerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61D442F14F58C60094659 /* GnosisSafeWebPeerInfo.swift */; };
 		B0D61F0FCD7483E899D4BFFC /* ConfirmConnectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0D61D3B8D7E5314D2481A85 /* ConfirmConnectionHeaderView.xib */; };
 		B0D61FFF1935AA2484BD940A /* WebConnectionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D617C60F3081A3A923005D /* WebConnectionRepository.swift */; };
-		B0D61701855BDBDFF8963B8B /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6139BAED9DCB484456724 /* NavigationRouter.swift */; };
 		D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A022769CEAD00D6E024 /* Tooltip.swift */; };
 		D80B5A052769CF1B00D6E024 /* TooltipSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A042769CF1B00D6E024 /* TooltipSource.swift */; };
 		D80B5A072769D05D00D6E024 /* BaseCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A062769D05D00D6E024 /* BaseCustomView.swift */; };
@@ -1376,6 +1377,7 @@
 		6ADEB01A2795AB410062ADFE /* InfoLabel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoLabel.xib; sourceTree = "<group>"; };
 		6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnectionOwnerView.swift; sourceTree = "<group>"; };
 		6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebConnectionOwnerView.xib; sourceTree = "<group>"; };
+		8D7DF152EC9E12AF6029DA1E /* WebConnectionExpirationMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionExpirationMonitor.swift; sourceTree = "<group>"; };
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
 		AD3035EE31CD4171C56B475B /* WhatsNewHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsNewHandler.swift; sourceTree = "<group>"; };
 		B0D61054888C9CCE33C4A130 /* WebConnectionPeerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionPeerInfo.swift; sourceTree = "<group>"; };
@@ -1386,6 +1388,7 @@
 		B0D6138601B696D8D77B82A4 /* ConfirmConnectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmConnectionHeaderView.swift; sourceTree = "<group>"; };
 		B0D6138CA63483A9CE704918 /* WebConnectionToSessionTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionToSessionTransformer.swift; sourceTree = "<group>"; };
 		B0D61392A483F1DDA72C10F9 /* ConfirmConnectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmConnectionViewController.swift; sourceTree = "<group>"; };
+		B0D6139BAED9DCB484456724 /* NavigationRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		B0D613C0E251EC2E801E8818 /* WebConnectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionsViewController.swift; sourceTree = "<group>"; };
 		B0D6146BF81C620C26123C67 /* DesktopPairingHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DesktopPairingHeaderView.xib; sourceTree = "<group>"; };
 		B0D61524FA5E73870967D0FA /* WebConnectionURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionURL.swift; sourceTree = "<group>"; };
@@ -1401,7 +1404,6 @@
 		B0D61D442F14F58C60094659 /* GnosisSafeWebPeerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GnosisSafeWebPeerInfo.swift; sourceTree = "<group>"; };
 		B0D61E10A9C05719217A09D4 /* ConfirmConnectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmConnectionViewController.xib; sourceTree = "<group>"; };
 		B0D61FB05FC8C6D45FAC1246 /* ActionPanelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionPanelView.xib; sourceTree = "<group>"; };
-		B0D6139BAED9DCB484456724 /* NavigationRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		D80B5A022769CEAD00D6E024 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
 		D80B5A042769CF1B00D6E024 /* TooltipSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipSource.swift; sourceTree = "<group>"; };
 		D80B5A062769D05D00D6E024 /* BaseCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCustomView.swift; sourceTree = "<group>"; };
@@ -3184,6 +3186,7 @@
 				B0D61054888C9CCE33C4A130 /* WebConnectionPeerInfo.swift */,
 				B0D61524FA5E73870967D0FA /* WebConnectionURL.swift */,
 				B0D6123FB5D744FCB702B6C2 /* WebConnection.swift */,
+				8D7DF152EC9E12AF6029DA1E /* WebConnectionExpirationMonitor.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -3449,20 +3452,20 @@
 			);
 			mainGroup = 0A93DD4A2445CC8A00688050;
 			packageReferences = (
-				55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */,
-				55D3FF63260B2550008ABD2B /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit" */,
-				55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */,
-				5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift" */,
-				0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift" */,
-				0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
-				55DA0661269C9411006C9AA5 /* XCRemoteSwiftPackageReference "Version" */,
-				0ACCC6E32742991100EC79B9 /* XCRemoteSwiftPackageReference "Web3.swift" */,
-				93EE3F732760F49700111F17 /* XCRemoteSwiftPackageReference "intercom-ios" */,
-				D80B5A11276B5FAD00D6E024 /* XCRemoteSwiftPackageReference "SkeletonView" */,
-				93D9013C27727E2400624B29 /* XCRemoteSwiftPackageReference "WhatsNewKit" */,
-				0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift" */,
+				55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter.git" */,
+				55D3FF63260B2550008ABD2B /* XCRemoteSwiftPackageReference "Kingfisher.git" */,
+				55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit.git" */,
+				55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy.git" */,
+				5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift.git" */,
+				0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk.git" */,
+				5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift.git" */,
+				0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing.git" */,
+				55DA0661269C9411006C9AA5 /* XCRemoteSwiftPackageReference "Version.git" */,
+				0ACCC6E32742991100EC79B9 /* XCRemoteSwiftPackageReference "Web3.swift.git" */,
+				93EE3F732760F49700111F17 /* XCRemoteSwiftPackageReference "intercom-ios.git" */,
+				D80B5A11276B5FAD00D6E024 /* XCRemoteSwiftPackageReference "SkeletonView.git" */,
+				93D9013C27727E2400624B29 /* XCRemoteSwiftPackageReference "WhatsNewKit.git" */,
+				0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift.git" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -4136,6 +4139,7 @@
 				B0D614E7E2B36259C9961E48 /* CDWCConnection.swift in Sources */,
 				B0D61701855BDBDFF8963B8B /* NavigationRouter.swift in Sources */,
 				B0D618BE28AD77EA68D0551C /* WebConnectionsViewController.swift in Sources */,
+				8D7DFB2CEBACCDB9E9CCF6BC /* WebConnectionExpirationMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5531,7 +5535,7 @@
 				minimumVersion = 8.0.0;
 			};
 		};
-		0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift" */ = {
+		0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gnosis/WalletConnectSwift.git";
 			requirement = {
@@ -5539,7 +5543,7 @@
 				kind = branch;
 			};
 		};
-		0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+		0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
 			requirement = {
@@ -5555,7 +5559,7 @@
 				kind = branch;
 			};
 		};
-		5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift" */ = {
+		5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sche/resolution-swift.git";
 			requirement = {
@@ -5655,7 +5659,7 @@
 		};
 		0A06533227B6C1500008C5F1 /* WalletConnectSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift" */;
+			package = 0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift.git" */;
 			productName = WalletConnectSwift;
 		};
 		0A29B5612666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport */ = {
