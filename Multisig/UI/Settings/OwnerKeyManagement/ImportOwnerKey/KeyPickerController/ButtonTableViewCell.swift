@@ -14,6 +14,11 @@ class ButtonTableViewCell: UITableViewCell {
     @IBOutlet private weak var button: UIButton!
     @IBOutlet private weak var buttonHeight: NSLayoutConstraint!
 
+    @IBOutlet weak var top: NSLayoutConstraint!
+    @IBOutlet weak var trailing: NSLayoutConstraint!
+    @IBOutlet weak var leading: NSLayoutConstraint!
+    @IBOutlet weak var bottom: NSLayoutConstraint!
+
     var height: CGFloat {
         get { buttonHeight.constant }
         set {
@@ -22,9 +27,19 @@ class ButtonTableViewCell: UITableViewCell {
         }
     }
 
-    func setText(_ text: String, onTap: @escaping () -> Void) {
+    var padding: CGFloat = 0 {
+        didSet {
+            top.constant = padding
+            bottom.constant = padding
+            trailing.constant = padding
+            leading.constant = padding
+            setNeedsLayout()
+        }
+    }
+
+    func setText(_ text: String, style: GNOButtonStyle = .primary, onTap: @escaping () -> Void) {
         self.onTap = onTap
-        button.setText(text, .primary)
+        button.setText(text, style)
     }
 
     @IBAction func didTapButton(_ sender: Any) {
