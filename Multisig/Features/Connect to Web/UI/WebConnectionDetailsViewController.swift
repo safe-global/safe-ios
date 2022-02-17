@@ -44,8 +44,9 @@ class WebConnectionDetailsViewController: UITableViewController {
             let cell = tableView.dequeueCell(ContainerTableViewCell.self)
             let detailView = ChooseOwnerDetailHeaderView()
             detailView.imageView.image = UIImage(named: "safe-logo")
-            //detailView.imageHeight = NSLayoutConstraint()
+            detailView.imageHeight.constant = 60
             cell.setContent(detailView)
+            cell.textLabel?.textAlignment = .center
             cell.textLabel?.text = "Gnosis Safe"
             if let connection = connection {
                 cell.detailTextLabel?.text = relativeDateFormatter.localizedString(for: connection.createdDate!, relativeTo: Date())
