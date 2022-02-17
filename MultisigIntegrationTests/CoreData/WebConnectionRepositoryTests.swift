@@ -16,12 +16,17 @@ class WebConnectionRepositoryTests: CoreDataTestCase {
         XCTAssertNotNil(connection.localPeer)
         XCTAssertNotNil(connection.remotePeer)
 
+        let peerInfo = connection.remotePeer as? GnosisSafeWebPeerInfo
+        XCTAssertNotNil(peerInfo)
         controller.save(connection)
 
         let fetchedConnection = controller.connection(for: url)
         XCTAssertNotNil(fetchedConnection)
         XCTAssertNotNil(fetchedConnection?.localPeer)
         XCTAssertNotNil(fetchedConnection?.remotePeer)
+
+        let fetchedPeerInfo = fetchedConnection?.remotePeer as? GnosisSafeWebPeerInfo
+        XCTAssertNotNil(fetchedPeerInfo)
     }
 
     func testSavesRequest() throws {

@@ -150,6 +150,16 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let connection = connections[indexPath.row]
+        let detailsVC = WebConnectionDetailsViewController()
+        detailsVC.connection = connection
+        let vc = ViewControllerFactory.modal(viewController: detailsVC)
+        if #available(iOS 15.0, *) {
+            if let sheet = vc.sheetPresentationController {
+                sheet.detents = [.medium()]
+            }
+        }
+        present(vc, animated: true)
     }
 
     // MARK: - Table view delegate
@@ -168,19 +178,8 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
         let actions = [
             UIContextualAction(style: .destructive, title: "Disconnect") {  [weak self] _, _, completion in
                 guard let `self` = self else { return }
-                let alertController = UIAlertController(
-                        title: nil,
-                        message: "Your Safe will be disconnected from web.",
-                        preferredStyle: .actionSheet)
-                let remove = UIAlertAction(title: "Disconnect", style: .destructive) { _ in
-                    self.connectionController.userDidDisconnect(connection)
-                }
-                let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                alertController.addAction(remove)
-                alertController.addAction(cancel)
+                let alertController = DisconnectionConfirmationController.create(connection: connection)
                 self.present(alertController, animated: true)
-
-                //WalletConnectKeysServerController.shared.disconnect(topic: session.topic!)
             }]
         return UISwipeActionsConfiguration(actions: actions)
     }
@@ -297,5 +296,21 @@ extension WebConnectionsViewController: NavigationRouter {
         if let code = route.info["code"] as? String {
             connect(to: code)
         }
+    }
+}
+
+class DisconnectionConfirmationController: UIAlertController {
+    static func create(connection: WebConnection) -> DisconnectionConfirmationController {
+        let alertController = DisconnectionConfirmationController(
+                title: nil,
+                message: "Your Safe will be disconnected from web.",
+                preferredStyle: .actionSheet)
+        let remove = UIAlertAction(title: "Disconnect", style: .destructive) { _ in
+            WebConnectionController.shared.userDidDisconnect(connection)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(remove)
+        alertController.addAction(cancel)
+        return alertController
     }
 }

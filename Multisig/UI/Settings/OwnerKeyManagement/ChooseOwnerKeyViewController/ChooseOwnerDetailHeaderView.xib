@@ -10,7 +10,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChooseOwnerDetailHeaderView" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="detailTextLabel" destination="9F5-TW-Pxv" id="Nfh-Oi-qk7"/>
+                <outlet property="imageHeight" destination="vcr-O9-9A4" id="N9G-U3-fKf"/>
                 <outlet property="imageView" destination="zFI-HP-Quy" id="9AK-rS-Ysi"/>
+                <outlet property="stackView" destination="OZk-hU-KEc" id="2fB-Zu-9bz"/>
                 <outlet property="textLabel" destination="Wq4-5x-IS2" id="R2i-2J-4cg"/>
             </connections>
         </placeholder>

@@ -653,6 +653,7 @@
 		6ADEB02727B559370062ADFE /* WebConnectionOwnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */; };
 		6ADEB02827B559370062ADFE /* WebConnectionOwnerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */; };
 		8D7DFB2CEBACCDB9E9CCF6BC /* WebConnectionExpirationMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7DF152EC9E12AF6029DA1E /* WebConnectionExpirationMonitor.swift */; };
+		935DCA4C27BD14C600F09EE4 /* WebConnectionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */; };
 		93D9013E27727E2500624B29 /* WhatsNewKit in Frameworks */ = {isa = PBXBuildFile; productRef = 93D9013D27727E2500624B29 /* WhatsNewKit */; };
 		93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */; };
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
@@ -1383,6 +1384,7 @@
 		6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnectionOwnerView.swift; sourceTree = "<group>"; };
 		6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebConnectionOwnerView.xib; sourceTree = "<group>"; };
 		8D7DF152EC9E12AF6029DA1E /* WebConnectionExpirationMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionExpirationMonitor.swift; sourceTree = "<group>"; };
+		935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionDetailsViewController.swift; sourceTree = "<group>"; };
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
 		AD3035EE31CD4171C56B475B /* WhatsNewHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsNewHandler.swift; sourceTree = "<group>"; };
 		B0D610B9708DF8BFD4A612D2 /* WebConnectionRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionRepositoryTests.swift; sourceTree = "<group>"; };
@@ -1725,12 +1727,12 @@
 		049A9D6D25F92FB000CA5723 /* ChooseOwnerKeyViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0A06533827B6D4960008C5F1 /* ChooseOwnerBasicHeaderView.swift */,
+				0A06533427B6D0F90008C5F1 /* ChooseOwnerBasicHeaderView.xib */,
+				0A06533A27B6D4A10008C5F1 /* ChooseOwnerDetailHeaderView.swift */,
+				0A06533627B6D1070008C5F1 /* ChooseOwnerDetailHeaderView.xib */,
 				049A9D6E25F9303000CA5723 /* ChooseOwnerKeyViewController.swift */,
 				049A9D6F25F9303000CA5723 /* ChooseOwnerKeyViewController.xib */,
-				0A06533427B6D0F90008C5F1 /* ChooseOwnerBasicHeaderView.xib */,
-				0A06533827B6D4960008C5F1 /* ChooseOwnerBasicHeaderView.swift */,
-				0A06533627B6D1070008C5F1 /* ChooseOwnerDetailHeaderView.xib */,
-				0A06533A27B6D4A10008C5F1 /* ChooseOwnerDetailHeaderView.swift */,
 				049A9DAF25FA6D5F00CA5723 /* ChooseOwnerTableViewCell.swift */,
 				049A9DB025FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib */,
 			);
@@ -3214,6 +3216,7 @@
 			children = (
 				557D80A4270B32F80036D6D0 /* SignatureRequestViewController.swift */,
 				557D80A5270B32F80036D6D0 /* SignatureRequestViewController.xib */,
+				935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */,
 				B0D61352D30ACB7D294C526D /* ActionPanelView.swift */,
 				B0D61FB05FC8C6D45FAC1246 /* ActionPanelView.xib */,
 				B0D61D08EC35504630794D01 /* ConfirmConnection */,
@@ -3464,20 +3467,20 @@
 			);
 			mainGroup = 0A93DD4A2445CC8A00688050;
 			packageReferences = (
-				55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter.git" */,
-				55D3FF63260B2550008ABD2B /* XCRemoteSwiftPackageReference "Kingfisher.git" */,
-				55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit.git" */,
-				55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy.git" */,
-				5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift.git" */,
-				0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk.git" */,
-				5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift.git" */,
-				0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing.git" */,
-				55DA0661269C9411006C9AA5 /* XCRemoteSwiftPackageReference "Version.git" */,
-				0ACCC6E32742991100EC79B9 /* XCRemoteSwiftPackageReference "Web3.swift.git" */,
-				93EE3F732760F49700111F17 /* XCRemoteSwiftPackageReference "intercom-ios.git" */,
-				D80B5A11276B5FAD00D6E024 /* XCRemoteSwiftPackageReference "SkeletonView.git" */,
-				93D9013C27727E2400624B29 /* XCRemoteSwiftPackageReference "WhatsNewKit.git" */,
-				0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift.git" */,
+				55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */,
+				55D3FF63260B2550008ABD2B /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit" */,
+				55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */,
+				5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift" */,
+				0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift" */,
+				0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+				55DA0661269C9411006C9AA5 /* XCRemoteSwiftPackageReference "Version" */,
+				0ACCC6E32742991100EC79B9 /* XCRemoteSwiftPackageReference "Web3.swift" */,
+				93EE3F732760F49700111F17 /* XCRemoteSwiftPackageReference "intercom-ios" */,
+				D80B5A11276B5FAD00D6E024 /* XCRemoteSwiftPackageReference "SkeletonView" */,
+				93D9013C27727E2400624B29 /* XCRemoteSwiftPackageReference "WhatsNewKit" */,
+				0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -4119,6 +4122,7 @@
 				04D1309E25E2BB830032FA03 /* RejectionConfirmationViewController.swift in Sources */,
 				0AA9F25724991988005BD60F /* TokenBalance.swift in Sources */,
 				555312ED250663420008206B /* SECP256K1.swift in Sources */,
+				935DCA4C27BD14C600F09EE4 /* WebConnectionDetailsViewController.swift in Sources */,
 				0A9A1A35257924C600B44405 /* DetailAccountAndTextCell.swift in Sources */,
 				55B6465A253050200050BD95 /* HashString.swift in Sources */,
 				55B66E56247E494000249E98 /* AppSettings.swift in Sources */,
@@ -5552,7 +5556,7 @@
 				minimumVersion = 8.0.0;
 			};
 		};
-		0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift.git" */ = {
+		0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gnosis/WalletConnectSwift.git";
 			requirement = {
@@ -5560,7 +5564,7 @@
 				kind = branch;
 			};
 		};
-		0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing.git" */ = {
+		0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
 			requirement = {
@@ -5576,7 +5580,7 @@
 				kind = branch;
 			};
 		};
-		5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift.git" */ = {
+		5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sche/resolution-swift.git";
 			requirement = {
@@ -5676,7 +5680,7 @@
 		};
 		0A06533227B6C1500008C5F1 /* WalletConnectSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift.git" */;
+			package = 0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift" */;
 			productName = WalletConnectSwift;
 		};
 		0A29B5612666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport */ = {

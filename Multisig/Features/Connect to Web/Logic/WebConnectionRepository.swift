@@ -165,7 +165,19 @@ class WebConnectionRepository {
         let peerDescription: String? = other.peerDescription
         let deeplinkScheme: String? = other.deeplinkScheme
 
-        let result = WebConnectionPeerInfo(
+         if peerType == .gnosisSafeWeb {
+            return GnosisSafeWebPeerInfo(
+                peerId: peerId,
+                peerType: peerType,
+                role: role,
+                url: url,
+                name: name,
+                description: peerDescription,
+                icons: icons,
+                deeplinkScheme: deeplinkScheme)
+         }
+
+        return WebConnectionPeerInfo(
                 peerId: peerId,
                 peerType: peerType,
                 role: role,
@@ -175,7 +187,6 @@ class WebConnectionRepository {
                 icons: icons,
                 deeplinkScheme: deeplinkScheme
         )
-        return result
     }
 
     func save(_ request: WebConnectionRequest) {
