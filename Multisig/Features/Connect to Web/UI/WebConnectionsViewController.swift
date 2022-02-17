@@ -166,8 +166,20 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let connection = connections[indexPath.row]
         let actions = [
-            UIContextualAction(style: .destructive, title: "Disconnect") { _, _, completion in
-                self.connectionController.userDidDelete(connection)
+            UIContextualAction(style: .destructive, title: "Disconnect") {  [weak self] _, _, completion in
+                guard let `self` = self else { return }
+                let alertController = UIAlertController(
+                        title: nil,
+                        message: "Your Safe will be disconnected from web.",
+                        preferredStyle: .actionSheet)
+                let remove = UIAlertAction(title: "Disconnect", style: .destructive) { _ in
+                    self.connectionController.userDidDelete(connection)
+                }
+                let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                alertController.addAction(remove)
+                alertController.addAction(cancel)
+                self.present(alertController, animated: true)
+
                 //WalletConnectKeysServerController.shared.disconnect(topic: session.topic!)
             }]
         return UISwipeActionsConfiguration(actions: actions)
