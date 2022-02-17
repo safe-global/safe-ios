@@ -173,7 +173,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
                         message: "Your Safe will be disconnected from web.",
                         preferredStyle: .actionSheet)
                 let remove = UIAlertAction(title: "Disconnect", style: .destructive) { _ in
-                    self.connectionController.userDidDelete(connection)
+                    self.connectionController.userDidDisconnect(connection)
                 }
                 let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 alertController.addAction(remove)
