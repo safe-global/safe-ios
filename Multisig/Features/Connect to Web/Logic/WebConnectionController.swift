@@ -419,8 +419,11 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     func server(_ server: Server, didDisconnect session: Session) {
         // when the connection is closed from outside
         print("disconnected")
-        if let connection = connectionRepository.connection(url: WebConnectionURL(wcURL: session.url)) {
-            didFinal(connection: connection)
+        DispatchQueue.main.async { [unowned self] in
+            guard let connection = connection(for: session) else {
+                return
+            }
+            self.didFinal(connection: connection)
         }
     }
 
