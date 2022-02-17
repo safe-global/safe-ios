@@ -17,7 +17,6 @@ class WebConnectionDetailsViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Connection Details"
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(
                 barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
@@ -48,7 +47,7 @@ class WebConnectionDetailsViewController: UITableViewController {
             cell.setContent(detailView)
             cell.textLabel?.text = "Gnosis Safe"
             if let connection = connection {
-            cell.detailTextLabel?.text = relativeDateFormatter.localizedString(for: connection.createdDate!, relativeTo: Date())
+                cell.detailTextLabel?.text = relativeDateFormatter.localizedString(for: connection.createdDate!, relativeTo: Date())
             }
             return cell
         } else if indexPath.row > 0 && indexPath.row < 5 {
@@ -64,10 +63,10 @@ class WebConnectionDetailsViewController: UITableViewController {
                         let balance = accounts[0].ellipsized()
                         content.setModel(MiniAccountInfoUIModel(address: address, label: NamingPolicy.name(for: address, chainId: "1").name, balance: balance))
                     } else {
-                        content.setModel(MiniAccountInfoUIModel( address: Address.zero, label: "Not set"))
+                        content.setModel(MiniAccountInfoUIModel(address: Address.zero, label: "Not set"))
                     }
                 } else {
-                    content.setModel(MiniAccountInfoUIModel( address: Address.zero, label: "Not set"))
+                    content.setModel(MiniAccountInfoUIModel(address: Address.zero, label: "Not set"))
                 }
                 cell.setContent(content)
 
@@ -84,12 +83,22 @@ class WebConnectionDetailsViewController: UITableViewController {
             case 3:
                 cell.setText("Version")
                 let content = UILabel()
-                content.text = "soon"
+                content.setStyle(.primary)
+                content.textAlignment = .right
+                content.text = "unknown"
+                if let peerInfo = connection?.remotePeer as? GnosisSafeWebPeerInfo {
+                    content.text = peerInfo.appVersion
+                }
                 cell.setContent(content)
             case 4:
                 cell.setText("Browser")
                 let content = UILabel()
-                content.text = "soon"
+                content.setStyle(.primary)
+                content.textAlignment = .right
+                content.text = "unknown"
+                if let peerInfo = connection?.remotePeer as? GnosisSafeWebPeerInfo {
+                    content.text = peerInfo.browser
+                }
                 cell.setContent(content)
             default:
                 break
@@ -97,7 +106,7 @@ class WebConnectionDetailsViewController: UITableViewController {
             return cell
         }
 
-       let  cell = tableView.dequeueCell(ButtonTableViewCell.self)
+        let cell = tableView.dequeueCell(ButtonTableViewCell.self)
         cell.setText("Disconnect") {
             // TODD
         }
@@ -106,7 +115,7 @@ class WebConnectionDetailsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-           return 150
+            return 150
         }
         return 66
     }
