@@ -147,13 +147,7 @@ class ChooseOwnerKeyViewController: UIViewController {
             let view = ChooseOwnerDetailHeaderView()
             view.textLabel.text = title
             view.detailTextLabel.text = detail
-            view.imageView.kf.setImage(with: imageUri, placeholder: placeholder) { [weak view, weak placeholder] result in
-                do {
-                    _ = try result.get()
-                } catch {
-                    view?.imageView.image = placeholder
-                }
-            }
+            view.imageView.setImage(url: imageUri, placeholder: placeholder, failedImage: placeholder)
             view.translatesAutoresizingMaskIntoConstraints = false
             headerContentView.addSubview(view)
             headerContentView.wrapAroundView(view)

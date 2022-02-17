@@ -566,6 +566,23 @@ extension EthRpc1 {
             self.block = block
         }
     }
+
+    /// Calculates an Ethereum-specific signature in the form of keccak256("\x19Ethereum Signed Message:\n" + len(message) + message))
+    public struct eth_sign: JsonRpc2Method {
+        /// address to use for signing
+        public var address: EthRpc1.Data
+
+        /// data to sign
+        public var message: EthRpc1.Data
+
+        /// signature hash of the provided data
+        public typealias Return = EthRpc1.Data
+
+        public init(address: EthRpc1.Data, message: EthRpc1.Data) {
+            self.address = address
+            self.message = message
+        }
+    }
 }
 
 public protocol EthRpc1EmptyParams: Codable {
@@ -672,6 +689,21 @@ extension EthRpc1.eth_getTransactionReceipt: Codable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.unkeyedContainer()
         try container.encode(transactionHash)
+    }
+}
+
+extension EthRpc1.eth_sign: Codable {
+    public init(from decoder: Decoder) throws {
+        var container = try decoder.unkeyedContainer()
+        let address = try container.decode(EthRpc1.Data.self)
+        let message = try container.decode(EthRpc1.Data.self)
+        self.init(address: address, message: message)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.unkeyedContainer()
+        try container.encode(address)
+        try container.encode(message)
     }
 }
 

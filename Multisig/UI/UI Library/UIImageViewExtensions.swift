@@ -37,6 +37,17 @@ extension UIImageView {
         let blocky = BlockiesImageProvider(seed: address.hexadecimal).image()?.circleShape()
         setCircleShapeImage(url: url, placeholder: blocky)
     }
+
+    func setImage(url: URL?, placeholder: UIImage?, failedImage: UIImage?) {
+        kf.setImage(with: url, placeholder: placeholder) { [weak self, weak placeholder] result in
+            do {
+                _ = try result.get()
+            } catch {
+                self?.image = placeholder
+            }
+        }
+
+    }
 }
 
 extension UIImage {
