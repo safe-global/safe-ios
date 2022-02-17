@@ -71,7 +71,7 @@ class TransactionDataTransformer {
                     hasDatabaseChanges = true
 
                 case (.failed, .pending):
-                    // backend got success status earlier than local data updated, get the value from backend data
+                    // backend got failed status earlier than local data updated, get the value from backend data
                     localTx.status = SCGModels.TxStatus.failed.rawValue
                     hasDatabaseChanges = true
 

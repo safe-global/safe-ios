@@ -88,28 +88,93 @@ class WebConnectionToSessionTransformer {
         return peerMeta
     }
 
-    func request(id: RequestID) -> WebConnectionRequest? {
+    func requestId(id: RequestID?) -> WebConnectionRequestId? {
         switch id {
         case let value as String:
-            return WebConnectionRequest(id: WebConnectionRequestId(stringValue: value))
+            return WebConnectionRequestId(stringValue: value)
         case let value as Int:
-            return WebConnectionRequest(id: WebConnectionRequestId(intValue: value))
+            return WebConnectionRequestId(intValue: value)
         case let value as Double:
-            return WebConnectionRequest(id: WebConnectionRequestId(doubleValue: value))
+            return WebConnectionRequestId(doubleValue: value)
+        case .none:
+            return nil
         default:
             return nil
         }
     }
 
-    func requestId(from request: WebConnectionRequest) -> RequestID? {
-        if let int = request.id.intValue {
+    func requestId(id: WebConnectionRequestId) -> RequestID? {
+        if let int = id.intValue {
             return int
-        } else if let double = request.id.doubleValue {
+        } else if let double = id.doubleValue {
             return double
-        } else if let string = request.id.stringValue {
+        } else if let string = id.stringValue {
             return string
         } else {
             return nil
+        }
+    }
+
+    fileprivate func openConnectionRequest(_ request: Request) -> WebConnectionOpenRequest {
+        let result = WebConnectionOpenRequest(
+            id: requestId(id: request.id),
+            method: request.method,
+            error: nil,
+            json: request.jsonString,
+            status: .initial,
+            connectionURL: WebConnectionURL(wcURL: request.url),
+            createdDate: nil
+        )
+        return result
+    }
+
+    fileprivate func signatureRequest(_ request: Request) -> WebConnectionSignatureRequest? {
+        guard request.parameterCount == 2 else { return nil }
+
+        do {
+            let address = try request.parameter(of: AddressString.self, at: 0).address
+            let message = try request.parameter(of: DataString.self, at: 1).data
+            let result = WebConnectionSignatureRequest(
+                id: requestId(id: request.id),
+                method: request.method,
+                error: nil,
+                json: request.jsonString,
+                status: .initial,
+                connectionURL: WebConnectionURL(wcURL: request.url),
+                createdDate: nil,
+                account: address,
+                message: message
+            )
+            return result
+        } catch {
+            LogService.shared.error("Failed to create an eth_sign request parameters: \(error)")
+            return nil
+        }
+    }
+
+    fileprivate func genericRequest(_ request: Request) -> WebConnectionRequest {
+        let result = WebConnectionRequest(
+            id: requestId(id: request.id),
+            method: request.method,
+            error: nil,
+            json: request.jsonString,
+            status: .initial,
+            connectionURL: WebConnectionURL(wcURL: request.url),
+            createdDate: nil
+        )
+        return result
+    }
+
+    func request(from request: Request) -> WebConnectionRequest? {
+        switch request.method {
+        case "wc_sessionRequest":
+            return openConnectionRequest(request)
+
+        case "eth_sign":
+            return signatureRequest(request)
+
+        default:
+            return genericRequest(request)
         }
     }
 }

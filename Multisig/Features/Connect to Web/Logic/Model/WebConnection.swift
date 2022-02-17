@@ -33,15 +33,14 @@ class WebConnection {
     /// Information about the remote application. Nil if not yet fetched.
     var remotePeer: WebConnectionPeerInfo? = nil
 
-    var pendingRequest: WebConnectionRequest? = nil
-
+    /// Error that occurred during operation
     var lastError: String? = nil
 
     init(connectionURL: WebConnectionURL) {
         self.connectionURL = connectionURL
     }
 
-    init(connectionURL: WebConnectionURL, status: WebConnectionStatus, chainId: Int?, accounts: [Address], createdDate: Date?, expirationDate: Date?, lastActivityDate: Date?, localPeer: WebConnectionPeerInfo?, remotePeer: WebConnectionPeerInfo?, pendingRequest: WebConnectionRequest?, lastError: String?) {
+    init(connectionURL: WebConnectionURL, status: WebConnectionStatus, chainId: Int?, accounts: [Address], createdDate: Date?, expirationDate: Date?, lastActivityDate: Date?, localPeer: WebConnectionPeerInfo?, remotePeer: WebConnectionPeerInfo?, lastError: String?) {
         self.connectionURL = connectionURL
         self.status = status
         self.chainId = chainId
@@ -51,7 +50,6 @@ class WebConnection {
         self.lastActivityDate = lastActivityDate
         self.localPeer = localPeer
         self.remotePeer = remotePeer
-        self.pendingRequest = pendingRequest
         self.lastError = lastError
     }
 }
@@ -76,21 +74,7 @@ enum WebConnectionStatus: Int16 {
     case opened
 
     // connection successfully sent 'closed' response, no requests will be received
-    case closed 
-
-    case updateReceived
-
-    case updateSent
-
-    case changingNetwork 
-    case changingAccount 
-    case disconnecting 
-
-    case expired 
-
-    case requestReceived 
-    case requestProcessing 
-    case responseSent 
+    case closed
 
     // connection is about to be deleted
     case final 
