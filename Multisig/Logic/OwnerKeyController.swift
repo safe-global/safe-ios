@@ -99,6 +99,7 @@ class OwnerKeyController {
             if keyInfo.keyType == .walletConnect {
                 WalletConnectClientController.shared.disconnect()
             }
+            WebConnectionController.shared.userDidDelete(account: keyInfo.address)
             try keyInfo.delete()
             App.shared.notificationHandler.signingKeyUpdated()
             App.shared.snackbar.show(message: "Owner key removed from this app")

@@ -42,6 +42,12 @@ class WebConnectionRepository {
         return result
     }
 
+    func connections(account: Address) -> [WebConnection] {
+        guard let keyInfo = (try? KeyInfo.firstKey(address: account)), let cdConnections = keyInfo.connections else { return [] }
+        let result = cdConnections.allObjects.compactMap { $0 as? CDWCConnection }.compactMap(connection(from:))
+        return result
+    }
+
     func delete(_ connection: WebConnection) {
         CDWCConnection.delete(by: connection.connectionURL.absoluteString)
     }

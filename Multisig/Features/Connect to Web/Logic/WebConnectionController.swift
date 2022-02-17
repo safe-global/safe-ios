@@ -462,6 +462,13 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         update(connection, to: .closed)
     }
 
+    func userDidDelete(account: Address) {
+        let connections = connectionRepository.connections(account: account)
+        for connection in connections {
+            update(connection, to: .closed)
+        }
+    }
+
     // MARK: - Server Delegate (Server events)
 
     func server(_ server: Server, shouldStart session: Session, completion: @escaping (Session.WalletInfo) -> ()) {
