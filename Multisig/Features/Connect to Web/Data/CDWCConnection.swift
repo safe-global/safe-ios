@@ -40,6 +40,20 @@ extension CDWCConnection {
         }
     }
 
+    static func connections(by status: Int16) -> [CDWCConnection] {
+        do {
+            let context = App.shared.coreDataStack.viewContext
+            let fetchRequest = CDWCConnection.fetchRequest()
+            fetchRequest.sortDescriptors = []
+            fetchRequest.predicate = NSPredicate(format: "status == %@", NSNumber(value: status))
+            let results = try context.fetch(fetchRequest)
+            return results
+        } catch {
+            LogService.shared.error("Failed to fetch connection: \(error)")
+            return []
+        }
+    }
+
     // get all expired connections (to remove it)?
 
     // get connection by wallet connect session

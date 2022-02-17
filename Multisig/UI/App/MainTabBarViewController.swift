@@ -17,6 +17,12 @@ class MainTabBarViewController: UITabBarController {
     private weak var transactionsSegementControl: SegmentViewController?
     private var appearsFirstTime: Bool = true
 
+    // In-memory queue of incoming requests to present. Due to limitation of UIKit,
+    // only one view controller can be presented at the same time.
+    fileprivate var requestQueue: [WebConnectionRequest] = []
+    fileprivate var debounceTimer: Timer?
+    fileprivate var presentingRequest: Bool = false
+
     static fileprivate let SETTINGS_TAB_INDEX = 3
     static fileprivate let APP_SETTINGS_SEGMENT_INDEX = 0
 
@@ -71,6 +77,12 @@ class MainTabBarViewController: UITabBarController {
             selector: #selector(updateTabs),
             name: .updatedExperemental,
             object: nil)
+
+        WebConnectionController.shared.attach(observer: self)
+    }
+
+    deinit {
+        WebConnectionController.shared.detach(observer: self)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -83,6 +95,8 @@ class MainTabBarViewController: UITabBarController {
         onFirstAppear(self)
 
         WhatsNewHandler().whatsNewViewController?.present(on: self)
+
+        WebConnectionController.shared.reconnect()
     }
 
     private func balancesTabViewController() -> UIViewController {
@@ -269,5 +283,47 @@ class SettingsUINavigationController: UINavigationController {
         } else {
             tabBarItem.badgeValue = nil
         }
+    }
+}
+
+extension MainTabBarViewController: WebConnectionRequestObserver {
+    func didUpdate(request: WebConnectionRequest) {
+        requestQueue.append(request)
+        debounceTimer?.invalidate()
+        debounceTimer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false, block: { [weak self] _ in
+            self?.presentRequests()
+        })
+    }
+
+    /// Presents next request from the queue.
+    /// The way how UIKit presentation works is that you can present only one
+    /// screen at the same time, and you can't present another one during any presentation animation.
+    /// That's why we queue the requests and open next from the queue when the current one is closed.
+    func presentRequests() {
+        guard !requestQueue.isEmpty && !presentingRequest else { return }
+        let request = requestQueue.removeLast()
+        switch request {
+        case let signRequest as WebConnectionSignatureRequest:
+            presentingRequest = true
+            present(signRequest) { [weak self] in
+                self?.presentingRequest = false
+                self?.presentRequests()
+            }
+
+        default:
+            break
+        }
+    }
+
+    fileprivate func present(_ signRequest: WebConnectionSignatureRequest, completion: @escaping () -> Void) {
+        let signController = SignatureRequestViewController()
+        signController.request = signRequest
+        signController.controller = WebConnectionController.shared
+        signController.onFinish = { [weak self] in
+            self?.dismiss(animated: true, completion: completion)
+        }
+        let chain = WebConnectionController.shared.chain(for: signRequest)
+        let vc = ViewControllerFactory.modalWithRibbon(viewController: signController, storedChain: chain)
+        present(vc, animated: true)
     }
 }
