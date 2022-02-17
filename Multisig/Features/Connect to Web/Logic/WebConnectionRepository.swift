@@ -324,10 +324,11 @@ class WebConnectionRepository {
         return result
     }
 
-    func pendingRequests() -> [WebConnectionRequest] {
-        let result = CDWCRequest
-            .all(status: WebConnectionRequestStatus.pending.rawValue)
-            .compactMap(request(from:))
+    func pendingRequests(connection: WebConnection? = nil) -> [WebConnectionRequest] {
+        let cdRequests = connection == nil ?
+                CDWCRequest.all(status: WebConnectionRequestStatus.pending.rawValue) :
+                CDWCRequest.all(url: connection!.connectionURL.absoluteString, status: WebConnectionRequestStatus.pending.rawValue)
+        let result = cdRequests.compactMap(request(from:))
         return result
     }
 

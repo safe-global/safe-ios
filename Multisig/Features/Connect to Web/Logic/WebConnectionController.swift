@@ -36,12 +36,16 @@ protocol WebConnectionRequestSubject: AnyObject {
     func notifyObservers(of request: WebConnectionRequest)
 }
 
+protocol WebConnectionSingleRequestSubject: AnyObject {
+    func attach(observer: WebConnectionRequestObserver, to request: WebConnectionRequest)
+    func notifyObservers(of request: WebConnectionRequest)
+}
 /// Controller implementing the business-logic of managing connections and handling incoming requests.
 ///
 /// Use the `shared` instance since the controller's lifetime is the same as the app's lifetime.
 ///
 /// Remember to set the `delegate` in order to respond to connection events.
-class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSubject, WebConnectionListSubject, WebConnectionRequestSubject {
+class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSubject, WebConnectionListSubject, WebConnectionRequestSubject, WebConnectionSingleRequestSubject {
 
     static let shared = WebConnectionController()
 
@@ -113,22 +117,44 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
     // MARK: - Request Observer
 
-    private var requestObservers: [WebConnectionRequestObserver] = []
+    private var requestListObservers: [WebConnectionRequestObserver] = []
+    private var requestObservers: [WebRequestIdentifier: [WebConnectionRequestObserver]] = [:]
 
     func attach(observer: WebConnectionRequestObserver) {
-        guard !requestObservers.contains(where: { $0 === observer }) else { return }
-        requestObservers.append(observer)
+        guard !requestListObservers.contains(where: { $0 === observer }) else { return }
+        requestListObservers.append(observer)
+    }
+
+    func attach(observer: WebConnectionRequestObserver, to request: WebConnectionRequest) {
+        guard let url = request.connectionURL, let id = request.id else { return }
+        var requestListObservers = requestObservers[WebRequestIdentifier(url, id)] ?? []
+        guard !requestListObservers.contains(where: { $0 === observer }) else { return }
+        requestListObservers.append(observer)
+        requestObservers[WebRequestIdentifier(url, id)] = requestListObservers
     }
 
     func detach(observer: WebConnectionRequestObserver) {
-        if let index = requestObservers.firstIndex(where: { $0 === observer }) {
-            requestObservers.remove(at: index)
+        if let index = requestListObservers.firstIndex(where: { $0 === observer }) {
+            requestListObservers.remove(at: index)
+        }
+        for key in requestObservers.keys {
+            var list = requestObservers[key]!
+            if let index = list.firstIndex(where: { $0 === observer }) {
+                list.remove(at: index)
+                requestObservers[key] = list
+            }
         }
     }
 
     func notifyObservers(of request: WebConnectionRequest) {
-        for observer in requestObservers {
+        for observer in requestListObservers {
             observer.didUpdate(request: request)
+        }
+
+        if let url = request.connectionURL, let id = request.id, let list = requestObservers[WebRequestIdentifier(url, id)] {
+            for observer in list {
+                observer.didUpdate(request: request)
+            }
         }
     }
 
@@ -216,6 +242,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             update(connection, to: .final)
 
         case .final:
+            deleteOutstandingRequests(connection)
             delete(connection)
             notifyListObservers()
 
@@ -398,6 +425,16 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         update(connection, to: .closed)
     }
 
+    func deleteOutstandingRequests(_ connection: WebConnection) {
+        let requests = connectionRepository.pendingRequests(connection: connection)
+        for request in requests {
+            request.status = .failed
+            save(request)
+            notifyObservers(of: request)
+            delete(request)
+        }
+    }
+
     // MARK: - User events
 
     /// Expected to be called by the UI when user approves connection
@@ -535,19 +572,20 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         guard
             let connectionURL = request.connectionURL,
             let requestId = request.id,
-            let connection = connection(for: connectionURL),
-            connection.status == .opened,
             let id = sessionTransformer.requestId(id: requestId),
             let request = self.request(connectionURL, requestId),
             request.status == .pending
         else { return }
-        request.status = .success
-        save(request)
-        do {
-            try server.send(Response(url: connectionURL.wcURL, value: value, id: id))
-        } catch {
-            LogService.shared.error("Failed to respond to WC server: \(error)")
+
+        if let connection = connection(for: connectionURL), connection.status == .opened {
+            do {
+                try server.send(Response(url: connectionURL.wcURL, value: value, id: id))
+            } catch {
+                LogService.shared.error("Failed to respond to WC server: \(error)")
+            }
         }
+        request.status = .success
+        notifyObservers(of: request)
         delete(request)
     }
 
@@ -555,19 +593,19 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         guard
             let connectionURL = request.connectionURL,
             let requestId = request.id,
-            let connection = connection(for: connectionURL),
-            connection.status == .opened,
             let id = sessionTransformer.requestId(id: requestId),
             let request = self.request(connectionURL, requestId),
             request.status == .pending
         else { return }
-        request.status = .failed
-        save(request)
-        do {
-            try server.send(Response(url: connectionURL.wcURL, errorCode: errorCode, message: message, id: id))
-        } catch {
-            LogService.shared.error("Failed to return error to WC server: \(error)")
+        if let connection = connection(for: connectionURL), connection.status == .opened {
+            do {
+                try server.send(Response(url: connectionURL.wcURL, errorCode: errorCode, message: message, id: id))
+            } catch {
+                LogService.shared.error("Failed to return error to WC server: \(error)")
+            }
         }
+        request.status = .failed
+        notifyObservers(of: request)
         delete(request)
     }
 
