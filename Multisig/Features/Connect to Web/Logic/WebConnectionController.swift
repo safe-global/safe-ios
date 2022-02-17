@@ -288,7 +288,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             notifyObservers(of: request)
         }
     }
-    
+
     func handleExpiredConnections() {
         let now = Date()
         let connections = connectionRepository.connections(expiredAt: now)
