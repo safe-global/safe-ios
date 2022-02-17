@@ -19,6 +19,7 @@ class WebConnectionOwnerView: UINibView {
         backgroundView.layer.cornerRadius = 4
         backgroundView.clipsToBounds = true
         keyLabel.setStyle(.footnote2)
+        keyLabel.lineBreakMode = .byTruncatingMiddle
     }
     
     func set(name: String, address: Address) {
