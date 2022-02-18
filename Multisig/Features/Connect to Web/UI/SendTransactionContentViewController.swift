@@ -18,7 +18,6 @@ class SendTransactionContentViewController: UITableViewController {
     var onTapAccount: () -> Void = {}
     var onTapFee: () -> Void = {}
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableView.automaticDimension
@@ -28,7 +27,22 @@ class SendTransactionContentViewController: UITableViewController {
         reloadData()
     }
 
-    func reloadData() {
+    func reloadData(transaction: EthTransaction,
+                    keyInfo: KeyInfo,
+                    chain: Chain,
+                    balance: UInt256?,
+                    fee: UInt256?,
+                    error: String?) {
+
+        builder.chain = chain
+        builder.key = keyInfo
+        builder.balance = balance
+        builder.fee = fee
+        builder.to = transaction.to
+        builder.value = transaction.value
+        builder.data = transaction.data
+        builder.errorMessage = error
+
         cells = builder.build()
         tableView.reloadData()
     }
@@ -132,7 +146,7 @@ class SendTransactionCellBuilder {
             accountState: accountState,
             feeState: feeState
         )
-        
+
         buildExecutionOptions(options)
 
         buildErrors(errorMessage)

@@ -11,6 +11,7 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
     var controller: WebConnectionController!
     var connection: WebConnection!
     var request: WebConnectionSendTransactionRequest!
+    var contentVC: SendTransactionContentViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,11 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
         actionPanelView.setConfirmText("Submit")
 
         controller.attach(observer: self, to: request)
+        contentVC = SendTransactionContentViewController()
+        viewControllers = [contentVC]
+        displayChild(at: 0, in: contentView)
+
+        reloadData()
     }
 
     deinit {
@@ -51,6 +57,19 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
 
     override func didConfirm() {
 
+    }
+
+    func reloadData() {
+        guard let keyInfo = try? KeyInfo.firstKey(address: connection.accounts.first!),
+        let chain = controller.chain(for: request) else { return }
+        let transaction = request.transaction
+
+        contentVC.reloadData(transaction: transaction,
+                             keyInfo: keyInfo,
+                             chain: chain,
+                             balance: nil,
+                             fee: nil,
+                             error: nil)
     }
 
     // reload the data - rebuild the cells,
