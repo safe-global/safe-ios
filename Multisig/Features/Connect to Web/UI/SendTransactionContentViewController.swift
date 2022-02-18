@@ -23,8 +23,6 @@ class SendTransactionContentViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48
         builder.register(tableView: tableView)
-
-        reloadData()
     }
 
     func reloadData(transaction: EthTransaction,
@@ -38,9 +36,9 @@ class SendTransactionContentViewController: UITableViewController {
         builder.key = keyInfo
         builder.balance = balance
         builder.fee = fee
-        builder.to = transaction.to
-        builder.value = transaction.value
-        builder.data = transaction.data
+        builder.to = Address(transaction.to)!
+        builder.value = transaction.value.big()
+        builder.data = transaction.data.storage
         builder.errorMessage = error
 
         cells = builder.build()
@@ -295,6 +293,7 @@ class SendTransactionCellBuilder {
         skeleton.showSkeleton(delay: 0.2)
         return skeleton
     }
+    
     func buildErrors(_ errorText: String?) {
         guard let errorText = errorText else {
             return

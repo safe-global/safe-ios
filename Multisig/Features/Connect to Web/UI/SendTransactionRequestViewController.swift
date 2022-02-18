@@ -13,8 +13,14 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
     var request: WebConnectionSendTransactionRequest!
     var contentVC: SendTransactionContentViewController!
 
+    convenience init() {
+        self.init(namedClass: WebConnectionContainerViewController.self)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Execute Transaction Request"
+
         let chain = controller.chain(for: request)
         ribbonView.update(chain: chain)
 

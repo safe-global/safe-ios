@@ -328,6 +328,7 @@ extension MainTabBarViewController: WebConnectionRequestObserver {
     fileprivate func present<T, R>(controller: T, request: R, completion: @escaping () -> Void) where T: WebRequestViewController, T: UIViewController, T.Request == R, R: WebConnectionRequest {
         controller.request = request
         controller.controller = WebConnectionController.shared
+        controller.connection = WebConnectionController.shared.connection(for: request)
         controller.onFinish = { [weak self] in
             self?.dismiss(animated: true, completion: completion)
         }
@@ -340,6 +341,7 @@ protocol WebRequestViewController: AnyObject {
     associatedtype Request
     var request: Request! { get set }
     var controller: WebConnectionController! { get set }
+    var connection: WebConnection! { get set }
     var onFinish: () -> Void { get set }
 }
 

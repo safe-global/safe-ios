@@ -302,12 +302,11 @@ class WebConnectionRepository {
             let request = try JSONDecoder().decode(JsonRpc2.Request.self, from: data)
             guard
                 request.method == "eth_sendTransaction",
-                let params = try request.params?.convert(to: EthRpc1.eth_sendTransaction.self),
-                let transaction = params.transaction.ethTransaction
+                let params = try request.params?.convert(to: EthRpc1.eth_sendTransaction.self)
             else {
                 return nil
             }
-
+            let transaction = params.transaction.ethTransaction
             let result = WebConnectionSendTransactionRequest(
                     id: id,
                     method: other.method,

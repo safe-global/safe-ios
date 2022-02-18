@@ -158,7 +158,7 @@ class WebConnectionToSessionTransformer {
             guard request.parameterCount == 1 else { return nil }
 
             let rpcTx = try request.parameter(of: EthRpc1.eth_sendTransaction.Transaction.self, at: 0)
-            guard let transaction = rpcTx.ethTransaction else { return nil }
+            let transaction = rpcTx.ethTransaction
             
             let result = WebConnectionSendTransactionRequest(
                 id: requestId(id: request.id),
