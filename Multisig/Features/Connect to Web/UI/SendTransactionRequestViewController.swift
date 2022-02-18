@@ -52,4 +52,18 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
     override func didConfirm() {
 
     }
+
+    // reload the data - rebuild the cells,
+        // convert ethTransaction to the UI parameters
+
+    // estimate transaction - do this, because we'll execute "eth_call" and check that it doesn't fail
+        // use the estimated results only if the tx's values are not set.
+
+    // modifying estimation - copy from the review execution (form)
+
+    // authorize and sign transaction
+
+    // ask pascode
+
+    // sign
 }

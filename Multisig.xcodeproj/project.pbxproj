@@ -500,6 +500,7 @@
 		0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729F24BF368900A370EE /* SlicedText+Address.swift */; };
 		0AFD9DCA27BFDF0200011CF1 /* WebConnectionContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFD9DC927BFDF0200011CF1 /* WebConnectionContainerViewController.swift */; };
 		0AFD9DCC27BFE18800011CF1 /* SignatureRequestContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFD9DCB27BFE18800011CF1 /* SignatureRequestContentViewController.swift */; };
+		0AFD9DCE27BFF01000011CF1 /* SendTransactionContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFD9DCD27BFF01000011CF1 /* SendTransactionContentViewController.swift */; };
 		3E373F762631781A00D8107A /* EnterUnstoppableNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E373F742631781900D8107A /* EnterUnstoppableNameViewController.xib */; };
 		3E373F772631781A00D8107A /* EnterUnstoppableNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */; };
 		3E373F7D2631784200D8107A /* BlockchainDomainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */; };
@@ -1228,6 +1229,7 @@
 		0AFC33EC25DE9C3200067D41 /* AuthenticationControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationControllerTests.swift; sourceTree = "<group>"; };
 		0AFD9DC927BFDF0200011CF1 /* WebConnectionContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnectionContainerViewController.swift; sourceTree = "<group>"; };
 		0AFD9DCB27BFE18800011CF1 /* SignatureRequestContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureRequestContentViewController.swift; sourceTree = "<group>"; };
+		0AFD9DCD27BFF01000011CF1 /* SendTransactionContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendTransactionContentViewController.swift; sourceTree = "<group>"; };
 		3E373F742631781900D8107A /* EnterUnstoppableNameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterUnstoppableNameViewController.xib; sourceTree = "<group>"; };
 		3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterUnstoppableNameViewController.swift; sourceTree = "<group>"; };
 		3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockchainDomainManager.swift; sourceTree = "<group>"; };
@@ -3242,6 +3244,7 @@
 				B0D61A4428032BDABE9C94CE /* WebConnectionRequestViewController.swift */,
 				B0D613C0E251EC2E801E8818 /* WebConnectionsViewController.swift */,
 				B0D61BDFEADB74805D9221DB /* SendTransactionRequestViewController.swift */,
+				0AFD9DCD27BFF01000011CF1 /* SendTransactionContentViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -3969,6 +3972,7 @@
 				557D80B8270B32F80036D6D0 /* SignatureRequestViewController.swift in Sources */,
 				551DDEE9244F183500C719D3 /* Selection.swift in Sources */,
 				04FC26B625CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift in Sources */,
+				0AFD9DCE27BFF01000011CF1 /* SendTransactionContentViewController.swift in Sources */,
 				0AF1C91F2541DB3F00E28669 /* BalanceTableViewCell.swift in Sources */,
 				0ACDBFFD248E4C5D002035A2 /* Configuration.swift in Sources */,
 				0A9A1A38257924C600B44405 /* DetailMultiAccountsCell.swift in Sources */,
