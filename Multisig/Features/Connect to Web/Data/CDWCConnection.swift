@@ -64,10 +64,6 @@ extension CDWCConnection {
         return results
     }
 
-    // get all expired connections (to remove it)?
-
-    // get connection by wallet connect session
-
     /// Creates new connection without saving it in the database
     static func create() -> CDWCConnection {
         let context = App.shared.coreDataStack.viewContext

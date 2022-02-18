@@ -311,6 +311,9 @@ extension MainTabBarViewController: WebConnectionRequestObserver {
                 self?.presentRequests()
             }
 
+            // send transaction request:
+                // open send transaction request screen
+
         default:
             break
         }

@@ -397,6 +397,7 @@
 		0AC94458254068D800921CA5 /* NSNotification+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC94457254068D800921CA5 /* NSNotification+Events.swift */; };
 		0ACB4CD5256BC2B000845BF4 /* TransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB4CD4256BC2B000845BF4 /* TransactionDetailsViewController.swift */; };
 		0ACB4CDB256BCD6900845BF4 /* SwiftUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB4CDA256BCD6900845BF4 /* SwiftUITableViewCell.swift */; };
+		0ACC302227BFB5C300586795 /* Address+Solidity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC302127BFB5C300586795 /* Address+Solidity.swift */; };
 		0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */; };
 		0ACC4C4E247534EC00ADF201 /* GnosisSafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */; };
 		0ACCC6E52742991100EC79B9 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = 0ACCC6E42742991100EC79B9 /* Web3 */; };
@@ -662,6 +663,7 @@
 		B0D610EE0EC7D5A063651799 /* ConfirmConnectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0D61E10A9C05719217A09D4 /* ConfirmConnectionViewController.xib */; };
 		B0D61252B0B0760008CF6F19 /* WebConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6117DB078A3ABA481B50C /* WebConnection.swift */; };
 		B0D61332AFA6BC824EEADB60 /* WebConnectionPeerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61CE2EA0DFD260CF2E930 /* WebConnectionPeerInfo.swift */; };
+		B0D613CC4045E3CCE3AF91AB /* WebConnectionSendTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6159E51350336117C504F /* WebConnectionSendTransactionRequest.swift */; };
 		B0D613F1FF3262B3A295206C /* ActionPanelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0D61FB05FC8C6D45FAC1246 /* ActionPanelView.xib */; };
 		B0D614CA17A38979A1ECFCFB /* ActionPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61352D30ACB7D294C526D /* ActionPanelView.swift */; };
 		B0D614E7E2B36259C9961E48 /* CDWCConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D616FBFE80AF801806EA92 /* CDWCConnection.swift */; };
@@ -1116,6 +1118,8 @@
 		0AC94457254068D800921CA5 /* NSNotification+Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Events.swift"; sourceTree = "<group>"; };
 		0ACB4CD4256BC2B000845BF4 /* TransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewController.swift; sourceTree = "<group>"; };
 		0ACB4CDA256BCD6900845BF4 /* SwiftUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUITableViewCell.swift; sourceTree = "<group>"; };
+		0ACC302027BFABAF00586795 /* WalletConnectSwift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = WalletConnectSwift; path = ../WalletConnectSwift; sourceTree = "<group>"; };
+		0ACC302127BFB5C300586795 /* Address+Solidity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Address+Solidity.swift"; sourceTree = "<group>"; };
 		0ACC4C4B24752BB000ADF201 /* GnosisSafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnosisSafe.swift; sourceTree = "<group>"; };
 		0ACC4C4D247534EC00ADF201 /* GnosisSafeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnosisSafeTests.swift; sourceTree = "<group>"; };
 		0ACDBFFC248E4C5D002035A2 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -1400,6 +1404,7 @@
 		B0D613C0E251EC2E801E8818 /* WebConnectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionsViewController.swift; sourceTree = "<group>"; };
 		B0D6146BF81C620C26123C67 /* DesktopPairingHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DesktopPairingHeaderView.xib; sourceTree = "<group>"; };
 		B0D6155D349D7F06F7D48818 /* WebConnectionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionRequest.swift; sourceTree = "<group>"; };
+		B0D6159E51350336117C504F /* WebConnectionSendTransactionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionSendTransactionRequest.swift; sourceTree = "<group>"; };
 		B0D616FBFE80AF801806EA92 /* CDWCConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDWCConnection.swift; sourceTree = "<group>"; };
 		B0D61754C5CD1AFD95AF4A6D /* DesktopPairingHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesktopPairingHeaderView.swift; sourceTree = "<group>"; };
 		B0D6179EE24E30CA3C28D700 /* WebConnectionURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionURL.swift; sourceTree = "<group>"; };
@@ -2241,6 +2246,7 @@
 		0A93DD4A2445CC8A00688050 = {
 			isa = PBXGroup;
 			children = (
+				0ACC302027BFABAF00586795 /* WalletConnectSwift */,
 				0A01DCE02770996E00A87D7A /* Ethereum */,
 				0A3FDAD726AEB07F006A7DC3 /* Shared */,
 				0A93DD552445CC8A00688050 /* Multisig */,
@@ -2665,6 +2671,7 @@
 				550FB1AB26691D6700C13D54 /* WCSession.swift */,
 				04CE3F9724B611FC00826AEE /* Collectible */,
 				55A585352501417E005E778B /* PrivateKey */,
+				0ACC302127BFB5C300586795 /* Address+Solidity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3198,6 +3205,7 @@
 				B0D6155D349D7F06F7D48818 /* WebConnectionRequest.swift */,
 				B0D6112F4A567FB24FEEFAD6 /* WebConnectionSignatureRequest.swift */,
 				B0D61EF933B18A7181F0F6E8 /* WebConnectionOpenRequest.swift */,
+				B0D6159E51350336117C504F /* WebConnectionSendTransactionRequest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4118,6 +4126,7 @@
 				0A5C2DCE25628277009808CB /* SafeInfoViewController.swift in Sources */,
 				0AC60C512549AF2200A63AE2 /* NoSafeBarView.swift in Sources */,
 				0A007124254B255C00A57CAF /* UIFont+Styles.swift in Sources */,
+				0ACC302227BFB5C300586795 /* Address+Solidity.swift in Sources */,
 				0AF1C8302540923C00E28669 /* LoadableViewController.swift in Sources */,
 				04D1309E25E2BB830032FA03 /* RejectionConfirmationViewController.swift in Sources */,
 				0AA9F25724991988005BD60F /* TokenBalance.swift in Sources */,
@@ -4161,6 +4170,7 @@
 				B0D61D48E3387B0982F1EAE2 /* WebConnectionSignatureRequest.swift in Sources */,
 				B0D6186603DDC723F98E4282 /* WebConnectionOpenRequest.swift in Sources */,
 				8D7DFB2CEBACCDB9E9CCF6BC /* WebConnectionExpirationMonitor.swift in Sources */,
+				B0D613CC4045E3CCE3AF91AB /* WebConnectionSendTransactionRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

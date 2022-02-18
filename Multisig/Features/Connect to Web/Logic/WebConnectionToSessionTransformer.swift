@@ -152,6 +152,16 @@ class WebConnectionToSessionTransformer {
         }
     }
 
+    fileprivate func sendTransactionRequest(_ request: Request) -> WebConnectionSendTransactionRequest? {
+        do {
+            guard request.parameterCount == 1 else { return nil }
+            return nil
+        } catch {
+            LogService.shared.error("Failed to create an eth_sendTransaction request parameters: \(error)")
+            return nil
+        }
+    }
+
     fileprivate func genericRequest(_ request: Request) -> WebConnectionRequest {
         let result = WebConnectionRequest(
             id: requestId(id: request.id),
@@ -172,6 +182,9 @@ class WebConnectionToSessionTransformer {
 
         case "eth_sign":
             return signatureRequest(request)
+
+        case "eth_sendTransaction":
+            return sendTransactionRequest(request)
 
         default:
             return genericRequest(request)

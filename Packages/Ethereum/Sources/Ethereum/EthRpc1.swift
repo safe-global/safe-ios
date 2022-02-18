@@ -538,6 +538,18 @@ extension EthRpc1 {
         }
     }
 
+    /// Creates new message call transaction or a contract creation, if the data field contains code.
+    public struct eth_sendTransaction: JsonRpc2Method, EthRpc1TransactionParams {
+        public var transaction: Transaction
+
+        /// the transaction hash, or the zero hash if the transaction is not yet available.
+        public typealias Return = EthRpc1.Data
+
+        public init(transaction: EthRpc1.Transaction) {
+            self.transaction = transaction
+        }
+    }
+
     /// Returns the receipt of a transaction by transaction hash.
     public struct eth_getTransactionReceipt: JsonRpc2Method {
         public var transactionHash: EthRpc1.Data
@@ -1563,6 +1575,23 @@ extension Eth.TransactionEip2930: EthTransaction {
     }
 }
 
+extension Eth.TransactionEip2930 {
+    public init(_ tx: EthRpc1.Transaction2930) {
+        self.init(
+            type: tx.type.storage,
+            chainId: tx.chainId.storage,
+            from: tx.from.flatMap { try? Sol.Address(<#T##data: Data##Data#>) }
+            to: <#T##Sol.Address#>,
+            value: <#T##Sol.UInt256#>,
+            input: <#T##Sol.Bytes#>,
+            nonce: <#T##Sol.UInt64#>,
+            fee: <#T##Eth.Fee2930#>,
+            hash: <#T##Eth.Hash?#>,
+            signature: <#T##Eth.Signature?#>,
+            locationInBlock: <#T##Eth.BlockLocation?#>
+        )
+    }
+}
 
 extension EthRpc1.Transaction2930 {
     public init(_ tx: Eth.TransactionEip2930) {

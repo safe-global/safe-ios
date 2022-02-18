@@ -536,7 +536,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     // MARK: - Server Request Handling
 
     func canHandle(request: Request) -> Bool {
-        ["eth_sign"].contains(request.method)
+        ["eth_sign", "eth_sendTransaction"].contains(request.method)
     }
 
     func handle(request wcRequest: Request) {
@@ -557,6 +557,14 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         switch request {
         case let signRequest as WebConnectionSignatureRequest:
             guard connection.accounts.contains(signRequest.account) else {
+                try? server.send(Response(request: wcRequest, error: .invalidParams))
+                return
+            }
+
+        case let sendTxRequest as WebConnectionSendTransactionRequest:
+            guard let from = sendTxRequest.transaction.from,
+                  let address = Address(from),
+                  connection.accounts.contains(address) else {
                 try? server.send(Response(request: wcRequest, error: .invalidParams))
                 return
             }
@@ -694,3 +702,4 @@ extension WebConnectionError {
 
     static let connectionStartTimeout = WebConnectionError(errorCode: -5, message: "Connection timeout. Please reload web app.")
 }
+
