@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Ethereum
+import SwiftCryptoTokenFormatter
 
 class SendTransactionContentViewController: UITableViewController {
     private var cells: [UITableViewCell] = []
@@ -57,13 +58,14 @@ class SendTransactionContentViewController: UITableViewController {
 class SendTransactionCellBuilder {
     weak var tableView: UITableView!
 
-    var value: UInt256?
-    var chain: Chain?
-    var to: Address?
-    var data: Data?
-    var key: KeyInfo?
+    var value: UInt256!
+    var chain: Chain!
+    var to: Address!
+    var data: Data!
+    var key: KeyInfo!
     var balance: UInt256?
     var fee: UInt256?
+    var errorMessage: String?
 
     var result: [UITableViewCell] = []
     var onTapAccount: () -> Void = {}
@@ -82,61 +84,76 @@ class SendTransactionCellBuilder {
 
         result = []
 
-        // amount
-        // value, chain
-        let amountModel = TokenAmountUIModel(
-            value: <#T##UInt256?#>,
-            symbol: <#T##String#>,
-            decimals: <#T##UInt64?#>,
-            tokenLogoUri: <#T##String?#>
-        )
-        buildAmount(amountModel: amountModel)
+        if let nativeCurrency = chain.nativeCurrency {
+            let amountModel = TokenAmountUIModel(
+                value: value,
+                symbol: nativeCurrency.symbol!,
+                decimals: UInt64(nativeCurrency.decimals),
+                tokenLogoUri: nativeCurrency.logoUrl?.absoluteString
+            )
+            buildAmount(amountModel: amountModel)
+        }
 
-        // to
-        // address, chain
+        let namingPolicy = NamingPolicy.name(for: to, info: nil, chainId: chain.id!)
+
         address(
-            <#T##address: Address##Address#>,
-            label: <#T##String?#>,
-            title: <#T##String?#>,
-            imageUri: <#T##URL?#>,
-            browseURL: <#T##URL?#>,
-            prefix: <#T##String?#>
+            to,
+            label: namingPolicy.name,
+            title: "To",
+            imageUri: namingPolicy.imageUri,
+            browseURL: chain.browserURL(address: to.checksummed),
+            prefix: chain.shortName
         )
 
-        // data
-        // hex data
-        text(<#T##String#>, title: "Data", expandableTitle: <#T##String?#>, copyText: <#T##String?#>)
+        text(data.toHexStringWithPrefix(), title: "Data", expandableTitle: "\(data.count) Bytes", copyText: data.toHexStringWithPrefix())
 
-        // table
-            // execute with
-            // estimated gas fee
-        // key address, balance
-        let accountInfo = MiniAccountInfoUIModel(
-            prefix: <#T##String?#>,
-            address: <#T##Address#>,
-            label: <#T##String?#>,
-            imageUri: <#T##URL?#>,
-            badge: <#T##String?#>,
-            balance: <#T##String?#>
-        )
-        let accountState = ExecuteWithAccountCellState.filled(accountInfo)
+        var accountState = ExecuteWithAccountCellState.loading
+        if let balance = balance {
+            let keyNamePolicy = NamingPolicy.name(for: key.address, info: nil, chainId: chain.id!)
 
-        // estimated total fee formatted with native currency balance.
-        let feeInfo = EstimatedFeeUIModel(tokenAmount: <#T##String#>, fiatAmount: nil)
-        let feeState = EstimatedFeeCellState.loaded(feeInfo)
+            let accountInfo = MiniAccountInfoUIModel(
+                prefix: chain.shortName,
+                address: key.address,
+                label: keyNamePolicy.name,
+                imageUri: keyNamePolicy.imageUri,
+                badge: key.keyType.imageName,
+                balance: formatAmount(chain: chain, balance: balance)
+            )
+            accountState = ExecuteWithAccountCellState.filled(accountInfo)
+        }
+
+        var feeState = EstimatedFeeCellState.loading
+        if let fee = fee {
+            let feeInfo = EstimatedFeeUIModel(tokenAmount: formatAmount(chain: chain, balance: fee), fiatAmount: nil)
+            feeState = EstimatedFeeCellState.loaded(feeInfo)
+        }
 
         let options = ExecutionOptionsUIModel(
             accountState: accountState,
             feeState: feeState
         )
+        
         buildExecutionOptions(options)
 
-        // errors
-        buildErrors(<#T##errorText: String?##String?#>)
+        buildErrors(errorMessage)
 
         return result
     }
 
+    func formatAmount(chain: Chain, balance: UInt256) -> String {
+        let nativeCoinDecimals = chain.nativeCurrency!.decimals
+        let nativeCoinSymbol = chain.nativeCurrency!.symbol!
+
+        let decimalAmount = BigDecimal(Int256(balance), Int(nativeCoinDecimals))
+        let value = TokenFormatter().string(
+            from: decimalAmount,
+            decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
+            thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",",
+            forcePlusSign: false
+        )
+
+        return "\(value) \(nativeCoinSymbol)"
+    }
 
     func text(_ text: String, title: String, expandableTitle: String?, copyText: String?) {
         let cell = tableView.dequeueCell(DetailExpandableTextCell.self)
