@@ -303,31 +303,47 @@ extension MainTabBarViewController: WebConnectionRequestObserver {
     func presentRequests() {
         guard !requestQueue.isEmpty && !presentingRequest else { return }
         let request = requestQueue.removeLast()
+
+        presentingRequest = true
+        var completion: () -> Void = { [weak self] in
+            self?.presentingRequest = false
+            self?.presentRequests()
+        }
+
         switch request {
         case let signRequest as WebConnectionSignatureRequest:
-            presentingRequest = true
-            present(signRequest) { [weak self] in
-                self?.presentingRequest = false
-                self?.presentRequests()
-            }
+            let vc = SignatureRequestViewController()
+            present(controller: vc, request: signRequest, completion: completion)
 
-            // send transaction request:
-                // open send transaction request screen
+        case let txRequest as WebConnectionSendTransactionRequest:
+            let vc = SendTransactionRequestViewController()
+            present(controller: vc, request: txRequest, completion: completion)
 
         default:
+            presentingRequest = false
             break
         }
     }
 
-    fileprivate func present(_ signRequest: WebConnectionSignatureRequest, completion: @escaping () -> Void) {
-        let signController = SignatureRequestViewController()
-        signController.request = signRequest
-        signController.controller = WebConnectionController.shared
-        signController.onFinish = { [weak self] in
+    fileprivate func present<T, R>(controller: T, request: R, completion: @escaping () -> Void) where T: WebRequestViewController, T: UIViewController, T.Request == R, R: WebConnectionRequest {
+        controller.request = request
+        controller.controller = WebConnectionController.shared
+        controller.onFinish = { [weak self] in
             self?.dismiss(animated: true, completion: completion)
         }
-        let chain = WebConnectionController.shared.chain(for: signRequest)
-        let vc = ViewControllerFactory.modalWithRibbon(viewController: signController, storedChain: chain)
+        let chain = WebConnectionController.shared.chain(for: request)
+        let vc = ViewControllerFactory.modalWithRibbon(viewController: controller, storedChain: chain)
         present(vc, animated: true)
     }
 }
+
+protocol WebRequestViewController: AnyObject {
+    associatedtype Request
+    var request: Request! { get set }
+    var controller: WebConnectionController! { get set }
+    var onFinish: () -> Void { get set }
+}
+
+extension SignatureRequestViewController: WebRequestViewController {}
+
+extension SendTransactionRequestViewController: WebRequestViewController {}
