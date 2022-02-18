@@ -1575,23 +1575,126 @@ extension Eth.TransactionEip2930: EthTransaction {
     }
 }
 
+extension EthRpc1.Transaction {
+    public var ethTransaction: EthTransaction? {
+        switch self {
+        case .legacy(let tx):
+            return Eth.TransactionLegacy(tx)
+        case .eip1559(let tx):
+            return Eth.TransactionEip1559(tx)
+        case .eip2930(let tx):
+            return Eth.TransactionEip2930(tx)
+        case .unknown:
+            return nil
+        }
+    }
+}
+
+extension Eth.TransactionLegacy {
+    public init(_ tx: EthRpc1.TransactionLegacy) {
+        self.init(
+            chainId: tx.chainId?.storage,
+            from: (tx.from?.storage).flatMap(Sol.Address.init(exactly:)),
+            to: (tx.to?.storage).flatMap(Sol.Address.init(exactly:)) ?? 0,
+            value: tx.value.storage,
+            input: Sol.Bytes(exactly: tx.input.storage) ?? Sol.Bytes(),
+            nonce: tx.nonce?.storage ?? 0,
+            fee: Eth.FeeLegacy(gas: tx.gas?.storage, gasPrice: tx.gasPrice?.storage),
+            hash: (tx.hash?.storage).map(Eth.Hash.init),
+            signature: Eth.SignatureLegacy(v: tx.v?.storage, r: tx.r?.storage, s: tx.s?.storage),
+            locationInBlock: Eth.BlockLocation(
+                blockHash: (tx.blockHash?.storage).flatMap(Sol.Bytes32.init(exactly:)),
+                blockNumber: tx.blockNumber?.storage,
+                transactionIndex: tx.transactionIndex?.storage
+            )
+        )
+    }
+}
+
+extension Eth.TransactionEip1559 {
+    public init(_ tx: EthRpc1.Transaction1559) {
+        self.init(
+            type: tx.type.storage,
+            chainId: tx.chainId.storage,
+            from: (tx.from?.storage).flatMap(Sol.Address.init(exactly:)),
+            to: (tx.to?.storage).flatMap(Sol.Address.init(exactly:)) ?? 0,
+            value: tx.value.storage,
+            input: Sol.Bytes(exactly: tx.input.storage) ?? Sol.Bytes(),
+            nonce: tx.nonce?.storage ?? 0,
+            fee: Eth.Fee1559(gas: tx.gas?.storage, maxFeePerGas: tx.maxFeePerGas?.storage, maxPriorityFee: tx.maxPriorityFeePerGas?.storage, accessList: Eth.AccessList(tx.accessList)),
+            hash: (tx.hash?.storage).map(Eth.Hash.init),
+            signature: Eth.Signature(yParity: tx.yParity?.storage, r: tx.r?.storage, s: tx.s?.storage),
+            locationInBlock: Eth.BlockLocation(
+                blockHash: (tx.blockHash?.storage).flatMap(Sol.Bytes32.init(exactly:)),
+                blockNumber: tx.blockNumber?.storage,
+                transactionIndex: tx.transactionIndex?.storage
+            )
+        )
+    }
+}
+
 extension Eth.TransactionEip2930 {
     public init(_ tx: EthRpc1.Transaction2930) {
         self.init(
             type: tx.type.storage,
             chainId: tx.chainId.storage,
-            from: tx.from.flatMap { try? Sol.Address(<#T##data: Data##Data#>) }
-            to: <#T##Sol.Address#>,
-            value: <#T##Sol.UInt256#>,
-            input: <#T##Sol.Bytes#>,
-            nonce: <#T##Sol.UInt64#>,
-            fee: <#T##Eth.Fee2930#>,
-            hash: <#T##Eth.Hash?#>,
-            signature: <#T##Eth.Signature?#>,
-            locationInBlock: <#T##Eth.BlockLocation?#>
+            from: (tx.from?.storage).flatMap(Sol.Address.init(exactly:)),
+            to: (tx.to?.storage).flatMap(Sol.Address.init(exactly:)) ?? 0,
+            value: tx.value.storage,
+            input: Sol.Bytes(exactly: tx.input.storage) ?? Sol.Bytes(),
+            nonce: tx.nonce?.storage ?? 0,
+            fee: Eth.Fee2930(gas: tx.gas?.storage, gasPrice: tx.gasPrice?.storage, accessList: Eth.AccessList(tx.accessList)),
+            hash: (tx.hash?.storage).map(Eth.Hash.init),
+            signature: Eth.Signature(yParity: tx.yParity?.storage, r: tx.r?.storage, s: tx.s?.storage),
+            locationInBlock: Eth.BlockLocation(
+                blockHash: (tx.blockHash?.storage).flatMap(Sol.Bytes32.init(exactly:)),
+                blockNumber: tx.blockNumber?.storage,
+                transactionIndex: tx.transactionIndex?.storage
+            )
         )
     }
 }
+
+extension Eth.AccessList {
+    public init(_ values: [EthRpc1.AccessListEntry]) {
+        elements = values.map(Eth.AccessListElement.init)
+    }
+}
+
+extension Eth.AccessListElement {
+    public init(_ value: EthRpc1.AccessListEntry) {
+        address = (value.address?.storage).flatMap(Sol.Address.init(exactly:)) ?? 0
+        storageKeys = (value.storageKeys ?? []).map(\.storage).compactMap(Sol.Bytes32.init(exactly:))
+    }
+}
+
+extension Eth.Signature {
+    public init?(yParity: Sol.UInt256?, r: Sol.UInt256?, s: Sol.UInt256?) {
+        guard let yParity = yParity, let r = r, let s = s else {
+            return nil
+        }
+        self.init(yParity: yParity, r: r, s: s)
+    }
+}
+
+extension Eth.SignatureLegacy {
+    public init?(v: Sol.UInt256?, r: Sol.UInt256?, s: Sol.UInt256?, chainId: Sol.UInt256? = nil) {
+        guard let v = v, let r = r, let s = s else {
+            return nil
+        }
+        self.init(v: v, r: r, s: s, chainId: chainId)
+    }
+}
+
+extension Eth.BlockLocation {
+    public init?(blockHash: Sol.Bytes32?, blockNumber: Sol.UInt256?, transactionIndex: Sol.UInt64?) {
+        guard let blockHash = blockHash, let blockNumber = blockNumber, let index = transactionIndex else {
+            return nil
+        }
+        self.init(blockHash: blockHash, blockNumber: blockNumber, transactionIndex: index)
+    }
+}
+
 
 extension EthRpc1.Transaction2930 {
     public init(_ tx: Eth.TransactionEip2930) {

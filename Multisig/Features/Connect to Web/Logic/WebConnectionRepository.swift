@@ -297,32 +297,31 @@ class WebConnectionRepository {
             return nil
         }
 
-        var transaction: EthTransaction!
         do {
             let data = json.data(using: .utf8)!
             let request = try JSONDecoder().decode(JsonRpc2.Request.self, from: data)
-            guard request.method == "eth_sendTransaction", let params = try request.params?.convert(to: EthRpc1.eth_sendTransaction.self) else {
+            guard
+                request.method == "eth_sendTransaction",
+                let params = try request.params?.convert(to: EthRpc1.eth_sendTransaction.self),
+                let transaction = params.transaction.ethTransaction
+            else {
                 return nil
             }
 
-            
-
+            let result = WebConnectionSendTransactionRequest(
+                    id: id,
+                    method: other.method,
+                    error: other.error,
+                    json: other.json,
+                    status: status,
+                    connectionURL: connectionURL,
+                    createdDate: other.createdDate,
+                    transaction: transaction)
+            return result
         } catch {
             LogService.shared.error("Failed to decode eth_sign request from CoreData: \(error)")
             return nil
         }
-
-
-        let result = WebConnectionSendTransactionRequest(
-                id: id,
-                method: other.method,
-                error: other.error,
-                json: other.json,
-                status: status,
-                connectionURL: connectionURL,
-                createdDate: other.createdDate,
-                transaction: transaction)
-        return result
     }
 
     fileprivate func genericRequest(_ other: CDWCRequest) -> WebConnectionRequest? {

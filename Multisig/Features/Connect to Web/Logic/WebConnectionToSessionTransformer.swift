@@ -5,6 +5,7 @@
 
 import Foundation
 import WalletConnectSwift
+import Ethereum
 
 /// Responsible for data conversion back-and-forth between WebConnection-related objects and the WalletConnectSwift's library objects.
 class WebConnectionToSessionTransformer {
@@ -155,7 +156,21 @@ class WebConnectionToSessionTransformer {
     fileprivate func sendTransactionRequest(_ request: Request) -> WebConnectionSendTransactionRequest? {
         do {
             guard request.parameterCount == 1 else { return nil }
-            return nil
+
+            let rpcTx = try request.parameter(of: EthRpc1.eth_sendTransaction.Transaction.self, at: 0)
+            guard let transaction = rpcTx.ethTransaction else { return nil }
+            
+            let result = WebConnectionSendTransactionRequest(
+                id: requestId(id: request.id),
+                method: request.method,
+                error: nil,
+                json: request.jsonString,
+                status: .initial,
+                connectionURL: WebConnectionURL(wcURL: request.url),
+                createdDate: nil,
+                transaction: transaction
+            )
+            return result
         } catch {
             LogService.shared.error("Failed to create an eth_sendTransaction request parameters: \(error)")
             return nil
