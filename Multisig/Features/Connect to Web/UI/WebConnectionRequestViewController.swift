@@ -8,13 +8,7 @@
 
 import UIKit
 
-class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePresentationControllerDelegate, WebConnectionObserver, ActionPanelViewDelegate {
-    @IBOutlet weak var ribbonView: RibbonView!
-    @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var actionPanelView: ActionPanelView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-
-    var closeButton: UIBarButtonItem!
+class WebConnectionRequestViewController: WebConnectionContainerViewController, WebConnectionObserver {
     var chooseOwnerKeyVC: ChooseOwnerKeyViewController!
 
     var selectedKey: KeyInfo? {
@@ -24,8 +18,6 @@ class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePre
     var connectionController: WebConnectionController!
     var connection: WebConnection!
     var chain: Chain!
-
-    var onFinish: () -> Void = { }
 
     enum State {
         case initial
@@ -38,6 +30,10 @@ class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePre
 
     private var state: State = .initial
 
+    convenience init() {
+        self.init(namedClass: WebConnectionContainerViewController.self)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,13 +41,6 @@ class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePre
 
         assert(connection != nil)
         assert(connectionController != nil)
-
-        closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
-        navigationItem.leftBarButtonItem = closeButton
-
-        activityIndicator.transform = CGAffineTransform(scaleX: 2, y: 2)
-
-        actionPanelView.delegate = self
 
         // update with current connection state before observing.
         didUpdate(connection: connection)
@@ -101,6 +90,7 @@ class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePre
             break
 
         case .loading:
+            headerView.isHidden = true
             activityIndicator.startAnimating()
             actionPanelView.setEnabled(false)
 
@@ -126,26 +116,24 @@ class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePre
         }
     }
 
-    override func willMove(toParent parent: UIViewController?) {
-        super.willMove(toParent: parent)
-        // needed to react to the "swipe down" to close the modal screen
-        parent?.presentationController?.delegate = self
-    }
-
     func showKeyPicker() {
         guard let remotePeer = connection.remotePeer else {
             assertionFailure("Expected to have the remote app data")
             return
         }
+        headerView.imageView.setImage(
+            url: remotePeer.icons.first,
+            placeholder: UIImage(named: "connection-placeholder"),
+            failedImage: UIImage(named: "connection-placeholder"))
+        headerView.textLabel.text = "\(remotePeer.name.prefix(75)) requests to connect to your key"
+        headerView.detailTextLabel.text = remotePeer.url.host
+        headerView.isHidden = false
+
         let keys = connectionController.accountKeys()
         chooseOwnerKeyVC = ChooseOwnerKeyViewController(
                 owners: keys,
                 chainID: String(connection.chainId!),
-                header: .detail(
-                    imageUri: remotePeer.icons.first,
-                    placeholder: UIImage(named: "connection-placeholder"),
-                    title: "\(remotePeer.name.prefix(75)) requests to connect to your key",
-                    detail: remotePeer.url.absoluteString),
+                header: .none,
                 requestsPasscode: false,
                 selectedKey: keys.first,
                 balancesLoader: nil,
@@ -157,20 +145,15 @@ class WebConnectionRequestViewController: ContainerViewController, UIAdaptivePre
         displayChild(at: 0, in: contentView)
     }
 
-    @objc func didTapCloseButton() {
+    override func didCancel() {
         connectionController.userDidCancel(connection)
     }
 
-    // Called when user swipes down the modal screen
-    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
-        connectionController.userDidCancel(connection)
-    }
-
-    func didReject() {
+    override func didReject() {
         connectionController.userDidReject(connection)
     }
 
-    func didConfirm() {
+    override func didConfirm() {
         assert(selectedKey != nil)
         connection.accounts = [selectedKey!.address]
         connectionController.userDidApprove(connection)

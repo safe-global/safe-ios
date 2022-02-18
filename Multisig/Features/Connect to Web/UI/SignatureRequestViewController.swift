@@ -10,13 +10,9 @@ import UIKit
 import BigInt
 import WalletConnectSwift
 
-class SignatureRequestViewController: UIViewController, UIAdaptivePresentationControllerDelegate, ActionPanelViewDelegate, WebConnectionRequestObserver {
-    @IBOutlet private weak var headerView: ChooseOwnerDetailHeaderView!
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var detailsLabel: UILabel!
-    @IBOutlet private weak var signerAddressView: TitledMiniPieceView!
-    @IBOutlet private weak var actionPanelView: ActionPanelView!
+class SignatureRequestViewController: WebConnectionContainerViewController, WebConnectionRequestObserver {
 
+    var contentVC: SignatureRequestContentViewController!
     var controller: WebConnectionController!
     var connection: WebConnection!
     var request: WebConnectionSignatureRequest!
@@ -27,10 +23,17 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
 
     private var wcConnector: WCWalletConnectionController!
 
-    var onFinish: () -> Void = { }
+    convenience init() {
+        self.init(namedClass: WebConnectionContainerViewController.self)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Signature request"
+
+        contentVC = SignatureRequestContentViewController()
+        viewControllers = [contentVC]
+        displayChild(at: 0, in: contentView)
 
         connection = controller.connection(for: request)
 
@@ -41,8 +44,6 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
             self.keyInfo = keyInfo
         }
 
-        navigationItem.title = "Signature request"
-
         if let peer = connection.remotePeer {
             headerView.textLabel.text = peer.name
             headerView.detailTextLabel.text = peer.url.host
@@ -52,14 +53,11 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
             headerView.isHidden = true
         }
 
-        titleLabel.setStyle(.secondary)
-        detailsLabel.setStyle(.primary)
-        detailsLabel.text = request.message.toHexStringWithPrefix()
+        contentVC.detailsLabel.text = request.message.toHexStringWithPrefix()
+        contentVC.signerAddressView.setContent(loadingView())
+        contentVC.signerAddressView.setTitle("Sign with")
 
-        signerAddressView.setContent(loadingView())
-        signerAddressView.setTitle("Sign with")
-
-        actionPanelView.delegate = self
+        ribbonView.update(chain: chain)
         actionPanelView.setConfirmText("Submit")
 
         loadAccountBalance()
@@ -84,21 +82,15 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
 
     // MARK: - Events
 
-    // called from the close button by the CloseModal default protocol implementation
-    override func closeModal() {
+    override func didCancel() {
+        didReject()
+    }
+
+    override func didReject() {
         reject()
     }
 
-    // Called when user swipes down the modal screen
-    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
-        reject()
-    }
-
-    func didReject() {
-        reject()
-    }
-
-    func didConfirm() {
+    override func didConfirm() {
         authorizeAndSign()
     }
 
@@ -157,7 +149,7 @@ class SignatureRequestViewController: UIViewController, UIAdaptivePresentationCo
         )
 
         content.setModel(model)
-        signerAddressView.setContent(content)
+        contentVC.signerAddressView.setContent(content)
     }
 
     func loadingView() -> UIView {

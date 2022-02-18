@@ -9,11 +9,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WebConnectionRequestViewController" customModule="Multisig" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WebConnectionContainerViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="actionPanelView" destination="6y3-di-ySF" id="4Ci-97-DVs"/>
                 <outlet property="activityIndicator" destination="CLO-9s-YOw" id="jPQ-9W-Gfa"/>
                 <outlet property="contentView" destination="TDe-7t-YGG" id="mjo-Vq-7dy"/>
+                <outlet property="headerView" destination="GoK-jZ-GsC" id="ph0-b3-Cuu"/>
                 <outlet property="ribbonView" destination="5ek-FV-qEu" id="zY1-On-g2L"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -32,8 +33,14 @@
                                 <constraint firstAttribute="height" constant="24" id="NaM-Ed-Z0o"/>
                             </constraints>
                         </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GoK-jZ-GsC" customClass="ChooseOwnerDetailHeaderView" customModule="Multisig" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="24" width="414" height="128"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="128" placeholder="YES" id="CuD-3U-zAm"/>
+                            </constraints>
+                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TDe-7t-YGG" userLabel="ContentView">
-                            <rect key="frame" x="0.0" y="24" width="414" height="662"/>
+                            <rect key="frame" x="0.0" y="152" width="414" height="534"/>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6y3-di-ySF" userLabel="ActionPanelView" customClass="ActionPanelView" customModule="Multisig" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="686" width="414" height="88"/>

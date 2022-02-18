@@ -305,7 +305,7 @@ extension MainTabBarViewController: WebConnectionRequestObserver {
         let request = requestQueue.removeLast()
 
         presentingRequest = true
-        var completion: () -> Void = { [weak self] in
+        let completion: () -> Void = { [weak self] in
             self?.presentingRequest = false
             self?.presentRequests()
         }
@@ -331,8 +331,7 @@ extension MainTabBarViewController: WebConnectionRequestObserver {
         controller.onFinish = { [weak self] in
             self?.dismiss(animated: true, completion: completion)
         }
-        let chain = WebConnectionController.shared.chain(for: request)
-        let vc = ViewControllerFactory.modalWithRibbon(viewController: controller, storedChain: chain)
+        let vc = ViewControllerFactory.modal(viewController: controller)
         present(vc, animated: true)
     }
 }
