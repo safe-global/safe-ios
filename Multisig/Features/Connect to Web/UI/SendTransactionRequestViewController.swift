@@ -11,7 +11,10 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
     var controller: WebConnectionController!
     var connection: WebConnection!
     var request: WebConnectionSendTransactionRequest!
-    var contentVC: SendTransactionContentViewController!
+
+    private var contentVC: SendTransactionContentViewController!
+    private var balanceLoader: DefaultAccountBalanceLoader!
+    private var balance: UInt256?
 
     convenience init() {
         self.init(namedClass: WebConnectionContainerViewController.self)
@@ -21,7 +24,10 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
         super.viewDidLoad()
         title = "Execute Transaction Request"
 
-        let chain = controller.chain(for: request)
+        let chain = controller.chain(for: request)!
+
+        balanceLoader = DefaultAccountBalanceLoader(chain: chain)
+
         ribbonView.update(chain: chain)
 
         if let peer = connection.remotePeer {
@@ -41,6 +47,7 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
         displayChild(at: 0, in: contentView)
 
         reloadData()
+        loadBalance()
     }
 
     deinit {
@@ -73,13 +80,25 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
         contentVC.reloadData(transaction: transaction,
                              keyInfo: keyInfo,
                              chain: chain,
-                             balance: nil,
+                             balance: balance,
                              fee: nil,
                              error: nil)
     }
 
-    // reload the data - rebuild the cells,
-        // convert ethTransaction to the UI parameters
+    // load balance for the selected account.
+    func loadBalance() {
+        guard let keyInfo = try? KeyInfo.firstKey(address: connection.accounts.first!) else { return }
+        _ = balanceLoader.loadBalances(for: [keyInfo]) { [weak self] result in
+            guard let self = self else { return }
+            do {
+                let model = try result.get()
+                self.balance = model.first?.amount?.big()
+                self.reloadData()
+            } catch {
+                LogService.shared.error("Failed to load balance: \(error)")
+            }
+        }
+    }
 
     // estimate transaction - do this, because we'll execute "eth_call" and check that it doesn't fail
         // use the estimated results only if the tx's values are not set.
