@@ -336,7 +336,13 @@ extension AppSettingsViewController: NavigationRouter {
         if let vc = navigationController?.topViewController as? WebConnectionsViewController {
             vc.navigateAfterDelay(to: route)
             return
-        } else if let pairingVC = showDesktopPairing() {
+        }
+
+        if let controllers =  navigationController?.viewControllers, controllers.count > 1 {
+            navigationController?.popToRootViewController(animated: true)
+        }
+
+        if let pairingVC = showDesktopPairing() {
             pairingVC.navigateAfterDelay(to: route)
         }
     }
