@@ -10,7 +10,7 @@ class WebConnectionExpirationMonitor {
     static var globalTimer: Timer?
     static let shared = WebConnectionExpirationMonitor()
 
-    static func scheduleMonitoring(repeatInterval: TimeInterval = 60, runImmediately: Bool = true) {
+    static func scheduleMonitoring(repeatInterval: TimeInterval = 15, runImmediately: Bool = true) {
         globalTimer?.invalidate()
 
         globalTimer = Timer.scheduledTimer(withTimeInterval: repeatInterval, repeats: true, block: { _ in

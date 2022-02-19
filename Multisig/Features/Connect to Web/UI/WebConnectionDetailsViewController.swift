@@ -20,6 +20,7 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
         case version
         case browser
         case description
+        case expirationDate
         case button
     }
 
@@ -63,6 +64,7 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
         } else {
             rows.append(.description)
         }
+        rows.append(.expirationDate)
         rows.append(.button)
         tableView.reloadData()
     }
@@ -158,6 +160,21 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
             cell.setContent(textView(text))
             return cell
 
+        case .expirationDate:
+            let cell = contentCell()
+            cell.setText("Expires at")
+            let text: String
+            if let date = connection.expirationDate {
+                let formatter = DateFormatter()
+                formatter.dateStyle = .short
+                formatter.timeStyle = .short
+                text = formatter.string(from: date)
+            } else {
+                text = "Not set"
+            }
+            cell.setContent(textView(text))
+            return cell
+
         case .button:
             let cell = tableView.dequeueCell(ButtonTableViewCell.self)
             cell.selectionStyle = .none
@@ -190,5 +207,27 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        guard indexPath.row < rows.count else { return }
+        switch rows[indexPath.row] {
+        case .expirationDate:
+            let datePickerVC = DatePickerViewController()
+            datePickerVC.date = connection.expirationDate
+            datePickerVC.minimum = Date()
+
+            datePickerVC.onConfirm = { [unowned datePickerVC, unowned self] in
+                dismiss(animated: true) {
+                    if let date = datePickerVC.date {
+                        connection.expirationDate = date
+                        WebConnectionController.shared.save(connection)
+                    }
+                }
+            }
+
+            let vc = ViewControllerFactory.modal(viewController: datePickerVC, halfScreen: true)
+            present(vc, animated: true)
+
+        default:
+            break
+        }
     }
 }

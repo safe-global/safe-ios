@@ -134,12 +134,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
         let connection = connections[indexPath.row]
         let detailsVC = WebConnectionDetailsViewController()
         detailsVC.connection = connection
-        let vc = ViewControllerFactory.modal(viewController: detailsVC)
-        if #available(iOS 15.0, *) {
-            if let sheet = vc.sheetPresentationController {
-                sheet.detents = [.medium()]
-            }
-        }
+        let vc = ViewControllerFactory.modal(viewController: detailsVC, halfScreen: true)
         present(vc, animated: true)
     }
 

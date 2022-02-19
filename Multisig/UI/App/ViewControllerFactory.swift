@@ -75,10 +75,15 @@ enum ViewControllerFactory {
         RibbonViewController(rootViewController: viewController)
     }
 
-    static func modal(viewController: UIViewController) -> UIViewController {
+    static func modal(viewController: UIViewController, halfScreen: Bool = false) -> UIViewController {
         viewController.navigationItem.leftBarButtonItem =
             UIBarButtonItem(barButtonSystemItem: .close, target: viewController, action: #selector(CloseModal.closeModal))
         let navController = UINavigationController(rootViewController: viewController)
+        if halfScreen, #available(iOS 15.0, *) {
+            if let sheet = navController.sheetPresentationController {
+                sheet.detents = [.medium()]
+            }
+        }
         return navController
     }
 }

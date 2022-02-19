@@ -421,6 +421,8 @@
 		0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB93FB24D31904006928DF /* SnackbarBottomPaddingModifier.swift */; };
 		0ADD04D6268CB9BF00C2B44A /* UIColorStylesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD04D5268CB9BF00C2B44A /* UIColorStylesTests.swift */; };
 		0ADD0FAA27C1381F0099DF7D /* TrackingEvent+WebConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD0FA927C1381F0099DF7D /* TrackingEvent+WebConnection.swift */; };
+		0ADD0FB327C148880099DF7D /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD0FB127C148880099DF7D /* DatePickerViewController.swift */; };
+		0ADD0FB427C148880099DF7D /* DatePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ADD0FB227C148880099DF7D /* DatePickerViewController.xib */; };
 		0ADD199E265E518600EB0F2B /* UIView+Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD199D265E518600EB0F2B /* UIView+Pin.swift */; };
 		0ADD19A6265E53BE00EB0F2B /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD19A5265E53BD00EB0F2B /* QRCodeView.swift */; };
 		0ADD19A8265E53C600EB0F2B /* QRCodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ADD19A7265E53C600EB0F2B /* QRCodeView.xib */; };
@@ -662,7 +664,6 @@
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
 		AD303414E96F6CD45E31FBE7 /* WhatsNewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3035EE31CD4171C56B475B /* WhatsNewHandler.swift */; };
 		B0D61076463C900689962202 /* WebConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61C735006E56DDC45BA49 /* WebConnectionController.swift */; };
-		B0D610EE0EC7D5A063651799 /* ConfirmConnectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0D61E10A9C05719217A09D4 /* ConfirmConnectionViewController.xib */; };
 		B0D61252B0B0760008CF6F19 /* WebConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6117DB078A3ABA481B50C /* WebConnection.swift */; };
 		B0D61332AFA6BC824EEADB60 /* WebConnectionPeerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61CE2EA0DFD260CF2E930 /* WebConnectionPeerInfo.swift */; };
 		B0D613CC4045E3CCE3AF91AB /* WebConnectionSendTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6159E51350336117C504F /* WebConnectionSendTransactionRequest.swift */; };
@@ -670,9 +671,6 @@
 		B0D614CA17A38979A1ECFCFB /* ActionPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61352D30ACB7D294C526D /* ActionPanelView.swift */; };
 		B0D614E7E2B36259C9961E48 /* CDWCConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D616FBFE80AF801806EA92 /* CDWCConnection.swift */; };
 		B0D6151108EEDB3F18FA7B6C /* WebConnectionToSessionTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6138CA63483A9CE704918 /* WebConnectionToSessionTransformer.swift */; };
-		B0D6151A3877F2EE63900833 /* PairingOwnerKeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61B05AC80BE6689567D43 /* PairingOwnerKeyCell.swift */; };
-		B0D615BF62964F8832DAF74A /* PairingOwnerKeyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0D6185C23118394B65AB058 /* PairingOwnerKeyCell.xib */; };
-		B0D6163F11595712629A9FE7 /* ConfirmConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61392A483F1DDA72C10F9 /* ConfirmConnectionViewController.swift */; };
 		B0D61701855BDBDFF8963B8B /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6139BAED9DCB484456724 /* NavigationRouter.swift */; };
 		B0D6178FC710D4E943B4F9F5 /* WebConnectionContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0D610E20B243B7AEB248725 /* WebConnectionContainerViewController.xib */; };
 		B0D6186603DDC723F98E4282 /* WebConnectionOpenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61EF933B18A7181F0F6E8 /* WebConnectionOpenRequest.swift */; };
@@ -680,13 +678,11 @@
 		B0D618BE28AD77EA68D0551C /* WebConnectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D613C0E251EC2E801E8818 /* WebConnectionsViewController.swift */; };
 		B0D618DCACA100B230F936DE /* DesktopPairingHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0D6146BF81C620C26123C67 /* DesktopPairingHeaderView.xib */; };
 		B0D61AA858C67B86EC281328 /* GnosisSafeWebPeerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61DB08E699747DCEE7325 /* GnosisSafeWebPeerInfo.swift */; };
-		B0D61AAAB9B0DE1A52AE676B /* ConfirmConnectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6138601B696D8D77B82A4 /* ConfirmConnectionHeaderView.swift */; };
 		B0D61BA23BDD098DE8AD3008 /* CDWCRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6120B7525FB33938591F0 /* CDWCRequest.swift */; };
 		B0D61BDA26F9EB2E994B7860 /* WebConnectionURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6179EE24E30CA3C28D700 /* WebConnectionURL.swift */; };
 		B0D61D48E3387B0982F1EAE2 /* WebConnectionSignatureRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6112F4A567FB24FEEFAD6 /* WebConnectionSignatureRequest.swift */; };
 		B0D61EB5828298B8F501BA41 /* DesktopPairingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61754C5CD1AFD95AF4A6D /* DesktopPairingHeaderView.swift */; };
 		B0D61EC425A934B90D6A4288 /* WebConnectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6155D349D7F06F7D48818 /* WebConnectionRequest.swift */; };
-		B0D61F0FCD7483E899D4BFFC /* ConfirmConnectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0D61D3B8D7E5314D2481A85 /* ConfirmConnectionHeaderView.xib */; };
 		B0D61F54F176906A7C5A65CB /* SendTransactionRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61BDFEADB74805D9221DB /* SendTransactionRequestViewController.swift */; };
 		B0D61FFF1935AA2484BD940A /* WebConnectionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D617C60F3081A3A923005D /* WebConnectionRepository.swift */; };
 		D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A022769CEAD00D6E024 /* Tooltip.swift */; };
@@ -1141,6 +1137,8 @@
 		0ADB93FB24D31904006928DF /* SnackbarBottomPaddingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarBottomPaddingModifier.swift; sourceTree = "<group>"; };
 		0ADD04D5268CB9BF00C2B44A /* UIColorStylesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorStylesTests.swift; sourceTree = "<group>"; };
 		0ADD0FA927C1381F0099DF7D /* TrackingEvent+WebConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingEvent+WebConnection.swift"; sourceTree = "<group>"; };
+		0ADD0FB127C148880099DF7D /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		0ADD0FB227C148880099DF7D /* DatePickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatePickerViewController.xib; sourceTree = "<group>"; };
 		0ADD199D265E518600EB0F2B /* UIView+Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Pin.swift"; sourceTree = "<group>"; };
 		0ADD19A5265E53BD00EB0F2B /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 		0ADD19A7265E53C600EB0F2B /* QRCodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QRCodeView.xib; sourceTree = "<group>"; };
@@ -1401,9 +1399,7 @@
 		B0D6117DB078A3ABA481B50C /* WebConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnection.swift; sourceTree = "<group>"; };
 		B0D6120B7525FB33938591F0 /* CDWCRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDWCRequest.swift; sourceTree = "<group>"; };
 		B0D61352D30ACB7D294C526D /* ActionPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionPanelView.swift; sourceTree = "<group>"; };
-		B0D6138601B696D8D77B82A4 /* ConfirmConnectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmConnectionHeaderView.swift; sourceTree = "<group>"; };
 		B0D6138CA63483A9CE704918 /* WebConnectionToSessionTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionToSessionTransformer.swift; sourceTree = "<group>"; };
-		B0D61392A483F1DDA72C10F9 /* ConfirmConnectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmConnectionViewController.swift; sourceTree = "<group>"; };
 		B0D6139BAED9DCB484456724 /* NavigationRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		B0D613C0E251EC2E801E8818 /* WebConnectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionsViewController.swift; sourceTree = "<group>"; };
 		B0D6146BF81C620C26123C67 /* DesktopPairingHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DesktopPairingHeaderView.xib; sourceTree = "<group>"; };
@@ -1413,15 +1409,11 @@
 		B0D61754C5CD1AFD95AF4A6D /* DesktopPairingHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesktopPairingHeaderView.swift; sourceTree = "<group>"; };
 		B0D6179EE24E30CA3C28D700 /* WebConnectionURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionURL.swift; sourceTree = "<group>"; };
 		B0D617C60F3081A3A923005D /* WebConnectionRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionRepository.swift; sourceTree = "<group>"; };
-		B0D6185C23118394B65AB058 /* PairingOwnerKeyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PairingOwnerKeyCell.xib; sourceTree = "<group>"; };
 		B0D61A4428032BDABE9C94CE /* WebConnectionRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionRequestViewController.swift; sourceTree = "<group>"; };
-		B0D61B05AC80BE6689567D43 /* PairingOwnerKeyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairingOwnerKeyCell.swift; sourceTree = "<group>"; };
 		B0D61BDFEADB74805D9221DB /* SendTransactionRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendTransactionRequestViewController.swift; sourceTree = "<group>"; };
 		B0D61C735006E56DDC45BA49 /* WebConnectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionController.swift; sourceTree = "<group>"; };
 		B0D61CE2EA0DFD260CF2E930 /* WebConnectionPeerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionPeerInfo.swift; sourceTree = "<group>"; };
-		B0D61D3B8D7E5314D2481A85 /* ConfirmConnectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmConnectionHeaderView.xib; sourceTree = "<group>"; };
 		B0D61DB08E699747DCEE7325 /* GnosisSafeWebPeerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GnosisSafeWebPeerInfo.swift; sourceTree = "<group>"; };
-		B0D61E10A9C05719217A09D4 /* ConfirmConnectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmConnectionViewController.xib; sourceTree = "<group>"; };
 		B0D61EF933B18A7181F0F6E8 /* WebConnectionOpenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionOpenRequest.swift; sourceTree = "<group>"; };
 		B0D61FB05FC8C6D45FAC1246 /* ActionPanelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionPanelView.xib; sourceTree = "<group>"; };
 		D80B5A022769CEAD00D6E024 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
@@ -3221,9 +3213,10 @@
 				557D80A5270B32F80036D6D0 /* SignatureRequestContentViewController.xib */,
 				0AFD9DCB27BFE18800011CF1 /* SignatureRequestContentViewController.swift */,
 				935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */,
+				0ADD0FB127C148880099DF7D /* DatePickerViewController.swift */,
+				0ADD0FB227C148880099DF7D /* DatePickerViewController.xib */,
 				B0D61352D30ACB7D294C526D /* ActionPanelView.swift */,
 				B0D61FB05FC8C6D45FAC1246 /* ActionPanelView.xib */,
-				B0D61D08EC35504630794D01 /* ConfirmConnection */,
 				B0D61754C5CD1AFD95AF4A6D /* DesktopPairingHeaderView.swift */,
 				B0D6146BF81C620C26123C67 /* DesktopPairingHeaderView.xib */,
 				0AF5C66A27BAA74300BFEA52 /* WebConnectionTableViewCell.xib */,
@@ -3236,19 +3229,6 @@
 				0AFD9DCD27BFF01000011CF1 /* SendTransactionContentViewController.swift */,
 			);
 			path = UI;
-			sourceTree = "<group>";
-		};
-		B0D61D08EC35504630794D01 /* ConfirmConnection */ = {
-			isa = PBXGroup;
-			children = (
-				B0D6138601B696D8D77B82A4 /* ConfirmConnectionHeaderView.swift */,
-				B0D61D3B8D7E5314D2481A85 /* ConfirmConnectionHeaderView.xib */,
-				B0D61392A483F1DDA72C10F9 /* ConfirmConnectionViewController.swift */,
-				B0D61E10A9C05719217A09D4 /* ConfirmConnectionViewController.xib */,
-				B0D61B05AC80BE6689567D43 /* PairingOwnerKeyCell.swift */,
-				B0D6185C23118394B65AB058 /* PairingOwnerKeyCell.xib */,
-			);
-			path = ConfirmConnection;
 			sourceTree = "<group>";
 		};
 		D80B5A012769CE8800D6E024 /* Tooltip */ = {
@@ -3620,6 +3600,7 @@
 				04C5DF6C26FB451B0072476C /* KeyTypeTableViewCell.xib in Resources */,
 				0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */,
 				0A06533727B6D1070008C5F1 /* ChooseOwnerDetailHeaderView.xib in Resources */,
+				0ADD0FB427C148880099DF7D /* DatePickerViewController.xib in Resources */,
 				0AD0273A25A34FF600886671 /* MultiSendRowTableViewCell.xib in Resources */,
 				04D1323625E43C560032FA03 /* DetailRejectionInfoCell.xib in Resources */,
 				0468EE9E26148A3B008270BF /* PrivacyProtectionScreenViewController.xib in Resources */,
@@ -3664,9 +3645,6 @@
 				0A93DD602445CC8B00688050 /* Assets.xcassets in Resources */,
 				5534F7382760C7670018E655 /* CreatePasscodeSuggestionViewController.xib in Resources */,
 				0A93DDAB244604A400688050 /* Averta-Regular.otf in Resources */,
-				B0D61F0FCD7483E899D4BFFC /* ConfirmConnectionHeaderView.xib in Resources */,
-				B0D610EE0EC7D5A063651799 /* ConfirmConnectionViewController.xib in Resources */,
-				B0D615BF62964F8832DAF74A /* PairingOwnerKeyCell.xib in Resources */,
 				B0D618DCACA100B230F936DE /* DesktopPairingHeaderView.xib in Resources */,
 				B0D6178FC710D4E943B4F9F5 /* WebConnectionContainerViewController.xib in Resources */,
 				B0D613F1FF3262B3A295206C /* ActionPanelView.xib in Resources */,
@@ -4110,6 +4088,7 @@
 				04CF31BF27B6B9D2001BEEED /* TitledMiniPieceView.swift in Sources */,
 				0AD6EF1E25CAF5EC00EE5512 /* AppReviewController.swift in Sources */,
 				04077B37278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.swift in Sources */,
+				0ADD0FB327C148880099DF7D /* DatePickerViewController.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
 				5562DD732693425E00B56722 /* NetworkIndicatorHeaderView.swift in Sources */,
 				0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */,
@@ -4150,9 +4129,6 @@
 				550FB19F26691CA300C13D54 /* DappsDataSource.swift in Sources */,
 				0A74EEFD268DF37100EB0EFB /* RibbonViewController.swift in Sources */,
 				AD303414E96F6CD45E31FBE7 /* WhatsNewHandler.swift in Sources */,
-				B0D61AAAB9B0DE1A52AE676B /* ConfirmConnectionHeaderView.swift in Sources */,
-				B0D6163F11595712629A9FE7 /* ConfirmConnectionViewController.swift in Sources */,
-				B0D6151A3877F2EE63900833 /* PairingOwnerKeyCell.swift in Sources */,
 				B0D61871594F4DCE72FAD3BD /* WebConnectionRequestViewController.swift in Sources */,
 				B0D614CA17A38979A1ECFCFB /* ActionPanelView.swift in Sources */,
 				B0D61EB5828298B8F501BA41 /* DesktopPairingHeaderView.swift in Sources */,
