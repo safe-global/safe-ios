@@ -16,6 +16,14 @@ protocol NavigationRouter {
     func navigate(to route: NavigationRoute)
 }
 
+extension NavigationRouter {
+    func navigateAfterDelay(to route: NavigationRoute) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+            navigate(to: route)
+        }
+    }
+}
+
 class DefaultNavigationRouter: NavigationRouter {
     static let shared = DefaultNavigationRouter()
 

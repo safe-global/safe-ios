@@ -253,7 +253,7 @@ extension MainTabBarViewController: NavigationRouter {
         }
         selectedIndex = Self.SETTINGS_TAB_INDEX
         segmentVC.selectedIndex = Self.APP_SETTINGS_SEGMENT_INDEX
-        appSettingsVC.navigate(to: route)
+        appSettingsVC.navigateAfterDelay(to: route)
     }
 }
 
