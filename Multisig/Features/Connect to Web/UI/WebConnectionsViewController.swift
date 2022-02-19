@@ -52,7 +52,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.desktopPairing)
+        Tracker.trackEvent(.webConnectionList)
     }
 
     private func subscribeToNotifications() {
@@ -61,7 +61,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
 
     @objc private func openHelpUrl() {
         openExternalURL()
-        Tracker.trackEvent(.desktopPairingLearnMore)
+        Tracker.trackEvent(.webConnectionListOpenedInfo)
     }
 
     @objc private func update() {
@@ -101,6 +101,8 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
         vc.delegate = self
         vc.setup()
         present(vc, animated: true, completion: nil)
+
+        Tracker.trackEvent(.webConnectionQRScanner)
     }
 
     // MARK: - Table view data source
@@ -230,6 +232,7 @@ class DisconnectionConfirmationController: UIAlertController {
                 message: "Your Safe will be disconnected from web.",
                 preferredStyle: .actionSheet)
         let remove = UIAlertAction(title: "Disconnect", style: .destructive) { _ in
+            Tracker.trackEvent(.webConnectionDisconnected)
             WebConnectionController.shared.userDidDisconnect(connection)
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

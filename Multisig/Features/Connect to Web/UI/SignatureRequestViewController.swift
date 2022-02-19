@@ -71,7 +71,7 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.desktopPairingSignRequest)
+        Tracker.trackEvent(.webConnectionSignRequest)
     }
 
     override func willMove(toParent parent: UIViewController?) {
@@ -257,34 +257,14 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
 
     private func confirm(signature: Data) {
         if let keyInfo = keyInfo {
-            Tracker.trackEvent(.desktopPairingSignRequestConfirmed, parameters: TrackingEvent.keyTypeParameters(keyInfo))
+            Tracker.trackEvent(.webConnectionSignRequestConfirmed,
+                               parameters: TrackingEvent.keyTypeParameters(keyInfo))
         }
         controller.respond(request: request, with: WebConnectionSignatureRequest.response(signature: signature))
     }
 
     private func reject() {
-        Tracker.trackEvent(.desktopPairingSignRequestRejected)
+        Tracker.trackEvent(.webConnectionSignRequestRejected)
         controller.respond(request: request, errorCode: WebConnectionRequest.ErrorCode.requestRejected.rawValue, message: "User rejected the request")
-    }
-}
-
-extension TrackingEvent {
-    static func keyTypeParameters(_ keyInfo: KeyInfo) -> [String: Any] {
-        ["key_type": keyInfo.keyType.trackingValue]
-    }
-}
-
-extension KeyType {
-    var trackingValue: String {
-        switch self {
-        case .deviceGenerated:
-            return "generated"
-        case .deviceImported:
-            return "imported"
-        case .ledgerNanoX:
-            return "ledger_nano_x"
-        case .walletConnect:
-            return "connected"
-        }
     }
 }

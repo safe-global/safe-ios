@@ -51,6 +51,11 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
         WebConnectionController.shared.detach(observer: self)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.webConnectionDetails)
+    }
+
     func reloadData() {
         rows = [.header, .key, .network]
         if peer.appVersion != nil && peer.browser != nil {

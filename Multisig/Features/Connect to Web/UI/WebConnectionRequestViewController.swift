@@ -48,6 +48,11 @@ class WebConnectionRequestViewController: WebConnectionContainerViewController, 
         connectionController.attach(observer: self, to: connection)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.webConnectionConnectionRequest)
+    }
+
     func didUpdate(connection: WebConnection) {
         assert(Thread.isMainThread)
         self.connection = connection
@@ -151,12 +156,15 @@ class WebConnectionRequestViewController: WebConnectionContainerViewController, 
 
     override func didReject() {
         connectionController.userDidReject(connection)
+        Tracker.trackEvent(.webConnectionConnectionRequestRejected)
     }
 
     override func didConfirm() {
         assert(selectedKey != nil)
         connection.accounts = [selectedKey!.address]
         connectionController.userDidApprove(connection)
+        Tracker.trackEvent(.webConnectionConnectionRequestConfirmed,
+                           parameters: TrackingEvent.keyTypeParameters(selectedKey!))
     }
 
     private func finish() {

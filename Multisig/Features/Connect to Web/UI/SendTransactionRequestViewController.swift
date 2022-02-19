@@ -80,6 +80,11 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
         controller.detach(observer: self)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.webConnectionSendRequest)
+    }
+
     func didUpdate(request: WebConnectionRequest) {
         if request.status == .success || request.status == .failed {
             onFinish()
@@ -92,10 +97,13 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
 
     override func didReject() {
         controller.respond(request: request, errorCode: WebConnectionRequest.ErrorCode.requestRejected.rawValue, message: "User rejected to send transaction.")
+        Tracker.trackEvent(.webConnectionSendRequestRejected)
     }
 
     override func didConfirm() {
         userDidSubmit()
+        Tracker.trackEvent(.webConnectionSendRequestConfirmed,
+                           parameters: TrackingEvent.keyTypeParameters(keyInfo))
     }
 
     func reloadData() {

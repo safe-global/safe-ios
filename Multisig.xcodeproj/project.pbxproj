@@ -420,6 +420,7 @@
 		0ADA911225656FEC0004DEC0 /* TransactionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADA911125656FEC0004DEC0 /* TransactionListViewController.swift */; };
 		0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADB93FB24D31904006928DF /* SnackbarBottomPaddingModifier.swift */; };
 		0ADD04D6268CB9BF00C2B44A /* UIColorStylesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD04D5268CB9BF00C2B44A /* UIColorStylesTests.swift */; };
+		0ADD0FAA27C1381F0099DF7D /* TrackingEvent+WebConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD0FA927C1381F0099DF7D /* TrackingEvent+WebConnection.swift */; };
 		0ADD199E265E518600EB0F2B /* UIView+Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD199D265E518600EB0F2B /* UIView+Pin.swift */; };
 		0ADD19A6265E53BE00EB0F2B /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD19A5265E53BD00EB0F2B /* QRCodeView.swift */; };
 		0ADD19A8265E53C600EB0F2B /* QRCodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ADD19A7265E53C600EB0F2B /* QRCodeView.xib */; };
@@ -1139,6 +1140,7 @@
 		0ADA911125656FEC0004DEC0 /* TransactionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListViewController.swift; sourceTree = "<group>"; };
 		0ADB93FB24D31904006928DF /* SnackbarBottomPaddingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarBottomPaddingModifier.swift; sourceTree = "<group>"; };
 		0ADD04D5268CB9BF00C2B44A /* UIColorStylesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorStylesTests.swift; sourceTree = "<group>"; };
+		0ADD0FA927C1381F0099DF7D /* TrackingEvent+WebConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackingEvent+WebConnection.swift"; sourceTree = "<group>"; };
 		0ADD199D265E518600EB0F2B /* UIView+Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Pin.swift"; sourceTree = "<group>"; };
 		0ADD19A5265E53BD00EB0F2B /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 		0ADD19A7265E53C600EB0F2B /* QRCodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QRCodeView.xib; sourceTree = "<group>"; };
@@ -3215,6 +3217,7 @@
 			isa = PBXGroup;
 			children = (
 				557D80A4270B32F80036D6D0 /* SignatureRequestViewController.swift */,
+				0ADD0FA927C1381F0099DF7D /* TrackingEvent+WebConnection.swift */,
 				557D80A5270B32F80036D6D0 /* SignatureRequestContentViewController.xib */,
 				0AFD9DCB27BFE18800011CF1 /* SignatureRequestContentViewController.swift */,
 				935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */,
@@ -3845,6 +3848,7 @@
 				04273E5A26B1474700A14E95 /* LedgerController.swift in Sources */,
 				0A9BC33524602CE200EB9C5D /* Data+MultisigExtension.swift in Sources */,
 				55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */,
+				0ADD0FAA27C1381F0099DF7D /* TrackingEvent+WebConnection.swift in Sources */,
 				0A802B9224E5843B0001790F /* PagedRequest.swift in Sources */,
 				0AF1C7FB25408A4D00E28669 /* SafeBarView.swift in Sources */,
 				550FB1C826691E4A00C13D54 /* ExperimentalViewController.swift in Sources */,
