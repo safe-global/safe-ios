@@ -471,9 +471,17 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
     func userDidChange(network: Chain, in connection: WebConnection) {
         guard let stringId = network.id, let chainId = Int(stringId), connection.chainId != chainId else { return }
-
         connection.chainId = chainId
+        updateSession(from: connection)
+    }
 
+    func userDidChange(account: KeyInfo, in connection: WebConnection) {
+        guard !connection.accounts.contains(account.address) else { return }
+        connection.accounts = [account.address]
+        updateSession(from: connection)
+    }
+
+    private func updateSession(from connection: WebConnection) {
         guard
             let session = sessionTransformer.session(from: connection),
             let walletInfo = session.walletInfo

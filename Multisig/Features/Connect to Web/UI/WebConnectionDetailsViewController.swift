@@ -106,6 +106,9 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
 
         case .key:
             let cell = contentCell()
+            cell.accessoryType = .disclosureIndicator
+            cell.selectionStyle = .default
+
             cell.setText("Key")
 
             if let key = key {
@@ -220,6 +223,9 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
         case .network:
             changeNetwork()
 
+        case .key:
+            changeAccount()
+
         default:
             break
         }
@@ -255,6 +261,26 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
             }
         }
         let modal = ViewControllerFactory.modal(viewController: networkVC)
+        present(modal, animated: true)
+    }
+
+    func changeAccount() {
+        let keys = WebConnectionController.shared.accountKeys()
+        let accountVC = ChooseOwnerKeyViewController(
+            owners: keys,
+            chainID: chain.id,
+            titleText: "Change Account",
+            header: .text(description: "Change selected wallet"),
+            requestsPasscode: false,
+            selectedKey: self.key,
+            balancesLoader: nil
+        ) { [unowned self] selectedKey in
+            self.dismiss(animated: true) {
+                guard let key = selectedKey else { return }
+                WebConnectionController.shared.userDidChange(account: key, in: self.connection)
+            }
+        }
+        let modal = ViewControllerFactory.modal(viewController: accountVC)
         present(modal, animated: true)
     }
 }
