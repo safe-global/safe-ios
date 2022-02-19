@@ -242,6 +242,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             update(connection, to: .final)
 
         case .final:
+            notifyObservers(of: connection)
             deleteOutstandingRequests(connection)
             delete(connection)
             notifyListObservers()
