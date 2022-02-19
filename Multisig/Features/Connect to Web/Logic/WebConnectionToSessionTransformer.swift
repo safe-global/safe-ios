@@ -5,6 +5,7 @@
 
 import Foundation
 import WalletConnectSwift
+import Ethereum
 
 /// Responsible for data conversion back-and-forth between WebConnection-related objects and the WalletConnectSwift's library objects.
 class WebConnectionToSessionTransformer {
@@ -45,7 +46,7 @@ class WebConnectionToSessionTransformer {
         assert(remotePeer.role == .dapp)
 
         let dappInfo: Session.DAppInfo = dappInfo(from: remotePeer)
-        var walletInfo: Session.WalletInfo = walletInfo(from: localPeer, connection: connection)
+        let walletInfo: Session.WalletInfo = walletInfo(from: localPeer, connection: connection)
         let result = Session(
             url: connection.connectionURL.wcURL,
             dAppInfo: dappInfo,
@@ -57,7 +58,7 @@ class WebConnectionToSessionTransformer {
     private func walletInfo(from peer: WebConnectionPeerInfo, connection: WebConnection) -> Session.WalletInfo {
         let peerMeta = clientMeta(from: peer)
         let result = Session.WalletInfo(
-                approved: connection.status == .approved,
+                approved: connection.status == .approved || connection.status == .opened,
                 accounts: connection.accounts.map(\.checksummed),
                 chainId: connection.chainId ?? 0,
                 peerId: peer.peerId,
@@ -152,6 +153,30 @@ class WebConnectionToSessionTransformer {
         }
     }
 
+    fileprivate func sendTransactionRequest(_ request: Request) -> WebConnectionSendTransactionRequest? {
+        do {
+            guard request.parameterCount == 1 else { return nil }
+
+            let rpcTx = try request.parameter(of: EthRpc1.eth_sendTransaction.Transaction.self, at: 0)
+            let transaction = rpcTx.ethTransaction
+            
+            let result = WebConnectionSendTransactionRequest(
+                id: requestId(id: request.id),
+                method: request.method,
+                error: nil,
+                json: request.jsonString,
+                status: .initial,
+                connectionURL: WebConnectionURL(wcURL: request.url),
+                createdDate: nil,
+                transaction: transaction
+            )
+            return result
+        } catch {
+            LogService.shared.error("Failed to create an eth_sendTransaction request parameters: \(error)")
+            return nil
+        }
+    }
+
     fileprivate func genericRequest(_ request: Request) -> WebConnectionRequest {
         let result = WebConnectionRequest(
             id: requestId(id: request.id),
@@ -172,6 +197,9 @@ class WebConnectionToSessionTransformer {
 
         case "eth_sign":
             return signatureRequest(request)
+
+        case "eth_sendTransaction":
+            return sendTransactionRequest(request)
 
         default:
             return genericRequest(request)

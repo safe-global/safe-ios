@@ -267,7 +267,7 @@
         "repositoryURL": "https://github.com/gnosis/WalletConnectSwift.git",
         "state": {
           "branch": "gnosis-safe-ios",
-          "revision": "e49d8ca990ef63399f2abd263c6c8dab38b132b6",
+          "revision": "bc52a16d7d3fce459928df997e6921d39554dbc4",
           "version": null
         }
       },

@@ -289,6 +289,40 @@ class WebConnectionRepository {
         return result
     }
 
+    fileprivate func sendTransactionRequest(_ other: CDWCRequest) -> WebConnectionSendTransactionRequest? {
+        let id = requestId(from: other)
+        let connectionURL = other.connection?.connectionURL.flatMap { WebConnectionURL(string: $0) }
+        let status = WebConnectionRequestStatus(rawValue: other.status) ?? .unknown
+        guard let json = other.json else {
+            return nil
+        }
+
+        do {
+            let data = json.data(using: .utf8)!
+            let request = try JSONDecoder().decode(JsonRpc2.Request.self, from: data)
+            guard
+                request.method == "eth_sendTransaction",
+                let params = try request.params?.convert(to: EthRpc1.eth_sendTransaction.self)
+            else {
+                return nil
+            }
+            let transaction = params.transaction.ethTransaction
+            let result = WebConnectionSendTransactionRequest(
+                    id: id,
+                    method: other.method,
+                    error: other.error,
+                    json: other.json,
+                    status: status,
+                    connectionURL: connectionURL,
+                    createdDate: other.createdDate,
+                    transaction: transaction)
+            return result
+        } catch {
+            LogService.shared.error("Failed to decode eth_sign request from CoreData: \(error)")
+            return nil
+        }
+    }
+
     fileprivate func genericRequest(_ other: CDWCRequest) -> WebConnectionRequest? {
         let id = requestId(from: other)
         let connectionURL = other.connection?.connectionURL.flatMap { WebConnectionURL(string: $0) }
@@ -310,11 +344,18 @@ class WebConnectionRepository {
         case "wc_sessionRequest":
             return openConnectionRequest(other)
 
+        case "eth_sendTransaction":
+            if let request = sendTransactionRequest(other) {
+                return request
+            } else {
+                return genericRequest(other)
+            }
+
         case "eth_sign":
             if let request = signatureRequest(other) {
                 return request
             } else {
-                fallthrough
+                return genericRequest(other)
             }
 
         default:

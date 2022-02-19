@@ -141,6 +141,11 @@ class AppSettingsViewController: UITableViewController {
         if keys.isEmpty {
             let addOwnersVC = AddOwnerFirstViewController()
             addOwnersVC.descriptionText = "To connect to Gnosis Safe import at least one owner key. Keys are used to confirm transactions."
+            addOwnersVC.onSuccess = { [weak self] in
+                self?.dismiss(animated: true) {
+                    _ = self?.showDesktopPairing()
+                }
+            }
             let nav = UINavigationController(rootViewController: addOwnersVC)
             present(nav, animated: true)
             return nil
@@ -328,11 +333,17 @@ extension AppSettingsViewController: NavigationRouter {
     }
 
     func navigate(to route: NavigationRoute) {
-        let pairingVC = showDesktopPairing()
-        DispatchQueue.main.async {
-            if let vc = pairingVC {
-                vc.navigate(to: route)
-            }
+        if let vc = navigationController?.topViewController as? WebConnectionsViewController {
+            vc.navigateAfterDelay(to: route)
+            return
+        }
+
+        if let controllers =  navigationController?.viewControllers, controllers.count > 1 {
+            navigationController?.popToRootViewController(animated: true)
+        }
+
+        if let pairingVC = showDesktopPairing() {
+            pairingVC.navigateAfterDelay(to: route)
         }
     }
 }

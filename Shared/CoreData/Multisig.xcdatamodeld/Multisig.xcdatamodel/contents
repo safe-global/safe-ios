@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21D62" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AddressBookEntry" representedClassName="AddressBookEntry" syncable="YES" codeGenerationType="class">
         <attribute name="additionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="address" optional="YES" attributeType="String"/>
@@ -137,12 +137,6 @@
     <entity name="Selection" representedClassName="Selection" syncable="YES" codeGenerationType="class">
         <relationship name="safe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Safe" inverseName="selection" inverseEntity="Safe"/>
     </entity>
-    <entity name="WCKeySession" representedClassName="WCKeySession" syncable="YES" codeGenerationType="class">
-        <attribute name="created" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="session" optional="YES" attributeType="Binary"/>
-        <attribute name="statusRaw" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="topic" attributeType="String"/>
-    </entity>
     <entity name="WCSession" representedClassName="WCSession" syncable="YES" codeGenerationType="class">
         <attribute name="created" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="session" optional="YES" attributeType="Binary"/>
@@ -165,7 +159,6 @@
         <element name="KeyInfo" positionX="526.714111328125" positionY="148.0606079101562" width="128" height="134"/>
         <element name="Safe" positionX="-258.5867919921875" positionY="21.39932250976562" width="128" height="134"/>
         <element name="Selection" positionX="-469.84912109375" positionY="-11.533935546875" width="128" height="58"/>
-        <element name="WCKeySession" positionX="-463.4500122070312" positionY="222.3328857421875" width="128" height="89"/>
         <element name="WCSession" positionX="-269.6851196289062" positionY="219.7146911621094" width="128" height="119"/>
     </elements>
 </model>

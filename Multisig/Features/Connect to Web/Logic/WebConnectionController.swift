@@ -88,7 +88,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     }
 
     func notifyObservers(of connection: WebConnection) {
-        guard let toNotify = connectionObservers[connection.connectionURL] else { return }
+        guard let toNotify = connectionObservers[connection.connectionURL], let connection = self.connection(for: connection.connectionURL) else { return }
         for observer in toNotify {
             observer.didUpdate(connection: connection)
         }
@@ -242,6 +242,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             update(connection, to: .final)
 
         case .final:
+            notifyObservers(of: connection)
             deleteOutstandingRequests(connection)
             delete(connection)
             notifyListObservers()
@@ -274,7 +275,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     private func updateActivityDate(connection: WebConnection) {
         connection.lastActivityDate = Date()
         let secondsIn24Hours: TimeInterval = 24 * 60 * 60
-        connection.expirationDate = connection.createdDate!.addingTimeInterval(secondsIn24Hours)
+        connection.expirationDate = connection.lastActivityDate!.addingTimeInterval(secondsIn24Hours)
         save(connection)
     }
 
@@ -469,6 +470,35 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
     }
 
+    func userDidChange(network: Chain, in connection: WebConnection) {
+        guard let stringId = network.id, let chainId = Int(stringId), connection.chainId != chainId else { return }
+        connection.chainId = chainId
+        updateSession(from: connection)
+    }
+
+    func userDidChange(account: KeyInfo, in connection: WebConnection) {
+        guard !connection.accounts.contains(account.address) else { return }
+        connection.accounts = [account.address]
+        updateSession(from: connection)
+    }
+
+    private func updateSession(from connection: WebConnection) {
+        guard
+            let session = sessionTransformer.session(from: connection),
+            let walletInfo = session.walletInfo
+        else {
+            return
+        }
+
+        do {
+            try server.updateSession(session, with: walletInfo)
+
+            update(connection, to: .opened)
+        } catch {
+            LogService.shared.error("Error updating session: \(error)")
+        }
+    }
+
     // MARK: - Server Delegate (Server events)
 
     func server(_ server: Server, shouldStart session: Session, completion: @escaping (Session.WalletInfo) -> ()) {
@@ -529,14 +559,60 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
     }
 
-    func server(_ server: Server, didUpdate session: Session) {
-        // update received
+    // this will be called when session's chain Id or accounts change
+    // when session is closed (approved = false), the 'disconnect' method will be called instead.
+    func server(_ server: Server, didUpdate updatedSession: Session) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            guard let connection = self.connection(for: updatedSession), connection.status == .opened else { return }
+
+            guard let walletInfo = updatedSession.walletInfo else {
+                self.update(connection, to: .closed)
+                return
+            }
+
+            // check that we support chain id
+            do {
+                let chainExists = try Chain.exists(String(walletInfo.chainId))
+
+                if !chainExists {
+                    self.update(connection, to: .closed)
+                    return
+                } else {
+                    connection.chainId = walletInfo.chainId
+                }
+            } catch {
+                LogService.shared.error("Error checking whether chain exists: \(error)")
+            }
+
+            // check that we have the key
+            guard let address = walletInfo.accounts.first, let account = Address(address) else {
+                self.update(connection, to: .closed)
+                return
+            }
+
+            do {
+                let key = try KeyInfo.firstKey(address: account)
+
+                if key == nil {
+                    self.update(connection, to: .closed)
+                    return
+                } else {
+                    connection.accounts = [account]
+                }
+            } catch {
+                LogService.shared.error("Error checking whether key exists: \(error)")
+            }
+
+            // all checks passed, update the connection.
+            self.update(connection, to: .opened)
+        }
     }
 
     // MARK: - Server Request Handling
 
     func canHandle(request: Request) -> Bool {
-        ["eth_sign"].contains(request.method)
+        ["eth_sign", "eth_sendTransaction"].contains(request.method)
     }
 
     func handle(request wcRequest: Request) {
@@ -557,6 +633,14 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         switch request {
         case let signRequest as WebConnectionSignatureRequest:
             guard connection.accounts.contains(signRequest.account) else {
+                try? server.send(Response(request: wcRequest, error: .invalidParams))
+                return
+            }
+
+        case let sendTxRequest as WebConnectionSendTransactionRequest:
+            guard let from = sendTxRequest.transaction.from,
+                  let address = Address(from),
+                  connection.accounts.contains(address) else {
                 try? server.send(Response(request: wcRequest, error: .invalidParams))
                 return
             }
@@ -619,45 +703,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     func save(_ request: WebConnectionRequest) {
         connectionRepository.save(request)
     }
-
-    // MARK: - Sending Transaction
-
-    // received transaction request
-
-    // ask user about transaction request
-
-    // confirm transaction request
-
-    // reject transaction request
-
-    // cancel transaction request
-
-
-    // MARK: - Changing Network
-
-    // received change network request
-
-    // [ask user about change network request]
-
-    // confirm change network request
-
-    // reject change network request
-
-
-    // user asked to change network - show what's possible
-
-    // user changed network
-
-    // confirm change network request
-
-
-    // MARK: - Changing Account(s)
-
-    // user asked to change account(s) - show what's possible
-
-    // user changed account(s)
-
-    // confirm change account(s) request
 }
 
 /// User-visible error
@@ -694,3 +739,4 @@ extension WebConnectionError {
 
     static let connectionStartTimeout = WebConnectionError(errorCode: -5, message: "Connection timeout. Please reload web app.")
 }
+
