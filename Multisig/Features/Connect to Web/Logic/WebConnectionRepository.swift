@@ -344,11 +344,18 @@ class WebConnectionRepository {
         case "wc_sessionRequest":
             return openConnectionRequest(other)
 
+        case "eth_sendTransaction":
+            if let request = sendTransactionRequest(other) {
+                return request
+            } else {
+                return genericRequest(other)
+            }
+
         case "eth_sign":
             if let request = signatureRequest(other) {
                 return request
             } else {
-                fallthrough
+                return genericRequest(other)
             }
 
         default:

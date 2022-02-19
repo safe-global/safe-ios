@@ -321,6 +321,7 @@ extension MainTabBarViewController: WebConnectionRequestObserver {
 
         default:
             presentingRequest = false
+            presentRequests()
             break
         }
     }

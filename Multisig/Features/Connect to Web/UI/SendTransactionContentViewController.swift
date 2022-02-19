@@ -40,6 +40,8 @@ class SendTransactionContentViewController: UITableViewController {
         builder.value = transaction.value.big()
         builder.data = transaction.data.storage
         builder.errorMessage = error
+        builder.onTapAccount = onTapAccount
+        builder.onTapFee = onTapFee
 
         cells = builder.build()
         tableView.reloadData()
@@ -211,10 +213,12 @@ class SendTransactionCellBuilder {
         tableCell.tableView.registerCell(DisclosureWithContentCell.self)
         tableCell.tableView.registerCell(SecondaryDetailDisclosureCell.self)
 
-        let disclosureCell1 = buildExecutedWithAccount(model.accountState, tableView: tableCell.tableView)
+        let accountCell = buildExecutedWithAccount(model.accountState, tableView: tableCell.tableView)
+        accountCell.accessoryType = .none
+
         let estimatedFeeCell = buildEstimatedGasFee(model.feeState, tableView: tableCell.tableView)
 
-        tableCell.setCells([disclosureCell1, estimatedFeeCell])
+        tableCell.setCells([accountCell, estimatedFeeCell])
 
         // handle cell taps
         let (executeWithIndex, feeIndex) = (0, 1)

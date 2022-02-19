@@ -6,6 +6,7 @@
 import Foundation
 import UIKit
 import Ethereum
+import Solidity
 
 class SendTransactionRequestViewController: WebConnectionContainerViewController, WebConnectionRequestObserver {
 
@@ -22,6 +23,9 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
     private var fee: UInt256?
     private var balance: UInt256?
     private var error: Error?
+    private var minNonce: Sol.UInt64 = 0
+    private var userParameters = UserDefinedTransactionParameters()
+    private var chain: Chain!
 
     convenience init() {
         self.init(namedClass: WebConnectionContainerViewController.self)
@@ -31,7 +35,7 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
         super.viewDidLoad()
         title = "Execute Transaction Request"
 
-        let chain = controller.chain(for: request)!
+        chain = controller.chain(for: request)!
 
         transaction = request.transaction
 
@@ -53,9 +57,14 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
         actionPanelView.setConfirmText("Submit")
 
         controller.attach(observer: self, to: request)
+
         contentVC = SendTransactionContentViewController()
         viewControllers = [contentVC]
         displayChild(at: 0, in: contentView)
+
+        contentVC.onTapFee = { [unowned self] in
+            openFeeEditor()
+        }
 
         reloadData()
         loadBalance()
@@ -85,8 +94,8 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
     }
 
     func reloadData() {
-        guard let keyInfo = try? KeyInfo.firstKey(address: connection.accounts.first!),
-        let chain = controller.chain(for: request) else { return }
+        guard let keyInfo = try? KeyInfo.firstKey(address: connection.accounts.first!) else { return }
+        fee = transaction.totalFee.big()
         contentVC.reloadData(transaction: transaction,
                              keyInfo: keyInfo,
                              chain: chain,
@@ -121,18 +130,183 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
                 let _ = try results.ethCall.get()
                 let gasPrice = try results.gasPrice.get()
                 let txCount = try results.transactionCount.get()
-
+                self.minNonce = txCount
                 self.transaction.update(gas: gas, transactionCount: txCount, baseFee: gasPrice)
-                self.fee = self.transaction.totalFee.big()
             } catch {
                 LogService.shared.error("Error estimating transaction: \(error)")
                 self.error = error
             }
+            self.updateEthTransactionWithUserValues()
             self.reloadData()
         }
     }
 
     // modifying estimation - copy from the review execution (form)
+    func openFeeEditor() {
+        let formModel: FormModel
+        var initialValues = UserDefinedTransactionParameters()
+
+        switch transaction {
+        case let ethTx as Eth.TransactionLegacy:
+            let model = FeeLegacyFormModel(
+                nonce: ethTx.nonce,
+                minimalNonce: minNonce,
+                gas: ethTx.fee.gas,
+                gasPriceInWei: ethTx.fee.gasPrice,
+                nativeCurrency: chain.nativeCurrency!
+            )
+            initialValues.nonce = model.nonce
+            initialValues.gas = model.gas
+            initialValues.gasPrice = model.gasPriceInWei
+
+            formModel = model
+
+        case let ethTx as Eth.TransactionEip1559:
+            let model = Fee1559FormModel(
+                nonce: ethTx.nonce,
+                minimalNonce: minNonce,
+                gas: ethTx.fee.gas,
+                maxFeePerGasInWei: ethTx.fee.maxFeePerGas,
+                maxPriorityFeePerGasInWei: ethTx.fee.maxPriorityFee,
+                nativeCurrency: chain.nativeCurrency!
+            )
+            initialValues.nonce = model.nonce
+            initialValues.gas = model.gas
+            initialValues.maxFeePerGas = model.maxFeePerGasInWei
+            initialValues.maxPriorityFee = model.maxPriorityFeePerGasInWei
+
+            formModel = model
+
+        default:
+            if chain.features?.contains("EIP1559") == true {
+                formModel = Fee1559FormModel(
+                    nonce: nil,
+                    gas: nil,
+                    maxFeePerGasInWei: nil,
+                    maxPriorityFeePerGasInWei: nil,
+                    nativeCurrency: chain.nativeCurrency!
+                )
+            } else {
+                formModel = FeeLegacyFormModel(
+                    nonce: nil,
+                    gas: nil,
+                    gasPriceInWei: nil,
+                    nativeCurrency: chain.nativeCurrency!
+                )
+            }
+        }
+
+        let formVC = FormViewController(model: formModel) { [weak self] in
+            // on close - ignore any changes
+            self?.dismiss(animated: true)
+        }
+
+        formVC.trackingEvent = .reviewExecutionEditFee
+
+        formVC.onSave = { [weak self, weak formModel] in
+            // on save - update the parameters that were changed.
+            self?.dismiss(animated: true, completion: {
+                guard let self = self, let formModel = formModel else { return }
+
+                // collect the saved values
+
+                var savedValues = UserDefinedTransactionParameters()
+
+                switch formModel {
+                case let model as FeeLegacyFormModel:
+                    savedValues.nonce = model.nonce
+                    savedValues.gas = model.gas
+                    savedValues.gasPrice = model.gasPriceInWei
+
+                case let model as Fee1559FormModel:
+                    savedValues.nonce = model.nonce
+                    savedValues.gas = model.gas
+                    savedValues.maxFeePerGas = model.maxFeePerGasInWei
+                    savedValues.maxPriorityFee = model.maxPriorityFeePerGasInWei
+
+                default:
+                    break
+                }
+
+                // compare the initial snapshot and saved snapshot
+                // memberwise and remember only those values that changed.
+
+                var changedFieldTrackingIds: [String] = []
+
+                if savedValues.nonce != initialValues.nonce {
+                    self.userParameters.nonce = savedValues.nonce
+
+                    changedFieldTrackingIds.append("nonce")
+                }
+
+                if savedValues.gas != initialValues.gas {
+                    self.userParameters.gas = savedValues.gas
+
+                    changedFieldTrackingIds.append("gasLimit")
+                }
+
+                if savedValues.gasPrice != initialValues.gasPrice {
+                    self.userParameters.gasPrice = savedValues.gasPrice
+
+                    changedFieldTrackingIds.append("gasPrice")
+                }
+
+                if savedValues.maxFeePerGas != initialValues.maxFeePerGas {
+                    self.userParameters.maxFeePerGas = savedValues.maxFeePerGas
+
+                    changedFieldTrackingIds.append("maxFee")
+                }
+
+                if savedValues.maxPriorityFee != initialValues.maxPriorityFee {
+                    self.userParameters.maxPriorityFee = savedValues.maxPriorityFee
+
+                    changedFieldTrackingIds.append("maxPriorityFee")
+                }
+
+                // react to changes
+
+                if savedValues != initialValues {
+                    self.error = nil
+                    self.updateEthTransactionWithUserValues()
+                    self.estimate()
+
+                    let changedFields = changedFieldTrackingIds.joined(separator: ",")
+                    Tracker.trackEvent(.reviewExecutionFieldEdited, parameters: ["fields": changedFields])
+                }
+            })
+        }
+
+        formVC.navigationItem.title = "Edit transaction fee"
+        let ribbon = RibbonViewController(rootViewController: formVC)
+        let nav = UINavigationController(rootViewController: ribbon)
+        present(nav, animated: true, completion: nil)
+
+    }
+
+    func updateEthTransactionWithUserValues() {
+        // take the values only if they were set by user (not nil)
+        switch transaction {
+        case var ethTx as Eth.TransactionLegacy:
+            ethTx.fee.gas = userParameters.gas ?? ethTx.fee.gas
+            ethTx.fee.gasPrice = userParameters.gasPrice ?? ethTx.fee.gasPrice
+            ethTx.nonce = userParameters.nonce ?? ethTx.nonce
+
+            self.transaction = ethTx
+            reloadData()
+
+        case var ethTx as Eth.TransactionEip1559:
+            ethTx.fee.gas = userParameters.gas ?? ethTx.fee.gas
+            ethTx.fee.maxFeePerGas = userParameters.maxFeePerGas ?? ethTx.fee.maxFeePerGas
+            ethTx.fee.maxPriorityFee = userParameters.maxPriorityFee ?? ethTx.fee.maxPriorityFee
+            ethTx.nonce = userParameters.nonce ?? ethTx.nonce
+
+            self.transaction = ethTx
+            reloadData()
+
+        default:
+            break
+        }
+    }
 
     // authorize and sign transaction
 
