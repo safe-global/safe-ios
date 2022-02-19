@@ -5,6 +5,7 @@
 
 import Foundation
 import UIKit
+import Ethereum
 
 class SendTransactionRequestViewController: WebConnectionContainerViewController, WebConnectionRequestObserver {
 
@@ -12,9 +13,15 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
     var connection: WebConnection!
     var request: WebConnectionSendTransactionRequest!
 
+    private var transaction: EthTransaction!
+
     private var contentVC: SendTransactionContentViewController!
     private var balanceLoader: DefaultAccountBalanceLoader!
+    private var estimationController: TransactionEstimationController!
+
+    private var fee: UInt256?
     private var balance: UInt256?
+    private var error: Error?
 
     convenience init() {
         self.init(namedClass: WebConnectionContainerViewController.self)
@@ -26,7 +33,11 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
 
         let chain = controller.chain(for: request)!
 
+        transaction = request.transaction
+
         balanceLoader = DefaultAccountBalanceLoader(chain: chain)
+        let rpcUri = chain.authenticatedRpcUrl.absoluteString
+        estimationController = TransactionEstimationController(rpcUri: rpcUri, chain: chain)
 
         ribbonView.update(chain: chain)
 
@@ -48,6 +59,7 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
 
         reloadData()
         loadBalance()
+        estimate()
     }
 
     deinit {
@@ -75,14 +87,12 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
     func reloadData() {
         guard let keyInfo = try? KeyInfo.firstKey(address: connection.accounts.first!),
         let chain = controller.chain(for: request) else { return }
-        let transaction = request.transaction
-
         contentVC.reloadData(transaction: transaction,
                              keyInfo: keyInfo,
                              chain: chain,
                              balance: balance,
-                             fee: nil,
-                             error: nil)
+                             fee: fee,
+                             error: error?.localizedDescription)
     }
 
     // load balance for the selected account.
@@ -100,8 +110,27 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
         }
     }
 
-    // estimate transaction - do this, because we'll execute "eth_call" and check that it doesn't fail
-        // use the estimated results only if the tx's values are not set.
+    func estimate() {
+        self.error = nil
+        _ = estimationController.estimateTransactionWithRpc(tx: transaction) { [weak self] result in
+            guard let self = self else { return }
+            do {
+                let results = try result.get()
+
+                let gas = try results.gas.get()
+                let _ = try results.ethCall.get()
+                let gasPrice = try results.gasPrice.get()
+                let txCount = try results.transactionCount.get()
+
+                self.transaction.update(gas: gas, transactionCount: txCount, baseFee: gasPrice)
+                self.fee = self.transaction.totalFee.big()
+            } catch {
+                LogService.shared.error("Error estimating transaction: \(error)")
+                self.error = error
+            }
+            self.reloadData()
+        }
+    }
 
     // modifying estimation - copy from the review execution (form)
 
