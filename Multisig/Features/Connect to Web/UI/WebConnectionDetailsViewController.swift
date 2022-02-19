@@ -210,24 +210,28 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
         guard indexPath.row < rows.count else { return }
         switch rows[indexPath.row] {
         case .expirationDate:
-            let datePickerVC = DatePickerViewController()
-            datePickerVC.date = connection.expirationDate
-            datePickerVC.minimum = Date()
-
-            datePickerVC.onConfirm = { [unowned datePickerVC, unowned self] in
-                dismiss(animated: true) {
-                    if let date = datePickerVC.date {
-                        connection.expirationDate = date
-                        WebConnectionController.shared.save(connection)
-                    }
-                }
-            }
-
-            let vc = ViewControllerFactory.modal(viewController: datePickerVC, halfScreen: true)
-            present(vc, animated: true)
+            openExpirationDateEditor()
 
         default:
             break
         }
+    }
+
+    func openExpirationDateEditor() {
+        let datePickerVC = DatePickerViewController()
+        datePickerVC.date = connection.expirationDate
+        datePickerVC.minimum = Date()
+
+        datePickerVC.onConfirm = { [unowned datePickerVC, unowned self] in
+            dismiss(animated: true) {
+                if let date = datePickerVC.date {
+                    connection.expirationDate = date
+                    WebConnectionController.shared.save(connection)
+                }
+            }
+        }
+
+        let vc = ViewControllerFactory.modal(viewController: datePickerVC, halfScreen: true)
+        present(vc, animated: true)
     }
 }
