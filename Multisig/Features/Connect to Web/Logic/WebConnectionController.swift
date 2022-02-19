@@ -702,45 +702,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     func save(_ request: WebConnectionRequest) {
         connectionRepository.save(request)
     }
-
-    // MARK: - Sending Transaction
-
-    // received transaction request
-
-    // ask user about transaction request
-
-    // confirm transaction request
-
-    // reject transaction request
-
-    // cancel transaction request
-
-
-    // MARK: - Changing Network
-
-    // received change network request
-
-    // [ask user about change network request]
-
-    // confirm change network request
-
-    // reject change network request
-
-
-    // user asked to change network - show what's possible
-
-    // user changed network
-
-    // confirm change network request
-
-
-    // MARK: - Changing Account(s)
-
-    // user asked to change account(s) - show what's possible
-
-    // user changed account(s)
-
-    // confirm change account(s) request
 }
 
 /// User-visible error
