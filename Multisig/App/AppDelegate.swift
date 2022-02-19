@@ -52,7 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Reconnect all WalletConnect sessions
         WalletConnectSafesServerController.shared.reconnectAllSessions()
-        WalletConnectKeysServerController.shared.reconnectAllSessions()
         WalletConnectClientController.shared.reconnectIfNeeded()
 
         // Fix transparent navigation bar in iOS 15

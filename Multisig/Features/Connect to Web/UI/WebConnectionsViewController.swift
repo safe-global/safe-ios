@@ -13,23 +13,12 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
 
     @IBOutlet private var infoButton: UIBarButtonItem!
 
-    // Change to switch the implementations for debugging or testing
-    private let usesNewImplementation = true
-
     private weak var timer: Timer?
 
     private var connections = [WebConnection]()
-    private let wcServerController = WalletConnectKeysServerController.shared
     private var connectionController = WebConnectionController.shared
 
     private static let relativeDateTimerUpdateInterval: TimeInterval = 15
-
-    private lazy var relativeDateFormatter: RelativeDateTimeFormatter = {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.dateTimeStyle = .named
-        formatter.unitsStyle = .full
-        return formatter
-    }()
 
     var url: URL?
 
@@ -39,8 +28,6 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
         url = App.configuration.help.desktopPairingURL
 
         title = "Connect to Web"
-
-        wcServerController.delegate = self
 
         tableView.backgroundColor = .primaryBackground
         tableView.registerCell(WebConnectionTableViewCell.self)
@@ -69,14 +56,6 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
     }
 
     private func subscribeToNotifications() {
-
-        [NSNotification.Name.wcConnectingKeyServer,
-         .wcDidConnectKeyServer,
-         .wcDidDisconnectKeyServer,
-         .wcDidFailToConnectKeyServer].forEach {
-            NotificationCenter.default.addObserver(self, selector: #selector(update), name: $0, object: nil)
-         }
-
         connectionController.attach(observer: self)
     }
 
@@ -202,40 +181,8 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
         stopTimer()
         connectionController.detach(observer: self)
     }
-}
-
-extension WebConnectionsViewController: QRCodeScannerViewControllerDelegate {
-    func scannerViewControllerDidScan(_ code: String) {
-        dismiss(animated: true) { [unowned self] in
-            connect(to: code)
-        }
-    }
-
-    func scannerViewControllerDidCancel() {
-        dismiss(animated: true, completion: nil)
-    }
 
     fileprivate func connect(to code: String) {
-        if usesNewImplementation {
-            didScanNewImplementation(code)
-        } else {
-            didScanOldImplementation(code: code)
-        }
-    }
-
-    private func didScanOldImplementation(code: String) {
-        var code = code
-        if code.starts(with: "safe-wc:") {
-            code.removeFirst("safe-".count)
-        }
-        do {
-            try wcServerController.connect(url: code)
-        } catch {
-            App.shared.snackbar.show(message: error.localizedDescription)
-        }
-    }
-
-    func didScanNewImplementation(_ code: String) {
         do {
             let connection = try WebConnectionController.shared.connect(to: code)
             let connectionVC = WebConnectionRequestViewController()
@@ -250,40 +197,17 @@ extension WebConnectionsViewController: QRCodeScannerViewControllerDelegate {
             App.shared.snackbar.show(message: error.localizedDescription)
         }
     }
-
 }
 
-extension WebConnectionsViewController: WalletConnectKeysServerControllerDelegate {
-    func shouldStart(session: Session, completion: @escaping ([KeyInfo]) -> Void) {
-        guard let keys = try? KeyInfo.all(), !keys.isEmpty else {
-            DispatchQueue.main.async {
-                App.shared.snackbar.show(message: "Please import an owner key to pair with desktop")
-            }
-            completion([])
-            return
+extension WebConnectionsViewController: QRCodeScannerViewControllerDelegate {
+    func scannerViewControllerDidScan(_ code: String) {
+        dismiss(animated: true) { [unowned self] in
+            connect(to: code)
         }
-        guard keys.filter({ $0.keyType != .walletConnect}).count != 0 else {
-            DispatchQueue.main.async {
-                App.shared.snackbar.show(message: "Connected via WalletConnect keys can not be paired with the desktop. Please import supported owner key types.")
-            }
-            completion([])
-            return
-        }
+    }
 
-        DispatchQueue.main.async { [unowned self] in
-            let vc = ConfirmConnectionViewController(dappInfo: session.dAppInfo.peerMeta)
-            vc.onConnect = { [unowned vc] keys in
-                vc.dismiss(animated: true) {
-                    completion(keys)
-                }
-            }
-            vc.onCancel = { [unowned vc] in
-                vc.dismiss(animated: true) {
-                    completion([])
-                }
-            }
-            self.present(UINavigationController(rootViewController: vc), animated: true)
-        }
+    func scannerViewControllerDidCancel() {
+        dismiss(animated: true, completion: nil)
     }
 }
 
