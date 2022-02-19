@@ -88,7 +88,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     }
 
     func notifyObservers(of connection: WebConnection) {
-        guard let toNotify = connectionObservers[connection.connectionURL] else { return }
+        guard let toNotify = connectionObservers[connection.connectionURL], let connection = self.connection(for: connection.connectionURL) else { return }
         for observer in toNotify {
             observer.didUpdate(connection: connection)
         }
@@ -274,7 +274,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     private func updateActivityDate(connection: WebConnection) {
         connection.lastActivityDate = Date()
         let secondsIn24Hours: TimeInterval = 24 * 60 * 60
-        connection.expirationDate = connection.createdDate!.addingTimeInterval(secondsIn24Hours)
+        connection.expirationDate = connection.lastActivityDate!.addingTimeInterval(secondsIn24Hours)
         save(connection)
     }
 
@@ -529,8 +529,54 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
     }
 
-    func server(_ server: Server, didUpdate session: Session) {
-        // update received
+    // this will be called when session's chain Id or accounts change
+    // when session is closed (approved = false), the 'disconnect' method will be called instead.
+    func server(_ server: Server, didUpdate updatedSession: Session) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            guard let connection = self.connection(for: updatedSession), connection.status == .opened else { return }
+
+            guard let walletInfo = updatedSession.walletInfo else {
+                self.update(connection, to: .closed)
+                return
+            }
+
+            // check that we support chain id
+            do {
+                let chainExists = try Chain.exists(String(walletInfo.chainId))
+
+                if !chainExists {
+                    self.update(connection, to: .closed)
+                    return
+                } else {
+                    connection.chainId = walletInfo.chainId
+                }
+            } catch {
+                LogService.shared.error("Error checking whether chain exists: \(error)")
+            }
+
+            // check that we have the key
+            guard let address = walletInfo.accounts.first, let account = Address(address) else {
+                self.update(connection, to: .closed)
+                return
+            }
+
+            do {
+                let key = try KeyInfo.firstKey(address: account)
+
+                if key == nil {
+                    self.update(connection, to: .closed)
+                    return
+                } else {
+                    connection.accounts = [account]
+                }
+            } catch {
+                LogService.shared.error("Error checking whether key exists: \(error)")
+            }
+
+            // all checks passed, update the connection.
+            self.update(connection, to: .opened)
+        }
     }
 
     // MARK: - Server Request Handling

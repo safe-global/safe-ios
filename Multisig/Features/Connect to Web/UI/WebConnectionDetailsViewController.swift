@@ -36,13 +36,6 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 66
 
-        assert(connection.remotePeer != nil)
-        assert(connection.remotePeer is GnosisSafeWebPeerInfo)
-        peer = connection.remotePeer as? GnosisSafeWebPeerInfo
-
-        chain = connection.chainId.map(String.init).map(Chain.by(_:)) ?? Chain.mainnetChain()
-        key = try? connection.accounts.first.flatMap(KeyInfo.firstKey(address:))
-
         WebConnectionController.shared.attach(observer: self, to: connection)
 
         reloadData()
@@ -58,6 +51,12 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
     }
 
     func reloadData() {
+        chain = connection.chainId.map(String.init).map(Chain.by(_:)) ?? Chain.mainnetChain()
+        key = try? connection.accounts.first.flatMap(KeyInfo.firstKey(address:))
+        assert(connection.remotePeer != nil)
+        assert(connection.remotePeer is GnosisSafeWebPeerInfo)
+        peer = connection.remotePeer as? GnosisSafeWebPeerInfo
+
         rows = [.header, .key, .network]
         if peer.appVersion != nil && peer.browser != nil {
             rows.append(contentsOf: [.version, .browser])
@@ -162,6 +161,9 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
 
         case .expirationDate:
             let cell = contentCell()
+            cell.accessoryType = .disclosureIndicator
+            cell.selectionStyle = .default
+
             cell.setText("Expires at")
             let text: String
             if let date = connection.expirationDate {
@@ -227,6 +229,7 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
                 if let date = datePickerVC.date {
                     connection.expirationDate = date
                     WebConnectionController.shared.save(connection)
+                    reloadData()
                 }
             }
         }
