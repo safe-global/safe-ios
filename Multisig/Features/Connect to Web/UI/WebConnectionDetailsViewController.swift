@@ -130,6 +130,9 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
 
         case .network:
             let cell = contentCell()
+            cell.accessoryType = .disclosureIndicator
+            cell.selectionStyle = .default
+
             cell.setText("Network")
             let content = NetworkIndicator()
             content.textStyle = .primary
@@ -214,6 +217,9 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
         case .expirationDate:
             openExpirationDateEditor()
 
+        case .network:
+            changeNetwork()
+
         default:
             break
         }
@@ -236,5 +242,19 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
 
         let vc = ViewControllerFactory.modal(viewController: datePickerVC, halfScreen: true)
         present(vc, animated: true)
+    }
+
+    func changeNetwork() {
+        let networkVC = SelectNetworkViewController()
+        networkVC.screenTitle = "Change Network"
+        networkVC.descriptionText = "Change network of the selected wallet"
+        networkVC.completion = { [unowned self] chain in
+            self.dismiss(animated: true) {
+                guard let network = Chain.by(chain.id) else { return }
+                WebConnectionController.shared.userDidChange(network: network, in: self.connection)
+            }
+        }
+        let modal = ViewControllerFactory.modal(viewController: networkVC)
+        present(modal, animated: true)
     }
 }

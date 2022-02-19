@@ -46,7 +46,7 @@ class WebConnectionToSessionTransformer {
         assert(remotePeer.role == .dapp)
 
         let dappInfo: Session.DAppInfo = dappInfo(from: remotePeer)
-        var walletInfo: Session.WalletInfo = walletInfo(from: localPeer, connection: connection)
+        let walletInfo: Session.WalletInfo = walletInfo(from: localPeer, connection: connection)
         let result = Session(
             url: connection.connectionURL.wcURL,
             dAppInfo: dappInfo,
@@ -58,7 +58,7 @@ class WebConnectionToSessionTransformer {
     private func walletInfo(from peer: WebConnectionPeerInfo, connection: WebConnection) -> Session.WalletInfo {
         let peerMeta = clientMeta(from: peer)
         let result = Session.WalletInfo(
-                approved: connection.status == .approved,
+                approved: connection.status == .approved || connection.status == .opened,
                 accounts: connection.accounts.map(\.checksummed),
                 chainId: connection.chainId ?? 0,
                 peerId: peer.peerId,

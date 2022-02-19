@@ -469,6 +469,27 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
     }
 
+    func userDidChange(network: Chain, in connection: WebConnection) {
+        guard let stringId = network.id, let chainId = Int(stringId), connection.chainId != chainId else { return }
+
+        connection.chainId = chainId
+
+        guard
+            let session = sessionTransformer.session(from: connection),
+            let walletInfo = session.walletInfo
+        else {
+            return
+        }
+
+        do {
+            try server.updateSession(session, with: walletInfo)
+
+            update(connection, to: .opened)
+        } catch {
+            LogService.shared.error("Error updating session: \(error)")
+        }
+    }
+
     // MARK: - Server Delegate (Server events)
 
     func server(_ server: Server, shouldStart session: Session, completion: @escaping (Session.WalletInfo) -> ()) {
