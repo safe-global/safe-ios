@@ -328,6 +328,12 @@ extension AppSettingsViewController: NavigationRouter {
     }
 
     func navigate(to route: NavigationRoute) {
+        if let vc = navigationController?.topViewController as? WebConnectionsViewController {
+            DispatchQueue.main.async {
+                vc.navigate(to: route)
+            }
+            return
+        }
         let pairingVC = showDesktopPairing()
         DispatchQueue.main.async {
             if let vc = pairingVC {
