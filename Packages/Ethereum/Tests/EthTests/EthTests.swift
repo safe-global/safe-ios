@@ -127,6 +127,61 @@ class TransactionTests: XCTestCase {
         waitForExpectations(timeout: 30)
     }
 
+    func testTransaction1559ByBlockNumberAndIndex() {
+        let hash: Node.Hash = "0xbbde8eb76e55c61807493653453c71b82dfec03c3204e80fca47622741da3607"
+        let exp = expectation(description: "get transaction")
+        _ = client.call(Node.eth_getTransactionByBlockNumberAndIndex(block: .number(0xd7fcdd), transactionIndex: 0xd1) { result in
+            defer { exp.fulfill() }
+            do {
+                guard let transaction = try result.get() else {
+                    XCTFail("Not found")
+                    return
+                }
+                guard let tx1559 = transaction as? Node.Transaction1559 else {
+                    XCTFail("Unexpected transaction type: \(transaction)")
+                    return
+                }
+                XCTAssertEqual(tx1559.hash, hash)
+                XCTAssertEqual(tx1559.fee1559.maxPriorityFeePerGas, 1_000_000_000)
+                XCTAssertEqual(tx1559.fee1559.maxFeePerGas, 162_756_143_860)
+                XCTAssertEqual(tx1559.signature2930.yParity, 0)
+                XCTAssertEqual(tx1559.signature2930.r, "50078468011924057578168471388802460079889621452335610668635439536646526886298")
+                XCTAssertEqual(tx1559.chainId, 1)
+            } catch {
+                XCTFail("Error: \(error)")
+            }
+        })
+        waitForExpectations(timeout: 30)
+    }
+
+    func testTransaction1559ByBlockHashAndIndex() {
+        let blockHash: Node.Hash = "0x9abb9adff36c18c850a8bcd92fb90a06e848efc4bf7e362cd1d3c760cc464d6f"
+        let transactionHash: Node.Hash = "0xbbde8eb76e55c61807493653453c71b82dfec03c3204e80fca47622741da3607"
+        let exp = expectation(description: "get transaction")
+        _ = client.call(Node.eth_getTransactionByBlockHashAndIndex(blockHash: blockHash, transactionIndex: 0xd1) { result in
+            defer { exp.fulfill() }
+            do {
+                guard let transaction = try result.get() else {
+                    XCTFail("Not found")
+                    return
+                }
+                guard let tx1559 = transaction as? Node.Transaction1559 else {
+                    XCTFail("Unexpected transaction type: \(transaction)")
+                    return
+                }
+                XCTAssertEqual(tx1559.hash, transactionHash)
+                XCTAssertEqual(tx1559.fee1559.maxPriorityFeePerGas, 1_000_000_000)
+                XCTAssertEqual(tx1559.fee1559.maxFeePerGas, 162_756_143_860)
+                XCTAssertEqual(tx1559.signature2930.yParity, 0)
+                XCTAssertEqual(tx1559.signature2930.r, "50078468011924057578168471388802460079889621452335610668635439536646526886298")
+                XCTAssertEqual(tx1559.chainId, 1)
+            } catch {
+                XCTFail("Error: \(error)")
+            }
+        })
+        waitForExpectations(timeout: 30)
+    }
+
     func testTransaction2930() {
         let hash: Node.Hash = "0xad07c974c9235ac6078a2153cf90b826a52555c7fb5100400bf0cec1699ed0ad"
         let exp = expectation(description: "get transaction")
