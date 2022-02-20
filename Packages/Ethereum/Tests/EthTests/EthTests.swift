@@ -7,6 +7,7 @@ import XCTest
 import Eth
 import JsonRpc2
 import Solidity
+import Json
 
 class TransactionTests: XCTestCase {
     let chain = "Ethereum"
@@ -246,6 +247,45 @@ class TransactionTests: XCTestCase {
         })
         waitForExpectations(timeout: 30)
     }
-}
 
-import Json
+    func testReceipt() {
+        let transactionHash: Node.Hash = "0xbbde8eb76e55c61807493653453c71b82dfec03c3204e80fca47622741da3607"
+        let exp = expectation(description: "get transaction")
+        _ = client.call(Node.eth_getTransactionReceipt(hash: transactionHash) { result in
+            defer { exp.fulfill() }
+            do {
+                guard let receipt = try result.get() else {
+                    XCTFail("Not found")
+                    return
+                }
+                XCTAssertEqual(receipt.status, 1)
+                XCTAssertEqual(receipt.from, "0x6680900ed71fc42851d0dcfd2768bb3bec657692")
+                XCTAssertEqual(receipt.to, "0x9b8e9d523d1d6bc8eb209301c82c7d64d10b219e")
+                XCTAssertNil(receipt.contractAddress)
+                XCTAssertEqual(receipt.logs, [
+                    Node.Log(address: "0x9b8e9d523d1d6bc8eb209301c82c7d64d10b219e",
+                             data: Data(hex: "0x0000000000000000000000000000000000000000000000000de0b6b3a7640000"),
+                             topics: [
+                                "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+                                "0x0000000000000000000000006680900ed71fc42851d0dcfd2768bb3bec657692",
+                                "0x0000000000000000000000007a250d5630b4cf539739df2c5dacb4c659f2488d"].map(Data.init(hex:)).map(Sol.Bytes32.init(storage:)),
+                             removed: false,
+                             logIndex: 0x158,
+                             blockPath: Node.BlockPath(
+                                blockHash: "0x9abb9adff36c18c850a8bcd92fb90a06e848efc4bf7e362cd1d3c760cc464d6f",
+                                blockNumber: 0xd7fcdd,
+                                transactionIndex: 0xd1),
+                             transactionHash: "0xbbde8eb76e55c61807493653453c71b82dfec03c3204e80fca47622741da3607")
+                ])
+                XCTAssertEqual(receipt.logsBloom, Data(hex: "0x00000000000000000000000000000000000000000000000000010000000000000000000004000000000000000000002000000000000000000000000000200000000000000000000000000000000200000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000020000000000000000000004000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000010000000000000000000000000000000000000000000000000000000000000"))
+                XCTAssertEqual(receipt.blockPath.transactionIndex, 209)
+                XCTAssertEqual(receipt.blockPath.blockHash, "0x9abb9adff36c18c850a8bcd92fb90a06e848efc4bf7e362cd1d3c760cc464d6f")
+                XCTAssertEqual(receipt.blockPath.blockNumber, 14154973)
+            } catch {
+                XCTFail("Error: \(error)")
+            }
+        })
+        waitForExpectations(timeout: 30)
+
+    }
+}

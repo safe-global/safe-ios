@@ -25,15 +25,12 @@ extension Node {
         }
 
         public enum JsonKey: String, CodingKey {
-            case blockHash
-            case blockNumber
             case from
             case gas
             case hash
             case input
             case nonce
             case to
-            case transactionIndex
             case type
             case value
         }
@@ -55,9 +52,7 @@ extension Node {
             nonce = try container.decode(NodeQuantity<Sol.UInt64>.self, forKey: .nonce).value
             hash = try container.decode(NodeData<Hash>.self, forKey: .hash).value
             gas = try container.decode(NodeQuantity<Sol.UInt64>.self, forKey: .gas).value
-            blockPath.blockNumber = try container.decode(NodeQuantity<Sol.UInt256>.self, forKey: .blockNumber).value
-            blockPath.blockHash = try container.decode(NodeData<Hash>.self, forKey: .blockHash).value
-            blockPath.transactionIndex = try container.decode(NodeQuantity<Sol.UInt64>.self, forKey: .transactionIndex).value
+            blockPath = try BlockPath(from: decoder)
             fee = try Self.feeType.init(from: decoder)
             signature = try Self.signatureType.init(from: decoder)
         }
@@ -70,9 +65,7 @@ extension Node {
             try container.encode(NodeQuantity(nonce), forKey: .nonce)
             try container.encode(NodeData(hash), forKey: .hash)
             try container.encode(NodeQuantity(gas), forKey: .gas)
-            try container.encode(NodeQuantity(blockPath.blockNumber), forKey: .blockNumber)
-            try container.encode(NodeData(blockPath.blockHash), forKey: .blockHash)
-            try container.encode(NodeQuantity(blockPath.transactionIndex), forKey: .transactionIndex)
+            try blockPath.encode(to: encoder)
             try fee.encode(to: encoder)
             try signature.encode(to: encoder)
         }
