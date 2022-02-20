@@ -19,7 +19,10 @@ extension Node {
         public var signature: Signature!
         public var blockPath: BlockPath = BlockPath()
 
-        public init() {}
+        public init() {
+            fee = Self.feeType.init()
+            signature = Self.signatureType.init()
+        }
 
         public enum JsonKey: String, CodingKey {
             case blockHash
@@ -35,6 +38,14 @@ extension Node {
             case value
         }
 
+        public class var feeType: Fee.Type {
+            Fee.self
+        }
+
+        public class var signatureType: Signature.Type {
+            Signature.self
+        }
+
         public required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: JsonKey.self)
             type = try container.decode(NodeQuantity<Sol.UInt64>.self, forKey: .type).value
@@ -47,6 +58,8 @@ extension Node {
             blockPath.blockNumber = try container.decode(NodeQuantity<Sol.UInt256>.self, forKey: .blockNumber).value
             blockPath.blockHash = try container.decode(NodeData<Hash>.self, forKey: .blockHash).value
             blockPath.transactionIndex = try container.decode(NodeQuantity<Sol.UInt64>.self, forKey: .transactionIndex).value
+            fee = try Self.feeType.init(from: decoder)
+            signature = try Self.signatureType.init(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -66,12 +79,12 @@ extension Node {
     }
 
     public class Fee: Codable {
-        public init() {
+        public required init() {
         }
     }
 
     public class Signature: Codable {
-        public init() {
+        public required init() {
         }
     }
 }

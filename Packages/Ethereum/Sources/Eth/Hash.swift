@@ -7,7 +7,7 @@ import Solidity
 import CryptoSwift
 
 extension Node {
-    public struct Hash {
+    public struct Hash: Hashable {
         public init(storage: Sol.Bytes32) {
             self.storage = storage
         }
