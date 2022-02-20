@@ -12,7 +12,7 @@ extension Node {
         public var s: Sol.UInt256 = 0
 
         enum JsonKey: String, CodingKey {
-            case yParity
+            case v
             case r
             case s
         }
@@ -31,7 +31,7 @@ extension Node {
         public required init(from decoder: Decoder) throws {
             try super.init(from: decoder)
             let container = try decoder.container(keyedBy: JsonKey.self)
-            yParity = try container.decode(NodeQuantity<Sol.UInt256>.self, forKey: .yParity).value
+            yParity = try container.decode(NodeQuantity<Sol.UInt256>.self, forKey: .v).value
             r = try container.decode(NodeQuantity<Sol.UInt256>.self, forKey: .r).value
             s = try container.decode(NodeQuantity<Sol.UInt256>.self, forKey: .s).value
         }
@@ -39,7 +39,7 @@ extension Node {
         public override func encode(to encoder: Encoder) throws {
             try super.encode(to: encoder)
             var container = encoder.container(keyedBy: JsonKey.self)
-            try container.encode(NodeQuantity(yParity), forKey: .yParity)
+            try container.encode(NodeQuantity(yParity), forKey: .v)
             try container.encode(NodeQuantity(r), forKey: .r)
             try container.encode(NodeQuantity(s), forKey: .s)
         }

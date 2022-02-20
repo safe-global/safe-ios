@@ -19,6 +19,15 @@ extension Node {
             case accessList
         }
 
+        public override class var signatureType: Signature.Type {
+            Signature2930.self
+        }
+
+        public var signature2930: Signature2930 {
+            get { signature as! Signature2930 }
+            set { signature = newValue }
+        }
+
         public required init(from decoder: Decoder) throws {
             try super.init(from: decoder)
             let container = try decoder.container(keyedBy: JsonKey.self)
@@ -34,8 +43,4 @@ extension Node {
         }
 
     }
-
-
-
-
 }

@@ -117,8 +117,8 @@ class TransactionTests: XCTestCase {
                 }
                 XCTAssertEqual(tx1559.fee1559.maxPriorityFeePerGas, 1_000_000_000)
                 XCTAssertEqual(tx1559.fee1559.maxFeePerGas, 162_756_143_860)
-                XCTAssertEqual(tx1559.signatureLegacy.v, 0)
-                XCTAssertEqual(tx1559.signatureLegacy.r, "50078468011924057578168471388802460079889621452335610668635439536646526886298")
+                XCTAssertEqual(tx1559.signature2930.yParity, 0)
+                XCTAssertEqual(tx1559.signature2930.r, "50078468011924057578168471388802460079889621452335610668635439536646526886298")
                 XCTAssertEqual(tx1559.chainId, 1)
             } catch {
                 XCTFail("Error: \(error)")
@@ -143,7 +143,7 @@ class TransactionTests: XCTestCase {
                 }
                 XCTAssertEqual(tx2930.accessList.first?.address, "0xe776df26ac31c46a302f495c61b1fab1198c582a")
                 XCTAssertEqual(tx2930.accessList.first?.storageKeys.first, "0x0000000000000000000000000000000000000000000000000000000000000000")
-                XCTAssertEqual(tx2930.signatureLegacy.r, "109707341365307446084711329270212590736837184815573345704346419718882231771312")
+                XCTAssertEqual(tx2930.signature2930.r, "109707341365307446084711329270212590736837184815573345704346419718882231771312")
                 XCTAssertEqual(tx2930.feeLegacy.gasPrice, 185_000_000_000)
                 XCTAssertEqual(tx2930.chainId, 1)
             } catch {
@@ -152,4 +152,45 @@ class TransactionTests: XCTestCase {
         })
         waitForExpectations(timeout: 30)
     }
+
+    func testEstimateGas() {
+        let exp = expectation(description: "estimate gas")
+        let message = Node.MessageCall(
+                from: "0x6680900ed71fc42851d0dcfd2768bb3bec657692",
+                to: "0x9b8e9d523d1d6bc8eb209301c82c7d64d10b219e",
+                data: Data(hex: "0x095ea7b30000000000000000000000007a250d5630b4cf539739df2c5dacb4c659f2488d0000000000000000000000000000000000000000000000000de0b6b3a7640000")
+        )
+        _ = client.call(Node.eth_estimateGas(message: message, block: .blockTag(.pending)) { (response: Result<Sol.UInt256, Error>) in
+            defer { exp.fulfill() }
+            do {
+                let result = try response.get()
+                XCTAssertEqual(result, 29237)
+            } catch {
+                XCTFail("Error: \(error)")
+            }
+        })
+        waitForExpectations(timeout: 30)
+    }
+
+    func testCall() {
+        let exp = expectation(description: "estimate gas")
+        let message = Node.MessageCall(
+                from: "0x6680900ed71fc42851d0dcfd2768bb3bec657692",
+                to: "0x9b8e9d523d1d6bc8eb209301c82c7d64d10b219e",
+                data: Data(hex: "0x095ea7b30000000000000000000000007a250d5630b4cf539739df2c5dacb4c659f2488d0000000000000000000000000000000000000000000000000de0b6b3a7640000")
+        )
+        _ = client.call(Node.eth_call(message: message, block: .blockTag(.pending)) { (response: Result<Data, Error>) in
+            defer { exp.fulfill() }
+            do {
+                let result = try response.get()
+                let bool = try Sol.Bool(result).storage
+                XCTAssertTrue(bool)
+            } catch {
+                XCTFail("Error: \(error)")
+            }
+        })
+        waitForExpectations(timeout: 30)
+    }
 }
+
+import Json

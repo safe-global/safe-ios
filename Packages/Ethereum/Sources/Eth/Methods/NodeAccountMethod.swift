@@ -24,6 +24,7 @@ public class NodeAccountMethod<ReturnType>: JsonRpc2MethodWithCompletion, Codabl
                 completion: wrap(completion: completion)
         )
     }
+
     public convenience init<T>(address: Sol.Address, block: NodeBlockId, completion: @escaping (Result<T, Error>) -> ()) where T: NodeDataCodable, ReturnType == NodeData<T> {
         self.init(
                 address: NodeData(address),

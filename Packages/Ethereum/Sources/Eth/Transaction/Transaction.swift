@@ -77,14 +77,4 @@ extension Node {
             try signature.encode(to: encoder)
         }
     }
-
-    public class Fee: Codable {
-        public required init() {
-        }
-    }
-
-    public class Signature: Codable {
-        public required init() {
-        }
-    }
 }

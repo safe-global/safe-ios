@@ -10,18 +10,17 @@ extension Node.Transaction {
 }
 extension Node {
     public class TransactionLegacy: Transaction {
-
         public override class var feeType: Fee.Type {
             FeeLegacy.self
-        }
-
-        public override class var signatureType: Signature.Type {
-            SignatureLegacy.self
         }
 
         public var feeLegacy: FeeLegacy {
             get { fee as! FeeLegacy }
             set { fee = newValue }
+        }
+
+        public override class var signatureType: Signature.Type {
+            SignatureLegacy.self
         }
 
         public var signatureLegacy: SignatureLegacy {
