@@ -909,18 +909,6 @@ extension Sol.Address: RlpCodable {
     }
 }
 
-extension Sol.Address: ExpressibleByIntegerLiteral {
-    public init(integerLiteral value: UInt) {
-        self.init(storage: .init(integerLiteral: value))
-    }
-}
-
-extension Sol.Address: ExpressibleByStringLiteral {
-    public init(stringLiteral value: String) {
-        self.init(storage: .init(value, radix: 16)!)
-    }
-}
-
 extension Sol.Address: CustomStringConvertible {
     public var description: String {
         EthRpc1.Data(self).description
