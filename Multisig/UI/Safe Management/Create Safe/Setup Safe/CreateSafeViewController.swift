@@ -25,11 +25,15 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         title = "Create Safe"
 
+        tableView.registerHeaderFooterView(InfoSectionHeaderView.self)
+        tableView.registerHeaderFooterView(BasicHeaderView.self)
         tableView.registerCell(SelectNetworkTableViewCell.self)
         tableView.registerCell(ActionDetailAddressCell.self)
         tableView.registerCell(StepperTableViewCell.self)
         tableView.registerCell(DisclosureWithContentCell.self)
         tableView.registerCell(DetailExpandableTextCell.self)
+        tableView.registerCell(IconButtonTableViewCell.self)
+        tableView.registerCell(HelpTextTableViewCell.self)
 
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
@@ -101,7 +105,27 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard isValid(section: section) else { return nil }
-        return nil
+        let sectionData = uiModel.sectionHeaders[section]
+        let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
+        view.setName(sectionData.title)
+        return view
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard isValid(section: section) else { return 0 }
+        return BasicHeaderView.headerHeight
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard isValid(indexPath: indexPath) else { return 0 }
+        let sectionId = uiModel.sectionHeaders[indexPath.section].id
+        switch sectionId {
+        case .owners where !uiModel.owners.isEmpty && indexPath.row < uiModel.owners.count:
+            return 68
+
+        default:
+            return UITableView.automaticDimension
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -129,8 +153,15 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         guard isValid(indexPath: indexPath) else { return false }
         let id = uiModel.sectionHeaders[indexPath.section].id
-        let canEdit = id == .owners
+        let canEdit = id == .owners && !uiModel.owners.isEmpty && indexPath.row < uiModel.owners.count
         return canEdit
+    }
+
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        guard isValid(indexPath: indexPath) else { return nil }
+        let id = uiModel.sectionHeaders[indexPath.section].id
+        guard id == .owners else { return nil }
+        return "Remove owner"
     }
 
     // MARK: - Table View Events
@@ -145,8 +176,16 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         switch uiModel.sectionHeaders[indexPath.section].id {
         case .network:
             selectNetwork()
+
         case .deployment:
             selectDeploymentRow(indexPath.row)
+
+        case .owners:
+            selectOwnerRow(indexPath.row)
+
+        case .threshold:
+            selectConfirmationRow(indexPath.row)
+
         default:
             break
         }
@@ -172,6 +211,11 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             self.navigationController?.popViewController(animated: true)
         }
         show(selectNetworkVC, sender: self)
+    }
+
+    func selectOwnerRow(_ rowIndex: Int) {
+        guard rowIndex == uiModel.owners.count else { return }
+        addOwner()
     }
 
     func addOwner() {
@@ -207,6 +251,11 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func didAddOwnerAddress(_ string: String?) {
         uiModel.addOwnerAddress(string)
+    }
+
+    func selectConfirmationRow(_ rowIndex: Int) {
+        guard rowIndex == 1 else { return }
+        openInSafari(App.configuration.help.confirmationsURL)
     }
 
     func selectDeploymentRow(_ index: Int) {
@@ -469,28 +518,75 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func ownerCell(for indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(ActionDetailAddressCell.self, for: indexPath)
-        let owner = uiModel.owners[indexPath.row]
-        cell.setAddress(owner.address,
-                        label: owner.name,
-                        imageUri: owner.imageUri,
-                        browseURL: owner.browseUri,
-                        prefix: owner.`prefix`)
+        if !uiModel.owners.isEmpty && indexPath.row < uiModel.owners.count {
+            let cell = tableView.dequeueCell(ActionDetailAddressCell.self, for: indexPath)
+            let owner = uiModel.owners[indexPath.row]
+            cell.setAddress(owner.address,
+                            label: owner.name,
+                            imageUri: owner.imageUri,
+                            browseURL: owner.browseUri,
+                            prefix: owner.`prefix`,
+                            badgeName: owner.badgeName)
+            cell.separatorInset = .zero
+            return cell
+        } else {
+            let buttonCellIndex = 0
+            let helpTextIndex = 1
+            let rowIndex = indexPath.row - uiModel.owners.count
+            switch rowIndex {
+            case buttonCellIndex:
+                let cell = tableView.dequeueCell(IconButtonTableViewCell.self, for: indexPath)
+                cell.setImage(UIImage(systemName: "plus.circle"))
+                cell.setText("Add Owner")
+                return cell
+
+            case helpTextIndex:
+                return helpTextCell("Add an owner by pasting or scanning an Ethereum address.", indexPath: indexPath)
+
+            default:
+                return UITableViewCell()
+            }
+        }
+    }
+
+    func helpTextCell(_ text: String, indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(HelpTextTableViewCell.self, for: indexPath)
+        cell.selectionStyle = .none
+        cell.setText(text)
+        return cell
+    }
+
+    func helpTextCell(_ text: String, hyperlink: String, indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(HelpTextTableViewCell.self, for: indexPath)
+        cell.selectionStyle = .none
+        cell.cellLabel.hyperLinkLabel(
+            text,
+            prefixStyle: .footnote2.weight(.regular),
+            linkText: hyperlink,
+            linkStyle: .footnote2.weight(.regular).color(.button),
+            linkIcon: nil)
         return cell
     }
 
     func thresholdCell(for indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(StepperTableViewCell.self, for: indexPath)
-        cell.setText(uiModel.thresholdText)
-        cell.setRange(min: uiModel.minThreshold, max: uiModel.maxThreshold)
-        cell.setValue(uiModel.threshold)
-        cell.onChange = { [weak self, unowned cell] newThreshold in
-            guard let self = self else { return }
-            self.uiModel.threshold = newThreshold
-            cell.setText(self.uiModel.thresholdText)
-            self.uiModel.didEdit()
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueCell(StepperTableViewCell.self, for: indexPath)
+            cell.selectionStyle = .none
+            cell.setText(uiModel.thresholdText)
+            cell.setRange(min: uiModel.minThreshold, max: uiModel.maxThreshold)
+            cell.setValue(uiModel.threshold)
+            cell.onChange = { [weak self, unowned cell] newThreshold in
+                guard let self = self else { return }
+                self.uiModel.threshold = newThreshold
+                cell.setText(self.uiModel.thresholdText)
+                self.uiModel.didEdit()
+            }
+            return cell
+        } else {
+            let text = "How many owner confirmations are required for a transaction to be executed?"
+            let link = "Learn about Safe setup"
+            return helpTextCell(text, hyperlink: link, indexPath: indexPath)
         }
-        return cell
     }
 
     let DEPLOYER_ROW = 0

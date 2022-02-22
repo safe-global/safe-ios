@@ -72,6 +72,7 @@ class SafeBarView: UINibView {
     }
 
     @objc func displayAddress() {
+        guard let address = address else { return }
         detailLabel.text = prefixString() + address.ellipsized()
     }
 

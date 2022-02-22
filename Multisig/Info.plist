@@ -61,6 +61,8 @@
 	<string>$(LEDGER_PAIRING_URL)</string>
 	<key>CREATE_SAFE_URL</key>
 	<string>$(CREATE_SAFE_URL)</string>
+	<key>CONFIRMATIONS_URL</key>
+	<string>$(CONFIRMATIONS_URL)</string>
 	<key>FirebaseCrashlyticsCollectionEnabled</key>
 	<false/>
 	<key>GNOSIS_SAFE_WEB_URL</key>

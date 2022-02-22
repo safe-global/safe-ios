@@ -134,7 +134,10 @@
 		0A007124254B255C00A57CAF /* UIFont+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A007123254B255C00A57CAF /* UIFont+Styles.swift */; };
 		0A00712A254B379000A57CAF /* UIColor+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A007129254B379000A57CAF /* UIColor+Styles.swift */; };
 		0A01DCE42770B0A100A87D7A /* TransactionIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A01DCE32770B0A100A87D7A /* TransactionIntegrationTests.swift */; };
-		0A0391C427C5640C003C871A /* CreateSafeInstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0391C327C5640C003C871A /* CreateSafeInstructionsViewController.swift */; };
+		0A0391BD27C52C40003C871A /* IconButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0391BB27C52C40003C871A /* IconButtonTableViewCell.swift */; };
+		0A0391BE27C52C40003C871A /* IconButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A0391BC27C52C40003C871A /* IconButtonTableViewCell.xib */; };
+		0A0391C127C52DE7003C871A /* HelpTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0391BF27C52DE7003C871A /* HelpTextTableViewCell.swift */; };
+		0A0391C227C52DE7003C871A /* HelpTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A0391C027C52DE7003C871A /* HelpTextTableViewCell.xib */; };
 		0A04506A278D800700650F71 /* ReviewExecutionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A045068278D800700650F71 /* ReviewExecutionViewController.swift */; };
 		0A04506B278D800700650F71 /* ReviewExecutionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A045069278D800700650F71 /* ReviewExecutionViewController.xib */; };
 		0A04506D278D973C00650F71 /* ReviewExecutionContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04506C278D973C00650F71 /* ReviewExecutionContentViewController.swift */; };
@@ -887,6 +890,10 @@
 		0A007129254B379000A57CAF /* UIColor+Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Styles.swift"; sourceTree = "<group>"; };
 		0A01DCE02770996E00A87D7A /* Ethereum */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Ethereum; path = Packages/Ethereum; sourceTree = "<group>"; };
 		0A01DCE32770B0A100A87D7A /* TransactionIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionIntegrationTests.swift; sourceTree = "<group>"; };
+		0A0391BB27C52C40003C871A /* IconButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButtonTableViewCell.swift; sourceTree = "<group>"; };
+		0A0391BC27C52C40003C871A /* IconButtonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconButtonTableViewCell.xib; sourceTree = "<group>"; };
+		0A0391BF27C52DE7003C871A /* HelpTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpTextTableViewCell.swift; sourceTree = "<group>"; };
+		0A0391C027C52DE7003C871A /* HelpTextTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HelpTextTableViewCell.xib; sourceTree = "<group>"; };
 		0A0391C327C5640C003C871A /* CreateSafeInstructionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSafeInstructionsViewController.swift; sourceTree = "<group>"; };
 		0A045068278D800700650F71 /* ReviewExecutionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewExecutionViewController.swift; sourceTree = "<group>"; };
 		0A045069278D800700650F71 /* ReviewExecutionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewExecutionViewController.xib; sourceTree = "<group>"; };
@@ -3672,6 +3679,7 @@
 				0A06533727B6D1070008C5F1 /* ChooseOwnerDetailHeaderView.xib in Resources */,
 				0ADD0FB427C148880099DF7D /* DatePickerViewController.xib in Resources */,
 				0AD0273A25A34FF600886671 /* MultiSendRowTableViewCell.xib in Resources */,
+				0A0391BE27C52C40003C871A /* IconButtonTableViewCell.xib in Resources */,
 				04D1323625E43C560032FA03 /* DetailRejectionInfoCell.xib in Resources */,
 				0468EE9E26148A3B008270BF /* PrivacyProtectionScreenViewController.xib in Resources */,
 				049A9DB225FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib in Resources */,
@@ -3698,6 +3706,7 @@
 				0ADA90F8256548C60004DEC0 /* SnackbarViewController.xib in Resources */,
 				0A04507B278DAD4000650F71 /* SecondaryDetailDisclosureCell.xib in Resources */,
 				0A478D3C25B863D60038363E /* DerivedKeyTableViewCell.xib in Resources */,
+				0A0391C227C52DE7003C871A /* HelpTextTableViewCell.xib in Resources */,
 				0A57C5E52577FBD900420303 /* DetailConfirmationCell.xib in Resources */,
 				0ADD19C1265EA23200EB0F2B /* PrivateKeyViewController.xib in Resources */,
 				5588363D2562904E0014E8C7 /* ContractVersionStatusCell.xib in Resources */,
@@ -3818,6 +3827,7 @@
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
 				0A9BC32F246022BD00EB9C5D /* ENS.swift in Sources */,
 				0A86EE6325CC2B350059876E /* LoadingFooterView.swift in Sources */,
+				0A0391C127C52DE7003C871A /* HelpTextTableViewCell.swift in Sources */,
 				0438C9212760120D009A0E31 /* DeleteDelegateKeyRequest.swift in Sources */,
 				0AE5A9C6267A4BEB00468C90 /* CreatePasscodeBannerCell.swift in Sources */,
 				0A2F1A7B267A5E9E00C09F03 /* GSImageView.swift in Sources */,
@@ -4178,6 +4188,7 @@
 				04626EB6265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift in Sources */,
 				0A6C131425407B5100EA67E3 /* ContainerViewController.swift in Sources */,
 				0A573F2925876B9E009EF0C1 /* AddressField.swift in Sources */,
+				0A0391BD27C52C40003C871A /* IconButtonTableViewCell.swift in Sources */,
 				0AD0273925A34FF600886671 /* MultiSendRowTableViewCell.swift in Sources */,
 				5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */,
 				55F91A9225BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift in Sources */,
