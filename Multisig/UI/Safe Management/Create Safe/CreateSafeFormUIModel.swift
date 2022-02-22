@@ -169,7 +169,7 @@ class CreateSafeFormUIModel {
     }
 
     var isCreateEnabled: Bool {
-        state == .ready
+        state == .ready && owners.count > 0
     }
 
     var isLoadingDeployer: Bool {
@@ -201,36 +201,31 @@ class CreateSafeFormUIModel {
         // select default chain
         name = "My Safe"
         chain = Chain.mainnetChain()
-        owners = makeDefaultOwners(count: 3)
+        owners = []
         threshold = 1
         transaction = handleError(try makeEthTransaction())
         sectionHeaders = makeSectionHeaders()
     }
 
-    private func makeDefaultOwners(count: Int) -> [CreateSafeFormOwner] {
-        let result = (0..<count).map { index -> CreateSafeFormOwner in
-            let key = generatePrivateKey()
-            let defaultName = "Generated Owner #\(index + 1)"
-            var owner = self.owner(from: key.address, defaultName: defaultName)
-            owner.privateKey = key
-            return owner
-        }
-        return result
-    }
-
-    func setName(_ name: String) {
-        self.name = name
-        didEdit()
-    }
     func setChainId(_ chainId: String) {
         guard chainId != chain.id, let newChain = Chain.by(chainId) else { return }
         chain = newChain
+        // needs updating because the chain prefix will change and potentially address name from address book
+        updateOwners()
         didEdit()
     }
 
     func addOwnerAddress(_ string: String?) {
-        guard let string = string, let address = Address(string) else { return }
-        guard !owners.contains(where: { owner in owner.address == address }) else { return }
+        guard let string = string, let address = Address(string, checksummed: true) else {
+            let error = "Value '\(string ?? "")' seems to have a typo or is not a valid address. Please try again."
+            App.shared.snackbar.show(message: error)
+            return
+        }
+        guard !owners.contains(where: { owner in owner.address == address }) else {
+            let error = "The owner \(address) is already in the list. Please add a different owner."
+            App.shared.snackbar.show(message: error)
+            return
+        }
         let newOwner = self.owner(from: address)
         owners.append(newOwner)
         // update item count in sections
@@ -245,29 +240,28 @@ class CreateSafeFormUIModel {
         didEdit()
     }
 
-    func owner(from address: Address, defaultName: String = "Owner") -> CreateSafeFormOwner {
+    func owner(from address: Address, defaultName: String? = nil) -> CreateSafeFormOwner {
         let (resolvedName, imageUri) = NamingPolicy.name(
                 for: address,
                 info: nil,
                 chainId: chain.id!)
         let name = resolvedName ?? defaultName
         let url = chain.browserURL(address: address.checksummed)
+        let keyInfo = try? KeyInfo.firstKey(address: address)
         let owner = CreateSafeFormOwner(
                 prefix: chain.shortName,
                 address: address,
                 name: name,
                 imageUri: imageUri,
                 browseUri: url,
-                keyInfo: nil,
-                privateKey: nil)
+                keyInfo: keyInfo,
+                privateKey: nil,
+                badgeName: keyInfo?.keyType.imageName)
         return owner
     }
 
-    private func generatePrivateKey() -> PrivateKey {
-        let seed = Data.randomBytes(length: 16)!
-        let mnemonic = BIP39.generateMnemonicsFromEntropy(entropy: seed)!
-        let privateKey: PrivateKey = try! PrivateKey(mnemonic: mnemonic, pathIndex: 0)
-        return privateKey
+    func updateOwners() {
+        owners = owners.map(\.address).map { owner(from: $0, defaultName: nil) }
     }
 
     private func handleError<T>(_ closure: @autoclosure () throws -> T) -> T? {
@@ -388,9 +382,13 @@ class CreateSafeFormUIModel {
         var result: [CreateSafeFormSectionHeader] = [
             .init(id: .name, title: "Safe Name", itemCount: 1),
             .init(id: .network, title: "Network", tooltip: "Blockchain network where the new safe will be deployed", itemCount: 1),
-            .init(id: .owners, title: "Owners", tooltip: "Owner account addresses that can approve transactions made from the new Safe", itemCount: owners.count, actionable: true),
-            .init(id: .threshold, title: "Threshold", tooltip: "Number of confirmations needed to execute a transaction from the new Safe", itemCount: 1),
-            .init(id: .deployment, title: "Deployment Transaction", tooltip: "Account that will deploy the new Safe contract and deployment transaction information", itemCount: 2)
+            // we have 2 additional cells:
+            // 'add owner' button cell
+            // and help text cell
+            .init(id: .owners, title: "Owners", tooltip: "Owner account addresses that can approve transactions made from the new Safe", itemCount: owners.count + 2, actionable: true),
+            // we have 1 cell for threshold and 1 cell for help text
+            .init(id: .threshold, title: "Required Confirmations", tooltip: "Number of confirmations needed to execute a transaction from the new Safe", itemCount: 2),
+            .init(id: .deployment, title: "Payment Details", tooltip: "Account that will deploy the new Safe contract and deployment transaction information", itemCount: 2)
         ]
 
         if error != nil {
@@ -629,7 +627,11 @@ class CreateSafeFormUIModel {
     }
 
     var thresholdText: String {
-        "\(threshold) out of \(owners.count)"
+        if owners.isEmpty {
+            return "0 out of 0"
+        } else {
+            return "\(threshold) out of \(owners.count)"
+        }
     }
 
     var deployerAccountInfoModel: MiniAccountInfoUIModel? {
@@ -700,6 +702,7 @@ struct CreateSafeFormOwner {
     var browseUri: URL?
     var keyInfo: KeyInfo?
     var privateKey: PrivateKey?
+    var badgeName: String?
 }
 
 struct CreateSafeFormSectionHeader {
