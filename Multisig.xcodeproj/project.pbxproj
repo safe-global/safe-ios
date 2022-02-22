@@ -671,6 +671,12 @@
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
 		93EF2FA327C546330077BE95 /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EF2FA127C546330077BE95 /* InstructionsViewController.swift */; };
 		93EF2FA427C546330077BE95 /* InstructionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93EF2FA227C546330077BE95 /* InstructionsViewController.xib */; };
+		93EF2FA727C550BC0077BE95 /* InstructionHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EF2FA527C550BC0077BE95 /* InstructionHeaderTableViewCell.swift */; };
+		93EF2FA827C550BC0077BE95 /* InstructionHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93EF2FA627C550BC0077BE95 /* InstructionHeaderTableViewCell.xib */; };
+		93EF2FAB27C551B60077BE95 /* FinalStepInstructionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EF2FA927C551B60077BE95 /* FinalStepInstructionTableViewCell.swift */; };
+		93EF2FAC27C551B60077BE95 /* FinalStepInstructionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93EF2FAA27C551B60077BE95 /* FinalStepInstructionTableViewCell.xib */; };
+		93EF2FAF27C551DC0077BE95 /* StepInstructionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EF2FAD27C551DC0077BE95 /* StepInstructionTableViewCell.swift */; };
+		93EF2FB027C551DC0077BE95 /* StepInstructionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93EF2FAE27C551DC0077BE95 /* StepInstructionTableViewCell.xib */; };
 		AD303414E96F6CD45E31FBE7 /* WhatsNewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3035EE31CD4171C56B475B /* WhatsNewHandler.swift */; };
 		B0D61076463C900689962202 /* WebConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61C735006E56DDC45BA49 /* WebConnectionController.swift */; };
 		B0D61252B0B0760008CF6F19 /* WebConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6117DB078A3ABA481B50C /* WebConnection.swift */; };
@@ -1410,6 +1416,12 @@
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
 		93EF2FA127C546330077BE95 /* InstructionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsViewController.swift; sourceTree = "<group>"; };
 		93EF2FA227C546330077BE95 /* InstructionsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstructionsViewController.xib; sourceTree = "<group>"; };
+		93EF2FA527C550BC0077BE95 /* InstructionHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		93EF2FA627C550BC0077BE95 /* InstructionHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstructionHeaderTableViewCell.xib; sourceTree = "<group>"; };
+		93EF2FA927C551B60077BE95 /* FinalStepInstructionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalStepInstructionTableViewCell.swift; sourceTree = "<group>"; };
+		93EF2FAA27C551B60077BE95 /* FinalStepInstructionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FinalStepInstructionTableViewCell.xib; sourceTree = "<group>"; };
+		93EF2FAD27C551DC0077BE95 /* StepInstructionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepInstructionTableViewCell.swift; sourceTree = "<group>"; };
+		93EF2FAE27C551DC0077BE95 /* StepInstructionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepInstructionTableViewCell.xib; sourceTree = "<group>"; };
 		AD3035EE31CD4171C56B475B /* WhatsNewHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsNewHandler.swift; sourceTree = "<group>"; };
 		B0D610B9708DF8BFD4A612D2 /* WebConnectionRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionRepositoryTests.swift; sourceTree = "<group>"; };
 		B0D610E20B243B7AEB248725 /* WebConnectionContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebConnectionContainerViewController.xib; sourceTree = "<group>"; };
@@ -2270,6 +2282,12 @@
 				0A8CDD4527A5A5C70020066C /* CreateSafeViewController.xib */,
 				93EF2FA127C546330077BE95 /* InstructionsViewController.swift */,
 				93EF2FA227C546330077BE95 /* InstructionsViewController.xib */,
+				93EF2FA527C550BC0077BE95 /* InstructionHeaderTableViewCell.swift */,
+				93EF2FA627C550BC0077BE95 /* InstructionHeaderTableViewCell.xib */,
+				93EF2FA927C551B60077BE95 /* FinalStepInstructionTableViewCell.swift */,
+				93EF2FAD27C551DC0077BE95 /* StepInstructionTableViewCell.swift */,
+				93EF2FAE27C551DC0077BE95 /* StepInstructionTableViewCell.xib */,
+				93EF2FAA27C551B60077BE95 /* FinalStepInstructionTableViewCell.xib */,
 			);
 			path = "Create Safe";
 			sourceTree = "<group>";
@@ -3545,6 +3563,7 @@
 				0AE8C0572579328800E62B34 /* ExternalURLCell.xib in Resources */,
 				0A57C5C12577F08B00420303 /* ConfirmationCreatedPiece.xib in Resources */,
 				0471B3BE262742CD001F2D3B /* UpdateAppViewController.xib in Resources */,
+				93EF2FAC27C551B60077BE95 /* FinalStepInstructionTableViewCell.xib in Resources */,
 				04B4B68F25B8857F00CFE24B /* AccountInfoView.xib in Resources */,
 				0A86EE6F25CC2B4C0059876E /* RetryFooterView.xib in Resources */,
 				0AE8C06B2579371A00E62B34 /* DetailTransferInfoCell.xib in Resources */,
@@ -3588,6 +3607,7 @@
 				0468FB9525912E8300541536 /* TransactionListHeaderTableViewCell.xib in Resources */,
 				557D80B0270B32F80036D6D0 /* WCIncomingTransactionRequestViewController.xib in Resources */,
 				55413678265E4A0000796F91 /* AddOwnerKeyCell.xib in Resources */,
+				93EF2FB027C551DC0077BE95 /* StepInstructionTableViewCell.xib in Resources */,
 				0A045081278DAD9000650F71 /* DisclosureWithContentCell.xib in Resources */,
 				0A6886932588F87E0045CAB5 /* EnterAddressNameViewController.xib in Resources */,
 				55DA0669269DD573006C9AA5 /* dapps-xdai.json in Resources */,
@@ -3674,6 +3694,7 @@
 				0A93DD632445CC8B00688050 /* Preview Assets.xcassets in Resources */,
 				0AE8C0452579317700E62B34 /* DetailDisclosingCell.xib in Resources */,
 				0A478D3425B861D50038363E /* DefaultKeyTableViewCell.xib in Resources */,
+				93EF2FA827C550BC0077BE95 /* InstructionHeaderTableViewCell.xib in Resources */,
 				0A9A1A36257924C600B44405 /* DetailAccountAndTextCell.xib in Resources */,
 				0A9366B1278F0AA8001918A9 /* LabeledTextField.xib in Resources */,
 				048D72CE2685DC780095999C /* SelectNetworkTableViewCell.xib in Resources */,
@@ -3862,6 +3883,7 @@
 				0AA9F2532498CC70005BD60F /* UInt256String.swift in Sources */,
 				55FBC2D526BA91E4002C2553 /* SelectLedgerDeviceViewController.swift in Sources */,
 				049A9DB125FA6D5F00CA5723 /* ChooseOwnerTableViewCell.swift in Sources */,
+				93EF2FAF27C551DC0077BE95 /* StepInstructionTableViewCell.swift in Sources */,
 				0ACDC01524925A96002035A2 /* FirebaseConfig.swift in Sources */,
 				04273E5A26B1474700A14E95 /* LedgerController.swift in Sources */,
 				0A9BC33524602CE200EB9C5D /* Data+MultisigExtension.swift in Sources */,
@@ -3935,6 +3957,7 @@
 				55B66E87247FDF2C00249E98 /* TermsView.swift in Sources */,
 				0A339C5D24C1D16E00DAD84B /* Image+Blockies.swift in Sources */,
 				0A11377C27999AAE00D97ED9 /* WCWalletConnectionController.swift in Sources */,
+				93EF2FA727C550BC0077BE95 /* InstructionHeaderTableViewCell.swift in Sources */,
 				557D80AD270B32F80036D6D0 /* WCRequestsHandler.swift in Sources */,
 				0A7AEAF42463185C00014184 /* ENSNameLoader.swift in Sources */,
 				551BC70D2538965700E4CC79 /* LoadingModel.swift in Sources */,
@@ -4165,6 +4188,7 @@
 				555312E9250653800008206B /* BIP32HDNode.swift in Sources */,
 				0455A43127204A5B008B772D /* CreateAddressBookEntryViewController.swift in Sources */,
 				0A2F1A79267A5E5B00C09F03 /* TotalCell.swift in Sources */,
+				93EF2FAB27C551B60077BE95 /* FinalStepInstructionTableViewCell.swift in Sources */,
 				0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */,
 				55BCFC5E255469B300020CE7 /* BasicHeaderView.swift in Sources */,
 				049257AE273C239C00507C33 /* String+Highlight.swift in Sources */,

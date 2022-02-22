@@ -13,12 +13,31 @@ class InstructionsViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
+    enum Step {
+        case header
+        case step
+        case finalStep
+    }
     var onClose: () -> Void = {}
+    
+    var steps: [Step] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "How does it work?"
+        
+        steps = [.header,
+                    .step,
+                    .step,
+                    .step,
+                    .step,
+                    .step,
+                    .finalStep]
+        
+        tableView.registerCell(InstructionHeaderTableViewCell.self)
+        tableView.registerCell(FinalStepInstructionTableViewCell.self)
+        tableView.registerCell(StepInstructionTableViewCell.self)
         
         button.setText("OK, Let’s start", .filled)
     }
@@ -34,10 +53,31 @@ class InstructionsViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let currentStep = steps[indexPath.row]
+        
+        
+        switch currentStep {
+            
+        case .header:
+            let cell = tableView.dequeueCell(InstructionHeaderTableViewCell.self, for: indexPath)
+            cell.selectionStyle = .none
+            cell.separatorInset.left = .greatestFiniteMagnitude
+            return cell
+        case .step:
+            let cell = tableView.dequeueCell(StepInstructionTableViewCell.self, for: indexPath)
+            cell.selectionStyle = .none
+            cell.separatorInset.left = .greatestFiniteMagnitude
+            return cell
+        case .finalStep:
+            let cell = tableView.dequeueCell(FinalStepInstructionTableViewCell.self, for: indexPath)
+            cell.cellLabel.text = "Start using your Safe!"
+            cell.selectionStyle = .none
+            cell.separatorInset.left = .greatestFiniteMagnitude
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        0
+        steps.count
     }
 }
