@@ -138,6 +138,7 @@
 		0A0391CC27C565D4003C871A /* HelpTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0391C827C565D3003C871A /* HelpTextTableViewCell.swift */; };
 		0A0391CD27C565D4003C871A /* HelpTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A0391C927C565D3003C871A /* HelpTextTableViewCell.xib */; };
 		0A0391CE27C565D4003C871A /* IconButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0391CA27C565D3003C871A /* IconButtonTableViewCell.swift */; };
+		0A0391CF27C56616003C871A /* CreateSafeInstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0391C327C5640C003C871A /* CreateSafeInstructionsViewController.swift */; };
 		0A04506A278D800700650F71 /* ReviewExecutionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A045068278D800700650F71 /* ReviewExecutionViewController.swift */; };
 		0A04506B278D800700650F71 /* ReviewExecutionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A045069278D800700650F71 /* ReviewExecutionViewController.xib */; };
 		0A04506D278D973C00650F71 /* ReviewExecutionContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04506C278D973C00650F71 /* ReviewExecutionContentViewController.swift */; };
@@ -4224,6 +4225,7 @@
 				0A74EEFD268DF37100EB0EFB /* RibbonViewController.swift in Sources */,
 				AD303414E96F6CD45E31FBE7 /* WhatsNewHandler.swift in Sources */,
 				B0D61871594F4DCE72FAD3BD /* WebConnectionRequestViewController.swift in Sources */,
+				0A0391CF27C56616003C871A /* CreateSafeInstructionsViewController.swift in Sources */,
 				B0D614CA17A38979A1ECFCFB /* ActionPanelView.swift in Sources */,
 				B0D61EB5828298B8F501BA41 /* DesktopPairingHeaderView.swift in Sources */,
 				B0D61FFF1935AA2484BD940A /* WebConnectionRepository.swift in Sources */,
