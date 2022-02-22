@@ -530,10 +530,19 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: - Cells
 
     func networkCell(for indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(SelectNetworkTableViewCell.self, for: indexPath)
-        cell.setText(uiModel.chain.name)
-        cell.setIndicatorColor(uiModel.chain.backgroundColor)
-        return cell
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueCell(SelectNetworkTableViewCell.self, for: indexPath)
+            cell.setText(uiModel.chain.name)
+            cell.setIndicatorColor(uiModel.chain.backgroundColor)
+            return cell
+        case 1:
+            let cell = helpTextCell("Safe will only exist on the selected network.", indexPath: indexPath)
+            return cell
+        default:
+            assertionFailure("Developer error: row count should be only two")
+            return UITableViewCell()
+        }
     }
 
     func ownerCell(for indexPath: IndexPath) -> UITableViewCell {

@@ -207,6 +207,11 @@ class CreateSafeFormUIModel {
         sectionHeaders = makeSectionHeaders()
     }
 
+    func setName(_ name: String) {
+        self.name = name
+        didEdit()
+    }
+
     func setChainId(_ chainId: String) {
         guard chainId != chain.id, let newChain = Chain.by(chainId) else { return }
         chain = newChain
@@ -381,7 +386,7 @@ class CreateSafeFormUIModel {
     private func makeSectionHeaders() -> [CreateSafeFormSectionHeader] {
         var result: [CreateSafeFormSectionHeader] = [
             .init(id: .name, title: "Safe Name", itemCount: 1),
-            .init(id: .network, title: "Network", tooltip: "Blockchain network where the new safe will be deployed", itemCount: 1),
+            .init(id: .network, title: "Network", tooltip: "Safe will only exist on the selected network.", itemCount: 2),
             // we have 2 additional cells:
             // 'add owner' button cell
             // and help text cell
