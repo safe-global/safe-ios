@@ -25,7 +25,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         title = "Create Safe"
 
-        tableView.registerHeaderFooterView(InfoSectionHeaderView.self)
         tableView.registerCell(SelectNetworkTableViewCell.self)
         tableView.registerCell(ActionDetailAddressCell.self)
         tableView.registerCell(StepperTableViewCell.self)
@@ -102,14 +101,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard isValid(section: section) else { return nil }
-        let sectionData = uiModel.sectionHeaders[section]
-        let view = tableView.dequeueHeaderFooterView(InfoSectionHeaderView.self)
-        view.infoLabel.setText(sectionData.title, description: sectionData.tooltip)
-        view.accessoryButton.isHidden = !sectionData.actionable
-        if view.accessoryButton.allTargets.isEmpty {
-            view.accessoryButton.addTarget(nil, action: #selector(didTapAddOwnerButton(_:)), for: .touchUpInside)
-        }
-        return view
+        return nil
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

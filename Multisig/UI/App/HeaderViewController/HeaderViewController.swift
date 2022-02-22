@@ -98,7 +98,7 @@ final class HeaderViewController: ContainerViewController {
 
         switchSafesVC.onCreateSafe = { [weak self] in
             self?.dismiss(animated: true) {
-                let instructionsVC = InstructionsViewController(nibName: nil, bundle: nil)
+                let instructionsVC = CreateSafeInstructionsViewController()
                 instructionsVC.onClose = { [weak self] in
                     self?.dismiss(animated: true, completion: nil)
                 }

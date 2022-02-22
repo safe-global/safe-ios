@@ -134,6 +134,7 @@
 		0A007124254B255C00A57CAF /* UIFont+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A007123254B255C00A57CAF /* UIFont+Styles.swift */; };
 		0A00712A254B379000A57CAF /* UIColor+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A007129254B379000A57CAF /* UIColor+Styles.swift */; };
 		0A01DCE42770B0A100A87D7A /* TransactionIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A01DCE32770B0A100A87D7A /* TransactionIntegrationTests.swift */; };
+		0A0391C427C5640C003C871A /* CreateSafeInstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0391C327C5640C003C871A /* CreateSafeInstructionsViewController.swift */; };
 		0A04506A278D800700650F71 /* ReviewExecutionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A045068278D800700650F71 /* ReviewExecutionViewController.swift */; };
 		0A04506B278D800700650F71 /* ReviewExecutionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A045069278D800700650F71 /* ReviewExecutionViewController.xib */; };
 		0A04506D278D973C00650F71 /* ReviewExecutionContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04506C278D973C00650F71 /* ReviewExecutionContentViewController.swift */; };
@@ -323,8 +324,6 @@
 		0A8CDD4627A5A5C70020066C /* CreateSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4427A5A5C70020066C /* CreateSafeViewController.swift */; };
 		0A8CDD4727A5A5C70020066C /* CreateSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4527A5A5C70020066C /* CreateSafeViewController.xib */; };
 		0A8CDD4927A5AE860020066C /* CreateSafeFormUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4827A5AE860020066C /* CreateSafeFormUIModel.swift */; };
-		0A8CDD4B27A5C6F60020066C /* InfoSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4A27A5C6F60020066C /* InfoSectionHeaderView.swift */; };
-		0A8CDD4D27A5C7020020066C /* InfoSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4C27A5C7020020066C /* InfoSectionHeaderView.xib */; };
 		0A8CDD5027A682CF0020066C /* StepperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */; };
 		0A8CDD5127A682CF0020066C /* StepperTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */; };
 		0A8CDD5327A85C0D0020066C /* TransactionExecutionLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8CDD5227A85C0D0020066C /* TransactionExecutionLookup.swift */; };
@@ -888,6 +887,7 @@
 		0A007129254B379000A57CAF /* UIColor+Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Styles.swift"; sourceTree = "<group>"; };
 		0A01DCE02770996E00A87D7A /* Ethereum */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Ethereum; path = Packages/Ethereum; sourceTree = "<group>"; };
 		0A01DCE32770B0A100A87D7A /* TransactionIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionIntegrationTests.swift; sourceTree = "<group>"; };
+		0A0391C327C5640C003C871A /* CreateSafeInstructionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSafeInstructionsViewController.swift; sourceTree = "<group>"; };
 		0A045068278D800700650F71 /* ReviewExecutionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewExecutionViewController.swift; sourceTree = "<group>"; };
 		0A045069278D800700650F71 /* ReviewExecutionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewExecutionViewController.xib; sourceTree = "<group>"; };
 		0A04506C278D973C00650F71 /* ReviewExecutionContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewExecutionContentViewController.swift; sourceTree = "<group>"; };
@@ -1053,8 +1053,6 @@
 		0A8CDD4427A5A5C70020066C /* CreateSafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSafeViewController.swift; sourceTree = "<group>"; };
 		0A8CDD4527A5A5C70020066C /* CreateSafeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateSafeViewController.xib; sourceTree = "<group>"; };
 		0A8CDD4827A5AE860020066C /* CreateSafeFormUIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSafeFormUIModel.swift; sourceTree = "<group>"; };
-		0A8CDD4A27A5C6F60020066C /* InfoSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSectionHeaderView.swift; sourceTree = "<group>"; };
-		0A8CDD4C27A5C7020020066C /* InfoSectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoSectionHeaderView.xib; sourceTree = "<group>"; };
 		0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperTableViewCell.swift; sourceTree = "<group>"; };
 		0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepperTableViewCell.xib; sourceTree = "<group>"; };
 		0A8CDD5227A85C0D0020066C /* TransactionExecutionLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionExecutionLookup.swift; sourceTree = "<group>"; };
@@ -1829,6 +1827,34 @@
 			path = TransactionViewController;
 			sourceTree = "<group>";
 		};
+		0A0391C527C564AA003C871A /* InstructionsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				93EF2FA927C551B60077BE95 /* FinalStepInstructionTableViewCell.swift */,
+				93EF2FAA27C551B60077BE95 /* FinalStepInstructionTableViewCell.xib */,
+				93EF2FA527C550BC0077BE95 /* InstructionHeaderTableViewCell.swift */,
+				93EF2FA627C550BC0077BE95 /* InstructionHeaderTableViewCell.xib */,
+				93EF2FA127C546330077BE95 /* InstructionsViewController.swift */,
+				93EF2FA227C546330077BE95 /* InstructionsViewController.xib */,
+				93EF2FAD27C551DC0077BE95 /* StepInstructionTableViewCell.swift */,
+				93EF2FAE27C551DC0077BE95 /* StepInstructionTableViewCell.xib */,
+			);
+			path = InstructionsViewController;
+			sourceTree = "<group>";
+		};
+		0A0391C627C564CF003C871A /* Setup Safe */ = {
+			isa = PBXGroup;
+			children = (
+				0A8CDD4827A5AE860020066C /* CreateSafeFormUIModel.swift */,
+				0A8CDD4427A5A5C70020066C /* CreateSafeViewController.swift */,
+				0A8CDD4527A5A5C70020066C /* CreateSafeViewController.xib */,
+				0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */,
+				0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */,
+				0A8CDD5427A9DBF70020066C /* TransactionSender.swift */,
+			);
+			path = "Setup Safe";
+			sourceTree = "<group>";
+		};
 		0A0EFCA1246EADD100D3D8BF /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -2257,6 +2283,7 @@
 		0A839B5F2578EB9500103AD9 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0A0391C527C564AA003C871A /* InstructionsViewController */,
 				04B4B5F425B754A400CFE24B /* AccountActionCompletedViewController */,
 				0A6C131325407B5100EA67E3 /* ContainerViewController.swift */,
 				0AF1C8282540914600E28669 /* NoSafesViewController.swift */,
@@ -2272,22 +2299,8 @@
 		0A8CDD4327A5A5AF0020066C /* Create Safe */ = {
 			isa = PBXGroup;
 			children = (
-				0A8CDD4827A5AE860020066C /* CreateSafeFormUIModel.swift */,
-				0A8CDD4427A5A5C70020066C /* CreateSafeViewController.swift */,
-				0A8CDD4527A5A5C70020066C /* CreateSafeViewController.xib */,
-				93EF2FA927C551B60077BE95 /* FinalStepInstructionTableViewCell.swift */,
-				93EF2FAA27C551B60077BE95 /* FinalStepInstructionTableViewCell.xib */,
-				0A8CDD4A27A5C6F60020066C /* InfoSectionHeaderView.swift */,
-				0A8CDD4C27A5C7020020066C /* InfoSectionHeaderView.xib */,
-				93EF2FA527C550BC0077BE95 /* InstructionHeaderTableViewCell.swift */,
-				93EF2FA627C550BC0077BE95 /* InstructionHeaderTableViewCell.xib */,
-				93EF2FA127C546330077BE95 /* InstructionsViewController.swift */,
-				93EF2FA227C546330077BE95 /* InstructionsViewController.xib */,
-				93EF2FAD27C551DC0077BE95 /* StepInstructionTableViewCell.swift */,
-				93EF2FAE27C551DC0077BE95 /* StepInstructionTableViewCell.xib */,
-				0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */,
-				0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */,
-				0A8CDD5427A9DBF70020066C /* TransactionSender.swift */,
+				0A0391C627C564CF003C871A /* Setup Safe */,
+				0A0391C327C5640C003C871A /* CreateSafeInstructionsViewController.swift */,
 			);
 			path = "Create Safe";
 			sourceTree = "<group>";
@@ -3633,7 +3646,6 @@
 				0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */,
 				04D968D5276B872D00CE4A9E /* TransactionViewController.xib in Resources */,
 				5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */,
-				0A8CDD4D27A5C7020020066C /* InfoSectionHeaderView.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
 				0AEEBC80258CE25700F3A6F9 /* WebImageView.xib in Resources */,
 				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
@@ -3999,6 +4011,7 @@
 				04CE3F9D24B62F0800826AEE /* CollectibleMetaDataAttribute.swift in Sources */,
 				93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */,
 				04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */,
+				0A0391C427C5640C003C871A /* CreateSafeInstructionsViewController.swift in Sources */,
 				557D80B8270B32F80036D6D0 /* SignatureRequestViewController.swift in Sources */,
 				6ADEB02727B559370062ADFE /* WebConnectionOwnerView.swift in Sources */,
 				557D80B8270B32F80036D6D0 /* SignatureRequestViewController.swift in Sources */,
@@ -4157,7 +4170,6 @@
 				04077B37278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.swift in Sources */,
 				0ADD0FB327C148880099DF7D /* DatePickerViewController.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
-				0A8CDD4B27A5C6F60020066C /* InfoSectionHeaderView.swift in Sources */,
 				5562DD732693425E00B56722 /* NetworkIndicatorHeaderView.swift in Sources */,
 				0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */,
 				55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */,
