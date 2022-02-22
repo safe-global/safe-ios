@@ -228,21 +228,23 @@ class CreateSafeFormUIModel {
         didEdit()
     }
 
-    func owner(from address: Address, defaultName: String = "Owner") -> CreateSafeFormOwner {
+    func owner(from address: Address, defaultName: String? = nil) -> CreateSafeFormOwner {
         let (resolvedName, imageUri) = NamingPolicy.name(
                 for: address,
                 info: nil,
                 chainId: chain.id!)
         let name = resolvedName ?? defaultName
         let url = chain.browserURL(address: address.checksummed)
+        let keyInfo = try? KeyInfo.firstKey(address: address)
         let owner = CreateSafeFormOwner(
                 prefix: chain.shortName,
                 address: address,
                 name: name,
                 imageUri: imageUri,
                 browseUri: url,
-                keyInfo: nil,
-                privateKey: nil)
+                keyInfo: keyInfo,
+                privateKey: nil,
+                badgeName: keyInfo?.keyType.imageName)
         return owner
     }
 
@@ -678,6 +680,7 @@ struct CreateSafeFormOwner {
     var browseUri: URL?
     var keyInfo: KeyInfo?
     var privateKey: PrivateKey?
+    var badgeName: String?
 }
 
 struct CreateSafeFormSectionHeader {

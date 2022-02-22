@@ -116,6 +116,16 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         return BasicHeaderView.headerHeight
     }
 
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard isValid(indexPath: indexPath) else { return 0 }
+        let sectionId = uiModel.sectionHeaders[indexPath.section].id
+        if sectionId == .owners && !uiModel.owners.isEmpty && indexPath.row < uiModel.owners.count {
+            return 68
+        } else {
+            return UITableView.automaticDimension
+        }
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard isValid(indexPath: indexPath) else { return UITableViewCell() }
 
@@ -159,6 +169,9 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             selectNetwork()
         case .deployment:
             selectDeploymentRow(indexPath.row)
+
+        case .owners:
+            selectOwnerRow(indexPath.row)
         default:
             break
         }
@@ -184,6 +197,11 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             self.navigationController?.popViewController(animated: true)
         }
         show(selectNetworkVC, sender: self)
+    }
+
+    func selectOwnerRow(_ rowIndex: Int) {
+        guard rowIndex == uiModel.owners.count else { return }
+        addOwner()
     }
 
     func addOwner() {
@@ -488,7 +506,9 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                             label: owner.name,
                             imageUri: owner.imageUri,
                             browseURL: owner.browseUri,
-                            prefix: owner.`prefix`)
+                            prefix: owner.`prefix`,
+                            badgeName: owner.badgeName)
+            cell.separatorInset = .zero
             return cell
         } else {
             let buttonCellIndex = 0
