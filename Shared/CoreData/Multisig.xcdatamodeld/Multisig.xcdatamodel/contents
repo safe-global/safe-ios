@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21D62" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AddressBookEntry" representedClassName="AddressBookEntry" syncable="YES" codeGenerationType="class">
         <attribute name="additionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="address" optional="YES" attributeType="String"/>
@@ -41,6 +41,40 @@
         <attribute name="safeTxHash" optional="YES" attributeType="String"/>
         <attribute name="status" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="CDWCConnection" representedClassName="CDWCConnection" syncable="YES" codeGenerationType="class">
+        <attribute name="chainId" optional="YES" attributeType="Integer 64" defaultValueString="-1" usesScalarValueType="YES"/>
+        <attribute name="connectionURL" optional="YES" attributeType="String"/>
+        <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="expirationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="lastActivityDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="lastError" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="keys" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="KeyInfo" inverseName="connections" inverseEntity="KeyInfo"/>
+        <relationship name="localPeer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWCPeerInfo"/>
+        <relationship name="remotePeer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWCPeerInfo"/>
+        <relationship name="requests" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDWCRequest" inverseName="connection" inverseEntity="CDWCRequest"/>
+    </entity>
+    <entity name="CDWCPeerInfo" representedClassName="CDWCPeerInfo" syncable="YES" codeGenerationType="class">
+        <attribute name="deeplinkScheme" optional="YES" attributeType="String"/>
+        <attribute name="icons" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="peerDescription" optional="YES" attributeType="String"/>
+        <attribute name="peerId" optional="YES" attributeType="String"/>
+        <attribute name="peerType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="role" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="url" optional="YES" attributeType="URI"/>
+    </entity>
+    <entity name="CDWCRequest" representedClassName="CDWCRequest" syncable="YES" codeGenerationType="class">
+        <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="error" optional="YES" attributeType="String"/>
+        <attribute name="id_double" optional="YES" attributeType="Double" defaultValueString="-1" usesScalarValueType="YES"/>
+        <attribute name="id_int" optional="YES" attributeType="Integer 64" defaultValueString="-1" usesScalarValueType="YES"/>
+        <attribute name="id_string" optional="YES" attributeType="String"/>
+        <attribute name="json" optional="YES" attributeType="String"/>
+        <attribute name="method" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="connection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWCConnection" inverseName="requests" inverseEntity="CDWCConnection"/>
+    </entity>
     <entity name="Chain" representedClassName="Chain" syncable="YES" codeGenerationType="class">
         <attribute name="blockExplorerUrlAddress" optional="YES" attributeType="String"/>
         <attribute name="blockExplorerUrlTxHash" optional="YES" attributeType="String"/>
@@ -52,6 +86,7 @@
         <attribute name="rpcUrl" attributeType="URI"/>
         <attribute name="rpcUrlAuthentication" attributeType="String" defaultValueString="API_KEY_PATH"/>
         <attribute name="shortName" optional="YES" attributeType="String"/>
+        <relationship name="gasPriceSource" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ChainGasPriceSource" inverseName="chain" inverseEntity="ChainGasPriceSource"/>
         <relationship name="nativeCurrency" maxCount="1" deletionRule="Cascade" destinationEntity="ChainToken" inverseName="chain" inverseEntity="ChainToken"/>
         <relationship name="safe" toMany="YES" deletionRule="Cascade" destinationEntity="Safe" inverseName="chain" inverseEntity="Safe"/>
         <relationship name="theme" maxCount="1" deletionRule="Cascade" destinationEntity="ChainTheme" inverseName="chain" inverseEntity="ChainTheme"/>
@@ -60,6 +95,14 @@
                 <constraint value="id"/>
             </uniquenessConstraint>
         </uniquenessConstraints>
+    </entity>
+    <entity name="ChainGasPriceSource" representedClassName="ChainGasPriceSource" syncable="YES" codeGenerationType="class">
+        <attribute name="gasParameter" optional="YES" attributeType="String"/>
+        <attribute name="gweiFactor" optional="YES" attributeType="String"/>
+        <attribute name="sourceType" optional="YES" attributeType="String"/>
+        <attribute name="uri" optional="YES" attributeType="String"/>
+        <attribute name="weiValue" optional="YES" attributeType="String"/>
+        <relationship name="chain" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Chain" inverseName="gasPriceSource" inverseEntity="Chain"/>
     </entity>
     <entity name="ChainTheme" representedClassName="ChainTheme" syncable="YES" codeGenerationType="class">
         <attribute name="backgroundColor" attributeType="String"/>
@@ -80,6 +123,7 @@
         <attribute name="metadata" optional="YES" attributeType="Binary"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="connections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDWCConnection" inverseName="keys" inverseEntity="CDWCConnection"/>
     </entity>
     <entity name="Safe" representedClassName="Safe" syncable="YES">
         <attribute name="additionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -93,12 +137,6 @@
     <entity name="Selection" representedClassName="Selection" syncable="YES" codeGenerationType="class">
         <relationship name="safe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Safe" inverseName="selection" inverseEntity="Safe"/>
     </entity>
-    <entity name="WCKeySession" representedClassName="WCKeySession" syncable="YES" codeGenerationType="class">
-        <attribute name="created" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="session" optional="YES" attributeType="Binary"/>
-        <attribute name="statusRaw" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="topic" attributeType="String"/>
-    </entity>
     <entity name="WCSession" representedClassName="WCSession" syncable="YES" codeGenerationType="class">
         <attribute name="created" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="session" optional="YES" attributeType="Binary"/>
@@ -107,17 +145,20 @@
         <relationship name="safe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Safe" inverseName="wcSessions" inverseEntity="Safe"/>
     </entity>
     <elements>
-        <element name="AddressBookEntry" positionX="54" positionY="135" width="128" height="89"/>
-        <element name="AppSettings" positionX="54" positionY="18" width="128" height="284"/>
-        <element name="AppUser" positionX="54" positionY="63" width="128" height="89"/>
-        <element name="Chain" positionX="54" positionY="117" width="128" height="224"/>
-        <element name="ChainTheme" positionX="72" positionY="135" width="128" height="74"/>
-        <element name="ChainToken" positionX="63" positionY="126" width="128" height="104"/>
-        <element name="KeyInfo" positionX="63" positionY="72" width="128" height="119"/>
-        <element name="Safe" positionX="-63" positionY="-18" width="128" height="134"/>
-        <element name="Selection" positionX="165.51171875" positionY="-15.453125" width="128" height="58"/>
-        <element name="WCKeySession" positionX="54" positionY="135" width="128" height="89"/>
-        <element name="WCSession" positionX="54" positionY="18" width="128" height="119"/>
-        <element name="CDEthTransaction" positionX="54" positionY="144" width="128" height="149"/>
+        <element name="AddressBookEntry" positionX="403.780517578125" positionY="-260.6335754394531" width="128" height="89"/>
+        <element name="AppSettings" positionX="-234.1375732421875" positionY="377.9746704101562" width="128" height="284"/>
+        <element name="AppUser" positionX="-389.4071044921875" positionY="380.6794738769531" width="128" height="89"/>
+        <element name="CDEthTransaction" positionX="-76.98681640625" positionY="383.9258422851562" width="128" height="149"/>
+        <element name="CDWCConnection" positionX="180.7559814453125" positionY="170.9039306640625" width="128" height="194"/>
+        <element name="CDWCPeerInfo" positionX="418.90673828125" positionY="442.4048461914062" width="128" height="149"/>
+        <element name="CDWCRequest" positionX="631.3834228515625" positionY="298.3258056640625" width="128" height="164"/>
+        <element name="Chain" positionX="-23.085205078125" positionY="-146.3514099121094" width="128" height="239"/>
+        <element name="ChainGasPriceSource" positionX="418.956787109375" positionY="-138.2214813232422" width="128" height="119"/>
+        <element name="ChainTheme" positionX="443.2310791015625" positionY="4.1329345703125" width="128" height="74"/>
+        <element name="ChainToken" positionX="256.864013671875" positionY="-258.2319793701172" width="128" height="104"/>
+        <element name="KeyInfo" positionX="526.714111328125" positionY="148.0606079101562" width="128" height="134"/>
+        <element name="Safe" positionX="-258.5867919921875" positionY="21.39932250976562" width="128" height="134"/>
+        <element name="Selection" positionX="-469.84912109375" positionY="-11.533935546875" width="128" height="58"/>
+        <element name="WCSession" positionX="-269.6851196289062" positionY="219.7146911621094" width="128" height="119"/>
     </elements>
 </model>

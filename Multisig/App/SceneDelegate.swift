@@ -71,6 +71,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         App.shared.clientGatewayHostObserver.startObserving()
 
         PendingTransactionMonitor.scheduleMonitoring()
+        WebConnectionExpirationMonitor.scheduleMonitoring()
 
         privacyShieldWindow?.isHidden = true
 
@@ -83,6 +84,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         App.shared.clientGatewayHostObserver.stopObserving()
 
         PendingTransactionMonitor.stopMonitoring()
+        WebConnectionExpirationMonitor.stopMonitoring()
 
         if presentedWindow === tabBarWindow {
             privacyShieldWindow?.isHidden = false
@@ -118,7 +120,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         try? WalletConnectSafesServerController.shared.connect(url: wcURL)
-        Tracker.trackEvent(.dappConnectedWithUniversalLink)
+        WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithUniversalLink
     }
 
     // MARK: - Window Management
@@ -235,6 +237,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             App.shared.appReview.pullAppReviewTrigger()
         }
+    }
+}
+
+extension SceneDelegate: NavigationRouter {
+    func canNavigate(to route: NavigationRoute) -> Bool {
+        guard let tabWindow = tabBarWindow, let tabBarVC = tabWindow.rootViewController as? MainTabBarViewController else { return false }
+        return tabBarVC.canNavigate(to: route)
+    }
+
+    func navigate(to route: NavigationRoute) {
+        guard let tabWindow = tabBarWindow, let tabBarVC = tabWindow.rootViewController as? MainTabBarViewController else { return }
+        tabBarVC.navigate(to: route)
     }
 }
 

@@ -36,9 +36,18 @@ class TransactionEstimationController {
         self.rpcClient = JsonRpc2.Client(transport: JsonRpc2.ClientHTTPTransport(url: rpcUri), serializer: JsonRpc2.DefaultSerializer())
     }
 
-    typealias EstimateCompletion = (Result<(gas: Result<Sol.UInt64, Error>, transactionCount: Result<Sol.UInt64, Error>, gasPrice: Result<Sol.UInt256, Error>), Error>) -> Void
+    typealias EstimateCompletion = (Result<(gas: Result<Sol.UInt64, Error>, transactionCount: Result<Sol.UInt64, Error>, gasPrice: Result<Sol.UInt256, Error>, ethCall: Result<Data, Error>), Error>) -> Void
 
     func estimateTransactionWithRpc(tx: EthTransaction, completion: @escaping EstimateCompletion) -> URLSessionTask? {
+        // check if we have hint from the chain configuration about the gas price. For now support only fixed.
+        // find the first 'fixed' gas price
+        var fixedGasPrice: Sol.UInt256? = nil
+
+        for case SCGModels.GasPrice.fixed(let fixed) in chain.gasPrice where Sol.UInt256(fixed.weiValue) != nil {
+            fixedGasPrice = Sol.UInt256(fixed.weiValue)!
+            break
+        }
+
         // remove the fee because we want to estimate it.
         var tx = tx
         tx.removeFee()
@@ -52,19 +61,24 @@ class TransactionEstimationController {
 
         let getPrice = EthRpc1.eth_gasPrice()
 
+        let ethCallNew = EthRpc1.eth_call(transaction: EthRpc1.Transaction(tx), block: .tag(.pending))
+        let ethCallLegacy = EthRpc1.eth_callLegacyApi(transaction: EthRpc1.EstimateGasLegacyTransaction(tx), block: .tag(.pending))
+
         let batch: JsonRpc2.BatchRequest
         let getEstimateRequest: JsonRpc2.Request
         let getTransactionCountRequest: JsonRpc2.Request
         let getPriceRequest: JsonRpc2.Request
+        let ethCallRequest: JsonRpc2.Request
 
 
         do {
             getEstimateRequest = try usingLegacyGasApi ? getEstimateLegacy.request(id: .int(1)) : getEstimateNew.request(id: .int(1))
             getTransactionCountRequest = try getTransactionCount.request(id: .int(2))
             getPriceRequest = try getPrice.request(id: .int(3))
+            ethCallRequest = try usingLegacyGasApi ? ethCallLegacy.request(id: .int(4)) : ethCallNew.request(id: .int(4))
 
             batch = try JsonRpc2.BatchRequest(requests: [
-                getEstimateRequest, getTransactionCountRequest, getPriceRequest
+                getEstimateRequest, getTransactionCountRequest, getPriceRequest, ethCallRequest
             ])
         } catch {
             dispatchOnMainThread(completion(.failure(error)))
@@ -108,9 +122,12 @@ class TransactionEstimationController {
                     result(request: getEstimateRequest, method: getEstimateLegacy, responses: responses).map(\.storage)
                     : result(request: getEstimateRequest, method: getEstimateNew, responses: responses).map(\.storage)
                 let txCountResult = result(request: getTransactionCountRequest, method: getTransactionCount, responses: responses).map(\.storage)
-                let priceResult = result(request: getPriceRequest, method: getPrice, responses: responses).map(\.storage)
+                let priceResult = fixedGasPrice.map { .success($0) } ?? result(request: getPriceRequest, method: getPrice, responses: responses).map(\.storage)
+                let callResult = usingLegacyGasApi ?
+                    result(request: ethCallRequest, method: ethCallLegacy, responses: responses).map(\.storage)
+                    : result(request: ethCallRequest, method: ethCallNew, responses: responses).map(\.storage)
 
-                dispatchOnMainThread(completion(.success((gasResult, txCountResult, priceResult))))
+                dispatchOnMainThread(completion(.success((gasResult, txCountResult, priceResult, callResult))))
             }
         }
         return task

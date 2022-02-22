@@ -162,6 +162,60 @@ extension Chain {
 
         l2 = chainInfo.l2
         features = chainInfo.features
+        gasPrice = chainInfo.gasPrice
+    }
+
+    var gasPrice: [SCGModels.GasPrice] {
+        get {
+            guard let sources = gasPriceSource else { return [] }
+            return sources.compactMap { element -> SCGModels.GasPrice? in
+                guard let source = element as? ChainGasPriceSource else { return nil }
+                switch source.sourceType {
+                case "ORACLE":
+                    guard let uri = source.uri,
+                          let gasParameter = source.gasParameter,
+                          let gweiFactor = source.gweiFactor
+                    else {
+                        return nil
+                    }
+                    return .oracle(SCGModels.GasPriceOracle(uri: uri, gasParameter: gasParameter, gweiFactor: gweiFactor))
+
+                case "FIXED":
+                    guard let weiValue = source.weiValue else { return nil }
+                    return .fixed(SCGModels.GasPriceFixed(weiValue: weiValue))
+
+                default:
+                    return .unknown
+                }
+            }
+        }
+        set {
+            let newSources = newValue.compactMap { gasPrice -> ChainGasPriceSource? in
+                guard let context = self.managedObjectContext else { return nil }
+
+                let value = ChainGasPriceSource(context: context)
+
+                switch gasPrice {
+                case .oracle(let oracle):
+                    value.sourceType = "ORACLE"
+                    value.uri = oracle.uri
+                    value.gasParameter = oracle.gasParameter
+                    value.gweiFactor = oracle.gweiFactor
+
+                case .fixed(let fixed):
+                    value.sourceType = "FIXED"
+                    value.weiValue = fixed.weiValue
+
+                case .unknown:
+                    value.sourceType = "UNKNOWN"
+                }
+                return value
+            }
+            if let existing = gasPriceSource {
+                removeFromGasPriceSource(existing)
+            }
+            addToGasPriceSource(NSOrderedSet(array: newSources))
+        }
     }
 
     var features: [String]? {

@@ -133,7 +133,7 @@ class ReviewExecutionViewController: ContainerViewController {
             owners: keys,
             chainID: controller.chainId,
             titleText: "Select an execution key",
-            descriptionText: "The selected key will be used to execute this transaction.",
+            header: .text(description: "The selected key will be used to execute this transaction."),
             requestsPasscode: false,
             selectedKey: controller.selectedKey?.key,
             balancesLoader: balancesLoader
@@ -314,7 +314,6 @@ class ReviewExecutionViewController: ContainerViewController {
     }
 
     @IBAction func didTapSubmit(_ sender: Any) {
-        
         // request passcode if needed and sign
         if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
             self.submitButton.isEnabled = false
@@ -331,7 +330,9 @@ class ReviewExecutionViewController: ContainerViewController {
                     self.submitButton.isEnabled = true
                 }
             }
-            present(passcodeVC, animated: true)
+            let nav = UINavigationController(rootViewController: passcodeVC)
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: true)
         } else {
             sign()
         }
@@ -536,7 +537,6 @@ class ReviewExecutionViewController: ContainerViewController {
 
             present(vc, animated: true, completion: nil)
         }
-
     }
 
     func submit() {

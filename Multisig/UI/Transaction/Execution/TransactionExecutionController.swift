@@ -192,12 +192,6 @@ class TransactionExecutionController {
                 var gasPrice: Sol.UInt256?
 
                 do {
-                    gas = try partialResults.gas.get()
-                } catch {
-                    errors.append(error)
-                }
-
-                do {
                     txCount = try partialResults.transactionCount.get()
                 } catch {
                     errors.append(error)
@@ -205,6 +199,25 @@ class TransactionExecutionController {
 
                 do {
                     gasPrice = try partialResults.gasPrice.get()
+                } catch {
+                    errors.append(error)
+                }
+
+                do {
+                    // WARN: this only works for the 'execTransaction' call
+                    // since it depends on the output from the smart contract function.
+                    //
+                    // If the call will be reverted, then the eth_call will fail and also gas estimation will fail.
+                    // so we might get duplicated errors.
+                    //
+                    // to avoid that, we handle both cases in one do-catch block.
+                    gas = try partialResults.gas.get()
+
+                    let execTransactionSuccess = try partialResults.ethCall.get()
+                    let success = try Sol.Bool(execTransactionSuccess).storage
+                    guard success else {
+                        throw TransactionExecutionError(code: -7, message: "Internal Gnosis Safe transaction fails. Please double check whether this transaction is valid with the current state of the Safe.")
+                    }
                 } catch {
                     errors.append(error)
                 }

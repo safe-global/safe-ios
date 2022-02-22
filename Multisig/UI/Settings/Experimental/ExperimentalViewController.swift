@@ -9,25 +9,29 @@
 import UIKit
 
 class ExperimentalViewController: UITableViewController {
-    @UserDefault(key: "io.gnosis.multisig.experimental.desktopPairing")
-    var desktopPairingEnabled: Bool? {
-        didSet {
-            tableView.reloadData()
-            Tracker.setDesktopPairingEnabled(desktopPairingEnabled ?? false)
-            NotificationCenter.default.post(name: .updatedExperemental, object: nil)
-        }
-    }
+    
+    // Add experimental toggles here
+//    @UserDefault(key: "io.gnosis.multisig.experimental.<toggleName>")
+//    var <toggleName>Enabled: Bool? {
+//        didSet {
+//            tableView.reloadData()
+//            // track if necessary
+//            Tracker.set<toggleName>Enabled(<toggleName>Enabled ?? false)
+//            NotificationCenter.default.post(name: .updatedExperemental, object: nil)
+//        }
+//    }
 
     enum Row: Int, CaseIterable {
-        case desktopPairing
-        case desktopPairingDescription
+       // Add rows for experimental settigns
+       // Replace toggleName with real toggles
+        case toggleName
     }
 
     private lazy var rows: [Row] = {
         var rows: [Row] = []
-        if App.configuration.toggles.desktopPairingExperimentalEnabled {
-            rows += [.desktopPairing, .desktopPairingDescription]
-        }
+//        if App.configuration.toggles.<toggleName>Enabled {
+//            rows += [.<toggleName>, .<toggleName>Description]
+//        }
         return rows
     }()
 
@@ -43,10 +47,6 @@ class ExperimentalViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "WalletConnectDescription")
 
         tableView.backgroundColor = .primaryBackground
-
-        if desktopPairingEnabled == nil {
-            desktopPairingEnabled = false
-        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -60,21 +60,21 @@ class ExperimentalViewController: UITableViewController {
         return rows.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch rows[indexPath.row] {
-        case .desktopPairing:
-            let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
-            cell.setText("Enable Desktop Pairing")
-            cell.setOn(desktopPairingEnabled!, animated: false)
-            return cell
-
-        case .desktopPairingDescription:
-            return descriptionCell(
-                "It allows connecting your owner keys to the desktop app.",
-                indexPath: indexPath
-            )
-        }
-    }
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        switch rows[indexPath.row] {
+//        case .<toggleName>:
+//            let cell = tableView.dequeueCell(SwitchTableViewCell.self, for: indexPath)
+//            cell.setText("toggle name")
+//            cell.setOn(desktopPairingEnabled!, animated: false)
+//            return cell
+//
+//        case .<toggleName>Description:
+//            return descriptionCell(
+//                "toggle description",
+//                indexPath: indexPath
+//            )
+//        }
+//    }
 
     private func descriptionCell(_ text: String, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(UITableViewCell.self, reuseID: "WalletConnectDescription", for: indexPath)
@@ -92,8 +92,8 @@ class ExperimentalViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
 
         switch rows[indexPath.row] {
-        case .desktopPairing:
-            desktopPairingEnabled!.toggle()
+//        case .<toggleName>:
+//            <toggleName>Enabled!.toggle()
 
         default:
             break

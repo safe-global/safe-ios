@@ -158,6 +158,7 @@ extension Tracker {
                 .transactionDetailsTxRejectedWC,
                 .dappConnectedWithScanButton,
                 .dappConnectedWithUniversalLink,
+                .selectDapp,
                 .collectiblesOpenInWeb
             ].contains(event)
     }
@@ -191,11 +192,6 @@ extension Tracker {
     static func setWalletConnectForDappsEnabled(_ enabled: Bool) {
         let property = enabled ? "true" : "false"
         Tracker.shared.setUserProperty(property, for: TrackingUserProperty.walletConnectForDappsEnabled)
-    }
-
-    static func setDesktopPairingEnabled(_ enabled: Bool) {
-        let property = enabled ? "true" : "false"
-        Tracker.shared.setUserProperty(property, for: TrackingUserProperty.desktopPairingEnabled)
     }
 
     static func append(handler: TrackingHandler) {

@@ -124,17 +124,9 @@ struct AppConfiguration {
         @ConfigurationKey("WALLETCONNECT_BRIDGE_URL")
         var bridgeURL: URL
     }
-
+    
     struct FeatureToggles {
-        @UserDefault(key: "io.gnosis.multisig.experimental.desktopPairing")
-        private var desktopPairingEnabledSetting: Bool?
-
-        @ConfigurationKey("DESKTOP_PAIRING_EXPERIMENTAL_ENABLED")
-        var desktopPairingExperimentalEnabled: Bool
-
-        var desktopPairingEnabled: Bool {
-            return (desktopPairingEnabledSetting ?? false) && desktopPairingExperimentalEnabled
-        }
+        // Add feature toggles here
     }
 
     let services = Services()

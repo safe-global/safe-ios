@@ -475,15 +475,33 @@ extension EthRpc1 {
     }
 
     /// Executes a new message call immediately without creating a transaction on the block chain.
-    public struct eth_call: JsonRpc2Method, EthRpc1TransactionParams {
+    public struct eth_call: JsonRpc2Method {
         /// Transaction. NOTE: `from` field MUST be present.
         public var transaction: Transaction
+        /// Block number or tag
+        public var block: EthRpc1.BlockSpecifier
 
         /// Return data
         public typealias Return = EthRpc1.Data
 
-        public init(transaction: EthRpc1.Transaction) {
+        public init(transaction: EthRpc1.Transaction, block: EthRpc1.BlockSpecifier) {
             self.transaction = transaction
+            self.block = block
+        }
+    }
+
+    public struct eth_callLegacyApi: JsonRpc2Method {
+        public static var name: String { "eth_call" }
+
+        public var transaction: EstimateGasLegacyTransaction
+
+        public var block: EthRpc1.BlockSpecifier
+
+        public typealias Return = EthRpc1.Data
+
+        public init(transaction: EstimateGasLegacyTransaction, block: EthRpc1.BlockSpecifier) {
+            self.transaction = transaction
+            self.block = block
         }
     }
 
@@ -520,6 +538,18 @@ extension EthRpc1 {
         }
     }
 
+    /// Creates new message call transaction or a contract creation, if the data field contains code.
+    public struct eth_sendTransaction: JsonRpc2Method, EthRpc1TransactionParams {
+        public var transaction: EthRpc1.EstimateGasLegacyTransaction
+
+        /// the transaction hash, or the zero hash if the transaction is not yet available.
+        public typealias Return = EthRpc1.Data
+
+        public init(transaction: EthRpc1.EstimateGasLegacyTransaction) {
+            self.transaction = transaction
+        }
+    }
+
     /// Returns the receipt of a transaction by transaction hash.
     public struct eth_getTransactionReceipt: JsonRpc2Method {
         public var transactionHash: EthRpc1.Data
@@ -546,6 +576,23 @@ extension EthRpc1 {
         public init(address: EthRpc1.Data, block: EthRpc1.BlockSpecifier) {
             self.address = address
             self.block = block
+        }
+    }
+
+    /// Calculates an Ethereum-specific signature in the form of keccak256("\x19Ethereum Signed Message:\n" + len(message) + message))
+    public struct eth_sign: JsonRpc2Method {
+        /// address to use for signing
+        public var address: EthRpc1.Data
+
+        /// data to sign
+        public var message: EthRpc1.Data
+
+        /// signature hash of the provided data
+        public typealias Return = EthRpc1.Data
+
+        public init(address: EthRpc1.Data, message: EthRpc1.Data) {
+            self.address = address
+            self.message = message
         }
     }
 }
@@ -608,6 +655,36 @@ extension EthRpc1TransactionParams {
     }
 }
 
+extension EthRpc1.eth_call: Codable {
+    public init(from decoder: Decoder) throws {
+        var container = try decoder.unkeyedContainer()
+        let transaction = try container.decode(EthRpc1.Transaction.self)
+        let block = try container.decode(EthRpc1.BlockSpecifier.self)
+        self.init(transaction: transaction, block: block)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.unkeyedContainer()
+        try container.encode(transaction)
+        try container.encode(block)
+    }
+}
+
+extension EthRpc1.eth_callLegacyApi: Codable {
+    public init(from decoder: Decoder) throws {
+        var container = try decoder.unkeyedContainer()
+        let transaction = try container.decode(EthRpc1.EstimateGasLegacyTransaction.self)
+        let block = try container.decode(EthRpc1.BlockSpecifier.self)
+        self.init(transaction: transaction, block: block)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.unkeyedContainer()
+        try container.encode(transaction)
+        try container.encode(block)
+    }
+}
+
 public protocol EthEstimateGasAbi {}
 
 extension EthEstimateGasAbi where Self: JsonRpc2Method, Self: EthRpc1TransactionParams {
@@ -624,6 +701,21 @@ extension EthRpc1.eth_getTransactionReceipt: Codable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.unkeyedContainer()
         try container.encode(transactionHash)
+    }
+}
+
+extension EthRpc1.eth_sign: Codable {
+    public init(from decoder: Decoder) throws {
+        var container = try decoder.unkeyedContainer()
+        let address = try container.decode(EthRpc1.Data.self)
+        let message = try container.decode(EthRpc1.Data.self)
+        self.init(address: address, message: message)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.unkeyedContainer()
+        try container.encode(address)
+        try container.encode(message)
     }
 }
 
@@ -1237,6 +1329,9 @@ extension EthRawTransaction {
 public protocol EthTransaction: EthSignable, EthRawTransaction {
     var from: Sol.Address? { get }
     var hash: Eth.Hash? { get set }
+    var to: Sol.Address { get }
+    var value: Sol.UInt256 { get }
+    var data: Sol.Bytes { get }
 
     // derived from the fee and value
     var requiredBalance: Sol.UInt256 { get }
@@ -1293,6 +1388,10 @@ extension Eth.TransactionEip1559: EthTransaction {
     public mutating func removeFee() {
         fee = .init()
     }
+
+    public var data: Sol.Bytes {
+        input
+    }
 }
 
 extension Eth.TransactionEip1559: EthRawTransaction {
@@ -1323,13 +1422,19 @@ extension Eth.TransactionEip1559: EthRawTransaction {
 
 extension EthRpc1.eth_estimateGas {
     public init(_ tx: EthTransaction) {
+        self.init(transaction: EthRpc1.Transaction(tx))
+    }
+}
+
+extension EthRpc1.Transaction {
+    public init(_ tx: EthTransaction) {
         switch tx {
         case let eip1559 as Eth.TransactionEip1559:
-            self.init(transaction: .eip1559(EthRpc1.Transaction1559(eip1559)))
+            self = .eip1559(EthRpc1.Transaction1559(eip1559))
         case let eip2930 as Eth.TransactionEip2930:
-            self.init(transaction: .eip2930(EthRpc1.Transaction2930(eip2930)))
+            self = .eip2930(EthRpc1.Transaction2930(eip2930))
         case let legacy as Eth.TransactionLegacy:
-            self.init(transaction: .legacy(EthRpc1.TransactionLegacy(legacy)))
+            self = .legacy(EthRpc1.TransactionLegacy(legacy))
         default:
             fatalError("Not implemented")
         }
@@ -1338,15 +1443,64 @@ extension EthRpc1.eth_estimateGas {
 
 extension EthRpc1.eth_estimateGasLegacyApi {
     public init(_ tx: EthTransaction) {
+        self.init(transaction: EthRpc1.EstimateGasLegacyTransaction(tx))
+    }
+}
+
+extension EthRpc1.EstimateGasLegacyTransaction {
+    public init(_ tx: EthTransaction) {
         switch tx {
         case let eip1559 as Eth.TransactionEip1559:
-            self.init(transaction: EthRpc1.EstimateGasLegacyTransaction(eip1559))
+            self.init(eip1559)
         case let eip2930 as Eth.TransactionEip2930:
-            self.init(transaction: EthRpc1.EstimateGasLegacyTransaction(eip2930))
+            self.init(eip2930)
         case let legacy as Eth.TransactionLegacy:
-            self.init(transaction: EthRpc1.EstimateGasLegacyTransaction(legacy))
+            self.init(legacy)
         default:
             fatalError("Not implemented")
+        }
+    }
+
+    public var ethTransaction: EthTransaction {
+        if let type = type?.storage, type == 0x01 {
+            return Eth.TransactionEip2930(
+                type: type,
+                chainId: 0,
+                from: self.from.map(\.storage).flatMap(Sol.Address.init(maybeData:)),
+                to: self.to.map(\.storage).flatMap(Sol.Address.init(maybeData:)) ?? 0,
+                value: self.value.storage,
+                input: Sol.Bytes(storage: self.data.storage),
+                nonce: self.nonce?.storage ?? 0,
+                fee: Eth.Fee2930(gas: self.gas?.storage, gasPrice: self.gasPrice?.storage, accessList: Eth.AccessList()),
+                hash: nil,
+                signature: nil,
+                locationInBlock: nil
+            )
+        } else if let type = type?.storage, type == 0x02 {
+            return Eth.TransactionEip1559(
+                type: type,
+                chainId: 0,
+                from: self.from.map(\.storage).flatMap(Sol.Address.init(maybeData:)),
+                to: self.to.map(\.storage).flatMap(Sol.Address.init(maybeData:)) ?? 0,
+                value: self.value.storage,
+                input: Sol.Bytes(storage: self.data.storage),
+                nonce: self.nonce?.storage ?? 0,
+                fee: Eth.Fee1559(gas: self.gas?.storage, maxFeePerGas: self.maxFeePerGas?.storage, maxPriorityFee: self.maxPriorityFeePerGas?.storage, accessList: Eth.AccessList()),
+                hash: nil,
+                signature: nil,
+                locationInBlock: nil)
+        } else {
+            return Eth.TransactionLegacy(
+                chainId: nil,
+                from: self.from.map(\.storage).flatMap(Sol.Address.init(maybeData:)),
+                to: self.to.map(\.storage).flatMap(Sol.Address.init(maybeData:)) ?? 0,
+                value: self.value.storage,
+                input: Sol.Bytes(storage: self.data.storage),
+                nonce: self.nonce?.storage ?? 0,
+                fee: Eth.FeeLegacy(gas: self.gas?.storage, gasPrice: self.gasPrice?.storage),
+                hash: nil,
+                signature: nil,
+                locationInBlock: nil)
         }
     }
 }
@@ -1456,6 +1610,130 @@ extension Eth.TransactionEip2930: EthTransaction {
 
     public mutating func removeFee() {
         fee = .init()
+    }
+
+    public var data: Sol.Bytes {
+        input
+    }
+}
+
+extension EthRpc1.Transaction {
+    public var ethTransaction: EthTransaction? {
+        switch self {
+        case .legacy(let tx):
+            return Eth.TransactionLegacy(tx)
+        case .eip1559(let tx):
+            return Eth.TransactionEip1559(tx)
+        case .eip2930(let tx):
+            return Eth.TransactionEip2930(tx)
+        case .unknown:
+            return nil
+        }
+    }
+}
+
+extension Eth.TransactionLegacy {
+    public init(_ tx: EthRpc1.TransactionLegacy) {
+        self.init(
+            chainId: tx.chainId?.storage,
+            from: (tx.from?.storage).flatMap(Sol.Address.init(exactly:)),
+            to: (tx.to?.storage).flatMap(Sol.Address.init(exactly:)) ?? 0,
+            value: tx.value.storage,
+            input: Sol.Bytes(exactly: tx.input.storage) ?? Sol.Bytes(),
+            nonce: tx.nonce?.storage ?? 0,
+            fee: Eth.FeeLegacy(gas: tx.gas?.storage, gasPrice: tx.gasPrice?.storage),
+            hash: (tx.hash?.storage).map(Eth.Hash.init),
+            signature: Eth.SignatureLegacy(v: tx.v?.storage, r: tx.r?.storage, s: tx.s?.storage),
+            locationInBlock: Eth.BlockLocation(
+                blockHash: (tx.blockHash?.storage).flatMap(Sol.Bytes32.init(exactly:)),
+                blockNumber: tx.blockNumber?.storage,
+                transactionIndex: tx.transactionIndex?.storage
+            )
+        )
+    }
+}
+
+extension Eth.TransactionEip1559 {
+    public init(_ tx: EthRpc1.Transaction1559) {
+        self.init(
+            type: tx.type.storage,
+            chainId: tx.chainId.storage,
+            from: (tx.from?.storage).flatMap(Sol.Address.init(exactly:)),
+            to: (tx.to?.storage).flatMap(Sol.Address.init(exactly:)) ?? 0,
+            value: tx.value.storage,
+            input: Sol.Bytes(exactly: tx.input.storage) ?? Sol.Bytes(),
+            nonce: tx.nonce?.storage ?? 0,
+            fee: Eth.Fee1559(gas: tx.gas?.storage, maxFeePerGas: tx.maxFeePerGas?.storage, maxPriorityFee: tx.maxPriorityFeePerGas?.storage, accessList: Eth.AccessList(tx.accessList)),
+            hash: (tx.hash?.storage).map(Eth.Hash.init),
+            signature: Eth.Signature(yParity: tx.yParity?.storage, r: tx.r?.storage, s: tx.s?.storage),
+            locationInBlock: Eth.BlockLocation(
+                blockHash: (tx.blockHash?.storage).flatMap(Sol.Bytes32.init(exactly:)),
+                blockNumber: tx.blockNumber?.storage,
+                transactionIndex: tx.transactionIndex?.storage
+            )
+        )
+    }
+}
+
+extension Eth.TransactionEip2930 {
+    public init(_ tx: EthRpc1.Transaction2930) {
+        self.init(
+            type: tx.type.storage,
+            chainId: tx.chainId.storage,
+            from: (tx.from?.storage).flatMap(Sol.Address.init(exactly:)),
+            to: (tx.to?.storage).flatMap(Sol.Address.init(exactly:)) ?? 0,
+            value: tx.value.storage,
+            input: Sol.Bytes(exactly: tx.input.storage) ?? Sol.Bytes(),
+            nonce: tx.nonce?.storage ?? 0,
+            fee: Eth.Fee2930(gas: tx.gas?.storage, gasPrice: tx.gasPrice?.storage, accessList: Eth.AccessList(tx.accessList)),
+            hash: (tx.hash?.storage).map(Eth.Hash.init),
+            signature: Eth.Signature(yParity: tx.yParity?.storage, r: tx.r?.storage, s: tx.s?.storage),
+            locationInBlock: Eth.BlockLocation(
+                blockHash: (tx.blockHash?.storage).flatMap(Sol.Bytes32.init(exactly:)),
+                blockNumber: tx.blockNumber?.storage,
+                transactionIndex: tx.transactionIndex?.storage
+            )
+        )
+    }
+}
+
+extension Eth.AccessList {
+    public init(_ values: [EthRpc1.AccessListEntry]) {
+        elements = values.map(Eth.AccessListElement.init)
+    }
+}
+
+extension Eth.AccessListElement {
+    public init(_ value: EthRpc1.AccessListEntry) {
+        address = (value.address?.storage).flatMap(Sol.Address.init(exactly:)) ?? 0
+        storageKeys = (value.storageKeys ?? []).map(\.storage).compactMap(Sol.Bytes32.init(exactly:))
+    }
+}
+
+extension Eth.Signature {
+    public init?(yParity: Sol.UInt256?, r: Sol.UInt256?, s: Sol.UInt256?) {
+        guard let yParity = yParity, let r = r, let s = s else {
+            return nil
+        }
+        self.init(yParity: yParity, r: r, s: s)
+    }
+}
+
+extension Eth.SignatureLegacy {
+    public init?(v: Sol.UInt256?, r: Sol.UInt256?, s: Sol.UInt256?, chainId: Sol.UInt256? = nil) {
+        guard let v = v, let r = r, let s = s else {
+            return nil
+        }
+        self.init(v: v, r: r, s: s, chainId: chainId)
+    }
+}
+
+extension Eth.BlockLocation {
+    public init?(blockHash: Sol.Bytes32?, blockNumber: Sol.UInt256?, transactionIndex: Sol.UInt64?) {
+        guard let blockHash = blockHash, let blockNumber = blockNumber, let index = transactionIndex else {
+            return nil
+        }
+        self.init(blockHash: blockHash, blockNumber: blockNumber, transactionIndex: index)
     }
 }
 
@@ -1583,6 +1861,10 @@ extension Eth.TransactionLegacy: EthTransaction {
 
     public mutating func removeFee() {
         fee = .init()
+    }
+
+    public var data: Sol.Bytes {
+        input
     }
 }
 

@@ -196,7 +196,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                         if !safe.isReadOnly {
                             self?.showSend(balance: item)
                         }
-                        self?.dismiss(animated: true, completion: nil)
+                        self?.dismiss(animated: true)
                     }
                     let navigationController = UINavigationController(rootViewController: vc)
                     self.present(navigationController, animated: true)

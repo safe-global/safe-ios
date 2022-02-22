@@ -17,6 +17,15 @@ class MainTabBarViewController: UITabBarController {
     private weak var transactionsSegementControl: SegmentViewController?
     private var appearsFirstTime: Bool = true
 
+    // In-memory queue of incoming requests to present. Due to limitation of UIKit,
+    // only one view controller can be presented at the same time.
+    fileprivate var requestQueue: [WebConnectionRequest] = []
+    fileprivate var debounceTimer: Timer?
+    fileprivate var presentingRequest: Bool = false
+
+    static fileprivate let SETTINGS_TAB_INDEX = 3
+    static fileprivate let APP_SETTINGS_SEGMENT_INDEX = 0
+
     lazy var balancesTabVC: UIViewController = {
         balancesTabViewController()
     }()
@@ -68,6 +77,12 @@ class MainTabBarViewController: UITabBarController {
             selector: #selector(updateTabs),
             name: .updatedExperemental,
             object: nil)
+
+        WebConnectionController.shared.attach(observer: self)
+    }
+
+    deinit {
+        WebConnectionController.shared.detach(observer: self)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -81,16 +96,7 @@ class MainTabBarViewController: UITabBarController {
 
         WhatsNewHandler().whatsNewViewController?.present(on: self)
 
-        let createSafeVC = CreateSafeViewController(nibName: nil, bundle: nil)
-        createSafeVC.onClose = { [weak self] in
-            self?.dismiss(animated: true, completion: nil)
-        }
-        createSafeVC.onFinish = { [weak self] in
-            self?.dismiss(animated: true, completion: nil)
-        }
-        let nav = UINavigationController(rootViewController: createSafeVC)
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: true)
+        WebConnectionController.shared.reconnect()
     }
 
     private func balancesTabViewController() -> UIViewController {
@@ -157,23 +163,28 @@ class MainTabBarViewController: UITabBarController {
         noSafesVC.hasSafeViewController = SafeSettingsViewController()
         noSafesVC.noSafeViewController = loadSafeViewController
 
+        let appSettingsVC = AppSettingsViewController()
+
         let segmentVC = SegmentViewController(namedClass: nil)
         segmentVC.segmentItems = [
             SegmentBarItem(image: UIImage(named: "ico-app-settings")!, title: "App Settings"),
             SegmentBarItem(image: UIImage(named: "ico-safe-settings")!, title: "Safe Settings")
         ]
         segmentVC.viewControllers = [
-            AppSettingsViewController(),
+            appSettingsVC,
             noSafesVC
         ]
-        segmentVC.selectedIndex = 0
+        segmentVC.selectedIndex = Self.APP_SETTINGS_SEGMENT_INDEX
         let ribbonVC = RibbonViewController(rootViewController: segmentVC)
         
         let tabRoot = HeaderViewController(rootViewController: ribbonVC)
-        return settingsTabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: 3)
+        let settingsTabVC = settingsTabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: Self.SETTINGS_TAB_INDEX)
+        settingsTabVC.segmentViewController = segmentVC
+        settingsTabVC.appSettingsViewController = appSettingsVC
+        return settingsTabVC
     }
 
-    private func settingsTabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> UIViewController {
+    private func settingsTabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> SettingsUINavigationController {
         let nav = SettingsUINavigationController(rootViewController: root)
         let tabItem = UITabBarItem(title: title, image: image, tag: tag)
         nav.tabBarItem = tabItem
@@ -226,7 +237,30 @@ class MainTabBarViewController: UITabBarController {
     }
 }
 
+extension MainTabBarViewController: NavigationRouter {
+    func canNavigate(to route: NavigationRoute) -> Bool {
+        if route.path.starts(with: "/settings/") {
+            return true
+        }
+        return false
+    }
+
+    func navigate(to route: NavigationRoute) {
+        guard let settingsNav = settingsTabVC as? SettingsUINavigationController,
+              let segmentVC = settingsNav.segmentViewController,
+              let appSettingsVC = settingsNav.appSettingsViewController else {
+            return
+        }
+        selectedIndex = Self.SETTINGS_TAB_INDEX
+        segmentVC.selectedIndex = Self.APP_SETTINGS_SEGMENT_INDEX
+        appSettingsVC.navigateAfterDelay(to: route)
+    }
+}
+
 class SettingsUINavigationController: UINavigationController {
+    weak var segmentViewController: SegmentViewController?
+    weak var appSettingsViewController: AppSettingsViewController?
+
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
         NotificationCenter.default.addObserver(
@@ -251,3 +285,67 @@ class SettingsUINavigationController: UINavigationController {
         }
     }
 }
+
+extension MainTabBarViewController: WebConnectionRequestObserver {
+    func didUpdate(request: WebConnectionRequest) {
+        guard request.status == .pending else { return }
+        requestQueue.append(request)
+        debounceTimer?.invalidate()
+        debounceTimer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: false, block: { [weak self] _ in
+            self?.presentRequests()
+        })
+    }
+
+    /// Presents next request from the queue.
+    /// The way how UIKit presentation works is that you can present only one
+    /// screen at the same time, and you can't present another one during any presentation animation.
+    /// That's why we queue the requests and open next from the queue when the current one is closed.
+    func presentRequests() {
+        guard !requestQueue.isEmpty && !presentingRequest else { return }
+        let request = requestQueue.removeLast()
+
+        presentingRequest = true
+        let completion: () -> Void = { [weak self] in
+            self?.presentingRequest = false
+            self?.presentRequests()
+        }
+
+        switch request {
+        case let signRequest as WebConnectionSignatureRequest:
+            let vc = SignatureRequestViewController()
+            present(controller: vc, request: signRequest, completion: completion)
+
+        case let txRequest as WebConnectionSendTransactionRequest:
+            let vc = SendTransactionRequestViewController()
+            present(controller: vc, request: txRequest, completion: completion)
+
+        default:
+            presentingRequest = false
+            presentRequests()
+            break
+        }
+    }
+
+    fileprivate func present<T, R>(controller: T, request: R, completion: @escaping () -> Void) where T: WebRequestViewController, T: UIViewController, T.Request == R, R: WebConnectionRequest {
+        controller.request = request
+        controller.controller = WebConnectionController.shared
+        controller.connection = WebConnectionController.shared.connection(for: request)
+        controller.onFinish = { [weak self] in
+            self?.dismiss(animated: true, completion: completion)
+        }
+        let vc = ViewControllerFactory.modal(viewController: controller)
+        present(vc, animated: true)
+    }
+}
+
+protocol WebRequestViewController: AnyObject {
+    associatedtype Request
+    var request: Request! { get set }
+    var controller: WebConnectionController! { get set }
+    var connection: WebConnection! { get set }
+    var onFinish: () -> Void { get set }
+}
+
+extension SignatureRequestViewController: WebRequestViewController {}
+
+extension SendTransactionRequestViewController: WebRequestViewController {}

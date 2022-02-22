@@ -255,11 +255,11 @@
       },
       {
         "package": "WalletConnectSwift",
-        "repositoryURL": "https://github.com/WalletConnect/WalletConnectSwift.git",
+        "repositoryURL": "https://github.com/gnosis/WalletConnectSwift.git",
         "state": {
-          "branch": null,
-          "revision": "f316e6dd91639d6e3e5a4c8860d823c08cc71bc3",
-          "version": "1.6.2"
+          "branch": "gnosis-safe-ios",
+          "revision": "bc52a16d7d3fce459928df997e6921d39554dbc4",
+          "version": null
         }
       },
       {

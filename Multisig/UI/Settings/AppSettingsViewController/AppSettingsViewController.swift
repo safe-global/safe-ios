@@ -85,22 +85,21 @@ class AppSettingsViewController: UITableViewController {
 
     private func buildSections() {
         sections = []
-        if App.configuration.toggles.desktopPairingEnabled {
-            sections.append((section: .app, items: [Section.App.desktopPairing("Pair your Desktop")]))
-        }
         sections += [
             (section: .app, items: [
+                Section.App.desktopPairing("Connect to Web"),
                 Section.App.ownerKeys("Owner keys", "\(KeyInfo.count())"),
                 Section.App.addressBook("Address Book"),
                 Section.App.passcode("Passcode"),
                 Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),
                 Section.App.chainPrefix("Chain prefix"),
                 Section.App.appearance("Appearance"),
-                Section.App.experimental("Experimental")
+                // we do not have experimental features at the moment
+                //Section.App.experimental("Experimental")
             ]),
             (section: .support("Support & Feedback"), items: [
                 Section.Support.chatWithUs("Chat with us"),
-                Section.Support.getSupport("Get Support")
+                Section.Support.getSupport("Help Center")
             ]),
             (section: .advanced("Advanced"), items: [
                 Section.Advanced.advanced("Advanced")
@@ -137,9 +136,24 @@ class AppSettingsViewController: UITableViewController {
         }
     }
 
-    private func showDesktopPairing() {
-        let vc = DesktopPairingViewController()
-        show(vc, sender: self)
+    private func showDesktopPairing() -> WebConnectionsViewController? {
+        let keys = WebConnectionController.shared.accountKeys()
+        if keys.isEmpty {
+            let addOwnersVC = AddOwnerFirstViewController()
+            addOwnersVC.descriptionText = "To connect to Gnosis Safe import at least one owner key. Keys are used to confirm transactions."
+            addOwnersVC.onSuccess = { [weak self] in
+                self?.dismiss(animated: true) {
+                    _ = self?.showDesktopPairing()
+                }
+            }
+            let nav = UINavigationController(rootViewController: addOwnersVC)
+            present(nav, animated: true)
+            return nil
+        } else {
+            let connectionsVC = WebConnectionsViewController()
+            show(connectionsVC, sender: self)
+            return connectionsVC
+        }
     }
 
     private func showOwnerKeys() {
@@ -306,6 +320,30 @@ class AppSettingsViewController: UITableViewController {
             return 0
         default:
             return BasicHeaderView.headerHeight
+        }
+    }
+}
+
+extension AppSettingsViewController: NavigationRouter {
+    func canNavigate(to route: NavigationRoute) -> Bool {
+        if route.path == NavigationRoute.connectToWeb().path {
+            return true
+        }
+        return false
+    }
+
+    func navigate(to route: NavigationRoute) {
+        if let vc = navigationController?.topViewController as? WebConnectionsViewController {
+            vc.navigateAfterDelay(to: route)
+            return
+        }
+
+        if let controllers =  navigationController?.viewControllers, controllers.count > 1 {
+            navigationController?.popToRootViewController(animated: true)
+        }
+
+        if let pairingVC = showDesktopPairing() {
+            pairingVC.navigateAfterDelay(to: route)
         }
     }
 }

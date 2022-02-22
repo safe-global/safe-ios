@@ -173,6 +173,7 @@ enum TrackingEvent: String, Trackable {
     case connectExternalWallet                      = "user_owner_connected_external_wallet"
     case dappConnectedWithUniversalLink             = "user_dapp_connected_universal_link"
     case dappConnectedWithScanButton                = "user_dapp_connected_scan_button"
+    case selectDapp                                 = "user_dapp_select_dapp"
 
     case walletConnectIncomingTransaction           = "screen_wc_incoming_transaction"
     case walletConnectEditParameters                = "screen_wc_edit_parameters"
@@ -186,15 +187,31 @@ enum TrackingEvent: String, Trackable {
     case ledgerSelectKey                            = "screen_select_ledger_nano_x_key"
     case ledgerEnterKeyName                         = "screen_ledger_nano_x_enter_name"
 
-    case desktopPairing                             = "screen_desktop_pairing"
-    case desktopPairingLearnMore                    = "dp_learn_more"
-    case desktopPairingConfirmConnection            = "screen_dp_confirm_connection"
-    case desktopPairingConnectionConfirmed          = "dp_connection_confirmed"
-    case desktopPairingConnectionRejected           = "dp_connection_rejected"
-    case desktopPairingSignRequest                  = "screen_dp_sign_request"
-    case dpSignRequestConfirmedPhoneKey             = "dp_sign_request_confirmed_phone_key"
-    case dpSignRequestConfirmedLedger               = "dp_sign_request_confirmed_ledger_nx"
-    case desktopPairingSignRequestRejected          = "dp_sign_request_rejected"
+    // MARK: Web Connections
+    case webConnectionList                          = "screen_connect_to_web"
+    case webConnectionListOpenedInfo                = "user_ctw_learn_more"
+
+    // MARK: Web Connection Details
+    case webConnectionDetails                       = "screen_ctw_connection_details"
+    case webConnectionDisconnected                  = "user_ctw_disconnect"
+
+    // MARK: Web Connection Scan QR Code
+    case webConnectionQRScanner                     = "screen_ctw_scan"
+
+    // MARK: Connection Request
+    case webConnectionConnectionRequest             = "screen_ctw_select_key"
+    case webConnectionConnectionRequestConfirmed    = "user_ctw_connection_confirmed"
+    case webConnectionConnectionRequestRejected     = "user_ctw_connection_rejected"
+
+    // MARK: Signature Request
+    case webConnectionSignRequest                   = "screen_ctw_eth_sign"
+    case webConnectionSignRequestConfirmed          = "user_ctw_eth_sign_confirmed"
+    case webConnectionSignRequestRejected           = "user_ctw_eth_sign_rejected"
+
+    // MARK: Send Transaction Request
+    case webConnectionSendRequest                   = "screen_ctw_eth_send_tx"
+    case webConnectionSendRequestConfirmed          = "user_ctw_eth_send_tx_confirmed"
+    case webConnectionSendRequestRejected           = "user_ctw_eth_send_tx_rejected"
 
     // MARK: add delegate key
     case addDelegateKeyLedger                       = "screen_delegate_ledger_nano_x"

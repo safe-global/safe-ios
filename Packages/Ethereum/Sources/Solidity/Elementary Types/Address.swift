@@ -64,6 +64,10 @@ public extension Sol.Address {
             storage = try Sol.UInt160(data)
         }
     }
+
+    init?(maybeData: Data) {
+        try? self.init(data: maybeData)
+    }
 }
 
 extension Sol.Address: ExpressibleByStringLiteral {
