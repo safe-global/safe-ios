@@ -261,7 +261,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 owners: keys,
                 chainID: uiModel.chain.id,
                 titleText: "Deployer Account",
-                descriptionText: "The selected account will be used to deploy the Safe.",
+                header: .text(description: "The selected account will be used to deploy the Safe."),
                 requestsPasscode: false,
                 selectedKey: uiModel.selectedKey,
                 balancesLoader: balancesLoader
