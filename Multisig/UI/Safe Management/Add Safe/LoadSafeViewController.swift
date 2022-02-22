@@ -62,17 +62,21 @@ class LoadSafeViewController: UIViewController {
             let ribbon = RibbonViewController(rootViewController: vc)
             ribbon.chain = vc.chain
             vc.completion = {
-                selectNetworkVC.navigationController?.popToRootViewController(animated: true)
+                self?.dismiss(animated: true, completion: nil)
             }
-            self?.show(ribbon, sender: self)
+            selectNetworkVC.show(ribbon, sender: self)
         }
-
-        show(selectNetworkVC, sender: self)
+        let vc = ViewControllerFactory.modal(viewController: selectNetworkVC)
+        present(vc, animated: true)
     }
 
-    @IBAction func didTabCreateSafe(_ sender: Any) {
-        let controller = CreateNewSafeViewController()
-        show(controller, sender: self)
+    @IBAction func didTapCreateSafe(_ sender: Any) {
+        let createSafeVC = CreateSafeViewController(nibName: nil, bundle: nil)
+        createSafeVC.onClose = { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
+        let vc = ViewControllerFactory.modal(viewController: createSafeVC)
+        present(vc, animated: true)
     }
 
     @IBAction func didTapTryDemo(_ sender: Any) {
