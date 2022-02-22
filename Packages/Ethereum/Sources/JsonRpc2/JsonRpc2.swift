@@ -305,6 +305,7 @@ extension JsonRpc2.Params: EncodableConvertible, DecodableConvertible {}
 
 
 // utility to create requests and responses for the same rpc call
+@available(*, deprecated: 13, message: "Use JsonRpc2MethodCall or JsonRpc2MethodWithCompletion")
 public protocol JsonRpc2Method {
     static var name: String { get }
     associatedtype Return
@@ -330,6 +331,60 @@ extension JsonRpc2Method where Return: Decodable {
     }
 }
 
+public protocol JsonRpc2MethodCall {
+    var methodName: String { get }
+    func request(id: JsonRpc2.Id?) throws -> JsonRpc2.Request
+    func handle(response: JsonRpc2.Response)
+    func handle(error: Error)
+}
+
+public protocol JsonRpc2MethodWithCompletion: JsonRpc2MethodCall {
+    var completion: (Result<ReturnType, Error>) -> Void { get }
+    associatedtype ReturnType
+    func convert(json: Json.Element) throws -> ReturnType
+}
+
+extension JsonRpc2MethodCall {
+    public var methodName: String {
+        String(describing: type(of: self))
+    }
+}
+
+extension JsonRpc2MethodCall where Self: Encodable {
+    public func request(id: JsonRpc2.Id?) throws -> JsonRpc2.Request {
+        try JsonRpc2.Request(
+                jsonrpc: "2.0",
+                method: methodName,
+                params: JsonRpc2.Params(value: self),
+                id: id)
+    }
+}
+
+extension JsonRpc2MethodWithCompletion where ReturnType: Decodable {
+    public func handle(response: JsonRpc2.Response) {
+        if let error = response.error {
+            handle(error: error)
+            return
+        }
+        guard let json = response.result else {
+            return
+        }
+        do {
+            let result = try convert(json: json)
+            completion(.success(result))
+        } catch {
+            handle(error: error)
+        }
+    }
+
+    public func convert(json: Json.Element) throws -> ReturnType {
+        try json.convert(to: ReturnType.self)
+    }
+
+    public func handle(error: Error) {
+        completion(.failure(error))
+    }
+}
 
 extension JsonRpc2.Error {
     // JSON RPC Errors

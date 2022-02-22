@@ -25,6 +25,9 @@ class AppReviewController {
     ///
     /// This means count to 3 again, not including starts from push notifications.
     func pullAppReviewTrigger() {
+        #if DEBUG
+        return
+        #endif
         guard AppSettings.termsAccepted && !startedFromNotification else { return }
 
         // will be 0 if never counted yet

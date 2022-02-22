@@ -16,4 +16,16 @@ class SelectNetworkTableViewCell: UITableViewCell {
         super.awakeFromNib()
         nameLabel.setStyle(.primary)
     }
+
+    func setText(_ text: String?) {
+        nameLabel.text = text
+    }
+
+    func setIndicatorColor(hex: String) {
+        setIndicatorColor(UIColor(hex: hex))
+    }
+
+    func setIndicatorColor(_ color: UIColor?) {
+        colorImageView.tintColor = color
+    }
 }

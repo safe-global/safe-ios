@@ -14,6 +14,8 @@ class AddOwnerFirstViewController: UIViewController {
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var addOwnerKeyButton: UIButton!
 
+    var showsCloseButton: Bool = true
+
     var onSuccess: (() -> ())?
 
     var descriptionText: String = "To start sending funds import at least one owner key. Keys are used to confirm transactions."
@@ -22,10 +24,13 @@ class AddOwnerFirstViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.title = "Add Owner Key"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .close,
-            target: self,
-            action: #selector(CloseModal.closeModal))
+
+        if showsCloseButton {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(
+                    barButtonSystemItem: .close,
+                    target: self,
+                    action: #selector(CloseModal.closeModal))
+        }
 
         titleLabel.setStyle(.headline)
         messageLabel.setStyle(.secondary)
@@ -37,7 +42,7 @@ class AddOwnerFirstViewController: UIViewController {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.assetsTransferAddOwner)
     }
-    
+
     @IBAction func addOwnerKeyClicked(_ sender: Any) {
         let vc = AddOwnerKeyViewController(showsCloseButton: false) { [unowned self] in
             self.onSuccess?()

@@ -23,7 +23,6 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         self.safe = safe
 
         tableView.registerCell(BorderedInnerTableCell.self)
-        tableView.registerCell(ErrorTableViewCell.self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Spacer")
     }
 
@@ -149,11 +148,10 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         guard let errorText = errorText else {
             return
         }
+        let cell = newCell(DetailExpandableTextCell.self)
 
         // restrict to 1 tweet length
         let errorPreview = errorText.count <= 144 ? nil : (String(errorText.prefix(144)) + "…")
-
-        let cell = newCell(DetailExpandableTextCell.self)
         cell.tableView = tableView
         cell.titleStyle = .error.weight(.medium)
         cell.expandableTitleStyle = (collapsed: .error, expanded: .error)
