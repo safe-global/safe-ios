@@ -14,6 +14,9 @@ final class SwitchSafesViewController: UITableViewController {
     private var chainSafes = Chain.ChainSafes()
     private let addSafeSection = 0
 
+    var onCreateSafe: (() -> ())?
+    var onAddSafe: (() -> ())?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -91,19 +94,22 @@ final class SwitchSafesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == addSafeSection {
-            let selectNetworkVC = SelectNetworkViewController()
-            selectNetworkVC.screenTitle = "Load Gnosis Safe"
-            selectNetworkVC.descriptionText = "Select network on which your Safe was created:"
-            selectNetworkVC.completion = { [weak self] chain  in
-                let vc = EnterSafeAddressViewController()
-                vc.chain = chain
-                let ribbon = RibbonViewController(rootViewController: vc)
-                ribbon.chain = vc.chain
-                vc.completion = { self?.didTapCloseButton() }
-                self?.show(ribbon, sender: self)
+            let alertController = UIAlertController(
+                title: nil,
+                message: nil,
+                preferredStyle: .actionSheet)
+            let addSafe = UIAlertAction(title: "Add existing safe", style: .default) { [weak self] _ in
+                self?.onAddSafe?()
             }
 
-            show(selectNetworkVC, sender: self)
+            let createSafe = UIAlertAction(title: "Create new Safe", style: .default) { [weak self] _ in
+                self?.onCreateSafe?()
+            }
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alertController.addAction(addSafe)
+            alertController.addAction(createSafe)
+            alertController.addAction(cancel)
+            self.present(alertController, animated: true)
         } else {
             let safe = chainSafes[indexPath.section - 1].safes[indexPath.row]
             if !safe.isSelected {

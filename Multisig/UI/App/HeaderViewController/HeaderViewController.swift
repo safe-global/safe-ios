@@ -75,6 +75,38 @@ final class HeaderViewController: ContainerViewController {
 
     @IBAction private func didTapSwitchSafe(_ sender: Any) {
         let switchSafesVC = SwitchSafesViewController()
+
+
+        switchSafesVC.onAddSafe = { [weak self] in
+            self?.dismiss(animated: false) {
+                let selectNetworkVC = SelectNetworkViewController()
+                selectNetworkVC.screenTitle = "Load Gnosis Safe"
+                selectNetworkVC.descriptionText = "Select network on which your Safe was created:"
+                selectNetworkVC.completion = { [weak self] chain  in
+                    let vc = EnterSafeAddressViewController()
+                    vc.chain = chain
+                    let ribbon = RibbonViewController(rootViewController: vc)
+                    ribbon.chain = vc.chain
+                    vc.completion = { self?.dismiss(animated: true, completion: nil) }
+                    selectNetworkVC.show(ribbon, sender: self)
+                }
+
+                let vc = ViewControllerFactory.modal(viewController: selectNetworkVC)
+                self?.present(vc, animated: true)
+            }
+        }
+
+        switchSafesVC.onCreateSafe = { [weak self] in
+            self?.dismiss(animated: true) {
+                let createSafeVC = CreateSafeViewController(nibName: nil, bundle: nil)
+                createSafeVC.onClose = { [weak self] in
+                    self?.dismiss(animated: true, completion: nil)
+                }
+                let vc = ViewControllerFactory.modal(viewController: createSafeVC)
+                self?.present(vc, animated: true)
+            }
+        }
+
         let nav = UINavigationController(rootViewController: switchSafesVC)
         present(nav, animated: true)
     }
