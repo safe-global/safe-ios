@@ -138,6 +138,10 @@
 		0A0391BE27C52C40003C871A /* IconButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A0391BC27C52C40003C871A /* IconButtonTableViewCell.xib */; };
 		0A0391C127C52DE7003C871A /* HelpTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0391BF27C52DE7003C871A /* HelpTextTableViewCell.swift */; };
 		0A0391C227C52DE7003C871A /* HelpTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A0391C027C52DE7003C871A /* HelpTextTableViewCell.xib */; };
+		0A0391CB27C565D4003C871A /* IconButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A0391C727C565D3003C871A /* IconButtonTableViewCell.xib */; };
+		0A0391CC27C565D4003C871A /* HelpTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0391C827C565D3003C871A /* HelpTextTableViewCell.swift */; };
+		0A0391CD27C565D4003C871A /* HelpTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A0391C927C565D3003C871A /* HelpTextTableViewCell.xib */; };
+		0A0391CE27C565D4003C871A /* IconButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0391CA27C565D3003C871A /* IconButtonTableViewCell.swift */; };
 		0A04506A278D800700650F71 /* ReviewExecutionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A045068278D800700650F71 /* ReviewExecutionViewController.swift */; };
 		0A04506B278D800700650F71 /* ReviewExecutionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A045069278D800700650F71 /* ReviewExecutionViewController.xib */; };
 		0A04506D278D973C00650F71 /* ReviewExecutionContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04506C278D973C00650F71 /* ReviewExecutionContentViewController.swift */; };
@@ -895,6 +899,10 @@
 		0A0391BF27C52DE7003C871A /* HelpTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpTextTableViewCell.swift; sourceTree = "<group>"; };
 		0A0391C027C52DE7003C871A /* HelpTextTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HelpTextTableViewCell.xib; sourceTree = "<group>"; };
 		0A0391C327C5640C003C871A /* CreateSafeInstructionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSafeInstructionsViewController.swift; sourceTree = "<group>"; };
+		0A0391C727C565D3003C871A /* IconButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IconButtonTableViewCell.xib; sourceTree = "<group>"; };
+		0A0391C827C565D3003C871A /* HelpTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpTextTableViewCell.swift; sourceTree = "<group>"; };
+		0A0391C927C565D3003C871A /* HelpTextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpTextTableViewCell.xib; sourceTree = "<group>"; };
+		0A0391CA27C565D3003C871A /* IconButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButtonTableViewCell.swift; sourceTree = "<group>"; };
 		0A045068278D800700650F71 /* ReviewExecutionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewExecutionViewController.swift; sourceTree = "<group>"; };
 		0A045069278D800700650F71 /* ReviewExecutionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewExecutionViewController.xib; sourceTree = "<group>"; };
 		0A04506C278D973C00650F71 /* ReviewExecutionContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewExecutionContentViewController.swift; sourceTree = "<group>"; };
@@ -1852,6 +1860,10 @@
 		0A0391C627C564CF003C871A /* Setup Safe */ = {
 			isa = PBXGroup;
 			children = (
+				0A0391C827C565D3003C871A /* HelpTextTableViewCell.swift */,
+				0A0391C927C565D3003C871A /* HelpTextTableViewCell.xib */,
+				0A0391CA27C565D3003C871A /* IconButtonTableViewCell.swift */,
+				0A0391C727C565D3003C871A /* IconButtonTableViewCell.xib */,
 				0A8CDD4827A5AE860020066C /* CreateSafeFormUIModel.swift */,
 				0A8CDD4427A5A5C70020066C /* CreateSafeViewController.swift */,
 				0A8CDD4527A5A5C70020066C /* CreateSafeViewController.xib */,
@@ -2746,6 +2758,10 @@
 		0AF5C66327BA9E8F00BFEA52 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
+				0A0391BF27C52DE7003C871A /* HelpTextTableViewCell.swift */,
+				0A0391BB27C52C40003C871A /* IconButtonTableViewCell.swift */,
+				0A0391BC27C52C40003C871A /* IconButtonTableViewCell.xib */,
+				0A0391C027C52DE7003C871A /* HelpTextTableViewCell.xib */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -3715,6 +3731,7 @@
 				0A93DD632445CC8B00688050 /* Preview Assets.xcassets in Resources */,
 				0AE8C0452579317700E62B34 /* DetailDisclosingCell.xib in Resources */,
 				0A478D3425B861D50038363E /* DefaultKeyTableViewCell.xib in Resources */,
+				0A0391CD27C565D4003C871A /* HelpTextTableViewCell.xib in Resources */,
 				93EF2FA827C550BC0077BE95 /* InstructionHeaderTableViewCell.xib in Resources */,
 				0A9A1A36257924C600B44405 /* DetailAccountAndTextCell.xib in Resources */,
 				0A9366B1278F0AA8001918A9 /* LabeledTextField.xib in Resources */,
@@ -3727,6 +3744,7 @@
 				0A93DDAB244604A400688050 /* Averta-Regular.otf in Resources */,
 				B0D618DCACA100B230F936DE /* DesktopPairingHeaderView.xib in Resources */,
 				B0D6178FC710D4E943B4F9F5 /* WebConnectionContainerViewController.xib in Resources */,
+				0A0391CB27C565D4003C871A /* IconButtonTableViewCell.xib in Resources */,
 				B0D613F1FF3262B3A295206C /* ActionPanelView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4021,7 +4039,6 @@
 				04CE3F9D24B62F0800826AEE /* CollectibleMetaDataAttribute.swift in Sources */,
 				93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */,
 				04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */,
-				0A0391C427C5640C003C871A /* CreateSafeInstructionsViewController.swift in Sources */,
 				557D80B8270B32F80036D6D0 /* SignatureRequestViewController.swift in Sources */,
 				6ADEB02727B559370062ADFE /* WebConnectionOwnerView.swift in Sources */,
 				557D80B8270B32F80036D6D0 /* SignatureRequestViewController.swift in Sources */,
@@ -4170,6 +4187,7 @@
 				043ABD0E24EF0C33008826D5 /* TransactionDetailsRequest.swift in Sources */,
 				0455A42B271F73B7008B772D /* AddressBookEntry.swift in Sources */,
 				048D72D7268DACAF0095999C /* NetworksListViewModel.swift in Sources */,
+				0A0391CE27C565D4003C871A /* IconButtonTableViewCell.swift in Sources */,
 				0ADD19C3265EA23200EB0F2B /* SeedPhraseViewController.swift in Sources */,
 				049A9D1F25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift in Sources */,
 				0A791D9D24D2FD5C00D70DA9 /* SnackbarHostView.swift in Sources */,
@@ -4184,6 +4202,7 @@
 				0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */,
 				55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */,
 				0428DA5A25CBFC25002CF4A9 /* HelpLinkTableViewCell.swift in Sources */,
+				0A0391CC27C565D4003C871A /* HelpTextTableViewCell.swift in Sources */,
 				0A72AC622453169700840641 /* LinkText.swift in Sources */,
 				04626EB6265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift in Sources */,
 				0A6C131425407B5100EA67E3 /* ContainerViewController.swift in Sources */,
