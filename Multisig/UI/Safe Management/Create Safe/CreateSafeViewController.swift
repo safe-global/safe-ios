@@ -13,7 +13,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var createButton: UIButton!
-    private var closeButton: UIBarButtonItem!
     private var refreshControl: UIRefreshControl!
 
     var onClose: () -> Void = {}
@@ -41,9 +40,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
         tableView.refreshControl = refreshControl
 
-        closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
-        navigationItem.leftBarButtonItem = closeButton
-
         createButton.setText("Create", .filled)
 
         uiModel.delegate = self
@@ -69,7 +65,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
     // MARK: - UI Events
 
-    @objc private func didTapCloseButton() {
+    override func closeModal() {
         onClose()
     }
 

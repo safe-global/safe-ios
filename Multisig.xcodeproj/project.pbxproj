@@ -558,8 +558,6 @@
 		5532D4DE2449A34A0067505A /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4DD2449A34A0067505A /* TestUtils.swift */; };
 		5534F7372760C7670018E655 /* CreatePasscodeSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534F7352760C7670018E655 /* CreatePasscodeSuggestionViewController.swift */; };
 		5534F7382760C7670018E655 /* CreatePasscodeSuggestionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5534F7362760C7670018E655 /* CreatePasscodeSuggestionViewController.xib */; };
-		5534F73B2761DAAD0018E655 /* CreateNewSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534F7392761DAAD0018E655 /* CreateNewSafeViewController.swift */; };
-		5534F73C2761DAAD0018E655 /* CreateNewSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5534F73A2761DAAD0018E655 /* CreateNewSafeViewController.xib */; };
 		55413671265E438500796F91 /* UnstoppableDomainsResolution in Frameworks */ = {isa = PBXBuildFile; productRef = 55413670265E438500796F91 /* UnstoppableDomainsResolution */; };
 		55413673265E493500796F91 /* AddOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55413672265E493500796F91 /* AddOwnerKeyViewController.swift */; };
 		55413677265E4A0000796F91 /* AddOwnerKeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */; };
@@ -1294,8 +1292,6 @@
 		5532D4DD2449A34A0067505A /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		5534F7352760C7670018E655 /* CreatePasscodeSuggestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeSuggestionViewController.swift; sourceTree = "<group>"; };
 		5534F7362760C7670018E655 /* CreatePasscodeSuggestionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreatePasscodeSuggestionViewController.xib; sourceTree = "<group>"; };
-		5534F7392761DAAD0018E655 /* CreateNewSafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewSafeViewController.swift; sourceTree = "<group>"; };
-		5534F73A2761DAAD0018E655 /* CreateNewSafeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateNewSafeViewController.xib; sourceTree = "<group>"; };
 		55413672265E493500796F91 /* AddOwnerKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerKeyViewController.swift; sourceTree = "<group>"; };
 		55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerKeyCell.swift; sourceTree = "<group>"; };
 		55413676265E4A0000796F91 /* AddOwnerKeyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOwnerKeyCell.xib; sourceTree = "<group>"; };
@@ -2129,8 +2125,6 @@
 				0A6886912588F87E0045CAB5 /* EnterAddressNameViewController.xib */,
 				5534F7352760C7670018E655 /* CreatePasscodeSuggestionViewController.swift */,
 				5534F7362760C7670018E655 /* CreatePasscodeSuggestionViewController.xib */,
-				5534F7392761DAAD0018E655 /* CreateNewSafeViewController.swift */,
-				5534F73A2761DAAD0018E655 /* CreateNewSafeViewController.xib */,
 			);
 			path = "Add Safe";
 			sourceTree = "<group>";
@@ -3541,7 +3535,6 @@
 				04D1322E25E41E560032FA03 /* RejectionCreatedPiece.xib in Resources */,
 				04D1309D25E2BB830032FA03 /* RejectionConfirmationViewController.xib in Resources */,
 				0455A43227204A5B008B772D /* CreateAddressBookEntryViewController.xib in Resources */,
-				5534F73C2761DAAD0018E655 /* CreateNewSafeViewController.xib in Resources */,
 				048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */,
 				0AE8C0572579328800E62B34 /* ExternalURLCell.xib in Resources */,
 				0A57C5C12577F08B00420303 /* ConfirmationCreatedPiece.xib in Resources */,
@@ -4169,7 +4162,6 @@
 				049257AE273C239C00507C33 /* String+Highlight.swift in Sources */,
 				0A0EFCAC246EB32400D3D8BF /* CopyButton.swift in Sources */,
 				0A63C7E32602725100D36B22 /* AddressInfo.swift in Sources */,
-				5534F73B2761DAAD0018E655 /* CreateNewSafeViewController.swift in Sources */,
 				550FB19F26691CA300C13D54 /* DappsDataSource.swift in Sources */,
 				0A74EEFD268DF37100EB0EFB /* RibbonViewController.swift in Sources */,
 				AD303414E96F6CD45E31FBE7 /* WhatsNewHandler.swift in Sources */,
