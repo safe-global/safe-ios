@@ -28,7 +28,19 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
     }
 
     init?(_ value: String) {
-        guard let value = try? EthereumAddress(hex: value, eip55: false) else { return nil }
+        self.init(value, checksummed: false)
+    }
+
+    init?(_ value: String, checksummed: Bool) {
+        var hexValue = value
+        if hexValue.hasPrefix("0x") || hexValue.hasPrefix("0X") {
+            hexValue.removeFirst(2)
+        }
+        var checkForEIP55 = checksummed
+        if hexValue == hexValue.lowercased() || hexValue == hexValue.uppercased() {
+            checkForEIP55 = false
+        }
+        guard let value = try? EthereumAddress(hex: hexValue, eip55: checkForEIP55) else { return nil }
         _store = value
     }
 
