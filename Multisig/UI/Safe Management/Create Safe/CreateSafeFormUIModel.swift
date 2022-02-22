@@ -208,12 +208,22 @@ class CreateSafeFormUIModel {
     func setChainId(_ chainId: String) {
         guard chainId != chain.id, let newChain = Chain.by(chainId) else { return }
         chain = newChain
+        // needs updating because the chain prefix will change and potentially address name from address book
+        updateOwners()
         didEdit()
     }
 
     func addOwnerAddress(_ string: String?) {
-        guard let string = string, let address = Address(string) else { return }
-        guard !owners.contains(where: { owner in owner.address == address }) else { return }
+        guard let string = string, let address = Address(string, checksummed: true) else {
+            let error = "Value '\(string ?? "")' seems to have a typo or is not a valid address. Please try again."
+            App.shared.snackbar.show(message: error)
+            return
+        }
+        guard !owners.contains(where: { owner in owner.address == address }) else {
+            let error = "The owner \(address) is already in the list. Please add a different owner."
+            App.shared.snackbar.show(message: error)
+            return
+        }
         let newOwner = self.owner(from: address)
         owners.append(newOwner)
         // update item count in sections
@@ -246,6 +256,10 @@ class CreateSafeFormUIModel {
                 privateKey: nil,
                 badgeName: keyInfo?.keyType.imageName)
         return owner
+    }
+
+    func updateOwners() {
+        owners = owners.map(\.address).map { owner(from: $0, defaultName: nil) }
     }
 
     private func handleError<T>(_ closure: @autoclosure () throws -> T) -> T? {
