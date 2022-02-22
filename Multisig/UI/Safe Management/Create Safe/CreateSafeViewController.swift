@@ -26,11 +26,14 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         title = "Create Safe"
 
         tableView.registerHeaderFooterView(InfoSectionHeaderView.self)
+        tableView.registerHeaderFooterView(BasicHeaderView.self)
         tableView.registerCell(SelectNetworkTableViewCell.self)
         tableView.registerCell(ActionDetailAddressCell.self)
         tableView.registerCell(StepperTableViewCell.self)
         tableView.registerCell(DisclosureWithContentCell.self)
         tableView.registerCell(DetailExpandableTextCell.self)
+        tableView.registerCell(IconButtonTableViewCell.self)
+        tableView.registerCell(HelpTextTableViewCell.self)
 
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
@@ -103,13 +106,14 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard isValid(section: section) else { return nil }
         let sectionData = uiModel.sectionHeaders[section]
-        let view = tableView.dequeueHeaderFooterView(InfoSectionHeaderView.self)
-        view.infoLabel.setText(sectionData.title, description: sectionData.tooltip)
-        view.accessoryButton.isHidden = !sectionData.actionable
-        if view.accessoryButton.allTargets.isEmpty {
-            view.accessoryButton.addTarget(nil, action: #selector(didTapAddOwnerButton(_:)), for: .touchUpInside)
-        }
+        let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
+        view.setName(sectionData.title)
         return view
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard isValid(section: section) else { return 0 }
+        return BasicHeaderView.headerHeight
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -477,13 +481,39 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func ownerCell(for indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(ActionDetailAddressCell.self, for: indexPath)
-        let owner = uiModel.owners[indexPath.row]
-        cell.setAddress(owner.address,
-                        label: owner.name,
-                        imageUri: owner.imageUri,
-                        browseURL: owner.browseUri,
-                        prefix: owner.`prefix`)
+        if !uiModel.owners.isEmpty && indexPath.row < uiModel.owners.count {
+            let cell = tableView.dequeueCell(ActionDetailAddressCell.self, for: indexPath)
+            let owner = uiModel.owners[indexPath.row]
+            cell.setAddress(owner.address,
+                            label: owner.name,
+                            imageUri: owner.imageUri,
+                            browseURL: owner.browseUri,
+                            prefix: owner.`prefix`)
+            return cell
+        } else {
+            let buttonCellIndex = 0
+            let helpTextIndex = 1
+            let rowIndex = indexPath.row - uiModel.owners.count
+            switch rowIndex {
+            case buttonCellIndex:
+                let cell = tableView.dequeueCell(IconButtonTableViewCell.self, for: indexPath)
+                cell.setImage(UIImage(systemName: "plus.circle"))
+                cell.setText("Add Owner")
+                return cell
+
+            case helpTextIndex:
+                return helpTextCell("Add an owner by pasting or scanning an Ethereum address.", indexPath: indexPath)
+
+            default:
+                return UITableViewCell()
+            }
+        }
+    }
+
+    func helpTextCell(_ text: String, indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(HelpTextTableViewCell.self, for: indexPath)
+        cell.selectionStyle = .none
+        cell.setText(text)
         return cell
     }
 
