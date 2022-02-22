@@ -70,6 +70,9 @@ struct AppConfiguration {
 
         @ConfigurationKey("CREATE_SAFE_URL")
         var createSafeURL: URL
+
+        @ConfigurationKey("CONFIRMATIONS_URL")
+        var confirmationsURL: URL
     }
 
     struct Legal {

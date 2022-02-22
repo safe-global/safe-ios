@@ -369,7 +369,8 @@ class CreateSafeFormUIModel {
             // 'add owner' button cell
             // and help text cell
             .init(id: .owners, title: "Owners", tooltip: "Owner account addresses that can approve transactions made from the new Safe", itemCount: owners.count + 2, actionable: true),
-            .init(id: .threshold, title: "Required Confirmations", tooltip: "Number of confirmations needed to execute a transaction from the new Safe", itemCount: 1),
+            // we have 1 cell for threshold and 1 cell for help text
+            .init(id: .threshold, title: "Required Confirmations", tooltip: "Number of confirmations needed to execute a transaction from the new Safe", itemCount: 2),
             .init(id: .deployment, title: "Payment Details", tooltip: "Account that will deploy the new Safe contract and deployment transaction information", itemCount: 2)
         ]
 
@@ -609,7 +610,11 @@ class CreateSafeFormUIModel {
     }
 
     var thresholdText: String {
-        "\(threshold) out of \(owners.count)"
+        if owners.isEmpty {
+            return "0 out of 0"
+        } else {
+            return "\(threshold) out of \(owners.count)"
+        }
     }
 
     var deployerAccountInfoModel: MiniAccountInfoUIModel? {

@@ -2265,17 +2265,17 @@
 			isa = PBXGroup;
 			children = (
 				0A8CDD4827A5AE860020066C /* CreateSafeFormUIModel.swift */,
-				0A8CDD5427A9DBF70020066C /* TransactionSender.swift */,
 				0A8CDD4427A5A5C70020066C /* CreateSafeViewController.swift */,
+				0A8CDD4527A5A5C70020066C /* CreateSafeViewController.xib */,
 				0A0391BF27C52DE7003C871A /* HelpTextTableViewCell.swift */,
 				0A0391C027C52DE7003C871A /* HelpTextTableViewCell.xib */,
 				0A0391BB27C52C40003C871A /* IconButtonTableViewCell.swift */,
 				0A0391BC27C52C40003C871A /* IconButtonTableViewCell.xib */,
-				0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */,
-				0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */,
 				0A8CDD4A27A5C6F60020066C /* InfoSectionHeaderView.swift */,
 				0A8CDD4C27A5C7020020066C /* InfoSectionHeaderView.xib */,
-				0A8CDD4527A5A5C70020066C /* CreateSafeViewController.xib */,
+				0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */,
+				0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */,
+				0A8CDD5427A9DBF70020066C /* TransactionSender.swift */,
 			);
 			path = "Create Safe";
 			sourceTree = "<group>";

@@ -119,9 +119,11 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard isValid(indexPath: indexPath) else { return 0 }
         let sectionId = uiModel.sectionHeaders[indexPath.section].id
-        if sectionId == .owners && !uiModel.owners.isEmpty && indexPath.row < uiModel.owners.count {
+        switch sectionId {
+        case .owners where !uiModel.owners.isEmpty && indexPath.row < uiModel.owners.count:
             return 68
-        } else {
+
+        default:
             return UITableView.automaticDimension
         }
     }
@@ -174,11 +176,16 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         switch uiModel.sectionHeaders[indexPath.section].id {
         case .network:
             selectNetwork()
+
         case .deployment:
             selectDeploymentRow(indexPath.row)
 
         case .owners:
             selectOwnerRow(indexPath.row)
+
+        case .threshold:
+            selectConfirmationRow(indexPath.row)
+
         default:
             break
         }
@@ -244,6 +251,11 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func didAddOwnerAddress(_ string: String?) {
         uiModel.addOwnerAddress(string)
+    }
+
+    func selectConfirmationRow(_ rowIndex: Int) {
+        guard rowIndex == 1 else { return }
+        openInSafari(App.configuration.help.confirmationsURL)
     }
 
     func selectDeploymentRow(_ index: Int) {
@@ -544,18 +556,37 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
 
-    func thresholdCell(for indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(StepperTableViewCell.self, for: indexPath)
-        cell.setText(uiModel.thresholdText)
-        cell.setRange(min: uiModel.minThreshold, max: uiModel.maxThreshold)
-        cell.setValue(uiModel.threshold)
-        cell.onChange = { [weak self, unowned cell] newThreshold in
-            guard let self = self else { return }
-            self.uiModel.threshold = newThreshold
-            cell.setText(self.uiModel.thresholdText)
-            self.uiModel.didEdit()
-        }
+    func helpTextCell(_ text: String, hyperlink: String, indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(HelpTextTableViewCell.self, for: indexPath)
+        cell.selectionStyle = .none
+        cell.cellLabel.hyperLinkLabel(
+            text,
+            prefixStyle: .footnote2.weight(.regular),
+            linkText: hyperlink,
+            linkStyle: .footnote2.weight(.regular).color(.button),
+            linkIcon: nil)
         return cell
+    }
+
+    func thresholdCell(for indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueCell(StepperTableViewCell.self, for: indexPath)
+            cell.selectionStyle = .none
+            cell.setText(uiModel.thresholdText)
+            cell.setRange(min: uiModel.minThreshold, max: uiModel.maxThreshold)
+            cell.setValue(uiModel.threshold)
+            cell.onChange = { [weak self, unowned cell] newThreshold in
+                guard let self = self else { return }
+                self.uiModel.threshold = newThreshold
+                cell.setText(self.uiModel.thresholdText)
+                self.uiModel.didEdit()
+            }
+            return cell
+        } else {
+            let text = "How many owner confirmations are required for a transaction to be executed?"
+            let link = "Learn about Safe setup"
+            return helpTextCell(text, hyperlink: link, indexPath: indexPath)
+        }
     }
 
     let DEPLOYER_ROW = 0
