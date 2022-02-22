@@ -168,7 +168,7 @@ class CreateSafeFormUIModel {
     }
 
     var isCreateEnabled: Bool {
-        state == .ready
+        state == .ready && owners.count > 0
     }
 
     var isLoadingDeployer: Bool {
