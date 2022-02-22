@@ -151,8 +151,15 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         guard isValid(indexPath: indexPath) else { return false }
         let id = uiModel.sectionHeaders[indexPath.section].id
-        let canEdit = id == .owners
+        let canEdit = id == .owners && !uiModel.owners.isEmpty && indexPath.row < uiModel.owners.count
         return canEdit
+    }
+
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        guard isValid(indexPath: indexPath) else { return nil }
+        let id = uiModel.sectionHeaders[indexPath.section].id
+        guard id == .owners else { return nil }
+        return "Remove owner"
     }
 
     // MARK: - Table View Events
