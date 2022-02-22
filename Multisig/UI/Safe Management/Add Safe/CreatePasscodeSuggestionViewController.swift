@@ -32,6 +32,8 @@ class CreatePasscodeSuggestionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = "Create Passcode"
+
         navigationItem.hidesBackButton = true
         navigationItem.title = nil
 
