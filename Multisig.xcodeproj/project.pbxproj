@@ -2273,21 +2273,21 @@
 			isa = PBXGroup;
 			children = (
 				0A8CDD4827A5AE860020066C /* CreateSafeFormUIModel.swift */,
-				0A8CDD5427A9DBF70020066C /* TransactionSender.swift */,
 				0A8CDD4427A5A5C70020066C /* CreateSafeViewController.swift */,
-				0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */,
-				0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */,
+				0A8CDD4527A5A5C70020066C /* CreateSafeViewController.xib */,
+				93EF2FA927C551B60077BE95 /* FinalStepInstructionTableViewCell.swift */,
+				93EF2FAA27C551B60077BE95 /* FinalStepInstructionTableViewCell.xib */,
 				0A8CDD4A27A5C6F60020066C /* InfoSectionHeaderView.swift */,
 				0A8CDD4C27A5C7020020066C /* InfoSectionHeaderView.xib */,
-				0A8CDD4527A5A5C70020066C /* CreateSafeViewController.xib */,
-				93EF2FA127C546330077BE95 /* InstructionsViewController.swift */,
-				93EF2FA227C546330077BE95 /* InstructionsViewController.xib */,
 				93EF2FA527C550BC0077BE95 /* InstructionHeaderTableViewCell.swift */,
 				93EF2FA627C550BC0077BE95 /* InstructionHeaderTableViewCell.xib */,
-				93EF2FA927C551B60077BE95 /* FinalStepInstructionTableViewCell.swift */,
+				93EF2FA127C546330077BE95 /* InstructionsViewController.swift */,
+				93EF2FA227C546330077BE95 /* InstructionsViewController.xib */,
 				93EF2FAD27C551DC0077BE95 /* StepInstructionTableViewCell.swift */,
 				93EF2FAE27C551DC0077BE95 /* StepInstructionTableViewCell.xib */,
-				93EF2FAA27C551B60077BE95 /* FinalStepInstructionTableViewCell.xib */,
+				0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */,
+				0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */,
+				0A8CDD5427A9DBF70020066C /* TransactionSender.swift */,
 			);
 			path = "Create Safe";
 			sourceTree = "<group>";

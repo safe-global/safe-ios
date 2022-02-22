@@ -14,8 +14,6 @@ class FinalStepInstructionTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         cellLabel.setStyle(.headline)
-
     }
 }

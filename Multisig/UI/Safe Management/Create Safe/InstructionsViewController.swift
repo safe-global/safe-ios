@@ -15,11 +15,11 @@ class InstructionsViewController: UIViewController, UITableViewDelegate, UITable
     
     enum Step {
         case header
-        case step
-        case finalStep
+        case step(number: String, title: String, description: String)
+        case finalStep(title: String)
     }
+
     var onClose: () -> Void = {}
-    
     var steps: [Step] = []
     
     override func viewDidLoad() {
@@ -27,17 +27,21 @@ class InstructionsViewController: UIViewController, UITableViewDelegate, UITable
         
         title = "How does it work?"
         
-        steps = [.header,
-                    .step,
-                    .step,
-                    .step,
-                    .step,
-                    .step,
-                    .finalStep]
+        steps = [
+            .header,
+            .step(number: "1", title: "Choose a name", description: "How do you want to identify your Safe?"),
+            .step(number: "2", title: "Select network", description: "Safe will only exist on the selected network."),
+            .step(number: "3", title: "Add owners", description: "Owners are owner keys that control Safe. Add owners and specify the number of required signatures."),
+            .step(number: "4", title: "Pay network fee", description: "A network fee is required for creation, as Gnosis Safe is a smart contract. Gnosis doesn’t profit from the fees."),
+            .finalStep(title: "Start using your Safe!")
+        ]
         
         tableView.registerCell(InstructionHeaderTableViewCell.self)
         tableView.registerCell(FinalStepInstructionTableViewCell.self)
         tableView.registerCell(StepInstructionTableViewCell.self)
+
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
         
         button.setText("OK, Let’s start", .filled)
     }
@@ -54,23 +58,23 @@ class InstructionsViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentStep = steps[indexPath.row]
-        
-        
         switch currentStep {
-            
         case .header:
             let cell = tableView.dequeueCell(InstructionHeaderTableViewCell.self, for: indexPath)
             cell.selectionStyle = .none
             cell.separatorInset.left = .greatestFiniteMagnitude
             return cell
-        case .step:
+        case let .step(number: number, title: title, description: description):
             let cell = tableView.dequeueCell(StepInstructionTableViewCell.self, for: indexPath)
             cell.selectionStyle = .none
             cell.separatorInset.left = .greatestFiniteMagnitude
+            cell.circleLabel.text = number
+            cell.headerLabel.text = title
+            cell.descriptionLabel.text = description
             return cell
-        case .finalStep:
+        case let .finalStep(title: title):
             let cell = tableView.dequeueCell(FinalStepInstructionTableViewCell.self, for: indexPath)
-            cell.cellLabel.text = "Start using your Safe!"
+            cell.cellLabel.text = title
             cell.selectionStyle = .none
             cell.separatorInset.left = .greatestFiniteMagnitude
             return cell

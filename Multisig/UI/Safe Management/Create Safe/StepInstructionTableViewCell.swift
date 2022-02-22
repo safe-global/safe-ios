@@ -9,16 +9,14 @@
 import UIKit
 
 class StepInstructionTableViewCell: UITableViewCell {
+    @IBOutlet weak var circleLabel: UILabel!
+    @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        circleLabel.setStyle(.subhead.weight(.medium).color(.secondaryLabel))
+        headerLabel.setStyle(.headline.weight(.medium))
+        descriptionLabel.setStyle(.callout.weight(.regular).color(.secondaryLabel))
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
 }
