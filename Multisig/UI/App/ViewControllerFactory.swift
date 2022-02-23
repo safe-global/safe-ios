@@ -86,6 +86,23 @@ enum ViewControllerFactory {
         }
         return navController
     }
+    
+    static func pageSheet(viewController: UIViewController, halfScreen: Bool = false) -> UIViewController {
+        viewController.navigationItem.rightBarButtonItem =
+            UIBarButtonItem(barButtonSystemItem: .close, target: viewController, action: #selector(CloseModal.closeModal))
+        let navController = UINavigationController(rootViewController: viewController)
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.backgroundColor = .secondaryBackground
+        navigationBarAppearance.shadowColor = .clear
+        navController.navigationBar.scrollEdgeAppearance = navigationBarAppearance
+        navController.modalPresentationStyle = .pageSheet
+        if halfScreen, #available(iOS 15.0, *) {
+            if let sheet = navController.sheetPresentationController {
+                sheet.detents = [.medium()]
+            }
+        }
+        return navController
+    }
 }
 
 @objc protocol CloseModal {
