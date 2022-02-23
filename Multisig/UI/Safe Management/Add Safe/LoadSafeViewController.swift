@@ -71,11 +71,11 @@ class LoadSafeViewController: UIViewController {
     }
 
     @IBAction func didTapCreateSafe(_ sender: Any) {
-        let createSafeVC = CreateSafeViewController(nibName: nil, bundle: nil)
-        createSafeVC.onClose = { [weak self] in
+        let instructionsVC = CreateSafeInstructionsViewController()
+        instructionsVC.onClose = { [weak self] in
             self?.dismiss(animated: true, completion: nil)
         }
-        let vc = ViewControllerFactory.modal(viewController: createSafeVC)
+        let vc = ViewControllerFactory.modal(viewController: instructionsVC)
         present(vc, animated: true)
     }
 
