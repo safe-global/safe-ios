@@ -11,7 +11,7 @@ import Json
 
 class TransactionTests: XCTestCase {
     let chain = "Ethereum"
-    let rpcUri = "https://mainnet.infura.io/v3/fda31d5c85564ae09c97b1b970e7eb33"
+    let rpcUri = "https://rinkeby.infura.io/v3/fda31d5c85564ae09c97b1b970e7eb33"
     let address: Sol.Address = "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45"
 
     var client: JsonRpc2.Client!
@@ -249,7 +249,9 @@ class TransactionTests: XCTestCase {
     }
 
     func testReceipt() {
-        let transactionHash: Node.Hash = "0xbbde8eb76e55c61807493653453c71b82dfec03c3204e80fca47622741da3607"
+//        let transactionHash: Node.Hash = "0xbbde8eb76e55c61807493653453c71b82dfec03c3204e80fca47622741da3607"
+        let transactionHash: Node.Hash = "0x6f744821feb86a24909f09c1b1b32b7c8711b5933455f9faac477441924392e2"
+
         let exp = expectation(description: "get transaction")
         _ = client.call(Node.eth_getTransactionReceipt(hash: transactionHash) { result in
             defer { exp.fulfill() }

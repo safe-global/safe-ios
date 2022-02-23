@@ -8,12 +8,17 @@
 
 import UIKit
 import Ethereum
+import Solidity
+import WalletConnectSwift
+import JsonRpc2
 
 class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CreateSafeFormUIModelDelegate {
 
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var createButton: UIButton!
     private var refreshControl: UIRefreshControl!
+
+    private var wcConnector: WCWalletConnectionController!
 
     var onClose: () -> Void = {}
     var onFinish: () -> Void = {}
@@ -63,10 +68,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         onFinish()
     }
 
-    func authenticateUser(_ completion: @escaping (Bool) -> Void) {
-        // show passcode
-    }
-
     // MARK: - UI Events
 
     override func closeModal() {
@@ -74,7 +75,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     @IBAction func didTapCreateButton(_ sender: Any) {
-        print("create")
+        userDidSubmit()
     }
 
     @objc private func didPullToRefresh() {
@@ -672,6 +673,288 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.setExpandableTitle(errorPreview)
         return cell
     }
+
+    func userDidSubmit() {
+        // request passcode if needed and sign
+        if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
+            // TODO: disable submit
+//            self.actionPanelView.setConfirmEnabled(false)
+
+            let passcodeVC = EnterPasscodeViewController()
+            passcodeVC.passcodeCompletion = { [weak self] success in
+                self?.dismiss(animated: true) {
+                    guard let `self` = self else { return }
+
+                    if success {
+                        self.sign()
+                    }
+
+//                    self.actionPanelView.setConfirmEnabled(true)
+                }
+            }
+            let nav = UINavigationController(rootViewController: passcodeVC)
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: true)
+        } else {
+            sign()
+        }
+    }
+
+    func sign() {
+        guard let keyInfo = uiModel.selectedKey else { return }
+
+        switch keyInfo.keyType {
+        case .deviceImported, .deviceGenerated:
+            do {
+                let txHash = uiModel.transaction.hashForSigning().storage.storage
+
+                guard let pk = try keyInfo.privateKey() else {
+                    App.shared.snackbar.show(message: "Private key not available")
+                    return
+                }
+                let signature = try pk._store.sign(hash: Array(txHash))
+
+                try uiModel.transaction.updateSignature(
+                    v: Sol.UInt256(signature.v),
+                    r: Sol.UInt256(Data(signature.r)),
+                    s: Sol.UInt256(Data(signature.s))
+                )
+            } catch {
+                let gsError = GSError.error(description: "Signing failed", error: error)
+                App.shared.snackbar.show(error: gsError)
+                return
+            }
+            submit()
+
+        case .walletConnect:
+            guard let clientTx = walletConnectTransaction() else {
+                let gsError = GSError.error(description: "Unsupported transaction type")
+                App.shared.snackbar.show(error: gsError)
+                return
+            }
+
+            wcConnector = WCWalletConnectionController()
+            wcConnector.connect(keyInfo: keyInfo, from: self) { [weak self] success in
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) { [weak self] in
+                    guard let self = self else { return }
+
+                    defer { self.wcConnector = nil }
+
+                    guard success else {
+                        return
+                    }
+
+                    let wcVC = WCPendingConfirmationViewController(
+                        clientTx,
+                        keyInfo: keyInfo,
+                        title: "Sign Transaction"
+                    )
+
+                    wcVC.send { [weak self] txHash in
+                        guard let self = self else { return }
+                        assert(Thread.isMainThread)
+
+                        if let hexHash = txHash {
+                            self.didSubmitTransaction(txHash: Eth.Hash(Data(hex: hexHash)))
+                            self.didSubmitSuccess()
+                        } else {
+                            self.didSubmitFailed(nil)
+                        }
+                    }
+
+                    self.present(wcVC, animated: true)
+                }
+            }
+
+        case .ledgerNanoX:
+            let rawTransaction = uiModel.transaction.preImageForSigning()
+            let chainId = Int(uiModel.chain.id!)!
+            let isLegacy = uiModel.transaction is Eth.TransactionLegacy
+
+            let request = SignRequest(title: "Sign Transaction",
+                                      tracking: ["action" : "signTx"],
+                                      signer: keyInfo,
+                                      payload: .rawTx(data: rawTransaction, chainId: chainId, isLegacy: isLegacy))
+
+            let vc = LedgerSignerViewController(request: request)
+
+            vc.txCompletion = { [weak self] signature in
+                guard let self = self else { return }
+
+                do {
+                    try self.uiModel.transaction.updateSignature(
+                        v: Sol.UInt256(UInt(signature.v)),
+                        r: Sol.UInt256(Data(Array(signature.r))),
+                        s: Sol.UInt256(Data(Array(signature.s)))
+                    )
+                } catch {
+                    let gsError = GSError.error(description: "Signing failed", error: error)
+                    App.shared.snackbar.show(error: gsError)
+                    return
+                }
+
+                self.submit()
+            }
+
+            present(vc, animated: true, completion: nil)
+        }
+    }
+
+    func walletConnectTransaction() -> Client.Transaction? {
+        guard let ethTransaction = uiModel.transaction else {
+            return nil
+        }
+        let clientTx: Client.Transaction
+
+        // NOTE: only legacy parameters seem to work with current wallets.
+        switch ethTransaction {
+        case let tx as Eth.TransactionLegacy:
+            let rpcTx = EthRpc1.TransactionLegacy(tx)
+            clientTx = .init(
+                from: rpcTx.from!.hex,
+                to: rpcTx.to?.hex,
+                data: rpcTx.input.hex,
+                gas: rpcTx.gas?.hex,
+                gasPrice: rpcTx.gasPrice?.hex,
+                value: rpcTx.value.hex,
+                nonce: rpcTx.nonce?.hex,
+                type: nil,
+                accessList: nil,
+                chainId: nil,
+                maxPriorityFeePerGas: nil,
+                maxFeePerGas: nil
+            )
+
+        case let tx as Eth.TransactionEip2930:
+            let rpcTx = EthRpc1.Transaction2930(tx)
+            clientTx = .init(
+                from: rpcTx.from!.hex,
+                to: rpcTx.to?.hex,
+                data: rpcTx.input.hex,
+                gas: rpcTx.gas?.hex,
+                gasPrice: rpcTx.gasPrice?.hex,
+                value: rpcTx.value.hex,
+                nonce: rpcTx.nonce?.hex,
+                type: nil,
+                accessList: nil,
+                chainId: nil,
+                maxPriorityFeePerGas: nil,
+                maxFeePerGas: nil
+            )
+
+        case let tx as Eth.TransactionEip1559:
+            let rpcTx = EthRpc1.Transaction1559(tx)
+            clientTx = .init(
+                from: rpcTx.from!.hex,
+                to: rpcTx.to?.hex,
+                data: rpcTx.input.hex,
+                gas: rpcTx.gas?.hex,
+                gasPrice: rpcTx.maxFeePerGas?.hex,
+                value: rpcTx.value.hex,
+                nonce: rpcTx.nonce?.hex,
+                type: nil,
+                accessList: nil,
+                chainId: nil,
+                maxPriorityFeePerGas: nil,
+                maxFeePerGas: nil
+            )
+        default:
+            return nil
+        }
+
+        return clientTx
+    }
+
+
+    func submit() {
+//        self.actionPanelView.setConfirmEnabled(false)
+
+        let _ = send(completion: { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .failure(let error):
+//                self.actionPanelView.setConfirmEnabled(true)
+                self.didSubmitFailed(error)
+
+            case .success:
+                self.didSubmitSuccess()
+            }
+        })
+    }
+
+    func send(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
+        guard let tx = uiModel.transaction else { return nil }
+
+        let rawTransaction = tx.rawTransaction()
+
+        let sendRawTxMethod = EthRpc1.eth_sendRawTransaction(transaction: rawTransaction)
+
+        let request: JsonRpc2.Request
+
+        do {
+            request = try sendRawTxMethod.request(id: .int(1))
+        } catch {
+            dispatchOnMainThread(completion(.failure(error)))
+            return nil
+        }
+
+        let client = uiModel.estimationController.rpcClient
+
+        let task = client.send(request: request) { [weak self] response in
+            guard let self = self else { return }
+
+            guard let response = response else {
+                let error = TransactionExecutionError(code: -4, message: "No response from server")
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            if let error = response.error {
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            guard let result = response.result else {
+                let error = TransactionExecutionError(code: -5, message: "No result from server")
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            let txHash: EthRpc1.Data
+            do {
+                txHash = try sendRawTxMethod.result(from: result)
+            } catch {
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            DispatchQueue.main.async {
+                self.didSubmitTransaction(txHash: Eth.Hash(txHash.storage))
+                completion(.success(()))
+            }
+        }
+        return task
+    }
+
+    func didSubmitTransaction(txHash: Eth.Hash) {
+        uiModel.transaction.hash = txHash
+    }
+
+    func didSubmitFailed(_ error: Error?) {
+        let gsError = GSError.error(description: "Submitting failed", error: error)
+        App.shared.snackbar.show(error: gsError)
+
+        Tracker.trackEvent(.executeFailure, parameters: [
+            "chainId": uiModel.chain.id!
+        ])
+    }
+
+    func didSubmitSuccess() {
+        let txHash = uiModel.transaction.hash ?? .init()
+        LogService.shared.debug("Submitted tx: \(txHash.storage.storage.toHexStringWithPrefix()); Safe: \(uiModel.futureSafeAddress ?? .zero)")
+    }
+
 }
 
 extension CreateSafeViewController: QRCodeScannerViewControllerDelegate {

@@ -17,7 +17,6 @@ import JsonRpc2
 protocol CreateSafeFormUIModelDelegate: AnyObject {
     func updateUI(model: CreateSafeFormUIModel)
     func createSafeModelDidFinish()
-    func authenticateUser(_ completion: @escaping (Bool) -> Void)
 }
 
 class CreateSafeFormUIModel {
@@ -34,6 +33,7 @@ class CreateSafeFormUIModel {
     var sectionHeaders: [CreateSafeFormSectionHeader] = []
     var safeAddress: Address?
     var state: CreateSafeFormUIState = .initial
+    var futureSafeAddress: Address?
 
     private var debounceTimer: Timer?
     private var estimationTask: URLSessionTask?
@@ -42,7 +42,7 @@ class CreateSafeFormUIModel {
     private var receiptTask: URLSessionTask?
     private var safeInfoTask: URLSessionTask?
 
-    private var estimationController: TransactionEstimationController!
+    var estimationController: TransactionEstimationController!
     private var transactionSender: TransactionSender!
 
     weak var delegate: CreateSafeFormUIModelDelegate?
@@ -222,7 +222,7 @@ class CreateSafeFormUIModel {
 
     func addOwnerAddress(_ string: String?) {
         guard let string = string, let address = Address(string, checksummed: true) else {
-            let error = "Value '\(string ?? "")' seems to have a typo or is not a valid address. Please try again."
+            let error = "Value '\(string?.prefix(30) ?? "")' seems to have a typo or is not a valid address. Please try again."
             App.shared.snackbar.show(message: error)
             return
         }
@@ -350,6 +350,7 @@ class CreateSafeFormUIModel {
         if isEIP1559 {
             result = Eth.TransactionEip1559(
                 chainId: chainId,
+                from: (selectedKey?.address.data32).flatMap(Sol.Address.init(maybeData:)),
                 to: proxyFactoryAddress,
                 input: Sol.Bytes(storage: createAbi),
                 fee: .init(maxPriorityFee: userTxParameters.maxPriorityFee ??  Self.defaultMinerTip)
@@ -357,6 +358,7 @@ class CreateSafeFormUIModel {
         } else {
             result = Eth.TransactionLegacy(
                 chainId: chainId,
+                from: (selectedKey?.address.data32).flatMap(Sol.Address.init(maybeData:)),
                 to: proxyFactoryAddress,
                 input: Sol.Bytes(storage: createAbi)
             )
@@ -457,9 +459,12 @@ class CreateSafeFormUIModel {
                 let results = try result.get()
 
                 let gas = try results.gas.get()
-                let _ = try results.ethCall.get()
+                let callResult = try results.ethCall.get()
+                let safeAddress = try Sol.Address(data: callResult)
                 let gasPrice = try results.gasPrice.get()
                 let txCount = try results.transactionCount.get()
+
+                self.futureSafeAddress = Address(safeAddress)
                 self.minNonce = txCount
                 self.transaction.update(gas: gas, transactionCount: txCount, baseFee: gasPrice)
 
@@ -555,7 +560,6 @@ class CreateSafeFormUIModel {
             return
         }
 
-        delegate?.authenticateUser(completion)
     }
 
     // MARK: - Signing
