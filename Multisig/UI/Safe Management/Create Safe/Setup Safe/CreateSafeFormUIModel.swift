@@ -30,7 +30,7 @@ class CreateSafeFormUIModel {
     var minNonce: Sol.UInt64 = 0
     var transaction: EthTransaction!
     var error: Error?
-    var userTxParameters: UserDefinedTransactionParameters?
+    var userTxParameters = UserDefinedTransactionParameters()
     var sectionHeaders: [CreateSafeFormSectionHeader] = []
     var safeAddress: Address?
     var state: CreateSafeFormUIState = .initial
@@ -352,7 +352,7 @@ class CreateSafeFormUIModel {
                 chainId: chainId,
                 to: proxyFactoryAddress,
                 input: Sol.Bytes(storage: createAbi),
-                fee: .init(maxPriorityFee: Self.defaultMinerTip)
+                fee: .init(maxPriorityFee: userTxParameters.maxPriorityFee ??  Self.defaultMinerTip)
             )
         } else {
             result = Eth.TransactionLegacy(
@@ -363,6 +363,31 @@ class CreateSafeFormUIModel {
         }
 
         return result
+    }
+
+    func updateEthTransactionWithUserValues() {
+        // take the values only if they were set by user (not nil)
+        switch transaction {
+        case var ethTx as Eth.TransactionLegacy:
+            ethTx.fee.gas = userTxParameters.gas ?? ethTx.fee.gas
+            ethTx.fee.gasPrice = userTxParameters.gasPrice ?? ethTx.fee.gasPrice
+            ethTx.nonce = userTxParameters.nonce ?? ethTx.nonce
+
+            self.transaction = ethTx
+            didEdit()
+
+        case var ethTx as Eth.TransactionEip1559:
+            ethTx.fee.gas = userTxParameters.gas ?? ethTx.fee.gas
+            ethTx.fee.maxFeePerGas = userTxParameters.maxFeePerGas ?? ethTx.fee.maxFeePerGas
+            ethTx.fee.maxPriorityFee = userTxParameters.maxPriorityFee ?? ethTx.fee.maxPriorityFee
+            ethTx.nonce = userTxParameters.nonce ?? ethTx.nonce
+
+            self.transaction = ethTx
+            didEdit()
+
+        default:
+            break
+        }
     }
 
     private func address(of contract: SafeDeployments.Safe.ContractId, version: SafeDeployments.Safe.Version) throws -> Sol.Address {
@@ -414,6 +439,7 @@ class CreateSafeFormUIModel {
 
         do {
             transaction = try makeEthTransaction()
+            updateEthTransactionWithUserValues()
         } catch {
             completion(.failure(error))
         }
@@ -428,17 +454,19 @@ class CreateSafeFormUIModel {
             guard let self = self else { return }
 
             do {
-                let estimationResults = try result.get()
-                let gas = try self.userTxParameters?.gas ?? estimationResults.gas.get()
-                let gasPrice = try self.userTxParameters?.gasPrice ?? self.userTxParameters?.maxFeePerGas ?? estimationResults.gasPrice.get()
-                let txCount = try self.userTxParameters?.nonce ?? estimationResults.transactionCount.get()
+                let results = try result.get()
 
-                // TODO: handle the tx call result which will have the contract address
-                self.minNonce = try estimationResults.transactionCount.get()
+                let gas = try results.gas.get()
+                let _ = try results.ethCall.get()
+                let gasPrice = try results.gasPrice.get()
+                let txCount = try results.transactionCount.get()
+                self.minNonce = txCount
                 self.transaction.update(gas: gas, transactionCount: txCount, baseFee: gasPrice)
 
+                self.updateEthTransactionWithUserValues()
                 completion(.success(()))
             } catch {
+                self.updateEthTransactionWithUserValues()
                 completion(.failure(CreateSafeError(errorCode: -8, message: "Estimation failed", cause: error)))
             }
         }

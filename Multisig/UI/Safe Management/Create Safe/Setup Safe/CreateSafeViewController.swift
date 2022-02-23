@@ -345,18 +345,14 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         let formModel: FormModel
         var initialValues = UserDefinedTransactionParameters()
 
-        if uiModel.userTxParameters == nil {
-            uiModel.userTxParameters = initialValues
-        }
-
         switch uiModel.transaction {
         case let ethTx as Eth.TransactionLegacy:
             let model = FeeLegacyFormModel(
-                    nonce: ethTx.nonce,
-                    minimalNonce: uiModel.minNonce,
-                    gas: ethTx.fee.gas,
-                    gasPriceInWei: ethTx.fee.gasPrice,
-                    nativeCurrency: uiModel.chain.nativeCurrency!
+                nonce: ethTx.nonce,
+                minimalNonce: uiModel.minNonce,
+                gas: ethTx.fee.gas,
+                gasPriceInWei: ethTx.fee.gasPrice,
+                nativeCurrency: uiModel.chain.nativeCurrency!
             )
             initialValues.nonce = model.nonce
             initialValues.gas = model.gas
@@ -366,12 +362,12 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         case let ethTx as Eth.TransactionEip1559:
             let model = Fee1559FormModel(
-                    nonce: ethTx.nonce,
-                    minimalNonce: uiModel.minNonce,
-                    gas: ethTx.fee.gas,
-                    maxFeePerGasInWei: ethTx.fee.maxFeePerGas,
-                    maxPriorityFeePerGasInWei: ethTx.fee.maxPriorityFee,
-                    nativeCurrency: uiModel.chain.nativeCurrency!
+                nonce: ethTx.nonce,
+                minimalNonce: uiModel.minNonce,
+                gas: ethTx.fee.gas,
+                maxFeePerGasInWei: ethTx.fee.maxFeePerGas,
+                maxPriorityFeePerGasInWei: ethTx.fee.maxPriorityFee,
+                nativeCurrency: uiModel.chain.nativeCurrency!
             )
             initialValues.nonce = model.nonce
             initialValues.gas = model.gas
@@ -383,36 +379,32 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         default:
             if uiModel.chain.features?.contains("EIP1559") == true {
                 formModel = Fee1559FormModel(
-                        nonce: nil,
-                        gas: nil,
-                        maxFeePerGasInWei: nil,
-                        maxPriorityFeePerGasInWei: nil,
-                        nativeCurrency: uiModel.chain.nativeCurrency!
+                    nonce: nil,
+                    gas: nil,
+                    maxFeePerGasInWei: nil,
+                    maxPriorityFeePerGasInWei: nil,
+                    nativeCurrency: uiModel.chain.nativeCurrency!
                 )
             } else {
                 formModel = FeeLegacyFormModel(
-                        nonce: nil,
-                        gas: nil,
-                        gasPriceInWei: nil,
-                        nativeCurrency: uiModel.chain.nativeCurrency!
+                    nonce: nil,
+                    gas: nil,
+                    gasPriceInWei: nil,
+                    nativeCurrency: uiModel.chain.nativeCurrency!
                 )
             }
         }
 
         let formVC = FormViewController(model: formModel) { [weak self] in
             // on close - ignore any changes
-//            self?.dismiss(animated: true)
-            self?.navigationController?.popToRootViewController(animated: true)
+            self?.dismiss(animated: true)
         }
-        formVC.showsCloseButton = false
 
-        // TODO: tracking of form
-//        formVC.trackingEvent = .reviewExecutionEditFee
+        formVC.trackingEvent = .reviewExecutionEditFee
 
         formVC.onSave = { [weak self, weak formModel] in
             // on save - update the parameters that were changed.
-            self?.navigationController?.popToRootViewController(animated: true)
-//            self?.dismiss(animated: true, completion: {
+            self?.dismiss(animated: true, completion: {
                 guard let self = self, let formModel = formModel else { return }
 
                 // collect the saved values
@@ -441,31 +433,31 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 var changedFieldTrackingIds: [String] = []
 
                 if savedValues.nonce != initialValues.nonce {
-                    self.uiModel.userTxParameters?.nonce = savedValues.nonce
+                    self.uiModel.userTxParameters.nonce = savedValues.nonce
 
                     changedFieldTrackingIds.append("nonce")
                 }
 
                 if savedValues.gas != initialValues.gas {
-                    self.uiModel.userTxParameters?.gas = savedValues.gas
+                    self.uiModel.userTxParameters.gas = savedValues.gas
 
                     changedFieldTrackingIds.append("gasLimit")
                 }
 
                 if savedValues.gasPrice != initialValues.gasPrice {
-                    self.uiModel.userTxParameters?.gasPrice = savedValues.gasPrice
+                    self.uiModel.userTxParameters.gasPrice = savedValues.gasPrice
 
                     changedFieldTrackingIds.append("gasPrice")
                 }
 
                 if savedValues.maxFeePerGas != initialValues.maxFeePerGas {
-                    self.uiModel.userTxParameters?.maxFeePerGas = savedValues.maxFeePerGas
+                    self.uiModel.userTxParameters.maxFeePerGas = savedValues.maxFeePerGas
 
                     changedFieldTrackingIds.append("maxFee")
                 }
 
                 if savedValues.maxPriorityFee != initialValues.maxPriorityFee {
-                    self.uiModel.userTxParameters?.maxPriorityFee = savedValues.maxPriorityFee
+                    self.uiModel.userTxParameters.maxPriorityFee = savedValues.maxPriorityFee
 
                     changedFieldTrackingIds.append("maxPriorityFee")
                 }
@@ -473,39 +465,19 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 // react to changes
 
                 if savedValues != initialValues {
-                        // take the values only if they were set by user (not nil)
-                    switch self.uiModel.transaction {
-                    case var ethTx as Eth.TransactionLegacy:
-                        ethTx.fee.gas = self.uiModel.userTxParameters?.gas ?? ethTx.fee.gas
-                        ethTx.fee.gasPrice = self.uiModel.userTxParameters?.gasPrice ?? ethTx.fee.gasPrice
-                        ethTx.nonce = self.uiModel.userTxParameters?.nonce ?? ethTx.nonce
+                    self.uiModel.error = nil
+                    self.uiModel.updateEthTransactionWithUserValues()
 
-                        self.uiModel.transaction = ethTx
-
-                    case var ethTx as Eth.TransactionEip1559:
-                        ethTx.fee.gas = self.uiModel.userTxParameters?.gas ?? ethTx.fee.gas
-                        ethTx.fee.maxFeePerGas = self.uiModel.userTxParameters?.maxFeePerGas ?? ethTx.fee.maxFeePerGas
-                        ethTx.fee.maxPriorityFee = self.uiModel.userTxParameters?.maxPriorityFee ?? ethTx.fee.maxPriorityFee
-                        ethTx.nonce = self.uiModel.userTxParameters?.nonce ?? ethTx.nonce
-
-                        self.uiModel.transaction = ethTx
-
-                    default:
-                        break
-                    }
-                    self.uiModel.didEdit()
-                    // TODO: track changes
-//                    let changedFields = changedFieldTrackingIds.joined(separator: ",")
-//                    Tracker.trackEvent(.reviewExecutionFieldEdited, parameters: ["fields": changedFields])
+                    let changedFields = changedFieldTrackingIds.joined(separator: ",")
+                    Tracker.trackEvent(.reviewExecutionFieldEdited, parameters: ["fields": changedFields])
                 }
-//            })
+            })
         }
 
         formVC.navigationItem.title = "Edit transaction fee"
         let ribbon = RibbonViewController(rootViewController: formVC)
-//        let nav = UINavigationController(rootViewController: ribbon)
-//        present(nav, animated: true, completion: nil)
-        show(ribbon, sender: self)
+        let nav = UINavigationController(rootViewController: ribbon)
+        present(nav, animated: true, completion: nil)
     }
 
     // create button tapped

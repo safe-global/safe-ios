@@ -292,7 +292,6 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
         let ribbon = RibbonViewController(rootViewController: formVC)
         let nav = UINavigationController(rootViewController: ribbon)
         present(nav, animated: true, completion: nil)
-
     }
 
     func updateEthTransactionWithUserValues() {
