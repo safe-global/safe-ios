@@ -25,7 +25,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         title = "Create Safe"
 
-        tableView.registerHeaderFooterView(InfoSectionHeaderView.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
         tableView.registerCell(SelectNetworkTableViewCell.self)
         tableView.registerCell(ActionDetailAddressCell.self)

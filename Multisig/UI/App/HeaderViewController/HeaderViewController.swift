@@ -98,11 +98,11 @@ final class HeaderViewController: ContainerViewController {
 
         switchSafesVC.onCreateSafe = { [weak self] in
             self?.dismiss(animated: true) {
-                let createSafeVC = CreateSafeViewController(nibName: nil, bundle: nil)
-                createSafeVC.onClose = { [weak self] in
+                let instructionsVC = CreateSafeInstructionsViewController()
+                instructionsVC.onClose = { [weak self] in
                     self?.dismiss(animated: true, completion: nil)
                 }
-                let vc = ViewControllerFactory.modal(viewController: createSafeVC)
+                let vc = ViewControllerFactory.modal(viewController: instructionsVC)
                 self?.present(vc, animated: true)
             }
         }
