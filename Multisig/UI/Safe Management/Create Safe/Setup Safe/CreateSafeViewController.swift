@@ -10,7 +10,6 @@ import UIKit
 import Ethereum
 import Solidity
 import WalletConnectSwift
-import JsonRpc2
 
 class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CreateSafeFormUIModelDelegate {
 
@@ -21,7 +20,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     private var wcConnector: WCWalletConnectionController!
 
     var onClose: () -> Void = {}
-    var onFinish: () -> Void = {}
 
     private var uiModel = CreateSafeFormUIModel()
 
@@ -64,8 +62,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func createSafeModelDidFinish() {
-        // TODO: open next screen!
-        onFinish()
+        onClose()
     }
 
     // MARK: - UI Events
@@ -756,10 +753,10 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                         assert(Thread.isMainThread)
 
                         if let hexHash = txHash {
-                            self.didSubmitTransaction(txHash: Eth.Hash(Data(hex: hexHash)))
-                            self.didSubmitSuccess()
+                            self.uiModel.didSubmitTransaction(txHash: Eth.Hash(Data(hex: hexHash)))
+                            self.uiModel.didSubmitSuccess()
                         } else {
-                            self.didSubmitFailed(nil)
+                            self.uiModel.didSubmitFailed(nil)
                         }
                     }
 
@@ -868,92 +865,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
 
     func submit() {
-//        self.actionPanelView.setConfirmEnabled(false)
-
-        let _ = send(completion: { [weak self] result in
-            guard let self = self else { return }
-
-            switch result {
-            case .failure(let error):
-//                self.actionPanelView.setConfirmEnabled(true)
-                self.didSubmitFailed(error)
-
-            case .success:
-                self.didSubmitSuccess()
-            }
-        })
-    }
-
-    func send(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
-        guard let tx = uiModel.transaction else { return nil }
-
-        let rawTransaction = tx.rawTransaction()
-
-        let sendRawTxMethod = EthRpc1.eth_sendRawTransaction(transaction: rawTransaction)
-
-        let request: JsonRpc2.Request
-
-        do {
-            request = try sendRawTxMethod.request(id: .int(1))
-        } catch {
-            dispatchOnMainThread(completion(.failure(error)))
-            return nil
-        }
-
-        let client = uiModel.estimationController.rpcClient
-
-        let task = client.send(request: request) { [weak self] response in
-            guard let self = self else { return }
-
-            guard let response = response else {
-                let error = TransactionExecutionError(code: -4, message: "No response from server")
-                dispatchOnMainThread(completion(.failure(error)))
-                return
-            }
-
-            if let error = response.error {
-                dispatchOnMainThread(completion(.failure(error)))
-                return
-            }
-
-            guard let result = response.result else {
-                let error = TransactionExecutionError(code: -5, message: "No result from server")
-                dispatchOnMainThread(completion(.failure(error)))
-                return
-            }
-
-            let txHash: EthRpc1.Data
-            do {
-                txHash = try sendRawTxMethod.result(from: result)
-            } catch {
-                dispatchOnMainThread(completion(.failure(error)))
-                return
-            }
-
-            DispatchQueue.main.async {
-                self.didSubmitTransaction(txHash: Eth.Hash(txHash.storage))
-                completion(.success(()))
-            }
-        }
-        return task
-    }
-
-    func didSubmitTransaction(txHash: Eth.Hash) {
-        uiModel.transaction.hash = txHash
-    }
-
-    func didSubmitFailed(_ error: Error?) {
-        let gsError = GSError.error(description: "Submitting failed", error: error)
-        App.shared.snackbar.show(error: gsError)
-
-        Tracker.trackEvent(.executeFailure, parameters: [
-            "chainId": uiModel.chain.id!
-        ])
-    }
-
-    func didSubmitSuccess() {
-        let txHash = uiModel.transaction.hash ?? .init()
-        LogService.shared.debug("Submitted tx: \(txHash.storage.storage.toHexStringWithPrefix()); Safe: \(uiModel.futureSafeAddress ?? .zero)")
+        uiModel.userDidSubmit()
     }
 
 }

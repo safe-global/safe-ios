@@ -118,17 +118,7 @@ class CreateSafeFormUIModel {
             }
 
         case .sending:
-            send { [weak self] result in
-                guard let self = self else { return }
-
-                let _ = self.handleError({ try result.get() })
-
-                if self.error != nil {
-                    self.update(to: .changed)
-                } else {
-                    self.update(to: .final)
-                }
-            }
+            break
 
         case .pending:
             // if not mined, schedule timer to pending again
@@ -156,7 +146,6 @@ class CreateSafeFormUIModel {
             // while at other states we just want  to update ui after they have executed update action.
             sectionHeaders = makeSectionHeaders()
             delegate?.updateUI(model: self)
-            delegate?.createSafeModelDidFinish()
             return
         }
 
@@ -745,6 +734,124 @@ class CreateSafeFormUIModel {
             fiatAmount: nil)
 
         return model
+    }
+
+    func userDidSubmit() {
+//        self.actionPanelView.setConfirmEnabled(false)
+
+        let _ = send(completion: { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .failure(let error):
+//                self.actionPanelView.setConfirmEnabled(true)
+                self.didSubmitFailed(error)
+
+            case .success:
+                self.didSubmitSuccess()
+            }
+        })
+    }
+
+    func send(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
+        guard let tx = transaction else { return nil }
+
+        let rawTransaction = tx.rawTransaction()
+
+        let sendRawTxMethod = EthRpc1.eth_sendRawTransaction(transaction: rawTransaction)
+
+        let request: JsonRpc2.Request
+
+        do {
+            request = try sendRawTxMethod.request(id: .int(1))
+        } catch {
+            dispatchOnMainThread(completion(.failure(error)))
+            return nil
+        }
+
+        let client = estimationController.rpcClient
+
+        let task = client.send(request: request) { [weak self] response in
+            guard let self = self else { return }
+
+            guard let response = response else {
+                let error = TransactionExecutionError(code: -4, message: "No response from server")
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            if let error = response.error {
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            guard let result = response.result else {
+                let error = TransactionExecutionError(code: -5, message: "No result from server")
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            let txHash: EthRpc1.Data
+            do {
+                txHash = try sendRawTxMethod.result(from: result)
+            } catch {
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            DispatchQueue.main.async {
+                self.didSubmitTransaction(txHash: Eth.Hash(txHash.storage))
+                completion(.success(()))
+            }
+        }
+        return task
+    }
+
+    func didSubmitTransaction(txHash: Eth.Hash) {
+        transaction.hash = txHash
+    }
+
+    func didSubmitFailed(_ error: Error?) {
+        let gsError = GSError.error(description: "Submitting failed", error: error)
+        App.shared.snackbar.show(error: gsError)
+
+//        Tracker.trackEvent(.executeFailure, parameters: [
+//            "chainId": uiModel.chain.id!
+//        ])
+    }
+
+    func didSubmitSuccess() {
+        defer { delegate?.createSafeModelDidFinish() }
+
+        assert(transaction.hash != nil)
+        assert(futureSafeAddress != nil)
+
+        // create a safe
+        guard let address = futureSafeAddress, let txHash = transaction.hash else {
+           return
+       }
+        Safe.create(
+            address: address.checksummed,
+            version: "1.3.0",
+            name: name,
+            chain: chain,
+            selected: true,
+            status: .deploying
+        )
+
+        // save the tx information for monitoring purposes
+        let context = App.shared.coreDataStack.viewContext
+        let cdTx = CDEthTransaction(context: context)
+        cdTx.ethTxHash = txHash.storage.storage.toHexStringWithPrefix()
+        cdTx.safeTxHash = nil
+        cdTx.status = SCGModels.TxStatus.pending.rawValue
+        cdTx.safeAddress = address.checksummed
+        cdTx.chainId = chain.id
+        cdTx.dateSubmittedAt = Date()
+        App.shared.coreDataStack.saveContext()
+
+
+        App.shared.notificationHandler.safeAdded(address: address)
     }
 }
 

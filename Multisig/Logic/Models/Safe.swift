@@ -14,7 +14,7 @@ import Version
 // "address:chainId" -> name
 fileprivate var cachedNames = [String: String]()
 
-extension Safe: Identifiable {
+extension Safe {
 
     var isSelected: Bool { selection != nil }
 
@@ -27,6 +27,11 @@ extension Safe: Identifiable {
     var browserURL: URL { chain!.browserURL(address: displayAddress) }
 
     var displayENSName: String { ensName ?? "" }
+
+    var safeStatus: SafeStatus {
+        get { SafeStatus(rawValue: status) ?? .deployed }
+        set { status = newValue.rawValue }
+    }
 
     var isReadOnly: Bool {
         guard let owners = ownersInfo else { return false }
@@ -131,7 +136,7 @@ extension Safe: Identifiable {
     }
 
     @discardableResult
-    static func create(address: String, version: String, name: String, chain: Chain, selected: Bool = true) -> Safe {
+    static func create(address: String, version: String, name: String, chain: Chain, selected: Bool = true, status: SafeStatus = .deployed) -> Safe {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
 
@@ -140,6 +145,7 @@ extension Safe: Identifiable {
         safe.contractVersion = version
         safe.name = name
         safe.chain = chain
+        safe.safeStatus = status
 
         if selected {
             safe.select()
@@ -249,4 +255,9 @@ extension ImplementationVersionState {
         case .upgradeAvailable: self = .upgradeAvailable
         }
     }
+}
+
+enum SafeStatus: Int16 {
+    case deployed = 0
+    case deploying = 1
 }
