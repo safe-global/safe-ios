@@ -269,8 +269,8 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
         let accountVC = ChooseOwnerKeyViewController(
             owners: keys,
             chainID: chain.id,
-            titleText: "Change Account",
-            header: .text(description: "Change selected wallet"),
+            titleText: "Change owner key",
+            header: .none,
             requestsPasscode: false,
             selectedKey: self.key,
             balancesLoader: nil
