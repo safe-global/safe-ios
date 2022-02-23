@@ -283,7 +283,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             let addOwnerVC = AddOwnerFirstViewController()
             addOwnerVC.onSuccess = { [weak self] in
                 guard let self = self else { return }
-                self.navigationController?.popViewController(animated: true)
+                self.navigationController?.popToViewController(self, animated: true)
                 self.uiModel.selectedKey = self.uiModel.executionKeys().first
                 self.uiModel.didEdit()
             }
