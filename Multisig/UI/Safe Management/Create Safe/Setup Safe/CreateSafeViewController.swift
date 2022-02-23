@@ -80,6 +80,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
     @objc private func didPullToRefresh() {
         refreshControl.endRefreshing()
+        uiModel.didEdit()
     }
 
     @objc private func didTapAddOwnerButton(_ sender: Any) {

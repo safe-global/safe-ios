@@ -79,7 +79,7 @@ class CreateSafeFormUIModel {
             estimate { [weak self] result in
                 guard let self = self else { return }
 
-                let _ = self.handleError({ try result.get() })
+                let _ = self.handleError { try result.get() }
 
                 if self.error != nil {
                     self.update(to: .changed)
@@ -153,12 +153,14 @@ class CreateSafeFormUIModel {
 
         case .final:
             // at the final state we want to update ui one more time before finishing
-            // while at other states we just want to update ui after they have executed update action.
+            // while at other states we just want  to update ui after they have executed update action.
+            sectionHeaders = makeSectionHeaders()
             delegate?.updateUI(model: self)
             delegate?.createSafeModelDidFinish()
             return
         }
 
+        sectionHeaders = makeSectionHeaders()
         delegate?.updateUI(model: self)
     }
 
@@ -169,7 +171,15 @@ class CreateSafeFormUIModel {
     }
 
     var isCreateEnabled: Bool {
-        state == .ready && owners.count > 0
+        state == .ready &&
+        name != nil && !name.isEmpty &&
+        chain != nil &&
+        !owners.isEmpty &&
+        threshold > 0 && threshold <= owners.count &&
+        selectedKey != nil &&
+        transaction != nil &&
+        deployerBalance != nil && deployerBalance! >= transaction.requiredBalance &&
+        error == nil
     }
 
     var isLoadingDeployer: Bool {
@@ -203,7 +213,7 @@ class CreateSafeFormUIModel {
         chain = Chain.mainnetChain()
         owners = []
         threshold = 1
-        transaction = handleError(try makeEthTransaction())
+        transaction = handleError { try makeEthTransaction() }
         sectionHeaders = makeSectionHeaders()
     }
 
@@ -269,7 +279,7 @@ class CreateSafeFormUIModel {
         owners = owners.map(\.address).map { owner(from: $0, defaultName: nil) }
     }
 
-    private func handleError<T>(_ closure: @autoclosure () throws -> T) -> T? {
+    private func handleError<T>(_ closure: () throws -> T) -> T? {
         do {
             return try closure()
         } catch {
@@ -463,13 +473,20 @@ class CreateSafeFormUIModel {
                 let safeAddress = try Sol.Address(data: callResult)
                 let gasPrice = try results.gasPrice.get()
                 let txCount = try results.transactionCount.get()
+                let balance = try results.balance.get()
 
                 self.futureSafeAddress = Address(safeAddress)
                 self.minNonce = txCount
+                self.deployerBalance = balance
                 self.transaction.update(gas: gas, transactionCount: txCount, baseFee: gasPrice)
 
                 self.updateEthTransactionWithUserValues()
-                completion(.success(()))
+
+                if balance < self.transaction.requiredBalance {
+                    completion(.failure(CreateSafeError(errorCode: -9, message: "Insufficient balance for network fees")))
+                } else {
+                    completion(.success(()))
+                }
             } catch {
                 self.updateEthTransactionWithUserValues()
                 completion(.failure(CreateSafeError(errorCode: -8, message: "Estimation failed", cause: error)))
