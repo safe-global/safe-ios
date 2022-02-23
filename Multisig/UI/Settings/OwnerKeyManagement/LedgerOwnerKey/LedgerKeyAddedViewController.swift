@@ -22,7 +22,7 @@ class LedgerKeyAddedViewController: AccountActionCompletedViewController {
         assert(accountName != nil)
         assert(accountAddress != nil)
 
-        descriptionText = "\(accountName ?? "Key") can't receive push notificaitons without your confirmation."
+        descriptionText = "\(accountName ?? "Key") can't receive push notifications without your confirmation."
 
         primaryActionName = "Confirm to receive push notifications"
         secondaryActionName = "Skip"
