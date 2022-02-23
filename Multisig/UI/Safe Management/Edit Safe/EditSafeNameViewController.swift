@@ -9,21 +9,14 @@
 import UIKit
 
 class EditSafeNameViewController: UIViewController {
-    var safe: Safe! {
-        didSet {
-            name = safe.name
-        }
-    }
-
     var name: String!
-    var completion: () -> Void = { }
+    var completion: (String) -> Void = { _ in }
 
     private var saveButton: UIBarButtonItem!
     @IBOutlet private weak var textField: GNOTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        assert(safe != nil, "Developer error: expect to have a safe")
 
         navigationItem.title = "Edit Safe Name"
 
@@ -44,8 +37,7 @@ class EditSafeNameViewController: UIViewController {
     }
 
     @objc private func didTapSaveButton() {
-        safe.update(name: name)
-        completion()
+        completion(name)
     }
 
     @objc fileprivate func validateName() {

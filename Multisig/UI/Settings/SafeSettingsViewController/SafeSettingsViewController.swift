@@ -302,10 +302,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         switch item {
         case Section.Name.name(_):
             let editSafeNameViewController = EditSafeNameViewController()
-            editSafeNameViewController.safe = safe
-            editSafeNameViewController.completion = {
+            editSafeNameViewController.name = safe.name
+            editSafeNameViewController.completion = { name in
                 DispatchQueue.main.async { [weak self] in
                     guard let `self` = self else { return }
+                    self.safe.update(name: name)
                     self.navigationController?.popViewController(animated: true)
                 }
             }

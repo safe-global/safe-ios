@@ -33,6 +33,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.registerCell(DetailExpandableTextCell.self)
         tableView.registerCell(IconButtonTableViewCell.self)
         tableView.registerCell(HelpTextTableViewCell.self)
+        tableView.registerCell(BasicCell.self)
 
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
@@ -131,6 +132,9 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         guard isValid(indexPath: indexPath) else { return UITableViewCell() }
 
         switch uiModel.sectionHeaders[indexPath.section].id {
+        case .name:
+            let cell = tableView.basicCell(name: uiModel.name, indexPath: indexPath)
+            return cell
         case .network:
             let cell = networkCell(for: indexPath)
             return cell
@@ -173,6 +177,8 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.deselectRow(at: indexPath, animated: true)
         guard isValid(indexPath: indexPath) else { return }
         switch uiModel.sectionHeaders[indexPath.section].id {
+        case .name:
+            changeName()
         case .network:
             selectNetwork()
 
@@ -193,6 +199,19 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         uiModel.deleteOwnerAt(indexPath.row)
+    }
+
+    func changeName() {
+        let editSafeNameViewController = EditSafeNameViewController()
+        editSafeNameViewController.name = uiModel.name
+        editSafeNameViewController.completion = { name in
+            DispatchQueue.main.async { [weak self] in
+                guard let `self` = self else { return }
+                self.uiModel.setName(name)
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+        show(editSafeNameViewController, sender: self)
     }
 
     // select network
@@ -510,10 +529,19 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: - Cells
 
     func networkCell(for indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(SelectNetworkTableViewCell.self, for: indexPath)
-        cell.setText(uiModel.chain.name)
-        cell.setIndicatorColor(uiModel.chain.backgroundColor)
-        return cell
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueCell(SelectNetworkTableViewCell.self, for: indexPath)
+            cell.setText(uiModel.chain.name)
+            cell.setIndicatorColor(uiModel.chain.backgroundColor)
+            return cell
+        case 1:
+            let cell = helpTextCell("Safe will only exist on the selected network.", indexPath: indexPath)
+            return cell
+        default:
+            assertionFailure("Developer error: row count should be only two")
+            return UITableViewCell()
+        }
     }
 
     func ownerCell(for indexPath: IndexPath) -> UITableViewCell {

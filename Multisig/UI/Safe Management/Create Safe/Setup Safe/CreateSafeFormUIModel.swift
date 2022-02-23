@@ -21,6 +21,7 @@ protocol CreateSafeFormUIModelDelegate: AnyObject {
 }
 
 class CreateSafeFormUIModel {
+    var name: String!
     var chain: Chain!
     var owners: [CreateSafeFormOwner] = []
     var threshold: Int = 0
@@ -198,11 +199,17 @@ class CreateSafeFormUIModel {
     
     private func setup() {
         // select default chain
+        name = "My Safe"
         chain = Chain.mainnetChain()
         owners = []
         threshold = 1
         transaction = handleError(try makeEthTransaction())
         sectionHeaders = makeSectionHeaders()
+    }
+
+    func setName(_ name: String) {
+        self.name = name
+        didEdit()
     }
 
     func setChainId(_ chainId: String) {
@@ -378,7 +385,8 @@ class CreateSafeFormUIModel {
 
     private func makeSectionHeaders() -> [CreateSafeFormSectionHeader] {
         var result: [CreateSafeFormSectionHeader] = [
-            .init(id: .network, title: "Network", tooltip: "Blockchain network where the new safe will be deployed", itemCount: 1),
+            .init(id: .name, title: "Safe Name", itemCount: 1),
+            .init(id: .network, title: "Network", tooltip: "Safe will only exist on the selected network.", itemCount: 2),
             // we have 2 additional cells:
             // 'add owner' button cell
             // and help text cell
@@ -711,6 +719,7 @@ struct CreateSafeFormSectionHeader {
 }
 
 enum CreateSafeFormSectionId {
+    case name
     case network
     case owners
     case threshold
