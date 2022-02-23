@@ -249,9 +249,7 @@ class TransactionTests: XCTestCase {
     }
 
     func testReceipt() {
-//        let transactionHash: Node.Hash = "0xbbde8eb76e55c61807493653453c71b82dfec03c3204e80fca47622741da3607"
-        let transactionHash: Node.Hash = "0x6f744821feb86a24909f09c1b1b32b7c8711b5933455f9faac477441924392e2"
-
+        let transactionHash: Node.Hash = "0xbbde8eb76e55c61807493653453c71b82dfec03c3204e80fca47622741da3607"
         let exp = expectation(description: "get transaction")
         _ = client.call(Node.eth_getTransactionReceipt(hash: transactionHash) { result in
             defer { exp.fulfill() }
