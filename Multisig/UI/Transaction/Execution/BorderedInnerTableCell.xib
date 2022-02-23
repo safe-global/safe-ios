@@ -39,8 +39,10 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="bottomConstraint" destination="qFT-P3-cw5" id="iEP-DN-td3"/>
                 <outlet property="tableHeightConstraint" destination="rh9-w4-HqQ" id="Soh-7F-EIw"/>
                 <outlet property="tableView" destination="l2O-6N-Wn3" id="vkO-Xh-YNA"/>
+                <outlet property="topConstraint" destination="qFT-P3-cw5" id="s2T-eg-8dc"/>
             </connections>
             <point key="canvasLocation" x="-39.130434782608695" y="52.901785714285715"/>
         </tableViewCell>

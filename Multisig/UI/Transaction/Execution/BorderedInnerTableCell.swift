@@ -10,11 +10,21 @@ import UIKit
 
 class BorderedInnerTableCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeightConstraint: NSLayoutConstraint!
 
     var cells: [UITableViewCell] = []
     var onCellTap: (Int) -> Void = { _ in }
+
+    var verticalSpacing: CGFloat = 0 {
+        didSet {
+            topConstraint.constant = verticalSpacing
+            bottomConstraint.constant = verticalSpacing
+            setNeedsUpdateConstraints()
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()

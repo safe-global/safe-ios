@@ -34,6 +34,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.registerCell(IconButtonTableViewCell.self)
         tableView.registerCell(HelpTextTableViewCell.self)
         tableView.registerCell(BasicCell.self)
+        tableView.registerCell(BorderedInnerTableCell.self)
 
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
@@ -182,9 +183,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         case .network:
             selectNetwork()
 
-        case .deployment:
-            selectDeploymentRow(indexPath.row)
-
         case .owners:
             selectOwnerRow(indexPath.row)
 
@@ -274,19 +272,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func selectConfirmationRow(_ rowIndex: Int) {
         guard rowIndex == 1 else { return }
         openInSafari(App.configuration.help.confirmationsURL)
-    }
-
-    func selectDeploymentRow(_ index: Int) {
-        switch index {
-        case DEPLOYER_ROW:
-            selectDeploymentKey()
-
-        case FEE_ROW:
-            editParameters()
-
-        default:
-            break
-        }
     }
 
     // select deployer
@@ -616,26 +601,39 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
-    let DEPLOYER_ROW = 0
-    let FEE_ROW = 1
-
     func deploymentCell(for indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
-        case DEPLOYER_ROW:
-            let cell = deployerAccountCell(for: indexPath)
-            return cell
+        // create a table inner cell with other cells
+        let tableCell = tableView.dequeueCell(BorderedInnerTableCell.self, for: indexPath)
 
-        case FEE_ROW:
-            let cell = estimateFeeCell(for: indexPath)
-            return cell
+        tableCell.selectionStyle = .none
+        tableCell.verticalSpacing = 16
 
-        default:
-            fatalError("Invalid index path")
+        tableCell.tableView.registerCell(DisclosureWithContentCell.self)
+        tableCell.tableView.registerCell(SecondaryDetailDisclosureCell.self)
+
+        let accountCell = deployerAccountCell(tableView: tableCell.tableView)
+        let estimatedFeeCell = estimateFeeCell(tableView: tableCell.tableView)
+
+        tableCell.setCells([accountCell, estimatedFeeCell])
+
+        // handle cell taps
+        let (executeWithIndex, feeIndex) = (0, 1)
+        tableCell.onCellTap = { [weak self] index in
+            guard let self = self else { return }
+            switch index {
+            case executeWithIndex:
+                self.selectDeploymentKey()
+            case feeIndex:
+                self.editParameters()
+            default:
+                assertionFailure("Tapped cell at index out of bounds: \(index)")
+            }
         }
-    }
 
-    private func deployerAccountCell(for indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(DisclosureWithContentCell.self, for: indexPath)
+        return tableCell
+    }
+    private func deployerAccountCell(tableView: UITableView) -> UITableViewCell {
+        let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
         cell.setText("Deploy with")
 
         if uiModel.isLoadingDeployer {
@@ -652,8 +650,8 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
 
-    private func estimateFeeCell(for indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(DisclosureWithContentCell.self, for: indexPath)
+    private func estimateFeeCell(tableView: UITableView) -> UITableViewCell {
+        let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
         cell.setText("Estimated gas fee")
         if uiModel.isLoadingFee {
             let view = loadingView()
