@@ -5,6 +5,8 @@
 
 import Foundation
 import WalletConnectSwift
+import Ethereum
+import Solidity
 
 protocol WebConnectionObserver: AnyObject {
     func didUpdate(connection: WebConnection)
@@ -644,6 +646,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 try? server.send(Response(request: wcRequest, error: .invalidParams))
                 return
             }
+            prepareTransactionForExecution(sendTxRequest)
 
         default:
             break
@@ -653,6 +656,40 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         request.createdDate = Date()
         save(request)
         notifyObservers(of: request)
+    }
+
+    func prepareTransactionForExecution(_ request: WebConnectionSendTransactionRequest) {
+        guard
+            let connection = connection(for: request),
+            let chainId = connection.chainId,
+            let chain = chain(for: request),
+            let features = chain.features
+        else {
+            return
+        }
+
+        let minerTip: Sol.UInt256 = 1_500_000_000
+
+        // select tx type based on the chain.
+        let isEIP1559 = features.contains("EIP1559")
+        if isEIP1559 {
+            request.transaction = Eth.TransactionEip1559(
+                chainId: Sol.UInt256(chainId),
+                from: request.transaction.from,
+                to: request.transaction.to,
+                value: request.transaction.value,
+                input: request.transaction.data,
+                fee: .init(maxPriorityFee: minerTip)
+            )
+        } else {
+            request.transaction = Eth.TransactionLegacy(
+                chainId: Sol.UInt256(chainId),
+                from: request.transaction.from,
+                to: request.transaction.to,
+                value: request.transaction.value,
+                input: request.transaction.data
+            )
+        }
     }
 
     func request(_ connectionURL: WebConnectionURL, _ requestId: WebConnectionRequestId) -> WebConnectionRequest? {
