@@ -15,8 +15,10 @@
                 <outlet property="actionButton" destination="txJ-9T-WhM" id="NFu-d9-Xcm"/>
                 <outlet property="descriptionLabel" destination="7JV-gm-BsD" id="qba-RA-eLx"/>
                 <outlet property="labelContainer" destination="b4b-r9-s0F" id="b0g-K0-aOB"/>
+                <outlet property="labelContainerTop" destination="Hew-wb-mlz" id="nJ2-uV-JfC"/>
                 <outlet property="linkButton" destination="1qj-e5-GC2" id="CG2-7u-O3U"/>
                 <outlet property="statusImage" destination="cy8-H4-ttj" id="Kdp-7f-h4B"/>
+                <outlet property="statusImageTop" destination="K0P-ea-EfL" id="dIc-G0-rwd"/>
                 <outlet property="titleLabel" destination="qtE-Y1-Z5q" id="89W-3p-rFy"/>
                 <outlet property="view" destination="0aK-WY-E9k" id="EVQ-ed-pSl"/>
             </connections>
