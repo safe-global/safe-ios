@@ -130,9 +130,25 @@
         <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="contractVersion" attributeType="String" defaultValueString=""/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="chain" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Chain" inverseName="safe" inverseEntity="Chain"/>
         <relationship name="selection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Selection" inverseName="safe" inverseEntity="Selection"/>
         <relationship name="wcSessions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WCSession" inverseName="safe" inverseEntity="WCSession"/>
+    </entity>
+    <entity name="SafeCreationCall" representedClassName="SafeCreationCall" syncable="YES" codeGenerationType="class">
+        <attribute name="chainId" attributeType="String"/>
+        <attribute name="deployerAddress" optional="YES" attributeType="String"/>
+        <attribute name="fallbackHandlerAddress" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="owners" optional="YES" attributeType="String"/>
+        <attribute name="proxyFactoryAddress" optional="YES" attributeType="String"/>
+        <attribute name="safeAddress" attributeType="String"/>
+        <attribute name="saltNonce" optional="YES" attributeType="String"/>
+        <attribute name="singletonAddress" optional="YES" attributeType="String"/>
+        <attribute name="threshold" optional="YES" attributeType="String"/>
+        <attribute name="transactionData" optional="YES" attributeType="Binary"/>
+        <attribute name="transactionHash" optional="YES" attributeType="String"/>
+        <attribute name="version" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Selection" representedClassName="Selection" syncable="YES" codeGenerationType="class">
         <relationship name="safe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Safe" inverseName="selection" inverseEntity="Safe"/>
@@ -157,8 +173,9 @@
         <element name="ChainTheme" positionX="443.2310791015625" positionY="4.1329345703125" width="128" height="74"/>
         <element name="ChainToken" positionX="256.864013671875" positionY="-258.2319793701172" width="128" height="104"/>
         <element name="KeyInfo" positionX="526.714111328125" positionY="148.0606079101562" width="128" height="134"/>
-        <element name="Safe" positionX="-258.5867919921875" positionY="21.39932250976562" width="128" height="134"/>
+        <element name="Safe" positionX="-258.5867919921875" positionY="21.39932250976562" width="128" height="149"/>
         <element name="Selection" positionX="-469.84912109375" positionY="-11.533935546875" width="128" height="58"/>
         <element name="WCSession" positionX="-269.6851196289062" positionY="219.7146911621094" width="128" height="119"/>
+        <element name="SafeCreationCall" positionX="-261" positionY="-99" width="128" height="224"/>
     </elements>
 </model>

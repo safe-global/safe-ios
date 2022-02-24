@@ -72,8 +72,8 @@ class LoadSafeViewController: UIViewController {
 
     @IBAction func didTapCreateSafe(_ sender: Any) {
         let instructionsVC = CreateSafeInstructionsViewController()
-        instructionsVC.onClose = { [weak self] in
-            self?.dismiss(animated: true, completion: nil)
+        instructionsVC.onClose = { [unowned instructionsVC] in
+            instructionsVC.dismiss(animated: true, completion: nil)
         }
         let vc = ViewControllerFactory.modal(viewController: instructionsVC)
         present(vc, animated: true)

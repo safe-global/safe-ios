@@ -17,7 +17,6 @@ import JsonRpc2
 protocol CreateSafeFormUIModelDelegate: AnyObject {
     func updateUI(model: CreateSafeFormUIModel)
     func createSafeModelDidFinish()
-    func authenticateUser(_ completion: @escaping (Bool) -> Void)
 }
 
 class CreateSafeFormUIModel {
@@ -30,10 +29,10 @@ class CreateSafeFormUIModel {
     var minNonce: Sol.UInt64 = 0
     var transaction: EthTransaction!
     var error: Error?
-    var userTxParameters: UserDefinedTransactionParameters?
+    var userTxParameters = UserDefinedTransactionParameters()
     var sectionHeaders: [CreateSafeFormSectionHeader] = []
-    var safeAddress: Address?
     var state: CreateSafeFormUIState = .initial
+    var futureSafeAddress: Address?
 
     private var debounceTimer: Timer?
     private var estimationTask: URLSessionTask?
@@ -42,7 +41,7 @@ class CreateSafeFormUIModel {
     private var receiptTask: URLSessionTask?
     private var safeInfoTask: URLSessionTask?
 
-    private var estimationController: TransactionEstimationController!
+    var estimationController: TransactionEstimationController!
     private var transactionSender: TransactionSender!
 
     weak var delegate: CreateSafeFormUIModelDelegate?
@@ -79,7 +78,7 @@ class CreateSafeFormUIModel {
             estimate { [weak self] result in
                 guard let self = self else { return }
 
-                let _ = self.handleError({ try result.get() })
+                let _ = self.handleError { try result.get() }
 
                 if self.error != nil {
                     self.update(to: .changed)
@@ -101,64 +100,11 @@ class CreateSafeFormUIModel {
                 }
             }
 
-        case .authenticating:
+        default:
             break
-
-        case .signing:
-            sign { [weak self] result in
-                guard let self = self else { return }
-
-                let _ = self.handleError({ try result.get() })
-
-                if self.error != nil {
-                    self.update(to: .changed)
-                } else {
-                    self.update(to: .sending)
-                }
-            }
-
-        case .sending:
-            send { [weak self] result in
-                guard let self = self else { return }
-
-                let _ = self.handleError({ try result.get() })
-
-                if self.error != nil {
-                    self.update(to: .changed)
-                } else {
-                    self.update(to: .final)
-                }
-            }
-
-        case .pending:
-            // if not mined, schedule timer to pending again
-            // if success, go to indexing
-            // else go back to ready with error
-            break
-
-        case .indexing:
-            // if found, go to final
-            // if not found, schedule timer to indexing again.
-            break
-
-        case .keyNotFound:
-            break
-
-        case .ready:
-            break
-
-        case .error:
-            assert(error != nil)
-            break
-
-        case .final:
-            // at the final state we want to update ui one more time before finishing
-            // while at other states we just want to update ui after they have executed update action.
-            delegate?.updateUI(model: self)
-            delegate?.createSafeModelDidFinish()
-            return
         }
 
+        sectionHeaders = makeSectionHeaders()
         delegate?.updateUI(model: self)
     }
 
@@ -169,7 +115,15 @@ class CreateSafeFormUIModel {
     }
 
     var isCreateEnabled: Bool {
-        state == .ready && owners.count > 0
+        state == .ready &&
+        name != nil && !name.isEmpty &&
+        chain != nil &&
+        !owners.isEmpty &&
+        threshold > 0 && threshold <= owners.count &&
+        selectedKey != nil &&
+        transaction != nil &&
+        deployerBalance != nil && deployerBalance! >= transaction.requiredBalance &&
+        error == nil
     }
 
     var isLoadingDeployer: Bool {
@@ -190,11 +144,6 @@ class CreateSafeFormUIModel {
         update(to: .changed)
     }
 
-    func didCreate() {
-        guard isCreateEnabled else { return }
-        update(to: .signing)
-    }
-
     // MARK: - Setup
     
     private func setup() {
@@ -203,7 +152,7 @@ class CreateSafeFormUIModel {
         chain = Chain.mainnetChain()
         owners = []
         threshold = 1
-        transaction = handleError(try makeEthTransaction())
+        transaction = handleError { try makeEthTransaction() }
         sectionHeaders = makeSectionHeaders()
     }
 
@@ -222,7 +171,7 @@ class CreateSafeFormUIModel {
 
     func addOwnerAddress(_ string: String?) {
         guard let string = string, let address = Address(string, checksummed: true) else {
-            let error = "Value '\(string ?? "")' seems to have a typo or is not a valid address. Please try again."
+            let error = "Value '\(string?.prefix(30) ?? "")' seems to have a typo or is not a valid address. Please try again."
             App.shared.snackbar.show(message: error)
             return
         }
@@ -269,7 +218,7 @@ class CreateSafeFormUIModel {
         owners = owners.map(\.address).map { owner(from: $0, defaultName: nil) }
     }
 
-    private func handleError<T>(_ closure: @autoclosure () throws -> T) -> T? {
+    private func handleError<T>(_ closure: () throws -> T) -> T? {
         do {
             return try closure()
         } catch {
@@ -278,13 +227,37 @@ class CreateSafeFormUIModel {
         }
     }
 
-    private func makeEthTransaction() throws -> EthTransaction {
-        // get deployments for the chain
-        let deploymentVersion = SafeDeployments.Safe.Version.v1_3_0
-        let proxyFactoryAddress = try address(of: .ProxyFactory, version: deploymentVersion)
-        let fallbackHandlerAddress = try address(of: .CompatibilityFallbackHandler, version: deploymentVersion)
+    private var deploymentVersion: SafeDeployments.Safe.Version!
+    private var proxyFactoryAddress: Sol.Address!
+    private var fallbackHandlerAddress: Sol.Address!
+    private var singletonAddress: Sol.Address!
+    private var saltNonce: Sol.UInt256!
+
+    private func setupTransactionParameters() throws {
+        deploymentVersion = SafeDeployments.Safe.Version.v1_3_0
+        proxyFactoryAddress = try address(of: .ProxyFactory, version: deploymentVersion)
+        fallbackHandlerAddress = try address(of: .CompatibilityFallbackHandler, version: deploymentVersion)
         let safeL1Address = try address(of: .GnosisSafe, version: deploymentVersion)
         let safeL2Address = try address(of: .GnosisSafeL2, version: deploymentVersion)
+        singletonAddress = chain.l2 ? safeL2Address : safeL1Address
+
+        // generate salt
+        var saltBytes: [UInt8] = .init(repeating: 0, count: 32)
+        let randomSaltResult = SecRandomCopyBytes(kSecRandomDefault, saltBytes.count, &saltBytes)
+
+        guard randomSaltResult == errSecSuccess else {
+            throw CreateSafeError(errorCode: -6, message: "Failed to create random salt (sec error \(randomSaltResult))")
+        }
+
+        do {
+            saltNonce = try Sol.UInt256(Data(saltBytes))
+        } catch {
+            throw CreateSafeError(errorCode: -7, message: "Failed to create random salt from bytes", cause: error)
+        }
+    }
+
+    private func makeEthTransaction() throws -> EthTransaction {
+        try setupTransactionParameters()
 
         // get setupFunction from safe
             // set owners, threshold
@@ -312,25 +285,10 @@ class CreateSafeFormUIModel {
         )
         let setupAbi = setupFunction.encode()
 
-        // generate salt
-        var saltBytes: [UInt8] = .init(repeating: 0, count: 32)
-        let randomSaltResult = SecRandomCopyBytes(kSecRandomDefault, saltBytes.count, &saltBytes)
-
-        guard randomSaltResult == errSecSuccess else {
-            throw CreateSafeError(errorCode: -6, message: "Failed to create random salt (sec error \(randomSaltResult))")
-        }
-
-        let saltNonce: Sol.UInt256
-
-        do {
-            saltNonce = try Sol.UInt256(Data(saltBytes))
-        } catch {
-            throw CreateSafeError(errorCode: -7, message: "Failed to create random salt from bytes", cause: error)
-        }
 
         // create proxy with nonce
         let createFunction = GnosisSafeProxyFactory_v1_3_0.createProxyWithNonce(
-            _singleton: chain.l2 ? safeL2Address : safeL1Address,
+            _singleton: singletonAddress,
             initializer: Sol.Bytes(storage: setupAbi),
             saltNonce: saltNonce
         )
@@ -350,19 +308,46 @@ class CreateSafeFormUIModel {
         if isEIP1559 {
             result = Eth.TransactionEip1559(
                 chainId: chainId,
+                from: (selectedKey?.address.data32).flatMap(Sol.Address.init(maybeData:)),
                 to: proxyFactoryAddress,
                 input: Sol.Bytes(storage: createAbi),
-                fee: .init(maxPriorityFee: Self.defaultMinerTip)
+                fee: .init(maxPriorityFee: userTxParameters.maxPriorityFee ??  Self.defaultMinerTip)
             )
         } else {
             result = Eth.TransactionLegacy(
                 chainId: chainId,
+                from: (selectedKey?.address.data32).flatMap(Sol.Address.init(maybeData:)),
                 to: proxyFactoryAddress,
                 input: Sol.Bytes(storage: createAbi)
             )
         }
 
         return result
+    }
+
+    func updateEthTransactionWithUserValues() {
+        // take the values only if they were set by user (not nil)
+        switch transaction {
+        case var ethTx as Eth.TransactionLegacy:
+            ethTx.fee.gas = userTxParameters.gas ?? ethTx.fee.gas
+            ethTx.fee.gasPrice = userTxParameters.gasPrice ?? ethTx.fee.gasPrice
+            ethTx.nonce = userTxParameters.nonce ?? ethTx.nonce
+
+            self.transaction = ethTx
+            didEdit()
+
+        case var ethTx as Eth.TransactionEip1559:
+            ethTx.fee.gas = userTxParameters.gas ?? ethTx.fee.gas
+            ethTx.fee.maxFeePerGas = userTxParameters.maxFeePerGas ?? ethTx.fee.maxFeePerGas
+            ethTx.fee.maxPriorityFee = userTxParameters.maxPriorityFee ?? ethTx.fee.maxPriorityFee
+            ethTx.nonce = userTxParameters.nonce ?? ethTx.nonce
+
+            self.transaction = ethTx
+            didEdit()
+
+        default:
+            break
+        }
     }
 
     private func address(of contract: SafeDeployments.Safe.ContractId, version: SafeDeployments.Safe.Version) throws -> Sol.Address {
@@ -393,7 +378,7 @@ class CreateSafeFormUIModel {
             .init(id: .owners, title: "Owners", tooltip: "Owner account addresses that can approve transactions made from the new Safe", itemCount: owners.count + 2, actionable: true),
             // we have 1 cell for threshold and 1 cell for help text
             .init(id: .threshold, title: "Required Confirmations", tooltip: "Number of confirmations needed to execute a transaction from the new Safe", itemCount: 2),
-            .init(id: .deployment, title: "Payment Details", tooltip: "Account that will deploy the new Safe contract and deployment transaction information", itemCount: 2)
+            .init(id: .deployment, title: "Payment Details", tooltip: "Account that will deploy the new Safe contract and deployment transaction information", itemCount: 1)
         ]
 
         if error != nil {
@@ -414,6 +399,7 @@ class CreateSafeFormUIModel {
 
         do {
             transaction = try makeEthTransaction()
+            updateEthTransactionWithUserValues()
         } catch {
             completion(.failure(error))
         }
@@ -428,17 +414,29 @@ class CreateSafeFormUIModel {
             guard let self = self else { return }
 
             do {
-                let estimationResults = try result.get()
-                let gas = try self.userTxParameters?.gas ?? estimationResults.gas.get()
-                let gasPrice = try self.userTxParameters?.gasPrice ?? self.userTxParameters?.maxFeePerGas ?? estimationResults.gasPrice.get()
-                let txCount = try self.userTxParameters?.nonce ?? estimationResults.transactionCount.get()
+                let results = try result.get()
 
-                // TODO: handle the tx call result which will have the contract address
-                self.minNonce = try estimationResults.transactionCount.get()
+                let gas = try results.gas.get()
+                let callResult = try results.ethCall.get()
+                let safeAddress = try Sol.Address(data: callResult)
+                let gasPrice = try results.gasPrice.get()
+                let txCount = try results.transactionCount.get()
+                let balance = try results.balance.get()
+
+                self.futureSafeAddress = Address(safeAddress)
+                self.minNonce = txCount
+                self.deployerBalance = balance
                 self.transaction.update(gas: gas, transactionCount: txCount, baseFee: gasPrice)
 
-                completion(.success(()))
+                self.updateEthTransactionWithUserValues()
+
+                if balance < self.transaction.requiredBalance {
+                    completion(.failure(CreateSafeError(errorCode: -9, message: "Insufficient balance for network fees")))
+                } else {
+                    completion(.success(()))
+                }
             } catch {
+                self.updateEthTransactionWithUserValues()
                 completion(.failure(CreateSafeError(errorCode: -8, message: "Estimation failed", cause: error)))
             }
         }
@@ -488,7 +486,6 @@ class CreateSafeFormUIModel {
         })
     }
 
-    // TODO: generalize / refactor
     // returns the execution keys valid for executing this transaction
     func executionKeys() -> [KeyInfo] {
         // all keys that can sign this tx on its chain.
@@ -516,109 +513,6 @@ class CreateSafeFormUIModel {
         }
 
         return validKeys
-    }
-
-    // MARK: - Authenticating
-
-    func authenticate(_ completion: @escaping (Bool) -> Void) {
-        let AUTHENTICATED = true
-        guard App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) else {
-            completion(AUTHENTICATED)
-            return
-        }
-
-        delegate?.authenticateUser(completion)
-    }
-
-    // MARK: - Signing
-
-    func sign(_ completion: @escaping (Result<Void, Error>) -> Void) {
-        // ask delegate to sign
-        // response can be either signature or transaction hash directly. We actually want it to be signature only.
-        // then update the signature in transsaction.
-        // success.
-    }
-
-    // MARK: - Sending
-    func send(_ completion: @escaping (Result<Void, Error>) -> Void) {
-        transactionSender = TransactionSender(chain: chain)
-        sendingTask?.cancel()
-        sendingTask = transactionSender.send(tx: transaction, completion: { [weak self] result in
-            guard let self = self else { return }
-            do {
-                self.transaction.hash = try result.get()
-                completion(.success(()))
-            } catch {
-                completion(.failure(error))
-            }
-        })
-    }
-
-    // MARK: - Pending
-    private var rpcClient: JsonRpc2.Client!
-    // get response
-        // can be null - json rpc bug right now...
-            // then schedule one-time timer
-// encapsulate algorithm to get waiting time.
-// if has receipt and failure, go back to ready with error.
-// if success, get the safe address, go to indexing
-
-    func fetchReceipt(_ completion: @escaping (Bool?) -> Void) {
-        let FAILED = false
-        let SUCCESS = true
-        let NOT_MINED: Bool? = nil
-
-        rpcClient = JsonRpc2.Client(
-            transport: JsonRpc2.ClientHTTPTransport(url: chain.authenticatedRpcUrl.absoluteString),
-            serializer: JsonRpc2.DefaultSerializer()
-        )
-        let hash = EthRpc1.Data(transaction.hash!)
-        let method = EthRpc1.eth_getTransactionReceipt(transactionHash: hash)
-        let request: JsonRpc2.Request
-        do {
-            request = try method.request(id: .int(0))
-        } catch {
-            completion(FAILED)
-            return
-        }
-        // send request
-        receiptTask?.cancel()
-        receiptTask = rpcClient.send(request: request, completion: { response in
-            guard
-                let result = response?.result,
-                let receipt = (try? method.result(from: result)),
-                let status = receipt.status
-            else {
-                completion(NOT_MINED)
-                return
-            }
-            if status == "0x1" {
-                completion(SUCCESS)
-            } else {
-                completion(FAILED)
-            }
-        })
-    }
-
-    // MARK: - Indexing
-
-    // check for safe info by address
-    // if not found or any error, schedule timer to retry
-    // if found, then add safe
-    // use some generated name for that safe.
-    // then go to final state.
-    func fetchSafeInfo(_ completion: @escaping (Bool) -> Void) {
-        let FOUND: Bool = true
-        let NOT_FOUND: Bool = false
-        App.shared.clientGatewayService.asyncSafeInfo(safeAddress: safeAddress!, chainId: chain.id!) { result in
-            //
-            do {
-                let _ = try result.get()
-                completion(FOUND)
-            } catch {
-                completion(NOT_FOUND)
-            }
-        }
     }
 
     // MARK: - UI Data
@@ -697,6 +591,163 @@ class CreateSafeFormUIModel {
 
         return model
     }
+
+    func userDidSubmit() {
+        update(to: .sending)
+        let _ = send(completion: { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .failure(let error):
+                self.didSubmitFailed(error)
+
+            case .success:
+                self.didSubmitSuccess()
+            }
+        })
+    }
+
+    func send(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
+        guard let tx = transaction else { return nil }
+
+        let rawTransaction = tx.rawTransaction()
+
+        let sendRawTxMethod = EthRpc1.eth_sendRawTransaction(transaction: rawTransaction)
+
+        let request: JsonRpc2.Request
+
+        do {
+            request = try sendRawTxMethod.request(id: .int(1))
+        } catch {
+            dispatchOnMainThread(completion(.failure(error)))
+            return nil
+        }
+
+        try? saveCreationParameters()
+
+        let client = estimationController.rpcClient
+
+        let task = client.send(request: request) { [weak self] response in
+            guard let self = self else { return }
+
+            guard let response = response else {
+                let error = TransactionExecutionError(code: -4, message: "No response from server")
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            if let error = response.error {
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            guard let result = response.result else {
+                let error = TransactionExecutionError(code: -5, message: "No result from server")
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            let txHash: EthRpc1.Data
+            do {
+                txHash = try sendRawTxMethod.result(from: result)
+            } catch {
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            DispatchQueue.main.async {
+                self.didSubmitTransaction(txHash: Eth.Hash(txHash.storage))
+                completion(.success(()))
+            }
+        }
+        return task
+    }
+
+    private var creationParameters: SafeCreationCall?
+
+    func saveCreationParameters() throws {
+        let context = App.shared.coreDataStack.viewContext
+
+        let fetchRequest = SafeCreationCall.fetchRequest()
+        fetchRequest.sortDescriptors = []
+        fetchRequest.predicate = NSPredicate(format: "safeAddress = %@ AND chainId = %@", futureSafeAddress!.checksummed, chain.id!)
+
+        let results = try context.fetch(fetchRequest)
+        for item in results {
+            context.delete(item)
+        }
+
+        if let creationParameters = creationParameters {
+            context.delete(creationParameters)
+        }
+
+
+        let params: SafeCreationCall = SafeCreationCall(context: context)
+        params.deployerAddress = selectedKey?.address.checksummed
+        params.chainId = chain.id
+        params.fallbackHandlerAddress = Address(fallbackHandlerAddress)?.checksummed
+        params.name = name
+        params.owners = owners.map(\.address.checksummed).joined(separator: ",")
+        params.proxyFactoryAddress = Address(proxyFactoryAddress)?.checksummed
+        params.safeAddress = futureSafeAddress!.checksummed
+        params.saltNonce = String(saltNonce)
+        params.singletonAddress = Address(singletonAddress)?.checksummed
+        params.transactionData = transaction.data.storage
+        params.transactionHash = transaction.txHash().storage.storage.toHexStringWithPrefix()
+        params.version = deploymentVersion.rawValue
+
+        creationParameters = params
+
+        App.shared.coreDataStack.saveContext()
+    }
+
+    func didSubmitTransaction(txHash: Eth.Hash) {
+        transaction.hash = txHash
+    }
+
+    func didSubmitFailed(_ error: Error?) {
+        let gsError = GSError.error(description: "Submitting failed", error: error)
+        App.shared.snackbar.show(error: gsError)
+        self.error = error
+        update(to: .error)
+    }
+
+    func didSubmitSuccess() {
+        defer {
+            update(to: .final)
+            delegate?.createSafeModelDidFinish()
+        }
+
+        assert(transaction.hash != nil)
+        assert(futureSafeAddress != nil)
+
+        // create a safe
+        guard let address = futureSafeAddress, let txHash = transaction.hash else {
+           return
+       }
+        Safe.create(
+            address: address.checksummed,
+            version: "1.3.0",
+            name: name,
+            chain: chain,
+            selected: true,
+            status: .deploying
+        )
+
+        // save the tx information for monitoring purposes
+        let context = App.shared.coreDataStack.viewContext
+        let cdTx = CDEthTransaction(context: context)
+        cdTx.ethTxHash = txHash.storage.storage.toHexStringWithPrefix()
+        cdTx.safeTxHash = nil
+        cdTx.status = SCGModels.TxStatus.pending.rawValue
+        cdTx.safeAddress = address.checksummed
+        cdTx.chainId = chain.id
+        cdTx.dateSubmittedAt = Date()
+        App.shared.coreDataStack.saveContext()
+
+
+        App.shared.notificationHandler.safeAdded(address: address)
+    }
 }
 
 struct CreateSafeFormOwner {
@@ -735,11 +786,7 @@ enum CreateSafeFormUIState {
     case ready
     case searchingKey
     case keyNotFound
-    case authenticating
-    case signing
     case sending
-    case pending
-    case indexing
     case error
     case final
 }

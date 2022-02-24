@@ -11,7 +11,7 @@ import Json
 
 class TransactionTests: XCTestCase {
     let chain = "Ethereum"
-    let rpcUri = "https://mainnet.infura.io/v3/fda31d5c85564ae09c97b1b970e7eb33"
+    let rpcUri = "https://rinkeby.infura.io/v3/fda31d5c85564ae09c97b1b970e7eb33"
     let address: Sol.Address = "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45"
 
     var client: JsonRpc2.Client!
