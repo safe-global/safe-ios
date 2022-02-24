@@ -3,6 +3,16 @@
     {
       "filename" : "ico-whats-new-safe.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-whats-new-safe-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
