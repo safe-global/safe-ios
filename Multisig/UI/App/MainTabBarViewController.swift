@@ -77,6 +77,12 @@ class MainTabBarViewController: UITabBarController {
             selector: #selector(updateTabs),
             name: .updatedExperemental,
             object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleSafeCreated),
+            name: .safeCreated,
+            object: nil)
 
         WebConnectionController.shared.attach(observer: self)
     }
@@ -224,6 +230,14 @@ class MainTabBarViewController: UITabBarController {
         guard let safeTxHash = App.shared.notificationHandler.transactionDetailsPayload else { return }
         App.shared.notificationHandler.transactionDetailsPayload = nil
         showTransactionDetails(safeTxHash: safeTxHash)
+    }
+    
+    @objc private func handleSafeCreated() {
+        SafeDeploymentFinishedViewController.present(presenter: self, txHash: "") { [weak self] in
+            let createSafeVC = CreateSafeViewController()
+            let nav = UINavigationController(rootViewController: createSafeVC)
+            self?.present(nav, animated: true)
+        }
     }
     
     private func showTransactionDetails(safeTxHash: Data) {
