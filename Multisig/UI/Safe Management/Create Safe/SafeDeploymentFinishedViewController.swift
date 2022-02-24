@@ -26,13 +26,17 @@ class SafeDeploymentFinishedViewController: UIViewController {
         case failure
     }
     
-    private var mode: Mode = .failure
-    private var chain: Chain = Chain.mainnetChain()
-    private var txHash: String?
+    private var mode: Mode = .success
+    private var chain: Chain!
+    private var txHash: String!
+    private var safe: Safe?
     
-    convenience init(mode: Mode, chain: Chain) {
+    convenience init(mode: Mode, chain: Chain, txHash: String, safe: Safe? = nil) {
         self.init(nibName: nil, bundle: nil)
         self.mode = mode
+        self.chain = chain
+        self.txHash = txHash
+        self.safe = safe
     }
     
     override func viewDidLoad() {
@@ -59,30 +63,50 @@ class SafeDeploymentFinishedViewController: UIViewController {
             linkButton.setText("View on block explorer", .plain)
 
             statusImageTop.constant = -16
-            labelContainerTop.constant = 16
+            labelContainerTop.constant = 32
             view.setNeedsUpdateConstraints()
         }
     }
     
-    func present() {
-        let finishedVC = SafeDeploymentFinishedViewController()
+    func present(
+        presenter: UIViewController,
+        mode: Mode = .success,
+        chain: Chain = Chain.mainnetChain(),
+        txHash: String,
+        safe: Safe? = nil
+    ) {
+        let finishedVC = SafeDeploymentFinishedViewController(mode: mode, chain: chain, txHash: txHash, safe: safe)
         let vc = ViewControllerFactory.pageSheet(viewController: finishedVC, halfScreen: true)
-        present(vc, animated: true)
+        presenter.present(vc, animated: true)
     }
     
     @IBAction func didTapActionButton(_ sender: Any) {
+        
         switch mode {
+            
         case .success:
-            break
-        case .failure:
-//            guard let txHash = txHash else {
-//                return
-//            }
-            let url = chain.browserURL(address: "0ac16324cdba5d60bda9f16900469d29a600d5759b81d60018b59456fb0df3b7")
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url)
+            // select deployed safe
+            if let safe = safe {
+                safe.select()
             }
+            dismiss(animated: true, completion: nil)
+            
+        case .failure:
+            //TODO: retry safe deployment transaction
+            
             break
+        }
+    }
+    
+    @IBAction func didTapViewOnBlockExplorer(_ sender: Any) {
+
+        guard let txHash = txHash else {
+            return
+        }
+        
+        let url = chain.browserURL(txHash: txHash)
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
         }
     }
 }

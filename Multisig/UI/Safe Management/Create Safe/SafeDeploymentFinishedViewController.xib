@@ -73,6 +73,9 @@
                         <color key="titleColor" name="primaryLabel"/>
                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                     </state>
+                    <connections>
+                        <action selector="didTapViewOnBlockExplorer:" destination="-1" eventType="touchUpInside" id="Vwd-um-epQ"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="RwE-RU-VMc"/>
