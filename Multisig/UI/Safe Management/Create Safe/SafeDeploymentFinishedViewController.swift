@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import UnstoppableDomainsResolution
 
 class SafeDeploymentFinishedViewController: UIViewController {
 

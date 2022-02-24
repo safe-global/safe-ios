@@ -239,7 +239,7 @@ extension Chain {
     func browserURL(txHash: String) -> URL {
         guard let txHashUrlTemplate = blockExplorerUrlTxHash
         else {
-            assertionFailure("Block explorer url called when no chain's blockExplorerUrlAddress found")
+            assertionFailure("Block explorer url called when no chain's blockExplorerUrlTxHash found")
             return URL(string: "https://gnosis-safe.io/")!
         }
         return URL(string: txHashUrlTemplate.replacingOccurrences(of: "{{txHash}}", with: txHash))!
