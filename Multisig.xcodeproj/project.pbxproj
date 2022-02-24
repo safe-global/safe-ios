@@ -663,6 +663,8 @@
 		55F9B7A026D66630003D1C68 /* LedgerPendingConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F9B79F26D66630003D1C68 /* LedgerPendingConfirmationViewController.xib */; };
 		55F9B7A226D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9B7A126D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift */; };
 		55FBC2D526BA91E4002C2553 /* SelectLedgerDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */; };
+		6A39DC9327C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A39DC9127C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift */; };
+		6A39DC9427C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A39DC9227C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib */; };
 		6ADEB01B2795AB410062ADFE /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB0192795AB410062ADFE /* InfoLabel.swift */; };
 		6ADEB01C2795AB410062ADFE /* InfoLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB01A2795AB410062ADFE /* InfoLabel.xib */; };
 		6ADEB02727B559370062ADFE /* WebConnectionOwnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */; };
@@ -1413,6 +1415,8 @@
 		55F9B79F26D66630003D1C68 /* LedgerPendingConfirmationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LedgerPendingConfirmationViewController.xib; sourceTree = "<group>"; };
 		55F9B7A126D6665C003D1C68 /* LedgerPendingConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerPendingConfirmationViewController.swift; sourceTree = "<group>"; };
 		55FBC2D426BA91E4002C2553 /* SelectLedgerDeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLedgerDeviceViewController.swift; sourceTree = "<group>"; };
+		6A39DC9127C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentFinishedViewController.swift; sourceTree = "<group>"; };
+		6A39DC9227C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeDeploymentFinishedViewController.xib; sourceTree = "<group>"; };
 		6ADEB0192795AB410062ADFE /* InfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
 		6ADEB01A2795AB410062ADFE /* InfoLabel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoLabel.xib; sourceTree = "<group>"; };
 		6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnectionOwnerView.swift; sourceTree = "<group>"; };
@@ -2313,6 +2317,8 @@
 			children = (
 				0A0391C627C564CF003C871A /* Setup Safe */,
 				0A0391C327C5640C003C871A /* CreateSafeInstructionsViewController.swift */,
+				6A39DC9127C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift */,
+				6A39DC9227C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib */,
 			);
 			path = "Create Safe";
 			sourceTree = "<group>";
@@ -3586,6 +3592,7 @@
 				0455A43227204A5B008B772D /* CreateAddressBookEntryViewController.xib in Resources */,
 				048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */,
 				0AE8C0572579328800E62B34 /* ExternalURLCell.xib in Resources */,
+				6A39DC9427C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib in Resources */,
 				0A57C5C12577F08B00420303 /* ConfirmationCreatedPiece.xib in Resources */,
 				0471B3BE262742CD001F2D3B /* UpdateAppViewController.xib in Resources */,
 				93EF2FAC27C551B60077BE95 /* FinalStepInstructionTableViewCell.xib in Resources */,
@@ -3962,6 +3969,7 @@
 				557D80AC270B32F80036D6D0 /* WalletConnectServerController.swift in Sources */,
 				55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */,
 				D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */,
+				6A39DC9327C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift in Sources */,
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
 				0493A28B262979820056EC49 /* UpdateController.swift in Sources */,
 				048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */,

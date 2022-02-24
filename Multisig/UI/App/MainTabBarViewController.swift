@@ -77,6 +77,12 @@ class MainTabBarViewController: UITabBarController {
             selector: #selector(updateTabs),
             name: .updatedExperemental,
             object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleSafeCreated),
+            name: .safeCreated,
+            object: nil)
 
         WebConnectionController.shared.attach(observer: self)
     }
@@ -224,6 +230,38 @@ class MainTabBarViewController: UITabBarController {
         guard let safeTxHash = App.shared.notificationHandler.transactionDetailsPayload else { return }
         App.shared.notificationHandler.transactionDetailsPayload = nil
         showTransactionDetails(safeTxHash: safeTxHash)
+    }
+    
+    @objc private func handleSafeCreated(_ notification: Notification) {
+        // get mode, txHash, and safe if creation successful from the notification
+        if
+            let status = notification.userInfo?["success"] as? Bool,
+            let chain = notification.userInfo?["chain"] as? Chain,
+            let txHash = notification.userInfo?["txHash"] as? String {
+            
+            let safe = notification.userInfo?["safe"] as? Safe
+        
+            var mode: SafeDeploymentFinishedViewController.Mode
+            if status {
+                mode = .success
+            } else {
+                mode = .failure
+            }
+            
+            SafeDeploymentFinishedViewController.present(
+                presenter: self,
+                mode: mode,
+                chain: chain,
+                txHash: txHash,
+                safe: safe
+            ) { [weak self] in
+                
+                //TODO: pass safe deployment transaction for retry
+                let createSafeVC = CreateSafeViewController()
+                let vc = ViewControllerFactory.modal(viewController: createSafeVC)
+                self?.present(vc, animated: true)
+            }
+        }
     }
     
     private func showTransactionDetails(safeTxHash: Data) {

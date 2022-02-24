@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ico-safe-deployment-failure.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
