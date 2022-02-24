@@ -101,52 +101,8 @@ class CreateSafeFormUIModel {
                 }
             }
 
-        case .authenticating:
+        default:
             break
-
-        case .signing:
-            sign { [weak self] result in
-                guard let self = self else { return }
-
-                let _ = self.handleError({ try result.get() })
-
-                if self.error != nil {
-                    self.update(to: .changed)
-                } else {
-                    self.update(to: .sending)
-                }
-            }
-
-        case .sending:
-            break
-
-        case .pending:
-            // if not mined, schedule timer to pending again
-            // if success, go to indexing
-            // else go back to ready with error
-            break
-
-        case .indexing:
-            // if found, go to final
-            // if not found, schedule timer to indexing again.
-            break
-
-        case .keyNotFound:
-            break
-
-        case .ready:
-            break
-
-        case .error:
-            assert(error != nil)
-            break
-
-        case .final:
-            // at the final state we want to update ui one more time before finishing
-            // while at other states we just want  to update ui after they have executed update action.
-            sectionHeaders = makeSectionHeaders()
-            delegate?.updateUI(model: self)
-            return
         }
 
         sectionHeaders = makeSectionHeaders()
@@ -187,11 +143,6 @@ class CreateSafeFormUIModel {
             self.error = nil
         }
         update(to: .changed)
-    }
-
-    func didCreate() {
-        guard isCreateEnabled else { return }
-        update(to: .signing)
     }
 
     // MARK: - Setup
@@ -527,7 +478,6 @@ class CreateSafeFormUIModel {
         })
     }
 
-    // TODO: generalize / refactor
     // returns the execution keys valid for executing this transaction
     func executionKeys() -> [KeyInfo] {
         // all keys that can sign this tx on its chain.
@@ -555,108 +505,6 @@ class CreateSafeFormUIModel {
         }
 
         return validKeys
-    }
-
-    // MARK: - Authenticating
-
-    func authenticate(_ completion: @escaping (Bool) -> Void) {
-        let AUTHENTICATED = true
-        guard App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) else {
-            completion(AUTHENTICATED)
-            return
-        }
-
-    }
-
-    // MARK: - Signing
-
-    func sign(_ completion: @escaping (Result<Void, Error>) -> Void) {
-        // ask delegate to sign
-        // response can be either signature or transaction hash directly. We actually want it to be signature only.
-        // then update the signature in transsaction.
-        // success.
-    }
-
-    // MARK: - Sending
-    func send(_ completion: @escaping (Result<Void, Error>) -> Void) {
-        transactionSender = TransactionSender(chain: chain)
-        sendingTask?.cancel()
-        sendingTask = transactionSender.send(tx: transaction, completion: { [weak self] result in
-            guard let self = self else { return }
-            do {
-                self.transaction.hash = try result.get()
-                completion(.success(()))
-            } catch {
-                completion(.failure(error))
-            }
-        })
-    }
-
-    // MARK: - Pending
-    private var rpcClient: JsonRpc2.Client!
-    // get response
-        // can be null - json rpc bug right now...
-            // then schedule one-time timer
-// encapsulate algorithm to get waiting time.
-// if has receipt and failure, go back to ready with error.
-// if success, get the safe address, go to indexing
-
-    func fetchReceipt(_ completion: @escaping (Bool?) -> Void) {
-        let FAILED = false
-        let SUCCESS = true
-        let NOT_MINED: Bool? = nil
-
-        rpcClient = JsonRpc2.Client(
-            transport: JsonRpc2.ClientHTTPTransport(url: chain.authenticatedRpcUrl.absoluteString),
-            serializer: JsonRpc2.DefaultSerializer()
-        )
-        let hash = EthRpc1.Data(transaction.hash!)
-        let method = EthRpc1.eth_getTransactionReceipt(transactionHash: hash)
-        let request: JsonRpc2.Request
-        do {
-            request = try method.request(id: .int(0))
-        } catch {
-            completion(FAILED)
-            return
-        }
-        // send request
-        receiptTask?.cancel()
-        receiptTask = rpcClient.send(request: request, completion: { response in
-            guard
-                let result = response?.result,
-                let receipt = (try? method.result(from: result)),
-                let status = receipt.status
-            else {
-                completion(NOT_MINED)
-                return
-            }
-            if status == "0x1" {
-                completion(SUCCESS)
-            } else {
-                completion(FAILED)
-            }
-        })
-    }
-
-    // MARK: - Indexing
-
-    // check for safe info by address
-    // if not found or any error, schedule timer to retry
-    // if found, then add safe
-    // use some generated name for that safe.
-    // then go to final state.
-    func fetchSafeInfo(_ completion: @escaping (Bool) -> Void) {
-        let FOUND: Bool = true
-        let NOT_FOUND: Bool = false
-        App.shared.clientGatewayService.asyncSafeInfo(safeAddress: safeAddress!, chainId: chain.id!) { result in
-            //
-            do {
-                let _ = try result.get()
-                completion(FOUND)
-            } catch {
-                completion(NOT_FOUND)
-            }
-        }
     }
 
     // MARK: - UI Data
@@ -737,14 +585,12 @@ class CreateSafeFormUIModel {
     }
 
     func userDidSubmit() {
-//        self.actionPanelView.setConfirmEnabled(false)
-
+        update(to: .sending)
         let _ = send(completion: { [weak self] result in
             guard let self = self else { return }
 
             switch result {
             case .failure(let error):
-//                self.actionPanelView.setConfirmEnabled(true)
                 self.didSubmitFailed(error)
 
             case .success:
@@ -814,14 +660,15 @@ class CreateSafeFormUIModel {
     func didSubmitFailed(_ error: Error?) {
         let gsError = GSError.error(description: "Submitting failed", error: error)
         App.shared.snackbar.show(error: gsError)
-
-//        Tracker.trackEvent(.executeFailure, parameters: [
-//            "chainId": uiModel.chain.id!
-//        ])
+        self.error = error
+        update(to: .error)
     }
 
     func didSubmitSuccess() {
-        defer { delegate?.createSafeModelDidFinish() }
+        defer {
+            update(to: .final)
+            delegate?.createSafeModelDidFinish()
+        }
 
         assert(transaction.hash != nil)
         assert(futureSafeAddress != nil)
@@ -891,11 +738,7 @@ enum CreateSafeFormUIState {
     case ready
     case searchingKey
     case keyNotFound
-    case authenticating
-    case signing
     case sending
-    case pending
-    case indexing
     case error
     case final
 }

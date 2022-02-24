@@ -307,9 +307,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         )
         keyPickerVC.showsCloseButton = false
 
-        // TODO: Tracking on key change
-//        keyPickerVC.trackingEvent = .reviewExecutionSelectKey
-
         // this way of returning the results from the view controller is just because
         // there was already existing code depending on the completion handler.
         // modified with minimum changes to the existing API.
@@ -327,8 +324,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.uiModel.deployerBalance = nil
             }
             if selectedKeyInfo != previousKey {
-                // TODO: Tracking on change key
-//                Tracker.trackEvent(.reviewExecutionSelectedKeyChanged)
                 self.uiModel.didEdit()
             }
 
@@ -665,7 +660,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.titleStyle = .error.weight(.medium)
         cell.expandableTitleStyle = (collapsed: .error, expanded: .error)
         cell.contentStyle = (collapsed: .error, expanded: .secondary)
-        cell.setTitle("⚠️ Error")
+        cell.setTitle(nil)
         cell.setText(errorText)
         cell.setCopyText(errorText)
         cell.setExpandableTitle(errorPreview)
@@ -675,9 +670,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func userDidSubmit() {
         // request passcode if needed and sign
         if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
-            // TODO: disable submit
-//            self.actionPanelView.setConfirmEnabled(false)
-
             let passcodeVC = EnterPasscodeViewController()
             passcodeVC.passcodeCompletion = { [weak self] success in
                 self?.dismiss(animated: true) {
@@ -686,8 +678,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                     if success {
                         self.sign()
                     }
-
-//                    self.actionPanelView.setConfirmEnabled(true)
                 }
             }
             let nav = UINavigationController(rootViewController: passcodeVC)
