@@ -42,17 +42,9 @@ class InstructionsViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func didTapButton(_ sender: Any) {
-        
-        SafeDeploymentFinishedViewController.present(presenter: self, txHash: "") { [weak self] in
-            let createSafeVC = CreateSafeViewController()
-            let nav = UINavigationController(rootViewController: createSafeVC)
-            self?.present(nav, animated: true)
-        }
-    
-//
-//        let createSafeVC = CreateSafeViewController()
-//        createSafeVC.onClose = onClose
-//        show(createSafeVC, sender: self)
+        let createSafeVC = CreateSafeViewController()
+        createSafeVC.onClose = onClose
+        show(createSafeVC, sender: self)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
