@@ -9,23 +9,18 @@ import WhatsNewKit
 class WhatsNewHandler {
     private let whatsNew = WhatsNew(
             // Show the WhatsNew screen only once for users of this version
-            version: WhatsNew.Version(major: 3, minor: 6, patch: 0),
+            version: WhatsNew.Version(major: 3, minor: 8, patch: 0),
             title: "What's new",
             items: [
                 WhatsNew.Item(
-                        title: "Intercom chat support",
-                        subtitle: "Have a trouble or want to leave feedback? Drop us a message directly in the Intercom chat.",
-                        image: UIImage(named: "ico-whats-new-chat")
+                        title: "Create a new Safe",
+                        subtitle: "Get full control over your Safes and create new ones wherever you are by using owner keys.",
+                        image: UIImage(named: "ico-whats-new-safe")
                 ),
                 WhatsNew.Item(
-                        title: "Initiate asset transfer",
-                        subtitle: "Initiate a transfer of your tokens on-the-go...",
-                        image: UIImage(named: "ico-whats-new-ether")
-                ),
-                WhatsNew.Item(
-                        title: "Execute transactions",
-                        subtitle: "...and execute those transactions from your mobile.",
-                        image: UIImage(named: "ico-whats-new-transactions")
+                        title: "Connect keys to Web",
+                        subtitle: "Connect your owner keys to the Web version to sign transactions with your mobile device.",
+                        image: UIImage(named: "ico-whats-new-connect")
                 )
             ]
     )
