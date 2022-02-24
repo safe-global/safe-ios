@@ -37,9 +37,19 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             App.shared.intercomConfig.pushNotificationUserInfo = userInfo
         }
 
+        if isSafeCreatedNotification(userInfo){
+            let safe = Safe.by(address: userInfo["safe"] as! String, chainId: userInfo["chainId"] as! String)
+            safe?.select()
+            //TODO Select Assets tab?
+        }
+        
         LogService.shared.debug("PUSH: didReceive notification with userInfo: \(userInfo)")
         App.shared.notificationHandler.received(notification: userInfo)
         completionHandler()
+    }
+
+    private func isSafeCreatedNotification(_ info: [AnyHashable: Any]) -> Bool {
+        info["type"] as? String == "safeCreated"
     }
 }
 

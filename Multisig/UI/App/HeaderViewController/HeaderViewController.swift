@@ -76,6 +76,26 @@ final class HeaderViewController: ContainerViewController {
     @IBAction private func didTapSwitchSafe(_ sender: Any) {
         let switchSafesVC = SwitchSafesViewController()
 
+        print("switch safes")
+
+        let content = UNMutableNotificationContent()
+        content.title = "Safe created"
+        content.body = "Safe 0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD was created"
+        content.userInfo = ["type":"safeCreated", "safe": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD", "chainId": "4"]
+        
+        let uuidString = UUID().uuidString
+        // no trigger to deliver immediately
+        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: nil)
+        
+        // Schedule the request with the system.
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.add(request) { (error) in
+            if error != nil {
+                // Handle any errors.
+                print ("error")
+            }
+        }
+        
 
         switchSafesVC.onAddSafe = { [weak self] in
             self?.dismiss(animated: false) {
