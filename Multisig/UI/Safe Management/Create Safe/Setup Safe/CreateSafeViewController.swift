@@ -8,15 +8,19 @@
 
 import UIKit
 import Ethereum
+import Solidity
+import WalletConnectSwift
 
 class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CreateSafeFormUIModelDelegate {
 
+    @IBOutlet private weak var captionLabel: UILabel!
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var createButton: UIButton!
     private var refreshControl: UIRefreshControl!
 
+    private var wcConnector: WCWalletConnectionController!
+
     var onClose: () -> Void = {}
-    var onFinish: () -> Void = {}
 
     private var uiModel = CreateSafeFormUIModel()
 
@@ -34,6 +38,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.registerCell(IconButtonTableViewCell.self)
         tableView.registerCell(HelpTextTableViewCell.self)
         tableView.registerCell(BasicCell.self)
+        tableView.registerCell(BorderedInnerTableCell.self)
 
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
@@ -43,7 +48,10 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
         tableView.refreshControl = refreshControl
 
-        createButton.setText("Create", .filled)
+        createButton.setText("Create Safe", .filled)
+
+        captionLabel.setStyle(.footnote2.weight(.regular))
+        captionLabel.text = "Creating a Safe may take a few minutes."
 
         uiModel.delegate = self
 
@@ -58,12 +66,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func createSafeModelDidFinish() {
-        // TODO: open next screen!
-        onFinish()
-    }
-
-    func authenticateUser(_ completion: @escaping (Bool) -> Void) {
-        // show passcode
+        onClose()
     }
 
     // MARK: - UI Events
@@ -73,11 +76,12 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     @IBAction func didTapCreateButton(_ sender: Any) {
-        print("create")
+        userDidSubmit()
     }
 
     @objc private func didPullToRefresh() {
         refreshControl.endRefreshing()
+        uiModel.didEdit()
     }
 
     @objc private func didTapAddOwnerButton(_ sender: Any) {
@@ -182,9 +186,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         case .network:
             selectNetwork()
 
-        case .deployment:
-            selectDeploymentRow(indexPath.row)
-
         case .owners:
             selectOwnerRow(indexPath.row)
 
@@ -276,19 +277,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         openInSafari(App.configuration.help.confirmationsURL)
     }
 
-    func selectDeploymentRow(_ index: Int) {
-        switch index {
-        case DEPLOYER_ROW:
-            selectDeploymentKey()
-
-        case FEE_ROW:
-            editParameters()
-
-        default:
-            break
-        }
-    }
-
     // select deployer
     func selectDeploymentKey() {
         let keys = uiModel.executionKeys()
@@ -297,7 +285,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             let addOwnerVC = AddOwnerFirstViewController()
             addOwnerVC.onSuccess = { [weak self] in
                 guard let self = self else { return }
-                self.navigationController?.popViewController(animated: true)
+                self.navigationController?.popToViewController(self, animated: true)
                 self.uiModel.selectedKey = self.uiModel.executionKeys().first
                 self.uiModel.didEdit()
             }
@@ -323,9 +311,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         )
         keyPickerVC.showsCloseButton = false
 
-        // TODO: Tracking on key change
-//        keyPickerVC.trackingEvent = .reviewExecutionSelectKey
-
         // this way of returning the results from the view controller is just because
         // there was already existing code depending on the completion handler.
         // modified with minimum changes to the existing API.
@@ -343,8 +328,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.uiModel.deployerBalance = nil
             }
             if selectedKeyInfo != previousKey {
-                // TODO: Tracking on change key
-//                Tracker.trackEvent(.reviewExecutionSelectedKeyChanged)
                 self.uiModel.didEdit()
             }
 
@@ -360,18 +343,14 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         let formModel: FormModel
         var initialValues = UserDefinedTransactionParameters()
 
-        if uiModel.userTxParameters == nil {
-            uiModel.userTxParameters = initialValues
-        }
-
         switch uiModel.transaction {
         case let ethTx as Eth.TransactionLegacy:
             let model = FeeLegacyFormModel(
-                    nonce: ethTx.nonce,
-                    minimalNonce: uiModel.minNonce,
-                    gas: ethTx.fee.gas,
-                    gasPriceInWei: ethTx.fee.gasPrice,
-                    nativeCurrency: uiModel.chain.nativeCurrency!
+                nonce: ethTx.nonce,
+                minimalNonce: uiModel.minNonce,
+                gas: ethTx.fee.gas,
+                gasPriceInWei: ethTx.fee.gasPrice,
+                nativeCurrency: uiModel.chain.nativeCurrency!
             )
             initialValues.nonce = model.nonce
             initialValues.gas = model.gas
@@ -381,12 +360,12 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         case let ethTx as Eth.TransactionEip1559:
             let model = Fee1559FormModel(
-                    nonce: ethTx.nonce,
-                    minimalNonce: uiModel.minNonce,
-                    gas: ethTx.fee.gas,
-                    maxFeePerGasInWei: ethTx.fee.maxFeePerGas,
-                    maxPriorityFeePerGasInWei: ethTx.fee.maxPriorityFee,
-                    nativeCurrency: uiModel.chain.nativeCurrency!
+                nonce: ethTx.nonce,
+                minimalNonce: uiModel.minNonce,
+                gas: ethTx.fee.gas,
+                maxFeePerGasInWei: ethTx.fee.maxFeePerGas,
+                maxPriorityFeePerGasInWei: ethTx.fee.maxPriorityFee,
+                nativeCurrency: uiModel.chain.nativeCurrency!
             )
             initialValues.nonce = model.nonce
             initialValues.gas = model.gas
@@ -398,36 +377,32 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         default:
             if uiModel.chain.features?.contains("EIP1559") == true {
                 formModel = Fee1559FormModel(
-                        nonce: nil,
-                        gas: nil,
-                        maxFeePerGasInWei: nil,
-                        maxPriorityFeePerGasInWei: nil,
-                        nativeCurrency: uiModel.chain.nativeCurrency!
+                    nonce: nil,
+                    gas: nil,
+                    maxFeePerGasInWei: nil,
+                    maxPriorityFeePerGasInWei: nil,
+                    nativeCurrency: uiModel.chain.nativeCurrency!
                 )
             } else {
                 formModel = FeeLegacyFormModel(
-                        nonce: nil,
-                        gas: nil,
-                        gasPriceInWei: nil,
-                        nativeCurrency: uiModel.chain.nativeCurrency!
+                    nonce: nil,
+                    gas: nil,
+                    gasPriceInWei: nil,
+                    nativeCurrency: uiModel.chain.nativeCurrency!
                 )
             }
         }
 
         let formVC = FormViewController(model: formModel) { [weak self] in
             // on close - ignore any changes
-//            self?.dismiss(animated: true)
-            self?.navigationController?.popToRootViewController(animated: true)
+            self?.dismiss(animated: true)
         }
-        formVC.showsCloseButton = false
 
-        // TODO: tracking of form
-//        formVC.trackingEvent = .reviewExecutionEditFee
+        formVC.trackingEvent = .reviewExecutionEditFee
 
         formVC.onSave = { [weak self, weak formModel] in
             // on save - update the parameters that were changed.
-            self?.navigationController?.popToRootViewController(animated: true)
-//            self?.dismiss(animated: true, completion: {
+            self?.dismiss(animated: true, completion: {
                 guard let self = self, let formModel = formModel else { return }
 
                 // collect the saved values
@@ -456,31 +431,31 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 var changedFieldTrackingIds: [String] = []
 
                 if savedValues.nonce != initialValues.nonce {
-                    self.uiModel.userTxParameters?.nonce = savedValues.nonce
+                    self.uiModel.userTxParameters.nonce = savedValues.nonce
 
                     changedFieldTrackingIds.append("nonce")
                 }
 
                 if savedValues.gas != initialValues.gas {
-                    self.uiModel.userTxParameters?.gas = savedValues.gas
+                    self.uiModel.userTxParameters.gas = savedValues.gas
 
                     changedFieldTrackingIds.append("gasLimit")
                 }
 
                 if savedValues.gasPrice != initialValues.gasPrice {
-                    self.uiModel.userTxParameters?.gasPrice = savedValues.gasPrice
+                    self.uiModel.userTxParameters.gasPrice = savedValues.gasPrice
 
                     changedFieldTrackingIds.append("gasPrice")
                 }
 
                 if savedValues.maxFeePerGas != initialValues.maxFeePerGas {
-                    self.uiModel.userTxParameters?.maxFeePerGas = savedValues.maxFeePerGas
+                    self.uiModel.userTxParameters.maxFeePerGas = savedValues.maxFeePerGas
 
                     changedFieldTrackingIds.append("maxFee")
                 }
 
                 if savedValues.maxPriorityFee != initialValues.maxPriorityFee {
-                    self.uiModel.userTxParameters?.maxPriorityFee = savedValues.maxPriorityFee
+                    self.uiModel.userTxParameters.maxPriorityFee = savedValues.maxPriorityFee
 
                     changedFieldTrackingIds.append("maxPriorityFee")
                 }
@@ -488,39 +463,20 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 // react to changes
 
                 if savedValues != initialValues {
-                        // take the values only if they were set by user (not nil)
-                    switch self.uiModel.transaction {
-                    case var ethTx as Eth.TransactionLegacy:
-                        ethTx.fee.gas = self.uiModel.userTxParameters?.gas ?? ethTx.fee.gas
-                        ethTx.fee.gasPrice = self.uiModel.userTxParameters?.gasPrice ?? ethTx.fee.gasPrice
-                        ethTx.nonce = self.uiModel.userTxParameters?.nonce ?? ethTx.nonce
+                    self.uiModel.error = nil
+                    self.uiModel.updateEthTransactionWithUserValues()
 
-                        self.uiModel.transaction = ethTx
-
-                    case var ethTx as Eth.TransactionEip1559:
-                        ethTx.fee.gas = self.uiModel.userTxParameters?.gas ?? ethTx.fee.gas
-                        ethTx.fee.maxFeePerGas = self.uiModel.userTxParameters?.maxFeePerGas ?? ethTx.fee.maxFeePerGas
-                        ethTx.fee.maxPriorityFee = self.uiModel.userTxParameters?.maxPriorityFee ?? ethTx.fee.maxPriorityFee
-                        ethTx.nonce = self.uiModel.userTxParameters?.nonce ?? ethTx.nonce
-
-                        self.uiModel.transaction = ethTx
-
-                    default:
-                        break
-                    }
-                    self.uiModel.didEdit()
-                    // TODO: track changes
-//                    let changedFields = changedFieldTrackingIds.joined(separator: ",")
-//                    Tracker.trackEvent(.reviewExecutionFieldEdited, parameters: ["fields": changedFields])
+                    let changedFields = changedFieldTrackingIds.joined(separator: ",")
+                    Tracker.trackEvent(.reviewExecutionFieldEdited, parameters: ["fields": changedFields])
                 }
-//            })
+            })
         }
 
         formVC.navigationItem.title = "Edit transaction fee"
         let ribbon = RibbonViewController(rootViewController: formVC)
-//        let nav = UINavigationController(rootViewController: ribbon)
-//        present(nav, animated: true, completion: nil)
-        show(ribbon, sender: self)
+        ribbon.storedChain = uiModel.chain
+        let nav = UINavigationController(rootViewController: ribbon)
+        present(nav, animated: true, completion: nil)
     }
 
     // create button tapped
@@ -616,27 +572,40 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
-    let DEPLOYER_ROW = 0
-    let FEE_ROW = 1
-
     func deploymentCell(for indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
-        case DEPLOYER_ROW:
-            let cell = deployerAccountCell(for: indexPath)
-            return cell
+        // create a table inner cell with other cells
+        let tableCell = tableView.dequeueCell(BorderedInnerTableCell.self, for: indexPath)
 
-        case FEE_ROW:
-            let cell = estimateFeeCell(for: indexPath)
-            return cell
+        tableCell.selectionStyle = .none
+        tableCell.verticalSpacing = 16
 
-        default:
-            fatalError("Invalid index path")
+        tableCell.tableView.registerCell(DisclosureWithContentCell.self)
+        tableCell.tableView.registerCell(SecondaryDetailDisclosureCell.self)
+
+        let accountCell = deployerAccountCell(tableView: tableCell.tableView)
+        let estimatedFeeCell = estimateFeeCell(tableView: tableCell.tableView)
+
+        tableCell.setCells([accountCell, estimatedFeeCell])
+
+        // handle cell taps
+        let (executeWithIndex, feeIndex) = (0, 1)
+        tableCell.onCellTap = { [weak self] index in
+            guard let self = self else { return }
+            switch index {
+            case executeWithIndex:
+                self.selectDeploymentKey()
+            case feeIndex:
+                self.editParameters()
+            default:
+                assertionFailure("Tapped cell at index out of bounds: \(index)")
+            }
         }
-    }
 
-    private func deployerAccountCell(for indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(DisclosureWithContentCell.self, for: indexPath)
-        cell.setText("Deploy with")
+        return tableCell
+    }
+    private func deployerAccountCell(tableView: UITableView) -> UITableViewCell {
+        let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
+        cell.setText("Pay with")
 
         if uiModel.isLoadingDeployer {
             let view = loadingView()
@@ -652,9 +621,9 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
 
-    private func estimateFeeCell(for indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(DisclosureWithContentCell.self, for: indexPath)
-        cell.setText("Estimated gas fee")
+    private func estimateFeeCell(tableView: UITableView) -> UITableViewCell {
+        let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
+        cell.setText("Network fee")
         if uiModel.isLoadingFee {
             let view = loadingView()
             cell.setContent(view)
@@ -696,12 +665,204 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.titleStyle = .error.weight(.medium)
         cell.expandableTitleStyle = (collapsed: .error, expanded: .error)
         cell.contentStyle = (collapsed: .error, expanded: .secondary)
-        cell.setTitle("⚠️ Error")
+        cell.setTitle("Error")
         cell.setText(errorText)
         cell.setCopyText(errorText)
         cell.setExpandableTitle(errorPreview)
         return cell
     }
+
+    func userDidSubmit() {
+        // request passcode if needed and sign
+        if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
+            let passcodeVC = EnterPasscodeViewController()
+            passcodeVC.passcodeCompletion = { [weak self] success in
+                self?.dismiss(animated: true) {
+                    guard let `self` = self else { return }
+
+                    if success {
+                        self.sign()
+                    }
+                }
+            }
+            let nav = UINavigationController(rootViewController: passcodeVC)
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: true)
+        } else {
+            sign()
+        }
+    }
+
+    func sign() {
+        guard let keyInfo = uiModel.selectedKey else { return }
+
+        switch keyInfo.keyType {
+        case .deviceImported, .deviceGenerated:
+            do {
+                let txHash = uiModel.transaction.hashForSigning().storage.storage
+
+                guard let pk = try keyInfo.privateKey() else {
+                    App.shared.snackbar.show(message: "Private key not available")
+                    return
+                }
+                let signature = try pk._store.sign(hash: Array(txHash))
+
+                try uiModel.transaction.updateSignature(
+                    v: Sol.UInt256(signature.v),
+                    r: Sol.UInt256(Data(signature.r)),
+                    s: Sol.UInt256(Data(signature.s))
+                )
+            } catch {
+                let gsError = GSError.error(description: "Signing failed", error: error)
+                App.shared.snackbar.show(error: gsError)
+                return
+            }
+            submit()
+
+        case .walletConnect:
+            guard let clientTx = walletConnectTransaction() else {
+                let gsError = GSError.error(description: "Unsupported transaction type")
+                App.shared.snackbar.show(error: gsError)
+                return
+            }
+
+            wcConnector = WCWalletConnectionController()
+            wcConnector.connect(keyInfo: keyInfo, from: self) { [weak self] success in
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) { [weak self] in
+                    guard let self = self else { return }
+
+                    defer { self.wcConnector = nil }
+
+                    guard success else {
+                        return
+                    }
+
+                    let wcVC = WCPendingConfirmationViewController(
+                        clientTx,
+                        keyInfo: keyInfo,
+                        title: "Sign Transaction"
+                    )
+
+                    wcVC.send { [weak self] txHash in
+                        guard let self = self else { return }
+                        assert(Thread.isMainThread)
+
+                        if let hexHash = txHash {
+                            self.uiModel.didSubmitTransaction(txHash: Eth.Hash(Data(hex: hexHash)))
+                            self.uiModel.didSubmitSuccess()
+                        } else {
+                            self.uiModel.didSubmitFailed(nil)
+                        }
+                    }
+
+                    self.present(wcVC, animated: true)
+                }
+            }
+
+        case .ledgerNanoX:
+            let rawTransaction = uiModel.transaction.preImageForSigning()
+            let chainId = Int(uiModel.chain.id!)!
+            let isLegacy = uiModel.transaction is Eth.TransactionLegacy
+
+            let request = SignRequest(title: "Sign Transaction",
+                                      tracking: ["action" : "signTx"],
+                                      signer: keyInfo,
+                                      payload: .rawTx(data: rawTransaction, chainId: chainId, isLegacy: isLegacy))
+
+            let vc = LedgerSignerViewController(request: request)
+
+            vc.txCompletion = { [weak self] signature in
+                guard let self = self else { return }
+
+                do {
+                    try self.uiModel.transaction.updateSignature(
+                        v: Sol.UInt256(UInt(signature.v)),
+                        r: Sol.UInt256(Data(Array(signature.r))),
+                        s: Sol.UInt256(Data(Array(signature.s)))
+                    )
+                } catch {
+                    let gsError = GSError.error(description: "Signing failed", error: error)
+                    App.shared.snackbar.show(error: gsError)
+                    return
+                }
+
+                self.submit()
+            }
+
+            present(vc, animated: true, completion: nil)
+        }
+    }
+
+    func walletConnectTransaction() -> Client.Transaction? {
+        guard let ethTransaction = uiModel.transaction else {
+            return nil
+        }
+        let clientTx: Client.Transaction
+
+        // NOTE: only legacy parameters seem to work with current wallets.
+        switch ethTransaction {
+        case let tx as Eth.TransactionLegacy:
+            let rpcTx = EthRpc1.TransactionLegacy(tx)
+            clientTx = .init(
+                from: rpcTx.from!.hex,
+                to: rpcTx.to?.hex,
+                data: rpcTx.input.hex,
+                gas: rpcTx.gas?.hex,
+                gasPrice: rpcTx.gasPrice?.hex,
+                value: rpcTx.value.hex,
+                nonce: rpcTx.nonce?.hex,
+                type: nil,
+                accessList: nil,
+                chainId: nil,
+                maxPriorityFeePerGas: nil,
+                maxFeePerGas: nil
+            )
+
+        case let tx as Eth.TransactionEip2930:
+            let rpcTx = EthRpc1.Transaction2930(tx)
+            clientTx = .init(
+                from: rpcTx.from!.hex,
+                to: rpcTx.to?.hex,
+                data: rpcTx.input.hex,
+                gas: rpcTx.gas?.hex,
+                gasPrice: rpcTx.gasPrice?.hex,
+                value: rpcTx.value.hex,
+                nonce: rpcTx.nonce?.hex,
+                type: nil,
+                accessList: nil,
+                chainId: nil,
+                maxPriorityFeePerGas: nil,
+                maxFeePerGas: nil
+            )
+
+        case let tx as Eth.TransactionEip1559:
+            let rpcTx = EthRpc1.Transaction1559(tx)
+            clientTx = .init(
+                from: rpcTx.from!.hex,
+                to: rpcTx.to?.hex,
+                data: rpcTx.input.hex,
+                gas: rpcTx.gas?.hex,
+                gasPrice: rpcTx.maxFeePerGas?.hex,
+                value: rpcTx.value.hex,
+                nonce: rpcTx.nonce?.hex,
+                type: nil,
+                accessList: nil,
+                chainId: nil,
+                maxPriorityFeePerGas: nil,
+                maxFeePerGas: nil
+            )
+        default:
+            return nil
+        }
+
+        return clientTx
+    }
+
+
+    func submit() {
+        uiModel.userDidSubmit()
+    }
+
 }
 
 extension CreateSafeViewController: QRCodeScannerViewControllerDelegate {

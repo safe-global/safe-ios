@@ -36,7 +36,7 @@ class TransactionEstimationController {
         self.rpcClient = JsonRpc2.Client(transport: JsonRpc2.ClientHTTPTransport(url: rpcUri), serializer: JsonRpc2.DefaultSerializer())
     }
 
-    typealias EstimateCompletion = (Result<(gas: Result<Sol.UInt64, Error>, transactionCount: Result<Sol.UInt64, Error>, gasPrice: Result<Sol.UInt256, Error>, ethCall: Result<Data, Error>), Error>) -> Void
+    typealias EstimateCompletion = (Result<(gas: Result<Sol.UInt64, Error>, transactionCount: Result<Sol.UInt64, Error>, gasPrice: Result<Sol.UInt256, Error>, ethCall: Result<Data, Error>, balance: Result<Sol.UInt256, Error>), Error>) -> Void
 
     func estimateTransactionWithRpc(tx: EthTransaction, completion: @escaping EstimateCompletion) -> URLSessionTask? {
         // check if we have hint from the chain configuration about the gas price. For now support only fixed.
@@ -64,11 +64,14 @@ class TransactionEstimationController {
         let ethCallNew = EthRpc1.eth_call(transaction: EthRpc1.Transaction(tx), block: .tag(.pending))
         let ethCallLegacy = EthRpc1.eth_callLegacyApi(transaction: EthRpc1.EstimateGasLegacyTransaction(tx), block: .tag(.pending))
 
+        let getBalance = EthRpc1.eth_getBalance(address: EthRpc1.Data(tx.from ?? .init()), block: .tag(.pending))
+
         let batch: JsonRpc2.BatchRequest
         let getEstimateRequest: JsonRpc2.Request
         let getTransactionCountRequest: JsonRpc2.Request
         let getPriceRequest: JsonRpc2.Request
         let ethCallRequest: JsonRpc2.Request
+        let getBalanceRequest: JsonRpc2.Request
 
 
         do {
@@ -76,9 +79,10 @@ class TransactionEstimationController {
             getTransactionCountRequest = try getTransactionCount.request(id: .int(2))
             getPriceRequest = try getPrice.request(id: .int(3))
             ethCallRequest = try usingLegacyGasApi ? ethCallLegacy.request(id: .int(4)) : ethCallNew.request(id: .int(4))
+            getBalanceRequest = try getBalance.request(id: .int(5))
 
             batch = try JsonRpc2.BatchRequest(requests: [
-                getEstimateRequest, getTransactionCountRequest, getPriceRequest, ethCallRequest
+                getEstimateRequest, getTransactionCountRequest, getPriceRequest, ethCallRequest, getBalanceRequest
             ])
         } catch {
             dispatchOnMainThread(completion(.failure(error)))
@@ -126,8 +130,10 @@ class TransactionEstimationController {
                 let callResult = usingLegacyGasApi ?
                     result(request: ethCallRequest, method: ethCallLegacy, responses: responses).map(\.storage)
                     : result(request: ethCallRequest, method: ethCallNew, responses: responses).map(\.storage)
+                let getBalanceResult = result(request: getBalanceRequest, method: getBalance, responses: responses).map(\.storage)
 
-                dispatchOnMainThread(completion(.success((gasResult, txCountResult, priceResult, callResult))))
+
+                dispatchOnMainThread(completion(.success((gasResult, txCountResult, priceResult, callResult, getBalanceResult))))
             }
         }
         return task
