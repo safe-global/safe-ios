@@ -31,7 +31,6 @@ class CreateSafeFormUIModel {
     var error: Error?
     var userTxParameters = UserDefinedTransactionParameters()
     var sectionHeaders: [CreateSafeFormSectionHeader] = []
-    var safeAddress: Address?
     var state: CreateSafeFormUIState = .initial
     var futureSafeAddress: Address?
 
@@ -228,13 +227,37 @@ class CreateSafeFormUIModel {
         }
     }
 
-    private func makeEthTransaction() throws -> EthTransaction {
-        // get deployments for the chain
-        let deploymentVersion = SafeDeployments.Safe.Version.v1_3_0
-        let proxyFactoryAddress = try address(of: .ProxyFactory, version: deploymentVersion)
-        let fallbackHandlerAddress = try address(of: .CompatibilityFallbackHandler, version: deploymentVersion)
+    private var deploymentVersion: SafeDeployments.Safe.Version!
+    private var proxyFactoryAddress: Sol.Address!
+    private var fallbackHandlerAddress: Sol.Address!
+    private var singletonAddress: Sol.Address!
+    private var saltNonce: Sol.UInt256!
+
+    private func setupTransactionParameters() throws {
+        deploymentVersion = SafeDeployments.Safe.Version.v1_3_0
+        proxyFactoryAddress = try address(of: .ProxyFactory, version: deploymentVersion)
+        fallbackHandlerAddress = try address(of: .CompatibilityFallbackHandler, version: deploymentVersion)
         let safeL1Address = try address(of: .GnosisSafe, version: deploymentVersion)
         let safeL2Address = try address(of: .GnosisSafeL2, version: deploymentVersion)
+        singletonAddress = chain.l2 ? safeL2Address : safeL1Address
+
+        // generate salt
+        var saltBytes: [UInt8] = .init(repeating: 0, count: 32)
+        let randomSaltResult = SecRandomCopyBytes(kSecRandomDefault, saltBytes.count, &saltBytes)
+
+        guard randomSaltResult == errSecSuccess else {
+            throw CreateSafeError(errorCode: -6, message: "Failed to create random salt (sec error \(randomSaltResult))")
+        }
+
+        do {
+            saltNonce = try Sol.UInt256(Data(saltBytes))
+        } catch {
+            throw CreateSafeError(errorCode: -7, message: "Failed to create random salt from bytes", cause: error)
+        }
+    }
+
+    private func makeEthTransaction() throws -> EthTransaction {
+        try setupTransactionParameters()
 
         // get setupFunction from safe
             // set owners, threshold
@@ -262,25 +285,10 @@ class CreateSafeFormUIModel {
         )
         let setupAbi = setupFunction.encode()
 
-        // generate salt
-        var saltBytes: [UInt8] = .init(repeating: 0, count: 32)
-        let randomSaltResult = SecRandomCopyBytes(kSecRandomDefault, saltBytes.count, &saltBytes)
-
-        guard randomSaltResult == errSecSuccess else {
-            throw CreateSafeError(errorCode: -6, message: "Failed to create random salt (sec error \(randomSaltResult))")
-        }
-
-        let saltNonce: Sol.UInt256
-
-        do {
-            saltNonce = try Sol.UInt256(Data(saltBytes))
-        } catch {
-            throw CreateSafeError(errorCode: -7, message: "Failed to create random salt from bytes", cause: error)
-        }
 
         // create proxy with nonce
         let createFunction = GnosisSafeProxyFactory_v1_3_0.createProxyWithNonce(
-            _singleton: chain.l2 ? safeL2Address : safeL1Address,
+            _singleton: singletonAddress,
             initializer: Sol.Bytes(storage: setupAbi),
             saltNonce: saltNonce
         )
@@ -615,6 +623,8 @@ class CreateSafeFormUIModel {
             return nil
         }
 
+        try? saveCreationParameters()
+
         let client = estimationController.rpcClient
 
         let task = client.send(request: request) { [weak self] response in
@@ -651,6 +661,44 @@ class CreateSafeFormUIModel {
             }
         }
         return task
+    }
+
+    private var creationParameters: SafeCreationCall?
+
+    func saveCreationParameters() throws {
+        let context = App.shared.coreDataStack.viewContext
+
+        let fetchRequest = SafeCreationCall.fetchRequest()
+        fetchRequest.sortDescriptors = []
+        fetchRequest.predicate = NSPredicate(format: "safeAddress = %@ AND chainId = %@", futureSafeAddress!.checksummed, chain.id!)
+
+        let results = try context.fetch(fetchRequest)
+        for item in results {
+            context.delete(item)
+        }
+
+        if let creationParameters = creationParameters {
+            context.delete(creationParameters)
+        }
+
+
+        let params: SafeCreationCall = SafeCreationCall(context: context)
+        params.deployerAddress = selectedKey?.address.checksummed
+        params.chainId = chain.id
+        params.fallbackHandlerAddress = Address(fallbackHandlerAddress)?.checksummed
+        params.name = name
+        params.owners = owners.map(\.address.checksummed).joined(separator: ",")
+        params.proxyFactoryAddress = Address(proxyFactoryAddress)?.checksummed
+        params.safeAddress = futureSafeAddress!.checksummed
+        params.saltNonce = String(saltNonce)
+        params.singletonAddress = Address(singletonAddress)?.checksummed
+        params.transactionData = transaction.data.storage
+        params.transactionHash = transaction.txHash().storage.storage.toHexStringWithPrefix()
+        params.version = deploymentVersion.rawValue
+
+        creationParameters = params
+
+        App.shared.coreDataStack.saveContext()
     }
 
     func didSubmitTransaction(txHash: Eth.Hash) {
