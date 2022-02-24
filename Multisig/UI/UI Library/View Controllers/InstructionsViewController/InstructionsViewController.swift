@@ -43,10 +43,12 @@ class InstructionsViewController: UIViewController, UITableViewDelegate, UITable
     
     @IBAction func didTapButton(_ sender: Any) {
         
-        let finishedVC = SafeDeploymentFinishedViewController()
-        let vc = ViewControllerFactory.pageSheet(viewController: finishedVC, halfScreen: true)
-        present(vc, animated: true)
-        
+        SafeDeploymentFinishedViewController.present(presenter: self, txHash: "") { [weak self] in
+            let createSafeVC = CreateSafeViewController()
+            let nav = UINavigationController(rootViewController: createSafeVC)
+            self?.present(nav, animated: true)
+        }
+    
 //
 //        let createSafeVC = CreateSafeViewController()
 //        createSafeVC.onClose = onClose
