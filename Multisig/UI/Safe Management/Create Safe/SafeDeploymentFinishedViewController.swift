@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UnstoppableDomainsResolution
 
 class SafeDeploymentFinishedViewController: UIViewController {
 
@@ -15,6 +16,7 @@ class SafeDeploymentFinishedViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var actionButton: UIButton!
     @IBOutlet weak var linkButton: UIButton!
+    @IBOutlet weak var labelContainer: UIStackView!
     
     enum Mode {
         case success
@@ -41,13 +43,22 @@ class SafeDeploymentFinishedViewController: UIViewController {
             titleLabel.text = "Your Safe is ready!"
             descriptionLabel.text = "That’s it! Start using your most secure wallet on Ethereum."
             actionButton.setText("Start using Safe", .filled)
+            linkButton.isHidden = true
             break
         case .failure:
             statusImage.image = UIImage(named: "ico-safe-deployment-failure")
             titleLabel.text = "Oops, Safe wasn’t created"
             descriptionLabel.text = "Safe couldn’t have been created. This might happen due to the mining error or spiked gas fees."
+            labelContainer.layoutMargins = UIEdgeInsets(top: 32, left: 0, bottom: 0, right: 0)
+            
             actionButton.setText("Retry", .filled)
             linkButton.setText("View Transaction on Etherscan", .plain)
+            
+            NSLayoutConstraint.activate([
+                NSLayoutConstraint(item: self.statusImage, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: -32),
+                NSLayoutConstraint(item: self.labelContainer, attribute: .top, relatedBy: .equal, toItem: self.statusImage, attribute: .top, multiplier: 1, constant: 128)
+            ])
+            
             break
         }
     }

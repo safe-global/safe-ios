@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="actionButton" destination="txJ-9T-WhM" id="NFu-d9-Xcm"/>
                 <outlet property="descriptionLabel" destination="7JV-gm-BsD" id="qba-RA-eLx"/>
+                <outlet property="labelContainer" destination="b4b-r9-s0F" id="b0g-K0-aOB"/>
                 <outlet property="linkButton" destination="1qj-e5-GC2" id="CG2-7u-O3U"/>
                 <outlet property="statusImage" destination="cy8-H4-ttj" id="Kdp-7f-h4B"/>
                 <outlet property="titleLabel" destination="qtE-Y1-Z5q" id="89W-3p-rFy"/>
@@ -26,10 +27,10 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-safe-deployment-failure" translatesAutoresizingMaskIntoConstraints="NO" id="cy8-H4-ttj">
-                    <rect key="frame" x="150" y="44" width="114" height="92"/>
+                    <rect key="frame" x="150" y="-12" width="114" height="92"/>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="b4b-r9-s0F">
-                    <rect key="frame" x="40" y="152" width="334" height="97.5"/>
+                    <rect key="frame" x="40" y="64" width="334" height="97.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops, Safe wasn’t created" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtE-Y1-Z5q">
                             <rect key="frame" x="67" y="0.0" width="200.5" height="20.5"/>
@@ -46,7 +47,7 @@
                     </subviews>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="txJ-9T-WhM">
-                    <rect key="frame" x="40" y="282.5" width="334" height="55"/>
+                    <rect key="frame" x="40" y="194.5" width="334" height="55"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="55" id="fPT-I4-u7c"/>
                     </constraints>
@@ -60,7 +61,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1qj-e5-GC2">
-                    <rect key="frame" x="40" y="345.5" width="334" height="40"/>
+                    <rect key="frame" x="40" y="257.5" width="334" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="BST-ef-MQ4"/>
                     </constraints>
@@ -75,11 +76,11 @@
             <viewLayoutGuide key="safeArea" id="RwE-RU-VMc"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="b4b-r9-s0F" firstAttribute="top" secondItem="cy8-H4-ttj" secondAttribute="bottom" constant="16" id="Hew-wb-mlz"/>
+                <constraint firstItem="b4b-r9-s0F" firstAttribute="top" secondItem="cy8-H4-ttj" secondAttribute="bottom" constant="-16" id="Hew-wb-mlz"/>
                 <constraint firstItem="cy8-H4-ttj" firstAttribute="centerX" secondItem="RwE-RU-VMc" secondAttribute="centerX" id="Itu-vS-I8C"/>
                 <constraint firstItem="RwE-RU-VMc" firstAttribute="trailing" secondItem="b4b-r9-s0F" secondAttribute="trailing" constant="40" id="J6C-P3-lKD"/>
                 <constraint firstItem="b4b-r9-s0F" firstAttribute="leading" secondItem="RwE-RU-VMc" secondAttribute="leading" constant="40" id="Jvx-6p-KAn"/>
-                <constraint firstItem="cy8-H4-ttj" firstAttribute="top" secondItem="RwE-RU-VMc" secondAttribute="top" id="K0P-ea-EfL"/>
+                <constraint firstItem="cy8-H4-ttj" firstAttribute="top" secondItem="RwE-RU-VMc" secondAttribute="top" constant="-56" id="K0P-ea-EfL"/>
                 <constraint firstItem="RwE-RU-VMc" firstAttribute="trailing" secondItem="txJ-9T-WhM" secondAttribute="trailing" constant="40" id="La2-mP-NgU"/>
                 <constraint firstItem="1qj-e5-GC2" firstAttribute="top" secondItem="txJ-9T-WhM" secondAttribute="bottom" constant="8" id="TfC-Vf-8H3"/>
                 <constraint firstItem="txJ-9T-WhM" firstAttribute="leading" secondItem="RwE-RU-VMc" secondAttribute="leading" constant="40" id="Z2P-uJ-bJo"/>
