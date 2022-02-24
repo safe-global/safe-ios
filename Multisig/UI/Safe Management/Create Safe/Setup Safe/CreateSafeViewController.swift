@@ -661,7 +661,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.titleStyle = .error.weight(.medium)
         cell.expandableTitleStyle = (collapsed: .error, expanded: .error)
         cell.contentStyle = (collapsed: .error, expanded: .secondary)
-        cell.setTitle(nil)
+        cell.setTitle("Error")
         cell.setText(errorText)
         cell.setCopyText(errorText)
         cell.setExpandableTitle(errorPreview)
