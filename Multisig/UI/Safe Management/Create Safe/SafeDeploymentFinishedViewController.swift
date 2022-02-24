@@ -71,8 +71,8 @@ class SafeDeploymentFinishedViewController: UIViewController {
     
     static func present(
         presenter: UIViewController,
-        mode: Mode = .failure,
-        chain: Chain = Chain.mainnetChain(),
+        mode: Mode,
+        chain: Chain,
         txHash: String,
         safe: Safe? = nil,
         onRetry: @escaping () -> Void
@@ -108,8 +108,6 @@ class SafeDeploymentFinishedViewController: UIViewController {
         }
         
         let url = chain.browserURL(txHash: txHash)
-        if UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url)
-        }
+        openInSafari(url)
     }
 }

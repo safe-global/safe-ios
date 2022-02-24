@@ -258,8 +258,8 @@ class MainTabBarViewController: UITabBarController {
                 
                 //TODO: pass safe deployment transaction for retry
                 let createSafeVC = CreateSafeViewController()
-                let nav = UINavigationController(rootViewController: createSafeVC)
-                self?.present(nav, animated: true)
+                let vc = ViewControllerFactory.modal(viewController: createSafeVC)
+                self?.present(vc, animated: true)
             }
         }
     }
