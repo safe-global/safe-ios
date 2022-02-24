@@ -171,7 +171,7 @@ class CreateSafeFormUIModel {
 
     func addOwnerAddress(_ string: String?) {
         guard let string = string, let address = Address(string, checksummed: true) else {
-            let error = "Value '\(string?.prefix(30) ?? "")' seems to have a typo or is not a valid address. Please try again."
+            let error = "Value '\(string?.prefix(50) ?? "")' seems to have a typo or is not a valid address. Please try again."
             App.shared.snackbar.show(message: error)
             return
         }
