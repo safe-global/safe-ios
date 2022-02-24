@@ -135,7 +135,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
         let connection = connections[indexPath.row]
         let detailsVC = WebConnectionDetailsViewController()
         detailsVC.connection = connection
-        let vc = ViewControllerFactory.modal(viewController: detailsVC, halfScreen: true)
+        let vc = ViewControllerFactory.modal(viewController: detailsVC)
         present(vc, animated: true)
     }
 

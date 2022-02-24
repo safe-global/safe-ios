@@ -299,10 +299,11 @@ class SendTransactionCellBuilder {
     }
     
     func buildErrors(_ errorText: String?) {
-        guard let errorText = errorText else {
+        guard var errorText = errorText else {
             return
         }
 
+        errorText = "!⃤ " + errorText
         // restrict to 1 tweet length
         let errorPreview = errorText.count <= 144 ? nil : (String(errorText.prefix(144)) + "…")
 
@@ -311,7 +312,7 @@ class SendTransactionCellBuilder {
         cell.titleStyle = .error.weight(.medium)
         cell.expandableTitleStyle = (collapsed: .error, expanded: .error)
         cell.contentStyle = (collapsed: .error, expanded: .secondary)
-        cell.setTitle("⚠️ Error")
+        cell.setTitle(nil)
         cell.setText(errorText)
         cell.setCopyText(errorText)
         cell.setExpandableTitle(errorPreview)

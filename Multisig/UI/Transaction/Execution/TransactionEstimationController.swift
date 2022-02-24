@@ -26,6 +26,8 @@ class TransactionEstimationController {
         "56",
         // optimism
         "10",
+        // aurora
+        "1313161554"
     ]
 
     let rpcClient: JsonRpc2.Client
@@ -85,7 +87,8 @@ class TransactionEstimationController {
             return nil
         }
 
-        let task = rpcClient.send(request: batch) { batchResponse in
+        let task = rpcClient.send(request: batch) { [weak self] batchResponse in
+            guard let self = self else { return }
             guard let batchResponse = batchResponse else {
                 // no response is a failed batch request
                 dispatchOnMainThread(completion(.failure(TransactionEstimationError(code: -1, message: "Server did not respond"))))
@@ -127,7 +130,28 @@ class TransactionEstimationController {
                     result(request: ethCallRequest, method: ethCallLegacy, responses: responses).map(\.storage)
                     : result(request: ethCallRequest, method: ethCallNew, responses: responses).map(\.storage)
 
-                dispatchOnMainThread(completion(.success((gasResult, txCountResult, priceResult, callResult))))
+                // workaround for the 'Aurora' network: in the batch request it returns 0 gas price.
+                if fixedGasPrice == nil, case Result<Sol.UInt256, Error>.success(let price) = priceResult, price == 0 {
+                    // get gas price with a single request.
+                    if let priceRequest = (try? EthRpc1.eth_gasPrice().request(id: .int(1))) {
+                        self.rpcClient.send(request: priceRequest) { response in
+
+                            guard let response = response else {
+                                dispatchOnMainThread(completion(.success((gasResult, txCountResult, priceResult, callResult))))
+                                return
+                            }
+
+                            let gasPriceResult = result(request: priceRequest, method: EthRpc1.eth_gasPrice(), responses: [response]).map(\.storage)
+
+                            dispatchOnMainThread(completion(.success((gasResult, txCountResult, gasPriceResult, callResult))))
+
+                        }
+                    } else {
+                        dispatchOnMainThread(completion(.success((gasResult, txCountResult, priceResult, callResult))))
+                    }
+                } else {
+                    dispatchOnMainThread(completion(.success((gasResult, txCountResult, priceResult, callResult))))
+                }
             }
         }
         return task
