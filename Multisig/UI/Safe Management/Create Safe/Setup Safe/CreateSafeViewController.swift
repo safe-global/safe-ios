@@ -13,6 +13,7 @@ import WalletConnectSwift
 
 class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CreateSafeFormUIModelDelegate {
 
+    @IBOutlet private weak var captionLabel: UILabel!
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var createButton: UIButton!
     private var refreshControl: UIRefreshControl!
@@ -47,7 +48,10 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
         tableView.refreshControl = refreshControl
 
-        createButton.setText("Create", .filled)
+        createButton.setText("Create Safe", .filled)
+
+        captionLabel.setStyle(.footnote2.weight(.regular))
+        captionLabel.text = "Creating a Safe may take a few minutes."
 
         uiModel.delegate = self
 
@@ -601,7 +605,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     private func deployerAccountCell(tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
-        cell.setText("Deploy with")
+        cell.setText("Pay with")
 
         if uiModel.isLoadingDeployer {
             let view = loadingView()
@@ -619,7 +623,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
     private func estimateFeeCell(tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
-        cell.setText("Estimated gas fee")
+        cell.setText("Network fee")
         if uiModel.isLoadingFee {
             let view = loadingView()
             cell.setContent(view)
