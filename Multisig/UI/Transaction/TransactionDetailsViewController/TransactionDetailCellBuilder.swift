@@ -535,10 +535,9 @@ class TransactionDetailCellBuilder {
 
     func buildOpenInExplorer(hash: DataString?) {
         guard
-            let txHash = hash?.description,
-            let txHashUrlTemplate = chain.blockExplorerUrlTxHash
+            let txHash = hash?.description
         else { return }
-        let url = URL(string: txHashUrlTemplate.replacingOccurrences(of: "{{txHash}}", with: txHash))!
+        let url = chain.browserURL(txHash: txHash)
         externalURL(text: "View on block explorer", url: url)
     }
 
