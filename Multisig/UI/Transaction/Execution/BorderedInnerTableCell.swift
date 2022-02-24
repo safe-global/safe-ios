@@ -19,7 +19,6 @@ class BorderedInnerTableCell: UITableViewCell, UITableViewDelegate, UITableViewD
     override func awakeFromNib() {
         super.awakeFromNib()
         tableView.layer.borderWidth = 2
-        tableView.layer.borderColor = UIColor.gray4.cgColor
         tableView.layer.cornerRadius = 10
 
         tableView.rowHeight = UITableView.automaticDimension
@@ -28,6 +27,12 @@ class BorderedInnerTableCell: UITableViewCell, UITableViewDelegate, UITableViewD
         // disable scrolling since we will show the full content
         tableView.isScrollEnabled = false
         tableView.showsVerticalScrollIndicator = false
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // appearance will be updated based on the light/dark mode system environment changes
+        tableView.layer.borderColor = UIColor.gray4.cgColor
     }
 
     func setCells(_ cells: [UITableViewCell]) {
