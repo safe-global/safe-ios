@@ -622,8 +622,6 @@ class CreateSafeFormUIModel {
             return nil
         }
 
-        try? saveCreationParameters()
-
         let client = estimationController.rpcClient
 
         let task = client.send(request: request) { [weak self] response in
@@ -744,6 +742,7 @@ class CreateSafeFormUIModel {
         cdTx.dateSubmittedAt = Date()
         App.shared.coreDataStack.saveContext()
 
+        try? saveCreationParameters()
 
         App.shared.notificationHandler.safeAdded(address: address)
     }
