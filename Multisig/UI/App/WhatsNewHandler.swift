@@ -13,14 +13,14 @@ class WhatsNewHandler {
             title: "What's new",
             items: [
                 WhatsNew.Item(
-                        title: "Create Safe",
-                        subtitle: "Create a safe on mobile. See Add Safe. in Switch Safes screen",
-                        image: UIImage(named: "ico-whats-new-transactions")
+                        title: "Create a new Safe",
+                        subtitle: "Get full control over your Safes and create new ones wherever you are by using owner keys.",
+                        image: UIImage(named: "ico-whats-new-safe")
                 ),
                 WhatsNew.Item(
-                        title: "Connect to Web",
-                        subtitle: "Use stored keys for signing and tx creation in the Web app",
-                        image: UIImage(named: "ico-whats-new-ether")
+                        title: "Connect keys to Web",
+                        subtitle: "Connect your owner keys to the Web version to sign transactions with your mobile device.",
+                        image: UIImage(named: "ico-whats-new-connect")
                 )
             ]
     )
