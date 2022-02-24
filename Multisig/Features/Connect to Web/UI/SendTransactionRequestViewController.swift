@@ -298,6 +298,7 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
 
         formVC.navigationItem.title = "Edit transaction fee"
         let ribbon = RibbonViewController(rootViewController: formVC)
+        ribbon.storedChain = chain
         let nav = UINavigationController(rootViewController: ribbon)
         present(nav, animated: true, completion: nil)
 

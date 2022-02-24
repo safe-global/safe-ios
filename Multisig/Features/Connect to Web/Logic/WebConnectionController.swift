@@ -293,7 +293,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             let requestId = request.id.flatMap(sessionTransformer.requestId(id:)),
             let walletInfo = session.walletInfo
         else {
-            assertionFailure("Expected to have a valid connection with pending connection request")
             update(connection, to: .closed)
             return
         }
