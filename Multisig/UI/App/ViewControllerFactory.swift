@@ -92,7 +92,8 @@ enum ViewControllerFactory {
             UIBarButtonItem(barButtonSystemItem: .close, target: viewController, action: #selector(CloseModal.closeModal))
         let navController = UINavigationController(rootViewController: viewController)
         let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.backgroundColor = .secondaryBackground
+        navigationBarAppearance.configureWithTransparentBackground()
+        navigationBarAppearance.backgroundColor = .clear
         navigationBarAppearance.shadowColor = .clear
         navController.navigationBar.scrollEdgeAppearance = navigationBarAppearance
         navController.modalPresentationStyle = .pageSheet
@@ -101,6 +102,7 @@ enum ViewControllerFactory {
                 sheet.detents = [.medium()]
             }
         }
+        navController.view.backgroundColor = .secondaryBackground
         return navController
     }
 }
