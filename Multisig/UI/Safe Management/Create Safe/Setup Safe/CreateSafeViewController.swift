@@ -470,6 +470,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         formVC.navigationItem.title = "Edit transaction fee"
         let ribbon = RibbonViewController(rootViewController: formVC)
+        ribbon.storedChain = uiModel.chain
         let nav = UINavigationController(rootViewController: ribbon)
         present(nav, animated: true, completion: nil)
     }
