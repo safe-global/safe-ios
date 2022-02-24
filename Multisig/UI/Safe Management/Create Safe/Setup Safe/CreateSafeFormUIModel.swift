@@ -42,7 +42,6 @@ class CreateSafeFormUIModel {
     private var safeInfoTask: URLSessionTask?
 
     var estimationController: TransactionEstimationController!
-    private var transactionSender: TransactionSender!
 
     weak var delegate: CreateSafeFormUIModelDelegate?
 
