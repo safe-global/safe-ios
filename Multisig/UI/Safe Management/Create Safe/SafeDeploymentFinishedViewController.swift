@@ -24,12 +24,13 @@ class SafeDeploymentFinishedViewController: UIViewController {
     }
     
     private var mode: Mode = .failure
+    private var chain: Chain = Chain.mainnetChain()
+    private var txHash: String?
     
-    convenience init(mode: Mode) {
+    convenience init(mode: Mode, chain: Chain) {
         self.init(nibName: nil, bundle: nil)
         self.mode = mode
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,7 @@ class SafeDeploymentFinishedViewController: UIViewController {
         descriptionLabel.setStyle(.tertiary)
         
         switch mode {
+            
         case .success:
             statusImage.image = UIImage(named: "ico-safe-deployment-success")
             titleLabel.text = "Your Safe is ready!"
@@ -45,6 +47,7 @@ class SafeDeploymentFinishedViewController: UIViewController {
             actionButton.setText("Start using Safe", .filled)
             linkButton.isHidden = true
             break
+            
         case .failure:
             statusImage.image = UIImage(named: "ico-safe-deployment-failure")
             titleLabel.text = "Oops, Safe wasn’t created"
@@ -52,11 +55,13 @@ class SafeDeploymentFinishedViewController: UIViewController {
             labelContainer.layoutMargins = UIEdgeInsets(top: 32, left: 0, bottom: 0, right: 0)
             
             actionButton.setText("Retry", .filled)
-            linkButton.setText("View Transaction on Etherscan", .plain)
+            linkButton.setText("View on block explorer", .plain)
             
             NSLayoutConstraint.activate([
-                NSLayoutConstraint(item: self.statusImage, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: -32),
-                NSLayoutConstraint(item: self.labelContainer, attribute: .top, relatedBy: .equal, toItem: self.statusImage, attribute: .top, multiplier: 1, constant: 128)
+                
+                NSLayoutConstraint(item: self.statusImage!, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: -32),
+
+                NSLayoutConstraint(item: self.labelContainer!, attribute: .top, relatedBy: .equal, toItem: self.statusImage, attribute: .bottom, multiplier: 1, constant: 32)
             ])
             
             break
@@ -70,5 +75,18 @@ class SafeDeploymentFinishedViewController: UIViewController {
     }
     
     @IBAction func didTapActionButton(_ sender: Any) {
+        switch mode {
+        case .success:
+            break
+        case .failure:
+//            guard let txHash = txHash else {
+//                return
+//            }
+            let url = chain.browserURL(address: "0ac16324cdba5d60bda9f16900469d29a600d5759b81d60018b59456fb0df3b7")
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
+            break
+        }
     }
 }
