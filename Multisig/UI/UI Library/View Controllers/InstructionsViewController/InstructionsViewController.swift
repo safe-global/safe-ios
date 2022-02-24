@@ -42,9 +42,15 @@ class InstructionsViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func didTapButton(_ sender: Any) {
-        let createSafeVC = CreateSafeViewController()
-        createSafeVC.onClose = onClose
-        show(createSafeVC, sender: self)
+        
+        let finishedVC = SafeDeploymentFinishedViewController()
+        let vc = ViewControllerFactory.pageSheet(viewController: finishedVC, halfScreen: true)
+        present(vc, animated: true)
+        
+//
+//        let createSafeVC = CreateSafeViewController()
+//        createSafeVC.onClose = onClose
+//        show(createSafeVC, sender: self)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
