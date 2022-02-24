@@ -31,6 +31,8 @@ class SafeDeploymentFinishedViewController: UIViewController {
     private var txHash: String!
     private var safe: Safe?
     
+    var onRetry: () -> Void = {}
+    
     convenience init(mode: Mode, chain: Chain, txHash: String, safe: Safe? = nil) {
         self.init(nibName: nil, bundle: nil)
         self.mode = mode
@@ -68,14 +70,16 @@ class SafeDeploymentFinishedViewController: UIViewController {
         }
     }
     
-    func present(
+    static func present(
         presenter: UIViewController,
-        mode: Mode = .success,
+        mode: Mode = .failure,
         chain: Chain = Chain.mainnetChain(),
         txHash: String,
-        safe: Safe? = nil
+        safe: Safe? = nil,
+        onRetry: @escaping () -> Void
     ) {
         let finishedVC = SafeDeploymentFinishedViewController(mode: mode, chain: chain, txHash: txHash, safe: safe)
+        finishedVC.onRetry = onRetry
         let vc = ViewControllerFactory.pageSheet(viewController: finishedVC, halfScreen: true)
         presenter.present(vc, animated: true)
     }
@@ -92,9 +96,9 @@ class SafeDeploymentFinishedViewController: UIViewController {
             dismiss(animated: true, completion: nil)
             
         case .failure:
-            //TODO: retry safe deployment transaction
-            
-            break
+            // retry safe deployment transaction
+            dismiss(animated: true, completion: nil)
+            onRetry()
         }
     }
     
