@@ -83,6 +83,12 @@ class MainTabBarViewController: UITabBarController {
             selector: #selector(handleSafeCreated),
             name: .safeCreated,
             object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(showBalances),
+            name: .showBalances,
+            object: nil)
 
         WebConnectionController.shared.attach(observer: self)
     }
@@ -220,6 +226,10 @@ class MainTabBarViewController: UITabBarController {
     @objc private func showHistoryTransactions() {
         selectedIndex = 1
         transactionsSegementControl?.selectedIndex = 1
+    }
+    
+    @objc private func showBalances() {
+        selectedIndex = 0
     }
 
     @objc private func updateTabs() {

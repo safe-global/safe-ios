@@ -36,18 +36,17 @@ class SafeDeploymentController {
             }
         }
     }
-        
+    
     static func isSafeCreatedNotification(_ info: [AnyHashable: Any]) -> Bool {
         info["type"] as? String == "safeCreated"
     }
     
     static func handleSafeCreatedNotification(userInfo: [AnyHashable : Any]) {
-        //TODO  Check if safe is already selected. If so, then do nothing
-        let safe = Safe.by(
-            address: userInfo["safe"] as! String,
-            chainId: userInfo["chainId"] as! String
-        )
-        safe?.select()
-        //TODO Select Assets tab!
+        guard let safe = Safe.by(address: userInfo["safe"] as! String,chainId: userInfo["chainId"] as! String) else { return }
+        
+        if !safe.isSelected {
+            safe.select()
+            NotificationCenter.default.post(name: .showBalances, object: self)
+        }
     }
 }
