@@ -103,7 +103,8 @@ final class HeaderViewController: ContainerViewController {
                     self?.dismiss(animated: true, completion: nil)
                 }
                 let vc = ViewControllerFactory.modal(viewController: instructionsVC)
-                self?.present(vc, animated: true)
+                let v = SafeDeployingViewController()
+                self?.present(v, animated: true)
             }
         }
 

@@ -43,6 +43,9 @@
 		0455A43127204A5B008B772D /* CreateAddressBookEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42F27204A5B008B772D /* CreateAddressBookEntryViewController.swift */; };
 		0455A43227204A5B008B772D /* CreateAddressBookEntryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0455A43027204A5B008B772D /* CreateAddressBookEntryViewController.xib */; };
 		0455A44527282EAA008B772D /* FileManagerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A44427282EA9008B772D /* FileManagerWrapper.swift */; };
+		045769FD27C7DBBF00881206 /* SafeDeployingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045769FB27C7DBBF00881206 /* SafeDeployingViewController.swift */; };
+		045769FE27C7DBBF00881206 /* SafeDeployingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045769FC27C7DBBF00881206 /* SafeDeployingViewController.xib */; };
+		04576A0027C7DBCF00881206 /* TransactionMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045769FF27C7DBCF00881206 /* TransactionMonitor.swift */; };
 		04626EB6265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */; };
 		0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */; };
 		0463F5C126296924009C04FA /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 0463F5C026296924009C04FA /* FirebaseRemoteConfig */; };
@@ -802,6 +805,9 @@
 		0455A42F27204A5B008B772D /* CreateAddressBookEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAddressBookEntryViewController.swift; sourceTree = "<group>"; };
 		0455A43027204A5B008B772D /* CreateAddressBookEntryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateAddressBookEntryViewController.xib; sourceTree = "<group>"; };
 		0455A44427282EA9008B772D /* FileManagerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerWrapper.swift; sourceTree = "<group>"; };
+		045769FB27C7DBBF00881206 /* SafeDeployingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeployingViewController.swift; sourceTree = "<group>"; };
+		045769FC27C7DBBF00881206 /* SafeDeployingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeDeployingViewController.xib; sourceTree = "<group>"; };
+		045769FF27C7DBCF00881206 /* TransactionMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionMonitor.swift; sourceTree = "<group>"; };
 		04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeyDetailsViewController.swift; sourceTree = "<group>"; };
 		0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRemoteConfig.swift; sourceTree = "<group>"; };
 		0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyProtectionScreenViewController.swift; sourceTree = "<group>"; };
@@ -2319,6 +2325,8 @@
 				0A0391C327C5640C003C871A /* CreateSafeInstructionsViewController.swift */,
 				6A39DC9127C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift */,
 				6A39DC9227C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib */,
+				045769FB27C7DBBF00881206 /* SafeDeployingViewController.swift */,
+				045769FC27C7DBBF00881206 /* SafeDeployingViewController.xib */,
 			);
 			path = "Create Safe";
 			sourceTree = "<group>";
@@ -2874,6 +2882,7 @@
 				0A6C85B02450712D0026139E /* Ethereum */,
 				0AF432D5244F075800E22E50 /* Models */,
 				04248BD8272DF18C00431397 /* NamingPolicy.swift */,
+				045769FF27C7DBCF00881206 /* TransactionMonitor.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -3708,6 +3717,7 @@
 				0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */,
 				0AE5A9CB267A4C2800468C90 /* BannerView.xib in Resources */,
 				550FB1A026691CA300C13D54 /* DappsViewController.xib in Resources */,
+				045769FE27C7DBBF00881206 /* SafeDeployingViewController.xib in Resources */,
 				0AE8C08925793B8C00E62B34 /* DetailArrowPiece.xib in Resources */,
 				6ADEB02827B559370062ADFE /* WebConnectionOwnerView.xib in Resources */,
 				0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */,
@@ -3850,6 +3860,7 @@
 				048D72D026875B1C0095999C /* TableHeaderView.swift in Sources */,
 				0A8CDD5527A9DBF70020066C /* TransactionSender.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
+				04576A0027C7DBCF00881206 /* TransactionMonitor.swift in Sources */,
 				0AF1C80725408B5000E28669 /* UIImageViewExtensions.swift in Sources */,
 				0468FB9425912E8300541536 /* TransactionsListConflictHeaderTableViewCell.swift in Sources */,
 				04D1323525E43C560032FA03 /* DetailRejectionInfoCell.swift in Sources */,
@@ -4125,6 +4136,7 @@
 				0A93DDB924461C1400688050 /* Fonts.swift in Sources */,
 				0468FB45259106F400541536 /* StyledView.swift in Sources */,
 				0AFA729C24BF361600A370EE /* SlicedString.swift in Sources */,
+				045769FD27C7DBBF00881206 /* SafeDeployingViewController.swift in Sources */,
 				550FB1AA26691D2E00C13D54 /* UITableView+Cells.swift in Sources */,
 				04273E5826AEE06500A14E95 /* BluetoothController.swift in Sources */,
 				0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */,

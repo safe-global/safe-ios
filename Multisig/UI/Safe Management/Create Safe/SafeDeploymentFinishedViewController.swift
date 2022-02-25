@@ -47,7 +47,6 @@ class SafeDeploymentFinishedViewController: UIViewController {
         descriptionLabel.setStyle(.tertiary)
         
         switch mode {
-            
         case .success:
             statusImage.image = UIImage(named: "ico-safe-deployment-success")
             titleLabel.text = "Your Safe is ready!"
