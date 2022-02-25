@@ -76,10 +76,9 @@ final class HeaderViewController: ContainerViewController {
     @IBAction private func didTapSwitchSafe(_ sender: Any) {
         let switchSafesVC = SwitchSafesViewController()
 
-        print("switch safes")
-        
-        let safe = Safe.by(address: "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7", chainId: "1")!
-        SafeDeploymentCotroller.sendNotification(safe: safe)
+        if let safe = Safe.by(address: "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7", chainId: "1") {
+            SafeDeploymentCotroller.sendNotification(safe: safe)
+        }
 
         switchSafesVC.onAddSafe = { [weak self] in
             self?.dismiss(animated: false) {

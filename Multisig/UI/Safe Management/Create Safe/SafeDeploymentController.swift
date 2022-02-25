@@ -36,14 +36,10 @@ class SafeDeploymentCotroller {
             }
         }
     }
-    
-    // detect notificaion
-    
+        
     static func isSafeCreatedNotification(_ info: [AnyHashable: Any]) -> Bool {
         info["type"] as? String == "safeCreated"
     }
-    
-    // handle notification
     
     static func handleSafeCreatedNotification(userInfo: [AnyHashable : Any]) {
         //TODO  Check if safe is already selected. If so, then do nothing
@@ -54,7 +50,4 @@ class SafeDeploymentCotroller {
         safe?.select()
         //TODO Select Assets tab!
     }
-    
-    // navigation to asset tab
-    
 }
