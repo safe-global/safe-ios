@@ -23,7 +23,7 @@ class SafeDeploymentController {
         content.body = "\(adressString) (\(chainName))"
         content.userInfo = ["type":"safeCreated", "safe": safe.address!,  "chainId": safe.chain!.id!]
         
-        let notificationId = "\(safe.chain!.shortName):\(safe.address!)"
+        let notificationId = notificationId(safe: safe)
         // no trigger to deliver immediately
         let request = UNNotificationRequest(identifier: notificationId, content: content, trigger: nil)
         
@@ -38,10 +38,14 @@ class SafeDeploymentController {
     }
     
     static func dismissNotification(safe: Safe) {
-        let notificationId = "\(safe.chain!.shortName):\(safe.address!)"
+        let notificationId = notificationId(safe: safe)
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationId])
     }
-    
+
+    private static func notificationId(safe: Safe) -> String {
+        "\(safe.chain!.shortName):\(safe.address!)"
+    }
+
     static func isSafeCreatedNotification(_ info: [AnyHashable: Any]) -> Bool {
         info["type"] as? String == "safeCreated"
     }
