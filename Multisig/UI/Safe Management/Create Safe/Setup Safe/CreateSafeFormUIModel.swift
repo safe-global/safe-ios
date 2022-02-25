@@ -42,7 +42,6 @@ class CreateSafeFormUIModel {
     private var safeInfoTask: URLSessionTask?
 
     var estimationController: TransactionEstimationController!
-    private var transactionSender: TransactionSender!
 
     weak var delegate: CreateSafeFormUIModelDelegate?
 
@@ -171,7 +170,7 @@ class CreateSafeFormUIModel {
 
     func addOwnerAddress(_ string: String?) {
         guard let string = string, let address = Address(string, checksummed: true) else {
-            let error = "Value '\(string?.prefix(30) ?? "")' seems to have a typo or is not a valid address. Please try again."
+            let error = "Value '\(string?.prefix(50) ?? "")' seems to have a typo or is not a valid address. Please try again."
             App.shared.snackbar.show(message: error)
             return
         }
@@ -623,8 +622,6 @@ class CreateSafeFormUIModel {
             return nil
         }
 
-        try? saveCreationParameters()
-
         let client = estimationController.rpcClient
 
         let task = client.send(request: request) { [weak self] response in
@@ -745,6 +742,7 @@ class CreateSafeFormUIModel {
         cdTx.dateSubmittedAt = Date()
         App.shared.coreDataStack.saveContext()
 
+        try? saveCreationParameters()
 
         App.shared.notificationHandler.safeAdded(address: address)
     }
