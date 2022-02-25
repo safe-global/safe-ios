@@ -21,7 +21,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             let userInfo = notification.request.content.userInfo
 
             Messaging.messaging().appDidReceiveMessage(userInfo)
-
             LogService.shared.debug("PUSH: App is in foreground, willPresent notification with userInfo: \(userInfo)")
             completionHandler([.alert, .badge, .sound])
         }
@@ -37,8 +36,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             App.shared.intercomConfig.pushNotificationUserInfo = userInfo
         }
 
-        if SafeDeploymentCotroller.isSafeCreatedNotification(userInfo){
-            SafeDeploymentCotroller.handleSafeCreatedNotification(userInfo: userInfo)
+        if SafeDeploymentController.isSafeCreatedNotification(userInfo){
+            SafeDeploymentController.handleSafeCreatedNotification(userInfo: userInfo)
         }
         
         LogService.shared.debug("PUSH: didReceive notification with userInfo: \(userInfo)")

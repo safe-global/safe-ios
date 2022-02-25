@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SafeDeploymentCotroller {
+class SafeDeploymentController {
     static func sendNotification(safe: Safe) {
         let safeName = safe.name ?? ""
         let shortName = safe.chain!.shortName ?? ""
