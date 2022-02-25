@@ -23,9 +23,9 @@ class SafeDeploymentController {
         content.body = "\(adressString) (\(chainName))"
         content.userInfo = ["type":"safeCreated", "safe": safe.address!,  "chainId": safe.chain!.id!]
         
-        let uuidString = UUID().uuidString
+        let notificationId = "\(safe.chain!.shortName):\(safe.address!)"
         // no trigger to deliver immediately
-        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: nil)
+        let request = UNNotificationRequest(identifier: notificationId, content: content, trigger: nil)
         
         // Schedule the request with the system.
         let notificationCenter = UNUserNotificationCenter.current()
@@ -35,6 +35,11 @@ class SafeDeploymentController {
                 LogService.shared.error("Error creating local notification: \(error)")
             }
         }
+    }
+    
+    static func dismissNotification(safe: Safe) {
+        let notificationId = "\(safe.chain!.shortName):\(safe.address!)"
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationId])
     }
     
     static func isSafeCreatedNotification(_ info: [AnyHashable: Any]) -> Bool {
