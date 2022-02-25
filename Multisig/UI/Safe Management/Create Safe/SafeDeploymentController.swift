@@ -31,8 +31,8 @@ class SafeDeploymentController {
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.add(request) { (error) in
             if error != nil {
-                // Handle any errors.
-                //LogService.shared. ("error: \(error)")
+                // TODO How to test error handling?
+                LogService.shared.error("Error creating local notification: \(error)")
             }
         }
     }
