@@ -23,6 +23,8 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     var onClose: () -> Void = {}
 
     private var uiModel = CreateSafeFormUIModel()
+    var txHash: String?
+    var chain: Chain?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +56,9 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         captionLabel.text = "Creating a Safe may take a few minutes."
 
         uiModel.delegate = self
+        if let txHash = txHash, let chain = chain, let safeCreationCall = SafeCreationCall.by(txHashes: [txHash], chainId: chain.id!)?.first {
+            uiModel.updateWithSafeCall(call: safeCreationCall)
+        }
 
         uiModel.start()
     }

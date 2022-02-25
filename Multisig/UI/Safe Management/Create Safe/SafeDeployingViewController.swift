@@ -15,19 +15,21 @@ class SafeDeployingViewController: UIViewController {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
 
-    var x = 0
     var safe: Safe?
     var containerViewYConstraint: NSLayoutConstraint?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        safe = try? Safe.getSelected()
+        assert(safe != nil)
 
         desciptionLabel.setStyle(.secondary)
         didYouKnowLabel.setStyle(.primaryButton)
         statusLabel.setStyle(.headline2)
         Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(updateStatus), userInfo: nil, repeats: true)
-    }
 
+        NotificationCenter.default.addObserver(self, selector: #selector(updateStatus), name: .transactionDataInvalidated, object: nil)
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -49,22 +51,20 @@ class SafeDeployingViewController: UIViewController {
     @objc func updateStatus() {
         statusLabel.pushTransition(0.5)
         statusLabel.text = statusName()
-
-        self.x = self.x + 1
     }
 
     func statusName() -> String {
-        if x == 0 {
-            return "Transaction submitted"
-        } else if x == 1 {
-            return "Validating transaction"
-        } else if x == 2 {
+        guard let safeStatus = safe?.safeStatus else { return "" }
+        switch safeStatus {
+        case .deploying:
             return "Deploying Smart Contract"
-        } else if x == 3 {
-            return "Generating your Safe"
+        case .indexing:
+            return "Preparing your Safe"
+        case .deployed:
+            return "Safe is ready!"
+        case .deploymentFailed:
+            return "Failed to create Safe"
         }
-
-        return ""
     }
 }
 

@@ -27,12 +27,12 @@ class SafeDeploymentFinishedViewController: UIViewController {
     
     private var mode: Mode = .success
     private var chain: Chain!
-    private var txHash: String!
+    private var txHash: String?
     private var safe: Safe?
     
     var onRetry: () -> Void = {}
     
-    convenience init(mode: Mode, chain: Chain, txHash: String, safe: Safe? = nil) {
+    convenience init(mode: Mode, chain: Chain, txHash: String?, safe: Safe? = nil) {
         self.init(nibName: nil, bundle: nil)
         self.mode = mode
         self.chain = chain
@@ -72,7 +72,7 @@ class SafeDeploymentFinishedViewController: UIViewController {
         presenter: UIViewController,
         mode: Mode,
         chain: Chain,
-        txHash: String,
+        txHash: String? ,
         safe: Safe? = nil,
         onRetry: @escaping () -> Void
     ) {
@@ -91,6 +91,7 @@ class SafeDeploymentFinishedViewController: UIViewController {
             if let safe = safe {
                 safe.select()
             }
+
             dismiss(animated: true, completion: nil)
             
         case .failure:

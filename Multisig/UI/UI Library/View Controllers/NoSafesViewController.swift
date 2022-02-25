@@ -20,6 +20,7 @@ class NoSafesViewController: ContainerViewController {
         super.viewDidLoad()
         notificationCenter.addObserver(self, selector: #selector(reloadContent), name: .selectedSafeChanged, object: nil)
         notificationCenter.addObserver(self, selector: #selector(reloadContent), name: .selectedSafeUpdated, object: nil)
+
         reloadContent()
     }
 
@@ -28,8 +29,6 @@ class NoSafesViewController: ContainerViewController {
             let safeOrNil = try Safe.getSelected()
             if let safe = safeOrNil {
                 if safe.safeStatus == .deployed {
-//                    viewControllers = [safeDepolyingViewContoller]
-//                    displayChild(at: 0, in: view)
 
                     viewControllers = [hasSafeViewController]
                     displayChild(at: 0, in: view)

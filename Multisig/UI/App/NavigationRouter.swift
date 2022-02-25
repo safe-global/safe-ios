@@ -49,4 +49,15 @@ extension NavigationRoute {
         }
         return route
     }
+
+    static func showAssets(_ address: String? = nil, chainId: String? = nil) -> NavigationRoute {
+        var route = NavigationRoute(path: "/assets/")
+        if let address = address,
+           let chainId = chainId {
+            route.info["address"] = address
+            route.info["chainId"] = chainId
+        }
+
+        return route
+    }
 }

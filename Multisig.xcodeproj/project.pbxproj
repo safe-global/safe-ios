@@ -47,6 +47,7 @@
 		045769FE27C7DBBF00881206 /* SafeDeployingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045769FC27C7DBBF00881206 /* SafeDeployingViewController.xib */; };
 		04576A0027C7DBCF00881206 /* SafeCreationMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045769FF27C7DBCF00881206 /* SafeCreationMonitor.swift */; };
 		04576A0227C8F26100881206 /* CDEthTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04576A0127C8F26100881206 /* CDEthTransaction.swift */; };
+		04576A0427C933D700881206 /* SafeCreationCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04576A0327C933D700881206 /* SafeCreationCall.swift */; };
 		04626EB6265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */; };
 		0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */; };
 		0463F5C126296924009C04FA /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 0463F5C026296924009C04FA /* FirebaseRemoteConfig */; };
@@ -809,6 +810,7 @@
 		045769FC27C7DBBF00881206 /* SafeDeployingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeDeployingViewController.xib; sourceTree = "<group>"; };
 		045769FF27C7DBCF00881206 /* SafeCreationMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCreationMonitor.swift; sourceTree = "<group>"; };
 		04576A0127C8F26100881206 /* CDEthTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDEthTransaction.swift; sourceTree = "<group>"; };
+		04576A0327C933D700881206 /* SafeCreationCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCreationCall.swift; sourceTree = "<group>"; };
 		04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeyDetailsViewController.swift; sourceTree = "<group>"; };
 		0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRemoteConfig.swift; sourceTree = "<group>"; };
 		0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyProtectionScreenViewController.swift; sourceTree = "<group>"; };
@@ -2758,6 +2760,7 @@
 				55A585352501417E005E778B /* PrivateKey */,
 				0ACC302127BFB5C300586795 /* Address+Solidity.swift */,
 				04576A0127C8F26100881206 /* CDEthTransaction.swift */,
+				04576A0327C933D700881206 /* SafeCreationCall.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3971,6 +3974,7 @@
 				048D72C126835CF90095999C /* Chain.swift in Sources */,
 				048D72C82684CB500095999C /* SelectNetworkViewController.swift in Sources */,
 				0ABAFDB324ACB3B6007EBB92 /* SnackbarCenter.swift in Sources */,
+				04576A0427C933D700881206 /* SafeCreationCall.swift in Sources */,
 				0AF2734124DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift in Sources */,
 				55BCFC392552FCDB00020CE7 /* SafeSettingsViewController.swift in Sources */,
 				0A86EE6925CC2B410059876E /* IdleFooterView.swift in Sources */,

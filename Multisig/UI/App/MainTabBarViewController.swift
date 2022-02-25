@@ -23,10 +23,12 @@ class MainTabBarViewController: UITabBarController {
     fileprivate var debounceTimer: Timer?
     fileprivate var presentingRequest: Bool = false
 
+    static fileprivate let ASSETS_TAB_INDEX = 0
+    static fileprivate let BALANCES_SEGMENT_INDEX = 0
     static fileprivate let SETTINGS_TAB_INDEX = 3
     static fileprivate let APP_SETTINGS_SEGMENT_INDEX = 0
 
-    lazy var balancesTabVC: UIViewController = {
+    lazy var balancesTabVC: BalancesUINavigationController = {
         balancesTabViewController()
     }()
 
@@ -74,14 +76,8 @@ class MainTabBarViewController: UITabBarController {
 
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(updateTabs),
-            name: .updatedExperemental,
-            object: nil)
-        
-        NotificationCenter.default.addObserver(
-            self,
             selector: #selector(handleSafeCreated),
-            name: .safeCreated,
+            name: .safeCreationUpdate,
             object: nil)
 
         WebConnectionController.shared.attach(observer: self)
@@ -105,7 +101,7 @@ class MainTabBarViewController: UITabBarController {
         WebConnectionController.shared.reconnect()
     }
 
-    private func balancesTabViewController() -> UIViewController {
+    private func balancesTabViewController() -> BalancesUINavigationController {
         
         let assetsVC = AssetsViewController()
 
@@ -121,8 +117,11 @@ class MainTabBarViewController: UITabBarController {
 
         noSafesVC.safeDepolyingViewContoller = ViewControllerFactory.ribbonWith(viewController: deploySafeVC)
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
-        return tabViewController(
+        let balances = balancesTabViewController(
             root: tabRoot, title: "Assets", image: UIImage(named: "tab-icon-balances.pdf")!, tag: 0)
+        balances.assetsViewController = assetsVC
+
+        return balances
     }
 
     private func transactionsTabViewController() -> UIViewController {
@@ -202,6 +201,13 @@ class MainTabBarViewController: UITabBarController {
         return settingsTabVC
     }
 
+    private func balancesTabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> BalancesUINavigationController {
+        let nav = BalancesUINavigationController(rootViewController: root)
+        let tabItem = UITabBarItem(title: title, image: image, tag: tag)
+        nav.tabBarItem = tabItem
+        return nav
+    }
+
     private func settingsTabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> SettingsUINavigationController {
         let nav = SettingsUINavigationController(rootViewController: root)
         let tabItem = UITabBarItem(title: title, image: image, tag: tag)
@@ -249,10 +255,10 @@ class MainTabBarViewController: UITabBarController {
         if
             let status = notification.userInfo?["success"] as? Bool,
             let chain = notification.userInfo?["chain"] as? Chain,
-            let txHash = notification.userInfo?["txHash"] as? String {
+            let safe = notification.userInfo?["safe"] as? Safe {
             
-            let safe = notification.userInfo?["safe"] as? Safe
-        
+            let txHash = notification.userInfo?["txHash"] as? String
+
             var mode: SafeDeploymentFinishedViewController.Mode
             if status {
                 mode = .success
@@ -267,9 +273,10 @@ class MainTabBarViewController: UITabBarController {
                 txHash: txHash,
                 safe: safe
             ) { [weak self] in
-                
-                //TODO: pass safe deployment transaction for retry
                 let createSafeVC = CreateSafeViewController()
+                Safe.remove(safe: safe)
+                createSafeVC.txHash = txHash
+                createSafeVC.chain = chain
                 let vc = ViewControllerFactory.modal(viewController: createSafeVC)
                 self?.present(vc, animated: true)
             }
@@ -291,19 +298,30 @@ extension MainTabBarViewController: NavigationRouter {
     func canNavigate(to route: NavigationRoute) -> Bool {
         if route.path.starts(with: "/settings/") {
             return true
+        } else if route.path == NavigationRoute.showAssets().path {
+            return true
         }
+
         return false
     }
 
     func navigate(to route: NavigationRoute) {
-        guard let settingsNav = settingsTabVC as? SettingsUINavigationController,
-              let segmentVC = settingsNav.segmentViewController,
-              let appSettingsVC = settingsNav.appSettingsViewController else {
-            return
+        if route.path.starts(with: "/settings/") {
+            guard let settingsNav = settingsTabVC as? SettingsUINavigationController,
+                  let segmentVC = settingsNav.segmentViewController,
+                  let appSettingsVC = settingsNav.appSettingsViewController else {
+                return
+            }
+            selectedIndex = Self.SETTINGS_TAB_INDEX
+            segmentVC.selectedIndex = Self.APP_SETTINGS_SEGMENT_INDEX
+            appSettingsVC.navigateAfterDelay(to: route)
+
+        } else if route.path == NavigationRoute.showAssets().path {
+            guard let assetsVC = balancesTabVC.assetsViewController,
+                  !assetsVC.segmentVC.segmentItems.isEmpty else { return }
+            selectedIndex = Self.ASSETS_TAB_INDEX
+            assetsVC.segmentVC.selectedIndex = Self.BALANCES_SEGMENT_INDEX
         }
-        selectedIndex = Self.SETTINGS_TAB_INDEX
-        segmentVC.selectedIndex = Self.APP_SETTINGS_SEGMENT_INDEX
-        appSettingsVC.navigateAfterDelay(to: route)
     }
 }
 
@@ -335,6 +353,12 @@ class SettingsUINavigationController: UINavigationController {
         }
     }
 }
+
+class BalancesUINavigationController: UINavigationController {
+    weak var segmentViewController: SegmentViewController?
+    weak var assetsViewController: AssetsViewController?
+}
+
 
 extension MainTabBarViewController: WebConnectionRequestObserver {
     func didUpdate(request: WebConnectionRequest) {

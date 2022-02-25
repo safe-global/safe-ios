@@ -17,11 +17,11 @@ class AssetsViewController: ContainerViewController {
     private var balances: [TokenBalance]?
     
     private var safe: Safe?
-    
+    let segmentVC = SegmentViewController(namedClass: nil)
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let segmentVC = SegmentViewController(namedClass: nil)
         segmentVC.segmentItems = [
             SegmentBarItem(image: UIImage(named: "ico-coins")!, title: "Coins"),
             SegmentBarItem(image: UIImage(named: "ico-collectibles")!, title: "Collectibles")
