@@ -11,6 +11,7 @@ import UIKit
 class NoSafesViewController: ContainerViewController {
     var hasSafeViewController: UIViewController!
     var noSafeViewController: UIViewController!
+    var safeDepolyingViewContoller: UIViewController!
 
     var notificationCenter = NotificationCenter.default
     // preconditions
@@ -24,10 +25,17 @@ class NoSafesViewController: ContainerViewController {
     @objc private func reloadContent() {
         do {
             let safeOrNil = try Safe.getSelected()
-            let hasSafe = safeOrNil != nil
-            if hasSafe {
-                viewControllers = [hasSafeViewController]
-                displayChild(at: 0, in: view)
+            if let safe = safeOrNil {
+                if safe.safeStatus == .deployed {
+//                    viewControllers = [safeDepolyingViewContoller]
+//                    displayChild(at: 0, in: view)
+
+                    viewControllers = [hasSafeViewController]
+                    displayChild(at: 0, in: view)
+                } else {
+                    viewControllers = [safeDepolyingViewContoller]
+                    displayChild(at: 0, in: view)
+                }
             } else {
                 viewControllers = [noSafeViewController]
                 displayChild(at: 0, in: view)

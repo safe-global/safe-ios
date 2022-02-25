@@ -45,7 +45,8 @@
 		0455A44527282EAA008B772D /* FileManagerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A44427282EA9008B772D /* FileManagerWrapper.swift */; };
 		045769FD27C7DBBF00881206 /* SafeDeployingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045769FB27C7DBBF00881206 /* SafeDeployingViewController.swift */; };
 		045769FE27C7DBBF00881206 /* SafeDeployingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045769FC27C7DBBF00881206 /* SafeDeployingViewController.xib */; };
-		04576A0027C7DBCF00881206 /* TransactionMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045769FF27C7DBCF00881206 /* TransactionMonitor.swift */; };
+		04576A0027C7DBCF00881206 /* SafeCreationMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045769FF27C7DBCF00881206 /* SafeCreationMonitor.swift */; };
+		04576A0227C8F26100881206 /* CDEthTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04576A0127C8F26100881206 /* CDEthTransaction.swift */; };
 		04626EB6265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */; };
 		0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */; };
 		0463F5C126296924009C04FA /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 0463F5C026296924009C04FA /* FirebaseRemoteConfig */; };
@@ -806,7 +807,8 @@
 		0455A44427282EA9008B772D /* FileManagerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerWrapper.swift; sourceTree = "<group>"; };
 		045769FB27C7DBBF00881206 /* SafeDeployingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeployingViewController.swift; sourceTree = "<group>"; };
 		045769FC27C7DBBF00881206 /* SafeDeployingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeDeployingViewController.xib; sourceTree = "<group>"; };
-		045769FF27C7DBCF00881206 /* TransactionMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionMonitor.swift; sourceTree = "<group>"; };
+		045769FF27C7DBCF00881206 /* SafeCreationMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCreationMonitor.swift; sourceTree = "<group>"; };
+		04576A0127C8F26100881206 /* CDEthTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDEthTransaction.swift; sourceTree = "<group>"; };
 		04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeyDetailsViewController.swift; sourceTree = "<group>"; };
 		0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRemoteConfig.swift; sourceTree = "<group>"; };
 		0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyProtectionScreenViewController.swift; sourceTree = "<group>"; };
@@ -2755,6 +2757,7 @@
 				04CE3F9724B611FC00826AEE /* Collectible */,
 				55A585352501417E005E778B /* PrivateKey */,
 				0ACC302127BFB5C300586795 /* Address+Solidity.swift */,
+				04576A0127C8F26100881206 /* CDEthTransaction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2879,7 +2882,7 @@
 				0A6C85B02450712D0026139E /* Ethereum */,
 				0AF432D5244F075800E22E50 /* Models */,
 				04248BD8272DF18C00431397 /* NamingPolicy.swift */,
-				045769FF27C7DBCF00881206 /* TransactionMonitor.swift */,
+				045769FF27C7DBCF00881206 /* SafeCreationMonitor.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -3856,7 +3859,7 @@
 				0ABE6983279177A4003338AF /* TransactionEstimationController.swift in Sources */,
 				048D72D026875B1C0095999C /* TableHeaderView.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
-				04576A0027C7DBCF00881206 /* TransactionMonitor.swift in Sources */,
+				04576A0027C7DBCF00881206 /* SafeCreationMonitor.swift in Sources */,
 				0AF1C80725408B5000E28669 /* UIImageViewExtensions.swift in Sources */,
 				0468FB9425912E8300541536 /* TransactionsListConflictHeaderTableViewCell.swift in Sources */,
 				04D1323525E43C560032FA03 /* DetailRejectionInfoCell.swift in Sources */,
@@ -4149,6 +4152,7 @@
 				0ABE698827920294003338AF /* ErrorTableViewCell.swift in Sources */,
 				0A8CDD4927A5AE860020066C /* CreateSafeFormUIModel.swift in Sources */,
 				D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */,
+				04576A0227C8F26100881206 /* CDEthTransaction.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				0A57C5AF2577F02100420303 /* ConfirmationCreatedPiece.swift in Sources */,
 				047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */,

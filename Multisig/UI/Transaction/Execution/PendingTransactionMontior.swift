@@ -217,6 +217,7 @@ class ChainPendingTransactionMonitor {
                         cdTxData.ethTx.dateUpdatedAt = Date()
                         shouldNotifyTransactionObservers = true
                         updatedTxCount += 1
+
                     }
 
                     // check for cancellation of the task
@@ -232,7 +233,6 @@ class ChainPendingTransactionMonitor {
                     if shouldNotifyTransactionObservers {
                         // Notify the observers about tx changes
                         NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
-
                         LogService.shared.debug("Transaction monitor [chain=\(chainId)]: updated \(updatedTxCount) transaction(s)")
                     } else {
                         LogService.shared.debug("Transaction monitor [chain=\(chainId)]: found no updates from servers")

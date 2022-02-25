@@ -88,7 +88,7 @@
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gHo-3D-eRz" secondAttribute="trailing" constant="20" id="4Cz-zW-s8c"/>
                 <constraint firstItem="gHo-3D-eRz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="kB9-mf-bMt"/>
-                <constraint firstItem="gHo-3D-eRz" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="nvb-rA-QT2"/>
+                <constraint firstItem="gHo-3D-eRz" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" placeholder="YES" id="nvb-rA-QT2"/>
             </constraints>
             <point key="canvasLocation" x="131.8840579710145" y="125.89285714285714"/>
         </view>

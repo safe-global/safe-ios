@@ -28,7 +28,7 @@ extension SafeClientGatewayService {
     func syncSafeInfo(safeAddress: Address, chainId: String) throws -> SCGModels.SafeInfoExtended {
         try execute(request: SafeInfoRequest(safeAddress, chainId: chainId))
     }
-
+    
     func asyncSafeInfo(safeAddress: Address,
                        chainId: String,
                        completion: @escaping (Result<SCGModels.SafeInfoExtended, Error>) -> Void) -> URLSessionTask? {

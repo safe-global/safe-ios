@@ -260,4 +260,6 @@ extension ImplementationVersionState {
 enum SafeStatus: Int16 {
     case deployed = 0
     case deploying = 1
+    case deploymentFailed = 2
+    case indexing = 3
 }

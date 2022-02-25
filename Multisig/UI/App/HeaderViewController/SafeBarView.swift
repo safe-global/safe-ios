@@ -20,6 +20,7 @@ class SafeBarView: UINibView {
 
     private(set) var prefix: String?
     private(set) var address: Address!
+    private(set) var isDeploying: Bool = false
 
     override func commonInit() {
         super.commonInit()
@@ -37,9 +38,10 @@ class SafeBarView: UINibView {
         
     }
 
-    func setAddress(_ value: Address, prefix: String?) {
+    func setAddress(_ value: Address, prefix: String?, isDepolying: Bool = false) {
         self.address = value
         self.prefix = prefix
+        self.isDeploying = isDepolying
         identiconView.setAddress(value.hexadecimal)
         displayAddress()
     }
@@ -73,7 +75,7 @@ class SafeBarView: UINibView {
 
     @objc func displayAddress() {
         guard let address = address else { return }
-        detailLabel.text = prefixString() + address.ellipsized()
+        detailLabel.text = isDeploying ? "Creating in progress..." : prefixString() + address.ellipsized()
     }
 
     private func prefixString() -> String {

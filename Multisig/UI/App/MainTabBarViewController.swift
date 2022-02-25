@@ -113,10 +113,13 @@ class MainTabBarViewController: UITabBarController {
         let loadSafeViewController = LoadSafeViewController()
         loadSafeViewController.trackingEvent = .assetsNoSafe
 
+        let deploySafeVC = SafeDeployingViewController()
+
         let ribbonVC = RibbonViewController(rootViewController: assetsVC)
         noSafesVC.hasSafeViewController = ribbonVC
         noSafesVC.noSafeViewController = loadSafeViewController
 
+        noSafesVC.safeDepolyingViewContoller = ViewControllerFactory.ribbonWith(viewController: deploySafeVC)
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
         return tabViewController(
             root: tabRoot, title: "Assets", image: UIImage(named: "tab-icon-balances.pdf")!, tag: 0)
@@ -139,10 +142,13 @@ class MainTabBarViewController: UITabBarController {
 
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
+        let deploySafeVC = SafeDeployingViewController()
+
         loadSafeViewController.trackingEvent = .transactionsNoSafe
         let ribbonVC = RibbonViewController(rootViewController: segmentVC)
         noSafesVC.hasSafeViewController = ribbonVC
         noSafesVC.noSafeViewController = loadSafeViewController
+        noSafesVC.safeDepolyingViewContoller = ViewControllerFactory.ribbonWith(viewController: deploySafeVC)
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
         transactionsSegementControl = segmentVC
@@ -154,9 +160,12 @@ class MainTabBarViewController: UITabBarController {
     private func dappsTabViewController() -> UIViewController {
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
+        let deploySafeVC = SafeDeployingViewController()
+
         loadSafeViewController.trackingEvent = .dappsNoSafe
         noSafesVC.hasSafeViewController = RibbonViewController(rootViewController: DappsViewController())
         noSafesVC.noSafeViewController = loadSafeViewController
+        noSafesVC.safeDepolyingViewContoller = ViewControllerFactory.ribbonWith(viewController: deploySafeVC)
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
         return tabViewController(root: tabRoot, title: "dApps", image: UIImage(named: "tab-icon-dapps")!, tag: 2)
@@ -165,9 +174,12 @@ class MainTabBarViewController: UITabBarController {
     private func settingsTabViewController() -> UIViewController {
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
+        let deploySafeVC = SafeDeployingViewController()
+
         loadSafeViewController.trackingEvent = .settingsSafeNoSafe
         noSafesVC.hasSafeViewController = SafeSettingsViewController()
         noSafesVC.noSafeViewController = loadSafeViewController
+        noSafesVC.safeDepolyingViewContoller = deploySafeVC
 
         let appSettingsVC = AppSettingsViewController()
 
