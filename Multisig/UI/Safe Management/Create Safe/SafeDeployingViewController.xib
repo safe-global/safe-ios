@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SafeDeployingViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="containerView" destination="gHo-3D-eRz" id="Y46-s0-Jx8"/>
                 <outlet property="desciptionLabel" destination="CIP-ib-6cv" id="Lcm-XC-fuk"/>
                 <outlet property="didYouKnowLabel" destination="50P-0o-7Kp" id="VLe-Pz-q8U"/>
                 <outlet property="statusLabel" destination="rn6-Av-315" id="IoD-b0-75c"/>

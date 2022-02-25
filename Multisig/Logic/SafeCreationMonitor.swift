@@ -9,13 +9,27 @@
 import Foundation
 
 class SafeCreationMonitor {
+    static var globalTimer: Timer?
+    static let shared = SafeCreationMonitor()
 
-    init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(txDataInvalidationNotificationReceived), name: .transactionDataInvalidated, object: nil)
+    static func scheduleMonitoring(repeatInterval: TimeInterval = 10, runImmediately: Bool = true) {
+        globalTimer?.invalidate()
+
+        globalTimer = Timer.scheduledTimer(withTimeInterval: repeatInterval, repeats: true, block: { _ in
+            Self.shared.querySafeInfo()
+        })
+
+        if runImmediately {
+            Self.shared.querySafeInfo()
+        }
     }
 
-    func start() {
+    static func stopMonitoring() {
+        globalTimer?.invalidate()
+    }
 
+    private init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(txDataInvalidationNotificationReceived), name: .transactionDataInvalidated, object: nil)
     }
 
     let clientGateway = App.shared.clientGatewayService

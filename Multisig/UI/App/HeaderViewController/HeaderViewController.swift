@@ -75,8 +75,6 @@ final class HeaderViewController: ContainerViewController {
 
     @IBAction private func didTapSwitchSafe(_ sender: Any) {
         let switchSafesVC = SwitchSafesViewController()
-
-
         switchSafesVC.onAddSafe = { [weak self] in
             self?.dismiss(animated: false) {
                 let selectNetworkVC = SelectNetworkViewController()
@@ -103,8 +101,7 @@ final class HeaderViewController: ContainerViewController {
                     self?.dismiss(animated: true, completion: nil)
                 }
                 let vc = ViewControllerFactory.modal(viewController: instructionsVC)
-                let v = SafeDeployingViewController()
-                self?.present(v, animated: true)
+                self?.present(vc, animated: true)
             }
         }
 

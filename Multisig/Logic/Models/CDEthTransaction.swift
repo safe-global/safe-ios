@@ -36,7 +36,7 @@ extension NSFetchRequest where ResultType == CDEthTransaction {
 
     func by(safeAddress: String, chainId: String) -> Self {
         sortDescriptors = []
-        predicate = NSPredicate(format: "address == %@ AND chain.id == %@", safeAddress, chainId)
+        predicate = NSPredicate(format: "safeAddress == %@ AND chainId == %@", safeAddress, chainId)
         fetchLimit = 1
         return self
     }

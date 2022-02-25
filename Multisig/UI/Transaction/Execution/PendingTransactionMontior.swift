@@ -46,7 +46,6 @@ class PendingTransactionMonitor {
             monitor.queryTransactionStatuses()
         }
     }
-
 }
 
 class ChainPendingTransactionMonitor {
