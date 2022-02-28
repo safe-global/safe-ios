@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 class SafeDeploymentNotificationController {
+    private static let SAFE_CREATED_PREFIX = "SAFE_CREATED_"
+    
     static func sendNotification(safe: Safe) {
         let safeName = safe.name ?? ""
         let shortName = safe.chain!.shortName ?? ""
@@ -40,11 +42,11 @@ class SafeDeploymentNotificationController {
         let notificationId = notificationId(safe: safe)
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationId])
     }
-
+    
     private static func notificationId(safe: Safe) -> String {
-        "\(safe.chain!.shortName):\(safe.address!)"
+        "\(SAFE_CREATED_PREFIX)\(safe.chain!.shortName):\(safe.address!)"
     }
-
+    
     static func isSafeCreatedNotification(_ info: [AnyHashable: Any]) -> Bool {
         info["type"] as? String == "safeCreated"
     }

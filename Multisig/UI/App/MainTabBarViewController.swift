@@ -79,7 +79,7 @@ class MainTabBarViewController: UITabBarController {
             selector: #selector(handleSafeCreated),
             name: .safeCreationUpdate,
             object: nil)
-        
+
         WebConnectionController.shared.attach(observer: self)
     }
 
