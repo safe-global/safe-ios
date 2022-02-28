@@ -79,7 +79,7 @@ final class HeaderViewController: ContainerViewController {
         // TODO Remove this and put it where it should be
         // Send notification only if DEMO safe is available
         if let safe = Safe.by(address: "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7", chainId: "1") {
-            SafeDeploymentController.sendNotification(safe: safe)
+            SafeDeploymentNotificationController.sendNotification(safe: safe)
         }
 
         switchSafesVC.onAddSafe = { [weak self] in

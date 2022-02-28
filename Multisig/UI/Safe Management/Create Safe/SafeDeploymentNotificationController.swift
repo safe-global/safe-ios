@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SafeDeploymentController {
+class SafeDeploymentNotificationController {
     static func sendNotification(safe: Safe) {
         let safeName = safe.name ?? ""
         let shortName = safe.chain!.shortName ?? ""
@@ -19,7 +19,7 @@ class SafeDeploymentController {
         let chainName = safe.chain?.name ?? ""
         
         let content = UNMutableNotificationContent()
-        content.title = "Safe \"\(safeName)\" created! "
+        content.title = "Safe \"\(safeName)\" created!"
         content.body = "\(adressString) (\(chainName))"
         content.userInfo = ["type":"safeCreated", "safe": safe.address!,  "chainId": safe.chain!.id!]
         
@@ -30,8 +30,7 @@ class SafeDeploymentController {
         // Schedule the request with the system.
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.add(request) { (error) in
-            if error != nil {
-                // TODO How to test error handling?
+            if let error = error {
                 LogService.shared.error("Error creating local notification: \(error)")
             }
         }

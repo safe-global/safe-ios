@@ -107,9 +107,6 @@ extension Safe {
         selection.safe = self
         App.shared.coreDataStack.saveContext()
         NotificationCenter.default.post(name: .selectedSafeChanged, object: nil)
-        
-        //TODO: This needs to be done in the right place
-        SafeDeploymentController.dismissNotification(safe: self)
     }
 
     static func getSelected() throws -> Safe? {

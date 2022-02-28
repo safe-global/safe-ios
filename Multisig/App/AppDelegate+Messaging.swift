@@ -36,12 +36,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             App.shared.intercomConfig.pushNotificationUserInfo = userInfo
         }
 
-        if SafeDeploymentController.isSafeCreatedNotification(userInfo){
-            SafeDeploymentController.handleSafeCreatedNotification(userInfo: userInfo)
+        if SafeDeploymentNotificationController.isSafeCreatedNotification(userInfo) {
+            SafeDeploymentNotificationController.handleSafeCreatedNotification(userInfo: userInfo)
+        } else {
+            LogService.shared.debug("PUSH: didReceive notification with userInfo: \(userInfo)")
+            App.shared.notificationHandler.received(notification: userInfo)
         }
-        
-        LogService.shared.debug("PUSH: didReceive notification with userInfo: \(userInfo)")
-        App.shared.notificationHandler.received(notification: userInfo)
         completionHandler()
     }
 }
