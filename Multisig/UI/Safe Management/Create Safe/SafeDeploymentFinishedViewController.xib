@@ -28,10 +28,10 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-safe-deployment-failure" translatesAutoresizingMaskIntoConstraints="NO" id="cy8-H4-ttj">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cy8-H4-ttj">
                     <rect key="frame" x="150" y="-12" width="114" height="92"/>
                 </imageView>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="b4b-r9-s0F">
+                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="b4b-r9-s0F">
                     <rect key="frame" x="40" y="64" width="334" height="97.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops, Safe wasn’t created" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtE-Y1-Z5q">
@@ -48,7 +48,7 @@
                         </label>
                     </subviews>
                 </stackView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="txJ-9T-WhM">
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="txJ-9T-WhM">
                     <rect key="frame" x="40" y="194.5" width="334" height="55"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="55" id="fPT-I4-u7c"/>
@@ -62,7 +62,7 @@
                         <action selector="didTapActionButton:" destination="-1" eventType="touchUpInside" id="sK2-Pq-kDT"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1qj-e5-GC2">
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1qj-e5-GC2">
                     <rect key="frame" x="40" y="257.5" width="334" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="BST-ef-MQ4"/>
@@ -97,7 +97,6 @@
         </view>
     </objects>
     <resources>
-        <image name="ico-safe-deployment-failure" width="114" height="92"/>
         <image name="icon-external-link" width="16" height="16"/>
         <namedColor name="primaryLabel">
             <color red="0.0" green="0.074509803921568626" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

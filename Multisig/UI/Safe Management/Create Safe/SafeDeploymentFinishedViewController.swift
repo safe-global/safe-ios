@@ -49,7 +49,7 @@ class SafeDeploymentFinishedViewController: UIViewController {
         
         switch mode {
         case .success:
-            statusImage.image = UIImage(named: "ico-safe-deployment-success")
+            statusImage.image = UIImage.animatedImageNamed("safe-created-animation-", duration: 2)
             titleLabel.text = "Your Safe is ready!"
             descriptionLabel.text = "That’s it! Start using your most secure wallet on Ethereum."
             actionButton.setText("Start using Safe", .filled)

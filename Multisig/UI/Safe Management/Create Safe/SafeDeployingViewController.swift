@@ -14,6 +14,7 @@ class SafeDeployingViewController: UIViewController {
     @IBOutlet weak var didYouKnowLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var imageView: UIImageView!
 
     var safe: Safe?
     var containerViewYConstraint: NSLayoutConstraint?
@@ -22,7 +23,7 @@ class SafeDeployingViewController: UIViewController {
         super.viewDidLoad()
         safe = try? Safe.getSelected()
         assert(safe != nil)
-
+        imageView.image = UIImage.animatedImageNamed("safe-creating-", duration: 1.3)
         desciptionLabel.setStyle(.secondary)
         didYouKnowLabel.setStyle(.primaryButton)
         statusLabel.setStyle(.headline2)
