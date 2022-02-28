@@ -75,7 +75,6 @@ class SafeCreationMonitor {
                         NotificationCenter.default.post(name: .safeCreationUpdate,
                                                         object: self,
                                                         userInfo: ["chain" : safe.chain!, "safe" : safe, "success" : true])
-                        NotificationCenter.default.post(name: .selectedSafeUpdated, object: self)
                     }
                 }
             }
