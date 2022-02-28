@@ -27,12 +27,13 @@ class SafeDeploymentFinishedViewController: UIViewController {
     
     private var mode: Mode = .success
     private var chain: Chain!
-    private var txHash: String!
+    private var txHash: String?
     private var safe: Safe?
     
     var onRetry: () -> Void = {}
+    var onClose: () -> Void = {}
     
-    convenience init(mode: Mode, chain: Chain, txHash: String, safe: Safe? = nil) {
+    convenience init(mode: Mode, chain: Chain, txHash: String?, safe: Safe? = nil) {
         self.init(nibName: nil, bundle: nil)
         self.mode = mode
         self.chain = chain
@@ -47,7 +48,6 @@ class SafeDeploymentFinishedViewController: UIViewController {
         descriptionLabel.setStyle(.tertiary)
         
         switch mode {
-            
         case .success:
             statusImage.image = UIImage(named: "ico-safe-deployment-success")
             titleLabel.text = "Your Safe is ready!"
@@ -68,17 +68,24 @@ class SafeDeploymentFinishedViewController: UIViewController {
             view.setNeedsUpdateConstraints()
         }
     }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        onClose()
+    }
     
     static func present(
         presenter: UIViewController,
         mode: Mode,
         chain: Chain,
-        txHash: String,
+        txHash: String? ,
         safe: Safe? = nil,
+        onClose: @escaping () -> Void,
         onRetry: @escaping () -> Void
     ) {
         let finishedVC = SafeDeploymentFinishedViewController(mode: mode, chain: chain, txHash: txHash, safe: safe)
         finishedVC.onRetry = onRetry
+        finishedVC.onClose = onClose
         let vc = ViewControllerFactory.pageSheet(viewController: finishedVC, halfScreen: true)
         presenter.present(vc, animated: true)
     }
@@ -92,6 +99,7 @@ class SafeDeploymentFinishedViewController: UIViewController {
             if let safe = safe {
                 safe.select()
             }
+
             dismiss(animated: true, completion: nil)
             
         case .failure:

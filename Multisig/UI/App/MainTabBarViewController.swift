@@ -23,10 +23,12 @@ class MainTabBarViewController: UITabBarController {
     fileprivate var debounceTimer: Timer?
     fileprivate var presentingRequest: Bool = false
 
+    static fileprivate let ASSETS_TAB_INDEX = 0
+    static fileprivate let BALANCES_SEGMENT_INDEX = 0
     static fileprivate let SETTINGS_TAB_INDEX = 3
     static fileprivate let APP_SETTINGS_SEGMENT_INDEX = 0
 
-    lazy var balancesTabVC: UIViewController = {
+    lazy var balancesTabVC: BalancesUINavigationController = {
         balancesTabViewController()
     }()
 
@@ -74,14 +76,8 @@ class MainTabBarViewController: UITabBarController {
 
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(updateTabs),
-            name: .updatedExperemental,
-            object: nil)
-        
-        NotificationCenter.default.addObserver(
-            self,
             selector: #selector(handleSafeCreated),
-            name: .safeCreated,
+            name: .safeCreationUpdate,
             object: nil)
         
         NotificationCenter.default.addObserver(
@@ -111,7 +107,7 @@ class MainTabBarViewController: UITabBarController {
         WebConnectionController.shared.reconnect()
     }
 
-    private func balancesTabViewController() -> UIViewController {
+    private func balancesTabViewController() -> BalancesUINavigationController {
         
         let assetsVC = AssetsViewController()
 
@@ -119,13 +115,19 @@ class MainTabBarViewController: UITabBarController {
         let loadSafeViewController = LoadSafeViewController()
         loadSafeViewController.trackingEvent = .assetsNoSafe
 
+        let deploySafeVC = SafeDeployingViewController()
+
         let ribbonVC = RibbonViewController(rootViewController: assetsVC)
         noSafesVC.hasSafeViewController = ribbonVC
         noSafesVC.noSafeViewController = loadSafeViewController
 
+        noSafesVC.safeDepolyingViewContoller = ViewControllerFactory.ribbonWith(viewController: deploySafeVC)
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
-        return tabViewController(
+        let balances = balancesTabViewController(
             root: tabRoot, title: "Assets", image: UIImage(named: "tab-icon-balances.pdf")!, tag: 0)
+        balances.assetsViewController = assetsVC
+
+        return balances
     }
 
     private func transactionsTabViewController() -> UIViewController {
@@ -145,10 +147,13 @@ class MainTabBarViewController: UITabBarController {
 
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
+        let deploySafeVC = SafeDeployingViewController()
+
         loadSafeViewController.trackingEvent = .transactionsNoSafe
         let ribbonVC = RibbonViewController(rootViewController: segmentVC)
         noSafesVC.hasSafeViewController = ribbonVC
         noSafesVC.noSafeViewController = loadSafeViewController
+        noSafesVC.safeDepolyingViewContoller = ViewControllerFactory.ribbonWith(viewController: deploySafeVC)
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
         transactionsSegementControl = segmentVC
@@ -160,9 +165,12 @@ class MainTabBarViewController: UITabBarController {
     private func dappsTabViewController() -> UIViewController {
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
+        let deploySafeVC = SafeDeployingViewController()
+
         loadSafeViewController.trackingEvent = .dappsNoSafe
         noSafesVC.hasSafeViewController = RibbonViewController(rootViewController: DappsViewController())
         noSafesVC.noSafeViewController = loadSafeViewController
+        noSafesVC.safeDepolyingViewContoller = ViewControllerFactory.ribbonWith(viewController: deploySafeVC)
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
         return tabViewController(root: tabRoot, title: "dApps", image: UIImage(named: "tab-icon-dapps")!, tag: 2)
@@ -171,9 +179,12 @@ class MainTabBarViewController: UITabBarController {
     private func settingsTabViewController() -> UIViewController {
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
+        let deploySafeVC = SafeDeployingViewController()
+
         loadSafeViewController.trackingEvent = .settingsSafeNoSafe
         noSafesVC.hasSafeViewController = SafeSettingsViewController()
         noSafesVC.noSafeViewController = loadSafeViewController
+        noSafesVC.safeDepolyingViewContoller = deploySafeVC
 
         let appSettingsVC = AppSettingsViewController()
 
@@ -194,6 +205,13 @@ class MainTabBarViewController: UITabBarController {
         settingsTabVC.segmentViewController = segmentVC
         settingsTabVC.appSettingsViewController = appSettingsVC
         return settingsTabVC
+    }
+
+    private func balancesTabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> BalancesUINavigationController {
+        let nav = BalancesUINavigationController(rootViewController: root)
+        let tabItem = UITabBarItem(title: title, image: image, tag: tag)
+        nav.tabBarItem = tabItem
+        return nav
     }
 
     private func settingsTabViewController(root: UIViewController, title: String, image: UIImage, tag: Int) -> SettingsUINavigationController {
@@ -247,30 +265,35 @@ class MainTabBarViewController: UITabBarController {
         if
             let status = notification.userInfo?["success"] as? Bool,
             let chain = notification.userInfo?["chain"] as? Chain,
-            let txHash = notification.userInfo?["txHash"] as? String {
+            let safe = notification.userInfo?["safe"] as? Safe {
             
-            let safe = notification.userInfo?["safe"] as? Safe
-        
+            let txHash = notification.userInfo?["txHash"] as? String
+
             var mode: SafeDeploymentFinishedViewController.Mode
             if status {
                 mode = .success
             } else {
                 mode = .failure
             }
-            
+
             SafeDeploymentFinishedViewController.present(
                 presenter: self,
                 mode: mode,
                 chain: chain,
                 txHash: txHash,
-                safe: safe
-            ) { [weak self] in
-                
-                //TODO: pass safe deployment transaction for retry
+                safe: safe,
+                onClose: {
+                    if mode == .failure {
+                        Safe.remove(safe: safe)
+                    }
+                },
+                onRetry: { [weak self] in
                 let createSafeVC = CreateSafeViewController()
+                createSafeVC.txHash = txHash
+                createSafeVC.chain = chain
                 let vc = ViewControllerFactory.modal(viewController: createSafeVC)
                 self?.present(vc, animated: true)
-            }
+            })
         }
     }
     
@@ -289,19 +312,30 @@ extension MainTabBarViewController: NavigationRouter {
     func canNavigate(to route: NavigationRoute) -> Bool {
         if route.path.starts(with: "/settings/") {
             return true
+        } else if route.path == NavigationRoute.showAssets().path {
+            return true
         }
+
         return false
     }
 
     func navigate(to route: NavigationRoute) {
-        guard let settingsNav = settingsTabVC as? SettingsUINavigationController,
-              let segmentVC = settingsNav.segmentViewController,
-              let appSettingsVC = settingsNav.appSettingsViewController else {
-            return
+        if route.path.starts(with: "/settings/") {
+            guard let settingsNav = settingsTabVC as? SettingsUINavigationController,
+                  let segmentVC = settingsNav.segmentViewController,
+                  let appSettingsVC = settingsNav.appSettingsViewController else {
+                return
+            }
+            selectedIndex = Self.SETTINGS_TAB_INDEX
+            segmentVC.selectedIndex = Self.APP_SETTINGS_SEGMENT_INDEX
+            appSettingsVC.navigateAfterDelay(to: route)
+
+        } else if route.path == NavigationRoute.showAssets().path {
+            guard let assetsVC = balancesTabVC.assetsViewController,
+                  !assetsVC.segmentVC.segmentItems.isEmpty else { return }
+            selectedIndex = Self.ASSETS_TAB_INDEX
+            assetsVC.segmentVC.selectedIndex = Self.BALANCES_SEGMENT_INDEX
         }
-        selectedIndex = Self.SETTINGS_TAB_INDEX
-        segmentVC.selectedIndex = Self.APP_SETTINGS_SEGMENT_INDEX
-        appSettingsVC.navigateAfterDelay(to: route)
     }
 }
 
@@ -333,6 +367,11 @@ class SettingsUINavigationController: UINavigationController {
         }
     }
 }
+
+class BalancesUINavigationController: UINavigationController {
+    weak var assetsViewController: AssetsViewController?
+}
+
 
 extension MainTabBarViewController: WebConnectionRequestObserver {
     func didUpdate(request: WebConnectionRequest) {

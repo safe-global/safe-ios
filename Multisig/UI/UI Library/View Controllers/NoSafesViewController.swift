@@ -11,6 +11,7 @@ import UIKit
 class NoSafesViewController: ContainerViewController {
     var hasSafeViewController: UIViewController!
     var noSafeViewController: UIViewController!
+    var safeDepolyingViewContoller: UIViewController!
 
     var notificationCenter = NotificationCenter.default
     // preconditions
@@ -18,20 +19,24 @@ class NoSafesViewController: ContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         notificationCenter.addObserver(self, selector: #selector(reloadContent), name: .selectedSafeChanged, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(reloadContent), name: .selectedSafeUpdated, object: nil)
+
         reloadContent()
     }
 
     @objc private func reloadContent() {
         do {
             let safeOrNil = try Safe.getSelected()
-            let hasSafe = safeOrNil != nil
-            if hasSafe {
-                viewControllers = [hasSafeViewController]
-                displayChild(at: 0, in: view)
+            if let safe = safeOrNil {
+                if safe.safeStatus == .deployed {
+                    viewControllers = [hasSafeViewController]
+                } else {
+                    viewControllers = [safeDepolyingViewContoller]
+                }
             } else {
                 viewControllers = [noSafeViewController]
-                displayChild(at: 0, in: view)
             }
+            displayChild(at: 0, in: view)
         } catch {
             App.shared.snackbar.show(
                 error: GSError.error(description: "Failed to check loaded safes", error: error))
