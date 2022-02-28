@@ -650,6 +650,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             // reject ledger nano x because it is not yet supported for sending transactions
             if let key = try? KeyInfo.firstKey(address: address), key.keyType == .ledgerNanoX {
                 try? server.send(Response(request: wcRequest, error: .requestRejected))
+                App.shared.snackbar.show(message: "Executing transactions with Ledger Nano X is not supported.")
                 return
             }
             prepareTransactionForExecution(sendTxRequest)
