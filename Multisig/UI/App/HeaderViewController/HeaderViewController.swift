@@ -76,12 +76,6 @@ final class HeaderViewController: ContainerViewController {
     @IBAction private func didTapSwitchSafe(_ sender: Any) {
         let switchSafesVC = SwitchSafesViewController()
 
-        // TODO Remove this and put it where it should be
-        // Send notification only if DEMO safe is available
-        if let safe = Safe.by(address: "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7", chainId: "1") {
-            SafeDeploymentNotificationController.sendNotification(safe: safe)
-        }
-
         switchSafesVC.onAddSafe = { [weak self] in
             self?.dismiss(animated: false) {
                 let selectNetworkVC = SelectNetworkViewController()

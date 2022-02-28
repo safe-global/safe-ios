@@ -80,12 +80,6 @@ class MainTabBarViewController: UITabBarController {
             name: .safeCreationUpdate,
             object: nil)
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(showBalances),
-            name: .showBalances,
-            object: nil)
-
         WebConnectionController.shared.attach(observer: self)
     }
 
@@ -246,10 +240,6 @@ class MainTabBarViewController: UITabBarController {
         transactionsSegementControl?.selectedIndex = 1
     }
     
-    @objc private func showBalances() {
-        selectedIndex = 0
-    }
-
     @objc private func updateTabs() {
         viewControllers = [balancesTabVC, transactionsTabVC, dappsTabVC, settingsTabVC]        
     }
@@ -268,7 +258,7 @@ class MainTabBarViewController: UITabBarController {
             let safe = notification.userInfo?["safe"] as? Safe {
             
             let txHash = notification.userInfo?["txHash"] as? String
-
+            
             var mode: SafeDeploymentFinishedViewController.Mode
             if status {
                 mode = .success
@@ -276,24 +266,28 @@ class MainTabBarViewController: UITabBarController {
                 mode = .failure
             }
 
-            SafeDeploymentFinishedViewController.present(
-                presenter: self,
-                mode: mode,
-                chain: chain,
-                txHash: txHash,
-                safe: safe,
-                onClose: {
-                    if mode == .failure {
-                        Safe.remove(safe: safe)
-                    }
-                },
-                onRetry: { [weak self] in
-                let createSafeVC = CreateSafeViewController()
-                createSafeVC.txHash = txHash
-                createSafeVC.chain = chain
-                let vc = ViewControllerFactory.modal(viewController: createSafeVC)
-                self?.present(vc, animated: true)
-            })
+            if mode == .failure || safe.isSelected {
+                SafeDeploymentFinishedViewController.present(
+                    presenter: self,
+                    mode: mode,
+                    chain: chain,
+                    txHash: txHash,
+                    safe: safe,
+                    onClose: {
+                        if mode == .failure {
+                            Safe.remove(safe: safe)
+                        }
+                    },
+                    onRetry: { [weak self] in
+                        let createSafeVC = CreateSafeViewController()
+                        createSafeVC.txHash = txHash
+                        createSafeVC.chain = chain
+                        let vc = ViewControllerFactory.modal(viewController: createSafeVC)
+                        self?.present(vc, animated: true)
+                    })
+            } else {
+                SafeDeploymentNotificationController.sendNotification(safe: safe)
+            }
         }
     }
     

@@ -50,11 +50,15 @@ class SafeDeploymentNotificationController {
     }
     
     static func handleSafeCreatedNotification(userInfo: [AnyHashable : Any]) {
-        guard let safe = Safe.by(address: userInfo["safe"] as! String,chainId: userInfo["chainId"] as! String) else { return }
+        let address: String = userInfo["safe"] as! String
+        let chainId: String = userInfo["chainId"] as! String
+        
+        guard let safe = Safe.by(address: address, chainId: chainId) else { return }
         
         if !safe.isSelected {
+            //FIXME: Remove after NavigationRoute.showAssets selects the given safe
             safe.select()
-            NotificationCenter.default.post(name: .showBalances, object: self)
+            NavigationRoute.showAssets(address, chainId: chainId)
         }
     }
 }
