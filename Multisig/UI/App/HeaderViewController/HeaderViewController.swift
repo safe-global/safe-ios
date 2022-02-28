@@ -75,8 +75,6 @@ final class HeaderViewController: ContainerViewController {
 
     @IBAction private func didTapSwitchSafe(_ sender: Any) {
         let switchSafesVC = SwitchSafesViewController()
-
-
         switchSafesVC.onAddSafe = { [weak self] in
             self?.dismiss(animated: false) {
                 let selectNetworkVC = SelectNetworkViewController()

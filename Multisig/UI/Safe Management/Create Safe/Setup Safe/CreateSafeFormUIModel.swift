@@ -140,6 +140,8 @@ class CreateSafeFormUIModel {
         if state == .error {
             self.error = nil
         }
+
+        creationParameters = nil
         update(to: .changed)
     }
 
@@ -256,7 +258,12 @@ class CreateSafeFormUIModel {
     }
 
     private func makeEthTransaction() throws -> EthTransaction {
-        try setupTransactionParameters()
+        if creationParameters == nil {
+            try setupTransactionParameters()
+        } else {
+            // No need to recreate transaction parameters
+            // because they are already created from creationParameters when this screen is initialized
+        }
 
         // get setupFunction from safe
             // set owners, threshold
@@ -665,20 +672,6 @@ class CreateSafeFormUIModel {
     func saveCreationParameters() throws {
         let context = App.shared.coreDataStack.viewContext
 
-        let fetchRequest = SafeCreationCall.fetchRequest()
-        fetchRequest.sortDescriptors = []
-        fetchRequest.predicate = NSPredicate(format: "safeAddress = %@ AND chainId = %@", futureSafeAddress!.checksummed, chain.id!)
-
-        let results = try context.fetch(fetchRequest)
-        for item in results {
-            context.delete(item)
-        }
-
-        if let creationParameters = creationParameters {
-            context.delete(creationParameters)
-        }
-
-
         let params: SafeCreationCall = SafeCreationCall(context: context)
         params.deployerAddress = selectedKey?.address.checksummed
         params.chainId = chain.id
@@ -693,9 +686,47 @@ class CreateSafeFormUIModel {
         params.transactionHash = transaction.txHash().storage.storage.toHexStringWithPrefix()
         params.version = deploymentVersion.rawValue
 
-        creationParameters = params
-
         App.shared.coreDataStack.saveContext()
+    }
+
+    func updateWithSafeCall(call: SafeCreationCall) {
+        if let deployerAddressString = call.deployerAddress,
+           let address = Address(deployerAddressString) {
+            selectedKey = try? KeyInfo.firstKey(address: address)
+        }
+
+        if let chainId = call.chainId {
+            chain = Chain.by(chainId)
+        }
+
+        if let fallbackHandlerAddressString = call.fallbackHandlerAddress,
+           let address = Address(fallbackHandlerAddressString) {
+            fallbackHandlerAddress = Sol.Address.init(maybeData: address.data32)
+        }
+
+        name = call.name
+        owners = call.owners?
+            .split(separator: ",")
+            .map(String.init)
+            .compactMap(Address.init)
+            .map { owner(from: $0) } ?? []
+
+
+        if let proxyFactoryAddressString = call.proxyFactoryAddress,
+           let address = Address(proxyFactoryAddressString) {
+            proxyFactoryAddress = Sol.Address.init(maybeData: address.data32)
+        }
+
+        futureSafeAddress = call.safeAddress.flatMap(Address.init)
+        saltNonce = call.saltNonce.flatMap(Sol.UInt256.init)
+
+        if let singletonAddressString = call.singletonAddress,
+           let address = Address(singletonAddressString) {
+            singletonAddress = Sol.Address.init(maybeData: address.data32)
+        }
+
+        deploymentVersion = call.version.flatMap(SafeDeployments.Safe.Version.init(rawValue:))
+        creationParameters = call
     }
 
     func didSubmitTransaction(txHash: Eth.Hash) {
@@ -745,6 +776,7 @@ class CreateSafeFormUIModel {
         try? saveCreationParameters()
 
         App.shared.notificationHandler.safeAdded(address: address)
+        DefaultNavigationRouter.shared.navigate(to: NavigationRoute.showAssets(address.checksummed, chainId: chain.id))
     }
 }
 

@@ -71,6 +71,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         App.shared.clientGatewayHostObserver.startObserving()
 
         PendingTransactionMonitor.scheduleMonitoring()
+        SafeCreationMonitor.scheduleMonitoring()
         WebConnectionExpirationMonitor.scheduleMonitoring()
 
         privacyShieldWindow?.isHidden = true

@@ -43,6 +43,11 @@
 		0455A43127204A5B008B772D /* CreateAddressBookEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42F27204A5B008B772D /* CreateAddressBookEntryViewController.swift */; };
 		0455A43227204A5B008B772D /* CreateAddressBookEntryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0455A43027204A5B008B772D /* CreateAddressBookEntryViewController.xib */; };
 		0455A44527282EAA008B772D /* FileManagerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A44427282EA9008B772D /* FileManagerWrapper.swift */; };
+		045769FD27C7DBBF00881206 /* SafeDeployingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045769FB27C7DBBF00881206 /* SafeDeployingViewController.swift */; };
+		045769FE27C7DBBF00881206 /* SafeDeployingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045769FC27C7DBBF00881206 /* SafeDeployingViewController.xib */; };
+		04576A0027C7DBCF00881206 /* SafeCreationMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045769FF27C7DBCF00881206 /* SafeCreationMonitor.swift */; };
+		04576A0227C8F26100881206 /* CDEthTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04576A0127C8F26100881206 /* CDEthTransaction.swift */; };
+		04576A0427C933D700881206 /* SafeCreationCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04576A0327C933D700881206 /* SafeCreationCall.swift */; };
 		04626EB6265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */; };
 		0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */; };
 		0463F5C126296924009C04FA /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 0463F5C026296924009C04FA /* FirebaseRemoteConfig */; };
@@ -801,6 +806,11 @@
 		0455A42F27204A5B008B772D /* CreateAddressBookEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAddressBookEntryViewController.swift; sourceTree = "<group>"; };
 		0455A43027204A5B008B772D /* CreateAddressBookEntryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateAddressBookEntryViewController.xib; sourceTree = "<group>"; };
 		0455A44427282EA9008B772D /* FileManagerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerWrapper.swift; sourceTree = "<group>"; };
+		045769FB27C7DBBF00881206 /* SafeDeployingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeployingViewController.swift; sourceTree = "<group>"; };
+		045769FC27C7DBBF00881206 /* SafeDeployingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeDeployingViewController.xib; sourceTree = "<group>"; };
+		045769FF27C7DBCF00881206 /* SafeCreationMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCreationMonitor.swift; sourceTree = "<group>"; };
+		04576A0127C8F26100881206 /* CDEthTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDEthTransaction.swift; sourceTree = "<group>"; };
+		04576A0327C933D700881206 /* SafeCreationCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCreationCall.swift; sourceTree = "<group>"; };
 		04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeyDetailsViewController.swift; sourceTree = "<group>"; };
 		0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRemoteConfig.swift; sourceTree = "<group>"; };
 		0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyProtectionScreenViewController.swift; sourceTree = "<group>"; };
@@ -2316,6 +2326,8 @@
 				0A0391C327C5640C003C871A /* CreateSafeInstructionsViewController.swift */,
 				6A39DC9127C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift */,
 				6A39DC9227C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib */,
+				045769FB27C7DBBF00881206 /* SafeDeployingViewController.swift */,
+				045769FC27C7DBBF00881206 /* SafeDeployingViewController.xib */,
 			);
 			path = "Create Safe";
 			sourceTree = "<group>";
@@ -2747,6 +2759,8 @@
 				04CE3F9724B611FC00826AEE /* Collectible */,
 				55A585352501417E005E778B /* PrivateKey */,
 				0ACC302127BFB5C300586795 /* Address+Solidity.swift */,
+				04576A0127C8F26100881206 /* CDEthTransaction.swift */,
+				04576A0327C933D700881206 /* SafeCreationCall.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2871,6 +2885,7 @@
 				0A6C85B02450712D0026139E /* Ethereum */,
 				0AF432D5244F075800E22E50 /* Models */,
 				04248BD8272DF18C00431397 /* NamingPolicy.swift */,
+				045769FF27C7DBCF00881206 /* SafeCreationMonitor.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -3705,6 +3720,7 @@
 				0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */,
 				0AE5A9CB267A4C2800468C90 /* BannerView.xib in Resources */,
 				550FB1A026691CA300C13D54 /* DappsViewController.xib in Resources */,
+				045769FE27C7DBBF00881206 /* SafeDeployingViewController.xib in Resources */,
 				0AE8C08925793B8C00E62B34 /* DetailArrowPiece.xib in Resources */,
 				6ADEB02827B559370062ADFE /* WebConnectionOwnerView.xib in Resources */,
 				0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */,
@@ -3846,6 +3862,7 @@
 				0ABE6983279177A4003338AF /* TransactionEstimationController.swift in Sources */,
 				048D72D026875B1C0095999C /* TableHeaderView.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
+				04576A0027C7DBCF00881206 /* SafeCreationMonitor.swift in Sources */,
 				0AF1C80725408B5000E28669 /* UIImageViewExtensions.swift in Sources */,
 				0468FB9425912E8300541536 /* TransactionsListConflictHeaderTableViewCell.swift in Sources */,
 				04D1323525E43C560032FA03 /* DetailRejectionInfoCell.swift in Sources */,
@@ -3957,6 +3974,7 @@
 				048D72C126835CF90095999C /* Chain.swift in Sources */,
 				048D72C82684CB500095999C /* SelectNetworkViewController.swift in Sources */,
 				0ABAFDB324ACB3B6007EBB92 /* SnackbarCenter.swift in Sources */,
+				04576A0427C933D700881206 /* SafeCreationCall.swift in Sources */,
 				0AF2734124DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift in Sources */,
 				55BCFC392552FCDB00020CE7 /* SafeSettingsViewController.swift in Sources */,
 				0A86EE6925CC2B410059876E /* IdleFooterView.swift in Sources */,
@@ -4121,6 +4139,7 @@
 				0A93DDB924461C1400688050 /* Fonts.swift in Sources */,
 				0468FB45259106F400541536 /* StyledView.swift in Sources */,
 				0AFA729C24BF361600A370EE /* SlicedString.swift in Sources */,
+				045769FD27C7DBBF00881206 /* SafeDeployingViewController.swift in Sources */,
 				550FB1AA26691D2E00C13D54 /* UITableView+Cells.swift in Sources */,
 				04273E5826AEE06500A14E95 /* BluetoothController.swift in Sources */,
 				0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */,
@@ -4137,6 +4156,7 @@
 				0ABE698827920294003338AF /* ErrorTableViewCell.swift in Sources */,
 				0A8CDD4927A5AE860020066C /* CreateSafeFormUIModel.swift in Sources */,
 				D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */,
+				04576A0227C8F26100881206 /* CDEthTransaction.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				0A57C5AF2577F02100420303 /* ConfirmationCreatedPiece.swift in Sources */,
 				047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */,
