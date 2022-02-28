@@ -60,7 +60,6 @@ class SafeCreationMonitor {
     }
 
     func querySafeInfo() {
-        // TODO check if safe is updated
         let deployingSafes = Safe.all.filter { safe in safe.safeStatus == .indexing }
 
         deployingSafes.forEach { safe in

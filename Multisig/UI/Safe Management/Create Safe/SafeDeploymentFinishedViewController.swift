@@ -31,6 +31,7 @@ class SafeDeploymentFinishedViewController: UIViewController {
     private var safe: Safe?
     
     var onRetry: () -> Void = {}
+    var onClose: () -> Void = {}
     
     convenience init(mode: Mode, chain: Chain, txHash: String?, safe: Safe? = nil) {
         self.init(nibName: nil, bundle: nil)
@@ -67,6 +68,11 @@ class SafeDeploymentFinishedViewController: UIViewController {
             view.setNeedsUpdateConstraints()
         }
     }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        onClose()
+    }
     
     static func present(
         presenter: UIViewController,
@@ -74,10 +80,12 @@ class SafeDeploymentFinishedViewController: UIViewController {
         chain: Chain,
         txHash: String? ,
         safe: Safe? = nil,
+        onClose: @escaping () -> Void,
         onRetry: @escaping () -> Void
     ) {
         let finishedVC = SafeDeploymentFinishedViewController(mode: mode, chain: chain, txHash: txHash, safe: safe)
         finishedVC.onRetry = onRetry
+        finishedVC.onClose = onClose
         let vc = ViewControllerFactory.pageSheet(viewController: finishedVC, halfScreen: true)
         presenter.present(vc, animated: true)
     }

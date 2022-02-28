@@ -265,21 +265,25 @@ class MainTabBarViewController: UITabBarController {
             } else {
                 mode = .failure
             }
-            
+
             SafeDeploymentFinishedViewController.present(
                 presenter: self,
                 mode: mode,
                 chain: chain,
                 txHash: txHash,
-                safe: safe
-            ) { [weak self] in
+                safe: safe,
+                onClose: {
+                    if mode == .failure {
+                        Safe.remove(safe: safe)
+                    }
+                },
+                onRetry: { [weak self] in
                 let createSafeVC = CreateSafeViewController()
-                Safe.remove(safe: safe)
                 createSafeVC.txHash = txHash
                 createSafeVC.chain = chain
                 let vc = ViewControllerFactory.modal(viewController: createSafeVC)
                 self?.present(vc, animated: true)
-            }
+            })
         }
     }
     
@@ -355,7 +359,6 @@ class SettingsUINavigationController: UINavigationController {
 }
 
 class BalancesUINavigationController: UINavigationController {
-    weak var segmentViewController: SegmentViewController?
     weak var assetsViewController: AssetsViewController?
 }
 

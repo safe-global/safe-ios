@@ -29,17 +29,14 @@ class NoSafesViewController: ContainerViewController {
             let safeOrNil = try Safe.getSelected()
             if let safe = safeOrNil {
                 if safe.safeStatus == .deployed {
-
                     viewControllers = [hasSafeViewController]
-                    displayChild(at: 0, in: view)
                 } else {
                     viewControllers = [safeDepolyingViewContoller]
-                    displayChild(at: 0, in: view)
                 }
             } else {
                 viewControllers = [noSafeViewController]
-                displayChild(at: 0, in: view)
             }
+            displayChild(at: 0, in: view)
         } catch {
             App.shared.snackbar.show(
                 error: GSError.error(description: "Failed to check loaded safes", error: error))

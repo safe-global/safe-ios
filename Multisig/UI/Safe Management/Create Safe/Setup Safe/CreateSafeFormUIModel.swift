@@ -140,7 +140,7 @@ class CreateSafeFormUIModel {
         if state == .error {
             self.error = nil
         }
-        
+
         creationParameters = nil
         update(to: .changed)
     }
@@ -261,7 +261,8 @@ class CreateSafeFormUIModel {
         if creationParameters == nil {
             try setupTransactionParameters()
         } else {
-            // No need to recreate prameters
+            // No need to recreate transaction parameters
+            // because they are already created from creationParameters when this screen is initialized
         }
 
         // get setupFunction from safe
@@ -689,8 +690,8 @@ class CreateSafeFormUIModel {
     }
 
     func updateWithSafeCall(call: SafeCreationCall) {
-        if let depolyerAddressString = call.deployerAddress,
-           let address = Address(depolyerAddressString) {
+        if let deployerAddressString = call.deployerAddress,
+           let address = Address(deployerAddressString) {
             selectedKey = try? KeyInfo.firstKey(address: address)
         }
 
