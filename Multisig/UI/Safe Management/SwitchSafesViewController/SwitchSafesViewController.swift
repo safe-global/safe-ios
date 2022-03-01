@@ -132,4 +132,39 @@ final class SwitchSafesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         section == addSafeSection ? 0 : NetworkIndicatorHeaderView.height
     }
+
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        indexPath.section != addSafeSection
+    }
+
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let safe = chainSafes[indexPath.section - 1].safes[indexPath.row]
+
+        var actions = [UIContextualAction]()
+
+        let deleteAction = UIContextualAction(style: .destructive, title: "Remove") { [unowned self] _, _, completion in
+            self.remove(safe: safe)
+            completion(true)
+        }
+        actions.append(deleteAction)
+
+        return UISwipeActionsConfiguration(actions: actions)
+    }
+
+    private func remove(safe: Safe) {
+        let title = safe.safeStatus == .deployed ?
+        "Removing a Safe only removes it from this app. It does not delete the Safe from the blockchain. Funds will not get lost." :
+        "Are you sure you want to remove this Safe? The transaction fees will not be returned."
+        let alertController = UIAlertController(
+            title: nil,
+            message: title,
+            preferredStyle: .actionSheet)
+        let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
+            Safe.remove(safe: safe)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(remove)
+        alertController.addAction(cancel)
+        self.present(alertController, animated: true)
+    }
 }
