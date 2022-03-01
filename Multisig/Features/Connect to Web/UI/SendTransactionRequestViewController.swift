@@ -25,7 +25,7 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
 
     private var fee: UInt256?
     private var balance: UInt256?
-    private var error: Error?
+    private var error: String?
     private var minNonce: Sol.UInt64 = 0
     private var userParameters = UserDefinedTransactionParameters()
     private var chain: Chain!
@@ -107,13 +107,21 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
     }
 
     func reloadData() {
+        checkBalance()
         fee = transaction.totalFee.big()
         contentVC.reloadData(transaction: transaction,
                              keyInfo: keyInfo,
                              chain: chain,
                              balance: balance,
                              fee: fee,
-                             error: error?.localizedDescription)
+                             error: error)
+        actionPanelView.setConfirmEnabled(error == nil)
+    }
+
+    func checkBalance() {
+        if let balance = balance, balance < transaction.requiredBalance, error == nil {
+            error = "Insufficient balance for network fees"
+        }
     }
 
     // load balance for the selected account.
@@ -146,7 +154,7 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
                 self.transaction.update(gas: gas, transactionCount: txCount, baseFee: gasPrice)
             } catch {
                 LogService.shared.error("Error estimating transaction: \(error)")
-                self.error = error
+                self.error = error.localizedDescription
             }
             self.updateEthTransactionWithUserValues()
             self.reloadData()
@@ -290,6 +298,7 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
 
         formVC.navigationItem.title = "Edit transaction fee"
         let ribbon = RibbonViewController(rootViewController: formVC)
+        ribbon.storedChain = chain
         let nav = UINavigationController(rootViewController: ribbon)
         present(nav, animated: true, completion: nil)
     }

@@ -418,7 +418,14 @@ extension MainTabBarViewController: WebConnectionRequestObserver {
             self?.dismiss(animated: true, completion: completion)
         }
         let vc = ViewControllerFactory.modal(viewController: controller)
-        present(vc, animated: true)
+
+        if let existing = presentedViewController {
+            existing.dismiss(animated: true) { [unowned self] in
+                present(vc, animated: true)
+            }
+        } else {
+            present(vc, animated: true)
+        }
     }
 }
 

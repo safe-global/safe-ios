@@ -22,7 +22,7 @@ class WalletConnectKeyAddedViewController: AccountActionCompletedViewController 
         assert(accountName != nil)
         assert(accountAddress != nil)
 
-        descriptionText = "\(accountName ?? "Key") can't receive push notificaitons without your confirmation.\n\nYou can change this at any time in App Settings - Owner Keys - Key Details."
+        descriptionText = "\(accountName ?? "Key") can't receive push notifications without your confirmation.\n\nYou can change this at any time in App Settings - Owner Keys - Key Details."
 
         primaryActionName = "Confirm to receive push notifications"
         secondaryActionName = "Skip"

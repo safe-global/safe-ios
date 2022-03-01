@@ -5,6 +5,8 @@
 
 import Foundation
 import WalletConnectSwift
+import Ethereum
+import Solidity
 
 protocol WebConnectionObserver: AnyObject {
     func didUpdate(connection: WebConnection)
@@ -291,7 +293,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             let requestId = request.id.flatMap(sessionTransformer.requestId(id:)),
             let walletInfo = session.walletInfo
         else {
-            assertionFailure("Expected to have a valid connection with pending connection request")
             update(connection, to: .closed)
             return
         }
@@ -640,10 +641,19 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         case let sendTxRequest as WebConnectionSendTransactionRequest:
             guard let from = sendTxRequest.transaction.from,
                   let address = Address(from),
-                  connection.accounts.contains(address) else {
+                  connection.accounts.contains(address)
+            else {
                 try? server.send(Response(request: wcRequest, error: .invalidParams))
                 return
             }
+
+            // reject ledger nano x because it is not yet supported for sending transactions
+            if let key = try? KeyInfo.firstKey(address: address), key.keyType == .ledgerNanoX {
+                try? server.send(Response(request: wcRequest, error: .requestRejected))
+                App.shared.snackbar.show(message: "Executing transactions with Ledger Nano X is not supported.")
+                return
+            }
+            prepareTransactionForExecution(sendTxRequest)
 
         default:
             break
@@ -653,6 +663,40 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         request.createdDate = Date()
         save(request)
         notifyObservers(of: request)
+    }
+
+    func prepareTransactionForExecution(_ request: WebConnectionSendTransactionRequest) {
+        guard
+            let connection = connection(for: request),
+            let chainId = connection.chainId,
+            let chain = chain(for: request),
+            let features = chain.features
+        else {
+            return
+        }
+
+        let minerTip: Sol.UInt256 = 1_500_000_000
+
+        // select tx type based on the chain.
+        let isEIP1559 = features.contains("EIP1559")
+        if isEIP1559 {
+            request.transaction = Eth.TransactionEip1559(
+                chainId: Sol.UInt256(chainId),
+                from: request.transaction.from,
+                to: request.transaction.to,
+                value: request.transaction.value,
+                input: request.transaction.data,
+                fee: .init(maxPriorityFee: minerTip)
+            )
+        } else {
+            request.transaction = Eth.TransactionLegacy(
+                chainId: Sol.UInt256(chainId),
+                from: request.transaction.from,
+                to: request.transaction.to,
+                value: request.transaction.value,
+                input: request.transaction.data
+            )
+        }
     }
 
     func request(_ connectionURL: WebConnectionURL, _ requestId: WebConnectionRequestId) -> WebConnectionRequest? {
