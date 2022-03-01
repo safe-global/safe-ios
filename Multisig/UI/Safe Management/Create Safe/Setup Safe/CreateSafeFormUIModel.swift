@@ -252,6 +252,10 @@ class CreateSafeFormUIModel {
             throw CreateSafeError(errorCode: -6, message: "Failed to create random salt (sec error \(randomSaltResult))")
         }
 
+        generateSalt()
+    }
+
+    func generateSalt() {
         do {
             saltNonce = try Sol.UInt256(Data(saltBytes))
         } catch {
@@ -723,8 +727,10 @@ class CreateSafeFormUIModel {
             proxyFactoryAddress = Sol.Address.init(maybeData: address.data32)
         }
 
-        futureSafeAddress = call.safeAddress.flatMap(Address.init)
-        saltNonce = call.saltNonce.flatMap(Sol.UInt256.init)
+        // we re-generate the salt because otherwise the same safe address will be produced.
+        // This leads to the reverted transaction, hence the estimation will fail and user needs to
+        // refresh or change safe parameters to re-generate the salt.
+        generateSalt()
 
         if let singletonAddressString = call.singletonAddress,
            let address = Address(singletonAddressString) {
