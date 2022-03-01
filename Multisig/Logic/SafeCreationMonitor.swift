@@ -66,6 +66,7 @@ class SafeCreationMonitor {
             clientGateway.asyncSafeInfo(safeAddress: safe.addressValue,
                                                chainId: safe.chain!.id!) { [weak self] result in
                 DispatchQueue.main.async { [weak self] in
+                    guard let tx = CDEthTransaction.by(safeAddresses: [safe.address!], chainId: safe.chain!.id!)?.first else { return }
                     switch result {
                     case .failure(_):
                         break
@@ -74,7 +75,7 @@ class SafeCreationMonitor {
                         App.shared.coreDataStack.saveContext()
                         NotificationCenter.default.post(name: .safeCreationUpdate,
                                                         object: self,
-                                                        userInfo: ["chain" : safe.chain!, "safe" : safe, "success" : true])
+                                                        userInfo: ["chain" : safe.chain!, "safe" : safe, "success" : true, "txHash" : tx.ethTxHash])
                     }
                 }
             }
