@@ -533,7 +533,7 @@ class CreateSafeFormUIModel {
 
     var thresholdText: String {
         if owners.isEmpty {
-            return "0 out of 0"
+            return "1 out of 1"
         } else {
             return "\(threshold) out of \(owners.count)"
         }
