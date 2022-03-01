@@ -181,12 +181,12 @@ class SelectAddressViewController: UIAlertController {
 
 extension SelectAddressViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidCancel() {
-        dismiss(animated: true, completion: nil)
+        presenter?.dismiss(animated: true, completion: nil)
     }
 
     func scannerViewControllerDidScan(_ code: String) {
         handle(text: code)
-        dismiss(animated: true, completion: nil)
+        presenter?.dismiss(animated: true, completion: nil)
     }
 }
 
