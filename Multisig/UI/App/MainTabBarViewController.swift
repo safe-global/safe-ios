@@ -282,6 +282,9 @@ class MainTabBarViewController: UITabBarController {
                         let createSafeVC = CreateSafeViewController()
                         createSafeVC.txHash = txHash
                         createSafeVC.chain = chain
+                        createSafeVC.onClose = { [weak self] in
+                            self?.dismiss(animated: true, completion: nil)
+                        }
                         let vc = ViewControllerFactory.modal(viewController: createSafeVC)
                         self?.present(vc, animated: true)
                     })
