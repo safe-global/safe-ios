@@ -105,7 +105,6 @@ class CreateSafeFormUIModel {
 
         sectionHeaders = makeSectionHeaders()
 
-        //TODO: is this the model from the previous creation?
         delegate?.updateUI(model: self)
     }
 
@@ -153,6 +152,7 @@ class CreateSafeFormUIModel {
         if creationParameters == nil {
             name = "My Safe"
             chain = Chain.mainnetChain()
+            owners = []
             threshold = 1
         }
         transaction = handleError { try makeEthTransaction() }
@@ -675,8 +675,8 @@ class CreateSafeFormUIModel {
         let context = App.shared.coreDataStack.viewContext
 
         let params: SafeCreationCall = SafeCreationCall(context: context)
-        params.deployerAddress = selectedKey?.address.checksummed
         params.chainId = chain.id
+        params.deployerAddress = selectedKey?.address.checksummed
         params.fallbackHandlerAddress = Address(fallbackHandlerAddress)?.checksummed
         params.name = name
         params.owners = owners.map(\.address.checksummed).joined(separator: ",")
@@ -684,21 +684,25 @@ class CreateSafeFormUIModel {
         params.safeAddress = futureSafeAddress!.checksummed
         params.saltNonce = String(saltNonce)
         params.singletonAddress = Address(singletonAddress)?.checksummed
+        params.threshold = String(threshold)
+
+        // these two are for debugging purposes
         params.transactionData = transaction.data.storage
         params.transactionHash = transaction.txHash().storage.storage.toHexStringWithPrefix()
+
         params.version = deploymentVersion.rawValue
 
         App.shared.coreDataStack.saveContext()
     }
 
     func updateWithSafeCall(call: SafeCreationCall) {
+        if let chainId = call.chainId {
+            chain = Chain.by(chainId)
+        }
+
         if let deployerAddressString = call.deployerAddress,
            let address = Address(deployerAddressString) {
             selectedKey = try? KeyInfo.firstKey(address: address)
-        }
-
-        if let chainId = call.chainId {
-            chain = Chain.by(chainId)
         }
 
         if let fallbackHandlerAddressString = call.fallbackHandlerAddress,
@@ -727,9 +731,10 @@ class CreateSafeFormUIModel {
             singletonAddress = Sol.Address.init(maybeData: address.data32)
         }
 
+        threshold = call.threshold.flatMap(Int.init) ?? 1
+
         deploymentVersion = call.version.flatMap(SafeDeployments.Safe.Version.init(rawValue:))
 
-        threshold = call.threshold.flatMap(Int.init) ?? 1
         creationParameters = call
     }
 

@@ -261,8 +261,7 @@ class MainTabBarViewController: UITabBarController {
             
             var mode: SafeDeploymentFinishedViewController.Mode
             if status {
-                // For debugging
-                mode = .failure
+                mode = .success
             } else {
                 mode = .failure
             }
