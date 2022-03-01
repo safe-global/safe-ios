@@ -104,6 +104,8 @@ class CreateSafeFormUIModel {
         }
 
         sectionHeaders = makeSectionHeaders()
+
+        //TODO: is this the model from the previous creation?
         delegate?.updateUI(model: self)
     }
 
@@ -148,11 +150,15 @@ class CreateSafeFormUIModel {
     // MARK: - Setup
     
     private func setup() {
-        // select default chain
-        name = "My Safe"
-        chain = Chain.mainnetChain()
-        owners = []
-        threshold = 1
+        if name == nil {
+            name = "My Safe"
+        }
+        if chain == nil {
+            chain = Chain.mainnetChain()
+        }
+        if (threshold < 1) {
+            threshold = 1
+        }
         transaction = handleError { try makeEthTransaction() }
         sectionHeaders = makeSectionHeaders()
     }
