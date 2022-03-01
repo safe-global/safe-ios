@@ -189,6 +189,7 @@
 		0A22E11C25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A22E11B25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift */; };
 		0A22E12725E4FA3200D24DE1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A22E12525E4FA3200D24DE1 /* SwitchTableViewCell.swift */; };
 		0A22E12825E4FA3200D24DE1 /* SwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A22E12625E4FA3200D24DE1 /* SwitchTableViewCell.xib */; };
+		0A23F60B27CD1B4500B7424B /* SelectAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A23F60A27CD1B4500B7424B /* SelectAddressViewController.swift */; };
 		0A29B5622666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 0A29B5612666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		0A2A3A6D26AEBA50005FAEB7 /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 0A2A3A6C26AEBA50005FAEB7 /* SwiftCryptoTokenFormatter */; settings = {ATTRIBUTES = (Required, ); }; };
 		0A2F1A6E267A538E00C09F03 /* GSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2F1A6D267A538E00C09F03 /* GSLabel.swift */; };
@@ -949,6 +950,7 @@
 		0A22E11B25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeSettingsViewController.swift; sourceTree = "<group>"; };
 		0A22E12525E4FA3200D24DE1 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		0A22E12625E4FA3200D24DE1 /* SwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwitchTableViewCell.xib; sourceTree = "<group>"; };
+		0A23F60A27CD1B4500B7424B /* SelectAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAddressViewController.swift; sourceTree = "<group>"; };
 		0A2F1A6D267A538E00C09F03 /* GSLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSLabel.swift; sourceTree = "<group>"; };
 		0A2F1A6F267A53A800C09F03 /* GSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSButton.swift; sourceTree = "<group>"; };
 		0A2F1A72267A5E5B00C09F03 /* BalanceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceCell.swift; sourceTree = "<group>"; };
@@ -1873,6 +1875,7 @@
 				0A0391C727C565D3003C871A /* IconButtonTableViewCell.xib */,
 				0A8CDD4827A5AE860020066C /* CreateSafeFormUIModel.swift */,
 				0A8CDD4427A5A5C70020066C /* CreateSafeViewController.swift */,
+				0A23F60A27CD1B4500B7424B /* SelectAddressViewController.swift */,
 				0A8CDD4527A5A5C70020066C /* CreateSafeViewController.xib */,
 				0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */,
 				0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */,
@@ -3877,6 +3880,7 @@
 				0A2F1A76267A5E5B00C09F03 /* BalanceCell.swift in Sources */,
 				04C97AB0246EEF1600EBA0F1 /* BrowserLink.swift in Sources */,
 				0A106287248A885E00C1EE54 /* ERC20Metadata.swift in Sources */,
+				0A23F60B27CD1B4500B7424B /* SelectAddressViewController.swift in Sources */,
 				0AF1C8952541AD4E00E28669 /* ScrollableDataErrorView.swift in Sources */,
 				0A451BF0252DDB49001DB7D2 /* NoDataView.swift in Sources */,
 				0A04508B278E283D00650F71 /* TransactionExecutionController.swift in Sources */,

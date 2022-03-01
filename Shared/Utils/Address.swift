@@ -123,7 +123,7 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
         return address
     }
 
-    private static func addressWithPrefix(_ string: String) -> (prefix: String?, address: String) {
+    static func addressWithPrefix(_ string: String) -> (prefix: String?, address: String) {
         var prefix: String?
         var withoutScheme: String
         let hexPrefix = "0x"
@@ -161,5 +161,211 @@ extension EthereumAddress.Error: LocalizedError {
         case .checksumWrong:
             return "The address is typed incorrectly. Please double-check it."
         }
+    }
+}
+
+// lowercased: 0xhex
+// uppercased hex: 0xHEX
+// uppercased all: 0XHEX
+// checksum/eip-55: if not one of above
+
+// has ":"? - can be eip-3770, caip-10, or eip-681 (either target or recipient when function is transfer.
+
+// or it could be an ens name
+// or it could be an UD name
+
+// EIP-3770 chain-specific account identifiers
+public struct Eip3770_AccountID {
+    public var shortName: String
+    public var address: String // eip-55 (mixed-case checksum encoded)
+
+    init?(string: String) {
+        let parts = string.split(separator: ":").map(String.init)
+        guard parts.count == 2 else { return nil }
+        shortName = parts[0]
+        address = parts[1]
+    }
+}
+
+// CAIP-2 Blockchain Identifier
+// CA = ChainAgnostic
+public struct Caip2_ChainID: Hashable {
+    public var namespace: String
+    public var reference: String
+
+    public init?(string: String) {
+        let regexPattern = "([-a-z0-9]{3,8}):([-a-zA-Z0-9]{1,32})"
+        let parts = string.matches(pattern: regexPattern, string: string)
+        guard parts.count == 2 else { return nil }
+        namespace = parts[0]
+        reference = parts[1]
+    }
+
+    public var string: String {
+        "\(namespace):\(reference)"
+    }
+
+    public init(namespace: String, reference: String) {
+        self.namespace = namespace
+        self.reference = reference
+    }
+}
+
+// CAIP-10 Account Identifier
+public struct Caip10_AccountID {
+    public var chainId: Caip2_ChainID
+    public var address: String
+
+    public init?(string: String) {
+        let regexPattern = "([:-a-zA-Z0-9]{5,41}):([a-zA-Z0-9]{1,64})"
+        let parts = string.matches(pattern: regexPattern, string: string)
+        guard parts.count == 2 else { return nil }
+        guard let chainId = Caip2_ChainID(string: parts[0]) else { return nil }
+        self.chainId = chainId
+        address = parts[1]
+    }
+
+    public init(chainId: Caip2_ChainID, address: String) {
+        self.chainId = chainId
+        self.address = address
+    }
+}
+
+extension String {
+    func matches(pattern: String, string: String) -> [String] {
+        let regex = try! NSRegularExpression(pattern: pattern, options: [])
+        let matches = regex.matches(in: string, options: [], range: NSRange(location: 0, length: string.count))
+        let parts = matches.map { result in
+            result.range(at: 0)
+        }.map { range in
+            (string as NSString).substring(with: range)
+        }
+        return parts
+    }
+}
+
+// EIP-681 URL for Transaction Requests
+public struct Eip681_TransactionRequestURL {
+    public var schema: String
+    public var target: Eip681_TransactionRequestURL.Address
+    public var chainId: String?
+    public var functionName: String?
+    public var parameters: [String: String] = [:]
+
+    public enum Address {
+        case address(String)
+        case ensName(String)
+    }
+
+    public init?(string: String) {
+        // (schema)(target)['@' chain]['/' function]['?' params]
+        // schema = ethereum:[pay-]
+        // target = eth_address
+        // eth_address = address | ens
+        // address = 0x\h{40}
+        // ens = label | ens '.' label
+        // label = '' or any valid domain string per uts46
+        // chain = \d+
+        // function = percent-encoded-string
+        // params = param ['&' param]*
+        // param = key'='value
+        // key = value | gas | gasLimit | gasPrice | abiType
+        // abiType = abi type name per abi spec
+        // value = number | eth_address | percent-encoded-string
+        // number = [[-+]] \d+ ['.' \d+] [[eE] \d+] (integer or scientific integer)
+
+        let scanner = Scanner(string: string)
+
+        // scan schema
+        guard let prefix = scanner.scanString("ethereum:") else { return nil }
+        schema = prefix
+
+        if let pay = scanner.scanString("pay-") {
+            schema += pay
+        }
+
+        // scan target address
+            // try hex
+        if let hexPrefix = scanner.scanString("0x") {
+            if let hexDigits = scanner.scanCharacters(from: CharacterSet(charactersIn: "0123456789abcdefABCDEF")) {
+                // must have exactly 40 digits
+
+                guard hexDigits.count == 40 else {
+                    // error
+                    return nil
+                }
+
+                target = .address(hexPrefix + hexDigits)
+
+            } else {
+                // error
+                return nil
+            }
+        // next delimiters
+        } else if let ensString = scanner.scanUpToCharacters(from: CharacterSet(charactersIn: "@/?")) {
+            // treat as ens, no validation performed
+            target = .ensName(ensString)
+        } else {
+            // error
+            return nil
+        }
+
+        // optional scan chain
+        if scanner.scanString("@") != nil {
+            if let digits = scanner.scanCharacters(from: CharacterSet.decimalDigits) {
+                chainId = digits
+            } else {
+                // error
+                return nil
+            }
+        }
+
+        // optional scan function
+        if scanner.scanString("/") != nil {
+            if let function = scanner.scanUpToCharacters(from: CharacterSet(charactersIn: "?")) {
+                functionName = function
+            } else {
+                // error
+                return nil
+            }
+        }
+
+        // optional scan params
+        if scanner.scanString("?") != nil {
+
+            let remaining = scanner.string[scanner.currentIndex...]
+
+            let pairs = remaining.split(separator: "&").map(String.init)
+                .map { $0.split(separator: "=").map(String.init) }
+                .compactMap { pair -> (key: String, value: String)? in
+                    guard pair.count == 2 else { return nil }
+                    return (pair[0], pair[1])
+                }
+            parameters = Dictionary(uniqueKeysWithValues: pairs)
+        }
+    }
+
+    public init(schema: String, target: Address, chainId: String? = nil, functionName: String? = nil, parameters: [String: String] = [:]) {
+        self.schema = schema
+        self.target = target
+        self.chainId = chainId
+        self.functionName = functionName
+        self.parameters = parameters
+    }
+
+    public init(schema: String, address: String, chainId: String? = nil, functionName: String? = nil, parameters: [String: String] = [:]) {
+        self.schema = schema
+        self.target = .address(address)
+        self.chainId = chainId
+        self.functionName = functionName
+        self.parameters = parameters
+    }
+
+    public init(schema: String, ens: String, chainId: String? = nil, functionName: String? = nil, parameters: [String: String] = [:]) {
+        self.schema = schema
+        self.target = .ensName(ens)
+        self.chainId = chainId
+        self.functionName = functionName
+        self.parameters = parameters
     }
 }
