@@ -301,7 +301,6 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
         ribbon.storedChain = chain
         let nav = UINavigationController(rootViewController: ribbon)
         present(nav, animated: true, completion: nil)
-
     }
 
     func updateEthTransactionWithUserValues() {

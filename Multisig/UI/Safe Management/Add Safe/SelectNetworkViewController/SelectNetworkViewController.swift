@@ -177,10 +177,8 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(SelectNetworkTableViewCell.self, for: indexPath)
         let chain = model.models[indexPath.row]
-
-        cell.nameLabel.text = chain.chainName
-        cell.colorImageView.tintColor = UIColor(hex: chain.theme.backgroundColor.description)
-
+        cell.setText(chain.chainName)
+        cell.setIndicatorColor(hex: chain.theme.backgroundColor)
         return cell
     }
 

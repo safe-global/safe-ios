@@ -89,7 +89,7 @@ extension UILabel {
         attributedText = NSAttributedString(string: text, attributes: style.attributes)
     }
 
-    func hyperLinkLabel(_ prefixText: String = "", prefixStyle: GNOTextStyle = .primary, linkText: String = "") {
+    func hyperLinkLabel(_ prefixText: String = "", prefixStyle: GNOTextStyle = .primary, linkText: String = "", linkStyle: GNOTextStyle = .primaryButton, linkIcon: UIImage? = UIImage(named: "icon-external-link")) {
         let result = NSMutableAttributedString()
 
         if !prefixText.isEmpty {
@@ -99,15 +99,17 @@ extension UILabel {
 
         // text + non-breaking space
         let attributedLinkText = NSMutableAttributedString(string: "\(linkText)\u{00A0}")
-        attributedLinkText.addAttributes(GNOTextStyle.primaryButton.attributes, range: NSRange(location: 0, length: attributedLinkText.length))
+        attributedLinkText.addAttributes(linkStyle.attributes, range: NSRange(location: 0, length: attributedLinkText.length))
         attributedLinkText.addAttributes([NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue], range: NSRange(location: 0, length: attributedLinkText.length))
 
         result.append(attributedLinkText)
-        
-        let attachment = NSTextAttachment()
-        attachment.image = UIImage(named: "icon-external-link")?.withTintColor(.button)
-        let attachmentString = NSAttributedString(attachment: attachment)
-        result.append(attachmentString)
+
+        if let icon = linkIcon {
+            let attachment = NSTextAttachment()
+            attachment.image = icon.withTintColor(.button)
+            let attachmentString = NSAttributedString(attachment: attachment)
+            result.append(attachmentString)
+        }
 
         attributedText = result
     }

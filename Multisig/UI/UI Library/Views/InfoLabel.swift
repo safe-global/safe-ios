@@ -32,5 +32,7 @@ class InfoLabel: UINibView {
         } else {
             tooltipSource = nil
         }
+
+        labelIcon.isHidden = description == nil
     }
 }

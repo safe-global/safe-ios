@@ -1001,12 +1001,6 @@ extension Sol.Address: RlpCodable {
     }
 }
 
-extension Sol.Address: ExpressibleByIntegerLiteral {
-    public init(integerLiteral value: UInt) {
-        self.init(storage: .init(integerLiteral: value))
-    }
-}
-
 extension Sol.Address: CustomStringConvertible {
     public var description: String {
         EthRpc1.Data(self).description

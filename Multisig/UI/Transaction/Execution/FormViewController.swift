@@ -45,6 +45,7 @@ class FormViewController: UITableViewController {
     var onClose: () -> Void = {}
     var onSave: () -> Void = {}
     var trackingEvent: TrackingEvent?
+    var showsCloseButton: Bool = true
 
     var keyboardBehavior: KeyboardAvoidingBehavior!
     var closeButton: UIBarButtonItem!
@@ -70,8 +71,10 @@ class FormViewController: UITableViewController {
 
         keyboardBehavior = KeyboardAvoidingBehavior(scrollView: tableView)
 
-        closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
-        navigationItem.leftBarButtonItem = closeButton
+        if showsCloseButton {
+            closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
+            navigationItem.leftBarButtonItem = closeButton
+        }
 
         saveButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(didTapSaveButton))
         navigationItem.rightBarButtonItem = saveButton

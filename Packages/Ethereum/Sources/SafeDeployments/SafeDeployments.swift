@@ -98,4 +98,10 @@ extension Safe.Deployment {
         let deployment = try JSONDecoder().decode(Safe.Deployment.self, from: data)
         return deployment
     }
+
+    public func address(for chainId: String) -> Sol.Address? {
+        let networkAddress = networkAddresses[chainId] ?? defaultAddress
+        let result = Sol.Address(hex: networkAddress)
+        return result
+    }
 }

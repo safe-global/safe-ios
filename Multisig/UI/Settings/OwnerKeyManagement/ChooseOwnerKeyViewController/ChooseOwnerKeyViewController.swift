@@ -56,6 +56,8 @@ class ChooseOwnerKeyViewController: UIViewController {
         case none
     }
 
+    var showsCloseButton: Bool = true
+
     convenience init(
         owners: [KeyInfo],
         chainID: String?,
@@ -86,9 +88,12 @@ class ChooseOwnerKeyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = titleText
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
-        
+
+        if showsCloseButton {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(
+                    barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
+        }
+
         tableView.registerCell(ChooseOwnerTableViewCell.self)
         tableView.registerCell(SigningKeyTableViewCell.self)
 

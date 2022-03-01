@@ -102,6 +102,7 @@ DESKTOP_PAIRING_URL = https:/$()/help.gnosis-safe.io/en/articles/5584901-desktop
 ADVANCED_TX_PARAMS_URL = https:/$()/help.gnosis-safe.io/en/articles/4738445-advanced-transaction-parameters
 LEDGER_PAIRING_URL = https:/$()/support.ledger.com/hc/en-us/articles/360019138694-Set-up-Bluetooth-connection
 CREATE_SAFE_URL = https:/$()/help.gnosis-safe.io/en/articles/3876461-create-a-safe
+CONFIRMATIONS_URL = https:/$()/help.gnosis-safe.io/en/articles/3952319-signature-policies
 
 // Legal URLs
 TERMS_URL       = https:/$()/gnosis-safe.io/terms/
