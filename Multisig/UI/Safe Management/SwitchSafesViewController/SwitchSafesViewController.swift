@@ -80,7 +80,7 @@ final class SwitchSafesViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SafeEntry", for: indexPath) as! SafeEntryTableViewCell
         let safe = chainSafes[indexPath.section - 1].safes[indexPath.row]
         cell.setName(safe.displayName)
-        cell.setAddress(safe.addressValue, prefix: safe.chain!.shortName)
+        cell.setAddress(safe.addressValue, prefix: safe.chain!.shortName, deploying: safe.safeStatus != .deployed)
         cell.setSelection(safe.isSelected)
         return cell
     }

@@ -13,16 +13,25 @@ class SafeEntryTableViewCell: UITableViewCell {
     @IBOutlet private weak var mainLabel: UILabel!
     @IBOutlet private weak var detailLabel: UILabel!
     @IBOutlet private weak var selectorView: UIImageView!
-
+    @IBOutlet weak var progressIndicator: UIActivityIndicatorView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         mainLabel.setStyle(.headline)
         detailLabel.setStyle(.tertiary)
     }
 
-    func setAddress(_ value: Address, prefix: String? = nil) {
-        mainImageView.setAddress(value.hexadecimal)
-        detailLabel.text = prefixString(prefix: prefix) + value.ellipsized()
+    func setAddress(_ value: Address, prefix: String? = nil, deploying: Bool = false) {
+      
+        if deploying {
+            progressIndicator.isHidden = false
+            mainImageView.setAddressGrayscale(value.hexadecimal)
+            detailLabel.text = "Creating in progress..."
+        } else {
+            progressIndicator.isHidden = true
+            mainImageView.setAddress(value.hexadecimal)
+            detailLabel.text = prefixString(prefix: prefix) + value.ellipsized()
+        }
     }
 
     func setName(_ value: String) {
