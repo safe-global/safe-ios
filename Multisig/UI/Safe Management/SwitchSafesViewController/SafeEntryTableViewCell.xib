@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -26,22 +26,25 @@
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="4nS-eF-yo0">
-                        <rect key="frame" x="64" y="12.5" width="204" height="41"/>
+                        <rect key="frame" x="64" y="12.5" width="168" height="41"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MIc-5I-mGm">
-                                <rect key="frame" x="0.0" y="0.0" width="204" height="20.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="168" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XnQ-qz-rsE">
-                                <rect key="frame" x="0.0" y="20.5" width="204" height="20.5"/>
+                                <rect key="frame" x="0.0" y="20.5" width="168" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                     </stackView>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="sWA-tw-6Ow">
+                        <rect key="frame" x="244" y="23" width="20" height="20"/>
+                    </activityIndicatorView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="sD6-ay-hF7">
                         <rect key="frame" x="280" y="23" width="24" height="20.5"/>
                         <color key="tintColor" name="button"/>
@@ -52,10 +55,12 @@
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="sD6-ay-hF7" firstAttribute="leading" secondItem="4nS-eF-yo0" secondAttribute="trailing" constant="12" id="35T-2B-NUx"/>
                     <constraint firstItem="uCU-XK-SxW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="5EO-nj-OkZ"/>
+                    <constraint firstItem="sWA-tw-6Ow" firstAttribute="leading" secondItem="4nS-eF-yo0" secondAttribute="trailing" constant="12" id="7ec-oX-Ojs"/>
                     <constraint firstItem="sD6-ay-hF7" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Dkw-9U-91R"/>
+                    <constraint firstItem="sD6-ay-hF7" firstAttribute="leading" secondItem="sWA-tw-6Ow" secondAttribute="trailing" constant="16" id="Hsv-wH-Lhk"/>
                     <constraint firstItem="4nS-eF-yo0" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="LYz-Qd-dAx"/>
+                    <constraint firstItem="sWA-tw-6Ow" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Smf-7V-YC9"/>
                     <constraint firstItem="uCU-XK-SxW" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="iLv-uv-2md"/>
                     <constraint firstItem="4nS-eF-yo0" firstAttribute="leading" secondItem="uCU-XK-SxW" secondAttribute="trailing" constant="12" id="lzm-mC-6Wj"/>
                     <constraint firstAttribute="trailing" secondItem="sD6-ay-hF7" secondAttribute="trailing" constant="16" id="nf0-zx-p0y"/>
@@ -66,6 +71,7 @@
                 <outlet property="detailLabel" destination="XnQ-qz-rsE" id="L3l-Te-oxH"/>
                 <outlet property="mainImageView" destination="uCU-XK-SxW" id="HVa-Zt-xLq"/>
                 <outlet property="mainLabel" destination="MIc-5I-mGm" id="R6A-jj-r6N"/>
+                <outlet property="progressIndicator" destination="sWA-tw-6Ow" id="KLV-dz-ak8"/>
                 <outlet property="selectorView" destination="sD6-ay-hF7" id="XNK-ob-Oa1"/>
             </connections>
             <point key="canvasLocation" x="141" y="154"/>

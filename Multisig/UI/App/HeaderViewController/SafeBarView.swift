@@ -42,7 +42,11 @@ class SafeBarView: UINibView {
         self.address = value
         self.prefix = prefix
         self.isDeploying = isDepolying
-        identiconView.setAddress(value.hexadecimal)
+        if isDepolying {
+            identiconView.setAddressGrayscale(value.hexadecimal)
+        } else {
+            identiconView.setAddress(value.hexadecimal)
+        }
         displayAddress()
     }
 
