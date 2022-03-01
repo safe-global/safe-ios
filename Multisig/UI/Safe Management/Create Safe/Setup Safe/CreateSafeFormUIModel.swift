@@ -243,20 +243,19 @@ class CreateSafeFormUIModel {
         let safeL1Address = try address(of: .GnosisSafe, version: deploymentVersion)
         let safeL2Address = try address(of: .GnosisSafeL2, version: deploymentVersion)
         singletonAddress = chain.l2 ? safeL2Address : safeL1Address
-
-        // generate salt
-        var saltBytes: [UInt8] = .init(repeating: 0, count: 32)
-        let randomSaltResult = SecRandomCopyBytes(kSecRandomDefault, saltBytes.count, &saltBytes)
-
-        guard randomSaltResult == errSecSuccess else {
-            throw CreateSafeError(errorCode: -6, message: "Failed to create random salt (sec error \(randomSaltResult))")
-        }
-
-        generateSalt()
+        try generateSalt()
     }
 
-    func generateSalt() {
+    func generateSalt() throws {
         do {
+            // generate salt
+            var saltBytes: [UInt8] = .init(repeating: 0, count: 32)
+            let randomSaltResult = SecRandomCopyBytes(kSecRandomDefault, saltBytes.count, &saltBytes)
+
+            guard randomSaltResult == errSecSuccess else {
+                throw CreateSafeError(errorCode: -6, message: "Failed to create random salt (sec error \(randomSaltResult))")
+            }
+
             saltNonce = try Sol.UInt256(Data(saltBytes))
         } catch {
             throw CreateSafeError(errorCode: -7, message: "Failed to create random salt from bytes", cause: error)
@@ -269,6 +268,10 @@ class CreateSafeFormUIModel {
         } else {
             // No need to recreate transaction parameters
             // because they are already created from creationParameters when this screen is initialized
+
+            if saltNonce == nil {
+                try generateSalt()
+            }
         }
 
         // get setupFunction from safe
@@ -730,7 +733,7 @@ class CreateSafeFormUIModel {
         // we re-generate the salt because otherwise the same safe address will be produced.
         // This leads to the reverted transaction, hence the estimation will fail and user needs to
         // refresh or change safe parameters to re-generate the salt.
-        generateSalt()
+        try? generateSalt()
 
         if let singletonAddressString = call.singletonAddress,
            let address = Address(singletonAddressString) {
