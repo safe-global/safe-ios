@@ -227,7 +227,27 @@ extension JsonRpc2.Id: Comparable {
 }
 
 // response encoding/decoding: compiler-generated
-extension JsonRpc2.Response: Codable {}
+extension JsonRpc2.Response: Codable {
+    enum Key: String, CodingKey {
+        case jsonrpc
+        case result
+        case error
+        case id
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
+        jsonrpc = try container.decode(String.self, forKey: .jsonrpc)
+        if container.contains(.result) {
+            result = try container.decode(Json.Element.self, forKey: .result)
+            error = nil
+        } else {
+            result = nil
+            error = try container.decodeIfPresent(JsonRpc2.Error.self, forKey: .error)
+        }
+        id = try container.decode(JsonRpc2.Id.self, forKey: .id)
+    }
+}
 
 // error encoding/decoding: compiler-generated
 extension JsonRpc2.Error: Codable {}
