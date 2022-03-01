@@ -697,6 +697,11 @@ class CreateSafeFormUIModel {
 
         if let chainId = call.chainId {
             chain = Chain.by(chainId)
+            print ("Restore chain by id: \(chainId)")
+            print ("Restore chain: \(chain)")
+            print ("Restore chainId: \(chain.id)")
+        } else {
+            print ("Cannot Restore from chain id")
         }
 
         if let fallbackHandlerAddressString = call.fallbackHandlerAddress,
@@ -705,6 +710,7 @@ class CreateSafeFormUIModel {
         }
 
         name = call.name
+        print ("Restore call.name: \(name)")
         owners = call.owners?
             .split(separator: ",")
             .map(String.init)
