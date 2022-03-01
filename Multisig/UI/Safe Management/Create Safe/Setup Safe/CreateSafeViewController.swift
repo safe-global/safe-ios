@@ -667,7 +667,8 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
         // restrict to 1 tweet length
         let errorText = uiModel.error?.localizedDescription ?? ""
-        cell.setTitle(errorText, style: .error)
+        let errorPreview = errorText.count <= 144 ? errorText : (String(errorText.prefix(144)) + "…")
+        cell.setTitle(errorPreview, style: .error)
         cell.setDisclosureImage(nil)
         cell.setIcon(nil, tintColor: nil)
 
