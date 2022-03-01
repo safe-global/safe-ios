@@ -170,12 +170,7 @@ class CreateSafeFormUIModel {
         didEdit()
     }
 
-    func addOwnerAddress(_ string: String?) {
-        guard let string = string, let address = Address(string, checksummed: true) else {
-            let error = "Value '\(string?.prefix(50) ?? "")' seems to have a typo or is not a valid address. Please try again."
-            App.shared.snackbar.show(message: error)
-            return
-        }
+    func addOwnerAddress(_ address: Address) {
         guard !owners.contains(where: { owner in owner.address == address }) else {
             let error = "The owner \(address) is already in the list. Please add a different owner."
             App.shared.snackbar.show(message: error)

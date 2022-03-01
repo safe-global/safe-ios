@@ -24,28 +24,21 @@ struct Address: Hashable, ExpressibleByStringInterpolation, CustomStringConverti
     }
 
     init(exactly value: String) {
-        _store = try! EthereumAddress(hex: value, eip55: false)
+        try! self.init(from: value)
     }
 
     init?(_ value: String) {
-        self.init(value, checksummed: false)
-    }
-
-    init?(_ value: String, checksummed: Bool) {
-        var hexValue = value
-        if hexValue.hasPrefix("0x") || hexValue.hasPrefix("0X") {
-            hexValue.removeFirst(2)
-        }
-        var checkForEIP55 = checksummed
-        if hexValue == hexValue.lowercased() || hexValue == hexValue.uppercased() {
-            checkForEIP55 = false
-        }
-        guard let value = try? EthereumAddress(hex: hexValue, eip55: checkForEIP55) else { return nil }
-        _store = value
+        try? self.init(from: value)
     }
 
     init(from value: String) throws {
-        _store = try EthereumAddress(hex: value, eip55: false)
+        var text = value
+        if text.hasPrefix("0x") || text.hasPrefix("0X") {
+            text.removeFirst(2)
+        }
+        let isMixedCase = !(text == text.lowercased() || text == text.uppercased())
+        let checkEip55Conformance = isMixedCase
+        _store = try EthereumAddress(hex: value, eip55: checkEip55Conformance)
     }
 
     init(exactly value: UInt256) {

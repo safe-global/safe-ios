@@ -95,6 +95,53 @@ extension String {
         } catch {
             preconditionFailure("Invalid regexp pattern: \(pattern): \(error)")
         }
+    }
 
+    func matches(pattern: String) -> Bool {
+        range(of: pattern, options: .regularExpression) != nil
+    }
+
+    func capturedValues(pattern: String) -> [[String]] {
+        do {
+            let regexp = try NSRegularExpression(pattern: pattern, options: [])
+            var result = [[String]]()
+            regexp.enumerateMatches(in: self, options: [], range: NSRange(location: 0, length: count)) { match, _, _ in
+                guard let match = match else {
+                    return
+                }
+                var matches = [String]()
+                for i in 1..<match.numberOfRanges {
+                    let range = match.range(at: i)
+                    guard range.location != NSNotFound else { continue }
+                    let value = (self as NSString).substring(with: range)
+                    matches.append(value)
+                }
+                result.append(matches)
+            }
+            return result
+        } catch {
+            preconditionFailure("Invalid regexp pattern: \(pattern): \(error)")
+        }
+    }
+
+    func namedCapturedValues(pattern: String, names: [String]) -> [String: [String]] {
+        do {
+            let regexp = try NSRegularExpression(pattern: pattern, options: [])
+            var result: [String: [String]] = Dictionary(uniqueKeysWithValues: names.map { ($0, [String]()) })
+            regexp.enumerateMatches(in: self, options: [], range: NSRange(location: 0, length: count)) { match, _, _ in
+                guard let match = match else {
+                    return
+                }
+                for name in names {
+                    let range = match.range(withName: name)
+                    guard range.location != NSNotFound else { continue }
+                    let value = (self as NSString).substring(with: range)
+                    result[name]?.append(value)
+                }
+            }
+            return result
+        } catch {
+            preconditionFailure("Invalid regexp pattern: \(pattern): \(error)")
+        }
     }
 }
