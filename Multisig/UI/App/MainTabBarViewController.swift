@@ -281,10 +281,8 @@ class MainTabBarViewController: UITabBarController {
                     },
                     onRetry: { [weak self] in
                         let createSafeVC = CreateSafeViewController()
-                        print("Restore from txHash: \(txHash)")
                         createSafeVC.txHash = txHash
                         createSafeVC.chain = chain
-                        print("chain: \(chain.name)")
                         createSafeVC.onClose = { [weak self] in
                             self?.dismiss(animated: true, completion: nil)
                         }

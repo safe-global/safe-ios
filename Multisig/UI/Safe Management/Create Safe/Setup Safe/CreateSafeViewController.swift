@@ -60,7 +60,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             let chain = chain,
             let safeCreationCall = SafeCreationCall.by(txHashes: [txHash], chainId: chain.id!)?.first {
             uiModel.updateWithSafeCall(call: safeCreationCall)
-            print ("Restore UI from: safeCreationCall: \(safeCreationCall)")
 
         }
 

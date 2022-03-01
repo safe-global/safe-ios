@@ -150,13 +150,9 @@ class CreateSafeFormUIModel {
     // MARK: - Setup
     
     private func setup() {
-        if name == nil {
+        if creationParameters == nil {
             name = "My Safe"
-        }
-        if chain == nil {
             chain = Chain.mainnetChain()
-        }
-        if (threshold < 1) {
             threshold = 1
         }
         transaction = handleError { try makeEthTransaction() }
@@ -703,11 +699,6 @@ class CreateSafeFormUIModel {
 
         if let chainId = call.chainId {
             chain = Chain.by(chainId)
-            print ("Restore chain by id: \(chainId)")
-            print ("Restore chain: \(chain)")
-            print ("Restore chainId: \(chain.id)")
-        } else {
-            print ("Cannot Restore from chain id")
         }
 
         if let fallbackHandlerAddressString = call.fallbackHandlerAddress,
@@ -716,7 +707,6 @@ class CreateSafeFormUIModel {
         }
 
         name = call.name
-        print ("Restore call.name: \(name)")
         owners = call.owners?
             .split(separator: ",")
             .map(String.init)
@@ -738,6 +728,8 @@ class CreateSafeFormUIModel {
         }
 
         deploymentVersion = call.version.flatMap(SafeDeployments.Safe.Version.init(rawValue:))
+
+        threshold = call.threshold.flatMap(Int.init) ?? 1
         creationParameters = call
     }
 
