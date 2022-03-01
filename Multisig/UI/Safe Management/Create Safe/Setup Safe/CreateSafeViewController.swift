@@ -36,7 +36,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.registerCell(ActionDetailAddressCell.self)
         tableView.registerCell(StepperTableViewCell.self)
         tableView.registerCell(DisclosureWithContentCell.self)
-        tableView.registerCell(DetailExpandableTextCell.self)
+        tableView.registerCell(BasicCell.self)
         tableView.registerCell(IconButtonTableViewCell.self)
         tableView.registerCell(HelpTextTableViewCell.self)
         tableView.registerCell(BasicCell.self)
@@ -664,18 +664,13 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     private func errorCell(for indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(DetailExpandableTextCell.self, for: indexPath)
+        let cell = tableView.dequeueCell(BasicCell.self, for: indexPath)
         // restrict to 1 tweet length
         let errorText = uiModel.error?.localizedDescription ?? ""
-        let errorPreview = errorText.count <= 144 ? nil : (String(errorText.prefix(144)) + "…")
-        cell.tableView = tableView
-        cell.titleStyle = .error.weight(.medium)
-        cell.expandableTitleStyle = (collapsed: .error, expanded: .error)
-        cell.contentStyle = (collapsed: .error, expanded: .secondary)
-        cell.setTitle("Error")
-        cell.setText(errorText)
-        cell.setCopyText(errorText)
-        cell.setExpandableTitle(errorPreview)
+        cell.setTitle(errorText, style: .error)
+        cell.setDisclosureImage(nil)
+        cell.setIcon(nil, tintColor: nil)
+
         return cell
     }
 
