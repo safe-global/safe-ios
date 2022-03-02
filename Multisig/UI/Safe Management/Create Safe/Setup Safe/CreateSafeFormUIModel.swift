@@ -417,7 +417,7 @@ class CreateSafeFormUIModel {
         )
 
         estimationTask?.cancel()
-        estimationTask = estimationController.estimateTransactionWithRpc(tx: transaction) { [weak self] result in
+        estimationTask = estimationController.estimateTransactionWithRpc(tx: transaction, block: .tag(.latest)) { [weak self] result in
             guard let self = self else { return }
 
             do {
@@ -769,7 +769,7 @@ class CreateSafeFormUIModel {
             version: "1.3.0",
             name: name!,
             chain: chain,
-            selected: true,
+            selected: false,
             status: .deploying
         )
 

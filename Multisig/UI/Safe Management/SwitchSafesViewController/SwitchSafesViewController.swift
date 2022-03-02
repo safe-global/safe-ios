@@ -31,6 +31,10 @@ final class SwitchSafesViewController: UITableViewController {
         tableView.register(SafeEntryTableViewCell.nib(), forCellReuseIdentifier: "SafeEntry")
         tableView.registerHeaderFooterView(NetworkIndicatorHeaderView.self)
 
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        }
+
         notificationCenter.addObserver(
             self, selector: #selector(reloadData), name: .selectedSafeChanged, object: nil)
         notificationCenter.addObserver(
@@ -80,7 +84,23 @@ final class SwitchSafesViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SafeEntry", for: indexPath) as! SafeEntryTableViewCell
         let safe = chainSafes[indexPath.section - 1].safes[indexPath.row]
         cell.setName(safe.displayName)
-        cell.setAddress(safe.addressValue, prefix: safe.chain!.shortName, deploying: safe.safeStatus != .deployed)
+        cell.setProgress(enabled: false)
+
+        switch safe.safeStatus {
+        case .deployed:
+            cell.setAddress(safe.addressValue)
+            cell.setDetail(address: safe.addressValue, prefix: safe.chain!.shortName)
+
+        case .deploying, .indexing:
+            cell.setAddress(safe.addressValue, grayscale: true)
+            cell.setDetail(text: "Creating in progress...", style: .tertiary)
+            cell.setProgress(enabled: true)
+
+        case .deploymentFailed:
+            cell.setAddress(safe.addressValue, grayscale: true)
+            cell.setDetail(text: "Failed to create", style: .tertiary.color(.error))
+        }
+
         cell.setSelection(safe.isSelected)
         return cell
     }

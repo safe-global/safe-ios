@@ -450,6 +450,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 if savedValues != initialValues {
                     self.uiModel.error = nil
                     self.uiModel.updateEthTransactionWithUserValues()
+                    self.uiModel.didEdit()
 
                     let changedFields = changedFieldTrackingIds.joined(separator: ",")
                     Tracker.trackEvent(.reviewExecutionFieldEdited, parameters: ["fields": changedFields])

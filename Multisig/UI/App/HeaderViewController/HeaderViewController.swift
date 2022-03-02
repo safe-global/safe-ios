@@ -133,9 +133,21 @@ final class HeaderViewController: ContainerViewController {
             noSafeBarView.isHidden = hasSafe
 
             if let safe = selectedSafe {
-                safeBarView.setAddress(safe.addressValue, prefix: safe.chain!.shortName)
                 safeBarView.setName(safe.displayName)
                 safeBarView.setReadOnly(safe.isReadOnly)
+
+                switch safe.safeStatus {
+                case .deployed:
+                    safeBarView.setAddress(safe.addressValue, prefix: safe.chain!.shortName)
+
+                case .deploying, .indexing:
+                    safeBarView.setAddress(safe.addressValue, grayscale: true)
+                    safeBarView.setDetail(text: "Creating in progress...")
+
+                case .deploymentFailed:
+                    safeBarView.setAddress(safe.addressValue, grayscale: true)
+                    safeBarView.setDetail(text: "Failed to create", style: .tertiary.color(.error))
+                }
             }
         } catch {
             App.shared.snackbar.show(

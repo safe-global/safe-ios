@@ -12,6 +12,8 @@ class SafeCreationMonitor {
     static var globalTimer: Timer?
     static let shared = SafeCreationMonitor()
 
+    static let safeCreationTimeout: TimeInterval = 24 * 60 * 60
+
     static func scheduleMonitoring(repeatInterval: TimeInterval = 10, runImmediately: Bool = true) {
         globalTimer?.invalidate()
 
@@ -20,7 +22,6 @@ class SafeCreationMonitor {
         })
 
         if runImmediately {
-            Self.shared.updateDeployingSafes()
             Self.shared.querySafeInfo()
         }
     }
@@ -36,24 +37,22 @@ class SafeCreationMonitor {
     let clientGateway = App.shared.clientGatewayService
 
     @objc func updateDeployingSafes() {
-        let failedSafes = Safe.all.filter { safe in safe.safeStatus == .deploymentFailed }
-        for safe in failedSafes {
-            NotificationCenter.default.post(name: .safeCreationUpdate, object: self, userInfo: ["safe" : safe,
-                                                                                                "success" : false,
-                                                                                                "chain" : safe.chain!])
-
-        }
-
         let deployingSafes = Safe.all.filter { safe in safe.safeStatus == .deploying }
 
         deployingSafes.forEach { safe in
-            guard let tx = CDEthTransaction.by(safeAddresses: [safe.address!], chainId: safe.chain!.id!)?.first,
+            guard let tx = CDEthTransaction.by(safeAddresses: [safe.address!], chainId: safe.chain!.id!).first,
                   let statusString = tx.status,
                   let status = SCGModels.TxStatus(rawValue: statusString)
             else { return }
             switch status {
             case .success:
                 safe.safeStatus = .indexing
+
+            case .pending:
+                if let date = tx.dateSubmittedAt, Date().timeIntervalSince(date) >= Self.safeCreationTimeout {
+                    fallthrough
+                }
+
             case .pendingFailed:
                 safe.safeStatus = .deploymentFailed
                 NotificationCenter.default.post(name: .safeCreationUpdate, object: self, userInfo: ["safe" : safe,
@@ -68,9 +67,11 @@ class SafeCreationMonitor {
     }
 
     func querySafeInfo() {
-        let deployingSafes = Safe.all.filter { safe in safe.safeStatus == .indexing }
+        updateDeployingSafes()
 
-        deployingSafes.forEach { safe in
+        let indexing = Safe.all.filter { safe in safe.safeStatus == .indexing }
+
+        indexing.forEach { safe in
             _ = clientGateway.asyncSafeInfo(safeAddress: safe.addressValue,
                                                chainId: safe.chain!.id!) { [weak self] result in
                 DispatchQueue.main.async { [weak self] in

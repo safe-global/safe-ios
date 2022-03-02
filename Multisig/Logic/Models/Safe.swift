@@ -186,6 +186,21 @@ extension Safe {
 
         let chainId = safe.chain!.id!
 
+
+        if let deletedSafeAddress = deletedSafeAddress {
+            // delete related EthTransaction's
+            let txs = CDEthTransaction.by(safeAddresses: [deletedSafeAddress], chainId: chainId)
+            for tx in txs {
+                context.delete(tx)
+            }
+
+            // delete stored SafeCreationCall's
+            let calls = SafeCreationCall.by(safe: safe)
+            for call in calls {
+                context.delete(call)
+            }
+        }
+
         context.delete(safe)
 
         if let safe = try? Safe.getAll().first {
