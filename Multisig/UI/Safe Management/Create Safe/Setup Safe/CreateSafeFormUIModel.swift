@@ -20,7 +20,7 @@ protocol CreateSafeFormUIModelDelegate: AnyObject {
 }
 
 class CreateSafeFormUIModel {
-    var name: String!
+    var name: String?
     var chain: Chain!
     var owners: [CreateSafeFormOwner] = []
     var threshold: Int = 0
@@ -116,7 +116,7 @@ class CreateSafeFormUIModel {
 
     var isCreateEnabled: Bool {
         state == .ready &&
-        name != nil && !name.isEmpty &&
+        name != nil && !name!.isEmpty &&
         chain != nil &&
         !owners.isEmpty &&
         threshold > 0 && threshold <= owners.count &&
@@ -150,7 +150,6 @@ class CreateSafeFormUIModel {
     
     private func setup() {
         if creationParameters == nil {
-            name = "My Safe"
             chain = Chain.mainnetChain()
             owners = []
             threshold = 1
@@ -344,7 +343,6 @@ class CreateSafeFormUIModel {
             ethTx.nonce = userTxParameters.nonce ?? ethTx.nonce
 
             self.transaction = ethTx
-            didEdit()
 
         case var ethTx as Eth.TransactionEip1559:
             ethTx.fee.gas = userTxParameters.gas ?? ethTx.fee.gas
@@ -353,7 +351,6 @@ class CreateSafeFormUIModel {
             ethTx.nonce = userTxParameters.nonce ?? ethTx.nonce
 
             self.transaction = ethTx
-            didEdit()
 
         default:
             break
@@ -761,6 +758,7 @@ class CreateSafeFormUIModel {
 
         assert(transaction.hash != nil)
         assert(futureSafeAddress != nil)
+        assert(name != nil)
 
         // create a safe
         guard let address = futureSafeAddress, let txHash = transaction.hash else {
@@ -769,7 +767,7 @@ class CreateSafeFormUIModel {
         Safe.create(
             address: address.checksummed,
             version: "1.3.0",
-            name: name,
+            name: name!,
             chain: chain,
             selected: true,
             status: .deploying

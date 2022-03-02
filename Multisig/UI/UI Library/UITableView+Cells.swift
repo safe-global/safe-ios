@@ -15,7 +15,7 @@ extension UITableView {
                    indexPath: IndexPath,
                    withDisclosure: Bool = true,
                    disclosureImage: UIImage? = nil,
-                   canSelect: Bool = true) -> UITableViewCell {
+                   canSelect: Bool = true) -> BasicCell {
         let cell = dequeueCell(BasicCell.self, for: indexPath)
         cell.setTitle(name)
         cell.setIcon(icon)
