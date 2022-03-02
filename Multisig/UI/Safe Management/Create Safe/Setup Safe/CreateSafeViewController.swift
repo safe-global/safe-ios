@@ -274,12 +274,13 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         if keys.isEmpty {
             let addOwnerVC = AddOwnerFirstViewController()
-            addOwnerVC.trackingEvent = .createSafeAddKey
+            addOwnerVC.trackingEvent = .createSafeAddDeploymentKey
             addOwnerVC.onSuccess = { [weak self] in
                 guard let self = self else { return }
                 self.navigationController?.popToViewController(self, animated: true)
                 self.uiModel.selectedKey = self.uiModel.executionKeys().first
                 self.uiModel.didEdit()
+                Tracker.trackEvent(.createSafeDeploymentKeyAdded)
             }
             addOwnerVC.showsCloseButton = false
             show(addOwnerVC, sender: self)
@@ -322,6 +323,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             if selectedKeyInfo != previousKey {
                 self.uiModel.didEdit()
+                Tracker.trackEvent(.createSafeKeyChanged)
             }
 
             self.navigationController?.popViewController(animated: true)
