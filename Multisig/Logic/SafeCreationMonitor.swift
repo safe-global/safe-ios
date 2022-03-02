@@ -20,6 +20,7 @@ class SafeCreationMonitor {
         })
 
         if runImmediately {
+            Self.shared.updateDeployingSafes()
             Self.shared.querySafeInfo()
         }
     }
@@ -29,12 +30,20 @@ class SafeCreationMonitor {
     }
 
     private init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(txDataInvalidationNotificationReceived), name: .transactionDataInvalidated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateDeployingSafes), name: .transactionDataInvalidated, object: nil)
     }
 
     let clientGateway = App.shared.clientGatewayService
 
-    @objc func txDataInvalidationNotificationReceived() {
+    @objc func updateDeployingSafes() {
+        let failedSafes = Safe.all.filter { safe in safe.safeStatus == .deploymentFailed }
+        for safe in failedSafes {
+            NotificationCenter.default.post(name: .safeCreationUpdate, object: self, userInfo: ["safe" : safe,
+                                                                                                "success" : false,
+                                                                                                "chain" : safe.chain!])
+
+        }
+
         let deployingSafes = Safe.all.filter { safe in safe.safeStatus == .deploying }
 
         deployingSafes.forEach { safe in
@@ -49,7 +58,6 @@ class SafeCreationMonitor {
                 safe.safeStatus = .deploymentFailed
                 NotificationCenter.default.post(name: .safeCreationUpdate, object: self, userInfo: ["safe" : safe,
                                                                                                     "success" : false,
-                                                                                                    "txHash" : tx.ethTxHash as Any,
                                                                                                     "chain" : safe.chain!])
             default:
                 break

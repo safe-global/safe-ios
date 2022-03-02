@@ -44,7 +44,7 @@ class SafeDeploymentNotificationController {
     }
     
     private static func notificationId(safe: Safe) -> String {
-        "\(SAFE_CREATED_PREFIX)\(safe.chain!.shortName):\(safe.address!)"
+        "\(SAFE_CREATED_PREFIX)\(safe.chain!.shortName ?? ""):\(safe.address!)"
     }
     
     static func isSafeCreatedNotification(_ info: [AnyHashable: Any]) -> Bool {
@@ -54,13 +54,7 @@ class SafeDeploymentNotificationController {
     static func handleSafeCreatedNotification(userInfo: [AnyHashable : Any]) {
         let address: String = userInfo["safe"] as! String
         let chainId: String = userInfo["chainId"] as! String
-        
-        guard let safe = Safe.by(address: address, chainId: chainId) else { return }
-        
-        if !safe.isSelected {
-            //FIXME: Remove after NavigationRoute.showAssets selects the given safe
-            safe.select()
-            NavigationRoute.showAssets(address, chainId: chainId)
-        }
+        let route = NavigationRoute.showAssets(address, chainId: chainId)
+        DefaultNavigationRouter.shared.navigate(to: route)
     }
 }
