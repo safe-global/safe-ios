@@ -12,11 +12,12 @@ class DetailExpandableTextCell: UITableViewCell {
     weak var tableView: UITableView?
 
     @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet weak var expandableIconImageView: UIImageView!
-    @IBOutlet weak var expandableTitleLabel: UILabel!
+    @IBOutlet private weak var expandableIconImageView: UIImageView!
+    @IBOutlet private weak var expandableTitleLabel: UILabel!
     @IBOutlet private weak var contentLabel: UILabel!
     @IBOutlet private weak var contentCopyButton: UIButton!
-    @IBOutlet weak var expanableContainerStackView: UIStackView!
+    @IBOutlet private weak var expanableContainerStackView: UIStackView!
+    @IBOutlet private weak var expandButton: UIButton!
     private var textToCopy: String?
     private var isExpanded: Bool = false
 
@@ -53,6 +54,11 @@ class DetailExpandableTextCell: UITableViewCell {
         titleLabel.text = text
         titleLabel.isHidden = text == nil
         titleLabel.setStyle(titleStyle)
+    }
+
+    func set(isExpandable: Bool) {
+        expanableContainerStackView.isHidden = !isExpandable
+        expandButton.isEnabled = isExpandable
     }
 
     // nil argument indicates that the cell is not expandable, i.e. it will show the main content
