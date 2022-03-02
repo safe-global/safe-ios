@@ -239,6 +239,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         let selectNetworkVC = SelectNetworkViewController()
         selectNetworkVC.screenTitle = "Select Network"
         selectNetworkVC.descriptionText = "Choose a network on which to create your Safe"
+        selectNetworkVC.trackingEvent = .createSafeSelectNetwork
         // get the selected network back
         selectNetworkVC.completion = { [weak self] chain in
             guard let self = self else { return }
