@@ -49,7 +49,7 @@
                     </subviews>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="txJ-9T-WhM">
-                    <rect key="frame" x="40" y="194.5" width="334" height="55"/>
+                    <rect key="frame" x="16" y="194.5" width="382" height="55"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="55" id="fPT-I4-u7c"/>
                     </constraints>
@@ -86,9 +86,9 @@
                 <constraint firstItem="RwE-RU-VMc" firstAttribute="trailing" secondItem="b4b-r9-s0F" secondAttribute="trailing" constant="40" id="J6C-P3-lKD"/>
                 <constraint firstItem="b4b-r9-s0F" firstAttribute="leading" secondItem="RwE-RU-VMc" secondAttribute="leading" constant="40" id="Jvx-6p-KAn"/>
                 <constraint firstItem="cy8-H4-ttj" firstAttribute="top" secondItem="RwE-RU-VMc" secondAttribute="top" constant="-56" id="K0P-ea-EfL"/>
-                <constraint firstItem="RwE-RU-VMc" firstAttribute="trailing" secondItem="txJ-9T-WhM" secondAttribute="trailing" constant="40" id="La2-mP-NgU"/>
+                <constraint firstItem="RwE-RU-VMc" firstAttribute="trailing" secondItem="txJ-9T-WhM" secondAttribute="trailing" constant="16" id="La2-mP-NgU"/>
                 <constraint firstItem="1qj-e5-GC2" firstAttribute="top" secondItem="txJ-9T-WhM" secondAttribute="bottom" constant="8" id="TfC-Vf-8H3"/>
-                <constraint firstItem="txJ-9T-WhM" firstAttribute="leading" secondItem="RwE-RU-VMc" secondAttribute="leading" constant="40" id="Z2P-uJ-bJo"/>
+                <constraint firstItem="txJ-9T-WhM" firstAttribute="leading" secondItem="RwE-RU-VMc" secondAttribute="leading" constant="16" id="Z2P-uJ-bJo"/>
                 <constraint firstItem="RwE-RU-VMc" firstAttribute="trailing" secondItem="1qj-e5-GC2" secondAttribute="trailing" constant="40" id="f94-no-Vtv"/>
                 <constraint firstItem="1qj-e5-GC2" firstAttribute="leading" secondItem="RwE-RU-VMc" secondAttribute="leading" constant="40" id="nUc-cV-zXO"/>
                 <constraint firstItem="txJ-9T-WhM" firstAttribute="top" secondItem="b4b-r9-s0F" secondAttribute="bottom" constant="33" id="yaH-Gq-nxC"/>

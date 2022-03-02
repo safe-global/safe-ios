@@ -237,7 +237,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         // get the selected network back
         selectNetworkVC.completion = { [weak self] chain in
             guard let self = self else { return }
-            self.uiModel.setChainId(chain.id)
+            self.uiModel.setChain(chain)
 
             // hide the screen
             self.navigationController?.popViewController(animated: true)
