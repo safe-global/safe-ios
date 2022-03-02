@@ -54,6 +54,8 @@ class ChainPendingTransactionMonitor {
     private let client: JsonRpc2.Client
     private var queryTask: URLSessionTask?
 
+    private static let transactionTimeout: TimeInterval = 24 * 60 * 60 // 24 hours
+
     init(chain: Chain) {
         let urlString = chain.authenticatedRpcUrl.absoluteString
         self.chain = chain
@@ -155,19 +157,41 @@ class ChainPendingTransactionMonitor {
                 let receipts: [EthRpc1.ReceiptInfo]
 
                 do {
+                    var pendingMethods = [EthRpc1.eth_getTransactionReceipt]()
                     receipts = try responses.compactMap { response -> EthRpc1.ReceiptInfo? in
                         guard let method = methodById[response.id] else { return nil }
                         if let error = response.error {
                             LogService.shared.debug("Transaction monitor [chain=\(chainId)]: error getting receipt \(method) \(response) \(error)")
                             return nil
                         }
-                        guard let result = response.result else {
-                            return nil
+                        guard let result = response.result else { return nil }
+                        let receipt = try method.result(from: result)
+                        if receipt == nil {
+                            pendingMethods.append(method)
+                        }
+                        return receipt
+                    }
+
+                    DispatchQueue.main.async {
+                        var shouldNotify: Bool = false
+
+                        for method in pendingMethods {
+                            // transaction receipt not available - transaction is not mined yet.
+                            // if tx is stuck for too long in this state, we mark it as failed.
+                            if let cdTxData = cdTxByTxHash[method.transactionHash.hex],
+                               let submitted = cdTxData.ethTx.dateSubmittedAt,
+                               Date().timeIntervalSince(submitted) >= Self.transactionTimeout {
+                                cdTxData.ethTx.status = SCGModels.TxStatus.pendingFailed.rawValue
+                                cdTxData.ethTx.dateUpdatedAt = Date()
+                                shouldNotify = true
+                            }
+
                         }
 
-                        let receipt = try method.result(from: result)
-
-                        return receipt
+                        if shouldNotify {
+                            App.shared.coreDataStack.saveContext()
+                            NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
+                        }
                     }
                 } catch {
                     LogService.shared.debug("Transaction monitor [chain=\(chainId)]: error transforming receipts: \(error)")
@@ -209,8 +233,7 @@ class ChainPendingTransactionMonitor {
                             cdTxData.ethTx.status = SCGModels.TxStatus.success.rawValue
                             cdTxData.ethTx.dateExecutedAt = Date()
                         } else {
-                            // tx is not yet available or status is not recognized - keep the status the same
-                            // do nothing
+                            // unrecognized status, do nothing
                         }
 
                         cdTxData.ethTx.dateUpdatedAt = Date()
