@@ -49,7 +49,7 @@ class SafeCreationMonitor {
                 safe.safeStatus = .deploymentFailed
                 NotificationCenter.default.post(name: .safeCreationUpdate, object: self, userInfo: ["safe" : safe,
                                                                                                     "success" : false,
-                                                                                                    "txHash" : tx.ethTxHash,
+                                                                                                    "txHash" : tx.ethTxHash as Any,
                                                                                                     "chain" : safe.chain!])
             default:
                 break
@@ -63,7 +63,7 @@ class SafeCreationMonitor {
         let deployingSafes = Safe.all.filter { safe in safe.safeStatus == .indexing }
 
         deployingSafes.forEach { safe in
-            clientGateway.asyncSafeInfo(safeAddress: safe.addressValue,
+            _ = clientGateway.asyncSafeInfo(safeAddress: safe.addressValue,
                                                chainId: safe.chain!.id!) { [weak self] result in
                 DispatchQueue.main.async { [weak self] in
                     switch result {
@@ -74,7 +74,9 @@ class SafeCreationMonitor {
                         App.shared.coreDataStack.saveContext()
                         NotificationCenter.default.post(name: .safeCreationUpdate,
                                                         object: self,
-                                                        userInfo: ["chain" : safe.chain!, "safe" : safe, "success" : true])
+                                                        userInfo: ["chain" : safe.chain!,
+                                                                   "safe" : safe,
+                                                                   "success" : true])
                     }
                 }
             }
