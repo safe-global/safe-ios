@@ -145,8 +145,13 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         switch uiModel.sectionHeaders[indexPath.section].id {
         case .name:
-            let cell = tableView.basicCell(name: uiModel.name, indexPath: indexPath)
-            return cell
+            if let name = uiModel.name {
+                return tableView.basicCell(name: name, indexPath: indexPath)
+            } else {
+                let cell = tableView.basicCell(name: "", indexPath: indexPath)
+                cell.setTitle("Enter name", style: .secondary)
+                return cell
+            }
         case .network:
             let cell = networkCell(for: indexPath)
             return cell
