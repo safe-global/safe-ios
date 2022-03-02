@@ -16,6 +16,7 @@
                 <outlet property="desciptionLabel" destination="CIP-ib-6cv" id="Lcm-XC-fuk"/>
                 <outlet property="didYouKnowLabel" destination="50P-0o-7Kp" id="VLe-Pz-q8U"/>
                 <outlet property="statusLabel" destination="rn6-Av-315" id="IoD-b0-75c"/>
+                <outlet property="txButton" destination="gQw-Bk-lRZ" id="QjV-lY-14W"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -83,6 +84,17 @@
                         <constraint firstItem="9wh-ZL-Zil" firstAttribute="top" secondItem="gHo-3D-eRz" secondAttribute="top" constant="40" id="vdP-7C-ZRH"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gQw-Bk-lRZ">
+                    <rect key="frame" x="124" y="660" width="166" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="fPi-TL-ibr"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="View in block explorer"/>
+                    <connections>
+                        <action selector="didTapViewTransaction:" destination="-1" eventType="touchUpInside" id="8Iw-Eh-Xyj"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" name="primaryBackground"/>
@@ -90,6 +102,8 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gHo-3D-eRz" secondAttribute="trailing" constant="20" id="4Cz-zW-s8c"/>
                 <constraint firstItem="gHo-3D-eRz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="kB9-mf-bMt"/>
                 <constraint firstItem="gHo-3D-eRz" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" placeholder="YES" id="nvb-rA-QT2"/>
+                <constraint firstItem="gQw-Bk-lRZ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="urp-5r-Bvq"/>
+                <constraint firstItem="gQw-Bk-lRZ" firstAttribute="top" secondItem="gHo-3D-eRz" secondAttribute="bottom" constant="32" id="zTg-G7-9m4"/>
             </constraints>
             <point key="canvasLocation" x="131.8840579710145" y="125.89285714285714"/>
         </view>

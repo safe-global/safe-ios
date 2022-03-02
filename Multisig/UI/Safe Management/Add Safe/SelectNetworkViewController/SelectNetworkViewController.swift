@@ -34,6 +34,10 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
         tableView.registerHeaderFooterView(LoadingFooterView.self)
         tableView.registerHeaderFooterView(RetryFooterView.self)
 
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        }
+
         tableView.backgroundColor = .primaryBackground
         tableView.sectionHeaderHeight = 100
         tableView.rowHeight = UITableView.automaticDimension

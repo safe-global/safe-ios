@@ -216,7 +216,7 @@ class MainTabBarViewController: UITabBarController {
             appSettingsVC,
             noSafesVC
         ]
-        segmentVC.selectedIndex = Path.appSettings.first
+        segmentVC.selectedIndex = Path.appSettings.last
         let ribbonVC = RibbonViewController(rootViewController: segmentVC)
         
         let tabRoot = HeaderViewController(rootViewController: ribbonVC)
@@ -280,46 +280,53 @@ class MainTabBarViewController: UITabBarController {
     
     @objc private func handleSafeCreated(_ notification: Notification) {
         // get mode, txHash, and safe if creation successful from the notification
-        if
-            let status = notification.userInfo?["success"] as? Bool,
-            let chain = notification.userInfo?["chain"] as? Chain,
-            let safe = notification.userInfo?["safe"] as? Safe {
-            
-            let txHash = notification.userInfo?["txHash"] as? String
-            
-            var mode: SafeDeploymentFinishedViewController.Mode
-            if status {
-                mode = .success
-            } else {
-                mode = .failure
-            }
-
-            if mode == .failure || safe.isSelected {
-                SafeDeploymentFinishedViewController.present(
-                    presenter: self,
-                    mode: mode,
-                    chain: chain,
-                    txHash: txHash,
-                    safe: safe,
-                    onClose: {
-                        if mode == .failure {
-                            Safe.remove(safe: safe)
-                        }
-                    },
-                    onRetry: { [weak self] in
-                        let createSafeVC = CreateSafeViewController()
-                        createSafeVC.txHash = txHash
-                        createSafeVC.chain = chain
-                        createSafeVC.onClose = { [weak self] in
-                            self?.dismiss(animated: true, completion: nil)
-                        }
-                        let vc = ViewControllerFactory.modal(viewController: createSafeVC)
-                        self?.present(vc, animated: true)
-                    })
+        if let isSuccess = notification.userInfo?["success"] as? Bool,
+           let safe = notification.userInfo?["safe"] as? Safe {
+            if safe.isSelected && presentedViewController == nil {
+                if isSuccess {
+                    presentSuccessDeployment(safe: safe)
+                } else {
+                    presentFailedDeployment(safe: safe)
+                }
             } else {
                 SafeDeploymentNotificationController.sendNotification(safe: safe)
             }
         }
+    }
+
+    private func presentSuccessDeployment(safe: Safe) {
+        SafeDeploymentFinishedViewController.present(
+            presenter: self,
+            mode: .success,
+            chain: safe.chain!,
+            txHash: nil,
+            safe: safe,
+            onClose: { },
+            onRetry: { })
+    }
+
+    private func presentFailedDeployment(safe: Safe) {
+        let params = SafeCreationCall.by(safe: safe).first
+        let txHash = params?.transactionHash
+        SafeDeploymentFinishedViewController.present(
+            presenter: self,
+            mode: .failure,
+            chain: safe.chain!,
+            txHash: txHash,
+            safe: safe,
+            onClose: {
+                Safe.remove(safe: safe)
+            },
+            onRetry: { [weak self] in
+                let createSafeVC = CreateSafeViewController()
+                createSafeVC.txHash = txHash
+                createSafeVC.chain = safe.chain
+                createSafeVC.onClose = { [weak self] in
+                    self?.dismiss(animated: true, completion: nil)
+                }
+                let vc = ViewControllerFactory.modal(viewController: createSafeVC)
+                self?.present(vc, animated: true)
+            })
     }
     
     private func showTransactionDetails(safeTxHash: Data) {
@@ -338,6 +345,8 @@ extension MainTabBarViewController: NavigationRouter {
         if route.path.starts(with: "/settings/") {
             return true
         } else if route.path == NavigationRoute.showAssets().path {
+            return true
+        } else if route.path == NavigationRoute.deploymentFailedPath {
             return true
         }
 
@@ -366,6 +375,8 @@ extension MainTabBarViewController: NavigationRouter {
                 }
             }
             switchTo(indexPath: Path.balances)
+        } else if route.path == NavigationRoute.deploymentFailedPath {
+            presentFailedDeployment(safe: route.info["safe"] as! Safe)
         }
     }
 
