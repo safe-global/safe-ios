@@ -391,7 +391,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             self?.dismiss(animated: true)
         }
 
-        formVC.trackingEvent = .reviewExecutionEditFee
+        formVC.trackingEvent = .createSafeEditTxFee
 
         formVC.onSave = { [weak self, weak formModel] in
             // on save - update the parameters that were changed.
@@ -460,7 +460,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                     self.uiModel.updateEthTransactionWithUserValues()
 
                     let changedFields = changedFieldTrackingIds.joined(separator: ",")
-                    Tracker.trackEvent(.reviewExecutionFieldEdited, parameters: ["fields": changedFields])
+                    Tracker.trackEvent(.createSafeTxFeeEdited, parameters: ["fields": changedFields])
                 }
             })
         }
