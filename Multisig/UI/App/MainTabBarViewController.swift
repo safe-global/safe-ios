@@ -112,6 +112,10 @@ class MainTabBarViewController: UITabBarController {
         WhatsNewHandler().whatsNewViewController?.present(on: self)
 
         WebConnectionController.shared.reconnect()
+
+        if let safe = try? Safe.getSelected() {
+            presentSuccessDeployment(safe: safe)
+        }
     }
 
     private func balancesTabViewController() -> BalancesUINavigationController {

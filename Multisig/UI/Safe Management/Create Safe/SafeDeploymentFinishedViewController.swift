@@ -44,12 +44,12 @@ class SafeDeploymentFinishedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        titleLabel.setStyle(.headline)
+        titleLabel.setStyle(.headline2)
         descriptionLabel.setStyle(.tertiary)
-        
+
         switch mode {
         case .success:
-            statusImage.image = UIImage.animatedImageNamed("safe-created-animation-", duration: 2)
+            statusImage.image = UIImage.animatedImageNamed("safe-created-animation-", duration: 1.5)
             titleLabel.text = "Your Safe is ready!"
             descriptionLabel.text = "That’s it! Start using your most secure wallet on Ethereum."
             actionButton.setText("Start using Safe", .filled)
@@ -63,7 +63,6 @@ class SafeDeploymentFinishedViewController: UIViewController {
             actionButton.setText("Retry", .filled)
             linkButton.setText("View on block explorer", .plain)
 
-            statusImageTop.constant = -16
             labelContainerTop.constant = 32
             view.setNeedsUpdateConstraints()
         }

@@ -28,11 +28,11 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cy8-H4-ttj">
-                    <rect key="frame" x="150" y="-12" width="114" height="92"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="safe-created-animation-1" translatesAutoresizingMaskIntoConstraints="NO" id="cy8-H4-ttj">
+                    <rect key="frame" x="101.5" y="28" width="211" height="211"/>
                 </imageView>
-                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="b4b-r9-s0F">
-                    <rect key="frame" x="40" y="64" width="334" height="97.5"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="b4b-r9-s0F">
+                    <rect key="frame" x="40" y="223" width="334" height="97.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops, Safe wasn’t created" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtE-Y1-Z5q">
                             <rect key="frame" x="67" y="0.0" width="200.5" height="20.5"/>
@@ -48,10 +48,10 @@
                         </label>
                     </subviews>
                 </stackView>
-                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="txJ-9T-WhM">
-                    <rect key="frame" x="16" y="194.5" width="382" height="55"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="txJ-9T-WhM">
+                    <rect key="frame" x="16" y="353.5" width="382" height="56"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="55" id="fPT-I4-u7c"/>
+                        <constraint firstAttribute="height" constant="56" id="fPT-I4-u7c"/>
                     </constraints>
                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -62,8 +62,8 @@
                         <action selector="didTapActionButton:" destination="-1" eventType="touchUpInside" id="sK2-Pq-kDT"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1qj-e5-GC2">
-                    <rect key="frame" x="40" y="257.5" width="334" height="40"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1qj-e5-GC2">
+                    <rect key="frame" x="40" y="417.5" width="334" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="BST-ef-MQ4"/>
                     </constraints>
@@ -85,7 +85,7 @@
                 <constraint firstItem="cy8-H4-ttj" firstAttribute="centerX" secondItem="RwE-RU-VMc" secondAttribute="centerX" id="Itu-vS-I8C"/>
                 <constraint firstItem="RwE-RU-VMc" firstAttribute="trailing" secondItem="b4b-r9-s0F" secondAttribute="trailing" constant="40" id="J6C-P3-lKD"/>
                 <constraint firstItem="b4b-r9-s0F" firstAttribute="leading" secondItem="RwE-RU-VMc" secondAttribute="leading" constant="40" id="Jvx-6p-KAn"/>
-                <constraint firstItem="cy8-H4-ttj" firstAttribute="top" secondItem="RwE-RU-VMc" secondAttribute="top" constant="-56" id="K0P-ea-EfL"/>
+                <constraint firstItem="cy8-H4-ttj" firstAttribute="top" secondItem="RwE-RU-VMc" secondAttribute="top" constant="-16" id="K0P-ea-EfL"/>
                 <constraint firstItem="RwE-RU-VMc" firstAttribute="trailing" secondItem="txJ-9T-WhM" secondAttribute="trailing" constant="16" id="La2-mP-NgU"/>
                 <constraint firstItem="1qj-e5-GC2" firstAttribute="top" secondItem="txJ-9T-WhM" secondAttribute="bottom" constant="8" id="TfC-Vf-8H3"/>
                 <constraint firstItem="txJ-9T-WhM" firstAttribute="leading" secondItem="RwE-RU-VMc" secondAttribute="leading" constant="16" id="Z2P-uJ-bJo"/>
@@ -98,6 +98,7 @@
     </objects>
     <resources>
         <image name="icon-external-link" width="16" height="16"/>
+        <image name="safe-created-animation-1" width="211" height="211"/>
         <namedColor name="primaryLabel">
             <color red="0.0" green="0.074509803921568626" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
