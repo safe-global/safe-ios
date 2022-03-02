@@ -19,6 +19,8 @@ class AddOwnerFirstViewController: UIViewController {
     var onSuccess: (() -> ())?
 
     var descriptionText: String = "To start sending funds import at least one owner key. Keys are used to confirm transactions."
+    
+    var trackingEvent: TrackingEvent?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +42,11 @@ class AddOwnerFirstViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.assetsTransferAddOwner)
+        if let trackingEvent = trackingEvent {
+            Tracker.trackEvent(trackingEvent)
+        } else {
+            Tracker.trackEvent(.assetsTransferAddOwner)
+        }
     }
 
     @IBAction func addOwnerKeyClicked(_ sender: Any) {

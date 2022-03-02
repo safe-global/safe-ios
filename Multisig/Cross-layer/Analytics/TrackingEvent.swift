@@ -188,6 +188,7 @@ enum TrackingEvent: String, Trackable {
     case createSafeIntro                            = "screen_create_safe_intro"
     case createSafeOnePage                          = "screen_create_safe_one_page"
     case createSafeSelectNetwork                    = "screen_select_network_from_create_safe"
+    case createSafeAddKey                           = "screen_add_key_from_create_safe"
     case createSafeSelectKey                        = "screen_select_key_from_create_safe"
     case createSafeEditTxFee                        = "screen_edit_tx_fee_from_create_safe"
     case createSafeAddDeploymentKey                 = "screen_add_deployment_key_from_create_safe"

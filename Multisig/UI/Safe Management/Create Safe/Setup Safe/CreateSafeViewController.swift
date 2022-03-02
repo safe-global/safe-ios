@@ -274,6 +274,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         if keys.isEmpty {
             let addOwnerVC = AddOwnerFirstViewController()
+            addOwnerVC.trackingEvent = .createSafeAddKey
             addOwnerVC.onSuccess = { [weak self] in
                 guard let self = self else { return }
                 self.navigationController?.popToViewController(self, animated: true)
@@ -300,6 +301,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 selectedKey: uiModel.selectedKey,
                 balancesLoader: balancesLoader
         )
+        keyPickerVC.trackingEvent = .createSafeSelectKey
         keyPickerVC.showsCloseButton = false
 
         // this way of returning the results from the view controller is just because
