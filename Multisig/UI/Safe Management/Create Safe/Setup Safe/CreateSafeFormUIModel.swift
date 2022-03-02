@@ -187,6 +187,7 @@ class CreateSafeFormUIModel {
     func deleteOwnerAt(_ index: Int) {
         guard index < owners.count else { return }
         owners.remove(at: index)
+        threshold = min(threshold, owners.count)
         sectionHeaders = makeSectionHeaders()
         didEdit()
     }
