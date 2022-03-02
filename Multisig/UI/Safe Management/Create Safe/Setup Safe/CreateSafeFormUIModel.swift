@@ -163,8 +163,8 @@ class CreateSafeFormUIModel {
         didEdit()
     }
 
-    func setChainId(_ chainId: String) {
-        guard chainId != chain.id, let newChain = Chain.by(chainId) else { return }
+    func setChain(_ scgChain: SCGModels.Chain) {
+        let newChain = Chain.createOrUpdate(scgChain)
         chain = newChain
         // needs updating because the chain prefix will change and potentially address name from address book
         updateOwners()
