@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SafeDeployingViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
-                <outlet property="containerView" destination="Fz7-nH-S0j" id="Zb0-8W-rMv"/>
+                <outlet property="containerView" destination="gHo-3D-eRz" id="vKr-W7-xBI"/>
                 <outlet property="desciptionLabel" destination="CIP-ib-6cv" id="Lcm-XC-fuk"/>
                 <outlet property="didYouKnowLabel" destination="50P-0o-7Kp" id="VLe-Pz-q8U"/>
                 <outlet property="imageView" destination="Fz7-nH-S0j" id="akz-4N-AGe"/>
@@ -39,8 +39,11 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="giI-ba-dxh">
                                     <rect key="frame" x="0.0" y="0.0" width="310" height="150.5"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fz7-nH-S0j">
-                                            <rect key="frame" x="0.0" y="0.0" width="358" height="92"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fz7-nH-S0j">
+                                            <rect key="frame" x="0.0" y="0.0" width="310" height="92"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="92" placeholder="YES" id="sCA-dC-zQr"/>
+                                            </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction submitted" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rn6-Av-315">
                                             <rect key="frame" x="0.0" y="130" width="310" height="20.5"/>

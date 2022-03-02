@@ -48,7 +48,7 @@
                         </label>
                     </subviews>
                 </stackView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="txJ-9T-WhM">
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="txJ-9T-WhM">
                     <rect key="frame" x="16" y="194.5" width="382" height="55"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="55" id="fPT-I4-u7c"/>
