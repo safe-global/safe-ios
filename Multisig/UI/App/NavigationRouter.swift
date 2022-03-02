@@ -60,4 +60,12 @@ extension NavigationRoute {
 
         return route
     }
+
+    static let deploymentFailedPath = "/deploymentFailed/"
+
+    static func deploymentFailed(safe: Safe) -> NavigationRoute {
+        var route = NavigationRoute(path: deploymentFailedPath)
+        route.info["safe"] = safe
+        return route
+    }
 }

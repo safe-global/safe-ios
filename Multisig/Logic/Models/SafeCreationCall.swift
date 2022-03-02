@@ -20,6 +20,16 @@ extension SafeCreationCall {
             return items.first
         }
     }
+
+    static func by(safe: Safe) -> [SafeCreationCall] {
+        dispatchPrecondition(condition: .onQueue(.main))
+        let context = App.shared.coreDataStack.viewContext
+        let fr = SafeCreationCall.fetchRequest()
+        fr.sortDescriptors = []
+        fr.fetchLimit = 1
+        fr.predicate = NSPredicate(format: "safeAddress = %@ AND chainId = %@", safe.address!, safe.chain!.id!)
+        return (try? context.fetch(fr)) ?? []
+    }
 }
 
 

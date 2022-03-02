@@ -14,25 +14,64 @@ class SafeDeployingViewController: UIViewController {
     @IBOutlet weak var didYouKnowLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var txButton: UIButton!
 
     var safe: Safe?
     var containerViewYConstraint: NSLayoutConstraint?
+    var txHash: String?
+
+    var timer: Timer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        safe = try? Safe.getSelected()
-        assert(safe != nil)
 
-        desciptionLabel.setStyle(.secondary)
-        didYouKnowLabel.setStyle(.primaryButton)
         statusLabel.setStyle(.headline2)
-        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(updateStatus), userInfo: nil, repeats: true)
+        desciptionLabel.setStyle(.secondary)
+        didYouKnowLabel.setStyle(.caption2.color(.button))
+        txButton.setText("View transaction in block explorer", .primary)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(updateStatus), name: .transactionDataInvalidated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .transactionDataInvalidated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .selectedSafeChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .selectedSafeUpdated, object: nil)
+
+        reloadData()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(updateStatus), userInfo: nil, repeats: true)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        timer?.invalidate()
+    }
+
+    @objc func reloadData() {
+        guard let safe = try? Safe.getSelected() else {
+            self.safe = nil
+            return
+        }
+        self.safe = safe
+
+        if safe.safeStatus == .deploying || safe.safeStatus == .indexing {
+            if let call = SafeCreationCall.by(safe: safe).first {
+                self.txHash = call.transactionHash
+            } else if let tx = CDEthTransaction.by(safeAddresses: [safe.addressValue.checksummed], chainId: safe.chain!.id!).first {
+                self.txHash = tx.ethTxHash
+            }
+        }
+
+        txButton.isHidden = txHash == nil
+        updateStatus()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        if let safe = safe, safe.safeStatus == .deploymentFailed {
+            DefaultNavigationRouter.shared.navigateAfterDelay(to: NavigationRoute.deploymentFailed(safe: safe))
+        }
     }
 
     override func viewWillLayoutSubviews() {
@@ -49,13 +88,19 @@ class SafeDeployingViewController: UIViewController {
     }
 
     @objc func updateStatus() {
-        statusLabel.pushTransition(0.5)
+        statusLabel.pushTransition(1)
         statusLabel.text = statusName()
     }
 
+    @IBAction func didTapViewTransaction(_ sender: Any) {
+        if let txHash = txHash, let chain = safe?.chain {
+            openInSafari(chain.browserURL(txHash: txHash))
+        }
+    }
+
     func statusName() -> String {
-        guard let safeStatus = safe?.safeStatus else { return "" }
-        switch safeStatus {
+        guard let safe = safe else { return "" }
+        switch safe.safeStatus {
         case .deploying:
             return "Deploying Smart Contract"
         case .indexing:

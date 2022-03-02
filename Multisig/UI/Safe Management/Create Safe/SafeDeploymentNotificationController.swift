@@ -10,22 +10,36 @@ import Foundation
 import UIKit
 
 class SafeDeploymentNotificationController {
-    private static let SAFE_CREATED_PREFIX = "SAFE_CREATED_"
-    
+
     static func sendNotification(safe: Safe) {
-        let safeName = safe.name ?? ""
-        let shortName = safe.chain!.shortName ?? ""
         let safeAddress = safe.addressValue.ellipsized()
+        let shortName = safe.chain!.shortName ?? ""
         let shortNamePrefix = shortName.isEmpty ? "" : "\(shortName):"
         let adressString = "\(shortNamePrefix)\(safeAddress)"
-        let chainName = safe.chain?.name ?? ""
-        
+        let chainName = safe.chain!.name ?? ""
+        let safeName = safe.name ?? safeAddress
+
+        let notificationId: String
         let content = UNMutableNotificationContent()
-        content.title = "Safe \"\(safeName)\" created!"
+        switch safe.safeStatus {
+        case .deployed:
+            content.title = #"Safe "\#(safeName)" created!"#
+            content.userInfo["type"] = "safeCreated"
+            notificationId = "safeCreated_\(safe.chain!.id!):\(safe.address!)"
+
+        case .deploymentFailed:
+            content.title = #"Safe "\#(safeName)" creation failed"#
+            content.userInfo["type"] = "safeCreationFailed"
+            notificationId = "safeCreationFailed_\(safe.chain!.id!):\(safe.address!)"
+
+        default:
+            return
+        }
+
         content.body = "\(adressString) (\(chainName))"
-        content.userInfo = ["type":"safeCreated", "safe": safe.address!,  "chainId": safe.chain!.id!]
+        content.userInfo["safe"] = safe.address!
+        content.userInfo["chainId"] = safe.chain!.id!
         
-        let notificationId = notificationId(safe: safe)
         // no trigger to deliver immediately
         let request = UNNotificationRequest(identifier: notificationId, content: content, trigger: nil)
         
@@ -37,30 +51,17 @@ class SafeDeploymentNotificationController {
             }
         }
     }
-    
-    static func dismissNotification(safe: Safe) {
-        let notificationId = notificationId(safe: safe)
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationId])
-    }
-    
-    private static func notificationId(safe: Safe) -> String {
-        "\(SAFE_CREATED_PREFIX)\(safe.chain!.shortName):\(safe.address!)"
-    }
-    
+
     static func isSafeCreatedNotification(_ info: [AnyHashable: Any]) -> Bool {
-        info["type"] as? String == "safeCreated"
+        guard let type = info["type"] as? String else { return false }
+        let known = ["safeCreated", "safeCreationFailed"].contains(type)
+        return known
     }
     
     static func handleSafeCreatedNotification(userInfo: [AnyHashable : Any]) {
         let address: String = userInfo["safe"] as! String
         let chainId: String = userInfo["chainId"] as! String
-        
-        guard let safe = Safe.by(address: address, chainId: chainId) else { return }
-        
-        if !safe.isSelected {
-            //FIXME: Remove after NavigationRoute.showAssets selects the given safe
-            safe.select()
-            NavigationRoute.showAssets(address, chainId: chainId)
-        }
+        let route = NavigationRoute.showAssets(address, chainId: chainId)
+        DefaultNavigationRouter.shared.navigate(to: route)
     }
 }

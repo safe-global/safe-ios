@@ -19,19 +19,29 @@ class SafeEntryTableViewCell: UITableViewCell {
         super.awakeFromNib()
         mainLabel.setStyle(.headline)
         detailLabel.setStyle(.tertiary)
+        setProgress(enabled: false)
     }
 
-    func setAddress(_ value: Address, prefix: String? = nil, deploying: Bool = false) {
-      
-        if deploying {
-            progressIndicator.isHidden = false
+    func setAddress(_ value: Address, grayscale: Bool = false) {
+        if grayscale {
             mainImageView.setAddressGrayscale(value.hexadecimal)
-            detailLabel.text = "Creating in progress..."
         } else {
-            progressIndicator.isHidden = true
             mainImageView.setAddress(value.hexadecimal)
-            detailLabel.text = prefixString(prefix: prefix) + value.ellipsized()
         }
+    }
+
+    func setProgress(enabled: Bool) {
+        progressIndicator.isHidden = !enabled
+    }
+
+    func setDetail(text: String, style: GNOTextStyle = .tertiary) {
+        detailLabel.text = text
+        detailLabel.setStyle(style)
+    }
+
+    func setDetail(address: Address, prefix: String?) {
+        detailLabel.text = prefixString(prefix: prefix) + address.ellipsized()
+        detailLabel.setStyle(.tertiary)
     }
 
     func setName(_ value: String) {

@@ -40,7 +40,7 @@ class TransactionEstimationController {
 
     typealias EstimateCompletion = (Result<(gas: Result<Sol.UInt64, Error>, transactionCount: Result<Sol.UInt64, Error>, gasPrice: Result<Sol.UInt256, Error>, ethCall: Result<Data, Error>, balance: Result<Sol.UInt256, Error>), Error>) -> Void
 
-    func estimateTransactionWithRpc(tx: EthTransaction, completion: @escaping EstimateCompletion) -> URLSessionTask? {
+    func estimateTransactionWithRpc(tx: EthTransaction, block: EthRpc1.BlockSpecifier = .tag(.pending), completion: @escaping EstimateCompletion) -> URLSessionTask? {
         // check if we have hint from the chain configuration about the gas price. For now support only fixed.
         // find the first 'fixed' gas price
         var fixedGasPrice: Sol.UInt256? = nil
@@ -59,14 +59,14 @@ class TransactionEstimationController {
 
         let usingLegacyGasApi = chain.id != nil && legacyEstimateGasChainIds.contains(chain.id!)
 
-        let getTransactionCount = EthRpc1.eth_getTransactionCount(address: EthRpc1.Data(tx.from ?? .init()), block: .tag(.pending))
+        let getTransactionCount = EthRpc1.eth_getTransactionCount(address: EthRpc1.Data(tx.from ?? .init()), block: block)
 
         let getPrice = EthRpc1.eth_gasPrice()
 
-        let ethCallNew = EthRpc1.eth_call(transaction: EthRpc1.Transaction(tx), block: .tag(.pending))
-        let ethCallLegacy = EthRpc1.eth_callLegacyApi(transaction: EthRpc1.EstimateGasLegacyTransaction(tx), block: .tag(.pending))
+        let ethCallNew = EthRpc1.eth_call(transaction: EthRpc1.Transaction(tx), block: block)
+        let ethCallLegacy = EthRpc1.eth_callLegacyApi(transaction: EthRpc1.EstimateGasLegacyTransaction(tx), block: block)
 
-        let getBalance = EthRpc1.eth_getBalance(address: EthRpc1.Data(tx.from ?? .init()), block: .tag(.pending))
+        let getBalance = EthRpc1.eth_getBalance(address: EthRpc1.Data(tx.from ?? .init()), block: block)
 
         let batch: JsonRpc2.BatchRequest
         let getEstimateRequest: JsonRpc2.Request

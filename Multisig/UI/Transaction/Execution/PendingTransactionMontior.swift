@@ -161,12 +161,8 @@ class ChainPendingTransactionMonitor {
                             LogService.shared.debug("Transaction monitor [chain=\(chainId)]: error getting receipt \(method) \(response) \(error)")
                             return nil
                         }
-                        guard let result = response.result else {
-                            return nil
-                        }
-
+                        guard let result = response.result else { return nil }
                         let receipt = try method.result(from: result)
-
                         return receipt
                     }
                 } catch {
@@ -209,8 +205,7 @@ class ChainPendingTransactionMonitor {
                             cdTxData.ethTx.status = SCGModels.TxStatus.success.rawValue
                             cdTxData.ethTx.dateExecutedAt = Date()
                         } else {
-                            // tx is not yet available or status is not recognized - keep the status the same
-                            // do nothing
+                            // unrecognized status, do nothing
                         }
 
                         cdTxData.ethTx.dateUpdatedAt = Date()

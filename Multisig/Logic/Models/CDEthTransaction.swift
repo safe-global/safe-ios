@@ -15,15 +15,15 @@ extension CDEthTransaction {
         return (try? context.fetch(CDEthTransaction.fetchRequest().all())) ?? []
     }
 
-    static func by(safeAddresses: [String], chainId: String) -> [CDEthTransaction]? {
+    static func by(safeAddresses: [String], chainId: String) -> [CDEthTransaction] {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
 
-        return try? safeAddresses.compactMap { address in
+        return (try? safeAddresses.compactMap { address in
             let fr = CDEthTransaction.fetchRequest().by(safeAddress: address, chainId: chainId)
             let items = try context.fetch(fr)
             return items.first
-        }
+        }) ?? []
     }
 }
 

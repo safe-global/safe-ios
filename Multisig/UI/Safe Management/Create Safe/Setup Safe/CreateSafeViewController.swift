@@ -243,7 +243,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         // get the selected network back
         selectNetworkVC.completion = { [weak self] chain in
             guard let self = self else { return }
-            self.uiModel.setChainId(chain.id)
+            self.uiModel.setChain(chain)
 
             // hide the screen
             self.navigationController?.popViewController(animated: true)
@@ -460,6 +460,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 if savedValues != initialValues {
                     self.uiModel.error = nil
                     self.uiModel.updateEthTransactionWithUserValues()
+                    self.uiModel.didEdit()
 
                     let changedFields = changedFieldTrackingIds.joined(separator: ",")
                     Tracker.trackEvent(.createSafeTxFeeEdited, parameters: ["fields": changedFields])
