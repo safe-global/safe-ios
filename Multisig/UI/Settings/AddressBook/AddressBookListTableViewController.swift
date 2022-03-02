@@ -16,6 +16,10 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         chainEntries.isEmpty
     }
 
+    var filterByChain: Chain?
+    var isPickerModeEnabled: Bool = false
+    var onSelect: (Address) -> Void = { _ in }
+
     convenience init() {
         self.init(namedClass: LoadableViewController.self)
     }
@@ -37,11 +41,13 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         emptyView.setText("There are no address book entries")
         emptyView.setImage(UIImage(named: "ico-no-address-book")!)
 
-        menuButton = UIBarButtonItem(image: UIImage.init(systemName: "chevron.down.circle"),
-                                     style: UIBarButtonItem.Style.plain,
-                                     target: self,
-                                     action: #selector(showOptionsMenu))
-        navigationItem.rightBarButtonItem = menuButton
+        if !isPickerModeEnabled {
+            menuButton = UIBarButtonItem(image: UIImage.init(systemName: "chevron.down.circle"),
+                                         style: UIBarButtonItem.Style.plain,
+                                         target: self,
+                                         action: #selector(showOptionsMenu))
+            navigationItem.rightBarButtonItem = menuButton
+        }
 
         for notification in [Notification.Name.selectedSafeChanged, .addressbookChanged] {
             NotificationCenter.default.addObserver(
@@ -124,7 +130,13 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
     }
     
     @objc override func reloadData() {
-        chainEntries = Chain.chainEntries()
+        if let filterByChain = filterByChain {
+            chainEntries = Chain.chainEntries().filter { entry in
+                entry.chain == filterByChain
+            }
+        } else {
+            chainEntries = Chain.chainEntries()
+        }
         tableView.reloadData()
         onSuccess()
     }
@@ -151,10 +163,16 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        showEdit(entry: chainEntries[indexPath.section].entries[indexPath.row])
+        let entry = chainEntries[indexPath.section].entries[indexPath.row]
+        if isPickerModeEnabled {
+            onSelect(entry.addressValue)
+        } else {
+            showEdit(entry: entry)
+        }
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard !isPickerModeEnabled else { return nil }
         let entry = chainEntries[indexPath.section].entries[indexPath.row]
 
         var actions = [UIContextualAction]()

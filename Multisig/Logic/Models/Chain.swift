@@ -45,6 +45,14 @@ extension Chain {
         return chain
     }
 
+    static func by(shortName: String) -> Chain? {
+        dispatchPrecondition(condition: .onQueue(.main))
+        let context = App.shared.coreDataStack.viewContext
+        let fr = Chain.fetchRequest().by(shortName: shortName)
+        guard let chain = try? context.fetch(fr).first else { return nil }
+        return chain
+    }
+
     @discardableResult
     static func createOrUpdate(_ chainInfo: SCGModels.Chain) -> Chain {
         guard let chain = Chain.by(chainInfo.id) else {
@@ -249,6 +257,13 @@ extension Chain {
 extension NSFetchRequest where ResultType == Chain {
     func all() -> Self {
         sortDescriptors = [NSSortDescriptor(keyPath: \Chain.id, ascending: true)]
+        return self
+    }
+
+    func by(shortName: String) -> Self {
+        sortDescriptors = []
+        predicate = NSPredicate(format: "shortName == %@", shortName)
+        fetchLimit = 1
         return self
     }
 }
