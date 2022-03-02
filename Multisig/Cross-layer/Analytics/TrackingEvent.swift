@@ -65,11 +65,7 @@ enum TrackingEvent: String, Trackable {
     case safeAddUd                                  = "screen_safe_add_ud"
     case networkSelect                              = "screen_chain_list"
     case tryDemo                                    = "user_try_demo"
-
-    case createSafe                                 = "screen_create_safe"
-    case createSafeDesktopApp                       = "user_create_safe_desktop_app"
-    case createSafeHelpArticle                      = "user_create_safe_help_article"
-
+    
     case transactionsQueued                         = "screen_transactions_queue"
     case transactionsHistory                        = "screen_transactions_history"
     case transactionsNoSafe                         = "screen_transactions_no_safe"
@@ -186,6 +182,34 @@ enum TrackingEvent: String, Trackable {
     case ledgerSelectDevice                         = "screen_select_ledger_nano_x_device"
     case ledgerSelectKey                            = "screen_select_ledger_nano_x_key"
     case ledgerEnterKeyName                         = "screen_ledger_nano_x_enter_name"
+    
+    // MARK: Create Safe
+    case createSafe                                 = "screen_create_safe"
+    case safeIntro                                  = "screen_create_safe_intro"
+    case createSafeOnePage                          = "screen_create_safe_one_page"
+    case createSafeSelectNetwork                    = "screen_select_network_from_create_safe"
+    case createSafeSelectKey                        = "screen_select_key_from_create_safe"
+    case createSafeEditTxFee                        = "screen_edit_tx_fee_from_create_safe"
+    case createSafeAddDeploymentKey                 = "screen_add_deployment_key_from_create_safe"
+    
+    case createSafeTxFeeEdited                      = "user_edit_exec_tx_fee_from_create_safe"
+    case createSafeKeyChanged                       = "user_select_exec_key_change_from_create_safe"
+    case createSafeDeploymentKeyAdded               = "user_deployment_key_added_from_create_safe"
+    
+    case createSafeTxSubmitted                      = "user_create_safe_tx_submitted"
+    case createSafeTxSuccedded                      = "user_create_safe_tx_succeded"
+    case createSafeTxFailed                         = "user_create_safe_tx_failed"
+    case createSafeRetry                            = "user_create_safe_retry"
+    case createSafeViewTxOnEtherscan                = "user_create_safe_view_tx_on_etherscan"
+    
+    case createSafeDesktopApp                       = "user_create_safe_desktop_app"
+    case createSafeHelpArticle                      = "user_create_safe_help_article"
+    
+    case createSafeFromOnboarding                   = "user_create_safe_from_onboarding"
+    case addSafeFromOnboarding                      = "user_add_safe_from_onboarding"
+    
+    case createSafeFromSwitchSafes                  = "user_create_safe_from_switch_safes"
+    case addSafeFromSwitchSafes                     = "user_add_safe_from_switch_safes"
 
     // MARK: Web Connections
     case webConnectionList                          = "screen_connect_to_web"
