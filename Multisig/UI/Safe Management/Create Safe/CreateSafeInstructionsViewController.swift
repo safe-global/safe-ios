@@ -16,6 +16,7 @@ class CreateSafeInstructionsViewController: InstructionsViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         title = "How does it work?"
 
         steps = [
@@ -28,5 +29,10 @@ class CreateSafeInstructionsViewController: InstructionsViewController {
         ]
 
         button.setText("OK, Let’s start", .filled)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.createSafeIntro)
     }
 }

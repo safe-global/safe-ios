@@ -318,6 +318,7 @@ class MainTabBarViewController: UITabBarController {
                 Safe.remove(safe: safe)
             },
             onRetry: { [weak self] in
+                Tracker.trackEvent(.createSafeRetry)
                 let createSafeVC = CreateSafeViewController()
                 createSafeVC.txHash = txHash
                 createSafeVC.chain = safe.chain

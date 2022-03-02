@@ -66,6 +66,11 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         uiModel.start()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.createSafeOnePage)
+    }
+    
     // MARK: - UI Model Events
 
     func updateUI(model: CreateSafeFormUIModel) {
@@ -234,6 +239,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         let selectNetworkVC = SelectNetworkViewController()
         selectNetworkVC.screenTitle = "Select Network"
         selectNetworkVC.descriptionText = "Choose a network on which to create your Safe"
+        selectNetworkVC.trackingEvent = .createSafeSelectNetwork
         // get the selected network back
         selectNetworkVC.completion = { [weak self] chain in
             guard let self = self else { return }
@@ -268,11 +274,13 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         if keys.isEmpty {
             let addOwnerVC = AddOwnerFirstViewController()
+            addOwnerVC.trackingEvent = .createSafeAddDeploymentKey
             addOwnerVC.onSuccess = { [weak self] in
                 guard let self = self else { return }
                 self.navigationController?.popToViewController(self, animated: true)
                 self.uiModel.selectedKey = self.uiModel.executionKeys().first
                 self.uiModel.didEdit()
+                Tracker.trackEvent(.createSafeDeploymentKeyAdded)
             }
             addOwnerVC.showsCloseButton = false
             show(addOwnerVC, sender: self)
@@ -294,6 +302,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 selectedKey: uiModel.selectedKey,
                 balancesLoader: balancesLoader
         )
+        keyPickerVC.trackingEvent = .createSafeSelectKey
         keyPickerVC.showsCloseButton = false
 
         // this way of returning the results from the view controller is just because
@@ -314,6 +323,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             if selectedKeyInfo != previousKey {
                 self.uiModel.didEdit()
+                Tracker.trackEvent(.createSafeKeyChanged)
             }
 
             self.navigationController?.popViewController(animated: true)
@@ -383,7 +393,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             self?.dismiss(animated: true)
         }
 
-        formVC.trackingEvent = .reviewExecutionEditFee
+        formVC.trackingEvent = .createSafeEditTxFee
 
         formVC.onSave = { [weak self, weak formModel] in
             // on save - update the parameters that were changed.
@@ -453,7 +463,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                     self.uiModel.didEdit()
 
                     let changedFields = changedFieldTrackingIds.joined(separator: ",")
-                    Tracker.trackEvent(.reviewExecutionFieldEdited, parameters: ["fields": changedFields])
+                    Tracker.trackEvent(.createSafeTxFeeEdited, parameters: ["fields": changedFields])
                 }
             })
         }

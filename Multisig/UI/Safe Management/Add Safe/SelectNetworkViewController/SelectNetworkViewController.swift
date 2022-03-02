@@ -17,6 +17,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
     private var model = NetworksListViewModel()
     var screenTitle: String!
     var descriptionText: String!
+    var trackingEvent: TrackingEvent?
 
     var completion: (SCGModels.Chain) -> Void = { _ in }
     convenience init() {
@@ -51,7 +52,11 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.networkSelect)
+        if let trackingEvent = trackingEvent {
+            Tracker.trackEvent(trackingEvent)
+        } else {
+            Tracker.trackEvent(.networkSelect)
+        }
     }
 
     override func reloadData() {

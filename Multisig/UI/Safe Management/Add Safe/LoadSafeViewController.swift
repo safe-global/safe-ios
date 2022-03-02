@@ -53,6 +53,7 @@ class LoadSafeViewController: UIViewController {
     }
 
     @IBAction private func didTapLoadSafe(_ sender: Any) {
+        Tracker.trackEvent(.addSafeFromOnboarding)
         let selectNetworkVC = SelectNetworkViewController()
         selectNetworkVC.screenTitle = "Load Gnosis Safe"
         selectNetworkVC.descriptionText = "Select network on which your Safe was created:"
@@ -71,6 +72,7 @@ class LoadSafeViewController: UIViewController {
     }
 
     @IBAction func didTapCreateSafe(_ sender: Any) {
+        Tracker.trackEvent(.createSafeFromOnboarding)
         let instructionsVC = CreateSafeInstructionsViewController()
         instructionsVC.onClose = { [unowned instructionsVC] in
             instructionsVC.dismiss(animated: true, completion: nil)

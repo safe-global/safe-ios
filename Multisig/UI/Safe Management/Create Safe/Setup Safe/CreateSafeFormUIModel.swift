@@ -601,6 +601,8 @@ class CreateSafeFormUIModel {
     }
 
     func userDidSubmit() {
+        let trackingParameters = ["chain_id": "\(chain.id)", "keyType": selectedKey!.keyType.trackingValue]
+        Tracker.trackEvent(.createSafeTxSubmitted, parameters: trackingParameters)
         update(to: .sending)
         let _ = send(completion: { [weak self] result in
             guard let self = self else { return }
@@ -608,9 +610,11 @@ class CreateSafeFormUIModel {
             switch result {
             case .failure(let error):
                 self.didSubmitFailed(error)
+                Tracker.trackEvent(.createSafeTxFailed, parameters: trackingParameters)
 
             case .success:
                 self.didSubmitSuccess()
+                Tracker.trackEvent(.createSafeTxSuccedded, parameters: trackingParameters)
             }
         })
     }
