@@ -60,6 +60,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             let chain = chain,
             let safeCreationCall = SafeCreationCall.by(txHashes: [txHash], chainId: chain.id!)?.first {
             uiModel.updateWithSafeCall(call: safeCreationCall)
+
         }
 
         uiModel.start()
@@ -144,8 +145,13 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         switch uiModel.sectionHeaders[indexPath.section].id {
         case .name:
-            let cell = tableView.basicCell(name: uiModel.name, indexPath: indexPath)
-            return cell
+            if let name = uiModel.name {
+                return tableView.basicCell(name: name, indexPath: indexPath)
+            } else {
+                let cell = tableView.basicCell(name: "", indexPath: indexPath)
+                cell.setTitle("Enter name", style: .secondary)
+                return cell
+            }
         case .network:
             let cell = networkCell(for: indexPath)
             return cell
@@ -231,7 +237,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         // get the selected network back
         selectNetworkVC.completion = { [weak self] chain in
             guard let self = self else { return }
-            self.uiModel.setChainId(chain.id)
+            self.uiModel.setChain(chain)
 
             // hide the screen
             self.navigationController?.popViewController(animated: true)
@@ -245,38 +251,10 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func addOwner() {
-        // add address using existing methods
-        let alertVC = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-
-        alertVC.addAction(UIAlertAction(title: "Paste from Clipboard", style: .default, handler: { [weak self] _ in
-            let text = Pasteboard.string
-            self?.didAddOwnerAddress(text)
-        }))
-
-        alertVC.addAction(UIAlertAction(title: "Scan QR Code", style: .default, handler: { [weak self] _ in
-            guard let self = self else { return }
-            let vc = QRCodeScannerViewController()
-            vc.scannedValueValidator = { value in
-                if let _ = try? Address.addressWithPrefix(text: value) {
-                    return .success(value)
-                } else {
-                    return .failure(GSError.error(description: "Can’t use this QR code",
-                            error: GSError.SafeAddressNotValid()))
-                }
-            }
-            vc.modalPresentationStyle = .overFullScreen
-            vc.delegate = self
-            vc.setup()
-            self.present(vc, animated: true, completion: nil)
-        }))
-
-        alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-
-        present(alertVC, animated: true, completion: nil)
-    }
-
-    func didAddOwnerAddress(_ string: String?) {
-        uiModel.addOwnerAddress(string)
+        let picker = SelectAddressViewController(chain: uiModel.chain, presenter: self) { [weak self] address in
+            self?.uiModel.addOwnerAddress(address)
+        }
+        present(picker, animated: true, completion: nil)
     }
 
     func selectConfirmationRow(_ rowIndex: Int) {
@@ -472,6 +450,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 if savedValues != initialValues {
                     self.uiModel.error = nil
                     self.uiModel.updateEthTransactionWithUserValues()
+                    self.uiModel.didEdit()
 
                     let changedFields = changedFieldTrackingIds.joined(separator: ",")
                     Tracker.trackEvent(.reviewExecutionFieldEdited, parameters: ["fields": changedFields])
@@ -870,15 +849,4 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         uiModel.userDidSubmit()
     }
 
-}
-
-extension CreateSafeViewController: QRCodeScannerViewControllerDelegate {
-    func scannerViewControllerDidCancel() {
-        dismiss(animated: true, completion: nil)
-    }
-
-    func scannerViewControllerDidScan(_ code: String) {
-        didAddOwnerAddress(code)
-        dismiss(animated: true, completion: nil)
-    }
 }

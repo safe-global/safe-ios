@@ -23,10 +23,23 @@ class MainTabBarViewController: UITabBarController {
     fileprivate var debounceTimer: Timer?
     fileprivate var presentingRequest: Bool = false
 
-    static fileprivate let ASSETS_TAB_INDEX = 0
-    static fileprivate let BALANCES_SEGMENT_INDEX = 0
-    static fileprivate let SETTINGS_TAB_INDEX = 3
-    static fileprivate let APP_SETTINGS_SEGMENT_INDEX = 0
+    enum Path {
+        static let assets: IndexPath = [0]
+        static let balances: IndexPath = assets.appending(0)
+        static let collectibles: IndexPath = assets.appending(1)
+
+        static let transactions: IndexPath = [1]
+        static let queue: IndexPath = transactions.appending(0)
+        static let history: IndexPath = transactions.appending(1)
+
+        static let dapps: IndexPath = [2]
+
+        static let settings: IndexPath = [3]
+        static let appSettings: IndexPath = settings.appending(0)
+        static let safeSettings: IndexPath = settings.appending(1)
+
+        static let count = [assets, transactions, dapps, settings].count
+    }
 
     lazy var balancesTabVC: BalancesUINavigationController = {
         balancesTabViewController()
@@ -40,7 +53,7 @@ class MainTabBarViewController: UITabBarController {
         dappsTabViewController()
     }()
 
-    lazy var settingsTabVC: UIViewController = {
+    lazy var settingsTabVC: SettingsUINavigationController = {
         settingsTabViewController()
     }()
 
@@ -118,7 +131,11 @@ class MainTabBarViewController: UITabBarController {
         noSafesVC.safeDepolyingViewContoller = ViewControllerFactory.ribbonWith(viewController: deploySafeVC)
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
         let balances = balancesTabViewController(
-            root: tabRoot, title: "Assets", image: UIImage(named: "tab-icon-balances.pdf")!, tag: 0)
+            root: tabRoot,
+            title: "Assets",
+            image: UIImage(named: "tab-icon-balances.pdf")!,
+            tag: Path.balances[0]
+        )
         balances.assetsViewController = assetsVC
 
         return balances
@@ -137,7 +154,7 @@ class MainTabBarViewController: UITabBarController {
             queuedTransactionsViewController,
             historyTransactionsViewController
         ]
-        segmentVC.selectedIndex = 0
+        segmentVC.selectedIndex = Path.queue.last
 
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
@@ -153,7 +170,10 @@ class MainTabBarViewController: UITabBarController {
         transactionsSegementControl = segmentVC
 
         return tabViewController(
-            root: tabRoot, title: "Transactions", image: UIImage(named: "tab-icon-transactions")!, tag: 1)
+            root: tabRoot,
+            title: "Transactions",
+            image: UIImage(named: "tab-icon-transactions")!,
+            tag: Path.transactions[0])
     }
 
     private func dappsTabViewController() -> UIViewController {
@@ -167,10 +187,15 @@ class MainTabBarViewController: UITabBarController {
         noSafesVC.safeDepolyingViewContoller = ViewControllerFactory.ribbonWith(viewController: deploySafeVC)
 
         let tabRoot = HeaderViewController(rootViewController: noSafesVC)
-        return tabViewController(root: tabRoot, title: "dApps", image: UIImage(named: "tab-icon-dapps")!, tag: 2)
+        return tabViewController(
+            root: tabRoot,
+            title: "dApps",
+            image: UIImage(named: "tab-icon-dapps")!,
+            tag: Path.dapps[0]
+        )
     }
 
-    private func settingsTabViewController() -> UIViewController {
+    private func settingsTabViewController() -> SettingsUINavigationController {
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
         let deploySafeVC = SafeDeployingViewController()
@@ -191,11 +216,16 @@ class MainTabBarViewController: UITabBarController {
             appSettingsVC,
             noSafesVC
         ]
-        segmentVC.selectedIndex = Self.APP_SETTINGS_SEGMENT_INDEX
+        segmentVC.selectedIndex = Path.appSettings.last
         let ribbonVC = RibbonViewController(rootViewController: segmentVC)
         
         let tabRoot = HeaderViewController(rootViewController: ribbonVC)
-        let settingsTabVC = settingsTabViewController(root: tabRoot, title: "Settings", image: UIImage(named: "tab-icon-settings")!, tag: Self.SETTINGS_TAB_INDEX)
+        let settingsTabVC = settingsTabViewController(
+            root: tabRoot,
+            title: "Settings",
+            image: UIImage(named: "tab-icon-settings")!,
+            tag: Path.settings[0]
+        )
         settingsTabVC.segmentViewController = segmentVC
         settingsTabVC.appSettingsViewController = appSettingsVC
         return settingsTabVC
@@ -231,13 +261,11 @@ class MainTabBarViewController: UITabBarController {
     }
 
     @objc private func showQueuedTransactions() {
-        selectedIndex = 1
-        transactionsSegementControl?.selectedIndex = 0
+        switchTo(indexPath: Path.queue)
     }
 
     @objc private func showHistoryTransactions() {
-        selectedIndex = 1
-        transactionsSegementControl?.selectedIndex = 1
+        switchTo(indexPath: Path.history)
     }
     
     @objc private func updateTabs() {
@@ -252,43 +280,53 @@ class MainTabBarViewController: UITabBarController {
     
     @objc private func handleSafeCreated(_ notification: Notification) {
         // get mode, txHash, and safe if creation successful from the notification
-        if
-            let status = notification.userInfo?["success"] as? Bool,
-            let chain = notification.userInfo?["chain"] as? Chain,
-            let safe = notification.userInfo?["safe"] as? Safe {
-            
-            let txHash = notification.userInfo?["txHash"] as? String
-            
-            var mode: SafeDeploymentFinishedViewController.Mode
-            if status {
-                mode = .success
-            } else {
-                mode = .failure
-            }
-
-            if mode == .failure || safe.isSelected {
-                SafeDeploymentFinishedViewController.present(
-                    presenter: self,
-                    mode: mode,
-                    chain: chain,
-                    txHash: txHash,
-                    safe: safe,
-                    onClose: {
-                        if mode == .failure {
-                            Safe.remove(safe: safe)
-                        }
-                    },
-                    onRetry: { [weak self] in
-                        let createSafeVC = CreateSafeViewController()
-                        createSafeVC.txHash = txHash
-                        createSafeVC.chain = chain
-                        let vc = ViewControllerFactory.modal(viewController: createSafeVC)
-                        self?.present(vc, animated: true)
-                    })
+        if let isSuccess = notification.userInfo?["success"] as? Bool,
+           let safe = notification.userInfo?["safe"] as? Safe {
+            if safe.isSelected && presentedViewController == nil {
+                if isSuccess {
+                    presentSuccessDeployment(safe: safe)
+                } else {
+                    presentFailedDeployment(safe: safe)
+                }
             } else {
                 SafeDeploymentNotificationController.sendNotification(safe: safe)
             }
         }
+    }
+
+    private func presentSuccessDeployment(safe: Safe) {
+        SafeDeploymentFinishedViewController.present(
+            presenter: self,
+            mode: .success,
+            chain: safe.chain!,
+            txHash: nil,
+            safe: safe,
+            onClose: { },
+            onRetry: { })
+    }
+
+    private func presentFailedDeployment(safe: Safe) {
+        let params = SafeCreationCall.by(safe: safe).first
+        let txHash = params?.transactionHash
+        SafeDeploymentFinishedViewController.present(
+            presenter: self,
+            mode: .failure,
+            chain: safe.chain!,
+            txHash: txHash,
+            safe: safe,
+            onClose: {
+                Safe.remove(safe: safe)
+            },
+            onRetry: { [weak self] in
+                let createSafeVC = CreateSafeViewController()
+                createSafeVC.txHash = txHash
+                createSafeVC.chain = safe.chain
+                createSafeVC.onClose = { [weak self] in
+                    self?.dismiss(animated: true, completion: nil)
+                }
+                let vc = ViewControllerFactory.modal(viewController: createSafeVC)
+                self?.present(vc, animated: true)
+            })
     }
     
     private func showTransactionDetails(safeTxHash: Data) {
@@ -308,6 +346,8 @@ extension MainTabBarViewController: NavigationRouter {
             return true
         } else if route.path == NavigationRoute.showAssets().path {
             return true
+        } else if route.path == NavigationRoute.deploymentFailedPath {
+            return true
         }
 
         return false
@@ -315,21 +355,79 @@ extension MainTabBarViewController: NavigationRouter {
 
     func navigate(to route: NavigationRoute) {
         if route.path.starts(with: "/settings/") {
-            guard let settingsNav = settingsTabVC as? SettingsUINavigationController,
-                  let segmentVC = settingsNav.segmentViewController,
-                  let appSettingsVC = settingsNav.appSettingsViewController else {
-                return
-            }
-            selectedIndex = Self.SETTINGS_TAB_INDEX
-            segmentVC.selectedIndex = Self.APP_SETTINGS_SEGMENT_INDEX
-            appSettingsVC.navigateAfterDelay(to: route)
+            switchTo(indexPath: Path.appSettings)
 
+            if let appSettingsVC = settingsTabVC.appSettingsViewController {
+                appSettingsVC.navigateAfterDelay(to: route)
+            }
         } else if route.path == NavigationRoute.showAssets().path {
-            guard let assetsVC = balancesTabVC.assetsViewController,
-                  !assetsVC.segmentVC.segmentItems.isEmpty else { return }
-            selectedIndex = Self.ASSETS_TAB_INDEX
-            assetsVC.segmentVC.selectedIndex = Self.BALANCES_SEGMENT_INDEX
+            // if there is address and chain id, then switch to that safe.
+            //      if such safe doesn't exist, then do nothing.
+            // if no parameters passed, just switch to balances.
+            if let rawAddress = route.info["address"] as? String,
+               let rawChainId = route.info["chainId"] as? String {
+                guard let safe = Safe.by(address: rawAddress, chainId: rawChainId) else {
+                    // don't navigate, exit because the route can't work.
+                    return
+                }
+                if !safe.isSelected {
+                    safe.select()
+                }
+            }
+            switchTo(indexPath: Path.balances)
+        } else if route.path == NavigationRoute.deploymentFailedPath {
+            presentFailedDeployment(safe: route.info["safe"] as! Safe)
         }
+    }
+
+    func switchTo(indexPath: IndexPath) {
+        var indexPath = indexPath
+
+        guard !indexPath.isEmpty else { return }
+        let index = indexPath.removeFirst()
+
+        guard index < Path.count else { return }
+        switchTab(index: index)
+
+        guard !indexPath.isEmpty else { return }
+        let segment = indexPath.removeFirst()
+
+        switch index {
+        case Path.assets.first:
+            switchAssets(segment: segment)
+
+        case Path.transactions.first:
+            switchTransactions(segment: segment)
+
+        case Path.settings.first:
+            switchSettings(segment: segment)
+
+        default:
+            break
+        }
+    }
+
+    func switchTransactions(segment: Int) {
+        if let segmentVC = transactionsSegementControl, segment < segmentVC.segmentItems.count {
+            segmentVC.selectedIndex = segment
+        }
+    }
+
+    func switchTab(index: Int) {
+        guard let vcs = viewControllers, index < vcs.count, index != selectedIndex else { return }
+        selectedIndex = index
+    }
+
+    func switchAssets(segment: Int) {
+        guard let vc = balancesTabVC.assetsViewController, segment < vc.segmentVC.segmentItems.count else { return }
+        vc.segmentVC.selectedIndex = segment
+    }
+
+    func switchSettings(segment: Int) {
+        guard let segmentVC = settingsTabVC.segmentViewController, segment < segmentVC.segmentItems.count else {
+            return
+        }
+        segmentVC.selectedIndex = segment
     }
 }
 
@@ -415,7 +513,14 @@ extension MainTabBarViewController: WebConnectionRequestObserver {
             self?.dismiss(animated: true, completion: completion)
         }
         let vc = ViewControllerFactory.modal(viewController: controller)
-        present(vc, animated: true)
+
+        if let existing = presentedViewController {
+            existing.dismiss(animated: true) { [unowned self] in
+                present(vc, animated: true)
+            }
+        } else {
+            present(vc, animated: true)
+        }
     }
 }
 

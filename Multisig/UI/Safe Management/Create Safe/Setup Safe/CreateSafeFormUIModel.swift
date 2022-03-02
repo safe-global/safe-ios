@@ -20,7 +20,7 @@ protocol CreateSafeFormUIModelDelegate: AnyObject {
 }
 
 class CreateSafeFormUIModel {
-    var name: String!
+    var name: String?
     var chain: Chain!
     var owners: [CreateSafeFormOwner] = []
     var threshold: Int = 0
@@ -104,6 +104,7 @@ class CreateSafeFormUIModel {
         }
 
         sectionHeaders = makeSectionHeaders()
+
         delegate?.updateUI(model: self)
     }
 
@@ -115,7 +116,7 @@ class CreateSafeFormUIModel {
 
     var isCreateEnabled: Bool {
         state == .ready &&
-        name != nil && !name.isEmpty &&
+        name != nil && !name!.isEmpty &&
         chain != nil &&
         !owners.isEmpty &&
         threshold > 0 && threshold <= owners.count &&
@@ -148,11 +149,11 @@ class CreateSafeFormUIModel {
     // MARK: - Setup
     
     private func setup() {
-        // select default chain
-        name = "My Safe"
-        chain = Chain.mainnetChain()
-        owners = []
-        threshold = 1
+        if creationParameters == nil {
+            chain = Chain.mainnetChain()
+            owners = []
+            threshold = 1
+        }
         transaction = handleError { try makeEthTransaction() }
         sectionHeaders = makeSectionHeaders()
     }
@@ -162,20 +163,15 @@ class CreateSafeFormUIModel {
         didEdit()
     }
 
-    func setChainId(_ chainId: String) {
-        guard chainId != chain.id, let newChain = Chain.by(chainId) else { return }
+    func setChain(_ scgChain: SCGModels.Chain) {
+        let newChain = Chain.createOrUpdate(scgChain)
         chain = newChain
         // needs updating because the chain prefix will change and potentially address name from address book
         updateOwners()
         didEdit()
     }
 
-    func addOwnerAddress(_ string: String?) {
-        guard let string = string, let address = Address(string, checksummed: true) else {
-            let error = "Value '\(string?.prefix(50) ?? "")' seems to have a typo or is not a valid address. Please try again."
-            App.shared.snackbar.show(message: error)
-            return
-        }
+    func addOwnerAddress(_ address: Address) {
         guard !owners.contains(where: { owner in owner.address == address }) else {
             let error = "The owner \(address) is already in the list. Please add a different owner."
             App.shared.snackbar.show(message: error)
@@ -191,6 +187,7 @@ class CreateSafeFormUIModel {
     func deleteOwnerAt(_ index: Int) {
         guard index < owners.count else { return }
         owners.remove(at: index)
+        threshold = min(threshold, owners.count)
         sectionHeaders = makeSectionHeaders()
         didEdit()
     }
@@ -241,16 +238,19 @@ class CreateSafeFormUIModel {
         let safeL1Address = try address(of: .GnosisSafe, version: deploymentVersion)
         let safeL2Address = try address(of: .GnosisSafeL2, version: deploymentVersion)
         singletonAddress = chain.l2 ? safeL2Address : safeL1Address
+        try generateSalt()
+    }
 
-        // generate salt
-        var saltBytes: [UInt8] = .init(repeating: 0, count: 32)
-        let randomSaltResult = SecRandomCopyBytes(kSecRandomDefault, saltBytes.count, &saltBytes)
-
-        guard randomSaltResult == errSecSuccess else {
-            throw CreateSafeError(errorCode: -6, message: "Failed to create random salt (sec error \(randomSaltResult))")
-        }
-
+    func generateSalt() throws {
         do {
+            // generate salt
+            var saltBytes: [UInt8] = .init(repeating: 0, count: 32)
+            let randomSaltResult = SecRandomCopyBytes(kSecRandomDefault, saltBytes.count, &saltBytes)
+
+            guard randomSaltResult == errSecSuccess else {
+                throw CreateSafeError(errorCode: -6, message: "Failed to create random salt (sec error \(randomSaltResult))")
+            }
+
             saltNonce = try Sol.UInt256(Data(saltBytes))
         } catch {
             throw CreateSafeError(errorCode: -7, message: "Failed to create random salt from bytes", cause: error)
@@ -263,6 +263,10 @@ class CreateSafeFormUIModel {
         } else {
             // No need to recreate transaction parameters
             // because they are already created from creationParameters when this screen is initialized
+
+            if saltNonce == nil {
+                try generateSalt()
+            }
         }
 
         // get setupFunction from safe
@@ -340,7 +344,6 @@ class CreateSafeFormUIModel {
             ethTx.nonce = userTxParameters.nonce ?? ethTx.nonce
 
             self.transaction = ethTx
-            didEdit()
 
         case var ethTx as Eth.TransactionEip1559:
             ethTx.fee.gas = userTxParameters.gas ?? ethTx.fee.gas
@@ -349,7 +352,6 @@ class CreateSafeFormUIModel {
             ethTx.nonce = userTxParameters.nonce ?? ethTx.nonce
 
             self.transaction = ethTx
-            didEdit()
 
         default:
             break
@@ -416,7 +418,7 @@ class CreateSafeFormUIModel {
         )
 
         estimationTask?.cancel()
-        estimationTask = estimationController.estimateTransactionWithRpc(tx: transaction) { [weak self] result in
+        estimationTask = estimationController.estimateTransactionWithRpc(tx: transaction, block: .tag(.latest)) { [weak self] result in
             guard let self = self else { return }
 
             do {
@@ -533,7 +535,7 @@ class CreateSafeFormUIModel {
 
     var thresholdText: String {
         if owners.isEmpty {
-            return "0 out of 0"
+            return "1 out of 1"
         } else {
             return "\(threshold) out of \(owners.count)"
         }
@@ -673,8 +675,8 @@ class CreateSafeFormUIModel {
         let context = App.shared.coreDataStack.viewContext
 
         let params: SafeCreationCall = SafeCreationCall(context: context)
-        params.deployerAddress = selectedKey?.address.checksummed
         params.chainId = chain.id
+        params.deployerAddress = selectedKey?.address.checksummed
         params.fallbackHandlerAddress = Address(fallbackHandlerAddress)?.checksummed
         params.name = name
         params.owners = owners.map(\.address.checksummed).joined(separator: ",")
@@ -682,21 +684,25 @@ class CreateSafeFormUIModel {
         params.safeAddress = futureSafeAddress!.checksummed
         params.saltNonce = String(saltNonce)
         params.singletonAddress = Address(singletonAddress)?.checksummed
+        params.threshold = String(threshold)
+
+        // these two are for debugging purposes
         params.transactionData = transaction.data.storage
         params.transactionHash = transaction.txHash().storage.storage.toHexStringWithPrefix()
+
         params.version = deploymentVersion.rawValue
 
         App.shared.coreDataStack.saveContext()
     }
 
     func updateWithSafeCall(call: SafeCreationCall) {
+        if let chainId = call.chainId {
+            chain = Chain.by(chainId)
+        }
+
         if let deployerAddressString = call.deployerAddress,
            let address = Address(deployerAddressString) {
             selectedKey = try? KeyInfo.firstKey(address: address)
-        }
-
-        if let chainId = call.chainId {
-            chain = Chain.by(chainId)
         }
 
         if let fallbackHandlerAddressString = call.fallbackHandlerAddress,
@@ -717,15 +723,20 @@ class CreateSafeFormUIModel {
             proxyFactoryAddress = Sol.Address.init(maybeData: address.data32)
         }
 
-        futureSafeAddress = call.safeAddress.flatMap(Address.init)
-        saltNonce = call.saltNonce.flatMap(Sol.UInt256.init)
+        // we re-generate the salt because otherwise the same safe address will be produced.
+        // This leads to the reverted transaction, hence the estimation will fail and user needs to
+        // refresh or change safe parameters to re-generate the salt.
+        try? generateSalt()
 
         if let singletonAddressString = call.singletonAddress,
            let address = Address(singletonAddressString) {
             singletonAddress = Sol.Address.init(maybeData: address.data32)
         }
 
+        threshold = call.threshold.flatMap(Int.init) ?? 1
+
         deploymentVersion = call.version.flatMap(SafeDeployments.Safe.Version.init(rawValue:))
+
         creationParameters = call
     }
 
@@ -748,6 +759,7 @@ class CreateSafeFormUIModel {
 
         assert(transaction.hash != nil)
         assert(futureSafeAddress != nil)
+        assert(name != nil)
 
         // create a safe
         guard let address = futureSafeAddress, let txHash = transaction.hash else {
@@ -756,9 +768,9 @@ class CreateSafeFormUIModel {
         Safe.create(
             address: address.checksummed,
             version: "1.3.0",
-            name: name,
+            name: name!,
             chain: chain,
-            selected: true,
+            selected: false,
             status: .deploying
         )
 

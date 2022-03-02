@@ -20,13 +20,9 @@ class SafeBarView: UINibView {
 
     private(set) var prefix: String?
     private(set) var address: Address!
-    private(set) var isDeploying: Bool = false
 
     override func commonInit() {
         super.commonInit()
-        textLabel.setStyle(.headline)
-        detailLabel.setStyle(.tertiary)
-        accessoryLabel.setStyle(.tertiary)
         setReadOnly(false)
         addTarget(self, action: #selector(didTouchDown(sender:forEvent:)), for: .touchDown)
         addTarget(self, action: #selector(didTouchUp(sender:forEvent:)), for: [.touchUpInside, .touchUpOutside, .touchCancel])
@@ -38,12 +34,31 @@ class SafeBarView: UINibView {
         
     }
 
-    func setAddress(_ value: Address, prefix: String?, isDepolying: Bool = false) {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        textLabel.setStyle(.headline)
+        detailLabel.setStyle(.tertiary)
+        accessoryLabel.setStyle(.tertiary)
+    }
+
+    func setAddress(_ value: Address, prefix: String?) {
         self.address = value
         self.prefix = prefix
-        self.isDeploying = isDepolying
         identiconView.setAddress(value.hexadecimal)
         displayAddress()
+    }
+
+    func setAddress(_ value: Address, grayscale: Bool) {
+        self.address = value
+        if grayscale {
+            identiconView.setAddressGrayscale(value.hexadecimal)
+        }
+        displayAddress()
+    }
+
+    func setDetail(text: String, style: GNOTextStyle = .tertiary) {
+        detailLabel.text = text
+        detailLabel.setStyle(style)
     }
 
     func setName(_ value: String) {
@@ -75,7 +90,8 @@ class SafeBarView: UINibView {
 
     @objc func displayAddress() {
         guard let address = address else { return }
-        detailLabel.text = isDeploying ? "Creating in progress..." : prefixString() + address.ellipsized()
+        detailLabel.setStyle(.tertiary)
+        detailLabel.text = prefixString() + address.ellipsized()
     }
 
     private func prefixString() -> String {

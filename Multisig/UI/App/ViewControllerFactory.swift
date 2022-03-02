@@ -81,7 +81,7 @@ enum ViewControllerFactory {
         let navController = UINavigationController(rootViewController: viewController)
         if halfScreen, #available(iOS 15.0, *) {
             if let sheet = navController.sheetPresentationController {
-                sheet.detents = [.medium()]
+                sheet.detents = [.medium(), .large()]
             }
         }
         return navController

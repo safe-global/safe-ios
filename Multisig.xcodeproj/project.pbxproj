@@ -338,6 +338,7 @@
 		0A8CDD5327A85C0D0020066C /* TransactionExecutionLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8CDD5227A85C0D0020066C /* TransactionExecutionLookup.swift */; };
 		0A9275C525ADDEE700755881 /* CollecitbleSectionSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9275C425ADDEE700755881 /* CollecitbleSectionSeparatorView.swift */; };
 		0A9275D525ADDF1500755881 /* CollecitbleSectionSeparatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9275D425ADDF1500755881 /* CollecitbleSectionSeparatorView.xib */; };
+		0A930F4D27CD4BC600866074 /* SelectAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A930F4C27CD4BC600866074 /* SelectAddressViewController.swift */; };
 		0A9366A5278EE8FE001918A9 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9366A4278EE8FE001918A9 /* FormViewController.swift */; };
 		0A9366AC278F0175001918A9 /* ContainerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9366AA278F0175001918A9 /* ContainerTableViewCell.swift */; };
 		0A9366AD278F0175001918A9 /* ContainerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9366AB278F0175001918A9 /* ContainerTableViewCell.xib */; };
@@ -1078,6 +1079,7 @@
 		0A8CDD5227A85C0D0020066C /* TransactionExecutionLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionExecutionLookup.swift; sourceTree = "<group>"; };
 		0A9275C425ADDEE700755881 /* CollecitbleSectionSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollecitbleSectionSeparatorView.swift; sourceTree = "<group>"; };
 		0A9275D425ADDF1500755881 /* CollecitbleSectionSeparatorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollecitbleSectionSeparatorView.xib; sourceTree = "<group>"; };
+		0A930F4C27CD4BC600866074 /* SelectAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAddressViewController.swift; sourceTree = "<group>"; };
 		0A9366A4278EE8FE001918A9 /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
 		0A9366AA278F0175001918A9 /* ContainerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerTableViewCell.swift; sourceTree = "<group>"; };
 		0A9366AB278F0175001918A9 /* ContainerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContainerTableViewCell.xib; sourceTree = "<group>"; };
@@ -1873,6 +1875,7 @@
 				0A0391C727C565D3003C871A /* IconButtonTableViewCell.xib */,
 				0A8CDD4827A5AE860020066C /* CreateSafeFormUIModel.swift */,
 				0A8CDD4427A5A5C70020066C /* CreateSafeViewController.swift */,
+				0A930F4C27CD4BC600866074 /* SelectAddressViewController.swift */,
 				0A8CDD4527A5A5C70020066C /* CreateSafeViewController.xib */,
 				0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */,
 				0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */,
@@ -3306,25 +3309,25 @@
 		B0D61BC51DC924AF458E9FBB /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				557D80A4270B32F80036D6D0 /* SignatureRequestViewController.swift */,
-				0ADD0FA927C1381F0099DF7D /* TrackingEvent+WebConnection.swift */,
-				557D80A5270B32F80036D6D0 /* SignatureRequestContentViewController.xib */,
-				0AFD9DCB27BFE18800011CF1 /* SignatureRequestContentViewController.swift */,
-				935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */,
-				0ADD0FB127C148880099DF7D /* DatePickerViewController.swift */,
-				0ADD0FB227C148880099DF7D /* DatePickerViewController.xib */,
 				B0D61352D30ACB7D294C526D /* ActionPanelView.swift */,
 				B0D61FB05FC8C6D45FAC1246 /* ActionPanelView.xib */,
+				0ADD0FB127C148880099DF7D /* DatePickerViewController.swift */,
+				0ADD0FB227C148880099DF7D /* DatePickerViewController.xib */,
 				B0D61754C5CD1AFD95AF4A6D /* DesktopPairingHeaderView.swift */,
 				B0D6146BF81C620C26123C67 /* DesktopPairingHeaderView.xib */,
-				0AF5C66A27BAA74300BFEA52 /* WebConnectionTableViewCell.xib */,
-				0AF5C66B27BAA74300BFEA52 /* WebConnectionTableViewCell.swift */,
+				0AFD9DCD27BFF01000011CF1 /* SendTransactionContentViewController.swift */,
+				B0D61BDFEADB74805D9221DB /* SendTransactionRequestViewController.swift */,
+				0AFD9DCB27BFE18800011CF1 /* SignatureRequestContentViewController.swift */,
+				557D80A5270B32F80036D6D0 /* SignatureRequestContentViewController.xib */,
+				557D80A4270B32F80036D6D0 /* SignatureRequestViewController.swift */,
+				0ADD0FA927C1381F0099DF7D /* TrackingEvent+WebConnection.swift */,
 				0AFD9DC927BFDF0200011CF1 /* WebConnectionContainerViewController.swift */,
 				B0D610E20B243B7AEB248725 /* WebConnectionContainerViewController.xib */,
+				935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */,
 				B0D61A4428032BDABE9C94CE /* WebConnectionRequestViewController.swift */,
 				B0D613C0E251EC2E801E8818 /* WebConnectionsViewController.swift */,
-				B0D61BDFEADB74805D9221DB /* SendTransactionRequestViewController.swift */,
-				0AFD9DCD27BFF01000011CF1 /* SendTransactionContentViewController.swift */,
+				0AF5C66B27BAA74300BFEA52 /* WebConnectionTableViewCell.swift */,
+				0AF5C66A27BAA74300BFEA52 /* WebConnectionTableViewCell.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -3877,6 +3880,7 @@
 				0A2F1A76267A5E5B00C09F03 /* BalanceCell.swift in Sources */,
 				04C97AB0246EEF1600EBA0F1 /* BrowserLink.swift in Sources */,
 				0A106287248A885E00C1EE54 /* ERC20Metadata.swift in Sources */,
+				0A930F4D27CD4BC600866074 /* SelectAddressViewController.swift in Sources */,
 				0AF1C8952541AD4E00E28669 /* ScrollableDataErrorView.swift in Sources */,
 				0A451BF0252DDB49001DB7D2 /* NoDataView.swift in Sources */,
 				0A04508B278E283D00650F71 /* TransactionExecutionController.swift in Sources */,

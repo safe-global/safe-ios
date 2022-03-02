@@ -18,6 +18,16 @@ extension UIImageView {
         let provider = BlockiesImageProvider(seed: value, width: width, height: height)
         let processor = RoundCornerImageProcessor(radius: .widthFraction(0.5))
         kf.setImage(with: provider, options: [.processor(processor)])
+        self.alpha = 1.0
+    }
+    
+    /// Sets the image to a blockies pattern generated from the `value`.
+    /// - Parameter value: address to use. Must be hexadecimal and lowercased.
+    func setAddressGrayscale(_ value: String, width: CGFloat = 250, height: CGFloat = 250) {
+        let provider = BlockiesImageProvider(seed: value, width: width, height: height)
+        let processor = RoundCornerImageProcessor(radius: .widthFraction(0.5)) |> BlackWhiteProcessor()
+        kf.setImage(with: provider, options: [.processor(processor)])
+        self.alpha = 0.3
     }
 
     /// Loads the image from URL or sets a placeholder image instead.
