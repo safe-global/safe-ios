@@ -16,9 +16,6 @@ class SafeDeploymentFinishedViewController: UIViewController {
     @IBOutlet weak var actionButton: UIButton!
     @IBOutlet weak var linkButton: UIButton!
     @IBOutlet weak var labelContainer: UIStackView!
-    
-    @IBOutlet weak var labelContainerTop: NSLayoutConstraint!
-    @IBOutlet weak var statusImageTop: NSLayoutConstraint!
 
     enum Mode {
         case success
@@ -62,9 +59,6 @@ class SafeDeploymentFinishedViewController: UIViewController {
             
             actionButton.setText("Retry", .filled)
             linkButton.setText("View on block explorer", .plain)
-
-            labelContainerTop.constant = 32
-            view.setNeedsUpdateConstraints()
         }
     }
 
