@@ -26,6 +26,12 @@ struct GNOTextStyle: Hashable {
         t.weight = value
         return t
     }
+
+    func size(_ value: CGFloat) -> Self {
+        var t = self
+        t.size = value
+        return t
+    }
 }
 
 extension GNOTextStyle {

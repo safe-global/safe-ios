@@ -25,9 +25,9 @@ class SafeDeployingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        desciptionLabel.setStyle(.secondary)
-        didYouKnowLabel.setStyle(.primaryButton)
         statusLabel.setStyle(.headline2)
+        desciptionLabel.setStyle(.secondary)
+        didYouKnowLabel.setStyle(.caption2.color(.button))
         txButton.setText("View transaction in block explorer", .primary)
 
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .transactionDataInvalidated, object: nil)
@@ -88,7 +88,7 @@ class SafeDeployingViewController: UIViewController {
     }
 
     @objc func updateStatus() {
-        statusLabel.pushTransition(0.5)
+        statusLabel.pushTransition(1)
         statusLabel.text = statusName()
     }
 
