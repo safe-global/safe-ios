@@ -16,9 +16,6 @@ class SafeDeploymentFinishedViewController: UIViewController {
     @IBOutlet weak var actionButton: UIButton!
     @IBOutlet weak var linkButton: UIButton!
     @IBOutlet weak var labelContainer: UIStackView!
-    
-    @IBOutlet weak var labelContainerTop: NSLayoutConstraint!
-    @IBOutlet weak var statusImageTop: NSLayoutConstraint!
 
     enum Mode {
         case success
@@ -44,12 +41,12 @@ class SafeDeploymentFinishedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        titleLabel.setStyle(.headline)
+        titleLabel.setStyle(.headline2)
         descriptionLabel.setStyle(.tertiary)
-        
+
         switch mode {
         case .success:
-            statusImage.image = UIImage(named: "ico-safe-deployment-success")
+            statusImage.image = UIImage.animatedImageNamed("safe-created-animation-", duration: 1.5)
             titleLabel.text = "Your Safe is ready!"
             descriptionLabel.text = "That’s it! Start using your most secure wallet on Ethereum."
             actionButton.setText("Start using Safe", .filled)
@@ -62,10 +59,6 @@ class SafeDeploymentFinishedViewController: UIViewController {
             
             actionButton.setText("Retry", .filled)
             linkButton.setText("View on block explorer", .plain)
-
-            statusImageTop.constant = -16
-            labelContainerTop.constant = 32
-            view.setNeedsUpdateConstraints()
         }
     }
 

@@ -15,10 +15,8 @@
                 <outlet property="actionButton" destination="txJ-9T-WhM" id="NFu-d9-Xcm"/>
                 <outlet property="descriptionLabel" destination="7JV-gm-BsD" id="qba-RA-eLx"/>
                 <outlet property="labelContainer" destination="b4b-r9-s0F" id="b0g-K0-aOB"/>
-                <outlet property="labelContainerTop" destination="Hew-wb-mlz" id="nJ2-uV-JfC"/>
                 <outlet property="linkButton" destination="1qj-e5-GC2" id="CG2-7u-O3U"/>
                 <outlet property="statusImage" destination="cy8-H4-ttj" id="Kdp-7f-h4B"/>
-                <outlet property="statusImageTop" destination="K0P-ea-EfL" id="dIc-G0-rwd"/>
                 <outlet property="titleLabel" destination="qtE-Y1-Z5q" id="89W-3p-rFy"/>
                 <outlet property="view" destination="0aK-WY-E9k" id="EVQ-ed-pSl"/>
             </connections>
@@ -28,77 +26,93 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-safe-deployment-failure" translatesAutoresizingMaskIntoConstraints="NO" id="cy8-H4-ttj">
-                    <rect key="frame" x="150" y="-12" width="114" height="92"/>
-                </imageView>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="b4b-r9-s0F">
-                    <rect key="frame" x="40" y="64" width="334" height="97.5"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c9s-YX-ZGR">
+                    <rect key="frame" x="32" y="44" width="350" height="642"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops, Safe wasn’t created" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtE-Y1-Z5q">
-                            <rect key="frame" x="67" y="0.0" width="200.5" height="20.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safe couldn’t have been created. This might happen due to the mining error or spiked gas fees." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7JV-gm-BsD">
-                            <rect key="frame" x="13.5" y="36.5" width="307.5" height="61"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="RhK-O3-72c">
+                            <rect key="frame" x="0.0" y="163" width="350" height="316.5"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="safe-created-animation-1" translatesAutoresizingMaskIntoConstraints="NO" id="cy8-H4-ttj">
+                                    <rect key="frame" x="69.5" y="0.0" width="211" height="211"/>
+                                </imageView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="b4b-r9-s0F">
+                                    <rect key="frame" x="2" y="219" width="346" height="97.5"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops, Safe wasn’t created" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtE-Y1-Z5q">
+                                            <rect key="frame" x="73" y="0.0" width="200.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safe couldn’t have been created. This might happen due to the mining error or spiked gas fees." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7JV-gm-BsD">
+                                            <rect key="frame" x="0.0" y="36.5" width="346" height="61"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="RhK-O3-72c" firstAttribute="leading" secondItem="c9s-YX-ZGR" secondAttribute="leading" id="FHA-YJ-zWg"/>
+                        <constraint firstItem="RhK-O3-72c" firstAttribute="centerY" secondItem="c9s-YX-ZGR" secondAttribute="centerY" id="NcQ-D0-8ZR"/>
+                        <constraint firstAttribute="trailing" secondItem="RhK-O3-72c" secondAttribute="trailing" id="pvw-Tk-cep"/>
+                    </constraints>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="O1O-XR-EMC">
+                    <rect key="frame" x="16" y="726" width="382" height="104"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="txJ-9T-WhM">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="56"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" id="fPT-I4-u7c"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Retry">
+                                <color key="titleColor" name="primaryLabel"/>
+                            </state>
+                            <connections>
+                                <action selector="didTapActionButton:" destination="-1" eventType="touchUpInside" id="sK2-Pq-kDT"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1qj-e5-GC2">
+                            <rect key="frame" x="0.0" y="64" width="382" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="BST-ef-MQ4"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
+                            <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="View Transaction on Etherscan" image="icon-external-link">
+                                <color key="titleColor" name="primaryLabel"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                            </state>
+                            <connections>
+                                <action selector="didTapViewOnBlockExplorer:" destination="-1" eventType="touchUpInside" id="Vwd-um-epQ"/>
+                            </connections>
+                        </button>
                     </subviews>
                 </stackView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="txJ-9T-WhM">
-                    <rect key="frame" x="16" y="194.5" width="382" height="55"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="55" id="fPT-I4-u7c"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="Retry">
-                        <color key="titleColor" name="primaryLabel"/>
-                    </state>
-                    <connections>
-                        <action selector="didTapActionButton:" destination="-1" eventType="touchUpInside" id="sK2-Pq-kDT"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1qj-e5-GC2">
-                    <rect key="frame" x="40" y="257.5" width="334" height="40"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="BST-ef-MQ4"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
-                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="View Transaction on Etherscan" image="icon-external-link">
-                        <color key="titleColor" name="primaryLabel"/>
-                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
-                    </state>
-                    <connections>
-                        <action selector="didTapViewOnBlockExplorer:" destination="-1" eventType="touchUpInside" id="Vwd-um-epQ"/>
-                    </connections>
-                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="RwE-RU-VMc"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="b4b-r9-s0F" firstAttribute="top" secondItem="cy8-H4-ttj" secondAttribute="bottom" constant="-16" id="Hew-wb-mlz"/>
-                <constraint firstItem="cy8-H4-ttj" firstAttribute="centerX" secondItem="RwE-RU-VMc" secondAttribute="centerX" id="Itu-vS-I8C"/>
-                <constraint firstItem="RwE-RU-VMc" firstAttribute="trailing" secondItem="b4b-r9-s0F" secondAttribute="trailing" constant="40" id="J6C-P3-lKD"/>
-                <constraint firstItem="b4b-r9-s0F" firstAttribute="leading" secondItem="RwE-RU-VMc" secondAttribute="leading" constant="40" id="Jvx-6p-KAn"/>
-                <constraint firstItem="cy8-H4-ttj" firstAttribute="top" secondItem="RwE-RU-VMc" secondAttribute="top" constant="-56" id="K0P-ea-EfL"/>
-                <constraint firstItem="RwE-RU-VMc" firstAttribute="trailing" secondItem="txJ-9T-WhM" secondAttribute="trailing" constant="16" id="La2-mP-NgU"/>
-                <constraint firstItem="1qj-e5-GC2" firstAttribute="top" secondItem="txJ-9T-WhM" secondAttribute="bottom" constant="8" id="TfC-Vf-8H3"/>
-                <constraint firstItem="txJ-9T-WhM" firstAttribute="leading" secondItem="RwE-RU-VMc" secondAttribute="leading" constant="16" id="Z2P-uJ-bJo"/>
-                <constraint firstItem="RwE-RU-VMc" firstAttribute="trailing" secondItem="1qj-e5-GC2" secondAttribute="trailing" constant="40" id="f94-no-Vtv"/>
-                <constraint firstItem="1qj-e5-GC2" firstAttribute="leading" secondItem="RwE-RU-VMc" secondAttribute="leading" constant="40" id="nUc-cV-zXO"/>
-                <constraint firstItem="txJ-9T-WhM" firstAttribute="top" secondItem="b4b-r9-s0F" secondAttribute="bottom" constant="33" id="yaH-Gq-nxC"/>
+                <constraint firstItem="c9s-YX-ZGR" firstAttribute="top" secondItem="RwE-RU-VMc" secondAttribute="top" id="81Z-mN-51a"/>
+                <constraint firstItem="RwE-RU-VMc" firstAttribute="trailing" secondItem="O1O-XR-EMC" secondAttribute="trailing" constant="16" id="VJ0-42-zs6"/>
+                <constraint firstItem="O1O-XR-EMC" firstAttribute="top" secondItem="c9s-YX-ZGR" secondAttribute="bottom" constant="40" id="bs1-Xf-zNd"/>
+                <constraint firstAttribute="trailing" secondItem="c9s-YX-ZGR" secondAttribute="trailing" constant="32" id="cvl-Sr-ZxL"/>
+                <constraint firstItem="O1O-XR-EMC" firstAttribute="leading" secondItem="0aK-WY-E9k" secondAttribute="leading" constant="16" id="seC-mY-fWv"/>
+                <constraint firstItem="RwE-RU-VMc" firstAttribute="bottom" secondItem="O1O-XR-EMC" secondAttribute="bottom" constant="32" id="uaR-cU-EJ6"/>
+                <constraint firstItem="c9s-YX-ZGR" firstAttribute="leading" secondItem="RwE-RU-VMc" secondAttribute="leading" constant="32" id="uyu-DP-Wfd"/>
             </constraints>
             <point key="canvasLocation" x="100" y="68"/>
         </view>
     </objects>
     <resources>
-        <image name="ico-safe-deployment-failure" width="114" height="92"/>
         <image name="icon-external-link" width="16" height="16"/>
+        <image name="safe-created-animation-1" width="211" height="211"/>
         <namedColor name="primaryLabel">
             <color red="0.0" green="0.074509803921568626" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

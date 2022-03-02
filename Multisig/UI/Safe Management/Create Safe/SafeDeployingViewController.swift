@@ -15,6 +15,7 @@ class SafeDeployingViewController: UIViewController {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var txButton: UIButton!
+    @IBOutlet weak var imageView: UIImageView!
 
     var safe: Safe?
     var containerViewYConstraint: NSLayoutConstraint?
@@ -24,7 +25,7 @@ class SafeDeployingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        imageView.image = UIImage.animatedImageNamed("safe-creating-", duration: 1.3)
         statusLabel.setStyle(.headline2)
         desciptionLabel.setStyle(.secondary)
         didYouKnowLabel.setStyle(.caption2.color(.button))
