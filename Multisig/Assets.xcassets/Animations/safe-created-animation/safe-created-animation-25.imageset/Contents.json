@@ -1,23 +1,56 @@
 {
-  "images" : [
+  "info": {
+    "author": "xcode",
+    "version": 1
+  },
+  "images": [
     {
-      "filename" : "safe-created-animation-25@1x.png",
-      "idiom" : "universal",
-      "scale" : "1x"
+      "filename": "safe-created-animation-25@any@1x.png",
+      "idiom": "universal",
+      "scale": "1x"
     },
     {
-      "filename" : "safe-created-animation-25@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
+      "filename": "safe-created-animation-25@dark@1x.png",
+      "idiom": "universal",
+      "scale": "1x",
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
     },
     {
-      "filename" : "safe-created-animation-25@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename": "safe-created-animation-25@any@2x.png",
+      "idiom": "universal",
+      "scale": "2x"
+    },
+    {
+      "filename": "safe-created-animation-25@dark@2x.png",
+      "idiom": "universal",
+      "scale": "2x",
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
+    },
+    {
+      "filename": "safe-created-animation-25@any@3x.png",
+      "idiom": "universal",
+      "scale": "3x"
+    },
+    {
+      "filename": "safe-created-animation-25@dark@3x.png",
+      "idiom": "universal",
+      "scale": "3x",
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ]
     }
-  ],
-  "info" : {
-    "author" : "xcode",
-    "version" : 1
-  }
+  ]
 }
