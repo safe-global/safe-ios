@@ -77,6 +77,7 @@ final class HeaderViewController: ContainerViewController {
         let switchSafesVC = SwitchSafesViewController()
 
         switchSafesVC.onAddSafe = { [weak self] in
+            Tracker.trackEvent(.addSafeFromSwitchSafes)
             self?.dismiss(animated: false) {
                 let selectNetworkVC = SelectNetworkViewController()
                 selectNetworkVC.screenTitle = "Load Gnosis Safe"
@@ -96,6 +97,7 @@ final class HeaderViewController: ContainerViewController {
         }
 
         switchSafesVC.onCreateSafe = { [weak self] in
+            Tracker.trackEvent(.createSafeFromSwitchSafes)
             self?.dismiss(animated: true) {
                 let instructionsVC = CreateSafeInstructionsViewController()
                 instructionsVC.onClose = { [weak self] in

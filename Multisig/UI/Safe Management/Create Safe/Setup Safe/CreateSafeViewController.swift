@@ -66,6 +66,11 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         uiModel.start()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.createSafeOnePage)
+    }
+    
     // MARK: - UI Model Events
 
     func updateUI(model: CreateSafeFormUIModel) {
