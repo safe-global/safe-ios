@@ -110,6 +110,8 @@ class SafeDeploymentFinishedViewController: UIViewController {
     }
     
     @IBAction func didTapViewOnBlockExplorer(_ sender: Any) {
+        
+        Tracker.trackEvent(.createSafeViewTxOnEtherscan)
 
         guard let txHash = txHash else {
             return
