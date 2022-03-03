@@ -112,6 +112,8 @@ class MainTabBarViewController: UITabBarController {
         WhatsNewHandler().whatsNewViewController?.present(on: self)
 
         WebConnectionController.shared.reconnect()
+
+        presentDelayedControllers()
     }
 
     private func balancesTabViewController() -> BalancesUINavigationController {
@@ -332,12 +334,29 @@ class MainTabBarViewController: UITabBarController {
     
     private func showTransactionDetails(safeTxHash: Data) {
         let vc = ViewControllerFactory.transactionDetailsViewController(safeTxHash: safeTxHash)
-        present(vc, animated: true, completion: nil)
+        presentWhenReady(vc)
     }
     
     private func showTransactionDetails(transactionDetails: SCGModels.TransactionDetails) {
         let vc = ViewControllerFactory.transactionDetailsViewController(transaction: transactionDetails)
-        present(vc, animated: true, completion: nil)
+        presentWhenReady(vc)
+    }
+
+    private var delayedPresentationViewController: UIViewController?
+
+    private func presentWhenReady(_ vc: UIViewController) {
+        if view.window == nil {
+            delayedPresentationViewController = vc
+        } else {
+            present(vc, animated: true)
+        }
+    }
+
+    private func presentDelayedControllers() {
+        if let vc = delayedPresentationViewController, presentedViewController == nil, view.window != nil {
+            present(vc, animated: true)
+            delayedPresentationViewController = nil
+        }
     }
 }
 
