@@ -339,7 +339,7 @@ class MainTabBarViewController: UITabBarController {
     
     private func showTransactionDetails(transactionDetails: SCGModels.TransactionDetails) {
         let vc = ViewControllerFactory.transactionDetailsViewController(transaction: transactionDetails)
-        present(vc, animated: true, completion: nil)
+        presentWhenReady(vc)
     }
 
     private var delayedPresentationViewController: UIViewController?
