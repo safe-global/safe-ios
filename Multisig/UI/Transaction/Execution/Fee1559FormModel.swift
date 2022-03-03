@@ -229,6 +229,11 @@ class Fee1559FormModel: FormModel {
             maxFeePerGasField.gnoTextField.setErrorText("Value is not a valid number")
             return false
         }
+        
+        if amount.value == 0  {
+            maxFeePerGasField.gnoTextField.setErrorText("Value should be greater than 0")
+            return false
+        }
 
         guard let maxPriorityFeeAmount = maxPriorityFeeAmount, amount.value >= maxPriorityFeeAmount.value else {
             maxFeePerGasField.gnoTextField.setErrorText("Max fee must be greater or equal than max priority fee")
@@ -249,6 +254,11 @@ class Fee1559FormModel: FormModel {
 
         guard let amount = Eth.TokenAmount<Sol.UInt256>(text, radix: 10, decimals: gigaweiDecimals) else {
             maxPriorityFeeField.gnoTextField.setErrorText("Value is not a valid number")
+            return false
+        }
+        
+        if amount.value == 0  {
+            maxPriorityFeeField.gnoTextField.setErrorText("Value should be greater than 0")
             return false
         }
 
