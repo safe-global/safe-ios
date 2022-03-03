@@ -391,7 +391,7 @@ class CreateSafeFormUIModel {
 
         if error != nil {
             // add error
-            result.append(.init(id: .error, title: "Error", tooltip: nil, itemCount: 1))
+            result.append(.init(id: .error, title: "", tooltip: nil, itemCount: 1))
         }
 
         return result

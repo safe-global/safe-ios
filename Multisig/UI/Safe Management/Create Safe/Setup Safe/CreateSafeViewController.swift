@@ -654,17 +654,23 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
     private func errorCell(for indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailExpandableTextCell.self, for: indexPath)
-        // restrict to 1 tweet length
-        let errorText = uiModel.error?.localizedDescription ?? ""
-        let errorPreview = errorText.count <= 144 ? nil : (String(errorText.prefix(144)) + "…")
+
         cell.tableView = tableView
         cell.titleStyle = .error.weight(.medium)
         cell.expandableTitleStyle = (collapsed: .error, expanded: .error)
-        cell.contentStyle = (collapsed: .error, expanded: .secondary)
-        cell.setTitle("Error")
-        cell.setText(errorText)
-        cell.setCopyText(errorText)
+        cell.contentStyle = (collapsed: .error, expanded: .error)
+
+        let errorText = uiModel.error?.localizedDescription ?? ""
+        let title = errorText.count <= 144 ? errorText : nil
+        let errorPreview = errorText.count <= 144 ? nil : (String(errorText.prefix(144)) + "…")
+        let errorContent = errorText.count <= 144 ? nil : errorText
+
+        cell.setTitle(title)
+        cell.setText(errorContent ?? "")
         cell.setExpandableTitle(errorPreview)
+        cell.set(isExpandable: title == nil)
+        cell.setCopyText(errorText)
+
         return cell
     }
 
