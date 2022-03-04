@@ -184,31 +184,31 @@ enum TrackingEvent: String, Trackable {
     case ledgerEnterKeyName                         = "screen_ledger_nano_x_enter_name"
     
     // MARK: Create Safe
-    case createSafe                                 = "screen_create_safe"
-    case createSafeIntro                            = "screen_create_safe_intro"
-    case createSafeOnePage                          = "screen_create_safe_one_page"
-    case createSafeSelectNetwork                    = "screen_select_network_from_create_safe"
-    case createSafeSelectKey                        = "screen_select_key_from_create_safe"
-    case createSafeEditTxFee                        = "screen_edit_tx_fee_from_create_safe"
-    case createSafeAddDeploymentKey                 = "screen_add_deployment_key_from_create_safe"
+    case createSafe                                 = "screen_cs"
+    case createSafeIntro                            = "screen_cs_intro"
+    case createSafeOnePage                          = "screen_cs_one_page"
+    case createSafeSelectNetwork                    = "screen_cs_select_network"
+    case createSafeSelectKey                        = "screen_cs_select_key"
+    case createSafeEditTxFee                        = "screen_cs_edit_tx_fee"
+    case createSafeAddDeploymentKey                 = "screen_cs_add_deployment_key"
     
-    case createSafeTxFeeEdited                      = "user_edit_exec_tx_fee_from_create_safe"
-    case createSafeKeyChanged                       = "user_select_exec_key_change_from_create_safe"
-    case createSafeDeploymentKeyAdded               = "user_deployment_key_added_from_create_safe"
+    case createSafeTxFeeEdited                      = "user_cs_edit_exec_tx_fee"
+    case createSafeKeyChanged                       = "user_cs_deployment_key_changed"
+    case createSafeDeploymentKeyAdded               = "user_cs_deployment_key_added"
     
-    case createSafeTxSubmitted                      = "user_create_safe_tx_submitted"
-    case createSafeTxSuccedded                      = "user_create_safe_tx_succeded"
-    case createSafeTxFailed                         = "user_create_safe_tx_failed"
-    case createSafeRetry                            = "user_create_safe_retry"
-    case createSafeViewTxOnEtherscan                = "user_create_safe_view_tx_on_etherscan"
+    case createSafeTxSubmitted                      = "user_cs_tx_submitted"
+    case createSafeTxSuccedded                      = "user_cs_tx_succeded"
+    case createSafeTxFailed                         = "user_cs_tx_failed"
+    case createSafeRetry                            = "user_cs_retry"
+    case createSafeViewTxOnEtherscan                = "user_cs_view_tx_on_etherscan"
     
-    case createSafeDesktopApp                       = "user_create_safe_desktop_app"
-    case createSafeHelpArticle                      = "user_create_safe_help_article"
+    case createSafeDesktopApp                       = "user_cs_desktop_app"
+    case createSafeHelpArticle                      = "user_cs_help_article"
     
-    case createSafeFromOnboarding                   = "user_create_safe_from_onboarding"
+    case createSafeFromOnboarding                   = "user_cs_from_onboarding"
     case addSafeFromOnboarding                      = "user_add_safe_from_onboarding"
     
-    case createSafeFromSwitchSafes                  = "user_create_safe_from_switch_safes"
+    case createSafeFromSwitchSafes                  = "user_cs_from_switch_safes"
     case addSafeFromSwitchSafes                     = "user_add_safe_from_switch_safes"
 
     // MARK: Web Connections
