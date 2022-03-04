@@ -94,6 +94,7 @@ class SafeDeployingViewController: UIViewController {
     }
 
     @IBAction func didTapViewTransaction(_ sender: Any) {
+        Tracker.trackEvent(.createSafeViewTxOnEtherscan)
         if let txHash = txHash, let chain = safe?.chain {
             openInSafari(chain.browserURL(txHash: txHash))
         }
