@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -111,6 +111,7 @@
                 <outlet property="contentCopyButton" destination="psh-Fr-eyN" id="VkO-pb-8v5"/>
                 <outlet property="contentLabel" destination="i0c-S4-wNb" id="a3l-iW-ee1"/>
                 <outlet property="expanableContainerStackView" destination="9Hq-Tm-B56" id="FcE-Rz-jTh"/>
+                <outlet property="expandButton" destination="t3w-r6-5Nb" id="Xdz-YM-ZQ2"/>
                 <outlet property="expandableIconImageView" destination="7Tq-1E-cd4" id="YCh-Zm-eDz"/>
                 <outlet property="expandableTitleLabel" destination="FR4-AG-rjL" id="J9y-eo-n5S"/>
                 <outlet property="titleLabel" destination="eAH-D5-tLY" id="g4M-HQ-THP"/>
