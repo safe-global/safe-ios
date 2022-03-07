@@ -394,6 +394,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         }
 
         formVC.trackingEvent = .createSafeEditTxFee
+        formVC.chainId = uiModel.chain.id
 
         formVC.onSave = { [weak self, weak formModel] in
             // on save - update the parameters that were changed.
