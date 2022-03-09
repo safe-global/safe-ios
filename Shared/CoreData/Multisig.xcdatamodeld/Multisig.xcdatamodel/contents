@@ -31,7 +31,17 @@
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="sessionRenewedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
-    <entity name="CDAppRegistryEntry" representedClassName="CDAppRegistryEntry" syncable="YES" codeGenerationType="class">
+    <entity name="CDEthTransaction" representedClassName="CDEthTransaction" syncable="YES" codeGenerationType="class">
+        <attribute name="chainId" optional="YES" attributeType="String"/>
+        <attribute name="dateExecutedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateSubmittedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateUpdatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="ethTxHash" optional="YES" attributeType="String"/>
+        <attribute name="safeAddress" optional="YES" attributeType="String"/>
+        <attribute name="safeTxHash" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="CDWCAppRegistryEntry" representedClassName="CDWCAppRegistryEntry" syncable="YES" codeGenerationType="class">
         <attribute name="chains" optional="YES" attributeType="String"/>
         <attribute name="desc" optional="YES" attributeType="String"/>
         <attribute name="homepage" optional="YES" attributeType="URI"/>
@@ -46,17 +56,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="role" optional="YES" attributeType="String"/>
         <attribute name="shortName" optional="YES" attributeType="String"/>
-        <attribute name="version" optional="YES" attributeType="String"/>
-    </entity>
-    <entity name="CDEthTransaction" representedClassName="CDEthTransaction" syncable="YES" codeGenerationType="class">
-        <attribute name="chainId" optional="YES" attributeType="String"/>
-        <attribute name="dateExecutedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="dateSubmittedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="dateUpdatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="ethTxHash" optional="YES" attributeType="String"/>
-        <attribute name="safeAddress" optional="YES" attributeType="String"/>
-        <attribute name="safeTxHash" optional="YES" attributeType="String"/>
-        <attribute name="status" optional="YES" attributeType="String"/>
+        <attribute name="versions" optional="YES" attributeType="String"/>
     </entity>
     <entity name="CDWCConnection" representedClassName="CDWCConnection" syncable="YES" codeGenerationType="class">
         <attribute name="chainId" optional="YES" attributeType="Integer 64" defaultValueString="-1" usesScalarValueType="YES"/>
@@ -194,6 +194,6 @@
         <element name="SafeCreationCall" positionX="-261" positionY="-99" width="128" height="224"/>
         <element name="Selection" positionX="-469.84912109375" positionY="-11.533935546875" width="128" height="58"/>
         <element name="WCSession" positionX="-269.6851196289062" positionY="219.7146911621094" width="128" height="119"/>
-        <element name="CDAppRegistryEntry" positionX="-270" positionY="-108" width="128" height="268"/>
+        <element name="CDWCAppRegistryEntry" positionX="-270" positionY="-108" width="128" height="268"/>
     </elements>
 </model>
