@@ -379,6 +379,8 @@
 		0A9BC35D2460581A00EB9C5D /* ENSIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BC34D2460567200EB9C5D /* ENSIntegrationTests.swift */; };
 		0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532D4D02449A1E40067505A /* MockLogger.swift */; };
 		0A9D5CE427D8EC280075A21D /* WCRegistryIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9D5CE327D8EC270075A21D /* WCRegistryIntegrationTests.swift */; };
+		0A9D5CE827D8F47D0075A21D /* WCAppRegistryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9D5CE727D8F47C0075A21D /* WCAppRegistryRepository.swift */; };
+		0A9D5CEB27D8F48B0075A21D /* WCAppRegistryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9D5CEA27D8F48A0075A21D /* WCAppRegistryEntry.swift */; };
 		0A9E8E7725B9CA4200256AD3 /* BannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9E8E7525B9CA4200256AD3 /* BannerTableViewCell.swift */; };
 		0A9E8E7825B9CA4200256AD3 /* BannerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9E8E7625B9CA4200256AD3 /* BannerTableViewCell.xib */; };
 		0AA59CC4270CAE91000CA7B1 /* LedgerKeyAddedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA59CC3270CAE91000CA7B1 /* LedgerKeyAddedViewController.swift */; };
@@ -1131,6 +1133,8 @@
 		0A9BC3532460581500EB9C5D /* MultisigIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultisigIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A9BC3572460581500EB9C5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A9D5CE327D8EC270075A21D /* WCRegistryIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCRegistryIntegrationTests.swift; sourceTree = "<group>"; };
+		0A9D5CE727D8F47C0075A21D /* WCAppRegistryRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCAppRegistryRepository.swift; sourceTree = "<group>"; };
+		0A9D5CEA27D8F48A0075A21D /* WCAppRegistryEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCAppRegistryEntry.swift; sourceTree = "<group>"; };
 		0A9E8E7525B9CA4200256AD3 /* BannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerTableViewCell.swift; sourceTree = "<group>"; };
 		0A9E8E7625B9CA4200256AD3 /* BannerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerTableViewCell.xib; sourceTree = "<group>"; };
 		0AA59CC1270CAD05000CA7B1 /* SafeLoadedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeLoadedViewController.swift; sourceTree = "<group>"; };
@@ -2581,6 +2585,14 @@
 			path = MultisigIntegrationTests;
 			sourceTree = "<group>";
 		};
+		0A9D5CE927D8F48A0075A21D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0A9D5CEA27D8F48A0075A21D /* WCAppRegistryEntry.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		0AB9F4C3254C64680044395F /* BalancesViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3434,6 +3446,8 @@
 		B0D61C5B6EC7511DB976DBF7 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				0A9D5CE927D8F48A0075A21D /* Models */,
+				0A9D5CE727D8F47C0075A21D /* WCAppRegistryRepository.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -3985,6 +3999,7 @@
 				04B4B60225B84D6900CFE24B /* AccountInfoView.swift in Sources */,
 				0A2F1A76267A5E5B00C09F03 /* BalanceCell.swift in Sources */,
 				04C97AB0246EEF1600EBA0F1 /* BrowserLink.swift in Sources */,
+				0A9D5CE827D8F47D0075A21D /* WCAppRegistryRepository.swift in Sources */,
 				0A106287248A885E00C1EE54 /* ERC20Metadata.swift in Sources */,
 				0A930F4D27CD4BC600866074 /* SelectAddressViewController.swift in Sources */,
 				0AF1C8952541AD4E00E28669 /* ScrollableDataErrorView.swift in Sources */,
@@ -4302,6 +4317,7 @@
 				0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */,
 				0AB5DFB3270F48EB005BFB43 /* LedgerSignerViewController.swift in Sources */,
 				0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */,
+				0A9D5CEB27D8F48B0075A21D /* WCAppRegistryEntry.swift in Sources */,
 				0AE8C06A2579371A00E62B34 /* DetailTransferInfoCell.swift in Sources */,
 				550FB1AD26691D6700C13D54 /* WCSession.swift in Sources */,
 				0AE5A9BF267A4A3E00468C90 /* BalancesTableViewController.swift in Sources */,
