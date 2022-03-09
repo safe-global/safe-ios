@@ -38,6 +38,13 @@ extension CDWCAppRegistryEntry {
         }
     }
 
+    /// Creates new entry without saving it in the database
+    static func create() -> CDWCAppRegistryEntry {
+        let context = App.shared.coreDataStack.viewContext
+        let result = CDWCAppRegistryEntry(context: context)
+        return result
+    }
+
     /// Deletes wc registry entry if it exists. Idempotent.
     ///
     /// - Parameter id: entry id
