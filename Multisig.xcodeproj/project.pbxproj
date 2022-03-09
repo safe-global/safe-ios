@@ -675,9 +675,7 @@
 		6ADEB01C2795AB410062ADFE /* InfoLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB01A2795AB410062ADFE /* InfoLabel.xib */; };
 		6ADEB02727B559370062ADFE /* WebConnectionOwnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */; };
 		6ADEB02827B559370062ADFE /* WebConnectionOwnerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */; };
-		8D7DF19CE7840A79215BE3AC /* WCAppRegistryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7DFF9E0FB8406BD1B29A09 /* WCAppRegistryRepository.swift */; };
 		8D7DF1A98F3C869DE4CCB3CC /* CDWCAppRegistryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7DFDBABFA6FD66092A4378 /* CDWCAppRegistryEntry.swift */; };
-		8D7DF35DF9F4E2BBC637F4C0 /* WCAppRegistryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7DF2D7D0A75B2CCA210E87 /* WCAppRegistryEntry.swift */; };
 		8D7DFB2CEBACCDB9E9CCF6BC /* WebConnectionExpirationMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7DF152EC9E12AF6029DA1E /* WebConnectionExpirationMonitor.swift */; };
 		935DCA4C27BD14C600F09EE4 /* WebConnectionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */; };
 		9388B98227C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */; };
@@ -1442,9 +1440,7 @@
 		6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnectionOwnerView.swift; sourceTree = "<group>"; };
 		6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebConnectionOwnerView.xib; sourceTree = "<group>"; };
 		8D7DF152EC9E12AF6029DA1E /* WebConnectionExpirationMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionExpirationMonitor.swift; sourceTree = "<group>"; };
-		8D7DF2D7D0A75B2CCA210E87 /* WCAppRegistryEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCAppRegistryEntry.swift; sourceTree = "<group>"; };
 		8D7DFDBABFA6FD66092A4378 /* CDWCAppRegistryEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDWCAppRegistryEntry.swift; sourceTree = "<group>"; };
-		8D7DFF9E0FB8406BD1B29A09 /* WCAppRegistryRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCAppRegistryRepository.swift; sourceTree = "<group>"; };
 		935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionDetailsViewController.swift; sourceTree = "<group>"; };
 		9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentNotificationController.swift; sourceTree = "<group>"; };
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
@@ -3341,7 +3337,6 @@
 		B0D6115FF6A54381B9C5F2A9 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				B0D6107BDDEBAD236FA65D36 /* JsonAppRegistryEntry.swift */,
 				8D7DFDBABFA6FD66092A4378 /* CDWCAppRegistryEntry.swift */,
 				B0D6190D58FE76DD19D0E534 /* Registry Service */,
 			);
@@ -4392,9 +4387,6 @@
 				B0D61167B7886798C36728CC /* WCGetDappsRequest.swift in Sources */,
 				B0D61927EF504F463E943EE9 /* WCGetWalletsRequest.swift in Sources */,
 				B0D61DE33EFF15FAD877F293 /* WCRegistryService.swift in Sources */,
-				B0D61C7513FD796EED6E3376 /* JsonAppRegistryEntry.swift in Sources */,
-				8D7DF35DF9F4E2BBC637F4C0 /* WCAppRegistryEntry.swift in Sources */,
-				8D7DF19CE7840A79215BE3AC /* WCAppRegistryRepository.swift in Sources */,
 				8D7DF1A98F3C869DE4CCB3CC /* CDWCAppRegistryEntry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
