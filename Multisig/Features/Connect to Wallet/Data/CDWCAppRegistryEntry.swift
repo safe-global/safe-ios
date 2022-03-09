@@ -26,6 +26,18 @@ extension CDWCAppRegistryEntry {
         }
     }
 
+    static func entries(by name: String) throws -> [CDWCAppRegistryEntry] {
+        let context = App.shared.coreDataStack.viewContext
+        do {
+            let context = App.shared.coreDataStack.viewContext
+            let fr = CDWCAppRegistryEntry.fetchRequest().by(name: name)
+            let entries = try context.fetch(fr)
+            return entries
+        } catch {
+            throw GSError.DatabaseError(reason: error.localizedDescription)
+        }
+    }
+
     // get all wc registry entries
     static func getAll() throws -> [CDWCAppRegistryEntry] {
         do {
@@ -68,6 +80,12 @@ extension NSFetchRequest where ResultType == CDWCAppRegistryEntry {
         sortDescriptors = []
         predicate = NSPredicate(format: "id == %@", id)
         fetchLimit = 1
+        return self
+    }
+
+    func by(name: String) -> Self {
+        sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        predicate = NSPredicate(format: "name like[c] %@ ", name)
         return self
     }
 }
