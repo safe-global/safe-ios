@@ -22,7 +22,7 @@ class WCAppRegistryRepository {
         cdEntry.role = other.role.rawValue
         cdEntry.name = other.name
         cdEntry.shortName = other.shortName
-        cdEntry.description = other.description
+        cdEntry.desc = other.description
         cdEntry.homepage = other.homepage
         cdEntry.imageId = other.imageId
         cdEntry.imageSmallURL = other.imageSmallUrl
