@@ -21,7 +21,7 @@ extension CDWCAppRegistryEntry {
             let result = results.first
             return result
         } catch {
-            LogService.shared.error("Failed to fetch connection: \(error)")
+            LogService.shared.error("Failed to fetch wc app registry entry: \(error)")
             return nil
         }
     }
