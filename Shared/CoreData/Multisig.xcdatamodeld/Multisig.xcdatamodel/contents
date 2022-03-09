@@ -47,14 +47,14 @@
         <attribute name="homepage" optional="YES" attributeType="URI"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="imageId" optional="YES" attributeType="String"/>
-        <attribute name="imageLarge" optional="YES" attributeType="URI"/>
-        <attribute name="imageMedium" optional="YES" attributeType="URI"/>
-        <attribute name="imageSmall" optional="YES" attributeType="URI"/>
+        <attribute name="imageLargeURL" optional="YES" attributeType="URI"/>
+        <attribute name="imageMediumURL" optional="YES" attributeType="URI"/>
+        <attribute name="imageSmallURL" optional="YES" attributeType="URI"/>
         <attribute name="linkBrowser" optional="YES" attributeType="URI"/>
         <attribute name="linkMobileNative" optional="YES" attributeType="URI"/>
         <attribute name="linkMobileUniversal" optional="YES" attributeType="URI"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="role" optional="YES" attributeType="String"/>
+        <attribute name="role" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="shortName" optional="YES" attributeType="String"/>
         <attribute name="versions" optional="YES" attributeType="String"/>
     </entity>

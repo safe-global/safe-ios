@@ -5,7 +5,7 @@
 
 import Foundation
 
-class AppRegistryEntry {
+class WCAppRegistryEntry {
 
     var id: String
 
