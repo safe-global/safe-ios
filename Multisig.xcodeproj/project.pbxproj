@@ -2271,6 +2271,66 @@
 			path = Ethereum;
 			sourceTree = "<group>";
 		};
+		0A6CD7A227D214D600579BFB /* List */ = {
+			isa = PBXGroup;
+			children = (
+				B0D61754C5CD1AFD95AF4A6D /* DesktopPairingHeaderView.swift */,
+				B0D6146BF81C620C26123C67 /* DesktopPairingHeaderView.xib */,
+				B0D613C0E251EC2E801E8818 /* WebConnectionsViewController.swift */,
+				0AF5C66B27BAA74300BFEA52 /* WebConnectionTableViewCell.swift */,
+				0AF5C66A27BAA74300BFEA52 /* WebConnectionTableViewCell.xib */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		0A6CD7A327D214F300579BFB /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				0ADD0FB127C148880099DF7D /* DatePickerViewController.swift */,
+				0ADD0FB227C148880099DF7D /* DatePickerViewController.xib */,
+				935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		0A6CD7A427D2150800579BFB /* Signature Request */ = {
+			isa = PBXGroup;
+			children = (
+				0AFD9DCB27BFE18800011CF1 /* SignatureRequestContentViewController.swift */,
+				557D80A5270B32F80036D6D0 /* SignatureRequestContentViewController.xib */,
+				557D80A4270B32F80036D6D0 /* SignatureRequestViewController.swift */,
+			);
+			path = "Signature Request";
+			sourceTree = "<group>";
+		};
+		0A6CD7A527D2152000579BFB /* Send Transaction Request */ = {
+			isa = PBXGroup;
+			children = (
+				0AFD9DCD27BFF01000011CF1 /* SendTransactionContentViewController.swift */,
+				B0D61BDFEADB74805D9221DB /* SendTransactionRequestViewController.swift */,
+			);
+			path = "Send Transaction Request";
+			sourceTree = "<group>";
+		};
+		0A6CD7A627D2153800579BFB /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B0D61352D30ACB7D294C526D /* ActionPanelView.swift */,
+				B0D61FB05FC8C6D45FAC1246 /* ActionPanelView.xib */,
+				0AFD9DC927BFDF0200011CF1 /* WebConnectionContainerViewController.swift */,
+				B0D610E20B243B7AEB248725 /* WebConnectionContainerViewController.xib */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		0A6CD7A727D2154600579BFB /* Connection Request */ = {
+			isa = PBXGroup;
+			children = (
+				B0D61A4428032BDABE9C94CE /* WebConnectionRequestViewController.swift */,
+			);
+			path = "Connection Request";
+			sourceTree = "<group>";
+		};
 		0A704A3A2473D772005BDC49 /* App Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -2842,12 +2902,12 @@
 		550FB1BD26691E1500C13D54 /* WalletConnectOwnerKey */ = {
 			isa = PBXGroup;
 			children = (
-				0A11377B27999AAE00D97ED9 /* WCWalletConnectionController.swift */,
-				550FB1BE26691E1500C13D54 /* WalletConnectQRCodeViewController.xib */,
-				550FB1BF26691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift */,
 				550FB1C026691E1500C13D54 /* ConnectWalletViewController.swift */,
-				550FB1C126691E1500C13D54 /* WalletConnectQRCodeViewController.swift */,
+				550FB1BF26691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift */,
 				041DAAE8274BC4DD000829C8 /* WalletConnectKeyAddedViewController.swift */,
+				550FB1C126691E1500C13D54 /* WalletConnectQRCodeViewController.swift */,
+				550FB1BE26691E1500C13D54 /* WalletConnectQRCodeViewController.xib */,
+				0A11377B27999AAE00D97ED9 /* WCWalletConnectionController.swift */,
 			);
 			path = WalletConnectOwnerKey;
 			sourceTree = "<group>";
@@ -3309,25 +3369,13 @@
 		B0D61BC51DC924AF458E9FBB /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				B0D61352D30ACB7D294C526D /* ActionPanelView.swift */,
-				B0D61FB05FC8C6D45FAC1246 /* ActionPanelView.xib */,
-				0ADD0FB127C148880099DF7D /* DatePickerViewController.swift */,
-				0ADD0FB227C148880099DF7D /* DatePickerViewController.xib */,
-				B0D61754C5CD1AFD95AF4A6D /* DesktopPairingHeaderView.swift */,
-				B0D6146BF81C620C26123C67 /* DesktopPairingHeaderView.xib */,
-				0AFD9DCD27BFF01000011CF1 /* SendTransactionContentViewController.swift */,
-				B0D61BDFEADB74805D9221DB /* SendTransactionRequestViewController.swift */,
-				0AFD9DCB27BFE18800011CF1 /* SignatureRequestContentViewController.swift */,
-				557D80A5270B32F80036D6D0 /* SignatureRequestContentViewController.xib */,
-				557D80A4270B32F80036D6D0 /* SignatureRequestViewController.swift */,
 				0ADD0FA927C1381F0099DF7D /* TrackingEvent+WebConnection.swift */,
-				0AFD9DC927BFDF0200011CF1 /* WebConnectionContainerViewController.swift */,
-				B0D610E20B243B7AEB248725 /* WebConnectionContainerViewController.xib */,
-				935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */,
-				B0D61A4428032BDABE9C94CE /* WebConnectionRequestViewController.swift */,
-				B0D613C0E251EC2E801E8818 /* WebConnectionsViewController.swift */,
-				0AF5C66B27BAA74300BFEA52 /* WebConnectionTableViewCell.swift */,
-				0AF5C66A27BAA74300BFEA52 /* WebConnectionTableViewCell.xib */,
+				0A6CD7A627D2153800579BFB /* Common */,
+				0A6CD7A727D2154600579BFB /* Connection Request */,
+				0A6CD7A327D214F300579BFB /* Details */,
+				0A6CD7A227D214D600579BFB /* List */,
+				0A6CD7A527D2152000579BFB /* Send Transaction Request */,
+				0A6CD7A427D2150800579BFB /* Signature Request */,
 			);
 			path = UI;
 			sourceTree = "<group>";
