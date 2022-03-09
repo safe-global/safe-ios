@@ -126,6 +126,9 @@ struct AppConfiguration {
     struct WalletConnect {
         @ConfigurationKey("WALLETCONNECT_BRIDGE_URL")
         var bridgeURL: URL
+
+        @ConfigurationKey("WALLETCONNECT_REGISTRY_URL")
+        var registryURL: URL
     }
     
     struct FeatureToggles {

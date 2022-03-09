@@ -50,13 +50,13 @@ struct JsonAppRegistryEntry: Codable {
     }
 
     struct Metadata: Codable {
-        var shortName: String
+        var shortName: String?
         var colors: Colors
 
-        struct Colors {
+        struct Colors: Codable {
             // color is a web color format. Can be hex #rrggbb or in the form rgb(r,g,b)
-            var primary: String
-            var secondary: String
+            var primary: String?
+            var secondary: String?
         }
     }
 
@@ -66,8 +66,12 @@ struct JsonAppRegistryEntry: Codable {
 
         init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            let string = try container.decode(String.self)
-            url = URL(string: string)
+            if container.decodeNil() {
+                url = nil
+            } else {
+                let string = try container.decode(String.self)
+                url = URL(string: string)
+            }
         }
 
         func encode(to encoder: Encoder) throws {

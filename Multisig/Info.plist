@@ -63,6 +63,8 @@
 	<string>$(CREATE_SAFE_URL)</string>
 	<key>CONFIRMATIONS_URL</key>
 	<string>$(CONFIRMATIONS_URL)</string>
+	<key>WALLETCONNECT_REGISTRY_URL</key>
+	<string>$(WALLETCONNECT_REGISTRY_URL)</string>
 	<key>FirebaseCrashlyticsCollectionEnabled</key>
 	<false/>
 	<key>GNOSIS_SAFE_WEB_URL</key>
