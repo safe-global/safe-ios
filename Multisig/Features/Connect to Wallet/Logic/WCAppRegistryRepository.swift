@@ -14,7 +14,17 @@ class WCAppRegistryRepository {
     func save(_ entry: WCAppRegistryEntry) {
         assert(Thread.isMainThread)
 
-        //TODO: save entry
+        // find or replace the object
+        var cdEntry: CDWCAppRegistryEntry! = CDWCAppRegistryEntry.entry(by: entry.id)
+        if cdEntry == nil {
+            cdEntry = CDWCAppRegistryEntry.create()
+        }
+
+        // update the fields
+        update(cdEntry: cdEntry, with: entry)
+
+        // save the database
+        App.shared.coreDataStack.saveContext()
     }
 
     private func update(cdEntry: CDWCAppRegistryEntry, with other: WCAppRegistryEntry) {
