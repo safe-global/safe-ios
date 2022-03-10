@@ -42,6 +42,10 @@ class App {
 
     let clientGatewayHostObserver = NetworkHostStatusObserver(host: configuration.services.clientGatewayURL.host ?? "www.gnosis.io")
 
+    lazy var walletConnectRegistryService = WCRegistryService(
+        url: App.configuration.walletConnect.registryURL,
+        logger: LogService.shared)
+
     // MARK: - Cross-layer
 
     static let configuration = AppConfiguration()

@@ -36,7 +36,7 @@ class WebConnectionRepositoryTests: CoreDataTestCase {
         let json = """
         {"id":1645101302900668,"jsonrpc":"2.0","method":"eth_sign","params":["0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0","0xec6a7b6c1a89"]}
         """
-        let request = WebConnectionRequest(id: id, method: "eth_sign", error: nil, json: json, status: .pending, connectionURL: url)
+        let request = WebConnectionRequest(id: id, method: "eth_sign", error: nil, json: json, status: .pending, connectionURL: url, createdDate: Date())
         let connection = controller.createConnection(from: url)
         controller.save(connection)
 
