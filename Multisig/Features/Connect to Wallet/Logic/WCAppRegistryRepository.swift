@@ -43,4 +43,34 @@ class WCAppRegistryRepository {
         cdEntry.linkMobileUniversal = other.linkMobileUniversal
     }
 
+    func entry(from other: CDWCAppRegistryEntry) -> WCAppRegistryEntry? {
+        guard
+                let entryId = other.id,
+                let name = other.name,
+                let chainsString = other.chains
+                else {
+            return nil
+        }
+
+        let result = WCAppRegistryEntry(
+                id: entryId,
+                role: WCAppRegistryEntry.Role(rawValue: other.role)!,
+                chains: other.chains?.split(separator: ",").map(String.init) ?? [],
+                versions: other.versions?.split(separator: ",").map(String.init) ?? [],
+                name: name,
+                shortName: other.shortName ?? "",
+                description: other.desc,
+                homepage: other.homepage,
+                imageId: other.imageId,
+                imageSmallUrl: other.imageSmallURL,
+                imageMediumUrl: other.imageMediumURL,
+                imageLargeUrl: other.imageLargeURL,
+                linkBrowser: other.linkBrowser,
+                linkMobileNative: other.linkMobileNative,
+                linkMobileUniversal: other.linkMobileUniversal
+        )
+
+        return result
+    }
+
 }
