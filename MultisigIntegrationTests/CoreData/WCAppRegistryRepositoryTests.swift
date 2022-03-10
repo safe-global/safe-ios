@@ -51,17 +51,27 @@ class WCAppRegistryRepositoryTests: CoreDataTestCase {
             repository.entry(from: entry, role: .wallet, rank: 0)
         }
 
-        XCTAssertEqual(entries.count, 149)
-
         repository.updateEntries(entries)
 
         let persistedEntries = repository.entries()
         XCTAssertEqual(persistedEntries.count, 132)
+    }
 
-        let entry = repository.entries(searchTerm: "Rainbow").first!
+    func testFindsEntries() throws {
+        let repository = WCAppRegistryRepository()
+        let data = try getData(fromJSON: "wc_registry_wallets")
+        let entries = try JSONDecoder().decode(JsonAppRegistry.self, from: data).entries.values.compactMap { entry in
+            repository.entry(from: entry, role: .wallet, rank: 0)
+        }
 
-        XCTAssertEqual(entry.name, "Rainbow")
+        repository.updateEntries(entries)
+
+        let persistedEntries = repository.entries(searchTerm: "wallet")
+        let entry = persistedEntries.first!
+
+        XCTAssertEqual(persistedEntries.count, 46)
+        XCTAssertEqual(entry.name, "1inch Wallet")
         XCTAssertEqual(entry.versions, ["1"])
-        XCTAssertEqual(entry.chains, ["1"])
+        XCTAssertEqual(entry.chains, ["1", "56"])
     }
 }
