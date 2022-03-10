@@ -92,7 +92,7 @@ class WCAppRegistryRepository {
                 versions: other.versions?.split(separator: ",").map(String.init) ?? [],
                 name: name,
                 rank: Int(other.rank),
-                shortName: other.shortName ?? "",
+                shortName: other.shortName,
                 description: other.desc,
                 homepage: other.homepage,
                 imageId: other.imageId,
