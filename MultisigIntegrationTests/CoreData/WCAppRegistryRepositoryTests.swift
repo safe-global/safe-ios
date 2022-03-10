@@ -74,4 +74,34 @@ class WCAppRegistryRepositoryTests: CoreDataTestCase {
         XCTAssertEqual(entry.versions, ["1"])
         XCTAssertEqual(entry.chains, ["1", "56"])
     }
+
+    func testEntriesSorting() throws {
+        let controller = WCRegistryController()
+        let data = try getData(fromJSON: "wc_registry_wallets")
+        let entries = try JSONDecoder().decode(JsonAppRegistry.self, from: data)
+
+        controller.updateEntries(registry: entries)
+
+        let wallets = controller.wallets()
+
+        for (index, popularWalletName) in WCRegistryController.popularWallets.enumerated() {
+            print(wallets[index].rank)
+            XCTAssertEqual(wallets[index].name, popularWalletName)
+        }
+    }
+
+    func testEntriesFiltersOutExcludedWallets() throws {
+        let controller = WCRegistryController()
+        let data = try getData(fromJSON: "wc_registry_wallets")
+        let entries = try JSONDecoder().decode(JsonAppRegistry.self, from: data)
+
+        controller.updateEntries(registry: entries)
+
+        let wallets = controller.wallets()
+
+        let excludedWallets = wallets.map { $0.name }.filter { name in
+            WCRegistryController.excludedWallets.contains(name)
+        }
+        XCTAssertEqual(excludedWallets, [])
+    }
 }

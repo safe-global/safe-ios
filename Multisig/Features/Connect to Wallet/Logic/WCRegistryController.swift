@@ -15,6 +15,25 @@ protocol WCRegistryControllerDelegate: AnyObject {
 
 class WCRegistryController {
 
+    // using wallet ids for keeping ranked order is hard to maintain
+    // thus using wallet names
+    static let popularWallets = [
+        "Rainbow",
+        "Trust Wallet",
+        "Argent",
+        "MetaMask",
+        "Crypto.com | DeFi Wallet",
+        "Pillar",
+        "imToken",
+        "ONTO",
+        "TokenPocket"
+    ]
+
+    static let excludedWallets = [
+        // excluded because it's this app
+        "Gnosis Safe Multisig"
+    ]
+
     weak var delegate: WCRegistryControllerDelegate?
 
     var repository = WCAppRegistryRepository()
@@ -28,21 +47,31 @@ class WCRegistryController {
             DispatchQueue.main.async {
                 switch (result) {
                 case .success(let registry):
-                    let entries = registry.entries.values.compactMap { entry in
-                        
-                        // currently elements are coming not sorted from wc registry json
-                        self.repository.entry(from: entry, role: .wallet, rank: 0)
-                    }
-                    // TODO: define custom ranking for sorting by most popular wallets first
-                    self.repository.updateEntries(entries)
+                    self.updateEntries(registry: registry)
                     self.delegate?.didUpdate(controller: self)
-                    
+
                 case .failure(let error):
                     self.delegate?.didFailToLoad(controller: self, error: error)
                 }
             }
         }
     }
+
+    func updateEntries(registry: JsonAppRegistry) {
+        let entries: [WCAppRegistryEntry] = registry.entries.values
+                .filter {
+                    !Self.excludedWallets.contains($0.name)
+                }
+                .compactMap { entry in
+                    // currently elements are coming not sorted from wc registry json
+                    // we define custom ranking for sorting by most popular wallets first
+                    let popularWalletIndex = Self.popularWallets.firstIndex(of: entry.name) ?? Int.max
+                    return self.repository.entry(from: entry, role: .wallet, rank: popularWalletIndex)
+                }
+
+        repository.updateEntries(entries)
+    }
+
 
     // retrieve wallets from db
     func wallets(_ searchTerm: String? = nil) -> [WCAppRegistryEntry] {
