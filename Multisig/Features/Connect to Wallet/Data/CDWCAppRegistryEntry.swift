@@ -27,7 +27,6 @@ extension CDWCAppRegistryEntry {
     }
 
     static func entries(name: String?, role: Int16) throws -> [CDWCAppRegistryEntry] {
-        let context = App.shared.coreDataStack.viewContext
         do {
             let context = App.shared.coreDataStack.viewContext
             let fr = CDWCAppRegistryEntry.fetchRequest().by(name: name, role: role)
@@ -86,9 +85,9 @@ extension NSFetchRequest where ResultType == CDWCAppRegistryEntry {
     func by(name: String?, role: Int16) -> Self {
         sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         if let name = name {
-            predicate = NSPredicate(format: "name like[c] %@ AMD role = %@", name, role)
+            predicate = NSPredicate(format: "name like[c] %@ AND role == %i", name, role)
         } else {
-            predicate = NSPredicate(format: "role = %@", role)
+            predicate = NSPredicate(format: "role == %i", role)
         }
         return self
     }

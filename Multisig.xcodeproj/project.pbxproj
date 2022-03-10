@@ -674,6 +674,8 @@
 		6A39DC9327C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A39DC9127C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift */; };
 		6A39DC9427C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A39DC9227C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib */; };
 		6A91EFD727DA0604009E63E9 /* WCRegistryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A91EFD627DA0604009E63E9 /* WCRegistryController.swift */; };
+		6A91EFDA27DA2C8D009E63E9 /* wc_registry_wallets.json in Resources */ = {isa = PBXBuildFile; fileRef = 6A91EFD927DA2C8D009E63E9 /* wc_registry_wallets.json */; };
+		6A91EFDC27DA2CF9009E63E9 /* WCAppRegistryRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A91EFDB27DA2CF9009E63E9 /* WCAppRegistryRepositoryTests.swift */; };
 		6ADEB01B2795AB410062ADFE /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB0192795AB410062ADFE /* InfoLabel.swift */; };
 		6ADEB01C2795AB410062ADFE /* InfoLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB01A2795AB410062ADFE /* InfoLabel.xib */; };
 		6ADEB02727B559370062ADFE /* WebConnectionOwnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */; };
@@ -1441,6 +1443,8 @@
 		6A39DC9127C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentFinishedViewController.swift; sourceTree = "<group>"; };
 		6A39DC9227C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeDeploymentFinishedViewController.xib; sourceTree = "<group>"; };
 		6A91EFD627DA0604009E63E9 /* WCRegistryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCRegistryController.swift; sourceTree = "<group>"; };
+		6A91EFD927DA2C8D009E63E9 /* wc_registry_wallets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = wc_registry_wallets.json; sourceTree = "<group>"; };
+		6A91EFDB27DA2CF9009E63E9 /* WCAppRegistryRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCAppRegistryRepositoryTests.swift; sourceTree = "<group>"; };
 		6ADEB0192795AB410062ADFE /* InfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
 		6ADEB01A2795AB410062ADFE /* InfoLabel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoLabel.xib; sourceTree = "<group>"; };
 		6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnectionOwnerView.swift; sourceTree = "<group>"; };
@@ -1996,6 +2000,7 @@
 				0AFC33EC25DE9C3200067D41 /* AuthenticationControllerTests.swift */,
 				550A6181268A23A9002C02E1 /* SafeNetworkMigrationTests.swift */,
 				B0D610B9708DF8BFD4A612D2 /* WebConnectionRepositoryTests.swift */,
+				6A91EFDB27DA2CF9009E63E9 /* WCAppRegistryRepositoryTests.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -2571,6 +2576,7 @@
 		0A9BC3542460581500EB9C5D /* MultisigIntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
+				6A91EFD827DA2C45009E63E9 /* Data */,
 				0A3DFF002667D7DA00B45770 /* CoreData */,
 				0A64313F247ED1AA006FD30A /* MultisigIntegrationTests.xctestplan */,
 				0A802B8F24E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift */,
@@ -3339,6 +3345,14 @@
 			path = Ledger;
 			sourceTree = "<group>";
 		};
+		6A91EFD827DA2C45009E63E9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				6A91EFD927DA2C8D009E63E9 /* wc_registry_wallets.json */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		B0D61012F3C4AC13FA79F697 /* Features */ = {
 			isa = PBXGroup;
 			children = (
@@ -3900,6 +3914,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A61E8452670E632009D68A4 /* __Snapshots__ in Resources */,
+				6A91EFDA27DA2C8D009E63E9 /* wc_registry_wallets.json in Resources */,
 				0A74719A269F152D008E9F2D /* chains_4_safes_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_balances_usd.json in Resources */,
 				0A3DFEFE2667D3A700B45770 /* README.md in Resources */,
 			);
@@ -4449,6 +4464,7 @@
 				0A61E8422670E474009D68A4 /* CellTestViewController.swift in Sources */,
 				0ADFADA3267B496F007ACD65 /* BalancesTableViewControllerTests.swift in Sources */,
 				0A9D5CE427D8EC280075A21D /* WCRegistryIntegrationTests.swift in Sources */,
+				6A91EFDC27DA2CF9009E63E9 /* WCAppRegistryRepositoryTests.swift in Sources */,
 				0A9BC35D2460581A00EB9C5D /* ENSIntegrationTests.swift in Sources */,
 				0A3DFEF82667D22B00B45770 /* MockSecureStore.swift in Sources */,
 				0A3DFEFC2667D2DF00B45770 /* SafeTests.swift in Sources */,
