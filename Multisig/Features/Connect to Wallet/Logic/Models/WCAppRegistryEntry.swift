@@ -12,8 +12,10 @@ class WCAppRegistryEntry {
     var role: Role
 
     var name: String
+    
+    var rank: Int
 
-    var shortName: String
+    var shortName: String? = nil
 
     var description: String? = nil
 
@@ -27,7 +29,7 @@ class WCAppRegistryEntry {
 
     var imageLargeUrl: URL? = nil
 
-    var linkBrowser: URL? = nil
+    var appStoreLink: URL? = nil
 
     var linkMobileNative: URL? = nil
 
@@ -43,14 +45,15 @@ class WCAppRegistryEntry {
             chains: [String],
             versions: [String],
             name: String,
-            shortName: String,
+            rank: Int,
+            shortName: String? = nil,
             description: String? = nil,
             homepage: URL? = nil,
             imageId: String? = nil,
             imageSmallUrl: URL? = nil,
             imageMediumUrl: URL? = nil,
             imageLargeUrl: URL? = nil,
-            linkBrowser: URL? = nil,
+            appStoreLink: URL? = nil,
             linkMobileNative: URL? = nil,
             linkMobileUniversal: URL? = nil
     ) {
@@ -59,6 +62,7 @@ class WCAppRegistryEntry {
         self.chains = chains
         self.versions = versions
         self.name = name
+        self.rank = rank
         self.shortName = shortName
         self.description = description
         self.homepage = homepage
@@ -66,7 +70,7 @@ class WCAppRegistryEntry {
         self.imageSmallUrl = imageSmallUrl
         self.imageMediumUrl = imageMediumUrl
         self.imageLargeUrl = imageLargeUrl
-        self.linkBrowser = linkBrowser
+        self.appStoreLink = appStoreLink
         self.linkMobileNative = linkMobileNative
         self.linkMobileUniversal = linkMobileUniversal
 

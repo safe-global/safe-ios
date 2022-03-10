@@ -42,6 +42,7 @@
         <attribute name="status" optional="YES" attributeType="String"/>
     </entity>
     <entity name="CDWCAppRegistryEntry" representedClassName="CDWCAppRegistryEntry" syncable="YES" codeGenerationType="class">
+        <attribute name="appStoreLink" optional="YES" attributeType="URI"/>
         <attribute name="chains" optional="YES" attributeType="String"/>
         <attribute name="desc" optional="YES" attributeType="String"/>
         <attribute name="homepage" optional="YES" attributeType="URI"/>
@@ -50,10 +51,10 @@
         <attribute name="imageLargeURL" optional="YES" attributeType="URI"/>
         <attribute name="imageMediumURL" optional="YES" attributeType="URI"/>
         <attribute name="imageSmallURL" optional="YES" attributeType="URI"/>
-        <attribute name="linkBrowser" optional="YES" attributeType="URI"/>
         <attribute name="linkMobileNative" optional="YES" attributeType="URI"/>
         <attribute name="linkMobileUniversal" optional="YES" attributeType="URI"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="rank" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="role" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="shortName" optional="YES" attributeType="String"/>
         <attribute name="versions" optional="YES" attributeType="String"/>
@@ -194,6 +195,6 @@
         <element name="SafeCreationCall" positionX="-261" positionY="-99" width="128" height="224"/>
         <element name="Selection" positionX="-469.84912109375" positionY="-11.533935546875" width="128" height="58"/>
         <element name="WCSession" positionX="-269.6851196289062" positionY="219.7146911621094" width="128" height="119"/>
-        <element name="CDWCAppRegistryEntry" positionX="-270" positionY="-108" width="128" height="268"/>
+        <element name="CDWCAppRegistryEntry" positionX="-270" positionY="-108" width="128" height="283"/>
     </elements>
 </model>

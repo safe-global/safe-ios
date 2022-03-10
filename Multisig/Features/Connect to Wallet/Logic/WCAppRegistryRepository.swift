@@ -30,7 +30,10 @@ class WCAppRegistryRepository {
     private func update(cdEntry: CDWCAppRegistryEntry, with other: WCAppRegistryEntry) {
         cdEntry.id = other.id
         cdEntry.role = other.role.rawValue
+        cdEntry.chains = other.chains.joined(separator: ",")
+        cdEntry.versions = other.versions.joined(separator: ",")
         cdEntry.name = other.name
+        cdEntry.rank = Int64(other.rank)
         cdEntry.shortName = other.shortName
         cdEntry.desc = other.description
         cdEntry.homepage = other.homepage
@@ -38,7 +41,7 @@ class WCAppRegistryRepository {
         cdEntry.imageSmallURL = other.imageSmallUrl
         cdEntry.imageMediumURL = other.imageMediumUrl
         cdEntry.imageLargeURL = other.imageLargeUrl
-        cdEntry.linkBrowser = other.linkBrowser
+        cdEntry.appStoreLink = other.appStoreLink
         cdEntry.linkMobileNative = other.linkMobileNative
         cdEntry.linkMobileUniversal = other.linkMobileUniversal
     }
@@ -55,9 +58,10 @@ class WCAppRegistryRepository {
         let result = WCAppRegistryEntry(
                 id: entryId,
                 role: WCAppRegistryEntry.Role(rawValue: other.role)!,
-                chains: other.chains?.split(separator: ",").map(String.init) ?? [],
+                chains: chainsString.split(separator: ",").map(String.init),
                 versions: other.versions?.split(separator: ",").map(String.init) ?? [],
                 name: name,
+                rank: Int(other.rank),
                 shortName: other.shortName ?? "",
                 description: other.desc,
                 homepage: other.homepage,
@@ -65,7 +69,7 @@ class WCAppRegistryRepository {
                 imageSmallUrl: other.imageSmallURL,
                 imageMediumUrl: other.imageMediumURL,
                 imageLargeUrl: other.imageLargeURL,
-                linkBrowser: other.linkBrowser,
+                appStoreLink: other.appStoreLink,
                 linkMobileNative: other.linkMobileNative,
                 linkMobileUniversal: other.linkMobileUniversal
         )
@@ -73,28 +77,39 @@ class WCAppRegistryRepository {
         return result
     }
 
-    func entry(from other: JsonAppRegistryEntry, role: WCAppRegistryEntry.Role = .wallet) -> WCAppRegistryEntry? {
+    func entry(from other: JsonAppRegistryEntry, role: WCAppRegistryEntry.Role = .wallet, rank: Int = 0) -> WCAppRegistryEntry? {
+        // filter and map chains from caip-2 format to just chain id
+        let chains = other.chains.compactMap { caip2 -> String? in
+            var caip2 = caip2
+            if caip2.hasPrefix("eip155:") {
+                caip2.removeFirst("eip155:".count)
+                return caip2
+            }
+            return nil
+        }
+        
         guard
                 !other.name.isEmpty,
-                !other.chains.isEmpty
+                !chains.isEmpty,
+                let appStoreLink = other.app.ios.url ?? other.app.browser.url
         else {
             return nil
         }
-
         let result = WCAppRegistryEntry(
                 id: other.id,
                 role: role,
-                chains: other.chains.split(separator: ",").map(String.init),
-                versions: other.versions.split(separator: ",").map(String.init),
+                chains: chains,
+                versions: other.versions,
                 name: other.name,
-                shortName: other.metadata.shortName ?? "",
+                rank: rank,
+                shortName: other.metadata.shortName,
                 description: other.description,
                 homepage: other.homepage.url,
                 imageId: other.image_id,
                 imageSmallUrl: other.image_url.sm.url,
                 imageMediumUrl: other.image_url.md.url,
                 imageLargeUrl: other.image_url.lg.url,
-                linkBrowser: other.desktop.universal.url,
+                appStoreLink: appStoreLink,
                 linkMobileNative: other.mobile.native.url,
                 linkMobileUniversal: other.mobile.universal.url
         )
