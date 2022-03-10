@@ -84,8 +84,8 @@ class WCAppRegistryRepository {
         let result = WCAppRegistryEntry(
                 id: other.id,
                 role: role,
-                chains: other.chains?.split(separator: ",").map(String.init) ?? [],
-                versions: other.versions?.split(separator: ",").map(String.init) ?? [],
+                chains: other.chains.split(separator: ",").map(String.init),
+                versions: other.versions.split(separator: ",").map(String.init),
                 name: other.name,
                 shortName: other.metadata.shortName ?? "",
                 description: other.description,
