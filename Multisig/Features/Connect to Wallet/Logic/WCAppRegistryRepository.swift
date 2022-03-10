@@ -7,6 +7,14 @@ import Foundation
 
 class WCAppRegistryRepository {
 
+    func entries(searchTerm: String? = nil, role: WCAppRegistryEntry.Role = .wallet) -> [WCAppRegistryEntry] {
+        assert(Thread.isMainThread)
+        let entries = try? CDWCAppRegistryEntry.entries(name: searchTerm, role: role.rawValue)
+        return entries?.compactMap {
+            entry(from: $0)
+        } ?? []
+    }
+
     func delete(_ entry: WCAppRegistryEntry) {
         CDWCAppRegistryEntry.delete(by: entry.id)
     }
@@ -24,6 +32,28 @@ class WCAppRegistryRepository {
         update(cdEntry: cdEntry, with: entry)
 
         // save the database
+        App.shared.coreDataStack.saveContext()
+    }
+
+    /// replaces all existing entries with new ones
+    func updateEntries(_ entries: [WCAppRegistryEntry]) {
+        assert(Thread.isMainThread)
+        let context = App.shared.coreDataStack.viewContext
+
+        // delete all existing entries
+        guard let cdEntries = (try? CDWCAppRegistryEntry.getAll()) else {
+            return
+        }
+        for entry in cdEntries {
+            context.delete(entry)
+        }
+
+        // save new entries
+        for entry in entries {
+            let cdEntry = CDWCAppRegistryEntry.create()
+            update(cdEntry: cdEntry, with: entry)
+        }
+
         App.shared.coreDataStack.saveContext()
     }
 
@@ -51,7 +81,7 @@ class WCAppRegistryRepository {
                 let entryId = other.id,
                 let name = other.name,
                 let chainsString = other.chains
-        else {
+                else {
             return nil
         }
 
@@ -87,12 +117,12 @@ class WCAppRegistryRepository {
             }
             return nil
         }
-        
+
         guard
                 !other.name.isEmpty,
                 !chains.isEmpty,
                 let appStoreLink = other.app.ios.url ?? other.app.browser.url
-        else {
+                else {
             return nil
         }
         let result = WCAppRegistryEntry(
