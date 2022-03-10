@@ -71,7 +71,7 @@ extension CDWCAppRegistryEntry {
 extension NSFetchRequest where ResultType == CDWCAppRegistryEntry {
 
     func all() -> Self {
-        sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        sortDescriptors = [NSSortDescriptor(key: "rank", ascending: true), NSSortDescriptor(key: "name", ascending: true)]
         return self
     }
 
