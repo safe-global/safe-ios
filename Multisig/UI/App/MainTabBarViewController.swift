@@ -503,6 +503,13 @@ extension MainTabBarViewController: WebConnectionRequestObserver {
         guard !requestQueue.isEmpty && !presentingRequest else { return }
         let request = requestQueue.removeLast()
 
+        // need to skip the requests that are retained in memory but for which connection is closed.
+        // otherwise the view controllers would crash (they expect the connection to be opened)
+        guard let connection = WebConnectionController.shared.connection(for: request), connection.status == .opened else {
+            presentRequests()
+            return
+        }
+
         presentingRequest = true
         let completion: () -> Void = { [weak self] in
             self?.presentingRequest = false
