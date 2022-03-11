@@ -84,7 +84,7 @@ class LoadSafeViewController: UIViewController {
     @IBAction func didTapTryDemo(_ sender: Any) {
         let chain = Chain.mainnetChain()
         
-        let demoAddress: Address = "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7"
+        let demoAddress: Address = Address(exactly: Safe.demoAddress)
         let demoName = "Demo Safe"
         let safeVersion = "1.1.1"
         Safe.create(address: demoAddress.checksummed, version: safeVersion, name: demoName, chain: chain)

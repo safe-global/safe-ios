@@ -163,7 +163,7 @@ extension Tracker {
             ].contains(event)
     }
 
-    static func setSafeCount(_ count: Int) {
+    static func setNumSafesUserProperty(_ count: Int) {
         Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numSafes)
     }
 

@@ -42,6 +42,9 @@ extension Safe {
         }
     }
 
+    // Demo address
+    static let demoAddress = "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7"
+
     // this value is for contract versions 1.0.0 and 1.1.1 (probably for later versions as well)
     static let DefaultEIP712SafeAppTxTypeHash =
         Data(ethHex: "0xbb8310d486368db6bd6f849402fdd73ad53d316b5a4b2644ad6efe0f941286d8")
@@ -63,6 +66,13 @@ extension Safe {
     static var count: Int {
         let context = App.shared.coreDataStack.viewContext
         return (try? context.count(for: Safe.fetchRequest().all())) ?? 0
+    }
+
+    /// Exclude Demo Safe from counting.
+    /// It is acceptable that we will not count a real owner of this Safe.
+    static var countExcludingDemo: Int {
+        let context = App.shared.coreDataStack.viewContext
+        return (try? context.count(for: Safe.fetchRequest().allExcludingDemo())) ?? 0
     }
 
     static var all: [Safe] {
@@ -153,7 +163,7 @@ extension Safe {
 
         App.shared.coreDataStack.saveContext()
 
-        Tracker.setSafeCount(count)
+        Tracker.setNumSafesUserProperty(countExcludingDemo)
         Tracker.trackEvent(.userSafeAdded, parameters: ["chain_id" : chain.id!])
 
         updateCachedNames()
@@ -209,7 +219,7 @@ extension Safe {
 
         App.shared.coreDataStack.saveContext()
 
-        Tracker.setSafeCount(count)
+        Tracker.setNumSafesUserProperty(countExcludingDemo)
         Tracker.trackEvent(.userSafeRemoved, parameters: ["chain_id" : chainId])
 
         NotificationCenter.default.post(name: .selectedSafeChanged, object: nil)
@@ -252,6 +262,11 @@ extension Safe {
 extension NSFetchRequest where ResultType == Safe {
     func all() -> Self {
         sortDescriptors = [NSSortDescriptor(keyPath: \Safe.additionDate, ascending: true)]
+        return self
+    }
+
+    func allExcludingDemo() -> Self {
+        predicate = NSPredicate(format: "%K != %@", "address", Safe.demoAddress)
         return self
     }
 
