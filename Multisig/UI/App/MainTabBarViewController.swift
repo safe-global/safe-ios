@@ -503,6 +503,11 @@ extension MainTabBarViewController: WebConnectionRequestObserver {
         guard !requestQueue.isEmpty && !presentingRequest else { return }
         let request = requestQueue.removeLast()
 
+        guard let connection = WebConnectionController.shared.connection(for: request), connection.status == .opened else {
+            presentRequests()
+            return
+        }
+
         presentingRequest = true
         let completion: () -> Void = { [weak self] in
             self?.presentingRequest = false
