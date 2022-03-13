@@ -56,12 +56,15 @@ class ConnectWalletViewController: LoadableViewController {
         searchController.searchBar.placeholder = "Search"
 
         walletsSource.delegate = self
-        walletsSource.loadData()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.walletConnectKeyOptions)
+    }
+
+    override func reloadData() {
+        walletsSource.loadData()
     }
 }
 
