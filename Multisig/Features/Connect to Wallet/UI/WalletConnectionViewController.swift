@@ -58,6 +58,7 @@ class WalletConnectionViewController: UIViewController, WebConnectionObserver {
             failedImage: placeholder
         )
         titleLabel.setStyle(.primary)
+        titleLabel.text = "Connecting to \(wallet.name)..."
         cancelButton.setText("Cancel", .plain)
     }
 
