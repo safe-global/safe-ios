@@ -128,7 +128,7 @@ extension ConnectWalletViewController: UITableViewDelegate, UITableViewDataSourc
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let title = sections[section].title
-        if title.isEmpty { return nil }
+        if title.isEmpty || sections[section].rows.isEmpty { return nil }
         let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
         view.setName(title)
 
@@ -136,7 +136,7 @@ extension ConnectWalletViewController: UITableViewDelegate, UITableViewDataSourc
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if sections[section].title.isEmpty { return 0 }
+        if sections[section].title.isEmpty || sections[section].rows.isEmpty { return 0 }
         return BasicHeaderView.headerHeight
     }
 
