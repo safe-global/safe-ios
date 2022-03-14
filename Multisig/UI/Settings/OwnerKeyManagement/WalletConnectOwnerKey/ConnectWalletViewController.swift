@@ -115,6 +115,8 @@ extension ConnectWalletViewController: UITableViewDelegate, UITableViewDataSourc
                     // TODO: Create connection request
                 } else if let storeURL = wallet.appStoreLink {
                     UIApplication.shared.open(storeURL, options: [:], completionHandler: nil)
+                } else if let homePage = wallet.homepage {
+                    UIApplication.shared.open(homePage, options: [:], completionHandler: nil)
                 } else {
                     App.shared.snackbar.show(message: "Wallet not installed and store link is missing")
                 }
