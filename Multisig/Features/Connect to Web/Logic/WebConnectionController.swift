@@ -643,6 +643,11 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 } catch {
                     LogService.shared.error("Error checking whether key exists: \(error)")
                 }
+            } else if connection.localPeer?.role == .dapp {
+                // TODO: handle change in the key
+                // check that the key is still the same
+                // otherwise we need either close the connection or change the key info
+                // and then handle that the key might be duplicated
             }
 
             // all checks passed, update the connection.
