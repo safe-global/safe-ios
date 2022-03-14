@@ -44,7 +44,7 @@ class ConnectWalletViewController: LoadableViewController {
         navigationItem.backButtonTitle = "Back"
 
 
-        emptyView.setImage(UIImage(named: "ico-no-assets")!)
+        emptyView.setImage(UIImage(named: "ico-wallet-placeholder")!)
         emptyView.setText("No wallets found")
 
         tableView.delegate = self
@@ -92,7 +92,7 @@ extension ConnectWalletViewController: UITableViewDelegate, UITableViewDataSourc
                 return tableView.basicCell(
                             name: wallet.name,
                             iconURL: wallet.imageSmallUrl,
-                            placeholder: nil,
+                            placeholder: UIImage(named: "ico-wallet-placeholder")!,
                             indexPath: indexPath,
                             withDisclosure: false,
                             canSelect: false
