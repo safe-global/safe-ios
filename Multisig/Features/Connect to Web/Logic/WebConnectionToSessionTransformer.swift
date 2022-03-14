@@ -11,6 +11,7 @@ import Ethereum
 class WebConnectionToSessionTransformer {
 
     func update(connection: WebConnection, with session: Session) {
+        // TODO: adapt for the other way around (myself == dapp, other == wallet)
         // This implementation assumes the local peer is wallet and remote is a dapp.
         // It is done this way to reduce the scope of work. It is incomplete, but should work for connecting to
         // the safe web app.
