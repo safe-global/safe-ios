@@ -9,17 +9,25 @@
 import UIKit
 import WalletConnectSwift
 
-class ConnectWalletViewController: UITableViewController {
+class ConnectWalletViewController: LoadableViewController {
     private var completion: () -> Void = { }
-    private var installedWallets = WalletsDataSource.shared.installedWallets
 
-    // technically it is possible to select several wallets but to finish connection with one of them
-    private var walletPerTopic = [String: InstalledWallet]()
-    // `wcDidConnectClient` happens when app eneters foreground. This parameter should throttle unexpected events
-    private var waitingForSession = false
+    let searchController = UISearchController(searchResultsController: nil)
+
+    private var searchTerm: String? {
+        guard let term = searchController.searchBar.text?.lowercased(), !term.isEmpty else { return nil }
+        return term
+    }
+
+    private let walletsSource = WCRegistryController()
+    private var wallets: [WCAppRegistryEntry] = []
+
+    var sections: [ConnectWalletSection] = []
+
+    override var isEmpty: Bool { wallets.isEmpty }
 
     convenience init(completion: @escaping () -> Void) {
-        self.init()
+        self.init(namedClass: Self.superclass())
         self.completion = completion
     }
 
@@ -30,10 +38,24 @@ class ConnectWalletViewController: UITableViewController {
         tableView.backgroundColor = .primaryBackground
         tableView.registerCell(BasicCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
-        tableView.rowHeight = BasicCell.rowHeight
+        tableView.rowHeight = 60
 
-        NotificationCenter.default.addObserver(
-            self, selector: #selector(walletConnectSessionCreated(_:)), name: .wcDidConnectClient, object: nil)
+        navigationItem.searchController = searchController
+        navigationItem.backButtonTitle = "Back"
+
+
+        emptyView.setImage(UIImage(named: "ico-wallet-placeholder")!)
+        emptyView.setText("No wallets found")
+
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.refreshControl = nil
+
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search"
+
+        walletsSource.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -41,136 +63,136 @@ class ConnectWalletViewController: UITableViewController {
         Tracker.trackEvent(.walletConnectKeyOptions)
     }
 
-    @objc private func walletConnectSessionCreated(_ notification: Notification) {
-        guard let session = notification.object as? Session, waitingForSession else { return }
-        waitingForSession = false
+    override func reloadData() {
+        walletsSource.loadData()
+    }
+}
 
-        DispatchQueue.main.sync { [weak self] in
-            self?.enterName(for: session)
-        }
+extension ConnectWalletViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        sections.count
     }
 
-    /// Gets the name from user and imports the key
-    private func enterName(for session: Session) {
-        // get the address of the connected wallet
-        guard let walletInfo = session.walletInfo,
-              let address = walletInfo.accounts.first.flatMap(Address.init) else {
-                  App.shared.snackbar.show(error: GSError.WCConnectedKeyMissingAddress())
-            return
-        }
-
-        let enterNameVC = EnterAddressNameViewController()
-        enterNameVC.actionTitle = "Import"
-        enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
-        enterNameVC.screenTitle = "Enter Key Name"
-        enterNameVC.trackingEvent = .enterKeyName
-
-        enterNameVC.placeholder = "Enter name"
-        enterNameVC.name = walletInfo.peerMeta.name
-        enterNameVC.address = address
-        enterNameVC.badgeName = KeyType.deviceImported.imageName
-        enterNameVC.completion = { [unowned self] name in
-            let success = OwnerKeyController.importKey(session: session,
-                                                         installedWallet: self.walletPerTopic[session.url.topic],
-                                                         name: name)
-
-            if !success {
-                self.completion()
-                return
-            }
-
-            let keyAddedVC = WalletConnectKeyAddedViewController()
-            keyAddedVC.completion = { [weak self] in
-                App.shared.snackbar.show(message: "The key added successfully")
-                self?.completion()
-            }
-            keyAddedVC.accountAddress = address
-            keyAddedVC.accountName = name
-
-            enterNameVC.show(keyAddedVC, sender: nil)
-        }
-
-        show(enterNameVC, sender: self)
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        sections[section].type == .qrCode ? 1 : sections[section].rows.count
     }
 
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return installedWallets.count != 0 ? installedWallets.count : 1
-        }
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            if installedWallets.count != 0 {
-                let wallet = installedWallets[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch sections[indexPath.section].type {
+            case.qrCode:
                 return tableView.basicCell(
-                    name: wallet.name,
-                    icon: wallet.imageName,
-                    indexPath: indexPath,
-                    withDisclosure: false,
-                    canSelect: false
-                )
-            } else {
+                            name: "Display QR Code",
+                            icon: "qrcode",
+                            indexPath: indexPath,
+                            withDisclosure: false,
+                            canSelect: false
+                        )
+            default:
+                let wallet = sections[indexPath.section].rows[indexPath.row]
                 return tableView.basicCell(
-                    name: "Known wallets not found", indexPath: indexPath, withDisclosure: false, canSelect: false)
-            }
-        } else {
-            return tableView.basicCell(
-                name: "Display QR Code",
-                icon: "qrcode",
-                indexPath: indexPath,
-                withDisclosure: false,
-                canSelect: false
-            )
+                            name: wallet.name,
+                            iconURL: wallet.imageSmallUrl,
+                            placeholder: UIImage(named: "ico-wallet-placeholder")!,
+                            indexPath: indexPath,
+                            withDisclosure: false,
+                            canSelect: false
+                        )
         }
     }
 
     // MARK: - Table view delegate
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         do {
-            if indexPath.section == 0 {
-                guard !installedWallets.isEmpty else { return }
-                let installedWallet = installedWallets[indexPath.row]
-                let link = installedWallet.universalLink.isEmpty ?
-                    installedWallet.scheme :
-                    installedWallet.universalLink
-
-                let (topic, connectionURL) = try WalletConnectClientController.shared.connectToWallet(link: link)
-                walletPerTopic[topic] = installedWallet
-                waitingForSession = true
-
-                // we need a delay so that WalletConnectClient can send handshake request
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
-                    UIApplication.shared.open(connectionURL, options: [:], completionHandler: nil)
-                }
-            } else {
+            switch sections[indexPath.section].type {
+            case .qrCode:
                 let connectionURI = try WalletConnectClientController.shared.connect().absoluteString
-                waitingForSession = true
                 show(WalletConnectQRCodeViewController.create(code: connectionURI), sender: nil)
+            default:
+                let wallet = sections[indexPath.section].rows[indexPath.row]
+                if wallet.installed {
+                    // TODO: Create connection request
+                } else if let storeURL = wallet.appStoreLink {
+                    UIApplication.shared.open(storeURL, options: [:], completionHandler: nil)
+                } else if let homePage = wallet.homepage {
+                    UIApplication.shared.open(homePage, options: [:], completionHandler: nil)
+                } else {
+                    App.shared.snackbar.show(message: "Wallet not installed and store link is missing")
+                }
             }
         } catch {
-            App.shared.snackbar.show(
-                error: GSError.error(description: "Could not create connection URL", error: error))
-            return
+            App.shared.snackbar.show(error: GSError.error(description: "Could not create connection URL", error: error))
         }
     }
 
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let title = sections[section].title
+        if title.isEmpty || sections[section].rows.isEmpty { return nil }
         let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
-        view.setName(section == 0 ? "ON THIS DEVICE" : "ON OTHER DEVICE")
+        view.setName(title)
+
         return view
     }
 
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if sections[section].title.isEmpty || sections[section].rows.isEmpty { return 0 }
         return BasicHeaderView.headerHeight
     }
+
+    func bindData() {
+        wallets = walletsSource.wallets(searchTerm)
+        if searchTerm == nil {
+            sections = [.init(type: .qrCode, title: "", rows: []),
+                        .init(type: .installedWallets, title: "ON THIS DEVICE", rows: wallets.filter { $0.installed }),
+                        .init(type: .otherWallets, title: "OTHER WALLETS", rows: wallets.filter { !$0.installed })]
+        } else {
+            sections = [.init(type: .all, title: "", rows: wallets)]
+        }
+
+        if isEmpty {
+            showOnly(view: emptyView)
+        } else {
+            showOnly(view: tableView)
+        }
+
+        tableView.reloadData()
+    }
+}
+
+extension ConnectWalletViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        bindData()
+    }
+}
+
+extension ConnectWalletViewController: WCRegistryControllerDelegate {
+    func didUpdate(controller: WCRegistryController) {
+        bindData()
+    }
+
+    func didFailToLoad(controller: WCRegistryController, error: Error) {
+        App.shared.snackbar.show(error: GSError.error(description: "Failed to load wallets",
+                                                      error: error.localizedDescription))
+        bindData()
+    }
+}
+
+extension WCAppRegistryEntry {
+    var installed: Bool {
+        linkMobileNative != nil && UIApplication.shared.canOpenURL(linkMobileNative!)
+    }
+}
+
+enum ConnectWalletSectionType {
+    case qrCode
+    case installedWallets
+    case otherWallets
+    case all
+}
+
+struct ConnectWalletSection {
+    let type: ConnectWalletSectionType
+    let title: String
+    let rows: [WCAppRegistryEntry]
 }

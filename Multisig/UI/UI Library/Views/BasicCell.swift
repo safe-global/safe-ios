@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class BasicCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
@@ -37,6 +38,10 @@ class BasicCell: UITableViewCell {
         iconImage.image = image
         iconImage.isHidden = false
         iconImage.tintColor = tintColor
+    }
+
+    func setIcon(url: URL?, placeholder: UIImage? = nil) {
+        iconImage.kf.setImage(with: url, placeholder: placeholder)
     }
 
     func setDetail(_ value: String?) {
