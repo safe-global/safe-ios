@@ -29,6 +29,30 @@ extension UITableView {
         return cell
     }
 
+    func basicCell(name: String,
+                   iconURL: URL? = nil,
+                   placeholder: UIImage? = nil,
+                   detail: String? = nil,
+                   indexPath: IndexPath,
+                   withDisclosure: Bool = true,
+                   disclosureImage: UIImage? = nil,
+                   canSelect: Bool = true) -> BasicCell {
+        let cell = dequeueCell(BasicCell.self, for: indexPath)
+        cell.setTitle(name)
+        cell.setIcon(url: iconURL, placeholder: placeholder)
+        cell.setDetail(detail)
+        
+        if !withDisclosure {
+            cell.setDisclosureImage(disclosureImage)
+        }
+
+        if !canSelect {
+            cell.selectionStyle = .none
+        }
+
+        return cell
+    }
+
     func detailedCell(imageUrl: URL?,
                       header: String?,
                       description: String?,
