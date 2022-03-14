@@ -45,6 +45,7 @@ class FormViewController: UITableViewController {
     var onClose: () -> Void = {}
     var onSave: () -> Void = {}
     var trackingEvent: TrackingEvent?
+    var chainId: String?
     var showsCloseButton: Bool = true
 
     var keyboardBehavior: KeyboardAvoidingBehavior!
@@ -111,7 +112,11 @@ class FormViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if let trackingEvent = trackingEvent {
-            Tracker.trackEvent(trackingEvent)
+            var parameters: [String: Any]? = nil
+            if (chainId != nil) {
+                parameters = ["chain_id": chainId!]
+            }
+            Tracker.trackEvent(trackingEvent, parameters: parameters)
         }
     }
 

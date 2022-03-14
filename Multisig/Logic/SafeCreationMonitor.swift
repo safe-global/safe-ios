@@ -55,9 +55,9 @@ class SafeCreationMonitor {
 
             case .pendingFailed:
                 safe.safeStatus = .deploymentFailed
-                NotificationCenter.default.post(name: .safeCreationUpdate, object: self, userInfo: ["safe" : safe,
-                                                                                                    "success" : false,
-                                                                                                    "chain" : safe.chain!])
+                NotificationCenter.default.post(name: .safeCreationUpdate, object: self, userInfo: ["safe": safe,
+                                                                                                    "success": false,
+                                                                                                    "chain": safe.chain!])
             default:
                 break
             }
@@ -78,14 +78,15 @@ class SafeCreationMonitor {
                     switch result {
                     case .failure(_):
                         break
-                    case .success(_):
+                    case .success(let info):
                         safe.safeStatus = .deployed
+                        safe.update(from: info)
                         App.shared.coreDataStack.saveContext()
                         NotificationCenter.default.post(name: .safeCreationUpdate,
                                                         object: self,
-                                                        userInfo: ["chain" : safe.chain!,
-                                                                   "safe" : safe,
-                                                                   "success" : true])
+                                                        userInfo: ["chain": safe.chain!,
+                                                                   "safe": safe,
+                                                                   "success": true])
                     }
                 }
             }
