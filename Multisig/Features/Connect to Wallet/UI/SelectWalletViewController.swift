@@ -10,7 +10,7 @@ import UIKit
 import WalletConnectSwift
 
 class SelectWalletViewController: LoadableViewController {
-    private var completion: () -> Void = { }
+    private var completion: (_ wallet: WCAppRegistryEntry, _ connection: WebConnection) -> Void = { _, _ in }
 
     let searchController = UISearchController(searchResultsController: nil)
 
@@ -26,7 +26,7 @@ class SelectWalletViewController: LoadableViewController {
 
     override var isEmpty: Bool { wallets.isEmpty }
 
-    convenience init(completion: @escaping () -> Void) {
+    convenience init(completion: @escaping (_ wallet: WCAppRegistryEntry, _ connection: WebConnection) -> Void) {
         self.init(namedClass: Self.superclass())
         self.completion = completion
     }
@@ -135,8 +135,10 @@ extension SelectWalletViewController: UITableViewDelegate, UITableViewDataSource
     func connect(to wallet: WCAppRegistryEntry) {
         let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
         let walletConnectionVC = WalletConnectionViewController(wallet: wallet, chain: chain)
-        walletConnectionVC.onSuccess = { [weak walletConnectionVC, weak self] in
-            walletConnectionVC?.dismiss(animated: true, completion: self?.completion)
+        walletConnectionVC.onSuccess = { [weak walletConnectionVC, weak self] connection in
+            walletConnectionVC?.dismiss(animated: true) {
+                self?.completion(wallet, connection)
+            }
         }
         walletConnectionVC.onCancel = { [weak walletConnectionVC] in
             walletConnectionVC?.dismiss(animated: true, completion: nil)

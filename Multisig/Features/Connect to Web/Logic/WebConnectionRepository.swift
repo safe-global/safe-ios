@@ -104,6 +104,7 @@ class WebConnectionRepository {
         cdConnection.lastActivityDate = other.lastActivityDate
         cdConnection.status = other.status.rawValue
         cdConnection.lastError = other.lastError
+        cdConnection.accounts = other.accounts.map(\.checksummed).joined(separator: ",")
     }
 
     private func update(cdPeer: CDWCPeerInfo, with other: WebConnectionPeerInfo) {
@@ -128,7 +129,11 @@ class WebConnectionRepository {
         let expirationDate: Date? = other.expirationDate
         let lastActivityDate: Date? = other.lastActivityDate
         let status = WebConnectionStatus(rawValue: other.status) ?? .unknown
-        let accounts = (other.keys ?? NSSet()).allObjects.map { $0 as! KeyInfo }.map(\.address)
+
+        let accountsFromKeyInfos = (other.keys ?? NSSet()).allObjects.map { $0 as! KeyInfo }.map(\.address)
+        let accountsFromStrings = (other.accounts ?? "").split(separator: ",").map(String.init).compactMap(Address.init)
+        let accounts = Array(Set(accountsFromKeyInfos + accountsFromStrings))
+
         let localPeer = other.localPeer.flatMap(peer(from:))
         let remotePeer = other.remotePeer.flatMap(peer(from:))
         let lastError: String? = other.lastError

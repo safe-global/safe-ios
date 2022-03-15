@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21D62" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AddressBookEntry" representedClassName="AddressBookEntry" syncable="YES" codeGenerationType="class">
         <attribute name="additionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="address" optional="YES" attributeType="String"/>
@@ -60,6 +60,7 @@
         <attribute name="versions" optional="YES" attributeType="String"/>
     </entity>
     <entity name="CDWCConnection" representedClassName="CDWCConnection" syncable="YES" codeGenerationType="class">
+        <attribute name="accounts" optional="YES" attributeType="String"/>
         <attribute name="chainId" optional="YES" attributeType="Integer 64" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="connectionURL" optional="YES" attributeType="String"/>
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -142,6 +143,7 @@
         <attribute name="name" attributeType="String"/>
         <attribute name="type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="connections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDWCConnection" inverseName="keys" inverseEntity="CDWCConnection"/>
+        <relationship name="wallet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWCAppRegistryEntry"/>
     </entity>
     <entity name="Safe" representedClassName="Safe" syncable="YES">
         <attribute name="additionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -183,18 +185,18 @@
         <element name="AppSettings" positionX="-234.1375732421875" positionY="377.9746704101562" width="128" height="284"/>
         <element name="AppUser" positionX="-389.4071044921875" positionY="380.6794738769531" width="128" height="89"/>
         <element name="CDEthTransaction" positionX="-76.98681640625" positionY="383.9258422851562" width="128" height="149"/>
-        <element name="CDWCConnection" positionX="180.7559814453125" positionY="170.9039306640625" width="128" height="194"/>
+        <element name="CDWCAppRegistryEntry" positionX="-270" positionY="-108" width="128" height="283"/>
+        <element name="CDWCConnection" positionX="180.7559814453125" positionY="170.9039306640625" width="128" height="209"/>
         <element name="CDWCPeerInfo" positionX="418.90673828125" positionY="442.4048461914062" width="128" height="149"/>
         <element name="CDWCRequest" positionX="631.3834228515625" positionY="298.3258056640625" width="128" height="164"/>
         <element name="Chain" positionX="-23.085205078125" positionY="-146.3514099121094" width="128" height="239"/>
         <element name="ChainGasPriceSource" positionX="418.956787109375" positionY="-138.2214813232422" width="128" height="119"/>
         <element name="ChainTheme" positionX="443.2310791015625" positionY="4.1329345703125" width="128" height="74"/>
         <element name="ChainToken" positionX="256.864013671875" positionY="-258.2319793701172" width="128" height="104"/>
-        <element name="KeyInfo" positionX="526.714111328125" positionY="148.0606079101562" width="128" height="134"/>
+        <element name="KeyInfo" positionX="526.714111328125" positionY="148.0606079101562" width="128" height="149"/>
         <element name="Safe" positionX="-258.5867919921875" positionY="21.39932250976562" width="128" height="149"/>
         <element name="SafeCreationCall" positionX="-261" positionY="-99" width="128" height="224"/>
         <element name="Selection" positionX="-469.84912109375" positionY="-11.533935546875" width="128" height="58"/>
         <element name="WCSession" positionX="-269.6851196289062" positionY="219.7146911621094" width="128" height="119"/>
-        <element name="CDWCAppRegistryEntry" positionX="-270" positionY="-108" width="128" height="283"/>
     </elements>
 </model>

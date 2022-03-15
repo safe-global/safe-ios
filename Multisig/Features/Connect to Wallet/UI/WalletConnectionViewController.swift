@@ -14,7 +14,7 @@ class WalletConnectionViewController: UIViewController, WebConnectionObserver {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
     
-    var onSuccess: () -> Void = {}
+    var onSuccess: (_ connection: WebConnection) -> Void = { _ in }
     var onCancel: () -> Void = {}
     
     private var wallet: WCAppRegistryEntry!
@@ -68,7 +68,7 @@ class WalletConnectionViewController: UIViewController, WebConnectionObserver {
     func didUpdate(connection: WebConnection) {
         switch connection.status {
         case .opened:
-            self.onSuccess()
+            self.onSuccess(connection)
         case .final:
             // show failed to connect, close screen
             self.onCancel()

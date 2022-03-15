@@ -24,11 +24,11 @@ class WCAppRegistryEntryTests: XCTestCase {
     }
 
     func testUniversalUri() {
-        assertCorrectConnectUri(entry: universalLinkEntry(baseUri: "https://example.com"), expected: "https://example.com/wc?uri=\(wcUrl.absoluteString)")
-//        assertCorrectConnectUri(entry: universalLinkEntry(baseUri: "https://example.com/"), expected: "https://example.com/wc?uri=wc:61f735f0-f883-48be-a366-7cf5fb53041a@1?bridge%3Dhttps%25253A%25252F%25252Fbridge.example.com%25252F%26key%3D453064f36ee552ed3b0be18df5d192240fa2b3c083d2ce5aa3a5e6b812ba77f2")
-//        assertCorrectConnectUri(entry: universalLinkEntry(baseUri: "https://example.com/app"), expected: "https://example.com/app/wc?uri=wc:61f735f0-f883-48be-a366-7cf5fb53041a@1?bridge%3Dhttps%25253A%25252F%25252Fbridge.example.com%25252F%26key%3D453064f36ee552ed3b0be18df5d192240fa2b3c083d2ce5aa3a5e6b812ba77f2")
-//        assertCorrectConnectUri(entry: (universalLinkEntry(baseUri: "https://example.com/path/to/app/")), expected: "https://example.com/path/to/app/wc?uri=wc:61f735f0-f883-48be-a366-7cf5fb53041a@1?bridge%3Dhttps%25253A%25252F%25252Fbridge.example.com%25252F%26key%3D453064f36ee552ed3b0be18df5d192240fa2b3c083d2ce5aa3a5e6b812ba77f2")
-//        assertCorrectConnectUri(entry: universalLinkEntry(baseUri: "https://example.com/wc"), expected: "https://example.com/wc?uri=wc:61f735f0-f883-48be-a366-7cf5fb53041a@1?bridge%3Dhttps%25253A%25252F%25252Fbridge.example.com%25252F%26key%3D453064f36ee552ed3b0be18df5d192240fa2b3c083d2ce5aa3a5e6b812ba77f2")
+        assertCorrectConnectUri(entry: universalLinkEntry(baseUri: "https://example.com"), expected: "https://example.com/wc?uri=wc:61f735f0-f883-48be-a366-7cf5fb53041a@1?bridge%3Dhttps%25253A%25252F%25252Fbridge.example.com%25252F%26key%3D453064f36ee552ed3b0be18df5d192240fa2b3c083d2ce5aa3a5e6b812ba77f2")
+        assertCorrectConnectUri(entry: universalLinkEntry(baseUri: "https://example.com/"), expected: "https://example.com/wc?uri=wc:61f735f0-f883-48be-a366-7cf5fb53041a@1?bridge%3Dhttps%25253A%25252F%25252Fbridge.example.com%25252F%26key%3D453064f36ee552ed3b0be18df5d192240fa2b3c083d2ce5aa3a5e6b812ba77f2")
+        assertCorrectConnectUri(entry: universalLinkEntry(baseUri: "https://example.com/app"), expected: "https://example.com/app/wc?uri=wc:61f735f0-f883-48be-a366-7cf5fb53041a@1?bridge%3Dhttps%25253A%25252F%25252Fbridge.example.com%25252F%26key%3D453064f36ee552ed3b0be18df5d192240fa2b3c083d2ce5aa3a5e6b812ba77f2")
+        assertCorrectConnectUri(entry: (universalLinkEntry(baseUri: "https://example.com/path/to/app/")), expected: "https://example.com/path/to/app/wc?uri=wc:61f735f0-f883-48be-a366-7cf5fb53041a@1?bridge%3Dhttps%25253A%25252F%25252Fbridge.example.com%25252F%26key%3D453064f36ee552ed3b0be18df5d192240fa2b3c083d2ce5aa3a5e6b812ba77f2")
+        assertCorrectConnectUri(entry: universalLinkEntry(baseUri: "https://example.com/wc"), expected: "https://example.com/wc?uri=wc:61f735f0-f883-48be-a366-7cf5fb53041a@1?bridge%3Dhttps%25253A%25252F%25252Fbridge.example.com%25252F%26key%3D453064f36ee552ed3b0be18df5d192240fa2b3c083d2ce5aa3a5e6b812ba77f2")
     }
 
     func testDeeplinkUri() {

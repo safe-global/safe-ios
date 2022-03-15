@@ -31,59 +31,44 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
     }
 
     @objc override func didTapNextButton(_ sender: Any) {
-        let controller = SelectWalletViewController(completion: {
-            // get the connection
-            // get the wallet entry
+        let controller = SelectWalletViewController(completion: { [unowned self] wallet, connection in
+            guard let address = connection.accounts.first else {
+                App.shared.snackbar.show(error: GSError.WCConnectedKeyMissingAddress())
+                return
+            }
 
-            // enter wallet name
-                // on back / cancel --> close the connection
+            let enterNameVC = EnterAddressNameViewController()
+            enterNameVC.actionTitle = "Import"
+            enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
+            enterNameVC.screenTitle = "Enter Key Name"
+            enterNameVC.trackingEvent = .enterKeyName
 
-            // create key info from that
-            // associate key info with the wallet and connection
+            enterNameVC.placeholder = "Enter name"
+            enterNameVC.name = connection.remotePeer?.name
+            enterNameVC.address = address
+            enterNameVC.badgeName = KeyType.deviceImported.imageName
+
+            enterNameVC.completion = { [unowned self] name in
+                let success = OwnerKeyController.importKey(connection: connection, wallet: wallet, name: name)
+
+                if !success {
+                    self.completion()
+                    return
+                }
+
+                let keyAddedVC = WalletConnectKeyAddedViewController()
+                keyAddedVC.completion = { [weak self] in
+                    App.shared.snackbar.show(message: "The key added successfully")
+                    self?.completion()
+                }
+                keyAddedVC.accountAddress = address
+                keyAddedVC.accountName = name
+
+                enterNameVC.show(keyAddedVC, sender: nil)
+            }
+
+            self.show(enterNameVC, sender: self)
         })
         show(controller, sender: self)
     }
-
-    /// Gets the name from user and imports the key
-//    private func enterName(for session: Session) {
-//        // get the address of the connected wallet
-//        guard let walletInfo = session.walletInfo,
-//              let address = walletInfo.accounts.first.flatMap(Address.init) else {
-//                  App.shared.snackbar.show(error: GSError.WCConnectedKeyMissingAddress())
-//            return
-//        }
-//
-//        let enterNameVC = EnterAddressNameViewController()
-//        enterNameVC.actionTitle = "Import"
-//        enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
-//        enterNameVC.screenTitle = "Enter Key Name"
-//        enterNameVC.trackingEvent = .enterKeyName
-//
-//        enterNameVC.placeholder = "Enter name"
-//        enterNameVC.name = walletInfo.peerMeta.name
-//        enterNameVC.address = address
-//        enterNameVC.badgeName = KeyType.deviceImported.imageName
-//        enterNameVC.completion = { [unowned self] name in
-//            let success = OwnerKeyController.importKey(session: session,
-//                                                         installedWallet: self.walletPerTopic[session.url.topic],
-//                                                         name: name)
-//
-//            if !success {
-//                self.completion()
-//                return
-//            }
-//
-//            let keyAddedVC = WalletConnectKeyAddedViewController()
-//            keyAddedVC.completion = { [weak self] in
-//                App.shared.snackbar.show(message: "The key added successfully")
-//                self?.completion()
-//            }
-//            keyAddedVC.accountAddress = address
-//            keyAddedVC.accountName = name
-//
-//            enterNameVC.show(keyAddedVC, sender: nil)
-//        }
-//
-//        show(enterNameVC, sender: self)
-//    }
 }
