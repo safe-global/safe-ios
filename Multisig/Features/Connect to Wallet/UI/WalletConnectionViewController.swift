@@ -30,23 +30,6 @@ class WalletConnectionViewController: UIViewController, WebConnectionObserver {
         self.wallet = wallet
         self.chain = chain
     }
-    
-    static func present(
-        presenter: UIViewController,
-        walletRegistryEntry: WCAppRegistryEntry,
-        chain: Chain,
-        onSuccess: @escaping () -> Void,
-        onCancel: @escaping () -> Void
-    ) {
-        let walletConnectionVC = WalletConnectionViewController(
-            wallet: walletRegistryEntry,
-            chain: chain
-        )
-        walletConnectionVC.onSuccess = onSuccess
-        walletConnectionVC.onCancel = onCancel
-        let vc = ViewControllerFactory.modal(viewController: walletConnectionVC, halfScreen: true)
-        presenter.present(vc, animated: true)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

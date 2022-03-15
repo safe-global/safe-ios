@@ -31,7 +31,7 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
     }
 
     @objc override func didTapNextButton(_ sender: Any) {
-        let controller = ConnectWalletViewController(completion: completion)
+        let controller = SelectWalletViewController(completion: completion)
         show(controller, sender: self)
     }
 }

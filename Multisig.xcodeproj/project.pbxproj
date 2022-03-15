@@ -545,7 +545,7 @@
 		550FB1B626691D9500C13D54 /* DetailedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1B226691D9500C13D54 /* DetailedCell.swift */; };
 		550FB1C226691E1500C13D54 /* WalletConnectQRCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 550FB1BE26691E1500C13D54 /* WalletConnectQRCodeViewController.xib */; };
 		550FB1C326691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1BF26691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift */; };
-		550FB1C426691E1500C13D54 /* ConnectWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1C026691E1500C13D54 /* ConnectWalletViewController.swift */; };
+		550FB1C426691E1500C13D54 /* SelectWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1C026691E1500C13D54 /* SelectWalletViewController.swift */; };
 		550FB1C526691E1500C13D54 /* WalletConnectQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1C126691E1500C13D54 /* WalletConnectQRCodeViewController.swift */; };
 		550FB1C826691E4A00C13D54 /* ExperimentalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1C726691E4A00C13D54 /* ExperimentalViewController.swift */; };
 		550FB1CA26691E7500C13D54 /* SafeContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB1C926691E7500C13D54 /* SafeContract.swift */; };
@@ -1309,7 +1309,7 @@
 		550FB1B226691D9500C13D54 /* DetailedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailedCell.swift; sourceTree = "<group>"; };
 		550FB1BE26691E1500C13D54 /* WalletConnectQRCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletConnectQRCodeViewController.xib; sourceTree = "<group>"; };
 		550FB1BF26691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingConnectOwnerKeyViewController.swift; sourceTree = "<group>"; };
-		550FB1C026691E1500C13D54 /* ConnectWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectWalletViewController.swift; sourceTree = "<group>"; };
+		550FB1C026691E1500C13D54 /* SelectWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectWalletViewController.swift; sourceTree = "<group>"; };
 		550FB1C126691E1500C13D54 /* WalletConnectQRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletConnectQRCodeViewController.swift; sourceTree = "<group>"; };
 		550FB1C726691E4A00C13D54 /* ExperimentalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExperimentalViewController.swift; sourceTree = "<group>"; };
 		550FB1C926691E7500C13D54 /* SafeContract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeContract.swift; sourceTree = "<group>"; };
@@ -2941,11 +2941,8 @@
 		550FB1BD26691E1500C13D54 /* WalletConnectOwnerKey */ = {
 			isa = PBXGroup;
 			children = (
-				550FB1C026691E1500C13D54 /* ConnectWalletViewController.swift */,
 				550FB1BF26691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift */,
 				041DAAE8274BC4DD000829C8 /* WalletConnectKeyAddedViewController.swift */,
-				550FB1C126691E1500C13D54 /* WalletConnectQRCodeViewController.swift */,
-				550FB1BE26691E1500C13D54 /* WalletConnectQRCodeViewController.xib */,
 				0A11377B27999AAE00D97ED9 /* WCWalletConnectionController.swift */,
 			);
 			path = WalletConnectOwnerKey;
@@ -3426,6 +3423,9 @@
 		B0D617085DF09D1A0ED39DD2 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				550FB1C026691E1500C13D54 /* SelectWalletViewController.swift */,
+				550FB1C126691E1500C13D54 /* WalletConnectQRCodeViewController.swift */,
+				550FB1BE26691E1500C13D54 /* WalletConnectQRCodeViewController.xib */,
 				6AA2724827DF566B00934B37 /* WalletConnectionViewController.swift */,
 				6AA2724927DF566B00934B37 /* WalletConnectionViewController.xib */,
 			);
@@ -4067,7 +4067,7 @@
 				0A9BC33324602A7400EB9C5D /* Contract.swift in Sources */,
 				0AC5F56B25DD4A4B00DEF0D7 /* AuthenticationController.swift in Sources */,
 				550FB1CA26691E7500C13D54 /* SafeContract.swift in Sources */,
-				550FB1C426691E1500C13D54 /* ConnectWalletViewController.swift in Sources */,
+				550FB1C426691E1500C13D54 /* SelectWalletViewController.swift in Sources */,
 				0A616B9B26AEFD4B00FCEDB9 /* MultisigNotification.swift in Sources */,
 				048B3B0E25A5E7AB0005219B /* EditSafeNameViewController.swift in Sources */,
 				0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */,
