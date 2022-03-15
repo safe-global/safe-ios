@@ -20,8 +20,8 @@ class WalletConnectionViewController: UIViewController, WebConnectionObserver {
     private var wallet: WCAppRegistryEntry!
     private var chain: Chain!
     
-    private var connection: WebConnection?
-    
+    private var connection: WebConnection!
+
     convenience init(wallet: WCAppRegistryEntry, chain: Chain) {
         self.init(nibName: nil, bundle: nil)
         self.wallet = wallet
@@ -45,9 +45,9 @@ class WalletConnectionViewController: UIViewController, WebConnectionObserver {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //TODO: add tracking here
-        
+        guard connection == nil else { return }
         do {
-            let connection = try WebConnectionController.shared.connect(wallet: wallet, chainId: chain.id.flatMap(Int.init))
+            connection = try WebConnectionController.shared.connect(wallet: wallet, chainId: chain.id.flatMap(Int.init))
             WebConnectionController.shared.attach(observer: self, to: connection)
 
             if let link = wallet.connectLink(from: connection.connectionURL) {

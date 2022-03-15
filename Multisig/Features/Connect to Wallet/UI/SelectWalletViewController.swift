@@ -134,15 +134,12 @@ extension SelectWalletViewController: UITableViewDelegate, UITableViewDataSource
 
     func connect(to wallet: WCAppRegistryEntry) {
         let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
-        let walletConnectionVC = WalletConnectionViewController(
-            wallet: wallet,
-            chain: chain
-        )
-        walletConnectionVC.onSuccess = { [weak self] in
-            self?.dismiss(animated: true, completion: nil)
+        let walletConnectionVC = WalletConnectionViewController(wallet: wallet, chain: chain)
+        walletConnectionVC.onSuccess = { [weak walletConnectionVC] in
+            print("Success")
         }
-        walletConnectionVC.onCancel = { [weak self] in
-            self?.dismiss(animated: true, completion: nil)
+        walletConnectionVC.onCancel = { [weak walletConnectionVC] in
+            walletConnectionVC?.dismiss(animated: true, completion: nil)
         }
         let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: true)
         present(vc, animated: true)

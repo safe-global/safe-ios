@@ -207,10 +207,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     ///   - connection: a connection to transition to another state
     ///   - newStatus: new state.
     private func update(_ connection: WebConnection, to newStatus: WebConnectionStatus) {
-        defer {
-            notifyObservers(of: connection)
-        }
-
         connection.status = newStatus
         save(connection)
 
@@ -255,6 +251,10 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         case .unknown:
             // stay here
             break
+        }
+
+        if connection.status == newStatus {
+            notifyObservers(of: connection)
         }
     }
 
