@@ -305,9 +305,12 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     }
 
     private func respondToSessionCreation(_ connection: WebConnection) {
+        // only applicable for wallet role
+        guard let peer = connection.localPeer, peer.role == .wallet else {
+            return
+        }
+
         guard
-            let peer = connection.localPeer,
-            peer.role == .wallet,
             let session = sessionTransformer.session(from: connection),
             let request = pendingConnectionRequest(connection: connection),
             let requestId = request.id.flatMap(sessionTransformer.requestId(id:)),
@@ -818,13 +821,13 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         // nothing to do
     }
 
-    // called when successfully established session (handshake success)
+    // called when successfully established session (handshake success).
+    // also called on re-connect to the bridge
     func client(_ client: Client, didConnect session: Session) {
         DispatchQueue.main.async { [unowned self] in
-            guard let connection = connection(for: session) else {
+            guard let connection = connection(for: session), connection.status == .handshaking else {
                 return
             }
-            assert(connection.status == .handshaking)
             sessionTransformer.update(connection: connection, with: session)
 
             // check that the chain id exists in the app
@@ -852,17 +855,14 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
     // create connection to a wallet
     func connect(wallet info: WCAppRegistryEntry, chainId: Int?) throws -> WebConnection {
-        // create wc url
         let handshakeTopic = UUID().uuidString
         let bridgeURL = App.configuration.walletConnect.bridgeURL
         guard let encryptionKey = Data(randomOfSize: 32) else {
             throw WebConnectionError.keyGenerationFailed
         }
         let wcURL = WCURL(topic: handshakeTopic, version: "1", bridgeURL: bridgeURL, key: encryptionKey.toHexStringWithPrefix())
-        // create connection
         let connection = createWalletConnection(from: WebConnectionURL(wcURL: wcURL), info: info)
         connection.chainId = chainId
-        // update to handshaking
         update(connection, to: .handshaking)
         return connection
     }

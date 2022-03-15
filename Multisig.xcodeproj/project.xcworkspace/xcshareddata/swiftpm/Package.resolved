@@ -263,15 +263,6 @@
         }
       },
       {
-        "package": "WalletConnectSwift",
-        "repositoryURL": "https://github.com/gnosis/WalletConnectSwift.git",
-        "state": {
-          "branch": "gnosis-safe-ios",
-          "revision": "bc52a16d7d3fce459928df997e6921d39554dbc4",
-          "version": null
-        }
-      },
-      {
         "package": "Web3",
         "repositoryURL": "https://github.com/gnosis/Web3.swift.git",
         "state": {

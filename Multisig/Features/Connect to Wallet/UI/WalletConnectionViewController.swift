@@ -22,10 +22,7 @@ class WalletConnectionViewController: UIViewController, WebConnectionObserver {
     
     private var connection: WebConnection?
     
-    convenience init(
-        wallet: WCAppRegistryEntry,
-        chain: Chain
-    ) {
+    convenience init(wallet: WCAppRegistryEntry, chain: Chain) {
         self.init(nibName: nil, bundle: nil)
         self.wallet = wallet
         self.chain = chain
@@ -50,11 +47,21 @@ class WalletConnectionViewController: UIViewController, WebConnectionObserver {
         //TODO: add tracking here
         
         do {
-            let connection = try WebConnectionController.shared.connect(wallet: wallet, chainId: chain.id.map(Int.init))
+            let connection = try WebConnectionController.shared.connect(wallet: wallet, chainId: chain.id.flatMap(Int.init))
             WebConnectionController.shared.attach(observer: self, to: connection)
+
+            if let link = wallet.connectLink(from: connection.connectionURL) {
+                print("WC: Opening", link.absoluteString)
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                    UIApplication.shared.open(link, options: [:], completionHandler: nil)
+                }
+            } else {
+                App.shared.snackbar.show(message: "Failed to open the wallet. Please choose a different one.")
+                WebConnectionController.shared.userDidDisconnect(connection)
+            }
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)
-            self.onCancel()
+            onCancel()
         }
     }
     

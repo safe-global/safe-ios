@@ -144,7 +144,7 @@ extension SelectWalletViewController: UITableViewDelegate, UITableViewDataSource
         walletConnectionVC.onCancel = { [weak self] in
             self?.dismiss(animated: true, completion: nil)
         }
-        let vc = ViewControllerFactory.modal(viewController: walletConnectionVC, halfScreen: true)
+        let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: true)
         present(vc, animated: true)
     }
 
