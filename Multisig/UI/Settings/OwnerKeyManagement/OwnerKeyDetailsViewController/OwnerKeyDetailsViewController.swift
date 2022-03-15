@@ -27,6 +27,8 @@ class OwnerKeyDetailsViewController: UITableViewController {
     private var sections = [SectionItems]()
     private var addKeyController: DelegateKeyController!
 
+    private var connection: WebConnection!
+
     enum Section {
         case name(String)
         case keyAddress(String)
@@ -70,6 +72,13 @@ class OwnerKeyDetailsViewController: UITableViewController {
         self.init()
         self.keyInfo = keyInfo
         self.completion = completion
+
+        //TODO: Remove and use keyInfo.connection
+        let controller = WebConnectionController()
+        let url = WebConnectionURL(wcURL: WCURL(topic: UUID().uuidString, version: "1", bridgeURL: URL(string: "https://example.org")!, key: UUID().uuidString))
+        let connection = controller.createConnection(from: url)
+
+        self.connection = connection // TODO: Use keyInfo.connection or keyInfo.connection[0]
     }
 
     override func loadView() {
@@ -221,7 +230,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
     }
 
     private func reconnectKey() {
-        assert(keyInfo.keyType == .walletConnect, "Developer error: worng key type used")
+        assert(keyInfo.keyType == .walletConnect, "Developer error: wrong key type used")
 
         if let installedWallet = keyInfo.installedWallet {
             guard let topic = WalletConnectClientController.reconnectWithInstalledWallet(installedWallet) else { return }
@@ -233,7 +242,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
     }
 
     private func disconnectKey() {
-        assert(keyInfo.keyType == .walletConnect, "Developer error: worng key type used")
+        assert(keyInfo.keyType == .walletConnect, "Developer error: wrong key type used")
         guard WalletConnectClientController.shared.isConnected(keyInfo: keyInfo) else { return }
         WalletConnectClientController.shared.disconnect()
     }
@@ -367,6 +376,11 @@ class OwnerKeyDetailsViewController: UITableViewController {
                 App.shared.snackbar.show(message: error.localizedDescription)
             }
             return
+        case Section.OwnerKeyType.type:
+            let detailsVC = WebConnectionDetailsViewController()
+            detailsVC.connection = connection
+            let vc = ViewControllerFactory.modal(viewController: detailsVC)
+            present(vc, animated: true)
         default:
             break
         }
