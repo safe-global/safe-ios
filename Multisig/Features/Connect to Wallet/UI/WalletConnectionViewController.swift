@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WalletConnectionViewController: UIViewController, WebConnectionObserver {
+class WalletConnectionViewController: UIViewController, WebConnectionObserver, UIAdaptivePresentationControllerDelegate {
     
     @IBOutlet weak var walletImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -68,10 +68,10 @@ class WalletConnectionViewController: UIViewController, WebConnectionObserver {
     func didUpdate(connection: WebConnection) {
         switch connection.status {
         case .opened:
-            self.onSuccess(connection)
+            onSuccess(connection)
         case .final:
             // show failed to connect, close screen
-            self.onCancel()
+            onCancel()
         default:
             // do nothing
             break
@@ -81,8 +81,27 @@ class WalletConnectionViewController: UIViewController, WebConnectionObserver {
     deinit {
         WebConnectionController.shared.detach(observer: self)
     }
+
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        // needed to react to the "swipe down" to close the modal screen
+        parent?.presentationController?.delegate = self
+    }
+
+    override func closeModal() {
+        didTapCancel(self)
+    }
+
+    // Called when user swipes down the modal screen
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        didTapCancel(self)
+    }
     
     @IBAction func didTapCancel(_ sender: Any) {
-        self.onCancel()
+        if let connection = connection {
+            WebConnectionController.shared.userDidCancel(connection)
+        } else {
+            onCancel()
+        }
     }
 }

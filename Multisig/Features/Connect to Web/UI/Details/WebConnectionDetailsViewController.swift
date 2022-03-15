@@ -239,9 +239,9 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
         datePickerVC.onConfirm = { [unowned datePickerVC, unowned self] in
             dismiss(animated: true) {
                 if let date = datePickerVC.date {
-                    connection.expirationDate = date
-                    WebConnectionController.shared.save(connection)
-                    reloadData()
+                    self.connection.expirationDate = date
+                    WebConnectionController.shared.save(self.connection)
+                    self.reloadData()
                 }
             }
         }

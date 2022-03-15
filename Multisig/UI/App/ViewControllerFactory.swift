@@ -47,7 +47,7 @@ enum ViewControllerFactory {
 
     static func addOwnerViewController(completion: @escaping () -> Void) -> UIViewController {
         let controller = AddOwnerKeyViewController(completion: completion)
-        let nav = UINavigationController(rootViewController: controller)
+        let nav = AddKeyNavigationController(rootViewController: controller)
         return nav
     }
 

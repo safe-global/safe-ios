@@ -519,6 +519,8 @@
 		0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA424475BC30018D070 /* SafariViewController.swift */; };
 		0AF78A3027E0AAD3001BAFE0 /* WCAppRegistryEntryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF78A2F27E0AAD3001BAFE0 /* WCAppRegistryEntryTests.swift */; };
 		0AF78A3227E0E07B001BAFE0 /* WalletConnectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF78A3127E0E07B001BAFE0 /* WalletConnectionViewController.xib */; };
+		0AF78A3327E0F7CD001BAFE0 /* KeyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A95893F25EFBE1E005011D7 /* KeyInfo.swift */; };
+		0AF78A3527E0FB21001BAFE0 /* AddKeyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF78A3427E0FB20001BAFE0 /* AddKeyNavigationController.swift */; };
 		0AF8832225A5EC1F00029A43 /* ActionDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF8832125A5EC1F00029A43 /* ActionDetailTableViewCell.swift */; };
 		0AFA729C24BF361600A370EE /* SlicedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729B24BF361600A370EE /* SlicedString.swift */; };
 		0AFA729E24BF363400A370EE /* SlicedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729D24BF363400A370EE /* SlicedText.swift */; };
@@ -1280,6 +1282,7 @@
 		0AF64FA424475BC30018D070 /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
 		0AF78A2F27E0AAD3001BAFE0 /* WCAppRegistryEntryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCAppRegistryEntryTests.swift; sourceTree = "<group>"; };
 		0AF78A3127E0E07B001BAFE0 /* WalletConnectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletConnectionViewController.xib; sourceTree = "<group>"; };
+		0AF78A3427E0FB20001BAFE0 /* AddKeyNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddKeyNavigationController.swift; sourceTree = "<group>"; };
 		0AF7F765247FC28B00527014 /* Config.Example.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.Example.xcconfig; sourceTree = "<group>"; };
 		0AF7F76F247FC49600527014 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		0AF85AF227DF56FC007CD065 /* WalletConnectSwift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = WalletConnectSwift; path = ../WalletConnectSwift; sourceTree = "<group>"; };
@@ -3049,6 +3052,7 @@
 			children = (
 				0AF1042726BACD96009C4B14 /* AddKeyOnboardingViewController.swift */,
 				55413672265E493500796F91 /* AddOwnerKeyViewController.swift */,
+				0AF78A3427E0FB20001BAFE0 /* AddKeyNavigationController.swift */,
 				55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */,
 				55413676265E4A0000796F91 /* AddOwnerKeyCell.xib */,
 			);
@@ -4307,6 +4311,7 @@
 				0439638527077E3D00018F74 /* TransactionEstimationRequest.swift in Sources */,
 				048D72CD2685DC780095999C /* SelectNetworkTableViewCell.swift in Sources */,
 				0A57C5A42577DC5600420303 /* DetailExpandableTextCell.swift in Sources */,
+				0AF78A3527E0FB21001BAFE0 /* AddKeyNavigationController.swift in Sources */,
 				0A9BC33924602E9500EB9C5D /* EthereumNodeService.swift in Sources */,
 				55A5854325014E05005E778B /* String+Extension.swift in Sources */,
 				0A21692B24A35A4E00BD1C1E /* SnackbarView.swift in Sources */,
@@ -4493,6 +4498,7 @@
 				0A109E2F268A240F00226708 /* ChainTests.swift in Sources */,
 				0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */,
 				550A6182268A23A9002C02E1 /* SafeNetworkMigrationTests.swift in Sources */,
+				0AF78A3327E0F7CD001BAFE0 /* KeyInfo.swift in Sources */,
 				0A01DCE42770B0A100A87D7A /* TransactionIntegrationTests.swift in Sources */,
 				0A61E83E2670DED5009D68A4 /* BalanceTableViewCellTests.swift in Sources */,
 				0A3DFEF72667D1C000B45770 /* CoreDataTestCase.swift in Sources */,

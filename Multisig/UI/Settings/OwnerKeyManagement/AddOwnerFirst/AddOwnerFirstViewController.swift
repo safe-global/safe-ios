@@ -50,10 +50,12 @@ class AddOwnerFirstViewController: UIViewController {
     }
 
     @IBAction func addOwnerKeyClicked(_ sender: Any) {
+        // TODO: use standard way of adding key
         let vc = AddOwnerKeyViewController(showsCloseButton: false) { [unowned self] in
             self.onSuccess?()
         }
         show(vc, sender: self)
+
         Tracker.trackEvent(.assetTransferAddOwnerClicked)
     }
 }
