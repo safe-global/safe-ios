@@ -312,6 +312,9 @@ class OwnerKeyDetailsViewController: UITableViewController {
         case Section.KeyAddress.address:
             return tableView.addressDetailsCell(address: keyInfo.address, showQRCode: true, indexPath: indexPath)
         case Section.OwnerKeyType.type:
+            if keyInfo.keyType == .walletConnect {
+                // TODO: show chevron
+            }
             return keyTypeCell(type: keyInfo.keyType, indexPath: indexPath)
         case Section.Connected.connected:
             return tableView.switchCell(for: indexPath,
@@ -377,10 +380,12 @@ class OwnerKeyDetailsViewController: UITableViewController {
             }
             return
         case Section.OwnerKeyType.type:
-            let detailsVC = WebConnectionDetailsViewController()
-            detailsVC.connection = connection
-            let vc = ViewControllerFactory.modal(viewController: detailsVC)
-            present(vc, animated: true)
+            if keyInfo.keyType == .walletConnect {
+                let detailsVC = WebConnectionDetailsViewController()
+                detailsVC.connection = connection
+                let vc = ViewControllerFactory.modal(viewController: detailsVC)
+                present(vc, animated: true)
+            }
         default:
             break
         }
