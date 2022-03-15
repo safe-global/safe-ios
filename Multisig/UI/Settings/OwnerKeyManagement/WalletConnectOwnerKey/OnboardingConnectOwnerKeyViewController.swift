@@ -31,7 +31,16 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
     }
 
     @objc override func didTapNextButton(_ sender: Any) {
-        let controller = SelectWalletViewController(completion: completion)
+        let controller = SelectWalletViewController(completion: {
+            // get the connection
+            // get the wallet entry
+
+            // enter wallet name
+                // on back / cancel --> close the connection
+
+            // create key info from that
+            // associate key info with the wallet and connection
+        })
         show(controller, sender: self)
     }
 
