@@ -329,7 +329,11 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
         for (session, connection) in zip(sessions, connections) where session != nil {
             do {
-                try server.reconnect(to: session!)
+                if connection.localPeer?.role == .wallet {
+                    try server.reconnect(to: session!)
+                } else if connection.localPeer?.role == .dapp {
+                    try client.reconnect(to: session!)
+                }
             } catch {
                 handle(error: error, in: connection)
             }
@@ -338,6 +342,12 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         let allPendingRequests: [WebConnectionRequest] = pendingRequests()
         for request in allPendingRequests {
             notifyObservers(of: request)
+        }
+
+        // clear the pending wallet connections because we lost the context of adding a key
+        let pendingWalletConnections = connectionRepository.connections(status: .handshaking).filter { $0.localPeer?.role == .dapp }
+        for connection in pendingWalletConnections {
+            update(connection, to: .closed)
         }
     }
 
