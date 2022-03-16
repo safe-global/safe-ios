@@ -76,7 +76,6 @@ class WalletConnectionViewController: UIViewController, WebConnectionObserver, U
         case .opened:
             onSuccess(connection)
         case .final:
-            // show failed to connect, close screen
             onCancel()
         default:
             // do nothing
