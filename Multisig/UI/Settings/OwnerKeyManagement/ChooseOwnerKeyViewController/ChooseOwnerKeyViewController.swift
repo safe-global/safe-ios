@@ -293,7 +293,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
                     App.shared.auth.isPasscodeSetAndAvailable &&
                     AppSettings.passcodeOptions.contains(.useForConfirmation) {
             let vc = EnterPasscodeViewController()
-            vc.passcodeCompletion = { [weak self] success, reset in
+            vc.passcodeCompletion = { [weak self] success, _ in
                 guard let `self` = self else { return }
                 self.completionHandler?(success ? keyInfo : nil)
             }

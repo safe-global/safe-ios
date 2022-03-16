@@ -319,7 +319,7 @@ class ReviewExecutionViewController: ContainerViewController {
             self.submitButton.isEnabled = false
 
             let passcodeVC = EnterPasscodeViewController()
-            passcodeVC.passcodeCompletion = { [weak self] success, reset in
+            passcodeVC.passcodeCompletion = { [weak self] success, _ in
                 self?.dismiss(animated: true) {
                     guard let `self` = self else { return }
 

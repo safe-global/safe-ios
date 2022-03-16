@@ -156,7 +156,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
 
         if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForExportingKeys) {
             let vc = EnterPasscodeViewController()
-            vc.passcodeCompletion = { [weak self] success, reset in
+            vc.passcodeCompletion = { [weak self] success, _ in
                 guard let `self` = self else { return }
                 self.dismiss(animated: true) {
                     if success {
