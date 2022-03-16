@@ -117,7 +117,7 @@ extension SelectWalletViewController: UITableViewDelegate, UITableViewDataSource
             showQRCode()
         default:
             let wallet = sections[indexPath.section].rows[indexPath.row]
-            if wallet.installed {
+            if wallet.linkMobileNative != nil || wallet.linkMobileUniversal != nil {
                 connect(to: wallet)
             } else if let url = wallet.appStoreLink ?? wallet.homepage {
                 open(url: url)
