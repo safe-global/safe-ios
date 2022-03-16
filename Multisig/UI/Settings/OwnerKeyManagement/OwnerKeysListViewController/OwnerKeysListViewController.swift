@@ -170,7 +170,8 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
                 [unowned self] _, _, completion in
 
                 if isConnected {
-                    WebConnectionController.shared.disconnectConnections(account: keyInfo.address)
+                    let alertController = DisconnectionConfirmationController.create(key: keyInfo)
+                    self.present(alertController, animated: true)
                 } else {
                     // try to reconnect
                     if let _ = keyInfo.wallet {
