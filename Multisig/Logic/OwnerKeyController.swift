@@ -82,6 +82,27 @@ class OwnerKeyController {
         }
     }
 
+    static func updateKey(connection: WebConnection, wallet: WCAppRegistryEntry) -> Bool {
+        do {
+            try KeyInfo.update(connection: connection)
+
+            Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
+            NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
+
+            Tracker.trackEvent(.connectInstalledWallet, parameters: ["wallet": wallet.name])
+
+            return true
+        } catch {
+            if let err = error as? DetailedLocalizedError {
+                App.shared.snackbar.show(error: err)
+            } else {
+                let err = GSError.error(description: "Failed to add WalletConnect owner", error: error)
+                App.shared.snackbar.show(error: err)
+            }
+            return false
+        }
+    }
+
     /// Import Ledger Nano X key
     @discardableResult
     static func importKey(ledgerDeviceUUID: UUID, path: String, address: Address, name: String) -> Bool {

@@ -508,6 +508,10 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     }
 
     func userDidDelete(account: Address) {
+        disconnectConnections(account: account)
+    }
+
+    func disconnectConnections(account: Address) {
         let connections = connectionRepository.connections(account: account)
         for connection in connections {
             update(connection, to: .closed)

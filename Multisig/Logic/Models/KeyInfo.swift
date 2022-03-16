@@ -40,6 +40,10 @@ extension KeyInfo {
         name ?? "Key \(address.ellipsized())"
     }
 
+    var connected: Bool {
+        keyType == .walletConnect && wallet != nil && (connections?.anyObject() ?? nil) != nil
+    }
+
     struct WalletConnectKeyMetadata: Codable {
         let walletInfo: Session.WalletInfo
         let installedWallet: InstalledWallet?
@@ -280,6 +284,32 @@ extension KeyInfo {
         item.save()
 
         return item
+    }
+
+
+    @discardableResult
+    static func update(connection: WebConnection) throws -> KeyInfo? {
+        guard let address = connection.accounts.first else {
+            return nil
+        }
+
+        let context = App.shared.coreDataStack.viewContext
+
+        let fr = KeyInfo.fetchRequest().by(address: address)
+
+        guard let keyInfo = try context.fetch(fr).first,
+              keyInfo.keyType == .walletConnect else {
+            // It is possible to update only key of the same type. Do not update key name for already imported WalletConnect key.
+                  throw GSError.WCConnectedKeyNotFound()
+        }
+
+        if let cdConnection = CDWCConnection.connection(by: connection.connectionURL.absoluteString) {
+            keyInfo.addToConnections(cdConnection)
+        }
+
+        keyInfo.save()
+
+        return keyInfo
     }
 
     /// Renames the key with a different name
