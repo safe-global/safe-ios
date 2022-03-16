@@ -76,6 +76,9 @@ class WalletConnectionViewController: UIViewController, WebConnectionObserver, U
         case .opened:
             onSuccess(connection)
         case .final:
+            if let string = connection.lastError {
+                App.shared.snackbar.show(message: string)
+            }
             onCancel()
         default:
             // do nothing
