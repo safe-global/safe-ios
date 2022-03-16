@@ -56,4 +56,13 @@ public extension Data {
         guard self.count > count else { return self }
         return prefix(count)
     }
+
+    init?(randomOfSize count: Int) {
+        var bytes: [UInt8] = .init(repeating: 0, count: count)
+        let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
+        guard result == errSecSuccess else {
+            return nil
+        }
+        self.init(bytes)
+    }
 }

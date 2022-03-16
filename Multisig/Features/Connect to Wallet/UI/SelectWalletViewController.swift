@@ -1,5 +1,5 @@
 //
-//  ConnectWalletViewController.swift
+//  SelectWalletViewController.swift
 //  Multisig
 //
 //  Created by Andrey Scherbovich on 12.04.21.
@@ -9,8 +9,9 @@
 import UIKit
 import WalletConnectSwift
 
-class ConnectWalletViewController: LoadableViewController {
-    private var completion: () -> Void = { }
+class SelectWalletViewController: LoadableViewController {
+    private var completion: (_ wallet: WCAppRegistryEntry, _ connection: WebConnection) -> Void = { _, _ in }
+    private var connection: WebConnection?
 
     let searchController = UISearchController(searchResultsController: nil)
 
@@ -26,7 +27,7 @@ class ConnectWalletViewController: LoadableViewController {
 
     override var isEmpty: Bool { wallets.isEmpty }
 
-    convenience init(completion: @escaping () -> Void) {
+    convenience init(completion: @escaping (_ wallet: WCAppRegistryEntry, _ connection: WebConnection) -> Void) {
         self.init(namedClass: Self.superclass())
         self.completion = completion
     }
@@ -66,9 +67,16 @@ class ConnectWalletViewController: LoadableViewController {
     override func reloadData() {
         walletsSource.loadData()
     }
+
+    func cancelExistingConnection() {
+        guard let connection = connection else {
+            return
+        }
+        WebConnectionController.shared.userDidCancel(connection)
+    }
 }
 
-extension ConnectWalletViewController: UITableViewDelegate, UITableViewDataSource {
+extension SelectWalletViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         sections.count
     }
@@ -79,24 +87,24 @@ extension ConnectWalletViewController: UITableViewDelegate, UITableViewDataSourc
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section].type {
-            case.qrCode:
-                return tableView.basicCell(
-                            name: "Display QR Code",
-                            icon: "qrcode",
-                            indexPath: indexPath,
-                            withDisclosure: false,
-                            canSelect: false
-                        )
-            default:
-                let wallet = sections[indexPath.section].rows[indexPath.row]
-                return tableView.basicCell(
-                            name: wallet.name,
-                            iconURL: wallet.imageSmallUrl,
-                            placeholder: UIImage(named: "ico-wallet-placeholder")!,
-                            indexPath: indexPath,
-                            withDisclosure: false,
-                            canSelect: false
-                        )
+        case.qrCode:
+            return tableView.basicCell(
+                name: "Display QR Code",
+                icon: "qrcode",
+                indexPath: indexPath,
+                withDisclosure: false,
+                canSelect: false
+            )
+        default:
+            let wallet = sections[indexPath.section].rows[indexPath.row]
+            return tableView.basicCell(
+                name: wallet.name,
+                iconURL: wallet.imageSmallUrl,
+                placeholder: UIImage(named: "ico-wallet-placeholder")!,
+                indexPath: indexPath,
+                withDisclosure: false,
+                canSelect: false
+            )
         }
     }
 
@@ -104,26 +112,49 @@ extension ConnectWalletViewController: UITableViewDelegate, UITableViewDataSourc
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        do {
-            switch sections[indexPath.section].type {
-            case .qrCode:
-                let connectionURI = try WalletConnectClientController.shared.connect().absoluteString
-                show(WalletConnectQRCodeViewController.create(code: connectionURI), sender: nil)
-            default:
-                let wallet = sections[indexPath.section].rows[indexPath.row]
-                if wallet.installed {
-                    // TODO: Create connection request
-                } else if let storeURL = wallet.appStoreLink {
-                    UIApplication.shared.open(storeURL, options: [:], completionHandler: nil)
-                } else if let homePage = wallet.homepage {
-                    UIApplication.shared.open(homePage, options: [:], completionHandler: nil)
-                } else {
-                    App.shared.snackbar.show(message: "Wallet not installed and store link is missing")
-                }
+        switch sections[indexPath.section].type {
+        case .qrCode:
+            showQRCode()
+        default:
+            let wallet = sections[indexPath.section].rows[indexPath.row]
+            if wallet.linkMobileNative != nil || wallet.linkMobileUniversal != nil {
+                connect(to: wallet)
+            } else if let url = wallet.appStoreLink ?? wallet.homepage {
+                open(url: url)
+            } else {
+                App.shared.snackbar.show(message: "Wallet is not installed and store link is missing")
             }
+        }
+    }
+
+    func open(url: URL) {
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+
+    func showQRCode() {
+        do {
+            let connectionURI = try WalletConnectClientController.shared.connect().absoluteString
+            show(WalletConnectQRCodeViewController.create(code: connectionURI), sender: nil)
         } catch {
             App.shared.snackbar.show(error: GSError.error(description: "Could not create connection URL", error: error))
         }
+    }
+
+    func connect(to wallet: WCAppRegistryEntry) {
+        cancelExistingConnection()
+        let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
+        let walletConnectionVC = WalletConnectionViewController(wallet: wallet, chain: chain)
+        walletConnectionVC.onSuccess = { [weak walletConnectionVC, weak self] connection in
+            self?.connection = connection
+            walletConnectionVC?.dismiss(animated: true) {
+                self?.completion(wallet, connection)
+            }
+        }
+        walletConnectionVC.onCancel = { [weak walletConnectionVC] in
+            walletConnectionVC?.dismiss(animated: true, completion: nil)
+        }
+        let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: true)
+        present(vc, animated: true)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -160,13 +191,13 @@ extension ConnectWalletViewController: UITableViewDelegate, UITableViewDataSourc
     }
 }
 
-extension ConnectWalletViewController: UISearchResultsUpdating {
+extension SelectWalletViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         bindData()
     }
 }
 
-extension ConnectWalletViewController: WCRegistryControllerDelegate {
+extension SelectWalletViewController: WCRegistryControllerDelegate {
     func didUpdate(controller: WCRegistryController) {
         bindData()
     }

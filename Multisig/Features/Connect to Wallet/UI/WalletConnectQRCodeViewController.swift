@@ -13,6 +13,7 @@ class WalletConnectQRCodeViewController: UIViewController {
     @IBOutlet weak var qrCodeView: QRCodeView!
     @IBOutlet weak var copyButton: UIButton!
 
+    // TODO: replace with connection
     private var code: String!
 
     static func create(code: String) -> WalletConnectQRCodeViewController {

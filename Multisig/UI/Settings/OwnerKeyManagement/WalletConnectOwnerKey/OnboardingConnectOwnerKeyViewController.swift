@@ -31,7 +31,44 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
     }
 
     @objc override func didTapNextButton(_ sender: Any) {
-        let controller = ConnectWalletViewController(completion: completion)
+        let controller = SelectWalletViewController(completion: { [unowned self] wallet, connection in
+            guard let address = connection.accounts.first else {
+                App.shared.snackbar.show(error: GSError.WCConnectedKeyMissingAddress())
+                return
+            }
+
+            let enterNameVC = EnterAddressNameViewController()
+            enterNameVC.actionTitle = "Import"
+            enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
+            enterNameVC.screenTitle = "Enter Key Name"
+            enterNameVC.trackingEvent = .enterKeyName
+
+            enterNameVC.placeholder = "Enter name"
+            enterNameVC.name = connection.remotePeer?.name
+            enterNameVC.address = address
+            enterNameVC.badgeName = KeyType.deviceImported.imageName
+
+            enterNameVC.completion = { [unowned self] name in
+                let success = OwnerKeyController.importKey(connection: connection, wallet: wallet, name: name)
+
+                if !success {
+                    self.completion()
+                    return
+                }
+
+                let keyAddedVC = WalletConnectKeyAddedViewController()
+                keyAddedVC.completion = { [weak self] in
+                    App.shared.snackbar.show(message: "The key added successfully")
+                    self?.completion()
+                }
+                keyAddedVC.accountAddress = address
+                keyAddedVC.accountName = name
+
+                enterNameVC.show(keyAddedVC, sender: nil)
+            }
+
+            self.show(enterNameVC, sender: self)
+        })
         show(controller, sender: self)
     }
 }

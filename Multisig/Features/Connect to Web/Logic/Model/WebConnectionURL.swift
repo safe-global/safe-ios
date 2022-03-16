@@ -23,9 +23,9 @@ struct WebConnectionURL: Hashable {
     }
 
     /// WalletConnect bridge url
-    var bridgeURL: String {
-        get { wcURL.version }
-        set { wcURL.version = newValue }
+    var bridgeURL: URL {
+        get { wcURL.bridgeURL }
+        set { wcURL.bridgeURL = newValue }
     }
 
     /// Channel's communication is encrypted by the symmetric key

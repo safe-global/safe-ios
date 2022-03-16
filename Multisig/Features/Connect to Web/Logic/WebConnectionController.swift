@@ -47,7 +47,7 @@ protocol WebConnectionSingleRequestSubject: AnyObject {
 /// Use the `shared` instance since the controller's lifetime is the same as the app's lifetime.
 ///
 /// Remember to set the `delegate` in order to respond to connection events.
-class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSubject, WebConnectionListSubject, WebConnectionRequestSubject, WebConnectionSingleRequestSubject {
+class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSubject, WebConnectionListSubject, WebConnectionRequestSubject, WebConnectionSingleRequestSubject, Client2Delegate {
 
     static let shared = WebConnectionController()
 
@@ -55,11 +55,15 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     private let connectionRepository = WebConnectionRepository()
     private let sessionTransformer = WebConnectionToSessionTransformer()
 
-    private static let connectionLoadingTimeout: TimeInterval = 30
+    private var client: Client!
+
+    private static let safeWebConnectionLoadingTimeout: TimeInterval = 30
+    private static let walletConnectionLoadingTimeout: TimeInterval = 180
 
     init() {
         server = WalletConnectSwift.Server(delegate: self)
         server.register(handler: self)
+        client = WalletConnectSwift.Client(delegate: self)
     }
 
     deinit {
@@ -203,10 +207,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     ///   - connection: a connection to transition to another state
     ///   - newStatus: new state.
     private func update(_ connection: WebConnection, to newStatus: WebConnectionStatus) {
-        defer {
-            notifyObservers(of: connection)
-        }
-
         connection.status = newStatus
         save(connection)
 
@@ -218,7 +218,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         case .handshaking:
             do {
                 try start(connection)
-                scheduleTimeout(connectionURL: connection.connectionURL)
             } catch {
                 handle(error: error, in: connection)
             }
@@ -253,11 +252,30 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             // stay here
             break
         }
+
+        if connection.status == newStatus {
+            notifyObservers(of: connection)
+        }
     }
 
     private func start(_ connection: WebConnection) throws {
         do {
-            try server.connect(to: connection.connectionURL.wcURL)
+            guard let local = connection.localPeer else {
+                assertionFailure("Misconfigured connection: local peer is missing")
+                throw WebConnectionError.configurationError
+            }
+            switch local.role {
+            case .wallet:
+                try server.connect(to: connection.connectionURL.wcURL)
+                scheduleTimeout(connectionURL: connection.connectionURL, timeout: Self.safeWebConnectionLoadingTimeout)
+
+            case .dapp:
+                try client.connect(to: connection.connectionURL.wcURL)
+                scheduleTimeout(connectionURL: connection.connectionURL, timeout: Self.walletConnectionLoadingTimeout)
+
+            default:
+                throw WebConnectionError.unsupportedConnectionType
+            }
         } catch {
             throw WebConnectionError.connectionFailure(error)
         }
@@ -265,8 +283,8 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
     // if connection still waiting to receive 'connection request' from the other side after
     // timeout, then we close it with error.
-    private func scheduleTimeout(connectionURL: WebConnectionURL) {
-        Timer.scheduledTimer(withTimeInterval: Self.connectionLoadingTimeout, repeats: false) { [weak self] _ in
+    private func scheduleTimeout(connectionURL: WebConnectionURL, timeout: TimeInterval) {
+        Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { [weak self] _ in
             guard let self = self else { return }
             if let connection = self.connection(for: connectionURL), connection.status == .handshaking {
                 self.handle(error: WebConnectionError.connectionStartTimeout, in: connection)
@@ -287,6 +305,11 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     }
 
     private func respondToSessionCreation(_ connection: WebConnection) {
+        // only applicable for wallet role
+        guard let peer = connection.localPeer, peer.role == .wallet else {
+            return
+        }
+
         guard
             let session = sessionTransformer.session(from: connection),
             let request = pendingConnectionRequest(connection: connection),
@@ -306,7 +329,11 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
         for (session, connection) in zip(sessions, connections) where session != nil {
             do {
-                try server.reconnect(to: session!)
+                if connection.localPeer?.role == .wallet {
+                    try server.reconnect(to: session!)
+                } else if connection.localPeer?.role == .dapp {
+                    try client.reconnect(to: session!)
+                }
             } catch {
                 handle(error: error, in: connection)
             }
@@ -315,6 +342,12 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         let allPendingRequests: [WebConnectionRequest] = pendingRequests()
         for request in allPendingRequests {
             notifyObservers(of: request)
+        }
+
+        // clear the pending wallet connections because we lost the context of adding a key
+        let pendingWalletConnections = connectionRepository.connections(status: .handshaking).filter { $0.localPeer?.role == .dapp }
+        for connection in pendingWalletConnections {
+            update(connection, to: .closed)
         }
     }
 
@@ -416,7 +449,17 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     func disconnect(_ connection: WebConnection) {
         if let session = sessionTransformer.session(from: connection) {
             do {
-                try server.disconnect(from: session)
+                guard let peer = connection.localPeer else { return }
+                switch peer.role {
+                case .wallet:
+                    try server.disconnect(from: session)
+
+                case .dapp:
+                    try client.disconnect(from: session)
+
+                default:
+                    break
+                }
             } catch {
                 LogService.shared.error("Failed to disconnect: \(error)")
             }
@@ -536,7 +579,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
     }
 
-    func server(_ server: Server, didFailToConnect url: WCURL) {
+    fileprivate func handleConnectionFailure(_ url: WCURL) {
         // the connection process failed
         DispatchQueue.main.async { [unowned self] in
             guard let connection = connection(for: url) else {
@@ -547,11 +590,15 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
     }
 
+    func server(_ server: Server, didFailToConnect url: WCURL) {
+        handleConnectionFailure(url)
+    }
+
     func server(_ server: Server, didConnect session: Session) {
         // ignore
     }
 
-    func server(_ server: Server, didDisconnect session: Session) {
+    fileprivate func handleConnectionClosed(_ session: Session) {
         // when the connection is closed from outside
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -560,9 +607,13 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
     }
 
+    func server(_ server: Server, didDisconnect session: Session) {
+        handleConnectionClosed(session)
+    }
+
     // this will be called when session's chain Id or accounts change
     // when session is closed (approved = false), the 'disconnect' method will be called instead.
-    func server(_ server: Server, didUpdate updatedSession: Session) {
+    fileprivate func handleSessionUpdate(_ updatedSession: Session) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             guard let connection = self.connection(for: updatedSession), connection.status == .opened else { return }
@@ -586,28 +637,39 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 LogService.shared.error("Error checking whether chain exists: \(error)")
             }
 
-            // check that we have the key
-            guard let address = walletInfo.accounts.first, let account = Address(address) else {
-                self.update(connection, to: .closed)
-                return
-            }
-
-            do {
-                let key = try KeyInfo.firstKey(address: account)
-
-                if key == nil {
+            if connection.localPeer?.role == .wallet {
+                // check that we have the key
+                guard let address = walletInfo.accounts.first, let account = Address(address) else {
                     self.update(connection, to: .closed)
                     return
-                } else {
-                    connection.accounts = [account]
                 }
-            } catch {
-                LogService.shared.error("Error checking whether key exists: \(error)")
+
+                do {
+                    let key = try KeyInfo.firstKey(address: account)
+
+                    if key == nil {
+                        self.update(connection, to: .closed)
+                        return
+                    } else {
+                        connection.accounts = [account]
+                    }
+                } catch {
+                    LogService.shared.error("Error checking whether key exists: \(error)")
+                }
+            } else if connection.localPeer?.role == .dapp {
+                // TODO: handle change in the key
+                // check that the key is still the same
+                // otherwise we need either close the connection or change the key info
+                // and then handle that the key might be duplicated
             }
 
             // all checks passed, update the connection.
             self.update(connection, to: .opened)
         }
+    }
+
+    func server(_ server: Server, didUpdate updatedSession: Session) {
+        handleSessionUpdate(updatedSession)
     }
 
     // MARK: - Server Request Handling
@@ -747,6 +809,98 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     func save(_ request: WebConnectionRequest) {
         connectionRepository.save(request)
     }
+
+    // MARK: - Client Delegate
+
+    // called when creating connection or creating a session
+    func client(_ client: Client, dappInfoForUrl url: WCURL) -> Session.DAppInfo? {
+        guard let connection = connection(for: url),
+              let session = sessionTransformer.session(from: connection) else {
+            return nil
+        }
+        return session.dAppInfo
+    }
+
+    // called when failed to connect to bridge server or to establsih session
+    func client(_ client: Client, didFailToConnect url: WCURL) {
+        handleConnectionFailure(url)
+    }
+
+    // called when successfully connected to a bridge server
+    func client(_ client: Client, didConnect url: WCURL) {
+        // nothing to do
+    }
+
+    // called when successfully established session (handshake success).
+    // also called on re-connect to the bridge
+    func client(_ client: Client, didConnect session: Session) {
+        DispatchQueue.main.async { [unowned self] in
+            guard let connection = connection(for: session), connection.status == .handshaking else {
+                return
+            }
+            sessionTransformer.update(connection: connection, with: session)
+
+            // check that the chain id exists in the app
+            if let chainId = connection.chainId, let exists = (try? Chain.exists("\(chainId)")), !exists {
+                // respond with rejection and close connection
+                connection.lastError = WebConnectionError.unsupportedNetwork.localizedDescription
+                update(connection, to: .closed)
+            } else {
+                update(connection, to: .approved)
+            }
+        }
+    }
+
+    // called when received 'wc_updateSession' with approved = false
+    func client(_ client: Client, didDisconnect session: Session) {
+        handleConnectionClosed(session)
+    }
+
+    // called when received 'wc_updateSession' with approved = true
+    func client(_ client: Client, didUpdate session: Session) {
+        handleSessionUpdate(session)
+    }
+
+    // MARK: - Connect Wallet Logic
+
+    // create connection to a wallet
+    func connect(wallet info: WCAppRegistryEntry, chainId: Int?) throws -> WebConnection {
+        let handshakeTopic = UUID().uuidString
+        let bridgeURL = App.configuration.walletConnect.bridgeURL
+        guard let encryptionKey = Data(randomOfSize: 32) else {
+            throw WebConnectionError.keyGenerationFailed
+        }
+        let wcURL = WCURL(topic: handshakeTopic, version: "1", bridgeURL: bridgeURL, key: encryptionKey.toHexStringWithPrefix())
+        let connection = createWalletConnection(from: WebConnectionURL(wcURL: wcURL), info: info)
+        connection.chainId = chainId
+        update(connection, to: .handshaking)
+        return connection
+    }
+
+    func createWalletConnection(from url: WebConnectionURL, info: WCAppRegistryEntry) -> WebConnection {
+        let connection = WebConnection(connectionURL: url)
+        connection.createdDate = Date()
+        connection.localPeer = WebConnectionPeerInfo(
+                peerId: UUID().uuidString,
+                peerType: .thisApp,
+                role: .dapp,
+                url: URL(string: "https://gnosis-safe.io/")!,
+                name: "Gnosis Safe",
+                description: "The most trusted platform to manage digital assets",
+                icons: [URL(string: "https://gnosis-safe.io/app/favicon.ico")!],
+                deeplinkScheme: "gnosissafe:"
+        )
+        connection.remotePeer = WebConnectionPeerInfo(
+                peerId: "",
+                peerType: .wallet,
+                role: .wallet,
+                url: info.homepage ?? URL(string: "https://gnosis-safe.io/")!,
+                name: info.name,
+                description: info.description,
+                icons: info.imageLargeUrl.map { [$0] } ?? [],
+                deeplinkScheme: info.linkMobileNative?.absoluteString)
+        return connection
+    }
 }
 
 /// User-visible error
@@ -782,5 +936,11 @@ extension WebConnectionError {
     static let unsupportedNetwork = WebConnectionError(errorCode: -4, message: "Failed to connect. Requested network is not supported.")
 
     static let connectionStartTimeout = WebConnectionError(errorCode: -5, message: "Connection timeout. Please reload web app.")
+
+    static let keyGenerationFailed = WebConnectionError(errorCode: -6, message: "Failed to create encryption key. Please try again.")
+
+    static let configurationError = WebConnectionError(errorCode: -7, message: "Configuration error. Please try again.")
+
+    static let unsupportedConnectionType = WebConnectionError(errorCode: -8, message: "Unsupported connection type. Please try again.")
 }
 

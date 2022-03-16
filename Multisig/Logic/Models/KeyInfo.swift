@@ -209,6 +209,45 @@ extension KeyInfo {
         return item
     }
 
+    @discardableResult
+    static func `import`(connection: WebConnection, wallet: WCAppRegistryEntry, name: String) throws -> KeyInfo? {
+        guard let address = connection.accounts.first else {
+            return nil
+        }
+
+        let context = App.shared.coreDataStack.viewContext
+
+        let fr = KeyInfo.fetchRequest().by(address: address)
+        let item: KeyInfo
+
+        if let existing = try context.fetch(fr).first {
+            // It is possible to update only key of the same type. Do not update key name for already imported WalletConnect key.
+            guard existing.keyType == .walletConnect else {
+                throw GSError.CouldNotAddOwnerKeyWithSameAddressAndDifferentType()
+            }
+            item = existing
+        } else {
+            item = KeyInfo(context: context)
+            item.name = name
+        }
+
+        item.address = address
+        item.keyID = "walletconnect:\(address.checksummed)"
+        item.keyType = .walletConnect
+
+        if let cdConnection = CDWCConnection.connection(by: connection.connectionURL.absoluteString) {
+            item.addToConnections(cdConnection)
+        }
+
+        if let cdRegistryEntry = CDWCAppRegistryEntry.entry(by: wallet.id) {
+            item.wallet = cdRegistryEntry
+        }
+
+        item.save()
+
+        return item
+    }
+
     /// Will save the key info from Ledger device in the persistence store.
     /// - Parameters:
     ///   - ledgerDeviceUUID: device UUID
