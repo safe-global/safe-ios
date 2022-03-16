@@ -312,9 +312,6 @@ class OwnerKeyDetailsViewController: UITableViewController {
         case Section.KeyAddress.address:
             return tableView.addressDetailsCell(address: keyInfo.address, showQRCode: true, indexPath: indexPath)
         case Section.OwnerKeyType.type:
-            if keyInfo.keyType == .walletConnect {
-                // TODO: show chevron
-            }
             return keyTypeCell(type: keyInfo.keyType, indexPath: indexPath)
         case Section.Connected.connected:
             return tableView.switchCell(for: indexPath,
@@ -340,6 +337,9 @@ class OwnerKeyDetailsViewController: UITableViewController {
     private func keyTypeCell(type: KeyType, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(KeyTypeTableViewCell.self, for: indexPath)
         cell.set(name: type.name, iconName: type.imageName)
+        if type != .walletConnect {
+            cell.setDisclosureImage(nil)
+        }
         cell.selectionStyle = .none
         return cell
     }
