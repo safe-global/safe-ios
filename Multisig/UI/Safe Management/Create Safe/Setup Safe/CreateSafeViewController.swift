@@ -690,12 +690,14 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         // request passcode if needed and sign
         if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
             let passcodeVC = EnterPasscodeViewController()
-            passcodeVC.passcodeCompletion = { [weak self] success in
+            passcodeVC.passcodeCompletion = { [weak self] success, reset in
                 self?.dismiss(animated: true) {
                     guard let `self` = self else { return }
 
                     if success {
                         self.sign()
+                    } else if reset {
+                        self.presentedViewController?.dismiss(animated: false, completion: nil)
                     }
                 }
             }
