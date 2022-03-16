@@ -77,10 +77,77 @@ class WCAppRegistryEntry {
     }
 
     enum Role: Int16 {
-
         case wallet = 0
-
         case dapp = 1
+    }
+
+    /// Based on the wallet connect url, returns either universal link (preferred) or a deeplink to establish
+    /// WalletConnect connection. Preserves path in the universal link in the entry
+    ///
+    /// see: https://docs.walletconnect.com/mobile-linking#for-ios
+    func connectLink(from url: WebConnectionURL) -> URL? {
+        if let link = linkMobileUniversal,
+           link.host == nil || !(link.host == "apps.apple.com" || link.host == "itunes.apple.com" || link.host == "play.google.com"),
+           var components = URLComponents(url: link, resolvingAgainstBaseURL: false)
+        {
+            let encodedUri = url.absoluteString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            components.queryItems = [URLQueryItem(name: "uri", value: encodedUri)]
+
+            if let url = components.url, url.lastPathComponent != "wc" {
+                components.path = url.appendingPathComponent("wc").path
+            }
+
+            return components.url
+        } else if
+            let link = linkMobileNative,
+            var components = URLComponents(url: link, resolvingAgainstBaseURL: false)
+        {
+            let encodedUri = url.absoluteString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            components.queryItems = [URLQueryItem(name: "uri", value: encodedUri)]
+
+            if components.scheme == nil && components.host == nil, let componentsUrl = components.url {
+                if componentsUrl.pathComponents.count == 1 {
+                    components.scheme = componentsUrl.pathComponents.first
+                    components.path = ""
+                } else {
+                    return URL(string: url.absoluteString)
+                }
+            }
+
+            if let host = components.host, !host.isEmpty {
+                guard host != "wc" else {
+                    return components.url
+                }
+
+                if let url = components.url, url.lastPathComponent != "wc" {
+                    components.path = url.appendingPathComponent("wc").path
+                }
+
+                return components.url
+            } else {
+                components.host = "wc"
+                return components.url
+            }
+        } else {
+            // fallback to the connection url
+            return URL(string: url.absoluteString)
+        }
+    }
+
+    /// Link to switch to the wallet
+    ///
+    /// see: https://docs.walletconnect.com/mobile-linking#for-ios
+    func navigateLink(from url: WebConnectionURL) -> URL? {
+        if let link = connectLink(from: url),
+           var components = URLComponents(url: link, resolvingAgainstBaseURL: false) {
+
+            if let index = components.queryItems?.firstIndex(where: { $0.name == "uri" }) {
+                components.queryItems?[index] = URLQueryItem(name: "uri", value: "wc:\(url.handshakeChannelId)@\(url.protocolVersion)")
+            }
+
+            return components.url
+        }
+        return nil
     }
 }
 

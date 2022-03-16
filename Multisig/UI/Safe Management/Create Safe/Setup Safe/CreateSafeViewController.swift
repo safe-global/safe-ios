@@ -123,14 +123,25 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard isValid(section: section) else { return nil }
         let sectionData = uiModel.sectionHeaders[section]
-        let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
-        view.setName(sectionData.title)
-        return view
+        switch sectionData.id {
+        case .error:
+            return nil
+        default:
+            let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
+            view.setName(sectionData.title)
+            return view
+        }
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard isValid(section: section) else { return 0 }
-        return BasicHeaderView.headerHeight
+        let sectionData = uiModel.sectionHeaders[section]
+        switch sectionData.id {
+        case .error:
+            return 0
+        default:
+            return BasicHeaderView.headerHeight
+        }
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -679,12 +690,14 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         // request passcode if needed and sign
         if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
             let passcodeVC = EnterPasscodeViewController()
-            passcodeVC.passcodeCompletion = { [weak self] success in
+            passcodeVC.passcodeCompletion = { [weak self] success, reset in
                 self?.dismiss(animated: true) {
                     guard let `self` = self else { return }
 
                     if success {
                         self.sign()
+                    } else if reset {
+                        self.presentedViewController?.dismiss(animated: false, completion: nil)
                     }
                 }
             }

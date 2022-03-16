@@ -166,7 +166,7 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
     private func authorizeAndSign() {
         if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
             let passcodeVC = EnterPasscodeViewController()
-            passcodeVC.passcodeCompletion = { [weak self] success in
+            passcodeVC.passcodeCompletion = { [weak self] success, _ in
                 self?.dismiss(animated: true, completion: {
                     if success {
                         self?.sign()

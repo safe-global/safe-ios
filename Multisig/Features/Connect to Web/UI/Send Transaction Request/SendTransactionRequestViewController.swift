@@ -334,7 +334,7 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
             self.actionPanelView.setConfirmEnabled(false)
 
             let passcodeVC = EnterPasscodeViewController()
-            passcodeVC.passcodeCompletion = { [weak self] success in
+            passcodeVC.passcodeCompletion = { [weak self] success, _ in
                 self?.dismiss(animated: true) {
                     guard let `self` = self else { return }
 

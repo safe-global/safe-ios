@@ -249,7 +249,7 @@ class RepeatPasscodeViewController: PasscodeViewController {
 }
 
 class EnterPasscodeViewController: PasscodeViewController {
-    var passcodeCompletion: (Bool) -> Void = { _ in }
+    var passcodeCompletion: (_ success: Bool, _ reset: Bool) -> Void = { _, _ in }
     var navigationItemTitle = "Enter Passcode"
     var screenTrackingEvent = TrackingEvent.enterPasscode
     var showsCloseButton: Bool = true
@@ -301,7 +301,7 @@ class EnterPasscodeViewController: PasscodeViewController {
             }
 
             if isCorrect {
-                passcodeCompletion(true)
+                passcodeCompletion(true, false)
             } else {
                 showError("Wrong passcode")
             }
@@ -309,7 +309,7 @@ class EnterPasscodeViewController: PasscodeViewController {
     }
 
     @objc func didTapCloseButton() {
-        passcodeCompletion(false)
+        passcodeCompletion(false, false)
     }
 
     override func didTapButton(_ sender: Any) {
@@ -320,7 +320,7 @@ class EnterPasscodeViewController: PasscodeViewController {
         let remove = UIAlertAction(title: "Disable Passcode", style: .destructive) { [unowned self] _ in
             do {
                 // should be before deleting all data
-                self.passcodeCompletion(false)
+                self.passcodeCompletion(false, true)
                 try App.shared.auth.deleteAllData()
             } catch {
                 showGenericError(description: "Failed to remove passcode", error: error)
@@ -344,7 +344,7 @@ class EnterPasscodeViewController: PasscodeViewController {
             guard let `self` = self else { return }
             switch result {
             case .success:
-                self.passcodeCompletion(true)
+                self.passcodeCompletion(true, false)
 
             case .failure(_):
                 self.biometryButton.isHidden = !self.canUseBiometry

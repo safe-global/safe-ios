@@ -39,7 +39,7 @@ enum ViewControllerFactory {
         // because close button is hidden, this will complete only
         // if passcode is correct or if the data is deleted.
         // in both cases, we want to trigger completion closure
-        vc.passcodeCompletion = { _ in
+        vc.passcodeCompletion = { _, _ in
             completion()
         }
         return UINavigationController(rootViewController: vc)
@@ -47,7 +47,7 @@ enum ViewControllerFactory {
 
     static func addOwnerViewController(completion: @escaping () -> Void) -> UIViewController {
         let controller = AddOwnerKeyViewController(completion: completion)
-        let nav = UINavigationController(rootViewController: controller)
+        let nav = AddKeyNavigationController(rootViewController: controller)
         return nav
     }
 
