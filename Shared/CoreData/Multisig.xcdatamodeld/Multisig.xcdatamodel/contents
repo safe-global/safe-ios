@@ -58,6 +58,7 @@
         <attribute name="role" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="shortName" optional="YES" attributeType="String"/>
         <attribute name="versions" optional="YES" attributeType="String"/>
+        <relationship name="key" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KeyInfo" inverseName="wallet" inverseEntity="KeyInfo"/>
     </entity>
     <entity name="CDWCConnection" representedClassName="CDWCConnection" syncable="YES" codeGenerationType="class">
         <attribute name="accounts" optional="YES" attributeType="String"/>
@@ -143,7 +144,7 @@
         <attribute name="name" attributeType="String"/>
         <attribute name="type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="connections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDWCConnection" inverseName="keys" inverseEntity="CDWCConnection"/>
-        <relationship name="wallet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWCAppRegistryEntry"/>
+        <relationship name="wallet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWCAppRegistryEntry" inverseName="key" inverseEntity="CDWCAppRegistryEntry"/>
     </entity>
     <entity name="Safe" representedClassName="Safe" syncable="YES">
         <attribute name="additionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -185,7 +186,7 @@
         <element name="AppSettings" positionX="-234.1375732421875" positionY="377.9746704101562" width="128" height="284"/>
         <element name="AppUser" positionX="-389.4071044921875" positionY="380.6794738769531" width="128" height="89"/>
         <element name="CDEthTransaction" positionX="-76.98681640625" positionY="383.9258422851562" width="128" height="149"/>
-        <element name="CDWCAppRegistryEntry" positionX="-270" positionY="-108" width="128" height="283"/>
+        <element name="CDWCAppRegistryEntry" positionX="-270" positionY="-108" width="128" height="284"/>
         <element name="CDWCConnection" positionX="180.7559814453125" positionY="170.9039306640625" width="128" height="209"/>
         <element name="CDWCPeerInfo" positionX="418.90673828125" positionY="442.4048461914062" width="128" height="149"/>
         <element name="CDWCRequest" positionX="631.3834228515625" positionY="298.3258056640625" width="128" height="164"/>

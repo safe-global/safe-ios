@@ -52,8 +52,14 @@ class WalletConnectionViewController: UIViewController, WebConnectionObserver, U
 
             if let link = wallet.connectLink(from: connection.connectionURL) {
                 print("WC: Opening", link.absoluteString)
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                    UIApplication.shared.open(link, options: [:], completionHandler: nil)
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) { [weak self] in
+                    UIApplication.shared.open(link, options: [:]) { success in
+                        guard let self = self else { return }
+                        if !success {
+                            App.shared.snackbar.show(message: "Failed to open the wallet. Please choose a different one.")
+                            self.didTapCancel(self)
+                        }
+                    }
                 }
             } else {
                 App.shared.snackbar.show(message: "Failed to open the wallet. Please choose a different one.")
