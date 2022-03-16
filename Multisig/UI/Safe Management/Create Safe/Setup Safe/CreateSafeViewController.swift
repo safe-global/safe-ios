@@ -123,9 +123,14 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard isValid(section: section) else { return nil }
         let sectionData = uiModel.sectionHeaders[section]
-        let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
-        view.setName(sectionData.title)
-        return view
+        switch sectionData.id {
+        case .error:
+            return nil
+        default:
+            let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
+            view.setName(sectionData.title)
+            return view
+        }
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
