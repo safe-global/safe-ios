@@ -236,4 +236,20 @@ class DisconnectionConfirmationController: UIAlertController {
         alertController.addAction(cancel)
         return alertController
     }
+
+    static func create(key: KeyInfo) -> DisconnectionConfirmationController {
+        let alertController = DisconnectionConfirmationController(
+                title: nil,
+                message: "Your owner will be disconnected from the wallet.",
+                preferredStyle: .actionSheet)
+        let remove = UIAlertAction(title: "Disconnect", style: .destructive) { _ in
+            Tracker.trackEvent(.disconnectInstalledWallet)
+            WebConnectionController.shared.disconnectConnections(account: key.address)
+            NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil, userInfo: nil)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(remove)
+        alertController.addAction(cancel)
+        return alertController
+    }
 }
