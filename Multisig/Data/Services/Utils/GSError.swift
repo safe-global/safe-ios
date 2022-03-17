@@ -420,6 +420,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct WCConnectedKeyNotFound: DetailedLocalizedError {
+        let description: String = "Can't find connected key"
+        let reason = "Couldn't find key provided by the wallet"
+        let howToFix = "Please import key"
+        let domain = clientErrorDomain
+        let code = 9909
+        let loggable = false
+    }
+
 	// MARK: Address Book
 
     struct AddressBookEntryAlreadyExists: DetailedLocalizedError {

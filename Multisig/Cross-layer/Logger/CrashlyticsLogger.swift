@@ -8,7 +8,6 @@ import Firebase
 /// Protocol for enabling logger tests
 public protocol CrashlyticsProtocol {
     func record(error: Error)
-    func setUserID(_ identifier: String)
     func log(format: String, arguments: CVaListPointer)
     func setCrashlyticsCollectionEnabled(_ enabled: Bool)
 }

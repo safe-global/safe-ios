@@ -164,17 +164,18 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         actions.append(editAction)
 
         if keyInfo.keyType == .walletConnect {
-            let isConnected = WalletConnectClientController.shared.isConnected(keyInfo: keyInfo)
+            let isConnected = keyInfo.connected
 
             let wcAction = UIContextualAction(style: .normal, title: isConnected ? "Disconnect" : "Connect") {
                 [unowned self] _, _, completion in
 
                 if isConnected {
-                    WalletConnectClientController.shared.disconnect()
+                    let alertController = DisconnectionConfirmationController.create(key: keyInfo)
+                    self.present(alertController, animated: true)
                 } else {
                     // try to reconnect
-                    if let installedWallet = keyInfo.installedWallet {
-                        self.reconnectWithInstalledWallet(installedWallet)
+                    if let _ = keyInfo.wallet {
+                        self.connect(keyInfo: keyInfo)
                     } else {
                         self.showConnectionQRCodeController()
                     }
@@ -193,6 +194,31 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         actions.append(deleteAction)
 
         return UISwipeActionsConfiguration(actions: actions)
+    }
+
+    func connect(keyInfo: KeyInfo) {
+        guard let wallet = keyInfo.wallet, let wcWallet = WCAppRegistryRepository().entry(from: wallet) else { return }
+
+        let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
+
+        let walletConnectionVC = WalletConnectionViewController(wallet: wcWallet, chain: chain)
+        walletConnectionVC.onSuccess = { [weak walletConnectionVC] connection in
+            walletConnectionVC?.dismiss(animated: true) {
+                guard connection.accounts.contains(keyInfo.address) else {
+                    App.shared.snackbar.show(error: GSError.WCConnectedKeyMissingAddress())
+                    return
+                }
+
+                if OwnerKeyController.updateKey(connection: connection, wallet: wcWallet) {
+                    App.shared.snackbar.show(message: "Key connected successfully")
+                }
+            }
+        }
+        walletConnectionVC.onCancel = { [weak walletConnectionVC] in
+            walletConnectionVC?.dismiss(animated: true, completion: nil)
+        }
+        let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: true)
+        present(vc, animated: true)
     }
 
     private func remove(key: KeyInfo) {
