@@ -362,7 +362,11 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     // MARK: - Managing WebConnection
 
     func connections() -> [WebConnection] {
-        connectionRepository.connections()
+        connectionRepository.connections().filter { connection in
+            connection.localPeer?.role == .wallet &&
+            connection.remotePeer?.peerType == .gnosisSafeWeb &&
+            connection.remotePeer?.role == .dapp
+        }
     }
 
     func connection(for session: Session) -> WebConnection? {
