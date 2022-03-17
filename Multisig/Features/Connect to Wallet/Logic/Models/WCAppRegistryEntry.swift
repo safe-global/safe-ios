@@ -90,8 +90,8 @@ class WCAppRegistryEntry {
            link.host == nil || !(link.host == "apps.apple.com" || link.host == "itunes.apple.com" || link.host == "play.google.com"),
            var components = URLComponents(url: link, resolvingAgainstBaseURL: false)
         {
-            let encodedUri = url.absoluteString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-            components.queryItems = [URLQueryItem(name: "uri", value: encodedUri)]
+            let encodedUri = url.absoluteString.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
+            components.percentEncodedQuery = "uri=\(encodedUri)"
 
             if let url = components.url, url.lastPathComponent != "wc" {
                 components.path = url.appendingPathComponent("wc").path
@@ -102,8 +102,8 @@ class WCAppRegistryEntry {
             let link = linkMobileNative,
             var components = URLComponents(url: link, resolvingAgainstBaseURL: false)
         {
-            let encodedUri = url.absoluteString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-            components.queryItems = [URLQueryItem(name: "uri", value: encodedUri)]
+            let encodedUri = url.absoluteString.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
+            components.percentEncodedQuery = "uri=\(encodedUri)"
 
             if components.scheme == nil && components.host == nil, let componentsUrl = components.url {
                 if componentsUrl.pathComponents.count == 1 {

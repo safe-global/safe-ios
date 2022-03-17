@@ -51,7 +51,7 @@ class WalletConnectionViewController: UIViewController, WebConnectionObserver, U
             WebConnectionController.shared.attach(observer: self, to: connection)
 
             if let link = wallet.connectLink(from: connection.connectionURL) {
-                print("WC: Opening", link.absoluteString)
+                LogService.shared.debug("WC: Opening \(link.absoluteString)")
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) { [weak self] in
                     UIApplication.shared.open(link, options: [:]) { success in
                         guard let self = self else { return }
