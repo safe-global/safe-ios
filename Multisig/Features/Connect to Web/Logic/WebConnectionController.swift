@@ -867,6 +867,13 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
     // MARK: - Connect Wallet Logic
 
+    func walletConnection(keyInfo: KeyInfo) -> [WebConnection] {
+        let result = connectionRepository.connections(account: keyInfo.address).filter { connection in
+            connection.localPeer?.role == .dapp && connection.remotePeer?.role == .wallet
+        }
+        return result
+    }
+
     // create connection to a wallet
     func connect(wallet info: WCAppRegistryEntry, chainId: Int?) throws -> WebConnection {
         let handshakeTopic = UUID().uuidString

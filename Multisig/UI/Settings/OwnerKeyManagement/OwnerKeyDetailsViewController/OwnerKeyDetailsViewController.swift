@@ -382,7 +382,10 @@ class OwnerKeyDetailsViewController: UITableViewController {
         case Section.OwnerKeyType.type:
             if keyInfo.keyType == .walletConnect {
                 let detailsVC = WebConnectionDetailsViewController()
-                detailsVC.connection = connection
+                guard let webConnection = WebConnectionController.shared.walletConnection(keyInfo: keyInfo).first else {
+                    return
+                }
+                detailsVC.connection = webConnection
                 let vc = ViewControllerFactory.modal(viewController: detailsVC)
                 present(vc, animated: true)
             }

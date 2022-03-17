@@ -8,7 +8,10 @@ import UIKit
 class WebConnectionDetailsViewController: UITableViewController, WebConnectionObserver {
 
     var connection: WebConnection!
-    var peer: GnosisSafeWebPeerInfo!
+    var peer: WebConnectionPeerInfo!
+    var safeWebPeer: GnosisSafeWebPeerInfo? {
+        peer as? GnosisSafeWebPeerInfo
+    }
     var chain: Chain!
     var key: KeyInfo?
     var rows: [RowType] = []
@@ -54,15 +57,16 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
         chain = connection.chainId.map(String.init).map(Chain.by(_:)) ?? Chain.mainnetChain()
         key = try? connection.accounts.first.flatMap(KeyInfo.firstKey(address:))
         assert(connection.remotePeer != nil)
-        assert(connection.remotePeer is GnosisSafeWebPeerInfo)
-        peer = connection.remotePeer as? GnosisSafeWebPeerInfo
+        peer = connection.remotePeer
 
         rows = [.header, .key, .network]
-        if peer.appVersion != nil && peer.browser != nil {
+
+        if let peer = safeWebPeer, peer.appVersion != nil && peer.browser != nil {
             rows.append(contentsOf: [.version, .browser])
         } else {
             rows.append(.description)
         }
+
         rows.append(.expirationDate)
         rows.append(.button)
         tableView.reloadData()
@@ -147,14 +151,14 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
         case .version:
             let cell = contentCell()
             cell.setText("Version")
-            let text = peer.appVersion ?? "Unknown"
+            let text = safeWebPeer?.appVersion ?? "Unknown"
             cell.setContent(textView(text))
             return cell
 
         case .browser:
             let cell = contentCell()
             cell.setText("Browser")
-            let text = peer.browser ?? "Unknown"
+            let text = safeWebPeer?.browser ?? "Unknown"
             cell.setContent(textView(text))
             return cell
 
