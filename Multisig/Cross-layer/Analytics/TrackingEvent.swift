@@ -166,6 +166,7 @@ enum TrackingEvent: String, Trackable {
     case walletConnectKeyOptions                    = "screen_owner_walletconnect_options"
     case walletConnectKeyQR                         = "screen_owner_walletconnect_qr_code"
     case connectInstalledWallet                     = "user_owner_connected_installed_wallet"
+    case disconnectInstalledWallet                  = "user_owner_disconnected_installed_wallet"
     case connectExternalWallet                      = "user_owner_connected_external_wallet"
     case dappConnectedWithUniversalLink             = "user_dapp_connected_universal_link"
     case dappConnectedWithScanButton                = "user_dapp_connected_scan_button"

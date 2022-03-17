@@ -79,11 +79,10 @@ enum KeyConnectionStatus {
         case .deviceGenerated, .deviceImported, .ledgerNanoX:
             self = .none
         case .walletConnect:
-            if WalletConnectClientController.shared.isConnected(keyInfo: keyInfo) {
-                if let metadata = keyInfo.metadata,
-                    let keyMetadata = KeyInfo.WalletConnectKeyMetadata.from(data: metadata),
-                    let chainID = chainID,
-                    String(keyMetadata.walletInfo.chainId) == chainID {
+            if keyInfo.connected {
+                if let _  = keyInfo.connections!.first(where: { connection in
+                    "\((connection as! CDWCConnection).chainId)" == chainID
+                }) {
                     self = .connected
                 } else {
                     self = .connectionProblem
