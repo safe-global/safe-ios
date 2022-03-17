@@ -125,12 +125,6 @@ class OwnerKeyDetailsViewController: UITableViewController {
 
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(walletConnectSessionCreated(_:)),
-            name: .wcDidConnectClient,
-            object: nil)
-
-        NotificationCenter.default.addObserver(
-            self,
             selector: #selector(pop),
             name: .ownerKeyRemoved,
             object: nil)
@@ -229,61 +223,6 @@ class OwnerKeyDetailsViewController: UITableViewController {
         present(alertController, animated: true)
     }
 
-    private func reconnectKey() {
-        assert(keyInfo.keyType == .walletConnect, "Developer error: wrong key type used")
-
-        if let installedWallet = keyInfo.installedWallet {
-            guard let topic = WalletConnectClientController.reconnectWithInstalledWallet(installedWallet) else { return }
-            walletPerTopic[topic] = installedWallet
-            waitingForSession = true
-        } else {
-            showConnectionQRCodeController()
-        }
-    }
-
-    private func disconnectKey() {
-        assert(keyInfo.keyType == .walletConnect, "Developer error: wrong key type used")
-        guard WalletConnectClientController.shared.isConnected(keyInfo: keyInfo) else { return }
-        WalletConnectClientController.shared.disconnect()
-    }
-
-    @objc private func walletConnectSessionCreated(_ notification: Notification) {
-        guard waitingForSession else { return }
-        waitingForSession = false
-
-        guard let session = notification.object as? Session,
-              let account = Address(session.walletInfo?.accounts.first ?? ""),
-              keyInfo.address == account else {
-            WalletConnectClientController.shared.disconnect()
-            DispatchQueue.main.async { [unowned self] in
-                presentedViewController?.dismiss(animated: false, completion: nil)
-                App.shared.snackbar.show(message: "Wrong wallet connected. Please try again.")
-            }
-            return
-        }
-
-        DispatchQueue.main.async { [unowned self] in
-            // we need to update to always properly refresh session.walletInfo.peedId
-            // that we use to identify if the wallet is connected
-            _ = OwnerKeyController.updateKey(session: session,
-                                               installedWallet: walletPerTopic[session.url.topic])
-
-            if let presented = presentedViewController {
-                // QR code controller
-                presented.dismiss(animated: false, completion: nil)
-            }
-
-            App.shared.snackbar.show(message: "Owner key wallet connected")
-            tableView.reloadData()
-        }
-    }
-
-    private func reconnectWithInstalledWallet(_ installedWallet: InstalledWallet) {
-        guard let topic = WalletConnectClientController.reconnectWithInstalledWallet(installedWallet) else { return }
-        walletPerTopic[topic] = installedWallet
-        waitingForSession = true
-    }
-
     private func showConnectionQRCodeController() {
         WalletConnectClientController.showConnectionQRCodeController(from: self) { result in
             switch result {
@@ -316,7 +255,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
         case Section.Connected.connected:
             return tableView.switchCell(for: indexPath,
                                            with: "Connected",
-                                           isOn: WalletConnectClientController.shared.isConnected(keyInfo: keyInfo))
+                                           isOn: keyInfo.connected)
         case Section.PushNotificationConfiguration.enabled:
             return tableView.switchCell(for: indexPath, with: "Receive Push Notifications", isOn: keyInfo.delegateAddress != nil)
         case Section.DelegateKey.address:
@@ -337,7 +276,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
     private func keyTypeCell(type: KeyType, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(KeyTypeTableViewCell.self, for: indexPath)
         cell.set(name: type.name, iconName: type.imageName)
-        if type != .walletConnect {
+        if !(type == .walletConnect && keyInfo.connected) {
             cell.setDisclosureImage(nil)
         }
         cell.selectionStyle = .none
