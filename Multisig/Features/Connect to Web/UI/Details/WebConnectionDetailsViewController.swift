@@ -194,7 +194,12 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
             cell.padding = 16
             cell.backgroundColor = .clear
             cell.setText("Disconnect", style: .filledError) { [unowned self] in
-                let alertController = DisconnectionConfirmationController.create(connection: connection)
+                var alertController: DisconnectionConfirmationController
+                if let keyInfo = key  {
+                    alertController = DisconnectionConfirmationController.create(key: keyInfo)
+                } else {
+                    alertController = DisconnectionConfirmationController.create(connection: connection)
+                }
                 self.present(alertController, animated: true)
             }
             return cell
