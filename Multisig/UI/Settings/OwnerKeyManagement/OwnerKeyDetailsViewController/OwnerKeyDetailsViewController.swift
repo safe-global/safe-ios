@@ -72,17 +72,6 @@ class OwnerKeyDetailsViewController: UITableViewController {
         self.init()
         self.keyInfo = keyInfo
         self.completion = completion
-
-        //TODO: Remove and use keyInfo.connection
-        let controller = WebConnectionController()
-        let url = WebConnectionURL(wcURL: WCURL(topic: UUID().uuidString, version: "1", bridgeURL: URL(string: "https://example.org")!, key: UUID().uuidString))
-        let connection = controller.createConnection(from: url)
-
-        self.connection = connection // TODO: Use keyInfo.connection or keyInfo.connection[0]
-    }
-
-    override func loadView() {
-        super.loadView()
     }
 
     override func viewDidLoad() {
@@ -115,7 +104,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
         tableView.registerCell(HelpLinkTableViewCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
-        for notification in [Notification.Name.ownerKeyUpdated, .wcDidDisconnectClient] {
+        for notification in [Notification.Name.ownerKeyUpdated] {
             NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(reloadData),
@@ -176,14 +165,20 @@ class OwnerKeyDetailsViewController: UITableViewController {
 
     @objc private func reloadData() {
         DispatchQueue.main.async { [unowned self] in
+            // it may happen that key info is updated in the CoreData but the current managed object
+            // that we retained here is not updated.
+            if let key = keyInfo {
+                keyInfo = try? KeyInfo.firstKey(address: key.address)
+            }
+
             self.sections = [
                 (section: .name("OWNER NAME"), items: [Section.Name.name]),
 
                 (section: .keyAddress("OWNER ADDRESS"),
-                 items: [Section.KeyAddress.address]),
+                        items: [Section.KeyAddress.address]),
 
                 (section: .ownerKeyType("OWNER TYPE"),
-                 items: [Section.OwnerKeyType.type])]
+                        items: [Section.OwnerKeyType.type])]
 
             if self.keyInfo.keyType == .walletConnect {
                 self.sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
@@ -191,10 +186,10 @@ class OwnerKeyDetailsViewController: UITableViewController {
 
             if [.walletConnect, .ledgerNanoX].contains(keyInfo.keyType) {
                 self.sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
-                                 items: [Section.PushNotificationConfiguration.enabled]))
+                        items: [Section.PushNotificationConfiguration.enabled]))
                 if self.keyInfo.delegateAddress != nil {
                     self.sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
-                                     items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
+                            items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
                 }
             }
 
@@ -278,6 +273,8 @@ class OwnerKeyDetailsViewController: UITableViewController {
         cell.set(name: type.name, iconName: type.imageName)
         if !(type == .walletConnect && keyInfo.connected) {
             cell.setDisclosureImage(nil)
+        } else {
+            cell.setDisclosureImage(UIImage(named: "arrow"))
         }
         cell.selectionStyle = .none
         return cell
@@ -320,7 +317,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
             }
             return
         case Section.OwnerKeyType.type:
-            if keyInfo.keyType == .walletConnect {
+            if keyInfo.keyType == .walletConnect && keyInfo.connected {
                 let detailsVC = WebConnectionDetailsViewController()
                 guard let webConnection = WebConnectionController.shared.walletConnection(keyInfo: keyInfo).first else {
                     return
@@ -392,7 +389,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
         let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
 
         let walletConnectionVC = WalletConnectionViewController(wallet: wcWallet, chain: chain)
-        walletConnectionVC.onSuccess = { [weak walletConnectionVC] connection in
+        walletConnectionVC.onSuccess = { [weak walletConnectionVC, weak self] connection in
             walletConnectionVC?.dismiss(animated: true) {
                 guard connection.accounts.contains(keyInfo.address) else {
                     App.shared.snackbar.show(error: GSError.WCConnectedKeyMissingAddress())
