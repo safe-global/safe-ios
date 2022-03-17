@@ -301,6 +301,19 @@ class TransactionDetailCellBuilder {
                         imageUri: imageUri,
                         browseURL: chain.browserURL(address: module.checksummed),
                         prefix: chain.shortName)
+                
+            case .setGuard(let guardTx):
+                let (label, imageUri) = NamingPolicy.name(for: guardTx.guard, chainId: chain.id!)
+                let guardContract = guardTx.guard.value.address
+                address(guardContract,
+                        label: label,
+                        title: "Set guard:",
+                        imageUri: imageUri,
+                        browseURL: chain.browserURL(address: guardContract.checksummed),
+                        prefix: chain.shortName)
+                
+            case .deleteGuard:
+                text("Delete Guard", title: "Settings change:", expandableTitle: nil, copyText: nil)
 
             case .unknown:
                 text("Unknown operation", title: "Settings change:", expandableTitle: nil, copyText: nil)
