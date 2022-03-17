@@ -277,6 +277,8 @@ extension SCGModels {
                 case changeImplementation(ChangeImplementation)
                 case enableModule(EnableModule)
                 case disableModule(DisableModule)
+                case setGuard(SetGuard)
+                case deleteGuard
                 case unknown
 
                 init(from decoder: Decoder) throws {
@@ -301,6 +303,10 @@ extension SCGModels {
                         self = try .enableModule(EnableModule(from: decoder))
                     case "DISABLE_MODULE":
                         self = try .disableModule(DisableModule(from: decoder))
+                    case "SET_GUARD":
+                        self = try .setGuard(SetGuard(from: decoder))
+                    case "DELETE_GUARD":
+                        self = .deleteGuard
                     default:
                         self = .unknown
                     }
@@ -339,6 +345,10 @@ extension SCGModels {
 
                 struct DisableModule: Decodable {
                     var module: AddressInfo
+                }
+                     
+                struct SetGuard: Decodable {
+                    var `guard`: AddressInfo
                 }
             }
         }
