@@ -133,12 +133,6 @@ extension SelectLedgerDeviceViewController: BluetoothControllerDelegate {
             let alertVC = UIAlertController(title: nil,
                                             message: "Please enable Bluetooth in App Settings",
                                             preferredStyle: .alert)
-
-            if let popoverPresentationController = alertVC.popoverPresentationController {
-                //TODO untested
-                popoverPresentationController.sourceView = tableView
-            }
-
             let cancel = UIAlertAction(title: "Cancel", style: .cancel)
             let settings = UIAlertAction(title: "Settings", style: .default) { _ in
                 let url = URL(string: UIApplication.openSettingsURLString)!

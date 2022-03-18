@@ -157,8 +157,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
                 guard let `self` = self else { return }
                 let alertController = DisconnectionConfirmationController.create(connection: connection)
                 if let popoverPresentationController = alertController.popoverPresentationController {
-                    popoverPresentationController.sourceView = tableView
-                    popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
+                    popoverPresentationController.sourceView = tableView.cellForRow(at: indexPath)
                 }
                 self.present(alertController, animated: true)
             }]

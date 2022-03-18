@@ -97,11 +97,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         uiModel.didEdit()
     }
 
-    //TODO: Can this be deleted? Looks unused.
-//    @objc private func didTapAddOwnerButton(_ sender: Any) {
-//        addOwner()
-//    }
-
     // MARK: - Table View Data and Views
 
     private func isValid(section: Int) -> Bool {
@@ -274,9 +269,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         }
 
         if let popoverPresentationController = picker.popoverPresentationController {
-            // TODO what view to use?
-            popoverPresentationController.sourceView = tableView
-            popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
+            popoverPresentationController.sourceView = tableView.cellForRow(at: indexPath)
         }
         present(picker, animated: true, completion: nil)
     }

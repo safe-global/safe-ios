@@ -107,8 +107,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         alertController.addAction(cancelButton)
 
         if let popoverPresentationController = alertController.popoverPresentationController {
-            //TODO: What view should be used? tableView is wrong
-            popoverPresentationController.sourceView = tableView
+            popoverPresentationController.barButtonItem = menuButton
         }
 
         self.present(alertController, animated: true)
