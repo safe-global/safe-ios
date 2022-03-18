@@ -171,6 +171,11 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
                 if isConnected {
                     let alertController = DisconnectionConfirmationController.create(key: keyInfo)
+                    if let popoverPresentationController = alertController.popoverPresentationController {
+                        popoverPresentationController.sourceView = tableView
+                        popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
+                    }
+
                     self.present(alertController, animated: true)
                 } else {
                     // try to reconnect

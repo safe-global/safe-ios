@@ -97,9 +97,10 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         uiModel.didEdit()
     }
 
-    @objc private func didTapAddOwnerButton(_ sender: Any) {
-        addOwner()
-    }
+    //TODO: Can this be deleted? Looks unused.
+//    @objc private func didTapAddOwnerButton(_ sender: Any) {
+//        addOwner()
+//    }
 
     // MARK: - Table View Data and Views
 
@@ -216,7 +217,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             selectNetwork()
 
         case .owners:
-            selectOwnerRow(indexPath.row)
+            selectOwnerRow(tableView: tableView, indexPath: indexPath)
 
         case .threshold:
             selectConfirmationRow(indexPath.row)
@@ -262,14 +263,20 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         show(selectNetworkVC, sender: self)
     }
 
-    func selectOwnerRow(_ rowIndex: Int) {
-        guard rowIndex == uiModel.owners.count else { return }
-        addOwner()
+    func selectOwnerRow(tableView: UITableView, indexPath: IndexPath) {
+        guard indexPath.row == uiModel.owners.count else { return }
+        addOwner(tableView: tableView, indexPath: indexPath)
     }
 
-    func addOwner() {
+    func addOwner(tableView: UITableView, indexPath: IndexPath) {
         let picker = SelectAddressViewController(chain: uiModel.chain, presenter: self) { [weak self] address in
             self?.uiModel.addOwnerAddress(address)
+        }
+
+        if let popoverPresentationController = picker.popoverPresentationController {
+            // TODO what view to use?
+            popoverPresentationController.sourceView = tableView
+            popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
         }
         present(picker, animated: true, completion: nil)
     }
