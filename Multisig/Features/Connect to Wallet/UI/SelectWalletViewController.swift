@@ -65,6 +65,7 @@ class SelectWalletViewController: LoadableViewController {
     }
 
     override func reloadData() {
+        super.reloadData()
         walletsSource.loadData()
     }
 
