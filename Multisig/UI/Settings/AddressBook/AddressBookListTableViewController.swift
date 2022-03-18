@@ -67,6 +67,11 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
             title: nil,
             message: nil,
             preferredStyle: .actionSheet)
+
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.sourceView = tableView
+        }
+
         let addEnityButton = UIAlertAction(title: "Add new entry", style: .default) { _ in
             self.didTapAddButton()
         }

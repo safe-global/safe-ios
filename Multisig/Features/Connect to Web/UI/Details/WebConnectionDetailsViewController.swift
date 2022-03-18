@@ -191,6 +191,10 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
             cell.backgroundColor = .clear
             cell.setText("Disconnect", style: .filledError) { [unowned self] in
                 let alertController = DisconnectionConfirmationController.create(connection: connection)
+                if let popoverPresentationController = alertController.popoverPresentationController {
+                                    popoverPresentationController.sourceView = tableView
+                                    popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
+                                }
                 self.present(alertController, animated: true)
             }
             return cell
