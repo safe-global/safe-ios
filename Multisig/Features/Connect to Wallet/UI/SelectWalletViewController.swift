@@ -89,7 +89,7 @@ extension SelectWalletViewController: UITableViewDelegate, UITableViewDataSource
         switch sections[indexPath.section].type {
         case.qrCode:
             return tableView.basicCell(
-                name: "Display QR Code",
+                name: "Show QR Code",
                 icon: "qrcode",
                 indexPath: indexPath,
                 withDisclosure: false,
