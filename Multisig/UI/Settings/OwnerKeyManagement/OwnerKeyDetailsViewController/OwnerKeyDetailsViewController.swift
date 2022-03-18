@@ -27,6 +27,8 @@ class OwnerKeyDetailsViewController: UITableViewController {
     private var sections = [SectionItems]()
     private var addKeyController: DelegateKeyController!
 
+    private var connection: WebConnection!
+
     enum Section {
         case name(String)
         case keyAddress(String)
@@ -72,10 +74,6 @@ class OwnerKeyDetailsViewController: UITableViewController {
         self.completion = completion
     }
 
-    override func loadView() {
-        super.loadView()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         assert(keyInfo != nil, "Developer error: expect to have a key")
@@ -106,19 +104,13 @@ class OwnerKeyDetailsViewController: UITableViewController {
         tableView.registerCell(HelpLinkTableViewCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
-        for notification in [Notification.Name.ownerKeyUpdated, .wcDidDisconnectClient] {
+        for notification in [Notification.Name.ownerKeyUpdated] {
             NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(reloadData),
                 name: notification,
                 object: nil)
         }
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(walletConnectSessionCreated(_:)),
-            name: .wcDidConnectClient,
-            object: nil)
 
         NotificationCenter.default.addObserver(
             self,
@@ -173,14 +165,20 @@ class OwnerKeyDetailsViewController: UITableViewController {
 
     @objc private func reloadData() {
         DispatchQueue.main.async { [unowned self] in
+            // it may happen that key info is updated in the CoreData but the current managed object
+            // that we retained here is not updated.
+            if let key = keyInfo {
+                keyInfo = try? KeyInfo.firstKey(address: key.address)
+            }
+
             self.sections = [
                 (section: .name("OWNER NAME"), items: [Section.Name.name]),
 
                 (section: .keyAddress("OWNER ADDRESS"),
-                 items: [Section.KeyAddress.address]),
+                        items: [Section.KeyAddress.address]),
 
                 (section: .ownerKeyType("OWNER TYPE"),
-                 items: [Section.OwnerKeyType.type])]
+                        items: [Section.OwnerKeyType.type])]
 
             if self.keyInfo.keyType == .walletConnect {
                 self.sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
@@ -188,10 +186,10 @@ class OwnerKeyDetailsViewController: UITableViewController {
 
             if [.walletConnect, .ledgerNanoX].contains(keyInfo.keyType) {
                 self.sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
-                                 items: [Section.PushNotificationConfiguration.enabled]))
+                        items: [Section.PushNotificationConfiguration.enabled]))
                 if self.keyInfo.delegateAddress != nil {
                     self.sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
-                                     items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
+                            items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
                 }
             }
 
@@ -218,61 +216,6 @@ class OwnerKeyDetailsViewController: UITableViewController {
         alertController.addAction(remove)
         alertController.addAction(cancel)
         present(alertController, animated: true)
-    }
-
-    private func reconnectKey() {
-        assert(keyInfo.keyType == .walletConnect, "Developer error: worng key type used")
-
-        if let installedWallet = keyInfo.installedWallet {
-            guard let topic = WalletConnectClientController.reconnectWithInstalledWallet(installedWallet) else { return }
-            walletPerTopic[topic] = installedWallet
-            waitingForSession = true
-        } else {
-            showConnectionQRCodeController()
-        }
-    }
-
-    private func disconnectKey() {
-        assert(keyInfo.keyType == .walletConnect, "Developer error: worng key type used")
-        guard WalletConnectClientController.shared.isConnected(keyInfo: keyInfo) else { return }
-        WalletConnectClientController.shared.disconnect()
-    }
-
-    @objc private func walletConnectSessionCreated(_ notification: Notification) {
-        guard waitingForSession else { return }
-        waitingForSession = false
-
-        guard let session = notification.object as? Session,
-              let account = Address(session.walletInfo?.accounts.first ?? ""),
-              keyInfo.address == account else {
-            WalletConnectClientController.shared.disconnect()
-            DispatchQueue.main.async { [unowned self] in
-                presentedViewController?.dismiss(animated: false, completion: nil)
-                App.shared.snackbar.show(message: "Wrong wallet connected. Please try again.")
-            }
-            return
-        }
-
-        DispatchQueue.main.async { [unowned self] in
-            // we need to update to always properly refresh session.walletInfo.peedId
-            // that we use to identify if the wallet is connected
-            _ = OwnerKeyController.updateKey(session: session,
-                                               installedWallet: walletPerTopic[session.url.topic])
-
-            if let presented = presentedViewController {
-                // QR code controller
-                presented.dismiss(animated: false, completion: nil)
-            }
-
-            App.shared.snackbar.show(message: "Owner key wallet connected")
-            tableView.reloadData()
-        }
-    }
-
-    private func reconnectWithInstalledWallet(_ installedWallet: InstalledWallet) {
-        guard let topic = WalletConnectClientController.reconnectWithInstalledWallet(installedWallet) else { return }
-        walletPerTopic[topic] = installedWallet
-        waitingForSession = true
     }
 
     private func showConnectionQRCodeController() {
@@ -307,7 +250,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
         case Section.Connected.connected:
             return tableView.switchCell(for: indexPath,
                                            with: "Connected",
-                                           isOn: WalletConnectClientController.shared.isConnected(keyInfo: keyInfo))
+                                           isOn: keyInfo.connected)
         case Section.PushNotificationConfiguration.enabled:
             return tableView.switchCell(for: indexPath, with: "Receive Push Notifications", isOn: keyInfo.delegateAddress != nil)
         case Section.DelegateKey.address:
@@ -328,6 +271,11 @@ class OwnerKeyDetailsViewController: UITableViewController {
     private func keyTypeCell(type: KeyType, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(KeyTypeTableViewCell.self, for: indexPath)
         cell.set(name: type.name, iconName: type.imageName)
+        if !(type == .walletConnect && keyInfo.connected) {
+            cell.setDisclosureImage(nil)
+        } else {
+            cell.setDisclosureImage(UIImage(named: "arrow"))
+        }
         cell.selectionStyle = .none
         return cell
     }
@@ -342,12 +290,13 @@ class OwnerKeyDetailsViewController: UITableViewController {
             let vc = EditOwnerKeyViewController(keyInfo: keyInfo)
             show(vc, sender: self)
         case Section.Connected.connected:
-            if WalletConnectClientController.shared.isConnected(keyInfo: keyInfo) {
-                WalletConnectClientController.shared.disconnect()
+            if keyInfo.connected {
+                let alertController = DisconnectionConfirmationController.create(key: keyInfo)
+                present(alertController, animated: true)
             } else {
                 // try to reconnect
-                if let installedWallet = keyInfo.installedWallet {
-                    self.reconnectWithInstalledWallet(installedWallet)
+                if let _ = keyInfo.wallet {
+                    self.connect(keyInfo: keyInfo)
                 } else {
                     self.showConnectionQRCodeController()
                 }
@@ -367,6 +316,16 @@ class OwnerKeyDetailsViewController: UITableViewController {
                 App.shared.snackbar.show(message: error.localizedDescription)
             }
             return
+        case Section.OwnerKeyType.type:
+            if keyInfo.keyType == .walletConnect && keyInfo.connected {
+                let detailsVC = WebConnectionDetailsViewController()
+                guard let webConnection = WebConnectionController.shared.walletConnection(keyInfo: keyInfo).first else {
+                    return
+                }
+                detailsVC.connection = webConnection
+                let vc = ViewControllerFactory.modal(viewController: detailsVC)
+                present(vc, animated: true)
+            }
         default:
             break
         }
@@ -419,6 +378,34 @@ class OwnerKeyDetailsViewController: UITableViewController {
         }
 
         return BasicHeaderView.headerHeight
+    }
+
+    //TODO remove duplication
+    func connect(keyInfo: KeyInfo) {
+        guard let wallet = keyInfo.wallet, let wcWallet = WCAppRegistryRepository().entry(from: wallet) else {
+            return
+        }
+
+        let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
+
+        let walletConnectionVC = WalletConnectionViewController(wallet: wcWallet, chain: chain)
+        walletConnectionVC.onSuccess = { [weak walletConnectionVC, weak self] connection in
+            walletConnectionVC?.dismiss(animated: true) {
+                guard connection.accounts.contains(keyInfo.address) else {
+                    App.shared.snackbar.show(error: GSError.WCConnectedKeyMissingAddress())
+                    return
+                }
+
+                if OwnerKeyController.updateKey(connection: connection, wallet: wcWallet) {
+                    App.shared.snackbar.show(message: "Key connected successfully")
+                }
+            }
+        }
+        walletConnectionVC.onCancel = { [weak walletConnectionVC] in
+            walletConnectionVC?.dismiss(animated: true, completion: nil)
+        }
+        let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: true)
+        present(vc, animated: true)
     }
 }
 

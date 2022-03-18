@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,7 +14,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="KGk-i7-Jjw" customClass="KeyTypeTableViewCell" customModule="Multisig" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -44,6 +44,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="MCe-8E-aqC">
+                        <rect key="frame" x="280" y="-2" width="40" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="VMx-iF-bgM"/>
+                            <constraint firstAttribute="width" constant="40" id="tjV-sE-JwO"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" name="secondaryBackground"/>
                 <constraints>
@@ -51,12 +58,16 @@
                     <constraint firstAttribute="trailing" secondItem="TWe-6v-EcN" secondAttribute="trailing" constant="16" id="O7Q-f5-qxX"/>
                     <constraint firstItem="x7B-Qc-KdT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="a9z-hf-pdC"/>
                     <constraint firstItem="x7B-Qc-KdT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="i8P-ld-whn"/>
+                    <constraint firstItem="MCe-8E-aqC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ohb-bI-goA"/>
+                    <constraint firstAttribute="trailing" secondItem="MCe-8E-aqC" secondAttribute="trailing" id="q5J-ec-DDb"/>
                     <constraint firstItem="TWe-6v-EcN" firstAttribute="leading" secondItem="x7B-Qc-KdT" secondAttribute="trailing" constant="16" id="rBw-3U-2a8"/>
+                    <constraint firstAttribute="bottom" secondItem="MCe-8E-aqC" secondAttribute="bottom" id="tpX-SY-71p"/>
                     <constraint firstAttribute="bottom" secondItem="x7B-Qc-KdT" secondAttribute="bottom" constant="12" id="vCd-Dq-Gj8"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="disclosure" destination="MCe-8E-aqC" id="QqE-nz-iNa"/>
                 <outlet property="iconImageView" destination="Q7v-KK-4rw" id="snl-ps-TdN"/>
                 <outlet property="imageContainerView" destination="x7B-Qc-KdT" id="hJV-w1-Et9"/>
                 <outlet property="nameLabel" destination="TWe-6v-EcN" id="VKH-Vo-Olp"/>
@@ -65,6 +76,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="arrow" width="40" height="60"/>
         <namedColor name="secondaryBackground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
