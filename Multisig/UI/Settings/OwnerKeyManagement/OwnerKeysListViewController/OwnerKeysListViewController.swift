@@ -188,7 +188,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         }
 
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [unowned self] _, _, completion in
-            self.remove(key: keyInfo)
+            self.remove(key: keyInfo, tableView: tableView, indexPath: indexPath)
             completion(true)
         }
         actions.append(deleteAction)
@@ -221,11 +221,17 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         present(vc, animated: true)
     }
 
-    private func remove(key: KeyInfo) {
+    private func remove(key: KeyInfo, tableView: UITableView, indexPath: IndexPath) {
         let alertController = UIAlertController(
             title: nil,
             message: "Removing the owner key only removes it from this app. It doesn’t delete any Safes from this app or from blockchain. Transactions for Safes controlled by this key will no longer be available for signing in this app.",
             preferredStyle: .actionSheet)
+
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.sourceView = tableView
+            popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
+        }
+
         let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
             OwnerKeyController.remove(keyInfo: key)
         }
