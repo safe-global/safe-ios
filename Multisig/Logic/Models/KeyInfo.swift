@@ -41,7 +41,15 @@ extension KeyInfo {
     }
 
     var connected: Bool {
-        keyType == .walletConnect && wallet != nil && (connections?.anyObject() ?? nil) != nil
+        guard keyType == .walletConnect, let connections = connections else { return false }
+        let walletConnections = connections
+                .compactMap { $0 as? CDWCConnection }
+                .filter {
+                    $0.localPeer?.role == WebConnectionPeerRole.dapp.rawValue &&
+                            $0.remotePeer?.role == WebConnectionPeerRole.wallet.rawValue
+                }
+        let result = !walletConnections.isEmpty
+        return result
     }
 
     struct WalletConnectKeyMetadata: Codable {

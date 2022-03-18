@@ -12,6 +12,7 @@ class KeyTypeTableViewCell: UITableViewCell {
     @IBOutlet private weak var imageContainerView: UIView!
     @IBOutlet private weak var iconImageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var disclosure: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,5 +28,9 @@ class KeyTypeTableViewCell: UITableViewCell {
     func set(name: String, iconName: String) {
         nameLabel.text = name
         iconImageView.image = UIImage(named: iconName)
+    }
+
+    func setDisclosureImage(_ image: UIImage?) {
+        disclosure.image = image
     }
 }

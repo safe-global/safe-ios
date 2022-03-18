@@ -362,7 +362,11 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     // MARK: - Managing WebConnection
 
     func connections() -> [WebConnection] {
-        connectionRepository.connections()
+        connectionRepository.connections().filter { connection in
+            connection.localPeer?.role == .wallet &&
+            connection.remotePeer?.peerType == .gnosisSafeWeb &&
+            connection.remotePeer?.role == .dapp
+        }
     }
 
     func connection(for session: Session) -> WebConnection? {
@@ -866,6 +870,13 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     }
 
     // MARK: - Connect Wallet Logic
+
+    func walletConnection(keyInfo: KeyInfo) -> [WebConnection] {
+        let result = connectionRepository.connections(account: keyInfo.address).filter { connection in
+            connection.localPeer?.role == .dapp && connection.remotePeer?.role == .wallet
+        }
+        return result
+    }
 
     // create connection to a wallet
     func connect(wallet info: WCAppRegistryEntry, chainId: Int?) throws -> WebConnection {

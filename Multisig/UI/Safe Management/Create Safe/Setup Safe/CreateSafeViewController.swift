@@ -704,7 +704,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                     if success {
                         self.sign()
                     } else if reset {
-                        self.presentedViewController?.dismiss(animated: false, completion: nil)
+                        self.dismiss(animated: false, completion: nil)
                     }
                 }
             }
