@@ -169,7 +169,7 @@ final class SwitchSafesViewController: UITableViewController {
         var actions = [UIContextualAction]()
 
         let deleteAction = UIContextualAction(style: .destructive, title: "Remove") { [unowned self] _, _, completion in
-            self.remove(safe: safe)
+            self.remove(safe: safe, tableView: tableView, indexPath: indexPath)
             completion(true)
         }
         actions.append(deleteAction)
@@ -177,7 +177,7 @@ final class SwitchSafesViewController: UITableViewController {
         return UISwipeActionsConfiguration(actions: actions)
     }
 
-    private func remove(safe: Safe) {
+    private func remove(safe: Safe, tableView: UITableView, indexPath: IndexPath) {
         let title = safe.safeStatus == .deployed ?
         "Removing a Safe only removes it from this app. It does not delete the Safe from the blockchain. Funds will not get lost." :
         "Are you sure you want to remove this Safe? The transaction fees will not be returned."
@@ -185,6 +185,12 @@ final class SwitchSafesViewController: UITableViewController {
             title: nil,
             message: title,
             preferredStyle: .actionSheet)
+
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.sourceView = tableView
+            popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
+        }
+
         let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
             Safe.remove(safe: safe)
         }
