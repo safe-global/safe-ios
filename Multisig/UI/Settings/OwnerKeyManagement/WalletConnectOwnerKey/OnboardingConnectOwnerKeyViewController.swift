@@ -46,7 +46,7 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
             enterNameVC.placeholder = "Enter name"
             enterNameVC.name = connection.remotePeer?.name
             enterNameVC.address = address
-            enterNameVC.badgeName = KeyType.deviceImported.imageName
+            enterNameVC.badgeName = KeyType.walletConnect.imageName
 
             enterNameVC.completion = { [unowned self] name in
                 let success = OwnerKeyController.importKey(connection: connection, wallet: wallet, name: name)
