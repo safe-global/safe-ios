@@ -67,11 +67,6 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
             title: nil,
             message: nil,
             preferredStyle: .actionSheet)
-
-        if let popoverPresentationController = alertController.popoverPresentationController {
-            popoverPresentationController.sourceView = tableView
-        }
-
         let addEnityButton = UIAlertAction(title: "Add new entry", style: .default) { _ in
             self.didTapAddButton()
         }
@@ -110,6 +105,11 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
 
         let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelButton)
+
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            //TODO: What view should be used? tableView is wrong
+            popoverPresentationController.sourceView = tableView
+        }
 
         self.present(alertController, animated: true)
     }
@@ -188,7 +188,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         actions.append(editAction)
 
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [unowned self] _, _, completion in
-            self.remove(entry)
+            self.remove(entry, tableView: tableView, indexPath: indexPath)
             completion(true)
         }
         actions.append(deleteAction)
@@ -232,11 +232,15 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         show(ribbonVC, sender: nil)
     }
 
-    private func remove(_ entry: AddressBookEntry) {
+    private func remove(_ entry: AddressBookEntry, tableView: UITableView, indexPath: IndexPath) {
         let alertController = UIAlertController(
             title: nil,
             message: "Removing the entry key only removes it from this app.",
             preferredStyle: .actionSheet)
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.sourceView = tableView
+            popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
+        }
         let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
             AddressBookEntry.remove(entry: entry)
             App.shared.snackbar.show(message: "Address book entry removed")
