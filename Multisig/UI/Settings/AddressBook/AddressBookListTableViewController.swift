@@ -67,11 +67,16 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
             title: nil,
             message: nil,
             preferredStyle: .actionSheet)
-        let addEnityButton = UIAlertAction(title: "Add new entry", style: .default) { _ in
+
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.barButtonItem = menuButton
+        }
+
+        let addEntityButton = UIAlertAction(title: "Add new entry", style: .default) { _ in
             self.didTapAddButton()
         }
 
-        alertController.addAction(addEnityButton)
+        alertController.addAction(addEntityButton)
 
         let importEntryButton = UIAlertAction(title: "Import entries", style: .default) { [unowned self] _ in
             let pricker = UIDocumentPickerViewController(documentTypes: [String(kUTTypeCommaSeparatedText)], in: .import)
@@ -105,10 +110,6 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
 
         let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelButton)
-
-        if let popoverPresentationController = alertController.popoverPresentationController {
-            popoverPresentationController.barButtonItem = menuButton
-        }
 
         self.present(alertController, animated: true)
     }
