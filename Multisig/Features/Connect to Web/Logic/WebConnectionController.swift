@@ -351,20 +351,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
     }
 
-    func sendTransaction(connection: WebConnection, transaction: Client.Transaction, completion: @escaping (Result<Data, Error>) -> ()) {
-        do {
-            try client.eth_sendTransaction(url: connection.connectionURL.wcURL, transaction: transaction) { response in
-                if let error = response.error {
-                    completion(.failure(error))
-                } else if let data = try? response.result(as: DataString.self) {
-                    completion(.success(data.data))
-                }
-            }
-        } catch {
-            completion(.failure(error))
-        }
-    }
-
     func handleExpiredConnections() {
         let now = Date()
         let connections = connectionRepository.connections(expiredAt: now)
@@ -933,9 +919,20 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
     // MARK: - Sending Requests to Wallet
 
-    func sendRequest() {
-//        client.send(<#T##request: Request##Request#>, completion: <#T##Client.RequestResponse?##Client.RequestResponse?##(Response) -> Void#>)
+    func sendTransaction(connection: WebConnection, transaction: Client.Transaction, completion: @escaping (Result<Data, Error>) -> ()) {
+        do {
+            try client.eth_sendTransaction(url: connection.connectionURL.wcURL, transaction: transaction) { response in
+                if let error = response.error {
+                    completion(.failure(error))
+                } else if let data = try? response.result(as: DataString.self) {
+                    completion(.success(data.data))
+                }
+            }
+        } catch {
+            completion(.failure(error))
+        }
     }
+
 }
 
 /// User-visible error

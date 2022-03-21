@@ -72,6 +72,8 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
 
         walletConnectionVC.onSuccess = { [weak walletConnectionVC] connection in
             walletConnectionVC?.dismiss(animated: true) {
+                //TODO: updating key info
+
                 completion(connection)
             }
         }
@@ -98,6 +100,7 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
             switch result {
             case .failure(let error):
                 App.shared.snackbar.show(message: error.localizedDescription)
+                onCancel()
             case .success(let data):
                 self.onSuccess?(data)
             }
