@@ -916,6 +916,12 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 deeplinkScheme: info.linkMobileNative?.absoluteString)
         return connection
     }
+
+    // MARK: - Sending Requests to Wallet
+
+    func sendRequest() {
+//        client.send(<#T##request: Request##Request#>, completion: <#T##Client.RequestResponse?##Client.RequestResponse?##(Response) -> Void#>)
+    }
 }
 
 /// User-visible error
