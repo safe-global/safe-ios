@@ -206,7 +206,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
         let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
 
-        let walletConnectionVC = WalletConnectionViewController(wallet: wcWallet, chain: chain)
+        let walletConnectionVC = StartWalletConnectionViewController(wallet: wcWallet, chain: chain)
         walletConnectionVC.onSuccess = { [weak walletConnectionVC] connection in
             walletConnectionVC?.dismiss(animated: true) {
                 guard connection.accounts.contains(keyInfo.address) else {
