@@ -40,7 +40,7 @@ extension KeyInfo {
         name ?? "Key \(address.ellipsized())"
     }
 
-    var connected: Bool {
+    var connectedAsDapp: Bool {
         guard keyType == .walletConnect, let connections = connections else { return false }
         let walletConnections = connections
                 .compactMap { $0 as? CDWCConnection }
