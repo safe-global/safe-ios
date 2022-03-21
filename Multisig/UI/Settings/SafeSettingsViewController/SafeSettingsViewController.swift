@@ -241,6 +241,12 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                     title: nil,
                     message: "Removing a Safe only removes it from this app. It does not delete the Safe from the blockchain. Funds will not get lost.",
                     preferredStyle: .actionSheet)
+
+                if let popoverPresentationController = alertController.popoverPresentationController {
+                    popoverPresentationController.sourceView = tableView
+                    popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
+                }
+
                 let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
                     Safe.remove(safe: self.safe)
                 }

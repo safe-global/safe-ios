@@ -200,6 +200,10 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
                 } else {
                     alertController = DisconnectionConfirmationController.create(connection: connection)
                 }
+                if let popoverPresentationController = alertController.popoverPresentationController {
+                    popoverPresentationController.sourceView = tableView
+                    popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
+                }
                 self.present(alertController, animated: true)
             }
             return cell

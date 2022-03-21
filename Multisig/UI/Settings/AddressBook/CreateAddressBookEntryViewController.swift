@@ -58,6 +58,9 @@ class CreateAddressBookEntryViewController: UIViewController {
     private func didTapAddressField() {
         let alertVC = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
+        if let popoverPresentationController = alertVC.popoverPresentationController {
+            popoverPresentationController.sourceView = addressField
+        }
         alertVC.addAction(UIAlertAction(title: "Paste from Clipboard", style: .default, handler: { [weak self] _ in
             let text = Pasteboard.string
             self?.didEnterText(text)
