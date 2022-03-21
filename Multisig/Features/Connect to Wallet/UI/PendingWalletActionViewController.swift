@@ -1,5 +1,5 @@
 //
-//  WalletConnectionViewController.swift
+//  PendingWalletActionViewController.swift
 //  Multisig
 //
 //  Created by Vitaly on 14.03.22.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WalletConnectionViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
+class PendingWalletActionViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
     
     @IBOutlet weak var walletImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!

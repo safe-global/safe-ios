@@ -9,14 +9,14 @@
 import Foundation
 import UIKit
 
-class StartWalletConnectionViewController: WalletConnectionViewController, WebConnectionObserver {
+class StartWalletConnectionViewController: PendingWalletActionViewController, WebConnectionObserver {
     var onSuccess: (_ connection: WebConnection) -> Void = { _ in }
 
     private var chain: Chain!
     private var connection: WebConnection!
 
     convenience init(wallet: WCAppRegistryEntry, chain: Chain) {
-        self.init(namedClass: WalletConnectionViewController.self)
+        self.init(namedClass: PendingWalletActionViewController.self)
         self.wallet = wallet
         self.chain = chain
     }
