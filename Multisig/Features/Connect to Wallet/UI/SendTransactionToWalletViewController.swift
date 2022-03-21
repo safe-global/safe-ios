@@ -15,6 +15,10 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
     var keyInfo: KeyInfo!
     var chain: Chain!
 
+    var connection: WebConnection?
+
+    var onSuccess: ((Data) -> ())?
+
     convenience init(transaction: Client.Transaction, keyInfo: KeyInfo, chain: Chain) {
         self.init(namedClass: PendingWalletActionViewController.self)
         self.wallet = WCAppRegistryRepository().entry(from: keyInfo.wallet!)
@@ -31,42 +35,73 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        // not connected
-            // connect
-
-        // if chain is not matching
-            // switch chains
-            // then send request
-
-        // send the request
-            // connection --> wc url
-            // client tx is already there.
+        let connections = WebConnectionController.shared.walletConnection(keyInfo: keyInfo)
+        if let connection = connections.first {
+            self.connection = connection
+            if checkNetwork() {
+                send()
+            } else {
+                changeNetwork(connection: connection)
+            }
+        } else {
+            connect { [ unowned self] connection in
+                self.connection = connection
+                if let connection = connection {
+                    if self.checkNetwork() {
+                        self.send()
+                    } else {
+                        self.changeNetwork(connection: connection)
+                    }
+                } else {
+                    onCancel()
+                }
+            }
+        }
     }
 
-    func connect() {
+    func checkNetwork() -> Bool {
+        guard let connection = connection,
+              let chainId = connection.chainId,
+              String(chainId) == self.chain.id else { return false }
+
+        return true
+    }
+
+    func connect(completion: @escaping (WebConnection?) -> ()) {
         let walletConnectionVC = StartWalletConnectionViewController(wallet: wallet, chain: chain)
+
         walletConnectionVC.onSuccess = { [weak walletConnectionVC] connection in
             walletConnectionVC?.dismiss(animated: true) {
-//                guard connection.accounts.contains(keyInfo.address) else {
-//                    App.shared.snackbar.show(error: GSError.WCConnectedKeyMissingAddress())
-//                    return
-//                }
-
-                // check connection account and connection network
+                completion(connection)
             }
         }
 
         walletConnectionVC.onCancel = { [weak walletConnectionVC] in
-            walletConnectionVC?.dismiss(animated: true, completion: { [unowned self] in
-                self.didTapCancel(self)
+            walletConnectionVC?.dismiss(animated: true, completion: {
+                completion(nil)
             })
         }
+
         let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: true)
         present(vc, animated: true)
     }
 
-    func send() {
+    func changeNetwork(connection: WebConnection) {
 
+    }
+
+    func send() {
+        guard let connection = connection else { return }
+
+        let webConnectionController = WebConnectionController()
+        webConnectionController.sendTransaction(connection: connection, transaction: transaction) { [ unowned self ] result in
+            switch result {
+            case .failure(let error):
+                App.shared.snackbar.show(message: error.localizedDescription)
+            case .success(let data):
+                self.onSuccess?(data)
+            }
+        }
     }
 
     override func didTapCancel(_ sender: Any) {
@@ -77,39 +112,5 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
 
     // connection network updated
 
-    // user cancels request screen
-
-    // user cancels connection screen -> cancel request.
-
-    // response received - success
-
-    // response received - error
-
     // no response after <timeout>
-
-    var state = State.initial
-
-    enum State {
-        case initial
-        case connecting
-        case checkingConnection
-        case pendingRequest
-        case done
-    }
-
 }
-
-// initial
-// connecting
-    // start connection
-// checking connection
-    // check that network matches
-    // check that account is the keyInfo (selected account)
-    // send request, start timeout timer
-// pending request
-    // waits for response
-    // handle response.
-// done
-
-// final (connection closed)
-    // cancel request. close the screen.
