@@ -57,9 +57,17 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
     func connect(completion: @escaping (WebConnection?) -> ()) {
         let walletConnectionVC = StartWalletConnectionViewController(wallet: wallet, chain: chain)
 
-        walletConnectionVC.onSuccess = { [weak walletConnectionVC] connection in
+        walletConnectionVC.onSuccess = { [weak walletConnectionVC, weak self] connection in
             walletConnectionVC?.dismiss(animated: true) {
-                //TODO: updating key info
+                guard let self = self else { return }
+                guard connection.accounts.contains(self.keyInfo.address) else {
+                    App.shared.snackbar.show(error: GSError.WCConnectedKeyMissingAddress())
+                    return
+                }
+
+                if OwnerKeyController.updateKey(connection: connection, wallet: self.wallet) {
+                    App.shared.snackbar.show(message: "Key connected successfully")
+                }
 
                 completion(connection)
             }
