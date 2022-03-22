@@ -41,33 +41,17 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
         let connections = WebConnectionController.shared.walletConnection(keyInfo: keyInfo)
         if let connection = connections.first {
             self.connection = connection
-            if checkNetwork() {
                 send()
-            } else {
-                changeNetwork(connection: connection)
-            }
         } else {
             connect { [ unowned self] connection in
                 self.connection = connection
-                if let connection = connection {
-                    if self.checkNetwork() {
-                        self.send()
-                    } else {
-                        self.changeNetwork(connection: connection)
-                    }
+                if connection != nil {
+                    self.send()
                 } else {
                     onCancel()
                 }
             }
         }
-    }
-
-    func checkNetwork() -> Bool {
-        guard let connection = connection,
-              let chainId = connection.chainId,
-              String(chainId) == self.chain.id else { return false }
-
-        return true
     }
 
     func connect(completion: @escaping (WebConnection?) -> ()) {
@@ -93,7 +77,6 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
 
     func send() {
         guard let connection = connection else { return }
-        // send transaction
         WebConnectionController.shared.sendTransaction(connection: connection, transaction: transaction) { [ unowned self ] result in
             switch result {
             case .failure(let error):
@@ -120,11 +103,6 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
         } else {
             App.shared.snackbar.show(message: "Please open your wallet to complete this operation.")
         }
-    }
-
-    func changeNetwork(connection: WebConnection) {
-        WebConnectionController.shared.userDidRequestToChangeWalletNetwork(chain, connection: connection)
-        openWallet(connection: connection)
     }
 
     override func didTapCancel(_ sender: Any) {
