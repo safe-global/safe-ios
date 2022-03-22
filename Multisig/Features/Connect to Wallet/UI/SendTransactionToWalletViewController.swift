@@ -17,7 +17,6 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
     var chain: Chain!
 
     var connection: WebConnection?
-
     var onSuccess: ((Data) -> ())?
 
     convenience init(transaction: Client.Transaction, keyInfo: KeyInfo, chain: Chain) {
@@ -35,7 +34,10 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        sendTransactionWhenConnected()
+    }
 
+    func sendTransactionWhenConnected() {
         let connections = WebConnectionController.shared.walletConnection(keyInfo: keyInfo)
         if let connection = connections.first {
             self.connection = connection
@@ -89,10 +91,6 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
         present(vc, animated: true)
     }
 
-    func changeNetwork(connection: WebConnection) {
-
-    }
-
     func send() {
         guard let connection = connection else { return }
         // send transaction
@@ -122,6 +120,11 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
         } else {
             App.shared.snackbar.show(message: "Please open your wallet to complete this operation.")
         }
+    }
+
+    func changeNetwork(connection: WebConnection) {
+        WebConnectionController.shared.userDidRequestToChangeWalletNetwork(chain, connection: connection)
+        openWallet(connection: connection)
     }
 
     override func didTapCancel(_ sender: Any) {
