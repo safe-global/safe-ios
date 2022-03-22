@@ -486,10 +486,12 @@ class ReviewExecutionViewController: ContainerViewController {
                 sendTxVC?.dismiss(animated: true, completion: nil)
             }
 
-            sendTxVC.onSuccess = { [weak self] txHashData in
+            sendTxVC.onSuccess = { [weak self, weak sendTxVC] txHashData in
                 guard let self = self else { return }
-                self.controller.didSubmitTransaction(txHash: Eth.Hash(txHashData))
-                self.didSubmitSuccess()
+                sendTxVC?.dismiss(animated: true, completion: {
+                    self.controller.didSubmitTransaction(txHash: Eth.Hash(txHashData))
+                    self.didSubmitSuccess()
+                })
             }
 
             let vc = ViewControllerFactory.pageSheet(viewController: sendTxVC, halfScreen: true)

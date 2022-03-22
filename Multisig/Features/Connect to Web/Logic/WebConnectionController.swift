@@ -922,10 +922,12 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     func sendTransaction(connection: WebConnection, transaction: Client.Transaction, completion: @escaping (Result<Data, Error>) -> ()) {
         do {
             try client.eth_sendTransaction(url: connection.connectionURL.wcURL, transaction: transaction) { response in
-                if let error = response.error {
-                    completion(.failure(error))
-                } else if let data = try? response.result(as: DataString.self) {
-                    completion(.success(data.data))
+                DispatchQueue.main.async {
+                    if let error = response.error {
+                        completion(.failure(error))
+                    } else if let data = try? response.result(as: DataString.self) {
+                        completion(.success(data.data))
+                    }
                 }
             }
         } catch {

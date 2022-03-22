@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 import WalletConnectSwift
 
 class SendTransactionToWalletViewController: PendingWalletActionViewController {
@@ -94,9 +95,8 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
 
     func send() {
         guard let connection = connection else { return }
-
-        let webConnectionController = WebConnectionController()
-        webConnectionController.sendTransaction(connection: connection, transaction: transaction) { [ unowned self ] result in
+        // send transaction
+        WebConnectionController.shared.sendTransaction(connection: connection, transaction: transaction) { [ unowned self ] result in
             switch result {
             case .failure(let error):
                 App.shared.snackbar.show(message: error.localizedDescription)
@@ -104,6 +104,23 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
             case .success(let data):
                 self.onSuccess?(data)
             }
+        }
+
+        openWallet(connection: connection)
+    }
+
+    func openWallet(connection: WebConnection) {
+        if let link = wallet.navigateLink(from: connection.connectionURL) {
+            LogService.shared.debug("WC: Opening \(link.absoluteString)")
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                UIApplication.shared.open(link, options: [:]) { success in
+                    if !success {
+                        App.shared.snackbar.show(message: "Failed to open the wallet automatically. Please open it manually or try again.")
+                    }
+                }
+            }
+        } else {
+            App.shared.snackbar.show(message: "Please open your wallet to complete this operation.")
         }
     }
 
