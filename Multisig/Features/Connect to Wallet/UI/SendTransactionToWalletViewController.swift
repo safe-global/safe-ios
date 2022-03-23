@@ -10,11 +10,13 @@ import Foundation
 import UIKit
 import WalletConnectSwift
 
-class SendTransactionToWalletViewController: PendingWalletActionViewController {
+class SendTransactionToWalletViewController: PendingWalletActionViewController, WebConnectionObserver {
 
     var transaction: Client.Transaction!
     var keyInfo: KeyInfo!
     var chain: Chain!
+    var timer: Timer?
+    var requestTimeout: TimeInterval = 120
 
     var connection: WebConnection?
     var onSuccess: ((Data) -> ())?
@@ -89,11 +91,22 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
             return
         }
         guard let connection = connection else { return }
-        WebConnectionController.shared.sendTransaction(connection: connection, transaction: transaction) { [ unowned self ] result in
+
+        WebConnectionController.shared.detach(observer: self)
+        WebConnectionController.shared.attach(observer: self, to: connection)
+
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: requestTimeout, repeats: false, block: { [weak self] _ in
+            guard let self = self else { return }
+            self.onCancel()
+        })
+
+        WebConnectionController.shared.sendTransaction(connection: connection, transaction: transaction) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .failure(let error):
                 App.shared.snackbar.show(message: error.localizedDescription)
-                onCancel()
+                self.onCancel()
             case .success(let data):
                 self.onSuccess?(data)
             }
@@ -127,5 +140,15 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
 
     override func didTapCancel(_ sender: Any) {
         onCancel()
+    }
+
+    deinit {
+        WebConnectionController.shared.detach(observer: self)
+    }
+
+    func didUpdate(connection: WebConnection) {
+        if connection.status == .final {
+            onCancel()
+        }
     }
 }
