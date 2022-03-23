@@ -257,7 +257,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
         }
 
         cell.configure(keyInfo: keyInfo,
-                       chainID: chainID,
+                       selectedSafeChainID: chainID,
                        detail: accountBalance,
                        accessoryImage: accessoryImage,
                        enabled: isEnabled,

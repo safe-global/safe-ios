@@ -79,7 +79,7 @@ class AddressInfoView: UINibView {
         self.prefix = prefix
         self.label = label
 
-        if let label = label {
+        if let label = self.label {
             textLabel.isHidden = false
             textLabel.text = label
             addressLabel.setStyle(.tertiary)

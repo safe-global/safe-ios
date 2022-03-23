@@ -29,13 +29,25 @@ class SigningKeyTableViewCell: UITableViewCell {
         cellDetailLabel.textAlignment = .right
     }
 
-    func configure(keyInfo: KeyInfo, chainID: String?, detail: String? = nil, accessoryImage: UIImage? = nil, enabled: Bool = true, isLoading: Bool = false) {
-        addressInfoView.setAddress(
-            keyInfo.address,
-            label: keyInfo.displayName,
-            badgeName: keyInfo.keyType.imageName)
+    func configure(keyInfo: KeyInfo, selectedSafeChainID: String?, detail: String? = nil, accessoryImage: UIImage? = nil, enabled: Bool = true, isLoading: Bool = false) {
 
-        set(connectionStatus: KeyConnectionStatus(keyInfo: keyInfo, chainID: chainID))
+        var label = keyInfo.displayName
+        if keyInfo.connected {
+            let cdwcConnection = keyInfo.connections!.first(where: { connection in
+                "\((connection as! CDWCConnection).accounts ?? "")" == keyInfo.address.checksummed
+            }) as! CDWCConnection
+            let connectionChainId = cdwcConnection.chainId
+            let connectionChain = Chain.by("\(connectionChainId)")!
+
+            label = label + " \(connectionChain.name)"
+        }
+
+        addressInfoView.setAddress(
+                keyInfo.address,
+                label: label,
+                badgeName: keyInfo.keyType.imageName)
+
+        set(connectionStatus: KeyConnectionStatus(keyInfo: keyInfo, chainID: selectedSafeChainID))
 
         cellDetailLabel.text = detail
 
@@ -80,7 +92,7 @@ enum KeyConnectionStatus {
             self = .none
         case .walletConnect:
             if keyInfo.connected {
-                if let _  = keyInfo.connections!.first(where: { connection in
+                if let _ = keyInfo.connections!.first(where: { connection in
                     "\((connection as! CDWCConnection).chainId)" == chainID
                 }) {
                     self = .connected
