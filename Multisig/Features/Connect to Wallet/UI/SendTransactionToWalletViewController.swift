@@ -84,6 +84,10 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
     }
 
     func send() {
+        guard checkNetwork() else {
+            App.shared.snackbar.show(message: "Please change wallet network to \(chain.name!)")
+            return
+        }
         guard let connection = connection else { return }
         WebConnectionController.shared.sendTransaction(connection: connection, transaction: transaction) { [ unowned self ] result in
             switch result {
@@ -113,13 +117,15 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
         }
     }
 
+    func checkNetwork() -> Bool {
+        guard let connection = connection,
+              let chainId = connection.chainId,
+              String(chainId) == self.chain.id else { return false }
+
+        return true
+    }
+
     override func didTapCancel(_ sender: Any) {
         onCancel()
     }
-
-    // connection status update
-
-    // connection network updated
-
-    // no response after <timeout>
 }

@@ -8,7 +8,7 @@ import Foundation
 struct JsonAppRegistryEntry: Codable {
     var id: String
     var name: String
-    var description: String
+    var description: String?
     // link to the website
     var homepage: ValidatedURL
     var chains: [String]
