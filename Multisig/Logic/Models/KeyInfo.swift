@@ -40,18 +40,16 @@ extension KeyInfo {
         name ?? "Key \(address.ellipsized())"
     }
 
-    var connected: Bool {
-        connection != nil
-    }
-
-    var connection: CDWCConnection? {
-        guard keyType == .walletConnect, let connections = connections else { return nil }
-        return connections
+    var connectedAsDapp: Bool {
+        guard keyType == .walletConnect, let connections = connections else { return false }
+        let walletConnections = connections
                 .compactMap { $0 as? CDWCConnection }
                 .filter {
                     $0.localPeer?.role == WebConnectionPeerRole.dapp.rawValue &&
                             $0.remotePeer?.role == WebConnectionPeerRole.wallet.rawValue
-                }.first
+                }
+        let result = !walletConnections.isEmpty
+        return result
     }
 
     struct WalletConnectKeyMetadata: Codable {
