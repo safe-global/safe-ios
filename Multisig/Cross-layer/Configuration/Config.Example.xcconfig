@@ -91,7 +91,7 @@ SSL_ENFORCE_PINNING = 1
 // test bridge with latest protocol version: https://bridge.walletconnect.org
 WALLETCONNECT_BRIDGE_URL = https:/$()/safe-walletconnect.gnosis.io/
 
-WALLETCONNECT_REGISTRY_URL = https:/$()/registry.walletconnect.org/
+WALLETCONNECT_REGISTRY_URL = https:/$()/gnosis.github.io/
 
 // Help URLs
 CONFLICT_URL = https:/$()/help.gnosis-safe.io/en/articles/4730252-why-are-transactions-with-the-same-nonce-conflicting-with-each-other
