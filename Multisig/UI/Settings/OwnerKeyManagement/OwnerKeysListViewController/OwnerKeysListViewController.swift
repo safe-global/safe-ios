@@ -164,7 +164,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         actions.append(editAction)
 
         if keyInfo.keyType == .walletConnect {
-            let isConnected = keyInfo.connected
+            let isConnected = keyInfo.connectedAsDapp
 
             let wcAction = UIContextualAction(style: .normal, title: isConnected ? "Disconnect" : "Connect") {
                 [unowned self] _, _, completion in

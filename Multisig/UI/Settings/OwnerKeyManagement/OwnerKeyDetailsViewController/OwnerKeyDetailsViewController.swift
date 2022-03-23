@@ -250,7 +250,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
         case Section.Connected.connected:
             return tableView.switchCell(for: indexPath,
                                            with: "Connected",
-                                           isOn: keyInfo.connected)
+                                           isOn: keyInfo.connectedAsDapp)
         case Section.PushNotificationConfiguration.enabled:
             return tableView.switchCell(for: indexPath, with: "Receive Push Notifications", isOn: keyInfo.delegateAddress != nil)
         case Section.DelegateKey.address:
@@ -271,7 +271,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
     private func keyTypeCell(type: KeyType, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(KeyTypeTableViewCell.self, for: indexPath)
         cell.set(name: type.name, iconName: type.imageName)
-        if !(type == .walletConnect && keyInfo.connected) {
+        if !(type == .walletConnect && keyInfo.connectedAsDapp) {
             cell.setDisclosureImage(nil)
         } else {
             cell.setDisclosureImage(UIImage(named: "arrow"))
@@ -290,7 +290,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
             let vc = EditOwnerKeyViewController(keyInfo: keyInfo)
             show(vc, sender: self)
         case Section.Connected.connected:
-            if keyInfo.connected {
+            if keyInfo.connectedAsDapp {
                 let alertController = DisconnectionConfirmationController.create(key: keyInfo)
                 present(alertController, animated: true)
             } else {
@@ -317,7 +317,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
             }
             return
         case Section.OwnerKeyType.type:
-            if keyInfo.keyType == .walletConnect && keyInfo.connected {
+            if keyInfo.keyType == .walletConnect && keyInfo.connectedAsDapp {
                 let detailsVC = WebConnectionDetailsViewController()
                 guard let webConnection = WebConnectionController.shared.walletConnection(keyInfo: keyInfo).first else {
                     return

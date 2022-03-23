@@ -52,6 +52,19 @@ class WebConnection {
         self.remotePeer = remotePeer
         self.lastError = lastError
     }
+    var connectedAsDapp: Bool {
+        if status == .opened, let localPeer = localPeer, let remotePeer = remotePeer {
+            return localPeer.role == WebConnectionPeerRole.dapp && remotePeer.role == WebConnectionPeerRole.wallet
+        }
+        return false
+    }
+
+    var connectedAsWallet: Bool {
+        if status == .opened, let localPeer = localPeer, let remotePeer = remotePeer {
+            return localPeer.role == WebConnectionPeerRole.wallet && remotePeer.role == WebConnectionPeerRole.dapp
+        }
+        return false
+    }
 }
 
 enum WebConnectionStatus: Int16 {
