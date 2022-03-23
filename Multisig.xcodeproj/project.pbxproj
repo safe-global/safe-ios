@@ -171,6 +171,7 @@
 		0A096CC82608F49E0034E6BC /* RegisterNotificationTokenRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55967118256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift */; };
 		0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */; };
 		0A0C75B027E8A66C0083AE01 /* StartWalletConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0C75AF27E8A66C0083AE01 /* StartWalletConnectionViewController.swift */; };
+		0A0C75B227E8AB620083AE01 /* SendTransactionToWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0C75B127E8AB620083AE01 /* SendTransactionToWalletViewController.swift */; };
 		0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */; };
 		0A0EFC9F246EADC200D3D8BF /* DisplayURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC9E246EADC200D3D8BF /* DisplayURLTests.swift */; };
 		0A0EFCA6246EAF3700D3D8BF /* DisplayURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFCA5246EAF3700D3D8BF /* DisplayURL.swift */; };
@@ -949,6 +950,7 @@
 		0A096CBD2608D9370034E6BC /* NetworkStatusObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatusObserver.swift; sourceTree = "<group>"; };
 		0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		0A0C75AF27E8A66C0083AE01 /* StartWalletConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWalletConnectionViewController.swift; sourceTree = "<group>"; };
+		0A0C75B127E8AB620083AE01 /* SendTransactionToWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendTransactionToWalletViewController.swift; sourceTree = "<group>"; };
 		0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedAppSettings.swift; sourceTree = "<group>"; };
 		0A0EFC9E246EADC200D3D8BF /* DisplayURLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayURLTests.swift; sourceTree = "<group>"; };
 		0A0EFCA5246EAF3700D3D8BF /* DisplayURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayURL.swift; sourceTree = "<group>"; };
@@ -3384,9 +3386,9 @@
 		B0D611C5114B87C99128649E /* Connect to Web */ = {
 			isa = PBXGroup;
 			children = (
-				B0D61BC51DC924AF458E9FBB /* UI */,
-				B0D613795E8E36A4B0DAC666 /* Logic */,
 				B0D616B7CB92B6F10DA35150 /* Data */,
+				B0D613795E8E36A4B0DAC666 /* Logic */,
+				B0D61BC51DC924AF458E9FBB /* UI */,
 			);
 			path = "Connect to Web";
 			sourceTree = "<group>";
@@ -3434,6 +3436,7 @@
 				550FB1C126691E1500C13D54 /* WalletConnectQRCodeViewController.swift */,
 				550FB1BE26691E1500C13D54 /* WalletConnectQRCodeViewController.xib */,
 				0A0C75AF27E8A66C0083AE01 /* StartWalletConnectionViewController.swift */,
+				0A0C75B127E8AB620083AE01 /* SendTransactionToWalletViewController.swift */,
 				6AA2724827DF566B00934B37 /* PendingWalletActionViewController.swift */,
 				0AF78A3127E0E07B001BAFE0 /* PendingWalletActionViewController.xib */,
 			);
@@ -4147,6 +4150,7 @@
 				048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */,
 				0A3FDAF226AEB691006A7DC3 /* Safe+Shared.swift in Sources */,
 				557D80AC270B32F80036D6D0 /* WalletConnectServerController.swift in Sources */,
+				0A0C75B227E8AB620083AE01 /* SendTransactionToWalletViewController.swift in Sources */,
 				55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */,
 				D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */,
 				6A39DC9327C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift in Sources */,

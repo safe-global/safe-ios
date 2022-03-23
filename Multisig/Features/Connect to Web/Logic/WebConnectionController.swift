@@ -916,6 +916,38 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 deeplinkScheme: info.linkMobileNative?.absoluteString)
         return connection
     }
+
+    // MARK: - Sending Requests to Wallet
+
+    func sendTransaction(connection: WebConnection, transaction: Client.Transaction, completion: @escaping (Result<Data, Error>) -> ()) {
+        do {
+            try client.eth_sendTransaction(url: connection.connectionURL.wcURL, transaction: transaction) { response in
+                DispatchQueue.main.async {
+                    if let error = response.error {
+                        completion(.failure(error))
+                    } else if let data = try? response.result(as: DataString.self) {
+                        completion(.success(data.data))
+                    }
+                }
+            }
+        } catch {
+            completion(.failure(error))
+        }
+    }
+
+    func userDidRequestToChangeWalletNetwork(_ chain: Chain, connection: WebConnection) {
+        guard let tempConnection = self.connection(for: connection.connectionURL), let newChainId = chain.id.flatMap(Int.init) else { return }
+        tempConnection.chainId = newChainId
+        guard let session = sessionTransformer.session(from: tempConnection), let walletInfo = session.walletInfo else {
+            return
+        }
+        do {
+            let request = try Request(url: tempConnection.connectionURL.wcURL, method: "wc_sessionUpdate", params: [walletInfo], id: nil)
+            try client.send(request, completion: nil)
+        } catch {
+            LogService.shared.error("Failed to update session: \(error)")
+        }
+    }
 }
 
 /// User-visible error

@@ -33,25 +33,28 @@ class StartWalletConnectionViewController: PendingWalletActionViewController, We
         do {
             connection = try WebConnectionController.shared.connect(wallet: wallet, chainId: chain.id.flatMap(Int.init))
             WebConnectionController.shared.attach(observer: self, to: connection)
-
-            if let link = wallet.connectLink(from: connection.connectionURL) {
-                LogService.shared.debug("WC: Opening \(link.absoluteString)")
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) { [weak self] in
-                    UIApplication.shared.open(link, options: [:]) { success in
-                        guard let self = self else { return }
-                        if !success {
-                            App.shared.snackbar.show(message: "Failed to open the wallet. Please choose a different one.")
-                            self.didTapCancel(self)
-                        }
-                    }
-                }
-            } else {
-                App.shared.snackbar.show(message: "Failed to open the wallet. Please choose a different one.")
-                WebConnectionController.shared.userDidDisconnect(connection)
-            }
+            openWallet()
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)
             onCancel()
+        }
+    }
+
+    func openWallet() {
+        if let link = wallet.connectLink(from: connection.connectionURL) {
+            LogService.shared.debug("WC: Opening \(link.absoluteString)")
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) { [weak self] in
+                UIApplication.shared.open(link, options: [:]) { success in
+                    guard let self = self else { return }
+                    if !success {
+                        App.shared.snackbar.show(message: "Failed to open the wallet. Please choose a different one.")
+                        self.didTapCancel(self)
+                    }
+                }
+            }
+        } else {
+            App.shared.snackbar.show(message: "Failed to open the wallet. Please choose a different one.")
+            WebConnectionController.shared.userDidDisconnect(connection)
         }
     }
 
