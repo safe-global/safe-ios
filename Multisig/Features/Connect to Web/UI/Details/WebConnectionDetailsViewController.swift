@@ -13,7 +13,7 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
         peer as? GnosisSafeWebPeerInfo
     }
     var chain: Chain!
-    var key: KeyInfo?
+    var keyInfo: KeyInfo?
     var rows: [RowType] = []
 
     enum RowType {
@@ -55,7 +55,7 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
 
     func reloadData() {
         chain = connection.chainId.map(String.init).map(Chain.by(_:)) ?? Chain.mainnetChain()
-        key = try? connection.accounts.first.flatMap(KeyInfo.firstKey(address:))
+        keyInfo = try? connection.accounts.first.flatMap(KeyInfo.firstKey(address:))
         assert(connection.remotePeer != nil)
         peer = connection.remotePeer
 
@@ -110,12 +110,14 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
 
         case .key:
             let cell = contentCell()
-            cell.accessoryType = .disclosureIndicator
-            cell.selectionStyle = .default
+            if connection.connectedAsWallet {
+                cell.accessoryType = .disclosureIndicator
+                cell.selectionStyle = .default
+            }
 
             cell.setText("Key")
 
-            if let key = key {
+            if let key = keyInfo {
                 let content = MiniAccountAndBalancePiece()
                 let shortAddress = key.address.ellipsized()
                 let info = NamingPolicy.name(for: key.address, chainId: chain.id!)
@@ -195,7 +197,7 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
             cell.backgroundColor = .clear
             cell.setText("Disconnect", style: .filledError) { [unowned self] in
                 var alertController: DisconnectionConfirmationController
-                if let keyInfo = key  {
+                if let keyInfo = keyInfo  {
                     alertController = DisconnectionConfirmationController.create(key: keyInfo)
                 } else {
                     alertController = DisconnectionConfirmationController.create(connection: connection)
@@ -237,8 +239,9 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
             changeNetwork()
 
         case .key:
-            changeAccount()
-
+            if connection.connectedAsWallet {
+                changeAccount()
+            }
         default:
             break
         }
@@ -285,7 +288,7 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
             titleText: "Change owner key",
             header: .none,
             requestsPasscode: false,
-            selectedKey: self.key,
+            selectedKey: self.keyInfo,
             balancesLoader: nil
         ) { [unowned self] selectedKey in
             self.dismiss(animated: true) {
