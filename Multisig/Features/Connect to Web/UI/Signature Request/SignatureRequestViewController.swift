@@ -203,35 +203,18 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
             }
 
         case .walletConnect:
-            wcConnector = WCWalletConnectionController()
-            wcConnector.connect(keyInfo: keyInfo, from: self) { [weak self] success in
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) { [weak self] in
-                    guard let self = self else { return }
+            let hexMessage = self.request.message.toHexStringWithPrefix()
 
-                    defer { self.wcConnector = nil }
-
-                    guard success else {
-                        return
-                    }
-
-                    let hexMessage = self.request.message.toHexStringWithPrefix()
-
-                    let wcVC = WCPendingConfirmationViewController(
-                        hexMessage,
-                        keyInfo: keyInfo,
-                        title: "Sign Message"
-                    )
-
-                    wcVC.sign { [weak self] hexSignature in
-                        guard let self = self else { return }
-                        assert(Thread.isMainThread)
-                        let signature = Data(hex: hexSignature)
-                        self.confirm(signature: signature)
-                    }
-
-                    self.present(wcVC, animated: true)
+            let vc = SignatureRequestToWalletViewController(hexMessage, keyInfo: keyInfo, chain: self.chain ?? Chain.mainnetChain())
+            vc.onSuccess = { [weak self, weak vc] signature in
+                guard let self = self else { return }
+                assert(Thread.isMainThread)
+                vc?.dismiss(animated: true) {
+                    let signature = Data(hex: signature)
+                    self.confirm(signature: signature)
                 }
             }
+            self.present(vc, animated: true)
 
         case .ledgerNanoX:
             let hexToSign = request.message.toHexStringWithPrefix()
