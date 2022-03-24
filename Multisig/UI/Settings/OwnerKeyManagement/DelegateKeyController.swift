@@ -167,22 +167,23 @@ class DelegateKeyController {
             }
 
         case .walletConnect:
-            let vc = WCPendingConfirmationViewController(hexMessage, keyInfo: keyInfo, title: title)
-
-            presenter?.present(vc, animated: true)
-
+            let chain = try? Safe.getSelected()?.chain ?? Chain.mainnetChain()
+            let vc = SignatureRequestToWalletViewController(hexMessage, keyInfo: keyInfo, chain: chain!)
             var isSuccess: Bool = false
-
-            vc.onClose = {
-                if !isSuccess {
-                    completion(.failure(GSError.AddDelegateKeyCancelled()))
+            vc.onSuccess = { [weak vc] signature in
+                vc?.dismiss(animated: true) {
+                    isSuccess = true
+                    completion(.success(Data(hex: signature)))
                 }
             }
-
-            vc.sign() { signature in
-                isSuccess = true
-                completion(.success(Data(hex: signature)))
+            vc.onCancel = { [weak vc] in
+                vc?.dismiss(animated: true) {
+                    if !isSuccess {
+                        completion(.failure(GSError.AddDelegateKeyCancelled()))
+                    }
+                }
             }
+            presenter?.present(vc, animated: true)
 
         default:
             completion(.failure(GSError.UnrecognizedKeyTypeForDelegate()))

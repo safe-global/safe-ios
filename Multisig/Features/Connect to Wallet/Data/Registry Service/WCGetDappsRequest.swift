@@ -7,7 +7,7 @@ import Foundation
 
 struct WCGetDappsRequest: JSONRequest {
     var httpMethod: String { "GET" }
-    var urlPath: String { "/data/dapps.json" }
+    var urlPath: String { "/safe-ios-mvp-hosting/data/dapps.json" }
 
     typealias ResponseType = JsonAppRegistry
 }

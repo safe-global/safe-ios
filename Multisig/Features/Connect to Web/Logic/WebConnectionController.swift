@@ -916,6 +916,104 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 deeplinkScheme: info.linkMobileNative?.absoluteString)
         return connection
     }
+
+    // MARK: - Sending Requests to Wallet
+
+    func sendTransaction(connection: WebConnection, transaction: Client.Transaction, completion: @escaping (Result<Data, Error>) -> ()) {
+        do {
+            try client.eth_sendTransaction(url: connection.connectionURL.wcURL, transaction: transaction) { response in
+                DispatchQueue.main.async {
+                    if let error = response.error {
+                        completion(.failure(error))
+                    } else if let data = try? response.result(as: DataString.self) {
+                        completion(.success(data.data))
+                    }
+                }
+            }
+        } catch {
+            completion(.failure(error))
+        }
+    }
+
+    func userDidRequestToChangeWalletNetwork(_ chain: Chain, connection: WebConnection) {
+        guard let tempConnection = self.connection(for: connection.connectionURL), let newChainId = chain.id.flatMap(Int.init) else { return }
+        tempConnection.chainId = newChainId
+        guard let session = sessionTransformer.session(from: tempConnection), let walletInfo = session.walletInfo else {
+            return
+        }
+        do {
+            let request = try Request(url: tempConnection.connectionURL.wcURL, method: "wc_sessionUpdate", params: [walletInfo], id: nil)
+            try client.send(request, completion: nil)
+        } catch {
+            LogService.shared.error("Failed to update session: \(error)")
+        }
+    }
+    
+    // MARK: - Signing
+    
+    func wcSign(connection: WebConnection, message: String, completion: @escaping (Result<String, Error>) -> Void) {
+        guard
+            let session = sessionTransformer.session(from: connection),
+            let walletAddress = session.walletInfo?.accounts.first else {
+                completion(.failure(GSError.WalletNotConnected(description: "Could not sign message")))
+                return
+            }
+        
+        do {
+            try client.eth_sign(url: session.url, account: walletAddress, message: message) { [weak self] in
+                self?.handleSignResponse($0, completion: completion)
+            }
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+    func wcSign(connection: WebConnection, transaction: Transaction, completion: @escaping (Result<String, Error>) -> Void) {
+        guard
+            let session = sessionTransformer.session(from: connection),
+              let walletAddress = session.walletInfo?.accounts.first else {
+            completion(.failure(GSError.WalletNotConnected(description: "Could not sign transaction")))
+            return
+        }
+        
+        do {
+            switch session.walletInfo?.peerMeta.name ?? "" {
+            // we call signTypedData only for wallets supporting this feature
+            case "MetaMask", "LedgerLive", "🌈 Rainbow", "Trust Wallet":
+                let message = EIP712Transformer.typedDataString(from: transaction)
+                try client.eth_signTypedData(url: session.url, account: walletAddress, message: message) { [weak self] in
+                    self?.handleSignResponse($0, completion: completion)
+                }
+            default:
+                let message = transaction.safeTxHash.description
+                try client.eth_sign(url: session.url, account: walletAddress, message: message) { [weak self] response in
+                    DispatchQueue.main.async {
+                        self?.handleSignResponse(response, completion: completion)
+                    }
+                }
+            }
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+    private func handleSignResponse(_ response: Response, completion: @escaping (Result<String, Error>) -> Void) {
+        do {
+            var signature = try response.result(as: String.self)
+
+            var signatureBytes = Data(hex: signature).bytes
+            var v = signatureBytes.last!
+            if v < 27 {
+                v += 27
+                signatureBytes[signatureBytes.count - 1] = v
+                signature = Data(signatureBytes).toHexStringWithPrefix()
+            }
+
+            completion(.success(signature))
+        } catch {
+            completion(.failure(error))
+        }
+    }
 }
 
 /// User-visible error

@@ -164,7 +164,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         actions.append(editAction)
 
         if keyInfo.keyType == .walletConnect {
-            let isConnected = keyInfo.connected
+            let isConnected = keyInfo.connectedAsDapp
 
             let wcAction = UIContextualAction(style: .normal, title: isConnected ? "Disconnect" : "Connect") {
                 [unowned self] _, _, completion in
@@ -215,7 +215,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
         let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
 
-        let walletConnectionVC = WalletConnectionViewController(wallet: wcWallet, chain: chain)
+        let walletConnectionVC = StartWalletConnectionViewController(wallet: wcWallet, chain: chain)
         walletConnectionVC.onSuccess = { [weak walletConnectionVC] connection in
             walletConnectionVC?.dismiss(animated: true) {
                 guard connection.accounts.contains(keyInfo.address) else {

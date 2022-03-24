@@ -476,38 +476,26 @@ class ReviewExecutionViewController: ContainerViewController {
                 return
             }
 
-            wcConnector = WCWalletConnectionController()
-            wcConnector.connect(keyInfo: keyInfo, from: self) { [weak self] success in
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) { [weak self] in
-                    guard let self = self else { return }
+            let sendTxVC = SendTransactionToWalletViewController(
+                transaction: clientTx,
+                keyInfo: keyInfo,
+                chain: chain
+            )
 
-                    defer { self.wcConnector = nil }
-
-                    guard success else {
-                        return
-                    }
-
-                    let wcVC = WCPendingConfirmationViewController(
-                        clientTx,
-                        keyInfo: keyInfo,
-                        title: "Sign Transaction"
-                    )
-
-                    wcVC.send { [weak self] txHash in
-                        guard let self = self else { return }
-                        assert(Thread.isMainThread)
-
-                        if let hexHash = txHash {
-                            self.controller.didSubmitTransaction(txHash: Eth.Hash(Data(hex: hexHash)))
-                            self.didSubmitSuccess()
-                        } else {
-                            self.didSubmitFailed(nil)
-                        }
-                    }
-
-                    self.present(wcVC, animated: true)
-                }
+            sendTxVC.onCancel = { [weak sendTxVC] in
+                sendTxVC?.dismiss(animated: true, completion: nil)
             }
+
+            sendTxVC.onSuccess = { [weak self, weak sendTxVC] txHashData in
+                guard let self = self else { return }
+                sendTxVC?.dismiss(animated: true, completion: {
+                    self.controller.didSubmitTransaction(txHash: Eth.Hash(txHashData))
+                    self.didSubmitSuccess()
+                })
+            }
+
+            let vc = ViewControllerFactory.pageSheet(viewController: sendTxVC, halfScreen: true)
+            present(vc, animated: true)
 
         case .ledgerNanoX:
             let rawTransaction = controller.preimageForSigning()

@@ -57,6 +57,9 @@ class SelectWalletViewController: LoadableViewController {
         searchController.searchBar.placeholder = "Search"
 
         walletsSource.delegate = self
+
+        // explicitly set background color to prevent transparent background in dark mode (iOS 14)
+        navigationController?.navigationBar.backgroundColor = .secondaryBackground
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -144,7 +147,7 @@ extension SelectWalletViewController: UITableViewDelegate, UITableViewDataSource
     func connect(to wallet: WCAppRegistryEntry) {
         cancelExistingConnection()
         let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
-        let walletConnectionVC = WalletConnectionViewController(wallet: wallet, chain: chain)
+        let walletConnectionVC = StartWalletConnectionViewController(wallet: wallet, chain: chain)
         walletConnectionVC.onSuccess = { [weak walletConnectionVC, weak self] connection in
             self?.connection = connection
             walletConnectionVC?.dismiss(animated: true) {
