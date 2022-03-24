@@ -215,7 +215,7 @@ extension KeyInfo {
     }
 
     @discardableResult
-    static func `import`(connection: WebConnection, wallet: WCAppRegistryEntry, name: String) throws -> KeyInfo? {
+    static func `import`(connection: WebConnection, wallet: WCAppRegistryEntry?, name: String) throws -> KeyInfo? {
         guard let address = connection.accounts.first else {
             return nil
         }
@@ -240,7 +240,7 @@ extension KeyInfo {
             item.addToConnections(cdConnection)
         }
 
-        if let cdRegistryEntry = CDWCAppRegistryEntry.entry(by: wallet.id) {
+        if let wallet = wallet, let cdRegistryEntry = CDWCAppRegistryEntry.entry(by: wallet.id) {
             item.wallet = cdRegistryEntry
         }
 

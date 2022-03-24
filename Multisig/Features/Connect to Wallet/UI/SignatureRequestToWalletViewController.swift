@@ -49,12 +49,12 @@ class SignatureRequestToWalletViewController: PendingWalletActionViewController 
 
         if transaction != nil {
             if isRejection {
-                titleLabel.text = "Confirm Rejection with your owner key from \(wallet.name)"
+                titleLabel.text = "Confirm Rejection with your owner key from \(walletName)"
             } else {
-                titleLabel.text = "Confirm Transaction with your owner key from \(wallet.name)"
+                titleLabel.text = "Confirm Transaction with your owner key from \(walletName)"
             }
         } else {
-            titleLabel.text = "Approve request with your owner key from \(wallet.name)"
+            titleLabel.text = "Approve request with your owner key from \(walletName)"
         }
     }
 

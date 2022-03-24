@@ -8,27 +8,32 @@
 
 import UIKit
 
-class PendingWalletActionViewController: UIViewController, UIAdaptivePresentationControllerDelegate, WebConnectionObserver {
+class PendingWalletActionViewController: ContainerViewController, UIAdaptivePresentationControllerDelegate, WebConnectionObserver {
     
     @IBOutlet weak var walletImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
-    
+    @IBOutlet weak var contentView: UIView!
+
     var onCancel: () -> Void = {}
     
-    var wallet: WCAppRegistryEntry!
+    var wallet: WCAppRegistryEntry?
     var chain: Chain!
     var keyInfo: KeyInfo!
     var connection: WebConnection!
     var timer: Timer?
     var requestTimeout: TimeInterval = 120
 
+    var walletName: String {
+        wallet?.name ?? connection.remotePeer?.name ?? "wallet"
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let placeholder = UIImage(named: "ico-wallet-placeholder")
         walletImage.setImage(
-            url: wallet.imageMediumUrl,
+            url: wallet?.imageMediumUrl,
             placeholder: placeholder,
             failedImage: placeholder
         )
@@ -146,7 +151,16 @@ class PendingWalletActionViewController: UIViewController, UIAdaptivePresentatio
             return
         }
 
-        let navigationLink = connection.status == .opened ? wallet.navigateLink(from: connection.connectionURL) : wallet.connectLink(from: connection.connectionURL)
+        let navigationLink: URL?
+
+        if let wallet = wallet, connection.status == .opened {
+            navigationLink = wallet.navigateLink(from: connection.connectionURL)
+        } else if let wallet = wallet {
+            navigationLink = wallet.connectLink(from: connection.connectionURL)
+        } else {
+            // TODO: use connection's deeplink as second to last resort, otherwise use wc:
+            navigationLink = nil
+        }
 
         if let link = navigationLink {
             LogService.shared.debug("WC: Opening \(link.absoluteString)")

@@ -61,7 +61,7 @@ class OwnerKeyController {
     }
 
     @discardableResult
-    static func importKey(connection: WebConnection, wallet: WCAppRegistryEntry, name: String) -> Bool {
+    static func importKey(connection: WebConnection, wallet: WCAppRegistryEntry?, name: String) -> Bool {
         do {
             let newKey = try KeyInfo.import(connection: connection, wallet: wallet, name: name)
 
@@ -70,7 +70,8 @@ class OwnerKeyController {
             Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
             NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
 
-            Tracker.trackEvent(.connectInstalledWallet, parameters: ["wallet": wallet.name])
+            let name = wallet?.name ?? connection.remotePeer?.name ?? "unknown"
+            Tracker.trackEvent(.connectInstalledWallet, parameters: ["wallet": name])
 
             return true
         } catch {
@@ -84,7 +85,7 @@ class OwnerKeyController {
         }
     }
 
-    static func updateKey(_ keyInfo: KeyInfo, connection: WebConnection, wallet: WCAppRegistryEntry) -> Bool {
+    static func updateKey(_ keyInfo: KeyInfo, connection: WebConnection, wallet: WCAppRegistryEntry?) -> Bool {
         do {
             let updatedKey = try KeyInfo.update(keyInfo: keyInfo, connection: connection)
 
@@ -93,7 +94,8 @@ class OwnerKeyController {
             Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
             NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
 
-            Tracker.trackEvent(.connectInstalledWallet, parameters: ["wallet": wallet.name])
+            let name = wallet?.name ?? connection.remotePeer?.name ?? "unknown"
+            Tracker.trackEvent(.connectInstalledWallet, parameters: ["wallet": name])
 
             return true
         } catch {

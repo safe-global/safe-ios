@@ -274,14 +274,16 @@ class WalletConnectClientController {
 
     static func showConnectionQRCodeController(from controller: UIViewController,
                                                completion: (Result<Void, Error>) -> Void) {
-        do {
-            let connectionURI = try WalletConnectClientController.shared.connect().absoluteString
-            let qrCodeVC = WalletConnectQRCodeViewController.create(code: connectionURI)
-            controller.present(qrCodeVC, animated: true, completion: nil)
-            completion(.success(()))
-        } catch {
-            completion(.failure(error))
-        }
+
+        // TODO: connect via qr code
+//        do {
+//            let connectionURI = try WalletConnectClientController.shared.connect().absoluteString
+//            let qrCodeVC = WalletConnectQRCodeViewController.create(code: connectionURI)
+//            controller.present(qrCodeVC, animated: true, completion: nil)
+//            completion(.success(()))
+//        } catch {
+//            completion(.failure(error))
+//        }
     }
 }
 

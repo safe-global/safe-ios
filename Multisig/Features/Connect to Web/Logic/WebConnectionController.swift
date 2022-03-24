@@ -889,7 +889,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     }
 
     // create connection to a wallet
-    func connect(wallet info: WCAppRegistryEntry, chainId: Int?) throws -> WebConnection {
+    func connect(wallet info: WCAppRegistryEntry?, chainId: Int?) throws -> WebConnection {
         let handshakeTopic = UUID().uuidString
         let bridgeURL = App.configuration.walletConnect.bridgeURL
         guard let encryptionKey = Data(randomOfSize: 32) else {
@@ -902,7 +902,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         return connection
     }
 
-    func createWalletConnection(from url: WebConnectionURL, info: WCAppRegistryEntry) -> WebConnection {
+    func createWalletConnection(from url: WebConnectionURL, info: WCAppRegistryEntry?) -> WebConnection {
         let connection = WebConnection(connectionURL: url)
         connection.createdDate = Date()
         connection.localPeer = WebConnectionPeerInfo(
@@ -915,7 +915,8 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 icons: [URL(string: "https://gnosis-safe.io/app/favicon.ico")!],
                 deeplinkScheme: "gnosissafe:"
         )
-        connection.remotePeer = WebConnectionPeerInfo(
+        if let info = info {
+            connection.remotePeer = WebConnectionPeerInfo(
                 peerId: "",
                 peerType: .wallet,
                 role: .wallet,
@@ -924,6 +925,17 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 description: info.description,
                 icons: info.imageLargeUrl.map { [$0] } ?? [],
                 deeplinkScheme: info.linkMobileNative?.absoluteString)
+        } else {
+            connection.remotePeer = WebConnectionPeerInfo(
+                peerId: "",
+                peerType: .wallet,
+                role: .wallet,
+                url: URL(string: "https://gnosis-safe.io/")!,
+                name: "WalletConnect",
+                description: "WalletConnect",
+                icons: [],
+                deeplinkScheme: "wc:")
+        }
         return connection
     }
 

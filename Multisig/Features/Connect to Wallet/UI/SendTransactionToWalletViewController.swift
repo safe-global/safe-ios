@@ -26,7 +26,7 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.text = "Sending transaction request to \(wallet.name)"
+        titleLabel.text = "Sending transaction request to \(walletName)"
     }
 
     override func doRequest() {

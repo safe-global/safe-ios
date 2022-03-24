@@ -12,7 +12,9 @@ import UIKit
 class StartWalletConnectionViewController: PendingWalletActionViewController {
     var onSuccess: (_ connection: WebConnection) -> Void = { _ in }
 
-    convenience init(wallet: WCAppRegistryEntry, chain: Chain, keyInfo: KeyInfo? = nil) {
+    var qrCodeController: QRCodeShareViewController!
+
+    convenience init(wallet: WCAppRegistryEntry?, chain: Chain, keyInfo: KeyInfo? = nil) {
         self.init(namedClass: PendingWalletActionViewController.self)
         self.wallet = wallet
         self.chain = chain
@@ -21,7 +23,13 @@ class StartWalletConnectionViewController: PendingWalletActionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.text = "Connecting to \(wallet.name)..."
+        if let wallet = wallet {
+            titleLabel.text = "Connecting to \(wallet.name)..."
+        } else {
+            titleLabel.text = "Scan QR code in your wallet"
+            qrCodeController = QRCodeShareViewController()
+            viewControllers = [qrCodeController]
+        }
     }
 
     override func main() {
@@ -30,7 +38,12 @@ class StartWalletConnectionViewController: PendingWalletActionViewController {
         do {
             connection = try WebConnectionController.shared.connect(wallet: wallet, chainId: chain.id.flatMap(Int.init))
             WebConnectionController.shared.attach(observer: self, to: connection)
-            openWallet()
+            if wallet != nil {
+                openWallet()
+            } else {
+                displayChild(at: 0, in: contentView)
+                qrCodeController.value = connection.connectionURL.absoluteString
+            }
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)
             doCancel()
