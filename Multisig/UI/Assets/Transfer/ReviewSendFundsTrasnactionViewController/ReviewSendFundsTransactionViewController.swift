@@ -207,17 +207,14 @@ class ReviewSendFundsTransactionViewController: UIViewController {
             }
 
         case .walletConnect:
-            let vc = WCPendingConfirmationViewController(transaction, keyInfo: keyInfo, title: "Confirm Transaction")
-
-            vc.onClose = { [weak self] in
-                self?.endConfirm()
-            }
-
-            presentModal(vc)
-
-            vc.sign() { [weak self] signature in
+            let vc = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: safe.chain!)
+            vc.onSuccess = { [weak self] signature in
                 self?.confirm(transaction: transaction, keyInfo: keyInfo, signature: signature)
             }
+            vc.onCancel = { [weak self] in
+                self?.endConfirm()
+            }
+            presentModal(vc)
 
         case .ledgerNanoX:
             let request = SignRequest(title: "Confirm Transaction",
