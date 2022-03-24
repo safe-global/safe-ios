@@ -216,20 +216,16 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
 
                     let hexMessage = self.request.message.toHexStringWithPrefix()
 
-                    let wcVC = WCPendingConfirmationViewController(
-                        hexMessage,
-                        keyInfo: keyInfo,
-                        title: "Sign Message"
-                    )
-
-                    wcVC.sign { [weak self] hexSignature in
+                    let vc = SignatureRequestToWalletViewController(hexMessage, keyInfo: keyInfo, chain: self.chain ?? Chain.mainnetChain())
+                    vc.onSuccess = { [weak self, weak vc] signature in
                         guard let self = self else { return }
                         assert(Thread.isMainThread)
-                        let signature = Data(hex: hexSignature)
-                        self.confirm(signature: signature)
+                        vc?.dismiss(animated: true) {
+                            let signature = Data(hex: signature)
+                            self.confirm(signature: signature)
+                        }
                     }
-
-                    self.present(wcVC, animated: true)
+                    self.present(vc, animated: true)
                 }
             }
 
