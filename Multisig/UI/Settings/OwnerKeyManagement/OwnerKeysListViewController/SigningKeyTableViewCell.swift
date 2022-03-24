@@ -31,7 +31,7 @@ class SigningKeyTableViewCell: UITableViewCell {
 
         let label = keyInfo.displayName
         var connectionChain: Chain? = nil
-        if keyInfo.connected {
+        if keyInfo.connectedAsDapp {
             let cdwcConnection = keyInfo.connections!.first(where: { connection in
                 "\((connection as! CDWCConnection).accounts ?? "")" == keyInfo.address.checksummed
             }) as! CDWCConnection

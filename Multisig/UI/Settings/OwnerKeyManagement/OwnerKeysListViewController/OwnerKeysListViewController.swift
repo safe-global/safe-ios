@@ -203,7 +203,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let keyInfo = keys[indexPath.row]
-        if keyInfo.connected {
+        if keyInfo.connectedAsDapp {
             return 105
         } else {
             return 68
