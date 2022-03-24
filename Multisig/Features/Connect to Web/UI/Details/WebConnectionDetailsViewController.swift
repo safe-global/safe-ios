@@ -167,7 +167,7 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
         case .description:
             let cell = contentCell()
             cell.setText("Description")
-            let text = peer.description ?? "Unknown"
+            let text = peer.description ?? peer.name
             cell.setContent(textView(text))
             return cell
 
