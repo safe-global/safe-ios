@@ -92,16 +92,24 @@ class AddressInfoView: UINibView {
 
         if let chain = chain {
             networkLabel.isHidden = false
-            addressHeight.constant = 69
             networkLabel.text = chain.name
             networkLabel.textColor = chain.textColor
             networkLabel.backgroundColor = chain.backgroundColor
         }
 
-        if let label = self.label {
+        if  let label = self.label {
+            if connectionStatus != nil && connectionStatus! != .none {
+                let attachment = NSTextAttachment()
+                setConnectionStatusImage(connectionStatus: connectionStatus, attachment: attachment)
+                let attachmentString = NSAttributedString(attachment: attachment)
+                let labelAttributedString = NSMutableAttributedString(string: "\(label) ")
+                labelAttributedString.append(attachmentString)
+                textLabel.text = label
+                textLabel.attributedText = labelAttributedString
+            } else {
+                textLabel.text = label
+            }
             textLabel.isHidden = false
-            textLabel.text = label
-            addressLabel.setStyle(.tertiary)
         } else {
             textLabel.isHidden = true
         }
@@ -187,6 +195,22 @@ class AddressInfoView: UINibView {
         prefix != nil ? "\(prefix!):" : ""
     }
 
+    private func setConnectionStatusImage(connectionStatus: KeyConnectionStatus?, attachment: NSTextAttachment) {
+        if let connectionStatus = connectionStatus {
+            switch connectionStatus {
+            case .none:
+                attachment.image = nil
+            case .connected:
+                attachment.image = UIImage(named: "ico-wc-connected")
+            case .disconnected:
+                attachment.image = UIImage(named: "ico-empty-circle")
+            case .connectionProblem:
+                attachment.image = UIImage(named: "ico-warning")
+            }
+        } else {
+            attachment.image = nil
+        }
+    }
 }
 
 extension UIViewController {

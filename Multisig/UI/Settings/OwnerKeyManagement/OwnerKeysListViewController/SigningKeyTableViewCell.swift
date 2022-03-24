@@ -11,7 +11,6 @@ import SkeletonView
 
 class SigningKeyTableViewCell: UITableViewCell {
     @IBOutlet weak var addressInfoView: AddressInfoView!
-    @IBOutlet weak var connectionStatusImageView: UIImageView!
 
     @IBOutlet weak var cellDetailLabel: UILabel!
     @IBOutlet weak var cellDetailImageView: UIImageView!
@@ -46,8 +45,6 @@ class SigningKeyTableViewCell: UITableViewCell {
                 chain: connectionChain,
                 connectionStatus: KeyConnectionStatus(keyInfo: keyInfo, chainID: selectedSafeChainID))
 
-        set(connectionStatus: KeyConnectionStatus(keyInfo: keyInfo, chainID: selectedSafeChainID))
-
         cellDetailLabel.text = detail
 
         if isLoading {
@@ -61,20 +58,6 @@ class SigningKeyTableViewCell: UITableViewCell {
 
 
         contentView.alpha = enabled ? 1 : 0.5
-    }
-
-    private func set(connectionStatus: KeyConnectionStatus) {
-        connectionStatusImageView.isHidden = connectionStatus == .none
-        switch connectionStatus {
-        case .none:
-            connectionStatusImageView.image = nil
-        case .connected:
-            connectionStatusImageView.image = UIImage(systemName: "circlebadge.fill")
-        case .disconnected:
-            connectionStatusImageView.image = UIImage(systemName: "circlebadge")
-        case .connectionProblem:
-            connectionStatusImageView.image = UIImage(named: "ico-warning")
-        }
     }
 }
 

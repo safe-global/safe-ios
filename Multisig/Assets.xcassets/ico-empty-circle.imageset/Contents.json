@@ -3,6 +3,9 @@
     {
       "filename" : "active.pdf",
       "idiom" : "universal"
+    },
+    {
+      "idiom" : "iphone"
     }
   ],
   "info" : {
