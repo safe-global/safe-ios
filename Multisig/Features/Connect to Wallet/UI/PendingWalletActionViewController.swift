@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PendingWalletActionViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
+class PendingWalletActionViewController: UIViewController, UIAdaptivePresentationControllerDelegate, WebConnectionObserver {
     
     @IBOutlet weak var walletImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -20,6 +20,8 @@ class PendingWalletActionViewController: UIViewController, UIAdaptivePresentatio
     var chain: Chain!
     var keyInfo: KeyInfo!
     var connection: WebConnection!
+    var timer: Timer?
+    var requestTimeout: TimeInterval = 120
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,38 +52,78 @@ class PendingWalletActionViewController: UIViewController, UIAdaptivePresentatio
     }
     
     @IBAction func didTapCancel(_ sender: Any) {
-        onCancel()
+        doCancel()
     }
-    
-    func connect(completion: @escaping (WebConnection?) -> ()) {
-        let walletConnectionVC = StartWalletConnectionViewController(wallet: wallet, chain: chain)
 
-        walletConnectionVC.onSuccess = { [weak walletConnectionVC, weak self] connection in
-            walletConnectionVC?.dismiss(animated: true) {
+    func didUpdate(connection: WebConnection) {
+        self.connection = connection
+        if connection.status == .final {
+            if let string = connection.lastError {
+                App.shared.snackbar.show(message: string)
+            }
+            doCancel()
+        }
+    }
+
+    deinit {
+        WebConnectionController.shared.detach(observer: self)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        main()
+    }
+
+    func main() {
+        let connections = WebConnectionController.shared.walletConnection(keyInfo: keyInfo)
+        if let connection = connections.first {
+            self.connection = connection
+            sendRequest()
+        } else {
+            connect { [weak self] connection in
                 guard let self = self else { return }
-                guard connection.accounts.contains(self.keyInfo.address) else {
-                    App.shared.snackbar.show(error: GSError.WCConnectedKeyMissingAddress())
-                    return
+                self.connection = connection
+                if connection != nil {
+                    self.sendRequest()
+                } else {
+                    self.doCancel()
                 }
-
-                if OwnerKeyController.updateKey(connection: connection, wallet: self.wallet) {
-                    App.shared.snackbar.show(message: "Key connected successfully")
-                }
-
-                completion(connection)
             }
         }
+    }
 
-        walletConnectionVC.onCancel = { [weak walletConnectionVC] in
-            walletConnectionVC?.dismiss(animated: true, completion: {
-                completion(nil)
-            })
+    func connect(completion: @escaping (WebConnection?) -> ()) {
+        let walletConnectionVC = StartWalletConnectionViewController(wallet: wallet, chain: chain, keyInfo: keyInfo)
+
+        walletConnectionVC.onSuccess = { connection in
+            completion(connection)
+        }
+        walletConnectionVC.onCancel = {
+            completion(nil)
         }
 
         let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: true)
         present(vc, animated: true)
     }
-    
+
+    func sendRequest() {
+        // to override
+        guard checkNetwork() else {
+            App.shared.snackbar.show(message: "Please change wallet network to \(chain.name!)")
+            return
+        }
+        guard let connection = connection else { return }
+
+        WebConnectionController.shared.detach(observer: self)
+        WebConnectionController.shared.attach(observer: self, to: connection)
+
+        scheduleTimeout()
+
+        doRequest()
+
+        openWallet()
+    }
+
     func checkNetwork() -> Bool {
         guard let connection = connection,
               let chainId = connection.chainId,
@@ -89,9 +131,24 @@ class PendingWalletActionViewController: UIViewController, UIAdaptivePresentatio
 
         return true
     }
-    
-    func openWallet(connection: WebConnection) {
-        if let link = wallet.navigateLink(from: connection.connectionURL) {
+
+    func scheduleTimeout() {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: requestTimeout, repeats: false, block: { [weak self] _ in
+            guard let self = self else { return }
+            self.onCancel()
+        })
+    }
+
+    func openWallet() {
+        guard let connection = self.connection else {
+            assertionFailure("Expected to have connection")
+            return
+        }
+
+        let navigationLink = connection.status == .opened ? wallet.navigateLink(from: connection.connectionURL) : wallet.connectLink(from: connection.connectionURL)
+
+        if let link = navigationLink {
             LogService.shared.debug("WC: Opening \(link.absoluteString)")
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
                 UIApplication.shared.open(link, options: [:]) { success in
@@ -102,6 +159,16 @@ class PendingWalletActionViewController: UIViewController, UIAdaptivePresentatio
             }
         } else {
             App.shared.snackbar.show(message: "Please open your wallet to complete this operation.")
+        }
+    }
+    
+    func doRequest() {
+        // to override
+    }
+
+    func doCancel() {
+        dismiss(animated: true) { [weak self] in
+            self?.onCancel()
         }
     }
 }
