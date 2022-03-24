@@ -16,8 +16,6 @@ class SigningKeyTableViewCell: UITableViewCell {
     @IBOutlet weak var cellDetailLabel: UILabel!
     @IBOutlet weak var cellDetailImageView: UIImageView!
 
-    static let height: CGFloat = 68
-
     override func awakeFromNib() {
         super.awakeFromNib()
         addressInfoView.setCopyAddressEnabled(false)
@@ -31,21 +29,22 @@ class SigningKeyTableViewCell: UITableViewCell {
 
     func configure(keyInfo: KeyInfo, selectedSafeChainID: String?, detail: String? = nil, accessoryImage: UIImage? = nil, enabled: Bool = true, isLoading: Bool = false) {
 
-        var label = keyInfo.displayName
+        let label = keyInfo.displayName
+        var connectionChain: Chain? = nil
         if keyInfo.connected {
             let cdwcConnection = keyInfo.connections!.first(where: { connection in
                 "\((connection as! CDWCConnection).accounts ?? "")" == keyInfo.address.checksummed
             }) as! CDWCConnection
             let connectionChainId = cdwcConnection.chainId
-            let connectionChain = Chain.by("\(connectionChainId)")!
-
-            label = label + " \(connectionChain.name)"
+            connectionChain = Chain.by("\(connectionChainId)")!
         }
 
         addressInfoView.setAddress(
                 keyInfo.address,
                 label: label,
-                badgeName: keyInfo.keyType.imageName)
+                badgeName: keyInfo.keyType.imageName,
+                chain: connectionChain,
+                connectionStatus: KeyConnectionStatus(keyInfo: keyInfo, chainID: selectedSafeChainID))
 
         set(connectionStatus: KeyConnectionStatus(keyInfo: keyInfo, chainID: selectedSafeChainID))
 

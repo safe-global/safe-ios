@@ -13,11 +13,13 @@ class AddressInfoView: UINibView {
     @IBOutlet private weak var identiconView: IdenticonView!
     @IBOutlet private weak var textLabel: UILabel!
     @IBOutlet private weak var addressLabel: UILabel!
+    @IBOutlet private weak var networkLabel: UILabel!
     @IBOutlet private weak var copyButton: UIButton!
     @IBOutlet private var detailButton: UIButton!
 
     @IBOutlet weak var iconHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var iconWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var addressHeight: NSLayoutConstraint!
 
     static let defaultIconSize: CGFloat = 36
 
@@ -37,7 +39,11 @@ class AddressInfoView: UINibView {
         titleLabel.setStyle(.headline)
         textLabel.setStyle(.headline)
         addressLabel.setStyle(.tertiary)
+        addressLabel.isHidden = true
         setTitle(nil)
+        networkLabel.setStyle(.tertiary)
+        networkLabel.isHidden = true
+        addressHeight.constant = 46
 
         setIconSize(Self.defaultIconSize)
 
@@ -67,17 +73,30 @@ class AddressInfoView: UINibView {
     ///   - badgeName: name of the badge asset image
     ///   - browseURL: if not nil, then the detail button will show that would open the browser to look for this address
     ///   - prefix: chain prefix
+    ///   - chain: connected chain (via WalletConnect)
+    ///   - connectionStatus: WalletConnect status
     func setAddress(_ address: Address,
                     label: String? = nil,
                     imageUri: URL? = nil,
                     showIdenticon: Bool = true,
                     badgeName: String? = nil,
                     browseURL: URL? = nil,
-                    prefix: String? = nil) {
+                    prefix: String? = nil,
+                    chain: Chain? = nil,
+                    connectionStatus: KeyConnectionStatus? = nil
+    ) {
         self.address = address
         self.browseURL = browseURL
         self.prefix = prefix
         self.label = label
+
+        if let chain = chain {
+            networkLabel.isHidden = false
+            addressHeight.constant = 69
+            networkLabel.text = chain.name
+            networkLabel.textColor = chain.textColor
+            networkLabel.backgroundColor = chain.backgroundColor
+        }
 
         if let label = self.label {
             textLabel.isHidden = false

@@ -201,6 +201,15 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         return UISwipeActionsConfiguration(actions: actions)
     }
 
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let keyInfo = keys[indexPath.row]
+        if keyInfo.connected {
+            return 105
+        } else {
+            return 68
+        }
+    }
+
     func connect(keyInfo: KeyInfo) {
         guard let wallet = keyInfo.wallet, let wcWallet = WCAppRegistryRepository().entry(from: wallet) else { return }
 
