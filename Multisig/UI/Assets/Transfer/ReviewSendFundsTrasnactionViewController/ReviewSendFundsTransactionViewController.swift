@@ -208,11 +208,15 @@ class ReviewSendFundsTransactionViewController: UIViewController {
 
         case .walletConnect:
             let vc = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: safe.chain!)
-            vc.onSuccess = { [weak self] signature in
-                self?.confirm(transaction: transaction, keyInfo: keyInfo, signature: signature)
+            vc.onSuccess = { [weak self, weak vc] signature in
+                vc?.dismiss(animated: true) {
+                    self?.confirm(transaction: transaction, keyInfo: keyInfo, signature: signature)
+                }
             }
-            vc.onCancel = { [weak self] in
-                self?.endConfirm()
+            vc.onCancel = { [weak self, weak vc] in
+                vc?.dismiss(animated: true) {
+                    self?.endConfirm()
+                }
             }
             presentModal(vc)
 

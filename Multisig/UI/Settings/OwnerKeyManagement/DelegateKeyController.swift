@@ -170,13 +170,17 @@ class DelegateKeyController {
             let chain = try? Safe.getSelected()?.chain ?? Chain.mainnetChain()
             let vc = SignatureRequestToWalletViewController(hexMessage, keyInfo: keyInfo, chain: chain!)
             var isSuccess: Bool = false
-            vc.onSuccess = { signature in
-                isSuccess = true
-                completion(.success(Data(hex: signature)))
+            vc.onSuccess = { [weak vc] signature in
+                vc?.dismiss(animated: true) {
+                    isSuccess = true
+                    completion(.success(Data(hex: signature)))
+                }
             }
-            vc.onCancel = {
-                if !isSuccess {
-                    completion(.failure(GSError.AddDelegateKeyCancelled()))
+            vc.onCancel = { [weak vc]
+                vc?.dismiss(animated: true) {
+                    if !isSuccess {
+                        completion(.failure(GSError.AddDelegateKeyCancelled()))
+                    }
                 }
             }
             presenter?.present(vc, animated: true)

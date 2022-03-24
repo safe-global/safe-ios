@@ -133,13 +133,17 @@ class RejectionConfirmationViewController: UIViewController {
         guard presentedViewController == nil else { return }
 
         let vc = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: safe.chain!)
-        vc.onSuccess = { [weak self] signature in
-            DispatchQueue.main.async {
-                self?.rejectAndCloseController(signature: signature)
+        vc.onSuccess = { [weak self, weak vc] signature in
+            vc?.dismiss(animated: true) {
+                DispatchQueue.main.async {
+                    self?.rejectAndCloseController(signature: signature)
+                }
             }
         }
-        vc.onCancel = { [unowned self] in
-            endLoading()
+        vc.onCancel = { [weak vc] in
+            vc?.dismiss(animated: true) {
+                endLoading()
+            }
         }
         present(vc, animated: true)
     }

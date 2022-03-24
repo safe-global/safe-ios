@@ -122,6 +122,7 @@ class SignatureRequestToWalletViewController: PendingWalletActionViewController,
                     self.handleSignResponse(signature: signature, completion: self.onSuccess)
                 }
             }
+            openWallet(connection: connection)
         }
     }
     
@@ -131,8 +132,6 @@ class SignatureRequestToWalletViewController: PendingWalletActionViewController,
                 App.shared.snackbar.show(error: GSError.CouldNotSignWithWalletConnect())
                 return
             }
-            
-            self?.dismiss(animated: true, completion: nil)
             completion?(signature)
         }
     }
