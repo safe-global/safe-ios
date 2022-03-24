@@ -122,16 +122,18 @@ class WCIncomingTransactionRequestViewController: UIViewController {
 
     private func signWithWalletConnect(_ transaction: Transaction, keyInfo: KeyInfo) {
         guard presentedViewController == nil else { return }
-
-        let pendingConfirmationVC = WCPendingConfirmationViewController(transaction, keyInfo: keyInfo)
-        present(pendingConfirmationVC, animated: true)
-
-        pendingConfirmationVC.sign() { [weak self] signature in
+        
+        let vc = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: safe.chain!)
+        vc.onSuccess = { [weak self] signature in
             DispatchQueue.global().async {
                 self?.sendConfirmationAndDismiss(signature: signature,
                                                  trackingEvent: .incomingTxConfirmedWalletConnect)
             }
         }
+        vc.onCancel = { [weak self] in
+            
+        }
+        present(vc, animated: true)
     }
 
     private func sendConfirmationAndDismiss(signature: String, trackingEvent: TrackingEvent) {
