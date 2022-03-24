@@ -52,6 +52,7 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
                 let success = OwnerKeyController.importKey(connection: connection, wallet: wallet, name: name)
 
                 if !success {
+                    WebConnectionController.shared.userDidDisconnect(connection)
                     self.completion()
                     return
                 }

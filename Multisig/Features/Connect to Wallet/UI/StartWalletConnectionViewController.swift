@@ -14,11 +14,13 @@ class StartWalletConnectionViewController: PendingWalletActionViewController, We
 
     private var chain: Chain!
     private var connection: WebConnection!
+    private var keyInfo: KeyInfo?
 
-    convenience init(wallet: WCAppRegistryEntry, chain: Chain) {
+    convenience init(wallet: WCAppRegistryEntry, chain: Chain, keyInfo: KeyInfo? = nil) {
         self.init(namedClass: PendingWalletActionViewController.self)
         self.wallet = wallet
         self.chain = chain
+        self.keyInfo = keyInfo
     }
 
     override func viewDidLoad() {
@@ -61,6 +63,13 @@ class StartWalletConnectionViewController: PendingWalletActionViewController, We
     func didUpdate(connection: WebConnection) {
         switch connection.status {
         case .opened:
+            guard checkCorrectAccount() else { return }
+            guard checkCorrectChain() else { return }
+
+            if let keyInfo = keyInfo, OwnerKeyController.updateKey(keyInfo, connection: connection, wallet: wallet) {
+                App.shared.snackbar.show(message: "Key connected successfully")
+            }
+
             onSuccess(connection)
         case .final:
             if let string = connection.lastError {
@@ -71,6 +80,27 @@ class StartWalletConnectionViewController: PendingWalletActionViewController, We
             // do nothing
             break
         }
+    }
+
+    func checkCorrectAccount() -> Bool {
+        if let keyInfo = keyInfo, !connection.accounts.contains(keyInfo.address) {
+            App.shared.snackbar.show(message: "Unexpected address. Please connnect to account \(keyInfo.address.ellipsized()).")
+            WebConnectionController.shared.userDidDisconnect(connection)
+            return false
+        }
+        return true
+    }
+
+    func checkCorrectChain() -> Bool {
+        if let chain = chain,
+           let connectedChainId = connection.chainId,
+           let selectedChainId = chain.id,
+           String(connectedChainId) != selectedChainId {
+            App.shared.snackbar.show(message: "Connected to unexpected chain. Please connect to \(chain.name!).")
+            WebConnectionController.shared.userDidDisconnect(connection)
+            return false
+        }
+        return true
     }
 
     deinit {

@@ -384,7 +384,7 @@ enum GSError {
         let loggable = false
     }
 
-    struct CouldNotAddOwnerKeyWithSameAddressAndDifferentType: DetailedLocalizedError {
+    struct DuplicateKey: DetailedLocalizedError {
         let description = "Could not add owner key"
         let reason = "The owner key is already added."
         let howToFix = "Please use the already added key or remove it and try again."

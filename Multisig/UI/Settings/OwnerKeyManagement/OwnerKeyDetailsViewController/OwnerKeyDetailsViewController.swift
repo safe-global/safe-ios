@@ -388,18 +388,9 @@ class OwnerKeyDetailsViewController: UITableViewController {
 
         let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
 
-        let walletConnectionVC = StartWalletConnectionViewController(wallet: wcWallet, chain: chain)
+        let walletConnectionVC = StartWalletConnectionViewController(wallet: wcWallet, chain: chain, keyInfo: keyInfo)
         walletConnectionVC.onSuccess = { [weak walletConnectionVC] connection in
-            walletConnectionVC?.dismiss(animated: true) {
-                guard connection.accounts.contains(keyInfo.address) else {
-                    App.shared.snackbar.show(error: GSError.WCConnectedKeyMissingAddress())
-                    return
-                }
-
-                if OwnerKeyController.updateKey(connection: connection, wallet: wcWallet) {
-                    App.shared.snackbar.show(message: "Key connected successfully")
-                }
-            }
+            walletConnectionVC?.dismiss(animated: true)
         }
         walletConnectionVC.onCancel = { [weak walletConnectionVC] in
             walletConnectionVC?.dismiss(animated: true, completion: nil)

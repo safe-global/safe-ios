@@ -164,11 +164,8 @@ extension KeyInfo {
         let fr = KeyInfo.fetchRequest().by(address: address)
         let item: KeyInfo
 
-        if let existing = try context.fetch(fr).first {
-            item = existing
-            guard existing.keyType == .deviceImported || existing.keyType == .deviceGenerated else {
-                throw GSError.CouldNotAddOwnerKeyWithSameAddressAndDifferentType()
-            }
+        if (try context.fetch(fr).first) != nil {
+            throw GSError.DuplicateKey()
         } else {
             item = KeyInfo(context: context)
         }
@@ -200,12 +197,8 @@ extension KeyInfo {
         let fr = KeyInfo.fetchRequest().by(address: address)
         let item: KeyInfo
 
-        if let existing = try context.fetch(fr).first {
-            // It is possible to update only key of the same type. Do not update key name for already imported WalletConnect key.
-            guard existing.keyType == .walletConnect else {
-                throw GSError.CouldNotAddOwnerKeyWithSameAddressAndDifferentType()
-            }
-            item = existing
+        if (try context.fetch(fr).first) != nil {
+            throw GSError.DuplicateKey()
         } else {
             item = KeyInfo(context: context)
             item.name = name
@@ -232,12 +225,8 @@ extension KeyInfo {
         let fr = KeyInfo.fetchRequest().by(address: address)
         let item: KeyInfo
 
-        if let existing = try context.fetch(fr).first {
-            // It is possible to update only key of the same type. Do not update key name for already imported WalletConnect key.
-            guard existing.keyType == .walletConnect else {
-                throw GSError.CouldNotAddOwnerKeyWithSameAddressAndDifferentType()
-            }
-            item = existing
+        if (try context.fetch(fr).first) != nil {
+            throw GSError.DuplicateKey()
         } else {
             item = KeyInfo(context: context)
             item.name = name
@@ -273,12 +262,8 @@ extension KeyInfo {
         let fr = KeyInfo.fetchRequest().by(address: address)
         let item: KeyInfo
 
-        if let existing = try context.fetch(fr).first {
-            // It is possible to update only key of the same type. Do not update key name for already imported WalletConnect key.
-            guard existing.keyType == .ledgerNanoX else {
-                throw GSError.CouldNotAddOwnerKeyWithSameAddressAndDifferentType()
-            }
-            item = existing
+        if (try context.fetch(fr).first) != nil {
+            throw GSError.DuplicateKey()
         } else {
             item = KeyInfo(context: context)
             item.name = name
@@ -296,20 +281,12 @@ extension KeyInfo {
 
 
     @discardableResult
-    static func update(connection: WebConnection) throws -> KeyInfo? {
+    static func update(keyInfo: KeyInfo, connection: WebConnection) throws -> KeyInfo? {
         guard let address = connection.accounts.first else {
             return nil
         }
 
         let context = App.shared.coreDataStack.viewContext
-
-        let fr = KeyInfo.fetchRequest().by(address: address)
-
-        guard let keyInfo = try context.fetch(fr).first,
-              keyInfo.keyType == .walletConnect else {
-            // It is possible to update only key of the same type. Do not update key name for already imported WalletConnect key.
-                  throw GSError.WCConnectedKeyNotFound()
-        }
 
         if let cdConnection = CDWCConnection.connection(by: connection.connectionURL.absoluteString) {
             keyInfo.addToConnections(cdConnection)
