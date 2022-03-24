@@ -207,12 +207,6 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
 
         let walletConnectionVC = StartWalletConnectionViewController(wallet: wcWallet, chain: chain, keyInfo: keyInfo)
-        walletConnectionVC.onSuccess = { [weak walletConnectionVC] connection in
-            walletConnectionVC?.dismiss(animated: true)
-        }
-        walletConnectionVC.onCancel = { [weak walletConnectionVC] in
-            walletConnectionVC?.dismiss(animated: true, completion: nil)
-        }
         let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: true)
         present(vc, animated: true)
     }

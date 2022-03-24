@@ -38,7 +38,7 @@ class StartWalletConnectionViewController: PendingWalletActionViewController, We
             openWallet()
         } catch {
             App.shared.snackbar.show(message: error.localizedDescription)
-            onCancel()
+            doCancel()
         }
     }
 
@@ -71,12 +71,14 @@ class StartWalletConnectionViewController: PendingWalletActionViewController, We
                 App.shared.snackbar.show(message: "Key connected successfully")
             }
 
-            onSuccess(connection)
+            self.dismiss(animated: true) { [weak self] in
+                self?.onSuccess(connection)
+            }
         case .final:
             if let string = connection.lastError {
                 App.shared.snackbar.show(message: string)
             }
-            onCancel()
+            doCancel()
         default:
             // do nothing
             break
@@ -118,7 +120,13 @@ class StartWalletConnectionViewController: PendingWalletActionViewController, We
         if let connection = connection {
             WebConnectionController.shared.userDidCancel(connection)
         } else {
-            onCancel()
+            doCancel()
+        }
+    }
+
+    func doCancel() {
+        dismiss(animated: true) { [weak self] in
+            self?.onCancel()
         }
     }
 }

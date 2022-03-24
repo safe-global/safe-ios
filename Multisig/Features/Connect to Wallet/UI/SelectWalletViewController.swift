@@ -148,14 +148,9 @@ extension SelectWalletViewController: UITableViewDelegate, UITableViewDataSource
         cancelExistingConnection()
         let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
         let walletConnectionVC = StartWalletConnectionViewController(wallet: wallet, chain: chain)
-        walletConnectionVC.onSuccess = { [weak walletConnectionVC, weak self] connection in
+        walletConnectionVC.onSuccess = { [weak self] connection in
             self?.connection = connection
-            walletConnectionVC?.dismiss(animated: true) {
-                self?.completion(wallet, connection)
-            }
-        }
-        walletConnectionVC.onCancel = { [weak walletConnectionVC] in
-            walletConnectionVC?.dismiss(animated: true, completion: nil)
+            self?.completion(wallet, connection)
         }
         let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: true)
         present(vc, animated: true)

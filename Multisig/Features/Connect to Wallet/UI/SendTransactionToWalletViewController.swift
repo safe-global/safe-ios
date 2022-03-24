@@ -59,16 +59,12 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController, 
     func connect(completion: @escaping (WebConnection?) -> ()) {
         let walletConnectionVC = StartWalletConnectionViewController(wallet: wallet, chain: chain, keyInfo: keyInfo)
 
-        walletConnectionVC.onSuccess = { [weak walletConnectionVC] connection in
-            walletConnectionVC?.dismiss(animated: true) {
+        walletConnectionVC.onSuccess = { connection in
                 completion(connection)
-            }
         }
 
-        walletConnectionVC.onCancel = { [weak walletConnectionVC] in
-            walletConnectionVC?.dismiss(animated: true, completion: {
+        walletConnectionVC.onCancel = { in
                 completion(nil)
-            })
         }
 
         let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: true)
