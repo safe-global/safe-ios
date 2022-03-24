@@ -61,6 +61,7 @@ class StartWalletConnectionViewController: PendingWalletActionViewController, We
     }
 
     func didUpdate(connection: WebConnection) {
+        self.connection = connection
         switch connection.status {
         case .opened:
             guard checkCorrectAccount() else { return }
@@ -87,8 +88,14 @@ class StartWalletConnectionViewController: PendingWalletActionViewController, We
             App.shared.snackbar.show(message: "Unexpected address. Please connnect to account \(keyInfo.address.ellipsized()).")
             WebConnectionController.shared.userDidDisconnect(connection)
             return false
+        } else if keyInfo == nil, let account = connection.accounts.first, let existing = (try? KeyInfo.firstKey(address: account)) {
+            let name = existing.displayName.prefix(30)
+            App.shared.snackbar.show(message: "Address '\(account.ellipsized())' already exists with name '\(name)'. Please connect another account.")
+            WebConnectionController.shared.userDidDisconnect(connection)
+            return false
+        } else {
+            return true
         }
-        return true
     }
 
     func checkCorrectChain() -> Bool {
