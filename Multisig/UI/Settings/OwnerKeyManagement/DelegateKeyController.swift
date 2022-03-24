@@ -176,7 +176,7 @@ class DelegateKeyController {
                     completion(.success(Data(hex: signature)))
                 }
             }
-            vc.onCancel = { [weak vc]
+            vc.onCancel = { [weak vc] in
                 vc?.dismiss(animated: true) {
                     if !isSuccess {
                         completion(.failure(GSError.AddDelegateKeyCancelled()))

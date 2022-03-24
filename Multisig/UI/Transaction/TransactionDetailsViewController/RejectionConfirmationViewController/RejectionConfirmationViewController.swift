@@ -140,9 +140,9 @@ class RejectionConfirmationViewController: UIViewController {
                 }
             }
         }
-        vc.onCancel = { [weak vc] in
+        vc.onCancel = { [weak self, weak vc] in
             vc?.dismiss(animated: true) {
-                endLoading()
+                self?.endLoading()
             }
         }
         present(vc, animated: true)
