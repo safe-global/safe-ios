@@ -326,17 +326,18 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             }
 
         case .walletConnect:
-            let vc = WCPendingConfirmationViewController(transaction, keyInfo: keyInfo, title: "Confirm Transaction")
-
-            vc.onClose = { [weak self] in
-                self?.reloadData()
+            let vc = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: safe.chain!)
+            vc.onSuccess = { [weak self, weak vc] signature in
+                vc?.dismiss(animated: true) {
+                    self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: .walletConnect)
+                }
             }
-
+            vc.onCancel = { [weak self, weak vc] in
+                vc?.dismiss(animated: true) {
+                    self?.reloadData()
+                }
+            }
             present(vc, animated: true)
-
-            vc.sign() { [weak self] signature in
-                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: .walletConnect)
-            }
 
         case .ledgerNanoX:
             let request = SignRequest(title: "Confirm Transaction",

@@ -752,26 +752,26 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                     guard success else {
                         return
                     }
-
-                    let wcVC = WCPendingConfirmationViewController(
-                        clientTx,
+                    
+                    let vc = SendTransactionToWalletViewController(
+                        transaction: clientTx,
                         keyInfo: keyInfo,
-                        title: "Sign Transaction"
+                        chain: self.chain ?? Chain.mainnetChain()
                     )
-
-                    wcVC.send { [weak self] txHash in
-                        guard let self = self else { return }
-                        assert(Thread.isMainThread)
-
-                        if let hexHash = txHash {
-                            self.uiModel.didSubmitTransaction(txHash: Eth.Hash(Data(hex: hexHash)))
-                            self.uiModel.didSubmitSuccess()
-                        } else {
+                    vc.onCancel = { [weak vc] in
+                        vc?.dismiss(animated: true) {
                             self.uiModel.didSubmitFailed(nil)
                         }
                     }
-
-                    self.present(wcVC, animated: true)
+                    vc.onSuccess = { [weak self, weak vc] txHashData in
+                        guard let self = self else { return }
+                        assert(Thread.isMainThread)
+                        vc?.dismiss(animated: true) {
+                            self.uiModel.didSubmitTransaction(txHash: Eth.Hash(txHashData))
+                            self.uiModel.didSubmitSuccess()
+                        }
+                    }
+                    self.present(vc, animated: true)
                 }
             }
 

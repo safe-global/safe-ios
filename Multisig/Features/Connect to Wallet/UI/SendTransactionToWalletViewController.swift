@@ -13,12 +13,9 @@ import WalletConnectSwift
 class SendTransactionToWalletViewController: PendingWalletActionViewController, WebConnectionObserver {
 
     var transaction: Client.Transaction!
-    var keyInfo: KeyInfo!
-    var chain: Chain!
     var timer: Timer?
     var requestTimeout: TimeInterval = 120
 
-    var connection: WebConnection?
     var onSuccess: ((Data) -> ())?
 
     convenience init(transaction: Client.Transaction, keyInfo: KeyInfo, chain: Chain) {
@@ -56,21 +53,6 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController, 
         }
     }
 
-    func connect(completion: @escaping (WebConnection?) -> ()) {
-        let walletConnectionVC = StartWalletConnectionViewController(wallet: wallet, chain: chain, keyInfo: keyInfo)
-
-        walletConnectionVC.onSuccess = { connection in
-                completion(connection)
-        }
-
-        walletConnectionVC.onCancel = { in
-                completion(nil)
-        }
-
-        let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: true)
-        present(vc, animated: true)
-    }
-
     func send() {
         guard checkNetwork() else {
             App.shared.snackbar.show(message: "Please change wallet network to \(chain.name!)")
@@ -97,31 +79,7 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController, 
                 self.onSuccess?(data)
             }
         }
-
         openWallet(connection: connection)
-    }
-
-    func openWallet(connection: WebConnection) {
-        if let link = wallet.navigateLink(from: connection.connectionURL) {
-            LogService.shared.debug("WC: Opening \(link.absoluteString)")
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                UIApplication.shared.open(link, options: [:]) { success in
-                    if !success {
-                        App.shared.snackbar.show(message: "Failed to open the wallet automatically. Please open it manually or try again.")
-                    }
-                }
-            }
-        } else {
-            App.shared.snackbar.show(message: "Please open your wallet to complete this operation.")
-        }
-    }
-
-    func checkNetwork() -> Bool {
-        guard let connection = connection,
-              let chainId = connection.chainId,
-              String(chainId) == self.chain.id else { return false }
-
-        return true
     }
 
     override func didTapCancel(_ sender: Any) {

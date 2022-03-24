@@ -12,11 +12,7 @@ import UIKit
 class StartWalletConnectionViewController: PendingWalletActionViewController, WebConnectionObserver {
     var onSuccess: (_ connection: WebConnection) -> Void = { _ in }
 
-    private var chain: Chain!
-    private var connection: WebConnection!
-    private var keyInfo: KeyInfo?
-
-    convenience init(wallet: WCAppRegistryEntry, chain: Chain, keyInfo: KeyInfo? = nil) {
+    convenience init(wallet: WCAppRegistryEntry, chain: Chain) {
         self.init(namedClass: PendingWalletActionViewController.self)
         self.wallet = wallet
         self.chain = chain
