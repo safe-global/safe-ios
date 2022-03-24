@@ -132,20 +132,16 @@ class RejectionConfirmationViewController: UIViewController {
     private func rejectWithWalletConnect(_ transaction: Transaction, keyInfo: KeyInfo) {
         guard presentedViewController == nil else { return }
 
-        let pendingConfirmationVC = WCPendingConfirmationViewController(transaction,
-                                                                        keyInfo: keyInfo,
-                                                                        title: "Pending Rejection")
-        pendingConfirmationVC.onClose = { [unowned self] in
-            endLoading()
-        }
-
-        pendingConfirmationVC.sign() { [weak self] signature in
+        let vc = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: safe.chain!)
+        vc.onSuccess = { [weak self] signature in
             DispatchQueue.main.async {
                 self?.rejectAndCloseController(signature: signature)
             }
         }
-
-        present(pendingConfirmationVC, animated: true)
+        vc.onCancel = { [unowned self] in
+            endLoading()
+        }
+        present(vc, animated: true)
     }
 
     private func startLoading() {

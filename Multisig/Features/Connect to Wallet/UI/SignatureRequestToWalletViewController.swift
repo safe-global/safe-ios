@@ -14,6 +14,7 @@ class SignatureRequestToWalletViewController: PendingWalletActionViewController,
 
     private var transaction: Transaction?
     private var clientTransaction: Client.Transaction?
+    private var isRejection: Bool = false
     private var message: String?
 
     var timer: Timer?
@@ -29,11 +30,12 @@ class SignatureRequestToWalletViewController: PendingWalletActionViewController,
         self.chain = chain
     }
     
-    convenience init(_ transaction: Transaction, keyInfo: KeyInfo, chain: Chain) {
+    convenience init(_ transaction: Transaction, keyInfo: KeyInfo, chain: Chain, isRejection: Bool = false) {
         self.init(namedClass: PendingWalletActionViewController.self)
         self.wallet = WCAppRegistryRepository().entry(from: keyInfo.wallet!)
         self.keyInfo = keyInfo
         self.transaction = transaction
+        self.isRejection = isRejection
         self.chain = chain
     }
     
@@ -49,7 +51,11 @@ class SignatureRequestToWalletViewController: PendingWalletActionViewController,
         super.viewDidLoad()
         
         if transaction != nil {
-            titleLabel.text = "Confirm Transaction with your owner key from \(wallet.name)"
+            if isRejection {
+                titleLabel.text = "Confirm Rejection with your owner key from \(wallet.name)"
+            } else {
+                titleLabel.text = "Confirm Transaction with your owner key from \(wallet.name)"
+            }
         } else {
             titleLabel.text = "Approve request with your owner key from \(wallet.name)"
         }
@@ -64,7 +70,7 @@ class SignatureRequestToWalletViewController: PendingWalletActionViewController,
         let connections = WebConnectionController.shared.walletConnection(keyInfo: keyInfo)
         if let connection = connections.first {
             self.connection = connection
-                send()
+            requestSignature()
         } else {
             connect { [ unowned self] connection in
                 self.connection = connection
@@ -101,7 +107,7 @@ class SignatureRequestToWalletViewController: PendingWalletActionViewController,
                     App.shared.snackbar.show(message: error.localizedDescription)
                     self.onCancel()
                 case .success(let signature):
-                    self?.handleSignResponse(signature: signature, completion: onSuccess)
+                    self.handleSignResponse(signature: signature, completion: self.onSuccess)
                 }
             }
             openWallet(connection: connection)
@@ -113,7 +119,7 @@ class SignatureRequestToWalletViewController: PendingWalletActionViewController,
                     App.shared.snackbar.show(message: error.localizedDescription)
                     self.onCancel()
                 case .success(let signature):
-                    self?.handleSignResponse(signature: signature, completion: onSuccess)
+                    self.handleSignResponse(signature: signature, completion: self.onSuccess)
                 }
             }
         }
