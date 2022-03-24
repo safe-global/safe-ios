@@ -394,26 +394,26 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
                     guard success else {
                         return
                     }
-
-                    let wcVC = WCPendingConfirmationViewController(
-                        clientTx,
+                    
+                    let vc = SendTransactionToWalletViewController(
+                        transaction: clientTx,
                         keyInfo: self.keyInfo,
-                        title: "Sign Transaction"
+                        chain: self.chain ?? Chain.mainnetChain()
                     )
-
-                    wcVC.send { [weak self] txHash in
-                        guard let self = self else { return }
-                        assert(Thread.isMainThread)
-
-                        if let hexHash = txHash {
-                            self.didSubmitTransaction(txHash: Eth.Hash(Data(hex: hexHash)))
-                            self.didSubmitSuccess()
-                        } else {
+                    vc.onCancel = { [weak vc] in
+                        vc?.dismiss(animated: true) {
                             self.didSubmitFailed(nil)
                         }
                     }
-
-                    self.present(wcVC, animated: true)
+                    vc.onSuccess = { [weak self, weak vc] txHashData in
+                        guard let self = self else { return }
+                        assert(Thread.isMainThread)
+                        vc?.dismiss(animated: true) {
+                            self.didSubmitTransaction(txHash: Eth.Hash(txHashData))
+                            self.didSubmitSuccess()
+                        }
+                    }
+                    self.present(vc, animated: true)
                 }
             }
 
