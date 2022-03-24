@@ -57,6 +57,9 @@ class SelectWalletViewController: LoadableViewController {
         searchController.searchBar.placeholder = "Search"
 
         walletsSource.delegate = self
+
+        // explicitly set background color to prevent transparent background in dark mode (iOS 14)
+        navigationController?.navigationBar.backgroundColor = .secondaryBackground
     }
 
     override func viewDidAppear(_ animated: Bool) {
