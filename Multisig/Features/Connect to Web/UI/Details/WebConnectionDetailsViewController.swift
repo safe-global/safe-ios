@@ -167,7 +167,10 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
         case .description:
             let cell = contentCell()
             cell.setText("Description")
-            let text = peer.description ?? peer.name
+            var text = peer.description
+            if text == nil || text!.isEmpty {
+                text = peer.name
+            }
             cell.setContent(textView(text))
             return cell
 
