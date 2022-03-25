@@ -41,15 +41,17 @@ extension KeyInfo {
     }
 
     var connectedAsDapp: Bool {
-        guard keyType == .walletConnect, let connections = connections else { return false }
-        let walletConnections = connections
-                .compactMap { $0 as? CDWCConnection }
-                .filter {
-                    $0.localPeer?.role == WebConnectionPeerRole.dapp.rawValue &&
-                            $0.remotePeer?.role == WebConnectionPeerRole.wallet.rawValue
-                }
-        let result = !walletConnections.isEmpty
+        guard keyType == .walletConnect, let connections = walletConnections else { return false }
+        let result = !connections.isEmpty
         return result
+    }
+
+    var walletConnections: [CDWCConnection]? {
+        connections?.compactMap { $0 as? CDWCConnection }
+            .filter {
+                $0.localPeer?.role == WebConnectionPeerRole.dapp.rawValue &&
+                        $0.remotePeer?.role == WebConnectionPeerRole.wallet.rawValue
+            }
     }
 
     struct WalletConnectKeyMetadata: Codable {

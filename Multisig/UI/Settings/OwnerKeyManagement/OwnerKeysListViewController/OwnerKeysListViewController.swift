@@ -33,7 +33,6 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
         tableView.backgroundColor = .primaryBackground
 
-        tableView.registerCell(OwnerKeysListTableViewCell.self)
         tableView.registerCell(SigningKeyTableViewCell.self)
 
         tableView.rowHeight = UITableView.automaticDimension
