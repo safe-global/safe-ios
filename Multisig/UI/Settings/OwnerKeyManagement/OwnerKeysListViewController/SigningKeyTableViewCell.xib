@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,17 +22,29 @@
                         <rect key="frame" x="16" y="12" width="330" height="44"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B5c-16-Fab" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="222.5" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="188.5" height="44"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OnE-4a-wAn">
-                                <rect key="frame" x="226.5" y="0.0" width="24" height="44"/>
-                                <color key="tintColor" name="button"/>
+                                <rect key="frame" x="192.5" y="0.0" width="24" height="44"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="f3g-td-WFn"/>
                                     <constraint firstAttribute="height" constant="44" id="uka-ft-E0S"/>
                                 </constraints>
                             </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="e2K-Us-pLp">
+                                <rect key="frame" x="220.5" y="0.0" width="30" height="44"/>
+                                <subviews>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CYr-ch-ET4" customClass="TagView" customModule="Multisig" customModuleProvider="target">
+                                        <rect key="frame" x="30" y="0.0" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" placeholder="YES" id="YwO-ps-KHF"/>
+                                            <constraint firstAttribute="width" constant="30" placeholder="YES" id="dFw-BP-gJr"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Taq-7i-OG1" userLabel="Detail Label">
                                 <rect key="frame" x="254.5" y="0.0" width="41.5" height="44"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -62,14 +73,12 @@
                 <outlet property="cellDetailImageView" destination="tHL-yx-DP4" id="iy2-QG-fq6"/>
                 <outlet property="cellDetailLabel" destination="Taq-7i-OG1" id="Qdy-27-uOx"/>
                 <outlet property="connectionStatusImageView" destination="OnE-4a-wAn" id="Z11-gz-FGa"/>
+                <outlet property="networkIndicator" destination="CYr-ch-ET4" id="hsC-MF-A7H"/>
             </connections>
             <point key="canvasLocation" x="168.11594202898553" y="166.40625"/>
         </tableViewCell>
     </objects>
     <resources>
-        <namedColor name="button">
-            <color red="0.0" green="0.54509803921568623" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

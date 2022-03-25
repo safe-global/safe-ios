@@ -13,6 +13,7 @@ class SigningKeyTableViewCell: UITableViewCell {
     @IBOutlet weak var addressInfoView: AddressInfoView!
     @IBOutlet weak var connectionStatusImageView: UIImageView!
 
+    @IBOutlet weak var networkIndicator: TagView!
     @IBOutlet weak var cellDetailLabel: UILabel!
     @IBOutlet weak var cellDetailImageView: UIImageView!
 
@@ -45,6 +46,17 @@ class SigningKeyTableViewCell: UITableViewCell {
             cellDetailLabel.hideSkeleton()
         }
 
+        if keyInfo.connectedAsDapp,
+           let connection = keyInfo.walletConnections?.first,
+           let chain = Chain.by(String(connection.chainId)),
+           let name = chain.name {
+            networkIndicator.isHidden = false
+            networkIndicator.set(title: name, style: .footnote2.color(chain.textColor))
+            networkIndicator.backgroundColor = chain.backgroundColor
+        } else {
+            networkIndicator.isHidden = true
+        }
+
         cellDetailImageView.image = accessoryImage
         cellDetailImageView.isHidden = accessoryImage == nil
 
@@ -59,10 +71,13 @@ class SigningKeyTableViewCell: UITableViewCell {
             connectionStatusImageView.image = nil
         case .connected:
             connectionStatusImageView.image = UIImage(systemName: "circlebadge.fill")
+            connectionStatusImageView.tintColor = .button
         case .disconnected:
-            connectionStatusImageView.image = UIImage(systemName: "circlebadge")
+            connectionStatusImageView.image = UIImage(systemName: "circlebadge", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
+            connectionStatusImageView.tintColor = .gray2
         case .connectionProblem:
-            connectionStatusImageView.image = UIImage(named: "ico-warning")
+            connectionStatusImageView.image = UIImage(systemName: "exclamationmark.circle", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
+            connectionStatusImageView.tintColor = .error
         }
     }
 }

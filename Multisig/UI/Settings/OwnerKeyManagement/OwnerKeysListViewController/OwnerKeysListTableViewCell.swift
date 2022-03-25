@@ -10,10 +10,11 @@ import UIKit
 
 class OwnerKeysListTableViewCell: UITableViewCell {
     @IBOutlet private weak var addressInfoView: AddressInfoView!
+    @IBOutlet weak var networkIndicator: NetworkIndicator!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        networkIndicator.isHidden = true
         addressInfoView.copyEnabled = false
     }
 
