@@ -21,8 +21,6 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
     private var chain: Chain?
     private var keyInfo: KeyInfo?
 
-    private var wcConnector: WCWalletConnectionController!
-
     convenience init() {
         self.init(namedClass: WebConnectionContainerViewController.self)
     }

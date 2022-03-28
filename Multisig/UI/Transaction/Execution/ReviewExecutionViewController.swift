@@ -38,8 +38,6 @@ class ReviewExecutionViewController: ContainerViewController {
     private var txEstimationTask: URLSessionTask?
     private var sendingTask: URLSessionTask?
 
-    var wcConnector: WCWalletConnectionController!
-
     convenience init(safe: Safe,
                      chain: Chain,
                      transaction: SCGModels.TransactionDetails,

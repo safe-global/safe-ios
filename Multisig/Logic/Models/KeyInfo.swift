@@ -52,19 +52,6 @@ extension KeyInfo {
         return result
     }
 
-    struct WalletConnectKeyMetadata: Codable {
-        let walletInfo: Session.WalletInfo
-        let installedWallet: InstalledWallet?
-
-        var data: Data {
-            try! JSONEncoder().encode(self)
-        }
-
-        static func from(data: Data) -> Self? {
-            try? JSONDecoder().decode(Self.self, from: data)
-        }
-    }
-
     struct LedgerKeyMetadata: Codable {
         let uuid: UUID
         let path: String
@@ -76,13 +63,6 @@ extension KeyInfo {
         static func from(data: Data) -> Self? {
             try? JSONDecoder().decode(Self.self, from: data)
         }
-    }
-
-    /// WalletConnect keys store metadata with information if a key was connected with installed wallet on a device.
-    /// This parameter is a helper to fetch this data.
-    var installedWallet: InstalledWallet? {
-        guard let metadata = metadata else { return nil }
-        return WalletConnectKeyMetadata.from(data: metadata)?.installedWallet
     }
 
     static func name(address: Address) -> String? {
@@ -177,39 +157,6 @@ extension KeyInfo {
 
         item.save()
         try privateKey.save()
-
-        return item
-    }
-
-    /// Will save the key info from WalletConnect session in the persistence store.
-    /// - Parameters:
-    ///   - session: WalletConnect session object
-    @discardableResult
-    static func `import`(session: Session, installedWallet: InstalledWallet?, name: String?) throws -> KeyInfo? {
-        guard let walletInfo = session.walletInfo,
-              let addressString = walletInfo.accounts.first,
-              let address = Address(addressString) else {
-            return nil
-        }
-
-        let context = App.shared.coreDataStack.viewContext
-
-        let fr = KeyInfo.fetchRequest().by(address: address)
-        let item: KeyInfo
-
-        if (try context.fetch(fr).first) != nil {
-            throw GSError.DuplicateKey()
-        } else {
-            item = KeyInfo(context: context)
-            item.name = name
-        }
-
-        item.address = address
-        item.keyID = "walletconnect:\(address.checksummed)"
-        item.keyType = .walletConnect
-        item.metadata = WalletConnectKeyMetadata(walletInfo: walletInfo, installedWallet: installedWallet).data
-
-        item.save()
 
         return item
     }

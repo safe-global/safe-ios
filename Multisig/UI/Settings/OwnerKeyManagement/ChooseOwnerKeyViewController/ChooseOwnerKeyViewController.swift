@@ -42,11 +42,6 @@ class ChooseOwnerKeyViewController: UIViewController {
     private var isLoading: Bool = false
     private var pullToRefreshControl: UIRefreshControl!
 
-    // technically it is possible to select several wallets but to finish connection with one of them
-    private var walletPerTopic = [String: InstalledWallet]()
-    // `wcDidConnectClient` happens when app eneters foreground. This parameter should throttle unexpected events
-    private var waitingForSession = false
-
     var trackingEvent: TrackingEvent = .chooseOwner
     var completionHandler: ((KeyInfo?) -> Void)?
 
@@ -101,14 +96,8 @@ class ChooseOwnerKeyViewController: UIViewController {
 
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(walletConnectSessionCreated(_:)),
-            name: .wcDidConnectClient,
-            object: nil)
-
-        NotificationCenter.default.addObserver(
-            self,
             selector: #selector(reload),
-            name: .wcDidDisconnectClient,
+            name: .ownerKeyUpdated,
             object: nil)
 
         if balancesLoader != nil {
@@ -156,39 +145,6 @@ class ChooseOwnerKeyViewController: UIViewController {
             view.translatesAutoresizingMaskIntoConstraints = false
             headerContentView.addSubview(view)
             headerContentView.wrapAroundView(view)
-        }
-    }
-
-    // MARK: - Wallet Connect
-
-    @objc private func walletConnectSessionCreated(_ notification: Notification) {
-        guard waitingForSession else { return }
-        waitingForSession = false
-
-        guard let session = notification.object as? Session,
-              let account = Address(session.walletInfo?.accounts.first ?? ""),
-              owners.first(where: { $0.address == account }) != nil else {
-            WalletConnectClientController.shared.disconnect()
-            DispatchQueue.main.async { [unowned self] in
-                presentedViewController?.dismiss(animated: false, completion: nil)
-                App.shared.snackbar.show(message: "Wrong wallet connected. Please try again.")
-            }
-            return
-        }
-
-        DispatchQueue.main.async { [unowned self] in
-            // we need to update to always properly refresh session.walletInfo.peerId
-            // that we use to identify if the wallet is connected
-            _ = OwnerKeyController.updateKey(session: session,
-                                             installedWallet: walletPerTopic[session.url.topic])
-
-            // If the session is initiated with QR code, then we need to hide QR code controller
-            if let presented = presentedViewController {                
-                presented.dismiss(animated: false, completion: nil)
-            }
-
-            App.shared.snackbar.show(message: "Owner key wallet connected")
-            tableView.reloadData()
         }
     }
 
@@ -283,7 +239,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
             case .connected:
                 completionHandler?(keyInfo)
             case .disconnected, .none:
-                reconnect(key: keyInfo)
+                connect(keyInfo: keyInfo)
             case .connectionProblem:
                 App.shared.snackbar.show(error: GSError.KeyConnectionProblem())
             }
@@ -303,53 +259,42 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
         }
     }
 
-    private func reconnect(key keyInfo: KeyInfo) {
-        if let installedWallet = keyInfo.installedWallet {
-            reconnectWithInstalledWallet(installedWallet)
-        } else {
-            showConnectionQRCodeController()
-        }
-    }
-
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let keyInfo = owners[indexPath.row]
         guard keyInfo.keyType == .walletConnect else {
             return nil            
         }
 
-        let isConnected = WalletConnectClientController.shared.isConnected(keyInfo: keyInfo)
+        let isConnected = keyInfo.connectedAsDapp
 
-        let action = UIContextualAction(style: .normal, title: isConnected ? "Disconnect" : "Connect") {
+        let wcAction = UIContextualAction(style: .normal, title: isConnected ? "Disconnect" : "Connect") {
             [unowned self] _, _, completion in
 
             if isConnected {
-                WalletConnectClientController.shared.disconnect()
+                let alertController = DisconnectionConfirmationController.create(key: keyInfo)
+                if let popoverPresentationController = alertController.popoverPresentationController {
+                    popoverPresentationController.sourceView = tableView
+                    popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
+                }
+
+                self.present(alertController, animated: true)
             } else {
-                reconnect(key: keyInfo)
+                self.connect(keyInfo: keyInfo)
             }
 
             completion(true)
         }
-        action.backgroundColor = isConnected ? .orange : .button
+        wcAction.backgroundColor = isConnected ? .orange : .button
 
-        return UISwipeActionsConfiguration(actions: [action])
+        return UISwipeActionsConfiguration(actions: [wcAction])
     }
 
-    private func reconnectWithInstalledWallet(_ installedWallet: InstalledWallet) {
-        guard let topic = WalletConnectClientController.reconnectWithInstalledWallet(installedWallet) else { return }
-        walletPerTopic[topic] = installedWallet
-        waitingForSession = true
+    func connect(keyInfo: KeyInfo) {
+        let wcWallet = keyInfo.wallet.flatMap { WCAppRegistryRepository().entry(from: $0) }
+        let chain = chainID.flatMap(Chain.by(_:)) ?? Selection.current().safe?.chain ?? Chain.mainnetChain()
+        let walletConnectionVC = StartWalletConnectionViewController(wallet: wcWallet, chain: chain, keyInfo: keyInfo)
+        let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: wcWallet != nil)
+        present(vc, animated: true)
     }
 
-    private func showConnectionQRCodeController() {
-        WalletConnectClientController.showConnectionQRCodeController(from: self) { result in
-            switch result {
-            case .success(_):
-                waitingForSession = true
-            case .failure(let error):
-                App.shared.snackbar.show(
-                    error: GSError.error(description: "Could not create connection URL", error: error))
-            }
-        }
-    }
 }

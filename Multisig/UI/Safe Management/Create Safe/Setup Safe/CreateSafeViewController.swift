@@ -18,8 +18,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet private weak var createButton: UIButton!
     private var refreshControl: UIRefreshControl!
 
-    private var wcConnector: WCWalletConnectionController!
-
     var onClose: () -> Void = {}
 
     private var uiModel = CreateSafeFormUIModel()

@@ -14,9 +14,6 @@ fileprivate protocol SectionItem {}
 class OwnerKeyDetailsViewController: UITableViewController {
     // if not nil, then back button replaced with 'Done' button
     private var completion: (() -> Void)?
-
-    private var walletPerTopic = [String: InstalledWallet]()
-    private var waitingForSession = false
     
     private var keyInfo: KeyInfo!
     private var exportButton: UIBarButtonItem!
