@@ -148,6 +148,16 @@ extension Tracker {
         }
         Tracker.shared.track(event: event, parameters: parameters)
     }
+    
+    static func parametersWithWalletName(_ walletName: String, parameters: [String: Any]? = nil) -> [String: Any] {
+        var parameters = parameters ?? [String: Any]()
+        var walletName = walletName
+        if walletName.count > 100 {
+            walletName = String(walletName.prefix(100))
+        }
+        parameters["wallet"] = walletName
+        return parameters
+    }
 
     private static func shouldAddChainIdParam(for event: TrackingEvent) -> Bool {
         event.rawValue.starts(with: "screen") ||

@@ -577,10 +577,18 @@ class ReviewExecutionViewController: ContainerViewController {
                 trackedKeyType = "ledger_nano_x"
             }
 
-            successVC.trackingParams = [
+            let trackingParams = [
                 "keyType": trackedKeyType,
                 "chainId": self.controller.chainId
             ]
+            
+            if key.keyType == .walletConnect {
+                let connection = WebConnectionController.shared.walletConnection(keyInfo: key).first
+                let walletName = connection?.remotePeer?.name ?? "Unknown"
+                successVC.trackingParams = Tracker.parametersWithWalletName(walletName, parameters: trackingParams)
+            } else {
+                successVC.trackingParams = trackingParams
+            }
         }
 
         successVC.onDone = { [weak self] in
