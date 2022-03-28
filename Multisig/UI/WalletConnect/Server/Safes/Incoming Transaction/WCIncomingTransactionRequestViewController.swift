@@ -134,7 +134,7 @@ class WCIncomingTransactionRequestViewController: UIViewController {
         present(vc, animated: true)
     }
 
-    private func sendConfirmationAndDismiss(signature: String, trackingEvent: TrackingEvent) {
+    private func sendConfirmationAndDismiss(signature: String, trackingEvent: TrackingEvent, trackingParameters: [String: Any]? = nil) {
         guard let keyInfo = keyInfo else { return }
 
         DispatchQueue.main.async { [weak self] in
