@@ -494,11 +494,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         let validKeys = allKeys.filter { keyInfo in
             // if it's a wallet connect key which chain doesn't match then do not use it
             if keyInfo.keyType == .walletConnect,
-               let data = keyInfo.metadata,
-               let connection = KeyInfo.WalletConnectKeyMetadata.from(data: data),
+               let chainId = keyInfo.walletConnections?.first?.chainId,
                // when chainId is 0 then it is 'any' chain
-               connection.walletInfo.chainId != 0 &&
-                String(describing: connection.walletInfo.chainId) != chain.id {
+               chainId != 0 && String(chainId) != chain.id {
                 return false
             }
             // else use the key

@@ -46,22 +46,6 @@ extension KeyInfo {
         return result
     }
 
-<<<<<<< HEAD
-||||||| 2031e010
-    struct WalletConnectKeyMetadata: Codable {
-        let walletInfo: Session.WalletInfo
-        let installedWallet: InstalledWallet?
-
-        var data: Data {
-            try! JSONEncoder().encode(self)
-        }
-
-        static func from(data: Data) -> Self? {
-            try? JSONDecoder().decode(Self.self, from: data)
-        }
-    }
-
-=======
     var walletConnections: [CDWCConnection]? {
         connections?.compactMap { $0 as? CDWCConnection }
             .filter {
@@ -70,20 +54,6 @@ extension KeyInfo {
             }
     }
 
-    struct WalletConnectKeyMetadata: Codable {
-        let walletInfo: Session.WalletInfo
-        let installedWallet: InstalledWallet?
-
-        var data: Data {
-            try! JSONEncoder().encode(self)
-        }
-
-        static func from(data: Data) -> Self? {
-            try? JSONDecoder().decode(Self.self, from: data)
-        }
-    }
-
->>>>>>> 32ce94247ab56ae68abac8d2cb2239b0513c8498
     struct LedgerKeyMetadata: Codable {
         let uuid: UUID
         let path: String
