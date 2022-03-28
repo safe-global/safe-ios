@@ -335,7 +335,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                     try client.reconnect(to: session!)
                 }
             } catch {
-                handle(error: error, in: connection)
+                handle(error: userError(from: error), in: connection)
             }
         }
 
@@ -958,7 +958,20 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 }
             }
         } catch {
-            completion(.failure(error))
+            completion(.failure(userError(from: error)))
+        }
+    }
+
+    private func userError(from error: Error) -> Error {
+        switch error {
+        case WalletConnectSwift.Client.ClientError.missingWalletInfoInSession,
+            WalletConnectSwift.Client.ClientError.sessionNotFound,
+            WalletConnectSwift.Server.ServerError.missingWalletInfoInSession:
+            return WebConnectionError.connectionLost
+        case WalletConnectSwift.Server.ServerError.failedToCreateSessionResponse:
+            return WebConnectionError.connectionStartFailed
+        default:
+            return error
         }
     }
     
@@ -977,7 +990,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 self?.handleSignResponse($0, completion: completion)
             }
         } catch {
-            completion(.failure(error))
+            completion(.failure(userError(from: error)))
         }
     }
     
@@ -1006,7 +1019,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 }
             }
         } catch {
-            completion(.failure(error))
+            completion(.failure(userError(from: error)))
         }
     }
     
@@ -1070,5 +1083,7 @@ extension WebConnectionError {
     static let unsupportedConnectionType = WebConnectionError(errorCode: -8, message: "Unsupported connection type. Please try again.")
 
     static let unexpectedAccount = WebConnectionError(errorCode: -9, message: "Unexpected account change. Please connect new account instead of changing existing one.")
+
+    static let connectionLost = WebConnectionError(errorCode: -10, message: "Connection lost. Please reconnect and try again.")
 }
 
