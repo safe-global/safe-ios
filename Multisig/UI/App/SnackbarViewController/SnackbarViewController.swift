@@ -16,7 +16,7 @@ class SnackbarViewController: UIViewController {
     var notificationCenter = NotificationCenter.default
 
     // bottom constraint to animate showing/hiding of the message
-    @IBOutlet private weak var bottom: NSLayoutConstraint?
+    @IBOutlet private weak var top: NSLayoutConstraint?
     @IBOutlet private weak var textLabel: UILabel?
     @IBOutlet private weak var iconImageView: UIImageView!
 
@@ -24,6 +24,10 @@ class SnackbarViewController: UIViewController {
     private var bottomAnchor: CGFloat = ScreenMetrics.aboveTabBar
 
     private var currentMessage: Message?
+
+    let offscreen: CGFloat = 1000
+
+    let visible: CGFloat = -20
 
     // FIFO queue of messages
     private var messageQueue = [Message]()
@@ -53,7 +57,7 @@ class SnackbarViewController: UIViewController {
         textLabel?.text = ""
         iconImageView.image = nil
         iconImageView.isHidden = iconImageView.image == nil
-        moveSnackbarBottom(to: ScreenMetrics.offscreen)
+        moveSnackbar(to: offscreen)//  ScreenMetrics.offscreen)
         // to prevent keyboard overlaying the snackbar message
         notificationCenter.addObserver(self,
                                        selector: #selector(willShowKeyboard(_:)),
@@ -75,7 +79,7 @@ class SnackbarViewController: UIViewController {
         bottomAnchor = ScreenMetrics.aboveKeyboard(notification.keyboardFrame)
 
         if isShowingMessage {
-            moveSnackbarBottom(to: bottomAnchor)
+            moveSnackbar(to: visible)// bottomAnchor)
         }
     }
 
@@ -83,18 +87,18 @@ class SnackbarViewController: UIViewController {
         bottomAnchor = ScreenMetrics.aboveTabBar
 
         if isShowingMessage {
-            moveSnackbarBottom(to: bottomAnchor)
+            moveSnackbar(to: visible) //bottomAnchor)
         }
     }
 
-    private func moveSnackbarBottom(to newValue: CGFloat, completion: @escaping () -> Void = {}) {
+    private func moveSnackbar(to newValue: CGFloat, completion: @escaping () -> Void = {}) {
         UIView.animate(withDuration: 0.5,
                        delay: 0,
                        usingSpringWithDamping: 0.7,
                        initialSpringVelocity: 1,
                        options: .curveEaseInOut,
                        animations: { [weak self] in
-            self?.bottom?.constant = newValue
+            self?.top?.constant = newValue
             self?.view.layoutIfNeeded()
         }, completion: { _ in completion() })
     }
@@ -147,11 +151,11 @@ class SnackbarViewController: UIViewController {
     }
 
     private func showAnimated() {
-        moveSnackbarBottom(to: bottomAnchor)
+        moveSnackbar(to: visible) // bottomAnchor)
     }
 
     private func hideAnimated(completion: @escaping () -> Void = {}) {
-        moveSnackbarBottom(to: ScreenMetrics.offscreen) { [weak self] in
+        moveSnackbar(to: offscreen) { [weak self] in
             self?.currentMessage = nil
             completion()
         }

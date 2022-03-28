@@ -11,9 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SnackbarViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
-                <outlet property="bottom" destination="uEb-4T-RLh" id="faz-FL-EHg"/>
                 <outlet property="iconImageView" destination="8kN-GG-HXC" id="gBa-Kp-5G4"/>
                 <outlet property="textLabel" destination="j5u-rA-otV" id="CGa-fL-a7O"/>
+                <outlet property="top" destination="uEb-4T-RLh" id="faz-FL-EHg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,10 +23,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dark-card-background" translatesAutoresizingMaskIntoConstraints="NO" id="k6D-39-JiL">
-                    <rect key="frame" x="7" y="803.5" width="402" height="68.5"/>
+                    <rect key="frame" x="7" y="22" width="402" height="68.5"/>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ruJ-f4-jeJ">
-                    <rect key="frame" x="32" y="825.5" width="350" height="20.5"/>
+                    <rect key="frame" x="32" y="44" width="350" height="20.5"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="8kN-GG-HXC">
                             <rect key="frame" x="0.0" y="0.5" width="24" height="19.5"/>
@@ -44,7 +44,7 @@
                     </subviews>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hA7-1u-wdf">
-                    <rect key="frame" x="16" y="811.5" width="382" height="48.5"/>
+                    <rect key="frame" x="16" y="30" width="382" height="48.5"/>
                     <connections>
                         <action selector="didTapMessage:" destination="-1" eventType="touchUpInside" id="n6T-Gw-69s"/>
                     </connections>
@@ -62,7 +62,7 @@
                 <constraint firstItem="k6D-39-JiL" firstAttribute="bottom" secondItem="ruJ-f4-jeJ" secondAttribute="bottom" constant="14" id="k2J-8H-Xi4"/>
                 <constraint firstAttribute="trailing" secondItem="ruJ-f4-jeJ" secondAttribute="trailing" constant="32" id="p3Q-Pz-igq"/>
                 <constraint firstItem="hA7-1u-wdf" firstAttribute="bottom" secondItem="k6D-39-JiL" secondAttribute="bottom" id="qMY-hH-x1d"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ruJ-f4-jeJ" secondAttribute="bottom" constant="16" id="uEb-4T-RLh"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="ruJ-f4-jeJ" secondAttribute="top" id="uEb-4T-RLh"/>
             </constraints>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
