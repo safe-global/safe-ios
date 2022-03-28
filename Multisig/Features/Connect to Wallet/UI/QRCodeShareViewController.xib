@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QRCodeShareViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="qrCodeView" destination="hh7-oO-wgS" id="lb2-tw-9YE"/>
+                <outlet property="saveButton" destination="kkS-1V-tUd" id="R9g-JK-RQE"/>
+                <outlet property="shareButton" destination="eER-ky-Re5" id="dKt-NE-58N"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="MS7-7j-Pgm">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="hex-bn-gfY">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="762"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hh7-oO-wgS" customClass="QRCodeView" customModule="Multisig" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="762"/>
+                                </view>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="HJr-aF-gJe">
+                            <rect key="frame" x="0.0" y="774" width="414" height="44"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kkS-1V-tUd">
+                                    <rect key="frame" x="0.0" y="0.0" width="199" height="44"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="16" maxY="0.0"/>
+                                    <state key="normal" title="Save" image="square.and.arrow.down" catalog="system">
+                                        <color key="titleColor" red="0.32397973540000002" green="0.61783987279999997" blue="0.97258967159999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="didTapSave:" destination="-1" eventType="touchUpInside" id="5sS-jI-7Li"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eER-ky-Re5">
+                                    <rect key="frame" x="215" y="0.0" width="199" height="44"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="16" maxY="0.0"/>
+                                    <state key="normal" title="Share" image="square.and.arrow.up" catalog="system">
+                                        <color key="titleColor" red="0.32397973540000002" green="0.61783987279999997" blue="0.97258967159999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="didTapShare:" destination="-1" eventType="touchUpInside" id="tlp-GE-LCU"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="hjs-9U-KDC"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="MS7-7j-Pgm" secondAttribute="bottom" id="6OO-5a-6OE"/>
+                <constraint firstItem="MS7-7j-Pgm" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="My6-kT-r2I"/>
+                <constraint firstItem="MS7-7j-Pgm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bha-FS-2HX"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="MS7-7j-Pgm" secondAttribute="trailing" id="tzR-U7-YvN"/>
+            </constraints>
+            <point key="canvasLocation" x="137.68115942028987" y="153.34821428571428"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="square.and.arrow.down" catalog="system" width="32" height="32"/>
+        <image name="square.and.arrow.up" catalog="system" width="32" height="32"/>
+    </resources>
+</document>

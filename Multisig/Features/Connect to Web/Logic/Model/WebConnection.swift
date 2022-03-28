@@ -52,6 +52,7 @@ class WebConnection {
         self.remotePeer = remotePeer
         self.lastError = lastError
     }
+    
     var connectedAsDapp: Bool {
         if status == .opened, let localPeer = localPeer, let remotePeer = remotePeer {
             return localPeer.role == WebConnectionPeerRole.dapp && remotePeer.role == WebConnectionPeerRole.wallet

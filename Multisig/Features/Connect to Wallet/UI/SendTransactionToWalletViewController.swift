@@ -10,11 +10,9 @@ import Foundation
 import UIKit
 import WalletConnectSwift
 
-class SendTransactionToWalletViewController: PendingWalletActionViewController, WebConnectionObserver {
+class SendTransactionToWalletViewController: PendingWalletActionViewController {
 
     var transaction: Client.Transaction!
-    var timer: Timer?
-    var requestTimeout: TimeInterval = 120
 
     var onSuccess: ((Data) -> ())?
 
@@ -28,71 +26,21 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.text = "Sending transaction request to \(wallet.name)"
+        titleLabel.text = "Sending transaction request to \(walletName)"
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        sendTransactionWhenConnected()
-    }
-
-    func sendTransactionWhenConnected() {
-        let connections = WebConnectionController.shared.walletConnection(keyInfo: keyInfo)
-        if let connection = connections.first {
-            self.connection = connection
-                send()
-        } else {
-            connect { [ unowned self] connection in
-                self.connection = connection
-                if connection != nil {
-                    self.send()
-                } else {
-                    onCancel()
-                }
-            }
-        }
-    }
-
-    func send() {
-        guard checkNetwork() else {
-            App.shared.snackbar.show(message: "Please change wallet network to \(chain.name!)")
-            return
-        }
-        guard let connection = connection else { return }
-
-        WebConnectionController.shared.detach(observer: self)
-        WebConnectionController.shared.attach(observer: self, to: connection)
-
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: requestTimeout, repeats: false, block: { [weak self] _ in
-            guard let self = self else { return }
-            self.onCancel()
-        })
-
+    override func doRequest() {
         WebConnectionController.shared.sendTransaction(connection: connection, transaction: transaction) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .failure(let error):
                 App.shared.snackbar.show(message: error.localizedDescription)
-                self.onCancel()
+                self.doCancel()
             case .success(let data):
-                self.onSuccess?(data)
+                self.dismiss(animated: true) {
+                    self.onSuccess?(data)
+                }
             }
-        }
-        openWallet(connection: connection)
-    }
-
-    override func didTapCancel(_ sender: Any) {
-        onCancel()
-    }
-
-    deinit {
-        WebConnectionController.shared.detach(observer: self)
-    }
-
-    func didUpdate(connection: WebConnection) {
-        if connection.status == .final {
-            onCancel()
         }
     }
 }

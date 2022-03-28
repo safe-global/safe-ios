@@ -10,7 +10,7 @@ import UIKit
 import WalletConnectSwift
 
 class SelectWalletViewController: LoadableViewController {
-    private var completion: (_ wallet: WCAppRegistryEntry, _ connection: WebConnection) -> Void = { _, _ in }
+    private var completion: (_ wallet: WCAppRegistryEntry?, _ connection: WebConnection) -> Void = { _, _ in }
     private var connection: WebConnection?
 
     let searchController = UISearchController(searchResultsController: nil)
@@ -27,7 +27,7 @@ class SelectWalletViewController: LoadableViewController {
 
     override var isEmpty: Bool { wallets.isEmpty }
 
-    convenience init(completion: @escaping (_ wallet: WCAppRegistryEntry, _ connection: WebConnection) -> Void) {
+    convenience init(completion: @escaping (_ wallet: WCAppRegistryEntry?, _ connection: WebConnection) -> Void) {
         self.init(namedClass: Self.superclass())
         self.completion = completion
     }
@@ -136,28 +136,18 @@ extension SelectWalletViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func showQRCode() {
-        do {
-            let connectionURI = try WalletConnectClientController.shared.connect().absoluteString
-            show(WalletConnectQRCodeViewController.create(code: connectionURI), sender: nil)
-        } catch {
-            App.shared.snackbar.show(error: GSError.error(description: "Could not create connection URL", error: error))
-        }
+        connect(to: nil)
     }
 
-    func connect(to wallet: WCAppRegistryEntry) {
+    func connect(to wallet: WCAppRegistryEntry?) {
         cancelExistingConnection()
         let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
         let walletConnectionVC = StartWalletConnectionViewController(wallet: wallet, chain: chain)
-        walletConnectionVC.onSuccess = { [weak walletConnectionVC, weak self] connection in
+        walletConnectionVC.onSuccess = { [weak self] connection in
             self?.connection = connection
-            walletConnectionVC?.dismiss(animated: true) {
-                self?.completion(wallet, connection)
-            }
+            self?.completion(wallet, connection)
         }
-        walletConnectionVC.onCancel = { [weak walletConnectionVC] in
-            walletConnectionVC?.dismiss(animated: true, completion: nil)
-        }
-        let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: true)
+        let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: wallet != nil)
         present(vc, animated: true)
     }
 

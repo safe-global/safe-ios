@@ -205,15 +205,12 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
         case .walletConnect:
             let hexMessage = self.request.message.toHexStringWithPrefix()
 
-            let vc = SignatureRequestToWalletViewController(hexMessage, keyInfo: keyInfo, chain: self.chain ?? Chain.mainnetChain())
-            vc.onSuccess = { [weak self, weak vc] signature in
-                guard let self = self else { return }
-                assert(Thread.isMainThread)
-                vc?.dismiss(animated: true) {
-                    let signature = Data(hex: signature)
-                    self.confirm(signature: signature)
-                }
+            let signVC = SignatureRequestToWalletViewController(hexMessage, keyInfo: keyInfo, chain: self.chain ?? Chain.mainnetChain())
+            signVC.onSuccess = { [weak self] signature in
+                let signatureData = Data(hex: signature)
+                self?.confirm(signature: signatureData)
             }
+            let vc = ViewControllerFactory.pageSheet(viewController: signVC, halfScreen: true)
             self.present(vc, animated: true)
 
         case .ledgerNanoX:

@@ -218,18 +218,6 @@ class OwnerKeyDetailsViewController: UITableViewController {
         present(alertController, animated: true)
     }
 
-    private func showConnectionQRCodeController() {
-        WalletConnectClientController.showConnectionQRCodeController(from: self) { result in
-            switch result {
-            case .success(_):
-                waitingForSession = true
-            case .failure(let error):
-                App.shared.snackbar.show(
-                    error: GSError.error(description: "Could not create connection URL", error: error))
-            }
-        }
-    }
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         sections.count
     }
@@ -294,12 +282,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
                 let alertController = DisconnectionConfirmationController.create(key: keyInfo)
                 present(alertController, animated: true)
             } else {
-                // try to reconnect
-                if let _ = keyInfo.wallet {
-                    self.connect(keyInfo: keyInfo)
-                } else {
-                    self.showConnectionQRCodeController()
-                }
+                self.connect(keyInfo: keyInfo)
             }
         case Section.PushNotificationConfiguration.enabled:
             do {
@@ -382,29 +365,10 @@ class OwnerKeyDetailsViewController: UITableViewController {
 
     //TODO remove duplication
     func connect(keyInfo: KeyInfo) {
-        guard let wallet = keyInfo.wallet, let wcWallet = WCAppRegistryRepository().entry(from: wallet) else {
-            return
-        }
-
+        let wcWallet = keyInfo.wallet.flatMap { WCAppRegistryRepository().entry(from: $0) }
         let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
-
-        let walletConnectionVC = StartWalletConnectionViewController(wallet: wcWallet, chain: chain)
-        walletConnectionVC.onSuccess = { [weak walletConnectionVC] connection in
-            walletConnectionVC?.dismiss(animated: true) {
-                guard connection.accounts.contains(keyInfo.address) else {
-                    App.shared.snackbar.show(error: GSError.WCConnectedKeyMissingAddress())
-                    return
-                }
-
-                if OwnerKeyController.updateKey(connection: connection, wallet: wcWallet) {
-                    App.shared.snackbar.show(message: "Key connected successfully")
-                }
-            }
-        }
-        walletConnectionVC.onCancel = { [weak walletConnectionVC] in
-            walletConnectionVC?.dismiss(animated: true, completion: nil)
-        }
-        let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: true)
+        let walletConnectionVC = StartWalletConnectionViewController(wallet: wcWallet, chain: chain, keyInfo: keyInfo)
+        let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: wcWallet != nil)
         present(vc, animated: true)
     }
 }

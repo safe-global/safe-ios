@@ -132,19 +132,16 @@ class RejectionConfirmationViewController: UIViewController {
     private func rejectWithWalletConnect(_ transaction: Transaction, keyInfo: KeyInfo) {
         guard presentedViewController == nil else { return }
 
-        let vc = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: safe.chain!)
-        vc.onSuccess = { [weak self, weak vc] signature in
-            vc?.dismiss(animated: true) {
-                DispatchQueue.main.async {
-                    self?.rejectAndCloseController(signature: signature)
-                }
+        let signVC = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: safe.chain!)
+        signVC.onSuccess = { [weak self] signature in
+            DispatchQueue.main.async {
+                self?.rejectAndCloseController(signature: signature)
             }
         }
-        vc.onCancel = { [weak self, weak vc] in
-            vc?.dismiss(animated: true) {
-                self?.endLoading()
-            }
+        signVC.onCancel = { [weak self] in
+            self?.endLoading()
         }
+        let vc = ViewControllerFactory.pageSheet(viewController: signVC, halfScreen: true)
         present(vc, animated: true)
     }
 
