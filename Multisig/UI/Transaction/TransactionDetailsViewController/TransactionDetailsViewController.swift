@@ -328,7 +328,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         case .walletConnect:
             let signVC = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: safe.chain!)
             signVC.onSuccess = { [weak self] signature in
-                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: .walletConnect)
+                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyInfo: keyInfo)
             }
             signVC.onCancel = { [weak self] in
                 self?.reloadData()
