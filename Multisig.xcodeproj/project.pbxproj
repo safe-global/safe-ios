@@ -91,8 +91,6 @@
 		049257AE273C239C00507C33 /* String+Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049257AD273C239C00507C33 /* String+Highlight.swift */; };
 		0493A28B262979820056EC49 /* UpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0493A28A262979820056EC49 /* UpdateController.swift */; };
 		049A9D0E25F7C66E00CA5723 /* OwnerKeysListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */; };
-		049A9D1F25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */; };
-		049A9D2025F7CF7400CA5723 /* OwnerKeysListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049A9D1E25F7CF7400CA5723 /* OwnerKeysListTableViewCell.xib */; };
 		049A9D3A25F81F2C00CA5723 /* EditOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D3825F81F2C00CA5723 /* EditOwnerKeyViewController.swift */; };
 		049A9D3B25F81F2C00CA5723 /* EditOwnerKeyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049A9D3925F81F2C00CA5723 /* EditOwnerKeyViewController.xib */; };
 		049A9D7025F9303000CA5723 /* ChooseOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D6E25F9303000CA5723 /* ChooseOwnerKeyViewController.swift */; };
@@ -867,8 +865,6 @@
 		049257AD273C239C00507C33 /* String+Highlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Highlight.swift"; sourceTree = "<group>"; };
 		0493A28A262979820056EC49 /* UpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateController.swift; sourceTree = "<group>"; };
 		049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListViewController.swift; sourceTree = "<group>"; };
-		049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListTableViewCell.swift; sourceTree = "<group>"; };
-		049A9D1E25F7CF7400CA5723 /* OwnerKeysListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OwnerKeysListTableViewCell.xib; sourceTree = "<group>"; };
 		049A9D3825F81F2C00CA5723 /* EditOwnerKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOwnerKeyViewController.swift; sourceTree = "<group>"; };
 		049A9D3925F81F2C00CA5723 /* EditOwnerKeyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditOwnerKeyViewController.xib; sourceTree = "<group>"; };
 		049A9D6E25F9303000CA5723 /* ChooseOwnerKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseOwnerKeyViewController.swift; sourceTree = "<group>"; };
@@ -1788,8 +1784,6 @@
 				550FB1A326691CD700C13D54 /* SigningKeyTableViewCell.swift */,
 				550FB1A426691CD800C13D54 /* SigningKeyTableViewCell.xib */,
 				049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */,
-				049A9D1D25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift */,
-				049A9D1E25F7CF7400CA5723 /* OwnerKeysListTableViewCell.xib */,
 			);
 			path = OwnerKeysListViewController;
 			sourceTree = "<group>";
@@ -3846,7 +3840,6 @@
 				049A9DB225FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib in Resources */,
 				0ABE698927920294003338AF /* ErrorTableViewCell.xib in Resources */,
 				04077B38278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.xib in Resources */,
-				049A9D2025F7CF7400CA5723 /* OwnerKeysListTableViewCell.xib in Resources */,
 				0A9A1A33257924C600B44405 /* DetailMultiAccountsCell.xib in Resources */,
 				0A9A1A37257924C600B44405 /* DetailAccountCell.xib in Resources */,
 				0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */,
@@ -4344,7 +4337,6 @@
 				048D72D7268DACAF0095999C /* NetworksListViewModel.swift in Sources */,
 				0A0391CE27C565D4003C871A /* IconButtonTableViewCell.swift in Sources */,
 				0ADD19C3265EA23200EB0F2B /* SeedPhraseViewController.swift in Sources */,
-				049A9D1F25F7CF7400CA5723 /* OwnerKeysListTableViewCell.swift in Sources */,
 				0A791D9D24D2FD5C00D70DA9 /* SnackbarHostView.swift in Sources */,
 				0AD0274525A3586800886671 /* ActionDetailViewController.swift in Sources */,
 				0A045080278DAD9000650F71 /* DisclosureWithContentCell.swift in Sources */,

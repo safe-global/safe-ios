@@ -41,17 +41,49 @@ extension KeyInfo {
     }
 
     var connectedAsDapp: Bool {
-        guard keyType == .walletConnect, let connections = connections else { return false }
-        let walletConnections = connections
-                .compactMap { $0 as? CDWCConnection }
-                .filter {
-                    $0.localPeer?.role == WebConnectionPeerRole.dapp.rawValue &&
-                            $0.remotePeer?.role == WebConnectionPeerRole.wallet.rawValue
-                }
-        let result = !walletConnections.isEmpty
+        guard keyType == .walletConnect, let connections = walletConnections else { return false }
+        let result = !connections.isEmpty
         return result
     }
 
+<<<<<<< HEAD
+||||||| 2031e010
+    struct WalletConnectKeyMetadata: Codable {
+        let walletInfo: Session.WalletInfo
+        let installedWallet: InstalledWallet?
+
+        var data: Data {
+            try! JSONEncoder().encode(self)
+        }
+
+        static func from(data: Data) -> Self? {
+            try? JSONDecoder().decode(Self.self, from: data)
+        }
+    }
+
+=======
+    var walletConnections: [CDWCConnection]? {
+        connections?.compactMap { $0 as? CDWCConnection }
+            .filter {
+                $0.localPeer?.role == WebConnectionPeerRole.dapp.rawValue &&
+                        $0.remotePeer?.role == WebConnectionPeerRole.wallet.rawValue
+            }
+    }
+
+    struct WalletConnectKeyMetadata: Codable {
+        let walletInfo: Session.WalletInfo
+        let installedWallet: InstalledWallet?
+
+        var data: Data {
+            try! JSONEncoder().encode(self)
+        }
+
+        static func from(data: Data) -> Self? {
+            try? JSONDecoder().decode(Self.self, from: data)
+        }
+    }
+
+>>>>>>> 32ce94247ab56ae68abac8d2cb2239b0513c8498
     struct LedgerKeyMetadata: Codable {
         let uuid: UUID
         let path: String
