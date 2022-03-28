@@ -665,10 +665,20 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                     LogService.shared.error("Error checking whether key exists: \(error)")
                 }
             } else if connection.localPeer?.role == .dapp {
-                // TODO: handle change in the key
-                // check that the key is still the same
-                // otherwise we need either close the connection or change the key info
-                // and then handle that the key might be duplicated
+                // we don't support changing accounts because we keep the addresses static in the owner key list.
+                // i.e. if we do, then we would need to allow potentially duplicate owner keys and modify the
+                // existing key info on such account change.
+                // another alternative would be to allow changing the account as long as it doesn't duplicate another
+                // owner key.
+
+                let changedAccounts = walletInfo.accounts.compactMap(Address.init)
+                let existingAccounts = connection.accounts
+
+                if Set(changedAccounts) != Set(existingAccounts) {
+                    connection.lastError = WebConnectionError.unexpectedAccount.localizedDescription
+                    self.update(connection, to: .closed)
+                    return
+                }
             }
 
             // all checks passed, update the connection.
@@ -879,7 +889,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     }
 
     // create connection to a wallet
-    func connect(wallet info: WCAppRegistryEntry, chainId: Int?) throws -> WebConnection {
+    func connect(wallet info: WCAppRegistryEntry?, chainId: Int?) throws -> WebConnection {
         let handshakeTopic = UUID().uuidString
         let bridgeURL = App.configuration.walletConnect.bridgeURL
         guard let encryptionKey = Data(randomOfSize: 32) else {
@@ -892,7 +902,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         return connection
     }
 
-    func createWalletConnection(from url: WebConnectionURL, info: WCAppRegistryEntry) -> WebConnection {
+    func createWalletConnection(from url: WebConnectionURL, info: WCAppRegistryEntry?) -> WebConnection {
         let connection = WebConnection(connectionURL: url)
         connection.createdDate = Date()
         connection.localPeer = WebConnectionPeerInfo(
@@ -905,7 +915,8 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 icons: [URL(string: "https://gnosis-safe.io/app/favicon.ico")!],
                 deeplinkScheme: "gnosissafe:"
         )
-        connection.remotePeer = WebConnectionPeerInfo(
+        if let info = info {
+            connection.remotePeer = WebConnectionPeerInfo(
                 peerId: "",
                 peerType: .wallet,
                 role: .wallet,
@@ -914,6 +925,17 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 description: info.description,
                 icons: info.imageLargeUrl.map { [$0] } ?? [],
                 deeplinkScheme: info.linkMobileNative?.absoluteString)
+        } else {
+            connection.remotePeer = WebConnectionPeerInfo(
+                peerId: "",
+                peerType: .wallet,
+                role: .wallet,
+                url: URL(string: "https://gnosis-safe.io/")!,
+                name: "WalletConnect",
+                description: "WalletConnect",
+                icons: [],
+                deeplinkScheme: "wc:")
+        }
         return connection
     }
 
@@ -1055,5 +1077,7 @@ extension WebConnectionError {
     static let configurationError = WebConnectionError(errorCode: -7, message: "Configuration error. Please try again.")
 
     static let unsupportedConnectionType = WebConnectionError(errorCode: -8, message: "Unsupported connection type. Please try again.")
+
+    static let unexpectedAccount = WebConnectionError(errorCode: -9, message: "Unexpected account change. Please connect new account instead of changing existing one.")
 }
 

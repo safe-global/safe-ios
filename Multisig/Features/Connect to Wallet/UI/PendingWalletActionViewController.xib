@@ -11,7 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PendingWalletActionViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="VRJ-GF-qrI" id="S8M-y0-AA3"/>
                 <outlet property="cancelButton" destination="JeW-DZ-gTV" id="LBt-VT-Edt"/>
+                <outlet property="contentView" destination="MZZ-mm-9zb" id="sfL-23-vYB"/>
                 <outlet property="titleLabel" destination="1FL-Rg-KxA" id="b2K-U1-T5I"/>
                 <outlet property="view" destination="iN0-l3-epB" id="JFi-JI-VS3"/>
                 <outlet property="walletImage" destination="zQU-3H-XIr" id="XcT-nl-biK"/>
@@ -22,7 +24,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="PWO-xb-Oxv">
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="PWO-xb-Oxv">
                     <rect key="frame" x="16" y="60" width="382" height="786"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zQU-3H-XIr">
@@ -32,19 +34,23 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1FL-Rg-KxA">
-                            <rect key="frame" x="0.0" y="64" width="382" height="20.5"/>
+                            <rect key="frame" x="0.0" y="48" width="382" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="I4B-CQ-E2c">
-                            <rect key="frame" x="0.0" y="116.5" width="382" height="581.5"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MZZ-mm-9zb">
+                            <rect key="frame" x="0.0" y="84.5" width="382" height="629.5"/>
                             <subviews>
                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="VRJ-GF-qrI">
-                                    <rect key="frame" x="0.0" y="281" width="382" height="20"/>
+                                    <rect key="frame" x="181" y="305" width="20" height="20"/>
                                 </activityIndicatorView>
                             </subviews>
-                        </stackView>
+                            <constraints>
+                                <constraint firstItem="VRJ-GF-qrI" firstAttribute="centerX" secondItem="MZZ-mm-9zb" secondAttribute="centerX" id="4sJ-lS-Gph"/>
+                                <constraint firstItem="VRJ-GF-qrI" firstAttribute="centerY" secondItem="MZZ-mm-9zb" secondAttribute="centerY" id="za4-KD-Yjx"/>
+                            </constraints>
+                        </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JeW-DZ-gTV">
                             <rect key="frame" x="0.0" y="730" width="382" height="56"/>
                             <constraints>

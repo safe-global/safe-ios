@@ -11,7 +11,11 @@ import UIKit
 
 class QRCodeView: UINibView {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet weak var imageView: UIImageView!
+
+    var showsBorder: Bool = true
+
+    var imageSizeInPoints: CGFloat = 300
 
     var value: String = "" {
         didSet {
@@ -20,8 +24,9 @@ class QRCodeView: UINibView {
             self.spinner.startAnimating()
 
             let value = self.value
+            let imageSize = self.imageSizeInPoints
             DispatchQueue.global().async { [weak self] in
-                let image = UIImage.generateQRCode(value: value, size: .init(width: 300, height: 300))
+                let image = UIImage.generateQRCode(value: value, size: .init(width: imageSize, height: imageSize))
 
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
@@ -34,9 +39,17 @@ class QRCodeView: UINibView {
 
     override func commonInit() {
         super.commonInit()
-        layer.borderWidth = 2
-        layer.borderColor = UIColor.gray4.cgColor
-        layer.cornerRadius = 10
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if showsBorder {
+            layer.borderWidth = 2
+            layer.borderColor = UIColor.gray4.cgColor
+            layer.cornerRadius = 10
+        } else {
+            layer.borderWidth = 0
+        }
     }
 
 }

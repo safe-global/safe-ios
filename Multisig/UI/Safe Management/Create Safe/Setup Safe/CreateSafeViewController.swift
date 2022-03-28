@@ -742,38 +742,21 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 return
             }
 
-            wcConnector = WCWalletConnectionController()
-            wcConnector.connect(keyInfo: keyInfo, from: self) { [weak self] success in
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) { [weak self] in
-                    guard let self = self else { return }
-
-                    defer { self.wcConnector = nil }
-
-                    guard success else {
-                        return
-                    }
-                    
-                    let vc = SendTransactionToWalletViewController(
-                        transaction: clientTx,
-                        keyInfo: keyInfo,
-                        chain: self.chain ?? Chain.mainnetChain()
-                    )
-                    vc.onCancel = { [weak vc] in
-                        vc?.dismiss(animated: true) {
-                            self.uiModel.didSubmitFailed(nil)
-                        }
-                    }
-                    vc.onSuccess = { [weak self, weak vc] txHashData in
-                        guard let self = self else { return }
-                        assert(Thread.isMainThread)
-                        vc?.dismiss(animated: true) {
-                            self.uiModel.didSubmitTransaction(txHash: Eth.Hash(txHashData))
-                            self.uiModel.didSubmitSuccess()
-                        }
-                    }
-                    self.present(vc, animated: true)
-                }
+            let sendTxVC = SendTransactionToWalletViewController(
+                transaction: clientTx,
+                keyInfo: keyInfo,
+                chain: self.chain ?? Chain.mainnetChain()
+            )
+            sendTxVC.onCancel = { [weak self] in
+                self?.uiModel.didSubmitFailed(nil)
             }
+            sendTxVC.onSuccess = { [weak self] txHashData in
+                guard let self = self else { return }
+                self.uiModel.didSubmitTransaction(txHash: Eth.Hash(txHashData))
+                self.uiModel.didSubmitSuccess()
+            }
+            let vc = ViewControllerFactory.pageSheet(viewController: sendTxVC, halfScreen: true)
+            present(vc, animated: true)
 
         case .ledgerNanoX:
             let rawTransaction = uiModel.transaction.preImageForSigning()

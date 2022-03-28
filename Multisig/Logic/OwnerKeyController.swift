@@ -51,7 +51,7 @@ class OwnerKeyController {
 
             return true
         } catch {
-            if let err = error as? GSError.CouldNotAddOwnerKeyWithSameAddressAndDifferentType {
+            if let err = error as? GSError.DuplicateKey {
                 App.shared.snackbar.show(error: err)
             } else {
                 let err = GSError.error(description: "Failed to add WalletConnect owner", error: error)
@@ -62,18 +62,21 @@ class OwnerKeyController {
     }
 
     @discardableResult
-    static func importKey(connection: WebConnection, wallet: WCAppRegistryEntry, name: String) -> Bool {
+    static func importKey(connection: WebConnection, wallet: WCAppRegistryEntry?, name: String) -> Bool {
         do {
-            try KeyInfo.import(connection: connection, wallet: wallet, name: name)
+            let newKey = try KeyInfo.import(connection: connection, wallet: wallet, name: name)
+
+            guard newKey != nil else { return false }
 
             Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
             NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
 
-            Tracker.trackEvent(.connectInstalledWallet, parameters: ["wallet": wallet.name])
+            let name = wallet?.name ?? connection.remotePeer?.name ?? "unknown"
+            Tracker.trackEvent(.connectInstalledWallet, parameters: ["wallet": name])
 
             return true
         } catch {
-            if let err = error as? GSError.CouldNotAddOwnerKeyWithSameAddressAndDifferentType {
+            if let err = error as? GSError.DuplicateKey {
                 App.shared.snackbar.show(error: err)
             } else {
                 let err = GSError.error(description: "Failed to add WalletConnect owner", error: error)
@@ -83,14 +86,17 @@ class OwnerKeyController {
         }
     }
 
-    static func updateKey(connection: WebConnection, wallet: WCAppRegistryEntry) -> Bool {
+    static func updateKey(_ keyInfo: KeyInfo, connection: WebConnection, wallet: WCAppRegistryEntry?) -> Bool {
         do {
-            try KeyInfo.update(connection: connection)
+            let updatedKey = try KeyInfo.update(keyInfo: keyInfo, connection: connection)
+
+            guard updatedKey != nil else { return false }
 
             Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
             NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
 
-            Tracker.trackEvent(.connectInstalledWallet, parameters: ["wallet": wallet.name])
+            let name = wallet?.name ?? connection.remotePeer?.name ?? "unknown"
+            Tracker.trackEvent(.connectInstalledWallet, parameters: ["wallet": name])
 
             return true
         } catch {
@@ -114,7 +120,7 @@ class OwnerKeyController {
             Tracker.trackEvent(.ledgerKeyImported)
             return true
         } catch {
-            if let err = error as? GSError.CouldNotAddOwnerKeyWithSameAddressAndDifferentType {
+            if let err = error as? GSError.DuplicateKey {
                 App.shared.snackbar.show(error: err)
             } else {
                 let err = GSError.error(description: "Failed to add Ledger owner", error: error)

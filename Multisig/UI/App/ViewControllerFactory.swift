@@ -99,7 +99,7 @@ enum ViewControllerFactory {
         navController.modalPresentationStyle = .pageSheet
         if halfScreen, #available(iOS 15.0, *) {
             if let sheet = navController.sheetPresentationController {
-                sheet.detents = [.medium()]
+                sheet.detents = [.medium(), .large()]
             }
         }
         navController.view.backgroundColor = .secondaryBackground
