@@ -33,34 +33,6 @@ class OwnerKeyController {
         }
     }
 
-    /// Import WalletConnect key
-    @discardableResult
-    static func importKey(session: Session, installedWallet: InstalledWallet?, name: String) -> Bool {
-        do {
-            try KeyInfo.import(session: session, installedWallet: installedWallet, name: name)
-
-            Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
-            NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
-
-            if let installedWallet = installedWallet {
-                Tracker.trackEvent(.connectInstalledWallet, parameters: ["wallet": installedWallet.name])
-            } else {
-                let walletName = session.walletInfo?.peerMeta.name ?? "Unknown"
-                Tracker.trackEvent(.connectExternalWallet, parameters: Tracker.parametersWithWalletName(walletName))
-            }
-
-            return true
-        } catch {
-            if let err = error as? GSError.DuplicateKey {
-                App.shared.snackbar.show(error: err)
-            } else {
-                let err = GSError.error(description: "Failed to add WalletConnect owner", error: error)
-                App.shared.snackbar.show(error: err)
-            }
-            return false
-        }
-    }
-
     @discardableResult
     static func importKey(connection: WebConnection, wallet: WCAppRegistryEntry?, name: String) -> Bool {
         do {
@@ -130,25 +102,9 @@ class OwnerKeyController {
         }
     }
 
-    // we need to update to always properly refresh session.walletInfo.peerId
-    // that we use to identify if the wallet is connected
-    static func updateKey(session: Session, installedWallet: InstalledWallet?) -> Bool {
-        do {
-            try KeyInfo.import(session: session, installedWallet: installedWallet, name: session.walletInfo?.peerMeta.name)
-            return true
-        } catch {
-            let err = GSError.error(description: "Failed to update WalletConnect owner key", error: error)
-            App.shared.snackbar.show(error: err)
-            return false
-        }
-    }
-
     static func remove(keyInfo: KeyInfo) {
         do {
             // this should be done before calling keyInfo.delete()
-            if keyInfo.keyType == .walletConnect {
-                WalletConnectClientController.shared.disconnect()
-            }
             WebConnectionController.shared.userDidDelete(account: keyInfo.address)
             try keyInfo.delete()
             App.shared.notificationHandler.signingKeyUpdated()

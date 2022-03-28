@@ -16,9 +16,6 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
     override var isEmpty: Bool {
         keys.isEmpty
     }
-
-    private var walletPerTopic = [String: InstalledWallet]()
-    private var waitingForSession = false
     
     convenience init() {
         self.init(namedClass: LoadableViewController.self)
@@ -43,18 +40,6 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
         addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton(_:)))
         navigationItem.rightBarButtonItem = addButton
-
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(walletConnectSessionCreated(_:)),
-            name: .wcDidConnectClient,
-            object: nil)
-
-        notificationCenter.addObserver(
-            self,
-            selector: #selector(reload),
-            name: .wcDidDisconnectClient,
-            object: nil)
 
         for notification in [NSNotification.Name.selectedSafeChanged,
                                 .selectedSafeUpdated,
@@ -84,37 +69,6 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         setNeedsReload(false)
         onSuccess()
         tableView.reloadData()
-    }
-
-    @objc private func walletConnectSessionCreated(_ notification: Notification) {
-        guard waitingForSession else { return }
-        waitingForSession = false
-
-        guard let session = notification.object as? Session,
-              let account = Address(session.walletInfo?.accounts.first ?? ""),
-              keys.first(where: { $0.address == account }) != nil else {
-            WalletConnectClientController.shared.disconnect()
-            DispatchQueue.main.async { [unowned self] in
-                presentedViewController?.dismiss(animated: false, completion: nil)
-                App.shared.snackbar.show(message: "Wrong wallet connected. Please try again.")
-            }
-            return
-        }
-
-        DispatchQueue.main.async { [unowned self] in
-            // we need to update to always properly refresh session.walletInfo.peedId
-            // that we use to identify if the wallet is connected
-            _ = OwnerKeyController.updateKey(session: session,
-                                               installedWallet: walletPerTopic[session.url.topic])
-
-            if let presented = presentedViewController {
-                // QR code controller
-                presented.dismiss(animated: false, completion: nil)
-            }
-
-            App.shared.snackbar.show(message: "Owner key wallet connected")
-            tableView.reloadData()
-        }
     }
 
     @objc private func reload() {
@@ -221,12 +175,6 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         alertController.addAction(remove)
         alertController.addAction(cancel)
         present(alertController, animated: true)
-    }
-
-    private func reconnectWithInstalledWallet(_ installedWallet: InstalledWallet) {
-        guard let topic = WalletConnectClientController.reconnectWithInstalledWallet(installedWallet) else { return }
-        walletPerTopic[topic] = installedWallet
-        waitingForSession = true
     }
 
 }

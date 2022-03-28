@@ -21,7 +21,6 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
     private var contentVC: SendTransactionContentViewController!
     private var balanceLoader: DefaultAccountBalanceLoader!
     private var estimationController: TransactionEstimationController!
-    private var wcConnector: WCWalletConnectionController!
 
     private var fee: UInt256?
     private var balance: UInt256?
