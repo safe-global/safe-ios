@@ -320,7 +320,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         case .deviceImported, .deviceGenerated:
             do {
                 let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
-                confirmAndRefresh(safeTxHash: safeTxHash, signature: signature.hexadecimal, keyType: keyInfo.keyType)
+                confirmAndRefresh(safeTxHash: safeTxHash, signature: signature.hexadecimal, keyInfo: keyInfo)
             } catch {
                 onError(GSError.error(description: "Failed to confirm transaction", error: error))
             }
@@ -329,7 +329,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             let vc = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: safe.chain!)
             vc.onSuccess = { [weak self, weak vc] signature in
                 vc?.dismiss(animated: true) {
-                    self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: .walletConnect)
+                    self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyInfo: keyInfo)
                 }
             }
             vc.onCancel = { [weak self, weak vc] in
@@ -351,7 +351,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             })
 
             vc.completion = { [weak self] signature in
-                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyType: .ledgerNanoX)
+                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyInfo: keyInfo)
             }
 
             vc.onClose = { [weak self] in
@@ -360,7 +360,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         }
     }
 
-    private func confirmAndRefresh(safeTxHash: String, signature: String, keyType: KeyType) {
+    private func confirmAndRefresh(safeTxHash: String, signature: String, keyInfo: KeyInfo) {
         super.reloadData()
         confirmDataTask = App.shared.clientGatewayService.asyncConfirm(safeTxHash: safeTxHash,
                                                                        signature: signature,
@@ -376,11 +376,12 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                         NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
                         App.shared.snackbar.show(message: "Confirmation successfully submitted")
 
-                        switch keyType {
+                        switch keyInfo.keyType {
                         case .deviceGenerated, .deviceImported:
                             Tracker.trackEvent(.transactionDetailsTransactionConfirmed)
                         case .walletConnect:
-                            Tracker.trackEvent(.transactionDetailsTxConfirmedWC)
+                            let walletName = keyInfo.wallet?.name ?? "Unknown"
+                            Tracker.trackEvent(.transactionDetailsTxConfirmedWC, parameters: Tracker.parametersWithWalletName(walletName))
                         case .ledgerNanoX:
                             Tracker.trackEvent(.transactionDetailsTxConfirmedLedgerNanoX)
                         }

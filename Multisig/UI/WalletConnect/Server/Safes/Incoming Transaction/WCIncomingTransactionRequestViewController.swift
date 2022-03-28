@@ -127,8 +127,14 @@ class WCIncomingTransactionRequestViewController: UIViewController {
         vc.onSuccess = { [weak self, weak vc] signature in
             vc?.dismiss(animated: true) {
                 DispatchQueue.global().async {
-                    self?.sendConfirmationAndDismiss(signature: signature,
-                                                     trackingEvent: .incomingTxConfirmedWalletConnect)
+                    
+                    let walletName = keyInfo.wallet?.name ?? "Unknown"
+                    
+                    self?.sendConfirmationAndDismiss(
+                        signature: signature,
+                        trackingEvent: .incomingTxConfirmedWalletConnect,
+                        trackingParameters: Tracker.parametersWithWalletName(walletName, parameters: self?.trackingParameters)
+                    )
                 }
             }
         }
@@ -138,7 +144,7 @@ class WCIncomingTransactionRequestViewController: UIViewController {
         present(vc, animated: true)
     }
 
-    private func sendConfirmationAndDismiss(signature: String, trackingEvent: TrackingEvent) {
+    private func sendConfirmationAndDismiss(signature: String, trackingEvent: TrackingEvent, trackingParameters: [String: Any]? = nil) {
         guard let keyInfo = keyInfo else { return }
 
         DispatchQueue.main.async { [weak self] in

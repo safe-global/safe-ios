@@ -45,7 +45,8 @@ class OwnerKeyController {
             if let installedWallet = installedWallet {
                 Tracker.trackEvent(.connectInstalledWallet, parameters: ["wallet": installedWallet.name])
             } else {
-                Tracker.trackEvent(.connectExternalWallet)
+                let walletName = session.walletInfo?.peerMeta.name ?? "Unknown"
+                Tracker.trackEvent(.connectExternalWallet, parameters: Tracker.parametersWithWalletName(walletName))
             }
 
             return true
