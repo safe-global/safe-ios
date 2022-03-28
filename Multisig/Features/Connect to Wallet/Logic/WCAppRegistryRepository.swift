@@ -40,11 +40,18 @@ class WCAppRegistryRepository {
         assert(Thread.isMainThread)
         let context = App.shared.coreDataStack.viewContext
 
+
+
         // delete all existing entries
         guard let cdEntries = (try? CDWCAppRegistryEntry.getAll()) else {
             return
         }
+        var keysByEntry: [String: KeyInfo] = [:]
         for entry in cdEntries {
+            // keep relationship between existing entry and a key
+            if let id = entry.id {
+                keysByEntry[id] = entry.key
+            }
             context.delete(entry)
         }
 
@@ -52,6 +59,8 @@ class WCAppRegistryRepository {
         for entry in entries {
             let cdEntry = CDWCAppRegistryEntry.create()
             update(cdEntry: cdEntry, with: entry)
+            // restore relationship to the key
+            cdEntry.key = keysByEntry[entry.id]
         }
 
         App.shared.coreDataStack.saveContext()
