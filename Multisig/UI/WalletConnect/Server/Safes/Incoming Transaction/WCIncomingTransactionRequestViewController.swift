@@ -127,9 +127,8 @@ class WCIncomingTransactionRequestViewController: UIViewController {
         vc.onSuccess = { [weak self, weak vc] signature in
             vc?.dismiss(animated: true) {
                 DispatchQueue.global().async {
-                    
-                    let walletName = keyInfo.wallet?.name ?? "Unknown"
-                    
+                    let connection = WebConnectionController.shared.walletConnection(keyInfo: keyInfo).first
+                    let walletName = connection?.remotePeer?.name ?? "Unknown"
                     self?.sendConfirmationAndDismiss(
                         signature: signature,
                         trackingEvent: .incomingTxConfirmedWalletConnect,

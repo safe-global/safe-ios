@@ -589,7 +589,8 @@ class ReviewExecutionViewController: ContainerViewController {
             ]
             
             if key.keyType == .walletConnect {
-                let walletName = key.wallet?.name ?? "Unknown"
+                let connection = WebConnectionController.shared.walletConnection(keyInfo: key).first
+                let walletName = connection?.remotePeer?.name ?? "Unknown"
                 successVC.trackingParams = Tracker.parametersWithWalletName(walletName, parameters: trackingParams)
             } else {
                 successVC.trackingParams = trackingParams
