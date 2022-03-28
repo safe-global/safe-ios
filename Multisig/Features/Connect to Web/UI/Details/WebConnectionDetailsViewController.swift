@@ -139,8 +139,11 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
 
         case .network:
             let cell = contentCell()
-            cell.accessoryType = .disclosureIndicator
-            cell.selectionStyle = .default
+
+            if connection.connectedAsWallet {
+                cell.accessoryType = .disclosureIndicator
+                cell.selectionStyle = .default
+            }
 
             cell.setText("Network")
             let content = NetworkIndicator()
@@ -171,7 +174,9 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
             if text == nil || text!.isEmpty {
                 text = peer.name
             }
-            cell.setContent(textView(text))
+            let label = textView(text)
+            label.numberOfLines = 0
+            cell.setContent(label)
             return cell
 
         case .expirationDate:
@@ -222,7 +227,7 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
         return cell
     }
 
-    func textView(_ text: String?) -> UIView {
+    func textView(_ text: String?) -> UILabel {
         let label = UILabel()
         label.textAlignment = .right
         label.setStyle(.secondary)
@@ -239,7 +244,9 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
             openExpirationDateEditor()
 
         case .network:
-            changeNetwork()
+            if connection.connectedAsWallet {
+                changeNetwork()
+            }
 
         case .key:
             if connection.connectedAsWallet {

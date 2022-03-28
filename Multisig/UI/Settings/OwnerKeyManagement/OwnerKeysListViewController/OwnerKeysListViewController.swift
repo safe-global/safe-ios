@@ -97,10 +97,6 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         tableView.deselectRow(at: indexPath, animated: true)
         let keyInfo = keys[indexPath.row]
         let vc = OwnerKeyDetailsViewController(keyInfo: keyInfo)
-        if keyInfo.keyType == .walletConnect,
-           KeyConnectionStatus.init(keyInfo: keyInfo, chainID: chainID) == .connectionProblem {
-            App.shared.snackbar.show(error: GSError.KeyConnectionProblem())
-        }
         show(vc, sender: nil)
     }
 

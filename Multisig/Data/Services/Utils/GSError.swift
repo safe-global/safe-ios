@@ -403,9 +403,9 @@ enum GSError {
     }
 
     struct KeyConnectionProblem: DetailedLocalizedError {
-        let description: String = "Couldn't use connection session"
-        let reason = "Something is wrong with the connection session."
-        let howToFix = "Please recreate connection session and make sure to use same selected network"
+        let description: String = "Can't use this account"
+        let reason = "wrong network selected."
+        let howToFix = "Please change the selected network of the connected key."
         let domain = clientErrorDomain
         let code = 9907
         let loggable = false

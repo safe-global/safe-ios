@@ -543,7 +543,12 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
 
         do {
-            try server.updateSession(session, with: walletInfo)
+            if connection.connectedAsWallet {
+                try server.updateSession(session, with: walletInfo)
+            } else {
+                let request = try Request(url: connection.connectionURL.wcURL, method: "wc_sessionUpdate", params: [walletInfo], id: nil)
+                try client.send(request, completion: nil)
+            }
 
             update(connection, to: .opened)
         } catch {
@@ -954,20 +959,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             }
         } catch {
             completion(.failure(error))
-        }
-    }
-
-    func userDidRequestToChangeWalletNetwork(_ chain: Chain, connection: WebConnection) {
-        guard let tempConnection = self.connection(for: connection.connectionURL), let newChainId = chain.id.flatMap(Int.init) else { return }
-        tempConnection.chainId = newChainId
-        guard let session = sessionTransformer.session(from: tempConnection), let walletInfo = session.walletInfo else {
-            return
-        }
-        do {
-            let request = try Request(url: tempConnection.connectionURL.wcURL, method: "wc_sessionUpdate", params: [walletInfo], id: nil)
-            try client.send(request, completion: nil)
-        } catch {
-            LogService.shared.error("Failed to update session: \(error)")
         }
     }
     
