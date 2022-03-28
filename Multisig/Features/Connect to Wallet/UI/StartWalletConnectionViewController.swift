@@ -29,6 +29,7 @@ class StartWalletConnectionViewController: PendingWalletActionViewController {
             titleLabel.text = "Scan QR code in your wallet"
             qrCodeController = QRCodeShareViewController()
             viewControllers = [qrCodeController]
+            activityIndicator.isHidden = true
         }
     }
 

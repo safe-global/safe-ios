@@ -147,7 +147,7 @@ extension SelectWalletViewController: UITableViewDelegate, UITableViewDataSource
             self?.connection = connection
             self?.completion(wallet, connection)
         }
-        let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: true)
+        let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: wallet != nil)
         present(vc, animated: true)
     }
 

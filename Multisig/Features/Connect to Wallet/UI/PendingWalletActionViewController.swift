@@ -13,6 +13,7 @@ class PendingWalletActionViewController: ContainerViewController, UIAdaptivePres
     @IBOutlet weak var walletImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var contentView: UIView!
 
     var onCancel: () -> Void = {}
@@ -107,7 +108,7 @@ class PendingWalletActionViewController: ContainerViewController, UIAdaptivePres
             completion(nil)
         }
 
-        let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: true)
+        let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: wallet != nil)
         present(vc, animated: true)
     }
 

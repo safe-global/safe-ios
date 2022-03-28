@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PendingWalletActionViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="VRJ-GF-qrI" id="S8M-y0-AA3"/>
                 <outlet property="cancelButton" destination="JeW-DZ-gTV" id="LBt-VT-Edt"/>
                 <outlet property="contentView" destination="MZZ-mm-9zb" id="sfL-23-vYB"/>
                 <outlet property="titleLabel" destination="1FL-Rg-KxA" id="b2K-U1-T5I"/>

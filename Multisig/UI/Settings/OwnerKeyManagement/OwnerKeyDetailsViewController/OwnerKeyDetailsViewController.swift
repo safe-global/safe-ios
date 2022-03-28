@@ -368,7 +368,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
         let wcWallet = keyInfo.wallet.flatMap { WCAppRegistryRepository().entry(from: $0) }
         let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
         let walletConnectionVC = StartWalletConnectionViewController(wallet: wcWallet, chain: chain, keyInfo: keyInfo)
-        let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: true)
+        let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: wcWallet != nil)
         present(vc, animated: true)
     }
 }
