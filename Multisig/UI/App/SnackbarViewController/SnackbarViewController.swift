@@ -20,13 +20,9 @@ class SnackbarViewController: UIViewController {
     @IBOutlet private weak var textLabel: UILabel?
     @IBOutlet private weak var iconImageView: UIImageView!
 
-    // storage of the bottom anchor for when the message is visible
-    private var bottomAnchor: CGFloat = ScreenMetrics.aboveTabBar
-
     private var currentMessage: Message?
 
     let offscreen: CGFloat = 1000
-
     let visible: CGFloat = -20
 
     // FIFO queue of messages
@@ -57,38 +53,13 @@ class SnackbarViewController: UIViewController {
         textLabel?.text = ""
         iconImageView.image = nil
         iconImageView.isHidden = iconImageView.image == nil
-        moveSnackbar(to: offscreen)//  ScreenMetrics.offscreen)
-        // to prevent keyboard overlaying the snackbar message
-        notificationCenter.addObserver(self,
-                                       selector: #selector(willShowKeyboard(_:)),
-                                       name: UIWindow.keyboardWillShowNotification,
-                                       object: nil)
-        notificationCenter.addObserver(self,
-                                       selector: #selector(willHideKeyboard(_:)),
-                                       name: UIWindow.keyboardWillHideNotification,
-                                       object: nil)
+        moveSnackbar(to: offscreen)
     }
 
     static func show(_ message: String, duration: TimeInterval = 4, icon: IconSource = .none) {
         dispatchPrecondition(condition: .onQueue(.main))
         instance?.enqueue(Message(value: message, duration: duration, icon: icon))
         instance?.process()
-    }
-
-    @objc private func willShowKeyboard(_ notification: Notification) {
-        bottomAnchor = ScreenMetrics.aboveKeyboard(notification.keyboardFrame)
-
-        if isShowingMessage {
-            moveSnackbar(to: visible)// bottomAnchor)
-        }
-    }
-
-    @objc private func willHideKeyboard(_ notification: Notification) {
-        bottomAnchor = ScreenMetrics.aboveTabBar
-
-        if isShowingMessage {
-            moveSnackbar(to: visible) //bottomAnchor)
-        }
     }
 
     private func moveSnackbar(to newValue: CGFloat, completion: @escaping () -> Void = {}) {
