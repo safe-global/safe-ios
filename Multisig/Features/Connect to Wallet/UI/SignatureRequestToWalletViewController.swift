@@ -21,7 +21,7 @@ class SignatureRequestToWalletViewController: PendingWalletActionViewController 
 
     convenience init(_ transaction: Client.Transaction, keyInfo: KeyInfo, chain: Chain) {
         self.init(namedClass: PendingWalletActionViewController.self)
-        self.wallet = WCAppRegistryRepository().entry(from: keyInfo.wallet!)
+        self.wallet = keyInfo.wallet.flatMap { WCAppRegistryRepository().entry(from: $0) }
         self.keyInfo = keyInfo
         self.clientTransaction = transaction
         self.chain = chain
@@ -29,7 +29,7 @@ class SignatureRequestToWalletViewController: PendingWalletActionViewController 
     
     convenience init(_ transaction: Transaction, keyInfo: KeyInfo, chain: Chain, isRejection: Bool = false) {
         self.init(namedClass: PendingWalletActionViewController.self)
-        self.wallet = WCAppRegistryRepository().entry(from: keyInfo.wallet!)
+        self.wallet = keyInfo.wallet.flatMap { WCAppRegistryRepository().entry(from: $0) }
         self.keyInfo = keyInfo
         self.transaction = transaction
         self.isRejection = isRejection
@@ -38,7 +38,7 @@ class SignatureRequestToWalletViewController: PendingWalletActionViewController 
     
     convenience init(_ message: String, keyInfo: KeyInfo, chain: Chain) {
         self.init(namedClass: PendingWalletActionViewController.self)
-        self.wallet = WCAppRegistryRepository().entry(from: keyInfo.wallet!)
+        self.wallet = keyInfo.wallet.flatMap { WCAppRegistryRepository().entry(from: $0) }
         self.keyInfo = keyInfo
         self.message = message
         self.chain = chain

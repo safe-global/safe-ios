@@ -26,11 +26,15 @@ class PendingWalletActionViewController: ContainerViewController, UIAdaptivePres
     var requestTimeout: TimeInterval = 120
 
     var walletName: String {
-        wallet?.name ?? connection.remotePeer?.name ?? "wallet"
+        wallet?.name ?? connection?.remotePeer?.name ?? "wallet"
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if let keyInfo = keyInfo, connection == nil {
+            connection = WebConnectionController.shared.walletConnection(keyInfo: keyInfo).first
+        }
         
         let placeholder = UIImage(named: "ico-wallet-placeholder")
         walletImage.setImage(

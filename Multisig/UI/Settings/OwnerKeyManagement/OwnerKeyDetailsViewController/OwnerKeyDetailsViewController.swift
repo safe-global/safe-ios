@@ -167,39 +167,43 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
     }
 
     @objc private func reloadData() {
-        DispatchQueue.main.async { [unowned self] in
-            // it may happen that key info is updated in the CoreData but the current managed object
-            // that we retained here is not updated.
-            if let key = keyInfo {
-                keyInfo = try? KeyInfo.firstKey(address: key.address)
-            }
-
-            self.sections = [
-                (section: .name("OWNER NAME"), items: [Section.Name.name]),
-
-                (section: .keyAddress("OWNER ADDRESS"),
-                        items: [Section.KeyAddress.address]),
-
-                (section: .ownerKeyType("OWNER TYPE"),
-                        items: [Section.OwnerKeyType.type])]
-
-            if self.keyInfo.keyType == .walletConnect {
-                self.sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
-            }
-
-            if [.walletConnect, .ledgerNanoX].contains(keyInfo.keyType) {
-                self.sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
-                        items: [Section.PushNotificationConfiguration.enabled]))
-                if self.keyInfo.delegateAddress != nil {
-                    self.sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
-                            items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
-                }
-            }
-
-            self.sections.append((section: .advanced, items: [Section.Advanced.remove]))
-
-            self.tableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.doReloadData()
         }
+    }
+
+    private func doReloadData() {
+        // it may happen that key info is updated in the CoreData but the current managed object
+        // that we retained here is not updated.
+        if let key = keyInfo {
+            keyInfo = try? KeyInfo.firstKey(address: key.address)
+        }
+
+        self.sections = [
+            (section: .name("OWNER NAME"), items: [Section.Name.name]),
+
+            (section: .keyAddress("OWNER ADDRESS"),
+                    items: [Section.KeyAddress.address]),
+
+            (section: .ownerKeyType("OWNER TYPE"),
+                    items: [Section.OwnerKeyType.type])]
+
+        if self.keyInfo.keyType == .walletConnect {
+            self.sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
+        }
+
+        if [.walletConnect, .ledgerNanoX].contains(keyInfo.keyType) {
+            self.sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
+                    items: [Section.PushNotificationConfiguration.enabled]))
+            if self.keyInfo.delegateAddress != nil {
+                self.sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
+                        items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
+            }
+        }
+
+        self.sections.append((section: .advanced, items: [Section.Advanced.remove]))
+
+        self.tableView.reloadData()
     }
 
     @objc private func pop() {

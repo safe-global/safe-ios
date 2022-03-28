@@ -18,7 +18,7 @@ class SendTransactionToWalletViewController: PendingWalletActionViewController {
 
     convenience init(transaction: Client.Transaction, keyInfo: KeyInfo, chain: Chain) {
         self.init(namedClass: PendingWalletActionViewController.self)
-        self.wallet = WCAppRegistryRepository().entry(from: keyInfo.wallet!)
+        self.wallet = keyInfo.wallet.flatMap { WCAppRegistryRepository().entry(from: $0) }
         self.keyInfo = keyInfo
         self.transaction = transaction
         self.chain = chain
