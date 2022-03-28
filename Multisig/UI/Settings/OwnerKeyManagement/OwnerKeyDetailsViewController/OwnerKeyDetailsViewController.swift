@@ -11,7 +11,7 @@ import WalletConnectSwift
 
 fileprivate protocol SectionItem {}
 
-class OwnerKeyDetailsViewController: UITableViewController {
+class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserver {
     // if not nil, then back button replaced with 'Done' button
     private var completion: (() -> Void)?
     
@@ -24,7 +24,7 @@ class OwnerKeyDetailsViewController: UITableViewController {
     private var sections = [SectionItems]()
     private var addKeyController: DelegateKeyController!
 
-    private var connection: WebConnection!
+    private var connection: WebConnection?
 
     enum Section {
         case name(String)
@@ -114,6 +114,12 @@ class OwnerKeyDetailsViewController: UITableViewController {
             selector: #selector(pop),
             name: .ownerKeyRemoved,
             object: nil)
+
+        connection = WebConnectionController.shared.walletConnection(keyInfo: keyInfo).first
+
+        if let connection = connection {
+            WebConnectionController.shared.attach(observer: self, to: connection)
+        }
 
         reloadData()
     }
@@ -365,8 +371,26 @@ class OwnerKeyDetailsViewController: UITableViewController {
         let wcWallet = keyInfo.wallet.flatMap { WCAppRegistryRepository().entry(from: $0) }
         let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
         let walletConnectionVC = StartWalletConnectionViewController(wallet: wcWallet, chain: chain, keyInfo: keyInfo)
+        walletConnectionVC.onSuccess = { [weak self] connection in
+            guard let self = self else { return }
+            self.connection = connection
+            WebConnectionController.shared.attach(observer: self, to: connection)
+        }
         let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: wcWallet != nil)
         present(vc, animated: true)
+    }
+
+    func didUpdate(connection: WebConnection) {
+        self.connection = connection
+        if connection.status == .final {
+            self.connection = nil
+            WebConnectionController.shared.detach(observer: self)
+        }
+        reloadData()
+    }
+
+    deinit {
+        WebConnectionController.shared.detach(observer: self)
     }
 }
 

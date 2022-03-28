@@ -335,7 +335,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                     try client.reconnect(to: session!)
                 }
             } catch {
-                handle(error: error, in: connection)
+                handle(error: userError(from: error), in: connection)
             }
         }
 
@@ -543,7 +543,12 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
 
         do {
-            try server.updateSession(session, with: walletInfo)
+            if connection.connectedAsWallet {
+                try server.updateSession(session, with: walletInfo)
+            } else {
+                let request = try Request(url: connection.connectionURL.wcURL, method: "wc_sessionUpdate", params: [walletInfo], id: nil)
+                try client.send(request, completion: nil)
+            }
 
             update(connection, to: .opened)
         } catch {
@@ -953,21 +958,20 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 }
             }
         } catch {
-            completion(.failure(error))
+            completion(.failure(userError(from: error)))
         }
     }
 
-    func userDidRequestToChangeWalletNetwork(_ chain: Chain, connection: WebConnection) {
-        guard let tempConnection = self.connection(for: connection.connectionURL), let newChainId = chain.id.flatMap(Int.init) else { return }
-        tempConnection.chainId = newChainId
-        guard let session = sessionTransformer.session(from: tempConnection), let walletInfo = session.walletInfo else {
-            return
-        }
-        do {
-            let request = try Request(url: tempConnection.connectionURL.wcURL, method: "wc_sessionUpdate", params: [walletInfo], id: nil)
-            try client.send(request, completion: nil)
-        } catch {
-            LogService.shared.error("Failed to update session: \(error)")
+    private func userError(from error: Error) -> Error {
+        switch error {
+        case WalletConnectSwift.Client.ClientError.missingWalletInfoInSession,
+            WalletConnectSwift.Client.ClientError.sessionNotFound,
+            WalletConnectSwift.Server.ServerError.missingWalletInfoInSession:
+            return WebConnectionError.connectionLost
+        case WalletConnectSwift.Server.ServerError.failedToCreateSessionResponse:
+            return WebConnectionError.connectionStartFailed
+        default:
+            return error
         }
     }
     
@@ -986,7 +990,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 self?.handleSignResponse($0, completion: completion)
             }
         } catch {
-            completion(.failure(error))
+            completion(.failure(userError(from: error)))
         }
     }
     
@@ -1015,7 +1019,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 }
             }
         } catch {
-            completion(.failure(error))
+            completion(.failure(userError(from: error)))
         }
     }
     
@@ -1079,5 +1083,7 @@ extension WebConnectionError {
     static let unsupportedConnectionType = WebConnectionError(errorCode: -8, message: "Unsupported connection type. Please try again.")
 
     static let unexpectedAccount = WebConnectionError(errorCode: -9, message: "Unexpected account change. Please connect new account instead of changing existing one.")
+
+    static let connectionLost = WebConnectionError(errorCode: -10, message: "Connection lost. Please reconnect and try again.")
 }
 
