@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ADVANCED_TX_PARAMS_URL</key>
+	<string>$(ADVANCED_TX_PARAMS_URL)</string>
 	<key>APP_GROUP_ID</key>
 	<string>$(APP_GROUP_ID)</string>
 	<key>APP_STORE_REVIEW_URL</key>
@@ -39,32 +41,28 @@
 	<string>1</string>
 	<key>CLIENT_GATEWAY_URL</key>
 	<string>$(CLIENT_GATEWAY_URL)</string>
+	<key>CONFIRMATIONS_URL</key>
+	<string>$(CONFIRMATIONS_URL)</string>
 	<key>CONFLICT_URL</key>
 	<string>$(CONFLICT_URL)</string>
 	<key>CONNECT_DAPP_ON_MOBILE_URL</key>
 	<string>$(CONNECT_DAPP_ON_MOBILE_URL)</string>
 	<key>CONTACT_EMAIL</key>
 	<string>$(CONTACT_EMAIL)</string>
+	<key>CREATE_SAFE_URL</key>
+	<string>$(CREATE_SAFE_URL)</string>
+	<key>DELEGATE_KEY_URL</key>
+	<string>$(DELEGATE_KEY_URL)</string>
+	<key>DESKTOP_PAIRING_URL</key>
+	<string>$(DESKTOP_PAIRING_URL)</string>
 	<key>DISCORD_URL</key>
 	<string>$(DISCORD_URL)</string>
 	<key>FALLBACKHANDLER_URL</key>
 	<string>$(FALLBACKHANDLER_URL)</string>
-	<key>DELEGATE_KEY_URL</key>
-	<string>$(DELEGATE_KEY_URL)</string>
 	<key>FEATURE_SUGGESTION_URL</key>
 	<string>$(FEATURE_SUGGESTION_URL)</string>
-	<key>ADVANCED_TX_PARAMS_URL</key>
-	<string>$(ADVANCED_TX_PARAMS_URL)</string>
-	<key>DESKTOP_PAIRING_URL</key>
-	<string>$(DESKTOP_PAIRING_URL)</string>
-	<key>LEDGER_PAIRING_URL</key>
-	<string>$(LEDGER_PAIRING_URL)</string>
-	<key>CREATE_SAFE_URL</key>
-	<string>$(CREATE_SAFE_URL)</string>
-	<key>CONFIRMATIONS_URL</key>
-	<string>$(CONFIRMATIONS_URL)</string>
-	<key>WALLETCONNECT_REGISTRY_URL</key>
-	<string>$(WALLETCONNECT_REGISTRY_URL)</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>FirebaseCrashlyticsCollectionEnabled</key>
 	<false/>
 	<key>GNOSIS_SAFE_WEB_URL</key>
@@ -75,12 +73,16 @@
 	<string>$(HELP_CENTER_URL)</string>
 	<key>INFURA_API_KEY</key>
 	<string>$(INFURA_API_KEY)</string>
-	<key>INTERCOM_APP_ID</key>
-	<string>$(INTERCOM_APP_ID)</string>
 	<key>INTERCOM_API_KEY</key>
 	<string>$(INTERCOM_API_KEY)</string>
+	<key>INTERCOM_APP_ID</key>
+	<string>$(INTERCOM_APP_ID)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>IntercomAutoIntegratePushNotifications</key>
+	<string>NO</string>
+	<key>LEDGER_PAIRING_URL</key>
+	<string>$(LEDGER_PAIRING_URL)</string>
 	<key>LICENSES_URL</key>
 	<string>$(LICENSES_URL)</string>
 	<key>LOGGERS</key>
@@ -151,6 +153,8 @@
 	<string>Safe need to use camera to scan QR code.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>This will allow Gnosis Safe to access your Face ID to open app and sign transactions.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The app needs access to the photo library if you need to share your screenshot with our support team.</string>
 	<key>PAY_FOR_CANCELLATION_URL</key>
 	<string>$(PAY_FOR_CANCELLATION_URL)</string>
 	<key>PRIVACY_URL</key>
@@ -247,11 +251,7 @@
 	</array>
 	<key>WALLETCONNECT_BRIDGE_URL</key>
 	<string>$(WALLETCONNECT_BRIDGE_URL)</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>The app needs access to the photo library if you need to share your screenshot with our support team.</string>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
-	<key>IntercomAutoIntegratePushNotifications</key>
-	<string>NO</string>
+	<key>WALLETCONNECT_REGISTRY_URL</key>
+	<string>$(WALLETCONNECT_REGISTRY_URL)</string>
 </dict>
 </plist>
