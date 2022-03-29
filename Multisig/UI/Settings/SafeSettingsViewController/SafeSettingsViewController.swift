@@ -20,8 +20,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     private var currentDataTask: URLSessionTask?
     private var sections = [SectionItems]()
-    private var safe: Safe!
-    private var ensLoader: ENSNameLoader!
+    private var safe: Safe?
+    private var ensLoader: ENSNameLoader?
 
     enum Section {
         case name(String)
@@ -118,9 +118,12 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         super.reloadData()
         currentDataTask?.cancel()
         do {
-            safe = try Safe.getSelected()!
-            currentDataTask = clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
-                                                                 chainId: safe.chain!.id!) { [weak self] result in
+            guard let selectedSafe = try Safe.getSelected() else {
+                return
+            }
+            safe = selectedSafe
+            currentDataTask = clientGatewayService.asyncSafeInfo(safeAddress: selectedSafe.addressValue,
+                                                                 chainId: selectedSafe.chain!.id!) { [weak self] result in
                 guard let `self` = self else { return }
                 switch result {
                 case .failure(let error):
@@ -138,9 +141,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 case .success(let safeInfo):
                     DispatchQueue.main.async { [weak self] in
                         guard let `self` = self else { return }
-                        self.safe.update(from: safeInfo)
-                        self.updateSections()
-                        self.ensLoader = ENSNameLoader(safe: self.safe, delegate: self)
+                        if let safe = self.safe {
+                            safe.update(from: safeInfo)
+                            self.updateSections()
+                            self.ensLoader = ENSNameLoader(safe: safe, delegate: self)
+                        }
                         self.onSuccess()
                     }
                 }
@@ -151,7 +156,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     private func updateSections() {
-        sections = [
+        sections = []
+
+        guard let safe = safe else { return }
+
+        sections += [
             (section: .name("Safe Name"), items: [Section.Name.name(safe.name ?? "Safe \(safe.addressValue.ellipsized())")]),
 
             (section: .requiredConfirmations("Required confirmations"),
@@ -193,7 +202,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard isValid(path: indexPath) else {
+        guard isValid(path: indexPath), let safe = safe else {
             return UITableViewCell()
         }
         let item = sections[indexPath.section].items[indexPath.row]
@@ -225,7 +234,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                                    prefix: safe.chain!.shortName)
 
         case Section.EnsName.ensName:
-            if ensLoader.isLoading {
+            if ensLoader == nil || ensLoader!.isLoading {
                 return loadingCell(name: nil, indexPath: indexPath)
             } else {
                 return loadingCell(name: safe.ensName ?? "Reverse record not set", indexPath: indexPath)
@@ -248,7 +257,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 }
 
                 let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
-                    Safe.remove(safe: self.safe)
+                    if let safe = self.safe {
+                        Safe.remove(safe: safe)
+                    }
                 }
                 let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 alertController.addAction(remove)
@@ -280,8 +291,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         cell.setAddress(info, status: status, version: version, prefix: prefix)
         cell.selectionStyle = .none
         cell.onViewDetails = { [weak self] in
-            guard let `self` = self else { return }
-            self.openInSafari(self.safe.chain!.browserURL(address: info.address.checksummed))
+            guard let `self` = self, let safe = self.safe else { return }
+            self.openInSafari(safe.chain!.browserURL(address: info.address.checksummed))
         }
         return cell
     }
@@ -307,12 +318,13 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.Name.name(_):
+            guard let safe = safe else { return }
             let editSafeNameViewController = EditSafeNameViewController()
             editSafeNameViewController.name = safe.name
             editSafeNameViewController.completion = { name in
                 DispatchQueue.main.async { [weak self] in
                     guard let `self` = self else { return }
-                    self.safe.update(name: name)
+                    self.safe?.update(name: name)
                     self.navigationController?.popViewController(animated: true)
                 }
             }
