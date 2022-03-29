@@ -1028,14 +1028,19 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             var signature = try response.result(as: String.self)
 
             var signatureBytes = Data(hex: signature).bytes
-            var v = signatureBytes.last!
-            if v < 27 {
-                v += 27
-                signatureBytes[signatureBytes.count - 1] = v
-                signature = Data(signatureBytes).toHexStringWithPrefix()
-            }
 
-            completion(.success(signature))
+            if signatureBytes.count == 65 {
+                var v = signatureBytes.last!
+                if v < 27 {
+                    v += 27
+                    signatureBytes[signatureBytes.count - 1] = v
+                    signature = Data(signatureBytes).toHexStringWithPrefix()
+                }
+
+                completion(.success(signature))
+            } else {
+                completion(.success(signature))
+            }
         } catch {
             completion(.failure(error))
         }
