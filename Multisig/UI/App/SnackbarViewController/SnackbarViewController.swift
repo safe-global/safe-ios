@@ -94,7 +94,7 @@ class SnackbarViewController: UIViewController {
             iconImageView.image = image
 
         case .success:
-            let icon = UIImage(systemName: "checkmark.circle.fill")?.withTintColor(.button)
+            let icon = UIImage(systemName: "checkmark.circle.fill")?.withTintColor(.button, renderingMode: .alwaysOriginal)
             iconImageView.image = icon
         }
         iconImageView.isHidden = iconImageView.image == nil
