@@ -92,13 +92,20 @@ class StartWalletConnectionViewController: PendingWalletActionViewController {
     }
 
     func checkCorrectChain() -> Bool {
+        // always succeeds, but shows warning message in case networks are different.
+
         if let chain = chain,
            let connectedChainId = connection.chainId,
            let selectedChainId = chain.id,
            String(connectedChainId) != selectedChainId {
-            App.shared.snackbar.show(message: "Connected to unexpected chain. Please connect to \(chain.name!).")
-            WebConnectionController.shared.userDidDisconnect(connection)
-            return false
+            let connectedChain = Chain.by(String(connectedChainId))
+            let selectedName = chain.name ?? "Chain Id \(selectedChainId)"
+            let connectedName = connectedChain?.name ?? "Chain Id \(connectedChainId)"
+            let icon = UIImage(systemName: "exclamationmark.triangle.fill")!.withTintColor(.systemYellow, renderingMode: .alwaysOriginal)
+            App.shared.snackbar.show(
+                message: "Selected Safe's network '\(selectedName)' is different from the network in the wallet: '\(connectedName)'.",
+                icon: SnackbarViewController.IconSource.image(icon)
+            )
         }
         return true
     }
