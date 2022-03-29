@@ -59,6 +59,15 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
         reset()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // Sometimes the window of the passcode loses the 'key' property.
+        // This leads to a case when existing keyboard is shown for a text field in the main window
+        // instead of the passcode text field's keyboard in focus.
+        // Making the window key window again switches focus to the passcode text field.
+        view.window?.makeKey()
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         keyboardBehavior.stop()
