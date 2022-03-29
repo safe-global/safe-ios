@@ -119,7 +119,9 @@ class PendingWalletActionViewController: ContainerViewController, UIAdaptivePres
     func sendRequest() {
         // to override
         guard checkNetwork() else {
-            App.shared.snackbar.show(message: "Please change wallet network to \(chain.name!)")
+            let walletName = keyInfo?.displayName ?? connection.remotePeer?.name ?? wallet?.name ?? ""
+            App.shared.snackbar.show(message: "Please change \(walletName) wallet network to \(chain.name!)")
+            doCancel()
             return
         }
         guard let connection = connection else { return }
