@@ -345,6 +345,15 @@ enum GSError {
         let loggable = false
     }
     
+    struct CreateSafeFailed: DetailedLocalizedError {
+        let description = "Failed to create a safe"
+        let reason = "Submitting failed"
+        let howToFix = "Please try to resubmit later"
+        let domain = clientErrorDomain
+        let code = 1112
+        let loggable = false
+    }
+    
 
     // MARK: - WalletConnect experimental feature errors
 

@@ -747,8 +747,7 @@ class CreateSafeFormUIModel {
     }
 
     func didSubmitFailed(_ error: Error?) {
-        let gsError = GSError.error(description: "Submitting failed", error: error)
-        App.shared.snackbar.show(error: gsError)
+        App.shared.snackbar.show(error: GSError.CreateSafeFailed())
         self.error = error
         update(to: .error)
     }
