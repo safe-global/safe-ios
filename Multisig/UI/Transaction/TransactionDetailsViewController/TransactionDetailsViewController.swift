@@ -202,7 +202,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                   multisigInfo.canSign
                     else { return false }
 
-            if status == .awaitingExecution && !multisigInfo.isRejected() && !pendingExecution {
+            if (status == .awaitingExecution || status == .pendingFailed) && !multisigInfo.isRejected() && !pendingExecution {
                  return true
             } else if status.isAwatingConfiramtions {
                 return true
