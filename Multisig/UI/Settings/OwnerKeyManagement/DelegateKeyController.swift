@@ -169,6 +169,7 @@ class DelegateKeyController {
         case .walletConnect:
             let chain = try? Safe.getSelected()?.chain ?? Chain.mainnetChain()
             let signVC = SignatureRequestToWalletViewController(hexMessage, keyInfo: keyInfo, chain: chain!)
+            signVC.requiresChainIdMatch = false
             var isSuccess: Bool = false
             signVC.onSuccess = { signature in
                 isSuccess = true
