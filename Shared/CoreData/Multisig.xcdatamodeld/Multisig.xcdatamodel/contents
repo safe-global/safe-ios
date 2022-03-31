@@ -58,7 +58,7 @@
         <attribute name="role" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="shortName" optional="YES" attributeType="String"/>
         <attribute name="versions" optional="YES" attributeType="String"/>
-        <relationship name="key" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KeyInfo" inverseName="wallet" inverseEntity="KeyInfo"/>
+        <relationship name="keys" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="KeyInfo" inverseName="wallet" inverseEntity="KeyInfo"/>
     </entity>
     <entity name="CDWCConnection" representedClassName="CDWCConnection" syncable="YES" codeGenerationType="class">
         <attribute name="accounts" optional="YES" attributeType="String"/>
@@ -144,7 +144,7 @@
         <attribute name="name" attributeType="String"/>
         <attribute name="type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="connections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDWCConnection" inverseName="keys" inverseEntity="CDWCConnection"/>
-        <relationship name="wallet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWCAppRegistryEntry" inverseName="key" inverseEntity="CDWCAppRegistryEntry"/>
+        <relationship name="wallet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWCAppRegistryEntry" inverseName="keys" inverseEntity="CDWCAppRegistryEntry"/>
     </entity>
     <entity name="Safe" representedClassName="Safe" syncable="YES">
         <attribute name="additionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
