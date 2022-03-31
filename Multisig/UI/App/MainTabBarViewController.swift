@@ -347,8 +347,12 @@ class MainTabBarViewController: UITabBarController {
     private func presentWhenReady(_ vc: UIViewController) {
         if view.window == nil {
             delayedPresentationViewController = vc
-        } else {
+        } else if presentedViewController == nil {
             present(vc, animated: true)
+        } else {
+            dismiss(animated: true) { [unowned self] in
+                present(vc, animated: true)
+            }
         }
     }
 
