@@ -46,11 +46,11 @@ class WCAppRegistryRepository {
         guard let cdEntries = (try? CDWCAppRegistryEntry.getAll()) else {
             return
         }
-        var keysByEntry: [String: KeyInfo] = [:]
+        var keysByEntry: [String: NSSet] = [:]
         for entry in cdEntries {
             // keep relationship between existing entry and a key
-            if let id = entry.id {
-                keysByEntry[id] = entry.key
+            if let id = entry.id, let keys = entry.keys {
+                keysByEntry[id] = keys
             }
             context.delete(entry)
         }
@@ -60,7 +60,7 @@ class WCAppRegistryRepository {
             let cdEntry = CDWCAppRegistryEntry.create()
             update(cdEntry: cdEntry, with: entry)
             // restore relationship to the key
-            cdEntry.key = keysByEntry[entry.id]
+            cdEntry.keys = keysByEntry[entry.id]
         }
 
         App.shared.coreDataStack.saveContext()
