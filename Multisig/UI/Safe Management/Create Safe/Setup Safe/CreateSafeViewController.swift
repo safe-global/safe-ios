@@ -252,7 +252,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         selectNetworkVC.completion = { [weak self] chain in
             guard let self = self else { return }
             self.uiModel.setChain(chain)
-            self.chain = seld
+            self.chain = self.uiModel.chain
 
             // hide the screen
             self.navigationController?.popViewController(animated: true)
@@ -749,9 +749,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 keyInfo: keyInfo,
                 chain: uiModel.chain
             )
-            sendTxVC.onCancel = { [weak self] in
-                self?.uiModel.didSubmitFailed(nil)
-            }
             sendTxVC.onSuccess = { [weak self] txHashData in
                 guard let self = self else { return }
                 self.uiModel.didSubmitTransaction(txHash: Eth.Hash(txHashData))
