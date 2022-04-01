@@ -15,6 +15,7 @@ import Web3
 import JsonRpc2
 import CryptoSwift
 import WalletConnectSwift
+import Json
 
 struct UserDefinedTransactionParameters: Equatable {
     var nonce: Sol.UInt64?
@@ -573,7 +574,8 @@ class TransactionExecutionController {
             }
 
             if let error = response.error {
-                dispatchOnMainThread(completion(.failure(error)))
+                let jsonError = (try? error.data?.convert(to: Json.NSError.self))?.nsError() ?? (error as NSError)
+                dispatchOnMainThread(completion(.failure(jsonError)))
                 return
             }
 

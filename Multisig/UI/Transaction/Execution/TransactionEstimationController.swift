@@ -10,6 +10,7 @@ import Foundation
 import Ethereum
 import JsonRpc2
 import Solidity
+import Json
 
 class TransactionEstimationController {
 
@@ -103,7 +104,8 @@ class TransactionEstimationController {
             case .response(let response):
                 // single response is a failed batch request
                 if let error = response.error {
-                    dispatchOnMainThread(completion(.failure(error)))
+                    let jsonError = (try? error.data?.convert(to: Json.NSError.self))?.nsError() ?? (error as NSError)
+                    dispatchOnMainThread(completion(.failure(jsonError)))
                 } else {
                     dispatchOnMainThread(completion(.failure(TransactionEstimationError(code: -2, message: "Failed to estimate transaction."))))
                 }
