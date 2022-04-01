@@ -263,6 +263,8 @@ class EnterPasscodeViewController: PasscodeViewController {
     var screenTrackingEvent = TrackingEvent.enterPasscode
     var showsCloseButton: Bool = true
     var usesBiometry: Bool = true
+    var warnAfterWrongAttemptCount: Int = 5
+    var wrongAttemptsCount: Int = 0
 
     convenience init() {
         self.init(namedClass: PasscodeViewController.self)
@@ -312,7 +314,12 @@ class EnterPasscodeViewController: PasscodeViewController {
             if isCorrect {
                 passcodeCompletion(true, false)
             } else {
-                showError("Wrong passcode")
+                wrongAttemptsCount += 1
+                if wrongAttemptsCount >= warnAfterWrongAttemptCount {
+                    showError("\(wrongAttemptsCount) failed password attempts. You can reset password via \"Forgot passcode?\" button below.")
+                } else {
+                    showError("Wrong passcode")
+                }
             }
         }
     }
