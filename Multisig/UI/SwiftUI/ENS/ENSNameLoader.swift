@@ -30,7 +30,7 @@ class ENSNameLoader: ObservableObject {
 
                 if let ensRegistryAddress = AddressString(chain.ensRegistryAddress ?? "") {
                     let manager = BlockchainDomainManager(rpcURL: chain.authenticatedRpcUrl,
-                                                          chainName: chain.name!,
+                                                          chainId: chain.id!,
                                                           ensRegistryAddress: ensRegistryAddress)
                     return manager.ensName(for: address)
                 }
