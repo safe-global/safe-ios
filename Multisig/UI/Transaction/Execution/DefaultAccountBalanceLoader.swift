@@ -121,9 +121,7 @@ class DefaultAccountBalanceLoader: AccountBalanceLoader {
                             )
 
                             model.displayAmount = "\(value) \(nativeCoinSymbol)"
-                            model.isEnabled = balance >= requiredBalance && requiredBalance > 0
-                        } else {
-                            model.isEnabled = false
+                            model.isEnabled = balance >= requiredBalance
                         }
 
                         return model
