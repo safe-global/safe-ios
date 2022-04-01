@@ -323,10 +323,16 @@ class EnterPasscodeViewController: PasscodeViewController {
 
     override func didTapButton(_ sender: Any) {
         let alertController = UIAlertController(
-            title: nil,
-            message: "You can disable your passcode. This will remove all data from the app.",
-            preferredStyle: .actionSheet)
+            title: "Remove all content",
+            message: "Disabling the passcode will remove all app content. This cannot be undone. Please type in \"Remove\" to continue.",
+            preferredStyle: .alert)
+
+        alertController.addTextField()
+
         let remove = UIAlertAction(title: "Disable Passcode", style: .destructive) { [unowned self] _ in
+            guard alertController.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "Remove" else {
+                return
+            }
             do {
                 // should be before deleting all data
                 self.passcodeCompletion(false, true)
