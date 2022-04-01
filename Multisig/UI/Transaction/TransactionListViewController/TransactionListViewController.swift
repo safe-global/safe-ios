@@ -242,6 +242,8 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         switch tx.txInfo {
         case .creation(let creationInfo):
             let detailsTx = SCGModels.TransactionDetails(
+                txId: "",
+                safeAddress: AddressString(safe.addressValue),
                 txStatus: tx.txStatus,
                 txInfo: SCGModels.TxInfo.creation(creationInfo),
                 txData: nil,

@@ -438,6 +438,13 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         case .success(let details):
             DispatchQueue.main.async { [weak self] in
                 guard let `self` = self else { return }
+                // Changing source to the transaction ID because of backend issue with caching
+                // that happens when loading transaction details by safeTxHash, then creating rejection transaction,
+                // then reloading the data - the rejectors field is not returned. This happens because of caching.
+                // To avoid that, switch to loading the transaction by id after first data load.
+                if let source = self.txSource, case TransactionSource.safeTxHash = source, !details.txId.isEmpty {
+                    self.txSource = .id(details.txId)
+                }
                 self.buildCells(from: details)
                 self.onSuccess()
             }
