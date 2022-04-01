@@ -9,6 +9,7 @@ import Ethereum
 import Solidity
 import WalletConnectSwift
 import JsonRpc2
+import Json
 
 class SendTransactionRequestViewController: WebConnectionContainerViewController, WebConnectionRequestObserver {
 
@@ -544,7 +545,8 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
             }
 
             if let error = response.error {
-                dispatchOnMainThread(completion(.failure(error)))
+                let jsonError = (try? error.data?.convert(to: Json.NSError.self))?.nsError() ?? (error as NSError)
+                dispatchOnMainThread(completion(.failure(jsonError)))
                 return
             }
 

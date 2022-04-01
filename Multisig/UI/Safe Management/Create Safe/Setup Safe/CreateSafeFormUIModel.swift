@@ -13,6 +13,7 @@ import SwiftCryptoTokenFormatter
 import SafeDeployments
 import SafeAbi
 import JsonRpc2
+import Json
 
 protocol CreateSafeFormUIModelDelegate: AnyObject {
     func updateUI(model: CreateSafeFormUIModel)
@@ -645,7 +646,8 @@ class CreateSafeFormUIModel {
             }
 
             if let error = response.error {
-                dispatchOnMainThread(completion(.failure(error)))
+                let jsonError = (try? error.data?.convert(to: Json.NSError.self))?.nsError() ?? (error as NSError)
+                dispatchOnMainThread(completion(.failure(jsonError)))
                 return
             }
 
