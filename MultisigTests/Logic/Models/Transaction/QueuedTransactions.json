@@ -7,46 +7,14 @@
       "label": "Next"
     },
     {
-      "type": "TRANSACTION",
-      "transaction": {
-        "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x2daeacd4e0d322f34708197fb2749b77769390294a837020a8870ee36a648175",
-        "timestamp": 1624546809121,
-        "txStatus": "AWAITING_EXECUTION",
-        "txInfo": {
-          "type": "SettingsChange",
-          "dataDecoded": {
-            "method": "changeThreshold",
-            "parameters": [
-              {
-                "name": "_threshold",
-                "type": "uint256",
-                "value": "2"
-              }
-            ]
-          },
-          "settingsInfo": {
-            "type": "CHANGE_THRESHOLD",
-            "threshold": 2
-          }
-        },
-        "executionInfo": {
-          "type": "MULTISIG",
-          "nonce": 652,
-          "confirmationsRequired": 1,
-          "confirmationsSubmitted": 1
-        }
-      },
-      "conflictType": "None"
-    },
-    {
-      "type": "LABEL",
-      "label": "Queued"
+      "type": "CONFLICT_HEADER",
+      "nonce": 958
     },
     {
       "type": "TRANSACTION",
       "transaction": {
-        "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x3b31029bb1835949ea96269cc611252edd489647b58ac9c06604492a80559823",
-        "timestamp": 1624625884814,
+        "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0x8df3188cce4559cf0c84e75b0e76fcb02dbbd9ce1d7ff681ea414e7dddd4c012",
+        "timestamp": 1648737343350,
         "txStatus": "AWAITING_EXECUTION",
         "txInfo": {
           "type": "Transfer",
@@ -54,27 +22,79 @@
             "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
           },
           "recipient": {
-            "value": "0xF2CeA96575d6b10f51d9aF3b10e3e4E5738aa6bd"
+            "value": "0xf2565317F3Ae8Ae9EA98E9Fe1e7FADC77F823cbD"
           },
           "direction": "OUTGOING",
           "transferInfo": {
-            "type": "ERC20",
-            "tokenAddress": "0x81D0FF4fE216fB6aC98ED609086A92d94dbfE666",
-            "tokenName": "LS",
-            "tokenSymbol": "LS",
-            "logoUri": "https://gnosis-safe-token-logos.s3.amazonaws.com/0x81D0FF4fE216fB6aC98ED609086A92d94dbfE666.png",
-            "decimals": 18,
-            "value": "100000000000000"
+            "type": "NATIVE_COIN",
+            "value": "5603810000000000000"
           }
         },
         "executionInfo": {
           "type": "MULTISIG",
-          "nonce": 653,
-          "confirmationsRequired": 1,
+          "nonce": 958,
+          "confirmationsRequired": 2,
           "confirmationsSubmitted": 2
         }
       },
-      "conflictType": "None"
+      "conflictType": "HasNext"
+    },
+    {
+      "type": "TRANSACTION",
+      "transaction": {
+        "id": "multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xbdd8cdb0db379d27eb86855d87e4856d6bf765baa1e8ff571a72f58b553b3099",
+        "timestamp": 1648737534951,
+        "txStatus": "AWAITING_CONFIRMATIONS",
+        "txInfo": {
+          "type": "Custom",
+          "to": {
+            "value": "0x1230B3d59858296A31053C1b8562Ecf89A2f888b"
+          },
+          "dataSize": "0",
+          "value": "0",
+          "methodName": null,
+          "isCancellation": true
+        },
+        "executionInfo": {
+          "type": "MULTISIG",
+          "nonce": 958,
+          "confirmationsRequired": 2,
+          "confirmationsSubmitted": 1,
+          "missingSigners": [
+            {
+              "value": "0xaB0D90FDe397A4362aCbE1D3a1c17F24b5b53266"
+            },
+            {
+              "value": "0x9b19187E95E5f02BccbB6E04817ff12a5de42c82"
+            },
+            {
+              "value": "0x448E4E6DD37523A5c7804D75a67754c24bFbFb32"
+            },
+            {
+              "value": "0x53C1Bd1374C497c204bE2282b454aCf78b37c146"
+            },
+            {
+              "value": "0x0cBBce4574C0B1EAB46c9AaCF72Acb6Ee485Ad3b"
+            },
+            {
+              "value": "0x43386301321E6C6E9F89EBfCB373Fb223b0D36DD"
+            },
+            {
+              "value": "0x12536c4952c71b32c9f97FdC2BAC8CFB156A9dAf"
+            },
+            {
+              "value": "0x6de49537b4AF69574638B2F9a5ef1312F144B44b"
+            },
+            {
+              "value": "0x8bc9Ab35a2A8b20ad8c23410C61db69F2e5d8164"
+            },
+            {
+              "value": "0xF2CeA96575d6b10f51d9aF3b10e3e4E5738aa6bd"
+            }
+          ]
+        }
+      },
+      "conflictType": "End"
     }
   ]
 }
