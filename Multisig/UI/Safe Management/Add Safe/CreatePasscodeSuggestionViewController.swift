@@ -43,9 +43,6 @@ class CreatePasscodeSuggestionViewController: UIViewController {
 
         createButton.setText("Create passcode", .filled)
         notNowButton.setText("Not now", .primary)
-
-        // If we show this screen, no more need in displaying the banner
-        AppSettings.passcodeBannerDismissed = true
     }
 
     override func viewDidAppear(_ animated: Bool) {
