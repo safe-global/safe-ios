@@ -13,20 +13,30 @@ class BlockchainDomainManager {
     private(set) var ens: ENS?
     private(set) var unstoppableDomainResolution: Resolution?
 
-    init(rpcURL: URL, chainName: String, ensRegistryAddress: AddressString?) {
+    private static let networkNames = ["1": "mainnet",
+                                       "3": "ropsten",
+                                       "4": "rinkeby",
+                                       "5": "goerli"]
+
+    init(rpcURL: URL, chainId: String, ensRegistryAddress: AddressString?) {
         if let ensRegistryAddress = ensRegistryAddress {
             ens = ENS(registryAddress: ensRegistryAddress.address, rpcURL: rpcURL)
         }
 
-        self.unstoppableDomainResolution = try? Resolution(
-            configs: Configurations(
-                cns: NamingServiceConfig(
-                    providerUrl: rpcURL.absoluteString,
-                    network: chainName.lowercased(),
-                    networking: GSNetworkingLayer()
+        guard let networkName = Self.networkNames[chainId] else { return }
+        do {
+            self.unstoppableDomainResolution = try Resolution(
+                configs: Configurations(
+                    cns: NamingServiceConfig(
+                        providerUrl: rpcURL.absoluteString,
+                        network: networkName,
+                        networking: GSNetworkingLayer()
+                    )
                 )
             )
-        )
+        } catch {
+            LogService.shared.error("Failed to configure Unstoppable Domains: \(error)")
+        }
     }
     
     func resolveUD(_ domain: String) throws -> Address {

@@ -13,7 +13,7 @@ class ENSIntegrationTests: CoreDataTestCase {
     lazy var domainManager: BlockchainDomainManager = {
         let chain = Chain.mainnetChain()
         return BlockchainDomainManager(rpcURL: chain.authenticatedRpcUrl,
-                                       chainName: chain.name!,
+                                       chainId: chain.id!,
                                        ensRegistryAddress: AddressString(chain.ensRegistryAddress!))
     }()
 
