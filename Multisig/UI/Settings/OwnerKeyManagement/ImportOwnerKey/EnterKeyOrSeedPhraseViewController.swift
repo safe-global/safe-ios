@@ -43,6 +43,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         errorLabel.setStyle(.error)
         errorLabel.isHidden = true
 
+        textView.textContentType = .password
         textView.delegate = self
         textView.layer.borderWidth = 2
         textView.layer.borderColor = UIColor.gray4.cgColor
