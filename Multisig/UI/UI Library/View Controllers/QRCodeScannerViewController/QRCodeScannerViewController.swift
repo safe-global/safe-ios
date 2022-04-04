@@ -44,6 +44,9 @@ class QRCodeScannerViewController: UIViewController {
             footerLabel.setStyle(.primary.color(.white))
         }
         view.bringSubviewToFront(cameraFrameView)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(handleVideoInterruption(notification:)), name: .AVCaptureSessionWasInterrupted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleInterruptionEnd(notification:)), name: .AVCaptureSessionInterruptionEnded, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -59,9 +62,39 @@ class QRCodeScannerViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        correctVideoOrientation()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if captureSession?.isRunning == true {
+            captureSession.stopRunning()
+        }
+    }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        previewLayer?.frame = view.layer.bounds
+    }
+
+    @objc private func handleVideoInterruption(notification: Notification) {
+        let alert = UIAlertController(title: "Camera unavailable", message: "The camera is unavailable in Split View or in Slide Over mode. Please open the app to full screen.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAction)
+        present(alert, animated: true)
+    }
+
+    @objc private func handleInterruptionEnd(notification: Notification) {
+        if presentedViewController != nil {
+            dismiss(animated: true)
+        }
+        correctVideoOrientation()
+    }
+
+    func correctVideoOrientation() {
         // We have to rotate the preview layer to the current interface orientation because it always starts
         // in the 'portrait' orientation.
-
         switch self.view.window?.windowScene?.interfaceOrientation {
         case .portrait:
             previewLayer.transform = CATransform3DMakeRotation(0, 0, 0, 1)
@@ -75,20 +108,6 @@ class QRCodeScannerViewController: UIViewController {
             break
         }
 
-        // We've rotated the view, so the width/height might not be correct anymore. Re-apply the width/hight settings.
-        previewLayer?.frame = view.layer.bounds
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        if captureSession?.isRunning == true {
-            captureSession.stopRunning()
-        }
-    }
-
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
         previewLayer?.frame = view.layer.bounds
     }
 
