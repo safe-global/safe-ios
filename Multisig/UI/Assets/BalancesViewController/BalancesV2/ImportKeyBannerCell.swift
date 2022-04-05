@@ -14,7 +14,7 @@ class ImportKeyBannerCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         bannerView.headerText = "Add owner key"
-        bannerView.bodyText = "We added signing support to the app! Now you can import your owner key and sign transactions on the go."
+        bannerView.bodyText = "Did you know that you can import your owner key to sign and execute transactions on the go?"
         bannerView.buttonText = "Add owner key now"
     }
 }
