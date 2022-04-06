@@ -93,6 +93,7 @@ class QRCodeScannerViewController: UIViewController {
     }
 
     func correctVideoOrientation() {
+        guard let previewLayer = previewLayer else { return }
         // We have to rotate the preview layer to the current interface orientation because it always starts
         // in the 'portrait' orientation.
         switch self.view.window?.windowScene?.interfaceOrientation {
@@ -108,7 +109,7 @@ class QRCodeScannerViewController: UIViewController {
             break
         }
 
-        previewLayer?.frame = view.layer.bounds
+        previewLayer.frame = view.layer.bounds
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
