@@ -453,7 +453,6 @@
 		0ADD19C6265EA23200EB0F2B /* SeedWordCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ADD19BE265EA23200EB0F2B /* SeedWordCollectionViewCell.xib */; };
 		0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA2102453467A0066457E /* RoundedTextField.swift */; };
 		0ADDB34E24518F8F0056B284 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */; };
-		0ADFADA3267B496F007ACD65 /* BalancesTableViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADFADA2267B496F007ACD65 /* BalancesTableViewControllerTests.swift */; };
 		0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */; };
 		0AE46C87257684B8001DC62B /* LoadSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE46C86257684B8001DC62B /* LoadSafeViewController.swift */; };
 		0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE46C8C257684DF001DC62B /* LoadSafeViewController.xib */; };
@@ -988,7 +987,6 @@
 		0A5307152543110300E8A270 /* ConfirmTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmTransactionRequest.swift; sourceTree = "<group>"; };
 		0A53071F254311C400E8A270 /* SafeTransactionSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionSigner.swift; sourceTree = "<group>"; };
 		0A5307452543273F00E8A270 /* UIViewController+UINib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+UINib.swift"; sourceTree = "<group>"; };
-		0A559A662672096B00E83A9E /* TotalBalanceTableViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalBalanceTableViewCellTests.swift; sourceTree = "<group>"; };
 		0A559A6826720E5300E83A9E /* BannerTableViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerTableViewCellTests.swift; sourceTree = "<group>"; };
 		0A573F2825876B9E009EF0C1 /* AddressField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressField.swift; sourceTree = "<group>"; };
 		0A573F6D25877586009EF0C1 /* AddressField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressField.xib; sourceTree = "<group>"; };
@@ -1195,7 +1193,6 @@
 		0ADD19BE265EA23200EB0F2B /* SeedWordCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SeedWordCollectionViewCell.xib; sourceTree = "<group>"; };
 		0ADDA2102453467A0066457E /* RoundedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
 		0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
-		0ADFADA2267B496F007ACD65 /* BalancesTableViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalancesTableViewControllerTests.swift; sourceTree = "<group>"; };
 		0AE46C86257684B8001DC62B /* LoadSafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadSafeViewController.swift; sourceTree = "<group>"; };
 		0AE46C8C257684DF001DC62B /* LoadSafeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadSafeViewController.xib; sourceTree = "<group>"; };
 		0AE8C0422579317700E62B34 /* DetailDisclosingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDisclosingCell.swift; sourceTree = "<group>"; };
@@ -2117,9 +2114,7 @@
 				0A61E8442670E632009D68A4 /* __Snapshots__ */,
 				0A61E83D2670DED5009D68A4 /* BalanceTableViewCellTests.swift */,
 				0A61E8412670E474009D68A4 /* CellTestViewController.swift */,
-				0A559A662672096B00E83A9E /* TotalBalanceTableViewCellTests.swift */,
 				0A559A6826720E5300E83A9E /* BannerTableViewCellTests.swift */,
-				0ADFADA2267B496F007ACD65 /* BalancesTableViewControllerTests.swift */,
 				0A747197269F1122008E9F2D /* BalancesViewControllerSnapshotTests.swift */,
 				0A7471A6269F2AA8008E9F2D /* XCTestCase.swift */,
 				0A747199269F152D008E9F2D /* chains_4_safes_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_balances_usd.json */,
@@ -4399,7 +4394,6 @@
 			files = (
 				0A513A9D2768EBC900F07D5A /* DelegateKeyTests.swift in Sources */,
 				0A61E8422670E474009D68A4 /* CellTestViewController.swift in Sources */,
-				0ADFADA3267B496F007ACD65 /* BalancesTableViewControllerTests.swift in Sources */,
 				0A9D5CE427D8EC280075A21D /* WCRegistryIntegrationTests.swift in Sources */,
 				6A91EFDC27DA2CF9009E63E9 /* WCAppRegistryRepositoryTests.swift in Sources */,
 				0A9BC35D2460581A00EB9C5D /* ENSIntegrationTests.swift in Sources */,
