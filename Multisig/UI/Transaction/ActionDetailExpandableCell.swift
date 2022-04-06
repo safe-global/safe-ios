@@ -22,12 +22,12 @@ class ActionDetailExpandableCell: ActionDetailTableViewCell {
     private static let collapsedImage = UIImage(
         systemName: "chevron.down",
         withConfiguration: symbol)!
-        .withTintColor(.secondaryLabel)
+        .withTintColor(.labelSecondary)
 
     private static let expandedImage = UIImage(
         systemName: "chevron.up",
         withConfiguration: symbol)!
-        .withTintColor(.secondaryLabel)
+        .withTintColor(.labelSecondary)
 
     enum State {
         case collapsed, expanded

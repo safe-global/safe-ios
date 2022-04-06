@@ -121,10 +121,10 @@ class LedgerPendingConfirmationViewController: UIViewController {
         )
         // first 4 digits
         attributedString.addAttribute(
-            .foregroundColor, value: UIColor.primaryLabel, range: NSRange(location: 0, length: 4))
+            .foregroundColor, value: UIColor.labelPrimary, range: NSRange(location: 0, length: 4))
         // last 4 digits
         attributedString.addAttribute(
-            .foregroundColor, value: UIColor.primaryLabel, range: NSRange(location: value.count - 4, length: 4))
+            .foregroundColor, value: UIColor.labelPrimary, range: NSRange(location: value.count - 4, length: 4))
         return attributedString
     }
 }

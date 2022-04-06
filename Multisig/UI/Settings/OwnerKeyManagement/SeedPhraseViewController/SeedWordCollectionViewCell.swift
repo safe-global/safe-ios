@@ -34,7 +34,7 @@ class SeedWordCollectionViewCell: UICollectionViewCell {
     func update() {
         wordLabel.text = word?.value
         numberLabel.text = word?.number
-        numberLabel.textColor = .primaryLabel
+        numberLabel.textColor = .labelPrimary
         badgeImageView.image = UIImage(named: "seed-badge-normal")
         wordLabel.textColor = .button
         backgroundImageView.image = UIImage(named: "seed-bg-normal")

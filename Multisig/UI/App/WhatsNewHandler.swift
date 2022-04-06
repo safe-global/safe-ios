@@ -33,12 +33,12 @@ class WhatsNewHandler {
 
         configuration.backgroundColor = .quaternaryBackground
 
-        configuration.titleView.titleColor = .primaryLabel
+        configuration.titleView.titleColor = .labelPrimary
         configuration.titleView.titleFont = .systemFont(ofSize: 26, weight: .regular)
 
         configuration.itemsView.titleFont = .systemFont(ofSize: 16, weight: .bold)
-        configuration.itemsView.titleColor = .primaryLabel
-        configuration.itemsView.subtitleColor = .secondaryLabel
+        configuration.itemsView.titleColor = .labelPrimary
+        configuration.itemsView.subtitleColor = .labelSecondary
 
         configuration.detailButton?.titleColor = .button
         configuration.completionButton.backgroundColor = .button

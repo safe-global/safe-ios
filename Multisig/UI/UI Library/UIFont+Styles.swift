@@ -35,8 +35,8 @@ struct GNOTextStyle: Hashable {
 }
 
 extension GNOTextStyle {
-    static let primary = GNOTextStyle(size: 17, weight: .medium, color: .primaryLabel)
-    static let secondary = GNOTextStyle(size: 17, weight: .medium, color: .secondaryLabel)
+    static let primary = GNOTextStyle(size: 17, weight: .medium, color: .labelPrimary)
+    static let secondary = GNOTextStyle(size: 17, weight: .medium, color: .labelSecondary)
     static let tertiary = GNOTextStyle(size: 17, weight: .medium, color: .tertiaryLabel)
     static let primaryError = GNOTextStyle(size: 17, weight: .medium, color: .error)
     static let primaryButton = GNOTextStyle(size: 17, weight: .medium, color: .button)
@@ -45,19 +45,19 @@ extension GNOTextStyle {
     static let caption2 = GNOTextStyle(size: 10, weight: .bold, letterSpacing: 2, color: .tertiaryLabel)
     static let caption3 = GNOTextStyle(size: 10, weight: .medium)
 
-    static let footnote2 = GNOTextStyle(size: 13, weight: .medium, color: .secondaryLabel)
-    static let footnote3 = GNOTextStyle(size: 13, weight: .medium, color: .primaryLabel)
+    static let footnote2 = GNOTextStyle(size: 13, weight: .medium, color: .labelSecondary)
+    static let footnote3 = GNOTextStyle(size: 13, weight: .medium, color: .labelPrimary)
     static let footnote4 = GNOTextStyle(size: 13, weight: .medium, color: .tertiaryLabel)
 
     static let subhead = GNOTextStyle(size: 15, weight: .bold)
 
-    static let callout = GNOTextStyle(size: 16, weight: .regular, color: .primaryLabel)
+    static let callout = GNOTextStyle(size: 16, weight: .regular, color: .labelPrimary)
     static let error = GNOTextStyle(size: 16, weight: .regular, color: .error)
-    static let headline = GNOTextStyle(size: 17, weight: .semibold, color: .primaryLabel)
+    static let headline = GNOTextStyle(size: 17, weight: .semibold, color: .labelPrimary)
     static let headline2 = GNOTextStyle(size: 17, weight: .bold)
 
-    static let title3 = GNOTextStyle(size: 20, weight: .regular, color: .primaryLabel)
-    static let title4 = GNOTextStyle(size: 26, weight: .regular, color: .primaryLabel)
+    static let title3 = GNOTextStyle(size: 20, weight: .regular, color: .labelPrimary)
+    static let title4 = GNOTextStyle(size: 26, weight: .regular, color: .labelPrimary)
 }
 
 extension GNOTextStyle {

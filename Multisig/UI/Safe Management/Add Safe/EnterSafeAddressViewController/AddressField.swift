@@ -94,7 +94,7 @@ class AddressField: UINibView {
             borderView.tintColor = .error
             errorLabel.isHidden = false
         } else {
-            borderView.tintColor = .gray4
+            borderView.tintColor = .labelTertiary
             errorLabel.text = nil
             errorLabel.isHidden = true
         }

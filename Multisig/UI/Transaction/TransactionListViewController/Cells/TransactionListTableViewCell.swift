@@ -70,7 +70,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         dateLabel.text = date
     }
 
-    func set(info: String, color: UIColor = .primaryLabel) {
+    func set(info: String, color: UIColor = .labelPrimary) {
         infoLabel.text = info
         infoLabel.textColor = color
     }
@@ -109,7 +109,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         case .failed, .pendingFailed:
             return .error
         case .cancelled:
-            return .secondaryLabel
+            return .labelSecondary
         case .success:
             return .button
         }

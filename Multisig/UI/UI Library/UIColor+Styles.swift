@@ -17,20 +17,18 @@ extension UIColor {
     static let rejection = UIColor(named: "rejection")!
     // B1B5B1
     static let gray2 = UIColor(named: "gray2")!
-    // E8E7E6
-    static let gray4 = UIColor(named: "gray4")!
     // EFEEED
     static let gray5 = UIColor(named: "gray5")!
     static let whiteOrBlack = UIColor(named: "whiteOrBlackBackground")!
     static let pending = UIColor(named: "pending")!
     static let primaryBackground = UIColor(named: "primaryBackground")!
-    static let primaryLabel = UIColor(named: "primaryLabel")!
+    static let labelPrimary = UIColor(named: "labelPrimary")!
     static let secondaryBackground = UIColor(named: "secondaryBackground")!
-    static let secondaryLabel = UIColor(named: "secondaryLabel")!
+    static let labelSecondary = UIColor(named: "labelSecondary")!
     static let separator = UIColor(named: "separator")!
     static let shadow = UIColor(named: "shadow")!
     static let tertiaryBackground = UIColor(named: "tertiaryBackground")!
-    static let tertiaryLabel = UIColor(named: "tertiaryLabel")!
+    static let labelTertiary = UIColor(named: "labelTertiary")!
     static let quaternaryBackground = UIColor(named: "quaternaryBackground")!
 }
 
