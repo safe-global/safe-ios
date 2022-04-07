@@ -78,7 +78,7 @@ class SigningKeyTableViewCell: UITableViewCell {
             connectionStatusImageView.tintColor = .button
         case .disconnected:
             connectionStatusImageView.image = UIImage(systemName: "circlebadge", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
-            connectionStatusImageView.tintColor = .gray2
+            connectionStatusImageView.tintColor = .icon
         case .connectionProblem:
             connectionStatusImageView.image = UIImage(systemName: "circlebadge.fill")
             connectionStatusImageView.tintColor = .button

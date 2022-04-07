@@ -15,8 +15,7 @@ extension UIColor {
     static let error = UIColor(named: "error")!
     static let errorPressed = UIColor(named: "errorPressed")!
     static let rejection = UIColor(named: "rejection")!
-    // B1B5B1
-    static let gray2 = UIColor(named: "gray2")!
+    static let icon = UIColor(named: "icon")!
     // EFEEED
     static let gray5 = UIColor(named: "gray5")!
     static let whiteOrBlack = UIColor(named: "whiteOrBlackBackground")!
