@@ -1016,7 +1016,7 @@ public enum Eth {
         public var from: Sol.Address? = nil
         public var to: Sol.Address = 0
         public var value: Sol.UInt256 = 0
-        public var input: Sol.Bytes = .init()
+        public var data: Sol.Bytes = .init()
         public var nonce: Sol.UInt64 = 0
 
         public var fee: FeeLegacy = .init()
@@ -1025,12 +1025,12 @@ public enum Eth {
         public var signature: SignatureLegacy? = nil
         public var locationInBlock: BlockLocation? = nil
 
-        public init(chainId: Sol.UInt256? = nil, from: Sol.Address? = nil, to: Sol.Address = 0, value: Sol.UInt256 = 0, input: Sol.Bytes = .init(), nonce: Sol.UInt64 = 0, fee: Eth.FeeLegacy = .init(), hash: Eth.Hash? = nil, signature: Eth.SignatureLegacy? = nil, locationInBlock: Eth.BlockLocation? = nil) {
+        public init(chainId: Sol.UInt256? = nil, from: Sol.Address? = nil, to: Sol.Address = 0, value: Sol.UInt256 = 0, data: Sol.Bytes = .init(), nonce: Sol.UInt64 = 0, fee: Eth.FeeLegacy = .init(), hash: Eth.Hash? = nil, signature: Eth.SignatureLegacy? = nil, locationInBlock: Eth.BlockLocation? = nil) {
             self.chainId = chainId
             self.from = from
             self.to = to
             self.value = value
-            self.input = input
+            self.data = data
             self.nonce = nonce
             self.fee = fee
             self.hash = hash
@@ -1128,7 +1128,7 @@ public enum Eth {
         public var from: Sol.Address? = nil
         public var to: Sol.Address = 0
         public var value: Sol.UInt256 = 0
-        public var input: Sol.Bytes = .init()
+        public var data: Sol.Bytes = .init()
         public var nonce: Sol.UInt64 = 0
 
         public var fee: Fee1559 = .init()
@@ -1145,7 +1145,7 @@ public enum Eth {
             from: Sol.Address? = nil,
             to: Sol.Address = 0,
             value: Sol.UInt256 = 0,
-            input: Sol.Bytes = .init(),
+            data: Sol.Bytes = .init(),
             nonce: Sol.UInt64 = 0,
             fee: Eth.Fee1559 = .init(),
             hash: Hash? = nil,
@@ -1157,7 +1157,7 @@ public enum Eth {
             self.from = from
             self.to = to
             self.value = value
-            self.input = input
+            self.data = data
             self.nonce = nonce
             self.fee = fee
             self.hash = hash
@@ -1172,7 +1172,7 @@ public enum Eth {
                 from: nil,
                 to: 0,
                 value: 0,
-                input: Sol.Bytes(),
+                data: Sol.Bytes(),
                 nonce: 0,
                 fee: Eth.Fee1559(),
                 hash: nil,
@@ -1357,7 +1357,7 @@ extension Eth.TransactionEip1559: EthSignable {
             fee.gas ?? 0,
             to,
             value,
-            input,
+            data,
             fee.accessList
         ]
         let rlpTransaction = RlpCoder().encode(array)
@@ -1388,10 +1388,6 @@ extension Eth.TransactionEip1559: EthTransaction {
     public mutating func removeFee() {
         fee = .init()
     }
-
-    public var data: Sol.Bytes {
-        input
-    }
 }
 
 extension Eth.TransactionEip1559: EthRawTransaction {
@@ -1408,7 +1404,7 @@ extension Eth.TransactionEip1559: EthRawTransaction {
             fee.gas ?? 0,
             to,
             value,
-            input,
+            data,
             fee.accessList,
             signature.yParity,
             signature.r,
@@ -1483,7 +1479,7 @@ extension EthRpc1.EstimateGasLegacyTransaction {
                 from: self.from.map(\.storage).flatMap(Sol.Address.init(maybeData:)),
                 to: self.to.map(\.storage).flatMap(Sol.Address.init(maybeData:)) ?? 0,
                 value: self.value.storage,
-                input: Sol.Bytes(storage: self.data.storage),
+                data: Sol.Bytes(storage: self.data.storage),
                 nonce: self.nonce?.storage ?? 0,
                 fee: Eth.Fee1559(gas: self.gas?.storage, maxFeePerGas: self.maxFeePerGas?.storage, maxPriorityFee: self.maxPriorityFeePerGas?.storage, accessList: Eth.AccessList()),
                 hash: nil,
@@ -1495,7 +1491,7 @@ extension EthRpc1.EstimateGasLegacyTransaction {
                 from: self.from.map(\.storage).flatMap(Sol.Address.init(maybeData:)),
                 to: self.to.map(\.storage).flatMap(Sol.Address.init(maybeData:)) ?? 0,
                 value: self.value.storage,
-                input: Sol.Bytes(storage: self.data.storage),
+                data: Sol.Bytes(storage: self.data.storage),
                 nonce: self.nonce?.storage ?? 0,
                 fee: Eth.FeeLegacy(gas: self.gas?.storage, gasPrice: self.gasPrice?.storage),
                 hash: nil,
@@ -1513,7 +1509,7 @@ extension EthRpc1.Transaction1559 {
             to: EthRpc1.Data(tx.to),
             gas: tx.fee.gas.map(EthRpc1.Quantity<Sol.UInt64>.init),
             value: EthRpc1.Quantity<Sol.UInt256>(tx.value),
-            input: EthRpc1.Data(tx.input),
+            input: EthRpc1.Data(tx.data),
             maxPriorityFeePerGas: tx.fee.maxPriorityFee.map(EthRpc1.Quantity<Sol.UInt256>.init),
             maxFeePerGas: tx.fee.maxFeePerGas.map(EthRpc1.Quantity<Sol.UInt256>.init),
             accessList: [EthRpc1.AccessListEntry](tx.fee.accessList),
@@ -1540,7 +1536,7 @@ extension EthRpc1.EstimateGasLegacyTransaction {
             gas: tx.fee.gas.map(EthRpc1.Quantity<Sol.UInt64>.init),
             gasPrice: nil,
             value: EthRpc1.Quantity<Sol.UInt256>(tx.value),
-            data: EthRpc1.Data(tx.input),
+            data: EthRpc1.Data(tx.data),
             maxPriorityFeePerGas: tx.fee.maxPriorityFee.map(EthRpc1.Quantity<Sol.UInt256>.init),
             maxFeePerGas: tx.fee.maxFeePerGas.map(EthRpc1.Quantity<Sol.UInt256>.init),
             from: tx.from.map { EthRpc1.Data($0) }
@@ -1639,7 +1635,7 @@ extension Eth.TransactionLegacy {
             from: (tx.from?.storage).flatMap(Sol.Address.init(exactly:)),
             to: (tx.to?.storage).flatMap(Sol.Address.init(exactly:)) ?? 0,
             value: tx.value.storage,
-            input: Sol.Bytes(exactly: tx.input.storage) ?? Sol.Bytes(),
+            data: Sol.Bytes(exactly: tx.input.storage) ?? Sol.Bytes(),
             nonce: tx.nonce?.storage ?? 0,
             fee: Eth.FeeLegacy(gas: tx.gas?.storage, gasPrice: tx.gasPrice?.storage),
             hash: (tx.hash?.storage).map(Eth.Hash.init),
@@ -1661,7 +1657,7 @@ extension Eth.TransactionEip1559 {
             from: (tx.from?.storage).flatMap(Sol.Address.init(exactly:)),
             to: (tx.to?.storage).flatMap(Sol.Address.init(exactly:)) ?? 0,
             value: tx.value.storage,
-            input: Sol.Bytes(exactly: tx.input.storage) ?? Sol.Bytes(),
+            data: Sol.Bytes(exactly: tx.input.storage) ?? Sol.Bytes(),
             nonce: tx.nonce?.storage ?? 0,
             fee: Eth.Fee1559(gas: tx.gas?.storage, maxFeePerGas: tx.maxFeePerGas?.storage, maxPriorityFee: tx.maxPriorityFeePerGas?.storage, accessList: Eth.AccessList(tx.accessList)),
             hash: (tx.hash?.storage).map(Eth.Hash.init),
@@ -1792,7 +1788,7 @@ extension Eth.TransactionLegacy: EthSignable {
                 fee.gas ?? 0,
                 to,
                 value,
-                input,
+                data,
                 chainId,
                 Sol.UInt256(0),
                 Sol.UInt256(0)
@@ -1805,7 +1801,7 @@ extension Eth.TransactionLegacy: EthSignable {
                 fee.gas ?? 0,
                 to,
                 value,
-                input
+                data
             ]
         }
         let rlpTransaction = RlpCoder().encode(array)
@@ -1827,7 +1823,7 @@ extension Eth.TransactionLegacy: EthRawTransaction {
             fee.gas ?? 0,
             to,
             value,
-            input,
+            data,
             signature.v,
             signature.r,
             signature.s
@@ -1862,10 +1858,6 @@ extension Eth.TransactionLegacy: EthTransaction {
     public mutating func removeFee() {
         fee = .init()
     }
-
-    public var data: Sol.Bytes {
-        input
-    }
 }
 
 extension EthRpc1.TransactionLegacy {
@@ -1878,7 +1870,7 @@ extension EthRpc1.TransactionLegacy {
             to: EthRpc1.Data(tx.to),
             gas: tx.fee.gas.map(EthRpc1.Quantity<Sol.UInt64>.init),
             value: EthRpc1.Quantity<Sol.UInt256>(tx.value),
-            input: EthRpc1.Data(tx.input),
+            input: EthRpc1.Data(tx.data),
             gasPrice: tx.fee.gasPrice.map(EthRpc1.Quantity<Sol.UInt256>.init),
             chainId: EthRpc1.Quantity<Sol.UInt256>(tx.chainId ?? 0),
             from: tx.from.map { EthRpc1.Data($0) },
@@ -1902,7 +1894,7 @@ extension EthRpc1.EstimateGasLegacyTransaction {
             gas: tx.fee.gas.map(EthRpc1.Quantity<Sol.UInt64>.init),
             gasPrice: tx.fee.gasPrice.map(EthRpc1.Quantity<Sol.UInt256>.init),
             value: EthRpc1.Quantity<Sol.UInt256>(tx.value),
-            data: EthRpc1.Data(tx.input),
+            data: EthRpc1.Data(tx.data),
             maxPriorityFeePerGas: nil,
             maxFeePerGas: nil,
             from: tx.from.map { EthRpc1.Data($0) }

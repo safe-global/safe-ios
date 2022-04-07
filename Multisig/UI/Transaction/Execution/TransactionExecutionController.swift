@@ -326,7 +326,7 @@ class TransactionExecutionController {
                 chainId: chainId,
                 from: from,
                 to: Sol.Address(safeAddress.data32),
-                input: Sol.Bytes(storage: input),
+                data: Sol.Bytes(storage: input),
                 fee: .init(maxPriorityFee: minerTip)
             )
         } else {
@@ -334,7 +334,7 @@ class TransactionExecutionController {
                 chainId: chainId,
                 from: from,
                 to: Sol.Address(safeAddress.data32),
-                input: Sol.Bytes(storage: input)
+                data: Sol.Bytes(storage: input)
             )
         }
 

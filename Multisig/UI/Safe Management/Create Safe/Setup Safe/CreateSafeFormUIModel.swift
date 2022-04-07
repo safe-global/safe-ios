@@ -321,7 +321,7 @@ class CreateSafeFormUIModel {
                 chainId: chainId,
                 from: (selectedKey?.address.data32).flatMap(Sol.Address.init(maybeData:)),
                 to: proxyFactoryAddress,
-                input: Sol.Bytes(storage: createAbi),
+                data: Sol.Bytes(storage: createAbi),
                 fee: .init(maxPriorityFee: userTxParameters.maxPriorityFee ??  Self.defaultMinerTip)
             )
         } else {
@@ -329,7 +329,7 @@ class CreateSafeFormUIModel {
                 chainId: chainId,
                 from: (selectedKey?.address.data32).flatMap(Sol.Address.init(maybeData:)),
                 to: proxyFactoryAddress,
-                input: Sol.Bytes(storage: createAbi)
+                data: Sol.Bytes(storage: createAbi)
             )
         }
 
