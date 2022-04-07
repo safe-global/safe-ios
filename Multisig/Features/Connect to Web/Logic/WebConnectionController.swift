@@ -770,7 +770,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 from: request.transaction.from,
                 to: request.transaction.to,
                 value: request.transaction.value,
-                input: request.transaction.data,
+                data: request.transaction.data,
                 fee: .init(maxPriorityFee: minerTip)
             )
         } else {
@@ -779,7 +779,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 from: request.transaction.from,
                 to: request.transaction.to,
                 value: request.transaction.value,
-                input: request.transaction.data
+                data: request.transaction.data
             )
         }
     }
@@ -974,9 +974,9 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             return error
         }
     }
-    
+
     // MARK: - Signing
-    
+
     func wcSign(connection: WebConnection, message: String, completion: @escaping (Result<String, Error>) -> Void) {
         guard
             let session = sessionTransformer.session(from: connection),
@@ -984,7 +984,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 completion(.failure(GSError.WalletNotConnected(description: "Could not sign message")))
                 return
             }
-        
+
         do {
             try client.eth_sign(url: session.url, account: walletAddress, message: message) { [weak self] in
                 self?.handleSignResponse($0, completion: completion)
@@ -993,7 +993,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             completion(.failure(userError(from: error)))
         }
     }
-    
+
     func wcSign(connection: WebConnection, transaction: Transaction, completion: @escaping (Result<String, Error>) -> Void) {
         guard
             let session = sessionTransformer.session(from: connection),
@@ -1001,7 +1001,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             completion(.failure(GSError.WalletNotConnected(description: "Could not sign transaction")))
             return
         }
-        
+
         do {
             switch session.walletInfo?.peerMeta.name ?? "" {
             // we call signTypedData only for wallets supporting this feature
@@ -1022,7 +1022,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             completion(.failure(userError(from: error)))
         }
     }
-    
+
     private func handleSignResponse(_ response: Response, completion: @escaping (Result<String, Error>) -> Void) {
         do {
             var signature = try response.result(as: String.self)

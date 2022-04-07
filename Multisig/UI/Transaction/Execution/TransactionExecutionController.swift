@@ -35,7 +35,7 @@ class TransactionExecutionController {
 
     var ethTransaction: EthTransaction?
     var minNonce: Sol.UInt64 = 0
-    
+
     // 1.5 gwei in wei (1.5 x 10^9)
     let defaultMinerTip: Sol.UInt256 = 1_500_000_000
 
@@ -227,7 +227,7 @@ class TransactionExecutionController {
 
                 let resultError: Error? = errors.isEmpty ? nil : TransactionExecutionAggregateError(errors: errors)
                 self.errorMessage = resultError?.localizedDescription
-                
+
                 completion()
             }
         }
@@ -325,7 +325,7 @@ class TransactionExecutionController {
                 chainId: chainId,
                 from: from,
                 to: Sol.Address(safeAddress.data32),
-                input: Sol.Bytes(storage: input),
+                data: Sol.Bytes(storage: input),
                 fee: .init(maxPriorityFee: minerTip)
             )
         } else {
@@ -333,7 +333,7 @@ class TransactionExecutionController {
                 chainId: chainId,
                 from: from,
                 to: Sol.Address(safeAddress.data32),
-                input: Sol.Bytes(storage: input)
+                data: Sol.Bytes(storage: input)
             )
         }
 

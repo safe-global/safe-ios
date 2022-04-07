@@ -147,7 +147,7 @@ class CreateSafeFormUIModel {
     }
 
     // MARK: - Setup
-    
+
     private func setup() {
         if creationParameters == nil {
             chain = Chain.mainnetChain()
@@ -320,7 +320,7 @@ class CreateSafeFormUIModel {
                 chainId: chainId,
                 from: (selectedKey?.address.data32).flatMap(Sol.Address.init(maybeData:)),
                 to: proxyFactoryAddress,
-                input: Sol.Bytes(storage: createAbi),
+                data: Sol.Bytes(storage: createAbi),
                 fee: .init(maxPriorityFee: userTxParameters.maxPriorityFee ??  Self.defaultMinerTip)
             )
         } else {
@@ -328,7 +328,7 @@ class CreateSafeFormUIModel {
                 chainId: chainId,
                 from: (selectedKey?.address.data32).flatMap(Sol.Address.init(maybeData:)),
                 to: proxyFactoryAddress,
-                input: Sol.Bytes(storage: createAbi)
+                data: Sol.Bytes(storage: createAbi)
             )
         }
 
