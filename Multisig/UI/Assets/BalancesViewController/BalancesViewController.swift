@@ -24,7 +24,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     private var sections: [Section] = []
 
-    private let tableBackgroundColor: UIColor = .primaryBackground
+    private let tableBackgroundColor: UIColor = .backgroundPrimary
 
     private var shouldShowImportKeyBanner: Bool {
         importKeyBannerWasShown != true

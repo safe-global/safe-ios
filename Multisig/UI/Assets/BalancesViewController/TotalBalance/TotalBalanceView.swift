@@ -47,7 +47,7 @@ class TotalBalanceView: UINibView {
         totalLabel.setStyle(.footnote2)
         sendButton.setText("Send", .filled)
         //TODO: set this attribute in setStyle(:)
-        sendButton.tintColor = UIColor.primaryBackground
+        sendButton.tintColor = UIColor.backgroundPrimary
         receiveButton.setText("Receive", .bordered)
     }
     

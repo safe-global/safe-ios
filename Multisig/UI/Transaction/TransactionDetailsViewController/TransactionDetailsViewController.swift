@@ -91,7 +91,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 name: notification,
                 object: nil)
         }
-        tableView.backgroundColor = .secondaryBackground
+        tableView.backgroundColor = .backgroundSecondary
     }
 
     private func updateSafeInfo() {

@@ -21,13 +21,13 @@ struct SectionHeader: View {
             Text(text)
                 .tracking(2)
                 .font(.gnoCaption1)
-                .foregroundColor(Color.tertiaryLabel)
+                .foregroundColor(Color.labelTetriary)
                 .padding()
             
             Spacer()
         }
         .frame(height: text.isEmpty ? 28 : 44)
-        .background(Color.primaryBackground)
+        .background(Color.backgroundPrimary)
         .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
     }
 }

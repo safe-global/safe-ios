@@ -23,12 +23,12 @@ extension String {
 
         if self.count < prefix + suffix {
             attributedString.addAttribute(
-                .foregroundColor, value: UIColor.primaryLabel, range: NSRange(location: 0, length: count))
+                .foregroundColor, value: UIColor.labelPrimary, range: NSRange(location: 0, length: count))
         } else {
             attributedString.addAttribute(
-                .foregroundColor, value: UIColor.primaryLabel, range: NSRange(location: 0, length: prefix))
+                .foregroundColor, value: UIColor.labelPrimary, range: NSRange(location: 0, length: prefix))
             attributedString.addAttribute(
-                .foregroundColor, value: UIColor.primaryLabel, range: NSRange(location: count - suffix, length: suffix))
+                .foregroundColor, value: UIColor.labelPrimary, range: NSRange(location: count - suffix, length: suffix))
         }
         
         return attributedString

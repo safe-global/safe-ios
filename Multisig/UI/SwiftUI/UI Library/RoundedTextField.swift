@@ -50,7 +50,7 @@ struct RoundedTextField: View {
         if isValid.wrappedValue == false {
             return Color.error
         } else {
-            return Color.gray4
+            return Color.labelTetriary
         }
     }
 

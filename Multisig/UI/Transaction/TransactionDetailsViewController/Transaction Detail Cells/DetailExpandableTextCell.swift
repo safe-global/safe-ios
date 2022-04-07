@@ -29,7 +29,7 @@ class DetailExpandableTextCell: UITableViewCell {
         super.awakeFromNib()
         titleLabel.setStyle(titleStyle)
         expandableTitleLabel.setStyle(expandableTitleStyle.collapsed)
-        expandableIconImageView.tintColor = .secondaryLabel
+        expandableIconImageView.tintColor = .labelSecondary
         setExpandableTitle(nil)
         setCopyText(nil)
         updateExpanded()

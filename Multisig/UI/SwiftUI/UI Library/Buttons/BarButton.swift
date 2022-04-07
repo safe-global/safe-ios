@@ -16,7 +16,7 @@ struct BarButtonModifier: ViewModifier {
         content
             .font(Font.body.bold())
             .disabled(disabled)
-            .accentColor(disabled ? Color.gray5 : Color.button)
+            .accentColor(disabled ? .backgroundTetriary :  .primary)
     }
 
 }

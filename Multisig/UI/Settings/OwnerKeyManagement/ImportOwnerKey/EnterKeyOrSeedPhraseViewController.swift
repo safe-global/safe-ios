@@ -46,7 +46,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         textView.textContentType = .password
         textView.delegate = self
         textView.layer.borderWidth = 2
-        textView.layer.borderColor = UIColor.gray4.cgColor
+        textView.layer.borderColor = UIColor.labelTertiary.cgColor
         textView.layer.cornerRadius = 10
         textView.textContainerInset = UIEdgeInsets(top: 16, left: 12, bottom: 16, right: 12)
         textView.setStyle(.primary)
@@ -153,7 +153,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
     private func setError(_ error: Error?) {
         errorLabel.text = error?.localizedDescription
         errorLabel.isHidden = error == nil
-        textView.layer.borderColor = error == nil ? UIColor.gray4.cgColor : UIColor.error.cgColor
+        textView.layer.borderColor = error == nil ? UIColor.labelTertiary.cgColor : UIColor.error.cgColor
     }
 }
 

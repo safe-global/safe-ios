@@ -25,7 +25,7 @@ final class SwitchSafesViewController: UITableViewController {
             barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
         
         // explicitly set background color to prevent transparent background in dark mode
-        navigationController?.navigationBar.backgroundColor = .secondaryBackground
+        navigationController?.navigationBar.backgroundColor = .backgroundSecondary
         
         tableView.register(AddSafeTableViewCell.nib(), forCellReuseIdentifier: "AddSafe")
         tableView.register(SafeEntryTableViewCell.nib(), forCellReuseIdentifier: "SafeEntry")

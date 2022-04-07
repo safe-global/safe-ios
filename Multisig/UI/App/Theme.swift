@@ -19,9 +19,9 @@ class Theme: ObservableObject {
         // we don't set the `translucent` property of navbar to false because
         // it crashes the app (SwiftUI).
         // but shadow works.
-        UINavigationBar.appearance().shadowImage = UIImage(named: "shadow")?.withTintColor(.shadow)
-        UINavigationBar.appearance().tintColor = .button
-
+        UINavigationBar.appearance().shadowImage = nil
+        UINavigationBar.appearance().tintColor = .primary
+  
         // non-zero height view adds the bottom space to the table views
         UITableView.appearance().tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))
         // makes separators to take full width of the screen

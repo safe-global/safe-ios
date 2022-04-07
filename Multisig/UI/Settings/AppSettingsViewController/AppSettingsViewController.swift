@@ -17,7 +17,7 @@ class AppSettingsViewController: UITableViewController {
     var app = App.configuration.app
     var legal = App.configuration.legal
 
-    private let tableBackgroundColor: UIColor = .primaryBackground
+    private let tableBackgroundColor: UIColor = .backgroundPrimary
     private let sectionHeaderHeight: CGFloat = 28
     private var sections = [SectionItems]()
 

@@ -51,7 +51,7 @@ class ContractVersionStatusCell: UITableViewCell {
         case .upToDate:
             headerLabel.text = version
             statusView.image = UIImage(systemName: "checkmark", withConfiguration: semiboldConfiguration)
-            statusView.tintColor = .button
+            statusView.tintColor = .primary
             statusLabel.setStyle(.primaryButton)
             statusLabel.text = "Up to date"
 

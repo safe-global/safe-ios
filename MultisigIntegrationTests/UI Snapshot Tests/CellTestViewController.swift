@@ -13,7 +13,7 @@ import UIKit
 class CellTestViewController<CellType: UITableViewCell>: UITableViewController {
     var rowHeight: CGFloat = UITableView.automaticDimension
     var estimatedRowHeight: CGFloat = 44
-    var background: UIColor = .primaryBackground
+    var background: UIColor = .backgroundPrimary
     var configure: CellConfigureClosure = { _ in }
 
     typealias CellConfigureClosure = (_ cell: CellType) -> Void
@@ -21,7 +21,7 @@ class CellTestViewController<CellType: UITableViewCell>: UITableViewController {
     convenience init(
         rowHeight: CGFloat = UITableView.automaticDimension,
         estimatedHeight: CGFloat = 44,
-        background: UIColor = .primaryBackground,
+        background: UIColor = .backgroundPrimary,
         configure: @escaping CellConfigureClosure = {_ in }
     ) {
         self.init()

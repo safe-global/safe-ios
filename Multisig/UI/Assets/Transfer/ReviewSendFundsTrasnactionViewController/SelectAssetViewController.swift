@@ -20,7 +20,7 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
     
     override var isEmpty: Bool { filteredBalances.isEmpty }
     
-    private let tableBackgroundColor: UIColor = .primaryBackground
+    private let tableBackgroundColor: UIColor = .backgroundPrimary
 
     convenience init(balances: [TokenBalance]) {
         self.init(namedClass: Self.superclass())

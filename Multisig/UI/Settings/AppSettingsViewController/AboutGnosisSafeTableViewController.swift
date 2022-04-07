@@ -34,7 +34,7 @@ class AboutGnosisSafeTableViewController: UITableViewController {
         
         tableView.registerCell(BasicCell.self)
         
-        tableView.backgroundColor = .primaryBackground
+        tableView.backgroundColor = .backgroundPrimary
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

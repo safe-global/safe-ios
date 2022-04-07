@@ -350,7 +350,7 @@ class WCIncomingTransactionRequestViewController: UIViewController {
         let image = UIImage(systemName: isAdvancedOptionsShown ? "chevron.up" : "chevron.down")!
             .applyingSymbolConfiguration(.init(weight: .bold))!
         cell.setDisclosureImage(image)
-        cell.setDisclosureImageTintColor(.secondaryLabel)
+        cell.setDisclosureImageTintColor(.labelSecondary)
         cell.selectedBackgroundView = UIView()
         return cell
     }

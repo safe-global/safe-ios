@@ -22,7 +22,7 @@ class DefaultKeyTableViewCell: UITableViewCell {
         leftLabel.setStyle(.primary)
         detailLabel.setStyle(.primary)
         addressView.copyEnabled = false
-        iconImageView.tintColor = .button
+        iconImageView.tintColor = .primary
     }
 
     func setHeader(_ text: String?) {

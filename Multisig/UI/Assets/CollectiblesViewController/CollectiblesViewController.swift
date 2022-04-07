@@ -14,7 +14,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
     let rowHeight: CGFloat = 160
     let headerHeight: CGFloat = 52
     let footerHeight: CGFloat = 13
-    let tableBackgroundColor: UIColor = .primaryBackground
+    let tableBackgroundColor: UIColor = .backgroundPrimary
 
     var currentDataTask: URLSessionTask?
     var sections = [CollectibleListSection]()

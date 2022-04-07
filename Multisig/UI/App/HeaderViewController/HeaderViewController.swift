@@ -33,7 +33,7 @@ final class HeaderViewController: ContainerViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        headerBar.backgroundColor = .secondaryBackground
+        headerBar.backgroundColor = .backgroundSecondary
         safeBarView.addTarget(self, action: #selector(didTapSafeBarView(_:)), for: .touchUpInside)
         reloadHeaderBar()
         displayRootController()

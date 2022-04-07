@@ -15,8 +15,8 @@ struct GNOFilledButtonStyle: ButtonStyle {
             .padding()
             .frame(maxWidth: .infinity)
             .font(.gnoHeadline2)
-            .background(configuration.isPressed ? Color.buttonPressed : .button)
-            .foregroundColor(.primaryBackground)
+            .background(configuration.isPressed ? Color.primaryPressed : .primary)
+            .foregroundColor(.backgroundPrimary)
             .cornerRadius(10)
             .cardShadowTooltip()
     }
@@ -35,7 +35,7 @@ struct GNOBorderedButtonStyle: ButtonStyle {
     }
 
     func color(_ configuration: Configuration) -> Color {
-        configuration.isPressed ? Color.primaryLabel.opacity(0.7) : .primaryLabel
+        configuration.isPressed ? Color.labelPrimary.opacity(0.7) : .labelPrimary
     }
 }
 
@@ -45,7 +45,7 @@ struct GNOPlainButtonStyle: ButtonStyle {
             .padding()
             .font(.gnoBody)
             .foregroundColor(
-                configuration.isPressed ? Color.buttonPressed : .button)
+                configuration.isPressed ? Color.primaryPressed : .primary)
     }
 }
 
@@ -55,7 +55,7 @@ struct GNOCustomButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         CustomButton(normalColor: color,
-                     disabledColor: .gray4,
+                     disabledColor: .primaryDisabled,
                      configuration: configuration)
     }
 

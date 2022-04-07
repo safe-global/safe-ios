@@ -29,7 +29,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
 
         title = "Connect to Web"
 
-        tableView.backgroundColor = .primaryBackground
+        tableView.backgroundColor = .backgroundPrimary
         tableView.registerCell(WebConnectionTableViewCell.self)
         tableView.registerHeaderFooterView(DesktopPairingHeaderView.self)
         tableView.sectionHeaderHeight = UITableView.automaticDimension

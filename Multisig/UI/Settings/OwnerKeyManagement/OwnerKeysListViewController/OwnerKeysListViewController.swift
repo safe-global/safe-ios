@@ -28,7 +28,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         tableView.delegate = self
         tableView.dataSource = self
 
-        tableView.backgroundColor = .primaryBackground
+        tableView.backgroundColor = .backgroundPrimary
 
         tableView.registerCell(SigningKeyTableViewCell.self)
 
@@ -132,7 +132,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
                 completion(true)
             }
-            wcAction.backgroundColor = isConnected ? .orange : .button
+            wcAction.backgroundColor = isConnected ? .orange : .primary
             actions.append(wcAction)
         }
 
