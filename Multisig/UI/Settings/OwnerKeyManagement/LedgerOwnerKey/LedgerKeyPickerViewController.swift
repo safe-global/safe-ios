@@ -269,7 +269,7 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.backgroundColor = .primaryBackground
+        tableView.backgroundColor = .backgroundPrimary
         tableView.registerCell(DerivedKeyTableViewCell.self)
         tableView.registerCell(ButtonTableViewCell.self)
         tableView.registerHeaderFooterView(LoadingFooterView.self)

@@ -32,7 +32,7 @@ class ChainSettingsTableViewController: UITableViewController {
         tableView.registerCell(SwitchTableViewCell.self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "HelpCell")
 
-        tableView.backgroundColor = .secondaryBackground
+        tableView.backgroundColor = .backgroundSecondary
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
         sections.append(Section(title: "Address prefix", items: [.prependChainPrefixToAddresses,

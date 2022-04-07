@@ -45,7 +45,7 @@ class PasscodeSettingsViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "HelpCell")
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
-        tableView.backgroundColor = .secondaryBackground
+        tableView.backgroundColor = .backgroundSecondary
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
         if #available(iOS 15.0, *) {

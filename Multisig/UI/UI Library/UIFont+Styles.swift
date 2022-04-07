@@ -191,15 +191,15 @@ extension GNOButtonStyle {
 
     static let filled = GNOButtonStyle(appearance: [
         (.normal, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-filled-normal"), textAttributes: [
-            .foregroundColor: UIColor.primaryBackground,
+            .foregroundColor: UIColor.backgroundPrimary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.highlighted, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-filled-pressed"), textAttributes: [
-            .foregroundColor: UIColor.primaryBackground,
+            .foregroundColor: UIColor.backgroundPrimary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.disabled, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-filled-inactive"), textAttributes: [
-            .foregroundColor: UIColor.primaryBackground,
+            .foregroundColor: UIColor.backgroundPrimary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ]))
     ])
@@ -221,15 +221,15 @@ extension GNOButtonStyle {
 
     static let filledError = GNOButtonStyle(appearance: [
         (.normal, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-error-filled-normal"), textAttributes: [
-            .foregroundColor: UIColor.primaryBackground,
+            .foregroundColor: UIColor.backgroundPrimary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.highlighted, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-error-filled-pressed"), textAttributes: [
-            .foregroundColor: UIColor.primaryBackground,
+            .foregroundColor: UIColor.backgroundPrimary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.disabled, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-error-filled-inactive"), textAttributes: [
-            .foregroundColor: UIColor.primaryBackground,
+            .foregroundColor: UIColor.backgroundPrimary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ]))
     ])

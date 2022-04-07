@@ -17,7 +17,7 @@ class SafeInfoViewController: ContainerViewController {
         let view = SafeInfoView()
             .environment(\.managedObjectContext, App.shared.coreDataStack.viewContext)
         let viewController = UIHostingController(rootView: view)
-        viewController.view.backgroundColor = .secondaryBackground
+        viewController.view.backgroundColor = .backgroundSecondary
         viewControllers = [viewController]
 
         // Set explicit constraints instead of the autoresizing because otherwise the

@@ -40,13 +40,13 @@ class ExperimentalViewController: UITableViewController {
 
         title = "Experimental"
 
-        tableView.backgroundColor = .secondaryBackground
+        tableView.backgroundColor = .backgroundSecondary
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
         tableView.registerCell(SwitchTableViewCell.self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "WalletConnectDescription")
 
-        tableView.backgroundColor = .primaryBackground
+        tableView.backgroundColor = .backgroundPrimary
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -79,7 +79,7 @@ class ExperimentalViewController: UITableViewController {
     private func descriptionCell(_ text: String, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(UITableViewCell.self, reuseID: "WalletConnectDescription", for: indexPath)
         cell.textLabel?.setStyle(.secondary)
-        cell.backgroundColor = .primaryBackground
+        cell.backgroundColor = .backgroundPrimary
         cell.textLabel?.text = text
         cell.textLabel?.numberOfLines = 0
         cell.selectionStyle = .none

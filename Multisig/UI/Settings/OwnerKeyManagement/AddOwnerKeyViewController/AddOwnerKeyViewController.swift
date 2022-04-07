@@ -39,7 +39,7 @@ class AddOwnerKeyViewController: UITableViewController {
         tableView.registerCell(AddOwnerKeyCell.self)
         tableView.estimatedRowHeight = 90
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.backgroundColor = .primaryBackground
+        tableView.backgroundColor = .backgroundPrimary
 
         keyTypes.append(
             (.walletConnect, "Connect key", "Connect an existing key from another wallet using WalletConnect")

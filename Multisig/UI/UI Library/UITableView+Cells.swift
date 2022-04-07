@@ -95,7 +95,7 @@ extension UITableView {
 
     func helpCell(for indexPath: IndexPath,
                   with text: String,
-                  backgroundColor: UIColor = .primaryBackground,
+                  backgroundColor: UIColor = .backgroundPrimary,
                   textStyle: GNOTextStyle = .secondary) -> UITableViewCell {
         let cell = dequeueCell(UITableViewCell.self, reuseID: "HelpCell", for: indexPath)
         cell.textLabel?.setStyle(.secondary)

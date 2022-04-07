@@ -43,7 +43,7 @@ class AddKeyOnboardingViewController: UITableViewController {
 
         tableView.registerCell(CardTableViewCell.self)
 
-        tableView.backgroundColor = .primaryBackground
+        tableView.backgroundColor = .backgroundPrimary
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -26,7 +26,7 @@ class SelectFiatViewController: LoadableViewController {
         tableView.registerCell(BasicCell.self)
         tableView.rowHeight = BasicCell.rowHeight
 
-        tableView.backgroundColor = .secondaryBackground
+        tableView.backgroundColor = .backgroundSecondary
     }
 
     override func viewDidAppear(_ animated: Bool) {

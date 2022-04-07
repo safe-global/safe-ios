@@ -102,7 +102,7 @@ enum ViewControllerFactory {
                 sheet.detents = [.medium(), .large()]
             }
         }
-        navController.view.backgroundColor = .secondaryBackground
+        navController.view.backgroundColor = .backgroundSecondary
         return navController
     }
 }

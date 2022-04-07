@@ -62,7 +62,7 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
         tableView.registerCell(BasicCell.self)
         tableView.rowHeight = BasicCell.rowHeight
         tableView.sectionHeaderHeight = 100
-        tableView.backgroundColor = .primaryBackground
+        tableView.backgroundColor = .backgroundPrimary
 
         loadingView.set(title: "Searching for Ledger Nano X devices")
 

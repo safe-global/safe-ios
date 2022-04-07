@@ -29,7 +29,7 @@ class MultiSendListTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 72
         tableView.rowHeight = UITableView.automaticDimension
         tableView.registerCell(MultiSendRowTableViewCell.self)
-        tableView.backgroundColor = .secondaryBackground
+        tableView.backgroundColor = .backgroundSecondary
 
         for notification in [Notification.Name.ownerKeyImported,
                              .ownerKeyRemoved,

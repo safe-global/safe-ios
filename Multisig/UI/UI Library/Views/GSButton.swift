@@ -58,18 +58,18 @@ extension GSButton.Style {
     static let filled = GSButton.Style(
         font: .gnoFont(forTextStyle: .headline2),
         config: [
-            StateConfig(state: .normal, titleColor: .primaryBackground, backgroundImage: UIImage(named: "btn-filled-normal")),
-            StateConfig(state: .highlighted, titleColor: .primaryBackground, backgroundImage: UIImage(named: "btn-filled-pressed")),
-            StateConfig(state: .disabled, titleColor: .primaryBackground, backgroundImage: UIImage(named: "btn-filled-inactive"))
+            StateConfig(state: .normal, titleColor: .backgroundPrimary, backgroundImage: UIImage(named: "btn-filled-normal")),
+            StateConfig(state: .highlighted, titleColor: .backgroundPrimary, backgroundImage: UIImage(named: "btn-filled-pressed")),
+            StateConfig(state: .disabled, titleColor: .backgroundPrimary, backgroundImage: UIImage(named: "btn-filled-inactive"))
         ]
     )
 
     static let filledError = GSButton.Style(
         font: .gnoFont(forTextStyle: .headline2),
         config: [
-            StateConfig(state: .normal, titleColor: .primaryBackground, backgroundImage: UIImage(named: "btn-error-filled-normal")),
-            StateConfig(state: .highlighted, titleColor: .primaryBackground, backgroundImage: UIImage(named: "btn-error-filled-pressed")),
-            StateConfig(state: .disabled, titleColor: .primaryBackground, backgroundImage: UIImage(named: "btn-error-filled-inactive"))
+            StateConfig(state: .normal, titleColor: .backgroundPrimary, backgroundImage: UIImage(named: "btn-error-filled-normal")),
+            StateConfig(state: .highlighted, titleColor: .backgroundPrimary, backgroundImage: UIImage(named: "btn-error-filled-pressed")),
+            StateConfig(state: .disabled, titleColor: .backgroundPrimary, backgroundImage: UIImage(named: "btn-error-filled-inactive"))
         ]
     )
 }

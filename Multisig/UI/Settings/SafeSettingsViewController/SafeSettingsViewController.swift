@@ -13,7 +13,7 @@ fileprivate protocol SectionItem {}
 
 class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     var clientGatewayService = App.shared.clientGatewayService
-    let tableBackgroundColor: UIColor = .primaryBackground
+    let tableBackgroundColor: UIColor = .backgroundPrimary
     let advancedSectionHeaderHeight: CGFloat = 28
 
     private typealias SectionItems = (section: Section, items: [SectionItem])

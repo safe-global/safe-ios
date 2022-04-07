@@ -28,7 +28,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         tableView.delegate = self
         tableView.dataSource = self
 
-        tableView.backgroundColor = .primaryBackground
+        tableView.backgroundColor = .backgroundPrimary
 
         tableView.registerCell(SigningKeyTableViewCell.self)
 

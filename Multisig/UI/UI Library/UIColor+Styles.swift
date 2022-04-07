@@ -21,13 +21,13 @@ extension UIColor {
     static let gray5 = UIColor(named: "gray5")!
     static let whiteOrBlack = UIColor(named: "whiteOrBlackBackground")!
     static let pending = UIColor(named: "pending")!
-    static let primaryBackground = UIColor(named: "primaryBackground")!
+    static let backgroundPrimary = UIColor(named: "backgroundPrimary")!
     static let labelPrimary = UIColor(named: "labelPrimary")!
-    static let secondaryBackground = UIColor(named: "secondaryBackground")!
+    static let backgroundSecondary = UIColor(named: "backgroundSecondary")!
     static let labelSecondary = UIColor(named: "labelSecondary")!
     static let separator = UIColor(named: "separator")!
     static let shadow = UIColor(named: "shadow")!
-    static let tertiaryBackground = UIColor(named: "tertiaryBackground")!
+    static let backgroundTetriary = UIColor(named: "tetriaryBackground")!
     static let labelTertiary = UIColor(named: "labelTertiary")!
     static let quaternaryBackground = UIColor(named: "quaternaryBackground")!
 }
