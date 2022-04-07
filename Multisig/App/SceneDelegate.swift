@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: - Scene Life Cycle
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         let darkNavBar = UINavigationBar.appearance(for: .init(userInterfaceStyle: .dark))
-        darkNavBar.barTintColor = .quaternaryBackground
+        darkNavBar.barTintColor = .backgroundQuaternary
         darkNavBar.isTranslucent = false
 
         let lightNavBar = UINavigationBar.appearance(for: .init(userInterfaceStyle: .light))
@@ -132,7 +132,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func makeWindow(scene: UIWindowScene) -> UIWindow {
         let window = WindowWithViewOnTop(windowScene: scene)
-        window.tintColor = .button
+        window.tintColor = .primary
         return window
     }
 

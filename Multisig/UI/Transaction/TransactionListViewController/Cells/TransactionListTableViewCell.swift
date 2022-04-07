@@ -111,7 +111,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         case .cancelled:
             return .labelSecondary
         case .success:
-            return .button
+            return .primary
         }
     }
 
@@ -121,6 +121,6 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
 
     private func confirmationColor(_ confirmationsSubmitted: UInt64 = 0, _ confirmationsRequired: UInt64 = 0) -> UIColor {
         let reminingConfirmations = confirmationsSubmitted > confirmationsRequired ? 0 : confirmationsRequired - confirmationsSubmitted
-        return reminingConfirmations > 0 ? .tertiaryLabel : .button
+        return reminingConfirmations > 0 ? .tertiaryLabel : .primary
     }
 }

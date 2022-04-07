@@ -40,18 +40,18 @@ extension GSButton.Style {
     static let primary = GSButton.Style(
         font: .gnoFont(forTextStyle: .primary),
         config: [
-            StateConfig(state: .normal, titleColor: .button, backgroundImage: nil),
-            StateConfig(state: .highlighted, titleColor: .buttonPressed, backgroundImage: nil),
-            StateConfig(state: .disabled, titleColor: .button.withAlphaComponent(0.5), backgroundImage: nil)
+            StateConfig(state: .normal, titleColor: .primary, backgroundImage: nil),
+            StateConfig(state: .highlighted, titleColor: .primaryPressed, backgroundImage: nil),
+            StateConfig(state: .disabled, titleColor: .primary.withAlphaComponent(0.5), backgroundImage: nil)
         ]
     )
 
     static let plain = GSButton.Style(
         font: .gnoFont(forTextStyle: .headline2),
         config: [
-            StateConfig(state: .normal, titleColor: .button, backgroundImage: nil),
-            StateConfig(state: .highlighted, titleColor: .buttonPressed, backgroundImage: nil),
-            StateConfig(state: .disabled, titleColor: .button.withAlphaComponent(0.5), backgroundImage: nil)
+            StateConfig(state: .normal, titleColor: .primary, backgroundImage: nil),
+            StateConfig(state: .highlighted, titleColor: .primaryPressed, backgroundImage: nil),
+            StateConfig(state: .disabled, titleColor: .primary.withAlphaComponent(0.5), backgroundImage: nil)
         ]
     )
 

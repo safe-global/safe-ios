@@ -22,7 +22,7 @@ struct SafeInfoView: View {
                 SafeInfoContentView(safe: selectedSafe.first!, appendPrefix: AppSettings.prependingChainPrefixToAddresses)
             }
         }
-        .background(Color.secondaryBackground)
+        .background(Color.backgroundSecondary)
     }
 }
 

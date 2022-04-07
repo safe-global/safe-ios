@@ -9,8 +9,8 @@
 import UIKit
 
 extension UIColor {
-    static let button = UIColor(named: "primary")!
-    static let buttonPressed = UIColor(named: "primaryPressed")!
+    static let primary = UIColor(named: "primary")!
+    static let primaryPressed = UIColor(named: "primaryPressed")!
     static let cardShadowTooltip = UIColor(named: "cardShadowTooltip")!
     static let error = UIColor(named: "error")!
     static let errorPressed = UIColor(named: "errorPressed")!
@@ -21,7 +21,7 @@ extension UIColor {
     static let backgroundPrimary = UIColor(named: "backgroundPrimary")!
     static let backgroundSecondary = UIColor(named: "backgroundSecondary")!
     static let backgroundTetriary = UIColor(named: "backgroundTetriary")!
-    static let quaternaryBackground = UIColor(named: "quaternaryBackground")!
+    static let backgroundQuaternary = UIColor(named: "backgroundQuaternary")!
     static let whiteOrBlack = UIColor(named: "whiteOrBlackBackground")!
     static let labelPrimary = UIColor(named: "labelPrimary")!
     static let labelSecondary = UIColor(named: "labelSecondary")!

@@ -201,7 +201,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
 
         var accessoryImage: UIImage? = UIImage()
         if let selection = selectedKey, keyInfo == selection {
-            accessoryImage = UIImage(systemName: "checkmark")?.withTintColor(.button)
+            accessoryImage = UIImage(systemName: "checkmark")?.withTintColor(.primary)
         }
 
         var accountBalance: String? = nil
@@ -284,7 +284,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
 
             completion(true)
         }
-        wcAction.backgroundColor = isConnected ? .orange : .button
+        wcAction.backgroundColor = isConnected ? .orange : .primary
 
         return UISwipeActionsConfiguration(actions: [wcAction])
     }

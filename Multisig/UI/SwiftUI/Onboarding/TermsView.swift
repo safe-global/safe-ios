@@ -60,7 +60,7 @@ struct TermsView: View {
         .padding(.top, topPadding)
         .padding(.bottom, bottomPadding)
         .padding(.horizontal)
-        .background(Color.secondaryBackground)
+        .background(Color.backgroundSecondary)
     }
 
     private func agreeWithTerms() {
@@ -80,7 +80,7 @@ struct TermsView: View {
         var body: some View {
             HStack(alignment: .top) {
                 Image("ico-bullet-point")
-                    .foregroundColor(.button)
+                    .foregroundColor(.primary)
                     .padding(.top, bulletTopPadding)
                 Text(text)
                     .font(.gnoBody)

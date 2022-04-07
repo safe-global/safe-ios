@@ -333,7 +333,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             image = isOutgoing ? UIImage(named: "ico-outgoing-tx") : UIImage(named: "ico-incomming-tx")
             title = isOutgoing ? "Send" : "Receive"
             info = formattedAmount(transferInfo: transferInfo)
-            infoColor = isOutgoing ? .labelPrimary : .button
+            infoColor = isOutgoing ? .labelPrimary : .primary
         case .settingsChange(let settingsChangeInfo):
             title = settingsChangeInfo.dataDecoded.method
             image = UIImage(named: "ico-settings-tx")

@@ -72,7 +72,7 @@ struct AdvancedAppSettings: View {
                 }
             }
             .padding()
-            .background(Color.primaryBackground)
+            .background(Color.backgroundPrimary)
             .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
         }
     }

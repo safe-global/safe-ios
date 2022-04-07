@@ -21,7 +21,7 @@ extension Image {
     static func checkmark(size: CGFloat) -> some View {
         icon("checkmark", size: size)
             .font(Font.body.weight(.semibold))
-            .foregroundColor(.button)
+            .foregroundColor(.primary)
     }
 
     static func icon(_ name: String, size: CGFloat) -> some View {
@@ -33,7 +33,7 @@ extension Image {
     static var checkmarkCircle: some View {
         Image(systemName: "checkmark.circle")
             .font(.gnoHeadline2)
-            .foregroundColor(Color.button)
+            .foregroundColor(Color.primary)
     }
 
     static var chevronDownCircle: some View {

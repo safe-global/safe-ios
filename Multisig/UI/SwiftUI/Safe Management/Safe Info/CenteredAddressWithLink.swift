@@ -29,7 +29,7 @@ struct CenteredAddressWithLink: View {
                 Image("ico-browse-address")
                     .resizable()
                     .frame(width: 24, height: 24)
-                    .foregroundColor(.button)
+                    .foregroundColor(.primary)
             }
             .frameForTapping()
             .sheet(isPresented: $showsBrowser) {

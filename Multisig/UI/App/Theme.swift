@@ -20,7 +20,7 @@ class Theme: ObservableObject {
         // it crashes the app (SwiftUI).
         // but shadow works.
         UINavigationBar.appearance().shadowImage = nil
-        UINavigationBar.appearance().tintColor = .button
+        UINavigationBar.appearance().tintColor = .primary
   
         // non-zero height view adds the bottom space to the table views
         UITableView.appearance().tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 100))

@@ -28,7 +28,7 @@ class SegmentView: UINibView {
         didSet {
             selectorView.isHidden = !isSelected
 
-            let color: UIColor = isSelected ? .button : .tertiaryLabel
+            let color: UIColor = isSelected ? .primary : .tertiaryLabel
             button.setTitleColor(color, for: .normal)
             button.tintColor = color
         }
