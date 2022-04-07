@@ -322,18 +322,14 @@ class TransactionDetailCellBuilder {
         case .custom(let customTx):
             let coin = Chain.nativeCoin!
             let (label, addressLogoUri) = NamingPolicy.name(for: customTx.to, chainId: chain.id!)
-
-            buildTransferHeader(
-                address: customTx.to.value.address,
+            // TODO: customize title
+            address(customTx.to.value.address,
                 label: label,
-                addressLogoUri: addressLogoUri,
-                isOutgoing: true,
-                status: tx.txStatus,
-                value: customTx.value.value,
-                decimals: UInt64(coin.decimals),
-                symbol: coin.symbol!,
-                logoUri: coin.logoUrl.map(\.absoluteString),
-                detail: "\(customTx.dataSize.value) bytes")
+                title: "Interact with: ",
+                imageUri: addressLogoUri,
+                browseURL: chain.browserURL(address: customTx.to.value.address.checksummed),
+                prefix: chain.shortName
+            )
             buildActions(tx)
             buildHexData(tx)
         case .rejection(_):
