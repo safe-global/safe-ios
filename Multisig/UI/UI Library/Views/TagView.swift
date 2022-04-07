@@ -17,7 +17,7 @@ class TagView: UINibView {
         titleLabel.setStyle(.footnote3)
         clipsToBounds = true
         layer.cornerRadius = 4
-        backgroundColor = .labelTertiary
+        backgroundColor = .backgroundTetriary
     }
 
     func set(title: String, style: GNOTextStyle = .footnote3) {
