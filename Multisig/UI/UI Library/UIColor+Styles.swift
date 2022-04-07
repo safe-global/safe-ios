@@ -25,7 +25,7 @@ extension UIColor {
     static let whiteOrBlack = UIColor(named: "whiteOrBlackBackground")!
     static let labelPrimary = UIColor(named: "labelPrimary")!
     static let labelSecondary = UIColor(named: "labelSecondary")!
-    static let labelTertiary = UIColor(named: "labelTertiary")!
+    static let labelTertiary = UIColor(named: "labelTetriary")!
 }
 
 extension UIColor {
