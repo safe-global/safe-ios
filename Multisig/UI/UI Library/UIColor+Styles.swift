@@ -14,9 +14,9 @@ extension UIColor {
     static let cardShadowTooltip = UIColor(named: "cardShadowTooltip")!
     static let error = UIColor(named: "error")!
     static let errorPressed = UIColor(named: "errorPressed")!
-    static let rejection = UIColor(named: "rejection")!
+    static let rejection = UIColor(named: "errorDisabled")!
     static let icon = UIColor(named: "icon")!
-    static let pending = UIColor(named: "pending")!
+    static let pending = UIColor(named: "warning")!
     static let separator = UIColor(named: "separator")!
     static let backgroundPrimary = UIColor(named: "backgroundPrimary")!
     static let backgroundSecondary = UIColor(named: "backgroundSecondary")!
