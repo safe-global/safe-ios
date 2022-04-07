@@ -23,7 +23,7 @@ extension Color {
     static let backgroundTetriary = Color("backgroundTetriary")
     static let labelPrimary = Color("labelPrimary")
     static let labelSecondary = Color("labelSecondary")
-    static let labelTetriary = Color("tertiaryLabel")
+    static let labelTetriary = Color("labelTetriary")
 }
 
 extension View {
