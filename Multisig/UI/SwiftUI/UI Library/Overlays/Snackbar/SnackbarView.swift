@@ -37,7 +37,7 @@ struct SnackbarView<T: View>: View {
             .padding(.vertical, SnackbarViewMetrics.textPadding.height)
             .frame(maxWidth: .infinity)
             .foregroundColor(.secondaryBackground)
-            .background(Color.primaryLabel)
+            .background(Color.labelPrimary)
             .cornerRadius(SnackbarViewMetrics.cornerRadius)
             .padding(.horizontal, SnackbarViewMetrics.screenPadding.width)
             .gnoShadow()

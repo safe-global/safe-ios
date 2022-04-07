@@ -35,7 +35,7 @@ struct GNOBorderedButtonStyle: ButtonStyle {
     }
 
     func color(_ configuration: Configuration) -> Color {
-        configuration.isPressed ? Color.primaryLabel.opacity(0.7) : .primaryLabel
+        configuration.isPressed ? Color.labelPrimary.opacity(0.7) : .labelPrimary
     }
 }
 
@@ -55,7 +55,7 @@ struct GNOCustomButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         CustomButton(normalColor: color,
-                     disabledColor: .gray4,
+                     disabledColor: .buttonDisabled,
                      configuration: configuration)
     }
 

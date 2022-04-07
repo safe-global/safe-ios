@@ -21,7 +21,7 @@ struct SectionHeader: View {
             Text(text)
                 .tracking(2)
                 .font(.gnoCaption1)
-                .foregroundColor(Color.tertiaryLabel)
+                .foregroundColor(Color.labelTetriary)
                 .padding()
             
             Spacer()

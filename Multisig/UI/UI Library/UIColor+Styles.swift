@@ -9,25 +9,23 @@
 import UIKit
 
 extension UIColor {
-    static let button = UIColor(named: "button")!
-    static let buttonPressed = UIColor(named: "buttonPressed")!
+    static let button = UIColor(named: "primary")!
+    static let buttonPressed = UIColor(named: "primaryPressed")!
     static let cardShadowTooltip = UIColor(named: "cardShadowTooltip")!
     static let error = UIColor(named: "error")!
     static let errorPressed = UIColor(named: "errorPressed")!
     static let rejection = UIColor(named: "rejection")!
     static let icon = UIColor(named: "icon")!
-    // EFEEED
-    static let gray5 = UIColor(named: "gray5")!
-    static let whiteOrBlack = UIColor(named: "whiteOrBlackBackground")!
     static let pending = UIColor(named: "pending")!
-    static let backgroundPrimary = UIColor(named: "backgroundPrimary")!
-    static let labelPrimary = UIColor(named: "labelPrimary")!
-    static let backgroundSecondary = UIColor(named: "backgroundSecondary")!
-    static let labelSecondary = UIColor(named: "labelSecondary")!
     static let separator = UIColor(named: "separator")!
+    static let backgroundPrimary = UIColor(named: "backgroundPrimary")!
+    static let backgroundSecondary = UIColor(named: "backgroundSecondary")!
     static let backgroundTetriary = UIColor(named: "backgroundTetriary")!
-    static let labelTertiary = UIColor(named: "labelTertiary")!
     static let quaternaryBackground = UIColor(named: "quaternaryBackground")!
+    static let whiteOrBlack = UIColor(named: "whiteOrBlackBackground")!
+    static let labelPrimary = UIColor(named: "labelPrimary")!
+    static let labelSecondary = UIColor(named: "labelSecondary")!
+    static let labelTertiary = UIColor(named: "labelTertiary")!
 }
 
 extension UIColor {

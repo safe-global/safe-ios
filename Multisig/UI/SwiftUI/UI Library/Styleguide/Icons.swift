@@ -40,7 +40,7 @@ extension Image {
         Image(systemName: "chevron.down.circle")
             .resizable()
             .font(Font.body.weight(.medium))
-            .foregroundColor(.secondaryLabel)
+            .foregroundColor(.labelSecondary)
             .frame(width: regularSize, height: regularSize)
     }
 
@@ -48,7 +48,7 @@ extension Image {
         Image(systemName: "chevron.down")
             .resizable()
             .font(Font.body.weight(.medium))
-            .foregroundColor(.secondaryLabel)
+            .foregroundColor(.labelSecondary)
             .frame(width: 12, height: 7)
     }
 
@@ -56,7 +56,7 @@ extension Image {
         Image(systemName: "chevron.up")
             .resizable()
             .font(Font.body.weight(.medium))
-            .foregroundColor(.secondaryLabel)
+            .foregroundColor(.labelSecondary)
             .frame(width: 12, height: 7)
     }
 
@@ -67,7 +67,7 @@ extension Image {
     static var bigXMark: some View {
         icon("xmark", size: regularSize)
             .font(.gnoNormal)
-            .foregroundColor(.tertiaryLabel)
+            .foregroundColor(.labelTetriary)
     }
 
     static var plusCircle: some View {

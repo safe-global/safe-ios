@@ -45,7 +45,7 @@ struct SlicedText: View {
 
 extension SlicedText.Style {
 
-    static let `default` = Self.init(color: .primaryLabel, truncate: .none)
+    static let `default` = Self.init(color: .labelPrimary, truncate: .none)
 
     init(color: Color, truncate: Truncation) {
         self.init(startColor: color, middleColor: color, endColor: color, truncate: truncate)

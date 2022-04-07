@@ -9,23 +9,21 @@
 import SwiftUI
 
 extension Color {
-    static let button = Color("button")
-    static let buttonPressed = Color("buttonPressed")
+    static let button = Color("primary")
+    static let buttonPressed = Color("primaryPressed")
+    static let buttonDisabled = Color("primaryDisabled")
     static let cardShadowTooltip = Color("cardShadowTooltip")
     static let error = Color("error")
     static let errorPressed = Color("errorPressed")
-    static let gray2 = Color("gray2")
-    static let gray4 = Color("gray4")
-    static let gray5 = Color("gray5")
-    static let pending = Color("pending")
-    static let primaryBackground = Color("primaryBackground")
-    static let primaryLabel = Color("primaryLabel")
-    static let secondaryBackground = Color("secondaryBackground")
-    static let secondaryLabel = Color("secondaryLabel")
+    static let icon = Color("icon")
     static let separator = Color("separator")
     static let shadow = Color("shadow")
-    static let tertiaryBackground = Color("tertiaryBackground")
-    static let tertiaryLabel = Color("tertiaryLabel")
+    static let primaryBackground = Color("backgroundPrimary")
+    static let secondaryBackground = Color("backgroundSecondary")
+    static let backgroundTetriary = Color("backgroundTetriary")
+    static let labelPrimary = Color("labelPrimary")
+    static let labelSecondary = Color("labelSecondary")
+    static let labelTetriary = Color("tertiaryLabel")
 }
 
 extension View {
