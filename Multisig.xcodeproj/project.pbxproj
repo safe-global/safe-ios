@@ -527,6 +527,7 @@
 		0AFD9DCA27BFDF0200011CF1 /* WebConnectionContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFD9DC927BFDF0200011CF1 /* WebConnectionContainerViewController.swift */; };
 		0AFD9DCC27BFE18800011CF1 /* SignatureRequestContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFD9DCB27BFE18800011CF1 /* SignatureRequestContentViewController.swift */; };
 		0AFD9DCE27BFF01000011CF1 /* SendTransactionContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFD9DCD27BFF01000011CF1 /* SendTransactionContentViewController.swift */; };
+		0AFE623D28006F830023BE49 /* WCAppRegistryMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE623C28006F830023BE49 /* WCAppRegistryMigration.swift */; };
 		3E373F762631781A00D8107A /* EnterUnstoppableNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E373F742631781900D8107A /* EnterUnstoppableNameViewController.xib */; };
 		3E373F772631781A00D8107A /* EnterUnstoppableNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */; };
 		3E373F7D2631784200D8107A /* BlockchainDomainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */; };
@@ -1285,6 +1286,7 @@
 		0AFD9DC927BFDF0200011CF1 /* WebConnectionContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnectionContainerViewController.swift; sourceTree = "<group>"; };
 		0AFD9DCB27BFE18800011CF1 /* SignatureRequestContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureRequestContentViewController.swift; sourceTree = "<group>"; };
 		0AFD9DCD27BFF01000011CF1 /* SendTransactionContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendTransactionContentViewController.swift; sourceTree = "<group>"; };
+		0AFE623C28006F830023BE49 /* WCAppRegistryMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCAppRegistryMigration.swift; sourceTree = "<group>"; };
 		3E373F742631781900D8107A /* EnterUnstoppableNameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterUnstoppableNameViewController.xib; sourceTree = "<group>"; };
 		3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterUnstoppableNameViewController.swift; sourceTree = "<group>"; };
 		3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockchainDomainManager.swift; sourceTree = "<group>"; };
@@ -3449,6 +3451,7 @@
 				0A9D5CE927D8F48A0075A21D /* Models */,
 				0A9D5CE727D8F47C0075A21D /* WCAppRegistryRepository.swift */,
 				6A91EFD627DA0604009E63E9 /* WCRegistryController.swift */,
+				0AFE623C28006F830023BE49 /* WCAppRegistryMigration.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -4137,6 +4140,7 @@
 				557D80AD270B32F80036D6D0 /* WCRequestsHandler.swift in Sources */,
 				0A7AEAF42463185C00014184 /* ENSNameLoader.swift in Sources */,
 				551BC70D2538965700E4CC79 /* LoadingModel.swift in Sources */,
+				0AFE623D28006F830023BE49 /* WCAppRegistryMigration.swift in Sources */,
 				0AA9F2072497BE9B005BD60F /* UInt256.swift in Sources */,
 				0A67AC9625E3BE4400B3E97C /* PasscodeViewController.swift in Sources */,
 				0ADA90F3256548C30004DEC0 /* SnackbarViewController.swift in Sources */,

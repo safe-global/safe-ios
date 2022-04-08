@@ -103,6 +103,9 @@ extension AppSettings {
             !(passcodeBannerDismissed || passcodeWasSetAtLeastOnce)
         }
     }
+
+    @AppSetting(\.walletAppRegistryMigrationCompleted)
+    static var walletAppRegistryMigrationCompleted: Bool
 }
 
 extension AppSettings {
