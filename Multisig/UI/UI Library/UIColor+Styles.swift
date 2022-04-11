@@ -23,7 +23,6 @@ extension UIColor {
     static let backgroundTetriary = UIColor(named: "backgroundTetriary")!
     static let backgroundWarning = UIColor(named: "backgroundWarning")
     static let backgroundQuaternary = UIColor(named: "backgroundQuaternary")!
-    static let backgroundWarning = UIColor(named: "backgroundWarning")!
     static let whiteOrBlack = UIColor(named: "whiteOrBlackBackground")!
     static let labelPrimary = UIColor(named: "labelPrimary")!
     static let labelSecondary = UIColor(named: "labelSecondary")!

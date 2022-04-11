@@ -8,9 +8,7 @@ class SeedPhraseViewController: UIViewController {
 
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var seedPhraseView: SeedPhraseView!
-    @IBOutlet weak var warningLabel: UILabel!
-    @IBOutlet weak var warningContent: UIStackView!
-    @IBOutlet weak var warningIcon: UIImageView!
+    @IBOutlet weak var warningView: WarningView!
     @IBOutlet weak var copyToClipboardButton: UIButton!
 
     var seedPhrase: [String] = []
@@ -20,15 +18,7 @@ class SeedPhraseViewController: UIViewController {
         infoLabel.text = "Make sure to store your seed phrase in a secure place."
         infoLabel.setStyle(.secondary)
 
-        warningIcon.tintColor = .pending
-
-        warningContent.backgroundColor = .backgroundWarning
-        warningContent.layer.cornerRadius = 8
-        warningContent.clipsToBounds = true
-
-
-        warningLabel.text = "Gnosis Safe will never ask for your seed phrase! It is encrypted and stored locally on your device."
-        warningLabel.setStyle(.secondary)
+        warningView.set(description: "Gnosis Safe will never ask for your seed phrase! It is encrypted and stored locally on your device.")
 
         copyToClipboardButton.setText("Copy to Clipboard", .primary)
 
