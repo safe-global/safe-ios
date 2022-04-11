@@ -28,8 +28,6 @@ class SeedPhraseViewController: UIViewController {
         warningLabel.setStyle(.secondary)
 
         copyToClipboardButton.setText("Copy to Clipboard", .primary)
-        copyToClipboardButton.imageView?.image = UIImage(named: "ico-copy")
-
 
         seedPhraseView.words = seedPhrase.enumerated().map {
             SeedWord(index: $0.offset, value: $0.element)
