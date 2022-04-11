@@ -44,6 +44,8 @@ class SeedPhraseView: UIView, UICollectionViewDelegateFlowLayout, UICollectionVi
         let collectionViewLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
 
+        collectionViewLayout.scrollDirection = .horizontal
+
         let nib = UINib(nibName: "SeedWordCollectionViewCell", bundle: Bundle(for: SeedWordCollectionViewCell.self))
         collectionView.register(nib, forCellWithReuseIdentifier: "SeedWordCollectionViewCell")
 
@@ -87,6 +89,7 @@ class SeedPhraseView: UIView, UICollectionViewDelegateFlowLayout, UICollectionVi
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard indexPath.item < words.count else { return UICollectionViewCell() }
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SeedWordCollectionViewCell",
                                                       for: indexPath) as! SeedWordCollectionViewCell
         cell.word = words[indexPath.item]
@@ -94,15 +97,14 @@ class SeedPhraseView: UIView, UICollectionViewDelegateFlowLayout, UICollectionVi
         cell.bounds.origin = .zero
         return cell
     }
-
 }
 
 extension SeedPhraseView {
     struct CellMetrics {
-        var size: CGSize = CGSize(width: 88, height: 54)
-        var hSpace: CGFloat = 11
-        var vSpace: CGFloat = 10
-        var columnCount: Int = 3
+        var size: CGSize = CGSize(width: 88, height: 34)
+        var hSpace: CGFloat = 0
+        var vSpace: CGFloat = 0
+        var columnCount: Int = 2
 
         mutating func calculate(basedOn container: UIView) {
             if columnCount == 0 { return }

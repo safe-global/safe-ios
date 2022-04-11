@@ -7,19 +7,15 @@ import UIKit
 class SeedWordCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var numberLabel: UILabel!
-    @IBOutlet weak var badgeImageView: UIImageView!
     @IBOutlet weak var wordLabel: UILabel!
-    @IBOutlet weak var backgroundImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         clipsToBounds = false
 
-        numberLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        numberLabel.textAlignment = .center
+        numberLabel.setStyle(.tertiary)
 
-        wordLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
-        wordLabel.textAlignment = .center
+        wordLabel.setStyle(.secondary)
         wordLabel.adjustsFontSizeToFitWidth = true
         wordLabel.minimumScaleFactor = 0.5
         update()
@@ -34,10 +30,6 @@ class SeedWordCollectionViewCell: UICollectionViewCell {
     func update() {
         wordLabel.text = word?.value
         numberLabel.text = word?.number
-        numberLabel.textColor = .labelPrimary
-        badgeImageView.image = UIImage(named: "seed-badge-normal")
-        wordLabel.textColor = .primary
-        backgroundImageView.image = UIImage(named: "seed-bg-normal")
     }
 
 }
