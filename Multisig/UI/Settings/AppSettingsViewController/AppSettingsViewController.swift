@@ -31,7 +31,7 @@ class AppSettingsViewController: UITableViewController {
 
         enum App: SectionItem {
             case desktopPairing(String)
-            case ownerKeys(String, String)
+            case ownerKeys(String, Bool, String)
             case addressBook(String)
             case passcode(String)
             case fiat(String, String)
@@ -88,7 +88,7 @@ class AppSettingsViewController: UITableViewController {
         sections += [
             (section: .app, items: [
                 Section.App.desktopPairing("Connect to Web"),
-                Section.App.ownerKeys("Owner keys", "\(KeyInfo.count())"),
+                Section.App.ownerKeys("Owner keys", !KeyInfo.keysNeedBackup().isEmpty, "\(KeyInfo.count())"),
                 Section.App.addressBook("Address Book"),
                 Section.App.passcode("Passcode"),
                 Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),
@@ -187,8 +187,12 @@ class AppSettingsViewController: UITableViewController {
         case Section.App.desktopPairing(let name):
             return tableView.basicCell(name: name, icon: "ico-app-settings-desktop-pairing", indexPath: indexPath)
             
-        case Section.App.ownerKeys(let name, let count):
-            return tableView.basicCell(name: name, icon: "ico-app-settings-key", detail: count, indexPath: indexPath)
+        case Section.App.ownerKeys(let name, let warning, let count):
+            return tableView.basicCell(name: name,
+                                       icon: "ico-app-settings-key",
+                                       detail: count,
+                                       indexPath: indexPath,
+                                       supplementaryImage: warning ? UIImage(named: "ico-private-key") : nil)
 
         case Section.App.addressBook(let name):
             return tableView.basicCell(name: name, icon: "ico-app-settings-book", indexPath: indexPath)

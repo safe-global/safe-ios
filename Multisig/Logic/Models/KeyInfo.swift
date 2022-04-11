@@ -87,6 +87,10 @@ extension KeyInfo {
         }
     }
 
+    static func keysNeedBackup() -> [KeyInfo] {
+        (try? all().filter { KeyType(rawValue: Int($0.type))! == .deviceGenerated && $0.backedup == false }) ?? []
+    }
+
     /// Return the list of KeyInfo sorted alphabetically by name
     static func all() throws -> [KeyInfo] {
         let context = App.shared.coreDataStack.viewContext

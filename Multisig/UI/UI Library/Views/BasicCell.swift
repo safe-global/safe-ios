@@ -14,7 +14,8 @@ class BasicCell: UITableViewCell {
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet private weak var detailLabel: UILabel!
     @IBOutlet private weak var disclosureImageView: UIImageView!
- 
+    @IBOutlet private weak var supplementaryImageView: UIImageView!
+
     static let rowHeight: CGFloat = 60
 
     override func awakeFromNib() {
@@ -22,6 +23,7 @@ class BasicCell: UITableViewCell {
         titleLabel.setStyle(.primary)
         detailLabel.setStyle(.secondary)
         setDetail(nil)
+        setSupplementary(nil)
     }
 
     func setTitle(_ value: String?, style: GNOTextStyle = .primary) {
@@ -54,5 +56,10 @@ class BasicCell: UITableViewCell {
 
     func setDisclosureImageTintColor(_ tintColor: UIColor) {
         disclosureImageView.tintColor = tintColor
+    }
+
+    func setSupplementary(_ image: UIImage? = nil) {
+        supplementaryImageView.image = image
+        supplementaryImageView.isHidden = image == nil
     }
 }
