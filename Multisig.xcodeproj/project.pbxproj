@@ -32,6 +32,8 @@
 		043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043913A024BF4E480006517D /* BrowseLinkButton.swift */; };
 		043963832704E25800018F74 /* AdvancedTransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043963822704E25800018F74 /* AdvancedTransactionDetailsViewController.swift */; };
 		0439638527077E3D00018F74 /* TransactionEstimationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439638427077E3C00018F74 /* TransactionEstimationRequest.swift */; };
+		0439B2952804632C00796F18 /* WarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439B2942804632C00796F18 /* WarningView.swift */; };
+		0439B2972804633900796F18 /* WarningView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0439B2962804633900796F18 /* WarningView.xib */; };
 		043ABD0E24EF0C33008826D5 /* TransactionDetailsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043ABD0A24EF0C33008826D5 /* TransactionDetailsRequest.swift */; };
 		043ABD0F24EF0C33008826D5 /* SafeClientGatewayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043ABD0B24EF0C33008826D5 /* SafeClientGatewayService.swift */; };
 		044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 044A54452448D0B6009CBB80 /* QRCodeScannerViewController.xib */; };
@@ -796,6 +798,8 @@
 		043913A024BF4E480006517D /* BrowseLinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseLinkButton.swift; sourceTree = "<group>"; };
 		043963822704E25800018F74 /* AdvancedTransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedTransactionDetailsViewController.swift; sourceTree = "<group>"; };
 		0439638427077E3C00018F74 /* TransactionEstimationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEstimationRequest.swift; sourceTree = "<group>"; };
+		0439B2942804632C00796F18 /* WarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningView.swift; sourceTree = "<group>"; };
+		0439B2962804633900796F18 /* WarningView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WarningView.xib; sourceTree = "<group>"; };
 		043ABD0A24EF0C33008826D5 /* TransactionDetailsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionDetailsRequest.swift; sourceTree = "<group>"; };
 		043ABD0B24EF0C33008826D5 /* SafeClientGatewayService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeClientGatewayService.swift; sourceTree = "<group>"; };
 		044A54452448D0B6009CBB80 /* QRCodeScannerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRCodeScannerViewController.xib; sourceTree = "<group>"; };
@@ -3130,6 +3134,8 @@
 				6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */,
 				04CF31BE27B6B9D2001BEEED /* TitledMiniPieceView.swift */,
 				04CF31C027B6B9DC001BEEED /* TitledMiniPieceView.xib */,
+				0439B2942804632C00796F18 /* WarningView.swift */,
+				0439B2962804633900796F18 /* WarningView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3696,6 +3702,7 @@
 				93EF2FAC27C551B60077BE95 /* FinalStepInstructionTableViewCell.xib in Resources */,
 				04B4B68F25B8857F00CFE24B /* AccountInfoView.xib in Resources */,
 				0A86EE6F25CC2B4C0059876E /* RetryFooterView.xib in Resources */,
+				0439B2972804633900796F18 /* WarningView.xib in Resources */,
 				0AE8C06B2579371A00E62B34 /* DetailTransferInfoCell.xib in Resources */,
 				55F9B7A026D66630003D1C68 /* LedgerPendingConfirmationViewController.xib in Resources */,
 				558836712565385F0014E8C7 /* RemoveCell.xib in Resources */,
@@ -4117,6 +4124,7 @@
 				0A2F1A70267A53A800C09F03 /* GSButton.swift in Sources */,
 				55B66E52247E478800249E98 /* LaunchView.swift in Sources */,
 				557D80B3270B32F80036D6D0 /* EditCell.swift in Sources */,
+				0439B2952804632C00796F18 /* WarningView.swift in Sources */,
 				0AE8C08F25793B9400E62B34 /* DetailArrowPiece.swift in Sources */,
 				0AF1042826BACD96009C4B14 /* AddKeyOnboardingViewController.swift in Sources */,
 				0A433E5F25500F87006FFF75 /* BalancesRequest.swift in Sources */,
