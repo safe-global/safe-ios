@@ -39,7 +39,7 @@ class SeedPhraseView: UIView, UICollectionViewDelegateFlowLayout, UICollectionVi
     }
 
     func commonInit() {
-        backgroundColor = .backgroundSecondary
+        backgroundColor = .backgroundWarning
 
         let collectionViewLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
@@ -49,7 +49,6 @@ class SeedPhraseView: UIView, UICollectionViewDelegateFlowLayout, UICollectionVi
         let nib = UINib(nibName: "SeedWordCollectionViewCell", bundle: Bundle(for: SeedWordCollectionViewCell.self))
         collectionView.register(nib, forCellWithReuseIdentifier: "SeedWordCollectionViewCell")
 
-        collectionView.backgroundColor = .backgroundSecondary
         collectionView.allowsSelection = false
         collectionView.delegate = self
         collectionView.dataSource = self

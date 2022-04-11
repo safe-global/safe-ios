@@ -31,5 +31,4 @@ class SeedWordCollectionViewCell: UICollectionViewCell {
         wordLabel.text = word?.value
         numberLabel.text = word?.number
     }
-
 }

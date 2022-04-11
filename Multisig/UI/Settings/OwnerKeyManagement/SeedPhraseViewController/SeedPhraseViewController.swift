@@ -23,6 +23,9 @@ class SeedPhraseViewController: UIViewController {
         warningIcon.tintColor = .orange
 
         warningContent.backgroundColor = .backgroundWarning
+        warningContent.layer.cornerRadius = 8.0
+        warningContent.clipsToBounds = true
+
 
         warningLabel.text = "Gnosis Safe will never ask for your seed phrase! It is encrypted and stored locally on your device."
         warningLabel.setStyle(.secondary)
