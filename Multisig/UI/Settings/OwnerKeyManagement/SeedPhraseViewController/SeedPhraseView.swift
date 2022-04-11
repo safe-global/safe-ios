@@ -11,6 +11,7 @@ class SeedPhraseView: UIView, UICollectionViewDelegateFlowLayout, UICollectionVi
     weak var collectionViewLayout: UICollectionViewFlowLayout!
     var heightConstraint: NSLayoutConstraint!
     var metrics = CellMetrics()
+    let collectionInset: UIEdgeInsets = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
 
     var words: [SeedWord] = [] {
         didSet {
@@ -39,8 +40,6 @@ class SeedPhraseView: UIView, UICollectionViewDelegateFlowLayout, UICollectionVi
     }
 
     func commonInit() {
-        backgroundColor = .backgroundWarning
-
         let collectionViewLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
 
@@ -57,9 +56,27 @@ class SeedPhraseView: UIView, UICollectionViewDelegateFlowLayout, UICollectionVi
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .clear
+
+        self.backgroundColor = .backgroundSecondary
+        self.layer.borderColor = UIColor.separator.cgColor
+        self.layer.borderWidth = 2
+        self.layer.cornerRadius = 8
 
         addSubview(collectionView)
-        wrapAroundView(collectionView)
+
+        wrapAroundView(collectionView, insets: collectionInset)
+
+        let borderView = UIView()
+        borderView.backgroundColor = .separator
+        borderView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(borderView)
+        self.addConstraints([
+            borderView.topAnchor.constraint(equalTo: self.topAnchor),
+            borderView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            borderView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            borderView.widthAnchor.constraint(equalToConstant: 2)
+        ])
 
         self.collectionView = collectionView
         self.collectionViewLayout = collectionViewLayout
@@ -71,7 +88,7 @@ class SeedPhraseView: UIView, UICollectionViewDelegateFlowLayout, UICollectionVi
     func update() {
         metrics.calculate(basedOn: collectionView)
 
-        heightConstraint.constant = metrics.totalHeight(itemCount: words.count)
+        heightConstraint.constant = metrics.totalHeight(itemCount: words.count) + collectionInset.top + collectionInset.bottom
         setNeedsUpdateConstraints()
 
         collectionViewLayout.itemSize = metrics.size
@@ -102,7 +119,7 @@ extension SeedPhraseView {
     struct CellMetrics {
         var size: CGSize = CGSize(width: 88, height: 34)
         var hSpace: CGFloat = 0
-        var vSpace: CGFloat = 0
+        var vSpace: CGFloat = 2
         var columnCount: Int = 2
 
         mutating func calculate(basedOn container: UIView) {

@@ -13,9 +13,9 @@ class SeedWordCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         clipsToBounds = false
 
-        numberLabel.setStyle(.tertiary)
+        numberLabel.setStyle(.secondary)
 
-        wordLabel.setStyle(.secondary)
+        wordLabel.setStyle(.primary)
         wordLabel.adjustsFontSizeToFitWidth = true
         wordLabel.minimumScaleFactor = 0.5
         update()

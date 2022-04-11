@@ -20,10 +20,10 @@ class SeedPhraseViewController: UIViewController {
         infoLabel.text = "Make sure to store your seed phrase in a secure place."
         infoLabel.setStyle(.secondary)
 
-        warningIcon.tintColor = .orange
+        warningIcon.tintColor = .pending
 
         warningContent.backgroundColor = .backgroundWarning
-        warningContent.layer.cornerRadius = 8.0
+        warningContent.layer.cornerRadius = 8
         warningContent.clipsToBounds = true
 
 
@@ -37,6 +37,15 @@ class SeedPhraseViewController: UIViewController {
         }
     }
 
+    @IBAction func didTapCopyButton(_ sender: Any) {
+        export(seedPhrase.joined(separator: " "))
+    }
+
+    func export(_ value: String) {
+        let vc = UIActivityViewController(activityItems: [value], applicationActivities: nil)
+        present(vc, animated: true, completion: nil)
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         seedPhraseView.update()
@@ -45,8 +54,8 @@ class SeedPhraseViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.exportSeed)
+        seedPhraseView.update()
     }
-
 }
 
 struct SeedWord {
