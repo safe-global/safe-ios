@@ -322,18 +322,35 @@ class TransactionDetailCellBuilder {
         case .custom(let customTx):
             let coin = Chain.nativeCoin!
             let (label, addressLogoUri) = NamingPolicy.name(for: customTx.to, chainId: chain.id!)
+            var title = "Interact with: "
+            let amount = Int256(customTx.value.value)
+            if customTx.value != "0"  {
+                let nativeCoinDecimals = chain.nativeCurrency!.decimals
+                let nativeCoinSymbol = chain.nativeCurrency!.symbol!
 
-            buildTransferHeader(
-                address: customTx.to.value.address,
+                let decimalAmount = BigDecimal(amount, Int(nativeCoinDecimals))
+                let amount = TokenFormatter().string(
+                        from: decimalAmount,
+                        decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
+                        thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",",
+                        forcePlusSign: false
+                )
+                
+                if let currencySymbol = chain.nativeCurrency?.symbol {
+                    title = "Interact with (Send \(amount) \(currencySymbol) to): "
+                } else {
+                    title = "Interact with (Send \(amount) to): "
+                }
+            }
+
+
+            address(customTx.to.value.address,
                 label: label,
-                addressLogoUri: addressLogoUri,
-                isOutgoing: true,
-                status: tx.txStatus,
-                value: customTx.value.value,
-                decimals: UInt64(coin.decimals),
-                symbol: coin.symbol!,
-                logoUri: coin.logoUrl.map(\.absoluteString),
-                detail: "\(customTx.dataSize.value) bytes")
+                title: title,
+                imageUri: addressLogoUri,
+                browseURL: chain.browserURL(address: customTx.to.value.address.checksummed),
+                prefix: chain.shortName
+            )
             buildActions(tx)
             buildHexData(tx)
         case .rejection(_):
