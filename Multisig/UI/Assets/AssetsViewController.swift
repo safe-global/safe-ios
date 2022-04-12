@@ -82,9 +82,8 @@ class AssetsViewController: ContainerViewController {
     private func showSelectAssetsViewContoller() {
         guard let balances = self.balances else { return }
         let selectAssetVC = SelectAssetViewController(balances: balances)
-        let ribbon = RibbonViewController(rootViewController: selectAssetVC)
-        let nav = UINavigationController(rootViewController: ribbon)
-        present(nav, animated: true)
+        let vc = ViewControllerFactory.modalWithRibbon(viewController: selectAssetVC)
+        present(vc, animated: true)
     }
     
     @objc private func balanceLoading() {

@@ -97,7 +97,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         tableView.deselectRow(at: indexPath, animated: true)
         let keyInfo = keys[indexPath.row]
         let vc = OwnerKeyDetailsViewController(keyInfo: keyInfo)
-        show(vc, sender: nil)
+        show(vc, sender: self)
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

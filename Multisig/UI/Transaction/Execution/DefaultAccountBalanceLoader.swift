@@ -76,7 +76,8 @@ class DefaultAccountBalanceLoader: AccountBalanceLoader {
                 dispatchOnMainThread(completion(.failure(gsError)))
 
             case .response(let response):
-                let gsError = GSError.error(description: serverErrorMessage, error: response.error)
+                let jsonError = (try? response.error?.data?.convert(to: Json.NSError.self))?.nsError() ?? (response.error as NSError?)
+                let gsError = GSError.error(description: serverErrorMessage, error: jsonError)
                 dispatchOnMainThread(completion(.failure(gsError)))
 
             case .array(let responses):

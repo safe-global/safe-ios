@@ -93,6 +93,12 @@ class MainTabBarViewController: UITabBarController {
             name: .safeCreationUpdate,
             object: nil)
 
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleDataRemoved),
+            name: .passcodeDeleted,
+            object: nil)
+
         WebConnectionController.shared.attach(observer: self)
     }
 
@@ -293,6 +299,12 @@ class MainTabBarViewController: UITabBarController {
             } else {
                 SafeDeploymentNotificationController.sendNotification(safe: safe)
             }
+        }
+    }
+
+    @objc private func handleDataRemoved(_ notification: Notification) {
+        if presentedViewController != nil {
+            dismiss(animated: true)
         }
     }
 

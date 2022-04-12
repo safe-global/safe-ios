@@ -444,6 +444,8 @@ extension SCGModels {
     }
 
     struct TransactionDetails: Decodable {
+        var txId: String
+        var safeAddress: AddressString
         var txStatus: TxStatus
         var txInfo: TxInfo
         var txData: TxData?

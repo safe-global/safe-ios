@@ -68,6 +68,10 @@ enum ViewControllerFactory {
         ribbon.chain = chain
         ribbon.storedChain = storedChain
         let navController = UINavigationController(rootViewController: ribbon)
+        if #unavailable(iOS 15) {
+            // explicitly set background color to prevent transparent background in dark mode (iOS 14)
+            navController.navigationBar.backgroundColor = .backgroundSecondary
+        }
         return navController
     }
 
@@ -79,6 +83,10 @@ enum ViewControllerFactory {
         viewController.navigationItem.leftBarButtonItem =
             UIBarButtonItem(barButtonSystemItem: .close, target: viewController, action: #selector(CloseModal.closeModal))
         let navController = UINavigationController(rootViewController: viewController)
+        if #unavailable(iOS 15) {
+            // explicitly set background color to prevent transparent background in dark mode (iOS 14)
+            navController.navigationBar.backgroundColor = .backgroundSecondary
+        }
         if halfScreen, #available(iOS 15.0, *) {
             if let sheet = navController.sheetPresentationController {
                 sheet.detents = [.medium(), .large()]
@@ -101,6 +109,10 @@ enum ViewControllerFactory {
             if let sheet = navController.sheetPresentationController {
                 sheet.detents = [.medium(), .large()]
             }
+        }
+        if #unavailable(iOS 15) {
+            // explicitly set background color to prevent transparent background in dark mode (iOS 14)
+            navController.navigationBar.backgroundColor = .backgroundSecondary
         }
         navController.view.backgroundColor = .backgroundSecondary
         return navController
