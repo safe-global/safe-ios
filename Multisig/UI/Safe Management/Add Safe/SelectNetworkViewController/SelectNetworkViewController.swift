@@ -39,7 +39,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
             tableView.sectionHeaderTopPadding = 0
         }
 
-        tableView.backgroundColor = .primaryBackground
+        tableView.backgroundColor = .backgroundPrimary
         tableView.sectionHeaderHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60

@@ -17,7 +17,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
     
     private var keyInfo: KeyInfo!
     private var exportButton: UIBarButtonItem!
-    let tableBackgroundColor: UIColor = .primaryBackground
+    let tableBackgroundColor: UIColor = .backgroundPrimary
 
     private typealias SectionItems = (section: Section, items: [SectionItem])
 

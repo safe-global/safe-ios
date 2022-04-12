@@ -9,9 +9,9 @@
 import SwiftUI
 
 extension SlicedText.Style {
-    static let addressShortLight = Self.init(color: .tertiaryLabel, truncate: .middle)
-    static let addressShortDark = Self.init(color: .primaryLabel, truncate: .middle)
-    static let addressLong = Self.init(middleColor: .tertiaryLabel, sideColor: .primaryLabel, truncate: .none)
+    static let addressShortLight = Self.init(color: .labelTetriary, truncate: .middle)
+    static let addressShortDark = Self.init(color: .labelPrimary, truncate: .middle)
+    static let addressLong = Self.init(middleColor: .labelTetriary, sideColor: .labelPrimary, truncate: .none)
 }
 
 extension SlicedText {

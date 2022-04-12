@@ -31,17 +31,17 @@ class WhatsNewHandler {
         let whatsNews = [whatsNew]
         var configuration = WhatsNewViewController.Configuration()
 
-        configuration.backgroundColor = .quaternaryBackground
+        configuration.backgroundColor = .backgroundQuaternary
 
-        configuration.titleView.titleColor = .primaryLabel
+        configuration.titleView.titleColor = .labelPrimary
         configuration.titleView.titleFont = .systemFont(ofSize: 26, weight: .regular)
 
         configuration.itemsView.titleFont = .systemFont(ofSize: 16, weight: .bold)
-        configuration.itemsView.titleColor = .primaryLabel
-        configuration.itemsView.subtitleColor = .secondaryLabel
+        configuration.itemsView.titleColor = .labelPrimary
+        configuration.itemsView.subtitleColor = .labelSecondary
 
-        configuration.detailButton?.titleColor = .button
-        configuration.completionButton.backgroundColor = .button
+        configuration.detailButton?.titleColor = .primary
+        configuration.completionButton.backgroundColor = .primary
         configuration.completionButton.title = "Let's go"
 
         configuration.itemsView.autoTintImage = false

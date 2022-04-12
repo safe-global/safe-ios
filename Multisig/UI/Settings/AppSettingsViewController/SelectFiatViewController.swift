@@ -26,7 +26,7 @@ class SelectFiatViewController: LoadableViewController {
         tableView.registerCell(BasicCell.self)
         tableView.rowHeight = BasicCell.rowHeight
 
-        tableView.backgroundColor = .secondaryBackground
+        tableView.backgroundColor = .backgroundSecondary
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -72,7 +72,7 @@ extension SelectFiatViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let code = currencies[indexPath.row]
         let disclosureImage = currencies[indexPath.row] == AppSettings.selectedFiatCode ?
-            UIImage(systemName: "checkmark")?.withTintColor(.button) : nil
+            UIImage(systemName: "checkmark")?.withTintColor(.primary) : nil
 
         let cell = tableView.basicCell(
             name: NSLocale.getCurrencyFullName(code: code),

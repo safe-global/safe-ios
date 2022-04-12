@@ -9,29 +9,24 @@
 import UIKit
 
 extension UIColor {
-    static let button = UIColor(named: "button")!
-    static let buttonPressed = UIColor(named: "buttonPressed")!
+    static let primary = UIColor(named: "primary")!
+    static let primaryPressed = UIColor(named: "primaryPressed")!
     static let cardShadowTooltip = UIColor(named: "cardShadowTooltip")!
     static let error = UIColor(named: "error")!
     static let errorPressed = UIColor(named: "errorPressed")!
-    static let rejection = UIColor(named: "rejection")!
-    // B1B5B1
-    static let gray2 = UIColor(named: "gray2")!
-    // E8E7E6
-    static let gray4 = UIColor(named: "gray4")!
-    // EFEEED
-    static let gray5 = UIColor(named: "gray5")!
-    static let whiteOrBlack = UIColor(named: "whiteOrBlackBackground")!
-    static let pending = UIColor(named: "pending")!
-    static let primaryBackground = UIColor(named: "primaryBackground")!
-    static let primaryLabel = UIColor(named: "primaryLabel")!
-    static let secondaryBackground = UIColor(named: "secondaryBackground")!
-    static let secondaryLabel = UIColor(named: "secondaryLabel")!
+    static let rejection = UIColor(named: "errorDisabled")!
+    static let icon = UIColor(named: "icon")!
+    static let pending = UIColor(named: "warning")!
     static let separator = UIColor(named: "separator")!
-    static let shadow = UIColor(named: "shadow")!
-    static let tertiaryBackground = UIColor(named: "tertiaryBackground")!
-    static let tertiaryLabel = UIColor(named: "tertiaryLabel")!
-    static let quaternaryBackground = UIColor(named: "quaternaryBackground")!
+    static let backgroundPrimary = UIColor(named: "backgroundPrimary")!
+    static let backgroundSecondary = UIColor(named: "backgroundSecondary")!
+    static let backgroundTetriary = UIColor(named: "backgroundTetriary")!
+    static let backgroundWarning = UIColor(named: "backgroundWarning")
+    static let backgroundQuaternary = UIColor(named: "backgroundQuaternary")!
+    static let whiteOrBlack = UIColor(named: "whiteOrBlackBackground")!
+    static let labelPrimary = UIColor(named: "labelPrimary")!
+    static let labelSecondary = UIColor(named: "labelSecondary")!
+    static let labelTertiary = UIColor(named: "labelTetriary")!
 }
 
 extension UIColor {

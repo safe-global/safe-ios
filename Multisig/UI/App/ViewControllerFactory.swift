@@ -112,9 +112,9 @@ enum ViewControllerFactory {
         }
         if #unavailable(iOS 15) {
             // explicitly set background color to prevent transparent background in dark mode (iOS 14)
-            navController.navigationBar.backgroundColor = .secondaryBackground
+            navController.navigationBar.backgroundColor = .backgroundSecondary
         }
-        navController.view.backgroundColor = .secondaryBackground
+        navController.view.backgroundColor = .backgroundSecondary
         return navController
     }
 }

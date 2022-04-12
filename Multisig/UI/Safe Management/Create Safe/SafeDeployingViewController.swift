@@ -28,7 +28,7 @@ class SafeDeployingViewController: UIViewController {
         imageView.image = UIImage.animatedImageNamed("safe-creating-", duration: 1.3)
         statusLabel.setStyle(.headline2)
         desciptionLabel.setStyle(.secondary)
-        didYouKnowLabel.setStyle(.caption2.color(.button))
+        didYouKnowLabel.setStyle(.caption2.color(.primary))
         txButton.setText("View transaction in block explorer", .primary)
 
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .transactionDataInvalidated, object: nil)

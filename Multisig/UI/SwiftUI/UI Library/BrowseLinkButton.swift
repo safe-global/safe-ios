@@ -20,7 +20,7 @@ struct BrowseLinkButton: View {
             LinkText(title: title)
         }
         .buttonStyle(BorderlessButtonStyle())
-        .foregroundColor(.button)
+        .foregroundColor(.primary)
         .sheet(isPresented: $showsLink, content:  browseTransaction)
     }
 

@@ -24,7 +24,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     private var sections: [Section] = []
 
-    private let tableBackgroundColor: UIColor = .primaryBackground
+    private let tableBackgroundColor: UIColor = .backgroundPrimary
 
     private var shouldShowImportKeyBanner: Bool {
         importKeyBannerWasShown != true
@@ -292,7 +292,7 @@ extension BalancesViewController {
     enum ImportKeyBanner {
         enum Strings {
             static let header = "Add owner key"
-            static let body = "We added signing support to the app! Now you can import your owner key and sign transactions on the go."
+            static let body = "Did you know that you can import your owner key to sign and execute transactions on the go?"
             static let button = "Add owner key now"
         }
     }

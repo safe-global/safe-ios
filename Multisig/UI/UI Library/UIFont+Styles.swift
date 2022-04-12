@@ -35,29 +35,29 @@ struct GNOTextStyle: Hashable {
 }
 
 extension GNOTextStyle {
-    static let primary = GNOTextStyle(size: 17, weight: .medium, color: .primaryLabel)
-    static let secondary = GNOTextStyle(size: 17, weight: .medium, color: .secondaryLabel)
+    static let primary = GNOTextStyle(size: 17, weight: .medium, color: .labelPrimary)
+    static let secondary = GNOTextStyle(size: 17, weight: .medium, color: .labelSecondary)
     static let tertiary = GNOTextStyle(size: 17, weight: .medium, color: .tertiaryLabel)
     static let primaryError = GNOTextStyle(size: 17, weight: .medium, color: .error)
-    static let primaryButton = GNOTextStyle(size: 17, weight: .medium, color: .button)
+    static let primaryButton = GNOTextStyle(size: 17, weight: .medium, color: .primary)
 
     static let caption1 = GNOTextStyle(size: 13, weight: .bold, letterSpacing: 2, color: .tertiaryLabel)
     static let caption2 = GNOTextStyle(size: 10, weight: .bold, letterSpacing: 2, color: .tertiaryLabel)
     static let caption3 = GNOTextStyle(size: 10, weight: .medium)
 
-    static let footnote2 = GNOTextStyle(size: 13, weight: .medium, color: .secondaryLabel)
-    static let footnote3 = GNOTextStyle(size: 13, weight: .medium, color: .primaryLabel)
+    static let footnote2 = GNOTextStyle(size: 13, weight: .medium, color: .labelSecondary)
+    static let footnote3 = GNOTextStyle(size: 13, weight: .medium, color: .labelPrimary)
     static let footnote4 = GNOTextStyle(size: 13, weight: .medium, color: .tertiaryLabel)
 
     static let subhead = GNOTextStyle(size: 15, weight: .bold)
 
-    static let callout = GNOTextStyle(size: 16, weight: .regular, color: .primaryLabel)
+    static let callout = GNOTextStyle(size: 16, weight: .regular, color: .labelPrimary)
     static let error = GNOTextStyle(size: 16, weight: .regular, color: .error)
-    static let headline = GNOTextStyle(size: 17, weight: .semibold, color: .primaryLabel)
+    static let headline = GNOTextStyle(size: 17, weight: .semibold, color: .labelPrimary)
     static let headline2 = GNOTextStyle(size: 17, weight: .bold)
 
-    static let title3 = GNOTextStyle(size: 20, weight: .regular, color: .primaryLabel)
-    static let title4 = GNOTextStyle(size: 26, weight: .regular, color: .primaryLabel)
+    static let title3 = GNOTextStyle(size: 20, weight: .regular, color: .labelPrimary)
+    static let title4 = GNOTextStyle(size: 26, weight: .regular, color: .labelPrimary)
 }
 
 extension GNOTextStyle {
@@ -112,7 +112,7 @@ extension UILabel {
 
         if let icon = linkIcon {
             let attachment = NSTextAttachment()
-            attachment.image = icon.withTintColor(.button)
+            attachment.image = icon.withTintColor(.primary)
             let attachmentString = NSAttributedString(attachment: attachment)
             result.append(attachmentString)
         }
@@ -161,75 +161,75 @@ struct GNOButtonStyle {
 extension GNOButtonStyle {
     static let primary = GNOButtonStyle(appearance: [
         (.normal, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
-            .foregroundColor: UIColor.button,
+            .foregroundColor: UIColor.primary,
             .font: UIFont.gnoFont(forTextStyle: .primary)
         ])),
         (.highlighted, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
-            .foregroundColor: UIColor.buttonPressed,
+            .foregroundColor: UIColor.primaryPressed,
             .font: UIFont.gnoFont(forTextStyle: .primary)
         ])),
         (.disabled, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
-            .foregroundColor: UIColor.button.withAlphaComponent(0.5),
+            .foregroundColor: UIColor.primary.withAlphaComponent(0.5),
             .font: UIFont.gnoFont(forTextStyle: .primary)
         ]))
     ])
 
     static let plain = GNOButtonStyle(appearance: [
         (.normal, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
-            .foregroundColor: UIColor.button,
+            .foregroundColor: UIColor.primary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.highlighted, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
-            .foregroundColor: UIColor.buttonPressed,
+            .foregroundColor: UIColor.primaryPressed,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.disabled, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
-            .foregroundColor: UIColor.button.withAlphaComponent(0.5),
+            .foregroundColor: UIColor.primary.withAlphaComponent(0.5),
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ]))
     ])
 
     static let filled = GNOButtonStyle(appearance: [
         (.normal, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-filled-normal"), textAttributes: [
-            .foregroundColor: UIColor.primaryBackground,
+            .foregroundColor: UIColor.backgroundPrimary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.highlighted, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-filled-pressed"), textAttributes: [
-            .foregroundColor: UIColor.primaryBackground,
+            .foregroundColor: UIColor.backgroundPrimary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.disabled, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-filled-inactive"), textAttributes: [
-            .foregroundColor: UIColor.primaryBackground,
+            .foregroundColor: UIColor.backgroundPrimary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ]))
     ])
 
     static let bordered = GNOButtonStyle(appearance: [
         (.normal, GNOButtonAppearance(backgroundImage: UIImage(named: "border-normal"), textAttributes: [
-            .foregroundColor: UIColor.button,
+            .foregroundColor: UIColor.primary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.highlighted, GNOButtonAppearance(backgroundImage: UIImage(named: "border-normal"), textAttributes: [
-            .foregroundColor: UIColor.button,
+            .foregroundColor: UIColor.primary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.disabled, GNOButtonAppearance(backgroundImage: UIImage(named: "border-normal"), textAttributes: [
-            .foregroundColor: UIColor.button,
+            .foregroundColor: UIColor.primary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ]))
     ])
 
     static let filledError = GNOButtonStyle(appearance: [
         (.normal, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-error-filled-normal"), textAttributes: [
-            .foregroundColor: UIColor.primaryBackground,
+            .foregroundColor: UIColor.backgroundPrimary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.highlighted, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-error-filled-pressed"), textAttributes: [
-            .foregroundColor: UIColor.primaryBackground,
+            .foregroundColor: UIColor.backgroundPrimary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.disabled, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-error-filled-inactive"), textAttributes: [
-            .foregroundColor: UIColor.primaryBackground,
+            .foregroundColor: UIColor.backgroundPrimary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ]))
     ])

@@ -23,7 +23,7 @@ struct ReloadButton: View {
                     Spacer()
                 }
             })
-            .buttonStyle(GNOCustomButtonStyle(color: .tertiaryLabel))
+            .buttonStyle(GNOCustomButtonStyle(color: .labelTetriary))
             .frame(height: height)
     }
 }

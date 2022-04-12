@@ -36,7 +36,7 @@ class TokenAmountField: UINibView {
     func setToken(logoURL: URL? = nil, amount: String = "") {
         iconImage.setCircleShapeImage(url: logoURL, placeholder:  UIImage(named: "ico-token-placeholder")!)
         amountTextField.text = amount
-        borderImage.tintColor = .gray4
+        borderImage.tintColor = .labelTertiary
         errorLabel.isHidden = true
     }
     
@@ -48,7 +48,7 @@ class TokenAmountField: UINibView {
         } else {
             errorLabel.text = nil
             errorLabel.isHidden = true
-            borderImage.tintColor = .gray4
+            borderImage.tintColor = .labelTertiary
         }
     }
 }

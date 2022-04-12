@@ -26,7 +26,7 @@ final class SwitchSafesViewController: UITableViewController {
         
         if #unavailable(iOS 15) {
             // explicitly set background color to prevent transparent background in dark mode (iOS 14)
-            navigationController?.navigationBar.backgroundColor = .secondaryBackground
+            navigationController?.navigationBar.backgroundColor = .backgroundSecondary
         }
         tableView.register(AddSafeTableViewCell.nib(), forCellReuseIdentifier: "AddSafe")
         tableView.register(SafeEntryTableViewCell.nib(), forCellReuseIdentifier: "SafeEntry")

@@ -31,19 +31,19 @@ extension Font {
 
 // common text stylings
 extension Text {
-    func body(_ color: Color? = .primaryLabel) -> Self {
+    func body(_ color: Color? = .labelPrimary) -> Self {
         font(.gnoBody).foregroundColor(color)
     }
 
-    func footnote(_ color: Color? = .primaryLabel) -> Self {
+    func footnote(_ color: Color? = .labelPrimary) -> Self {
         font(.gnoFootnote2).foregroundColor(color)
     }
 
-    func headline(_ color: Color? = .primaryLabel) -> Self {
+    func headline(_ color: Color? = .labelPrimary) -> Self {
         font(.gnoHeadline).foregroundColor(color)
     }
 
-    func title(_ color: Color? = .primaryLabel) -> Self {
+    func title(_ color: Color? = .labelPrimary) -> Self {
         font(.gnoTitle3).foregroundColor(color)
     }
 

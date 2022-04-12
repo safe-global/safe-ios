@@ -36,7 +36,7 @@ class SelectWalletViewController: LoadableViewController {
         super.viewDidLoad()
         title = "Connect Wallet"
 
-        tableView.backgroundColor = .primaryBackground
+        tableView.backgroundColor = .backgroundPrimary
         tableView.registerCell(BasicCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
         tableView.rowHeight = 60
@@ -60,7 +60,7 @@ class SelectWalletViewController: LoadableViewController {
 
         if #unavailable(iOS 15) {
             // explicitly set background color to prevent transparent background in dark mode (iOS 14)
-            navigationController?.navigationBar.backgroundColor = .secondaryBackground
+            navigationController?.navigationBar.backgroundColor = .backgroundSecondary
         }
     }
 

@@ -29,7 +29,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
 
         title = "Connect to Web"
 
-        tableView.backgroundColor = .primaryBackground
+        tableView.backgroundColor = .backgroundPrimary
         tableView.registerCell(WebConnectionTableViewCell.self)
         tableView.registerHeaderFooterView(DesktopPairingHeaderView.self)
         tableView.sectionHeaderHeight = UITableView.automaticDimension
@@ -38,7 +38,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
 
-        infoButton = UIBarButtonItem(image: UIImage(named: "ico-info-toolbar"),
+        infoButton = UIBarButtonItem(image: UIImage(named: "ico-info-toolbar")?.withTintColor(.primary),
                 style: UIBarButtonItem.Style.plain,
                 target: self,
                 action: #selector(openHelpUrl))

@@ -15,8 +15,8 @@ class StepInstructionTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        circleLabel.setStyle(.subhead.weight(.medium).color(.secondaryLabel))
+        circleLabel.setStyle(.subhead.weight(.medium).color(.labelSecondary))
         headerLabel.setStyle(.headline.weight(.medium))
-        descriptionLabel.setStyle(.callout.weight(.regular).color(.secondaryLabel))
+        descriptionLabel.setStyle(.callout.weight(.regular).color(.labelSecondary))
     }
 }

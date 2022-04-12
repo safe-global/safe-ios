@@ -66,7 +66,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
     private func configureTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundColor = .primaryBackground
+        tableView.backgroundColor = .backgroundPrimary
         tableView.registerHeaderFooterView(BasicHeaderView.self)
         tableView.registerHeaderFooterView(ExternalLinkHeaderFooterView.self)
         tableView.registerCell(BasicCell.self)

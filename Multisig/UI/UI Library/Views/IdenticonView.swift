@@ -17,7 +17,7 @@ class IdenticonView: UINibView {
         super.commonInit()
         badgeFrameView.clipsToBounds = true
         badgeFrameView.layer.borderColor = UIColor.whiteOrBlack.cgColor
-        badgeFrameView.backgroundColor = .secondaryLabel
+        badgeFrameView.backgroundColor = .labelSecondary
     }
 
     func set(address: Address, imageURL: URL? = nil, badgeName: String? = nil) {

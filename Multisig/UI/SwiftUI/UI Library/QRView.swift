@@ -24,13 +24,13 @@ struct QRView: View {
                     .resizable()
                     .scaledToFit()
             } else {
-                Rectangle().foregroundColor(Color.gray5)
+                Rectangle().foregroundColor(Color.backgroundTetriary)
             }
         }
         .padding(14)
         .background(
             RoundedRectangle(cornerRadius: 10)
-            .strokeBorder(Color.gray4, lineWidth: 2)
+            .strokeBorder(Color.backgroundTetriary, lineWidth: 2)
         )
         .frame(width: width, height: height)
     }

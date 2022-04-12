@@ -61,7 +61,7 @@ class MainTabBarViewController: UITabBarController {
         super.viewDidLoad()
 
         updateTabs()
-        tabBar.barTintColor = .secondaryBackground
+        tabBar.barTintColor = .backgroundSecondary
 
         NotificationCenter.default.addObserver(
             self,

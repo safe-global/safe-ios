@@ -556,7 +556,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             text,
             prefixStyle: .footnote2.weight(.regular),
             linkText: hyperlink,
-            linkStyle: .footnote2.weight(.regular).color(.button),
+            linkStyle: .footnote2.weight(.regular).color(.primary),
             linkIcon: nil)
         return cell
     }
