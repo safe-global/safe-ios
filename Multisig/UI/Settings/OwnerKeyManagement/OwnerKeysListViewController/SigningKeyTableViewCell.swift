@@ -18,7 +18,7 @@ class SigningKeyTableViewCell: UITableViewCell {
     @IBOutlet weak var cellDetailLabel: UILabel!
     @IBOutlet weak var cellDetailImageView: UIImageView!
     @IBOutlet weak var trailingImageView: UIImageView!
-    static let height: CGFloat = 68
+    @IBOutlet weak var warningView: WarningView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,7 +30,12 @@ class SigningKeyTableViewCell: UITableViewCell {
         cellDetailLabel.textAlignment = .right
     }
 
-    func configure(keyInfo: KeyInfo, chainID: String?, detail: String? = nil, accessoryImage: UIImage? = nil, enabled: Bool = true, isLoading: Bool = false) {
+    func configure(keyInfo: KeyInfo, chainID: String?,
+                   detail: String? = nil,
+                   accessoryImage: UIImage? = nil,
+                   enabled: Bool = true,
+                   isLoading: Bool = false,
+                   onWarningClick: (() -> ())? = nil) {
         nameLabel.text = keyInfo.displayName
         nameLabel.setStyle(.headline)
 
@@ -65,6 +70,17 @@ class SigningKeyTableViewCell: UITableViewCell {
         cellDetailImageView.isHidden = accessoryImage == nil
 
         contentView.alpha = enabled ? 1 : 0.5
+
+        if keyInfo.needsBackup {
+            warningView.isHidden = true
+        } else {
+            warningView.isHidden = false
+            warningView.set(image: UIImage(named: "ico-private-key")?.withTintColor(.pending),
+                            title: "Not backed up",
+                            description: "Don’t forget to back up your key now to not lose access to it later.")
+        }
+
+        warningView.onClick = onWarningClick
     }
 
     private func set(connectionStatus: KeyConnectionStatus) {

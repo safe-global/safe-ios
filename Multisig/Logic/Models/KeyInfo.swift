@@ -36,6 +36,10 @@ extension KeyInfo {
         set { type = Int16(newValue.rawValue) }
     }
 
+    var needsBackup: Bool {
+        keyType == .deviceGenerated && backedup
+    }
+
     var displayName: String {
         name ?? "Key \(address.ellipsized())"
     }
