@@ -31,11 +31,11 @@ public extension UIView {
             heightAnchor.constraint(equalToConstant: CGFloat(height))])
     }
 
-    func wrapAroundView(_ contentView: UIView) {
+    func wrapAroundView(_ contentView: UIView, insets: UIEdgeInsets = .zero) {
         NSLayoutConstraint.activate([
-            contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            contentView.topAnchor.constraint(equalTo: topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: bottomAnchor)])
+            contentView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CGFloat(insets.left)),
+            contentView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CGFloat(-insets.right)),
+            contentView.topAnchor.constraint(equalTo: topAnchor, constant: CGFloat(insets.top)),
+            contentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: CGFloat(-insets.bottom))])
     }
 }

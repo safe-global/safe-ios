@@ -21,7 +21,7 @@ class WarningView: UINibView {
         backgroundColor = .backgroundTetriary
 
         titleLabel.setStyle(.headline)
-        descriptionLabel.setStyle(.tertiary)
+        descriptionLabel.setStyle(.secondary)
     }
 
     func set(image: UIImage? = nil, title: String? = nil, description: String? = nil) {

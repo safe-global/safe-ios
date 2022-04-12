@@ -11,6 +11,7 @@ class SeedPhraseView: UIView, UICollectionViewDelegateFlowLayout, UICollectionVi
     weak var collectionViewLayout: UICollectionViewFlowLayout!
     var heightConstraint: NSLayoutConstraint!
     var metrics = CellMetrics()
+    let collectionInset: UIEdgeInsets = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
 
     var words: [SeedWord] = [] {
         didSet {
@@ -39,15 +40,14 @@ class SeedPhraseView: UIView, UICollectionViewDelegateFlowLayout, UICollectionVi
     }
 
     func commonInit() {
-        backgroundColor = .backgroundSecondary
-
         let collectionViewLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+
+        collectionViewLayout.scrollDirection = .horizontal
 
         let nib = UINib(nibName: "SeedWordCollectionViewCell", bundle: Bundle(for: SeedWordCollectionViewCell.self))
         collectionView.register(nib, forCellWithReuseIdentifier: "SeedWordCollectionViewCell")
 
-        collectionView.backgroundColor = .backgroundSecondary
         collectionView.allowsSelection = false
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -56,9 +56,27 @@ class SeedPhraseView: UIView, UICollectionViewDelegateFlowLayout, UICollectionVi
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .clear
+
+        self.backgroundColor = .backgroundSecondary
+        self.layer.borderColor = UIColor.separator.cgColor
+        self.layer.borderWidth = 2
+        self.layer.cornerRadius = 8
 
         addSubview(collectionView)
-        wrapAroundView(collectionView)
+
+        wrapAroundView(collectionView, insets: collectionInset)
+
+        let borderView = UIView()
+        borderView.backgroundColor = .separator
+        borderView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(borderView)
+        self.addConstraints([
+            borderView.topAnchor.constraint(equalTo: self.topAnchor),
+            borderView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            borderView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            borderView.widthAnchor.constraint(equalToConstant: 2)
+        ])
 
         self.collectionView = collectionView
         self.collectionViewLayout = collectionViewLayout
@@ -70,7 +88,7 @@ class SeedPhraseView: UIView, UICollectionViewDelegateFlowLayout, UICollectionVi
     func update() {
         metrics.calculate(basedOn: collectionView)
 
-        heightConstraint.constant = metrics.totalHeight(itemCount: words.count)
+        heightConstraint.constant = metrics.totalHeight(itemCount: words.count) + collectionInset.top + collectionInset.bottom
         setNeedsUpdateConstraints()
 
         collectionViewLayout.itemSize = metrics.size
@@ -87,6 +105,7 @@ class SeedPhraseView: UIView, UICollectionViewDelegateFlowLayout, UICollectionVi
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard indexPath.item < words.count else { return UICollectionViewCell() }
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SeedWordCollectionViewCell",
                                                       for: indexPath) as! SeedWordCollectionViewCell
         cell.word = words[indexPath.item]
@@ -94,15 +113,14 @@ class SeedPhraseView: UIView, UICollectionViewDelegateFlowLayout, UICollectionVi
         cell.bounds.origin = .zero
         return cell
     }
-
 }
 
 extension SeedPhraseView {
     struct CellMetrics {
-        var size: CGSize = CGSize(width: 88, height: 54)
-        var hSpace: CGFloat = 11
-        var vSpace: CGFloat = 10
-        var columnCount: Int = 3
+        var size: CGSize = CGSize(width: 88, height: 34)
+        var hSpace: CGFloat = 0
+        var vSpace: CGFloat = 2
+        var columnCount: Int = 2
 
         mutating func calculate(basedOn container: UIView) {
             if columnCount == 0 { return }
