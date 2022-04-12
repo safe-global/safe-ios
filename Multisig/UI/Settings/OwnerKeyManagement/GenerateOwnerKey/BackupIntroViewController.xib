@@ -28,8 +28,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JVd-q9-msI">
                     <rect key="frame" x="16" y="44" width="382" height="672"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="Xkp-ar-ut6">
-                            <rect key="frame" x="0.0" y="268.5" width="382" height="365.5"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="Xkp-ar-ut6">
+                            <rect key="frame" x="0.0" y="153.5" width="382" height="365.5"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="UEk-FP-9GO">
                                     <rect key="frame" x="0.0" y="0.0" width="382" height="205.5"/>
@@ -56,9 +56,12 @@
                                         </stackView>
                                     </subviews>
                                 </stackView>
-                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R7W-Pp-mLU" customClass="TipsView" customModule="Multisig" customModuleProvider="target">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7W-Pp-mLU" customClass="TipsView" customModule="Multisig" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="237.5" width="382" height="128"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="128" placeholder="YES" id="jJi-mo-YTy"/>
+                                    </constraints>
                                 </view>
                             </subviews>
                         </stackView>
