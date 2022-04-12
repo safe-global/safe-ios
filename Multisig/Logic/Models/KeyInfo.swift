@@ -37,7 +37,7 @@ extension KeyInfo {
     }
 
     var needsBackup: Bool {
-        keyType == .deviceGenerated && backedup
+        keyType == .deviceGenerated && !backedup
     }
 
     var displayName: String {
@@ -164,6 +164,7 @@ extension KeyInfo {
         item.name = name
         item.keyID = privateKey.id
         item.keyType = privateKey.mnemonic == nil ? .deviceImported : .deviceGenerated
+        item.backedup = false
 
         item.save()
         try privateKey.save()

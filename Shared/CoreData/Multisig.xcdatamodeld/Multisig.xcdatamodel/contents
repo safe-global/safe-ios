@@ -139,7 +139,7 @@
     </entity>
     <entity name="KeyInfo" representedClassName="KeyInfo" syncable="YES" codeGenerationType="class">
         <attribute name="addressString" attributeType="String"/>
-        <attribute name="backedup" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="backedup" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="delegateAddressString" optional="YES" attributeType="String"/>
         <attribute name="keyID" optional="YES" attributeType="String"/>
         <attribute name="metadata" optional="YES" attributeType="Binary"/>

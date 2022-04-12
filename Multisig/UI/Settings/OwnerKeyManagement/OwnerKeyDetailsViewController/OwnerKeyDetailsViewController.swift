@@ -217,7 +217,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
 
         self.sections.append((section: .advanced, items: [Section.Advanced.remove]))
 
-        if !keyInfo.needsBackup {
+        if keyInfo.needsBackup {
             sections.insert((section: .backedup, items: [Section.Backedup.backedup]), at: 0)
         }
 
@@ -255,7 +255,9 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.Backedup.backedup:
-            return tableView.backupKeyCell(indexPath: indexPath)
+            return tableView.backupKeyCell(indexPath: indexPath) { [weak self] in
+                self?.show(BackupIntroViewController(), sender: self)
+            }
         case Section.Name.name:
             return tableView.basicCell(name: keyInfo.name ?? "", indexPath: indexPath)
         case Section.KeyAddress.address:
@@ -423,13 +425,11 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
     }
 }
 extension UITableView {
-    func backupKeyCell(indexPath: IndexPath) -> BackupKeyTableViewCell {
+    func backupKeyCell(indexPath: IndexPath, onClick: (() -> ())? = nil) -> BackupKeyTableViewCell {
         let cell = dequeueCell(BackupKeyTableViewCell.self, for: indexPath)
         cell.selectionStyle = .none
 
-        cell.onClick = {
-            
-        }
+        cell.onClick = onClick
 
         return cell
     }

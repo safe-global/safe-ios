@@ -28,6 +28,9 @@ class SigningKeyTableViewCell: UITableViewCell {
         cellDetailLabel.isSkeletonable = true
         cellDetailLabel.skeletonTextLineHeight = .relativeToConstraints
         cellDetailLabel.textAlignment = .right
+        warningView.set(image: UIImage(named: "ico-private-key")?.withTintColor(.pending),
+                        title: "Not backed up",
+                        description: "Don’t forget to back up your key now to not lose access to it later.")
     }
 
     func configure(keyInfo: KeyInfo, chainID: String?,
@@ -71,15 +74,8 @@ class SigningKeyTableViewCell: UITableViewCell {
 
         contentView.alpha = enabled ? 1 : 0.5
 
-        if keyInfo.needsBackup {
-            warningView.isHidden = true
-        } else {
-            warningView.isHidden = false
-            warningView.set(image: UIImage(named: "ico-private-key")?.withTintColor(.pending),
-                            title: "Not backed up",
-                            description: "Don’t forget to back up your key now to not lose access to it later.")
-        }
-
+        warningView.isHidden = !keyInfo.needsBackup
+        layoutIfNeeded()
         warningView.onClick = onWarningClick
     }
 
