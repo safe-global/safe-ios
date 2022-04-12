@@ -38,6 +38,14 @@ class BackupIntroViewController: UIViewController {
         cancelButton.setText("Not now", .plain)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if self.isMovingFromParent {
+            backupCompletion(false)
+        }
+    }
+    
     @IBAction func didTapBackup(_ sender: Any) {
         backupCompletion(true)
     }
