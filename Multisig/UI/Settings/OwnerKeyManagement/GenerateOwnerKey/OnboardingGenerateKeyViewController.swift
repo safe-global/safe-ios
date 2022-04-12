@@ -63,9 +63,10 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
                 let backupVC = BackupIntroViewController()
                 backupVC.backupCompletion = { [unowned self, unowned vc] backup in
                     if backup {
-                        //TODO: proceed to backup screen instead
-                        let detailsVC = OwnerKeyDetailsViewController(keyInfo: keyInfo, completion: self.completion)
-                        vc.show(detailsVC, sender: vc)
+                        let exportViewController = ExportViewController()
+                        exportViewController.privateKey = privateKey.keyData.toHexStringWithPrefix()
+                        exportViewController.seedPhrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) }
+                        vc.show(exportViewController, sender: vc)
                     } else {
                         let detailsVC = OwnerKeyDetailsViewController(keyInfo: keyInfo, completion: self.completion)
                         vc.show(detailsVC, sender: vc)
