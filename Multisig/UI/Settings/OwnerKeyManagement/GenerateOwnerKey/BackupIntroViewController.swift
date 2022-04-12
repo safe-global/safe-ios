@@ -16,6 +16,8 @@ class BackupIntroViewController: UIViewController {
     @IBOutlet weak var backupButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
+    var backupCompletion: (_ backup: Bool) -> Void = { _ in }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,10 +39,10 @@ class BackupIntroViewController: UIViewController {
     }
     
     @IBAction func didTapBackup(_ sender: Any) {
-        //TODO: proceed to backup screen
+        backupCompletion(true)
     }
     
     @IBAction func didTapCancel(_ sender: Any) {
-        //TODO: finish the flow
+        backupCompletion(false)
     }
 }
