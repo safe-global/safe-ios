@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,34 +11,67 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SeedPhraseViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="copyToClipboardButton" destination="Ef6-9q-sO9" id="O9l-BN-hgc"/>
+                <outlet property="infoLabel" destination="mJ8-77-9Dj" id="xfc-Oz-SUX"/>
                 <outlet property="seedPhraseView" destination="Wec-8D-gfd" id="I20-8p-7Pk"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="warningView" destination="53u-ko-mfn" id="5T2-BS-dH6"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wec-8D-gfd" customClass="SeedPhraseView" customModule="Multisig" customModuleProvider="target">
-                    <rect key="frame" x="16" y="60" width="382" height="246"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <rect key="frame" x="16" y="73" width="288" height="246"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="246" placeholder="YES" id="Rbn-In-Vp3"/>
                     </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure to store your seed phrase in a secure place." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJ8-77-9Dj">
+                    <rect key="frame" x="16" y="16" width="288" height="41"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ef6-9q-sO9">
+                    <rect key="frame" x="16" y="335" width="288" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="QAS-0F-ite"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="ico-copy" title="Copy to Clipboard" imagePadding="8"/>
+                    <connections>
+                        <action selector="didTapCopyButton:" destination="-1" eventType="touchUpInside" id="I0w-ri-XOf"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="53u-ko-mfn" customClass="WarningView" customModule="Multisig" customModuleProvider="target">
+                    <rect key="frame" x="16" y="452" width="288" height="100"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="mJ8-77-9Dj" secondAttribute="trailing" constant="16" id="08d-Wh-Nna"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Ef6-9q-sO9" secondAttribute="trailing" constant="16" id="0cO-xb-25e"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="53u-ko-mfn" secondAttribute="trailing" constant="16" id="1tW-Gk-yJ1"/>
+                <constraint firstItem="mJ8-77-9Dj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="4n0-lZ-OVO"/>
+                <constraint firstItem="mJ8-77-9Dj" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="6At-pP-iVk"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="53u-ko-mfn" secondAttribute="bottom" constant="16" id="D7d-uI-2EK"/>
+                <constraint firstItem="53u-ko-mfn" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Tu6-uV-f8V"/>
+                <constraint firstItem="Ef6-9q-sO9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="eQb-8y-EAI"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Wec-8D-gfd" secondAttribute="trailing" constant="16" id="qFM-zQ-juz"/>
+                <constraint firstItem="Ef6-9q-sO9" firstAttribute="top" secondItem="Wec-8D-gfd" secondAttribute="bottom" constant="16" id="s4F-ch-MGf"/>
                 <constraint firstItem="Wec-8D-gfd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="vSV-5c-Wi6"/>
-                <constraint firstItem="Wec-8D-gfd" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="vfU-u4-Gyh"/>
+                <constraint firstItem="Wec-8D-gfd" firstAttribute="top" secondItem="mJ8-77-9Dj" secondAttribute="bottom" constant="16" id="vfU-u4-Gyh"/>
             </constraints>
             <point key="canvasLocation" x="-42.028985507246382" y="-21.428571428571427"/>
         </view>
     </objects>
     <resources>
+        <image name="ico-copy" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

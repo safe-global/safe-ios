@@ -24,9 +24,10 @@ final class SwitchSafesViewController: UITableViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
         
-        // explicitly set background color to prevent transparent background in dark mode
-        navigationController?.navigationBar.backgroundColor = .backgroundSecondary
-        
+        if #unavailable(iOS 15) {
+            // explicitly set background color to prevent transparent background in dark mode (iOS 14)
+            navigationController?.navigationBar.backgroundColor = .backgroundSecondary
+        }
         tableView.register(AddSafeTableViewCell.nib(), forCellReuseIdentifier: "AddSafe")
         tableView.register(SafeEntryTableViewCell.nib(), forCellReuseIdentifier: "SafeEntry")
         tableView.registerHeaderFooterView(NetworkIndicatorHeaderView.self)

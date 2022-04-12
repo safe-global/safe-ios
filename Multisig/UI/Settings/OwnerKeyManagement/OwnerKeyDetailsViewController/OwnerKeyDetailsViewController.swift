@@ -188,6 +188,10 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         if let key = keyInfo {
             keyInfo = try? KeyInfo.firstKey(address: key.address)
         }
+        
+        guard let keyInfo = keyInfo else {
+            return
+        }
 
         self.sections = [
             (section: .name("OWNER NAME"), items: [Section.Name.name]),
@@ -198,7 +202,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
             (section: .ownerKeyType("OWNER TYPE"),
                     items: [Section.OwnerKeyType.type])]
 
-        if self.keyInfo.keyType == .walletConnect {
+        if keyInfo.keyType == .walletConnect {
             self.sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
         }
 

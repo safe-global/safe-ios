@@ -58,8 +58,10 @@ class SelectWalletViewController: LoadableViewController {
 
         walletsSource.delegate = self
 
-        // explicitly set background color to prevent transparent background in dark mode (iOS 14)
-        navigationController?.navigationBar.backgroundColor = .backgroundSecondary
+        if #unavailable(iOS 15) {
+            // explicitly set background color to prevent transparent background in dark mode (iOS 14)
+            navigationController?.navigationBar.backgroundColor = .backgroundSecondary
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

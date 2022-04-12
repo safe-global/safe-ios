@@ -330,9 +330,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             signVC.onSuccess = { [weak self] signature in
                 self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyInfo: keyInfo)
             }
-            signVC.onCancel = { [weak self] in
-                self?.reloadData()
-            }
             let vc = ViewControllerFactory.pageSheet(viewController: signVC, halfScreen: true)
             present(vc, animated: true)
 
@@ -347,12 +344,20 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 Tracker.trackEvent(.reviewExecutionLedger)
             })
 
+            // needed to fix 'blinking' issue (screen reloads) when
+            // cancelling ledger signing on the device.
+            // Doing this via this variable 'patch' so that we don't rewrite the ledger implementation just yet.
+            var didSign = false
+
             vc.completion = { [weak self] signature in
+                didSign = true
                 self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyInfo: keyInfo)
             }
 
             vc.onClose = { [weak self] in
-                self?.reloadData()
+                if didSign {
+                    self?.reloadData()
+                }
             }
         }
     }
@@ -438,6 +443,13 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         case .success(let details):
             DispatchQueue.main.async { [weak self] in
                 guard let `self` = self else { return }
+                // Changing source to the transaction ID because of backend issue with caching
+                // that happens when loading transaction details by safeTxHash, then creating rejection transaction,
+                // then reloading the data - the rejectors field is not returned. This happens because of caching.
+                // To avoid that, switch to loading the transaction by id after first data load.
+                if let source = self.txSource, case TransactionSource.safeTxHash = source, !details.txId.isEmpty {
+                    self.txSource = .id(details.txId)
+                }
                 self.buildCells(from: details)
                 self.onSuccess()
             }

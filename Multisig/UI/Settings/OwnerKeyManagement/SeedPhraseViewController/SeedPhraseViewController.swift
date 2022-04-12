@@ -6,15 +6,34 @@ import UIKit
 
 class SeedPhraseViewController: UIViewController {
 
+    @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var seedPhraseView: SeedPhraseView!
+    @IBOutlet weak var warningView: WarningView!
+    @IBOutlet weak var copyToClipboardButton: UIButton!
 
     var seedPhrase: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        infoLabel.text = "Make sure to store your seed phrase in a secure place."
+        infoLabel.setStyle(.secondary)
+
+        warningView.set(description: "Gnosis Safe will never ask for your seed phrase! It is encrypted and stored locally on your device.")
+
+        copyToClipboardButton.setText("Copy to Clipboard", .primary)
+
         seedPhraseView.words = seedPhrase.enumerated().map {
             SeedWord(index: $0.offset, value: $0.element)
         }
+    }
+
+    @IBAction func didTapCopyButton(_ sender: Any) {
+        export(seedPhrase.joined(separator: " "))
+    }
+
+    func export(_ value: String) {
+        let vc = UIActivityViewController(activityItems: [value], applicationActivities: nil)
+        present(vc, animated: true, completion: nil)
     }
 
     override func viewDidLayoutSubviews() {
@@ -25,8 +44,8 @@ class SeedPhraseViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.exportSeed)
+        seedPhraseView.update()
     }
-
 }
 
 struct SeedWord {

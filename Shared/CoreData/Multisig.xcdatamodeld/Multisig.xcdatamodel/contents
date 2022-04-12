@@ -24,6 +24,7 @@
         <attribute name="termsAccepted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="trackingEnabled" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="usePasscodeForExportingKeyMigrated" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="walletAppRegistryMigrationCompleted" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
     </entity>
     <entity name="AppUser" representedClassName="AppUser" syncable="YES" codeGenerationType="class">
         <attribute name="accessBlockedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -184,7 +185,7 @@
     </entity>
     <elements>
         <element name="AddressBookEntry" positionX="403.780517578125" positionY="-260.6335754394531" width="128" height="89"/>
-        <element name="AppSettings" positionX="-234.1375732421875" positionY="377.9746704101562" width="128" height="284"/>
+        <element name="AppSettings" positionX="-234.1375732421875" positionY="377.9746704101562" width="128" height="299"/>
         <element name="AppUser" positionX="-389.4071044921875" positionY="380.6794738769531" width="128" height="89"/>
         <element name="CDEthTransaction" positionX="-76.98681640625" positionY="383.9258422851562" width="128" height="149"/>
         <element name="CDWCAppRegistryEntry" positionX="-270" positionY="-108" width="128" height="284"/>

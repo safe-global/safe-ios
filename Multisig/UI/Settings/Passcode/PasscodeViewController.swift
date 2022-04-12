@@ -263,6 +263,8 @@ class EnterPasscodeViewController: PasscodeViewController {
     var screenTrackingEvent = TrackingEvent.enterPasscode
     var showsCloseButton: Bool = true
     var usesBiometry: Bool = true
+    var warnAfterWrongAttemptCount: Int = 5
+    var wrongAttemptsCount: Int = 0
 
     convenience init() {
         self.init(namedClass: PasscodeViewController.self)
@@ -312,7 +314,12 @@ class EnterPasscodeViewController: PasscodeViewController {
             if isCorrect {
                 passcodeCompletion(true, false)
             } else {
-                showError("Wrong passcode")
+                wrongAttemptsCount += 1
+                if wrongAttemptsCount >= warnAfterWrongAttemptCount {
+                    showError("\(wrongAttemptsCount) failed password attempts. You can reset password via \"Forgot passcode?\" button below.")
+                } else {
+                    showError("Wrong passcode")
+                }
             }
         }
     }
@@ -323,10 +330,16 @@ class EnterPasscodeViewController: PasscodeViewController {
 
     override func didTapButton(_ sender: Any) {
         let alertController = UIAlertController(
-            title: nil,
-            message: "You can disable your passcode. This will remove all data from the app.",
-            preferredStyle: .actionSheet)
+            title: "Remove all content",
+            message: "Disabling the passcode will remove all app content. This cannot be undone. Please type in \"Remove\" to continue.",
+            preferredStyle: .alert)
+
+        alertController.addTextField()
+
         let remove = UIAlertAction(title: "Disable Passcode", style: .destructive) { [unowned self] _ in
+            guard alertController.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "Remove" else {
+                return
+            }
             do {
                 // should be before deleting all data
                 self.passcodeCompletion(false, true)

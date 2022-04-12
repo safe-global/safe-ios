@@ -24,7 +24,7 @@ class WarningView: UINibView {
 
         actionButton.setTitle("", for: .normal)
         titleLabel.setStyle(.headline)
-        descriptionLabel.setStyle(.tertiary)
+        descriptionLabel.setStyle(.secondary)
     }
 
     func set(image: UIImage? = nil, title: String? = nil, description: String? = nil) {

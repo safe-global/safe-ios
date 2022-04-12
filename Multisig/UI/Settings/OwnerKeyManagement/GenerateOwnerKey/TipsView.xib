@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TipsView" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundView" destination="ECT-Wr-qnD" id="q5k-5g-ERT"/>
+                <outlet property="tipsContainer" destination="cfY-PG-d3X" id="YPG-Ky-qn5"/>
+                <outlet property="titleLabel" destination="B2i-zX-aaN" id="OJu-4H-ZC7"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="209"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECT-Wr-qnD" userLabel="Background">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="209"/>
+                    <color key="backgroundColor" name="backgroundPrimary"/>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="mUf-jK-IGN">
+                    <rect key="frame" x="16" y="16" width="382" height="177"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tips title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2i-zX-aaN">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" id="cfa-DP-8zf">
+                            <rect key="frame" x="0.0" y="30.5" width="382" height="146.5"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="redraw" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cfY-PG-d3X">
+                                    <rect key="frame" x="8" y="0.0" width="374" height="147"/>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="cfY-PG-d3X" secondAttribute="trailing" id="0QZ-9b-0n1"/>
+                                <constraint firstItem="cfY-PG-d3X" firstAttribute="leading" secondItem="cfa-DP-8zf" secondAttribute="leading" constant="8" id="Vss-a4-Toc"/>
+                                <constraint firstItem="cfY-PG-d3X" firstAttribute="top" secondItem="cfa-DP-8zf" secondAttribute="top" id="ajG-pl-FRE"/>
+                                <constraint firstAttribute="bottom" secondItem="cfY-PG-d3X" secondAttribute="bottom" id="bEj-eF-EHa"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="ECT-Wr-qnD" secondAttribute="bottom" id="0RB-3t-jXy"/>
+                <constraint firstAttribute="trailing" secondItem="mUf-jK-IGN" secondAttribute="trailing" constant="16" id="2l9-zb-UeE"/>
+                <constraint firstItem="mUf-jK-IGN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="L3j-GT-Q4W"/>
+                <constraint firstItem="ECT-Wr-qnD" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Nc4-Sv-2ei"/>
+                <constraint firstItem="ECT-Wr-qnD" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ix6-fD-dEb"/>
+                <constraint firstAttribute="bottom" secondItem="mUf-jK-IGN" secondAttribute="bottom" constant="16" id="n7T-3B-p3U"/>
+                <constraint firstAttribute="trailing" secondItem="ECT-Wr-qnD" secondAttribute="trailing" id="nRe-Td-vSo"/>
+                <constraint firstItem="mUf-jK-IGN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="yhO-pb-EEv"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="105.79710144927537" y="-356.58482142857139"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="backgroundPrimary">
+            <color red="0.96470588235294119" green="0.96862745098039216" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
