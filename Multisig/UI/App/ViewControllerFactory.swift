@@ -70,7 +70,7 @@ enum ViewControllerFactory {
         let navController = UINavigationController(rootViewController: ribbon)
         if #unavailable(iOS 15) {
             // explicitly set background color to prevent transparent background in dark mode (iOS 14)
-            navController.navigationBar.backgroundColor = .secondaryBackground
+            navController.navigationBar.backgroundColor = .backgroundSecondary
         }
         return navController
     }
@@ -85,7 +85,7 @@ enum ViewControllerFactory {
         let navController = UINavigationController(rootViewController: viewController)
         if #unavailable(iOS 15) {
             // explicitly set background color to prevent transparent background in dark mode (iOS 14)
-            navController.navigationBar.backgroundColor = .secondaryBackground
+            navController.navigationBar.backgroundColor = .backgroundSecondary
         }
         if halfScreen, #available(iOS 15.0, *) {
             if let sheet = navController.sheetPresentationController {

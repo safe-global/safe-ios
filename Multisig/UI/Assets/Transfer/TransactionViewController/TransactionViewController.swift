@@ -83,7 +83,7 @@ class TransactionViewController: UIViewController {
 
         if #unavailable(iOS 15) {
             // explicitly set background color to prevent transparent background in dark mode (iOS 14)
-            navigationController?.navigationBar.backgroundColor = .secondaryBackground
+            navigationController?.navigationBar.backgroundColor = .backgroundSecondary
         }
     }
 
