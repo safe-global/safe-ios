@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BackupIntroViewController: UIViewController {
+class BackupIntroViewController: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
@@ -21,7 +21,9 @@ class BackupIntroViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
         navigationItem.title = "Back up key"
+        navigationItem.hidesBackButton = true
         
         titleLabel.setStyle(.primary)
         messageLabel.setStyle(.secondary)
@@ -38,12 +40,8 @@ class BackupIntroViewController: UIViewController {
         cancelButton.setText("Not now", .plain)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        if self.isMovingFromParent {
-            backupCompletion(false)
-        }
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
     }
     
     @IBAction func didTapBackup(_ sender: Any) {
