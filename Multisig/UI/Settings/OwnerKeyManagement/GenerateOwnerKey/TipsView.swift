@@ -25,8 +25,8 @@ class TipsView: UINibView {
         
         titleLabel.text = title
         tipsContainer.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        for tip in tips {
-            
+        tips.forEach {
+        
             let row = UIStackView()
             row.axis = .horizontal
             row.alignment = .firstBaseline
@@ -40,7 +40,7 @@ class TipsView: UINibView {
             let tipLabel = UILabel()
             tipLabel.setStyle(.secondary)
             tipLabel.numberOfLines = 0
-            tipLabel.text = tip
+            tipLabel.text = $0
             
             row.addArrangedSubview(bulletPointLabel)
             row.addArrangedSubview(tipLabel)
