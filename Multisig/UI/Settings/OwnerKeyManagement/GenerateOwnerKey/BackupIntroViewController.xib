@@ -85,6 +85,9 @@
                             <state key="normal" title="Back up manually">
                                 <color key="titleColor" name="labelPrimary"/>
                             </state>
+                            <connections>
+                                <action selector="didTapBackup:" destination="-1" eventType="touchUpInside" id="oWK-tT-avS"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHA-ad-y0n">
                             <rect key="frame" x="0.0" y="64" width="382" height="56"/>
@@ -95,6 +98,9 @@
                             <state key="normal" title="Not now">
                                 <color key="titleColor" name="labelPrimary"/>
                             </state>
+                            <connections>
+                                <action selector="didTapCancel:" destination="-1" eventType="touchUpInside" id="HyN-uA-Oi0"/>
+                            </connections>
                         </button>
                     </subviews>
                 </stackView>

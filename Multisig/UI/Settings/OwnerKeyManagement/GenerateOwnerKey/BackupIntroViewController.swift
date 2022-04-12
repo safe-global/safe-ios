@@ -35,4 +35,12 @@ class BackupIntroViewController: UIViewController {
         backupButton.setText("Back up manually", .filled)
         cancelButton.setText("Not now", .plain)
     }
+    
+    @IBAction func didTapBackup(_ sender: Any) {
+        //TODO: proceed to backup screen
+    }
+    
+    @IBAction func didTapCancel(_ sender: Any) {
+        //TODO: finish the flow
+    }
 }
