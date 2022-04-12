@@ -57,11 +57,22 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
             }
 
             let message = "The key successfully created. Add it to a Safe on desktop and then restart the mobile app."
-
+            
             let passcodeCompletion = { [unowned self, unowned vc] in
                 App.shared.snackbar.show(message: message)
-                let detailsVC = OwnerKeyDetailsViewController(keyInfo: keyInfo, completion: self.completion)
-                vc.show(detailsVC, sender: vc)
+                let backupVC = BackupIntroViewController()
+                backupVC.backupCompletion = { [unowned self, unowned vc] backup in
+                    if backup {
+                        let exportViewController = ExportViewController()
+                        exportViewController.privateKey = privateKey.keyData.toHexStringWithPrefix()
+                        exportViewController.seedPhrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) }
+                        vc.show(exportViewController, sender: vc)
+                    } else {
+                        let detailsVC = OwnerKeyDetailsViewController(keyInfo: keyInfo, completion: self.completion)
+                        vc.show(detailsVC, sender: vc)
+                    }
+                }
+                vc.show(backupVC, sender: vc)
             }
 
             if App.shared.auth.isPasscodeSetAndAvailable {
