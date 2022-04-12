@@ -454,6 +454,10 @@
 		0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDA2102453467A0066457E /* RoundedTextField.swift */; };
 		0ADDB34E24518F8F0056B284 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */; };
 		0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */; };
+		0AE0AFEC2805C6B9002594CB /* VerifyPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0AFEA2805C6B9002594CB /* VerifyPhraseViewController.swift */; };
+		0AE0AFED2805C6B9002594CB /* VerifyPhraseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE0AFEB2805C6B9002594CB /* VerifyPhraseViewController.xib */; };
+		0AE0AFEF2805CC20002594CB /* WordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE0AFEE2805CC20002594CB /* WordView.xib */; };
+		0AE0AFF12805CC2B002594CB /* WordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0AFF02805CC2B002594CB /* WordView.swift */; };
 		0AE46C87257684B8001DC62B /* LoadSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE46C86257684B8001DC62B /* LoadSafeViewController.swift */; };
 		0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE46C8C257684DF001DC62B /* LoadSafeViewController.xib */; };
 		0AE8C0442579317700E62B34 /* DetailDisclosingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8C0422579317700E62B34 /* DetailDisclosingCell.swift */; };
@@ -1198,6 +1202,10 @@
 		0ADD19BE265EA23200EB0F2B /* SeedWordCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SeedWordCollectionViewCell.xib; sourceTree = "<group>"; };
 		0ADDA2102453467A0066457E /* RoundedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
 		0ADDB34D24518F8F0056B284 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		0AE0AFEA2805C6B9002594CB /* VerifyPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhraseViewController.swift; sourceTree = "<group>"; };
+		0AE0AFEB2805C6B9002594CB /* VerifyPhraseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VerifyPhraseViewController.xib; sourceTree = "<group>"; };
+		0AE0AFEE2805CC20002594CB /* WordView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WordView.xib; sourceTree = "<group>"; };
+		0AE0AFF02805CC2B002594CB /* WordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordView.swift; sourceTree = "<group>"; };
 		0AE46C86257684B8001DC62B /* LoadSafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadSafeViewController.swift; sourceTree = "<group>"; };
 		0AE46C8C257684DF001DC62B /* LoadSafeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadSafeViewController.xib; sourceTree = "<group>"; };
 		0AE8C0422579317700E62B34 /* DetailDisclosingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDisclosingCell.swift; sourceTree = "<group>"; };
@@ -3020,6 +3028,10 @@
 			isa = PBXGroup;
 			children = (
 				5541367B265E58B200796F91 /* OnboardingGenerateKeyViewController.swift */,
+				0AE0AFEA2805C6B9002594CB /* VerifyPhraseViewController.swift */,
+				0AE0AFEE2805CC20002594CB /* WordView.xib */,
+				0AE0AFF02805CC2B002594CB /* WordView.swift */,
+				0AE0AFEB2805C6B9002594CB /* VerifyPhraseViewController.xib */,
 				6A9A770A2804182700C229FC /* BackupIntroViewController.swift */,
 				6A9A770B2804182700C229FC /* BackupIntroViewController.xib */,
 				6A9A770E28041D8100C229FC /* TipsView.swift */,
@@ -3713,7 +3725,9 @@
 				0A86EE6F25CC2B4C0059876E /* RetryFooterView.xib in Resources */,
 				0439B2972804633900796F18 /* WarningView.xib in Resources */,
 				0AE8C06B2579371A00E62B34 /* DetailTransferInfoCell.xib in Resources */,
+				0AE0AFEF2805CC20002594CB /* WordView.xib in Resources */,
 				55F9B7A026D66630003D1C68 /* LedgerPendingConfirmationViewController.xib in Resources */,
+				0AE0AFED2805C6B9002594CB /* VerifyPhraseViewController.xib in Resources */,
 				558836712565385F0014E8C7 /* RemoveCell.xib in Resources */,
 				6ADEB01C2795AB410062ADFE /* InfoLabel.xib in Resources */,
 				04077B3F278CB85F00AF6376 /* ActivityButtonView.xib in Resources */,
@@ -3990,6 +4004,7 @@
 				0A9E8E7725B9CA4200256AD3 /* BannerTableViewCell.swift in Sources */,
 				0AF8832225A5EC1F00029A43 /* ActionDetailTableViewCell.swift in Sources */,
 				0A3FDAEF26AEB603006A7DC3 /* Chain+Shared.swift in Sources */,
+				0AE0AFF12805CC2B002594CB /* WordView.swift in Sources */,
 				0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */,
 				0ABC898F2576B857005D555B /* SCGModels.swift in Sources */,
 				0AF1C9262541E09D00E28669 /* UIView+UINib.swift in Sources */,
@@ -4139,6 +4154,7 @@
 				0AE8C08F25793B9400E62B34 /* DetailArrowPiece.swift in Sources */,
 				0AF1042826BACD96009C4B14 /* AddKeyOnboardingViewController.swift in Sources */,
 				0A433E5F25500F87006FFF75 /* BalancesRequest.swift in Sources */,
+				0AE0AFEC2805C6B9002594CB /* VerifyPhraseViewController.swift in Sources */,
 				047691592464026400D73D8B /* SectionHeader.swift in Sources */,
 				0AF5C66D27BAA74300BFEA52 /* WebConnectionTableViewCell.swift in Sources */,
 				0455A44527282EAA008B772D /* FileManagerWrapper.swift in Sources */,
