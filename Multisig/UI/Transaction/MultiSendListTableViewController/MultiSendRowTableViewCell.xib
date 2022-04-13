@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,18 +16,18 @@
             <rect key="frame" x="0.0" y="0.0" width="469" height="76"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="439.5" height="76"/>
+                <rect key="frame" x="0.0" y="0.0" width="440.5" height="76"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ZNm-my-qtG">
-                        <rect key="frame" x="0.0" y="0.0" width="439.5" height="76"/>
+                        <rect key="frame" x="0.0" y="0.0" width="440.5" height="76"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JIJ-bo-L14" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
-                                <rect key="frame" x="16" y="16" width="303.5" height="44"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="16" y="16" width="304.5" height="44"/>
+                                <color key="backgroundColor" name="backgroundSecondary"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ogd-oH-yAA" userLabel="Action Label">
-                                <rect key="frame" x="327.5" y="16" width="100" height="44"/>
+                                <rect key="frame" x="328.5" y="16" width="100" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="qxx-d3-txF"/>
                                     <constraint firstAttribute="width" constant="100" id="sTb-oV-ASb"/>
@@ -49,7 +48,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <color key="backgroundColor" name="secondaryBackground"/>
+            <color key="backgroundColor" name="backgroundSecondary"/>
             <connections>
                 <outlet property="actionLabel" destination="ogd-oH-yAA" id="lIe-hW-wqk"/>
                 <outlet property="addressInfoView" destination="JIJ-bo-L14" id="vYn-e2-64y"/>
@@ -58,11 +57,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <namedColor name="secondaryBackground">
+        <namedColor name="backgroundSecondary">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
