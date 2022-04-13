@@ -15,11 +15,13 @@ extension UITableView {
                    indexPath: IndexPath,
                    withDisclosure: Bool = true,
                    disclosureImage: UIImage? = nil,
+                   supplementaryImage: UIImage? = nil,
                    canSelect: Bool = true) -> BasicCell {
         let cell = dequeueCell(BasicCell.self, for: indexPath)
         cell.setTitle(name)
         cell.setIcon(icon)
         cell.setDetail(detail)
+        cell.setSupplementary(supplementaryImage)
         if !withDisclosure {
             cell.setDisclosureImage(disclosureImage)
         }
@@ -36,11 +38,13 @@ extension UITableView {
                    indexPath: IndexPath,
                    withDisclosure: Bool = true,
                    disclosureImage: UIImage? = nil,
+                   supplementaryImage: UIImage? = nil,
                    canSelect: Bool = true) -> BasicCell {
         let cell = dequeueCell(BasicCell.self, for: indexPath)
         cell.setTitle(name)
         cell.setIcon(url: iconURL, placeholder: placeholder)
         cell.setDetail(detail)
+        cell.setSupplementary(supplementaryImage)
         
         if !withDisclosure {
             cell.setDisclosureImage(disclosureImage)

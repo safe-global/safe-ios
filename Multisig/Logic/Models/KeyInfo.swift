@@ -36,6 +36,10 @@ extension KeyInfo {
         set { type = Int16(newValue.rawValue) }
     }
 
+    var needsBackup: Bool {
+        keyType == .deviceGenerated && !backedup
+    }
+
     var displayName: String {
         name ?? "Key \(address.ellipsized())"
     }
@@ -85,6 +89,10 @@ extension KeyInfo {
             LogService.shared.error("Failed to fetch safe count: \(error)")
             return 0
         }
+    }
+
+    static func keysWithoutBackup() -> [KeyInfo] {
+        (try? all().filter { KeyType(rawValue: Int($0.type))! == .deviceGenerated && $0.backedup == false }) ?? []
     }
 
     /// Return the list of KeyInfo sorted alphabetically by name
@@ -156,6 +164,7 @@ extension KeyInfo {
         item.name = name
         item.keyID = privateKey.id
         item.keyType = privateKey.mnemonic == nil ? .deviceImported : .deviceGenerated
+        item.backedup = false
 
         item.save()
         try privateKey.save()

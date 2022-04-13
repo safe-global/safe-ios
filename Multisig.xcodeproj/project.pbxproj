@@ -34,6 +34,8 @@
 		0439638527077E3D00018F74 /* TransactionEstimationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439638427077E3C00018F74 /* TransactionEstimationRequest.swift */; };
 		0439B2952804632C00796F18 /* WarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439B2942804632C00796F18 /* WarningView.swift */; };
 		0439B2972804633900796F18 /* WarningView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0439B2962804633900796F18 /* WarningView.xib */; };
+		0439B29C28048A5F00796F18 /* BackupKeyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439B29A28048A5F00796F18 /* BackupKeyTableViewCell.swift */; };
+		0439B29D28048A5F00796F18 /* BackupKeyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0439B29B28048A5F00796F18 /* BackupKeyTableViewCell.xib */; };
 		043ABD0E24EF0C33008826D5 /* TransactionDetailsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043ABD0A24EF0C33008826D5 /* TransactionDetailsRequest.swift */; };
 		043ABD0F24EF0C33008826D5 /* SafeClientGatewayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043ABD0B24EF0C33008826D5 /* SafeClientGatewayService.swift */; };
 		044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 044A54452448D0B6009CBB80 /* QRCodeScannerViewController.xib */; };
@@ -803,6 +805,8 @@
 		0439638427077E3C00018F74 /* TransactionEstimationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEstimationRequest.swift; sourceTree = "<group>"; };
 		0439B2942804632C00796F18 /* WarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningView.swift; sourceTree = "<group>"; };
 		0439B2962804633900796F18 /* WarningView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WarningView.xib; sourceTree = "<group>"; };
+		0439B29A28048A5F00796F18 /* BackupKeyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupKeyTableViewCell.swift; sourceTree = "<group>"; };
+		0439B29B28048A5F00796F18 /* BackupKeyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BackupKeyTableViewCell.xib; sourceTree = "<group>"; };
 		043ABD0A24EF0C33008826D5 /* TransactionDetailsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionDetailsRequest.swift; sourceTree = "<group>"; };
 		043ABD0B24EF0C33008826D5 /* SafeClientGatewayService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeClientGatewayService.swift; sourceTree = "<group>"; };
 		044A54452448D0B6009CBB80 /* QRCodeScannerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRCodeScannerViewController.xib; sourceTree = "<group>"; };
@@ -1655,6 +1659,8 @@
 				04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */,
 				04C5DF6926FB451B0072476C /* KeyTypeTableViewCell.swift */,
 				04C5DF6A26FB451B0072476C /* KeyTypeTableViewCell.xib */,
+				0439B29A28048A5F00796F18 /* BackupKeyTableViewCell.swift */,
+				0439B29B28048A5F00796F18 /* BackupKeyTableViewCell.xib */,
 			);
 			path = OwnerKeyDetailsViewController;
 			sourceTree = "<group>";
@@ -3737,6 +3743,7 @@
 				55BCFC572554627100020CE7 /* BasicCell.xib in Resources */,
 				D80B5A10276A367A00D6E024 /* AddOwnerFirstViewController.xib in Resources */,
 				0ADD19C6265EA23200EB0F2B /* SeedWordCollectionViewCell.xib in Resources */,
+				0439B29D28048A5F00796F18 /* BackupKeyTableViewCell.xib in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
 				0AE8C0A3257947CF00E62B34 /* DetailStatusCell.xib in Resources */,
 				550FB1A126691CA300C13D54 /* dapps-rinkeby.json in Resources */,
@@ -4271,6 +4278,7 @@
 				043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */,
 				0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */,
 				0A2F1A6E267A538E00C09F03 /* GSLabel.swift in Sources */,
+				0439B29C28048A5F00796F18 /* BackupKeyTableViewCell.swift in Sources */,
 				0A9366B3278F1EA0001918A9 /* HyperlinkButtonView.swift in Sources */,
 				0A478D5825B876AF0038363E /* ButtonTableViewCell.swift in Sources */,
 				5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */,
