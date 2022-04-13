@@ -1,5 +1,5 @@
 //
-//  TransactionSuccessViewController.swift
+//  SuccessViewController.swift
 //  Multisig
 //
 //  Created by Vitaly Katz on 14.12.21.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TransactionSuccessViewController: UIViewController {
+class SuccessViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bodyLabel: UILabel!
@@ -17,7 +17,7 @@ class TransactionSuccessViewController: UIViewController {
     private var titleText: String?
     private var bodyText: String?
     private var doneTitle: String?
-    private var trackingEvent: TrackingEvent!
+    private var trackingEvent: TrackingEvent?
 
     var trackingParams: [String: Any]? = nil
 
@@ -27,7 +27,7 @@ class TransactionSuccessViewController: UIViewController {
         titleText: String?,
         bodyText: String?,
         doneTitle: String?,
-        trackingEvent: TrackingEvent
+        trackingEvent: TrackingEvent?
     ) {
         self.init(nibName: nil, bundle: nil)
         self.titleText = titleText
@@ -52,6 +52,10 @@ class TransactionSuccessViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        guard let trackingEvent = trackingEvent else {
+            return
+        }
+
         Tracker.trackEvent(trackingEvent, parameters: trackingParams)
     }
     
