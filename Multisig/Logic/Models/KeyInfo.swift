@@ -91,7 +91,7 @@ extension KeyInfo {
         }
     }
 
-    static func keysNeedBackup() -> [KeyInfo] {
+    static func keysWithoutBackup() -> [KeyInfo] {
         (try? all().filter { KeyType(rawValue: Int($0.type))! == .deviceGenerated && $0.backedup == false }) ?? []
     }
 

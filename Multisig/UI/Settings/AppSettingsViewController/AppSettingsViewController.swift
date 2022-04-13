@@ -88,7 +88,7 @@ class AppSettingsViewController: UITableViewController {
         sections += [
             (section: .app, items: [
                 Section.App.desktopPairing("Connect to Web"),
-                Section.App.ownerKeys("Owner keys", !KeyInfo.keysNeedBackup().isEmpty, "\(KeyInfo.count())"),
+                Section.App.ownerKeys("Owner keys", !KeyInfo.keysWithoutBackup().isEmpty, "\(KeyInfo.count())"),
                 Section.App.addressBook("Address Book"),
                 Section.App.passcode("Passcode"),
                 Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),
