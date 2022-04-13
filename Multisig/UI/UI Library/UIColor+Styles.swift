@@ -28,6 +28,7 @@ extension UIColor {
     static let labelPrimary = UIColor(named: "labelPrimary")!
     static let labelSecondary = UIColor(named: "labelSecondary")!
     static let labelTertiary = UIColor(named: "labelTetriary")!
+    static let border = UIColor(named: "border")!
 }
 
 extension UIColor {
