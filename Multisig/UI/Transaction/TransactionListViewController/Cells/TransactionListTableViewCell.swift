@@ -94,7 +94,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
 
     func set(highlight: Bool) {
         highlightBarView.isHidden = !highlight
-        highlightView.backgroundColor = highlight ? .rejection : .clear
+        highlightView.backgroundColor = highlight ? .backgroundError : .clear
     }
 
     func set(tag: String) {

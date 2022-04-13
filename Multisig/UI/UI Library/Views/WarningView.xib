@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WarningView" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="actionButton" destination="xye-lp-Nby" id="G5A-oH-SKz"/>
                 <outlet property="descriptionLabel" destination="1M0-X0-u76" id="JDx-QE-Lkx"/>
                 <outlet property="iconImageView" destination="dWX-cl-Xr0" id="xcH-gn-I6t"/>
                 <outlet property="titleLabel" destination="UXE-9x-evA" id="z25-ik-KXi"/>
@@ -51,14 +52,26 @@
                         </stackView>
                     </subviews>
                 </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xye-lp-Nby">
+                    <rect key="frame" x="0.0" y="0.0" width="347" height="121"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain"/>
+                    <connections>
+                        <action selector="actionButtonClicked:" destination="-1" eventType="touchUpInside" id="4nD-Jo-1OO"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="backgroundWarning"/>
             <constraints>
                 <constraint firstItem="GZr-Dh-NwN" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="IqS-mv-Gsw"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="GZr-Dh-NwN" secondAttribute="trailing" constant="16" id="KZU-K1-UTy"/>
+                <constraint firstItem="xye-lp-Nby" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="Nc7-ag-gdv"/>
                 <constraint firstItem="GZr-Dh-NwN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="ebW-3a-iiY"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="GZr-Dh-NwN" secondAttribute="bottom" constant="20" id="r5W-fw-xbS"/>
+                <constraint firstItem="xye-lp-Nby" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="f0A-Fl-Kan"/>
+                <constraint firstItem="xye-lp-Nby" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="nGx-mL-PwD"/>
+                <constraint firstItem="xye-lp-Nby" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="pYg-5k-Zh3"/>
+                <constraint firstAttribute="bottom" secondItem="GZr-Dh-NwN" secondAttribute="bottom" constant="20" id="r5W-fw-xbS"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="83.333333333333343" y="-127.56696428571428"/>

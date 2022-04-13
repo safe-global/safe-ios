@@ -14,12 +14,15 @@ class WarningView: UINibView {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var iconImageView: UIImageView!
 
+    @IBOutlet weak var actionButton: UIButton!
+    var onClick: (() ->())?
     override func commonInit() {
         super.commonInit()
         clipsToBounds = true
         layer.cornerRadius = 4
         backgroundColor = .backgroundTetriary
 
+        actionButton.setTitle("", for: .normal)
         titleLabel.setStyle(.headline)
         descriptionLabel.setStyle(.secondary)
     }
@@ -36,5 +39,8 @@ class WarningView: UINibView {
 
         descriptionLabel.text = description
         descriptionLabel.isHidden = description == nil
+    }
+    @IBAction func actionButtonClicked(_ sender: Any) {
+        onClick?()
     }
 }

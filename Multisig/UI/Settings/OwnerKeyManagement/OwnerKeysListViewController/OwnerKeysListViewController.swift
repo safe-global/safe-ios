@@ -33,7 +33,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         tableView.registerCell(SigningKeyTableViewCell.self)
 
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 48
+        tableView.estimatedRowHeight = 200
 
         emptyView.setText("There are no added owner keys")
         emptyView.setImage(UIImage(named: "ico-no-keys")!)
@@ -87,7 +87,11 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         let keyInfo = keys[indexPath.row]
         let cell = tableView.dequeueCell(SigningKeyTableViewCell.self, for: indexPath)
         cell.selectionStyle = .none
-        cell.configure(keyInfo: keyInfo, chainID: chainID)
+        cell.configure(keyInfo: keyInfo, chainID: chainID) { [weak self] in
+            let vc = ViewControllerFactory.modal(viewController: BackupIntroViewController())
+            self?.present(vc, animated: true)
+        }
+
         return cell
     }
 

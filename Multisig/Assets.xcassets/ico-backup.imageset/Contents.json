@@ -3,6 +3,16 @@
     {
       "filename" : "ico-backup.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

@@ -27,6 +27,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
     private var connection: WebConnection?
 
     enum Section {
+        case backedup
         case name(String)
         case keyAddress(String)
         case ownerKeyType(String)
@@ -34,6 +35,10 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         case pushNotificationConfiguration(String)
         case delegateKey(String)
         case advanced
+
+        enum Backedup: SectionItem {
+            case backedup
+        }
 
         enum Name: SectionItem {
             case name
@@ -93,6 +98,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 68
 
+        tableView.registerCell(BackupKeyTableViewCell.self)
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(DetailAccountCell.self)
         tableView.registerCell(KeyTypeTableViewCell.self)
@@ -119,6 +125,10 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
 
         if let connection = connection {
             WebConnectionController.shared.attach(observer: self, to: connection)
+        }
+
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
         }
 
         reloadData()
@@ -207,6 +217,10 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
 
         self.sections.append((section: .advanced, items: [Section.Advanced.remove]))
 
+        if keyInfo.needsBackup {
+            sections.insert((section: .backedup, items: [Section.Backedup.backedup]), at: 0)
+        }
+
         self.tableView.reloadData()
     }
 
@@ -240,6 +254,10 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
+        case Section.Backedup.backedup:
+            return tableView.backupKeyCell(indexPath: indexPath) { [weak self] in
+                self?.show(BackupIntroViewController(), sender: self)
+            }
         case Section.Name.name:
             return tableView.basicCell(name: keyInfo.name ?? "", indexPath: indexPath)
         case Section.KeyAddress.address:
@@ -336,7 +354,8 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
             return UITableView.automaticDimension
         case Section.Advanced.remove:
             return RemoveCell.rowHeight
-
+        case Section.Backedup.backedup:
+            return UITableView.automaticDimension
         default:
             return BasicCell.rowHeight
         }
@@ -360,6 +379,8 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
             view.setName(name)
         case Section.advanced:
             break
+        default:
+            return nil
         }
 
         return view
@@ -368,6 +389,8 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
     override func tableView(_ tableView: UITableView, heightForHeaderInSection _section: Int) -> CGFloat {
         let section = sections[_section].section
         if case Section.advanced = section {
+            return 0
+        } else if case Section.backedup = section {
             return 0
         }
 
@@ -399,6 +422,16 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
 
     deinit {
         WebConnectionController.shared.detach(observer: self)
+    }
+}
+extension UITableView {
+    func backupKeyCell(indexPath: IndexPath, onClick: (() -> ())? = nil) -> BackupKeyTableViewCell {
+        let cell = dequeueCell(BackupKeyTableViewCell.self, for: indexPath)
+        cell.selectionStyle = .none
+
+        cell.onClick = onClick
+
+        return cell
     }
 }
 
