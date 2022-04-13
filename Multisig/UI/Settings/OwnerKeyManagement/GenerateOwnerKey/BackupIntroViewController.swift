@@ -55,5 +55,6 @@ class BackupIntroViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBAction func didTapCancel(_ sender: Any) {
         backupCompletion(false)
+        Tracker.trackEvent(.backupSkipped)
     }
 }
