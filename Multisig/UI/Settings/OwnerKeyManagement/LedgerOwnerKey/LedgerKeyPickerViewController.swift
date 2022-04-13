@@ -67,25 +67,38 @@ class LedgerKeyPickerViewController: SegmentViewController {
         enterNameVC.name = defaultName
         enterNameVC.address = key.address
         enterNameVC.badgeName = KeyType.ledgerNanoX.imageName
-        enterNameVC.completion = { [unowned self, unowned contentVC, unowned enterNameVC] name in
+        enterNameVC.completion = { [unowned self, unowned enterNameVC] name in
             let success = contentVC.importSelectedKey(name: name)
-
-            if !success {
+            if success {
+                if App.shared.auth.isPasscodeSetAndAvailable {
+                    enterNameVC.show(self.createKeyAddedView(address: key.address, name: name), sender: nil)
+                } else {
+                    let createPasscodeViewController = CreatePasscodeViewController.init { [unowned self] in
+                        enterNameVC.show(self.createKeyAddedView(address: key.address, name: name), sender: nil)
+                    }
+                    createPasscodeViewController.navigationItem.hidesBackButton = true
+                    createPasscodeViewController.hidesHeadline = false
+                    enterNameVC.show(createPasscodeViewController, sender: enterNameVC)
+                }
+            } else {
                 self.completion()
                 return
             }
-
-            let keyAddedVC = LedgerKeyAddedViewController()
-            keyAddedVC.completion = { [weak self] in
-                App.shared.snackbar.show(message: "The key added successfully")
-                self?.completion()
-            }
-            keyAddedVC.accountAddress = key.address
-            keyAddedVC.accountName = name
-
-            enterNameVC.show(keyAddedVC, sender: nil)
         }
-        show(enterNameVC, sender: nil)
+
+        self.show(enterNameVC, sender: self)
+    }
+
+    func createKeyAddedView(address: Address, name: String) -> LedgerKeyAddedViewController {
+        let keyAddedVC = LedgerKeyAddedViewController()
+        keyAddedVC.completion = { [weak self] in
+            App.shared.snackbar.show(message: "The key added successfully")
+            self?.completion()
+        }
+        keyAddedVC.accountAddress = address
+        keyAddedVC.accountName = name
+
+        return keyAddedVC
     }
 }
 

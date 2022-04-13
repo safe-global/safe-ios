@@ -48,28 +48,43 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
             enterNameVC.address = address
             enterNameVC.badgeName = KeyType.walletConnect.imageName
 
-            enterNameVC.completion = { [unowned self] name in
+            enterNameVC.completion = { [unowned self, unowned enterNameVC] name in
                 let success = OwnerKeyController.importKey(connection: connection, wallet: wallet, name: name)
 
-                if !success {
+                if success {
+                    if App.shared.auth.isPasscodeSetAndAvailable {
+                        enterNameVC.show(self.createKeyAddedView(address: address, name: name), sender: nil)
+                    } else {
+                        let createPasscodeViewController = CreatePasscodeViewController.init { [unowned self] in
+                            enterNameVC.show(self.createKeyAddedView(address: address, name: name), sender: nil)
+                        }
+                        createPasscodeViewController.navigationItem.hidesBackButton = true
+                        createPasscodeViewController.hidesHeadline = false
+                        enterNameVC.show(createPasscodeViewController, sender: enterNameVC)
+                    }
+                } else {
                     WebConnectionController.shared.userDidDisconnect(connection)
                     self.completion()
                     return
                 }
-
-                let keyAddedVC = WalletConnectKeyAddedViewController()
-                keyAddedVC.completion = { [weak self] in
-                    App.shared.snackbar.show(message: "The key added successfully")
-                    self?.completion()
-                }
-                keyAddedVC.accountAddress = address
-                keyAddedVC.accountName = name
-
-                enterNameVC.show(keyAddedVC, sender: nil)
             }
 
             self.show(enterNameVC, sender: self)
         })
+        
         show(controller, sender: self)
     }
+
+    func createKeyAddedView(address: Address, name: String) -> WalletConnectKeyAddedViewController {
+        let keyAddedVC = WalletConnectKeyAddedViewController()
+        keyAddedVC.completion = { [weak self] in
+            App.shared.snackbar.show(message: "The key added successfully")
+            self?.completion()
+        }
+        keyAddedVC.accountAddress = address
+        keyAddedVC.accountName = name
+
+        return keyAddedVC
+    }
 }
+
