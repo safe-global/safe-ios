@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -78,7 +78,7 @@
                                     </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" name="quaternaryBackground"/>
+                            <color key="backgroundColor" name="backgroundQuaternary"/>
                             <constraints>
                                 <constraint firstItem="t2d-Ol-MyV" firstAttribute="leading" secondItem="DDE-g1-nRC" secondAttribute="leading" constant="16" id="0Cj-R6-ONG"/>
                                 <constraint firstItem="X1Y-Im-GQE" firstAttribute="leading" secondItem="t2d-Ol-MyV" secondAttribute="trailing" constant="12" id="GMg-RF-S6N"/>
@@ -90,7 +90,7 @@
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xK2-pE-wZA" userLabel="contentView">
                             <rect key="frame" x="0.0" y="116" width="414" height="746"/>
-                            <color key="backgroundColor" name="secondaryBackground"/>
+                            <color key="backgroundColor" name="backgroundSecondary"/>
                         </view>
                     </subviews>
                 </stackView>
@@ -103,7 +103,7 @@
                 </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" name="secondaryBackground"/>
+            <color key="backgroundColor" name="backgroundSecondary"/>
             <constraints>
                 <constraint firstItem="Al5-uC-xzr" firstAttribute="top" secondItem="xK2-pE-wZA" secondAttribute="top" id="7uH-DN-e2p"/>
                 <constraint firstItem="Al5-uC-xzr" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="OFW-qA-PAQ"/>
@@ -119,14 +119,14 @@
     <resources>
         <image name="chevron.down.circle" catalog="system" width="128" height="121"/>
         <image name="shadow" width="3" height="13"/>
+        <namedColor name="backgroundQuaternary">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="backgroundSecondary">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="gray2">
             <color red="0.69411764705882351" green="0.70980392156862748" blue="0.69411764705882351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="quaternaryBackground">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="secondaryBackground">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="shadow">
             <color red="0.15686274509803921" green="0.21176470588235294" blue="0.23921568627450981" alpha="0.18000000715255737" colorSpace="custom" customColorSpace="sRGB"/>
