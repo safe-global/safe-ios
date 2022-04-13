@@ -41,6 +41,7 @@ class WarningView: UINibView {
         descriptionLabel.isHidden = description == nil
     }
     @IBAction func actionButtonClicked(_ sender: Any) {
+        Tracking.trackEvent(.backupFromKeyList)
         onClick?()
     }
 }

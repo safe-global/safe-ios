@@ -24,6 +24,7 @@ class BackupKeyTableViewCell: UITableViewCell {
     }
 
     @IBAction func backupButtonTouched(_ sender: Any) {
+        Tracking.trackEvent(.backupFromKeyDetails)
         onClick?()
     }
 }
