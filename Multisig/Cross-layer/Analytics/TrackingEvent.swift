@@ -250,4 +250,15 @@ enum TrackingEvent: String, Trackable {
     // MARK: delete  delegate key
     case deleteDelegateKeySuccess                   = "user_success_delete_delegate"
     case deleteDelegateKeyFailed                    = "user_failed_delete_delegate"
+
+    // MARK: backup created keys
+    case backupIntro                                = "screen_backup_intro"  // chain_id
+    case backupSkipped                              = "user_backup_skipped"
+    case backupVerifySeedPhrase                     = "screen_verify_seed_phrase" // chain_id
+    case backupUserSeedPhraseCopy                   = "user_seed_phrase_copy"
+    case backupUserSeedPhraseScreenshot             = "user_seed_phrase_screenshot"
+    case backupConfirmSeedPhrase                    = "screen_confirm_seed_phrase"  // chain_id
+    case backupCreatedSuccessfully                  = "screen_backup_success"    // chain_id
+    case backupFromKeyDetails                       = "user_backup_from_key_details"
+    case backupFromKeyList                          = "user_backup_from_keys_list"
 }

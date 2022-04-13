@@ -39,6 +39,18 @@ class BackupIntroViewController: UIViewController, UIGestureRecognizerDelegate {
         backupButton.setText("Back up manually", .filled)
         cancelButton.setText("Not now", .plain)
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        var chainId: String? = nil
+        do {
+             chainId = try Safe.getSelected()?.chain?.id
+        } catch {
+            // do nothing chainId is already nil
+        }
+        let trackingParams = [ "chain_id": chainId]
+        Tracker.trackEvent(.backupIntro, parameters: trackingParams)
+    }
     
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
