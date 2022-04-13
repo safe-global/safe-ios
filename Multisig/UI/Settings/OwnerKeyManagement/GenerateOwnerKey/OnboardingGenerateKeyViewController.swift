@@ -67,6 +67,14 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
                         exportViewController.privateKey = privateKey.keyData.toHexStringWithPrefix()
                         exportViewController.seedPhrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) }
                         vc.show(exportViewController, sender: vc)
+
+                        let verifyVC = VerifyPhraseViewController()
+                        verifyVC.phrase = exportViewController.seedPhrase ?? []
+                        verifyVC.completion = {
+                            let detailsVC = OwnerKeyDetailsViewController(keyInfo: keyInfo, completion: self.completion)
+                            vc.show(detailsVC, sender: vc)
+                        }
+                        vc.show(verifyVC, sender: vc)
                     } else {
                         let detailsVC = OwnerKeyDetailsViewController(keyInfo: keyInfo, completion: self.completion)
                         vc.show(detailsVC, sender: vc)
