@@ -42,14 +42,7 @@ class BackupIntroViewController: UIViewController, UIGestureRecognizerDelegate {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        var chainId: String? = nil
-        do {
-             chainId = try Safe.getSelected()?.chain?.id
-        } catch {
-            // do nothing chainId is already nil
-        }
-        let trackingParams = [ "chain_id": chainId]
-        Tracker.trackEvent(.backupIntro, parameters: trackingParams)
+        Tracker.trackEvent(.backupIntro)
     }
     
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {

@@ -169,7 +169,11 @@ extension Tracker {
                 .dappConnectedWithScanButton,
                 .dappConnectedWithUniversalLink,
                 .selectDapp,
-                .collectiblesOpenInWeb
+                .collectiblesOpenInWeb,
+                .backupIntro,
+                .backupVerifySeedPhrase,
+                .backupConfirmSeedPhrase,
+                .backupCreatedSuccessfully
             ].contains(event)
     }
 
