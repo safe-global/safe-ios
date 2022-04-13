@@ -19,6 +19,8 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
         try! PrivateKey(mnemonic: mnemonic, pathIndex: 0)
     }()
 
+    private var keyInfo: KeyInfo?
+
     convenience init(completion: @escaping () -> Void) {
         self.init(
             cards: [
@@ -42,6 +44,10 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
     }
 
     @objc override func didTapNextButton(_ sender: Any) {
+        showEnterName()
+    }
+     
+    func showEnterName() {
         let vc = EnterAddressNameViewController()
         vc.actionTitle = "Save"
         vc.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
@@ -50,51 +56,89 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
         vc.placeholder = "Enter name"
         vc.address = privateKey.address
         vc.badgeName = KeyType.deviceGenerated.imageName
-        vc.completion = { [unowned self, unowned vc] name in
-            guard OwnerKeyController.importKey(privateKey, name: name, isDrivedFromSeedPhrase: true),
-                  let keyInfo = try? KeyInfo.keys(addresses: [privateKey.address]).first else {
-                return
-            }
-
-            let message = "The key successfully created. Add it to a Safe on desktop and then restart the mobile app."
-            
-            let passcodeCompletion = { [unowned self, unowned vc] in
-                App.shared.snackbar.show(message: message)
-                let backupVC = BackupIntroViewController()
-                backupVC.backupCompletion = { [unowned self, unowned vc] backup in
-                    if backup {
-                        let exportViewController = ExportViewController()
-                        exportViewController.privateKey = privateKey.keyData.toHexStringWithPrefix()
-                        exportViewController.seedPhrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) }
-                        vc.show(exportViewController, sender: vc)
-
-                        let verifyVC = VerifyPhraseViewController()
-                        verifyVC.phrase = exportViewController.seedPhrase ?? []
-                        verifyVC.completion = {
-                            let detailsVC = OwnerKeyDetailsViewController(keyInfo: keyInfo, completion: self.completion)
-                            vc.show(detailsVC, sender: vc)
-                        }
-                        vc.show(verifyVC, sender: vc)
-                    } else {
-                        let detailsVC = OwnerKeyDetailsViewController(keyInfo: keyInfo, completion: self.completion)
-                        vc.show(detailsVC, sender: vc)
-                    }
-                }
-                vc.show(backupVC, sender: vc)
-            }
-
-            if App.shared.auth.isPasscodeSetAndAvailable {
-                passcodeCompletion()
-            } else {
-                let createPasscodeViewController = CreatePasscodeViewController(passcodeCompletion)
-                createPasscodeViewController.navigationItem.hidesBackButton = true
-                createPasscodeViewController.hidesHeadline = false
-                vc.show(createPasscodeViewController, sender: vc)
-            }
-
-            AppSettings.hasShownImportKeyOnboarding = true
+        vc.completion = { [unowned self] name in
+            importKey(name: name)
+            showCreatePasscode()
         }
-
         show(vc, sender: self)
+    }
+
+    func importKey(name: String) {
+        guard OwnerKeyController.importKey(privateKey, name: name, isDrivedFromSeedPhrase: true),
+              let keyInfo = try? KeyInfo.keys(addresses: [privateKey.address]).first else {
+            return
+        }
+        AppSettings.hasShownImportKeyOnboarding = true
+        self.keyInfo = keyInfo
+    }
+
+    func showCreatePasscode() {
+        if App.shared.auth.isPasscodeSetAndAvailable {
+            showBackupIntro()
+            return
+        }
+        let passcodeVC = CreatePasscodeViewController()
+        passcodeVC.navigationItem.hidesBackButton = true
+        passcodeVC.hidesHeadline = false
+        passcodeVC.completion = { [unowned self] in
+            showBackupIntro()
+        }
+        show(passcodeVC, sender: self)
+    }
+
+    func showBackupIntro() {
+        let backupVC = BackupIntroViewController()
+        backupVC.backupCompletion = { [unowned self] startBackup in
+            if startBackup {
+                showSeedPhrase()
+            } else {
+                showKeyDetails()
+            }
+        }
+        show(backupVC, sender: self)
+    }
+
+    func showSeedPhrase() {
+        let exportVC = ExportViewController()
+        exportVC.privateKey = privateKey.keyData.toHexStringWithPrefix()
+        exportVC.seedPhrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) }
+        // TODO: show verify seed phrase on completion
+        show(exportVC, sender: self)
+
+        showVerifySeedPhrase()
+    }
+
+    func showVerifySeedPhrase() {
+        let verifyVC = VerifyPhraseViewController()
+        verifyVC.phrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) } ?? []
+        verifyVC.completion = { [unowned self] in
+            showBackupSuccess()
+        }
+        show(verifyVC, sender: self)
+    }
+
+    func showBackupSuccess() {
+        let successVC = SuccessViewController(
+            titleText: "Your key is backed up!",
+            bodyText: "If you lose your phone, you can recover this key with the seed phrase you just backed up.",
+            doneTitle: "OK, great",
+            trackingEvent: nil
+        )
+        successVC.onDone = { [unowned self] in
+            showKeyDetails()
+        }
+        show(successVC, sender: self)
+    }
+
+    func showKeyDetails() {
+        let detailsVC = OwnerKeyDetailsViewController(keyInfo: keyInfo!, completion: self.completion)
+        show(detailsVC, sender: self)
+
+        showSuccessMessage()
+    }
+
+    func showSuccessMessage() {
+        let message = "The key successfully created. Add it to a Safe on desktop and then restart the mobile app."
+        App.shared.snackbar.show(message: message)
     }
 }

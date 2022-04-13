@@ -550,7 +550,7 @@ class ReviewExecutionViewController: ContainerViewController {
         let txHash = self.controller.ethTransaction?.hash ?? .init()
         LogService.shared.debug("Submitted tx: \(txHash.storage.storage.toHexStringWithPrefix())")
 
-        let successVC = TransactionSuccessViewController(
+        let successVC = SuccessViewController(
             titleText: "Your transaction is submitted!",
             bodyText: "It normally takes some time for a transaction to be executed.",
             doneTitle: "View details",

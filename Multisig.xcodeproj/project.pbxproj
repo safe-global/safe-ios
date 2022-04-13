@@ -732,8 +732,8 @@
 		D865177627620649000B4C04 /* SelectAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D865177527620649000B4C04 /* SelectAssetViewController.swift */; };
 		D86517792767555E000B4C04 /* TotalBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86517782767555E000B4C04 /* TotalBalanceView.swift */; };
 		D865177D27675DD1000B4C04 /* TotalBalanceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D865177C27675DD1000B4C04 /* TotalBalanceView.xib */; };
-		D865178127687E0B000B4C04 /* TransactionSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D865177F27687E0B000B4C04 /* TransactionSuccessViewController.swift */; };
-		D865178227687E0B000B4C04 /* TransactionSuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D865178027687E0B000B4C04 /* TransactionSuccessViewController.xib */; };
+		D865178127687E0B000B4C04 /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D865177F27687E0B000B4C04 /* SuccessViewController.swift */; };
+		D865178227687E0B000B4C04 /* SuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D865178027687E0B000B4C04 /* SuccessViewController.xib */; };
 		D86A68DF274E692500D7F5C5 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */; };
 		D86A68E1274E6AA500D7F5C5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68E0274E6AA500D7F5C5 /* main.swift */; };
 		D88FA81E2770869E0023B77F /* TokenAmountField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FA81C2770869E0023B77F /* TokenAmountField.swift */; };
@@ -1494,8 +1494,8 @@
 		D865177527620649000B4C04 /* SelectAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAssetViewController.swift; sourceTree = "<group>"; };
 		D86517782767555E000B4C04 /* TotalBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalBalanceView.swift; sourceTree = "<group>"; };
 		D865177C27675DD1000B4C04 /* TotalBalanceView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TotalBalanceView.xib; sourceTree = "<group>"; };
-		D865177F27687E0B000B4C04 /* TransactionSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSuccessViewController.swift; sourceTree = "<group>"; };
-		D865178027687E0B000B4C04 /* TransactionSuccessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionSuccessViewController.xib; sourceTree = "<group>"; };
+		D865177F27687E0B000B4C04 /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
+		D865178027687E0B000B4C04 /* SuccessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuccessViewController.xib; sourceTree = "<group>"; };
 		D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
 		D86A68E0274E6AA500D7F5C5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D88FA81C2770869E0023B77F /* TokenAmountField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAmountField.swift; sourceTree = "<group>"; };
@@ -3513,8 +3513,8 @@
 				0A04508A278E283D00650F71 /* TransactionExecutionController.swift */,
 				0AC0948227946B6600FA1B83 /* PendingTransactionMontior.swift */,
 				0ABE6982279177A4003338AF /* TransactionEstimationController.swift */,
-				D865177F27687E0B000B4C04 /* TransactionSuccessViewController.swift */,
-				D865178027687E0B000B4C04 /* TransactionSuccessViewController.xib */,
+				D865177F27687E0B000B4C04 /* SuccessViewController.swift */,
+				D865178027687E0B000B4C04 /* SuccessViewController.xib */,
 			);
 			path = Execution;
 			sourceTree = "<group>";
@@ -3746,7 +3746,7 @@
 				93EF2FA427C546330077BE95 /* InstructionsViewController.xib in Resources */,
 				5588365525652E4B0014E8C7 /* LoadingValueCell.xib in Resources */,
 				557D80B2270B32F80036D6D0 /* WCEditParametersViewController.xib in Resources */,
-				D865178227687E0B000B4C04 /* TransactionSuccessViewController.xib in Resources */,
+				D865178227687E0B000B4C04 /* SuccessViewController.xib in Resources */,
 				0468FB9825912E8300541536 /* TransactionListTableViewCell.xib in Resources */,
 				0A57C5A52577DC5600420303 /* DetailExpandableTextCell.xib in Resources */,
 				04CF31C127B6B9DC001BEEED /* TitledMiniPieceView.xib in Resources */,
@@ -4284,7 +4284,7 @@
 				555DA311250A4C7C00C3A0BE /* KeychainKey.swift in Sources */,
 				04E4CD65277752A500B558F4 /* TokenAmountInfoView.swift in Sources */,
 				0ADD19C5265EA23200EB0F2B /* SeedWordCollectionViewCell.swift in Sources */,
-				D865178127687E0B000B4C04 /* TransactionSuccessViewController.swift in Sources */,
+				D865178127687E0B000B4C04 /* SuccessViewController.swift in Sources */,
 				0A478D3325B861D50038363E /* DefaultKeyTableViewCell.swift in Sources */,
 				550FB1C326691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift in Sources */,
 				0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */,

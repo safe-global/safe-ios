@@ -327,7 +327,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         let body = "Your request to send \(formattedAmount) \(token) is submitted and needs to be confirmed by other owners."
         let done = "View details"
 
-        let successVC = TransactionSuccessViewController(
+        let successVC = SuccessViewController(
             titleText: title,
             bodyText: body,
             doneTitle: done,
