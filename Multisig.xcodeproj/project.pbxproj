@@ -3045,15 +3045,7 @@
 		5541367A265E566B00796F91 /* GenerateOwnerKey */ = {
 			isa = PBXGroup;
 			children = (
-				6A9A770A2804182700C229FC /* BackupIntroViewController.swift */,
-				6A9A770B2804182700C229FC /* BackupIntroViewController.xib */,
 				5541367B265E58B200796F91 /* OnboardingGenerateKeyViewController.swift */,
-				6A9A770E28041D8100C229FC /* TipsView.swift */,
-				6A9A771028041DA700C229FC /* TipsView.xib */,
-				0AE0AFEA2805C6B9002594CB /* VerifyPhraseViewController.swift */,
-				0AE0AFEB2805C6B9002594CB /* VerifyPhraseViewController.xib */,
-				0AE0AFF02805CC2B002594CB /* WordView.swift */,
-				0AE0AFEE2805CC20002594CB /* WordView.xib */,
 			);
 			path = GenerateOwnerKey;
 			sourceTree = "<group>";
@@ -3329,11 +3321,19 @@
 		6A1CFA4C280819C600B2C340 /* Backup */ = {
 			isa = PBXGroup;
 			children = (
-				6A1CFA482807F24800B2C340 /* NoScreenshotViewController.swift */,
-				6A1CFA492807F24800B2C340 /* NoScreenshotViewController.xib */,
+				0A5B157928085BC1003AD853 /* BackupController.swift */,
+				6A9A770A2804182700C229FC /* BackupIntroViewController.swift */,
+				6A9A770B2804182700C229FC /* BackupIntroViewController.xib */,
 				6A1CFA4D28081A1200B2C340 /* BackupSeedPhraseViewController.swift */,
 				6A1CFA4E28081A1200B2C340 /* BackupSeedPhraseViewController.xib */,
-				0A5B157928085BC1003AD853 /* BackupController.swift */,
+				6A1CFA482807F24800B2C340 /* NoScreenshotViewController.swift */,
+				6A1CFA492807F24800B2C340 /* NoScreenshotViewController.xib */,
+				6A9A770E28041D8100C229FC /* TipsView.swift */,
+				6A9A771028041DA700C229FC /* TipsView.xib */,
+				0AE0AFEA2805C6B9002594CB /* VerifyPhraseViewController.swift */,
+				0AE0AFEB2805C6B9002594CB /* VerifyPhraseViewController.xib */,
+				0AE0AFF02805CC2B002594CB /* WordView.swift */,
+				0AE0AFEE2805CC20002594CB /* WordView.xib */,
 			);
 			path = Backup;
 			sourceTree = "<group>";
