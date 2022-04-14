@@ -31,7 +31,93 @@ class OnboardingImportOwnerKeyViewController: AddKeyOnboardingViewController {
     }
 
     @objc override func didTapNextButton(_ sender: Any) {
-        let controller = EnterKeyOrSeedPhraseViewController(completion: completion)
-        show(controller, sender: self)
+        showEnterSecret()
+    }
+
+    var privateKey: PrivateKey?
+    var isDerivedFromSeed: Bool = false
+
+    func showEnterSecret() {
+        let enterSecretVC = EnterKeyOrSeedPhraseViewController()
+        enterSecretVC.completion = { [unowned self, unowned enterSecretVC] in
+            if let rootNode = enterSecretVC.seedNode {
+                showDerivedAddressPicker(rootNode)
+            } else if let privateKey = enterSecretVC.privateKey {
+                isDerivedFromSeed = false
+                self.privateKey = privateKey
+                showEnterName()
+            }
+        }
+        show(enterSecretVC, sender: self)
+    }
+
+    func showDerivedAddressPicker(_ rootNode: HDNode) {
+        let pickDerivedKeyVC = KeyPickerController(node: rootNode)
+        pickDerivedKeyVC.completion = { [unowned pickDerivedKeyVC, unowned self] in
+            self.privateKey = pickDerivedKeyVC.privateKey
+            isDerivedFromSeed = true
+            showEnterName()
+        }
+        show(pickDerivedKeyVC, sender: self)
+    }
+
+    func showEnterName() {
+        guard let privateKey = privateKey else {
+            return
+        }
+
+        let enterNameVC = EnterAddressNameViewController()
+        enterNameVC.actionTitle = "Import"
+        enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
+        enterNameVC.screenTitle = "Enter Key Name"
+        enterNameVC.trackingEvent = .enterKeyName
+        enterNameVC.placeholder = "Enter name"
+        enterNameVC.address = privateKey.address
+        enterNameVC.badgeName = KeyType.deviceImported.imageName
+
+        enterNameVC.completion = { [unowned self] name in
+            guard importKey(name: name) else {
+                return
+            }
+            showCreatePasscode()
+        }
+
+        show(enterNameVC, sender: self)
+    }
+
+    func importKey(name: String) -> Bool {
+        guard let privateKey = privateKey else {
+            return false
+        }
+        if OwnerKeyController.exists(privateKey) {
+            App.shared.snackbar.show(error: GSError.KeyAlreadyImported())
+            return false
+        }
+        let success = OwnerKeyController.importKey(
+            privateKey,
+            name: name,
+            isDrivedFromSeedPhrase: isDerivedFromSeed)
+        if success {
+            AppSettings.hasShownImportKeyOnboarding = true
+        }
+        return success
+    }
+
+    func showCreatePasscode() {
+        let createPasscodeVC = CreatePasscodeController { [unowned self] in
+            dismiss(animated: true) { [unowned self] in
+                finish()
+            }
+        }
+        guard let createPasscodeVC = createPasscodeVC else {
+            finish()
+            return
+        }
+        present(createPasscodeVC, animated: true)
+    }
+
+    func finish() {
+        App.shared.snackbar.show(message: "Owner key successfully imported")
+        self.completion()
     }
 }

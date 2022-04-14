@@ -79,6 +79,11 @@ enum ViewControllerFactory {
         RibbonViewController(rootViewController: viewController)
     }
 
+    static func addCloseButton(_ vc: UIViewController) {
+        vc.navigationItem.leftBarButtonItem =
+            UIBarButtonItem(barButtonSystemItem: .close, target: vc, action: #selector(CloseModal.closeModal))
+    }
+
     static func modal(viewController: UIViewController, halfScreen: Bool = false) -> UIViewController {
         viewController.navigationItem.leftBarButtonItem =
             UIBarButtonItem(barButtonSystemItem: .close, target: viewController, action: #selector(CloseModal.closeModal))

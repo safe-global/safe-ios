@@ -57,19 +57,20 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
         vc.address = privateKey.address
         vc.badgeName = KeyType.deviceGenerated.imageName
         vc.completion = { [unowned self] name in
-            importKey(name: name)
+            guard importKey(name: name) else { return }
             showCreatePasscode()
         }
         show(vc, sender: self)
     }
 
-    func importKey(name: String) {
+    func importKey(name: String) -> Bool {
         guard OwnerKeyController.importKey(privateKey, name: name, isDrivedFromSeedPhrase: true),
               let keyInfo = try? KeyInfo.keys(addresses: [privateKey.address]).first else {
-            return
+            return false
         }
         AppSettings.hasShownImportKeyOnboarding = true
         self.keyInfo = keyInfo
+        return true
     }
 
     func showCreatePasscode() {
