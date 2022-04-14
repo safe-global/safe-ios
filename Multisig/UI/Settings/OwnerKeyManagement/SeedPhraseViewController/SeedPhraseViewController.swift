@@ -11,11 +11,13 @@ class SeedPhraseViewController: UIViewController {
     @IBOutlet weak var warningView: WarningView!
     @IBOutlet weak var copyToClipboardButton: UIButton!
 
+    var infoText = "Make sure to store your seed phrase in a secure place."
     var seedPhrase: [String] = []
+    var trackingEvent: TrackingEvent = .exportSeed
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        infoLabel.text = "Make sure to store your seed phrase in a secure place."
+        infoLabel.text = infoText
         infoLabel.setStyle(.secondary)
 
         warningView.set(description: "Gnosis Safe will never ask for your seed phrase! It is encrypted and stored locally on your device.")
@@ -43,7 +45,7 @@ class SeedPhraseViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.exportSeed)
+        Tracker.trackEvent(trackingEvent)
         seedPhraseView.update()
     }
 }

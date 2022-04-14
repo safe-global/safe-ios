@@ -42,7 +42,7 @@ class AuthenticationController {
         try accessService.registerUser(password: password)
         AppSettings.passcodeWasSetAtLeastOnce = true
 
-        AppSettings.passcodeOptions = [.useForLogin, .useForConfirmation, .useForExportingKeys]
+        AppSettings.passcodeOptions = [.useForLogin, .useForConfirmation]
 
         NotificationCenter.default.post(name: .passcodeCreated, object: nil)
 
@@ -92,15 +92,6 @@ class AuthenticationController {
         // behavior in the v1.
         guard isPasscodeSetAndAvailable && AppSettings.passcodeOptions.isEmpty else { return }
         AppSettings.passcodeOptions = .useForConfirmation
-    }
-
-    func migrateUsePasscodeForExportingKey() {
-        guard !AppSettings.usePasscodeForExportingKeyMigrated else { return }
-        if isPasscodeSetAndAvailable {
-            AppSettings.passcodeOptions.insert(.useForExportingKeys)
-        }
-
-        AppSettings.usePasscodeForExportingKeyMigrated = true
     }
 
     /// Returns saved user, if any
@@ -310,7 +301,6 @@ class AuthUserRepository: UserRepository {
         do {
             let appUser = try AppUser.user(id: user.id) ?? AppUser.newUser(id: user.id)
             try appUser.update(with: user)
-            AppSettings.usePasscodeForExportingKeyMigrated = true
             appUser.save()
         } catch {
             LogService.shared.error("Failed to save user: \(error)")

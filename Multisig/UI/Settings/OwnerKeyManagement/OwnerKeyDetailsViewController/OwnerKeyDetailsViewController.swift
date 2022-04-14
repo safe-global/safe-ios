@@ -159,8 +159,9 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
             return
         }
 
-        if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForExportingKeys) {
+        if App.shared.auth.isPasscodeSetAndAvailable {
             let vc = EnterPasscodeViewController()
+            vc.usesBiometry = false
             vc.passcodeCompletion = { [weak self] success, _ in
                 guard let `self` = self else { return }
                 self.dismiss(animated: true) {
@@ -257,7 +258,15 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         case Section.Backedup.backedup:
             return tableView.backupKeyCell(indexPath: indexPath) { [weak self] in
                 Tracker.trackEvent(.backupFromKeyDetails)
-                self?.show(BackupIntroViewController(), sender: self)
+                let backupVC = BackupIntroViewController()
+                backupVC.backupCompletion = { [weak self] startBackup in
+                    if startBackup {
+                        //showBackupSeedPhrase()
+                    } else {
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                }
+                self?.show(backupVC, sender: self)
             }
         case Section.Name.name:
             return tableView.basicCell(name: keyInfo.name ?? "", indexPath: indexPath)

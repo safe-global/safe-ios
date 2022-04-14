@@ -89,7 +89,15 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         cell.selectionStyle = .none
         cell.configure(keyInfo: keyInfo, chainID: chainID) { [weak self] in
             Tracker.trackEvent(.backupFromKeysList)
-            let vc = ViewControllerFactory.modal(viewController: BackupIntroViewController())
+            let backupVC = BackupIntroViewController()
+            backupVC.backupCompletion = { [weak self] startBackup in
+                if startBackup {
+                    //showBackupSeedPhrase()
+                } else {
+                    self?.dismiss(animated: true)
+                }
+            }
+            let vc = ViewControllerFactory.modal(viewController: backupVC)
             self?.present(vc, animated: true)
         }
 
