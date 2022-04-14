@@ -36,7 +36,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
     var minimalNonce: UInt256String?
 
     enum SectionItem {
-        case trasnfer(UITableViewCell)
+        case transfer(UITableViewCell)
         case advanced(UITableViewCell)
     }
 
@@ -271,11 +271,11 @@ class ReviewSendFundsTransactionViewController: UIViewController {
     }
 
     private func bindData() {
-        sectionItems = [SectionItem.trasnfer(trasnferCell()), SectionItem.advanced(parametersCell())]
+        sectionItems = [SectionItem.transfer(transferCell()), SectionItem.advanced(parametersCell())]
         tableView.reloadData()
     }
 
-    private func trasnferCell() -> UITableViewCell {
+    private func transferCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(ReviewSendFundsTransactionHeaderTableViewCell.self)
         let prefix = safe.chain!.shortName
         cell.setFromAddress(safe.addressValue, label: safe.name, prefix: prefix)
@@ -357,7 +357,7 @@ extension ReviewSendFundsTransactionViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sectionItems[indexPath.row]
         switch item {
-        case SectionItem.trasnfer(let cell): return cell
+        case SectionItem.transfer(let cell): return cell
         case SectionItem.advanced(let cell): return cell
         }
     }

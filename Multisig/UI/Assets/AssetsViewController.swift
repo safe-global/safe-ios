@@ -56,7 +56,7 @@ class AssetsViewController: ContainerViewController {
             vc.modalPresentationStyle = .overFullScreen
             vc.modalTransitionStyle = .crossDissolve
             self?.present(vc, animated: true, completion: nil)
-            Tracker.trackEvent(.assetTrasferReceiveClicked)
+            Tracker.trackEvent(.assetTransferReceiveClicked)
         }
         
         totalBalanceView.onSendClicked = { [weak self] in
@@ -66,20 +66,20 @@ class AssetsViewController: ContainerViewController {
                 let vc = AddOwnerFirstViewController()
                 vc.onSuccess = { [weak self, unowned safe] in
                     if !safe.isReadOnly {
-                        self?.showSelectAssetsViewContoller()
+                        self?.showSelectAssetsViewController()
                     }
                     self?.dismiss(animated: true)
                 }
                 let navigationController = UINavigationController(rootViewController: vc)
                 self?.present(navigationController, animated: true)
             } else {
-                self?.showSelectAssetsViewContoller()
+                self?.showSelectAssetsViewController()
             }
             Tracker.trackEvent(.assetTransferSendClicked)
         }
     }
     
-    private func showSelectAssetsViewContoller() {
+    private func showSelectAssetsViewController() {
         guard let balances = self.balances else { return }
         let selectAssetVC = SelectAssetViewController(balances: balances)
         let vc = ViewControllerFactory.modalWithRibbon(viewController: selectAssetVC)
