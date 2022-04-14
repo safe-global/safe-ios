@@ -74,62 +74,29 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
 
     func showCreatePasscode() {
         if App.shared.auth.isPasscodeSetAndAvailable {
-            showBackupIntro()
+            startBackupFlow()
             return
         }
         let passcodeVC = CreatePasscodeViewController()
         passcodeVC.navigationItem.hidesBackButton = true
         passcodeVC.hidesHeadline = false
         passcodeVC.completion = { [unowned self] in
-            showBackupIntro()
+            startBackupFlow()
         }
         show(passcodeVC, sender: self)
     }
 
     // modally present the BackupController
     // and when flow finishes - continue with key details
-
-    func showBackupIntro() {
-        let backupVC = BackupIntroViewController()
-        backupVC.backupCompletion = { [unowned self] startBackup in
-            if startBackup {
-                showBackupSeedPhrase()
-            } else {
-                showKeyDetails()
-            }
+    func startBackupFlow() {
+        let backupController = BackupController(showIntro: true, seedPhrase: mnemonic)
+        backupController.onComplete = { [weak self] in
+            self?.showKeyDetails()
         }
-        show(backupVC, sender: self)
-    }
-
-    func showBackupSeedPhrase() {
-        let backupVC = BackupSeedPhraseViewController()
-        backupVC.seedPhrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) }!
-        backupVC.onContinue = { [unowned self] in
-            showVerifySeedPhrase()
+        backupController.onCancel = { [weak self] in
+            self?.showKeyDetails()
         }
-        show(backupVC, sender: self)
-    }
-
-    func showVerifySeedPhrase() {
-        let verifyVC = VerifyPhraseViewController()
-        verifyVC.phrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) } ?? []
-        verifyVC.completion = { [unowned self] in
-            showBackupSuccess()
-        }
-        show(verifyVC, sender: self)
-    }
-
-    func showBackupSuccess() {
-        let successVC = SuccessViewController(
-            titleText: "Your key is backed up!",
-            bodyText: "If you lose your phone, you can recover this key with the seed phrase you just backed up.",
-            doneTitle: "OK, great",
-            trackingEvent: nil
-        )
-        successVC.onDone = { [unowned self] in
-            showKeyDetails()
-        }
-        show(successVC, sender: self)
+        show(backupController, sender: self)
     }
 
     func showKeyDetails() {
