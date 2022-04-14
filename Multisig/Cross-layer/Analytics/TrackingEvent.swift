@@ -97,7 +97,7 @@ enum TrackingEvent: String, Trackable {
     case settingsRateApp                            = "user_settings_rate_app"
 
     case addressBookList                            = "screen_address_book_list"
-    case addressBookAddEntry                        = "screen_adderess_book_add"
+    case addressBookAddEntry                        = "screen_address_book_add"
     case addressBookEditEntry                       = "screen_address_book_edit"
     case addressBookImported                        = "address_book_imported"
     case addressBookExported                        = "address_book_exported"
@@ -260,5 +260,5 @@ enum TrackingEvent: String, Trackable {
     case backupConfirmSeedPhrase                    = "screen_confirm_seed_phrase"
     case backupCreatedSuccessfully                  = "screen_backup_success"
     case backupFromKeyDetails                       = "user_backup_from_key_details"
-    case backupFromKeyList                          = "user_backup_from_keys_list"
+    case backupFromKeysList                         = "user_backup_from_keys_list"
 }
