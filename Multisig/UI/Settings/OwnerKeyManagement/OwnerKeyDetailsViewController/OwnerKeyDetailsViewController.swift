@@ -256,6 +256,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         switch item {
         case Section.Backedup.backedup:
             return tableView.backupKeyCell(indexPath: indexPath) { [weak self] in
+                Tracker.trackEvent(.backupFromKeyDetails)
                 self?.show(BackupIntroViewController(), sender: self)
             }
         case Section.Name.name:

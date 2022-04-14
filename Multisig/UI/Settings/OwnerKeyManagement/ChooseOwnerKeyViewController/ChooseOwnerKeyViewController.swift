@@ -217,7 +217,8 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
                        detail: accountBalance,
                        accessoryImage: accessoryImage,
                        enabled: isEnabled,
-                       isLoading: isLoading)
+                       isLoading: isLoading,
+                       onWarningClick: { Tracker.trackEvent(.backupFromKeyList) } )
 
         return cell
     }

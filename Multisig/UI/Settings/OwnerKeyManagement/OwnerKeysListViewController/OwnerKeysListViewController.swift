@@ -88,6 +88,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         let cell = tableView.dequeueCell(SigningKeyTableViewCell.self, for: indexPath)
         cell.selectionStyle = .none
         cell.configure(keyInfo: keyInfo, chainID: chainID) { [weak self] in
+            Tracker.trackEvent(.backupFromKeyList)
             let vc = ViewControllerFactory.modal(viewController: BackupIntroViewController())
             self?.present(vc, animated: true)
         }
