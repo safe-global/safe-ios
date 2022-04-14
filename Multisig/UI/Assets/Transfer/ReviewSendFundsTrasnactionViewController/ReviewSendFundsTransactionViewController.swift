@@ -201,7 +201,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         case .deviceImported, .deviceGenerated:
             do {
                 let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
-                confirm(transaction: transaction, keyInfo: keyInfo, signature: signature.hexadecimal)
+                proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: signature.hexadecimal)
             } catch {
                 App.shared.snackbar.show(error: GSError.error(description: "Failed to confirm transaction", error: error))
             }
@@ -209,7 +209,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         case .walletConnect:
             let signVC = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: safe.chain!)
             signVC.onSuccess = { [weak self] signature in
-                self?.confirm(transaction: transaction, keyInfo: keyInfo, signature: signature)
+                self?.proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: signature)
             }
             signVC.onCancel = { [weak self] in
                 self?.endConfirm()
@@ -227,7 +227,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
             presentModal(vc)
 
             vc.completion = { [weak self] signature in
-                self?.confirm(transaction: transaction, keyInfo: keyInfo, signature: signature)
+                self?.proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: signature)
             }
 
             vc.onClose = { [weak self] in
@@ -242,7 +242,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         }
     }
 
-    private func confirm(transaction: Transaction, keyInfo: KeyInfo, signature: String) {
+    private func proposeTransaction(transaction: Transaction, keyInfo: KeyInfo, signature: String) {
         currentDataTask = App.shared.clientGatewayService.asyncProposeTransaction(transaction: transaction,
                                                                              sender: AddressString(keyInfo.address),
                                                                              signature: signature,
