@@ -58,6 +58,7 @@ class BackupController: UINavigationController {
         let verifyVC = VerifyPhraseViewController()
         verifyVC.phrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) } ?? []
         verifyVC.completion = { [unowned self] in
+            updateKey()
             showBackupSuccess()
         }
         show(verifyVC, sender: self)
@@ -75,5 +76,11 @@ class BackupController: UINavigationController {
             onComplete?()
         }
         show(successVC, sender: self)
+    }
+    
+    private func updateKey() {
+        let keyItem = try? KeyInfo.firstKey(address: privateKey.address)
+        keyItem?.backedup = true
+        keyItem?.save()
     }
 }
