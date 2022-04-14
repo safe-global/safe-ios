@@ -263,7 +263,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
                         App.shared.snackbar.show(error: GSError.error(description: "Failed to create transaction", error: error))
                     case .success(let transaction):
                         NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
-                        self.showTransactionSucess(transaction: transaction)
+                        self.showTransactionSuccess(transaction: transaction)
                     }
                 }
             }
@@ -320,7 +320,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         presentModal(ViewControllerFactory.modal(viewController: ribbon))
     }
     
-    private func showTransactionSucess(transaction: SCGModels.TransactionDetails) {
+    private func showTransactionSuccess(transaction: SCGModels.TransactionDetails) {
         let token = tokenBalance.symbol
 
         let title = "Your transaction is queued!"
