@@ -66,7 +66,7 @@ class SuccessViewController: UIViewController {
 
         Tracker.trackEvent(trackingEvent, parameters: trackingParams)
 
-        animationView.play(fromFrame: 0, toFrame: 9999999999999, loopMode: .playOnce, completion: nil)
+        animationView.play()
     }
     
     @IBAction func viewDetailsClicked(_ sender: Any) {
