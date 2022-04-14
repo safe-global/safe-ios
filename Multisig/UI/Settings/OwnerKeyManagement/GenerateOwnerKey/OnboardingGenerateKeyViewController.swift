@@ -90,7 +90,7 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
         let backupVC = BackupIntroViewController()
         backupVC.backupCompletion = { [unowned self] startBackup in
             if startBackup {
-                showSeedPhrase()
+                showBackupSeedPhrase()
             } else {
                 showKeyDetails()
             }
@@ -98,14 +98,13 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
         show(backupVC, sender: self)
     }
 
-    func showSeedPhrase() {
-        let exportVC = ExportViewController()
-        exportVC.privateKey = privateKey.keyData.toHexStringWithPrefix()
-        exportVC.seedPhrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) }
+    func showBackupSeedPhrase() {
+        let backupVC = BackupSeedPhraseViewController()
+        backupVC.seedPhrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) }!
         // TODO: show verify seed phrase on completion
-        show(exportVC, sender: self)
-
-        showVerifySeedPhrase()
+        show(backupVC, sender: self)
+        //TODO: add completion block
+        //showVerifySeedPhrase()
     }
 
     func showVerifySeedPhrase() {
