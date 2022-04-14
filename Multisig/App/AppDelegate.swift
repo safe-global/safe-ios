@@ -34,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         OwnerKeyController.migrateLegacySigningKey()
 
         App.shared.auth.migrateFromPasscodeV1()
-        App.shared.auth.migrateUsePasscodeForExportingKey()
 
         // The requirement is to set num_safes property to "0" when there are no Safes
         Tracker.setNumSafesUserProperty(Safe.countExcludingDemo)
