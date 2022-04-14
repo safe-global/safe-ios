@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Lottie
 
 class SuccessViewController: UIViewController {
 
+    @IBOutlet weak var animationView: AnimationView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bodyLabel: UILabel!
     @IBOutlet weak var doneButton: UIButton!
@@ -48,6 +50,12 @@ class SuccessViewController: UIViewController {
         titleLabel.text = titleText
         bodyLabel.text = bodyText
         doneButton.setText(doneTitle ?? "Done", .filled)
+
+        let animation = Animation.named("SuccessAnimation")
+
+        animationView.animation = animation
+        animationView.contentMode = .scaleAspectFit
+        animationView.backgroundBehavior = .pauseAndRestore
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -57,6 +65,8 @@ class SuccessViewController: UIViewController {
         }
 
         Tracker.trackEvent(trackingEvent, parameters: trackingParams)
+
+        animationView.play(fromFrame: 0, toFrame: 9999999999999, loopMode: .playOnce, completion: nil)
     }
     
     @IBAction func viewDetailsClicked(_ sender: Any) {
