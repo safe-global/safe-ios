@@ -159,8 +159,9 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
             return
         }
 
-        if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForExportingKeys) {
+        if App.shared.auth.isPasscodeSetAndAvailable {
             let vc = EnterPasscodeViewController()
+            vc.usesBiometry = false 
             vc.passcodeCompletion = { [weak self] success, _ in
                 guard let `self` = self else { return }
                 self.dismiss(animated: true) {

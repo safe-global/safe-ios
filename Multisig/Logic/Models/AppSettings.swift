@@ -46,9 +46,6 @@ extension AppSettings {
     @AppSetting(\.displayMode)
     static var displayMode: Int32
 
-    @AppSetting(\.usePasscodeForExportingKeyMigrated)
-    static var usePasscodeForExportingKeyMigrated: Bool
-
     @AppSetting(\.fiatCode)
     private static var fiatCode: String?
 
@@ -151,7 +148,6 @@ struct PasscodeOptions: OptionSet {
     static let useBiometry = PasscodeOptions(rawValue: 1 << 0)
     static let useForLogin = PasscodeOptions(rawValue: 1 << 1)
     static let useForConfirmation = PasscodeOptions(rawValue: 1 << 2)
-    static let useForExportingKeys = PasscodeOptions(rawValue: 1 << 3)
 
-    static let all: PasscodeOptions = [.useBiometry, .useForLogin, .useForConfirmation, .useForExportingKeys]
+    static let all: PasscodeOptions = [.useBiometry, .useForLogin, .useForConfirmation]
 }

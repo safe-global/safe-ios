@@ -74,7 +74,7 @@ class SigningKeyTableViewCell: UITableViewCell {
 
         contentView.alpha = enabled ? 1 : 0.5
 
-        warningView.isHidden = !keyInfo.needsBackup
+        warningView.isHidden = !keyInfo.needsBackup || onWarningClick == nil
         layoutIfNeeded()
         warningView.onClick = onWarningClick
     }
