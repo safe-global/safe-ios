@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BackupController: UINavigationController {
+class BackupController: UINavigationController, UIAdaptivePresentationControllerDelegate {
     
     private var seedPhrase: String!
     
@@ -19,18 +19,24 @@ class BackupController: UINavigationController {
     var onComplete: (() -> Void)?
     var onCancel: (() -> Void)?
     
-    
     convenience init(showIntro: Bool, seedPhrase: String) {
-        self.init(namedClass: nil)
+        self.init()
         self.seedPhrase = seedPhrase
-        if showIntro {
-            showBackupIntro()
-        } else {
-            showBackupSeedPhrase()
-        }
+        let rootVC = showIntro ? createBackupIntro() : createBackupSeedPhrase()
+        ViewControllerFactory.addCloseButton(rootVC)
+        viewControllers = [rootVC]
     }
 
-    func showBackupIntro() {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presentationController?.delegate = self
+    }
+
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        onCancel?()
+    }
+
+    func createBackupIntro() -> UIViewController {
         let backupVC = BackupIntroViewController()
         backupVC.backupCompletion = { [unowned self] startBackup in
             if startBackup {
@@ -40,15 +46,20 @@ class BackupController: UINavigationController {
                 onCancel?()
             }
         }
-        show(backupVC, sender: self)
+        return backupVC
     }
-    
-    func showBackupSeedPhrase() {
+
+    func createBackupSeedPhrase() -> UIViewController {
         let backupVC = BackupSeedPhraseViewController()
         backupVC.seedPhrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) }!
         backupVC.onContinue = { [unowned self] in
             showVerifySeedPhrase()
         }
+        return backupVC
+    }
+    
+    func showBackupSeedPhrase() {
+        let backupVC = createBackupSeedPhrase()
         show(backupVC, sender: self)
     }
 
@@ -80,5 +91,6 @@ class BackupController: UINavigationController {
         let keyItem = try? KeyInfo.firstKey(address: privateKey.address)
         keyItem?.backedup = true
         keyItem?.save()
+        NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
     }
 }

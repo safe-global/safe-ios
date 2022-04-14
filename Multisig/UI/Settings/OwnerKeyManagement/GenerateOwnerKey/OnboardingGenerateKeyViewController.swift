@@ -74,17 +74,16 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
     }
 
     func showCreatePasscode() {
-        if App.shared.auth.isPasscodeSetAndAvailable {
+        let createPasscodeVC = CreatePasscodeController { [unowned self] in
+            dismiss(animated: true) { [unowned self] in
+                startBackupFlow()
+            }
+        }
+        guard let createPasscodeVC = createPasscodeVC else {
             startBackupFlow()
             return
         }
-        let passcodeVC = CreatePasscodeViewController()
-        passcodeVC.navigationItem.hidesBackButton = true
-        passcodeVC.hidesHeadline = false
-        passcodeVC.completion = { [unowned self] in
-            startBackupFlow()
-        }
-        show(passcodeVC, sender: self)
+        present(createPasscodeVC, animated: true)
     }
 
     // modally present the BackupController
