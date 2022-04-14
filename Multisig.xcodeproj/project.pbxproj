@@ -265,6 +265,7 @@
 		0A57C5E52577FBD900420303 /* DetailConfirmationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C5E32577FBD900420303 /* DetailConfirmationCell.xib */; };
 		0A57C8E92587AECB00B7C019 /* EnterSafeAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C8E72587AECB00B7C019 /* EnterSafeAddressViewController.swift */; };
 		0A57C8EA2587AECB00B7C019 /* EnterSafeAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C8E82587AECB00B7C019 /* EnterSafeAddressViewController.xib */; };
+		0A5B157A28085BC1003AD853 /* BackupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B157928085BC1003AD853 /* BackupController.swift */; };
 		0A5B157C280863DF003AD853 /* EnterPasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B157B280863DF003AD853 /* EnterPasscodeViewController.swift */; };
 		0A5B157E280863FB003AD853 /* RepeatChangedPasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B157D280863FB003AD853 /* RepeatChangedPasscodeViewController.swift */; };
 		0A5B15802808640F003AD853 /* ChangePasscodeEnterNewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B157F2808640F003AD853 /* ChangePasscodeEnterNewViewController.swift */; };
@@ -1026,6 +1027,7 @@
 		0A57C5E32577FBD900420303 /* DetailConfirmationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailConfirmationCell.xib; sourceTree = "<group>"; };
 		0A57C8E72587AECB00B7C019 /* EnterSafeAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeAddressViewController.swift; sourceTree = "<group>"; };
 		0A57C8E82587AECB00B7C019 /* EnterSafeAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterSafeAddressViewController.xib; sourceTree = "<group>"; };
+		0A5B157928085BC1003AD853 /* BackupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupController.swift; sourceTree = "<group>"; };
 		0A5B157B280863DF003AD853 /* EnterPasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPasscodeViewController.swift; sourceTree = "<group>"; };
 		0A5B157D280863FB003AD853 /* RepeatChangedPasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatChangedPasscodeViewController.swift; sourceTree = "<group>"; };
 		0A5B157F2808640F003AD853 /* ChangePasscodeEnterNewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasscodeEnterNewViewController.swift; sourceTree = "<group>"; };
@@ -3077,15 +3079,7 @@
 		5541367A265E566B00796F91 /* GenerateOwnerKey */ = {
 			isa = PBXGroup;
 			children = (
-				6A9A770A2804182700C229FC /* BackupIntroViewController.swift */,
-				6A9A770B2804182700C229FC /* BackupIntroViewController.xib */,
 				5541367B265E58B200796F91 /* OnboardingGenerateKeyViewController.swift */,
-				6A9A770E28041D8100C229FC /* TipsView.swift */,
-				6A9A771028041DA700C229FC /* TipsView.xib */,
-				0AE0AFEA2805C6B9002594CB /* VerifyPhraseViewController.swift */,
-				0AE0AFEB2805C6B9002594CB /* VerifyPhraseViewController.xib */,
-				0AE0AFF02805CC2B002594CB /* WordView.swift */,
-				0AE0AFEE2805CC20002594CB /* WordView.xib */,
 			);
 			path = GenerateOwnerKey;
 			sourceTree = "<group>";
@@ -3361,10 +3355,19 @@
 		6A1CFA4C280819C600B2C340 /* Backup */ = {
 			isa = PBXGroup;
 			children = (
-				6A1CFA482807F24800B2C340 /* NoScreenshotViewController.swift */,
-				6A1CFA492807F24800B2C340 /* NoScreenshotViewController.xib */,
+				0A5B157928085BC1003AD853 /* BackupController.swift */,
+				6A9A770A2804182700C229FC /* BackupIntroViewController.swift */,
+				6A9A770B2804182700C229FC /* BackupIntroViewController.xib */,
 				6A1CFA4D28081A1200B2C340 /* BackupSeedPhraseViewController.swift */,
 				6A1CFA4E28081A1200B2C340 /* BackupSeedPhraseViewController.xib */,
+				6A1CFA482807F24800B2C340 /* NoScreenshotViewController.swift */,
+				6A1CFA492807F24800B2C340 /* NoScreenshotViewController.xib */,
+				6A9A770E28041D8100C229FC /* TipsView.swift */,
+				6A9A771028041DA700C229FC /* TipsView.xib */,
+				0AE0AFEA2805C6B9002594CB /* VerifyPhraseViewController.swift */,
+				0AE0AFEB2805C6B9002594CB /* VerifyPhraseViewController.xib */,
+				0AE0AFF02805CC2B002594CB /* WordView.swift */,
+				0AE0AFEE2805CC20002594CB /* WordView.xib */,
 			);
 			path = Backup;
 			sourceTree = "<group>";
@@ -4358,6 +4361,7 @@
 				0A478D3325B861D50038363E /* DefaultKeyTableViewCell.swift in Sources */,
 				550FB1C326691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift in Sources */,
 				0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */,
+				0A5B157A28085BC1003AD853 /* BackupController.swift in Sources */,
 				043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */,
 				0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */,
 				0A2F1A6E267A538E00C09F03 /* GSLabel.swift in Sources */,

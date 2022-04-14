@@ -257,14 +257,10 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         switch item {
         case Section.Backedup.backedup:
             return tableView.backupKeyCell(indexPath: indexPath) { [weak self] in
-                let backupVC = BackupIntroViewController()
-                backupVC.backupCompletion = { [weak self] startBackup in
-                    if startBackup {
-                        //showBackupSeedPhrase()
-                    } else {
-                        self?.navigationController?.popViewController(animated: true)
-                    }
+                guard let mnemonic = try? self?.keyInfo.privateKey()?.mnemonic else {
+                    return
                 }
+                let backupVC = BackupController(showIntro: false, seedPhrase: mnemonic)
                 self?.show(backupVC, sender: self)
             }
         case Section.Name.name:
