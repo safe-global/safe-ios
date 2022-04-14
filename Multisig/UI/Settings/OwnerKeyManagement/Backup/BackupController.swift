@@ -30,8 +30,6 @@ class BackupController: UINavigationController {
         }
     }
 
-    // when finally done - update the key info.
-    
     func showBackupIntro() {
         let backupVC = BackupIntroViewController()
         backupVC.backupCompletion = { [unowned self] startBackup in
