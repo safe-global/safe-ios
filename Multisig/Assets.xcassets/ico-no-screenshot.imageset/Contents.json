@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ico-no-screenshot.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
