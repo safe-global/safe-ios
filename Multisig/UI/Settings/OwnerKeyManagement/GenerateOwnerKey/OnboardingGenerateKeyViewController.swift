@@ -86,6 +86,9 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
         show(passcodeVC, sender: self)
     }
 
+    // modally present the BackupController
+    // and when flow finishes - continue with key details
+
     func showBackupIntro() {
         let backupVC = BackupIntroViewController()
         backupVC.backupCompletion = { [unowned self] startBackup in
