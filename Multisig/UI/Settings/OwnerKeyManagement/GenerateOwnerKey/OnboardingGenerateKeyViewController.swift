@@ -101,10 +101,10 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
     func showBackupSeedPhrase() {
         let backupVC = BackupSeedPhraseViewController()
         backupVC.seedPhrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) }!
-        // TODO: show verify seed phrase on completion
+        backupVC.onContinue = { [unowned self] in
+            showVerifySeedPhrase()
+        }
         show(backupVC, sender: self)
-        //TODO: add completion block
-        //showVerifySeedPhrase()
     }
 
     func showVerifySeedPhrase() {

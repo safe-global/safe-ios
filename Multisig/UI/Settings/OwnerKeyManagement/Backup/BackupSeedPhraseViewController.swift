@@ -18,6 +18,8 @@ class BackupSeedPhraseViewController: ContainerViewController {
     
     var seedPhrase: [String] = []
     
+    var onContinue: (() -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,5 +45,6 @@ class BackupSeedPhraseViewController: ContainerViewController {
     }
     
     @IBAction func didTapContinueButton(_ sender: Any) {
+        onContinue?()
     }
 }
