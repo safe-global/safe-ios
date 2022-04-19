@@ -116,4 +116,3 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
         return
     }
 }
-
