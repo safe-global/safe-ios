@@ -45,7 +45,7 @@ class QRCodeView: UINibView {
         super.layoutSubviews()
         if showsBorder {
             layer.borderWidth = 2
-            layer.borderColor = UIColor.backgroundTetriary.cgColor
+            layer.borderColor = UIColor.backgroundTertiary.cgColor
             layer.cornerRadius = 10
         } else {
             layer.borderWidth = 0

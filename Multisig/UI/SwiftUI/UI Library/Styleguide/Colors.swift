@@ -20,7 +20,7 @@ extension Color {
     static let shadow = Color("shadow")
     static let backgroundPrimary = Color("backgroundPrimary")
     static let backgroundSecondary = Color("backgroundSecondary")
-    static let backgroundTetriary = Color("backgroundTetriary")
+    static let backgroundTertiary = Color("backgroundTetriary")
     static let labelPrimary = Color("labelPrimary")
     static let labelSecondary = Color("labelSecondary")
     static let labelTetriary = Color("labelTetriary")
