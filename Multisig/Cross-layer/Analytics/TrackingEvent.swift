@@ -36,7 +36,7 @@ enum TrackingEvent: String, Trackable {
     case collectiblesNotSupported                   = "screen_collectibles_not_supported"
     case collectiblesOpenInWeb                      = "user_collectibles_open_in_web"
     
-    case assetTrasferReceiveClicked                 = "user_select_receive_asset"
+    case assetTransferReceiveClicked                = "user_select_receive_asset"
     case assetTransferSendClicked                   = "user_select_send_asset"
     case assetTransferAddOwnerClicked               = "user_select_add_owner_to_send_assets"
     case assetsTransferSelect                       = "screen_select_asset"
@@ -97,7 +97,7 @@ enum TrackingEvent: String, Trackable {
     case settingsRateApp                            = "user_settings_rate_app"
 
     case addressBookList                            = "screen_address_book_list"
-    case addressBookAddEntry                        = "screen_adderess_book_add"
+    case addressBookAddEntry                        = "screen_address_book_add"
     case addressBookEditEntry                       = "screen_address_book_edit"
     case addressBookImported                        = "address_book_imported"
     case addressBookExported                        = "address_book_exported"
@@ -250,4 +250,15 @@ enum TrackingEvent: String, Trackable {
     // MARK: delete  delegate key
     case deleteDelegateKeySuccess                   = "user_success_delete_delegate"
     case deleteDelegateKeyFailed                    = "user_failed_delete_delegate"
+
+    // MARK: backup created keys
+    case backupIntro                                = "screen_backup_intro"
+    case backupSkipped                              = "user_backup_skipped"
+    case backupVerifySeedPhrase                     = "screen_verify_seed_phrase"
+    case backupUserCopiedSeedPhrase                 = "user_seed_phrase_copy"
+    case backupUserSeedPhraseScreenshot             = "user_seed_phrase_screenshot"
+    case backupConfirmSeedPhrase                    = "screen_confirm_seed_phrase"
+    case backupCreatedSuccessfully                  = "screen_backup_success"
+    case backupFromKeyDetails                       = "user_backup_from_key_details"
+    case backupFromKeysList                         = "user_backup_from_keys_list"
 }

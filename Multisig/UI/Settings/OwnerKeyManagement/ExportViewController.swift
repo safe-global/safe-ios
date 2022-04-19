@@ -70,6 +70,7 @@ class ExportViewController: ContainerViewController {
     }
 
     func export(_ value: String) {
+        Tracker.trackEvent(.backupUserCopiedSeedPhrase)
         let vc = UIActivityViewController(activityItems: [value], applicationActivities: nil)
         present(vc, animated: true, completion: nil)
     }

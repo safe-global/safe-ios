@@ -161,7 +161,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
 
         if App.shared.auth.isPasscodeSetAndAvailable {
             let vc = EnterPasscodeViewController()
-            vc.usesBiometry = false 
+            vc.usesBiometry = false
             vc.passcodeCompletion = { [weak self] success, _ in
                 guard let `self` = self else { return }
                 self.dismiss(animated: true) {
@@ -257,6 +257,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         switch item {
         case Section.Backedup.backedup:
             return tableView.backupKeyCell(indexPath: indexPath) { [weak self] in
+                Tracker.trackEvent(.backupFromKeyDetails)
                 guard let mnemonic = try? self?.keyInfo.privateKey()?.mnemonic else {
                     return
                 }

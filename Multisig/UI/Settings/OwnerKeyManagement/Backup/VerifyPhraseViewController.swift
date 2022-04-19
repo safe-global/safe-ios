@@ -119,6 +119,11 @@ class VerifyPhraseViewController: UIViewController {
         state = .question
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.backupConfirmSeedPhrase)
+    }
+
     // implements actions for transitions in the state machine
     //    |   From    |    To     |                       Action                       |
     //    | --------- | --------- | -------------------------------------------------- |

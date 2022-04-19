@@ -36,7 +36,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
     var minimalNonce: UInt256String?
 
     enum SectionItem {
-        case trasnfer(UITableViewCell)
+        case transfer(UITableViewCell)
         case advanced(UITableViewCell)
     }
 
@@ -201,7 +201,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         case .deviceImported, .deviceGenerated:
             do {
                 let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
-                confirm(transaction: transaction, keyInfo: keyInfo, signature: signature.hexadecimal)
+                proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: signature.hexadecimal)
             } catch {
                 App.shared.snackbar.show(error: GSError.error(description: "Failed to confirm transaction", error: error))
             }
@@ -209,7 +209,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         case .walletConnect:
             let signVC = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: safe.chain!)
             signVC.onSuccess = { [weak self] signature in
-                self?.confirm(transaction: transaction, keyInfo: keyInfo, signature: signature)
+                self?.proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: signature)
             }
             signVC.onCancel = { [weak self] in
                 self?.endConfirm()
@@ -227,7 +227,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
             presentModal(vc)
 
             vc.completion = { [weak self] signature in
-                self?.confirm(transaction: transaction, keyInfo: keyInfo, signature: signature)
+                self?.proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: signature)
             }
 
             vc.onClose = { [weak self] in
@@ -242,7 +242,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         }
     }
 
-    private func confirm(transaction: Transaction, keyInfo: KeyInfo, signature: String) {
+    private func proposeTransaction(transaction: Transaction, keyInfo: KeyInfo, signature: String) {
         currentDataTask = App.shared.clientGatewayService.asyncProposeTransaction(transaction: transaction,
                                                                              sender: AddressString(keyInfo.address),
                                                                              signature: signature,
@@ -263,7 +263,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
                         App.shared.snackbar.show(error: GSError.error(description: "Failed to create transaction", error: error))
                     case .success(let transaction):
                         NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
-                        self.showTransactionSucess(transaction: transaction)
+                        self.showTransactionSuccess(transaction: transaction)
                     }
                 }
             }
@@ -271,11 +271,11 @@ class ReviewSendFundsTransactionViewController: UIViewController {
     }
 
     private func bindData() {
-        sectionItems = [SectionItem.trasnfer(trasnferCell()), SectionItem.advanced(parametersCell())]
+        sectionItems = [SectionItem.transfer(transferCell()), SectionItem.advanced(parametersCell())]
         tableView.reloadData()
     }
 
-    private func trasnferCell() -> UITableViewCell {
+    private func transferCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(ReviewSendFundsTransactionHeaderTableViewCell.self)
         let prefix = safe.chain!.shortName
         cell.setFromAddress(safe.addressValue, label: safe.name, prefix: prefix)
@@ -320,7 +320,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         presentModal(ViewControllerFactory.modal(viewController: ribbon))
     }
     
-    private func showTransactionSucess(transaction: SCGModels.TransactionDetails) {
+    private func showTransactionSuccess(transaction: SCGModels.TransactionDetails) {
         let token = tokenBalance.symbol
 
         let title = "Your transaction is queued!"
@@ -357,7 +357,7 @@ extension ReviewSendFundsTransactionViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sectionItems[indexPath.row]
         switch item {
-        case SectionItem.trasnfer(let cell): return cell
+        case SectionItem.transfer(let cell): return cell
         case SectionItem.advanced(let cell): return cell
         }
     }

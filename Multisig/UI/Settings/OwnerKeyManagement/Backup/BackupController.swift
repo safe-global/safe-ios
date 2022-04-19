@@ -74,6 +74,7 @@ class BackupController: UINavigationController, UIAdaptivePresentationController
     }
 
     func showBackupSuccess() {
+        Tracker.trackEvent(.backupCreatedSuccessfully)
         let successVC = SuccessViewController(
             titleText: "Your key is backed up!",
             bodyText: "If you lose your phone, you can recover this key with the seed phrase you just backed up.",

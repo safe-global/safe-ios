@@ -38,6 +38,11 @@ class BackupIntroViewController: UIViewController, UIGestureRecognizerDelegate {
         backupButton.setText("Back up manually", .filled)
         cancelButton.setText("Not now", .plain)
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.backupIntro)
+    }
     
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
@@ -49,9 +54,11 @@ class BackupIntroViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBAction func didTapCancel(_ sender: Any) {
         backupCompletion(false)
+        Tracker.trackEvent(.backupSkipped)
     }
 
     override func closeModal() {
         backupCompletion(false)
     }
 }
+

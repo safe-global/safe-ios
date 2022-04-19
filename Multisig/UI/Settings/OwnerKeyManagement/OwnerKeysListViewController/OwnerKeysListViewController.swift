@@ -88,6 +88,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         let cell = tableView.dequeueCell(SigningKeyTableViewCell.self, for: indexPath)
         cell.selectionStyle = .none
         cell.configure(keyInfo: keyInfo, chainID: chainID) { [weak self] in
+            Tracker.trackEvent(.backupFromKeysList)
             guard let mnemonic = try? keyInfo.privateKey()?.mnemonic else {
                 return
             }
