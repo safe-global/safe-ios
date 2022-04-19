@@ -58,7 +58,9 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
                     if App.shared.auth.isPasscodeSetAndAvailable {
                         showKeyImportedConfirmation(presenter: enterNameVC, address: address, name: name)
                     } else {
-                        startPasscodeSetup(presenter: enterNameVC, address: address, name: name)
+                        startPasscodeSetup(presenter: enterNameVC, address: address, name: name) { [unowned self] in
+                            self.showKeyImportedConfirmation(presenter: enterNameVC, address: address, name: name)
+                        }
                     }
                 } else {
                     disconnect(connection: connection)
@@ -73,10 +75,8 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
         completion(success)
     }
     
-    func startPasscodeSetup(presenter: UIViewController, address: Address, name: String) {
-        let createPasscodeViewController = CreatePasscodeViewController.init { [unowned self] in
-            showKeyImportedConfirmation(presenter: presenter, address: address, name: name)
-        }
+    func startPasscodeSetup(presenter: UIViewController, address: Address, name: String, completion: @escaping () -> Void) {
+        let createPasscodeViewController = CreatePasscodeViewController(completion)
         createPasscodeViewController.navigationItem.hidesBackButton = true
         createPasscodeViewController.hidesHeadline = false
         presenter.show(createPasscodeViewController, sender: presenter)
