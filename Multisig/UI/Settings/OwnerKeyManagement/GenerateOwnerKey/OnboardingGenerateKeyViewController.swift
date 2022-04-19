@@ -64,7 +64,7 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
     }
 
     func importKey(name: String) -> Bool {
-        if (try? KeyInfo.firstKey(address: selectedAddressInfo.address)) != nil {
+        if (try? KeyInfo.firstKey(address: privateKey.address)) != nil {
             App.shared.snackbar.show(error: GSError.KeyAlreadyImported())
             return false
         }

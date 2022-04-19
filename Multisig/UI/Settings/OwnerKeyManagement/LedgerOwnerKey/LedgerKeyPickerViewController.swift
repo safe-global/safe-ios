@@ -70,7 +70,7 @@ class LedgerKeyPickerViewController: SegmentViewController {
             index: key.index,
             derivationPath: derivationPath)
         self.completion?(result)
-        
+    }
 }
 
 fileprivate enum LedgerKeyType {
