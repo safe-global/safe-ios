@@ -8,11 +8,21 @@
 
 import UIKit
 
+class AddLedgerKeyParameters: AddKeyParameters {
+    var index: Int
+    var derivationPath: String
+
+    internal init(keyName: String?, address: Address, index: Int, derivationPath: String) {
+        self.index = index
+        self.derivationPath = derivationPath
+        self.keyName = keyName
+        self.address = address
+    }
+}
+
 class OnboardingLedgerKeyViewController: AddKeyOnboardingViewController {
     private var deviceUUID: UUID?
     private var bluetoothController: BaseBluetoothController?
-    private var selectedAddressInfo: LedgerAddressInfo?
-    private var addressName: String?
 
     convenience init(completion: @escaping () -> Void) {
         self.init(
@@ -55,16 +65,14 @@ class OnboardingLedgerKeyViewController: AddKeyOnboardingViewController {
             deviceId: deviceId,
             bluetoothController: bluetoothController)
         addressPickerVC.completion = { [unowned self] info in
-            selectedAddressInfo = info
+            keyParameters = info
             showEnterName()
         }
         show(addressPickerVC, sender: nil)
     }
 
     func showEnterName() {
-        guard let selectedAddressInfo = selectedAddressInfo else {
-            return
-        }
+        guard let keyParameters = keyParameters as? AddLedgerKeyParameters else { return }
 
         let enterNameVC = EnterAddressNameViewController()
         enterNameVC.actionTitle = "Import"
@@ -72,15 +80,16 @@ class OnboardingLedgerKeyViewController: AddKeyOnboardingViewController {
         enterNameVC.screenTitle = "Enter Key Name"
         enterNameVC.trackingEvent = .ledgerEnterKeyName
         enterNameVC.placeholder = "Enter name"
-        enterNameVC.name = selectedAddressInfo.defaultName
-        enterNameVC.address = selectedAddressInfo.address
+        enterNameVC.name = keyParameters.keyName
+        enterNameVC.address = keyParameters.address
         enterNameVC.badgeName = KeyType.ledgerNanoX.imageName
 
         enterNameVC.completion = { [unowned self] name in
+            keyParameters.keyName = name
             guard importKey(name: name) else {
                 return
             }
-            self.addressName = name
+            self.keyName = name
             showCreatePasscode()
         }
 
@@ -107,21 +116,12 @@ class OnboardingLedgerKeyViewController: AddKeyOnboardingViewController {
         return success
     }
 
-    func showCreatePasscode() {
-        let createPasscodeVC = CreatePasscodeController { [unowned self] in
-            dismiss(animated: true) { [unowned self] in
-                showAddPushNotifications()
-            }
-        }
-        guard let createPasscodeVC = createPasscodeVC else {
-            showAddPushNotifications()
-            return
-        }
-        present(createPasscodeVC, animated: true)
+    override func didCreatePasscode() {
+        showAddPushNotifications()
     }
 
     func showAddPushNotifications() {
-        guard let selectedAddressInfo = selectedAddressInfo, let name = addressName else {
+        guard let selectedAddressInfo = selectedAddressInfo, let name = keyName else {
             return
         }
 
@@ -134,10 +134,6 @@ class OnboardingLedgerKeyViewController: AddKeyOnboardingViewController {
         show(addPushesVC, sender: self)
     }
 
-    func showSuccessMessage() {
-        App.shared.snackbar.show(message: "Owner key successfully added")
-        self.completion()
-    }
 }
 
 extension OnboardingLedgerKeyViewController: SelectLedgerDeviceDelegate {

@@ -13,8 +13,7 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
     private var connection: WebConnection!
     private var wallet: WCAppRegistryEntry?
     private var address: Address!
-    private var name: String!
-    
+
     convenience init(completion: @escaping () -> Void) {
         self.init(
             cards: [
@@ -45,6 +44,7 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
             self.connection = connection
             self.address = address
             self.wallet = wallet
+            self.keyParameters = AddKeyParameters(keyName: connection.remotePeer?.name, address: address)
             enterOwnerName()
         })
         
@@ -52,62 +52,50 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
     }
     
     func enterOwnerName() {
+        guard let keyParameters = keyParameters else { return }
         let enterNameVC = EnterAddressNameViewController()
         enterNameVC.actionTitle = "Import"
         enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
         enterNameVC.screenTitle = "Enter Key Name"
         enterNameVC.trackingEvent = .enterKeyName
         enterNameVC.placeholder = "Enter name"
-        enterNameVC.name = connection.remotePeer?.name
-        enterNameVC.address = address
+        enterNameVC.name = keyParameters.keyName
+        enterNameVC.address = keyParameters.address
         enterNameVC.badgeName = KeyType.walletConnect.imageName
         enterNameVC.completion = { [unowned self] name in
-            self.name = name
+            keyParameters.keyName = name
             importOwnerKey()
         }
         show(enterNameVC, sender: self)
     }
     
     func importOwnerKey() {
-        let success = OwnerKeyController.importKey(connection: connection, wallet: wallet, name: name)
+        if (try? KeyInfo.firstKey(address: address)) != nil {
+            App.shared.snackbar.show(error: GSError.KeyAlreadyImported())
+            return
+        }
+
+        let success = OwnerKeyController.importKey(connection: connection, wallet: wallet, name: keyName)
         if success {
             showCreatePasscode()
         } else {
             disconnect(connection: connection)
         }
     }
-    
-    func showCreatePasscode() {
-        let createPasscodeVC = CreatePasscodeController { [unowned self] in
-            dismiss(animated: true) { [unowned self] in
-                showKeyImportedConfirmation()
-            }
-        }
-        guard let createPasscodeVC = createPasscodeVC else {
-            showKeyImportedConfirmation()
-            return
-        }
-        present(createPasscodeVC, animated: true)
-    }
-    
-    func showKeyImportedConfirmation() {
-        show(self.createKeyAddedView(address: address, name: name), sender: nil)
+
+    override func didCreatePasscode() {
+        showAddPushNotifications()
     }
 
-    func createKeyAddedView(address: Address, name: String) -> WalletConnectKeyAddedViewController {
-        let keyAddedVC = WalletConnectKeyAddedViewController()
-        keyAddedVC.completion = { [weak self] in
+    func showAddPushNotifications() {
+        let addPushesVC = WalletConnectKeyAddedViewController()
+        addPushesVC.completion = { [weak self] in
             self?.showSuccessMessage()
         }
-        keyAddedVC.accountAddress = address
-        keyAddedVC.accountName = name
+        addPushesVC.accountAddress = address
+        addPushesVC.accountName = keyName
 
-        return keyAddedVC
-    }
-    
-    func showSuccessMessage() {
-        App.shared.snackbar.show(message: "The key added successfully")
-        self.completion()
+        show(addPushesVC, sender: nil)
     }
     
     func disconnect(connection: WebConnection) {

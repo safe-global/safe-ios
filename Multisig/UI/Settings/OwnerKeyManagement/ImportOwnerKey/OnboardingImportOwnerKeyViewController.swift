@@ -45,6 +45,7 @@ class OnboardingImportOwnerKeyViewController: AddKeyOnboardingViewController {
             } else if let privateKey = enterSecretVC.privateKey {
                 isDerivedFromSeed = false
                 self.privateKey = privateKey
+                keyParameters = AddKeyParameters(keyName: nil, address: privateKey.address)
                 showEnterName()
             }
         }
@@ -54,17 +55,19 @@ class OnboardingImportOwnerKeyViewController: AddKeyOnboardingViewController {
     func showDerivedAddressPicker(_ rootNode: HDNode) {
         let pickDerivedKeyVC = KeyPickerController(node: rootNode)
         pickDerivedKeyVC.completion = { [unowned pickDerivedKeyVC, unowned self] in
-            self.privateKey = pickDerivedKeyVC.privateKey
+            guard let privateKey = pickDerivedKeyVC.privateKey else {
+                return
+            }
+            self.privateKey = privateKey
             isDerivedFromSeed = true
+            keyParameters = AddKeyParameters(keyName: nil, address: privateKey.address)
             showEnterName()
         }
         show(pickDerivedKeyVC, sender: self)
     }
 
     func showEnterName() {
-        guard let privateKey = privateKey else {
-            return
-        }
+        guard let keyParameters = keyParameters as? AddLedgerKeyParameters else { return }
 
         let enterNameVC = EnterAddressNameViewController()
         enterNameVC.actionTitle = "Import"
@@ -72,10 +75,13 @@ class OnboardingImportOwnerKeyViewController: AddKeyOnboardingViewController {
         enterNameVC.screenTitle = "Enter Key Name"
         enterNameVC.trackingEvent = .enterKeyName
         enterNameVC.placeholder = "Enter name"
-        enterNameVC.address = privateKey.address
+        enterNameVC.name = keyParameters.keyName
+        enterNameVC.address = keyParameters.address
         enterNameVC.badgeName = KeyType.deviceImported.imageName
 
         enterNameVC.completion = { [unowned self] name in
+            keyParameters.keyName = name
+            
             guard importKey(name: name) else {
                 return
             }
@@ -102,21 +108,7 @@ class OnboardingImportOwnerKeyViewController: AddKeyOnboardingViewController {
         return success
     }
 
-    func showCreatePasscode() {
-        let createPasscodeVC = CreatePasscodeController { [unowned self] in
-            dismiss(animated: true) { [unowned self] in
-                finish()
-            }
-        }
-        guard let createPasscodeVC = createPasscodeVC else {
-            finish()
-            return
-        }
-        present(createPasscodeVC, animated: true)
-    }
-
-    func finish() {
-        App.shared.snackbar.show(message: "Owner key successfully imported")
-        self.completion()
+    override func didCreatePasscode() {
+        showSuccessMessage()
     }
 }

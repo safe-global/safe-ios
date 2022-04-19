@@ -9,6 +9,16 @@
 import Foundation
 import UIKit
 
+class AddKeyParameters {
+    var address: Address
+    var keyName: String?
+
+    internal init(keyName: String?, address: Address) {
+        self.keyName = keyName
+        self.address = address
+    }
+}
+
 // base class for onboarding screens when addding a key
 class AddKeyOnboardingViewController: UITableViewController {
     struct Card {
@@ -24,9 +34,13 @@ class AddKeyOnboardingViewController: UITableViewController {
     }
 
     private var cards: [Card] = []
-    var completion: () -> Void = {}
     private var nextButton: UIBarButtonItem!
     private var viewTrackingEvent: TrackingEvent!
+
+    // set by a controller during some step in the flow
+    var keyParameters: AddKeyParameters?
+
+    var completion: () -> Void = {}
 
     convenience init(cards: [Card], viewTrackingEvent: TrackingEvent, completion: @escaping () -> Void) {
         self.init()
@@ -69,5 +83,33 @@ class AddKeyOnboardingViewController: UITableViewController {
         cell.set(body: card.body)
         cell.set(linkTitle: card.link?.title, url: card.link?.url)
         return cell
+    }
+
+    // MARK: - Common Code
+
+    func showCreatePasscode() {
+        let createPasscodeVC = CreatePasscodeController { [unowned self] in
+            dismiss(animated: true) { [unowned self] in
+                didCreatePasscode()
+            }
+        }
+        guard let createPasscodeVC = createPasscodeVC else {
+            didCreatePasscode()
+            return
+        }
+        present(createPasscodeVC, animated: true)
+    }
+
+    func didCreatePasscode() {
+        // to override
+    }
+
+    func showSuccessMessage() {
+        App.shared.snackbar.show(message: "Owner key successfully added")
+        finish()
+    }
+
+    func finish() {
+        self.completion()
     }
 }
