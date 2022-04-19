@@ -9,6 +9,12 @@
 import UIKit
 
 class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
+    
+    private var connection: WebConnection!
+    private var wallet: WCAppRegistryEntry?
+    private var address: Address!
+    private var name: String!
+    
     convenience init(completion: @escaping () -> Void) {
         self.init(
             cards: [
@@ -36,13 +42,16 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
                 App.shared.snackbar.show(error: GSError.WCConnectedKeyMissingAddress())
                 return
             }
-            enterOwnerName(connection: connection, address: address, wallet: wallet)
+            self.connection = connection
+            self.address = address
+            self.wallet = wallet
+            enterOwnerName()
         })
         
         show(controller, sender: self)
     }
     
-    func enterOwnerName(connection: WebConnection, address: Address, wallet: WCAppRegistryEntry?) {
+    func enterOwnerName() {
         let enterNameVC = EnterAddressNameViewController()
         enterNameVC.actionTitle = "Import"
         enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
@@ -52,50 +61,52 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
         enterNameVC.name = connection.remotePeer?.name
         enterNameVC.address = address
         enterNameVC.badgeName = KeyType.walletConnect.imageName
-        enterNameVC.completion = { [unowned self, unowned enterNameVC] name in
-            importOwnerKey(connection: connection, wallet: wallet, name: name) { success in
-                if success {
-                    if App.shared.auth.isPasscodeSetAndAvailable {
-                        showKeyImportedConfirmation(presenter: enterNameVC, address: address, name: name)
-                    } else {
-                        startPasscodeSetup(presenter: enterNameVC, address: address, name: name) { [unowned self] in
-                            self.showKeyImportedConfirmation(presenter: enterNameVC, address: address, name: name)
-                        }
-                    }
-                } else {
-                    disconnect(connection: connection)
-                }
+        enterNameVC.completion = { [unowned self] name in
+            importOwnerKey()
+        }
+        show(enterNameVC, sender: self)
+    }
+    
+    func importOwnerKey() {
+        let success = OwnerKeyController.importKey(connection: connection, wallet: wallet, name: name)
+        if success {
+            showCreatePasscode()
+        } else {
+            disconnect(connection: connection)
+        }
+    }
+    
+    func showCreatePasscode() {
+        let createPasscodeVC = CreatePasscodeController { [unowned self] in
+            dismiss(animated: true) { [unowned self] in
+                showKeyImportedConfirmation()
             }
         }
-        self.show(enterNameVC, sender: self)
+        guard let createPasscodeVC = createPasscodeVC else {
+            showKeyImportedConfirmation()
+            return
+        }
+        present(createPasscodeVC, animated: true)
     }
     
-    func importOwnerKey(connection: WebConnection, wallet: WCAppRegistryEntry?, name: String, completion: (Bool) -> Void) {
-        let success = OwnerKeyController.importKey(connection: connection, wallet: wallet, name: name)
-        completion(success)
-    }
-    
-    func startPasscodeSetup(presenter: UIViewController, address: Address, name: String, completion: @escaping () -> Void) {
-        let createPasscodeViewController = CreatePasscodeViewController(completion)
-        createPasscodeViewController.navigationItem.hidesBackButton = true
-        createPasscodeViewController.hidesHeadline = false
-        presenter.show(createPasscodeViewController, sender: presenter)
-    }
-    
-    func showKeyImportedConfirmation(presenter: UIViewController, address: Address, name: String) {
-        presenter.show(self.createKeyAddedView(address: address, name: name), sender: nil)
+    func showKeyImportedConfirmation() {
+        show(self.createKeyAddedView(address: address, name: name), sender: nil)
     }
 
     func createKeyAddedView(address: Address, name: String) -> WalletConnectKeyAddedViewController {
         let keyAddedVC = WalletConnectKeyAddedViewController()
         keyAddedVC.completion = { [weak self] in
-            App.shared.snackbar.show(message: "The key added successfully")
-            self?.completion()
+            self?.showSuccessMessage()
         }
         keyAddedVC.accountAddress = address
         keyAddedVC.accountName = name
 
         return keyAddedVC
+    }
+    
+    func showSuccessMessage() {
+        App.shared.snackbar.show(message: "The key added successfully")
+        self.completion()
     }
     
     func disconnect(connection: WebConnection) {
