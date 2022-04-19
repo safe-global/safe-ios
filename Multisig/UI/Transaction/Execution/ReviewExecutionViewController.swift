@@ -542,7 +542,7 @@ class ReviewExecutionViewController: ContainerViewController {
         App.shared.snackbar.show(error: gsError)
 
         Tracker.trackEvent(.executeFailure, parameters: [
-            "chainId": self.controller.chainId
+            "chain_id": self.controller.chainId
         ])
     }
 
@@ -577,7 +577,7 @@ class ReviewExecutionViewController: ContainerViewController {
 
             let trackingParams = [
                 "keyType": trackedKeyType,
-                "chainId": self.controller.chainId
+                "chain_id": self.controller.chainId
             ]
             
             if key.keyType == .walletConnect {

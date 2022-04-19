@@ -581,7 +581,7 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
         App.shared.snackbar.show(error: gsError)
 
         Tracker.trackEvent(.executeFailure, parameters: [
-            "chainId": self.chain.id!
+            "chain_id": self.chain.id!
         ])
     }
 
