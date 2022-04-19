@@ -50,4 +50,8 @@ class BackupIntroViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func didTapCancel(_ sender: Any) {
         backupCompletion(false)
     }
+
+    override func closeModal() {
+        backupCompletion(false)
+    }
 }

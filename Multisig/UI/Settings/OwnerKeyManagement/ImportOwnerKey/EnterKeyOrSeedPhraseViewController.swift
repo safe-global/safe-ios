@@ -10,7 +10,7 @@ import UIKit
 
 class EnterKeyOrSeedPhraseViewController: UIViewController {
 
-    private var completion: () -> Void = { }
+    var completion: () -> Void = { }
 
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var textView: UITextView!
@@ -22,10 +22,8 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
 
     private var keyboardBehavior: KeyboardAvoidingBehavior!
 
-    convenience init(completion: @escaping () -> Void) {
-        self.init(namedClass: EnterKeyOrSeedPhraseViewController.self)
-        self.completion = completion
-    }
+    private(set) var seedNode: HDNode?
+    private(set) var privateKey: PrivateKey?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,49 +81,16 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
                 setError(GSError.WrongSeedPhrase())
                 return
             }
-            let vc = KeyPickerController(node: rootNode, completion: completion)
-            show(vc, sender: self)
             nextButton.isEnabled = true
+            self.seedNode = rootNode
+            self.completion()
         } else if isValidPK(phrase),
                   // we need to use Data(ethHex:) here in case if some software
                   // exported private key without a leading 0
                   let privateKey = try? PrivateKey(data: Data(ethHex: phrase)) {
 
-            if OwnerKeyController.exists(privateKey) {
-                setError(GSError.KeyAlreadyImported())
-                return
-            }
-
-            let vc = EnterAddressNameViewController()
-            vc.actionTitle = "Import"
-            vc.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
-            vc.screenTitle = "Enter Key Name"
-            vc.trackingEvent = .enterKeyName
-            vc.placeholder = "Enter name"
-            vc.address = privateKey.address
-            vc.badgeName = KeyType.deviceImported.imageName
-            vc.completion = { [unowned vc, unowned self] name in
-                let success = OwnerKeyController.importKey(
-                    privateKey,
-                    name: name,
-                    isDrivedFromSeedPhrase: false)
-                guard success else { return }
-                if App.shared.auth.isPasscodeSetAndAvailable {
-                    App.shared.snackbar.show(message: "Owner key successfully imported")
-                    self.completion()
-                } else {
-                    let createPasscodeViewController = CreatePasscodeViewController.init { [unowned self] in
-                        self.completion()
-                    }
-                    createPasscodeViewController.navigationItem.hidesBackButton = true
-                    createPasscodeViewController.hidesHeadline = false
-                    vc.show(createPasscodeViewController, sender: vc)
-                }
-                
-                AppSettings.hasShownImportKeyOnboarding = true
-            }
-
-            show(vc, sender: self)
+            self.privateKey = privateKey
+            self.completion()
         }
     }
 

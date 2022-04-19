@@ -25,7 +25,10 @@ class KeyPickerController: UITableViewController {
 
     typealias Item = SelectOwnerAddressViewModel.KeyAddressInfo
 
-    private var completion: () -> Void = { }
+    var completion: () -> Void = { }
+    var privateKey: PrivateKey? {
+        viewModel.selectedPrivateKey
+    }
 
     private var viewModel: SelectOwnerAddressViewModel!
     private var listState = ListState.collapsed
@@ -47,10 +50,9 @@ class KeyPickerController: UITableViewController {
         return button
     }()
 
-    convenience init(node: HDNode, completion: @escaping () -> Void) {
+    convenience init(node: HDNode) {
         self.init()
         viewModel = SelectOwnerAddressViewModel(rootNode: node)
-        self.completion = completion
     }
 
     override func viewDidLoad() {
@@ -71,37 +73,8 @@ class KeyPickerController: UITableViewController {
     }
 
     @objc func didTapImport() {
-        guard let privateKey = viewModel.selectedPrivateKey else { return }
-        let vc = EnterAddressNameViewController()
-        vc.actionTitle = "Import"
-        vc.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
-        vc.screenTitle = "Enter Key Name"
-        vc.trackingEvent = .enterKeyName
-        vc.placeholder = "Enter name"
-        vc.address = privateKey.address
-        vc.badgeName = KeyType.deviceImported.imageName
-        vc.completion = { [unowned vc] name in
-            let success = OwnerKeyController.importKey(
-                privateKey,
-                name: name,
-                isDrivedFromSeedPhrase: true)
-            guard success else { return }
-            if App.shared.auth.isPasscodeSetAndAvailable {
-                App.shared.snackbar.show(message: "Owner key successfully imported")
-                self.completion()
-            } else {
-                let createPasscodeViewController = CreatePasscodeViewController { [unowned self] in
-                    self.completion()
-                }
-                createPasscodeViewController.navigationItem.hidesBackButton = true
-                createPasscodeViewController.hidesHeadline = false
-                vc.show(createPasscodeViewController, sender: vc)
-            }
-            
-            AppSettings.hasShownImportKeyOnboarding = true
-        }
-
-        show(vc, sender: self)
+        guard let _ = viewModel.selectedPrivateKey else { return }
+        self.completion()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
