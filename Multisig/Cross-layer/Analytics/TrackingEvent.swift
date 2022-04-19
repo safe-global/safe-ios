@@ -255,7 +255,7 @@ enum TrackingEvent: String, Trackable {
     case backupIntro                                = "screen_backup_intro"
     case backupSkipped                              = "user_backup_skipped"
     case backupVerifySeedPhrase                     = "screen_verify_seed_phrase"
-    case backupUserSeedPhraseCopy                   = "user_seed_phrase_copy"
+    case backupUserCopiedSeedPhrase                 = "user_seed_phrase_copy"
     case backupUserSeedPhraseScreenshot             = "user_seed_phrase_screenshot"
     case backupConfirmSeedPhrase                    = "screen_confirm_seed_phrase"
     case backupCreatedSuccessfully                  = "screen_backup_success"

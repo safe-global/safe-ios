@@ -27,8 +27,7 @@ class BackupSeedPhraseViewController: ContainerViewController {
         
         seedPhraseViewController = SeedPhraseViewController()
         seedPhraseViewController.seedPhrase = seedPhrase
-        //TODO: adjust tracking event
-        seedPhraseViewController.trackingEvent = .exportSeed
+        seedPhraseViewController.trackingEvent = .backupVerifySeedPhrase
         seedPhraseViewController.infoText = "Make sure to store your seed phrase in a secure place. You will need to verify it in the next step."
         
         viewControllers = [seedPhraseViewController]
@@ -39,8 +38,9 @@ class BackupSeedPhraseViewController: ContainerViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(screenshotTaken), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
     }
-    
+
     @objc private func screenshotTaken() {
+        Tracker.trackEvent(.backupUserSeedPhraseScreenshot)
         NoScreenshotViewController.show(presenter: self)
     }
     
