@@ -31,6 +31,8 @@ class ContractVersionStatusCell: UITableViewCell {
         super.awakeFromNib()
         headerLabel.setStyle(.headline)
         detailLabel.setStyle(.tertiary)
+        backgroundColor = .backgroundSecondary
+
         addTarget(self, action: #selector(didTouchDown(sender:forEvent:)), for: .touchDown)
         addTarget(self, action: #selector(didTouchUp(sender:forEvent:)), for: [.touchUpInside, .touchUpOutside, .touchCancel])
         addTarget(self, action: #selector(copyAddress), for: .touchUpInside)
