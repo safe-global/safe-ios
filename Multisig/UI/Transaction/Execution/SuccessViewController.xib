@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SuccessViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="animationView" destination="qfh-KR-Hvp" id="d6S-by-wgA"/>
                 <outlet property="bodyLabel" destination="vWJ-lb-hId" id="M3i-ln-AXv"/>
                 <outlet property="doneButton" destination="9w2-V0-5fP" id="hLw-3G-CnZ"/>
                 <outlet property="titleLabel" destination="2cy-o0-Tus" id="Nh3-8m-t0k"/>
@@ -23,25 +24,29 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="1QG-6Q-dsy">
-                    <rect key="frame" x="16" y="303.5" width="382" height="299.5"/>
+                    <rect key="frame" x="16" y="311.5" width="382" height="283.5"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-success" translatesAutoresizingMaskIntoConstraints="NO" id="hpa-kC-4yd">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qfh-KR-Hvp" customClass="AnimationView" customModule="Lottie">
                             <rect key="frame" x="0.0" y="0.0" width="382" height="110"/>
-                        </imageView>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="110" id="y1W-5Y-rUL"/>
+                            </constraints>
+                        </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your transaction is queued!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cy-o0-Tus">
-                            <rect key="frame" x="0.0" y="142" width="382" height="20.5"/>
+                            <rect key="frame" x="0.0" y="126" width="382" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Your request to send 10 ETH is submitted and needs to be confirmed by other owners." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWJ-lb-hId">
-                            <rect key="frame" x="0.0" y="178.5" width="382" height="41"/>
+                            <rect key="frame" x="0.0" y="162.5" width="382" height="41"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9w2-V0-5fP">
-                            <rect key="frame" x="0.0" y="243.5" width="382" height="56"/>
+                            <rect key="frame" x="0.0" y="227.5" width="382" height="56"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="56" id="Pgy-bb-4SC"/>
                             </constraints>
@@ -57,7 +62,6 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="9w2-V0-5fP" firstAttribute="top" secondItem="vWJ-lb-hId" secondAttribute="bottom" constant="24" id="T2J-eU-Zzs"/>
-                        <constraint firstItem="2cy-o0-Tus" firstAttribute="top" secondItem="hpa-kC-4yd" secondAttribute="bottom" constant="32" id="TiH-Fe-fPK"/>
                         <constraint firstItem="vWJ-lb-hId" firstAttribute="top" secondItem="2cy-o0-Tus" secondAttribute="bottom" constant="16" id="km2-m4-039"/>
                     </constraints>
                 </stackView>
@@ -73,7 +77,6 @@
         </view>
     </objects>
     <resources>
-        <image name="ico-success" width="110" height="110"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

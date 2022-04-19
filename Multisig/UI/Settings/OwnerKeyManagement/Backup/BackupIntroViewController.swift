@@ -56,5 +56,9 @@ class BackupIntroViewController: UIViewController, UIGestureRecognizerDelegate {
         backupCompletion(false)
         Tracker.trackEvent(.backupSkipped)
     }
+
+    override func closeModal() {
+        backupCompletion(false)
+    }
 }
 

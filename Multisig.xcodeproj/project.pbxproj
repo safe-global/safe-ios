@@ -28,6 +28,8 @@
 		0428DA5A25CBFC25002CF4A9 /* HelpLinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428DA5825CBFC25002CF4A9 /* HelpLinkTableViewCell.swift */; };
 		0428DA5B25CBFC25002CF4A9 /* HelpLinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0428DA5925CBFC25002CF4A9 /* HelpLinkTableViewCell.xib */; };
 		0428DB1225CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428DB1125CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift */; };
+		043350AC28086126003725E2 /* SuccessAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 043350AB28086126003725E2 /* SuccessAnimation.json */; };
+		043350AF2808628E003725E2 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 043350AE2808628E003725E2 /* Lottie */; };
 		0438C9212760120D009A0E31 /* DeleteDelegateKeyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0438C9202760120D009A0E31 /* DeleteDelegateKeyRequest.swift */; };
 		043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043913A024BF4E480006517D /* BrowseLinkButton.swift */; };
 		043963832704E25800018F74 /* AdvancedTransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043963822704E25800018F74 /* AdvancedTransactionDetailsViewController.swift */; };
@@ -265,6 +267,13 @@
 		0A57C5E52577FBD900420303 /* DetailConfirmationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C5E32577FBD900420303 /* DetailConfirmationCell.xib */; };
 		0A57C8E92587AECB00B7C019 /* EnterSafeAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C8E72587AECB00B7C019 /* EnterSafeAddressViewController.swift */; };
 		0A57C8EA2587AECB00B7C019 /* EnterSafeAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A57C8E82587AECB00B7C019 /* EnterSafeAddressViewController.xib */; };
+		0A5B157A28085BC1003AD853 /* BackupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B157928085BC1003AD853 /* BackupController.swift */; };
+		0A5B157C280863DF003AD853 /* EnterPasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B157B280863DF003AD853 /* EnterPasscodeViewController.swift */; };
+		0A5B157E280863FB003AD853 /* RepeatChangedPasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B157D280863FB003AD853 /* RepeatChangedPasscodeViewController.swift */; };
+		0A5B15802808640F003AD853 /* ChangePasscodeEnterNewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B157F2808640F003AD853 /* ChangePasscodeEnterNewViewController.swift */; };
+		0A5B158228086424003AD853 /* RepeatPasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B158128086424003AD853 /* RepeatPasscodeViewController.swift */; };
+		0A5B15842808643B003AD853 /* CreatePasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B15832808643B003AD853 /* CreatePasscodeViewController.swift */; };
+		0A5B15882808649E003AD853 /* CreatePasscodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B15872808649E003AD853 /* CreatePasscodeController.swift */; };
 		0A5B87E2278633FF000B66EA /* Ethereum in Frameworks */ = {isa = PBXBuildFile; productRef = 0A5B87E1278633FF000B66EA /* Ethereum */; };
 		0A5C2DCE25628277009808CB /* SafeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C2DCC25628277009808CB /* SafeInfoViewController.swift */; };
 		0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C2DCD25628277009808CB /* SafeInfoViewController.xib */; };
@@ -808,6 +817,7 @@
 		0428DA5825CBFC25002CF4A9 /* HelpLinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpLinkTableViewCell.swift; sourceTree = "<group>"; };
 		0428DA5925CBFC25002CF4A9 /* HelpLinkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HelpLinkTableViewCell.xib; sourceTree = "<group>"; };
 		0428DB1125CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeDisplayModeTableViewController.swift; sourceTree = "<group>"; };
+		043350AB28086126003725E2 /* SuccessAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessAnimation.json; sourceTree = "<group>"; };
 		0438C9202760120D009A0E31 /* DeleteDelegateKeyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDelegateKeyRequest.swift; sourceTree = "<group>"; };
 		043913A024BF4E480006517D /* BrowseLinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseLinkButton.swift; sourceTree = "<group>"; };
 		043963822704E25800018F74 /* AdvancedTransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedTransactionDetailsViewController.swift; sourceTree = "<group>"; };
@@ -1020,6 +1030,13 @@
 		0A57C5E32577FBD900420303 /* DetailConfirmationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailConfirmationCell.xib; sourceTree = "<group>"; };
 		0A57C8E72587AECB00B7C019 /* EnterSafeAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSafeAddressViewController.swift; sourceTree = "<group>"; };
 		0A57C8E82587AECB00B7C019 /* EnterSafeAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterSafeAddressViewController.xib; sourceTree = "<group>"; };
+		0A5B157928085BC1003AD853 /* BackupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupController.swift; sourceTree = "<group>"; };
+		0A5B157B280863DF003AD853 /* EnterPasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPasscodeViewController.swift; sourceTree = "<group>"; };
+		0A5B157D280863FB003AD853 /* RepeatChangedPasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatChangedPasscodeViewController.swift; sourceTree = "<group>"; };
+		0A5B157F2808640F003AD853 /* ChangePasscodeEnterNewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasscodeEnterNewViewController.swift; sourceTree = "<group>"; };
+		0A5B158128086424003AD853 /* RepeatPasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatPasscodeViewController.swift; sourceTree = "<group>"; };
+		0A5B15832808643B003AD853 /* CreatePasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeViewController.swift; sourceTree = "<group>"; };
+		0A5B15872808649E003AD853 /* CreatePasscodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeController.swift; sourceTree = "<group>"; };
 		0A5C2DCC25628277009808CB /* SafeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInfoViewController.swift; sourceTree = "<group>"; };
 		0A5C2DCD25628277009808CB /* SafeInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeInfoViewController.xib; sourceTree = "<group>"; };
 		0A5C2E1325628E30009808CB /* SnackbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarViewController.swift; sourceTree = "<group>"; };
@@ -1529,6 +1546,7 @@
 				55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
 				5591CEEE260C725C0067DFDF /* BlockiesSwift in Frameworks */,
 				0A3DAD9426270F4D00743E38 /* unistring.xcframework in Frameworks */,
+				043350AF2808628E003725E2 /* Lottie in Frameworks */,
 				0A3E980B2806FAD300E90EEC /* Algorithms in Frameworks */,
 				D80B5A13276B5FAD00D6E024 /* SkeletonView in Frameworks */,
 				0A3DAD9526270F4D00743E38 /* idn2.xcframework in Frameworks */,
@@ -1589,6 +1607,14 @@
 				0428DA5925CBFC25002CF4A9 /* HelpLinkTableViewCell.xib */,
 			);
 			path = HelpLinkUITableViewCell;
+			sourceTree = "<group>";
+		};
+		043350AA28086115003725E2 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				043350AB28086126003725E2 /* SuccessAnimation.json */,
+			);
+			path = Animations;
 			sourceTree = "<group>";
 		};
 		0439783A26FB29B300A56BA4 /* RemoveCell */ = {
@@ -2140,6 +2166,25 @@
 			path = EnterSafeAddressViewController;
 			sourceTree = "<group>";
 		};
+		0A5B158528086454003AD853 /* Create Passcode */ = {
+			isa = PBXGroup;
+			children = (
+				0A5B15872808649E003AD853 /* CreatePasscodeController.swift */,
+				0A5B15832808643B003AD853 /* CreatePasscodeViewController.swift */,
+				0A5B158128086424003AD853 /* RepeatPasscodeViewController.swift */,
+			);
+			path = "Create Passcode";
+			sourceTree = "<group>";
+		};
+		0A5B15862808645E003AD853 /* Change Passcode */ = {
+			isa = PBXGroup;
+			children = (
+				0A5B157F2808640F003AD853 /* ChangePasscodeEnterNewViewController.swift */,
+				0A5B157D280863FB003AD853 /* RepeatChangedPasscodeViewController.swift */,
+			);
+			path = "Change Passcode";
+			sourceTree = "<group>";
+		};
 		0A61E8432670E5FF009D68A4 /* UI Snapshot Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -2181,6 +2226,9 @@
 			children = (
 				0A67AC9425E3BE4400B3E97C /* PasscodeViewController.swift */,
 				0A67AC9525E3BE4400B3E97C /* PasscodeViewController.xib */,
+				0A5B158528086454003AD853 /* Create Passcode */,
+				0A5B15862808645E003AD853 /* Change Passcode */,
+				0A5B157B280863DF003AD853 /* EnterPasscodeViewController.swift */,
 				0A22E11B25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift */,
 			);
 			path = Passcode;
@@ -2797,6 +2845,7 @@
 		0AF432CA244DFAFB00E22E50 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				043350AA28086115003725E2 /* Animations */,
 				0A93DD5F2445CC8B00688050 /* Assets.xcassets */,
 				0A93DDAA244604A400688050 /* Averta-Regular.otf */,
 				0A93DD642445CC8B00688050 /* LaunchScreen.storyboard */,
@@ -3043,15 +3092,7 @@
 		5541367A265E566B00796F91 /* GenerateOwnerKey */ = {
 			isa = PBXGroup;
 			children = (
-				6A9A770A2804182700C229FC /* BackupIntroViewController.swift */,
-				6A9A770B2804182700C229FC /* BackupIntroViewController.xib */,
 				5541367B265E58B200796F91 /* OnboardingGenerateKeyViewController.swift */,
-				6A9A770E28041D8100C229FC /* TipsView.swift */,
-				6A9A771028041DA700C229FC /* TipsView.xib */,
-				0AE0AFEA2805C6B9002594CB /* VerifyPhraseViewController.swift */,
-				0AE0AFEB2805C6B9002594CB /* VerifyPhraseViewController.xib */,
-				0AE0AFF02805CC2B002594CB /* WordView.swift */,
-				0AE0AFEE2805CC20002594CB /* WordView.xib */,
 			);
 			path = GenerateOwnerKey;
 			sourceTree = "<group>";
@@ -3327,10 +3368,19 @@
 		6A1CFA4C280819C600B2C340 /* Backup */ = {
 			isa = PBXGroup;
 			children = (
-				6A1CFA482807F24800B2C340 /* NoScreenshotViewController.swift */,
-				6A1CFA492807F24800B2C340 /* NoScreenshotViewController.xib */,
+				0A5B157928085BC1003AD853 /* BackupController.swift */,
+				6A9A770A2804182700C229FC /* BackupIntroViewController.swift */,
+				6A9A770B2804182700C229FC /* BackupIntroViewController.xib */,
 				6A1CFA4D28081A1200B2C340 /* BackupSeedPhraseViewController.swift */,
 				6A1CFA4E28081A1200B2C340 /* BackupSeedPhraseViewController.xib */,
+				6A1CFA482807F24800B2C340 /* NoScreenshotViewController.swift */,
+				6A1CFA492807F24800B2C340 /* NoScreenshotViewController.xib */,
+				6A9A770E28041D8100C229FC /* TipsView.swift */,
+				6A9A771028041DA700C229FC /* TipsView.xib */,
+				0AE0AFEA2805C6B9002594CB /* VerifyPhraseViewController.swift */,
+				0AE0AFEB2805C6B9002594CB /* VerifyPhraseViewController.xib */,
+				0AE0AFF02805CC2B002594CB /* WordView.swift */,
+				0AE0AFEE2805CC20002594CB /* WordView.xib */,
 			);
 			path = Backup;
 			sourceTree = "<group>";
@@ -3591,6 +3641,7 @@
 				0A5B87E1278633FF000B66EA /* Ethereum */,
 				0A06533227B6C1500008C5F1 /* WalletConnectSwift */,
 				0A3E980A2806FAD300E90EEC /* Algorithms */,
+				043350AE2808628E003725E2 /* Lottie */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig_PROD.app */;
@@ -3708,6 +3759,7 @@
 				93D9013C27727E2400624B29 /* XCRemoteSwiftPackageReference "WhatsNewKit" */,
 				0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift" */,
 				0A3E98092806FAD300E90EEC /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				043350AD2808628E003725E2 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -3806,6 +3858,7 @@
 				D88FA81F2770869E0023B77F /* TokenAmountField.xib in Resources */,
 				047588192774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib in Resources */,
 				D80B5A0B2769F95000D6E024 /* AssetsViewController.xib in Resources */,
+				043350AC28086126003725E2 /* SuccessAnimation.json in Resources */,
 				0A86EE7B25CC2C600059876E /* IdleFooterView.xib in Resources */,
 				04E4CD67277752C400B558F4 /* TokenAmountInfoView.xib in Resources */,
 				0A6886ED258908150045CAB5 /* GNOTextField.xib in Resources */,
@@ -4091,6 +4144,7 @@
 				0A8AEB1025A4712B002A3FE1 /* ActionDetailTextCell.swift in Sources */,
 				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
 				0A8CDD5327A85C0D0020066C /* TransactionExecutionLookup.swift in Sources */,
+				0A5B15842808643B003AD853 /* CreatePasscodeViewController.swift in Sources */,
 				0A04506D278D973C00650F71 /* ReviewExecutionContentViewController.swift in Sources */,
 				D86517732760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift in Sources */,
 				0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */,
@@ -4201,6 +4255,7 @@
 				6ADEB02727B559370062ADFE /* WebConnectionOwnerView.swift in Sources */,
 				557D80B8270B32F80036D6D0 /* SignatureRequestViewController.swift in Sources */,
 				551DDEE9244F183500C719D3 /* Selection.swift in Sources */,
+				0A5B15802808640F003AD853 /* ChangePasscodeEnterNewViewController.swift in Sources */,
 				04FC26B625CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift in Sources */,
 				0AFD9DCE27BFF01000011CF1 /* SendTransactionContentViewController.swift in Sources */,
 				0AF1C91F2541DB3F00E28669 /* BalanceTableViewCell.swift in Sources */,
@@ -4228,6 +4283,7 @@
 				3E373F7D2631784200D8107A /* BlockchainDomainManager.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
 				5541367C265E58B200796F91 /* OnboardingGenerateKeyViewController.swift in Sources */,
+				0A5B158228086424003AD853 /* RepeatPasscodeViewController.swift in Sources */,
 				0AF1C9142541C68000E28669 /* BalancesViewController.swift in Sources */,
 				D80B5A0F276A367A00D6E024 /* AddOwnerFirstViewController.swift in Sources */,
 				0A9366AC278F0175001918A9 /* ContainerTableViewCell.swift in Sources */,
@@ -4253,6 +4309,7 @@
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
 				557D80B5270B32F80036D6D0 /* WCSendTransactionRequest.swift in Sources */,
 				0A045089278E282800650F71 /* DefaultAccountBalanceLoader.swift in Sources */,
+				0A5B157E280863FB003AD853 /* RepeatChangedPasscodeViewController.swift in Sources */,
 				0A6886D02588FC180045CAB5 /* EnterENSNameViewController.swift in Sources */,
 				0468FB8625912E6800541536 /* QueuedTransactionsViewController.swift in Sources */,
 				0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */,
@@ -4291,6 +4348,7 @@
 				0AFA729C24BF361600A370EE /* SlicedString.swift in Sources */,
 				045769FD27C7DBBF00881206 /* SafeDeployingViewController.swift in Sources */,
 				550FB1AA26691D2E00C13D54 /* UITableView+Cells.swift in Sources */,
+				0A5B15882808649E003AD853 /* CreatePasscodeController.swift in Sources */,
 				04273E5826AEE06500A14E95 /* BluetoothController.swift in Sources */,
 				0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */,
 				0439638527077E3D00018F74 /* TransactionEstimationRequest.swift in Sources */,
@@ -4306,6 +4364,7 @@
 				0A096CBE2608D9370034E6BC /* NetworkStatusObserver.swift in Sources */,
 				0ABE698827920294003338AF /* ErrorTableViewCell.swift in Sources */,
 				0A8CDD4927A5AE860020066C /* CreateSafeFormUIModel.swift in Sources */,
+				0A5B157C280863DF003AD853 /* EnterPasscodeViewController.swift in Sources */,
 				D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */,
 				04576A0227C8F26100881206 /* CDEthTransaction.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
@@ -4318,6 +4377,7 @@
 				0A478D3325B861D50038363E /* DefaultKeyTableViewCell.swift in Sources */,
 				550FB1C326691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift in Sources */,
 				0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */,
+				0A5B157A28085BC1003AD853 /* BackupController.swift in Sources */,
 				043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */,
 				0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */,
 				0A2F1A6E267A538E00C09F03 /* GSLabel.swift in Sources */,
@@ -4678,6 +4738,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_BITCODE = YES;
@@ -4704,6 +4765,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_BITCODE = YES;
@@ -4877,6 +4939,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_BITCODE = YES;
@@ -5002,6 +5065,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_BITCODE = YES;
@@ -5554,6 +5618,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_BITCODE = YES;
@@ -5684,6 +5749,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_BITCODE = YES;
@@ -5816,6 +5882,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		043350AD2808628E003725E2 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -5939,6 +6013,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		043350AE2808628E003725E2 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 043350AD2808628E003725E2 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		0463F5C026296924009C04FA /* FirebaseRemoteConfig */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
