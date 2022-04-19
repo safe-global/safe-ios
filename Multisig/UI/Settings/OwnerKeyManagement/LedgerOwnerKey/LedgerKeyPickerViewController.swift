@@ -10,15 +10,22 @@ import UIKit
 
 fileprivate let ledgerSerialQueue = DispatchQueue(label: "io.gnosis.safe.ledger.serial.queue")
 
+struct LedgerAddressInfo {
+    var defaultName: String
+    var address: Address
+    var index: Int
+    var derivationPath: String
+}
+
 class LedgerKeyPickerViewController: SegmentViewController {
-    private var completion: (() -> Void)!
+    var completion: ((LedgerAddressInfo) -> Void)?
 
     private lazy var importButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "Import", style: .done, target: self, action: #selector(didTapImport))
         return button
     }()
 
-    convenience init(deviceId: UUID, bluetoothController: BaseBluetoothController, completion: @escaping () -> Void) {
+    convenience init(deviceId: UUID, bluetoothController: BaseBluetoothController) {
         self.init(nibName: "SegmentViewController", bundle: Bundle.main)
         segmentItems = [
             SegmentBarItem(image: nil, title: "Ledger Live"),
@@ -35,7 +42,6 @@ class LedgerKeyPickerViewController: SegmentViewController {
                                                  importButton: importButton)
         ]
         selectedIndex = 0
-        self.completion = completion
     }
 
     override func viewDidLoad() {
@@ -57,49 +63,14 @@ class LedgerKeyPickerViewController: SegmentViewController {
         case .ledgerLive: namePrefix = "Ledger Live key #"
         }
         let defaultName = "\(namePrefix)\(key.index + 1)"
-
-        let enterNameVC = EnterAddressNameViewController()
-        enterNameVC.actionTitle = "Import"
-        enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
-        enterNameVC.screenTitle = "Enter Key Name"
-        enterNameVC.trackingEvent = .ledgerEnterKeyName
-        enterNameVC.placeholder = "Enter name"
-        enterNameVC.name = defaultName
-        enterNameVC.address = key.address
-        enterNameVC.badgeName = KeyType.ledgerNanoX.imageName
-        enterNameVC.completion = { [unowned self, unowned enterNameVC] name in
-            let success = contentVC.importSelectedKey(name: name)
-            if success {
-                if App.shared.auth.isPasscodeSetAndAvailable {
-                    enterNameVC.show(self.createKeyAddedView(address: key.address, name: name), sender: nil)
-                } else {
-                    let createPasscodeViewController = CreatePasscodeViewController.init { [unowned self] in
-                        enterNameVC.show(self.createKeyAddedView(address: key.address, name: name), sender: nil)
-                    }
-                    createPasscodeViewController.navigationItem.hidesBackButton = true
-                    createPasscodeViewController.hidesHeadline = false
-                    enterNameVC.show(createPasscodeViewController, sender: enterNameVC)
-                }
-            } else {
-                self.completion()
-                return
-            }
-        }
-
-        self.show(enterNameVC, sender: self)
-    }
-
-    func createKeyAddedView(address: Address, name: String) -> LedgerKeyAddedViewController {
-        let keyAddedVC = LedgerKeyAddedViewController()
-        keyAddedVC.completion = { [weak self] in
-            App.shared.snackbar.show(message: "The key added successfully")
-            self?.completion()
-        }
-        keyAddedVC.accountAddress = address
-        keyAddedVC.accountName = name
-
-        return keyAddedVC
-    }
+        let derivationPath = contentVC.basePath.replacingOccurrences(of: "{index}", with: "\(key.index)")
+        let result = LedgerAddressInfo(
+            defaultName: defaultName,
+            address: key.address,
+            index: key.index,
+            derivationPath: derivationPath)
+        self.completion?(result)
+        
 }
 
 fileprivate enum LedgerKeyType {
@@ -233,15 +204,6 @@ If it does not help, there is probably an issue with Bluetooth device pairing. P
         workItem?.cancel()
         isLoading = false
     }
-
-    func importSelectedKey(name: String) -> Bool {
-        guard selectedIndex >= 0 else { return false }
-        let key = keys[selectedIndex]
-        return OwnerKeyController.importKey(ledgerDeviceUUID: deviceId,
-                                            path: basePathPattern.replacingOccurrences(of: "{index}", with: "\(key.index)"),
-                                            address: key.address,
-                                            name: name)
-    }
 }
 
 fileprivate class LedgerKeyPickerContentViewController: UITableViewController, LedgerKeyPickerViewModelDelegate {
@@ -265,6 +227,10 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
 
     var keyType: LedgerKeyType {
         model.type
+    }
+
+    var basePath: String {
+        model.basePathPattern
     }
 
     var footerErrorMessage: String?
@@ -298,10 +264,6 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.ledgerSelectKey)
-    }
-
-    func importSelectedKey(name: String) -> Bool {
-        model.importSelectedKey(name: name)
     }
 
     private func generateNextPage() {

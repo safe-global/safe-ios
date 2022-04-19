@@ -89,8 +89,7 @@ class OnboardingImportOwnerKeyViewController: AddKeyOnboardingViewController {
         guard let privateKey = privateKey else {
             return false
         }
-        if OwnerKeyController.exists(privateKey) {
-            App.shared.snackbar.show(error: GSError.KeyAlreadyImported())
+        if (try? KeyInfo.firstKey(address: privateKey.address)) != nil {
             return false
         }
         let success = OwnerKeyController.importKey(
