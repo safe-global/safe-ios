@@ -27,7 +27,7 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MgA-ib-XKr">
                         <rect key="frame" x="29" y="0.0" width="538" height="44"/>
                         <state key="normal">
-                            <color key="titleColor" name="hold"/>
+                            <color key="titleColor" name="primary"/>
                         </state>
                         <connections>
                             <action selector="openURLButtonTouched:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ani-FJ-twQ"/>
@@ -58,8 +58,8 @@
         <namedColor name="backgroundPrimary">
             <color red="0.96470588235294119" green="0.96862745098039216" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="hold">
-            <color red="0.0" green="0.54900002479553223" blue="0.45100000500679016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="primary">
+            <color red="0.0" green="0.54509803921568623" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
