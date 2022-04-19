@@ -36,43 +36,54 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
                 App.shared.snackbar.show(error: GSError.WCConnectedKeyMissingAddress())
                 return
             }
-
-            let enterNameVC = EnterAddressNameViewController()
-            enterNameVC.actionTitle = "Import"
-            enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
-            enterNameVC.screenTitle = "Enter Key Name"
-            enterNameVC.trackingEvent = .enterKeyName
-
-            enterNameVC.placeholder = "Enter name"
-            enterNameVC.name = connection.remotePeer?.name
-            enterNameVC.address = address
-            enterNameVC.badgeName = KeyType.walletConnect.imageName
-
-            enterNameVC.completion = { [unowned self, unowned enterNameVC] name in
-                let success = OwnerKeyController.importKey(connection: connection, wallet: wallet, name: name)
-
-                if success {
-                    if App.shared.auth.isPasscodeSetAndAvailable {
-                        enterNameVC.show(self.createKeyAddedView(address: address, name: name), sender: nil)
-                    } else {
-                        let createPasscodeViewController = CreatePasscodeViewController.init { [unowned self] in
-                            enterNameVC.show(self.createKeyAddedView(address: address, name: name), sender: nil)
-                        }
-                        createPasscodeViewController.navigationItem.hidesBackButton = true
-                        createPasscodeViewController.hidesHeadline = false
-                        enterNameVC.show(createPasscodeViewController, sender: enterNameVC)
-                    }
-                } else {
-                    WebConnectionController.shared.userDidDisconnect(connection)
-                    self.completion()
-                    return
-                }
-            }
-
-            self.show(enterNameVC, sender: self)
+            enterOwnerName(connection: connection, address: address, wallet: wallet)
         })
         
         show(controller, sender: self)
+    }
+    
+    func enterOwnerName(connection: WebConnection, address: Address, wallet: WCAppRegistryEntry?) {
+        let enterNameVC = EnterAddressNameViewController()
+        enterNameVC.actionTitle = "Import"
+        enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
+        enterNameVC.screenTitle = "Enter Key Name"
+        enterNameVC.trackingEvent = .enterKeyName
+        enterNameVC.placeholder = "Enter name"
+        enterNameVC.name = connection.remotePeer?.name
+        enterNameVC.address = address
+        enterNameVC.badgeName = KeyType.walletConnect.imageName
+        enterNameVC.completion = { [unowned self, unowned enterNameVC] name in
+            importOwnerKey(connection: connection, wallet: wallet, name: name) { success in
+                if success {
+                    if App.shared.auth.isPasscodeSetAndAvailable {
+                        showKeyImportedConfirmation(presenter: enterNameVC, address: address, name: name)
+                    } else {
+                        startPasscodeSetup(presenter: enterNameVC, address: address, name: name) { [unowned self] in
+                            self.showKeyImportedConfirmation(presenter: enterNameVC, address: address, name: name)
+                        }
+                    }
+                } else {
+                    disconnect(connection: connection)
+                }
+            }
+        }
+        self.show(enterNameVC, sender: self)
+    }
+    
+    func importOwnerKey(connection: WebConnection, wallet: WCAppRegistryEntry?, name: String, completion: (Bool) -> Void) {
+        let success = OwnerKeyController.importKey(connection: connection, wallet: wallet, name: name)
+        completion(success)
+    }
+    
+    func startPasscodeSetup(presenter: UIViewController, address: Address, name: String, completion: @escaping () -> Void) {
+        let createPasscodeViewController = CreatePasscodeViewController(completion)
+        createPasscodeViewController.navigationItem.hidesBackButton = true
+        createPasscodeViewController.hidesHeadline = false
+        presenter.show(createPasscodeViewController, sender: presenter)
+    }
+    
+    func showKeyImportedConfirmation(presenter: UIViewController, address: Address, name: String) {
+        presenter.show(self.createKeyAddedView(address: address, name: name), sender: nil)
     }
 
     func createKeyAddedView(address: Address, name: String) -> WalletConnectKeyAddedViewController {
@@ -85,6 +96,12 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
         keyAddedVC.accountName = name
 
         return keyAddedVC
+    }
+    
+    func disconnect(connection: WebConnection) {
+        WebConnectionController.shared.userDidDisconnect(connection)
+        self.completion()
+        return
     }
 }
 
