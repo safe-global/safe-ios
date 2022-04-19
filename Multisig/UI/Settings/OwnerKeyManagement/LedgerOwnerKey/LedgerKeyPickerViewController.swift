@@ -58,8 +58,8 @@ class LedgerKeyPickerViewController: SegmentViewController {
         let defaultName = "\(namePrefix)\(key.index + 1)"
         let derivationPath = contentVC.basePath.replacingOccurrences(of: "{index}", with: "\(key.index)")
         let result = AddLedgerKeyParameters(
-            keyName: defaultName,
             address: key.address,
+            keyName: defaultName,
             index: key.index,
             derivationPath: derivationPath)
         self.completion?(result)

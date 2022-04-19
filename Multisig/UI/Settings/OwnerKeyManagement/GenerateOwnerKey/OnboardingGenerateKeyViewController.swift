@@ -44,41 +44,22 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
     }
 
     @objc override func didTapNextButton(_ sender: Any) {
-        keyParameters = AddKeyParameters(keyName: nil, address: privateKey.address)
-        showEnterName()
-    }
-     
-    func showEnterName() {
-        guard let keyParameters = keyParameters else { return }
-
-        let enterNameVC = EnterAddressNameViewController()
-        enterNameVC.actionTitle = "Save"
-        enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
-        enterNameVC.screenTitle = "Enter Key Name"
-        enterNameVC.trackingEvent = .enterKeyName
-        enterNameVC.placeholder = "Enter name"
-        enterNameVC.name = keyParameters.keyName
-        enterNameVC.address = keyParameters.address
-        enterNameVC.badgeName = KeyType.deviceGenerated.imageName
-        enterNameVC.completion = { [unowned self] name in
-            keyParameters.keyName = name
-            guard importKey(name: name) else { return }
-            showCreatePasscode()
-        }
-        show(enterNameVC, sender: self)
+        keyParameters = AddKeyParameters(
+                address: privateKey.address,
+                keyName: nil,
+                badgeName: KeyType.deviceGenerated.imageName
+        )
+        enterName()
     }
 
-    func importKey(name: String) -> Bool {
-        if (try? KeyInfo.firstKey(address: privateKey.address)) != nil {
-            App.shared.snackbar.show(error: GSError.KeyAlreadyImported())
+    override func doImportKey() -> Bool {
+        guard let keyParameters = keyParameters else {
             return false
         }
-
-        guard OwnerKeyController.importKey(privateKey, name: name, isDrivedFromSeedPhrase: true),
+        guard OwnerKeyController.importKey(privateKey, name: keyParameters.keyName!, isDrivedFromSeedPhrase: true),
               let keyInfo = try? KeyInfo.keys(addresses: [privateKey.address]).first else {
             return false
         }
-        AppSettings.hasShownImportKeyOnboarding = true
         self.keyInfo = keyInfo
         return true
     }

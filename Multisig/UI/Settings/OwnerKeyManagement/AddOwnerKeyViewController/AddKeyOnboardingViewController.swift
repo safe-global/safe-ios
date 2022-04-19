@@ -12,10 +12,14 @@ import UIKit
 class AddKeyParameters {
     var address: Address
     var keyName: String?
+    var badgeName: String
+    var keyNameTrackingEvent: TrackingEvent
 
-    internal init(keyName: String?, address: Address) {
-        self.keyName = keyName
+    init(address: Address, keyName: String?, badgeName: String, keyNameTrackingEvent: TrackingEvent = .enterKeyName) {
         self.address = address
+        self.keyName = keyName
+        self.badgeName = badgeName
+        self.keyNameTrackingEvent = keyNameTrackingEvent
     }
 }
 
@@ -40,7 +44,8 @@ class AddKeyOnboardingViewController: UITableViewController {
     // set by a controller during some step in the flow
     var keyParameters: AddKeyParameters?
 
-    var completion: () -> Void = {}
+    var completion: () -> Void = {
+    }
 
     convenience init(cards: [Card], viewTrackingEvent: TrackingEvent, completion: @escaping () -> Void) {
         self.init()
@@ -86,6 +91,49 @@ class AddKeyOnboardingViewController: UITableViewController {
     }
 
     // MARK: - Common Code
+
+    internal func enterName() {
+        guard let keyParameters = keyParameters else {
+            return
+        }
+        let enterNameVC = EnterAddressNameViewController()
+        enterNameVC.actionTitle = "Add"
+        enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
+        enterNameVC.screenTitle = "Enter Key Name"
+        enterNameVC.trackingEvent = keyParameters.keyNameTrackingEvent
+        enterNameVC.placeholder = "Enter name"
+        enterNameVC.name = keyParameters.keyName
+        enterNameVC.address = keyParameters.address
+        enterNameVC.badgeName = keyParameters.badgeName
+        enterNameVC.completion = { [unowned self] name in
+            keyParameters.keyName = name
+            importKey()
+        }
+        show(enterNameVC, sender: self)
+    }
+
+    func importKey() {
+        guard let keyParameters = keyParameters else {
+            return
+        }
+        if (try? KeyInfo.firstKey(address: keyParameters.address)) != nil {
+            App.shared.snackbar.show(error: GSError.KeyAlreadyImported())
+            return
+        }
+        let success = doImportKey()
+        guard success else { return }
+        AppSettings.hasShownImportKeyOnboarding = true
+        didImportKey()
+    }
+
+    func doImportKey() -> Bool {
+        // to override
+        return false
+    }
+
+    func didImportKey() {
+        showCreatePasscode()
+    }
 
     func showCreatePasscode() {
         let createPasscodeVC = CreatePasscodeController { [unowned self] in
