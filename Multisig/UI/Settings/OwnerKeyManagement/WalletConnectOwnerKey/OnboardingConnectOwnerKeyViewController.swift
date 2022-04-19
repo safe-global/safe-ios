@@ -62,6 +62,7 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
         enterNameVC.address = address
         enterNameVC.badgeName = KeyType.walletConnect.imageName
         enterNameVC.completion = { [unowned self] name in
+            self.name = name
             importOwnerKey()
         }
         show(enterNameVC, sender: self)
