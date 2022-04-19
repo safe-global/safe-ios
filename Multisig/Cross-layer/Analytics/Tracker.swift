@@ -162,18 +162,14 @@ extension Tracker {
     private static func shouldAddChainIdParam(for event: TrackingEvent) -> Bool {
         event.rawValue.starts(with: "screen") ||
             [
-                TrackingEvent.transactionDetailsTransactionConfirmed,
+                .transactionDetailsTransactionConfirmed,
                 .transactionDetailsTxConfirmedWC,
                 .transactionDetailsTransactionRejected,
                 .transactionDetailsTxRejectedWC,
                 .dappConnectedWithScanButton,
                 .dappConnectedWithUniversalLink,
                 .selectDapp,
-                .collectiblesOpenInWeb,
-                .backupIntro,
-                .backupVerifySeedPhrase,
-                .backupConfirmSeedPhrase,
-                .backupCreatedSuccessfully
+                .collectiblesOpenInWeb
             ].contains(event)
     }
 
