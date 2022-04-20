@@ -44,46 +44,28 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
     }
 
     @objc override func didTapNextButton(_ sender: Any) {
-        showEnterName()
-    }
-     
-    func showEnterName() {
-        let vc = EnterAddressNameViewController()
-        vc.actionTitle = "Save"
-        vc.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
-        vc.screenTitle = "Enter Key Name"
-        vc.trackingEvent = .enterKeyName
-        vc.placeholder = "Enter name"
-        vc.address = privateKey.address
-        vc.badgeName = KeyType.deviceGenerated.imageName
-        vc.completion = { [unowned self] name in
-            guard importKey(name: name) else { return }
-            showCreatePasscode()
-        }
-        show(vc, sender: self)
+        keyParameters = AddKeyParameters(
+                address: privateKey.address,
+                keyName: nil,
+                badgeName: KeyType.deviceGenerated.imageName
+        )
+        enterName()
     }
 
-    func importKey(name: String) -> Bool {
-        guard OwnerKeyController.importKey(privateKey, name: name, isDrivedFromSeedPhrase: true),
+    override func doImportKey() -> Bool {
+        guard let keyParameters = keyParameters else {
+            return false
+        }
+        guard OwnerKeyController.importKey(privateKey, name: keyParameters.keyName!, isDrivedFromSeedPhrase: true),
               let keyInfo = try? KeyInfo.keys(addresses: [privateKey.address]).first else {
             return false
         }
-        AppSettings.hasShownImportKeyOnboarding = true
         self.keyInfo = keyInfo
         return true
     }
 
-    func showCreatePasscode() {
-        let createPasscodeVC = CreatePasscodeController { [unowned self] in
-            dismiss(animated: true) { [unowned self] in
-                startBackupFlow()
-            }
-        }
-        guard let createPasscodeVC = createPasscodeVC else {
-            startBackupFlow()
-            return
-        }
-        present(createPasscodeVC, animated: true)
+    override func didCreatePasscode() {
+        startBackupFlow()
     }
 
     // modally present the BackupController
@@ -102,12 +84,10 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
     func showKeyDetails() {
         let detailsVC = OwnerKeyDetailsViewController(keyInfo: keyInfo!, completion: self.completion)
         show(detailsVC, sender: self)
-
         showSuccessMessage()
     }
 
-    func showSuccessMessage() {
-        let message = "The key successfully created. Add it to a Safe on desktop and then restart the mobile app."
-        App.shared.snackbar.show(message: message)
+    override func finish() {
+        // empty, completion is called after key details is dismissed.
     }
 }

@@ -8,7 +8,21 @@
 
 import UIKit
 
+class AddLedgerKeyParameters: AddKeyParameters {
+    var index: Int
+    var derivationPath: String
+
+    init(address: Address, keyName: String?, index: Int, derivationPath: String) {
+        self.index = index
+        self.derivationPath = derivationPath
+        super.init(address: address, keyName: keyName, badgeName: KeyType.ledgerNanoX.imageName, keyNameTrackingEvent: .ledgerEnterKeyName)
+    }
+}
+
 class OnboardingLedgerKeyViewController: AddKeyOnboardingViewController {
+    private var deviceUUID: UUID?
+    private var bluetoothController: BaseBluetoothController?
+
     convenience init(completion: @escaping () -> Void) {
         self.init(
             cards: [
@@ -30,11 +44,60 @@ class OnboardingLedgerKeyViewController: AddKeyOnboardingViewController {
     }
 
     override func didTapNextButton(_ sender: Any) {
+        showConnectToLedgerDevice()
+    }
+
+    func showConnectToLedgerDevice() {
         let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "import"],
                                                   title: "Connect Ledger Nano X",
                                                   showsCloseButton: false)
         vc.delegate = self
         show(vc, sender: self)
+    }
+
+    func showAddressPicker() {
+        guard let deviceId = deviceUUID, let bluetoothController = bluetoothController else {
+            return
+        }
+
+        let addressPickerVC = LedgerKeyPickerViewController(
+            deviceId: deviceId,
+            bluetoothController: bluetoothController)
+        addressPickerVC.completion = { [unowned self] info in
+            keyParameters = info
+            enterName()
+        }
+        show(addressPickerVC, sender: nil)
+    }
+
+    override func doImportKey() -> Bool {
+        guard let keyParameters = keyParameters as? AddLedgerKeyParameters, let deviceId = deviceUUID else {
+            return false
+        }
+        return OwnerKeyController.importKey(
+                ledgerDeviceUUID: deviceId,
+                path: keyParameters.derivationPath,
+                address: keyParameters.address,
+                name: keyParameters.keyName!
+        )
+    }
+
+    override func didCreatePasscode() {
+        showAddPushNotifications()
+    }
+
+    func showAddPushNotifications() {
+        guard let keyParameters = keyParameters as? AddLedgerKeyParameters else {
+            return
+        }
+
+        let addPushesVC = LedgerKeyAddedViewController()
+        addPushesVC.accountAddress = keyParameters.address
+        addPushesVC.accountName = keyParameters.keyName
+        addPushesVC.completion = { [unowned self] in
+            showSuccessMessage()
+        }
+        show(addPushesVC, sender: self)
     }
 }
 
@@ -42,10 +105,8 @@ extension OnboardingLedgerKeyViewController: SelectLedgerDeviceDelegate {
     func selectLedgerDeviceViewController(_ controller: SelectLedgerDeviceViewController,
                                           didSelectDevice deviceId: UUID,
                                           bluetoothController: BaseBluetoothController) {
-
-        let keyPickerController = LedgerKeyPickerViewController(deviceId: deviceId,
-                                                                bluetoothController: bluetoothController,
-                                                                completion: completion)
-        show(keyPickerController, sender: nil)
+        self.deviceUUID = deviceId
+        self.bluetoothController = bluetoothController
+        showAddressPicker()
     }
 }
