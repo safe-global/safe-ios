@@ -41,7 +41,7 @@
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NFV-Ze-jLB">
                                     <rect key="frame" x="0.0" y="-0.5" width="24" height="25"/>
-                                    <color key="tintColor" name="borderSelected"/>
+                                    <color key="tintColor" name="primary"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="24" id="CmF-dD-7rw"/>
                                         <constraint firstAttribute="height" constant="24" id="DLu-wM-lnA"/>
@@ -101,8 +101,8 @@
     </objects>
     <resources>
         <image name="checkmark.circle" catalog="system" width="128" height="121"/>
-        <namedColor name="borderSelected">
-            <color red="0.5725490196078431" green="0.78823529411764703" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="primary">
+            <color red="0.0" green="0.54509803921568623" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
