@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftCryptoTokenFormatter
+
 
 class ActionDetailViewController: UITableViewController {
     typealias MultiSendTx = SCGModels.DataDecoded.Parameter.ValueDecoded.MultiSendTx
@@ -96,19 +98,37 @@ class ActionDetailViewController: UITableViewController {
             let coin = Chain.nativeCoin!
             txBuilder.result = []
             let (name, imageUri) = NamingPolicy.name(for: tx.to.address,
-                                                        info: addressInfoIndex?.values[tx.to]?.addressInfo,
-                                                        chainId: chain.id!)
-            txBuilder.buildTransferHeader(
-                address: tx.to.address,
-                label: name,
-                addressLogoUri: imageUri,
-                isOutgoing: true,
-                status: .success,
-                value: tx.value?.value,
-                decimals: UInt64(coin.decimals),
-                symbol: coin.symbol!,
-                logoUri: coin.logoUrl.map(\.absoluteString))
-            
+                    info: addressInfoIndex?.values[tx.to]?.addressInfo,
+                    chainId: chain.id!)
+
+            var title = "Interact with: "
+            if let value = tx.value {
+                let amount = Int256(value.value)
+                if value != "0" {
+                    let nativeCoinDecimals = chain.nativeCurrency!.decimals
+
+                    let decimalAmount = BigDecimal(amount, Int(nativeCoinDecimals))
+                    let amount = TokenFormatter().string(
+                            from: decimalAmount,
+                            decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
+                            thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ",",
+                            forcePlusSign: false
+                    )
+
+                    if let currencySymbol = chain.nativeCurrency?.symbol {
+                        title = "Interact with (Send \(amount) \(currencySymbol) to): "
+                    } else {
+                        title = "Interact with (Send \(amount) to): "
+                    }
+                }
+            }
+            txBuilder.address(tx.to.address,
+                    label: name,
+                    title: title,
+                    imageUri: imageUri,
+                    browseURL: chain.browserURL(address: tx.to.address.checksummed),
+                    prefix: chain.shortName
+            )
             append(txBuilder.result)
         }
     }

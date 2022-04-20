@@ -320,13 +320,11 @@ class TransactionDetailCellBuilder {
             }
 
         case .custom(let customTx):
-            let coin = Chain.nativeCoin!
             let (label, addressLogoUri) = NamingPolicy.name(for: customTx.to, chainId: chain.id!)
             var title = "Interact with: "
             let amount = Int256(customTx.value.value)
             if customTx.value != "0"  {
                 let nativeCoinDecimals = chain.nativeCurrency!.decimals
-                let nativeCoinSymbol = chain.nativeCurrency!.symbol!
 
                 let decimalAmount = BigDecimal(amount, Int(nativeCoinDecimals))
                 let amount = TokenFormatter().string(
