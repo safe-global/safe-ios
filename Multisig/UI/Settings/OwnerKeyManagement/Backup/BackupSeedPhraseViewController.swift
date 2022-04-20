@@ -35,8 +35,16 @@ class BackupSeedPhraseViewController: ContainerViewController {
         displayChild(at: 0, in: seedPhraseContentView)
        
         continueButton.setText("Continue", .filled)
-        
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(screenshotTaken), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
 
     @objc private func screenshotTaken() {
