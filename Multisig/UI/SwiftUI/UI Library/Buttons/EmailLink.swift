@@ -36,7 +36,7 @@ struct EmailLink: View {
                 Spacer()
                 Image(systemName: "chevron.right")
                     .font(Font.footnote.bold())
-                    .foregroundColor(.backgroundTetriary)
+                    .foregroundColor(.backgroundTertiary)
             }
         }
         .frame(height: 44)

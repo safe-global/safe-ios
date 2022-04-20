@@ -20,7 +20,7 @@ extension UIColor {
     static let separator = UIColor(named: "separator")!
     static let backgroundPrimary = UIColor(named: "backgroundPrimary")!
     static let backgroundSecondary = UIColor(named: "backgroundSecondary")!
-    static let backgroundTetriary = UIColor(named: "backgroundTetriary")!
+    static let backgroundTertiary = UIColor(named: "backgroundTetriary")!
     static let backgroundWarning = UIColor(named: "backgroundWarning")!
     static let backgroundError = UIColor(named: "backgroundError")!
     static let backgroundQuaternary = UIColor(named: "backgroundQuaternary")!

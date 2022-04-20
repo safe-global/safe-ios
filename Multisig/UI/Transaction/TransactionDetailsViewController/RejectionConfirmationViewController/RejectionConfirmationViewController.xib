@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -62,7 +62,7 @@
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oYa-US-C3R">
                                                     <rect key="frame" x="66" y="29.5" width="29.5" height="2"/>
-                                                    <color key="backgroundColor" name="gray2"/>
+                                                    <color key="backgroundColor" name="icon"/>
                                                 </view>
                                             </subviews>
                                             <constraints>
@@ -88,14 +88,14 @@ on-chain rejection</string>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w5w-Hg-ymS">
                                                     <rect key="frame" x="0.0" y="29.5" width="32" height="2"/>
-                                                    <color key="backgroundColor" name="gray2"/>
+                                                    <color key="backgroundColor" name="icon"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="2" id="KLk-hR-4Gd"/>
                                                     </constraints>
                                                 </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-collect-inactive" translatesAutoresizingMaskIntoConstraints="NO" id="9vR-YL-gJS">
                                                     <rect key="frame" x="34" y="16.5" width="28" height="28"/>
-                                                    <color key="tintColor" name="gray2"/>
+                                                    <color key="tintColor" name="icon"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="0f6-xt-Tm0"/>
                                                         <constraint firstAttribute="width" secondItem="9vR-YL-gJS" secondAttribute="height" id="IPz-lZ-lEb"/>
@@ -103,7 +103,7 @@ on-chain rejection</string>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8iE-2b-Kxu">
                                                     <rect key="frame" x="64" y="29.5" width="31.5" height="2"/>
-                                                    <color key="backgroundColor" name="gray2"/>
+                                                    <color key="backgroundColor" name="icon"/>
                                                 </view>
                                             </subviews>
                                             <constraints>
@@ -127,14 +127,14 @@ on-chain rejection</string>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rjL-F6-76b">
                                                     <rect key="frame" x="0.0" y="29.5" width="32" height="2"/>
-                                                    <color key="backgroundColor" name="gray2"/>
+                                                    <color key="backgroundColor" name="icon"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="2" id="TVW-I5-acE"/>
                                                     </constraints>
                                                 </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-execute-inactive" translatesAutoresizingMaskIntoConstraints="NO" id="Sfx-sm-Sl6">
                                                     <rect key="frame" x="34" y="16.5" width="28" height="28"/>
-                                                    <color key="tintColor" name="gray2"/>
+                                                    <color key="tintColor" name="icon"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="Sfx-sm-Sl6" secondAttribute="height" id="Pdv-xY-2Y6"/>
                                                         <constraint firstAttribute="height" constant="28" id="yut-QG-wd8"/>
@@ -142,7 +142,7 @@ on-chain rejection</string>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qox-Ze-tAv">
                                                     <rect key="frame" x="64" y="29.5" width="31.5" height="2"/>
-                                                    <color key="backgroundColor" name="gray2"/>
+                                                    <color key="backgroundColor" name="icon"/>
                                                 </view>
                                             </subviews>
                                             <constraints>
@@ -168,14 +168,14 @@ on-chain rejection</string>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V7M-zi-D5Q">
                                                     <rect key="frame" x="0.0" y="29.5" width="32" height="2"/>
-                                                    <color key="backgroundColor" name="gray2"/>
+                                                    <color key="backgroundColor" name="icon"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="2" id="3Cb-gQ-2nw"/>
                                                     </constraints>
                                                 </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-replaced-inactive" translatesAutoresizingMaskIntoConstraints="NO" id="jiM-Vr-dZV">
                                                     <rect key="frame" x="34" y="16.5" width="28" height="28"/>
-                                                    <color key="tintColor" name="gray2"/>
+                                                    <color key="tintColor" name="icon"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="jiM-Vr-dZV" secondAttribute="height" id="Qrw-gx-zTC"/>
                                                         <constraint firstAttribute="height" constant="28" id="uXc-ZH-veJ"/>
@@ -272,10 +272,10 @@ You'll have to confirm the creation of the on-chain rejection with your imported
         <image name="ico-execute-inactive" width="28" height="28"/>
         <image name="ico-replaced-inactive" width="28" height="28"/>
         <namedColor name="error">
-            <color red="0.94099998474121094" green="0.14499999582767487" blue="0.14499999582767487" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94117647058823528" green="0.14509803921568629" blue="0.14509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="gray2">
-            <color red="0.69800001382827759" green="0.70999997854232788" blue="0.69800001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="icon">
+            <color red="0.69803921568627447" green="0.73333333333333328" blue="0.75294117647058822" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

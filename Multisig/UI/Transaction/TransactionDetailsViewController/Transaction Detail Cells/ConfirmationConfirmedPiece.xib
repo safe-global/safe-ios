@@ -23,7 +23,7 @@
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JHf-vo-WqP">
                     <rect key="frame" x="16" y="-0.5" width="16" height="17"/>
-                    <color key="tintColor" name="button"/>
+                    <color key="tintColor" name="primary"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="16" id="Kif-6A-qxC"/>
                         <constraint firstAttribute="width" constant="16" id="e1i-gO-uKQ"/>
@@ -41,7 +41,7 @@
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YFu-eK-ht2">
                     <rect key="frame" x="23" y="16" width="2" height="72"/>
-                    <color key="backgroundColor" name="gray2"/>
+                    <color key="backgroundColor" name="icon"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="2" id="pMy-Y4-j8c"/>
                     </constraints>
@@ -77,11 +77,11 @@
         <namedColor name="backgroundSecondary">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="button">
-            <color red="0.0" green="0.54509803921568623" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="icon">
+            <color red="0.69803921568627447" green="0.73333333333333328" blue="0.75294117647058822" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="gray2">
-            <color red="0.69411764705882351" green="0.70980392156862748" blue="0.69411764705882351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="primary">
+            <color red="0.0" green="0.54509803921568623" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

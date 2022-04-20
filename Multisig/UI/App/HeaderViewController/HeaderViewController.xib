@@ -41,7 +41,7 @@
                                         <constraint firstAttribute="width" constant="60" id="tyd-wL-JA6"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                    <color key="tintColor" name="gray2"/>
+                                    <color key="tintColor" name="icon"/>
                                     <state key="normal">
                                         <imageReference key="image" image="chevron.down.circle" catalog="system" symbolScale="large"/>
                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="semibold"/>
@@ -125,8 +125,8 @@
         <namedColor name="backgroundSecondary">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="gray2">
-            <color red="0.69411764705882351" green="0.70980392156862748" blue="0.69411764705882351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="icon">
+            <color red="0.69803921568627447" green="0.73333333333333328" blue="0.75294117647058822" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="shadow">
             <color red="0.15686274509803921" green="0.21176470588235294" blue="0.23921568627450981" alpha="0.18000000715255737" colorSpace="custom" customColorSpace="sRGB"/>

@@ -17,7 +17,6 @@ class LoadingValueCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLable.setStyle(.primary)
-        backgroundColor = .backgroundSecondary
     }
 
     func setTitle(_ value: String) {
