@@ -32,7 +32,7 @@ class BackupController: UINavigationController, UIAdaptivePresentationController
         presentationController?.delegate = self
     }
 
-    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         onCancel?()
     }
 

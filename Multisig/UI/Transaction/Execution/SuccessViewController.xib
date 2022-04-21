@@ -32,6 +32,9 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="110" id="y1W-5Y-rUL"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="SuccessAnimation"/>
+                            </userDefinedRuntimeAttributes>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your transaction is queued!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cy-o0-Tus">
                             <rect key="frame" x="0.0" y="126" width="382" height="20.5"/>
