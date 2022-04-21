@@ -51,11 +51,9 @@ class SuccessViewController: UIViewController {
         bodyLabel.text = bodyText
         doneButton.setText(doneTitle ?? "Done", .filled)
 
-        let animation = Animation.named("SuccessAnimation")
-
-        animationView.animation = animation
         animationView.contentMode = .scaleAspectFit
         animationView.backgroundBehavior = .pauseAndRestore
+        animationView.play()
     }
     
     override func viewDidAppear(_ animated: Bool) {
