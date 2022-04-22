@@ -24,7 +24,7 @@ class BackupIntroViewController: UIViewController, UIGestureRecognizerDelegate {
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         navigationItem.title = "Back up key"
         
-        titleLabel.setStyle(.primary)
+        titleLabel.setStyle(.title3)
         messageLabel.setStyle(.secondary)
         tipsView.setContent(
             title: "Security tips",
