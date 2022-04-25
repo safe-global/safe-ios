@@ -680,6 +680,7 @@
 		6A1CFA5028081A1200B2C340 /* BackupSeedPhraseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A1CFA4E28081A1200B2C340 /* BackupSeedPhraseViewController.xib */; };
 		6A252CF228169352001F0887 /* AddKeyAsOwnerIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A252CF028169352001F0887 /* AddKeyAsOwnerIntroViewController.swift */; };
 		6A252CF328169352001F0887 /* AddKeyAsOwnerIntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A252CF128169352001F0887 /* AddKeyAsOwnerIntroViewController.xib */; };
+		6A252CF52816C9C1001F0887 /* AddKeyAsOwnerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A252CF42816C9C1001F0887 /* AddKeyAsOwnerController.swift */; };
 		6A39DC9327C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A39DC9127C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift */; };
 		6A39DC9427C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A39DC9227C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib */; };
 		6A91EFD727DA0604009E63E9 /* WCRegistryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A91EFD627DA0604009E63E9 /* WCRegistryController.swift */; };
@@ -1460,6 +1461,7 @@
 		6A1CFA4E28081A1200B2C340 /* BackupSeedPhraseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BackupSeedPhraseViewController.xib; sourceTree = "<group>"; };
 		6A252CF028169352001F0887 /* AddKeyAsOwnerIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddKeyAsOwnerIntroViewController.swift; sourceTree = "<group>"; };
 		6A252CF128169352001F0887 /* AddKeyAsOwnerIntroViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddKeyAsOwnerIntroViewController.xib; sourceTree = "<group>"; };
+		6A252CF42816C9C1001F0887 /* AddKeyAsOwnerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddKeyAsOwnerController.swift; sourceTree = "<group>"; };
 		6A39DC9127C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentFinishedViewController.swift; sourceTree = "<group>"; };
 		6A39DC9227C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeDeploymentFinishedViewController.xib; sourceTree = "<group>"; };
 		6A91EFD627DA0604009E63E9 /* WCRegistryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCRegistryController.swift; sourceTree = "<group>"; };
@@ -3395,6 +3397,7 @@
 			children = (
 				6A252CF028169352001F0887 /* AddKeyAsOwnerIntroViewController.swift */,
 				6A252CF128169352001F0887 /* AddKeyAsOwnerIntroViewController.xib */,
+				6A252CF42816C9C1001F0887 /* AddKeyAsOwnerController.swift */,
 			);
 			path = AddKeyAsNewOwner;
 			sourceTree = "<group>";
@@ -4082,6 +4085,7 @@
 				6ADEB01B2795AB410062ADFE /* InfoLabel.swift in Sources */,
 				0A045086278DC04C00650F71 /* BorderedInnerTableCell.swift in Sources */,
 				04B4B60225B84D6900CFE24B /* AccountInfoView.swift in Sources */,
+				6A252CF52816C9C1001F0887 /* AddKeyAsOwnerController.swift in Sources */,
 				04C97AB0246EEF1600EBA0F1 /* BrowserLink.swift in Sources */,
 				0A9D5CE827D8F47D0075A21D /* WCAppRegistryRepository.swift in Sources */,
 				0A106287248A885E00C1EE54 /* ERC20Metadata.swift in Sources */,
