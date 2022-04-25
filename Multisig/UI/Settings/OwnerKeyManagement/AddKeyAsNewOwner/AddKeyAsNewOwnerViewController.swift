@@ -15,6 +15,12 @@ class AddKeyAsNewOwnerViewController: UIViewController {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var skipButton: UIButton!
 
+    var onAdd: (() -> ())?
+
+    var onReplace: (() -> ())?
+
+    var onSkip: (() -> ())?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,8 +31,40 @@ class AddKeyAsNewOwnerViewController: UIViewController {
     }
 
     @IBAction func didTapAddButton(_ sender: Any) {
+        addOwnerAction()
+
     }
 
     @IBAction func didTapSkipButton(_ sender: Any) {
+        onSkip?()
+    }
+
+    func addOwnerAction() {
+
+        let alertController = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet)
+
+        let add = UIAlertAction(title: "Add new owner", style: .default) { [unowned self] _ in
+            guard alertController.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "Add new owner" else {
+                return
+            }
+            self.onAdd?()
+        }
+
+        let replace = UIAlertAction(title: "Replace owner", style: .default) { [unowned self] _ in
+            guard alertController.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "Replace owner" else {
+                return
+            }
+            self.onReplace?()
+        }
+
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(add)
+        alertController.addAction(replace)
+        alertController.addAction(cancel)
+        present(alertController, animated: true)
     }
 }
