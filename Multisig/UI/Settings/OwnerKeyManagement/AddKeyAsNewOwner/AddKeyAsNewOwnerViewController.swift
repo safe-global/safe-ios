@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddKeyAsNewOwnerViewController: UIViewController {
+class AddKeyAsNewOwnerViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -24,10 +24,17 @@ class AddKeyAsNewOwnerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        presentationController?.delegate = self
+
         titleLabel.setStyle(.primary)
         descriptionLabel.setStyle(.secondary)
         addButton.setText("Add as owner", .filled)
         skipButton.setText("Skip", .plain)
+    }
+
+    // Called when user swipes down the modal screen
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        onSkip?()
     }
 
     @IBAction func didTapAddButton(_ sender: Any) {
@@ -61,7 +68,7 @@ class AddKeyAsNewOwnerViewController: UIViewController {
         }
 
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
+
         alertController.addAction(add)
         alertController.addAction(replace)
         alertController.addAction(cancel)
