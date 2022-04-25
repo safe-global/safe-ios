@@ -46,8 +46,19 @@ class SeedPhraseViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(screenshotTaken), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
         Tracker.trackEvent(trackingEvent)
         seedPhraseView.update()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc private func screenshotTaken() {
+        Tracker.trackEvent(.backupUserSeedPhraseScreenshot)
+        NoScreenshotViewController.show(presenter: self)
     }
 }
 
