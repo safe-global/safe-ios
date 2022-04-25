@@ -30,6 +30,8 @@
 		0428DB1225CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428DB1125CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift */; };
 		043350AC28086126003725E2 /* SuccessAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 043350AB28086126003725E2 /* SuccessAnimation.json */; };
 		043350AF2808628E003725E2 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 043350AE2808628E003725E2 /* Lottie */; };
+		043350B92816D522003725E2 /* ReviewSafeTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043350B72816D522003725E2 /* ReviewSafeTransactionViewController.swift */; };
+		043350BA2816D522003725E2 /* ReviewSafeTransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043350B82816D522003725E2 /* ReviewSafeTransactionViewController.xib */; };
 		0438C9212760120D009A0E31 /* DeleteDelegateKeyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0438C9202760120D009A0E31 /* DeleteDelegateKeyRequest.swift */; };
 		043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043913A024BF4E480006517D /* BrowseLinkButton.swift */; };
 		043963832704E25800018F74 /* AdvancedTransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043963822704E25800018F74 /* AdvancedTransactionDetailsViewController.swift */; };
@@ -77,7 +79,6 @@
 		047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FB24780C81004F1200 /* CharacterSet+Hex.swift */; };
 		047300FE24781081004F1200 /* AddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FD24781081004F1200 /* AddressTests.swift */; };
 		047588182774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */; };
-		047588192774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047588172774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib */; };
 		047691592464026400D73D8B /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691582464026400D73D8B /* SectionHeader.swift */; };
 		0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */; };
 		048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */; };
@@ -818,6 +819,8 @@
 		0428DA5925CBFC25002CF4A9 /* HelpLinkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HelpLinkTableViewCell.xib; sourceTree = "<group>"; };
 		0428DB1125CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeDisplayModeTableViewController.swift; sourceTree = "<group>"; };
 		043350AB28086126003725E2 /* SuccessAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessAnimation.json; sourceTree = "<group>"; };
+		043350B72816D522003725E2 /* ReviewSafeTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSafeTransactionViewController.swift; sourceTree = "<group>"; };
+		043350B82816D522003725E2 /* ReviewSafeTransactionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewSafeTransactionViewController.xib; sourceTree = "<group>"; };
 		0438C9202760120D009A0E31 /* DeleteDelegateKeyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDelegateKeyRequest.swift; sourceTree = "<group>"; };
 		043913A024BF4E480006517D /* BrowseLinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseLinkButton.swift; sourceTree = "<group>"; };
 		043963822704E25800018F74 /* AdvancedTransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedTransactionDetailsViewController.swift; sourceTree = "<group>"; };
@@ -862,7 +865,6 @@
 		047300FB24780C81004F1200 /* CharacterSet+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Hex.swift"; sourceTree = "<group>"; };
 		047300FD24781081004F1200 /* AddressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTests.swift; sourceTree = "<group>"; };
 		047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSendFundsTransactionViewController.swift; sourceTree = "<group>"; };
-		047588172774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewSendFundsTransactionViewController.xib; sourceTree = "<group>"; };
 		047691582464026400D73D8B /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -1589,7 +1591,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		04077B40278E22C300AF6376 /* ReviewSendFundsTrasnactionCells */ = {
+		04077B40278E22C300AF6376 /* ReviewTransactionCells */ = {
 			isa = PBXGroup;
 			children = (
 				04C5ED3827878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift */,
@@ -1597,7 +1599,7 @@
 				04077B35278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.swift */,
 				04077B36278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.xib */,
 			);
-			path = ReviewSendFundsTrasnactionCells;
+			path = ReviewTransactionCells;
 			sourceTree = "<group>";
 		};
 		0428DA5725CBFBEA002CF4A9 /* HelpLinkUITableViewCell */ = {
@@ -1615,6 +1617,15 @@
 				043350AB28086126003725E2 /* SuccessAnimation.json */,
 			);
 			path = Animations;
+			sourceTree = "<group>";
+		};
+		043350C328175683003725E2 /* AdvancedParametersViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D8A6B12B2779D01900438460 /* AdvancedParametersViewController.swift */,
+				D8A6B12C2779D01900438460 /* AdvancedParametersViewController.xib */,
+			);
+			path = AdvancedParametersViewController;
 			sourceTree = "<group>";
 		};
 		0439783A26FB29B300A56BA4 /* RemoveCell */ = {
@@ -1728,17 +1739,13 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		047588152774D6A2001DD992 /* ReviewSendFundsTrasnactionViewController */ = {
+		047588152774D6A2001DD992 /* ReviewSafeTransactionViewController */ = {
 			isa = PBXGroup;
 			children = (
-				D865177527620649000B4C04 /* SelectAssetViewController.swift */,
-				047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */,
-				047588172774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib */,
-				D8A6B12B2779D01900438460 /* AdvancedParametersViewController.swift */,
-				D8A6B12C2779D01900438460 /* AdvancedParametersViewController.xib */,
-				04077B40278E22C300AF6376 /* ReviewSendFundsTrasnactionCells */,
+				043350B72816D522003725E2 /* ReviewSafeTransactionViewController.swift */,
+				043350B82816D522003725E2 /* ReviewSafeTransactionViewController.xib */,
 			);
-			path = ReviewSendFundsTrasnactionViewController;
+			path = ReviewSafeTransactionViewController;
 			sourceTree = "<group>";
 		};
 		0476915E246408D000D73D8B /* Settings */ = {
@@ -1859,6 +1866,7 @@
 		04B4B6F325B9E09C00CFE24B /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				04077B40278E22C300AF6376 /* ReviewTransactionCells */,
 				0455A43727205897008B772D /* DetailAccountCell */,
 				0439784226FB2ABB00A56BA4 /* SwitchTableViewCell */,
 				0439783A26FB29B300A56BA4 /* RemoveCell */,
@@ -2270,7 +2278,6 @@
 		0A6886AA2588FB190045CAB5 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				D865177427620628000B4C04 /* Transfer */,
 				0AB9F4C3254C64680044395F /* BalancesViewController */,
 				5503F62A255062070046545C /* CollectiblesViewController */,
 				D80B5A082769F95000D6E024 /* AssetsViewController.swift */,
@@ -2282,7 +2289,8 @@
 		0A6886AB2588FB2C0045CAB5 /* Transaction */ = {
 			isa = PBXGroup;
 			children = (
-				D865177E27687D6E000B4C04 /* Execution */,
+				D865177E27687D6E000B4C04 /* ExecuteTransaction */,
+				D865177427620628000B4C04 /* InitiateTransaction */,
 				0ADA9127256591410004DEC0 /* TransactionListViewController */,
 				0A57C8E22587ADB200B7C019 /* TransactionDetailsViewController */,
 				0AD0273F25A354C700886671 /* MultiSendListTableViewController */,
@@ -3536,13 +3544,16 @@
 			path = AddOwnerFirst;
 			sourceTree = "<group>";
 		};
-		D865177427620628000B4C04 /* Transfer */ = {
+		D865177427620628000B4C04 /* InitiateTransaction */ = {
 			isa = PBXGroup;
 			children = (
+				D865177527620649000B4C04 /* SelectAssetViewController.swift */,
 				04D968D1276B872D00CE4A9E /* TransactionViewController */,
-				047588152774D6A2001DD992 /* ReviewSendFundsTrasnactionViewController */,
+				047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */,
+				043350C328175683003725E2 /* AdvancedParametersViewController */,
+				047588152774D6A2001DD992 /* ReviewSafeTransactionViewController */,
 			);
-			path = Transfer;
+			path = InitiateTransaction;
 			sourceTree = "<group>";
 		};
 		D8651777276754F0000B4C04 /* TotalBalance */ = {
@@ -3554,7 +3565,7 @@
 			path = TotalBalance;
 			sourceTree = "<group>";
 		};
-		D865177E27687D6E000B4C04 /* Execution */ = {
+		D865177E27687D6E000B4C04 /* ExecuteTransaction */ = {
 			isa = PBXGroup;
 			children = (
 				0A045072278DACA200650F71 /* AmountAndValuePiece.swift */,
@@ -3592,7 +3603,7 @@
 				D865177F27687E0B000B4C04 /* SuccessViewController.swift */,
 				D865178027687E0B000B4C04 /* SuccessViewController.xib */,
 			);
-			path = Execution;
+			path = ExecuteTransaction;
 			sourceTree = "<group>";
 		};
 		D86A68E2274E6B3E00D7F5C5 /* App */ = {
@@ -3856,7 +3867,6 @@
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				049A9D7125F9303000CA5723 /* ChooseOwnerKeyViewController.xib in Resources */,
 				D88FA81F2770869E0023B77F /* TokenAmountField.xib in Resources */,
-				047588192774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib in Resources */,
 				D80B5A0B2769F95000D6E024 /* AssetsViewController.xib in Resources */,
 				043350AC28086126003725E2 /* SuccessAnimation.json in Resources */,
 				0A86EE7B25CC2C600059876E /* IdleFooterView.xib in Resources */,
@@ -3920,6 +3930,7 @@
 				045769FE27C7DBBF00881206 /* SafeDeployingViewController.xib in Resources */,
 				0AE8C08925793B8C00E62B34 /* DetailArrowPiece.xib in Resources */,
 				6ADEB02827B559370062ADFE /* WebConnectionOwnerView.xib in Resources */,
+				043350BA2816D522003725E2 /* ReviewSafeTransactionViewController.xib in Resources */,
 				0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */,
 				0A22E12825E4FA3200D24DE1 /* SwitchTableViewCell.xib in Resources */,
 				558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */,
@@ -4367,6 +4378,7 @@
 				0A5B157C280863DF003AD853 /* EnterPasscodeViewController.swift in Sources */,
 				D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */,
 				04576A0227C8F26100881206 /* CDEthTransaction.swift in Sources */,
+				043350B92816D522003725E2 /* ReviewSafeTransactionViewController.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				0A57C5AF2577F02100420303 /* ConfirmationCreatedPiece.swift in Sources */,
 				047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */,
