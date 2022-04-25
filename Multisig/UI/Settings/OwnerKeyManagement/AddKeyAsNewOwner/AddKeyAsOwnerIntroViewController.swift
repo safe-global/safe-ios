@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddKeyAsNewOwnerViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
+class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
