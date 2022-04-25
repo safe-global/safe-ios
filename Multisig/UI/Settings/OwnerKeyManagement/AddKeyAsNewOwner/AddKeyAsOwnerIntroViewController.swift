@@ -33,7 +33,7 @@ class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentation
     }
 
     // Called when user swipes down the modal screen
-    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         onSkip?()
     }
 
