@@ -77,10 +77,11 @@ class BackupController: UINavigationController, UIAdaptivePresentationController
         let successVC = SuccessViewController(
             titleText: "Your key is backed up!",
             bodyText: "If you lose your phone, you can recover this key with the seed phrase you just backed up.",
-            doneTitle: "OK, great",
+            primaryAction: "OK, great",
+            secondaryAction: nil,
             trackingEvent: nil
         )
-        successVC.onDone = { [unowned self] in
+        successVC.onDone = { [unowned self] _ in
             self.dismiss(animated: true)
             onComplete?()
         }
