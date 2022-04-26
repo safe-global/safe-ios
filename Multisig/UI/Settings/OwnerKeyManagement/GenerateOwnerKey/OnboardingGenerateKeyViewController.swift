@@ -74,51 +74,40 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
         let backupController = BackupController(showIntro: true, seedPhrase: mnemonic)
         backupController.onComplete = { [weak self] in
             guard let self = self else { return }
-            if self.canAddKeyAsOwner() {
-                self.startAddKeyAsOwner()
-            } else {
-                self.showKeyDetails()
-            }
+            self.startAddKeyAsOwnerIfPossible()
         }
         backupController.onCancel = { [weak self] in
             guard let self = self else { return }
             self.dismiss(animated: true) {
-                if self.canAddKeyAsOwner() {
-                    self.startAddKeyAsOwner()
-                } else {
-                    self.showKeyDetails()
-                }
+                self.startAddKeyAsOwnerIfPossible()
             }
         }
         show(backupController, sender: self)
     }
 
+    func startAddKeyAsOwnerIfPossible() {
+        if self.canAddKeyAsOwner() {
+            self.startAddKeyAsOwner()
+        } else {
+            self.showKeyDetails()
+        }
+    }
+
     func canAddKeyAsOwner() -> Bool {
         guard let safe = try? Safe.getSelected() else { return false }
-        if !safe.isReadOnly {
-            return true
-        } else {
-            return true
-        }
+        return !safe.isReadOnly
     }
 
     func startAddKeyAsOwner() {
         let addKeyAsOwnerController = AddKeyAsOwnerController(privateKey: privateKey)
-        addKeyAsOwnerController.onAdded = { [weak self] in
+        let onFlowFinished: (() -> Void)? = { [weak self] in
             self?.dismiss(animated: true) {
                 self?.showKeyDetails()
             }
         }
-        addKeyAsOwnerController.onReplaced = { [weak self] in
-            self?.dismiss(animated: true) {
-                self?.showKeyDetails()
-            }
-        }
-        addKeyAsOwnerController.onSkipped = { [weak self] in
-            self?.dismiss(animated: true) {
-                self?.showKeyDetails()
-            }
-        }
+        addKeyAsOwnerController.onAdded = onFlowFinished
+        addKeyAsOwnerController.onReplaced = onFlowFinished
+        addKeyAsOwnerController.onSkipped = onFlowFinished
         show(addKeyAsOwnerController, sender: self)
     }
 

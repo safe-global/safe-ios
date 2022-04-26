@@ -26,9 +26,7 @@ class AddKeyAsOwnerController: UINavigationController, UIAdaptivePresentationCon
         introVC.onReplace = { [unowned self] in
             self.showSelectOwnerToReplace()
         }
-        introVC.onSkip = { [unowned self] in
-            self.onSkipped?()
-        }
+        introVC.onSkip = onSkipped
         ViewControllerFactory.addCloseButton(introVC)
         viewControllers = [introVC]
     }
