@@ -1,9 +1,9 @@
 //
-//  ReviewSendFundsTransactionViewController.swift
+//  ReviewSafeTransactionViewController.swift
 //  Multisig
 //
-//  Created by Moaaz on 12/23/21.
-//  Copyright © 2021 Gnosis Ltd. All rights reserved.
+//  Created by Moaaz on 4/25/22.
+//  Copyright © 2022 Gnosis Ltd. All rights reserved.
 //
 
 import UIKit
@@ -12,8 +12,8 @@ import SwiftCryptoTokenFormatter
 
 fileprivate protocol SectionItem {}
 
-class ReviewSendFundsTransactionViewController: UIViewController {
-    @IBOutlet private weak var tableView: UITableView!
+class ReviewSafeTransactionViewController: UIViewController {
+    @IBOutlet internal weak var tableView: UITableView!
     @IBOutlet private weak var retryButton: UIButton!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var estimationFailedLabel: UILabel!
@@ -24,50 +24,42 @@ class ReviewSendFundsTransactionViewController: UIViewController {
     @IBOutlet private weak var confirmButtonView: ActivityButtonView!
 
     private var currentDataTask: URLSessionTask?
-    var address: Address!
-    var amount: BigDecimal!
-    var formattedAmount: String {
-        TokenFormatter().string(from: amount, shortFormat: false)
-    }
+    
     var safe: Safe!
-    var tokenBalance: TokenBalance!
+    var address: Address!
+    var data: Data?
+    var value: UInt256 = 0
     var nonce: UInt256String!
     var safeTxGas: UInt256String?
     var minimalNonce: UInt256String?
 
     enum SectionItem {
-        case transfer(UITableViewCell)
+        case basic(UITableViewCell)
         case advanced(UITableViewCell)
     }
 
     private var sectionItems = [SectionItem]()
 
-    convenience init(safe: Safe,
-                     address: Address,
-                     tokenBalance: TokenBalance,
-                     amount: BigDecimal) {
-        self.init(namedClass: ReviewSendFundsTransactionViewController.self)
+    convenience init(safe: Safe, address: Address, value: UInt256 = 0, data: Data? = nil) {
+        self.init(namedClass: ReviewSafeTransactionViewController.self)
         self.safe = safe
         self.address = address
-        self.amount = amount
-        self.tokenBalance = tokenBalance
+        self.data = data
+        self.value = value
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         assert(address != nil)
-        assert(amount != nil)
         assert(safe != nil)
-        assert(tokenBalance != nil)
 
         navigationItem.title = "Review"
         navigationItem.backButtonTitle = "Back"
-        
+
         retryButton.setText("Retry", .filled)
         descriptionLabel.setStyle(.footnote2)
 
-        tableView.registerCell(ReviewSendFundsTransactionHeaderTableViewCell.self)
         tableView.registerCell(EditAdvancedParametersUITableViewCell.self)
 
         tableView.estimatedRowHeight = 60
@@ -104,11 +96,6 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         TooltipSource.hideAll()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        Tracker.trackEvent(.assetsTransferReview)
-    }
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         TooltipSource.hideAll()
@@ -124,8 +111,8 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         currentDataTask = App.shared.clientGatewayService.asyncTransactionEstimation(chainId: safe.chain!.id!,
                                                                    safeAddress: safe.addressValue,
                                                                    to: address,
-                                                                   value: 0,
-                                                                   data: nil,
+                                                                   value: value,
+                                                                   data: data,
                                                                    operation: .call) { [weak self] result in
             guard let `self` = self else { return }
             switch result {
@@ -187,12 +174,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
     }
 
     private func sign(_ keyInfo: KeyInfo) {
-        guard let transaction = Transaction(safe: safe,
-                                            toAddress: address,
-                                            tokenAddress: Address(stringLiteral: tokenBalance.address),
-                                            amount: UInt256String(amount.value),
-                                            safeTxGas: safeTxGas,
-                                            nonce: nonce),
+        guard let transaction = createTransaction(),
               let safeTxHash = transaction.safeTxHash?.description else {
             preconditionFailure("Unexpected Error")
         }
@@ -242,6 +224,10 @@ class ReviewSendFundsTransactionViewController: UIViewController {
         }
     }
 
+    func createTransaction() -> Transaction? {
+        return nil
+    }
+
     private func proposeTransaction(transaction: Transaction, keyInfo: KeyInfo, signature: String) {
         currentDataTask = App.shared.clientGatewayService.asyncProposeTransaction(transaction: transaction,
                                                                              sender: AddressString(keyInfo.address),
@@ -263,7 +249,7 @@ class ReviewSendFundsTransactionViewController: UIViewController {
                         App.shared.snackbar.show(error: GSError.error(description: "Failed to create transaction", error: error))
                     case .success(let transaction):
                         NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
-                        self.showTransactionSuccess(transaction: transaction)
+                        self.onSuccess(transaction: transaction)
                     }
                 }
             }
@@ -271,22 +257,13 @@ class ReviewSendFundsTransactionViewController: UIViewController {
     }
 
     private func bindData() {
-        sectionItems = [SectionItem.transfer(transferCell()), SectionItem.advanced(parametersCell())]
+        sectionItems = [SectionItem.basic(headerCell()), SectionItem.advanced(parametersCell())]
         tableView.reloadData()
     }
 
-    private func transferCell() -> UITableViewCell {
-        let cell = tableView.dequeueCell(ReviewSendFundsTransactionHeaderTableViewCell.self)
-        let prefix = safe.chain!.shortName
-        cell.setFromAddress(safe.addressValue, label: safe.name, prefix: prefix)
-        let (name, imageURL) = NamingPolicy.name(for: address, info: nil, chainId: safe.chain!.id!)
-        cell.setToAddress(address, label: name, imageUri: imageURL, prefix: prefix)
-        cell.setToken(amount: formattedAmount,
-                      symbol: tokenBalance.symbol,
-                      fiatBalance:  "",
-                      image: tokenBalance.imageURL)
-
-        return cell
+    func headerCell() -> UITableViewCell {
+        assertionFailure()
+        return UITableViewCell()
     }
 
     private func parametersCell() -> UITableViewCell {
@@ -319,37 +296,13 @@ class ReviewSendFundsTransactionViewController: UIViewController {
 
         presentModal(ViewControllerFactory.modal(viewController: ribbon))
     }
-    
-    private func showTransactionSuccess(transaction: SCGModels.TransactionDetails) {
-        let token = tokenBalance.symbol
 
-        let title = "Your transaction is queued!"
-        let body = "Your request to send \(formattedAmount) \(token) is submitted and needs to be confirmed by other owners."
-        let done = "View details"
-
-        let successVC = SuccessViewController(
-            titleText: title,
-            bodyText: body,
-            doneTitle: done,
-            trackingEvent: .assetsTransferSuccess)
-
-        successVC.onDone = { [weak self] in
-            guard let self = self else { return }
-
-            
-            self.dismiss(animated: true) {
-                NotificationCenter.default.post(
-                    name: .initiateTxNotificationReceived,
-                    object: self,
-                    userInfo: ["transactionDetails": transaction])
-            }
-        }
-
-        show(successVC, sender: self)
+    func onSuccess(transaction: SCGModels.TransactionDetails) {
+        
     }
 }
 
-extension ReviewSendFundsTransactionViewController: UITableViewDataSource {
+extension ReviewSafeTransactionViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         sectionItems.count
     }
@@ -357,7 +310,7 @@ extension ReviewSendFundsTransactionViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sectionItems[indexPath.row]
         switch item {
-        case SectionItem.transfer(let cell): return cell
+        case SectionItem.basic(let cell): return cell
         case SectionItem.advanced(let cell): return cell
         }
     }

@@ -27,9 +27,13 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Change confirmations"
+
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
         }
+        cellBuilder = SafeCellBuilder(viewController: self, tableView: tableView)
+
         cellBuilder.registerCells()
 
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
@@ -39,7 +43,7 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
-        promptLabel.setStyle(.primary)
+        promptLabel.setStyle(.secondary)
         promptLabel.text = "You’re about to add an owner. Would you like to change the required confirmations?"
 
         button.setText("Continue", .filled)
@@ -82,6 +86,10 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
         tableView.deselectRow(at: indexPath, animated: true)
         guard indexPath.row == 1 else { return }
         cellBuilder.didSelectThresholdHelpCell()
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        BasicHeaderView.headerHeight
     }
 
 }

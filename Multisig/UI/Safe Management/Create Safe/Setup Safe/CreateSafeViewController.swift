@@ -132,12 +132,8 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard isValid(section: section) else { return 0 }
         let sectionData = uiModel.sectionHeaders[section]
-        switch sectionData.id {
-        case .error:
-            return 0
-        default:
-            return BasicHeaderView.headerHeight
-        }
+        guard sectionData.id != .error else { return 0 }
+        return BasicHeaderView.headerHeight
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
