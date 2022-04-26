@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditConfirmationsViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="button" destination="PWF-A2-Nty" id="dNR-Kj-beP"/>
+                <outlet property="promptLabel" destination="ui9-eh-dnd" id="Cee-UP-I2f"/>
+                <outlet property="tableView" destination="gjO-nX-yBC" id="kze-qh-g5j"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ui9-eh-dnd">
+                    <rect key="frame" x="16" y="104" width="382" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gjO-nX-yBC">
+                    <rect key="frame" x="0.0" y="140.5" width="414" height="633.5"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="B4q-vN-pvl"/>
+                        <outlet property="delegate" destination="-1" id="x3T-d8-KBz"/>
+                    </connections>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PWF-A2-Nty">
+                    <rect key="frame" x="16" y="790" width="382" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="EbH-3D-H7B"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Button">
+                        <color key="titleColor" red="0.32397973540000002" green="0.61783987279999997" blue="0.97258967159999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </state>
+                    <connections>
+                        <action selector="didTapButton:" destination="-1" eventType="touchUpInside" id="Syz-gz-q9O"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="PWF-A2-Nty" firstAttribute="top" secondItem="gjO-nX-yBC" secondAttribute="bottom" constant="16" id="1Ea-Br-UOh"/>
+                <constraint firstItem="gjO-nX-yBC" firstAttribute="top" secondItem="ui9-eh-dnd" secondAttribute="bottom" constant="16" id="94v-6c-X78"/>
+                <constraint firstItem="ui9-eh-dnd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="A3o-7z-bjz"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ui9-eh-dnd" secondAttribute="trailing" constant="16" id="CTd-uS-pal"/>
+                <constraint firstItem="gjO-nX-yBC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="UBG-86-EJN"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gjO-nX-yBC" secondAttribute="trailing" id="b7q-gd-nrC"/>
+                <constraint firstItem="ui9-eh-dnd" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="bZr-8R-QYS"/>
+                <constraint firstItem="PWF-A2-Nty" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="k2a-n7-4AW"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="PWF-A2-Nty" secondAttribute="bottom" constant="16" id="me5-LO-boe"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="PWF-A2-Nty" secondAttribute="trailing" constant="16" id="qae-nL-7R9"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <point key="canvasLocation" x="132" y="132"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

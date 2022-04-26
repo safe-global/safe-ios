@@ -275,6 +275,9 @@
 		0A5B15842808643B003AD853 /* CreatePasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B15832808643B003AD853 /* CreatePasscodeViewController.swift */; };
 		0A5B15882808649E003AD853 /* CreatePasscodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B15872808649E003AD853 /* CreatePasscodeController.swift */; };
 		0A5B87E2278633FF000B66EA /* Ethereum in Frameworks */ = {isa = PBXBuildFile; productRef = 0A5B87E1278633FF000B66EA /* Ethereum */; };
+		0A5C0C492817F0F40061D96F /* EditConfirmationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C0C472817F0F40061D96F /* EditConfirmationsViewController.swift */; };
+		0A5C0C4A2817F0F40061D96F /* EditConfirmationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C0C482817F0F40061D96F /* EditConfirmationsViewController.xib */; };
+		0A5C0C4C2817F1DE0061D96F /* SafeCellBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C0C4B2817F1DE0061D96F /* SafeCellBuilder.swift */; };
 		0A5C2DCE25628277009808CB /* SafeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C2DCC25628277009808CB /* SafeInfoViewController.swift */; };
 		0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C2DCD25628277009808CB /* SafeInfoViewController.xib */; };
 		0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F481F254C55390069C98D /* SwitchSafesViewController.swift */; };
@@ -1037,6 +1040,9 @@
 		0A5B158128086424003AD853 /* RepeatPasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatPasscodeViewController.swift; sourceTree = "<group>"; };
 		0A5B15832808643B003AD853 /* CreatePasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeViewController.swift; sourceTree = "<group>"; };
 		0A5B15872808649E003AD853 /* CreatePasscodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeController.swift; sourceTree = "<group>"; };
+		0A5C0C472817F0F40061D96F /* EditConfirmationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditConfirmationsViewController.swift; sourceTree = "<group>"; };
+		0A5C0C482817F0F40061D96F /* EditConfirmationsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditConfirmationsViewController.xib; sourceTree = "<group>"; };
+		0A5C0C4B2817F1DE0061D96F /* SafeCellBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCellBuilder.swift; sourceTree = "<group>"; };
 		0A5C2DCC25628277009808CB /* SafeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInfoViewController.swift; sourceTree = "<group>"; };
 		0A5C2DCD25628277009808CB /* SafeInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeInfoViewController.xib; sourceTree = "<group>"; };
 		0A5C2E1325628E30009808CB /* SnackbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarViewController.swift; sourceTree = "<group>"; };
@@ -1732,6 +1738,8 @@
 			isa = PBXGroup;
 			children = (
 				D865177527620649000B4C04 /* SelectAssetViewController.swift */,
+				0A5C0C472817F0F40061D96F /* EditConfirmationsViewController.swift */,
+				0A5C0C482817F0F40061D96F /* EditConfirmationsViewController.xib */,
 				047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */,
 				047588172774D6D2001DD992 /* ReviewSendFundsTransactionViewController.xib */,
 				D8A6B12B2779D01900438460 /* AdvancedParametersViewController.swift */,
@@ -1929,6 +1937,7 @@
 				0A0391C727C565D3003C871A /* IconButtonTableViewCell.xib */,
 				0A8CDD4827A5AE860020066C /* CreateSafeFormUIModel.swift */,
 				0A8CDD4427A5A5C70020066C /* CreateSafeViewController.swift */,
+				0A5C0C4B2817F1DE0061D96F /* SafeCellBuilder.swift */,
 				0A930F4C27CD4BC600866074 /* SelectAddressViewController.swift */,
 				0A8CDD4527A5A5C70020066C /* CreateSafeViewController.xib */,
 				0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */,
@@ -3875,6 +3884,7 @@
 				5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
 				0AEEBC80258CE25700F3A6F9 /* WebImageView.xib in Resources */,
+				0A5C0C4A2817F0F40061D96F /* EditConfirmationsViewController.xib in Resources */,
 				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
 				550FB1A226691CA300C13D54 /* dapps-mainnet.json in Resources */,
 				0A86EE7525CC2BC30059876E /* LoadingFooterView.xib in Resources */,
@@ -4042,6 +4052,7 @@
 				5588363C2562904E0014E8C7 /* ContractVersionStatusCell.swift in Sources */,
 				0A06533B27B6D4A10008C5F1 /* ChooseOwnerDetailHeaderView.swift in Sources */,
 				041C2A5A2456F53E0044A24C /* QRView.swift in Sources */,
+				0A5C0C492817F0F40061D96F /* EditConfirmationsViewController.swift in Sources */,
 				0428DA4D25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.swift in Sources */,
 				0A791D9F24D309CE00D70DA9 /* ScreenMetrics.swift in Sources */,
 				0A9366AF278F0A9F001918A9 /* LabeledTextField.swift in Sources */,
@@ -4123,6 +4134,7 @@
 				04D1306C25DD525A0032FA03 /* ProposeTransactionRequest.swift in Sources */,
 				55BCFC562554627100020CE7 /* BasicCell.swift in Sources */,
 				0A9A1A34257924C600B44405 /* DetailAccountCell.swift in Sources */,
+				0A5C0C4C2817F1DE0061D96F /* SafeCellBuilder.swift in Sources */,
 				0AEE149F2540233C00046EE7 /* UINibView.swift in Sources */,
 				0A451BDE252DDB17001DB7D2 /* String+Error.swift in Sources */,
 				0AA9F2532498CC70005BD60F /* UInt256String.swift in Sources */,
