@@ -73,12 +73,53 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
     func startBackupFlow() {
         let backupController = BackupController(showIntro: true, seedPhrase: mnemonic)
         backupController.onComplete = { [weak self] in
-            self?.showKeyDetails()
+            guard let self = self else { return }
+            if self.canAddKeyAsOwner() {
+                self.startAddKeyAsOwner()
+            } else {
+                self.showKeyDetails()
+            }
         }
         backupController.onCancel = { [weak self] in
-            self?.showKeyDetails()
+            guard let self = self else { return }
+            self.dismiss(animated: true) {
+                if self.canAddKeyAsOwner() {
+                    self.startAddKeyAsOwner()
+                } else {
+                    self.showKeyDetails()
+                }
+            }
         }
         show(backupController, sender: self)
+    }
+
+    func canAddKeyAsOwner() -> Bool {
+        guard let safe = try? Safe.getSelected() else { return false }
+        if !safe.isReadOnly {
+            return true
+        } else {
+            return true
+        }
+    }
+
+    func startAddKeyAsOwner() {
+        let addKeyAsOwnerController = AddKeyAsOwnerController(privateKey: privateKey)
+        addKeyAsOwnerController.onAdded = { [weak self] in
+            self?.dismiss(animated: true) {
+                self?.showKeyDetails()
+            }
+        }
+        addKeyAsOwnerController.onReplaced = { [weak self] in
+            self?.dismiss(animated: true) {
+                self?.showKeyDetails()
+            }
+        }
+        addKeyAsOwnerController.onSkipped = { [weak self] in
+            self?.dismiss(animated: true) {
+                self?.showKeyDetails()
+            }
+        }
+        show(addKeyAsOwnerController, sender: self)
     }
 
     func showKeyDetails() {
