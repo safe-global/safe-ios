@@ -87,12 +87,25 @@
                         </button>
                     </subviews>
                 </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="close" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIr-MU-aeG">
+                    <rect key="frame" x="16" y="60" width="32" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="6BJ-Ji-HkB"/>
+                        <constraint firstAttribute="width" constant="32" id="RNG-fP-cF0"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <connections>
+                        <action selector="didTapDone:" destination="-1" eventType="touchUpInside" id="pmw-mV-r3z"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="1QG-6Q-dsy" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" priority="999" id="7fz-lZ-gf9"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="mqg-D4-Ru3" secondAttribute="trailing" constant="16" id="G9m-jP-QGs"/>
+                <constraint firstItem="WIr-MU-aeG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="J2s-AE-bhu"/>
+                <constraint firstItem="WIr-MU-aeG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="MVE-ft-tp5"/>
                 <constraint firstItem="mqg-D4-Ru3" firstAttribute="top" relation="greaterThanOrEqual" secondItem="1QG-6Q-dsy" secondAttribute="bottom" constant="16" id="OJD-O7-O3B"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="mqg-D4-Ru3" secondAttribute="bottom" constant="16" id="UdF-rd-nXR"/>
                 <constraint firstItem="mqg-D4-Ru3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="YNG-6V-3oA"/>
