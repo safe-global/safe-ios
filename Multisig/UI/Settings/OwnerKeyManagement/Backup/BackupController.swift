@@ -42,7 +42,6 @@ class BackupController: UINavigationController, UIAdaptivePresentationController
             if startBackup {
                 showBackupSeedPhrase()
             } else {
-                self.dismiss(animated: true)
                 onCancel?()
             }
         }

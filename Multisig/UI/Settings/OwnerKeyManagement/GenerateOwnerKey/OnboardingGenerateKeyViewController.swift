@@ -73,12 +73,42 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
     func startBackupFlow() {
         let backupController = BackupController(showIntro: true, seedPhrase: mnemonic)
         backupController.onComplete = { [weak self] in
-            self?.showKeyDetails()
+            guard let self = self else { return }
+            self.startAddKeyAsOwnerIfPossible()
         }
         backupController.onCancel = { [weak self] in
-            self?.showKeyDetails()
+            guard let self = self else { return }
+            self.dismiss(animated: true) {
+                self.startAddKeyAsOwnerIfPossible()
+            }
         }
         show(backupController, sender: self)
+    }
+
+    func startAddKeyAsOwnerIfPossible() {
+        if self.canAddKeyAsOwner() {
+            self.startAddKeyAsOwner()
+        } else {
+            self.showKeyDetails()
+        }
+    }
+
+    func canAddKeyAsOwner() -> Bool {
+        guard let safe = try? Safe.getSelected() else { return false }
+        return !safe.isReadOnly
+    }
+
+    func startAddKeyAsOwner() {
+        let addKeyAsOwnerController = AddKeyAsOwnerController(privateKey: privateKey)
+        let onFlowFinished: (() -> Void)? = { [weak self] in
+            self?.dismiss(animated: true) {
+                self?.showKeyDetails()
+            }
+        }
+        addKeyAsOwnerController.onAdded = onFlowFinished
+        addKeyAsOwnerController.onReplaced = onFlowFinished
+        addKeyAsOwnerController.onSkipped = onFlowFinished
+        show(addKeyAsOwnerController, sender: self)
     }
 
     func showKeyDetails() {

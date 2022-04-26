@@ -93,6 +93,9 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
                 return
             }
             let backupVC = BackupController(showIntro: false, seedPhrase: mnemonic)
+            backupVC.onCancel = { [weak self] in
+                self?.dismiss(animated: true)
+            }
             self?.present(backupVC, animated: true)
         }
 

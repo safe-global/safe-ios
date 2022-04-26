@@ -262,6 +262,9 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                     return
                 }
                 let backupVC = BackupController(showIntro: false, seedPhrase: mnemonic)
+                backupVC.onCancel = { [weak self] in
+                    self?.dismiss(animated: true)
+                }
                 self?.show(backupVC, sender: self)
             }
         case Section.Name.name:

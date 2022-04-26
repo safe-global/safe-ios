@@ -679,6 +679,9 @@
 		6A1CFA4B2807F24800B2C340 /* NoScreenshotViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A1CFA492807F24800B2C340 /* NoScreenshotViewController.xib */; };
 		6A1CFA4F28081A1200B2C340 /* BackupSeedPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1CFA4D28081A1200B2C340 /* BackupSeedPhraseViewController.swift */; };
 		6A1CFA5028081A1200B2C340 /* BackupSeedPhraseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A1CFA4E28081A1200B2C340 /* BackupSeedPhraseViewController.xib */; };
+		6A252CF228169352001F0887 /* AddKeyAsOwnerIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A252CF028169352001F0887 /* AddKeyAsOwnerIntroViewController.swift */; };
+		6A252CF328169352001F0887 /* AddKeyAsOwnerIntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A252CF128169352001F0887 /* AddKeyAsOwnerIntroViewController.xib */; };
+		6A252CF52816C9C1001F0887 /* AddKeyAsOwnerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A252CF42816C9C1001F0887 /* AddKeyAsOwnerController.swift */; };
 		6A39DC9327C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A39DC9127C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift */; };
 		6A39DC9427C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A39DC9227C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib */; };
 		6A91EFD727DA0604009E63E9 /* WCRegistryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A91EFD627DA0604009E63E9 /* WCRegistryController.swift */; };
@@ -1458,6 +1461,9 @@
 		6A1CFA492807F24800B2C340 /* NoScreenshotViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoScreenshotViewController.xib; sourceTree = "<group>"; };
 		6A1CFA4D28081A1200B2C340 /* BackupSeedPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupSeedPhraseViewController.swift; sourceTree = "<group>"; };
 		6A1CFA4E28081A1200B2C340 /* BackupSeedPhraseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BackupSeedPhraseViewController.xib; sourceTree = "<group>"; };
+		6A252CF028169352001F0887 /* AddKeyAsOwnerIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddKeyAsOwnerIntroViewController.swift; sourceTree = "<group>"; };
+		6A252CF128169352001F0887 /* AddKeyAsOwnerIntroViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddKeyAsOwnerIntroViewController.xib; sourceTree = "<group>"; };
+		6A252CF42816C9C1001F0887 /* AddKeyAsOwnerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddKeyAsOwnerController.swift; sourceTree = "<group>"; };
 		6A39DC9127C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentFinishedViewController.swift; sourceTree = "<group>"; };
 		6A39DC9227C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeDeploymentFinishedViewController.xib; sourceTree = "<group>"; };
 		6A91EFD627DA0604009E63E9 /* WCRegistryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCRegistryController.swift; sourceTree = "<group>"; };
@@ -3328,6 +3334,7 @@
 		55F91A8E25BEABA100938475 /* OwnerKeyManagement */ = {
 			isa = PBXGroup;
 			children = (
+				6A252CEF281692FE001F0887 /* AddKeyAsNewOwner */,
 				6A1CFA4C280819C600B2C340 /* Backup */,
 				55CCD58627550F42004EA3E3 /* DelegateKeyController.swift */,
 				0ADD19B5265EA23200EB0F2B /* ExportViewController.swift */,
@@ -3391,6 +3398,16 @@
 				0AE0AFEE2805CC20002594CB /* WordView.xib */,
 			);
 			path = Backup;
+			sourceTree = "<group>";
+		};
+		6A252CEF281692FE001F0887 /* AddKeyAsNewOwner */ = {
+			isa = PBXGroup;
+			children = (
+				6A252CF028169352001F0887 /* AddKeyAsOwnerIntroViewController.swift */,
+				6A252CF128169352001F0887 /* AddKeyAsOwnerIntroViewController.xib */,
+				6A252CF42816C9C1001F0887 /* AddKeyAsOwnerController.swift */,
+			);
+			path = AddKeyAsNewOwner;
 			sourceTree = "<group>";
 		};
 		6A91EFD827DA2C45009E63E9 /* Data */ = {
@@ -3838,6 +3855,7 @@
 				D865178227687E0B000B4C04 /* SuccessViewController.xib in Resources */,
 				0468FB9825912E8300541536 /* TransactionListTableViewCell.xib in Resources */,
 				0A57C5A52577DC5600420303 /* DetailExpandableTextCell.xib in Resources */,
+				6A252CF328169352001F0887 /* AddKeyAsOwnerIntroViewController.xib in Resources */,
 				04CF31C127B6B9DC001BEEED /* TitledMiniPieceView.xib in Resources */,
 				D865177D27675DD1000B4C04 /* TotalBalanceView.xib in Resources */,
 				0A57C5DD2577F9ED00420303 /* ConfirmationStatusPiece.xib in Resources */,
@@ -4078,6 +4096,7 @@
 				6ADEB01B2795AB410062ADFE /* InfoLabel.swift in Sources */,
 				0A045086278DC04C00650F71 /* BorderedInnerTableCell.swift in Sources */,
 				04B4B60225B84D6900CFE24B /* AccountInfoView.swift in Sources */,
+				6A252CF52816C9C1001F0887 /* AddKeyAsOwnerController.swift in Sources */,
 				04C97AB0246EEF1600EBA0F1 /* BrowserLink.swift in Sources */,
 				0A9D5CE827D8F47D0075A21D /* WCAppRegistryRepository.swift in Sources */,
 				0A106287248A885E00C1EE54 /* ERC20Metadata.swift in Sources */,
@@ -4378,7 +4397,8 @@
 				0A5B157C280863DF003AD853 /* EnterPasscodeViewController.swift in Sources */,
 				D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */,
 				04576A0227C8F26100881206 /* CDEthTransaction.swift in Sources */,
-				043350B92816D522003725E2 /* ReviewSafeTransactionViewController.swift in Sources */,
+        043350B92816D522003725E2 /* ReviewSafeTransactionViewController.swift in Sources */,
+        6A252CF228169352001F0887 /* AddKeyAsOwnerIntroViewController.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				0A57C5AF2577F02100420303 /* ConfirmationCreatedPiece.swift in Sources */,
 				047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */,
