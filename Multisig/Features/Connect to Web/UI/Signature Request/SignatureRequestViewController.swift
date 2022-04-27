@@ -167,21 +167,6 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
                 self?.sign()
             }
         }
-
-//        if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
-//            let passcodeVC = EnterPasscodeViewController()
-//            passcodeVC.passcodeCompletion = { [weak self] success, _ in
-//                self?.dismiss(animated: true, completion: {
-//                    if success {
-//                        self?.sign()
-//                    }
-//                })
-//            }
-//            passcodeVC.modalPresentationStyle = .fullScreen
-//            present(passcodeVC, animated: true)
-//        } else {
-//            sign()
-//        }
     }
 
     // Sign calculates an Ethereum ECDSA signature for:

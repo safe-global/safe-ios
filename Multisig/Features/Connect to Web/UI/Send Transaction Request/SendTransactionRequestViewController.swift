@@ -329,6 +329,7 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
     }
 
     func userDidSubmit() {
+        // request passcode if needed and sign
         self.actionPanelView.setConfirmEnabled(false)
 
         authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
@@ -340,29 +341,6 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
                 self.sign()
             }
         }
-
-        // request passcode if needed and sign
-//        if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
-//            self.actionPanelView.setConfirmEnabled(false)
-//
-//            let passcodeVC = EnterPasscodeViewController()
-//            passcodeVC.passcodeCompletion = { [weak self] success, _ in
-//                self?.dismiss(animated: true) {
-//                    guard let `self` = self else { return }
-//
-//                    if success {
-//                        self.sign()
-//                    }
-//
-//                    self.actionPanelView.setConfirmEnabled(true)
-//                }
-//            }
-//            let nav = UINavigationController(rootViewController: passcodeVC)
-//            nav.modalPresentationStyle = .fullScreen
-//            present(nav, animated: true)
-//        } else {
-//            sign()
-//        }
     }
 
     func sign() {

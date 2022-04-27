@@ -699,26 +699,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.dismiss(animated: false, completion: nil)
             }
         }
-
-//        if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
-//            let passcodeVC = EnterPasscodeViewController()
-//            passcodeVC.passcodeCompletion = { [weak self] success, reset in
-//                self?.dismiss(animated: true) {
-//                    guard let `self` = self else { return }
-//
-//                    if success {
-//                        self.sign()
-//                    } else if reset {
-//                        self.dismiss(animated: false, completion: nil)
-//                    }
-//                }
-//            }
-//            let nav = UINavigationController(rootViewController: passcodeVC)
-//            nav.modalPresentationStyle = .fullScreen
-//            present(nav, animated: true)
-//        } else {
-//            sign()
-//        }
     }
 
     func sign() {

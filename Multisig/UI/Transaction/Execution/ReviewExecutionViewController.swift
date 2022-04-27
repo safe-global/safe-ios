@@ -322,29 +322,6 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
 
             self.submitButton.isEnabled = true
         }
-
-        // request passcode if needed and sign
-//        if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
-//            self.submitButton.isEnabled = false
-//
-//            let passcodeVC = EnterPasscodeViewController()
-//            passcodeVC.passcodeCompletion = { [weak self] success, _ in
-//                self?.dismiss(animated: true) {
-//                    guard let `self` = self else { return }
-//
-//                    if success {
-//                        self.sign()
-//                    }
-//
-//                    self.submitButton.isEnabled = true
-//                }
-//            }
-//            let nav = UINavigationController(rootViewController: passcodeVC)
-//            nav.modalPresentationStyle = .fullScreen
-//            present(nav, animated: true)
-//        } else {
-//            sign()
-//        }
     }
 
     func estimateTransaction() {
