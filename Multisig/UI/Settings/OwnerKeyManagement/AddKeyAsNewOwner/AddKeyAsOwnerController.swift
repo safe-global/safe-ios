@@ -45,6 +45,14 @@ class AddKeyAsOwnerController: UINavigationController, UIAdaptivePresentationCon
     }
 
     func showAddOwnerSettings() {
-        //TODO: navigate to add owner & confirmations adjustment screen 
+        guard let safe = try? Safe.getSelected() else { return }
+        let confirmationsVC = EditConfirmationsViewController()
+        confirmationsVC.confirmations = Int(safe.threshold ?? 0)
+        confirmationsVC.minConfirmations = 1
+        confirmationsVC.maxConfirmations = max(1, (safe.ownersInfo ?? []).count) + 1
+        confirmationsVC.stepNumber = 1
+        confirmationsVC.maxSteps = 2
+        confirmationsVC.completion = onAdded
+        show(confirmationsVC, sender: self)
     }
 }
