@@ -10,7 +10,7 @@ import UIKit
 import BigInt
 import WalletConnectSwift
 
-class SignatureRequestViewController: WebConnectionContainerViewController, WebConnectionRequestObserver {
+class SignatureRequestViewController: WebConnectionContainerViewController, WebConnectionRequestObserver, PasscodeProtecting {
 
     var contentVC: SignatureRequestContentViewController!
     var controller: WebConnectionController!
@@ -162,20 +162,26 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
     // MARK: - Signing
 
     private func authorizeAndSign() {
-        if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
-            let passcodeVC = EnterPasscodeViewController()
-            passcodeVC.passcodeCompletion = { [weak self] success, _ in
-                self?.dismiss(animated: true, completion: {
-                    if success {
-                        self?.sign()
-                    }
-                })
+        authenticate(options: [.useForConfirmation]) { [weak self] success, _ in
+            if success {
+                self?.sign()
             }
-            passcodeVC.modalPresentationStyle = .fullScreen
-            present(passcodeVC, animated: true)
-        } else {
-            sign()
         }
+
+//        if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
+//            let passcodeVC = EnterPasscodeViewController()
+//            passcodeVC.passcodeCompletion = { [weak self] success, _ in
+//                self?.dismiss(animated: true, completion: {
+//                    if success {
+//                        self?.sign()
+//                    }
+//                })
+//            }
+//            passcodeVC.modalPresentationStyle = .fullScreen
+//            present(passcodeVC, animated: true)
+//        } else {
+//            sign()
+//        }
     }
 
     // Sign calculates an Ethereum ECDSA signature for:

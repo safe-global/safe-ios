@@ -9,7 +9,7 @@
 import UIKit
 import WalletConnectSwift
 
-class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
+class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource, PasscodeProtecting {
     private var keys: [KeyInfo] = []
     private var chainID: String?
     private var addButton: UIBarButtonItem!
@@ -93,32 +93,15 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
             guard let mnemonic = try? keyInfo.privateKey()?.mnemonic else {
                 return
             }
-            self.doAfterPasscode { [unowned self] in
-                let backupVC = BackupController(showIntro: false, seedPhrase: mnemonic)
-                self.present(backupVC, animated: true)
+            self.authenticate(biometry: false) { [unowned self] success, _ in
+                if success {
+                    let backupVC = BackupController(showIntro: false, seedPhrase: mnemonic)
+                    self.present(backupVC, animated: true)
+                }
             }
         }
 
         return cell
-    }
-
-    func doAfterPasscode(biometry: Bool = false, action: @escaping () -> Void) {
-        if App.shared.auth.isPasscodeSetAndAvailable {
-            let vc = EnterPasscodeViewController()
-            vc.usesBiometry = biometry
-            vc.passcodeCompletion = { [weak self] success, _ in
-                guard let `self` = self else { return }
-                self.dismiss(animated: true) {
-                    if success {
-                        action()
-                    }
-                }
-            }
-
-            present(vc, animated: true, completion: nil)
-        } else {
-            action()
-        }
     }
 
     // MARK: - Table view delegate

@@ -11,7 +11,7 @@ import Ethereum
 import Solidity
 import WalletConnectSwift
 
-class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CreateSafeFormUIModelDelegate {
+class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CreateSafeFormUIModelDelegate, PasscodeProtecting {
 
     @IBOutlet private weak var captionLabel: UILabel!
     @IBOutlet private weak var tableView: UITableView!
@@ -690,25 +690,35 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func userDidSubmit() {
         // request passcode if needed and sign
-        if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
-            let passcodeVC = EnterPasscodeViewController()
-            passcodeVC.passcodeCompletion = { [weak self] success, reset in
-                self?.dismiss(animated: true) {
-                    guard let `self` = self else { return }
 
-                    if success {
-                        self.sign()
-                    } else if reset {
-                        self.dismiss(animated: false, completion: nil)
-                    }
-                }
+        authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
+            guard let self = self else { return }
+            if success {
+                self.sign()
+            } else if reset {
+                self.dismiss(animated: false, completion: nil)
             }
-            let nav = UINavigationController(rootViewController: passcodeVC)
-            nav.modalPresentationStyle = .fullScreen
-            present(nav, animated: true)
-        } else {
-            sign()
         }
+
+//        if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
+//            let passcodeVC = EnterPasscodeViewController()
+//            passcodeVC.passcodeCompletion = { [weak self] success, reset in
+//                self?.dismiss(animated: true) {
+//                    guard let `self` = self else { return }
+//
+//                    if success {
+//                        self.sign()
+//                    } else if reset {
+//                        self.dismiss(animated: false, completion: nil)
+//                    }
+//                }
+//            }
+//            let nav = UINavigationController(rootViewController: passcodeVC)
+//            nav.modalPresentationStyle = .fullScreen
+//            present(nav, animated: true)
+//        } else {
+//            sign()
+//        }
     }
 
     func sign() {

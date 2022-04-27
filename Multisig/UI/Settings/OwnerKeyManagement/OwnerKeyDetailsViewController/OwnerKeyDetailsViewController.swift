@@ -11,7 +11,7 @@ import WalletConnectSwift
 
 fileprivate protocol SectionItem {}
 
-class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserver {
+class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserver, PasscodeProtecting {
     // if not nil, then back button replaced with 'Done' button
     private var completion: (() -> Void)?
     
@@ -159,28 +159,10 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
             return
         }
 
-        doAfterPasscode { [unowned self] in
-            show(exportViewController, sender: self)
-        }
-    }
-
-    // TODO: remove duplication
-    func doAfterPasscode(biometry: Bool = false, action: @escaping () -> Void) {
-        if App.shared.auth.isPasscodeSetAndAvailable {
-            let vc = EnterPasscodeViewController()
-            vc.usesBiometry = biometry
-            vc.passcodeCompletion = { [weak self] success, _ in
-                guard let `self` = self else { return }
-                self.dismiss(animated: true) {
-                    if success {
-                        action()
-                    }
-                }
+        authenticate(biometry: false) { [unowned self] success, _ in
+            if success {
+                show(exportViewController, sender: self)
             }
-
-            present(vc, animated: true, completion: nil)
-        } else {
-            action()
         }
     }
 
@@ -271,9 +253,11 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                 guard let mnemonic = try? self.keyInfo.privateKey()?.mnemonic else {
                     return
                 }
-                self.doAfterPasscode { [unowned self] in
-                    let backupVC = BackupController(showIntro: false, seedPhrase: mnemonic)
-                    self.show(backupVC, sender: self)
+                self.authenticate(biometry: false) { [unowned self] success, _ in
+                    if success {
+                        let backupVC = BackupController(showIntro: false, seedPhrase: mnemonic)
+                        self.show(backupVC, sender: self)
+                    }
                 }
             }
         case Section.Name.name:
