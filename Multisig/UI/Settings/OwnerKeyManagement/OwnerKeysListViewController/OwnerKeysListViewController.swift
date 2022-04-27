@@ -88,15 +88,37 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         let cell = tableView.dequeueCell(SigningKeyTableViewCell.self, for: indexPath)
         cell.selectionStyle = .none
         cell.configure(keyInfo: keyInfo, chainID: chainID) { [weak self] in
+            guard let self = self else { return }
             Tracker.trackEvent(.backupFromKeysList)
             guard let mnemonic = try? keyInfo.privateKey()?.mnemonic else {
                 return
             }
-            let backupVC = BackupController(showIntro: false, seedPhrase: mnemonic)
-            self?.present(backupVC, animated: true)
+            self.doAfterPasscode { [unowned self] in
+                let backupVC = BackupController(showIntro: false, seedPhrase: mnemonic)
+                self.present(backupVC, animated: true)
+            }
         }
 
         return cell
+    }
+
+    func doAfterPasscode(biometry: Bool = false, action: @escaping () -> Void) {
+        if App.shared.auth.isPasscodeSetAndAvailable {
+            let vc = EnterPasscodeViewController()
+            vc.usesBiometry = biometry
+            vc.passcodeCompletion = { [weak self] success, _ in
+                guard let `self` = self else { return }
+                self.dismiss(animated: true) {
+                    if success {
+                        action()
+                    }
+                }
+            }
+
+            present(vc, animated: true, completion: nil)
+        } else {
+            action()
+        }
     }
 
     // MARK: - Table view delegate

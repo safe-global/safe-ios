@@ -159,21 +159,28 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
             return
         }
 
+        doAfterPasscode { [unowned self] in
+            show(exportViewController, sender: self)
+        }
+    }
+
+    // TODO: remove duplication
+    func doAfterPasscode(biometry: Bool = false, action: @escaping () -> Void) {
         if App.shared.auth.isPasscodeSetAndAvailable {
             let vc = EnterPasscodeViewController()
-            vc.usesBiometry = false
+            vc.usesBiometry = biometry
             vc.passcodeCompletion = { [weak self] success, _ in
                 guard let `self` = self else { return }
                 self.dismiss(animated: true) {
                     if success {
-                        self.show(exportViewController, sender: self)
+                        action()
                     }
                 }
             }
 
             present(vc, animated: true, completion: nil)
         } else {
-            show(exportViewController, sender: self)
+            action()
         }
     }
 
@@ -257,12 +264,17 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         switch item {
         case Section.Backedup.backedup:
             return tableView.backupKeyCell(indexPath: indexPath) { [weak self] in
+                guard let self = self else { return }
+
                 Tracker.trackEvent(.backupFromKeyDetails)
-                guard let mnemonic = try? self?.keyInfo.privateKey()?.mnemonic else {
+
+                guard let mnemonic = try? self.keyInfo.privateKey()?.mnemonic else {
                     return
                 }
-                let backupVC = BackupController(showIntro: false, seedPhrase: mnemonic)
-                self?.show(backupVC, sender: self)
+                self.doAfterPasscode { [unowned self] in
+                    let backupVC = BackupController(showIntro: false, seedPhrase: mnemonic)
+                    self.show(backupVC, sender: self)
+                }
             }
         case Section.Name.name:
             return tableView.basicCell(name: keyInfo.name ?? "", indexPath: indexPath)
