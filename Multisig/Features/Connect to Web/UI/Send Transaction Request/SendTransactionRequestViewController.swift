@@ -11,7 +11,7 @@ import WalletConnectSwift
 import JsonRpc2
 import Json
 
-class SendTransactionRequestViewController: WebConnectionContainerViewController, WebConnectionRequestObserver {
+class SendTransactionRequestViewController: WebConnectionContainerViewController, WebConnectionRequestObserver, PasscodeProtecting {
 
     var controller: WebConnectionController!
     var connection: WebConnection!
@@ -330,26 +330,16 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
 
     func userDidSubmit() {
         // request passcode if needed and sign
-        if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
-            self.actionPanelView.setConfirmEnabled(false)
+        self.actionPanelView.setConfirmEnabled(false)
 
-            let passcodeVC = EnterPasscodeViewController()
-            passcodeVC.passcodeCompletion = { [weak self] success, _ in
-                self?.dismiss(animated: true) {
-                    guard let `self` = self else { return }
+        authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
+            guard let self = self else { return }
+            
+            self.actionPanelView.setConfirmEnabled(true)
 
-                    if success {
-                        self.sign()
-                    }
-
-                    self.actionPanelView.setConfirmEnabled(true)
-                }
+            if success {
+                self.sign()
             }
-            let nav = UINavigationController(rootViewController: passcodeVC)
-            nav.modalPresentationStyle = .fullScreen
-            present(nav, animated: true)
-        } else {
-            sign()
         }
     }
 

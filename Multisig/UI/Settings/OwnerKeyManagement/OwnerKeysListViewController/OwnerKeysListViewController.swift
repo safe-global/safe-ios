@@ -9,7 +9,7 @@
 import UIKit
 import WalletConnectSwift
 
-class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
+class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource, PasscodeProtecting {
     private var keys: [KeyInfo] = []
     private var chainID: String?
     private var addButton: UIBarButtonItem!
@@ -88,12 +88,17 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         let cell = tableView.dequeueCell(SigningKeyTableViewCell.self, for: indexPath)
         cell.selectionStyle = .none
         cell.configure(keyInfo: keyInfo, chainID: chainID) { [weak self] in
+            guard let self = self else { return }
             Tracker.trackEvent(.backupFromKeysList)
             guard let mnemonic = try? keyInfo.privateKey()?.mnemonic else {
                 return
             }
-            let backupVC = BackupController(showIntro: false, seedPhrase: mnemonic)
-            self?.present(backupVC, animated: true)
+            self.authenticate(biometry: false) { [unowned self] success, _ in
+                if success {
+                    let backupVC = BackupController(showIntro: false, seedPhrase: mnemonic)
+                    self.present(backupVC, animated: true)
+                }
+            }
         }
 
         return cell

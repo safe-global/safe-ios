@@ -24,7 +24,7 @@ struct AccountBalanceUIModel {
     var amount: Sol.UInt256?
 }
 
-class ChooseOwnerKeyViewController: UIViewController {
+class ChooseOwnerKeyViewController: UIViewController, PasscodeProtecting {
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var headerContentView: UIView!
@@ -245,15 +245,10 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
             }
         } else if keyInfo.keyType == .ledgerNanoX {
             completionHandler?(keyInfo)
-        } else if requestsPassCode &&
-                    App.shared.auth.isPasscodeSetAndAvailable &&
-                    AppSettings.passcodeOptions.contains(.useForConfirmation) {
-            let vc = EnterPasscodeViewController()
-            vc.passcodeCompletion = { [weak self] success, _ in
-                guard let `self` = self else { return }
-                self.completionHandler?(success ? keyInfo : nil)
+        } else if requestsPassCode {
+            authenticate(options: [.useForConfirmation]) { [weak self] success, _ in
+                self?.completionHandler?(success ? keyInfo : nil)
             }
-            show(vc, sender: self)
         } else {
             completionHandler?(keyInfo)
         }

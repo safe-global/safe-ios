@@ -11,7 +11,7 @@ import WalletConnectSwift
 
 fileprivate protocol SectionItem {}
 
-class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserver {
+class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserver, PasscodeProtecting {
     // if not nil, then back button replaced with 'Done' button
     private var completion: (() -> Void)?
     
@@ -159,21 +159,10 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
             return
         }
 
-        if App.shared.auth.isPasscodeSetAndAvailable {
-            let vc = EnterPasscodeViewController()
-            vc.usesBiometry = false
-            vc.passcodeCompletion = { [weak self] success, _ in
-                guard let `self` = self else { return }
-                self.dismiss(animated: true) {
-                    if success {
-                        self.show(exportViewController, sender: self)
-                    }
-                }
+        authenticate(biometry: false) { [unowned self] success, _ in
+            if success {
+                show(exportViewController, sender: self)
             }
-
-            present(vc, animated: true, completion: nil)
-        } else {
-            show(exportViewController, sender: self)
         }
     }
 
@@ -257,12 +246,19 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         switch item {
         case Section.Backedup.backedup:
             return tableView.backupKeyCell(indexPath: indexPath) { [weak self] in
+                guard let self = self else { return }
+
                 Tracker.trackEvent(.backupFromKeyDetails)
-                guard let mnemonic = try? self?.keyInfo.privateKey()?.mnemonic else {
+
+                guard let mnemonic = try? self.keyInfo.privateKey()?.mnemonic else {
                     return
                 }
-                let backupVC = BackupController(showIntro: false, seedPhrase: mnemonic)
-                self?.show(backupVC, sender: self)
+                self.authenticate(biometry: false) { [unowned self] success, _ in
+                    if success {
+                        let backupVC = BackupController(showIntro: false, seedPhrase: mnemonic)
+                        self.show(backupVC, sender: self)
+                    }
+                }
             }
         case Section.Name.name:
             return tableView.basicCell(name: keyInfo.name ?? "", indexPath: indexPath)

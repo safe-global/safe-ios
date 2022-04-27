@@ -14,7 +14,7 @@ import Solidity
 import WalletConnectSwift
 import SafariServices
 
-class ReviewExecutionViewController: ContainerViewController {
+class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting {
 
     private var safe: Safe!
     private var chain: Chain!
@@ -312,27 +312,15 @@ class ReviewExecutionViewController: ContainerViewController {
     }
 
     @IBAction func didTapSubmit(_ sender: Any) {
-        // request passcode if needed and sign
-        if App.shared.auth.isPasscodeSetAndAvailable && AppSettings.passcodeOptions.contains(.useForConfirmation) {
-            self.submitButton.isEnabled = false
+        self.submitButton.isEnabled = false
 
-            let passcodeVC = EnterPasscodeViewController()
-            passcodeVC.passcodeCompletion = { [weak self] success, _ in
-                self?.dismiss(animated: true) {
-                    guard let `self` = self else { return }
-
-                    if success {
-                        self.sign()
-                    }
-
-                    self.submitButton.isEnabled = true
-                }
+        authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
+            guard let self = self else { return }
+            if success {
+                self.sign()
             }
-            let nav = UINavigationController(rootViewController: passcodeVC)
-            nav.modalPresentationStyle = .fullScreen
-            present(nav, animated: true)
-        } else {
-            sign()
+
+            self.submitButton.isEnabled = true
         }
     }
 

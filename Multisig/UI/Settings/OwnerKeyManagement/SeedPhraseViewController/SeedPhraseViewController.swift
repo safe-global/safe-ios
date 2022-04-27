@@ -22,7 +22,7 @@ class SeedPhraseViewController: UIViewController {
 
         warningView.set(description: "Gnosis Safe will never ask for your seed phrase! It is encrypted and stored locally on your device.")
 
-        copyToClipboardButton.setText("Copy to Clipboard", .primary)
+        copyToClipboardButton.setText("Export", .primary)
 
         seedPhraseView.words = seedPhrase.enumerated().map {
             SeedWord(index: $0.offset, value: $0.element)
