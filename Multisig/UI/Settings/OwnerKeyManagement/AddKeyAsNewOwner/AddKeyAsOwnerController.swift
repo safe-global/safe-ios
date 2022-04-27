@@ -52,7 +52,28 @@ class AddKeyAsOwnerController: UINavigationController, UIAdaptivePresentationCon
         confirmationsVC.maxConfirmations = max(1, (safe.ownersInfo ?? []).count) + 1
         confirmationsVC.stepNumber = 1
         confirmationsVC.maxSteps = 2
-        confirmationsVC.completion = onAdded
+        confirmationsVC.completion = { [weak self] in
+            self?.showAddOwnerSuccess()
+        }
         show(confirmationsVC, sender: self)
+    }
+
+    func showAddOwnerSuccess() {
+        let successVC = SuccessViewController(
+            titleText: "Your transaction is submitted!",
+            bodyText: "It needs to be confirmed and executed first before the owner will be added.",
+            primaryAction: "View transaction details",
+            secondaryAction: "Done",
+            trackingEvent: nil)
+        successVC.onDone = { [unowned self] isPrimaryAction in
+            // TODO: open tx details if primary action called - uncomment when we have tx object
+            // NotificationCenter.default.post(
+            //     name: .initiateTxNotificationReceived,
+            //     object: self,
+            //     userInfo: isPrimaryAction ? ["transactionDetails": transaction] : [:])
+            dismiss(animated: true)
+            onAdded?()
+        }
+        show(successVC, sender: self)
     }
 }

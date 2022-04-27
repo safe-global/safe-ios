@@ -72,21 +72,21 @@ class ReviewSendFundsTransactionViewController: ReviewSafeTransactionViewControl
 
         let title = "Your transaction is queued!"
         let body = "Your request to send \(formattedAmount) \(token) is submitted and needs to be confirmed by other owners."
-        let done = "View details"
 
         let successVC = SuccessViewController(
             titleText: title,
             bodyText: body,
-            doneTitle: done,
+            primaryAction: "View details",
+            secondaryAction: "Done",
             trackingEvent: .assetsTransferSuccess)
 
-        successVC.onDone = { [weak self] in
+        successVC.onDone = { [weak self] isPrimaryAction in
             guard let self = self else { return }
             self.dismiss(animated: true) {
                 NotificationCenter.default.post(
                     name: .initiateTxNotificationReceived,
                     object: self,
-                    userInfo: ["transactionDetails": transaction])
+                    userInfo: isPrimaryAction ? ["transactionDetails": transaction] : [:])
             }
         }
 
