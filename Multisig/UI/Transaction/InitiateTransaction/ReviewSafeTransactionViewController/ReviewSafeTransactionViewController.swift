@@ -21,7 +21,8 @@ class ReviewSafeTransactionViewController: UIViewController {
     @IBOutlet private weak var estimationFailedDescriptionLabel: UILabel!
     @IBOutlet private weak var estimationFailedView: UIView!
     @IBOutlet private weak var contentContainerView: UIView!
-    @IBOutlet private weak var confirmButtonView: ActivityButtonView!
+    @IBOutlet weak var confirmButtonView: ActivityButtonView!
+    @IBOutlet weak var ribbonView: RibbonView!
 
     private var currentDataTask: URLSessionTask?
     
@@ -32,7 +33,7 @@ class ReviewSafeTransactionViewController: UIViewController {
     var nonce: UInt256String!
     var safeTxGas: UInt256String?
     var minimalNonce: UInt256String?
-
+    
     enum SectionItem {
         case header(UITableViewCell)
         case safeInfo(UITableViewCell)
@@ -59,17 +60,20 @@ class ReviewSafeTransactionViewController: UIViewController {
         navigationItem.title = "Review"
         navigationItem.backButtonTitle = "Back"
 
+
         retryButton.setText("Retry", .filled)
         descriptionLabel.setStyle(.footnote2)
 
         tableView.registerCell(EditAdvancedParametersUITableViewCell.self)
         tableView.registerCell(DetailAccountCell.self)
-        tableView.registerCell(ValueChangedTableViewCell.self)
+        tableView.registerCell(ValueChangeTableViewCell.self)
 
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
 
+        ribbonView.update(chain: safe.chain)
         loadData()
+
         confirmButtonView.state = .normal
         confirmButtonView.onClick = { [weak self] in
             guard let `self` = self else { return }
@@ -281,7 +285,8 @@ class ReviewSafeTransactionViewController: UIViewController {
                         title: "Safe details",
                         copyEnabled: false,
                         browseURL: nil,
-                        prefix: safe.chain!.shortName)
+                        prefix: safe.chain!.shortName,
+                        titleStyle: .secondary)
         return cell
     }
 

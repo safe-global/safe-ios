@@ -9,25 +9,41 @@
 import UIKit
 
 class ReviewChangeSafeTxViewController: ReviewSafeTransactionViewController {
-
     private var owner: KeyInfo!
+    private var oldOwnersCount: Int = 0
+    private var oldThreshold: Int = 0
+    private var newThreshold: Int = 0
 
-    convenience init(safe: Safe, owner: KeyInfo) {
-        self.init(safe: safe, address: owner.address)
+    private var stepLabel: UILabel!
+
+    var stepNumber: Int = 2
+    var maxSteps: Int = 2
+
+    convenience init(safe: Safe, owner: KeyInfo, oldOwnersCount: Int, oldThreshold: Int, newThreshold: Int) {
+        self.init(safe: safe,
+                  address: owner.address,
+                  data: SafeTransactionController.shared.addOwnerWithThresholdData(owner: owner.address, threshold: newThreshold))
         self.owner = owner
+        self.oldThreshold = oldThreshold
+        self.oldOwnersCount = oldOwnersCount
+        self.newThreshold = newThreshold
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
+        stepLabel.textAlignment = .right
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
+        
+        stepLabel.setStyle(.tertiary)
+        stepLabel.text = "\(stepNumber) of \(maxSteps)"
+
         assert(safe != nil)
 
         tableView.registerCell(AddRemoveOwnerTableViewCell.self)
-
-        nonce = "0"
-        safeTxGas = "0"
-        minimalNonce = "0"
-        bindData()
+        confirmButtonView.title = "Submit"
+        confirmButtonView.state = .normal
     }
 
     override func createSections() {
@@ -38,6 +54,14 @@ class ReviewChangeSafeTxViewController: ReviewSafeTransactionViewController {
                         SectionItem.advanced(parametersCell())]
     }
 
+    override func createTransaction() -> Transaction? {
+        SafeTransactionController.shared.addOwnerWithThresholdTransaction(safe: safe,
+                                                                          safeTxGas: safeTxGas,
+                                                                          nonce: nonce,
+                                                                          owner: owner.address,
+                                                                          threshold: newThreshold)
+    }
+
     override func headerCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(AddRemoveOwnerTableViewCell.self)
         cell.set(owner: owner, action: .addingOwner)
@@ -45,13 +69,17 @@ class ReviewChangeSafeTxViewController: ReviewSafeTransactionViewController {
     }
 
     func confirmationsCell() -> UITableViewCell {
-        let cell = tableView.dequeueCell(ValueChangedTableViewCell.self)
+        let cell = tableView.dequeueCell(ValueChangeTableViewCell.self)
+        cell.set(title: "Confirmations required",
+                 valueBefore: "\(oldThreshold) out of \(newThreshold)",
+                 valueAfter: "\(newThreshold) out of \(oldOwnersCount + 1)")
 
         return cell
     }
 
     func ownersCell() -> UITableViewCell {
-        let cell = tableView.dequeueCell(ValueChangedTableViewCell.self)
+        let cell = tableView.dequeueCell(ValueChangeTableViewCell.self)
+        cell.set(title: "Safe owners", valueBefore: "\(oldOwnersCount)", valueAfter: "\(oldOwnersCount + 1)")
 
         return cell
     }

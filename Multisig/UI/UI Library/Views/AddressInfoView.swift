@@ -53,7 +53,8 @@ class AddressInfoView: UINibView {
         setNeedsUpdateConstraints()
     }
 
-    func setTitle(_ text: String?) {
+    func setTitle(_ text: String?, style: GNOTextStyle = .headline) {
+        titleLabel.setStyle(style)
         titleLabel.text = text
         titleLabel.isHidden = text == nil
     }

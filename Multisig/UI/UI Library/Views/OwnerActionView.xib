@@ -22,27 +22,27 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oK0-b0-b8L" customClass="IdenticonView" customModule="Multisig" customModuleProvider="target">
-                    <rect key="frame" x="181" y="0.0" width="52" height="52"/>
+                    <rect key="frame" x="189" y="0.0" width="36" height="36"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="52" id="8UM-mz-tYy"/>
-                        <constraint firstAttribute="width" constant="52" id="n9L-VP-iKT"/>
+                        <constraint firstAttribute="height" constant="36" id="8UM-mz-tYy"/>
+                        <constraint firstAttribute="width" secondItem="oK0-b0-b8L" secondAttribute="height" id="T5k-e0-OQ2"/>
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uQj-PG-Ldx">
-                    <rect key="frame" x="0.0" y="60" width="414" height="70"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="86"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="flO-Aq-eY7">
-                            <rect key="frame" x="161.5" y="0.0" width="91.5" height="38"/>
+                            <rect key="frame" x="161.5" y="0.0" width="91.5" height="54"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Key name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0W2-Of-ECu">
-                                    <rect key="frame" x="8.5" y="0.0" width="74.5" height="20.5"/>
+                                    <rect key="frame" x="8.5" y="0.0" width="74.5" height="33.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0xAB...146F" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDF-eF-mcn">
-                                    <rect key="frame" x="0.0" y="20.5" width="91.5" height="17.5"/>
+                                    <rect key="frame" x="0.0" y="33.5" width="91.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -50,7 +50,7 @@
                             </subviews>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y1R-LJ-aet" customClass="TagView" customModule="Multisig" customModuleProvider="target">
-                            <rect key="frame" x="87" y="46" width="240" height="24"/>
+                            <rect key="frame" x="87" y="62" width="240" height="24"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="24" id="7eh-Xu-i9K"/>
