@@ -30,7 +30,7 @@ class ReviewChangeSafeTxViewController: ReviewSafeTransactionViewController {
         bindData()
     }
 
-    overridefunc headerCell() -> UITableViewCell {
+    override func headerCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(AddRemoveOwnerTableViewCell.self)
         cell.set(owner: owner, action: .addingOwner)
         return cell
