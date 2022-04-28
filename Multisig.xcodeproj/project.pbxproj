@@ -692,6 +692,8 @@
 		6A386C5F281A9D46003FBCB3 /* ReviewChangeSafeTxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A386C5E281A9D46003FBCB3 /* ReviewChangeSafeTxViewController.swift */; };
 		6A386C62281AC048003FBCB3 /* ReplaceOwnerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A386C60281AC048003FBCB3 /* ReplaceOwnerTableViewCell.swift */; };
 		6A386C63281AC048003FBCB3 /* ReplaceOwnerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A386C61281AC048003FBCB3 /* ReplaceOwnerTableViewCell.xib */; };
+		6A386C6A281ADAFD003FBCB3 /* ValueChangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A386C68281ADAFD003FBCB3 /* ValueChangeTableViewCell.swift */; };
+		6A386C6B281ADAFD003FBCB3 /* ValueChangeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A386C69281ADAFD003FBCB3 /* ValueChangeTableViewCell.xib */; };
 		6A39DC9327C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A39DC9127C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift */; };
 		6A39DC9427C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A39DC9227C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib */; };
 		6A91EFD727DA0604009E63E9 /* WCRegistryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A91EFD627DA0604009E63E9 /* WCRegistryController.swift */; };
@@ -1484,6 +1486,8 @@
 		6A386C5E281A9D46003FBCB3 /* ReviewChangeSafeTxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewChangeSafeTxViewController.swift; sourceTree = "<group>"; };
 		6A386C60281AC048003FBCB3 /* ReplaceOwnerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceOwnerTableViewCell.swift; sourceTree = "<group>"; };
 		6A386C61281AC048003FBCB3 /* ReplaceOwnerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReplaceOwnerTableViewCell.xib; sourceTree = "<group>"; };
+		6A386C68281ADAFD003FBCB3 /* ValueChangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueChangeTableViewCell.swift; sourceTree = "<group>"; };
+		6A386C69281ADAFD003FBCB3 /* ValueChangeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ValueChangeTableViewCell.xib; sourceTree = "<group>"; };
 		6A39DC9127C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentFinishedViewController.swift; sourceTree = "<group>"; };
 		6A39DC9227C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeDeploymentFinishedViewController.xib; sourceTree = "<group>"; };
 		6A91EFD627DA0604009E63E9 /* WCRegistryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCRegistryController.swift; sourceTree = "<group>"; };
@@ -1628,6 +1632,8 @@
 				6A386C5B281A7792003FBCB3 /* AddRemoveOwnerTableViewCell.xib */,
 				6A386C60281AC048003FBCB3 /* ReplaceOwnerTableViewCell.swift */,
 				6A386C61281AC048003FBCB3 /* ReplaceOwnerTableViewCell.xib */,
+				6A386C68281ADAFD003FBCB3 /* ValueChangeTableViewCell.swift */,
+				6A386C69281ADAFD003FBCB3 /* ValueChangeTableViewCell.xib */,
 			);
 			path = ReviewTransactionCells;
 			sourceTree = "<group>";
@@ -3979,6 +3985,7 @@
 				550FB1B526691D9500C13D54 /* DetailedCell.xib in Resources */,
 				0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */,
 				550FB1A026691CA300C13D54 /* DappsViewController.xib in Resources */,
+				6A386C6B281ADAFD003FBCB3 /* ValueChangeTableViewCell.xib in Resources */,
 				045769FE27C7DBBF00881206 /* SafeDeployingViewController.xib in Resources */,
 				0AE8C08925793B8C00E62B34 /* DetailArrowPiece.xib in Resources */,
 				6ADEB02827B559370062ADFE /* WebConnectionOwnerView.xib in Resources */,
@@ -4540,6 +4547,7 @@
 				B0D61701855BDBDFF8963B8B /* NavigationRouter.swift in Sources */,
 				B0D618BE28AD77EA68D0551C /* WebConnectionsViewController.swift in Sources */,
 				B0D61BA23BDD098DE8AD3008 /* CDWCRequest.swift in Sources */,
+				6A386C6A281ADAFD003FBCB3 /* ValueChangeTableViewCell.swift in Sources */,
 				B0D61252B0B0760008CF6F19 /* WebConnection.swift in Sources */,
 				B0D61AA858C67B86EC281328 /* GnosisSafeWebPeerInfo.swift in Sources */,
 				B0D61332AFA6BC824EEADB60 /* WebConnectionPeerInfo.swift in Sources */,
