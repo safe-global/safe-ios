@@ -16,8 +16,8 @@ class OwnerActionView: UINibView {
     @IBOutlet weak var actionTag: TagView!
 
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func commonInit() {
+        super.commonInit()
         nameLabel.setStyle(.primary)
         addressLabel.setStyle(.tertiary)
     }
@@ -29,10 +29,8 @@ class OwnerActionView: UINibView {
         switch action {
         case .addingOwner:
             actionTag.set(title: "Adding owner", style: .footnote2, backgroundColor: .backgroundPositive, textColor: .primary)
-            actionTag.backgroundColor = .backgroundPositive
         case .removingOwner:
-            actionTag.set(title: "Removing owner", style: .footnote2, backgroundColor = .backgroundPrimary, textColor: .labelSecondary)
-            actionTag.backgroundColor = .backgroundPrimary
+            actionTag.set(title: "Removing owner", style: .footnote2, backgroundColor: .backgroundPrimary, textColor: .labelSecondary)
         }
     }
 }

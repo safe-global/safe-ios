@@ -256,7 +256,7 @@ class ReviewSafeTransactionViewController: UIViewController {
         }
     }
 
-    private func bindData() {
+    func bindData() {
         sectionItems = [SectionItem.basic(headerCell()), SectionItem.advanced(parametersCell())]
         tableView.reloadData()
     }
@@ -266,7 +266,7 @@ class ReviewSafeTransactionViewController: UIViewController {
         return UITableViewCell()
     }
 
-    private func parametersCell() -> UITableViewCell {
+    func parametersCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(EditAdvancedParametersUITableViewCell.self)
         cell.tableView = tableView
         cell.set(nonce: nonce.description)

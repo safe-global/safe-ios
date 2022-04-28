@@ -18,28 +18,23 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="214"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="mMK-uc-WSl">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZQ-zE-uO2" customClass="OwnerActionView" customModule="Multisig" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="214"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZQ-zE-uO2" customClass="OwnerActionView" customModule="Multisig" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="214"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                        </subviews>
-                    </stackView>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="mMK-uc-WSl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="X7t-eV-3QU"/>
-                    <constraint firstAttribute="bottom" secondItem="mMK-uc-WSl" secondAttribute="bottom" id="n3z-pJ-f8A"/>
-                    <constraint firstItem="mMK-uc-WSl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="x8P-3B-Gin"/>
-                    <constraint firstAttribute="trailing" secondItem="mMK-uc-WSl" secondAttribute="trailing" id="zUV-3N-XD3"/>
+                    <constraint firstAttribute="bottom" secondItem="hZQ-zE-uO2" secondAttribute="bottom" id="CrI-3y-EJb"/>
+                    <constraint firstItem="hZQ-zE-uO2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="QbH-82-bWy"/>
+                    <constraint firstAttribute="trailing" secondItem="hZQ-zE-uO2" secondAttribute="trailing" id="RXL-Jo-0PG"/>
+                    <constraint firstItem="hZQ-zE-uO2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="cZ8-Mg-KCb"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="ownerActionView" destination="hZQ-zE-uO2" id="ogI-UL-uMq"/>
             </connections>
-            <point key="canvasLocation" x="131.8840579710145" y="181.47321428571428"/>
+            <point key="canvasLocation" x="-138" y="94"/>
         </tableViewCell>
     </objects>
     <resources>

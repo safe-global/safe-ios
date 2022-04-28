@@ -6,19 +6,34 @@
 //  Copyright © 2022 Gnosis Ltd. All rights reserved.
 //
 
+import UIKit
+
 class ReviewChangeSafeTxViewController: ReviewSafeTransactionViewController {
 
-    convenience init(safe: Safe,
-                     owner: KeyInfo) {
+    private var owner: KeyInfo!
+
+    convenience init(safe: Safe, owner: KeyInfo) {
         self.init(safe: safe, address: owner.address)
+        self.owner = owner
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        assert(safe != nil)
+        assert(safe != nil
 
         tableView.registerCell(AddRemoveOwnerTableViewCell.self)
+
+        nonce = "0"
+        safeTxGas = "0"
+        minimalNonce = "0"
+        bindData()
+    }
+
+    overridefunc headerCell() -> UITableViewCell {
+        let cell = tableView.dequeueCell(AddRemoveOwnerTableViewCell.self)
+        cell.set(owner: owner, action: .addingOwner)
+        return cell
     }
 
     override func viewDidAppear(_ animated: Bool) {

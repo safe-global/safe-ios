@@ -59,7 +59,10 @@ class AddKeyAsOwnerController: UINavigationController, UIAdaptivePresentationCon
     }
 
     func showAddOwnerReview() {
-        let addOwnerReviewVC = ReviewChangeSafeTxViewController()
+        guard let safe = try? Safe.getSelected() else { return }
+        guard let key = try? KeyInfo.all().first else { return }
+
+        let addOwnerReviewVC = ReviewChangeSafeTxViewController(safe: safe, owner: key)
         show(addOwnerReviewVC, sender: self)
         //TODO: add listeners
     }
