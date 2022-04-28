@@ -20,40 +20,42 @@ class SafeTransactionController {
         guard let owner = Sol.Address.init(maybeData:owner.data32),
               let threshold = try? Sol.UInt256.init(threshold.data32) else { return nil }
         let addOwnerABI = GnosisSafe_v1_3_0.addOwnerWithThreshold(owner: owner, _threshold: threshold).encode()
-        return Transaction.settingsChangeTransaction(safeAddress: safe.addressValue,
-                                                     data: addOwnerABI,
-                                                     safeTxGas: safeTxGas ?? "0",
-                                                     nonce: nonce,
-                                                     safeVersion: safe.contractVersion!,
-                                                     chainId: safe.chain!.id!)
+        let tx = Transaction(safeAddress: safe.addressValue,
+                             chainId: safe.chain!.id!,
+                             toAddress: safe.addressValue,
+                             contractVersion: safe.contractVersion!,
+                             amount: "0",
+                             data: addOwnerABI,
+                             safeTxGas: safeTxGas ?? "0",
+                             nonce: nonce)
+
+        return tx
     }
 
     func proposeTransaction(transaction: Transaction,
                             sender: Address,
                             chainId: String,
                             signature: String,
-                            completion: @escaping (Result<SCGModels.TransactionDetails, Error>) -> Void) {
-        App.shared.clientGatewayService.asyncProposeTransaction(transaction: transaction,
+                            completion: @escaping (Result<SCGModels.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
+        let task = App.shared.clientGatewayService.asyncProposeTransaction(transaction: transaction,
                                                                 sender: AddressString(sender),
                                                                 signature: signature,
                                                                 chainId: chainId) { result in
-            DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(600)) {
-                DispatchQueue.main.async {
-                    switch result {
-                    case .failure(let error):
-                        if (error as NSError).code == URLError.cancelled.rawValue &&
-                            (error as NSError).domain == NSURLErrorDomain {
-                            // Estimation was canceled
-                        } else {
-                            App.shared.snackbar.show(error: GSError.error(description: "Failed to create transaction", error: error))
-                        }
-                    case .success(_):
-                        break
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(600)) {
+                switch result {
+                case .failure(let error):
+                    if (error as NSError).code == URLError.cancelled.rawValue &&
+                        (error as NSError).domain == NSURLErrorDomain {
+                        // Estimation was canceled, ignore.
+                        return
                     }
 
-                    completion(result)
+                default: break
                 }
+
+                completion(result)
             }
         }
+        return task
     }
 }
