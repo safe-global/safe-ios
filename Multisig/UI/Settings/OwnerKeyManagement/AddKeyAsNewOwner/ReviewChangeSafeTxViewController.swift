@@ -30,9 +30,29 @@ class ReviewChangeSafeTxViewController: ReviewSafeTransactionViewController {
         bindData()
     }
 
+    override func createSections() {
+        sectionItems = [SectionItem.header(headerCell()),
+                        SectionItem.safeInfo(safeInfoCell()),
+                        SectionItem.valueChange(confirmationsCell()),
+                        SectionItem.valueChange(ownersCell()),
+                        SectionItem.advanced(parametersCell())]
+    }
+
     override func headerCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(AddRemoveOwnerTableViewCell.self)
         cell.set(owner: owner, action: .addingOwner)
+        return cell
+    }
+
+    func confirmationsCell() -> UITableViewCell {
+        let cell = tableView.dequeueCell(ValueChangedTableViewCell.self)
+
+        return cell
+    }
+
+    func ownersCell() -> UITableViewCell {
+        let cell = tableView.dequeueCell(ValueChangedTableViewCell.self)
+
         return cell
     }
 

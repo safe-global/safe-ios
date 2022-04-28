@@ -34,11 +34,13 @@ class ReviewSafeTransactionViewController: UIViewController {
     var minimalNonce: UInt256String?
 
     enum SectionItem {
-        case basic(UITableViewCell)
+        case header(UITableViewCell)
+        case safeInfo(UITableViewCell)
+        case valueChange(UITableViewCell)
         case advanced(UITableViewCell)
     }
 
-    private var sectionItems = [SectionItem]()
+    var sectionItems = [SectionItem]()
 
     convenience init(safe: Safe, address: Address, value: UInt256 = 0, data: Data? = nil) {
         self.init(namedClass: ReviewSafeTransactionViewController.self)
@@ -61,6 +63,8 @@ class ReviewSafeTransactionViewController: UIViewController {
         descriptionLabel.setStyle(.footnote2)
 
         tableView.registerCell(EditAdvancedParametersUITableViewCell.self)
+        tableView.registerCell(DetailAccountCell.self)
+        tableView.registerCell(ValueChangedTableViewCell.self)
 
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
@@ -257,13 +261,28 @@ class ReviewSafeTransactionViewController: UIViewController {
     }
 
     func bindData() {
-        sectionItems = [SectionItem.basic(headerCell()), SectionItem.advanced(parametersCell())]
+        createSections()
         tableView.reloadData()
+    }
+
+    func createSections() {
+        sectionItems = [SectionItem.header(headerCell()), SectionItem.advanced(parametersCell())]
     }
 
     func headerCell() -> UITableViewCell {
         assertionFailure()
         return UITableViewCell()
+    }
+
+    func safeInfoCell() -> UITableViewCell {
+        let cell = tableView.dequeueCell(DetailAccountCell.self)
+        cell.setAccount(address: safe.addressValue,
+                        label: safe.name,
+                        title: "Safe details",
+                        copyEnabled: false,
+                        browseURL: nil,
+                        prefix: safe.chain!.shortName)
+        return cell
     }
 
     func parametersCell() -> UITableViewCell {
@@ -310,8 +329,10 @@ extension ReviewSafeTransactionViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sectionItems[indexPath.row]
         switch item {
-        case SectionItem.basic(let cell): return cell
+        case SectionItem.header(let cell): return cell
+        case SectionItem.safeInfo(let cell): return cell
         case SectionItem.advanced(let cell): return cell
+        case SectionItem.valueChange(let cell): return cell
         }
     }
 }

@@ -19,13 +19,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZQ-zE-uO2" customClass="OwnerActionView" customModule="Multisig" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="214"/>
+                        <rect key="frame" x="0.0" y="16" width="320" height="198"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="hZQ-zE-uO2" secondAttribute="bottom" id="CrI-3y-EJb"/>
-                    <constraint firstItem="hZQ-zE-uO2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="QbH-82-bWy"/>
+                    <constraint firstItem="hZQ-zE-uO2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="QbH-82-bWy"/>
                     <constraint firstAttribute="trailing" secondItem="hZQ-zE-uO2" secondAttribute="trailing" id="RXL-Jo-0PG"/>
                     <constraint firstItem="hZQ-zE-uO2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="cZ8-Mg-KCb"/>
                 </constraints>
