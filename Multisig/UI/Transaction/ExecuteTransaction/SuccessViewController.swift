@@ -76,13 +76,11 @@ class SuccessViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard let trackingEvent = trackingEvent else {
-            return
-        }
-
-        Tracker.trackEvent(trackingEvent, parameters: trackingParams)
-
         animationView.play()
+
+        if let trackingEvent = trackingEvent {
+            Tracker.trackEvent(trackingEvent, parameters: trackingParams)
+        }
     }
 
     @IBAction func didTapDone(_ sender: Any) {
