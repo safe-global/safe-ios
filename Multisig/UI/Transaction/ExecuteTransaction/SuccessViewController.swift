@@ -77,7 +77,7 @@ class SuccessViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         guard let trackingEvent = trackingEvent else {
-            return
+            Tracker.trackEvent(trackingEvent)
         }
 
         Tracker.trackEvent(trackingEvent, parameters: trackingParams)

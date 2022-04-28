@@ -64,7 +64,7 @@ class AddKeyAsOwnerController: UINavigationController, UIAdaptivePresentationCon
             bodyText: "It needs to be confirmed and executed first before the owner will be added.",
             primaryAction: "View transaction details",
             secondaryAction: "Done",
-            trackingEvent: nil)
+            trackingEvent: .addAsOwnerSuccess)
         successVC.onDone = { [unowned self] isPrimaryAction in
             // TODO: open tx details if primary action called - uncomment when we have tx object
             // NotificationCenter.default.post(

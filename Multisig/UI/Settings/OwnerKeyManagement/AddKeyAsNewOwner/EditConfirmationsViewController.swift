@@ -23,6 +23,8 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
     var maxConfirmations: Int = 1
     var confirmations: Int = 1
 
+    var trackingEvent: TrackingEvent? = nil
+
     var completion: (() -> Void)?
 
     override func viewDidLoad() {
@@ -51,6 +53,13 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
 
     @IBAction func didTapButton(_ sender: Any) {
         completion?()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let trackingEvent = trackingEvent {
+            
+        }
     }
 
     // MARK: Table View Content and Events
