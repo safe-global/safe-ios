@@ -20,7 +20,7 @@ class ReviewChangeSafeTxViewController: ReviewSafeTransactionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        assert(safe != nil
+        assert(safe != nil)
 
         tableView.registerCell(AddRemoveOwnerTableViewCell.self)
 
