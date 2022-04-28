@@ -10,15 +10,15 @@ import UIKit
 
 class ReplaceOwnerTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var newOwnerView: OwnerActionView!
+    @IBOutlet weak var oldOwnerView: OwnerActionView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func set(newOwner: KeyInfo, oldOwner: KeyInfo) {
+        newOwnerView.set(owner: newOwner, action: .addingOwner)
+        oldOwnerView.set(owner: oldOwner, action: .removingOwner)
     }
-    
 }
