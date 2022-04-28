@@ -46,6 +46,11 @@ class ReviewChangeSafeTxViewController: ReviewSafeTransactionViewController {
         confirmButtonView.state = .normal
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.addAsOwnerReview)
+    }
+
     override func createSections() {
         sectionItems = [SectionItem.header(headerCell()),
                         SectionItem.safeInfo(safeInfoCell()),
