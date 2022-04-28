@@ -58,7 +58,7 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if let trackingEvent = trackingEvent {
-            
+            Tracker.trackEvent(trackingEvent)
         }
     }
 
