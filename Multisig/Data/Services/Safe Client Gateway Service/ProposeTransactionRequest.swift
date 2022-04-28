@@ -55,6 +55,7 @@ struct ProposeTransactionRequest: JSONRequest {
 }
 
 extension SafeClientGatewayService {
+    @discardableResult
     func asyncProposeTransaction(
         transaction: Transaction,
         sender: AddressString,
