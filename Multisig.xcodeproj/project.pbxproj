@@ -32,6 +32,7 @@
 		043350AF2808628E003725E2 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 043350AE2808628E003725E2 /* Lottie */; };
 		043350B92816D522003725E2 /* ReviewSafeTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043350B72816D522003725E2 /* ReviewSafeTransactionViewController.swift */; };
 		043350BA2816D522003725E2 /* ReviewSafeTransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043350B82816D522003725E2 /* ReviewSafeTransactionViewController.xib */; };
+		043350C5281887AE003725E2 /* SafeTransactionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043350C4281887AE003725E2 /* SafeTransactionController.swift */; };
 		0438C9212760120D009A0E31 /* DeleteDelegateKeyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0438C9202760120D009A0E31 /* DeleteDelegateKeyRequest.swift */; };
 		043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043913A024BF4E480006517D /* BrowseLinkButton.swift */; };
 		043963832704E25800018F74 /* AdvancedTransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043963822704E25800018F74 /* AdvancedTransactionDetailsViewController.swift */; };
@@ -824,6 +825,7 @@
 		043350AB28086126003725E2 /* SuccessAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessAnimation.json; sourceTree = "<group>"; };
 		043350B72816D522003725E2 /* ReviewSafeTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSafeTransactionViewController.swift; sourceTree = "<group>"; };
 		043350B82816D522003725E2 /* ReviewSafeTransactionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewSafeTransactionViewController.xib; sourceTree = "<group>"; };
+		043350C4281887AE003725E2 /* SafeTransactionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionController.swift; sourceTree = "<group>"; };
 		0438C9202760120D009A0E31 /* DeleteDelegateKeyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDelegateKeyRequest.swift; sourceTree = "<group>"; };
 		043913A024BF4E480006517D /* BrowseLinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseLinkButton.swift; sourceTree = "<group>"; };
 		043963822704E25800018F74 /* AdvancedTransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedTransactionDetailsViewController.swift; sourceTree = "<group>"; };
@@ -3027,6 +3029,7 @@
 				0AF432D5244F075800E22E50 /* Models */,
 				04248BD8272DF18C00431397 /* NamingPolicy.swift */,
 				045769FF27C7DBCF00881206 /* SafeCreationMonitor.swift */,
+				043350C4281887AE003725E2 /* SafeTransactionController.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -4129,6 +4132,7 @@
 				0AC5F5B325DD510600DEF0D7 /* AppUser.swift in Sources */,
 				041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */,
 				049A9D3A25F81F2C00CA5723 /* EditOwnerKeyViewController.swift in Sources */,
+				043350C5281887AE003725E2 /* SafeTransactionController.swift in Sources */,
 				0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */,
 				0A22E12725E4FA3200D24DE1 /* SwitchTableViewCell.swift in Sources */,
 				0AF1C8A52541ADFF00E28669 /* LoadingView.swift in Sources */,
@@ -4397,8 +4401,8 @@
 				0A5B157C280863DF003AD853 /* EnterPasscodeViewController.swift in Sources */,
 				D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */,
 				04576A0227C8F26100881206 /* CDEthTransaction.swift in Sources */,
-        043350B92816D522003725E2 /* ReviewSafeTransactionViewController.swift in Sources */,
-        6A252CF228169352001F0887 /* AddKeyAsOwnerIntroViewController.swift in Sources */,
+				043350B92816D522003725E2 /* ReviewSafeTransactionViewController.swift in Sources */,
+				6A252CF228169352001F0887 /* AddKeyAsOwnerIntroViewController.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				0A57C5AF2577F02100420303 /* ConfirmationCreatedPiece.swift in Sources */,
 				047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */,

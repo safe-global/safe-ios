@@ -218,6 +218,23 @@ extension Transaction {
         return transaction
     }
 
+    static func settingsChangeTransaction(safeAddress: Address,
+                                     data: Data,
+                                     safeTxGas: UInt256String,
+                                     nonce: UInt256String,
+                                     safeVersion: String,
+                                     chainId: String) -> Transaction? {
+
+        Transaction(safeAddress: safeAddress,
+                                    chainId: chainId,
+                                    toAddress: safeAddress,
+                                    contractVersion: safeVersion,
+                                    amount: "0",
+                                    data: data,
+                                    safeTxGas: safeTxGas,
+                                    nonce: nonce)
+    }
+
     var safeEncodedTxData: Data {
         [
             Safe.DefaultEIP712SafeAppTxTypeHash,
