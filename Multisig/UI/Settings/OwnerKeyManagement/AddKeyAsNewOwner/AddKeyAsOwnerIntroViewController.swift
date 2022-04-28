@@ -39,17 +39,26 @@ class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentation
         skipButton.setText("Skip", .plain)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.addAsOwnerIntro)
+    }
+
     // Called when user swipes down the modal screen
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        onSkip?()
+        didSkip()
     }
 
     @IBAction func didTapAddButton(_ sender: Any) {
         addOwnerAction()
-
     }
 
     @IBAction func didTapSkipButton(_ sender: Any) {
+        didSkip()
+    }
+
+    func didSkip() {
+        Tracker.trackEvent(.addAsOwnerIntroSkipped)
         onSkip?()
     }
 

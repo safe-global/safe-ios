@@ -263,6 +263,9 @@ enum TrackingEvent: String, Trackable {
     case backupFromKeysList                         = "user_backup_from_keys_list"
 
     // MARK: Add Key As Owner (Add Owner)
+    case addAsOwnerIntro                            = "screen_add_key_as_owner_info"
+    case addAsOwnerIntroSkipped                     = "user_skip_add_key_as_owner"
+
     case addAsOwnerChangeConfirmations              = "screen_add_owner_change_policy"
     case addAsOwnerReview                           = "screen_add_owner_review"
     case addAsOwnerSuccess                          = "screen_add_owner_success"
