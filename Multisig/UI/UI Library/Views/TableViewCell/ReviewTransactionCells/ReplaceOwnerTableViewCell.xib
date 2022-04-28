@@ -18,16 +18,26 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ajC-DR-kNV">
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ajC-DR-kNV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jz6-7Y-kvR" customClass="OwnerActionView" customModule="Multisig" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="101.5" height="44"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" image="ico-replace" translatesAutoresizingMaskIntoConstraints="NO" id="oc5-oD-ymH">
-                                <rect key="frame" x="109.5" y="10" width="101" height="24"/>
-                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Al-nC-C0Q">
+                                <rect key="frame" x="109.5" y="0.0" width="101" height="44"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" image="ico-replace" translatesAutoresizingMaskIntoConstraints="NO" id="oc5-oD-ymH">
+                                        <rect key="frame" x="38.5" y="8" width="24" height="24"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="oc5-oD-ymH" firstAttribute="top" secondItem="5Al-nC-C0Q" secondAttribute="top" constant="8" id="ESg-am-STd"/>
+                                    <constraint firstItem="oc5-oD-ymH" firstAttribute="centerX" secondItem="5Al-nC-C0Q" secondAttribute="centerX" id="pKX-KO-csW"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9s8-Qo-kNn" customClass="OwnerActionView" customModule="Multisig" customModuleProvider="target">
                                 <rect key="frame" x="218.5" y="0.0" width="101.5" height="44"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>

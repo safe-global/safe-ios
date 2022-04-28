@@ -53,9 +53,15 @@ class AddKeyAsOwnerController: UINavigationController, UIAdaptivePresentationCon
         confirmationsVC.stepNumber = 1
         confirmationsVC.maxSteps = 2
         confirmationsVC.completion = { [weak self] in
-            self?.showAddOwnerSuccess()
+            self?.showAddOwnerReview()
         }
         show(confirmationsVC, sender: self)
+    }
+
+    func showAddOwnerReview() {
+        let addOwnerReviewVC = ReviewChangeSafeTxViewController()
+        show(addOwnerReviewVC, sender: self)
+        //TODO: add listeners
     }
 
     func showAddOwnerSuccess() {
