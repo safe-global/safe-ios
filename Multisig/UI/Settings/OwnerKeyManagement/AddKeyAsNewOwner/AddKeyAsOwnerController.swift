@@ -52,6 +52,7 @@ class AddKeyAsOwnerController: UINavigationController, UIAdaptivePresentationCon
         confirmationsVC.maxConfirmations = max(1, (safe.ownersInfo ?? []).count) + 1
         confirmationsVC.stepNumber = 1
         confirmationsVC.maxSteps = 2
+        confirmationsVC.trackingEvent = .addAsOwnerChangeConfirmations
         confirmationsVC.completion = { [weak self] in
             self?.showAddOwnerSuccess()
         }
