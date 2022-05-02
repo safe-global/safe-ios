@@ -89,11 +89,6 @@ class ReviewChangeSafeTxViewController: ReviewSafeTransactionViewController {
         return cell
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        //TODO: track screen
-    }
-
     override func onSuccess(transaction: SCGModels.TransactionDetails) {
 
     }
