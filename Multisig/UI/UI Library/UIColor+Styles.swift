@@ -21,9 +21,10 @@ extension UIColor {
     static let backgroundPrimary = UIColor(named: "backgroundPrimary")!
     static let backgroundSecondary = UIColor(named: "backgroundSecondary")!
     static let backgroundTertiary = UIColor(named: "backgroundTetriary")!
+    static let backgroundQuaternary = UIColor(named: "backgroundQuaternary")!
+    static let backgroundPositive = UIColor(named: "backgroundPositive")!
     static let backgroundWarning = UIColor(named: "backgroundWarning")!
     static let backgroundError = UIColor(named: "backgroundError")!
-    static let backgroundQuaternary = UIColor(named: "backgroundQuaternary")!
     static let whiteOrBlack = UIColor(named: "backgroundWhiteOrBlack")!
     static let labelPrimary = UIColor(named: "labelPrimary")!
     static let labelSecondary = UIColor(named: "labelSecondary")!

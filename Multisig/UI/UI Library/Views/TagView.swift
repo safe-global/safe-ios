@@ -20,9 +20,13 @@ class TagView: UINibView {
         backgroundColor = .backgroundTertiary
     }
 
-    func set(title: String, style: GNOTextStyle = .footnote3) {
+    func set(title: String, style: GNOTextStyle = .footnote3, backgroundColor: UIColor = .backgroundTertiary, textColor: UIColor? = nil) {
         titleLabel.text = title
         titleLabel.setStyle(style)
+        if textColor != nil {
+            titleLabel.textColor = textColor
+        }
+        self.backgroundColor = backgroundColor
     }
 
     func setMargins(_ margins: NSDirectionalEdgeInsets) {

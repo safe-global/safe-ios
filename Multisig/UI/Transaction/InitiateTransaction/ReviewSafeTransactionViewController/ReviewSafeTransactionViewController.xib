@@ -20,6 +20,7 @@
                 <outlet property="estimationFailedView" destination="69y-qN-v82" id="r98-iL-VV3"/>
                 <outlet property="loadingActivityIndicator" destination="dOb-uQ-P41" id="8ZX-qc-hmP"/>
                 <outlet property="retryButton" destination="qx3-Bs-Q2c" id="sej-os-O5O"/>
+                <outlet property="ribbonView" destination="IRg-BM-ssd" id="LmQ-J6-MZ9"/>
                 <outlet property="tableView" destination="aov-dj-KCM" id="bJU-rQ-hHH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -91,8 +92,15 @@
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fbw-rN-H8L">
                     <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <subviews>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="aov-dj-KCM">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="711"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IRg-BM-ssd" customClass="RibbonView" customModule="Multisig" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="24"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="24" id="k1G-fN-wnx"/>
+                            </constraints>
+                        </view>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="aov-dj-KCM">
+                            <rect key="frame" x="0.0" y="24" width="414" height="687"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <connections>
                                 <outlet property="dataSource" destination="-1" id="9bW-Rl-dFG"/>
@@ -119,15 +127,18 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="gK1-hy-yCc" firstAttribute="leading" secondItem="fbw-rN-H8L" secondAttribute="leading" constant="16" id="5wj-Jc-qVs"/>
+                        <constraint firstItem="IRg-BM-ssd" firstAttribute="top" secondItem="fbw-rN-H8L" secondAttribute="top" id="7Uq-g3-XKQ"/>
                         <constraint firstAttribute="bottom" secondItem="gK1-hy-yCc" secondAttribute="bottom" constant="20" id="JoX-Wx-zVq"/>
+                        <constraint firstAttribute="trailing" secondItem="IRg-BM-ssd" secondAttribute="trailing" id="Js7-WU-ZOX"/>
+                        <constraint firstItem="IRg-BM-ssd" firstAttribute="leading" secondItem="fbw-rN-H8L" secondAttribute="leading" id="LXk-oN-khn"/>
                         <constraint firstItem="aov-dj-KCM" firstAttribute="centerX" secondItem="fbw-rN-H8L" secondAttribute="centerX" id="NpS-1a-kl8"/>
                         <constraint firstItem="Rk7-IC-5SQ" firstAttribute="centerX" secondItem="gK1-hy-yCc" secondAttribute="centerX" id="cDW-GP-gNB"/>
                         <constraint firstItem="gK1-hy-yCc" firstAttribute="top" secondItem="Rk7-IC-5SQ" secondAttribute="bottom" constant="16" id="fLl-D5-VHk"/>
                         <constraint firstItem="Rk7-IC-5SQ" firstAttribute="top" secondItem="aov-dj-KCM" secondAttribute="bottom" constant="8" symbolic="YES" id="iCI-m3-MX8"/>
                         <constraint firstAttribute="trailing" secondItem="gK1-hy-yCc" secondAttribute="trailing" constant="16" id="joI-66-upx"/>
                         <constraint firstItem="Rk7-IC-5SQ" firstAttribute="width" secondItem="gK1-hy-yCc" secondAttribute="width" id="kOx-sK-z96"/>
+                        <constraint firstItem="aov-dj-KCM" firstAttribute="top" secondItem="IRg-BM-ssd" secondAttribute="bottom" id="nbh-uJ-y8C"/>
                         <constraint firstItem="aov-dj-KCM" firstAttribute="width" secondItem="fbw-rN-H8L" secondAttribute="width" id="sAw-k1-UbF"/>
-                        <constraint firstItem="aov-dj-KCM" firstAttribute="top" secondItem="fbw-rN-H8L" secondAttribute="top" id="sEd-aJ-fXt"/>
                     </constraints>
                 </view>
             </subviews>

@@ -21,7 +21,8 @@ class ReviewSafeTransactionViewController: UIViewController {
     @IBOutlet private weak var estimationFailedDescriptionLabel: UILabel!
     @IBOutlet private weak var estimationFailedView: UIView!
     @IBOutlet private weak var contentContainerView: UIView!
-    @IBOutlet private weak var confirmButtonView: ActivityButtonView!
+    @IBOutlet weak var confirmButtonView: ActivityButtonView!
+    @IBOutlet weak var ribbonView: RibbonView!
 
     private var currentDataTask: URLSessionTask?
     
@@ -32,13 +33,15 @@ class ReviewSafeTransactionViewController: UIViewController {
     var nonce: UInt256String!
     var safeTxGas: UInt256String?
     var minimalNonce: UInt256String?
-
+    
     enum SectionItem {
-        case basic(UITableViewCell)
+        case header(UITableViewCell)
+        case safeInfo(UITableViewCell)
+        case valueChange(UITableViewCell)
         case advanced(UITableViewCell)
     }
 
-    private var sectionItems = [SectionItem]()
+    var sectionItems = [SectionItem]()
 
     convenience init(safe: Safe, address: Address, value: UInt256 = 0, data: Data? = nil) {
         self.init(namedClass: ReviewSafeTransactionViewController.self)
@@ -57,15 +60,20 @@ class ReviewSafeTransactionViewController: UIViewController {
         navigationItem.title = "Review"
         navigationItem.backButtonTitle = "Back"
 
+
         retryButton.setText("Retry", .filled)
         descriptionLabel.setStyle(.footnote2)
 
         tableView.registerCell(EditAdvancedParametersUITableViewCell.self)
+        tableView.registerCell(DetailAccountCell.self)
+        tableView.registerCell(ValueChangeTableViewCell.self)
 
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
 
+        ribbonView.update(chain: safe.chain)
         loadData()
+
         confirmButtonView.state = .normal
         confirmButtonView.onClick = { [weak self] in
             guard let `self` = self else { return }
@@ -256,9 +264,13 @@ class ReviewSafeTransactionViewController: UIViewController {
         }
     }
 
-    private func bindData() {
-        sectionItems = [SectionItem.basic(headerCell()), SectionItem.advanced(parametersCell())]
+    func bindData() {
+        createSections()
         tableView.reloadData()
+    }
+
+    func createSections() {
+        sectionItems = [SectionItem.header(headerCell()), SectionItem.advanced(parametersCell())]
     }
 
     func headerCell() -> UITableViewCell {
@@ -266,7 +278,19 @@ class ReviewSafeTransactionViewController: UIViewController {
         return UITableViewCell()
     }
 
-    private func parametersCell() -> UITableViewCell {
+    func safeInfoCell() -> UITableViewCell {
+        let cell = tableView.dequeueCell(DetailAccountCell.self)
+        cell.setAccount(address: safe.addressValue,
+                        label: safe.name,
+                        title: "Safe details",
+                        copyEnabled: false,
+                        browseURL: nil,
+                        prefix: safe.chain!.shortName,
+                        titleStyle: .secondary)
+        return cell
+    }
+
+    func parametersCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(EditAdvancedParametersUITableViewCell.self)
         cell.tableView = tableView
         cell.set(nonce: nonce.description)
@@ -310,8 +334,10 @@ extension ReviewSafeTransactionViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sectionItems[indexPath.row]
         switch item {
-        case SectionItem.basic(let cell): return cell
+        case SectionItem.header(let cell): return cell
+        case SectionItem.safeInfo(let cell): return cell
         case SectionItem.advanced(let cell): return cell
+        case SectionItem.valueChange(let cell): return cell
         }
     }
 }
