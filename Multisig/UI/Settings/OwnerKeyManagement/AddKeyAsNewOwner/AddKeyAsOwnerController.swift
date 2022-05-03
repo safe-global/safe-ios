@@ -42,6 +42,15 @@ class AddKeyAsOwnerController: UINavigationController, UIAdaptivePresentationCon
 
     func showSelectOwnerToReplace() {
         //TODO: navigate to safe owner selection
+
+        guard let safe = try? Safe.getSelected() else { return }
+        guard let key = try? KeyInfo.all().first else { return }
+
+        // TODO for now we skip to Review screen
+        // TODO select a random owner of the current select safe to be replaced
+        let ownerToBeReplaced = try! KeyInfo.keys(addresses: [safe.ownersInfo!.first!.address]).first
+        let replaceOwnerReviewVC = ReviewChangeSafeTxViewController(safe: safe, owner: key, oldOwnersCount: safe.ownersInfo?.count ?? 0, oldThreshold: Int(safe.threshold ?? 0), newThreshold: 5, ownerToBeReplaced: ownerToBeReplaced)
+        show(replaceOwnerReviewVC, sender: self)
     }
 
     func showAddOwnerSettings() {

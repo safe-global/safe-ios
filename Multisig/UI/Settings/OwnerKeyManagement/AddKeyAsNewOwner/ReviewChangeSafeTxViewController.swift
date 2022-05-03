@@ -19,7 +19,14 @@ class ReviewChangeSafeTxViewController: ReviewSafeTransactionViewController {
     var stepNumber: Int = 2
     var maxSteps: Int = 2
 
-    convenience init(safe: Safe, owner: KeyInfo, oldOwnersCount: Int, oldThreshold: Int, newThreshold: Int) {
+    private var ownerToBeReplaced: KeyInfo? = nil
+    private var replaceOwner: Bool {
+        get {
+            ownerToBeReplaced != nil ? true : false
+        }
+    }
+
+    convenience init(safe: Safe, owner: KeyInfo, oldOwnersCount: Int, oldThreshold: Int, newThreshold: Int, ownerToBeReplaced: KeyInfo? = nil) {
         self.init(safe: safe,
                   address: owner.address,
                   data: SafeTransactionController.shared.addOwnerWithThresholdData(owner: owner.address, threshold: newThreshold))
@@ -27,6 +34,7 @@ class ReviewChangeSafeTxViewController: ReviewSafeTransactionViewController {
         self.oldThreshold = oldThreshold
         self.oldOwnersCount = oldOwnersCount
         self.newThreshold = newThreshold
+        self.ownerToBeReplaced = ownerToBeReplaced
     }
 
     override func viewDidLoad() {
@@ -35,7 +43,7 @@ class ReviewChangeSafeTxViewController: ReviewSafeTransactionViewController {
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
         stepLabel.textAlignment = .right
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
-        
+
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
@@ -48,7 +56,12 @@ class ReviewChangeSafeTxViewController: ReviewSafeTransactionViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.addAsOwnerReview)
+        // TODO Needs tracking events
+//        if replaceOwner {
+//            Tracker.trackEvent(.replaceOwnerReview)
+//        } else {
+            Tracker.trackEvent(.addAsOwnerReview)
+//        }
     }
 
     override func createSections() {
