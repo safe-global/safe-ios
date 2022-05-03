@@ -65,7 +65,7 @@ class AddOwnerController: UINavigationController, UIAdaptivePresentationControll
                                                                 owner: key,
                                                                 oldOwnersCount: safe.ownersInfo?.count ?? 0,
                                                                 oldThreshold: Int(safe.threshold ?? 0),
-                                                                newThreshold: 5)
+                                                                newThreshold: Int(safe.threshold ?? 0))
         show(addOwnerReviewVC, sender: self)
         addOwnerReviewVC.onSuccess = { [weak self] transaction in
             self?.showAddOwnerSuccess(transaction: transaction)
