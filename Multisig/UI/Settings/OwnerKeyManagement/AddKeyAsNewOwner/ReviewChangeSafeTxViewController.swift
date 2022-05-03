@@ -76,7 +76,7 @@ class ReviewChangeSafeTxViewController: ReviewSafeTransactionViewController {
     func confirmationsCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(ValueChangeTableViewCell.self)
         cell.set(title: "Confirmations required",
-                 valueBefore: "\(oldThreshold) out of \(newThreshold)",
+                 valueBefore: "\(oldThreshold) out of \(oldOwnersCount)",
                  valueAfter: "\(newThreshold) out of \(oldOwnersCount + 1)")
 
         return cell

@@ -50,14 +50,14 @@ class AddOwnerController: UINavigationController, UIAdaptivePresentationControll
         confirmationsVC.stepNumber = 1
         confirmationsVC.maxSteps = 2
         confirmationsVC.trackingEvent = .addAsOwnerChangeConfirmations
-        confirmationsVC.completion = { [weak self] in
-            self?.showAddOwnerReview()
+        confirmationsVC.completion = { [weak self] confirmations in
+            self?.showAddOwnerReview(newThreshold: confirmations)
         }
 
         return confirmationsVC
     }
 
-    func showAddOwnerReview() {
+    func showAddOwnerReview(newThreshold: Int) {
         guard let safe = try? Safe.getSelected() else { return }
         guard let key = keyInfo else { return }
 
@@ -65,7 +65,7 @@ class AddOwnerController: UINavigationController, UIAdaptivePresentationControll
                                                                 owner: key,
                                                                 oldOwnersCount: safe.ownersInfo?.count ?? 0,
                                                                 oldThreshold: Int(safe.threshold ?? 0),
-                                                                newThreshold: Int(safe.threshold ?? 0))
+                                                                newThreshold: newThreshold)
         show(addOwnerReviewVC, sender: self)
         addOwnerReviewVC.onSuccess = { [weak self] transaction in
             self?.showAddOwnerSuccess(transaction: transaction)
