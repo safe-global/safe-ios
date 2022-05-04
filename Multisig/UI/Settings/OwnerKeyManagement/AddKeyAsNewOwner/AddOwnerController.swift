@@ -91,29 +91,4 @@ class AddOwnerController: UINavigationController, UIAdaptivePresentationControll
         }
         show(successVC, sender: self)
     }
-
-    func showSelectOwnerToReplace() {
-        //TODO: navigate to safe owner selection
-
-        guard let safe = try? Safe.getSelected() else { return }
-        guard let key = try? KeyInfo.all().first else { return }
-
-        // TODO for now we skip to Review screen
-        // TODO select a random owner of the current select safe to be replaced
-        let addresses =  safe.ownersInfo!.compactMap { info in
-            info.address
-        }
-        do {
-            let ownerToBeReplaced = try KeyInfo.keys(addresses: addresses).first
-            let replaceOwnerReviewVC = ReviewReplaceOwnerTxViewController(safe: safe,
-                    owner: key,
-                    oldOwnersCount: safe.ownersInfo?.count ?? 0,
-                    oldThreshold: Int(safe.threshold ?? 0),
-                    ownerToBeReplaced: ownerToBeReplaced!)
-            show(replaceOwnerReviewVC, sender: self)
-        } catch {
-            LogService.shared.info("[REPLACE_OWNER] failed")
-        }
-
-    }
 }
