@@ -208,9 +208,9 @@ class TransactionEstimationController {
             do {
                 let contractResponse = try (usingLegacyGasApi ? ethCallLegacy.result(from: result) : ethCallNew.result(from: result)).storage
 
-                let addresses = try Sol.Array<Sol.Address>(contractResponse)
+                let addresses = try GnosisSafe_v1_3_0.getOwners.Returns.init(contractResponse)
 
-                completion(.success(addresses.elements))
+                completion(.success(addresses._arg0.elements))
             } catch {
                 completion(.failure(error))
             }
