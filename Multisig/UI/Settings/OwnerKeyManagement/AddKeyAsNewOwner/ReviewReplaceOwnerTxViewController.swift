@@ -43,8 +43,6 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
         confirmButtonView.state = .normal
     }
 
-
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // TODO: Needs tracking events from separate PR
