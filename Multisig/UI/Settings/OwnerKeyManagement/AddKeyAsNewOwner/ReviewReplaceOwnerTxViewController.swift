@@ -44,8 +44,7 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // TODO: Needs tracking events from separate PR
-        //Tracker.trackEvent(.replaceOwnerReview)
+        Tracker.trackEvent(.replaceOwnerReview)
     }
 
     override func createSections() {
