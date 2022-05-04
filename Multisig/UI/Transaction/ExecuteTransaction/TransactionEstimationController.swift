@@ -168,56 +168,6 @@ class TransactionEstimationController {
         return task
     }
 
-    func getOwners(safe: Sol.Address, completion: @escaping (Result<[Sol.Address], Error>) -> Void) -> URLSessionTask? {
-        let tx: EthTransaction = Eth.TransactionEip1559(
-            to: safe,
-            input: Sol.Bytes(storage: GnosisSafe_v1_3_0.getOwners().encode())
-        )
-        // latest is the default for web3 js lib, replicating it here
-        let block: EthRpc1.BlockSpecifier = .tag(.latest)
-
-        let ethCallNew = EthRpc1.eth_call(transaction: EthRpc1.Transaction(tx), block: block)
-        let ethCallLegacy = EthRpc1.eth_callLegacyApi(transaction: EthRpc1.EstimateGasLegacyTransaction(tx), block: block)
-
-        let usingLegacyGasApi = chain.id != nil && legacyEstimateGasChainIds.contains(chain.id!)
-
-        let request: JsonRpc2.Request
-        do {
-            request = try usingLegacyGasApi ? ethCallLegacy.request(id: .int(0)) : ethCallNew.request(id: .int(0))
-        } catch {
-            dispatchOnMainThread(completion(.failure(error)))
-            return nil
-        }
-
-        let task = rpcClient.send(request: request) { response in
-            guard let response = response else {
-                completion(.failure("No response"))
-                return
-            }
-
-            if let error = response.error {
-                completion(.failure(error))
-                return
-            }
-
-            guard let result = response.result else {
-                completion(.failure("No result"))
-                return
-            }
-
-            do {
-                let contractResponse = try (usingLegacyGasApi ? ethCallLegacy.result(from: result) : ethCallNew.result(from: result)).storage
-
-                let addresses = try GnosisSafe_v1_3_0.getOwners.Returns.init(contractResponse)
-
-                completion(.success(addresses._arg0.elements))
-            } catch {
-                completion(.failure(error))
-            }
-        }
-
-        return task
-    }
 }
 
 struct TransactionEstimationError: LocalizedError {
