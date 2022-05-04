@@ -25,7 +25,7 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
 
     var trackingEvent: TrackingEvent? = nil
 
-    var completion: (() -> Void)?
+    var completion: ((Int) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +52,7 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
     }
 
     @IBAction func didTapButton(_ sender: Any) {
-        completion?()
+        completion?(confirmations)
     }
 
     override func viewDidAppear(_ animated: Bool) {

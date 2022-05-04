@@ -99,16 +99,20 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
     }
 
     func startAddKeyAsOwner() {
-        let addKeyAsOwnerController = AddKeyAsOwnerController(privateKey: privateKey)
         let onFlowFinished: (() -> Void)? = { [weak self] in
             self?.dismiss(animated: true) {
                 self?.showKeyDetails()
             }
         }
-        addKeyAsOwnerController.onAdded = onFlowFinished
-        addKeyAsOwnerController.onReplaced = onFlowFinished
-        addKeyAsOwnerController.onSkipped = onFlowFinished
-        show(addKeyAsOwnerController, sender: self)
+
+        let introVC = AddKeyAsOwnerIntroViewController(keyInfo: keyInfo)
+        introVC.onAdd = onFlowFinished
+        introVC.onReplace = onFlowFinished
+        introVC.onSkip = onFlowFinished
+
+        ViewControllerFactory.addCloseButton(introVC)
+
+        show(introVC, sender: self)
     }
 
     func showKeyDetails() {

@@ -20,6 +20,12 @@ class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentation
     var onReplace: (() -> ())?
 
     var onSkip: (() -> ())?
+    var keyInfo: KeyInfo!
+
+    convenience init(keyInfo: KeyInfo? = nil) {
+        self.init()
+        self.keyInfo = keyInfo
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,18 +69,22 @@ class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentation
     }
 
     func addOwnerAction() {
-
         let alertController = UIAlertController(
             title: nil,
             message: nil,
             preferredStyle: .actionSheet)
 
         let add = UIAlertAction(title: "Add new owner", style: .default) { [unowned self] _ in
-            self.onAdd?()
+            let addOwnerController = AddOwnerController(keyInfo: keyInfo)
+            addOwnerController.onSkipped = onSkip
+            addOwnerController.onSuccess = onAdd
+
+            show(addOwnerController, sender: self)
         }
 
         let replace = UIAlertAction(title: "Replace owner", style: .default) { [unowned self] _ in
-            self.onReplace?()
+//            self.onReplace?()
+            replaceOwnerAction()
         }
 
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -84,4 +94,30 @@ class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentation
         alertController.addAction(cancel)
         present(alertController, animated: true)
     }
+
+    func replaceOwnerAction() {
+        //TODO: navigate to safe owner selection
+
+        guard let safe = try? Safe.getSelected() else { return }
+        guard let key = try? KeyInfo.all().first else { return }
+
+        // TODO for now we skip to Review screen
+        // TODO select a random owner of the current select safe to be replaced
+        let addresses =  safe.ownersInfo!.compactMap { info in
+            info.address
+        }
+        do {
+            let ownerToBeReplaced = try KeyInfo.keys(addresses: addresses).first
+            let replaceOwnerReviewVC = ReviewReplaceOwnerTxViewController(safe: safe,
+                    owner: key,
+                    oldOwnersCount: safe.ownersInfo?.count ?? 0,
+                    oldThreshold: Int(safe.threshold ?? 0),
+                    ownerToBeReplaced: ownerToBeReplaced!)
+            show(replaceOwnerReviewVC, sender: self)
+        } catch {
+            LogService.shared.info("[REPLACE_OWNER] failed")
+        }
+
+    }
+
 }

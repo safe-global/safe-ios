@@ -36,6 +36,26 @@ class SafeTransactionController {
         return GnosisSafe_v1_3_0.addOwnerWithThreshold(owner: owner, _threshold: threshold).encode()
     }
 
+    func replaceOwner(safe: Safe, oldOwner: Address, newOwner: Address, safeTxGas: UInt256String?, nonce: UInt256String) -> Transaction? {
+        guard let data = replaceOwnerData(oldOwner: oldOwner, newOwner: newOwner) else { return nil }
+        let tx = Transaction(safeAddress: safe.addressValue,
+                             chainId: safe.chain!.id!,
+                             toAddress: safe.addressValue,
+                             contractVersion: safe.contractVersion!,
+                             amount: "0",
+                             data: data,
+                             safeTxGas: safeTxGas ?? "0",
+                             nonce: nonce)
+
+        return tx
+    }
+
+    func replaceOwnerData(oldOwner: Address, newOwner: Address) -> Data? {
+        guard let newOwner = Sol.Address.init(maybeData:newOwner.data32),
+              let oldOwner = Sol.Address.init(maybeData:oldOwner.data32) else { return nil }
+        return GnosisSafe_v1_3_0.swapOwner(prevOwner: oldOwner, oldOwner: oldOwner, newOwner: newOwner).encode()
+    }
+
     func proposeTransaction(transaction: Transaction,
                             sender: Address,
                             chainId: String,
