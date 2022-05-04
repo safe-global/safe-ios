@@ -39,8 +39,6 @@ class BackupFlow {
 
     func start() {
         intro()
-        let rootVC = navigationController.viewControllers.first!
-        rootVC.navigationItem.hidesBackButton = true
     }
 
     func intro() {
@@ -51,6 +49,7 @@ class BackupFlow {
                 stop(success: false)
             }
         }
+        intro.navigationItem.hidesBackButton = true
         show(intro)
     }
 
