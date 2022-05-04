@@ -22,17 +22,17 @@ class ValueChangeTableViewCell: UITableViewCell {
         valueAfter.setStyle(.primary)
     }
 
-    func set(title: String, valueBefore: String, valueAfter: String) {
+    func setBeforeAfter(title: String, valueBefore: String, valueAfter: String) {
         self.actionTitle.text = title
         self.valueBefore.text = valueBefore
         self.valueAfter.text = valueAfter
         self.arrow.isHidden = false
     }
 
-    func set(title: String, valueAfter: String) {
+    func set(title: String, value: String) {
         self.actionTitle.text = title
         self.valueBefore.isHidden = true
         self.arrow.isHidden = true
-        self.valueAfter.text = valueAfter
+        self.valueAfter.text = value
     }
 }
