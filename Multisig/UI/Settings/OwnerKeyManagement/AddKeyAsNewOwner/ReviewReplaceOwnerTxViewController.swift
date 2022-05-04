@@ -28,6 +28,7 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        assert(safe != nil)
 
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
         stepLabel.textAlignment = .right
@@ -35,8 +36,6 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
 
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
-
-        assert(safe != nil)
 
         tableView.registerCell(ReplaceOwnerTableViewCell.self)
         confirmButtonView.title = "Submit"
