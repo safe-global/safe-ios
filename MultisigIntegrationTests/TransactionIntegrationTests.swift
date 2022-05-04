@@ -190,6 +190,27 @@ class TransactionIntegrationTests: XCTestCase {
         try send(tx: tx, using: privateKey)
     }
 
+    func testGetOwners() throws {
+        let controller = TransactionEstimationController(rpcUri: "https://rinkeby.infura.io/v3/fda31d5c85564ae09c97b1b970e7eb33", chain: Chain.mainnetChain())
+
+        let safe: Sol.Address = "0x193BF1F9655eAA511d2255c0efF1D7693c59d77F"
+
+        let exp = expectation(description: "get owners")
+
+        controller.getOwners(safe: safe) { result in
+            do {
+                let addresses = try result.get()
+                print(addresses)
+            } catch {
+                XCTFail("Failed: \(error)")
+            }
+
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 15)
+    }
+
     func send(tx: EthTransaction, using privateKey: PrivateKey, line: UInt = #line) throws {
         var tx = tx
 

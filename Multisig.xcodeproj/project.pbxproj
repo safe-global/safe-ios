@@ -531,7 +531,6 @@
 		0AF64FA524475BC30018D070 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA424475BC30018D070 /* SafariViewController.swift */; };
 		0AF78A3027E0AAD3001BAFE0 /* WCAppRegistryEntryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF78A2F27E0AAD3001BAFE0 /* WCAppRegistryEntryTests.swift */; };
 		0AF78A3227E0E07B001BAFE0 /* PendingWalletActionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF78A3127E0E07B001BAFE0 /* PendingWalletActionViewController.xib */; };
-		0AF78A3327E0F7CD001BAFE0 /* KeyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A95893F25EFBE1E005011D7 /* KeyInfo.swift */; };
 		0AF78A3527E0FB21001BAFE0 /* AddKeyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF78A3427E0FB20001BAFE0 /* AddKeyNavigationController.swift */; };
 		0AF8832225A5EC1F00029A43 /* ActionDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF8832125A5EC1F00029A43 /* ActionDetailTableViewCell.swift */; };
 		0AFA729C24BF361600A370EE /* SlicedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729B24BF361600A370EE /* SlicedString.swift */; };
@@ -4634,7 +4633,6 @@
 				0A109E2F268A240F00226708 /* ChainTests.swift in Sources */,
 				0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */,
 				550A6182268A23A9002C02E1 /* SafeNetworkMigrationTests.swift in Sources */,
-				0AF78A3327E0F7CD001BAFE0 /* KeyInfo.swift in Sources */,
 				0A01DCE42770B0A100A87D7A /* TransactionIntegrationTests.swift in Sources */,
 				0A61E83E2670DED5009D68A4 /* BalanceTableViewCellTests.swift in Sources */,
 				0A3DFEF72667D1C000B45770 /* CoreDataTestCase.swift in Sources */,
