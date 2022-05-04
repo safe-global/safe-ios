@@ -83,7 +83,7 @@ class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentation
         }
 
         let replace = UIAlertAction(title: "Replace owner", style: .default) { [unowned self] _ in
-//            self.onReplace?()
+            // TODO replace replaceOwnerAction() with self.onReplace?() when completing the integration. Then remove replaceOwnerAction() definition
             replaceOwnerAction()
         }
 
