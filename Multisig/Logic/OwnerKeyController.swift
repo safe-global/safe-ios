@@ -10,6 +10,15 @@ import Foundation
 import WalletConnectSwift
 
 class OwnerKeyController {
+
+    static func generate() -> PrivateKey {
+        // 16 bit = 12 words
+        let seed = Data.randomBytes(length: 16)!
+        let mnemonic = BIP39.generateMnemonicsFromEntropy(entropy: seed)!
+        let key = try! PrivateKey(mnemonic: mnemonic, pathIndex: 0)
+        return key
+    }
+
     static func importKey(_ privateKey: PrivateKey, name: String, isDrivedFromSeedPhrase: Bool) -> Bool {
         do {
             try KeyInfo.import(address: privateKey.address, name: name, privateKey: privateKey)

@@ -411,6 +411,7 @@
 		0AB5DF8F270DD185005BFB43 /* CreateDelegateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB5DF8E270DD185005BFB43 /* CreateDelegateRequest.swift */; };
 		0AB5DFB3270F48EB005BFB43 /* LedgerSignerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB5DFB2270F48EB005BFB43 /* LedgerSignerViewController.swift */; };
 		0ABAFDB324ACB3B6007EBB92 /* SnackbarCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */; };
+		0ABC00202823058200F42D29 /* GenerateKeyFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC001F2823058100F42D29 /* GenerateKeyFlow.swift */; };
 		0ABC898F2576B857005D555B /* SCGModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC898E2576B857005D555B /* SCGModels.swift */; };
 		0ABE6983279177A4003338AF /* TransactionEstimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE6982279177A4003338AF /* TransactionEstimationController.swift */; };
 		0ABE69852791B47B003338AF /* Fee1559FormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE69842791B47B003338AF /* Fee1559FormModel.swift */; };
@@ -589,7 +590,6 @@
 		55413673265E493500796F91 /* AddOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55413672265E493500796F91 /* AddOwnerKeyViewController.swift */; };
 		55413677265E4A0000796F91 /* AddOwnerKeyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */; };
 		55413678265E4A0000796F91 /* AddOwnerKeyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55413676265E4A0000796F91 /* AddOwnerKeyCell.xib */; };
-		5541367C265E58B200796F91 /* OnboardingGenerateKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541367B265E58B200796F91 /* OnboardingGenerateKeyViewController.swift */; };
 		554A16B3266E4D4900807049 /* EIP712Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554A16B2266E4D4900807049 /* EIP712Transformer.swift */; };
 		555312E9250653800008206B /* BIP32HDNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312E8250653800008206B /* BIP32HDNode.swift */; };
 		555312EB2506608D0008206B /* Base58.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555312EA2506608D0008206B /* Base58.swift */; };
@@ -1199,6 +1199,7 @@
 		0AB5DF8E270DD185005BFB43 /* CreateDelegateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDelegateRequest.swift; sourceTree = "<group>"; };
 		0AB5DFB2270F48EB005BFB43 /* LedgerSignerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerSignerViewController.swift; sourceTree = "<group>"; };
 		0ABAFDB224ACB3B6007EBB92 /* SnackbarCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarCenter.swift; sourceTree = "<group>"; };
+		0ABC001F2823058100F42D29 /* GenerateKeyFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateKeyFlow.swift; sourceTree = "<group>"; };
 		0ABC898E2576B857005D555B /* SCGModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCGModels.swift; sourceTree = "<group>"; };
 		0ABE6982279177A4003338AF /* TransactionEstimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEstimationController.swift; sourceTree = "<group>"; };
 		0ABE69842791B47B003338AF /* Fee1559FormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fee1559FormModel.swift; sourceTree = "<group>"; };
@@ -1381,7 +1382,6 @@
 		55413672265E493500796F91 /* AddOwnerKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerKeyViewController.swift; sourceTree = "<group>"; };
 		55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerKeyCell.swift; sourceTree = "<group>"; };
 		55413676265E4A0000796F91 /* AddOwnerKeyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOwnerKeyCell.xib; sourceTree = "<group>"; };
-		5541367B265E58B200796F91 /* OnboardingGenerateKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGenerateKeyViewController.swift; sourceTree = "<group>"; };
 		554A16B2266E4D4900807049 /* EIP712Transformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EIP712Transformer.swift; sourceTree = "<group>"; };
 		555312E8250653800008206B /* BIP32HDNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIP32HDNode.swift; sourceTree = "<group>"; };
 		555312EA2506608D0008206B /* Base58.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base58.swift; sourceTree = "<group>"; };
@@ -3147,7 +3147,7 @@
 		5541367A265E566B00796F91 /* GenerateOwnerKey */ = {
 			isa = PBXGroup;
 			children = (
-				5541367B265E58B200796F91 /* OnboardingGenerateKeyViewController.swift */,
+				0ABC001F2823058100F42D29 /* GenerateKeyFlow.swift */,
 			);
 			path = GenerateOwnerKey;
 			sourceTree = "<group>";
@@ -4372,7 +4372,6 @@
 				0ADA911225656FEC0004DEC0 /* TransactionListViewController.swift in Sources */,
 				3E373F7D2631784200D8107A /* BlockchainDomainManager.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
-				5541367C265E58B200796F91 /* OnboardingGenerateKeyViewController.swift in Sources */,
 				0A5B158228086424003AD853 /* RepeatPasscodeViewController.swift in Sources */,
 				0AF1C9142541C68000E28669 /* BalancesViewController.swift in Sources */,
 				D80B5A0F276A367A00D6E024 /* AddOwnerFirstViewController.swift in Sources */,
@@ -4526,6 +4525,7 @@
 				55F91A9225BEABA100938475 /* EnterKeyOrSeedPhraseViewController.swift in Sources */,
 				04B4B5F725B754D600CFE24B /* AccountActionCompletedViewController.swift in Sources */,
 				0A5F4831254C56CE0069C98D /* AddSafeTableViewCell.swift in Sources */,
+				0ABC00202823058200F42D29 /* GenerateKeyFlow.swift in Sources */,
 				0A5C2DCE25628277009808CB /* SafeInfoViewController.swift in Sources */,
 				0AC60C512549AF2200A63AE2 /* NoSafeBarView.swift in Sources */,
 				0A007124254B255C00A57CAF /* UIFont+Styles.swift in Sources */,

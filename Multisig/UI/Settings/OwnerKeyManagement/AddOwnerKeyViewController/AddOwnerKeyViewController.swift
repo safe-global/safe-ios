@@ -75,6 +75,8 @@ class AddOwnerKeyViewController: UITableViewController {
         return cell
     }
 
+    var generateKeyFlow: GenerateKeyFlow!
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let controller: UIViewController
 
@@ -83,7 +85,15 @@ class AddOwnerKeyViewController: UITableViewController {
             controller = OnboardingImportOwnerKeyViewController(completion: completion)
 
         case .deviceGenerated:
-            controller = OnboardingGenerateKeyViewController(completion: completion)
+            guard let navigationController = navigationController else {
+                return
+            }
+            generateKeyFlow = GenerateKeyFlow(navigationController: navigationController, completion: { [unowned self] success in
+                generateKeyFlow = nil
+                completion()
+            })
+            generateKeyFlow.start()
+            return
 
         case .walletConnect:
             controller = OnboardingConnectOwnerKeyViewController(completion: completion)

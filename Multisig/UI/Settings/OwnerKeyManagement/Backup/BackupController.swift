@@ -8,6 +8,34 @@
 
 import UIKit
 
+class UIFlow {
+
+    var navigationController: UINavigationController
+    var completion: (_ success: Bool) -> Void
+
+    internal init(navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+        self.navigationController = navigationController
+        self.completion = completion
+    }
+
+    func start() {
+
+    }
+
+    func stop(success: Bool) {
+        completion(success)
+    }
+
+    func show(_ vc: UIViewController) {
+        if navigationController.viewControllers.isEmpty {
+            navigationController.viewControllers = [vc]
+        } else {
+            navigationController.show(vc, sender: navigationController)
+        }
+    }
+
+}
+
 //
 // Rationale for implementing UI navigation with a "flow", "factory", and separate view controllers.
 //
@@ -18,7 +46,7 @@ import UIKit
 // I want the flow to be stand-alone when opened from different places in the app --> create a navigation controller for the standalone case
 // I want to have variations in the flows based on where it should be opened or based on the passed in parameters --> sub-class or enum/bool flags. If more variations can be added in the future, then it is better to subclass.
 //
-class BackupFlow {
+class BackupFlow: UIFlow {
     // Backup flow variation for suggesting backup after generating a key:
     //
     // existing navigation -> intro -> seed -> verify -> success -> completed
@@ -26,18 +54,15 @@ class BackupFlow {
     //                               -> canceled
 
     var mnemonic: String
-    var navigationController: UINavigationController
     var factory: BackupFlowFactory
-    var completion: (_ success: Bool) -> Void
 
-    init(mnemonic: String, navigationController: UINavigationController, factory: BackupFlowFactory = BackupFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
+    init(mnemonic: String, factory: BackupFlowFactory = BackupFlowFactory(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
         self.mnemonic = mnemonic
-        self.navigationController = navigationController
         self.factory = factory
-        self.completion = completion
+        super.init(navigationController: navigationController, completion: completion)
     }
 
-    func start() {
+    override func start() {
         intro()
     }
 
@@ -82,18 +107,6 @@ class BackupFlow {
         }
         show(success)
     }
-
-    func stop(success: Bool) {
-        completion(success)
-    }
-
-    func show(_ vc: UIViewController) {
-        if navigationController.viewControllers.isEmpty {
-            navigationController.viewControllers = [vc]
-        } else {
-            navigationController.show(vc, sender: navigationController)
-        }
-    }
 }
 
 class ModalBackupFlow: BackupFlow {
@@ -116,8 +129,8 @@ class ModalBackupFlow: BackupFlow {
         self.presenter = presenter
         let navigationController = CancellableNavigationController()
         super.init(mnemonic: mnemonic,
-                   navigationController: navigationController,
                    factory: factory,
+                   navigationController: navigationController,
                    completion: completion)
 
         navigationController.onCancel = { [unowned self] in

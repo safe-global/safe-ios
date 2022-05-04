@@ -9,19 +9,6 @@
 import Foundation
 import UIKit
 
-class AddKeyParameters {
-    var address: Address
-    var keyName: String?
-    var badgeName: String
-    var keyNameTrackingEvent: TrackingEvent
-
-    init(address: Address, keyName: String?, badgeName: String, keyNameTrackingEvent: TrackingEvent = .enterKeyName) {
-        self.address = address
-        self.keyName = keyName
-        self.badgeName = badgeName
-        self.keyNameTrackingEvent = keyNameTrackingEvent
-    }
-}
 
 // base class for onboarding screens when addding a key
 class AddKeyOnboardingViewController: UITableViewController {
@@ -44,8 +31,7 @@ class AddKeyOnboardingViewController: UITableViewController {
     // set by a controller during some step in the flow
     var keyParameters: AddKeyParameters?
 
-    var completion: () -> Void = {
-    }
+    var completion: () -> Void = { }
 
     convenience init(cards: [Card], viewTrackingEvent: TrackingEvent, completion: @escaping () -> Void) {
         self.init()
@@ -72,6 +58,7 @@ class AddKeyOnboardingViewController: UITableViewController {
 
     @objc func didTapNextButton(_ sender: Any) {
         // to override
+        completion()
     }
 
     // MARK: - Table view data source
