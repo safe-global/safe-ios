@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReviewChangeSafeTxViewController: ReviewSafeTransactionViewController {
+class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
     private var owner: KeyInfo!
     private var oldOwnersCount: Int = 0
     private var oldThreshold: Int = 0

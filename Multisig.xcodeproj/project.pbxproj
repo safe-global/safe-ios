@@ -692,7 +692,7 @@
 		6A252CF928185148001F0887 /* OwnerActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A252CF828185148001F0887 /* OwnerActionView.xib */; };
 		6A386C5C281A7792003FBCB3 /* AddRemoveOwnerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A386C5A281A7792003FBCB3 /* AddRemoveOwnerTableViewCell.swift */; };
 		6A386C5D281A7792003FBCB3 /* AddRemoveOwnerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A386C5B281A7792003FBCB3 /* AddRemoveOwnerTableViewCell.xib */; };
-		6A386C5F281A9D46003FBCB3 /* ReviewChangeSafeTxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A386C5E281A9D46003FBCB3 /* ReviewChangeSafeTxViewController.swift */; };
+		6A386C5F281A9D46003FBCB3 /* ReviewAddOwnerTxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A386C5E281A9D46003FBCB3 /* ReviewAddOwnerTxViewController.swift */; };
 		6A386C62281AC048003FBCB3 /* ReplaceOwnerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A386C60281AC048003FBCB3 /* ReplaceOwnerTableViewCell.swift */; };
 		6A386C63281AC048003FBCB3 /* ReplaceOwnerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A386C61281AC048003FBCB3 /* ReplaceOwnerTableViewCell.xib */; };
 		6A386C6A281ADAFD003FBCB3 /* ValueChangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A386C68281ADAFD003FBCB3 /* ValueChangeTableViewCell.swift */; };
@@ -1490,7 +1490,7 @@
 		6A252CF828185148001F0887 /* OwnerActionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OwnerActionView.xib; sourceTree = "<group>"; };
 		6A386C5A281A7792003FBCB3 /* AddRemoveOwnerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRemoveOwnerTableViewCell.swift; sourceTree = "<group>"; };
 		6A386C5B281A7792003FBCB3 /* AddRemoveOwnerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddRemoveOwnerTableViewCell.xib; sourceTree = "<group>"; };
-		6A386C5E281A9D46003FBCB3 /* ReviewChangeSafeTxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewChangeSafeTxViewController.swift; sourceTree = "<group>"; };
+		6A386C5E281A9D46003FBCB3 /* ReviewAddOwnerTxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewAddOwnerTxViewController.swift; sourceTree = "<group>"; };
 		6A386C60281AC048003FBCB3 /* ReplaceOwnerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceOwnerTableViewCell.swift; sourceTree = "<group>"; };
 		6A386C61281AC048003FBCB3 /* ReplaceOwnerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReplaceOwnerTableViewCell.xib; sourceTree = "<group>"; };
 		6A386C68281ADAFD003FBCB3 /* ValueChangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueChangeTableViewCell.swift; sourceTree = "<group>"; };
@@ -3450,7 +3450,7 @@
 				0A5C0C512818204F0061D96F /* EditConfirmationsViewController.xib */,
 				6A252CF028169352001F0887 /* AddKeyAsOwnerIntroViewController.swift */,
 				6A252CF128169352001F0887 /* AddKeyAsOwnerIntroViewController.xib */,
-				6A386C5E281A9D46003FBCB3 /* ReviewChangeSafeTxViewController.swift */,
+				6A386C5E281A9D46003FBCB3 /* ReviewAddOwnerTxViewController.swift */,
 				6A252CF42816C9C1001F0887 /* AddOwnerController.swift */,
 				04924B0D281FD75200643B4B /* ReplaceOwnerController.swift */,
 				AD303A2303B63B1408463F64 /* ReviewReplaceOwnerTxViewController.swift */,
@@ -4353,7 +4353,7 @@
 				0A5C0C542818204F0061D96F /* EditConfirmationsViewController.swift in Sources */,
 				0A451C00252DDB67001DB7D2 /* ReloadButton.swift in Sources */,
 				557D80B1270B32F80036D6D0 /* WCIncomingTransactionRequestViewController.swift in Sources */,
-				6A386C5F281A9D46003FBCB3 /* ReviewChangeSafeTxViewController.swift in Sources */,
+				6A386C5F281A9D46003FBCB3 /* ReviewAddOwnerTxViewController.swift in Sources */,
 				0A791DA124D30FE100D70DA9 /* Spacing.swift in Sources */,
 				557D80AE270B32F80036D6D0 /* WalletConnectSafesServerController.swift in Sources */,
 				55A58534250140B1005E778B /* PrivateKey.swift in Sources */,
