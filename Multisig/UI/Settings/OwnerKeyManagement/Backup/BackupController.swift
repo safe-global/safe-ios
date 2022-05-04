@@ -8,115 +8,23 @@
 
 import UIKit
 
-class BackupController: UINavigationController, UIAdaptivePresentationControllerDelegate {
-    
-    private var seedPhrase: String!
-    
-    private lazy var privateKey: PrivateKey = {
-        try! PrivateKey(mnemonic: seedPhrase, pathIndex: 0)
-    }()
-    
-    var onComplete: (() -> Void)?
-    var onCancel: (() -> Void)?
-    
-    convenience init(showIntro: Bool, seedPhrase: String) {
-        self.init()
-        self.seedPhrase = seedPhrase
-        let rootVC = showIntro ? createBackupIntro() : createBackupSeedPhrase()
-        ViewControllerFactory.addCloseButton(rootVC)
-        viewControllers = [rootVC]
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        presentationController?.delegate = self
-    }
-
-    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        onCancel?()
-    }
-
-    func createBackupIntro() -> UIViewController {
-        let backupVC = BackupIntroViewController()
-        backupVC.backupCompletion = { [unowned self] startBackup in
-            if startBackup {
-                showBackupSeedPhrase()
-            } else {
-                onCancel?()
-            }
-        }
-        return backupVC
-    }
-
-    func createBackupSeedPhrase() -> UIViewController {
-        let backupVC = BackupSeedPhraseViewController()
-        backupVC.seedPhrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) }!
-        backupVC.onContinue = { [unowned self] in
-            showVerifySeedPhrase()
-        }
-        return backupVC
-    }
-    
-    func showBackupSeedPhrase() {
-        let backupVC = createBackupSeedPhrase()
-        show(backupVC, sender: self)
-    }
-
-    func showVerifySeedPhrase() {
-        let verifyVC = VerifyPhraseViewController()
-        verifyVC.phrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) } ?? []
-        verifyVC.completion = { [unowned self] in
-            updateKey()
-            showBackupSuccess()
-        }
-        show(verifyVC, sender: self)
-    }
-
-    func showBackupSuccess() {
-        Tracker.trackEvent(.backupCreatedSuccessfully)
-        let successVC = SuccessViewController(
-            titleText: "Your key is backed up!",
-            bodyText: "If you lose your phone, you can recover this key with the seed phrase you just backed up.",
-            primaryAction: "OK, great",
-            secondaryAction: nil,
-            trackingEvent: nil
-        )
-        successVC.onDone = { [unowned self] _ in
-            self.dismiss(animated: true)
-            onComplete?()
-        }
-        show(successVC, sender: self)
-    }
-    
-    private func updateKey() {
-        let keyItem = try? KeyInfo.firstKey(address: privateKey.address)
-        keyItem?.backedup = true
-        keyItem?.save()
-        NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
-    }
-}
-
-// Rationale for design decisions about UI navigation between screens:
+//
+// Rationale for implementing UI navigation with a "flow", "factory", and separate view controllers.
 //
 // I want view controllers to be usable in different contexts --> isolate them
-// I want to have controller creation with parameters in different flows --> have a factory
-// I want the whole flow to be defined in one space --> create an object for that
+// I want to create view controllers with parameters in different flows --> use factory pattern
+// I want the whole flow to be defined in one place --> create an object for that ('flow')
 // I want the flow to be integratable into existing navigation stack --> pass the navigation controller to work with
 // I want the flow to be stand-alone when opened from different places in the app --> create a navigation controller for the standalone case
-// I want to have variations in the flows based on where it should be opened or based on the passed in parameters --> sub-class or enum. If more variations can be added in the future, then it is better to subclass
-
-// Base variation for suggesting backup after generating a key:
+// I want to have variations in the flows based on where it should be opened or based on the passed in parameters --> sub-class or enum/bool flags. If more variations can be added in the future, then it is better to subclass.
 //
-// existing navigation -> intro -> seed -> verify -> success -> completed
-//                              \
-//                               -> canceled
-//
-// Another variation for a standalone backup flow:
-//
-// modal -> passcode -> seed -> verify -> success -> completed
-//                    \
-//                     -> canceled
 class BackupFlow {
+    // Backup flow variation for suggesting backup after generating a key:
+    //
+    // existing navigation -> intro -> seed -> verify -> success -> completed
+    //                              \
+    //                               -> canceled
+
     var mnemonic: String
     var navigationController: UINavigationController
     var factory: BackupFlowFactory
@@ -129,23 +37,10 @@ class BackupFlow {
         self.completion = completion
     }
 
-    init(mnemonic: String, factory: BackupFlowFactory = BackupFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
-        self.mnemonic = mnemonic
-        self.factory = factory
-        self.completion = completion
-        self.navigationController = factory.navigation()
-    }
-
     func start() {
-        if let nav = navigationController as? CancellableNavigationController {
-            nav.onCancel = { [unowned self] in
-                stop(success: false)
-            }
-
-            seed()
-        } else {
-            intro()
-        }
+        intro()
+        let rootVC = navigationController.viewControllers.first!
+        rootVC.navigationItem.hidesBackButton = true
     }
 
     func intro() {
@@ -156,8 +51,6 @@ class BackupFlow {
                 stop(success: false)
             }
         }
-        // TODO: this is only for the embedded flow
-        intro.navigationItem.hidesBackButton = true
         show(intro)
     }
 
@@ -176,7 +69,6 @@ class BackupFlow {
         show(verify)
     }
 
-    // TODO: perhaps move it to a business logic
     func updateKey() {
         guard let privateKey = (try? PrivateKey(mnemonic: mnemonic, pathIndex: 0)) else { return }
         let keyItem = try? KeyInfo.firstKey(address: privateKey.address)
@@ -197,7 +89,55 @@ class BackupFlow {
     }
 
     func show(_ vc: UIViewController) {
-        navigationController.show(vc, sender: navigationController)
+        if navigationController.viewControllers.isEmpty {
+            navigationController.viewControllers = [vc]
+        } else {
+            navigationController.show(vc, sender: navigationController)
+        }
+    }
+}
+
+class ModalBackupFlow: BackupFlow {
+    // Modification of the base backup flow to make it a standalone:
+    //
+    // modal -> passcode -> seed -> verify -> success -> completed
+    //                    \
+    //                     -> canceled
+
+    weak var presenter: UIViewController!
+
+    convenience init?(keyInfo: KeyInfo, presenter: UIViewController, factory: BackupFlowFactory = BackupFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
+        guard let mnemonic = try? keyInfo.privateKey()?.mnemonic else {
+            return nil
+        }
+        self.init(mnemonic: mnemonic, presenter: presenter, factory: factory, completion: completion)
+    }
+
+    init(mnemonic: String, presenter: UIViewController, factory: BackupFlowFactory = BackupFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
+        self.presenter = presenter
+        let navigationController = CancellableNavigationController()
+        super.init(mnemonic: mnemonic,
+                   navigationController: navigationController,
+                   factory: factory,
+                   completion: completion)
+
+        navigationController.onCancel = { [unowned self] in
+            stop(success: false)
+        }
+    }
+
+    override func start() {
+        seed()
+        // guaranteed to exist at this point
+        let rootVC = navigationController.viewControllers.first!
+        ViewControllerFactory.addCloseButton(rootVC)
+        presenter.present(navigationController, animated: true)
+    }
+
+    override func stop(success: Bool) {
+        presenter.dismiss(animated: true) { [unowned self] in
+            completion(success)
+        }
     }
 }
 
@@ -232,24 +172,5 @@ class BackupFlowFactory {
         )
         successVC.onDone = completion
         return successVC
-    }
-
-    func navigation() -> CancellableNavigationController {
-        let nav = CancellableNavigationController()
-        return nav
-    }
-}
-
-class CancellableNavigationController: UINavigationController, UIAdaptivePresentationControllerDelegate {
-
-    var onCancel: (() -> Void)?
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        presentationController?.delegate = self
-    }
-
-    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        onCancel?()
     }
 }

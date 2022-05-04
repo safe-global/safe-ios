@@ -534,6 +534,7 @@
 		0AF78A3327E0F7CD001BAFE0 /* KeyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A95893F25EFBE1E005011D7 /* KeyInfo.swift */; };
 		0AF78A3527E0FB21001BAFE0 /* AddKeyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF78A3427E0FB20001BAFE0 /* AddKeyNavigationController.swift */; };
 		0AF8832225A5EC1F00029A43 /* ActionDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF8832125A5EC1F00029A43 /* ActionDetailTableViewCell.swift */; };
+		0AF8D1AC2822DFA20035DCF7 /* CancellableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF8D1AB2822DFA20035DCF7 /* CancellableNavigationController.swift */; };
 		0AFA729C24BF361600A370EE /* SlicedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729B24BF361600A370EE /* SlicedString.swift */; };
 		0AFA729E24BF363400A370EE /* SlicedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729D24BF363400A370EE /* SlicedText.swift */; };
 		0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA729F24BF368900A370EE /* SlicedText+Address.swift */; };
@@ -1322,6 +1323,7 @@
 		0AF7F765247FC28B00527014 /* Config.Example.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.Example.xcconfig; sourceTree = "<group>"; };
 		0AF7F76F247FC49600527014 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		0AF8832125A5EC1F00029A43 /* ActionDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDetailTableViewCell.swift; sourceTree = "<group>"; };
+		0AF8D1AB2822DFA20035DCF7 /* CancellableNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellableNavigationController.swift; sourceTree = "<group>"; };
 		0AFA729B24BF361600A370EE /* SlicedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlicedString.swift; sourceTree = "<group>"; };
 		0AFA729D24BF363400A370EE /* SlicedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlicedText.swift; sourceTree = "<group>"; };
 		0AFA729F24BF368900A370EE /* SlicedText+Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SlicedText+Address.swift"; sourceTree = "<group>"; };
@@ -3425,6 +3427,7 @@
 			isa = PBXGroup;
 			children = (
 				0A5B157928085BC1003AD853 /* BackupController.swift */,
+				0AF8D1AB2822DFA20035DCF7 /* CancellableNavigationController.swift */,
 				6A9A770A2804182700C229FC /* BackupIntroViewController.swift */,
 				6A9A770B2804182700C229FC /* BackupIntroViewController.xib */,
 				6A1CFA4D28081A1200B2C340 /* BackupSeedPhraseViewController.swift */,
@@ -4211,6 +4214,7 @@
 				0AA9F2532498CC70005BD60F /* UInt256String.swift in Sources */,
 				55FBC2D526BA91E4002C2553 /* SelectLedgerDeviceViewController.swift in Sources */,
 				049A9DB125FA6D5F00CA5723 /* ChooseOwnerTableViewCell.swift in Sources */,
+				0AF8D1AC2822DFA20035DCF7 /* CancellableNavigationController.swift in Sources */,
 				93EF2FAF27C551DC0077BE95 /* StepInstructionTableViewCell.swift in Sources */,
 				0ACDC01524925A96002035A2 /* FirebaseConfig.swift in Sources */,
 				04273E5A26B1474700A14E95 /* LedgerController.swift in Sources */,
