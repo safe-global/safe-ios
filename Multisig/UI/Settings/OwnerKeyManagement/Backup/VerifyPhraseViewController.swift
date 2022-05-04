@@ -124,6 +124,10 @@ class VerifyPhraseViewController: UIViewController {
         Tracker.trackEvent(.backupConfirmSeedPhrase)
     }
 
+    func set(mnemonic: String) {
+        phrase = mnemonic.split(separator: " ").compactMap(String.init)
+    }
+
     // implements actions for transitions in the state machine
     //    |   From    |    To     |                       Action                       |
     //    | --------- | --------- | -------------------------------------------------- |

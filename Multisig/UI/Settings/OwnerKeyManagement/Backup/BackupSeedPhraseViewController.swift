@@ -37,6 +37,10 @@ class BackupSeedPhraseViewController: ContainerViewController {
         continueButton.setText("Continue", .filled)
     }
 
+    func set(mnemonic: String) {
+        seedPhrase = mnemonic.split(separator: " ").compactMap(String.init)
+    }
+
     @IBAction func didTapContinueButton(_ sender: Any) {
         onContinue?()
     }

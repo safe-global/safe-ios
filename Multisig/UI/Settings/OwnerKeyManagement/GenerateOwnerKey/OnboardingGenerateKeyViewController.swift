@@ -68,21 +68,18 @@ class OnboardingGenerateKeyViewController: AddKeyOnboardingViewController {
         startBackupFlow()
     }
 
-    // modally present the BackupController
-    // and when flow finishes - continue with key details
+    var backupFlow: BackupFlow!
+
     func startBackupFlow() {
-        let backupController = BackupController(showIntro: true, seedPhrase: mnemonic)
-        backupController.onComplete = { [weak self] in
-            guard let self = self else { return }
-            self.startAddKeyAsOwnerIfPossible()
-        }
-        backupController.onCancel = { [weak self] in
-            guard let self = self else { return }
-            self.dismiss(animated: true) {
-                self.startAddKeyAsOwnerIfPossible()
-            }
-        }
-        show(backupController, sender: self)
+        guard let navigationController = navigationController else { return }
+        backupFlow = BackupFlow(
+            mnemonic: mnemonic,
+            navigationController: navigationController,
+            completion: { [unowned self] _ in
+                backupFlow = nil
+                startAddKeyAsOwnerIfPossible()
+            })
+        backupFlow.start()
     }
 
     func startAddKeyAsOwnerIfPossible() {
