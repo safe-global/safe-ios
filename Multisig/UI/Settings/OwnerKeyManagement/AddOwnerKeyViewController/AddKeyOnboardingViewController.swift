@@ -24,9 +24,9 @@ class AddKeyOnboardingViewController: UITableViewController {
         }
     }
 
-    private var cards: [Card] = []
+    var cards: [Card] = []
     private var nextButton: UIBarButtonItem!
-    private var viewTrackingEvent: TrackingEvent!
+    var viewTrackingEvent: TrackingEvent!
 
     // set by a controller during some step in the flow
     var keyParameters: AddKeyParameters?
