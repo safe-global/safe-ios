@@ -64,13 +64,12 @@ class ReviewSafeTransactionViewController: UIViewController {
         retryButton.setText("Retry", .filled)
         descriptionLabel.setStyle(.footnote2)
 
-        tableView.registerCell(EditAdvancedParametersUITableViewCell.self)
+        tableView.registerCell(BorderedInnerTableCell.self)
         tableView.registerCell(DetailAccountCell.self)
         tableView.registerCell(ValueChangeTableViewCell.self)
 
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
-
         ribbonView.update(chain: safe.chain)
         loadData()
 
@@ -95,13 +94,6 @@ class ReviewSafeTransactionViewController: UIViewController {
             let navigationController = UINavigationController(rootViewController: vc)
             self.presentModal(navigationController)
         }
-
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapBackground))
-        view.addGestureRecognizer(tapRecognizer)
-    }
-
-    @objc private func didTapBackground() {
-        TooltipSource.hideAll()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -287,19 +279,29 @@ class ReviewSafeTransactionViewController: UIViewController {
                         browseURL: nil,
                         prefix: safe.chain!.shortName,
                         titleStyle: .secondary)
+        cell.selectionStyle = .none
         return cell
     }
 
     func parametersCell() -> UITableViewCell {
-        let cell = tableView.dequeueCell(EditAdvancedParametersUITableViewCell.self)
-        cell.tableView = tableView
-        cell.set(nonce: nonce.description)
-        cell.set(safeTxGas: safeTxGas?.description)
-        cell.onEdit = { [unowned self] in
+        let tableCell = tableView.dequeueCell(BorderedInnerTableCell.self)
+
+        tableCell.selectionStyle = .none
+        tableCell.verticalSpacing = 16
+
+        tableCell.tableView.registerCell(DisclosureWithContentCell.self)
+
+        let cell = tableCell.tableView.dequeueCell(DisclosureWithContentCell.self)
+        cell.setText("Advanced parameters")
+        cell.selectionStyle = .none
+        cell.setContent(nil)
+
+        tableCell.setCells([cell])
+        tableCell.onCellTap = { [unowned self] _ in
             self.showEditParameters()
         }
 
-        return cell
+        return tableCell
     }
 
     private func showEditParameters() {

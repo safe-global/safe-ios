@@ -121,8 +121,7 @@ class TransactionViewController: UIViewController {
                                                           address: address,
                                                           tokenBalance: tokenBalance,
                                                           amount: amount)
-        let ribbon = RibbonViewController(rootViewController: vc)
-        show(ribbon, sender: self)
+        show(vc, sender: self)
     }
 
     private func didTapAddressField() {
