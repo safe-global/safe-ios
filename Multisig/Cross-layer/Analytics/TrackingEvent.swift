@@ -269,4 +269,8 @@ enum TrackingEvent: String, Trackable {
     case addAsOwnerChangeConfirmations              = "screen_add_owner_change_policy"
     case addAsOwnerReview                           = "screen_add_owner_review"
     case addAsOwnerSuccess                          = "screen_add_owner_success"
+
+    case replaceOwnerSelect                         = "screen_replace_owner_select"
+    case replaceOwnerReview                         = "screen_replace_owner_review"
+    case replaceOwnerSuccess                        = "screen_replace_owner_success"
 }
