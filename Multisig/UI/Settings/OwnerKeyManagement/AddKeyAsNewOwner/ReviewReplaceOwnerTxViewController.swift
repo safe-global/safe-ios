@@ -23,7 +23,6 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
         self.owner = owner
         self.oldThreshold = oldThreshold
         self.oldOwnersCount = oldOwnersCount
-//        self.newThreshold = newThreshold
         self.ownerToBeReplaced = ownerToBeReplaced
     }
 
@@ -61,16 +60,12 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
     }
 
     override func createTransaction() -> Transaction? {
-
-
-        //TODO create swap owner tx
-
-        SafeTransactionController.shared.addOwnerWithThresholdTransaction(safe: safe,
+        SafeTransactionController.shared.replaceOwner(safe: safe,
+                oldOwner: ownerToBeReplaced.address,
+                newOwner: owner.address,
                 safeTxGas: safeTxGas,
-                nonce: nonce,
-                owner: owner.address,
-                threshold: oldThreshold)
-
+                nonce: nonce
+        )
     }
 
     override func headerCell() -> UITableViewCell {
