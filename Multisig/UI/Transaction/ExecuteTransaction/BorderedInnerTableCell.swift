@@ -42,7 +42,7 @@ class BorderedInnerTableCell: UITableViewCell, UITableViewDelegate, UITableViewD
     override func layoutSubviews() {
         super.layoutSubviews()
         // appearance will be updated based on the light/dark mode system environment changes
-        tableView.layer.borderColor = UIColor.labelTertiary.cgColor
+        tableView.layer.borderColor = UIColor.border.cgColor
     }
 
     func setCells(_ cells: [UITableViewCell]) {
