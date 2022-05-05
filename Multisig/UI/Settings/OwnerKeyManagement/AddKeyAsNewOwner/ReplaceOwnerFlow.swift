@@ -70,7 +70,7 @@ class ReplaceOwnerFlow: UIFlow {
 
 class ReplaceOwnerFlowFactory {
 
-    func pickOwnerToReplace(onContinue: @escaping (_ previousOwner: Address, _ ownerToReplace: Address) -> Void) -> SafeOwnerPickerViewController {
+    func pickOwnerToReplace(onContinue: @escaping (_ previousOwner: Address?, _ ownerToReplace: Address) -> Void) -> SafeOwnerPickerViewController {
         let safeOwnerPickerVC = SafeOwnerPickerViewController()
         safeOwnerPickerVC.onContinue = onContinue
         return safeOwnerPickerVC

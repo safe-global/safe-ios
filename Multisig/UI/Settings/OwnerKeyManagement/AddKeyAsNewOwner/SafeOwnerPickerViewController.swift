@@ -29,7 +29,7 @@ class SafeOwnerPickerViewController: ContainerViewController {
     private var safeOwners: [AddressInfo] = []
     private var selectedOwnerPosition: Int = -1
 
-    var onContinue: ((_ previousOwner: Address, _ ownerToReplace: Address) -> Void)?
+    var onContinue: ((_ previousOwner: Address?, _ ownerToReplace: Address) -> Void)?
 
     private var clientGatewayService = App.shared.clientGatewayService
     private var client: JsonRpc2.Client!
@@ -89,6 +89,7 @@ class SafeOwnerPickerViewController: ContainerViewController {
             switch result {
 
             case .failure(let error):
+                self.ownerListViewController.onError(GSError.error(description: "Failed to load safe owners", error: error))
                 self.pullToRefreshControl.endRefreshing()
 
             case .success(let owners):
@@ -105,6 +106,12 @@ class SafeOwnerPickerViewController: ContainerViewController {
     func setOwnerSelection(position: Int) {
         selectedOwnerPosition = position
         continueButton.isEnabled = true
+    }
+
+    @IBAction func didTapContinue(_ sender: Any) {
+        let ownerToReplace = safeOwners[selectedOwnerPosition].address
+        var prevOwner = selectedOwnerPosition > 0 ? safeOwners[selectedOwnerPosition - 1].address : nil
+        onContinue?(prevOwner, ownerToReplace)
     }
 }
 
