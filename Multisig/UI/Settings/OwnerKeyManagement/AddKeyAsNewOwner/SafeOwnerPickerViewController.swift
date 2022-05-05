@@ -182,7 +182,7 @@ class ChooseSafeOwnerViewController: LoadableViewController, UITableViewDelegate
         selectedOwner = indexPath.row
 
         var updatedPaths = [IndexPath(item: selectedOwner, section: 0)]
-        if oldSelection > 0 {
+        if oldSelection >= 0 {
             updatedPaths.append(IndexPath(item: oldSelection, section: 0))
         }
 
