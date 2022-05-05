@@ -7,7 +7,8 @@ import UIKit
 
 class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
     private var owner: KeyInfo!
-    private var ownerToBeReplaced: KeyInfo!
+    private var ownerToBeReplaced: Address!
+    private var previousOwner: Address?
     private var ownersCount: Int = 0
     private var threshold: Int = 0
 
@@ -16,14 +17,23 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
     var stepNumber: Int = 2
     var maxSteps: Int = 2
 
-    convenience init(safe: Safe, owner: KeyInfo, ownersCount: Int, threshold: Int, ownerToBeReplaced: KeyInfo) {
+    var onSuccess: ((SCGModels.TransactionDetails) -> ())?
+
+    convenience init(
+        safe: Safe,
+        owner: KeyInfo,
+        ownerToBeReplaced: Address,
+        previousOwner: Address?,
+        ownersCount: Int,
+        threshold: Int) {
         self.init(safe: safe,
                 address: owner.address,
                 data: SafeTransactionController.shared.addOwnerWithThresholdData(owner: owner.address, threshold: 0)) //Add tx type swap owner
         self.owner = owner
-        self.threshold = threshold
-        self.ownersCount = ownersCount
         self.ownerToBeReplaced = ownerToBeReplaced
+        self.previousOwner = previousOwner
+        self.ownersCount = ownersCount
+        self.threshold = threshold
     }
 
     override func viewDidLoad() {
@@ -56,17 +66,32 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
     }
 
     override func createTransaction() -> Transaction? {
-        SafeTransactionController.shared.replaceOwner(safe: safe,
-                oldOwner: ownerToBeReplaced.address,
-                newOwner: owner.address,
-                safeTxGas: safeTxGas,
-                nonce: nonce
+        SafeTransactionController.shared.replaceOwner(
+            safe: safe,
+            prevOwner: previousOwner,
+            oldOwner: ownerToBeReplaced,
+            newOwner: owner.address,
+            safeTxGas: safeTxGas,
+            nonce: nonce
         )
     }
 
     override func headerCell() -> UITableViewCell {
             let cell = tableView.dequeueCell(ReplaceOwnerTableViewCell.self)
-            cell.set(newOwner: owner, oldOwner: ownerToBeReplaced!)
+
+            let (newOwnerName, _) = NamingPolicy.name(for: owner.address,
+                                                    info: nil,
+                                                    chainId: safe.chain!.id!)
+
+            let (oldOwnerName, _) = NamingPolicy.name(for: ownerToBeReplaced,
+                                                info: nil,
+                                                chainId: safe.chain!.id!)
+
+            cell.set(
+                newOwner: AddressInfo(address: owner.address, name: newOwnerName),
+                oldOwner: AddressInfo(address: ownerToBeReplaced, name: oldOwnerName)
+            )
+        
             return cell
     }
 
@@ -83,7 +108,6 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
     }
 
     override func onSuccess(transaction: SCGModels.TransactionDetails) {
-
+        onSuccess?(transaction)
     }
-
 }

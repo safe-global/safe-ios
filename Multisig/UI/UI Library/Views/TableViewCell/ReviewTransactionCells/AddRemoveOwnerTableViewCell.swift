@@ -12,7 +12,7 @@ class AddRemoveOwnerTableViewCell: UITableViewCell {
 
     @IBOutlet weak var ownerActionView: OwnerActionView!
 
-    func set(owner: KeyInfo, action: OwnerAction) {
+    func set(owner: AddressInfo, action: OwnerAction) {
         ownerActionView.set(owner: owner, action: action)
     }
 }

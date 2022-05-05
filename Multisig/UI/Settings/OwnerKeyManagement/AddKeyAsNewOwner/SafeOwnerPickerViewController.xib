@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SafeOwnerPickerViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="continueButton" destination="tVB-PG-pgf" id="ggd-MC-oTr"/>
+                <outlet property="headerLabel" destination="pIV-k2-Dtp" id="hO5-UR-zg2"/>
+                <outlet property="ownerListContentView" destination="sRu-ba-Pme" id="xf9-9w-KtB"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Which owner do you want to replace?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIV-k2-Dtp">
+                    <rect key="frame" x="16" y="60" width="382" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tVB-PG-pgf">
+                    <rect key="frame" x="16" y="790" width="382" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="hY1-bu-fD0"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Continue">
+                        <color key="titleColor" name="labelPrimary"/>
+                    </state>
+                    <connections>
+                        <action selector="didTapContinue:" destination="-1" eventType="touchUpInside" id="trQ-vk-eXk"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sRu-ba-Pme">
+                    <rect key="frame" x="0.0" y="97" width="414" height="685"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="pIV-k2-Dtp" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="04Y-z6-nRT"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="tVB-PG-pgf" secondAttribute="bottom" constant="16" id="1XF-77-Phj"/>
+                <constraint firstItem="tVB-PG-pgf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="1tk-Ba-vgv"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="pIV-k2-Dtp" secondAttribute="trailing" constant="16" id="3QY-ud-XOS"/>
+                <constraint firstItem="tVB-PG-pgf" firstAttribute="top" secondItem="sRu-ba-Pme" secondAttribute="bottom" constant="8" id="DI7-Ve-Ck9"/>
+                <constraint firstItem="sRu-ba-Pme" firstAttribute="top" secondItem="pIV-k2-Dtp" secondAttribute="bottom" constant="16" id="QAs-lE-dxz"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="tVB-PG-pgf" secondAttribute="trailing" constant="16" id="a5T-A6-123"/>
+                <constraint firstItem="sRu-ba-Pme" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="chy-hh-dY2"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="sRu-ba-Pme" secondAttribute="trailing" id="nPB-fF-JY9"/>
+                <constraint firstItem="pIV-k2-Dtp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="q1O-16-rBv"/>
+            </constraints>
+            <point key="canvasLocation" x="132" y="131"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="labelPrimary">
+            <color red="0.0" green="0.078431372549019607" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

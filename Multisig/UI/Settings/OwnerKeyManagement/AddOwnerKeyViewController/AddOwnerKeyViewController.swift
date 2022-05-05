@@ -9,7 +9,7 @@
 import UIKit
 
 class AddOwnerKeyViewController: UITableViewController {
-    
+
     private var completion: () -> Void = {}
     private var showsCloseButton: Bool = true
     private var keyTypes: [(type: KeyType, title: String, subtitle: String)] = [

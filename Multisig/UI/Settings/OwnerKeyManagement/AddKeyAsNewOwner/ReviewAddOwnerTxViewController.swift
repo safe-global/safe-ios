@@ -18,7 +18,9 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
 
     var stepNumber: Int = 2
     var maxSteps: Int = 2
+
     var onSuccess: ((SCGModels.TransactionDetails) -> ())?
+
     convenience init(safe: Safe, owner: KeyInfo, oldOwnersCount: Int, oldThreshold: Int, newThreshold: Int) {
         self.init(safe: safe,
                   address: owner.address,
@@ -69,7 +71,13 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
 
     override func headerCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(AddRemoveOwnerTableViewCell.self)
-        cell.set(owner: owner, action: .addingOwner)
+
+        let (name, _) = NamingPolicy.name(for: owner.address,
+                                                    info: nil,
+                                                    chainId: safe.chain!.id!)
+
+        cell.set(owner: AddressInfo(address: owner.address, name: name), action: .addingOwner)
+
         return cell
     }
 

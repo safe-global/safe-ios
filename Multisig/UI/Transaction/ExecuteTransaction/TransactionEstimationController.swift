@@ -11,6 +11,7 @@ import Ethereum
 import JsonRpc2
 import Solidity
 import Json
+import SafeAbi
 
 class TransactionEstimationController {
 
@@ -166,6 +167,7 @@ class TransactionEstimationController {
         }
         return task
     }
+
 }
 
 struct TransactionEstimationError: LocalizedError {
