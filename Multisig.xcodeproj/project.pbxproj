@@ -701,6 +701,8 @@
 		6A39DC9427C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A39DC9227C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib */; };
 		6A7A489B28201697003278C8 /* SafeOwnerPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7A489928201697003278C8 /* SafeOwnerPickerViewController.swift */; };
 		6A7A489C28201697003278C8 /* SafeOwnerPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A7A489A28201697003278C8 /* SafeOwnerPickerViewController.xib */; };
+		6A7A48A02823A297003278C8 /* SafeOwnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7A489E2823A297003278C8 /* SafeOwnerCell.swift */; };
+		6A7A48A12823A297003278C8 /* SafeOwnerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A7A489F2823A297003278C8 /* SafeOwnerCell.xib */; };
 		6A91EFD727DA0604009E63E9 /* WCRegistryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A91EFD627DA0604009E63E9 /* WCRegistryController.swift */; };
 		6A91EFDA27DA2C8D009E63E9 /* wc_registry_wallets.json in Resources */ = {isa = PBXBuildFile; fileRef = 6A91EFD927DA2C8D009E63E9 /* wc_registry_wallets.json */; };
 		6A91EFDC27DA2CF9009E63E9 /* WCAppRegistryRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A91EFDB27DA2CF9009E63E9 /* WCAppRegistryRepositoryTests.swift */; };
@@ -1501,6 +1503,8 @@
 		6A39DC9227C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeDeploymentFinishedViewController.xib; sourceTree = "<group>"; };
 		6A7A489928201697003278C8 /* SafeOwnerPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeOwnerPickerViewController.swift; sourceTree = "<group>"; };
 		6A7A489A28201697003278C8 /* SafeOwnerPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeOwnerPickerViewController.xib; sourceTree = "<group>"; };
+		6A7A489E2823A297003278C8 /* SafeOwnerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeOwnerCell.swift; sourceTree = "<group>"; };
+		6A7A489F2823A297003278C8 /* SafeOwnerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeOwnerCell.xib; sourceTree = "<group>"; };
 		6A91EFD627DA0604009E63E9 /* WCRegistryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCRegistryController.swift; sourceTree = "<group>"; };
 		6A91EFD927DA2C8D009E63E9 /* wc_registry_wallets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = wc_registry_wallets.json; sourceTree = "<group>"; };
 		6A91EFDB27DA2CF9009E63E9 /* WCAppRegistryRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCAppRegistryRepositoryTests.swift; sourceTree = "<group>"; };
@@ -1913,6 +1917,7 @@
 		04B4B6F325B9E09C00CFE24B /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				6A7A489D2823A261003278C8 /* SafeOwnerCell */,
 				04077B40278E22C300AF6376 /* ReviewTransactionCells */,
 				0455A43727205897008B772D /* DetailAccountCell */,
 				0439784226FB2ABB00A56BA4 /* SwitchTableViewCell */,
@@ -3463,6 +3468,15 @@
 			path = AddKeyAsNewOwner;
 			sourceTree = "<group>";
 		};
+		6A7A489D2823A261003278C8 /* SafeOwnerCell */ = {
+			isa = PBXGroup;
+			children = (
+				6A7A489E2823A297003278C8 /* SafeOwnerCell.swift */,
+				6A7A489F2823A297003278C8 /* SafeOwnerCell.xib */,
+			);
+			path = SafeOwnerCell;
+			sourceTree = "<group>";
+		};
 		6A91EFD827DA2C45009E63E9 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -3981,6 +3995,7 @@
 				0A8AEB1925A4726E002A3FE1 /* ActionDetailExpandableCell.xib in Resources */,
 				04C5DF6C26FB451B0072476C /* KeyTypeTableViewCell.xib in Resources */,
 				6A1CFA5028081A1200B2C340 /* BackupSeedPhraseViewController.xib in Resources */,
+				6A7A48A12823A297003278C8 /* SafeOwnerCell.xib in Resources */,
 				0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */,
 				0A06533727B6D1070008C5F1 /* ChooseOwnerDetailHeaderView.xib in Resources */,
 				0ADD0FB427C148880099DF7D /* DatePickerViewController.xib in Resources */,
@@ -4330,6 +4345,7 @@
 				550FB1A526691CD800C13D54 /* SigningKeyTableViewCell.swift in Sources */,
 				0A04507A278DAD4000650F71 /* SecondaryDetailDisclosureCell.swift in Sources */,
 				0A2F1A70267A53A800C09F03 /* GSButton.swift in Sources */,
+				6A7A48A02823A297003278C8 /* SafeOwnerCell.swift in Sources */,
 				55B66E52247E478800249E98 /* LaunchView.swift in Sources */,
 				557D80B3270B32F80036D6D0 /* EditCell.swift in Sources */,
 				0439B2952804632C00796F18 /* WarningView.swift in Sources */,
