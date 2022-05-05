@@ -78,7 +78,20 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
 
     override func headerCell() -> UITableViewCell {
             let cell = tableView.dequeueCell(ReplaceOwnerTableViewCell.self)
-            cell.set(newOwner: owner, oldOwner: ownerToBeReplaced!)
+
+            let (newOwnerName, _) = NamingPolicy.name(for: owner.address,
+                                                    info: nil,
+                                                    chainId: safe.chain!.id!)
+
+            let (oldOwnerName, _) = NamingPolicy.name(for: ownerToBeReplaced,
+                                                info: nil,
+                                                chainId: safe.chain!.id!)
+
+            cell.set(
+                newOwner: AddressInfo(address: owner.address, name: newOwnerName),
+                oldOwner: AddressInfo(address: ownerToBeReplaced, name: oldOwnerName)
+            )
+        
             return cell
     }
 
