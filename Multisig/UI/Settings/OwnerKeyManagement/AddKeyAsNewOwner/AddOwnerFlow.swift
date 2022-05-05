@@ -16,7 +16,7 @@ class AddOwnerFlow: UIFlow {
     var newConfirmations: Int?
     var addOwnerTransactionDetails: SCGModels.TransactionDetails?
 
-    init(newOwner: KeyInfo, safe: Safe, factory: AddOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (Bool) -> Void) {
+    init(newOwner: KeyInfo, safe: Safe, factory: AddOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
         self.safe = safe
         self.newOwner = newOwner

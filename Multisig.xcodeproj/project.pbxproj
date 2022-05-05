@@ -96,7 +96,6 @@
 		048D72D026875B1C0095999C /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72CF26875B1C0095999C /* TableHeaderView.swift */; };
 		048D72D226875B2D0095999C /* TableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048D72D126875B2D0095999C /* TableHeaderView.xib */; };
 		048D72D7268DACAF0095999C /* NetworksListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72D6268DACAF0095999C /* NetworksListViewModel.swift */; };
-		04924B0E281FD75200643B4B /* ReplaceOwnerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04924B0D281FD75200643B4B /* ReplaceOwnerController.swift */; };
 		049257AE273C239C00507C33 /* String+Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049257AD273C239C00507C33 /* String+Highlight.swift */; };
 		0493A28B262979820056EC49 /* UpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0493A28A262979820056EC49 /* UpdateController.swift */; };
 		049A9D0E25F7C66E00CA5723 /* OwnerKeysListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */; };
@@ -416,6 +415,7 @@
 		0ABC0024282313B300F42D29 /* AddKeyFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC0023282313B300F42D29 /* AddKeyFlow.swift */; };
 		0ABC0026282313E700F42D29 /* ImportKeyFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC0025282313E700F42D29 /* ImportKeyFlow.swift */; };
 		0ABC00282823BE6800F42D29 /* AddOwnerFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC00272823BE6800F42D29 /* AddOwnerFlow.swift */; };
+		0ABC002A2823D4CD00F42D29 /* ReplaceOwnerFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC00292823D4CD00F42D29 /* ReplaceOwnerFlow.swift */; };
 		0ABC898F2576B857005D555B /* SCGModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC898E2576B857005D555B /* SCGModels.swift */; };
 		0ABE6983279177A4003338AF /* TransactionEstimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE6982279177A4003338AF /* TransactionEstimationController.swift */; };
 		0ABE69852791B47B003338AF /* Fee1559FormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE69842791B47B003338AF /* Fee1559FormModel.swift */; };
@@ -905,7 +905,6 @@
 		048D72CF26875B1C0095999C /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		048D72D126875B2D0095999C /* TableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableHeaderView.xib; sourceTree = "<group>"; };
 		048D72D6268DACAF0095999C /* NetworksListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworksListViewModel.swift; sourceTree = "<group>"; };
-		04924B0D281FD75200643B4B /* ReplaceOwnerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceOwnerController.swift; sourceTree = "<group>"; };
 		049257AD273C239C00507C33 /* String+Highlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Highlight.swift"; sourceTree = "<group>"; };
 		0493A28A262979820056EC49 /* UpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateController.swift; sourceTree = "<group>"; };
 		049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListViewController.swift; sourceTree = "<group>"; };
@@ -1207,6 +1206,7 @@
 		0ABC0023282313B300F42D29 /* AddKeyFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddKeyFlow.swift; sourceTree = "<group>"; };
 		0ABC0025282313E700F42D29 /* ImportKeyFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportKeyFlow.swift; sourceTree = "<group>"; };
 		0ABC00272823BE6800F42D29 /* AddOwnerFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerFlow.swift; sourceTree = "<group>"; };
+		0ABC00292823D4CD00F42D29 /* ReplaceOwnerFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceOwnerFlow.swift; sourceTree = "<group>"; };
 		0ABC898E2576B857005D555B /* SCGModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SCGModels.swift; sourceTree = "<group>"; };
 		0ABE6982279177A4003338AF /* TransactionEstimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEstimationController.swift; sourceTree = "<group>"; };
 		0ABE69842791B47B003338AF /* Fee1559FormModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fee1559FormModel.swift; sourceTree = "<group>"; };
@@ -3462,7 +3462,7 @@
 				6A252CF128169352001F0887 /* AddKeyAsOwnerIntroViewController.xib */,
 				6A386C5E281A9D46003FBCB3 /* ReviewChangeSafeTxViewController.swift */,
 				0ABC00272823BE6800F42D29 /* AddOwnerFlow.swift */,
-				04924B0D281FD75200643B4B /* ReplaceOwnerController.swift */,
+				0ABC00292823D4CD00F42D29 /* ReplaceOwnerFlow.swift */,
 			);
 			path = AddKeyAsNewOwner;
 			sourceTree = "<group>";
@@ -4217,6 +4217,7 @@
 				04D1306C25DD525A0032FA03 /* ProposeTransactionRequest.swift in Sources */,
 				55BCFC562554627100020CE7 /* BasicCell.swift in Sources */,
 				0A9A1A34257924C600B44405 /* DetailAccountCell.swift in Sources */,
+				0ABC002A2823D4CD00F42D29 /* ReplaceOwnerFlow.swift in Sources */,
 				0A5C0C4C2817F1DE0061D96F /* SafeCellBuilder.swift in Sources */,
 				0AEE149F2540233C00046EE7 /* UINibView.swift in Sources */,
 				0A451BDE252DDB17001DB7D2 /* String+Error.swift in Sources */,
@@ -4389,7 +4390,6 @@
 				0A57C5B52577F02E00420303 /* ConfirmationConfirmedPiece.swift in Sources */,
 				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,
 				0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */,
-				04924B0E281FD75200643B4B /* ReplaceOwnerController.swift in Sources */,
 				043963832704E25800018F74 /* AdvancedTransactionDetailsViewController.swift in Sources */,
 				0A8CDD4627A5A5C70020066C /* CreateSafeViewController.swift in Sources */,
 				0A4F44542754DE3D00423ABB /* GetDelegateRequest.swift in Sources */,

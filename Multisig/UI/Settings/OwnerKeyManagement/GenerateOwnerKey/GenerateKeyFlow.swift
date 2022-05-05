@@ -18,6 +18,7 @@ class GenerateKeyFlow: AddKeyFlow {
 
     var backupFlow: BackupFlow!
     var addOwnerFlow: AddOwnerFlow!
+    var replaceOwnerFlow: ReplaceOwnerFlow!
 
     init(factory: GenerateKeyFactory = GenerateKeyFactory(), navigationController: UINavigationController, completion: @escaping (Bool) -> Void) {
         super.init(badge: KeyType.deviceGenerated.imageName, factory: factory, navigationController: navigationController, completion: completion)
@@ -80,7 +81,7 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func replaceOwner() {
-
+        // TODO: start replace owner flow
     }
 
     func didAddKeyAsOwner(openKeyDetails: Bool = true) {
