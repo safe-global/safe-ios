@@ -170,7 +170,21 @@ class ChooseSafeOwnerViewController: LoadableViewController, UITableViewDelegate
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        //TODO: set checkmark
+
+        let oldSelection = selectedOwner
+        selectedOwner = indexPath.row
+
+        var updatedPaths = [IndexPath(item: selectedOwner, section: 0)]
+        if oldSelection > 0 {
+            updatedPaths.append(IndexPath(item: oldSelection, section: 0))
+        }
+
+        tableView.beginUpdates()
+        do {
+            tableView.reloadRows(at: updatedPaths, with: .automatic)
+        }
+        tableView.endUpdates()
+
         onOwnerSelected?(indexPath.row)
     }
 }
