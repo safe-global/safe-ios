@@ -14,7 +14,10 @@ class GenerateKeyFlow: AddKeyFlow {
         factory as! GenerateKeyFactory
     }
 
+    var safe: Safe?
+
     var backupFlow: BackupFlow!
+    var addOwnerFlow: AddOwnerFlow!
 
     init(factory: GenerateKeyFactory = GenerateKeyFactory(), navigationController: UINavigationController, completion: @escaping (Bool) -> Void) {
         super.init(badge: KeyType.deviceGenerated.imageName, factory: factory, navigationController: navigationController, completion: completion)
@@ -50,23 +53,47 @@ class GenerateKeyFlow: AddKeyFlow {
 
     func addKeyAsOwner() {
         assert(keyInfo != nil)
-        guard canAddKeyAsOwner() else {
-            didAddKey()
+        safe = try? Safe.getSelected()
+        guard safe != nil, !safe!.isReadOnly else {
+            didAddKeyAsOwner()
             return
         }
-        let addVC = flowFactory.addAsOwner(keyInfo: keyInfo!) { [unowned self] in
-            didAddKey()
+        let addVC = flowFactory.addAsOwner { [unowned self] in
+            addOwner()
+        } replaced: { [unowned self] in
+            replaceOwner()
+        } skipped: { [unowned self] in
+            didAddKeyAsOwner()
         }
         show(addVC)
     }
 
-    func canAddKeyAsOwner() -> Bool {
-        guard let safe = try? Safe.getSelected() else { return false }
-        return !safe.isReadOnly
+    func addOwner() {
+        addOwnerFlow = AddOwnerFlow(
+            newOwner: keyInfo!,
+            safe: safe!,
+            navigationController: navigationController) { [unowned self] skippedTxDetails in
+                addOwnerFlow = nil
+                didAddKeyAsOwner(openKeyDetails: skippedTxDetails)
+        }
+        addOwnerFlow.start()
     }
 
-    func didAddKey() {
+    func replaceOwner() {
+
+    }
+
+    func didAddKeyAsOwner(openKeyDetails: Bool = true) {
+        guard openKeyDetails else {
+            stop(success: true)
+            return
+        }
+        details()
+    }
+
+    func details() {
         assert(keyInfo != nil)
+        navigationController.setNavigationBarHidden(false, animated: true)
         let keyVC = flowFactory.details(keyInfo: keyInfo!) { [unowned self] in
             stop(success: true)
         }
@@ -95,11 +122,11 @@ class GenerateKeyFactory: AddKeyFlowFactory {
         return introVC
     }
 
-    func addAsOwner(keyInfo: KeyInfo, completion: @escaping () -> Void) -> AddKeyAsOwnerIntroViewController {
-        let introVC = AddKeyAsOwnerIntroViewController(keyInfo: keyInfo)
-        introVC.onAdd = completion
-        introVC.onReplace = completion
-        introVC.onSkip = completion
+    func addAsOwner(added: @escaping () -> Void, replaced: @escaping () -> Void, skipped: @escaping () -> Void) -> AddKeyAsOwnerIntroViewController {
+        let introVC = AddKeyAsOwnerIntroViewController()
+        introVC.onAdd = added
+        introVC.onReplace = replaced
+        introVC.onSkip = skipped
         introVC.navigationItem.hidesBackButton = true
         return introVC
     }
