@@ -71,8 +71,8 @@ class SafeOwnerPickerViewController: ContainerViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        Tracker.trackEvent(.replaceOwnerSelect)
         reloadSafeOwners()
-        //TODO: track screen
     }
 
     @objc private func pullToRefreshChanged() {
