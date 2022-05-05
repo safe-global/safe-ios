@@ -71,14 +71,20 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
     }
 
     func confirmationsCell() -> UITableViewCell {
-        let cell = tableView.dequeueCell(ValueChangeTableViewCell.self)
-        cell.set(title: "Confirmations required", value: "\(threshold) out of \(ownersCount)")
+        let cell = tableView.dequeueCell(DetailExpandableTextCell.self)
+        cell.setTitle("Confirmations required")
+        cell.setText("\(threshold) out of \(ownersCount)")
+        cell.setCopyText(nil)
+        cell.setExpandableTitle(nil)
         return cell
     }
 
     func ownersCell() -> UITableViewCell {
-        let cell = tableView.dequeueCell(ValueChangeTableViewCell.self)
-        cell.set(title: "Safe owners", value: "\(ownersCount)")
+        let cell = tableView.dequeueCell(DetailExpandableTextCell.self)
+        cell.setTitle("Safe owners")
+        cell.setText("\(ownersCount)")
+        cell.setCopyText(nil)
+        cell.setExpandableTitle(nil)
         return cell
     }
 

@@ -67,6 +67,7 @@ class ReviewSafeTransactionViewController: UIViewController {
         tableView.registerCell(BorderedInnerTableCell.self)
         tableView.registerCell(DetailAccountCell.self)
         tableView.registerCell(ValueChangeTableViewCell.self)
+        tableView.registerCell(DetailExpandableTextCell.self)
 
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
