@@ -110,8 +110,8 @@ class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentation
             let ownerToBeReplaced = try KeyInfo.keys(addresses: addresses).first
             let replaceOwnerReviewVC = ReviewReplaceOwnerTxViewController(safe: safe,
                     owner: key,
-                    oldOwnersCount: safe.ownersInfo?.count ?? 0,
-                    oldThreshold: Int(safe.threshold ?? 0),
+                    ownersCount: safe.ownersInfo?.count ?? 0,
+                    threshold: Int(safe.threshold ?? 0),
                     ownerToBeReplaced: ownerToBeReplaced!)
             show(replaceOwnerReviewVC, sender: self)
         } catch {

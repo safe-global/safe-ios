@@ -75,7 +75,7 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
 
     func confirmationsCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(ValueChangeTableViewCell.self)
-        cell.setBeforeAfter(title: "Confirmations required",
+        cell.set(title: "Confirmations required",
                  valueBefore: "\(oldThreshold) out of \(oldOwnersCount)",
                  valueAfter: "\(newThreshold) out of \(oldOwnersCount + 1)")
         cell.selectionStyle = .none
@@ -85,7 +85,7 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
 
     func ownersCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(ValueChangeTableViewCell.self)
-        cell.setBeforeAfter(title: "Safe owners", valueBefore: "\(oldOwnersCount)", valueAfter: "\(oldOwnersCount + 1)")
+        cell.set(title: "Safe owners", valueBefore: "\(oldOwnersCount)", valueAfter: "\(oldOwnersCount + 1)")
         cell.selectionStyle = .none
         return cell
     }

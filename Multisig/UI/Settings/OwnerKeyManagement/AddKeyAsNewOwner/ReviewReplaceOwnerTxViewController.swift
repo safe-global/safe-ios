@@ -8,21 +8,21 @@ import UIKit
 class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
     private var owner: KeyInfo!
     private var ownerToBeReplaced: KeyInfo!
-    private var oldOwnersCount: Int = 0
-    private var oldThreshold: Int = 0
+    private var ownersCount: Int = 0
+    private var threshold: Int = 0
 
     private var stepLabel: UILabel!
 
     var stepNumber: Int = 2
     var maxSteps: Int = 2
 
-    convenience init(safe: Safe, owner: KeyInfo, oldOwnersCount: Int, oldThreshold: Int, ownerToBeReplaced: KeyInfo) {
+    convenience init(safe: Safe, owner: KeyInfo, ownersCount: Int, threshold: Int, ownerToBeReplaced: KeyInfo) {
         self.init(safe: safe,
                 address: owner.address,
                 data: SafeTransactionController.shared.addOwnerWithThresholdData(owner: owner.address, threshold: 0)) //Add tx type swap owner
         self.owner = owner
-        self.oldThreshold = oldThreshold
-        self.oldOwnersCount = oldOwnersCount
+        self.threshold = threshold
+        self.ownersCount = ownersCount
         self.ownerToBeReplaced = ownerToBeReplaced
     }
 
@@ -72,13 +72,13 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
 
     func confirmationsCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(ValueChangeTableViewCell.self)
-        cell.set(title: "Confirmations required", value: "\(oldThreshold) out of \(oldOwnersCount)")
+        cell.set(title: "Confirmations required", value: "\(threshold) out of \(ownersCount)")
         return cell
     }
 
     func ownersCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(ValueChangeTableViewCell.self)
-        cell.set(title: "Safe owners", value: "\(oldOwnersCount)")
+        cell.set(title: "Safe owners", value: "\(ownersCount)")
 
         return cell
     }
