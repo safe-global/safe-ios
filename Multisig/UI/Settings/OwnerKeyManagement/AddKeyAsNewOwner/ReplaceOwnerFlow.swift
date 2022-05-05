@@ -33,6 +33,20 @@ class ReplaceOwnerFlow: UIFlow {
         }
         show(pickOwnerToReplaceVC)
     }
+
+    func success() {
+        assert(replaceOwnerTransactionDetails != nil)
+        let successVC = factory.success { [unowned self] showTxDetails in
+            if showTxDetails {
+                NotificationCenter.default.post(
+                    name: .initiateTxNotificationReceived,
+                    object: self,
+                    userInfo: ["transactionDetails": replaceOwnerTransactionDetails!])
+            }
+            stop(success: !showTxDetails)
+        }
+        show(successVC)
+    }
 }
 
 class ReplaceOwnerFlowFactory {
@@ -54,5 +68,16 @@ class ReplaceOwnerFlowFactory {
         addOwnerReviewVC.maxSteps = maxSteps
         addOwnerReviewVC.onSuccess = completion
         return addOwnerReviewVC
+    }
+
+    func success(completion: @escaping (_ showTxDetails: Bool) -> Void) -> SuccessViewController {
+        let successVC = SuccessViewController(
+            titleText: "Your transaction is submitted!",
+            bodyText: "It needs to be confirmed and executed first before the owner will be replaced.",
+            primaryAction: "View transaction details",
+            secondaryAction: "Done",
+            trackingEvent: .addAsOwnerSuccess)
+        successVC.onDone = completion
+        return successVC
     }
 }
