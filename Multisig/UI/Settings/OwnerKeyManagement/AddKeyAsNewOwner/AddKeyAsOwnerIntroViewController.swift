@@ -20,12 +20,6 @@ class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentation
     var onReplace: (() -> ())?
 
     var onSkip: (() -> ())?
-    var keyInfo: KeyInfo!
-
-    convenience init(keyInfo: KeyInfo? = nil) {
-        self.init()
-        self.keyInfo = keyInfo
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,15 +69,11 @@ class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentation
             preferredStyle: .actionSheet)
 
         let add = UIAlertAction(title: "Add new owner", style: .default) { [unowned self] _ in
-            let addOwnerController = AddOwnerController(keyInfo: keyInfo)
-            addOwnerController.onSkipped = onSkip
-            addOwnerController.onSuccess = onAdd
-
-            show(addOwnerController, sender: self)
+            onAdd?()
         }
 
         let replace = UIAlertAction(title: "Replace owner", style: .default) { [unowned self] _ in
-            self.onReplace?()
+            onReplace?()
         }
 
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
