@@ -84,15 +84,16 @@ class ReplaceOwnerFlowFactory {
         ownerToReplace: Address,
         previousOwner: Address?,
         completion: @escaping (SCGModels.TransactionDetails) -> Void
-    ) -> ReviewChangeSafeTxViewController {
+    ) -> ReviewReplaceOwnerTxViewController {
 
-        //TODO: replace with appropriate review screen
-        let addOwnerReviewVC = ReviewChangeSafeTxViewController(
+        let addOwnerReviewVC = ReviewReplaceOwnerTxViewController(
             safe: safe,
             owner: newOwner,
-            oldOwnersCount: safe.ownersInfo?.count ?? 0,
-            oldThreshold: Int(safe.threshold ?? 0),
-            newThreshold: 0)
+            ownerToBeReplaced: ownerToReplace,
+            previousOwner: previousOwner,
+            ownersCount: safe.ownersInfo?.count ?? 0,
+            threshold: Int(safe.threshold ?? 0)
+        )
         addOwnerReviewVC.stepNumber = step
         addOwnerReviewVC.maxSteps = maxSteps
         addOwnerReviewVC.onSuccess = completion

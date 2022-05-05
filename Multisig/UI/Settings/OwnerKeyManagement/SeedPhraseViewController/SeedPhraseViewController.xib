@@ -35,21 +35,21 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="53u-ko-mfn" customClass="WarningView" customModule="Multisig" customModuleProvider="target">
+                    <rect key="frame" x="16" y="452" width="288" height="100"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ef6-9q-sO9">
                     <rect key="frame" x="16" y="335" width="288" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="QAS-0F-ite"/>
                     </constraints>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" image="ico-copy" title="Copy to Clipboard" imagePadding="8"/>
+                    <buttonConfiguration key="configuration" style="plain" image="square.and.arrow.up" catalog="system" title="Export" imagePadding="8"/>
                     <connections>
                         <action selector="didTapCopyButton:" destination="-1" eventType="touchUpInside" id="I0w-ri-XOf"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="53u-ko-mfn" customClass="WarningView" customModule="Multisig" customModuleProvider="target">
-                    <rect key="frame" x="16" y="452" width="288" height="100"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -71,7 +71,7 @@
         </view>
     </objects>
     <resources>
-        <image name="ico-copy" width="24" height="24"/>
+        <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

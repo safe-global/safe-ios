@@ -9,7 +9,7 @@
 import UIKit
 import WalletConnectSwift
 
-class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
+class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource, PasscodeProtecting {
     private var keys: [KeyInfo] = []
     private var chainID: String?
     private var addButton: UIBarButtonItem!

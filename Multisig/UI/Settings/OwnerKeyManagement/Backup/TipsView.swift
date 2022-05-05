@@ -34,6 +34,13 @@ class TipsView: UINibView {
             row.spacing = 8
                     
             let bulletPointLabel = UILabel()
+            bulletPointLabel.addConstraint(NSLayoutConstraint(item: bulletPointLabel,
+                                                              attribute: .width,
+                                                              relatedBy: .equal,
+                                                              toItem: nil,
+                                                              attribute: .width,
+                                                              multiplier: 1,
+                                                              constant: 10))
             bulletPointLabel.setStyle(.secondary)
             bulletPointLabel.text = "\u{2022}"
 

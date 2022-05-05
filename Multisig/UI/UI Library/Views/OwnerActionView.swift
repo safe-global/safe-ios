@@ -22,7 +22,7 @@ class OwnerActionView: UINibView {
         addressLabel.setStyle(.tertiary)
     }
 
-    func set(owner: KeyInfo, action: OwnerAction) {
+    func set(owner: AddressInfo, action: OwnerAction) {
         blockie.set(address: owner.address)
         nameLabel.text = owner.name
         addressLabel.text = owner.address.ellipsized(prefix: 4)

@@ -59,6 +59,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="actionTitle" destination="ES4-Bt-zb0" id="26W-Y1-Myp"/>
+                <outlet property="arrow" destination="OOr-xJ-66v" id="jdH-Ci-JXz"/>
                 <outlet property="valueAfter" destination="p12-S5-Y9d" id="qNi-xf-gbI"/>
                 <outlet property="valueBefore" destination="Ouv-us-UAj" id="14P-r3-hgD"/>
             </connections>
