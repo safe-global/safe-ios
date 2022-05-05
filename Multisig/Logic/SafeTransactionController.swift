@@ -37,8 +37,8 @@ class SafeTransactionController {
         return GnosisSafe_v1_3_0.addOwnerWithThreshold(owner: owner, _threshold: threshold).encode()
     }
 
-    func replaceOwner(safe: Safe, oldOwner: Address, newOwner: Address, safeTxGas: UInt256String?, nonce: UInt256String) -> Transaction? {
-        guard let data = replaceOwnerData(oldOwner: oldOwner, newOwner: newOwner) else { return nil }
+    func replaceOwner(safe: Safe, prevOwner: Address?, oldOwner: Address, newOwner: Address, safeTxGas: UInt256String?, nonce: UInt256String) -> Transaction? {
+        guard let data = replaceOwnerData(prevOwner: prevOwner, oldOwner: oldOwner, newOwner: newOwner) else { return nil }
         let tx = Transaction(safeAddress: safe.addressValue,
                              chainId: safe.chain!.id!,
                              toAddress: safe.addressValue,
@@ -51,10 +51,13 @@ class SafeTransactionController {
         return tx
     }
 
-    func replaceOwnerData(oldOwner: Address, newOwner: Address) -> Data? {
+    func replaceOwnerData(prevOwner: Address?, oldOwner: Address, newOwner: Address) -> Data? {
         guard let newOwner = Sol.Address.init(maybeData:newOwner.data32),
-              let oldOwner = Sol.Address.init(maybeData:oldOwner.data32) else { return nil }
-        return GnosisSafe_v1_3_0.swapOwner(prevOwner: oldOwner, oldOwner: oldOwner, newOwner: newOwner).encode()
+              let oldOwner = Sol.Address.init(maybeData:oldOwner.data32),
+              let prevOwner = prevOwner == nil ? Sol.Address.init(maybeData: Address.init(exactly: "0x1").data32) :  Sol.Address.init(maybeData:prevOwner!.data32)
+        else { return nil }
+
+        return GnosisSafe_v1_3_0.swapOwner(prevOwner: prevOwner, oldOwner: oldOwner, newOwner: newOwner).encode()
     }
 
     func proposeTransaction(transaction: Transaction,
