@@ -14,6 +14,8 @@ class ReplaceOwnerFlow: UIFlow {
     var factory: ReplaceOwnerFlowFactory
     var safe: Safe
     var newOwner: KeyInfo
+    var ownerToReplace: Address?
+    var prevOwner: Address?
     var replaceOwnerTransactionDetails: SCGModels.TransactionDetails?
 
     internal init(newOwner: KeyInfo, safe: Safe, factory: ReplaceOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
@@ -29,9 +31,26 @@ class ReplaceOwnerFlow: UIFlow {
 
     func pickOwnerToReplace() {
         let pickOwnerToReplaceVC = factory.pickOwnerToReplace() { [unowned self] previousOwner, ownerToReplace in
-            //TODO review
+            self.ownerToReplace = ownerToReplace
+            self.prevOwner = previousOwner
+            review()
         }
         show(pickOwnerToReplaceVC)
+    }
+
+    func review() {
+        assert(ownerToReplace != nil)
+        let reviewVC = factory.review(
+            step: 2,
+            maxSteps: 2,
+            safe: safe,
+            newOwner: newOwner,
+            ownerToReplace: ownerToReplace!,
+            previousOwner: prevOwner) { [unowned self] txDetails in
+                replaceOwnerTransactionDetails = txDetails
+                success()
+            }
+        show(reviewVC)
     }
 
     func success() {
@@ -57,13 +76,23 @@ class ReplaceOwnerFlowFactory {
         return safeOwnerPickerVC
     }
 
-    func review(step: Int, maxSteps: Int, safe: Safe, key: KeyInfo, newThreshold: Int, completion: @escaping (SCGModels.TransactionDetails) -> Void) -> ReviewChangeSafeTxViewController {
+    func review(
+        step: Int,
+        maxSteps: Int,
+        safe: Safe,
+        newOwner: KeyInfo,
+        ownerToReplace: Address,
+        previousOwner: Address?,
+        completion: @escaping (SCGModels.TransactionDetails) -> Void
+    ) -> ReviewChangeSafeTxViewController {
+
+        //TODO: replace with appropriate review screen
         let addOwnerReviewVC = ReviewChangeSafeTxViewController(
             safe: safe,
-            owner: key,
+            owner: newOwner,
             oldOwnersCount: safe.ownersInfo?.count ?? 0,
             oldThreshold: Int(safe.threshold ?? 0),
-            newThreshold: newThreshold)
+            newThreshold: 0)
         addOwnerReviewVC.stepNumber = step
         addOwnerReviewVC.maxSteps = maxSteps
         addOwnerReviewVC.onSuccess = completion
