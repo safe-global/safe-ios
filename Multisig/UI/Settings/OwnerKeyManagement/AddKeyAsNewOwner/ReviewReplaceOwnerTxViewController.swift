@@ -79,7 +79,6 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
     func ownersCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(ValueChangeTableViewCell.self)
         cell.set(title: "Safe owners", value: "\(ownersCount)")
-
         return cell
     }
 
