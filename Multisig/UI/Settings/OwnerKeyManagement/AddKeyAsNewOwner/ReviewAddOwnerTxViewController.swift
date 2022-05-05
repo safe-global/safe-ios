@@ -18,7 +18,9 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
 
     var stepNumber: Int = 2
     var maxSteps: Int = 2
+
     var onSuccess: ((SCGModels.TransactionDetails) -> ())?
+
     convenience init(safe: Safe, owner: KeyInfo, oldOwnersCount: Int, oldThreshold: Int, newThreshold: Int) {
         self.init(safe: safe,
                   address: owner.address,

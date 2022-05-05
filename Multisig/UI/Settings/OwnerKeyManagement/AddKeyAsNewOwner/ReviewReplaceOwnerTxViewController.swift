@@ -17,6 +17,8 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
     var stepNumber: Int = 2
     var maxSteps: Int = 2
 
+    var onSuccess: ((SCGModels.TransactionDetails) -> ())?
+
     convenience init(
         safe: Safe,
         owner: KeyInfo,
@@ -93,7 +95,6 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
     }
 
     override func onSuccess(transaction: SCGModels.TransactionDetails) {
-
+        onSuccess?(transaction)
     }
-
 }
