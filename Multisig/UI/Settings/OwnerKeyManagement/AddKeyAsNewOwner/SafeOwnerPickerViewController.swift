@@ -80,7 +80,8 @@ class SafeOwnerPickerViewController: ContainerViewController {
     }
 
     func reloadSafeOwners() {
-        SafeTransactionController.shared.getOwners(safe: safe.addressValue, chain: safe.chain!) { [weak self] result in
+        currentDataTask?.cancel()
+        currentDataTask = SafeTransactionController.shared.getOwners(safe: safe.addressValue, chain: safe.chain!) { [weak self] result in
 
             guard let self = self else {
                 return
@@ -100,7 +101,6 @@ class SafeOwnerPickerViewController: ContainerViewController {
                 self.ownerListViewController.reloadWithOwners(owners: self.safeOwners)
             }
         }
-
     }
 
     func setOwnerSelection(position: Int) {

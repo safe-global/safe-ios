@@ -43,7 +43,6 @@ class SafeOwnerCell: UITableViewCell {
             nameLabel.isHidden = true
         }
 
-        addressLabel.isHidden = false
         let prefixString = prefix != nil ? "\(prefix!):" : ""
         if let _ = name {
             addressLabel.text = prependingPrefixString(prefixString) + address.ellipsized()
