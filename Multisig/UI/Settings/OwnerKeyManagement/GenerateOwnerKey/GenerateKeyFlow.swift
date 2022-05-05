@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 class GenerateKeyFlow: AddKeyFlow {
+
     var flowFactory: GenerateKeyFactory {
         factory as! GenerateKeyFactory
     }
@@ -81,10 +82,25 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func replaceOwner() {
-        // TODO: start replace owner flow
+        replaceOwnerFlow = ReplaceOwnerFlow(
+            newOwner: keyInfo!,
+            safe: safe!,
+            navigationController: navigationController) { [unowned self] skippedTxDetails in
+                replaceOwnerFlow = nil
+                didReplaceKeyAsOwner(openKeyDetails: skippedTxDetails)
+        }
+        replaceOwnerFlow.start()
     }
 
     func didAddKeyAsOwner(openKeyDetails: Bool = true) {
+        guard openKeyDetails else {
+            stop(success: true)
+            return
+        }
+        details()
+    }
+
+    func didReplaceKeyAsOwner(openKeyDetails: Bool = true) {
         guard openKeyDetails else {
             stop(success: true)
             return

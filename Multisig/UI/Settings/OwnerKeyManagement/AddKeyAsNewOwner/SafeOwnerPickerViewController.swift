@@ -29,7 +29,7 @@ class SafeOwnerPickerViewController: ContainerViewController {
     private var safeOwners: [AddressInfo] = []
     private var selectedOwnerPosition: Int = -1
 
-    var onContinue: ((_ ownerToReplace: KeyInfo) -> Void)?
+    var onContinue: ((_ previousOwner: Address, _ ownerToReplace: Address) -> Void)?
 
     private var clientGatewayService = App.shared.clientGatewayService
     private var client: JsonRpc2.Client!

@@ -13,14 +13,12 @@ class ReplaceOwnerFlow: UIFlow {
 
     var factory: ReplaceOwnerFlowFactory
     var safe: Safe
-    var oldOwner: Address
     var newOwner: KeyInfo
     var replaceOwnerTransactionDetails: SCGModels.TransactionDetails?
 
-    internal init(factory: ReplaceOwnerFlowFactory = .init(), safe: Safe, oldOwner: Address, newOwner: KeyInfo, navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+    internal init(newOwner: KeyInfo, safe: Safe, factory: ReplaceOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
         self.safe = safe
-        self.oldOwner = oldOwner
         self.newOwner = newOwner
         super.init(navigationController: navigationController, completion: completion)
     }
@@ -30,10 +28,31 @@ class ReplaceOwnerFlow: UIFlow {
     }
 
     func pickOwnerToReplace() {
-
+        let pickOwnerToReplaceVC = factory.pickOwnerToReplace() { [unowned self] previousOwner, ownerToReplace in
+            //TODO review
+        }
+        show(pickOwnerToReplaceVC)
     }
 }
 
-
 class ReplaceOwnerFlowFactory {
+
+    func pickOwnerToReplace(onContinue: @escaping (_ previousOwner: Address, _ ownerToReplace: Address) -> Void) -> SafeOwnerPickerViewController {
+        let safeOwnerPickerVC = SafeOwnerPickerViewController()
+        safeOwnerPickerVC.onContinue = onContinue
+        return safeOwnerPickerVC
+    }
+
+    func review(step: Int, maxSteps: Int, safe: Safe, key: KeyInfo, newThreshold: Int, completion: @escaping (SCGModels.TransactionDetails) -> Void) -> ReviewChangeSafeTxViewController {
+        let addOwnerReviewVC = ReviewChangeSafeTxViewController(
+            safe: safe,
+            owner: key,
+            oldOwnersCount: safe.ownersInfo?.count ?? 0,
+            oldThreshold: Int(safe.threshold ?? 0),
+            newThreshold: newThreshold)
+        addOwnerReviewVC.stepNumber = step
+        addOwnerReviewVC.maxSteps = maxSteps
+        addOwnerReviewVC.onSuccess = completion
+        return addOwnerReviewVC
+    }
 }

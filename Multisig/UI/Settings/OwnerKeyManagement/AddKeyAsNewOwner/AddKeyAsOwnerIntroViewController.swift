@@ -73,16 +73,7 @@ class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentation
         }
 
         let replace = UIAlertAction(title: "Replace owner", style: .default) { [unowned self] _ in
-<<<<<<< HEAD
-            let replaceOwnerController = ReplaceOwnerController(keyInfo: keyInfo)
-            replaceOwnerController.onSkipped = onSkip
-            replaceOwnerController.onSuccess = onAdd
-
-            show(replaceOwnerController, sender: self)
-            //self.onReplace?()
-=======
             onReplace?()
->>>>>>> main
         }
 
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
