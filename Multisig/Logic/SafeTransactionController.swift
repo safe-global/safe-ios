@@ -54,7 +54,7 @@ class SafeTransactionController {
     func replaceOwnerData(prevOwner: Address?, oldOwner: Address, newOwner: Address) -> Data? {
         guard let newOwner = Sol.Address.init(maybeData:newOwner.data32),
               let oldOwner = Sol.Address.init(maybeData:oldOwner.data32),
-              let prevOwner = prevOwner == nil ? Sol.Address(storage: 1) : Sol.Address.init(maybeData:prevOwner!.data32)
+              let prevOwner = prevOwner == nil ? Sol.Address(1) : Sol.Address.init(maybeData:prevOwner!.data32)
         else { return nil }
 
         return GnosisSafe_v1_3_0.swapOwner(prevOwner: prevOwner, oldOwner: oldOwner, newOwner: newOwner).encode()
