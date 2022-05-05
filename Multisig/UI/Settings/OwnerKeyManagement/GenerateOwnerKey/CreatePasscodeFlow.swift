@@ -56,16 +56,3 @@ class PasscodeFlowFactory {
         return passcodeVC
     }
 }
-
-class EnterPasscodeFlow: UIFlow {
-    var factory: PasscodeFlowFactory
-
-    init(factory: PasscodeFlowFactory = PasscodeFlowFactory(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
-        self.factory = factory
-        super.init(navigationController: navigationController, completion: completion)
-    }
-
-    override func start() {
-
-    }
-}
