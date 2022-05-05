@@ -139,11 +139,35 @@ class ModalBackupFlow: BackupFlow {
     }
 
     override func start() {
-        seed()
+        passcode()
         // guaranteed to exist at this point
         let rootVC = navigationController.viewControllers.first!
         ViewControllerFactory.addCloseButton(rootVC)
         presenter.present(navigationController, animated: true)
+    }
+
+    func passcode() {
+        let factory = PasscodeFlowFactory()
+        let enterVC = factory.enter(biometry: false, options: [], reset: { [unowned self] in
+            stop(success: false)
+        }, completion: { [unowned self] success in
+            if success {
+                seed()
+            } else {
+                stop(success: false)
+            }
+        })
+        if let enterVC = enterVC {
+            show(enterVC)
+        } else {
+            seed()
+        }
+    }
+
+    override func seed() {
+        super.seed()
+        guard let vc = navigationController.viewControllers.last else { return }
+        ViewControllerFactory.addCloseButton(vc)
     }
 
     override func stop(success: Bool) {

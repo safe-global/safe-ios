@@ -11,7 +11,7 @@ import WalletConnectSwift
 
 fileprivate protocol SectionItem {}
 
-class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserver {
+class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserver, PasscodeProtecting {
     // if not nil, then back button replaced with 'Done' button
     private var completion: (() -> Void)?
     
@@ -161,21 +161,10 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
             return
         }
 
-        if App.shared.auth.isPasscodeSetAndAvailable {
-            let vc = EnterPasscodeViewController()
-            vc.usesBiometry = false
-            vc.passcodeCompletion = { [weak self] success, _ in
-                guard let `self` = self else { return }
-                self.dismiss(animated: true) {
-                    if success {
-                        self.show(exportViewController, sender: self)
-                    }
-                }
+        authenticate(biometry: false) { [unowned self] success, _ in
+            if success {
+                show(exportViewController, sender: self)
             }
-
-            present(vc, animated: true, completion: nil)
-        } else {
-            show(exportViewController, sender: self)
         }
     }
 

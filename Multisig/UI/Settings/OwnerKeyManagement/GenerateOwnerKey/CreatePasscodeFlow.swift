@@ -39,5 +39,20 @@ class PasscodeFlowFactory {
         createVC.navigationItem.hidesBackButton = true
         return createVC
     }
-}
 
+    func enter(biometry: Bool = true, options: PasscodeOptions = [], reset: @escaping () -> Void = { }, completion: @escaping (_ success: Bool) -> Void) -> EnterPasscodeViewController? {
+        guard App.shared.auth.isPasscodeSetAndAvailable && (options.isEmpty || !AppSettings.passcodeOptions.intersection(options).isEmpty) else {
+            return nil
+        }
+        let passcodeVC = EnterPasscodeViewController()
+        passcodeVC.usesBiometry = biometry
+        passcodeVC.passcodeCompletion = { isSuccess, isReset in
+            if isReset {
+                reset()
+            } else {
+                completion(isSuccess)
+            }
+        }
+        return passcodeVC
+    }
+}

@@ -280,6 +280,7 @@
 		0A5C0C4C2817F1DE0061D96F /* SafeCellBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C0C4B2817F1DE0061D96F /* SafeCellBuilder.swift */; };
 		0A5C0C532818204F0061D96F /* EditConfirmationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C0C512818204F0061D96F /* EditConfirmationsViewController.xib */; };
 		0A5C0C542818204F0061D96F /* EditConfirmationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C0C522818204F0061D96F /* EditConfirmationsViewController.swift */; };
+		0A5C0C5628191F400061D96F /* PasscodeProtecting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C0C5528191F400061D96F /* PasscodeProtecting.swift */; };
 		0A5C2DCE25628277009808CB /* SafeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C2DCC25628277009808CB /* SafeInfoViewController.swift */; };
 		0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C2DCD25628277009808CB /* SafeInfoViewController.xib */; };
 		0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F481F254C55390069C98D /* SwitchSafesViewController.swift */; };
@@ -1065,6 +1066,7 @@
 		0A5C0C4B2817F1DE0061D96F /* SafeCellBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCellBuilder.swift; sourceTree = "<group>"; };
 		0A5C0C512818204F0061D96F /* EditConfirmationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditConfirmationsViewController.xib; sourceTree = "<group>"; };
 		0A5C0C522818204F0061D96F /* EditConfirmationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditConfirmationsViewController.swift; sourceTree = "<group>"; };
+		0A5C0C5528191F400061D96F /* PasscodeProtecting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeProtecting.swift; sourceTree = "<group>"; };
 		0A5C2DCC25628277009808CB /* SafeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInfoViewController.swift; sourceTree = "<group>"; };
 		0A5C2DCD25628277009808CB /* SafeInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeInfoViewController.xib; sourceTree = "<group>"; };
 		0A5C2E1325628E30009808CB /* SnackbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarViewController.swift; sourceTree = "<group>"; };
@@ -2289,6 +2291,7 @@
 				0A5B15862808645E003AD853 /* Change Passcode */,
 				0A5B157B280863DF003AD853 /* EnterPasscodeViewController.swift */,
 				0A22E11B25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift */,
+				0A5C0C5528191F400061D96F /* PasscodeProtecting.swift */,
 			);
 			path = Passcode;
 			sourceTree = "<group>";
@@ -4208,6 +4211,7 @@
 				0A616B9B26AEFD4B00FCEDB9 /* MultisigNotification.swift in Sources */,
 				048B3B0E25A5E7AB0005219B /* EditSafeNameViewController.swift in Sources */,
 				0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */,
+				0A5C0C5628191F400061D96F /* PasscodeProtecting.swift in Sources */,
 				0ADD19C0265EA23200EB0F2B /* PrivateKeyViewController.swift in Sources */,
 				558835E7255AEA390014E8C7 /* InfoCell.swift in Sources */,
 				0AC2A3C726FB6802002CB26A /* CollectiblesUnsupportedViewController.swift in Sources */,
