@@ -73,7 +73,8 @@ class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentation
         }
 
         let replace = UIAlertAction(title: "Replace owner", style: .default) { [unowned self] _ in
-            onReplace?()
+            // TODO use: onReplace?() and remove the following line and the implementation
+            replaceOwnerAction()
         }
 
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -83,4 +84,30 @@ class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentation
         alertController.addAction(cancel)
         present(alertController, animated: true)
     }
+
+    func replaceOwnerAction() {
+        //TODO: navigate to safe owner selection
+
+        guard let safe = try? Safe.getSelected() else { return }
+        guard let key = try? KeyInfo.all().first else { return }
+
+        // TODO for now we skip to Review screen
+        // TODO select a random owner of the current select safe to be replaced
+        let addresses =  safe.ownersInfo!.compactMap { info in
+            info.address
+        }
+        do {
+            let ownerToBeReplaced = try KeyInfo.keys(addresses: addresses).first
+            let replaceOwnerReviewVC = ReviewReplaceOwnerTxViewController(safe: safe,
+                    owner: key,
+                    ownersCount: safe.ownersInfo?.count ?? 0,
+                    threshold: Int(safe.threshold ?? 0),
+                    ownerToBeReplaced: ownerToBeReplaced!)
+            show(replaceOwnerReviewVC, sender: self)
+        } catch {
+            LogService.shared.info("[REPLACE_OWNER] failed")
+        }
+
+    }
+
 }

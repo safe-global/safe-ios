@@ -81,8 +81,8 @@ class AddOwnerFlowFactory {
         return confirmationsVC
     }
 
-    func review(step: Int, maxSteps: Int, safe: Safe, key: KeyInfo, newThreshold: Int, completion: @escaping (SCGModels.TransactionDetails) -> Void) -> ReviewChangeSafeTxViewController {
-        let addOwnerReviewVC = ReviewChangeSafeTxViewController(
+    func review(step: Int, maxSteps: Int, safe: Safe, key: KeyInfo, newThreshold: Int, completion: @escaping (SCGModels.TransactionDetails) -> Void) -> ReviewAddOwnerTxViewController {
+        let addOwnerReviewVC = ReviewAddOwnerTxViewController(
             safe: safe,
             owner: key,
             oldOwnersCount: safe.ownersInfo?.count ?? 0,
