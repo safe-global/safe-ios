@@ -26,7 +26,7 @@ class SafeOwnerPickerViewController: ContainerViewController {
     private let maxSteps: Int = 2
 
     private var safe: Safe!
-    private var safeOwners: [KeyInfo] = []
+    private var safeOwners: [AddressInfo] = []
     private var selectedOwnerPosition: Int = -1
 
     var onContinue: ((_ ownerToReplace: KeyInfo) -> Void)?
@@ -53,7 +53,7 @@ class SafeOwnerPickerViewController: ContainerViewController {
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
-        ownerListViewController = ChooseSafeOwnerViewController()
+        ownerListViewController = ChooseSafeOwnerViewController(safe: safe)
         ownerListViewController.onOwnerSelected = { [unowned self] position in
             self.setOwnerSelection(position: position)
         }
@@ -80,9 +80,27 @@ class SafeOwnerPickerViewController: ContainerViewController {
     }
 
     func reloadSafeOwners() {
-        ownerListViewController.reloadWithOwners(owners: safeOwners)
-    }
+        SafeTransactionController.shared.getOwners(safe: safe.addressValue, chain: safe.chain!) { [weak self] result in
 
+            guard let self = self else {
+                return
+            }
+
+            switch result {
+
+            case .failure(let error):
+                self.pullToRefreshControl.endRefreshing()
+
+            case .success(let owners):
+                self.safeOwners = owners.compactMap { owner in
+                    AddressInfo.init(address: owner)
+                }
+                self.pullToRefreshControl.endRefreshing()
+                self.ownerListViewController.reloadWithOwners(owners: self.safeOwners)
+            }
+        }
+
+    }
 
     func setOwnerSelection(position: Int) {
         selectedOwnerPosition = position
@@ -95,10 +113,13 @@ class ChooseSafeOwnerViewController: LoadableViewController, UITableViewDelegate
 
     var onOwnerSelected: ((_ position: Int) -> Void)?
 
-    private var safeOwners: [KeyInfo] = []
+    private var safe: Safe!
+    private var safeOwners: [AddressInfo] = []
+    private var selectedOwner: Int = -1
 
-    convenience init() {
+    convenience init(safe: Safe) {
         self.init(namedClass: LoadableViewController.self)
+        self.safe = safe
     }
 
     func setRefreshControl(_ refreshControl: UIRefreshControl) {
@@ -113,13 +134,13 @@ class ChooseSafeOwnerViewController: LoadableViewController, UITableViewDelegate
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 200
         tableView.backgroundColor = .backgroundSecondary
-        tableView.registerCell(SigningKeyTableViewCell.self)
+        tableView.registerCell(SafeOwnerCell.self)
     }
 
-    @objc func reloadWithOwners(owners: [KeyInfo]) {
+    func reloadWithOwners(owners: [AddressInfo]) {
         safeOwners = owners
         DispatchQueue.main.async { [unowned self] in
-            self.tableView.reloadData()
+            self.onSuccess()
         }
     }
 
@@ -128,10 +149,22 @@ class ChooseSafeOwnerViewController: LoadableViewController, UITableViewDelegate
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let keyInfo = safeOwners[indexPath.row]
-        let cell = tableView.dequeueCell(SigningKeyTableViewCell.self, for: indexPath)
+        let safeOwnerInfo = safeOwners[indexPath.row]
+        let cell = tableView.dequeueCell(SafeOwnerCell.self, for: indexPath)
+
+        let keyInfo = try? KeyInfo.keys(addresses: [safeOwnerInfo.address]).first
+        let (name, _) = NamingPolicy.name(for: safeOwnerInfo.address,
+                                                    info: safeOwnerInfo,
+                                                    chainId: safe.chain!.id!)
+        cell.setAccount(
+            address: safeOwnerInfo.address,
+            selected: selectedOwner == indexPath.row,
+            name: name,
+            imageUri: nil,
+            badgeName:  keyInfo?.keyType.imageName,
+            prefix: safe.chain!.shortName)
         cell.selectionStyle = .none
-        cell.configure(keyInfo: keyInfo, chainID: nil)
+
         return cell
     }
 
