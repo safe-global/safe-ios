@@ -75,15 +75,32 @@ class AddOwnerKeyViewController: UITableViewController {
         return cell
     }
 
+    var importKeyFlow: ImportKeyFlow!
+    var generateKeyFlow: GenerateKeyFlow!
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let navigationController = navigationController else {
+            return
+        }
+
         let controller: UIViewController
 
         switch keyTypes[indexPath.row].type {
         case .deviceImported:
-            controller = OnboardingImportOwnerKeyViewController(completion: completion)
+            importKeyFlow = ImportKeyFlow(navigationController: navigationController, completion: { [unowned self] _ in
+                importKeyFlow = nil
+                completion()
+            })
+            importKeyFlow.start()
+            return
 
         case .deviceGenerated:
-            controller = OnboardingGenerateKeyViewController(completion: completion)
+            generateKeyFlow = GenerateKeyFlow(navigationController: navigationController, completion: { [unowned self] _ in
+                generateKeyFlow = nil
+                completion()
+            })
+            generateKeyFlow.start()
+            return
 
         case .walletConnect:
             controller = OnboardingConnectOwnerKeyViewController(completion: completion)
