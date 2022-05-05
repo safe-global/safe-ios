@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OwnerActionView" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="actionTag" destination="y1R-LJ-aet" id="hmn-Mx-ACV"/>
+                <outlet property="addressLabel" destination="PDF-eF-mcn" id="BMs-Zx-VVm"/>
+                <outlet property="blockie" destination="oK0-b0-b8L" id="Knb-a7-3SR"/>
+                <outlet property="nameLabel" destination="0W2-Of-ECu" id="A2M-p0-r6R"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oK0-b0-b8L" customClass="IdenticonView" customModule="Multisig" customModuleProvider="target">
+                    <rect key="frame" x="189" y="0.0" width="36" height="36"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="8UM-mz-tYy"/>
+                        <constraint firstAttribute="width" secondItem="oK0-b0-b8L" secondAttribute="height" id="T5k-e0-OQ2"/>
+                    </constraints>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uQj-PG-Ldx">
+                    <rect key="frame" x="0.0" y="44" width="414" height="86"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="flO-Aq-eY7">
+                            <rect key="frame" x="161.5" y="0.0" width="91.5" height="54"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Key name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0W2-Of-ECu">
+                                    <rect key="frame" x="8.5" y="0.0" width="74.5" height="33.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0xAB...146F" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDF-eF-mcn">
+                                    <rect key="frame" x="0.0" y="33.5" width="91.5" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y1R-LJ-aet" customClass="TagView" customModule="Multisig" customModuleProvider="target">
+                            <rect key="frame" x="87" y="62" width="240" height="24"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="24" id="7eh-Xu-i9K"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="oK0-b0-b8L" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="9aN-hx-ZlS"/>
+                <constraint firstItem="uQj-PG-Ldx" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="GTg-8a-HSv"/>
+                <constraint firstItem="oK0-b0-b8L" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Rew-vw-kMd"/>
+                <constraint firstItem="uQj-PG-Ldx" firstAttribute="top" secondItem="oK0-b0-b8L" secondAttribute="bottom" constant="8" id="UoQ-X2-U5i"/>
+                <constraint firstAttribute="trailing" secondItem="uQj-PG-Ldx" secondAttribute="trailing" id="qT4-ox-hAl"/>
+                <constraint firstAttribute="bottom" secondItem="uQj-PG-Ldx" secondAttribute="bottom" id="zoC-gf-6tP"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="NO"/>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="137.68115942028987" y="-265.17857142857144"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

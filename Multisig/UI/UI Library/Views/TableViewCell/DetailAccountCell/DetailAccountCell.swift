@@ -19,13 +19,14 @@ class DetailAccountCell: UITableViewCell {
                     showQRCode: Bool = false,
                     copyEnabled: Bool = true,
                     browseURL: URL? = nil,
-                    prefix: String? = nil) {
+                    prefix: String? = nil,
+                    titleStyle: GNOTextStyle = .headline) {
         addressInfoView.setAddress(address, label: label,
                                    imageUri: imageUri,
                                    badgeName: badgeName,
                                    browseURL: browseURL,
                                    prefix: prefix)
-        addressInfoView.setTitle(title)
+        addressInfoView.setTitle(title, style: titleStyle)
         qrCodeView.isHidden = !showQRCode
         qrCodeView.value = address.checksummed
 

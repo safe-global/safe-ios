@@ -26,6 +26,8 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
 
     private var connection: WebConnection?
 
+    private var backupFlow: ModalBackupFlow!
+
     enum Section {
         case backedup
         case name(String)
@@ -246,19 +248,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         switch item {
         case Section.Backedup.backedup:
             return tableView.backupKeyCell(indexPath: indexPath) { [weak self] in
-                guard let self = self else { return }
-
-                Tracker.trackEvent(.backupFromKeyDetails)
-
-                guard let mnemonic = try? self.keyInfo.privateKey()?.mnemonic else {
-                    return
-                }
-                self.authenticate(biometry: false) { [unowned self] success, _ in
-                    if success {
-                        let backupVC = BackupController(showIntro: false, seedPhrase: mnemonic)
-                        self.show(backupVC, sender: self)
-                    }
-                }
+                self?.startBackup()
             }
         case Section.Name.name:
             return tableView.basicCell(name: keyInfo.name ?? "", indexPath: indexPath)
@@ -285,6 +275,14 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         default:
             return UITableViewCell()
         }
+    }
+
+    private func startBackup() {
+        Tracker.trackEvent(.backupFromKeyDetails)
+        backupFlow = ModalBackupFlow(keyInfo: keyInfo, presenter: self, completion: { success in
+            self.backupFlow = nil
+        })
+        backupFlow?.start()
     }
 
     private func keyTypeCell(type: KeyType, indexPath: IndexPath) -> UITableViewCell {

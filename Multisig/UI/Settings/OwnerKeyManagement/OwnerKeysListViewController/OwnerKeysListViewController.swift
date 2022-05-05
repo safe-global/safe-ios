@@ -13,6 +13,8 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
     private var keys: [KeyInfo] = []
     private var chainID: String?
     private var addButton: UIBarButtonItem!
+    private var backupFlow: ModalBackupFlow!
+
     override var isEmpty: Bool {
         keys.isEmpty
     }
@@ -88,20 +90,18 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         let cell = tableView.dequeueCell(SigningKeyTableViewCell.self, for: indexPath)
         cell.selectionStyle = .none
         cell.configure(keyInfo: keyInfo, chainID: chainID) { [weak self] in
-            guard let self = self else { return }
-            Tracker.trackEvent(.backupFromKeysList)
-            guard let mnemonic = try? keyInfo.privateKey()?.mnemonic else {
-                return
-            }
-            self.authenticate(biometry: false) { [unowned self] success, _ in
-                if success {
-                    let backupVC = BackupController(showIntro: false, seedPhrase: mnemonic)
-                    self.present(backupVC, animated: true)
-                }
-            }
+            self?.startBackup(keyInfo: keyInfo)
         }
-
         return cell
+    }
+
+    private func startBackup(keyInfo: KeyInfo) {
+        Tracker.trackEvent(.backupFromKeysList)
+        backupFlow = ModalBackupFlow(keyInfo: keyInfo, presenter: self, completion: { success in
+            self.backupFlow = nil
+        })
+
+        backupFlow?.start()
     }
 
     // MARK: - Table view delegate

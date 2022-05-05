@@ -37,21 +37,10 @@ class BackupSeedPhraseViewController: ContainerViewController {
         continueButton.setText("Continue", .filled)
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(screenshotTaken), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
+    func set(mnemonic: String) {
+        seedPhrase = mnemonic.split(separator: " ").compactMap(String.init)
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
-    }
-
-    @objc private func screenshotTaken() {
-        Tracker.trackEvent(.backupUserSeedPhraseScreenshot)
-        NoScreenshotViewController.show(presenter: self)
-    }
-    
     @IBAction func didTapContinueButton(_ sender: Any) {
         onContinue?()
     }

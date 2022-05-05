@@ -261,4 +261,16 @@ enum TrackingEvent: String, Trackable {
     case backupCreatedSuccessfully                  = "screen_backup_success"
     case backupFromKeyDetails                       = "user_backup_from_key_details"
     case backupFromKeysList                         = "user_backup_from_keys_list"
+
+    // MARK: Add Key As Owner (Add Owner)
+    case addAsOwnerIntro                            = "screen_add_key_as_owner_info"
+    case addAsOwnerIntroSkipped                     = "user_skip_add_key_as_owner"
+
+    case addAsOwnerChangeConfirmations              = "screen_add_owner_change_policy"
+    case addAsOwnerReview                           = "screen_add_owner_review"
+    case addAsOwnerSuccess                          = "screen_add_owner_success"
+
+    case replaceOwnerSelect                         = "screen_replace_owner_select"
+    case replaceOwnerReview                         = "screen_replace_owner_review"
+    case replaceOwnerSuccess                        = "screen_replace_owner_success"
 }

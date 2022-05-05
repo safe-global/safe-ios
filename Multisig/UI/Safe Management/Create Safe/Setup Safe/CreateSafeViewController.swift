@@ -24,21 +24,26 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     var txHash: String?
     var chain: Chain?
 
+    private var cellBuilder: SafeCellBuilder!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "Create Safe"
 
-        tableView.registerHeaderFooterView(BasicHeaderView.self)
+        cellBuilder = SafeCellBuilder(viewController: self, tableView: tableView)
+
         tableView.registerCell(SelectNetworkTableViewCell.self)
         tableView.registerCell(ActionDetailAddressCell.self)
-        tableView.registerCell(StepperTableViewCell.self)
+
         tableView.registerCell(DisclosureWithContentCell.self)
         tableView.registerCell(DetailExpandableTextCell.self)
         tableView.registerCell(IconButtonTableViewCell.self)
-        tableView.registerCell(HelpTextTableViewCell.self)
+
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(BorderedInnerTableCell.self)
+
+        cellBuilder.registerCells()
 
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
@@ -120,25 +125,15 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard isValid(section: section) else { return nil }
         let sectionData = uiModel.sectionHeaders[section]
-        switch sectionData.id {
-        case .error:
-            return nil
-        default:
-            let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
-            view.setName(sectionData.title)
-            return view
-        }
+        guard sectionData.id != .error else { return nil }
+        return cellBuilder.headerView(text: sectionData.title)
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard isValid(section: section) else { return 0 }
         let sectionData = uiModel.sectionHeaders[section]
-        switch sectionData.id {
-        case .error:
-            return 0
-        default:
-            return BasicHeaderView.headerHeight
-        }
+        guard sectionData.id != .error else { return 0 }
+        return BasicHeaderView.headerHeight
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -216,7 +211,9 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             selectOwnerRow(tableView: tableView, indexPath: indexPath)
 
         case .threshold:
-            selectConfirmationRow(indexPath.row)
+            if indexPath.row == 1 {
+                cellBuilder.didSelectThresholdHelpCell()
+            }
 
         default:
             break
@@ -274,11 +271,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             popoverPresentationController.sourceView = tableView.cellForRow(at: indexPath)
         }
         present(picker, animated: true, completion: nil)
-    }
-
-    func selectConfirmationRow(_ rowIndex: Int) {
-        guard rowIndex == 1 else { return }
-        openInSafari(App.configuration.help.confirmationsURL)
     }
 
     // select deployer
@@ -550,35 +542,32 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func helpTextCell(_ text: String, hyperlink: String, indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(HelpTextTableViewCell.self, for: indexPath)
-        cell.selectionStyle = .none
-        cell.cellLabel.hyperLinkLabel(
-            text,
-            prefixStyle: .footnote2.weight(.regular),
-            linkText: hyperlink,
-            linkStyle: .footnote2.weight(.regular).color(.primary),
-            linkIcon: nil)
-        return cell
+        return cellBuilder.helpTextCell(text, hyperlink: hyperlink, indexPath: indexPath)
     }
 
     func thresholdCell(for indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let cell = tableView.dequeueCell(StepperTableViewCell.self, for: indexPath)
-            cell.selectionStyle = .none
-            cell.setText(uiModel.thresholdText)
-            cell.setRange(min: uiModel.minThreshold, max: uiModel.maxThreshold)
-            cell.setValue(uiModel.threshold)
-            cell.onChange = { [weak self, unowned cell] newThreshold in
-                guard let self = self else { return }
-                self.uiModel.threshold = newThreshold
-                cell.setText(self.uiModel.thresholdText)
-                self.uiModel.didEdit()
-            }
+            let cell = cellBuilder.thresholdCell(
+                uiModel.thresholdText,
+                range: (uiModel.minThreshold...uiModel.maxThreshold),
+                value: uiModel.threshold,
+                indexPath: indexPath,
+                onChange: { [weak self] threshold in
+                    guard let self = self else { return }
+                    self.uiModel.threshold = threshold
+                    // Since we are in the closure before the cell is initialized, we need to find it
+                    // by the index path.
+                    //
+                    // Modifying the cell directly because reloading the whole table seems to be too much
+                    // and reloading just the cell makes table 'jump' visually
+                    if let thresholdCell = self.tableView.cellForRow(at: indexPath) as? StepperTableViewCell {
+                        thresholdCell.setText(self.uiModel.thresholdText)
+                    }
+                    self.uiModel.didEdit()
+                })
             return cell
         } else {
-            let text = "How many owner confirmations are required for a transaction to be executed?"
-            let link = "Learn about Safe setup"
-            return helpTextCell(text, hyperlink: link, indexPath: indexPath)
+            return cellBuilder.thresholdHelpCell(for: indexPath)
         }
     }
 

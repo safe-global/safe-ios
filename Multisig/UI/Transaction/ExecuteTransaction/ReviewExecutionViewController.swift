@@ -541,7 +541,8 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         let successVC = SuccessViewController(
             titleText: "Your transaction is submitted!",
             bodyText: "It normally takes some time for a transaction to be executed.",
-            doneTitle: "View details",
+            primaryAction: "View transaction details",
+            secondaryAction: nil,
             trackingEvent: .executeSuccess
         )
 
@@ -577,9 +578,8 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
             }
         }
 
-        successVC.onDone = { [weak self] in
+        successVC.onDone = { [weak self] _ in
             guard let self = self else { return }
-
             self.onSuccess()
         }
 
