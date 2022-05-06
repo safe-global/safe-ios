@@ -70,6 +70,7 @@ class ReviewSafeTransactionViewController: UIViewController {
 
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
+
         ribbonView.update(chain: safe.chain)
         loadData()
 

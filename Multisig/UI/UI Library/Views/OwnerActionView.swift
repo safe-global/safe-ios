@@ -25,7 +25,7 @@ class OwnerActionView: UINibView {
     func set(owner: AddressInfo, action: OwnerAction) {
         blockie.set(address: owner.address)
         nameLabel.text = owner.name
-        addressLabel.text = owner.address.ellipsized(prefix: 4)
+        addressLabel.text = owner.address.ellipsized()
         switch action {
         case .addingOwner:
             actionTag.set(title: "Adding owner", style: .footnote2, backgroundColor: .backgroundPositive, textColor: .primary)
