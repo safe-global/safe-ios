@@ -13,11 +13,9 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
     var completion: () -> Void = {}
 
     @IBOutlet private weak var descriptionLabel: UILabel!
-    @IBOutlet private weak var textView: UITextView!
-    @IBOutlet private weak var placeholderLabel: UILabel!
     @IBOutlet private weak var errorLabel: UILabel!
     @IBOutlet private weak var scrollView: UIScrollView!
-
+    @IBOutlet private weak var textField: GMTextField!
     private var nextButton: UIBarButtonItem!
 
     private var keyboardBehavior: KeyboardAvoidingBehavior!
@@ -41,18 +39,10 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         errorLabel.setStyle(.error)
         errorLabel.isHidden = true
 
-        textView.textContentType = .password
-        textView.delegate = self
-        textView.layer.borderWidth = 2
-        textView.layer.borderColor = UIColor.labelTertiary.cgColor
-        textView.layer.cornerRadius = 10
-        textView.textContainerInset = UIEdgeInsets(top: 16, left: 12, bottom: 16, right: 12)
-        textView.setStyle(.primary)
-        
-        textView.becomeFirstResponder()
+        textField.delegate = self
+        textField.becomeFirstResponder()
 
-        placeholderLabel.setStyle(.tertiary)
-        placeholderLabel.text = "Enter private key or seed phrase"
+        textField.placeholder = "Enter private key or seed phrase"
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -71,7 +61,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
     }
 
     @objc private func didTapNextButton(_ sender: Any) {
-        let phrase = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        let phrase = (textField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         if isPotentiallyValidSeedPhrase(phrase) {
             nextButton.isEnabled = false
             guard let seedData = BIP39.seedFromMmemonics(phrase),
@@ -95,9 +85,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
     }
 
     private func updateTextDependentViews(with text: String) {
-        placeholderLabel.isHidden = !text.isEmpty
         setError(nil)
-
         let phrase = text.trimmingCharacters(in: .whitespacesAndNewlines)
         nextButton.isEnabled = isPotentiallyValidSeedPhrase(phrase) || isValidPK(phrase)
     }
@@ -118,16 +106,68 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
     private func setError(_ error: Error?) {
         errorLabel.text = error?.localizedDescription
         errorLabel.isHidden = error == nil
-        textView.layer.borderColor = error == nil ? UIColor.labelTertiary.cgColor : UIColor.error.cgColor
+        textField.hasError = error != nil
     }
 }
 
-extension EnterKeyOrSeedPhraseViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        keyboardBehavior.activeTextView = textView
+extension EnterKeyOrSeedPhraseViewController: UITextFieldDelegate {
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        keyboardBehavior.activeTextField = textField
     }
 
-    func textViewDidChange(_ textView: UITextView) {
-        updateTextDependentViews(with: textView.text)
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let oldText = textField.text as? NSString {
+            let newText = oldText.replacingCharacters(in: range, with: string)
+            updateTextDependentViews(with: newText)
+        } else {
+            updateTextDependentViews(with: string)
+        }
+        return true
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        didTapNextButton(textField)
+        return true
+    }
+}
+
+class GMTextField: UITextField {
+    var textInset: UIEdgeInsets = .zero
+
+    var hasError: Bool = false {
+        didSet {
+            layer.borderColor = hasError ? UIColor.error.cgColor: UIColor.labelTertiary.cgColor
+        }
+    }
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+
+    func commonInit() {
+        layer.borderWidth = 2
+        layer.cornerRadius = 10
+        hasError = false
+        textInset = UIEdgeInsets(top: 16, left: 12, bottom: 16, right: 12)
+        setStyle(.primary)
+    }
+
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+        super.textRect(forBounds: bounds).inset(by: textInset)
+    }
+
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        super.editingRect(forBounds: bounds).inset(by: textInset)
+    }
+
+    override func clearButtonRect(forBounds bounds: CGRect) -> CGRect {
+        super.clearButtonRect(forBounds: bounds).offsetBy(dx: -textInset.right, dy: 0)
     }
 }

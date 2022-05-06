@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -13,9 +13,8 @@
             <connections>
                 <outlet property="descriptionLabel" destination="s8A-J4-nH8" id="jSQ-jr-TgH"/>
                 <outlet property="errorLabel" destination="BHN-Pb-BhQ" id="Ea4-Zp-MGX"/>
-                <outlet property="placeholderLabel" destination="SrN-XD-IyR" id="ufe-kZ-1ss"/>
                 <outlet property="scrollView" destination="m4o-eM-n6B" id="RBU-2p-mXo"/>
-                <outlet property="textView" destination="MJ4-Yf-NvO" id="ncd-wj-Rl0"/>
+                <outlet property="textField" destination="khe-dI-1dG" id="IcC-vN-fyA"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -31,7 +30,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="vbd-Iv-1AY">
-                                    <rect key="frame" x="16" y="27" width="382" height="273.5"/>
+                                    <rect key="frame" x="16" y="27" width="382" height="229.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8A-J4-nH8">
                                             <rect key="frame" x="0.0" y="0.0" width="373" height="122"/>
@@ -43,29 +42,25 @@ A private key is a string of 64 characters. </string>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fHk-At-5aa">
-                                            <rect key="frame" x="0.0" y="145" width="382" height="128.5"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fHk-At-5aa">
+                                            <rect key="frame" x="0.0" y="145" width="382" height="84.5"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MJ4-Yf-NvO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="100"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="khe-dI-1dG" customClass="GMTextField" customModule="Multisig" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="56"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="100" id="GCC-UL-4wz"/>
+                                                        <constraint firstAttribute="height" constant="56" id="GGA-BO-NN6"/>
                                                     </constraints>
-                                                    <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="done" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
+                                                </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHN-Pb-BhQ">
-                                                    <rect key="frame" x="0.0" y="108" width="382" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="64" width="382" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="MJ4-Yf-NvO" secondAttribute="trailing" id="HGW-lb-DeU"/>
-                                                <constraint firstItem="MJ4-Yf-NvO" firstAttribute="leading" secondItem="fHk-At-5aa" secondAttribute="leading" id="XQr-vO-5uh"/>
                                                 <constraint firstAttribute="trailing" secondItem="BHN-Pb-BhQ" secondAttribute="trailing" id="fh8-gt-rRt"/>
                                                 <constraint firstItem="BHN-Pb-BhQ" firstAttribute="leading" secondItem="fHk-At-5aa" secondAttribute="leading" id="uFw-LW-d3E"/>
                                             </constraints>
@@ -95,12 +90,6 @@ A private key is a string of 64 characters. </string>
                     <viewLayoutGuide key="contentLayoutGuide" id="6Xn-aO-xUv"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="nLn-qE-HgH"/>
                 </scrollView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter private key or seed phrase" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SrN-XD-IyR">
-                    <rect key="frame" x="32" y="232" width="350" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -108,19 +97,13 @@ A private key is a string of 64 characters. </string>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="leading" secondItem="m4o-eM-n6B" secondAttribute="leading" id="16V-IV-rRR"/>
                 <constraint firstItem="m4o-eM-n6B" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="1JH-eF-Znd"/>
                 <constraint firstItem="m4o-eM-n6B" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="3LS-uh-iCO"/>
-                <constraint firstItem="SrN-XD-IyR" firstAttribute="top" secondItem="MJ4-Yf-NvO" secondAttribute="top" constant="16" id="68s-Hw-vND"/>
                 <constraint firstItem="dmc-KF-JfK" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="Df9-kU-aii"/>
-                <constraint firstItem="SrN-XD-IyR" firstAttribute="leading" secondItem="MJ4-Yf-NvO" secondAttribute="leading" constant="16" id="ETb-sa-bNO"/>
-                <constraint firstItem="SrN-XD-IyR" firstAttribute="trailing" secondItem="MJ4-Yf-NvO" secondAttribute="trailing" constant="-16" id="Yrw-iJ-JZf"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="m4o-eM-n6B" secondAttribute="top" id="msP-DH-dYg"/>
             </constraints>
             <point key="canvasLocation" x="44.927536231884062" y="152.67857142857142"/>
         </view>
     </objects>
     <resources>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
