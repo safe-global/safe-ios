@@ -21,7 +21,11 @@ class ReviewChangeConfirmationsTxViewController: ReviewSafeTransactionViewContro
 
     convenience init(safe: Safe, ownersCount: Int, oldThreshold: Int, newThreshold: Int) {
         //TODO How to get rid of the address? Or do we need it
-        self.init(safe: safe, address: try! Address(from: safe.address!),  data: SafeTransactionController.shared.changeThresholdData(threshold: newThreshold)) //Add tx type swap owner
+        self.init(
+                safe: safe,
+                address: try! Address(from: safe.address!),
+                data: SafeTransactionController.shared.changeThresholdData(threshold: newThreshold)
+        )
 
         self.ownersCount = ownersCount
         self.oldThreshold = oldThreshold
@@ -39,7 +43,6 @@ class ReviewChangeConfirmationsTxViewController: ReviewSafeTransactionViewContro
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
-        //tableView.registerCell(ReplaceOwnerTableViewCell.self) // TODO ?
         confirmButtonView.title = "Submit"
         confirmButtonView.state = .normal
     }
@@ -50,8 +53,7 @@ class ReviewChangeConfirmationsTxViewController: ReviewSafeTransactionViewContro
     }
 
     override func createSections() {
-        sectionItems = [//SectionItem.header(UITableViewCell()), // TODO can this be removed?
-                        SectionItem.safeInfo(safeInfoCell()),
+        sectionItems = [SectionItem.safeInfo(safeInfoCell()),
                         SectionItem.valueChange(confirmationsCell()),
                         SectionItem.valueChange(ownersCell()),
                         SectionItem.advanced(parametersCell())]

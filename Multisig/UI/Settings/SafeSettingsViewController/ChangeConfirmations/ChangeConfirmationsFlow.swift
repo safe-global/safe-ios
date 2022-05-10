@@ -11,15 +11,17 @@ class ChangeConfirmationsFlow: UIFlow {
     var safe: Safe
     var newConfirmations: Int?
     var changeConfirmationsTransactionDetails: SCGModels.TransactionDetails?
+    weak var presenter: UIViewController!
 
-    init(safe: Safe, factory: ChangeConfirmationsFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+    init(safe: Safe, presenter: UIViewController, factory: ChangeConfirmationsFlowFactory = .init(), completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
         self.safe = safe
+        self.presenter = presenter
+        let navigationController = CancellableNavigationController()
         super.init(navigationController: navigationController, completion: completion)
-    }
-
-    override func start() {
-        confirmations()
+        navigationController.onCancel = { [unowned self] in
+            stop(success: false)
+        }
     }
 
     func confirmations() {
@@ -60,6 +62,20 @@ class ChangeConfirmationsFlow: UIFlow {
         }
         show(successVC)
     }
+
+    override func start() {
+        confirmations()
+        // guaranteed to exist at this point
+        let rootVC = navigationController.viewControllers.first!
+        ViewControllerFactory.addCloseButton(rootVC)
+        presenter.present(navigationController, animated: true)
+    }
+
+    override func stop(success: Bool) {
+        presenter.dismiss(animated: true) { [unowned self] in
+            completion(success)
+        }
+    }
 }
 
 class ChangeConfirmationsFlowFactory {
@@ -76,7 +92,7 @@ class ChangeConfirmationsFlowFactory {
     }
 
     func review(step: Int, maxSteps: Int, safe: Safe, newThreshold: Int, completion: @escaping (SCGModels.TransactionDetails) -> Void) -> ReviewChangeConfirmationsTxViewController {
-        let changeConfirmationsReviewVC = ReviewChangeConfirmationsTxViewController (
+        let changeConfirmationsReviewVC = ReviewChangeConfirmationsTxViewController(
                 safe: safe,
                 ownersCount: safe.ownersInfo?.count ?? 0,
                 oldThreshold: Int(safe.threshold ?? 0),

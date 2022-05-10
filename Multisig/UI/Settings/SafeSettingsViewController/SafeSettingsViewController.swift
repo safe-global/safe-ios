@@ -334,10 +334,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             show(editSafeNameViewController, sender: self)
 
         case Section.RequiredConfirmations.confirmations(_):
-            changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe!, navigationController: navigationController!, completion: { [unowned self] _ in
+            changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe!, presenter: self, completion: { [unowned self] _ in
                 changeConfirmationsFlow = nil
-                print("Done.")
-                //completion() // TODO implement
             })
             changeConfirmationsFlow.start()
             break
