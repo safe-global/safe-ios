@@ -50,7 +50,7 @@ class ReviewChangeConfirmationsTxViewController: ReviewSafeTransactionViewContro
     }
 
     override func createSections() {
-        sectionItems = [//SectionItem.header(headerCell()), // TODO can this be removed?
+        sectionItems = [//SectionItem.header(UITableViewCell()), // TODO can this be removed?
                         SectionItem.safeInfo(safeInfoCell()),
                         SectionItem.valueChange(confirmationsCell()),
                         SectionItem.valueChange(ownersCell()),
@@ -79,6 +79,6 @@ class ReviewChangeConfirmationsTxViewController: ReviewSafeTransactionViewContro
     }
 
     override func onSuccess(transaction: SCGModels.TransactionDetails) {
-        //onSuccess?(transaction)
+        onSuccess?(transaction)
     }
 }
