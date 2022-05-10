@@ -22,11 +22,12 @@
             <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="AZe-uM-Ynb">
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="AZe-uM-Ynb">
                     <rect key="frame" x="0.0" y="88" width="428" height="804"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ui9-eh-dnd">
-                            <rect key="frame" x="0.0" y="0.0" width="428" height="20.333333333333332"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ui9-eh-dnd">
+                            <rect key="frame" x="193.33333333333334" y="0.0" width="41.333333333333343" height="20.333333333333332"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -40,7 +41,7 @@
                             </connections>
                         </tableView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PWF-A2-Nty">
-                            <rect key="frame" x="0.0" y="748" width="428" height="56"/>
+                            <rect key="frame" x="16" y="748" width="396" height="56"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="56" id="EbH-3D-H7B"/>
                             </constraints>
@@ -53,6 +54,17 @@
                             </connections>
                         </button>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="4Ih-ZM-0vx"/>
+                    <constraints>
+                        <constraint firstItem="PWF-A2-Nty" firstAttribute="leading" secondItem="4Ih-ZM-0vx" secondAttribute="leading" constant="16" id="E6W-7X-TZa"/>
+                        <constraint firstItem="4Ih-ZM-0vx" firstAttribute="trailing" secondItem="PWF-A2-Nty" secondAttribute="trailing" constant="16" id="JLh-5o-N0G"/>
+                        <constraint firstItem="gjO-nX-yBC" firstAttribute="leading" secondItem="4Ih-ZM-0vx" secondAttribute="leading" id="SWz-lI-h7M"/>
+                        <constraint firstItem="gjO-nX-yBC" firstAttribute="trailing" secondItem="4Ih-ZM-0vx" secondAttribute="trailing" id="Yai-MZ-pk6"/>
+                        <constraint firstItem="gjO-nX-yBC" firstAttribute="leading" secondItem="4Ih-ZM-0vx" secondAttribute="leading" id="cf7-lf-XpD"/>
+                        <constraint firstItem="PWF-A2-Nty" firstAttribute="top" secondItem="gjO-nX-yBC" secondAttribute="bottom" constant="15" id="h0h-si-xnz"/>
+                        <constraint firstItem="gjO-nX-yBC" firstAttribute="top" secondItem="ui9-eh-dnd" secondAttribute="bottom" constant="15" id="nSa-Kd-umo"/>
+                        <constraint firstItem="gjO-nX-yBC" firstAttribute="trailing" secondItem="4Ih-ZM-0vx" secondAttribute="trailing" id="zCM-GN-aIM"/>
+                    </constraints>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
