@@ -169,7 +169,10 @@ extension Tracker {
                 .dappConnectedWithScanButton,
                 .dappConnectedWithUniversalLink,
                 .selectDapp,
-                .collectiblesOpenInWeb
+                .collectiblesOpenInWeb,
+                .addOwnerFromSettings,
+                .replaceOwnerFromSettings,
+                .userRemoveOwnerFromSettings
             ].contains(event)
     }
 

@@ -39,14 +39,14 @@ class ReviewChangeConfirmationsTxViewController: ReviewSafeTransactionViewContro
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
-        tableView.registerCell(ReplaceOwnerTableViewCell.self) // TODO ?
+        //tableView.registerCell(ReplaceOwnerTableViewCell.self) // TODO ?
         confirmButtonView.title = "Submit"
         confirmButtonView.state = .normal
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.replaceOwnerReview) // TODO
+        Tracker.trackEvent(.reviewChangeConfirmations)
     }
 
     override func createSections() {

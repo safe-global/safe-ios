@@ -82,6 +82,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.registerCell(LoadingValueCell.self)
         tableView.registerCell(RemoveCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
+        tableView.registerHeaderFooterView(OwnerHeaderView.self)
 
         for notification in [Notification.Name.ownerKeyImported,
                              .ownerKeyRemoved,
@@ -168,7 +169,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             (section: .requiredConfirmations("Required confirmations"),
              items: [Section.RequiredConfirmations.confirmations("\(safe.threshold!) out of \(safe.ownersInfo!.count)")]),
 
-            (section: .ownerAddresses("Owner addresses"),
+            (section: .ownerAddresses("Owners"),
              items: safe.ownersInfo!.map { Section.OwnerAddresses.ownerInfo($0) }),
 
             (section: .safeVersion("Safe version"),
@@ -334,8 +335,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
         case Section.RequiredConfirmations.confirmations(_):
             changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe!, navigationController: navigationController!, completion: { [unowned self] _ in
-                changeConfirmationsFlow = nil //WHY?
-                // completion() // TODO implement
+                changeConfirmationsFlow = nil
+                print("Done.")
+                //completion() // TODO implement
             })
             changeConfirmationsFlow.start()
             break
@@ -376,22 +378,28 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             return nil
         }
         let section = sections[_section].section
-        let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
+        var view: UIView?
         switch section {
         case Section.name(let name):
-            view.setName(name)
+            view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
+            (view as! BasicHeaderView).setName(name)
 
         case Section.requiredConfirmations(let name):
-            view.setName(name)
+            view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
+            (view as! BasicHeaderView).setName(name)
 
         case Section.ownerAddresses(let name):
-            view.setName(name)
+            view = tableView.dequeueHeaderFooterView(OwnerHeaderView.self)
+            (view as! OwnerHeaderView).setName(name)
+            (view as! OwnerHeaderView).setNumber(safe?.ownersInfo?.count)
 
         case Section.safeVersion(let name):
-            view.setName(name)
+            view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
+            (view as! BasicHeaderView).setName(name)
 
         case Section.ensName(let name):
-            view.setName(name)
+            view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
+            (view as! BasicHeaderView).setName(name)
 
         case Section.advanced:
             break

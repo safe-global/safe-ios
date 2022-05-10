@@ -8,10 +8,9 @@ import UIKit
 
 class ChangeConfirmationsFlow: UIFlow {
     var factory: ChangeConfirmationsFlowFactory
-    //var newOwner: KeyInfo
     var safe: Safe
     var newConfirmations: Int?
-    var addOwnerTransactionDetails: SCGModels.TransactionDetails?
+    var changeConfirmationsTransactionDetails: SCGModels.TransactionDetails?
 
     init(safe: Safe, factory: ChangeConfirmationsFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
@@ -42,20 +41,20 @@ class ChangeConfirmationsFlow: UIFlow {
                 maxSteps: 2,
                 safe: safe,
                 newThreshold: newConfirmations!) { [unowned self] txDetails in
-            addOwnerTransactionDetails = txDetails
+            changeConfirmationsTransactionDetails = txDetails
             success()
         }
         show(reviewVC)
     }
 
     func success() {
-        assert(addOwnerTransactionDetails != nil)
+        assert(changeConfirmationsTransactionDetails != nil)
         let successVC = factory.success { [unowned self] showTxDetails in
             if showTxDetails {
                 NotificationCenter.default.post(
                         name: .initiateTxNotificationReceived,
                         object: self,
-                        userInfo: ["transactionDetails": addOwnerTransactionDetails!])
+                        userInfo: ["transactionDetails": changeConfirmationsTransactionDetails!])
             }
             stop(success: !showTxDetails)
         }
@@ -71,21 +70,21 @@ class ChangeConfirmationsFlowFactory {
         confirmationsVC.maxConfirmations = max(1, (safe.ownersInfo ?? []).count)
         confirmationsVC.stepNumber = step
         confirmationsVC.maxSteps = maxSteps
-        confirmationsVC.trackingEvent = .addAsOwnerChangeConfirmations //TODO change when available
+        confirmationsVC.trackingEvent = .changeConfirmations
         confirmationsVC.completion = completion
         return confirmationsVC
     }
 
     func review(step: Int, maxSteps: Int, safe: Safe, newThreshold: Int, completion: @escaping (SCGModels.TransactionDetails) -> Void) -> ReviewChangeConfirmationsTxViewController {
-        let addOwnerReviewVC = ReviewChangeConfirmationsTxViewController (
+        let changeConfirmationsReviewVC = ReviewChangeConfirmationsTxViewController (
                 safe: safe,
                 ownersCount: safe.ownersInfo?.count ?? 0,
                 oldThreshold: Int(safe.threshold ?? 0),
                 newThreshold: newThreshold)
-        addOwnerReviewVC.stepNumber = step
-        addOwnerReviewVC.maxSteps = maxSteps
-        addOwnerReviewVC.onSuccess = completion
-        return addOwnerReviewVC
+        changeConfirmationsReviewVC.stepNumber = step
+        changeConfirmationsReviewVC.maxSteps = maxSteps
+        changeConfirmationsReviewVC.onSuccess = completion
+        return changeConfirmationsReviewVC
     }
 
     func success(completion: @escaping (_ showTxDetails: Bool) -> Void) -> SuccessViewController {
@@ -94,7 +93,7 @@ class ChangeConfirmationsFlowFactory {
                 bodyText: "It needs to be confirmed and executed first before the owner will be added.",
                 primaryAction: "View transaction details",
                 secondaryAction: "Done",
-                trackingEvent: .addAsOwnerSuccess) //TODO change when available
+                trackingEvent: .changeConfirmationsSuccess)
         successVC.onDone = completion
         return successVC
     }

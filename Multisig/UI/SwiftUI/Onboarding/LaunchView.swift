@@ -67,7 +67,7 @@ struct LaunchView: View {
                         self.showTerms = true
                         // overlay view is loaded immediately
                         // so we can not track on view appear
-                        Tracker.trackEvent(.launchTems)
+                        Tracker.trackEvent(.launchTerms)
                     }
                         .buttonStyle(GNOFilledButtonStyle())
                 }
