@@ -31,6 +31,11 @@ class SafeTransactionController {
         return tx
     }
 
+    func changeThreshold(threshold: Int) -> Data? {
+        // TODO: implement :-)
+        return nil
+    }
+
     func addOwnerWithThresholdData(owner: Address, threshold: Int) -> Data? {
         guard let owner = Sol.Address.init(maybeData:owner.data32) else { return nil }
         let threshold = Sol.UInt256.init(threshold)

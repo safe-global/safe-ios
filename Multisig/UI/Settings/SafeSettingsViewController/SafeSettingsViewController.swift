@@ -23,6 +23,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     private var safe: Safe?
     private var ensLoader: ENSNameLoader?
 
+    private var changeConfirmationsFlow: ChangeConfirmationsFlow!
+
     enum Section {
         case name(String)
         case requiredConfirmations(String)
@@ -329,6 +331,14 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 }
             }
             show(editSafeNameViewController, sender: self)
+
+        case Section.RequiredConfirmations.confirmations(_):
+            changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe!, navigationController: navigationController!, completion: { [unowned self] _ in
+                changeConfirmationsFlow = nil //WHY?
+                // completion() // TODO implement
+            })
+            changeConfirmationsFlow.start()
+            break
         case Section.Advanced.advanced(_):
             let advancedSafeSettingsViewController = AdvancedSafeSettingsViewController()
             let ribbon = RibbonViewController(rootViewController: advancedSafeSettingsViewController)
