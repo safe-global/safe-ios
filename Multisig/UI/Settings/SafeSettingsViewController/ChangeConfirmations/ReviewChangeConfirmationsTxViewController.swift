@@ -21,7 +21,7 @@ class ReviewChangeConfirmationsTxViewController: ReviewSafeTransactionViewContro
 
     convenience init(safe: Safe, ownersCount: Int, oldThreshold: Int, newThreshold: Int) {
         //TODO How to get rid of the address? Or do we need it
-        self.init(safe: safe, address: try! Address(from: safe.address!),  data: SafeTransactionController.shared.changeThreshold(threshold: 0)) //Add tx type swap owner
+        self.init(safe: safe, address: try! Address(from: safe.address!),  data: SafeTransactionController.shared.changeThresholdData(threshold: newThreshold)) //Add tx type swap owner
 
         self.ownersCount = ownersCount
         self.oldThreshold = oldThreshold
@@ -58,35 +58,13 @@ class ReviewChangeConfirmationsTxViewController: ReviewSafeTransactionViewContro
     }
 
     override func createTransaction() -> Transaction? {
-//        SafeTransactionController.shared.changeThreshold(
-//                safe: safe,
-//                prevOwner: previousOwner,
-//                oldOwner: ownerToBeDeleted,
-//                safeTxGas: safeTxGas,
-//                nonce: nonce
-//        )
-    return nil
+        SafeTransactionController.shared.changeThreshold(
+                safe: safe,
+                safeTxGas: safeTxGas,
+                nonce: nonce,
+                threshold: newThreshold
+        )
     }
-
-//    override func headerCell() -> UITableViewCell {
-//        // TODO no header cell in this case
-//        let cell = tableView.dequeueCell(ReplaceOwnerTableViewCell.self)
-////
-////        let (newOwnerName, _) = NamingPolicy.name(for: owner.address,
-////                info: nil,
-////                chainId: safe.chain!.id!)
-////
-////        let (oldOwnerName, _) = NamingPolicy.name(for: ownerToBeReplaced,
-////                info: nil,
-////                chainId: safe.chain!.id!)
-////
-////        cell.set(
-////                newOwner: AddressInfo(address: owner.address, name: newOwnerName),
-////                oldOwner: AddressInfo(address: ownerToBeReplaced, name: oldOwnerName)
-////        )
-////
-//        return cell
-//    }
 
     func confirmationsCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(ValueChangeTableViewCell.self)
