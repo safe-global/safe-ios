@@ -1,5 +1,5 @@
 //
-//  SafeOwnerEditingController.swift
+//  SafeTransactionController.swift
 //  Multisig
 //
 //  Created by Moaaz on 4/26/22.
