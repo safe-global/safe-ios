@@ -11,8 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EnterKeyOrSeedPhraseViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="continueButton" destination="xKW-tl-83n" id="Z0k-9o-QPf"/>
                 <outlet property="descriptionLabel" destination="s8A-J4-nH8" id="jSQ-jr-TgH"/>
                 <outlet property="errorLabel" destination="BHN-Pb-BhQ" id="Ea4-Zp-MGX"/>
+                <outlet property="heightConstraint" destination="RtY-rd-8DK" id="u1d-nx-f4u"/>
                 <outlet property="scrollView" destination="m4o-eM-n6B" id="RBU-2p-mXo"/>
                 <outlet property="textField" destination="khe-dI-1dG" id="IcC-vN-fyA"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -71,19 +73,36 @@ A private key is a string of 64 characters. </string>
                                         <constraint firstAttribute="trailing" secondItem="fHk-At-5aa" secondAttribute="trailing" id="vTJ-AR-G1V"/>
                                     </constraints>
                                 </stackView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xKW-tl-83n">
+                                    <rect key="frame" x="16" y="746" width="382" height="56"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="56" id="R2E-hO-xIS"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Button">
+                                        <color key="titleColor" red="0.32397973540000002" green="0.61783987279999997" blue="0.97258967159999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="didTapNextButton:" destination="-1" eventType="touchUpInside" id="S2j-pn-gUD"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="vbd-Iv-1AY" firstAttribute="top" secondItem="dmc-KF-JfK" secondAttribute="top" constant="27" id="Chu-jq-1NV"/>
                                 <constraint firstAttribute="trailing" secondItem="vbd-Iv-1AY" secondAttribute="trailing" constant="16" id="GC8-Zp-Xti"/>
+                                <constraint firstAttribute="trailing" secondItem="xKW-tl-83n" secondAttribute="trailing" constant="16" id="IkP-5e-oLW"/>
                                 <constraint firstItem="vbd-Iv-1AY" firstAttribute="leading" secondItem="dmc-KF-JfK" secondAttribute="leading" constant="16" id="Vgc-Qf-pAw"/>
+                                <constraint firstItem="xKW-tl-83n" firstAttribute="leading" secondItem="dmc-KF-JfK" secondAttribute="leading" constant="16" id="nGH-BL-Ntd"/>
+                                <constraint firstAttribute="bottom" secondItem="xKW-tl-83n" secondAttribute="bottom" constant="16" id="uhO-kj-9xm"/>
+                                <constraint firstItem="xKW-tl-83n" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vbd-Iv-1AY" secondAttribute="bottom" constant="16" id="zGt-DO-RmM"/>
                             </constraints>
                         </view>
                     </subviews>
                     <constraints>
                         <constraint firstItem="dmc-KF-JfK" firstAttribute="leading" secondItem="m4o-eM-n6B" secondAttribute="leading" id="De7-js-8g0"/>
                         <constraint firstItem="dmc-KF-JfK" firstAttribute="top" secondItem="m4o-eM-n6B" secondAttribute="top" id="J9r-M6-Gj9"/>
-                        <constraint firstItem="dmc-KF-JfK" firstAttribute="height" secondItem="m4o-eM-n6B" secondAttribute="height" id="auf-of-JSa"/>
+                        <constraint firstItem="dmc-KF-JfK" firstAttribute="height" secondItem="nLn-qE-HgH" secondAttribute="height" id="RtY-rd-8DK"/>
                         <constraint firstAttribute="trailing" secondItem="dmc-KF-JfK" secondAttribute="trailing" id="khs-ew-NrO"/>
                         <constraint firstAttribute="bottom" secondItem="dmc-KF-JfK" secondAttribute="bottom" id="zpl-00-SdL"/>
                     </constraints>

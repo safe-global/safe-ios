@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Eye.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -16,12 +16,19 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
     @IBOutlet private weak var errorLabel: UILabel!
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var textField: GMTextField!
-    private var nextButton: UIBarButtonItem!
-
+    @IBOutlet private weak var continueButton: UIButton!
     private var keyboardBehavior: KeyboardAvoidingBehavior!
 
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     private(set) var seedNode: HDNode?
     private(set) var privateKey: PrivateKey?
+
+    private var toggleSecureTextButton: UIBarButtonItem!
+
+    private var secureTextIcon: UIImage? {
+        let name = textField.isSecureTextEntry ? "ico-text-secure" : "ico-text-insecure"
+        return UIImage(named: name)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,9 +37,23 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
 
         keyboardBehavior = KeyboardAvoidingBehavior(scrollView: scrollView)
 
-        nextButton = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapNextButton(_:)))
-        navigationItem.rightBarButtonItem = nextButton
-        nextButton.isEnabled = false
+        keyboardBehavior.didChangeInsets = { [weak self] insets in
+            guard let self = self else { return }
+            UIView.animate(withDuration: 0.25) {
+                self.heightConstraint?.constant = -insets.bottom
+                self.scrollView.layoutIfNeeded()
+            }
+        }
+
+        toggleSecureTextButton = UIBarButtonItem(
+            image: secureTextIcon,
+            style: .done,
+            target: self,
+            action: #selector(toggleSecureText))
+        navigationItem.rightBarButtonItem = toggleSecureTextButton
+
+        continueButton.setText("Continue", .filled)
+        continueButton.isEnabled = false
 
         descriptionLabel.setStyle(.primary)
 
@@ -40,7 +61,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         errorLabel.isHidden = true
 
         textField.delegate = self
-        textField.becomeFirstResponder()
+        _ = textField.becomeFirstResponder()
 
         textField.placeholder = "Enter private key or seed phrase"
     }
@@ -60,18 +81,23 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         keyboardBehavior.stop()
     }
 
-    @objc private func didTapNextButton(_ sender: Any) {
+    @objc private func toggleSecureText() {
+        textField.isSecureTextEntry = !textField.isSecureTextEntry
+        toggleSecureTextButton.image = secureTextIcon
+    }
+
+    @IBAction @objc private func didTapNextButton(_ sender: Any) {
         let phrase = (textField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         if isPotentiallyValidSeedPhrase(phrase) {
-            nextButton.isEnabled = false
+            continueButton.isEnabled = false
             guard let seedData = BIP39.seedFromMmemonics(phrase),
                 let rootNode = HDNode(seed: seedData)?.derive(path: HDNode.defaultPathMetamaskPrefix,
                                                               derivePrivateKey: true) else {
-                nextButton.isEnabled = true
+                continueButton.isEnabled = true
                 setError(GSError.WrongSeedPhrase())
                 return
             }
-            nextButton.isEnabled = true
+            continueButton.isEnabled = true
             self.seedNode = rootNode
             self.completion()
         } else if isValidPK(phrase),
@@ -87,7 +113,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
     private func updateTextDependentViews(with text: String) {
         setError(nil)
         let phrase = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        nextButton.isEnabled = isPotentiallyValidSeedPhrase(phrase) || isValidPK(phrase)
+        continueButton.isEnabled = isPotentiallyValidSeedPhrase(phrase) || isValidPK(phrase)
     }
 
     private func isPotentiallyValidSeedPhrase(_ phrase: String) -> Bool {
@@ -170,4 +196,26 @@ class GMTextField: UITextField {
     override func clearButtonRect(forBounds bounds: CGRect) -> CGRect {
         super.clearButtonRect(forBounds: bounds).offsetBy(dx: -textInset.right, dy: 0)
     }
+
+    // NOTE: this is to fix the issue when the text field deletes the text
+    // if you switch between isSecureText true/false.
+    // https://stackoverflow.com/questions/7305538/uitextfield-with-secure-entry-always-getting-cleared-before-editing
+    override var isSecureTextEntry: Bool {
+        didSet {
+            if isFirstResponder {
+                _ = becomeFirstResponder()
+            }
+        }
+    }
+
+    override func becomeFirstResponder() -> Bool {
+        let success = super.becomeFirstResponder()
+        if isSecureTextEntry, let text = self.text {
+            self.text?.removeAll()
+            insertText(text)
+        }
+        return success
+    }
+
+    // End of the fix
 }

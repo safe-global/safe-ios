@@ -31,6 +31,8 @@ class KeyboardAvoidingBehavior {
         }
     }
 
+    var didChangeInsets: (UIEdgeInsets) -> Void = { _ in }
+
     init(scrollView: UIScrollView, notificationCenter: NotificationCenter = NotificationCenter.default) {
         self.scrollView = scrollView
         self.notificationCenter = notificationCenter
@@ -77,6 +79,7 @@ class KeyboardAvoidingBehavior {
         let keyboardFrame = view.convert(keyboardScreen, from: UIScreen.main.coordinateSpace)
         scrollView.contentInset.bottom = keyboardFrame.height
         scrollView.scrollIndicatorInsets = scrollView.contentInset
+        didChangeInsets(scrollView.contentInset)
         var rect = view.bounds
         rect.size.height -= keyboardFrame.height
         if let frame = responderFrame(in: view), !rect.contains(frame) {
@@ -100,6 +103,7 @@ class KeyboardAvoidingBehavior {
     @objc func didHideKeyboard(_ notification: NSNotification) {
         scrollView.contentInset.bottom = 0
         scrollView.scrollIndicatorInsets = scrollView.contentInset
+        didChangeInsets(scrollView.contentInset)
     }
 
     private func activate(_ responder: UIView) {
