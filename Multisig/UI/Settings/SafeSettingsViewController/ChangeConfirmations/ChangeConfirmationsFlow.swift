@@ -68,7 +68,7 @@ class ChangeConfirmationsFlowFactory {
         let confirmationsVC = EditConfirmationsViewController()
         confirmationsVC.confirmations = Int(safe.threshold ?? 0)
         confirmationsVC.minConfirmations = 1
-        confirmationsVC.maxConfirmations = max(1, (safe.ownersInfo ?? []).count) + 1
+        confirmationsVC.maxConfirmations = max(1, (safe.ownersInfo ?? []).count)
         confirmationsVC.stepNumber = step
         confirmationsVC.maxSteps = maxSteps
         confirmationsVC.trackingEvent = .addAsOwnerChangeConfirmations //TODO change when available

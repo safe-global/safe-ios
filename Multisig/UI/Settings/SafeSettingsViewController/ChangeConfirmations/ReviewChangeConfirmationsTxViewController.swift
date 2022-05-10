@@ -7,7 +7,8 @@ import UIKit
 
 class ReviewChangeConfirmationsTxViewController: ReviewSafeTransactionViewController {
     private var ownersCount: Int = 0
-    private var threshold: Int = 0
+    private var oldThreshold: Int = 0
+    private var newThreshold: Int = 0
 
     private var stepLabel: UILabel!
 
@@ -23,7 +24,8 @@ class ReviewChangeConfirmationsTxViewController: ReviewSafeTransactionViewContro
         self.init(safe: safe, address: try! Address(from: safe.address!),  data: SafeTransactionController.shared.changeThreshold(threshold: 0)) //Add tx type swap owner
 
         self.ownersCount = ownersCount
-        self.threshold = threshold
+        self.oldThreshold = oldThreshold
+        self.newThreshold = newThreshold
     }
 
     override func viewDidLoad() {
@@ -88,7 +90,7 @@ class ReviewChangeConfirmationsTxViewController: ReviewSafeTransactionViewContro
 
     func confirmationsCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(ValueChangeTableViewCell.self)
-        cell.set(title: "Confirmations required", value: "\(threshold) out of \(ownersCount)")
+        cell.set(title: "Confirmations required", valueBefore: "\(oldThreshold) out of \(ownersCount)", valueAfter: "\(newThreshold) out of \(ownersCount)")
         return cell
     }
 
