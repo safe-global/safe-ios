@@ -106,7 +106,7 @@ class ReplaceOwnerFlowFactory {
             bodyText: "It needs to be confirmed and executed first before the owner will be replaced.",
             primaryAction: "View transaction details",
             secondaryAction: "Done",
-            trackingEvent: .addAsOwnerSuccess)
+            trackingEvent: .replaceOwnerSuccess)
         successVC.onDone = completion
         return successVC
     }
