@@ -36,7 +36,11 @@ class SafeTransactionController {
         return GnosisSafe_v1_3_0.changeThreshold(_threshold: threshold).encode()
     }
 
-    func addOwnerWithThresholdTransaction(safe: Safe, safeTxGas: UInt256String?, nonce: UInt256String, owner: Address, threshold: Int) -> Transaction? {
+    func addOwnerWithThresholdTransaction(safe: Safe,
+                                          safeTxGas: UInt256String?,
+                                          nonce: UInt256String,
+                                          owner: Address,
+                                          threshold: Int) -> Transaction? {
         guard let data = addOwnerWithThresholdData(owner: owner, threshold: threshold) else { return nil }
         let tx = Transaction(safeAddress: safe.addressValue,
                              chainId: safe.chain!.id!,
