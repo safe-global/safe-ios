@@ -78,6 +78,7 @@ class AddOwnerFlowFactory {
         confirmationsVC.maxSteps = maxSteps
         confirmationsVC.trackingEvent = .addAsOwnerChangeConfirmations
         confirmationsVC.completion = completion
+        confirmationsVC.showPromptLabel = true
         return confirmationsVC
     }
 

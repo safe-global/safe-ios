@@ -23,6 +23,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     private var safe: Safe?
     private var ensLoader: ENSNameLoader?
 
+    private var changeConfirmationsFlow: ChangeConfirmationsFlow!
+
     enum Section {
         case name(String)
         case requiredConfirmations(String)
@@ -212,7 +214,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.RequiredConfirmations.confirmations(let name):
-            return tableView.basicCell(name: name, indexPath: indexPath, withDisclosure: false, canSelect: false)
+            return tableView.basicCell(name: name, indexPath: indexPath, withDisclosure: !safe.isReadOnly, canSelect: !safe.isReadOnly)
 
         case Section.OwnerAddresses.ownerInfo(let info):
             let keyInfo = try? KeyInfo.keys(addresses: [info.address]).first
@@ -371,6 +373,17 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 }
             }
             show(editSafeNameViewController, sender: self)
+
+        case Section.RequiredConfirmations.confirmations(_):
+            guard let isReadOnly = safe?.isReadOnly else {
+                return
+            }
+            if !isReadOnly {
+                changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe!, presenter: self, completion: { [unowned self] _ in
+                    changeConfirmationsFlow = nil
+                })
+                changeConfirmationsFlow.start()
+            }
         case Section.Advanced.advanced(_):
             let advancedSafeSettingsViewController = AdvancedSafeSettingsViewController()
             let ribbon = RibbonViewController(rootViewController: advancedSafeSettingsViewController)
