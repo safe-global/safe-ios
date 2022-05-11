@@ -66,7 +66,7 @@ class VerifyPhraseViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
 
-    // a view to hold the choosen word
+    // a view to hold the chosen word
     @IBOutlet weak var selectedWordContainer: UIView!
 
     @IBOutlet weak var wordNumberLabel: UILabel!
