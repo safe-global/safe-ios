@@ -308,11 +308,10 @@ class ReviewSafeTransactionViewController: UIViewController {
         guard let nonce = nonce,
               let minimalNonce = minimalNonce else { return }
 
-
         let vc = AdvancedParametersViewController(nonce: nonce,
                                                   minimalNonce: minimalNonce.value,
                                                   safeTxGas: safeTxGas,
-                                                  trackingEvent: .assetsTransferAdvancedParams) { [weak self] nonce, safeTxGas in
+                                                  trackingEvent: getTrackingEvent()) { [weak self] nonce, safeTxGas in
             guard let `self` = self else { return }
             self.nonce = nonce
             self.safeTxGas = safeTxGas
@@ -321,6 +320,11 @@ class ReviewSafeTransactionViewController: UIViewController {
         let ribbon = RibbonViewController(rootViewController: vc)
 
         presentModal(ViewControllerFactory.modal(viewController: ribbon))
+    }
+
+    // Please override in subclasses
+    func getTrackingEvent() -> TrackingEvent {
+        .assetsTransferAdvancedParams
     }
 
     func onSuccess(transaction: SCGModels.TransactionDetails) {
