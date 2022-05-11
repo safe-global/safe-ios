@@ -80,6 +80,10 @@ class ReviewChangeConfirmationsTxViewController: ReviewSafeTransactionViewContro
         return cell
     }
 
+    override func getTrackingEvent() -> TrackingEvent {
+        .settingsTxAdvancedParams
+    }
+
     override func onSuccess(transaction: SCGModels.TransactionDetails) {
         onSuccess?(transaction)
     }
