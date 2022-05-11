@@ -108,6 +108,8 @@
 		049A9DD026020C0B00CA5723 /* SelectFiatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9DCF26020C0B00CA5723 /* SelectFiatViewController.swift */; };
 		049A9DDA2602211500CA5723 /* FiatCodesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9DD92602211500CA5723 /* FiatCodesRequest.swift */; };
 		049EB0FF25AF713700F66CEA /* TimeZone+Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */; };
+		04AFFBD0282AFC0100429513 /* ReviewRemoveOwnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AFFBCF282AFC0100429513 /* ReviewRemoveOwnerViewController.swift */; };
+		04AFFBD2282BBE1900429513 /* RemoveOwnerFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AFFBD1282BBE1900429513 /* RemoveOwnerFlow.swift */; };
 		04B4B5F725B754D600CFE24B /* AccountActionCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B5F525B754D600CFE24B /* AccountActionCompletedViewController.swift */; };
 		04B4B60225B84D6900CFE24B /* AccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B60125B84D6900CFE24B /* AccountInfoView.swift */; };
 		04B4B68F25B8857F00CFE24B /* AccountInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B68E25B8857F00CFE24B /* AccountInfoView.xib */; };
@@ -925,6 +927,8 @@
 		049A9DCF26020C0B00CA5723 /* SelectFiatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectFiatViewController.swift; sourceTree = "<group>"; };
 		049A9DD92602211500CA5723 /* FiatCodesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiatCodesRequest.swift; sourceTree = "<group>"; };
 		049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeZone+Offset.swift"; sourceTree = "<group>"; };
+		04AFFBCF282AFC0100429513 /* ReviewRemoveOwnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRemoveOwnerViewController.swift; sourceTree = "<group>"; };
+		04AFFBD1282BBE1900429513 /* RemoveOwnerFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveOwnerFlow.swift; sourceTree = "<group>"; };
 		04B4B5F525B754D600CFE24B /* AccountActionCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountActionCompletedViewController.swift; sourceTree = "<group>"; };
 		04B4B5F625B754D600CFE24B /* AccountActionCompletedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountActionCompletedViewController.xib; sourceTree = "<group>"; };
 		04B4B60125B84D6900CFE24B /* AccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoView.swift; sourceTree = "<group>"; };
@@ -3485,8 +3489,10 @@
 				6A7A489A28201697003278C8 /* SafeOwnerPickerViewController.xib */,
 				0ABC00272823BE6800F42D29 /* AddOwnerFlow.swift */,
 				0ABC00292823D4CD00F42D29 /* ReplaceOwnerFlow.swift */,
+				04AFFBD1282BBE1900429513 /* RemoveOwnerFlow.swift */,
 				6A386C5E281A9D46003FBCB3 /* ReviewAddOwnerTxViewController.swift */,
 				AD303A2303B63B1408463F64 /* ReviewReplaceOwnerTxViewController.swift */,
+				04AFFBCF282AFC0100429513 /* ReviewRemoveOwnerViewController.swift */,
 			);
 			path = AddKeyAsNewOwner;
 			sourceTree = "<group>";
@@ -4465,6 +4471,7 @@
 				0ADD199E265E518600EB0F2B /* UIView+Pin.swift in Sources */,
 				04B4B6E525B9A08D00CFE24B /* CardTableViewCell.swift in Sources */,
 				6AC2D47727EC661D00D422CA /* SignatureRequestToWalletViewController.swift in Sources */,
+				04AFFBD2282BBE1900429513 /* RemoveOwnerFlow.swift in Sources */,
 				5596C03E25507F3C00EF23A5 /* CollectibleTableViewCell.swift in Sources */,
 				0A3FDAEC26AEB5BF006A7DC3 /* KeyInfo+Shared.swift in Sources */,
 				04CE3F9924B6120F00826AEE /* CollectibleMetaData.swift in Sources */,
@@ -4624,6 +4631,7 @@
 				B0D618BE28AD77EA68D0551C /* WebConnectionsViewController.swift in Sources */,
 				B0D61BA23BDD098DE8AD3008 /* CDWCRequest.swift in Sources */,
 				6A386C6A281ADAFD003FBCB3 /* ValueChangeTableViewCell.swift in Sources */,
+				04AFFBD0282AFC0100429513 /* ReviewRemoveOwnerViewController.swift in Sources */,
 				B0D61252B0B0760008CF6F19 /* WebConnection.swift in Sources */,
 				B0D61AA858C67B86EC281328 /* GnosisSafeWebPeerInfo.swift in Sources */,
 				B0D61332AFA6BC824EEADB60 /* WebConnectionPeerInfo.swift in Sources */,

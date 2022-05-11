@@ -272,6 +272,47 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
     }
 
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+        guard isValid(path: indexPath), let safe = safe else {
+            return nil
+        }
+        let item = sections[indexPath.section].items[indexPath.row]
+        switch item {
+        case Section.OwnerAddresses.ownerInfo(let info):
+            let deleteAction = UIContextualAction(style: .destructive, title : "Remove") {
+                [unowned self] _, _, completion in
+                self.remove(owner: info.address)
+                completion(true)
+            }
+            deleteAction.backgroundColor = .error
+
+            let replaceAction = UIContextualAction(style: .normal, title : "Replace") {
+                [unowned self] _, _, completion in
+                // TODO: Display replace owner flow
+                completion(true)
+            }
+            replaceAction.backgroundColor = .tertiaryLabel
+
+            return UISwipeActionsConfiguration(actions: [deleteAction, replaceAction])
+        default:
+            return nil
+        }
+    }
+
+    func remove(owner: Address) {
+        guard let navigationController = navigationController else {
+            return
+        }
+
+        let flow = RemoveOwnerFlow(
+            owner: owner,
+            safe: safe!,
+            navigationController: navigationController) { [unowned self] skippedTxDetails in
+        }
+        flow.start()
+    }
+
     private func addressDetailsCell(address: Address,
                                     name: String?,
                                     indexPath: IndexPath,
