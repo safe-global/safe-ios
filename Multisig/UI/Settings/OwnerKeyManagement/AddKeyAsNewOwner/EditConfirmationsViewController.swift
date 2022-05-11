@@ -13,6 +13,7 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var promptLabel: UILabel!
+    @IBOutlet weak var labelContainer: UIStackView!
     @IBOutlet weak var button: UIButton!
 
     private var stepLabel: UILabel!
@@ -51,7 +52,7 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
             promptLabel.setStyle(.secondary)
             promptLabel.text = "You’re about to add an owner. Would you like to change the required confirmations?"
         } else {
-            promptLabel.isHidden = true
+            labelContainer.isHidden = true
         }
         button.setText("Continue", .filled)
     }
