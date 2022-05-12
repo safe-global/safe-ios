@@ -43,6 +43,11 @@ class EnterOwnerAddressViewController: UIViewController {
         continueButton.isEnabled = address != nil
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.addOwnerSelectAddress)
+    }
+
     private func didTapAddressField() {
 
         let picker = SelectAddressViewController(chain: chain, presenter: self) { [weak self] address in

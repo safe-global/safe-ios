@@ -59,6 +59,11 @@ class EnterOwnerNameViewController: UIViewController {
         validateName()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.addOwnerSpecifyName)
+    }
+
     private func validateName() {
         continueButton.isEnabled = false
         guard let text = textField.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
