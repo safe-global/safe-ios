@@ -24,6 +24,7 @@ class EnterOwnerAddressViewController: UIViewController {
     private let maxSteps: Int = 3
 
     private var address: Address?
+    private var name: String?
 
     private var addOwnerFlow: AddOwnerFlow!
 
@@ -73,6 +74,7 @@ class EnterOwnerAddressViewController: UIViewController {
             if resolvedName == nil {
                 self.showEnterOwnerName()
             } else {
+                self.name = resolvedName
                 self.startAddOwnerFlow(address: address, name: resolvedName!)
             }
         }
@@ -123,6 +125,10 @@ class EnterOwnerAddressViewController: UIViewController {
     }
 
     @IBAction func didTapContinue(_ sender: Any) {
-        showEnterOwnerName()
+        if name == nil {
+            showEnterOwnerName()
+        } else {
+            startAddOwnerFlow(address: address!, name: name!)
+        }
     }
 }
