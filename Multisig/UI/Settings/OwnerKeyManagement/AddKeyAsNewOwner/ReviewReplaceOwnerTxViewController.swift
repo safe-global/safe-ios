@@ -34,6 +34,8 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
         self.previousOwner = previousOwner
         self.ownersCount = ownersCount
         self.threshold = threshold
+
+        trackingEvent = .settingsTxAdvancedParams
     }
 
     override func viewDidLoad() {
@@ -105,10 +107,6 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
         let cell = tableView.dequeueCell(ValueChangeTableViewCell.self)
         cell.set(title: "Safe owners", value: "\(ownersCount)")
         return cell
-    }
-
-    override func getTrackingEvent() -> TrackingEvent {
-        .settingsTxAdvancedParams
     }
 
     override func onSuccess(transaction: SCGModels.TransactionDetails) {
