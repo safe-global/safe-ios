@@ -10,15 +10,17 @@ import UIKit
 
 class EnterOwnerAddressViewController: UIViewController {
 
+    var completion: (Address, String) -> Void = { _, _ in }
+
     @IBOutlet weak var addressField: AddressField!
     @IBOutlet weak var continueButton: UIButton!
 
     private var stepLabel: UILabel!
 
-    var chain: Chain!
+    private var chain: Chain!
 
-    var stepNumber: Int = 1
-    var maxSteps: Int = 3
+    private let stepNumber: Int = 1
+    private let maxSteps: Int = 3
 
     private var address: Address?
 
@@ -85,9 +87,8 @@ class EnterOwnerAddressViewController: UIViewController {
         let enterNameVC = EnterOwnerNameViewController()
         enterNameVC.address = address
         enterNameVC.prefix = self.chain.shortName
-        enterNameVC.completion = { [unowned self] name in
-           // keyParameters.keyName = name
-           // importKey()
+        enterNameVC.completion = { [unowned self] address, name in
+            self.completion(address, name)
         }
         self.show(enterNameVC, sender: self)
     }

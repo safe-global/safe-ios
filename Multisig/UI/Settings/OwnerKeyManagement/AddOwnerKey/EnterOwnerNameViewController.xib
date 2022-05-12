@@ -83,6 +83,9 @@
                     <state key="normal" title="Continue">
                         <color key="titleColor" name="labelPrimary"/>
                     </state>
+                    <connections>
+                        <action selector="didTapContinue:" destination="-1" eventType="touchUpInside" id="6Nr-QZ-zb8"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

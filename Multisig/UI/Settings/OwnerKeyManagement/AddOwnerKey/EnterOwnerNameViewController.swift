@@ -13,7 +13,7 @@ class EnterOwnerNameViewController: UIViewController {
     var prefix: String?
     var address: Address!
     var name: String?
-    var completion: (String) -> Void = { _ in }
+    var completion: (Address, String) -> Void = { _, _ in }
 
     @IBOutlet weak var identiconView: IdenticonView!
     @IBOutlet weak var addressLabel: UILabel!
@@ -77,6 +77,10 @@ class EnterOwnerNameViewController: UIViewController {
 
     private func prefixString() -> String {
         (AppSettings.prependingChainPrefixToAddresses && prefix != nil ? "\(prefix!):" : "" )
+    }
+
+    @IBAction func didTapContinue(_ sender: Any) {
+        completion(address, name!)
     }
 }
 
