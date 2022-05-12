@@ -49,6 +49,7 @@ class EnterOwnerAddressViewController: UIViewController {
 
             guard let `self` = self else { return }
 
+            self.addressField.setAddress(address)
             self.address = address
             self.continueButton.isEnabled = true
 
@@ -57,22 +58,16 @@ class EnterOwnerAddressViewController: UIViewController {
                 info: nil,
                 chainId: self.chain.id!)
 
-            self.addressField.setAddress(address)
-            if resolvedName != nil {
-                //TODO show other screen
+            if resolvedName == nil {
+                self.showEnterOwnerName()
+            }
+        }
 
-            } else {
+        picker.onError = { [weak self] error, text in
 
+            guard let `self` = self else { return }
 
-                let enterNameVC = EnterOwnerNameViewController()
-                //enterNameVC.trackingEvent = .enterKeyName
-                enterNameVC.address = address
-                enterNameVC.prefix = self.chain.shortName
-                enterNameVC.completion = { [unowned self] name in
-                   // keyParameters.keyName = name
-                   // importKey()
-                }
-                self.show(enterNameVC, sender: self)            }
+            self.handleError(error: error, text: text)
         }
 
         if let popoverPresentationController = picker.popoverPresentationController {
@@ -81,7 +76,26 @@ class EnterOwnerAddressViewController: UIViewController {
         present(picker, animated: true, completion: nil)
     }
 
+    private func showEnterOwnerName() {
+        let enterNameVC = EnterOwnerNameViewController()
+        enterNameVC.address = address
+        enterNameVC.prefix = self.chain.shortName
+        enterNameVC.completion = { [unowned self] name in
+           // keyParameters.keyName = name
+           // importKey()
+        }
+        self.show(enterNameVC, sender: self)
+    }
+
+    private func handleError(error: Error, text: String?) {
+        let message = GSError.error(description: "Can’t use this address", error: error)
+        addressField.setInputText(text)
+        addressField.setError(message)
+        address = nil
+        continueButton.isEnabled = false
+    }
+
     @IBAction func didTapContinue(_ sender: Any) {
-        
+        showEnterOwnerName()
     }
 }
