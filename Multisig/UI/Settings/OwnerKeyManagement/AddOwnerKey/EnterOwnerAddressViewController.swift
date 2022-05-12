@@ -111,7 +111,7 @@ class EnterOwnerAddressViewController: UIViewController {
         enterNameVC.address = address
         enterNameVC.prefix = self.chain.shortName
         enterNameVC.completion = { [unowned self] address, name in
-            self.completion()
+            startAddOwnerFlow(address: address, name: name)
         }
         self.show(enterNameVC, sender: self)
     }
