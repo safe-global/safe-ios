@@ -56,7 +56,6 @@ class EnterOwnerAddressViewController: UIViewController {
 
             guard let `self` = self else { return }
 
-            self.addressField.setAddress(address)
             self.address = address
             self.continueButton.isEnabled = true
 
@@ -64,6 +63,8 @@ class EnterOwnerAddressViewController: UIViewController {
                 for: address,
                 info: nil,
                 chainId: self.chain.id!)
+
+            self.addressField.setAddress(address, label: resolvedName)
 
             if resolvedName == nil {
                 self.showEnterOwnerName()
