@@ -13,12 +13,12 @@ class ReplaceOwnerFlow: UIFlow {
 
     var factory: ReplaceOwnerFlowFactory
     var safe: Safe
-    var newOwner: KeyInfo
+    var newOwner: AddressInfo
     var ownerToReplace: Address?
     var prevOwner: Address?
     var replaceOwnerTransactionDetails: SCGModels.TransactionDetails?
 
-    internal init(newOwner: KeyInfo, safe: Safe, factory: ReplaceOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+    internal init(newOwner: AddressInfo, safe: Safe, factory: ReplaceOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
         self.safe = safe
         self.newOwner = newOwner
@@ -80,7 +80,7 @@ class ReplaceOwnerFlowFactory {
         step: Int,
         maxSteps: Int,
         safe: Safe,
-        newOwner: KeyInfo,
+        newOwner: AddressInfo,
         ownerToReplace: Address,
         previousOwner: Address?,
         completion: @escaping (SCGModels.TransactionDetails) -> Void

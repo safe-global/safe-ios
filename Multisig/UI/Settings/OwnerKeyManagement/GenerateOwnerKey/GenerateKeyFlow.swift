@@ -109,9 +109,11 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func details() {
-        assert(keyInfo != nil)
+        assert(keyInfo?.address != nil)
         navigationController.setNavigationBarHidden(false, animated: true)
-        let keyVC = flowFactory.details(keyInfo: keyInfo!) { [unowned self] in
+        let key = try? KeyInfo.firstKey(address: keyInfo!.address)
+        assert(key != nil)
+        let keyVC = flowFactory.details(keyInfo: key!) { [unowned self] in
             stop(success: true)
         }
         show(keyVC)
