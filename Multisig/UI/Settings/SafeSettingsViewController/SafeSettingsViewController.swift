@@ -400,6 +400,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 Tracker.trackEvent(.addOwnerFromSettings)
 
                 let enterOwnerAddressVC = EnterOwnerAddressViewController()
+                enterOwnerAddressVC.completion = { [unowned self] in
+                    //TODO Open key details?
+                }
                 ViewControllerFactory.addCloseButton(enterOwnerAddressVC)
                 let vc = UINavigationController(rootViewController: enterOwnerAddressVC)
                 present(vc, animated: true)

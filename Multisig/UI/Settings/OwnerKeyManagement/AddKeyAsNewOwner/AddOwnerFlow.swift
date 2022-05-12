@@ -105,4 +105,40 @@ class AddOwnerFlowFactory {
 
 class AddOwnerFlowFromSettingsFactory: AddOwnerFlowFactory {
 
+    override func confirmations(safe: Safe, completion: @escaping (_ newConfirmations: Int) -> Void) -> EditConfirmationsViewController {
+        let confirmationsVC = EditConfirmationsViewController()
+        confirmationsVC.confirmations = Int(safe.threshold ?? 0)
+        confirmationsVC.minConfirmations = 1
+        confirmationsVC.maxConfirmations = max(1, (safe.ownersInfo ?? []).count) + 1
+        confirmationsVC.stepNumber = 2
+        confirmationsVC.maxSteps = 3
+        confirmationsVC.trackingEvent = .addAsOwnerChangeConfirmations
+        confirmationsVC.completion = completion
+        confirmationsVC.showPromptLabel = true
+        return confirmationsVC
+    }
+
+    override func review(safe: Safe, key: AddressInfo, newThreshold: Int, completion: @escaping (SCGModels.TransactionDetails) -> Void) -> ReviewAddOwnerTxViewController {
+        let addOwnerReviewVC = ReviewAddOwnerTxViewController(
+            safe: safe,
+            owner: key,
+            oldOwnersCount: safe.ownersInfo?.count ?? 0,
+            oldThreshold: Int(safe.threshold ?? 0),
+            newThreshold: newThreshold)
+        addOwnerReviewVC.stepNumber = 3
+        addOwnerReviewVC.maxSteps = 3
+        addOwnerReviewVC.onSuccess = completion
+        return addOwnerReviewVC
+    }
+
+    override func success(completion: @escaping (_ showTxDetails: Bool) -> Void) -> SuccessViewController {
+        let successVC = SuccessViewController(
+            titleText: "Your transaction is submitted!",
+            bodyText: "It needs to be confirmed and executed first before the owner will be added.",
+            primaryAction: "View transaction details",
+            secondaryAction: "Done",
+            trackingEvent: .addAsOwnerSuccess)
+        successVC.onDone = completion
+        return successVC
+    }
 }

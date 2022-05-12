@@ -10,13 +10,14 @@ import UIKit
 
 class EnterOwnerAddressViewController: UIViewController {
 
-    var completion: (Address, String) -> Void = { _, _ in }
+    var completion: () -> Void = {}
 
     @IBOutlet weak var addressField: AddressField!
     @IBOutlet weak var continueButton: UIButton!
 
     private var stepLabel: UILabel!
 
+    private var safe: Safe!
     private var chain: Chain!
 
     private let stepNumber: Int = 1
@@ -24,10 +25,13 @@ class EnterOwnerAddressViewController: UIViewController {
 
     private var address: Address?
 
+    private var addOwnerFlow: AddOwnerFlow!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        chain = try! Safe.getSelected()!.chain!
+        safe = try! Safe.getSelected()
+        chain = safe.chain!
 
         title = "Add owner"
 
@@ -68,6 +72,8 @@ class EnterOwnerAddressViewController: UIViewController {
 
             if resolvedName == nil {
                 self.showEnterOwnerName()
+            } else {
+                self.startAddOwnerFlow(address: address, name: resolvedName!)
             }
         }
 
@@ -84,12 +90,26 @@ class EnterOwnerAddressViewController: UIViewController {
         present(picker, animated: true, completion: nil)
     }
 
+    private func startAddOwnerFlow(address: Address, name: String) {
+        addOwnerFlow =
+            AddOwnerFlow(
+                newOwner: AddressInfo(address: address, name: name),
+                safe: safe!,
+                factory: AddOwnerFlowFromSettingsFactory(),
+                navigationController: navigationController!) { [unowned self] skippedTxDetails in
+                    addOwnerFlow = nil
+                    //TODO: pass parameters if needed
+                    self.completion()
+                }
+        addOwnerFlow.start()
+    }
+
     private func showEnterOwnerName() {
         let enterNameVC = EnterOwnerNameViewController()
         enterNameVC.address = address
         enterNameVC.prefix = self.chain.shortName
         enterNameVC.completion = { [unowned self] address, name in
-            self.completion(address, name)
+            self.completion()
         }
         self.show(enterNameVC, sender: self)
     }
