@@ -26,6 +26,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     private var ensLoader: ENSNameLoader?
 
     private var changeConfirmationsFlow: ChangeConfirmationsFlow!
+    private var removeOwnerFlow: RemoveOwnerFlow!
 
     enum Section {
         case name(String)
@@ -301,13 +302,13 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard isValid(path: indexPath), let safe = safe else {
-            return nil
-        }
+        guard isValid(path: indexPath), safe != nil && !safeOwners.isEmpty else { return nil }
 
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.OwnerAddresses.ownerInfo(let info):
+            guard let ownerIndex = (safeOwners.firstIndex { $0.address == info.address }) else { return nil }
+            let prevOwner = safeOwners.before(ownerIndex)
             let deleteAction = UIContextualAction(style: .destructive, title : "Remove") {
                 [unowned self] _, _, completion in
                 self.remove(owner: info.address)
@@ -333,12 +334,12 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             return
         }
 
-        let flow = RemoveOwnerFlow(
+        removeOwnerFlow = RemoveOwnerFlow(
             owner: owner,
             safe: safe!,
             navigationController: navigationController) { [unowned self] skippedTxDetails in
         }
-        flow.start()
+        removeOwnerFlow.start()
     }
 
     private func addressDetailsCell(address: Address,
@@ -496,5 +497,22 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 extension SafeSettingsViewController: ENSNameLoaderDelegate {
     func ensNameLoaderDidLoadName(_ loader: ENSNameLoader) {
         tableView.reloadData()
+    }
+}
+
+
+extension BidirectionalCollection {
+    typealias Element = Self.Iterator.Element
+
+    func before(_ itemIndex: Self.Index?) -> Element? {
+        if let itemIndex = itemIndex {
+            let firstItem: Bool = (itemIndex == startIndex)
+            if firstItem {
+                return nil
+            } else {
+                return self[index(before:itemIndex)]
+            }
+        }
+        return nil
     }
 }

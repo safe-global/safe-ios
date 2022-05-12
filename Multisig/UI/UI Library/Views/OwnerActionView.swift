@@ -30,7 +30,7 @@ class OwnerActionView: UINibView {
         case .addingOwner:
             actionTag.set(title: "Adding owner", style: .footnote2, backgroundColor: .backgroundPositive, textColor: .primary)
         case .removingOwner:
-            actionTag.set(title: "Removing owner", style: .footnote2, backgroundColor: .backgroundPrimary, textColor: .labelSecondary)
+            actionTag.set(title: "Removing owner", style: .footnote2, backgroundColor: .backgroundError, textColor: .error)
         }
     }
 }

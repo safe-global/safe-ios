@@ -63,11 +63,12 @@ class ReviewRemoveOwnerViewController: ReviewSafeTransactionViewController {
     }
 
     override func createTransaction() -> Transaction? {
-        SafeTransactionController.shared.addOwnerWithThresholdTransaction(safe: safe,
-                                                                          safeTxGas: safeTxGas,
-                                                                          nonce: nonce,
-                                                                          owner: owner,
-                                                                          threshold: newThreshold)
+        SafeTransactionController.shared.removeOwner(safe: safe,
+                                                     safeTxGas: safeTxGas,
+                                                     prevOwner: previousOwner,
+                                                     oldOwner: owner,
+                                                     nonce: nonce,
+                                                     threshold: newThreshold)
     }
 
     override func headerCell() -> UITableViewCell {
@@ -94,7 +95,7 @@ class ReviewRemoveOwnerViewController: ReviewSafeTransactionViewController {
 
     func ownersCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(ValueChangeTableViewCell.self)
-        cell.set(title: "Safe owners", valueBefore: "\(oldOwnersCount)", valueAfter: "\(oldOwnersCount + 1)")
+        cell.set(title: "Safe owners", valueBefore: "\(oldOwnersCount)", valueAfter: "\(oldOwnersCount - 1)")
         cell.selectionStyle = .none
         return cell
     }
