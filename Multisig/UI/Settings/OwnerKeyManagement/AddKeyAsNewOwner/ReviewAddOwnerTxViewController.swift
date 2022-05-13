@@ -29,6 +29,7 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
         self.oldThreshold = oldThreshold
         self.oldOwnersCount = oldOwnersCount
         self.newThreshold = newThreshold
+        trackingEvent = .settingsTxAdvancedParams
     }
 
     override func viewDidLoad() {

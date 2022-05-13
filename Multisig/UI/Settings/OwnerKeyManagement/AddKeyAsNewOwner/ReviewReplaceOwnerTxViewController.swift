@@ -34,6 +34,8 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
         self.previousOwner = previousOwner
         self.ownersCount = ownersCount
         self.threshold = threshold
+
+        trackingEvent = .settingsTxAdvancedParams
     }
 
     override func viewDidLoad() {
