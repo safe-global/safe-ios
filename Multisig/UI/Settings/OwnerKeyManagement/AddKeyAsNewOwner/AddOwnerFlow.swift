@@ -107,7 +107,7 @@ class AddOwnerFlowFromSettingsFactory: AddOwnerFlowFactory {
 
     override func confirmations(safe: Safe, completion: @escaping (_ newConfirmations: Int) -> Void) -> EditConfirmationsViewController {
         let confirmationsVC = EditConfirmationsViewController()
-        confirmationsVC.confirmations = Int(safe.threshold ?? 0)
+        confirmationsVC.confirmations = Int(safe.threshold ?? 1)
         confirmationsVC.minConfirmations = 1
         confirmationsVC.maxConfirmations = max(1, (safe.ownersInfo ?? []).count) + 1
         confirmationsVC.stepNumber = 2
