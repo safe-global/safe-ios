@@ -311,7 +311,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             let prevOwner = safeOwners.before(ownerIndex)
             let deleteAction = UIContextualAction(style: .destructive, title : "Remove") {
                 [unowned self] _, _, completion in
-                self.remove(owner: info.address)
+                self.remove(owner: info.address, prevOwner: prevOwner?.address)
                 completion(true)
             }
             deleteAction.backgroundColor = .error
@@ -329,13 +329,14 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
     }
 
-    func remove(owner: Address) {
+    func remove(owner: Address, prevOwner: Address?) {
         guard let navigationController = navigationController else {
             return
         }
 
         removeOwnerFlow = RemoveOwnerFlow(
             owner: owner,
+            prevOwner: prevOwner,
             safe: safe!,
             navigationController: navigationController) { [unowned self] skippedTxDetails in
         }

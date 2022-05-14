@@ -16,10 +16,11 @@ class RemoveOwnerFlow: UIFlow {
     var newConfirmations: Int?
     var removeOwnerTransactionDetails: SCGModels.TransactionDetails?
 
-    internal init(owner: Address, safe: Safe, factory: RemoveOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+    internal init(owner: Address, prevOwner: Address?, safe: Safe, factory: RemoveOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
         self.safe = safe
         self.ownerToRemove = owner
+        self.prevOwner = prevOwner
         super.init(navigationController: navigationController, completion: completion)
     }
 
