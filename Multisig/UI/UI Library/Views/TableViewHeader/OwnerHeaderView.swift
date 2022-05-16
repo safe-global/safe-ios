@@ -16,6 +16,8 @@ class OwnerHeaderView: UITableViewHeaderFooterView {
 
     static let headerHeight: CGFloat = 44
 
+    var onAdd: (() -> Void)?
+
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -34,6 +36,6 @@ class OwnerHeaderView: UITableViewHeaderFooterView {
     }
 
     @IBAction func didTapAddButton(_ sender: Any) {
-        //TODO: start add owner flow
+        onAdd?()
     }
 }
