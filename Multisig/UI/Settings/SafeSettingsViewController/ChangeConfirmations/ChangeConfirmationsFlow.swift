@@ -88,7 +88,6 @@ class ChangeConfirmationsFlowFactory {
         confirmationsVC.maxSteps = maxSteps
         confirmationsVC.trackingEvent = .changeConfirmations
         confirmationsVC.completion = completion
-        confirmationsVC.showPromptLabel = false
         return confirmationsVC
     }
 

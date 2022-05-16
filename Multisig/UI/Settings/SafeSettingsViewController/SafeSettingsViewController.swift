@@ -21,9 +21,15 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     private var currentDataTask: URLSessionTask?
     private var sections = [SectionItems]()
     private var safe: Safe?
+
+    // We need this to get the correct order of owners, this is needed for replace&remove owner
+    //and not guaranteed by SafeInfo endpoint
+    private var safeOwners: [AddressInfo] = []
+
     private var ensLoader: ENSNameLoader?
 
     private var changeConfirmationsFlow: ChangeConfirmationsFlow!
+    private var removeOwnerFlow: RemoveOwnerFlow!
 
     enum Section {
         case name(String)
@@ -146,15 +152,38 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                         guard let `self` = self else { return }
                         if let safe = self.safe {
                             safe.update(from: safeInfo)
-                            self.updateSections()
+                            self.reloadSafeOwners()
                             self.ensLoader = ENSNameLoader(safe: safe, delegate: self)
                         }
-                        self.onSuccess()
                     }
                 }
             }
         } catch {
             onError(GSError.error(description: "Failed to load safe settings", error: error))
+        }
+    }
+
+    func reloadSafeOwners() {
+        currentDataTask?.cancel()
+        guard let safe = safe else {
+            updateSections()
+            return
+        }
+
+        currentDataTask = SafeTransactionController.shared.getOwners(safe: safe.addressValue, chain: safe.chain!) { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .failure(let error):
+                self.onError(GSError.error(description: "Failed to load safe owners", error: error))
+            case .success(let owners):
+                self.safeOwners = owners.compactMap { owner in
+                    AddressInfo.init(address: owner)
+                }
+
+                self.updateSections()
+                self.onSuccess()
+            }
         }
     }
 
@@ -264,6 +293,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                         Safe.remove(safe: safe)
                     }
                 }
+
                 let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 alertController.addAction(remove)
                 alertController.addAction(cancel)
@@ -272,6 +302,49 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         default:
             return UITableViewCell()
         }
+    }
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard isValid(path: indexPath), safe != nil && !safeOwners.isEmpty else { return nil }
+
+        let item = sections[indexPath.section].items[indexPath.row]
+        switch item {
+        case Section.OwnerAddresses.ownerInfo(let info):
+            guard let ownerIndex = (safeOwners.firstIndex { $0.address == info.address }) else { return nil }
+            let prevOwner = safeOwners.before(ownerIndex)
+            let deleteAction = UIContextualAction(style: .destructive, title : "Remove") {
+                [unowned self] _, _, completion in
+                self.remove(owner: info.address, prevOwner: prevOwner?.address)
+                completion(true)
+            }
+            deleteAction.backgroundColor = .error
+
+            let replaceAction = UIContextualAction(style: .normal, title : "Replace") {
+                [unowned self] _, _, completion in
+                // TODO: Display replace owner flow
+                completion(true)
+            }
+            replaceAction.backgroundColor = .tertiaryLabel
+
+            return UISwipeActionsConfiguration(actions: [deleteAction, replaceAction])
+        default:
+            return nil
+        }
+    }
+
+    func remove(owner: Address, prevOwner: Address?) {
+        guard let navigationController = navigationController else {
+            return
+        }
+
+        removeOwnerFlow = RemoveOwnerFlow(
+            owner: owner,
+            prevOwner: prevOwner,
+            safe: safe!,
+            navigationController: navigationController) { [unowned self] _ in
+                removeOwnerFlow = nil
+            }
+        removeOwnerFlow.start()
     }
 
     private func addressDetailsCell(address: Address,
@@ -442,5 +515,22 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 extension SafeSettingsViewController: ENSNameLoaderDelegate {
     func ensNameLoaderDidLoadName(_ loader: ENSNameLoader) {
         tableView.reloadData()
+    }
+}
+
+
+extension BidirectionalCollection {
+    typealias Element = Self.Iterator.Element
+
+    func before(_ itemIndex: Self.Index?) -> Element? {
+        if let itemIndex = itemIndex {
+            let firstItem: Bool = (itemIndex == startIndex)
+            if firstItem {
+                return nil
+            } else {
+                return self[index(before:itemIndex)]
+            }
+        }
+        return nil
     }
 }

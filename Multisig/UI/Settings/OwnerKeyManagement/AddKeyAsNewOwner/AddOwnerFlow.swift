@@ -93,8 +93,8 @@ class AddOwnerFlowFactory {
         confirmationsVC.stepNumber = stepNumber
         confirmationsVC.maxSteps = maxSteps
         confirmationsVC.trackingEvent = trackingEvent
+        confirmationsVC.promptText = "You’re about to add an owner. Would you like to change the required confirmations?"
         confirmationsVC.completion = completion
-        confirmationsVC.showPromptLabel = true
         return confirmationsVC
     }
 

@@ -24,15 +24,15 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
     var maxConfirmations: Int = 1
     var confirmations: Int = 1
 
-    var showPromptLabel = false
 
     var trackingEvent: TrackingEvent? = nil
-
+    var promptText: String = ""
+    var titleText: String = "Change confirmations"
     var completion: ((Int) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Change confirmations"
+        title = titleText
 
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
@@ -48,11 +48,12 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
-        if showPromptLabel {
-            promptLabel.setStyle(.secondary)
-            promptLabel.text = "You’re about to add an owner. Would you like to change the required confirmations?"
-        } else {
+        if promptText.isEmpty {
             labelContainer.isHidden = true
+
+        } else {
+            promptLabel.setStyle(.secondary)
+            promptLabel.text = promptText
         }
         button.setText("Continue", .filled)
     }
