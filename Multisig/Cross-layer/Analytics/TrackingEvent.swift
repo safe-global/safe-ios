@@ -284,7 +284,6 @@ enum TrackingEvent: String, Trackable {
     case replaceOwnerNewOwnerName                   = "screen_replace_owner_new_owner_name"
 
     case userRemoveOwnerFromSettings                = "user_remove_owner_from_settings"
-    case removeOwnerSelect                          = "screen_remove_owner_select"
     case removeOwnerChangePolicy                    = "screen_remove_owner_change_policy"
     case removeOwnerSuccess                         = "screen_remove_owner_success"
     case removeOwnerReview                          = "screen_remove_owner_review"

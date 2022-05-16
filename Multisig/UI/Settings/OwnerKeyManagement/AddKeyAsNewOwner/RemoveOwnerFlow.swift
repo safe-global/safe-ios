@@ -74,12 +74,12 @@ class RemoveOwnerFlow: UIFlow {
 class RemoveOwnerFlowFactory {
     func confirmations(step: Int, maxSteps: Int, safe: Safe, completion: @escaping (_ newConfirmations: Int) -> Void) -> EditConfirmationsViewController {
         let confirmationsVC = EditConfirmationsViewController()
-        confirmationsVC.confirmations = Int(safe.threshold ?? 0)
+        confirmationsVC.confirmations = Int(safe.threshold ?? 1)
         confirmationsVC.minConfirmations = 1
-        confirmationsVC.maxConfirmations = max(1, (safe.ownersInfo ?? []).count) - 1
+        confirmationsVC.maxConfirmations = max(1, (safe.ownersInfo ?? []).count - 1)
         confirmationsVC.stepNumber = step
         confirmationsVC.maxSteps = maxSteps
-        confirmationsVC.trackingEvent = .addAsOwnerChangeConfirmations
+        confirmationsVC.trackingEvent = .removeOwnerChangePolicy
         confirmationsVC.promptText = "You’re about to remove an owner. Would you like to change the required confirmations?"
         confirmationsVC.titleText = "Remove owner"
         confirmationsVC.completion = completion

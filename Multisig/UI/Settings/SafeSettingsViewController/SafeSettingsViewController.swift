@@ -21,6 +21,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     private var currentDataTask: URLSessionTask?
     private var sections = [SectionItems]()
     private var safe: Safe?
+
+    // We need this to get the correct order of owners, this is needed for replace&remove owner
+    //and not guaranteed by SafeInfo endpoint
     private var safeOwners: [AddressInfo] = []
 
     private var ensLoader: ENSNameLoader?
@@ -338,8 +341,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             owner: owner,
             prevOwner: prevOwner,
             safe: safe!,
-            navigationController: navigationController) { [unowned self] skippedTxDetails in
-        }
+            navigationController: navigationController) { [unowned self] _ in
+                removeOwnerFlow = nil
+            }
         removeOwnerFlow.start()
     }
 

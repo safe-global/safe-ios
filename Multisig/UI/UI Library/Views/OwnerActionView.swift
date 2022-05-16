@@ -29,6 +29,8 @@ class OwnerActionView: UINibView {
         switch action {
         case .addingOwner:
             actionTag.set(title: "Adding owner", style: .footnote2, backgroundColor: .backgroundPositive, textColor: .primary)
+        case .replacingOwner:
+            actionTag.set(title: "Removing owner", style: .footnote2, backgroundColor: .backgroundPrimary, textColor: .labelSecondary)
         case .removingOwner:
             actionTag.set(title: "Removing owner", style: .footnote2, backgroundColor: .backgroundError, textColor: .error)
         }
@@ -36,5 +38,5 @@ class OwnerActionView: UINibView {
 }
 
 enum OwnerAction {
-    case addingOwner, removingOwner
+    case addingOwner, removingOwner, replacingOwner
 }
