@@ -25,7 +25,8 @@ class ReviewSafeTransactionViewController: UIViewController {
     @IBOutlet weak var ribbonView: RibbonView!
 
     private var currentDataTask: URLSessionTask?
-    
+    var trackingEvent: TrackingEvent = .assetsTransferReview
+
     var safe: Safe!
     var address: Address!
     var data: Data?
@@ -309,11 +310,10 @@ class ReviewSafeTransactionViewController: UIViewController {
         guard let nonce = nonce,
               let minimalNonce = minimalNonce else { return }
 
-
         let vc = AdvancedParametersViewController(nonce: nonce,
                                                   minimalNonce: minimalNonce.value,
                                                   safeTxGas: safeTxGas,
-                                                  trackingEvent: .assetsTransferAdvancedParams) { [weak self] nonce, safeTxGas in
+                                                  trackingEvent: trackingEvent) { [weak self] nonce, safeTxGas in
             guard let `self` = self else { return }
             self.nonce = nonce
             self.safeTxGas = safeTxGas

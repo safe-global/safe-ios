@@ -30,6 +30,7 @@ class ReviewChangeConfirmationsTxViewController: ReviewSafeTransactionViewContro
         self.ownersCount = ownersCount
         self.oldThreshold = oldThreshold
         self.newThreshold = newThreshold
+        trackingEvent = .settingsTxAdvancedParams
     }
 
     override func viewDidLoad() {
@@ -79,6 +80,7 @@ class ReviewChangeConfirmationsTxViewController: ReviewSafeTransactionViewContro
         cell.set(title: "Safe owners", value: "\(ownersCount)")
         return cell
     }
+
 
     override func onSuccess(transaction: SCGModels.TransactionDetails) {
         onSuccess?(transaction)

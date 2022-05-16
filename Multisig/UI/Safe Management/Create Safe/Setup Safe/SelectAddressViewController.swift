@@ -12,6 +12,7 @@ import Web3
 
 class SelectAddressViewController: UIAlertController {
     var completion: (Address) -> Void = { _ in }
+    var onError: (_ error: Error, _ text: String?) -> Void = { _, _ in }
     var chain: Chain?
     weak var presenter: UIViewController?
 
@@ -153,6 +154,7 @@ class SelectAddressViewController: UIAlertController {
             let address = try self.validate(text: text)
             completion(address)
         } catch {
+            onError(error, text)
             App.shared.snackbar.show(message: "Can't use this address. \(error.localizedDescription)")
         }
     }

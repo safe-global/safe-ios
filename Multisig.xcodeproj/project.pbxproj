@@ -720,6 +720,10 @@
 		6AA2724A27DF566B00934B37 /* PendingWalletActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA2724827DF566B00934B37 /* PendingWalletActionViewController.swift */; };
 		6AAE34DE282A2F0400CCFC95 /* OwnerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE34DD282A2F0400CCFC95 /* OwnerHeaderView.swift */; };
 		6AAE34E0282A2F1600CCFC95 /* OwnerHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AAE34DF282A2F1600CCFC95 /* OwnerHeaderView.xib */; };
+		6AAE34E4282A824800CCFC95 /* EnterOwnerAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE34E2282A824800CCFC95 /* EnterOwnerAddressViewController.swift */; };
+		6AAE34E5282A824800CCFC95 /* EnterOwnerAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AAE34E3282A824800CCFC95 /* EnterOwnerAddressViewController.xib */; };
+		6AAE34E8282A833D00CCFC95 /* EnterOwnerNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE34E6282A833D00CCFC95 /* EnterOwnerNameViewController.swift */; };
+		6AAE34E9282A833D00CCFC95 /* EnterOwnerNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AAE34E7282A833D00CCFC95 /* EnterOwnerNameViewController.xib */; };
 		6AC2D47727EC661D00D422CA /* SignatureRequestToWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC2D47627EC661D00D422CA /* SignatureRequestToWalletViewController.swift */; };
 		6ADEB01B2795AB410062ADFE /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB0192795AB410062ADFE /* InfoLabel.swift */; };
 		6ADEB01C2795AB410062ADFE /* InfoLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB01A2795AB410062ADFE /* InfoLabel.xib */; };
@@ -1534,6 +1538,10 @@
 		6AA2724827DF566B00934B37 /* PendingWalletActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingWalletActionViewController.swift; sourceTree = "<group>"; };
 		6AAE34DD282A2F0400CCFC95 /* OwnerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerHeaderView.swift; sourceTree = "<group>"; };
 		6AAE34DF282A2F1600CCFC95 /* OwnerHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OwnerHeaderView.xib; sourceTree = "<group>"; };
+		6AAE34E2282A824800CCFC95 /* EnterOwnerAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterOwnerAddressViewController.swift; sourceTree = "<group>"; };
+		6AAE34E3282A824800CCFC95 /* EnterOwnerAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterOwnerAddressViewController.xib; sourceTree = "<group>"; };
+		6AAE34E6282A833D00CCFC95 /* EnterOwnerNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterOwnerNameViewController.swift; sourceTree = "<group>"; };
+		6AAE34E7282A833D00CCFC95 /* EnterOwnerNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterOwnerNameViewController.xib; sourceTree = "<group>"; };
 		6AC2D47627EC661D00D422CA /* SignatureRequestToWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureRequestToWalletViewController.swift; sourceTree = "<group>"; };
 		6ADEB0192795AB410062ADFE /* InfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
 		6ADEB01A2795AB410062ADFE /* InfoLabel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoLabel.xib; sourceTree = "<group>"; };
@@ -3416,6 +3424,7 @@
 		55F91A8E25BEABA100938475 /* OwnerKeyManagement */ = {
 			isa = PBXGroup;
 			children = (
+				6AAE34E1282A81DD00CCFC95 /* AddOwnerKey */,
 				6A252CEF281692FE001F0887 /* AddKeyAsNewOwner */,
 				6A1CFA4C280819C600B2C340 /* Backup */,
 				55CCD58627550F42004EA3E3 /* DelegateKeyController.swift */,
@@ -3536,6 +3545,17 @@
 				AD303815FA00D7D2A33A3F8C /* ReviewChangeConfirmationsTxViewController.swift */,
 			);
 			path = ChangeConfirmations;
+			sourceTree = "<group>";
+		};
+		6AAE34E1282A81DD00CCFC95 /* AddOwnerKey */ = {
+			isa = PBXGroup;
+			children = (
+				6AAE34E2282A824800CCFC95 /* EnterOwnerAddressViewController.swift */,
+				6AAE34E3282A824800CCFC95 /* EnterOwnerAddressViewController.xib */,
+				6AAE34E6282A833D00CCFC95 /* EnterOwnerNameViewController.swift */,
+				6AAE34E7282A833D00CCFC95 /* EnterOwnerNameViewController.xib */,
+			);
+			path = AddOwnerKey;
 			sourceTree = "<group>";
 		};
 		B0D61012F3C4AC13FA79F697 /* Features */ = {
@@ -3962,6 +3982,7 @@
 				0AE0AFED2805C6B9002594CB /* VerifyPhraseViewController.xib in Resources */,
 				558836712565385F0014E8C7 /* RemoveCell.xib in Resources */,
 				6AAE34E0282A2F1600CCFC95 /* OwnerHeaderView.xib in Resources */,
+				6AAE34E9282A833D00CCFC95 /* EnterOwnerNameViewController.xib in Resources */,
 				6A386C5D281A7792003FBCB3 /* AddRemoveOwnerTableViewCell.xib in Resources */,
 				6ADEB01C2795AB410062ADFE /* InfoLabel.xib in Resources */,
 				04077B3F278CB85F00AF6376 /* ActivityButtonView.xib in Resources */,
@@ -4010,6 +4031,7 @@
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				049A9D7125F9303000CA5723 /* ChooseOwnerKeyViewController.xib in Resources */,
 				D88FA81F2770869E0023B77F /* TokenAmountField.xib in Resources */,
+				6AAE34E5282A824800CCFC95 /* EnterOwnerAddressViewController.xib in Resources */,
 				D80B5A0B2769F95000D6E024 /* AssetsViewController.xib in Resources */,
 				043350AC28086126003725E2 /* SuccessAnimation.json in Resources */,
 				0A86EE7B25CC2C600059876E /* IdleFooterView.xib in Resources */,
@@ -4312,6 +4334,7 @@
 				0A5B15842808643B003AD853 /* CreatePasscodeViewController.swift in Sources */,
 				0A04506D278D973C00650F71 /* ReviewExecutionContentViewController.swift in Sources */,
 				D86517732760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift in Sources */,
+				6AAE34E8282A833D00CCFC95 /* EnterOwnerNameViewController.swift in Sources */,
 				0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */,
 				0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */,
 				93EF2FA327C546330077BE95 /* InstructionsViewController.swift in Sources */,
@@ -4568,6 +4591,7 @@
 				0AF2737724DD48AD007E4012 /* NotificationPayload.swift in Sources */,
 				55B6465B253050200050BD95 /* SignatureString.swift in Sources */,
 				0468EE9D26148A3B008270BF /* PrivacyProtectionScreenViewController.swift in Sources */,
+				6AAE34E4282A824800CCFC95 /* EnterOwnerAddressViewController.swift in Sources */,
 				55A5853D2501479C005E778B /* BIP39.swift in Sources */,
 				55CCD58727550F42004EA3E3 /* DelegateKeyController.swift in Sources */,
 				0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */,

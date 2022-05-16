@@ -12,7 +12,7 @@ import UIKit
 class AddKeyFlow: UIFlow {
     var privateKey: PrivateKey?
     var keyName: String?
-    var keyInfo: KeyInfo?
+    var keyInfo: AddressInfo?
     var badgeImageName: String
     var createPasscodeFlow: CreatePasscodeFlow!
     var factory: AddKeyFlowFactory
@@ -68,12 +68,15 @@ class AddKeyFlow: UIFlow {
         }
 
         let success = doImport()
-        keyInfo = try? KeyInfo.keys(addresses: [privateKey!.address]).first
+        let key = try? KeyInfo.keys(addresses: [privateKey!.address]).first
 
-        guard success, keyInfo != nil else {
+
+        guard success, key != nil else {
             stop(success: false)
             return
         }
+
+        keyInfo = AddressInfo(address: key!.address, name: key!.name)
 
         AppSettings.hasShownImportKeyOnboarding = true
 

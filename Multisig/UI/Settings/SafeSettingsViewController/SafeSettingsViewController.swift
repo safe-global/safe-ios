@@ -465,8 +465,21 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
         case Section.ownerAddresses(let name):
             view = tableView.dequeueHeaderFooterView(OwnerHeaderView.self)
-            (view as! OwnerHeaderView).setName(name)
-            (view as! OwnerHeaderView).setNumber(safe?.ownersInfo?.count)
+            let ownerHeaderView = view as! OwnerHeaderView
+            ownerHeaderView.setName(name)
+            ownerHeaderView.setNumber(safe?.ownersInfo?.count)
+            ownerHeaderView.onAdd = { [unowned self] in
+
+                Tracker.trackEvent(.addOwnerFromSettings)
+
+                let enterOwnerAddressVC = EnterOwnerAddressViewController()
+                enterOwnerAddressVC.completion = { [unowned self] in
+                    //TODO Open key details?
+                }
+                ViewControllerFactory.addCloseButton(enterOwnerAddressVC)
+                let vc = UINavigationController(rootViewController: enterOwnerAddressVC)
+                present(vc, animated: true)
+            }
 
         case Section.safeVersion(let name):
             view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)

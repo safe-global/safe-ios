@@ -64,8 +64,8 @@ struct AdvancedAppSettings: View {
     struct DataSharingInfo: View {
         var body: some View {
             VStack {
-                Text("By sharing usage data with Gnosis, you are helping us improve the app with anonymized app usage data")
-                    .body(.gray)
+                Text("By sharing usage data with Gnosis, you are helping us improve the app with anonymized app usage data.")
+                    .body(.gray).frame(minHeight: 50)
                 HStack {
                     BrowseLinkButton(title: "What data is shared?", url: App.configuration.legal.privacyURL)
                     Spacer()

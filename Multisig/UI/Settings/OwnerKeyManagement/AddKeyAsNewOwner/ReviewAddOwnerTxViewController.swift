@@ -9,7 +9,7 @@
 import UIKit
 
 class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
-    private var owner: KeyInfo!
+    private var owner: AddressInfo!
     private var oldOwnersCount: Int = 0
     private var oldThreshold: Int = 0
     private var newThreshold: Int = 0
@@ -21,7 +21,7 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
 
     var onSuccess: ((SCGModels.TransactionDetails) -> ())?
 
-    convenience init(safe: Safe, owner: KeyInfo, oldOwnersCount: Int, oldThreshold: Int, newThreshold: Int) {
+    convenience init(safe: Safe, owner: AddressInfo, oldOwnersCount: Int, oldThreshold: Int, newThreshold: Int) {
         self.init(safe: safe,
                   address: owner.address,
                   data: SafeTransactionController.shared.addOwnerWithThresholdData(owner: owner.address, threshold: newThreshold))
@@ -29,6 +29,7 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
         self.oldThreshold = oldThreshold
         self.oldOwnersCount = oldOwnersCount
         self.newThreshold = newThreshold
+        trackingEvent = .settingsTxAdvancedParams
     }
 
     override func viewDidLoad() {

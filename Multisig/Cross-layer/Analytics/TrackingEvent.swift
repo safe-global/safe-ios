@@ -106,6 +106,7 @@ enum TrackingEvent: String, Trackable {
     case settingsSafeNoSafe                         = "screen_settings_safe_no_safe"
     case settingsSafeEditName                       = "screen_settings_safe_edit_name"
     case settingsSafeAdvanced                       = "screen_settings_safe_advanced"
+    case settingsTxAdvancedParams                   = "screen_settings_tx_advanced_params"
 
     case appUpdateDeprecated                        = "screen_update_deprecated"
     case appUpdateDeprecatedSoon                    = "screen_update_deprecated_soon"
