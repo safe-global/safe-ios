@@ -33,7 +33,30 @@ class UIFlow {
             navigationController.show(vc, sender: navigationController)
         }
     }
+}
 
+class ModalUIFLow : UIFlow {
+
+    weak var presenter: UIViewController!
+
+     init(presenter: UIViewController, navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+         self.presenter = presenter
+         super.init(navigationController: navigationController, completion: completion)
+    }
+
+    override func start() {
+
+        // guaranteed to exist at this point
+        let rootVC = navigationController.viewControllers.first!
+        ViewControllerFactory.addCloseButton(rootVC)
+        presenter.present(navigationController, animated: true)
+    }
+
+    override func stop(success: Bool) {
+        presenter.dismiss(animated: true) { [unowned self] in
+            completion(success)
+        }
+    }
 }
 
 //

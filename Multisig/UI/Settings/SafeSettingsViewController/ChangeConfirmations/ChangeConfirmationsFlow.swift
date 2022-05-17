@@ -6,19 +6,17 @@
 import Foundation
 import UIKit
 
-class ChangeConfirmationsFlow: UIFlow {
+class ChangeConfirmationsFlow: ModalUIFLow {
     var factory: ChangeConfirmationsFlowFactory
     var safe: Safe
     var newConfirmations: Int?
     var changeConfirmationsTransactionDetails: SCGModels.TransactionDetails?
-    weak var presenter: UIViewController!
 
     init(safe: Safe, presenter: UIViewController, factory: ChangeConfirmationsFlowFactory = .init(), completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
         self.safe = safe
-        self.presenter = presenter
         let navigationController = CancellableNavigationController()
-        super.init(navigationController: navigationController, completion: completion)
+        super.init(presenter: presenter, navigationController: navigationController, completion: completion)
         navigationController.onCancel = { [unowned self] in
             stop(success: false)
         }
@@ -65,16 +63,7 @@ class ChangeConfirmationsFlow: UIFlow {
 
     override func start() {
         confirmations()
-        // guaranteed to exist at this point
-        let rootVC = navigationController.viewControllers.first!
-        ViewControllerFactory.addCloseButton(rootVC)
-        presenter.present(navigationController, animated: true)
-    }
-
-    override func stop(success: Bool) {
-        presenter.dismiss(animated: true) { [unowned self] in
-            completion(success)
-        }
+        super.start()
     }
 }
 
