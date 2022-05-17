@@ -13,6 +13,7 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var promptLabel: UILabel!
+    @IBOutlet weak var labelContainer: UIStackView!
     @IBOutlet weak var button: UIButton!
 
     private var stepLabel: UILabel!
@@ -23,13 +24,15 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
     var maxConfirmations: Int = 1
     var confirmations: Int = 1
 
-    var trackingEvent: TrackingEvent? = nil
 
+    var trackingEvent: TrackingEvent? = nil
+    var promptText: String = ""
+    var titleText: String = "Change confirmations"
     var completion: ((Int) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Change confirmations"
+        title = titleText
 
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
@@ -45,9 +48,13 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
-        promptLabel.setStyle(.secondary)
-        promptLabel.text = "You’re about to add an owner. Would you like to change the required confirmations?"
+        if promptText.isEmpty {
+            labelContainer.isHidden = true
 
+        } else {
+            promptLabel.setStyle(.secondary)
+            promptLabel.text = promptText
+        }
         button.setText("Continue", .filled)
     }
 
@@ -71,16 +78,16 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             return cellBuilder.thresholdCell(
-                "\(confirmations) out of \(maxConfirmations)",
-                range: (minConfirmations...maxConfirmations),
-                value: confirmations,
-                indexPath: indexPath,
-                onChange: { [unowned self] threshold in
-                    confirmations = threshold
-                    if let cell = tableView.cellForRow(at: indexPath) as? StepperTableViewCell {
-                        cell.setText("\(confirmations) out of \(maxConfirmations)")
+                    "\(confirmations) out of \(maxConfirmations)",
+                    range: (minConfirmations...maxConfirmations),
+                    value: confirmations,
+                    indexPath: indexPath,
+                    onChange: { [unowned self] threshold in
+                        confirmations = threshold
+                        if let cell = tableView.cellForRow(at: indexPath) as? StepperTableViewCell {
+                            cell.setText("\(confirmations) out of \(maxConfirmations)")
+                        }
                     }
-                }
             )
         } else {
             return cellBuilder.thresholdHelpCell(for: indexPath)
@@ -93,7 +100,9 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard indexPath.row == 1 else { return }
+        guard indexPath.row == 1 else {
+            return
+        }
         cellBuilder.didSelectThresholdHelpCell()
     }
 

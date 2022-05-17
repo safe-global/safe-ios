@@ -1,15 +1,16 @@
 //
-//  ReviewChangeSafeTxViewController.swift
+//  ReviewRemoveOwnerViewController.swift
 //  Multisig
 //
-//  Created by Vitaly on 28.04.22.
+//  Created by Moaaz on 5/10/22.
 //  Copyright © 2022 Gnosis Ltd. All rights reserved.
 //
 
 import UIKit
 
-class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
-    private var owner: AddressInfo!
+class ReviewRemoveOwnerViewController: ReviewSafeTransactionViewController {
+    private var owner: Address!
+    private var previousOwner: Address?
     private var oldOwnersCount: Int = 0
     private var oldThreshold: Int = 0
     private var newThreshold: Int = 0
@@ -21,15 +22,14 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
 
     var onSuccess: ((SCGModels.TransactionDetails) -> ())?
 
-    convenience init(safe: Safe, owner: AddressInfo, oldOwnersCount: Int, oldThreshold: Int, newThreshold: Int) {
+    convenience init(safe: Safe, owner: Address, previousOwner: Address?, oldOwnersCount: Int, oldThreshold: Int, newThreshold: Int) {
         self.init(safe: safe,
-                  address: owner.address,
-                  data: SafeTransactionController.shared.addOwnerWithThresholdData(owner: owner.address, threshold: newThreshold))
+                  address: owner,
+                  data: SafeTransactionController.shared.removeOwnerData(prevOwner: previousOwner, oldOwner: owner, threshold: newThreshold))
         self.owner = owner
         self.oldThreshold = oldThreshold
         self.oldOwnersCount = oldOwnersCount
         self.newThreshold = newThreshold
-        trackingEvent = .settingsTxAdvancedParams
     }
 
     override func viewDidLoad() {
@@ -38,7 +38,7 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
         stepLabel.textAlignment = .right
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
-        
+
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
@@ -51,7 +51,7 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.addAsOwnerReview)
+        Tracker.trackEvent(.removeOwnerReview)
     }
 
     override func createSections() {
@@ -63,21 +63,22 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
     }
 
     override func createTransaction() -> Transaction? {
-        SafeTransactionController.shared.addOwnerWithThresholdTransaction(safe: safe,
-                                                                          safeTxGas: safeTxGas,
-                                                                          nonce: nonce,
-                                                                          owner: owner.address,
-                                                                          threshold: newThreshold)
+        SafeTransactionController.shared.removeOwner(safe: safe,
+                                                     safeTxGas: safeTxGas,
+                                                     prevOwner: previousOwner,
+                                                     oldOwner: owner,
+                                                     nonce: nonce,
+                                                     threshold: newThreshold)
     }
 
     override func headerCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(AddRemoveOwnerTableViewCell.self)
 
-        let (name, _) = NamingPolicy.name(for: owner.address,
+        let (name, _) = NamingPolicy.name(for: owner,
                                                     info: nil,
                                                     chainId: safe.chain!.id!)
 
-        cell.set(owner: AddressInfo(address: owner.address, name: name), action: .addingOwner)
+        cell.set(owner: AddressInfo(address: owner, name: name), action: .removingOwner)
 
         return cell
     }
@@ -86,7 +87,7 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
         let cell = tableView.dequeueCell(ValueChangeTableViewCell.self)
         cell.set(title: "Confirmations required",
                  valueBefore: "\(oldThreshold) out of \(oldOwnersCount)",
-                 valueAfter: "\(newThreshold) out of \(oldOwnersCount + 1)")
+                 valueAfter: "\(newThreshold) out of \(oldOwnersCount - 1)")
         cell.selectionStyle = .none
 
         return cell
@@ -94,16 +95,13 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
 
     func ownersCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(ValueChangeTableViewCell.self)
-        cell.set(title: "Safe owners", valueBefore: "\(oldOwnersCount)", valueAfter: "\(oldOwnersCount + 1)")
+        cell.set(title: "Safe owners", valueBefore: "\(oldOwnersCount)", valueAfter: "\(oldOwnersCount - 1)")
         cell.selectionStyle = .none
         return cell
-    }
-
-    override func getTrackingEvent() -> TrackingEvent {
-        .settingsTxAdvancedParams
     }
 
     override func onSuccess(transaction: SCGModels.TransactionDetails) {
         onSuccess?(transaction)
     }
+
 }

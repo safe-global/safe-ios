@@ -25,7 +25,8 @@ class ReviewSafeTransactionViewController: UIViewController {
     @IBOutlet weak var ribbonView: RibbonView!
 
     private var currentDataTask: URLSessionTask?
-    
+    var trackingEvent: TrackingEvent = .assetsTransferReview
+
     var safe: Safe!
     var address: Address!
     var data: Data?
@@ -70,6 +71,7 @@ class ReviewSafeTransactionViewController: UIViewController {
 
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
+
         ribbonView.update(chain: safe.chain)
         loadData()
 

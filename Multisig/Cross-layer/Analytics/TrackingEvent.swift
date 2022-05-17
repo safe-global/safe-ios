@@ -27,7 +27,7 @@ enum TrackingPushState: String {
 
 enum TrackingEvent: String, Trackable {
     case launch                                     = "screen_launch"
-    case launchTems                                 = "screen_launch_terms"
+    case launchTerms                                = "screen_launch_terms"
 
     case assetsNoSafe                               = "screen_assets_no_safe"
     case assetsCoins                                = "screen_assets_coins"
@@ -274,4 +274,22 @@ enum TrackingEvent: String, Trackable {
     case replaceOwnerSelect                         = "screen_replace_owner_select"
     case replaceOwnerReview                         = "screen_replace_owner_review"
     case replaceOwnerSuccess                        = "screen_replace_owner_success"
+
+    case addGenKeyAsOwner                           = "screen_add_gen_key_as_owner"
+    case skipAddGenKyAsOwner                        = "user_skip_add_gen_key_as_owner"
+    case addOwnerFromSettings                       = "user_add_owner_from_settings"
+    case addOwnerSelectAddress                      = "screen_add_owner_select_address"
+    case addOwnerSpecifyName                        = "screen_add_owner_specify_name"
+    case replaceOwnerFromSettings                   = "user_replace_owner_from_settings"
+    case replaceOwnerSelectNew                      = "screen_replace_owner_select_new"
+    case replaceOwnerNewOwnerName                   = "screen_replace_owner_new_owner_name"
+
+    case userRemoveOwnerFromSettings                = "user_remove_owner_from_settings"
+    case removeOwnerChangePolicy                    = "screen_remove_owner_change_policy"
+    case removeOwnerSuccess                         = "screen_remove_owner_success"
+    case removeOwnerReview                          = "screen_remove_owner_review"
+
+    case changeConfirmations                        = "screen_change_confirmations"
+    case reviewChangeConfirmations                  = "screen_review_change_confirmations"
+    case changeConfirmationsSuccess                 = "screen_change_confirmations_success"
 }

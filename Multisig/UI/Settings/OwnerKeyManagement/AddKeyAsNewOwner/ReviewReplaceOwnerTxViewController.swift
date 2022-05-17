@@ -6,7 +6,7 @@
 import UIKit
 
 class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
-    private var owner: KeyInfo!
+    private var owner: AddressInfo!
     private var ownerToBeReplaced: Address!
     private var previousOwner: Address?
     private var ownersCount: Int = 0
@@ -21,7 +21,7 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
 
     convenience init(
         safe: Safe,
-        owner: KeyInfo,
+        owner: AddressInfo,
         ownerToBeReplaced: Address,
         previousOwner: Address?,
         ownersCount: Int,
@@ -34,6 +34,8 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
         self.previousOwner = previousOwner
         self.ownersCount = ownersCount
         self.threshold = threshold
+
+        trackingEvent = .settingsTxAdvancedParams
     }
 
     override func viewDidLoad() {

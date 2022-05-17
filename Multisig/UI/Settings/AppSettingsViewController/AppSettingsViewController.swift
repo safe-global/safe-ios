@@ -125,6 +125,7 @@ class AppSettingsViewController: UITableViewController {
     private func addObservers() {
         for notification in [Notification.Name.ownerKeyRemoved,
                              .ownerKeyImported,
+                             .ownerKeyBackedUp,
                              .selectedFiatCurrencyChanged,
                              .updatedExperemental,
                              .IntercomUnreadConversationCountDidChange] {

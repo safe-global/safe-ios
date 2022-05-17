@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="214" id="KGk-i7-Jjw" customClass="AddRemoveOwnerTableViewCell" customModule="Multisig" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="214" id="KGk-i7-Jjw" customClass="AddRemoveOwnerTableViewCell" customModule="Multisig" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="214"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -19,15 +19,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZQ-zE-uO2" customClass="OwnerActionView" customModule="Multisig" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="16" width="320" height="198"/>
+                        <rect key="frame" x="110" y="16" width="100" height="198"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" placeholder="YES" id="tM3-4q-xZC"/>
+                        </constraints>
                     </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="hZQ-zE-uO2" secondAttribute="bottom" id="CrI-3y-EJb"/>
                     <constraint firstItem="hZQ-zE-uO2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="QbH-82-bWy"/>
-                    <constraint firstAttribute="trailing" secondItem="hZQ-zE-uO2" secondAttribute="trailing" id="RXL-Jo-0PG"/>
-                    <constraint firstItem="hZQ-zE-uO2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="cZ8-Mg-KCb"/>
+                    <constraint firstItem="hZQ-zE-uO2" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="tKW-bN-imD"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

@@ -25,16 +25,18 @@ class OwnerActionView: UINibView {
     func set(owner: AddressInfo, action: OwnerAction) {
         blockie.set(address: owner.address)
         nameLabel.text = owner.name
-        addressLabel.text = owner.address.ellipsized(prefix: 4)
+        addressLabel.text = owner.address.ellipsized()
         switch action {
         case .addingOwner:
             actionTag.set(title: "Adding owner", style: .footnote2, backgroundColor: .backgroundPositive, textColor: .primary)
-        case .removingOwner:
+        case .replacingOwner:
             actionTag.set(title: "Removing owner", style: .footnote2, backgroundColor: .backgroundPrimary, textColor: .labelSecondary)
+        case .removingOwner:
+            actionTag.set(title: "Removing owner", style: .footnote2, backgroundColor: .backgroundError, textColor: .error)
         }
     }
 }
 
 enum OwnerAction {
-    case addingOwner, removingOwner
+    case addingOwner, removingOwner, replacingOwner
 }

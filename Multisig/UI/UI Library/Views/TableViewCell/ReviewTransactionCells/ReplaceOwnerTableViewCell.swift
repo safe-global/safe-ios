@@ -19,6 +19,6 @@ class ReplaceOwnerTableViewCell: UITableViewCell {
 
     func set(newOwner: AddressInfo, oldOwner: AddressInfo) {
         newOwnerView.set(owner: newOwner, action: .addingOwner)
-        oldOwnerView.set(owner: oldOwner, action: .removingOwner)
+        oldOwnerView.set(owner: oldOwner, action: .replacingOwner)
     }
 }
