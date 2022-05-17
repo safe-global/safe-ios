@@ -14,8 +14,8 @@ class TokenInfoView: UINibView {
     @IBOutlet private weak var textLabel: UILabel!
     @IBOutlet private weak var detailLabel: UILabel!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func commonInit() {
+        super.commonInit()
         setDetail(nil)
         setTitle(nil)
     }
