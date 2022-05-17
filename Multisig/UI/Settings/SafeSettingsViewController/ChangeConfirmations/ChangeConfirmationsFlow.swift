@@ -12,11 +12,11 @@ class ChangeConfirmationsFlow: UIFlow {
     var newConfirmations: Int?
     var changeConfirmationsTransactionDetails: SCGModels.TransactionDetails?
 
-    init(safe: Safe, presenter: UIViewController, factory: ChangeConfirmationsFlowFactory = .init(), completion: @escaping (_ success: Bool) -> Void) {
+    init(safe: Safe, factory: ChangeConfirmationsFlowFactory = .init(), presenter: UIViewController, completion: @escaping (Bool) -> ()) {
         self.factory = factory
         self.safe = safe
         let navigationController = CancellableNavigationController()
-        super.init( navigationController: navigationController, presenter: presenter, completion: completion)
+        super.init(navigationController: navigationController, presenter: presenter, completion: completion)
         navigationController.onCancel = { [unowned self] in
             stop(success: false)
         }
