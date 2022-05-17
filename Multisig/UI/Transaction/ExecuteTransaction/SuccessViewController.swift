@@ -84,6 +84,7 @@ class SuccessViewController: UIViewController {
     }
 
     @IBAction func didTapDone(_ sender: Any) {
+        self.navigationController?.isNavigationBarHidden = false
         onDone(false)
     }
 
