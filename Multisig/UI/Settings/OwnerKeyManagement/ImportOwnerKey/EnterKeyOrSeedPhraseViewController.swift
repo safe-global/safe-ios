@@ -141,13 +141,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
     }
 
     private func secured(_ text: String) -> String {
-        text.map { char in
-            if CharacterSet.newlines.contains(char) {
-                return String(char)
-            } else {
-                return "●"
-            }
-        }.joined()
+        text.map { _ in "●" }.joined()
     }
 }
 
@@ -162,11 +156,5 @@ extension EnterKeyOrSeedPhraseViewController: UITextViewDelegate {
         enteredText = newText
         updateTextDependentViews(with: newText)
         return false
-    }
-}
-
-extension CharacterSet {
-    func contains(_ char: Character) -> Bool {
-        char.unicodeScalars.allSatisfy(contains(_:))
     }
 }
