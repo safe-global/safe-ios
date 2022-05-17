@@ -30,7 +30,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     private var changeConfirmationsFlow: ChangeConfirmationsFlow!
     private var removeOwnerFlow: RemoveOwnerFlow!
-
+    private var replaceOwnerFlow: ReplaceOwnerFlow!
+    private var addOwnerFlow: AddOwnerFlow!
+    
     enum Section {
         case name(String)
         case requiredConfirmations(String)
@@ -330,6 +332,15 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         default:
             return nil
         }
+    }
+
+    func replace(owner: Address, prevOwner: Address?) {
+        guard let navigationController = navigationController else {
+            return
+        }
+
+        
+        replaceOwnerFlow.start()
     }
 
     func remove(owner: Address, prevOwner: Address?) {
