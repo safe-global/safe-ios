@@ -81,7 +81,6 @@ class ReviewChangeConfirmationsTxViewController: ReviewSafeTransactionViewContro
         return cell
     }
 
-
     override func onSuccess(transaction: SCGModels.TransactionDetails) {
         onSuccess?(transaction)
     }
