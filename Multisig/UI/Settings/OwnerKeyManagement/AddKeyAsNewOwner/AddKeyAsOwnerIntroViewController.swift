@@ -33,6 +33,11 @@ class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentation
         navigationBarAppearance.shadowColor = .clear
         navigationItem.scrollEdgeAppearance = navigationBarAppearance
 
+        // disable swipe back
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        
+        navigationController?.isNavigationBarHidden = false
+
         titleLabel.setStyle(.primary)
         descriptionLabel.setStyle(.secondary)
         addButton.setText("Add as owner", .filled)

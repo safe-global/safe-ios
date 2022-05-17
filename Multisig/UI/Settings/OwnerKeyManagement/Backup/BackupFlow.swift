@@ -98,7 +98,7 @@ class BackupFlow: UIFlow {
         let keyItem = try? KeyInfo.firstKey(address: privateKey.address)
         keyItem?.backedup = true
         keyItem?.save()
-        NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
+        NotificationCenter.default.post(name: .ownerKeyBackedUp, object: nil)
     }
 
     func success() {
