@@ -12,18 +12,31 @@ class UIFlow {
 
     var navigationController: UINavigationController
     var completion: (_ success: Bool) -> Void
+    weak var presenter: UIViewController?
 
-    internal init(navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+    internal init(navigationController: UINavigationController, presenter: UIViewController? = nil, completion: @escaping (_ success: Bool) -> Void) {
         self.navigationController = navigationController
         self.completion = completion
+        self.presenter = presenter
     }
 
     func start() {
-
+        if let presenter = presenter {
+            // guaranteed to exist at this point
+            let rootVC = navigationController.viewControllers.first!
+            ViewControllerFactory.addCloseButton(rootVC)
+            presenter.present(navigationController, animated: true)
+        }
     }
 
     func stop(success: Bool) {
-        completion(success)
+        if let presenter = presenter {
+            presenter.dismiss(animated: true) { [unowned self] in
+                completion(success)
+            }
+        } else {
+            completion(success)
+        }
     }
 
     func show(_ vc: UIViewController) {
@@ -31,30 +44,6 @@ class UIFlow {
             navigationController.viewControllers = [vc]
         } else {
             navigationController.show(vc, sender: navigationController)
-        }
-    }
-}
-
-class ModalUIFLow : UIFlow {
-
-    weak var presenter: UIViewController!
-
-     init(presenter: UIViewController, navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
-         self.presenter = presenter
-         super.init(navigationController: navigationController, completion: completion)
-    }
-
-    override func start() {
-
-        // guaranteed to exist at this point
-        let rootVC = navigationController.viewControllers.first!
-        ViewControllerFactory.addCloseButton(rootVC)
-        presenter.present(navigationController, animated: true)
-    }
-
-    override func stop(success: Bool) {
-        presenter.dismiss(animated: true) { [unowned self] in
-            completion(success)
         }
     }
 }
@@ -79,7 +68,7 @@ class BackupFlow: UIFlow {
     var mnemonic: String
     var factory: BackupFlowFactory
 
-    init(mnemonic: String, factory: BackupFlowFactory = BackupFlowFactory(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+    init(mnemonic: String, factory: BackupFlowFactory = BackupFlowFactory(), navigationController: UINavigationController, presenter: UIViewController? = nil, completion: @escaping (_ success: Bool) -> Void) {
         self.mnemonic = mnemonic
         self.factory = factory
         super.init(navigationController: navigationController, completion: completion)
@@ -139,8 +128,6 @@ class ModalBackupFlow: BackupFlow {
     //                    \
     //                     -> canceled
 
-    weak var presenter: UIViewController!
-
     convenience init?(keyInfo: KeyInfo, presenter: UIViewController, factory: BackupFlowFactory = BackupFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
         guard let mnemonic = try? keyInfo.privateKey()?.mnemonic else {
             return nil
@@ -149,11 +136,11 @@ class ModalBackupFlow: BackupFlow {
     }
 
     init(mnemonic: String, presenter: UIViewController, factory: BackupFlowFactory = BackupFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
-        self.presenter = presenter
         let navigationController = CancellableNavigationController()
         super.init(mnemonic: mnemonic,
                    factory: factory,
                    navigationController: navigationController,
+                   presenter: presenter,
                    completion: completion)
 
         navigationController.onCancel = { [unowned self] in
@@ -163,10 +150,7 @@ class ModalBackupFlow: BackupFlow {
 
     override func start() {
         passcode()
-        // guaranteed to exist at this point
-        let rootVC = navigationController.viewControllers.first!
-        ViewControllerFactory.addCloseButton(rootVC)
-        presenter.present(navigationController, animated: true)
+        super.start()
     }
 
     func passcode() {
@@ -191,12 +175,6 @@ class ModalBackupFlow: BackupFlow {
         super.seed()
         guard let vc = navigationController.viewControllers.last else { return }
         ViewControllerFactory.addCloseButton(vc)
-    }
-
-    override func stop(success: Bool) {
-        presenter.dismiss(animated: true) { [unowned self] in
-            completion(success)
-        }
     }
 }
 

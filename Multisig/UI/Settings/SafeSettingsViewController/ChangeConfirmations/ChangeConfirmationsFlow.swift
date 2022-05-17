@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class ChangeConfirmationsFlow: ModalUIFLow {
+class ChangeConfirmationsFlow: UIFlow {
     var factory: ChangeConfirmationsFlowFactory
     var safe: Safe
     var newConfirmations: Int?
@@ -16,7 +16,7 @@ class ChangeConfirmationsFlow: ModalUIFLow {
         self.factory = factory
         self.safe = safe
         let navigationController = CancellableNavigationController()
-        super.init(presenter: presenter, navigationController: navigationController, completion: completion)
+        super.init( navigationController: navigationController, presenter: presenter, completion: completion)
         navigationController.onCancel = { [unowned self] in
             stop(success: false)
         }
