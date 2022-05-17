@@ -94,15 +94,16 @@ class EnterOwnerAddressViewController: UIViewController {
 
     private func startAddOwnerFlow(address: Address, name: String) {
         addOwnerFlow =
-            AddOwnerFlow(
-                newOwner: AddressInfo(address: address, name: name),
-                safe: safe!,
-                factory: AddOwnerFlowFromSettingsFactory(),
-                navigationController: navigationController!) { [unowned self] skippedTxDetails in
+                AddOwnerFlow(
+                        newOwner: AddressInfo(address: address, name: name),
+                        safe: safe!,
+                        factory: AddOwnerFlowFromSettingsFactory(),
+                        navigationController: navigationController!,
+                        completion: { [unowned self] skippedTxDetails in
                     addOwnerFlow = nil
                     //TODO: pass parameters if needed
                     self.completion()
-                }
+                })
         addOwnerFlow.start()
     }
 

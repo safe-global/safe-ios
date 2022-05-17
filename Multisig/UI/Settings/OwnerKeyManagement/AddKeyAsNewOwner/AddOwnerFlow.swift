@@ -16,15 +16,16 @@ class AddOwnerFlow: UIFlow {
     var newConfirmations: Int?
     var addOwnerTransactionDetails: SCGModels.TransactionDetails?
 
-    init(newOwner: AddressInfo, safe: Safe, factory: AddOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+    init(newOwner: AddressInfo, safe: Safe, factory: AddOwnerFlowFactory = .init(), navigationController: UINavigationController, presenter: UIViewController? = nil, completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
         self.safe = safe
         self.newOwner = newOwner
-        super.init(navigationController: navigationController, completion: completion)
+        super.init(navigationController: navigationController, presenter: presenter, completion: completion)
     }
 
     override func start() {
         confirmations()
+        super.start()
     }
 
     func confirmations() {

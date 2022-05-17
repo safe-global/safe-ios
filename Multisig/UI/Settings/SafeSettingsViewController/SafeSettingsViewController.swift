@@ -333,12 +333,12 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     func remove(owner: Address, prevOwner: Address?) {
-        let navigationController = CancellableNavigationController()
+        let cancellableNavigationController = CancellableNavigationController()
         removeOwnerFlow = RemoveOwnerFlow(
                 owner: owner,
                 prevOwner: prevOwner,
                 safe: safe!,
-                navigationController: navigationController,
+                navigationController: cancellableNavigationController,
                 presenter: self,
                 completion: { [unowned self] _ in
                     removeOwnerFlow = nil
@@ -475,6 +475,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 let enterOwnerAddressVC = EnterOwnerAddressViewController()
                 enterOwnerAddressVC.completion = { [unowned self] in
                     //TODO Open key details?
+                    self.dismiss(animated: false)
                 }
                 ViewControllerFactory.addCloseButton(enterOwnerAddressVC)
                 let vc = UINavigationController(rootViewController: enterOwnerAddressVC)
