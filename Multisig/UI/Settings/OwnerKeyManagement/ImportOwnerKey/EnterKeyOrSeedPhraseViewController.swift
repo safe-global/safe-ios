@@ -133,6 +133,9 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         errorLabel.text = error?.localizedDescription
         errorLabel.isHidden = error == nil
         textField.hasError = error != nil
+        if error != nil {
+            textField.resignFirstResponder()
+        }
     }
 }
 
