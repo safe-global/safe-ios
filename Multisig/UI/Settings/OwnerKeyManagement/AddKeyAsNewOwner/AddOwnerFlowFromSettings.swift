@@ -13,10 +13,10 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
     var newAddress: Address?
     var newAddressName: String?
 
-    var addOwnerFlowFromSettingsFactory: AddOwnerFlowFromSettingsFactory {
-        factory as! AddOwnerFlowFromSettingsFactory
+    var addOwnerFlowFactory: AddOwnerFlowFactory {
+        factory as! AddOwnerFlowFactory
     }
-    init(safe: Safe, factory: AddOwnerFlowFromSettingsFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+    init(safe: Safe, factory: AddOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
         super.init(newOwner: nil, safe: safe, factory: factory, navigationController: navigationController, completion: completion)
     }
 
@@ -25,7 +25,7 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
     }
 
     func enterAddressViewController() {
-        let viewController = addOwnerFlowFromSettingsFactory.enterOwnerAddress(stepNumber: 1,
+        let viewController = addOwnerFlowFactory.enterOwnerAddress(stepNumber: 1,
                                                                                maxSteps: 3,
                                                                                trackingEvent: .addOwnerSelectAddress) { [unowned self] address, resolvedName  in
             newAddress = address
@@ -43,7 +43,7 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
 
     func enterOwnerNameViewController() {
         assert(newAddress != nil)
-        let viewController = addOwnerFlowFromSettingsFactory.enterOwnerName(safe: safe,
+        let viewController = addOwnerFlowFactory.enterOwnerName(safe: safe,
                                                                             address: newAddress!,
                                                                             stepNumber: 1,
                                                                             maxSteps: 3,
@@ -58,8 +58,4 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
     func confirmations() {
         confirmations(stepNumber: 2, maxSteps: 3)
     }
-}
-
-class AddOwnerFlowFromSettingsFactory: AddOwnerFlowFactory {
-    
 }

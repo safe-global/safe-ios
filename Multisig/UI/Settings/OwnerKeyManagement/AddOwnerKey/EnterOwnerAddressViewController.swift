@@ -87,20 +87,6 @@ class EnterOwnerAddressViewController: UIViewController {
         present(picker, animated: true, completion: nil)
     }
 
-    private func startAddOwnerFlow(address: Address, name: String) {
-        addOwnerFlow =
-            AddOwnerFlow(
-                newOwner: AddressInfo(address: address, name: name),
-                safe: safe!,
-                factory: AddOwnerFlowFromSettingsFactory(),
-                navigationController: navigationController!) { [unowned self] skippedTxDetails in
-                    addOwnerFlow = nil
-                    //TODO: pass parameters if needed
-                    self.completion?(address, name)
-                }
-        addOwnerFlow.start()
-    }
-
     private func handleError(error: Error, text: String?) {
         let message = GSError.error(description: "Can’t use this address", error: error)
         addressField.setInputText(text)
