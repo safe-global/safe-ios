@@ -80,6 +80,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
     @objc private func didTapSecureButton(_ sender: Any) {
         isSecure = !isSecure
         secureButton.image = secureButtonImage
+        textView.text = isSecure ? secured(enteredText) : enteredText
         updateTextDependentViews(with: enteredText)
     }
 
@@ -112,8 +113,6 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
     }
 
     private func updateTextDependentViews(with text: String) {
-        textView.text = isSecure ? secured(text) : text
-
         placeholderLabel.isHidden = !text.isEmpty
         setError(nil)
 
@@ -155,6 +154,10 @@ extension EnterKeyOrSeedPhraseViewController: UITextViewDelegate {
         let newText = (oldText as NSString).replacingCharacters(in: range, with: text)
         enteredText = newText
         updateTextDependentViews(with: newText)
-        return false
+        if isSecure {
+            textView.text = secured(newText)
+            return false
+        }
+        return true
     }
 }
