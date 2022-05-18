@@ -21,10 +21,10 @@ class ReviewSendFundsTransactionViewController: ReviewSafeTransactionViewControl
     var tokenBalance: TokenBalance!
     
     convenience init(safe: Safe,
-                     address: Address,
+                     recipient: Address,
                      tokenBalance: TokenBalance,
                      amount: BigDecimal) {
-        self.init(safe: safe, address: address)
+        self.init(safe: safe, ethTransactionRecipient: Address(exactly: tokenBalance.address))
         self.amount = amount
         self.tokenBalance = tokenBalance
     }
@@ -46,7 +46,7 @@ class ReviewSendFundsTransactionViewController: ReviewSafeTransactionViewControl
 
     override func createTransaction() -> Transaction? {
         Transaction(safe: safe,
-                    toAddress: address,
+                    toAddress: ethTransactionRecipient,
                     tokenAddress: Address(stringLiteral: tokenBalance.address),
                     amount: UInt256String(amount.value),
                     safeTxGas: safeTxGas,
@@ -57,8 +57,8 @@ class ReviewSendFundsTransactionViewController: ReviewSafeTransactionViewControl
         let cell = tableView.dequeueCell(ReviewSendFundsTransactionHeaderTableViewCell.self)
         let prefix = safe.chain!.shortName
         cell.setFromAddress(safe.addressValue, label: safe.name, prefix: prefix)
-        let (name, imageURL) = NamingPolicy.name(for: address, info: nil, chainId: safe.chain!.id!)
-        cell.setToAddress(address, label: name, imageUri: imageURL, prefix: prefix)
+        let (name, imageURL) = NamingPolicy.name(for: ethTransactionRecipient, info: nil, chainId: safe.chain!.id!)
+        cell.setToAddress(ethTransactionRecipient, label: name, imageUri: imageURL, prefix: prefix)
         cell.setToken(amount: formattedAmount,
                       symbol: tokenBalance.symbol,
                       fiatBalance:  "",

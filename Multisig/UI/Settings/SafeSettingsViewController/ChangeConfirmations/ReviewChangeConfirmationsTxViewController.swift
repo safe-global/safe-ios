@@ -20,10 +20,9 @@ class ReviewChangeConfirmationsTxViewController: ReviewSafeTransactionViewContro
     var changeConfirmationsFlow: ChangeConfirmationsFlow!
 
     convenience init(safe: Safe, ownersCount: Int, oldThreshold: Int, newThreshold: Int) {
-        //TODO How to get rid of the address? Or do we need it?
         self.init(
                 safe: safe,
-                address: try! Address(from: safe.address!),
+                ethTransactionRecipient: safe.addressValue,
                 data: SafeTransactionController.shared.changeThresholdData(threshold: newThreshold)
         )
 

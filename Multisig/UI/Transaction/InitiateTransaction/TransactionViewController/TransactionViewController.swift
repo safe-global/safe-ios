@@ -118,7 +118,7 @@ class TransactionViewController: UIViewController {
         guard let amount = amount, let address = address else { return }
     
         let vc = ReviewSendFundsTransactionViewController(safe: safe,
-                                                          address: address,
+                                                          recipient: address,
                                                           tokenBalance: tokenBalance,
                                                           amount: amount)
         show(vc, sender: self)

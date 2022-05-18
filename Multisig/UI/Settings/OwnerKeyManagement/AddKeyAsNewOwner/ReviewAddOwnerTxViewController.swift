@@ -23,7 +23,7 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
 
     convenience init(safe: Safe, owner: Address, oldOwnersCount: Int, oldThreshold: Int, newThreshold: Int) {
         self.init(safe: safe,
-                  address: owner,
+                  ethTransactionRecipient: safe.addressValue,
                   data: SafeTransactionController.shared.addOwnerWithThresholdData(owner: owner, threshold: newThreshold))
         self.owner = owner
         self.oldThreshold = oldThreshold

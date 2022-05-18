@@ -24,7 +24,7 @@ class ReviewRemoveOwnerViewController: ReviewSafeTransactionViewController {
 
     convenience init(safe: Safe, owner: Address, previousOwner: Address?, oldOwnersCount: Int, oldThreshold: Int, newThreshold: Int) {
         self.init(safe: safe,
-                  address: owner,
+                  ethTransactionRecipient: safe.addressValue,
                   data: SafeTransactionController.shared.removeOwnerData(prevOwner: previousOwner, oldOwner: owner, threshold: newThreshold))
         self.owner = owner
         self.oldThreshold = oldThreshold

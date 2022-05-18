@@ -43,7 +43,7 @@ class AddOwnerFlow: SafeSettingsChangeFlow {
         assert(newOwner != nil)
         let reviewVC = addOwnerFactory.review(
             safe: safe,
-            key: newOwner!,
+            newOwner: newOwner!,
             newThreshold: newConfirmations!,
             stepNumber: stepNumber,
             maxSteps: maxSteps) { [unowned self] txDetails in
@@ -84,7 +84,7 @@ class AddOwnerFlowFactory: SafeSettingsFlowFactory {
 
     func review(
         safe: Safe,
-        key: Address,
+        newOwner: Address,
         newThreshold: Int,
         stepNumber: Int,
         maxSteps: Int,
@@ -92,9 +92,9 @@ class AddOwnerFlowFactory: SafeSettingsFlowFactory {
     ) -> ReviewAddOwnerTxViewController {
         let addOwnerReviewVC = ReviewAddOwnerTxViewController(
             safe: safe,
-            owner: key,
-            oldOwnersCount: safe.ownersInfo?.count ?? 0,
-            oldThreshold: Int(safe.threshold ?? 0),
+            owner: newOwner,
+            oldOwnersCount: safe.ownersInfo?.count ?? 1,
+            oldThreshold: Int(safe.threshold ?? 1),
             newThreshold: newThreshold)
         addOwnerReviewVC.stepNumber = stepNumber
         addOwnerReviewVC.maxSteps = maxSteps
