@@ -26,9 +26,9 @@ class ChangeConfirmationsFlow: SafeSettingsChangeFlow {
 
     func confirmations() {
         let confirmationsVC = changeConfirmationsFlowFactory.confirmations(
-                step: 1,
-                maxSteps: 2,
-                safe: safe
+            safe: safe,
+            stepNumber: 1,
+            maxSteps: 2
         ) { [unowned self] newConfirmations in
             self.newConfirmations = newConfirmations
             review()

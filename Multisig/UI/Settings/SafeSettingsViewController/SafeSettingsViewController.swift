@@ -31,7 +31,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     private var changeConfirmationsFlow: ChangeConfirmationsFlow!
     private var removeOwnerFlow: RemoveOwnerFlow!
     private var replaceOwnerFlow: ReplaceOwnerFlow!
-    private var addOwnerFlow: AddOwnerFlow!
+    private var addOwnerFlow: AddOwnerFlowFromSettings!
     
     enum Section {
         case name(String)
@@ -334,6 +334,19 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
     }
 
+    func addOwner() {
+        guard let navigationController = navigationController else {
+            return
+        }
+
+        addOwnerFlow = AddOwnerFlowFromSettings(safe: safe!,
+                                                navigationController: navigationController,
+                                                completion: { [unowned self] _ in
+            addOwnerFlow = nil
+        })
+        removeOwnerFlow.start()
+    }
+
     func replace(owner: Address, prevOwner: Address?) {
         guard let navigationController = navigationController else {
             return
@@ -480,16 +493,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             ownerHeaderView.setName(name)
             ownerHeaderView.setNumber(safe?.ownersInfo?.count)
             ownerHeaderView.onAdd = { [unowned self] in
-
                 Tracker.trackEvent(.addOwnerFromSettings)
-
-                let enterOwnerAddressVC = EnterOwnerAddressViewController()
-                enterOwnerAddressVC.completion = { [unowned self] in
-                    //TODO Open key details?
-                }
-                ViewControllerFactory.addCloseButton(enterOwnerAddressVC)
-                let vc = UINavigationController(rootViewController: enterOwnerAddressVC)
-                present(vc, animated: true)
+                addOwner()
             }
 
         case Section.safeVersion(let name):

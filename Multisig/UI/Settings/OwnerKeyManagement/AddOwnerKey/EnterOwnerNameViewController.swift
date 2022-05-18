@@ -13,7 +13,7 @@ class EnterOwnerNameViewController: UIViewController {
     var prefix: String?
     var address: Address!
     var name: String?
-    var completion: (Address, String) -> Void = { _, _ in }
+    var completion: (String) -> Void = { _ in }
 
     @IBOutlet weak var identiconView: IdenticonView!
     @IBOutlet weak var addressLabel: UILabel!
@@ -80,7 +80,7 @@ class EnterOwnerNameViewController: UIViewController {
     }
 
     @IBAction func didTapContinue(_ sender: Any) {
-        completion(address, name!)
+        completion(name!)
     }
 }
 

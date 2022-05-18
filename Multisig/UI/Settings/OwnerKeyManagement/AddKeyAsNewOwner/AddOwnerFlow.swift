@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class AddOwnerFlow: SafeSettingsChangeFlow {
-    var newOwner: AddressInfo
+    var newOwner: AddressInfo?
 
     var newConfirmations: Int?
 
@@ -18,7 +18,7 @@ class AddOwnerFlow: SafeSettingsChangeFlow {
         factory as! AddOwnerFlowFactory
     }
 
-    init(newOwner: AddressInfo, safe: Safe, factory: AddOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+    init(newOwner: AddressInfo?, safe: Safe, factory: AddOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
         self.newOwner = newOwner
         super.init(safe: safe, factory: factory, navigationController: navigationController, completion: completion)
     }
@@ -39,9 +39,10 @@ class AddOwnerFlow: SafeSettingsChangeFlow {
 
     func review(stepNumber: Int, maxSteps: Int) {
         assert(newConfirmations != nil)
+        assert(newOwner != nil)
         let reviewVC = addOwnerFactory.review(
             safe: safe,
-            key: newOwner,
+            key: newOwner!,
             newThreshold: newConfirmations!,
             stepNumber: stepNumber,
             maxSteps: maxSteps) { [unowned self] txDetails in

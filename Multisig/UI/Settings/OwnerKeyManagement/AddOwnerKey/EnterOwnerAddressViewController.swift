@@ -10,7 +10,7 @@ import UIKit
 
 class EnterOwnerAddressViewController: UIViewController {
 
-    var completion: () -> Void = {}
+    var completion: ((Address, String?) -> Void)?
 
     @IBOutlet weak var addressField: AddressField!
     @IBOutlet weak var continueButton: UIButton!
@@ -71,13 +71,7 @@ class EnterOwnerAddressViewController: UIViewController {
                 chainId: self.safe!.chain!.id!)
 
             self.addressField.setAddress(address, label: resolvedName)
-
-            if resolvedName == nil {
-                self.showEnterOwnerName()
-            } else {
-                self.name = resolvedName
-                self.startAddOwnerFlow(address: address, name: resolvedName!)
-            }
+            self.name = resolvedName
         }
 
         picker.onError = { [weak self] error, text in
@@ -102,19 +96,9 @@ class EnterOwnerAddressViewController: UIViewController {
                 navigationController: navigationController!) { [unowned self] skippedTxDetails in
                     addOwnerFlow = nil
                     //TODO: pass parameters if needed
-                    self.completion()
+                    self.completion?(address, name)
                 }
         addOwnerFlow.start()
-    }
-
-    private func showEnterOwnerName() {
-        let enterNameVC = EnterOwnerNameViewController()
-        enterNameVC.address = address
-        enterNameVC.prefix = safe!.chain!.shortName
-        enterNameVC.completion = { [unowned self] address, name in
-            startAddOwnerFlow(address: address, name: name)
-        }
-        self.show(enterNameVC, sender: self)
     }
 
     private func handleError(error: Error, text: String?) {
@@ -126,10 +110,7 @@ class EnterOwnerAddressViewController: UIViewController {
     }
 
     @IBAction func didTapContinue(_ sender: Any) {
-        if name == nil {
-            showEnterOwnerName()
-        } else {
-            startAddOwnerFlow(address: address!, name: name!)
-        }
+        assert(address != nil)
+        completion?(address!, name)
     }
 }
