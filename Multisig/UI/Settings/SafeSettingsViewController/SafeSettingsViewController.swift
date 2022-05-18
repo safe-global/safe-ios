@@ -345,6 +345,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 }
         )
         removeOwnerFlow.start()
+        Tracker.trackEvent(.userRemoveOwnerFromSettings)
     }
 
     private func addressDetailsCell(address: Address,
