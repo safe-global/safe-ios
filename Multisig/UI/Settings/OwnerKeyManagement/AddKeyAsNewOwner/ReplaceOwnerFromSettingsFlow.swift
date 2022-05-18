@@ -7,7 +7,54 @@
 //
 
 import Foundation
+import UIKit
 
-class ReplaceOwnerFromSettingsFlow: SafeSettingsChangeFlow {
+class ReplaceOwnerFromSettingsFlow: ReplaceOwnerFlow {
+    var newAddressName: String?
 
+    var replaceOwnerFlowFactory: ReplaceOwnerFlowFactory {
+        factory as! ReplaceOwnerFlowFactory
+    }
+
+    init(ownerToReplace: Address, prevOwner: Address?, safe: Safe, factory: ReplaceOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+        super.init(newOwner: nil, safe: safe, factory: factory, navigationController: navigationController, completion: completion)
+        self.ownerToReplace = ownerToReplace
+        self.prevOwner = prevOwner
+    }
+
+    override func start() {
+        enterAddressViewController()
+    }
+
+    func enterAddressViewController() {
+        let viewController = replaceOwnerFlowFactory.enterOwnerAddress(chain: safe.chain!,
+                                                                       stepNumber: 1,
+                                                                       maxSteps: 3,
+                                                                       trackingEvent: .replaceOwnerSelectNew) { [unowned self] address, resolvedName  in
+            newOwner = address
+
+            if let resolvedName = resolvedName {
+                self.newAddressName = resolvedName
+                review()
+            } else {
+                enterOwnerNameViewController()
+            }
+        }
+
+        show(viewController)
+    }
+
+    func enterOwnerNameViewController() {
+        assert(newOwner != nil)
+        let viewController = replaceOwnerFlowFactory.enterOwnerName(safe: safe,
+                                                                            address: newOwner!,
+                                                                            stepNumber: 1,
+                                                                            maxSteps: 3,
+                                                                            trackingEvent: .replaceOwnerNewOwnerName) { [unowned self] name in
+            newAddressName = name
+            review()
+        }
+
+        show(viewController)
+    }
 }

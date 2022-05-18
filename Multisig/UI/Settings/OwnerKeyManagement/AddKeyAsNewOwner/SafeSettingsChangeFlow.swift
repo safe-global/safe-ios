@@ -45,7 +45,8 @@ class SafeSettingsFlowFactory {
         return confirmationsVC
     }
 
-    func enterOwnerAddress(stepNumber: Int,
+    func enterOwnerAddress(chain: Chain,
+                           stepNumber: Int,
                            maxSteps: Int,
                            trackingEvent: TrackingEvent,
                            completion: @escaping (Address, String?) -> Void) -> EnterOwnerAddressViewController {
@@ -53,7 +54,7 @@ class SafeSettingsFlowFactory {
         enterOwnerAddressVC.stepNumber = 1
         enterOwnerAddressVC.maxSteps = 3
         enterOwnerAddressVC.trackingEvent = trackingEvent
-
+        enterOwnerAddressVC.chain = chain
         enterOwnerAddressVC.completion = completion
 
         return enterOwnerAddressVC

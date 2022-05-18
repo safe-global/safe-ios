@@ -17,7 +17,7 @@ class EnterOwnerAddressViewController: UIViewController {
 
     private var stepLabel: UILabel!
 
-    var safe: Safe!
+    var chain: Chain!
 
     var stepNumber: Int = 1
     var maxSteps: Int = 3
@@ -31,7 +31,7 @@ class EnterOwnerAddressViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        assert(safe != nil)
+        assert(chain != nil)
 
         title = "Add owner"
 
@@ -58,7 +58,7 @@ class EnterOwnerAddressViewController: UIViewController {
 
     private func didTapAddressField() {
 
-        let picker = SelectAddressViewController(chain: safe!.chain, presenter: self) { [weak self] address in
+        let picker = SelectAddressViewController(chain: chain, presenter: self) { [weak self] address in
 
             guard let `self` = self else { return }
 
@@ -68,7 +68,7 @@ class EnterOwnerAddressViewController: UIViewController {
             let (resolvedName, _) = NamingPolicy.name(
                 for: address,
                 info: nil,
-                chainId: self.safe!.chain!.id!)
+                chainId: self.chain!.id!)
 
             self.addressField.setAddress(address, label: resolvedName)
             self.name = resolvedName

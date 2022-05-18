@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class ReplaceOwnerFlow: SafeSettingsChangeFlow {
-    var newOwner: AddressInfo
+    var newOwner: Address?
     var ownerToReplace: Address?
     var prevOwner: Address?
 
@@ -18,7 +18,7 @@ class ReplaceOwnerFlow: SafeSettingsChangeFlow {
         factory as! ReplaceOwnerFlowFactory
     }
 
-    internal init(newOwner: AddressInfo, safe: Safe, factory: ReplaceOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+    internal init(newOwner: Address?, safe: Safe, factory: ReplaceOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
         self.newOwner = newOwner
         super.init(safe: safe, factory: factory, navigationController: navigationController, completion: completion)
     }
@@ -38,11 +38,12 @@ class ReplaceOwnerFlow: SafeSettingsChangeFlow {
 
     func review() {
         assert(ownerToReplace != nil)
+        assert(newOwner != nil)
         let reviewVC = replaceOwnerFactory.review(
             step: 2,
             maxSteps: 2,
             safe: safe,
-            newOwner: newOwner,
+            newOwner: newOwner!,
             ownerToReplace: ownerToReplace!,
             previousOwner: prevOwner) { [unowned self] txDetails in
                 transaction = txDetails
@@ -79,7 +80,7 @@ class ReplaceOwnerFlowFactory: SafeSettingsFlowFactory {
         step: Int,
         maxSteps: Int,
         safe: Safe,
-        newOwner: AddressInfo,
+        newOwner: Address,
         ownerToReplace: Address,
         previousOwner: Address?,
         completion: @escaping (SCGModels.TransactionDetails) -> Void
