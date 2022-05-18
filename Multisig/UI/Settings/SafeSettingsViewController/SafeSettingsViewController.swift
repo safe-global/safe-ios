@@ -323,7 +323,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
             let replaceAction = UIContextualAction(style: .normal, title: "Replace") {
                 [unowned self] _, _, completion in
-                // TODO: Display replace owner flow
+                self.replace(owner: info.address, prevOwner: prevOwner?.address)
                 completion(true)
             }
             replaceAction.backgroundColor = .tertiaryLabel
