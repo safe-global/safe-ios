@@ -312,14 +312,14 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         case Section.OwnerAddresses.ownerInfo(let info):
             guard let ownerIndex = (safeOwners.firstIndex { $0.address == info.address }) else { return nil }
             let prevOwner = safeOwners.before(ownerIndex)
-            let deleteAction = UIContextualAction(style: .destructive, title : "Remove") {
+            let deleteAction = UIContextualAction(style: .destructive, title: "Remove") {
                 [unowned self] _, _, completion in
                 self.remove(owner: info.address, prevOwner: prevOwner?.address)
                 completion(true)
             }
             deleteAction.backgroundColor = .error
 
-            let replaceAction = UIContextualAction(style: .normal, title : "Replace") {
+            let replaceAction = UIContextualAction(style: .normal, title: "Replace") {
                 [unowned self] _, _, completion in
                 // TODO: Display replace owner flow
                 completion(true)
@@ -333,17 +333,17 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     func remove(owner: Address, prevOwner: Address?) {
-        guard let navigationController = navigationController else {
-            return
-        }
-
+        let cancellableNavigationController = CancellableNavigationController()
         removeOwnerFlow = RemoveOwnerFlow(
-            owner: owner,
-            prevOwner: prevOwner,
-            safe: safe!,
-            navigationController: navigationController) { [unowned self] _ in
-                removeOwnerFlow = nil
-            }
+                owner: owner,
+                prevOwner: prevOwner,
+                safe: safe!,
+                navigationController: cancellableNavigationController,
+                presenter: self,
+                completion: { [unowned self] _ in
+                    removeOwnerFlow = nil
+                }
+        )
         removeOwnerFlow.start()
     }
 
@@ -475,6 +475,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 let enterOwnerAddressVC = EnterOwnerAddressViewController()
                 enterOwnerAddressVC.completion = { [unowned self] in
                     //TODO Open key details?
+                    self.dismiss(animated: false)
                 }
                 ViewControllerFactory.addCloseButton(enterOwnerAddressVC)
                 let vc = UINavigationController(rootViewController: enterOwnerAddressVC)
@@ -528,7 +529,7 @@ extension BidirectionalCollection {
             if firstItem {
                 return nil
             } else {
-                return self[index(before:itemIndex)]
+                return self[index(before: itemIndex)]
             }
         }
         return nil

@@ -150,7 +150,7 @@ class GenerateKeyFactory: AddKeyFlowFactory {
         return introVC
     }
 
-    func details(keyInfo: KeyInfo, completion: @escaping () -> Void) -> OwnerKeyDetailsViewController  {
+    func details(keyInfo: KeyInfo, completion: @escaping () -> Void) -> OwnerKeyDetailsViewController {
         OwnerKeyDetailsViewController(keyInfo: keyInfo, completion: completion)
     }
 }

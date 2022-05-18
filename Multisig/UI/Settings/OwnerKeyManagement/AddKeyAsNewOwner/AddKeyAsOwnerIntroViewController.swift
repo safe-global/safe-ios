@@ -35,7 +35,7 @@ class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentation
 
         // disable swipe back
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        
+
         navigationController?.isNavigationBarHidden = false
 
         titleLabel.setStyle(.primary)
