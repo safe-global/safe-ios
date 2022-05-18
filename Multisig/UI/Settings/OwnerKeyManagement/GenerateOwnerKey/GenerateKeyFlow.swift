@@ -68,7 +68,7 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func addOwner() {
-        addOwnerFlow = AddOwnerFlow(newOwner: keyInfo!, safe: safe!) { [unowned self] skippedTxDetails in
+        addOwnerFlow = AddOwnerFlow(newOwner: keyInfo!.address, safe: safe!) { [unowned self] skippedTxDetails in
             addOwnerFlow = nil
             didAddKeyAsOwner(openKeyDetails: skippedTxDetails)
         }

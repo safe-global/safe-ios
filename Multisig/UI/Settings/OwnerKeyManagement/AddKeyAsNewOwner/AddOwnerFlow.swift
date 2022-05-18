@@ -19,7 +19,7 @@ class AddOwnerFlow: SafeSettingsChangeFlow {
         factory as! AddOwnerFlowFactory
     }
 
-    init(newOwner: AddressInfo?, safe: Safe, completion: @escaping (_ success: Bool) -> Void) {
+    init(newOwner: Address?, safe: Safe, completion: @escaping (_ success: Bool) -> Void) {
         self.newOwner = newOwner
         super.init(safe: safe, factory: AddOwnerFlowFactory(), completion: completion)
     }

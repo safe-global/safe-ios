@@ -27,7 +27,7 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
             maxSteps: 3,
             trackingEvent: .addOwnerSelectAddress
         ) { [unowned self] address, resolvedName  in
-            newAddress = address
+            newOwner = address
 
             if let resolvedName = resolvedName {
                 self.newAddressName = resolvedName
@@ -41,10 +41,10 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
     }
 
     func enterOwnerNameViewController() {
-        assert(newAddress != nil)
+        assert(newOwner != nil)
         let viewController = addOwnerFactory.enterOwnerName(
             safe: safe,
-            address: newAddress!,
+            address: newOwner!,
             stepNumber: 1,
             maxSteps: 3,
             trackingEvent: .addOwnerSpecifyName
