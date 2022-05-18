@@ -1,0 +1,58 @@
+//
+//  SafeSettingsChangeFlow.swift
+//  Multisig
+//
+//  Created by Moaaz on 5/17/22.
+//  Copyright © 2022 Gnosis Ltd. All rights reserved.
+//
+
+import Foundation
+import UIKit
+
+class SafeSettingsChangeFlow: UIFlow {
+    var factory: FlowFactory!
+    var safe: Safe
+    var transaction: SCGModels.TransactionDetails?
+
+    init(safe: Safe, factory: FlowFactory, navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+        self.safe = safe
+        self.factory = factory
+        super.init(navigationController: navigationController, completion: completion)
+    }
+}
+
+
+class FlowFactory {
+    func confirmations(
+        confirmations: Int,
+        minConfirmations: Int,
+        maxConfirmations: Int,
+        stepNumber: Int,
+        maxSteps: Int,
+        promptText: String,
+        trackingEvent: TrackingEvent,
+        completion: @escaping (_ newConfirmations: Int) -> Void
+    ) -> EditConfirmationsViewController {
+        let confirmationsVC = EditConfirmationsViewController()
+        confirmationsVC.confirmations = confirmations
+        confirmationsVC.minConfirmations = minConfirmations
+        confirmationsVC.maxConfirmations = maxConfirmations
+        confirmationsVC.stepNumber = stepNumber
+        confirmationsVC.maxSteps = maxSteps
+        confirmationsVC.trackingEvent = trackingEvent
+        confirmationsVC.promptText = promptText
+        confirmationsVC.completion = completion
+        return confirmationsVC
+    }
+
+    func success(bodyText: String, trackingEvent: TrackingEvent, completion: @escaping (_ showTxDetails: Bool) -> Void) -> SuccessViewController {
+        let successVC = SuccessViewController(
+            titleText: "Your transaction is submitted!",
+            bodyText: bodyText,
+            primaryAction: "View transaction details",
+            secondaryAction: "Done",
+            trackingEvent: trackingEvent)
+        successVC.onDone = completion
+        return successVC
+    }
+}

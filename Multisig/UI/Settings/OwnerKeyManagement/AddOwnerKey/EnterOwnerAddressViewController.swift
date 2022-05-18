@@ -17,11 +17,11 @@ class EnterOwnerAddressViewController: UIViewController {
 
     private var stepLabel: UILabel!
 
-    private var safe: Safe!
-    private var chain: Chain!
+    var safe: Safe!
 
-    private let stepNumber: Int = 1
-    private let maxSteps: Int = 3
+    var stepNumber: Int = 1
+    var maxSteps: Int = 3
+    var trackingEvent: TrackingEvent?
 
     private var address: Address?
     private var name: String?
@@ -31,8 +31,7 @@ class EnterOwnerAddressViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        safe = try! Safe.getSelected()
-        chain = safe.chain!
+        assert(safe != nil)
 
         title = "Add owner"
 
@@ -52,12 +51,14 @@ class EnterOwnerAddressViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.addOwnerSelectAddress)
+        if let trackingEvent = trackingEvent {
+            Tracker.trackEvent(trackingEvent)
+        }
     }
 
     private func didTapAddressField() {
 
-        let picker = SelectAddressViewController(chain: chain, presenter: self) { [weak self] address in
+        let picker = SelectAddressViewController(chain: safe!.chain, presenter: self) { [weak self] address in
 
             guard let `self` = self else { return }
 
@@ -67,7 +68,7 @@ class EnterOwnerAddressViewController: UIViewController {
             let (resolvedName, _) = NamingPolicy.name(
                 for: address,
                 info: nil,
-                chainId: self.chain.id!)
+                chainId: self.safe!.chain!.id!)
 
             self.addressField.setAddress(address, label: resolvedName)
 
@@ -109,7 +110,7 @@ class EnterOwnerAddressViewController: UIViewController {
     private func showEnterOwnerName() {
         let enterNameVC = EnterOwnerNameViewController()
         enterNameVC.address = address
-        enterNameVC.prefix = self.chain.shortName
+        enterNameVC.prefix = safe!.chain!.shortName
         enterNameVC.completion = { [unowned self] address, name in
             startAddOwnerFlow(address: address, name: name)
         }
