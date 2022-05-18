@@ -121,6 +121,7 @@ class SafeTransactionController {
         return GnosisSafe_v1_3_0.removeOwner(prevOwner: prevOwner, owner: oldOwner, _threshold: threshold).encode()
     }
 
+    // This method is only used by tests. Everyone else uses: ReviewSafeTransactionViewController.proposeTransaction() (private)
     func proposeTransaction(transaction: Transaction,
                             sender: Address,
                             chainId: String,
@@ -147,6 +148,8 @@ class SafeTransactionController {
         }
         return task
     }
+
+
 
     func getOwners(safe: Address, chain: Chain, completion: @escaping (Result<[Address], Error>) -> Void) -> URLSessionTask? {
         let rpcClient = JsonRpc2.Client(transport: JsonRpc2.ClientHTTPTransport(url: chain.authenticatedRpcUrl.absoluteString), serializer: JsonRpc2.DefaultSerializer())
