@@ -16,8 +16,16 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
     var addOwnerFlowFactory: AddOwnerFlowFactory {
         factory as! AddOwnerFlowFactory
     }
-    init(safe: Safe, factory: AddOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
-        super.init(newOwner: nil, safe: safe, factory: factory, navigationController: navigationController, completion: completion)
+    init(safe: Safe,
+         factory: AddOwnerFlowFactory = .init(),
+         navigationController: UINavigationController,
+         completion: @escaping (_ success: Bool) -> Void
+    ) {
+        super.init(newOwner: nil,
+                   safe: safe,
+                   factory: factory,
+                   navigationController: navigationController,
+                   completion: completion)
     }
 
     override func start() {
@@ -25,9 +33,11 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
     }
 
     func enterAddressViewController() {
-        let viewController = addOwnerFlowFactory.enterOwnerAddress(stepNumber: 1,
-                                                                               maxSteps: 3,
-                                                                               trackingEvent: .addOwnerSelectAddress) { [unowned self] address, resolvedName  in
+        let viewController = addOwnerFlowFactory.enterOwnerAddress(
+            stepNumber: 1,
+            maxSteps: 3,
+            trackingEvent: .addOwnerSelectAddress
+        ) { [unowned self] address, resolvedName  in
             newAddress = address
 
             if let resolvedName = resolvedName {
@@ -43,11 +53,13 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
 
     func enterOwnerNameViewController() {
         assert(newAddress != nil)
-        let viewController = addOwnerFlowFactory.enterOwnerName(safe: safe,
-                                                                            address: newAddress!,
-                                                                            stepNumber: 1,
-                                                                            maxSteps: 3,
-                                                                            trackingEvent: .addOwnerSpecifyName) { [unowned self] name in
+        let viewController = addOwnerFlowFactory.enterOwnerName(
+            safe: safe,
+            address: newAddress!,
+            stepNumber: 1,
+            maxSteps: 3,
+            trackingEvent: .addOwnerSpecifyName
+        ) { [unowned self] name in
             newAddressName = name
             confirmations()
         }
