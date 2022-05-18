@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 class AddOwnerFlowFromSettings: AddOwnerFlow {
-    var newAddress: Address?
     var newAddressName: String?
 
     var addOwnerFlowFactory: AddOwnerFlowFactory {
@@ -29,8 +28,7 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
                                                                    stepNumber: 1,
                                                                    maxSteps: 3,
                                                                    trackingEvent: .addOwnerSelectAddress) { [unowned self] address, resolvedName  in
-            newAddress = address
-
+            newOwner = address
             if let resolvedName = resolvedName {
                 self.newAddressName = resolvedName
                 confirmations()
@@ -43,9 +41,9 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
     }
 
     func enterOwnerNameViewController() {
-        assert(newAddress != nil)
+        assert(newOwner != nil)
         let viewController = addOwnerFlowFactory.enterOwnerName(safe: safe,
-                                                                            address: newAddress!,
+                                                                            address: newOwner!,
                                                                             stepNumber: 1,
                                                                             maxSteps: 3,
                                                                             trackingEvent: .addOwnerSpecifyName) { [unowned self] name in
