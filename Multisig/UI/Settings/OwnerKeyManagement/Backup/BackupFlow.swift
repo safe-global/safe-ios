@@ -71,11 +71,12 @@ class BackupFlow: UIFlow {
     init(mnemonic: String, factory: BackupFlowFactory = BackupFlowFactory(), navigationController: UINavigationController, presenter: UIViewController? = nil, completion: @escaping (_ success: Bool) -> Void) {
         self.mnemonic = mnemonic
         self.factory = factory
-        super.init(navigationController: navigationController, completion: completion)
+        super.init(navigationController: navigationController, presenter: presenter, completion: completion)
     }
 
     override func start() {
         intro()
+        super.start()
     }
 
     func intro() {
