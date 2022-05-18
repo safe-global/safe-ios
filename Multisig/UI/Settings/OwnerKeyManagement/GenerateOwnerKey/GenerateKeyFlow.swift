@@ -21,8 +21,8 @@ class GenerateKeyFlow: AddKeyFlow {
     var addOwnerFlow: AddOwnerFlow!
     var replaceOwnerFlow: ReplaceOwnerFlow!
 
-    init(factory: GenerateKeyFactory = GenerateKeyFactory(), navigationController: UINavigationController, completion: @escaping (Bool) -> Void) {
-        super.init(badge: KeyType.deviceGenerated.imageName, factory: factory, navigationController: navigationController, completion: completion)
+    init(completion: @escaping (Bool) -> Void) {
+        super.init(badge: KeyType.deviceGenerated.imageName, factory: GenerateKeyFactory(), completion: completion)
     }
 
     override func didIntro() {
@@ -43,14 +43,11 @@ class GenerateKeyFlow: AddKeyFlow {
 
     func backup() {
         assert(privateKey?.mnemonic != nil)
-        backupFlow = BackupFlow(
-            mnemonic: privateKey!.mnemonic!,
-            navigationController: navigationController,
-            completion: { [unowned self] _ in
-                backupFlow = nil
-                addKeyAsOwner()
-            })
-        backupFlow.start()
+        backupFlow = BackupFlow(mnemonic: privateKey!.mnemonic!) { [unowned self] _ in
+            backupFlow = nil
+            addKeyAsOwner()
+        }
+        push(flow: backupFlow)
     }
 
     func addKeyAsOwner() {
@@ -71,25 +68,19 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func addOwner() {
-        addOwnerFlow = AddOwnerFlow(
-            newOwner: keyInfo!.address,
-            safe: safe!,
-            navigationController: navigationController) { [unowned self] skippedTxDetails in
-                addOwnerFlow = nil
-                didAddKeyAsOwner(openKeyDetails: skippedTxDetails)
+        addOwnerFlow = AddOwnerFlow(newOwner: keyInfo!.address, safe: safe!) { [unowned self] skippedTxDetails in
+            addOwnerFlow = nil
+            didAddKeyAsOwner(openKeyDetails: skippedTxDetails)
         }
-        addOwnerFlow.start()
+        push(flow: addOwnerFlow)
     }
 
     func replaceOwner() {
-        replaceOwnerFlow = ReplaceOwnerFlow(
-            newOwner: keyInfo!.address,
-            safe: safe!,
-            navigationController: navigationController) { [unowned self] skippedTxDetails in
-                replaceOwnerFlow = nil
-                didReplaceKeyAsOwner(openKeyDetails: skippedTxDetails)
+        replaceOwnerFlow = ReplaceOwnerFlow(newOwner: keyInfo!.address, safe: safe!) { [unowned self] skippedTxDetails in
+            replaceOwnerFlow = nil
+            didReplaceKeyAsOwner(openKeyDetails: skippedTxDetails)
         }
-        replaceOwnerFlow.start()
+        push(flow: replaceOwnerFlow)
     }
 
     func didAddKeyAsOwner(openKeyDetails: Bool = true) {
@@ -150,7 +141,7 @@ class GenerateKeyFactory: AddKeyFlowFactory {
         return introVC
     }
 
-    func details(keyInfo: KeyInfo, completion: @escaping () -> Void) -> OwnerKeyDetailsViewController  {
+    func details(keyInfo: KeyInfo, completion: @escaping () -> Void) -> OwnerKeyDetailsViewController {
         OwnerKeyDetailsViewController(keyInfo: keyInfo, completion: completion)
     }
 }

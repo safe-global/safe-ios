@@ -12,9 +12,9 @@ import UIKit
 class CreatePasscodeFlow: UIFlow {
     var factory: PasscodeFlowFactory
 
-    init(factory: PasscodeFlowFactory = PasscodeFlowFactory(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+    init(factory: PasscodeFlowFactory = PasscodeFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
-        super.init(navigationController: navigationController, completion: completion)
+        super.init(completion: completion)
     }
 
     override func start() {

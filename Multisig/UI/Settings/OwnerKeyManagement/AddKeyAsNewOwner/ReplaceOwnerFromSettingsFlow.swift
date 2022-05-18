@@ -12,12 +12,8 @@ import UIKit
 class ReplaceOwnerFromSettingsFlow: ReplaceOwnerFlow {
     var newAddressName: String?
 
-    var replaceOwnerFlowFactory: ReplaceOwnerFlowFactory {
-        factory as! ReplaceOwnerFlowFactory
-    }
-
-    init(ownerToReplace: Address, prevOwner: Address?, safe: Safe, factory: ReplaceOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
-        super.init(newOwner: nil, safe: safe, factory: factory, navigationController: navigationController, completion: completion)
+    init(ownerToReplace: Address, prevOwner: Address?, safe: Safe, completion: @escaping (_ success: Bool) -> Void) {
+        super.init(newOwner: nil, safe: safe, completion: completion)
         self.ownerToReplace = ownerToReplace
         self.prevOwner = prevOwner
     }
@@ -27,10 +23,12 @@ class ReplaceOwnerFromSettingsFlow: ReplaceOwnerFlow {
     }
 
     func enterAddressViewController() {
-        let viewController = replaceOwnerFlowFactory.enterOwnerAddress(chain: safe.chain!,
-                                                                       stepNumber: 1,
-                                                                       maxSteps: 3,
-                                                                       trackingEvent: .replaceOwnerSelectNew) { [unowned self] address, resolvedName  in
+        let viewController = replaceOwnerFactory.enterOwnerAddress(
+            safe: safe,
+            stepNumber: 1,
+            maxSteps: 3,
+            trackingEvent: .replaceOwnerSelectNew
+        ) { [unowned self] address, resolvedName  in
             newOwner = address
 
             if let resolvedName = resolvedName {
@@ -46,11 +44,13 @@ class ReplaceOwnerFromSettingsFlow: ReplaceOwnerFlow {
 
     func enterOwnerNameViewController() {
         assert(newOwner != nil)
-        let viewController = replaceOwnerFlowFactory.enterOwnerName(safe: safe,
-                                                                            address: newOwner!,
-                                                                            stepNumber: 1,
-                                                                            maxSteps: 3,
-                                                                            trackingEvent: .replaceOwnerNewOwnerName) { [unowned self] name in
+        let viewController = replaceOwnerFactory.enterOwnerName(
+            safe: safe,
+            address: newOwner!,
+            stepNumber: 1,
+            maxSteps: 3,
+            trackingEvent: .replaceOwnerNewOwnerName
+        ) { [unowned self] name in
             newAddressName = name
             review()
         }

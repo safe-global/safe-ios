@@ -314,14 +314,14 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         case Section.OwnerAddresses.ownerInfo(let info):
             guard let ownerIndex = (safeOwners.firstIndex { $0.address == info.address }) else { return nil }
             let prevOwner = safeOwners.before(ownerIndex)
-            let deleteAction = UIContextualAction(style: .destructive, title : "Remove") {
+            let deleteAction = UIContextualAction(style: .destructive, title: "Remove") {
                 [unowned self] _, _, completion in
                 self.remove(owner: info.address, prevOwner: prevOwner?.address)
                 completion(true)
             }
             deleteAction.backgroundColor = .error
 
-            let replaceAction = UIContextualAction(style: .normal, title : "Replace") {
+            let replaceAction = UIContextualAction(style: .normal, title: "Replace") {
                 [unowned self] _, _, completion in
                 self.replace(owner: info.address, prevOwner: prevOwner?.address)
                 completion(true)
@@ -335,46 +335,28 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     func addOwner() {
-        guard let navigationController = navigationController else {
-            return
-        }
-
-        addOwnerFlow = AddOwnerFlowFromSettings(safe: safe!,
-                                                navigationController: navigationController,
-                                                completion: { [unowned self] _ in
+        addOwnerFlow = AddOwnerFlowFromSettings(safe: safe!) { [unowned self] _ in
             addOwnerFlow = nil
-        })
-        addOwnerFlow.start()
+        }
+        present(flow: addOwnerFlow)
     }
 
     func replace(owner: Address, prevOwner: Address?) {
-        guard let navigationController = navigationController else {
-            return
-        }
-
-        replaceOwnerFlow = ReplaceOwnerFromSettingsFlow(ownerToReplace: owner,
-                                                        prevOwner: prevOwner,
-                                                        safe: safe!,
-                                                        navigationController: navigationController, completion: { [unowned self] _ in
+        replaceOwnerFlow = ReplaceOwnerFromSettingsFlow(
+            ownerToReplace: owner,
+            prevOwner: prevOwner,
+            safe: safe!
+        ) { [unowned self] _ in
             replaceOwnerFlow = nil
-        })
-
-        replaceOwnerFlow.start()
+        }
+        present(flow: replaceOwnerFlow)
     }
 
     func remove(owner: Address, prevOwner: Address?) {
-        guard let navigationController = navigationController else {
-            return
+        removeOwnerFlow = RemoveOwnerFlow(owner: owner, prevOwner: prevOwner, safe: safe!) { [unowned self] _ in
+            removeOwnerFlow = nil
         }
-
-        removeOwnerFlow = RemoveOwnerFlow(
-            owner: owner,
-            prevOwner: prevOwner,
-            safe: safe!,
-            navigationController: navigationController) { [unowned self] _ in
-                removeOwnerFlow = nil
-            }
-        removeOwnerFlow.start()
+        present(flow: removeOwnerFlow)
     }
 
     private func addressDetailsCell(address: Address,
@@ -441,10 +423,10 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 return
             }
             if !isReadOnly {
-                changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe!, presenter: self, completion: { [unowned self] _ in
+                changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe!) { [unowned self] _ in
                     changeConfirmationsFlow = nil
-                })
-                changeConfirmationsFlow.start()
+                }
+                present(flow: changeConfirmationsFlow)
             }
         case Section.Advanced.advanced(_):
             let advancedSafeSettingsViewController = AdvancedSafeSettingsViewController()
@@ -550,7 +532,7 @@ extension BidirectionalCollection {
             if firstItem {
                 return nil
             } else {
-                return self[index(before:itemIndex)]
+                return self[index(before: itemIndex)]
             }
         }
         return nil

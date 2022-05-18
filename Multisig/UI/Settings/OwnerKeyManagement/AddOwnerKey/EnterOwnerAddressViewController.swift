@@ -17,7 +17,7 @@ class EnterOwnerAddressViewController: UIViewController {
 
     private var stepLabel: UILabel!
 
-    var chain: Chain!
+    var safe: Safe!
 
     var stepNumber: Int = 1
     var maxSteps: Int = 3
@@ -31,7 +31,7 @@ class EnterOwnerAddressViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        assert(chain != nil)
+        assert(safe?.chain != nil)
 
         title = "Add owner"
 
@@ -57,10 +57,10 @@ class EnterOwnerAddressViewController: UIViewController {
     }
 
     private func didTapAddressField() {
+        let picker = SelectAddressViewController(chain: safe.chain!, presenter: self) { [weak self] address in
+            guard let self = self else { return }
 
-        let picker = SelectAddressViewController(chain: chain, presenter: self) { [weak self] address in
-
-            guard let `self` = self else { return }
+            self.clearErrors()
 
             self.address = address
             self.continueButton.isEnabled = true
@@ -68,23 +68,33 @@ class EnterOwnerAddressViewController: UIViewController {
             let (resolvedName, _) = NamingPolicy.name(
                 for: address,
                 info: nil,
-                chainId: self.chain!.id!)
+                chainId: self.safe.chain!.id!)
 
             self.addressField.setAddress(address, label: resolvedName)
             self.name = resolvedName
+
+            self.checkExisting()
         }
 
         picker.onError = { [weak self] error, text in
-
-            guard let `self` = self else { return }
-
-            self.handleError(error: error, text: text)
+            self?.handleError(error: error, text: text)
         }
 
         if let popoverPresentationController = picker.popoverPresentationController {
             popoverPresentationController.sourceView = addressField
         }
         present(picker, animated: true, completion: nil)
+    }
+
+    private func clearErrors() {
+        addressField.setError(nil)
+    }
+
+    private func checkExisting() {
+        guard let owners = safe.ownersInfo?.map(\.address), let address = address else { return }
+        if owners.contains(address) {
+            handleError(error: "Owner with this address already exists", text: address.checksummed)
+        }
     }
 
     private func handleError(error: Error, text: String?) {
