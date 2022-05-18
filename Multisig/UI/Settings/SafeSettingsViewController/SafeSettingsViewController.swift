@@ -339,12 +339,10 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             return
         }
 
-        addOwnerFlow = AddOwnerFlowFromSettings(safe: safe!,
-                                                navigationController: navigationController,
-                                                completion: { [unowned self] _ in
+        addOwnerFlow = AddOwnerFlowFromSettings(safe: safe!, navigationController: navigationController) { [unowned self] _ in
             addOwnerFlow = nil
-        })
-        removeOwnerFlow.start()
+        }
+        addOwnerFlow.start()
     }
 
     func replace(owner: Address, prevOwner: Address?) {
