@@ -335,11 +335,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     func addOwner() {
-        guard let navigationController = navigationController else {
-            return
-        }
-
-        addOwnerFlow = AddOwnerFlowFromSettings(safe: safe!, navigationController: navigationController) { [unowned self] _ in
+        addOwnerFlow = AddOwnerFlowFromSettings(safe: safe!, presenter: self) { [unowned self] _ in
             addOwnerFlow = nil
         }
         addOwnerFlow.start()

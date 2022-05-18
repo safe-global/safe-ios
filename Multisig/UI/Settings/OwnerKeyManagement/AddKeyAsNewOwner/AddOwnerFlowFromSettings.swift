@@ -16,20 +16,23 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
     var addOwnerFlowFactory: AddOwnerFlowFactory {
         factory as! AddOwnerFlowFactory
     }
+    
     init(safe: Safe,
          factory: AddOwnerFlowFactory = .init(),
-         navigationController: UINavigationController,
+         presenter: UIViewController,
          completion: @escaping (_ success: Bool) -> Void
     ) {
         super.init(newOwner: nil,
                    safe: safe,
                    factory: factory,
-                   navigationController: navigationController,
+                   navigationController: CancellableNavigationController(),
+                   presenter: presenter,
                    completion: completion)
     }
 
     override func start() {
         enterAddressViewController()
+        super.start()
     }
 
     func enterAddressViewController() {

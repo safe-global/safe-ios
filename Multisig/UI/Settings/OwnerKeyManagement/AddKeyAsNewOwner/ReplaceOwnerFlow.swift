@@ -18,9 +18,20 @@ class ReplaceOwnerFlow: SafeSettingsChangeFlow {
         factory as! ReplaceOwnerFlowFactory
     }
 
-    internal init(newOwner: AddressInfo, safe: Safe, factory: ReplaceOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+    internal init(
+        newOwner: AddressInfo,
+        safe: Safe,
+        factory: ReplaceOwnerFlowFactory = .init(),
+        navigationController: UINavigationController,
+        presenter: UIViewController? = nil,
+        completion: @escaping (_ success: Bool) -> Void
+    ) {
         self.newOwner = newOwner
-        super.init(safe: safe, factory: factory, navigationController: navigationController, completion: completion)
+        super.init(safe: safe,
+                   factory: factory,
+                   navigationController: navigationController,
+                   presenter: presenter,
+                   completion: completion)
     }
 
     override func start() {

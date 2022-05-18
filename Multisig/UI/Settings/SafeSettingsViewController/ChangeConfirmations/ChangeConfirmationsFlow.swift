@@ -15,9 +15,14 @@ class ChangeConfirmationsFlow: SafeSettingsChangeFlow {
     }
 
     init(safe: Safe, presenter: UIViewController, factory: ChangeConfirmationsFlowFactory = .init(), completion: @escaping (_ success: Bool) -> Void) {
-        self.presenter = presenter
         let navigationController = CancellableNavigationController()
-        super.init(safe: safe, factory: factory, navigationController: navigationController, completion: completion)
+        super.init(
+            safe: safe,
+            factory: factory,
+            navigationController: navigationController,
+            presenter: presenter,
+            completion: completion
+        )
         navigationController.onCancel = { [unowned self] in
             stop(success: false)
         }

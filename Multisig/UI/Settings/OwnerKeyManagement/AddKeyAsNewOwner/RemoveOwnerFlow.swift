@@ -17,10 +17,17 @@ class RemoveOwnerFlow: SafeSettingsChangeFlow {
         factory as? RemoveOwnerFlowFactory
     }
 
-    internal init(owner: Address, prevOwner: Address?, safe: Safe, factory: RemoveOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+    internal init(
+        owner: Address,
+        prevOwner: Address?,
+        safe: Safe, factory: RemoveOwnerFlowFactory = .init(),
+        navigationController: UINavigationController = CancellableNavigationController(),
+        presenter: UIViewController? = nil,
+        completion: @escaping (_ success: Bool) -> Void
+    ) {
         self.ownerToRemove = owner
         self.prevOwner = prevOwner
-        super.init(safe: safe, factory: factory, navigationController: navigationController, completion: completion)
+        super.init(safe: safe, factory: factory, navigationController: navigationController, presenter: presenter, completion: completion)
     }
 
     override func start() {

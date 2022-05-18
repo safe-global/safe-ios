@@ -14,10 +14,10 @@ class SafeSettingsChangeFlow: UIFlow {
     var safe: Safe
     var transaction: SCGModels.TransactionDetails?
 
-    init(safe: Safe, factory: SafeSettingsFlowFactory, navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+    init(safe: Safe, factory: SafeSettingsFlowFactory, navigationController: UINavigationController, presenter: UIViewController? = nil, completion: @escaping (_ success: Bool) -> Void) {
         self.safe = safe
         self.factory = factory
-        super.init(navigationController: navigationController, completion: completion)
+        super.init(navigationController: navigationController, presenter: presenter, completion: completion)
     }
 }
 
