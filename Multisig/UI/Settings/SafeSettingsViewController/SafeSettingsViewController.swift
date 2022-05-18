@@ -30,7 +30,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     private var changeConfirmationsFlow: ChangeConfirmationsFlow!
     private var removeOwnerFlow: RemoveOwnerFlow!
-    private var replaceOwnerFlow: ReplaceOwnerFlow!
+    private var replaceOwnerFlow: ReplaceOwnerFromSettingsFlow!
     private var addOwnerFlow: AddOwnerFlowFromSettings!
     
     enum Section {
@@ -346,7 +346,13 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             return
         }
 
-        
+        replaceOwnerFlow = ReplaceOwnerFromSettingsFlow(ownerToReplace: owner,
+                                                        prevOwner: prevOwner,
+                                                        safe: safe!,
+                                                        navigationController: navigationController, completion: { [unowned self] _ in
+            replaceOwnerFlow = nil
+        })
+
         replaceOwnerFlow.start()
     }
 

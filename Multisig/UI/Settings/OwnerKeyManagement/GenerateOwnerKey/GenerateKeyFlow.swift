@@ -83,7 +83,7 @@ class GenerateKeyFlow: AddKeyFlow {
 
     func replaceOwner() {
         replaceOwnerFlow = ReplaceOwnerFlow(
-            newOwner: keyInfo!,
+            newOwner: keyInfo!.address,
             safe: safe!,
             navigationController: navigationController) { [unowned self] skippedTxDetails in
                 replaceOwnerFlow = nil

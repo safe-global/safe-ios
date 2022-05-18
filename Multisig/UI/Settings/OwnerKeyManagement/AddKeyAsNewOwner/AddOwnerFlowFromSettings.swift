@@ -36,11 +36,10 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
     }
 
     func enterAddressViewController() {
-        let viewController = addOwnerFlowFactory.enterOwnerAddress(
-            stepNumber: 1,
-            maxSteps: 3,
-            trackingEvent: .addOwnerSelectAddress
-        ) { [unowned self] address, resolvedName  in
+        let viewController = addOwnerFlowFactory.enterOwnerAddress(chain: safe.chain!,
+                                                                   stepNumber: 1,
+                                                                   maxSteps: 3,
+                                                                   trackingEvent: .addOwnerSelectAddress) { [unowned self] address, resolvedName  in
             newAddress = address
 
             if let resolvedName = resolvedName {
