@@ -9,7 +9,6 @@ import UIKit
 class ChangeConfirmationsFlow: SafeSettingsChangeFlow {
     var newConfirmations: Int?
     var changeConfirmationsTransactionDetails: SCGModels.TransactionDetails?
-    weak var presenter: UIViewController!
 
     var changeConfirmationsFlowFactory: ChangeConfirmationsFlowFactory {
         factory as! ChangeConfirmationsFlowFactory
@@ -66,16 +65,7 @@ class ChangeConfirmationsFlow: SafeSettingsChangeFlow {
 
     override func start() {
         confirmations()
-        // guaranteed to exist at this point
-        let rootVC = navigationController.viewControllers.first!
-        ViewControllerFactory.addCloseButton(rootVC)
-        presenter.present(navigationController, animated: true)
-    }
-
-    override func stop(success: Bool) {
-        presenter.dismiss(animated: true) { [unowned self] in
-            completion(success)
-        }
+        super.start()
     }
 }
 

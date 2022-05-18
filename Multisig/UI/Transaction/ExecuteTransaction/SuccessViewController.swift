@@ -25,7 +25,6 @@ class SuccessViewController: UIViewController {
 
     var trackingParams: [String: Any]? = nil
 
-    var hidesNavigationBar: Bool = true
     var onDone: (_ didTapPrimary: Bool) -> Void = { _ in }
     
     convenience init(
@@ -88,7 +87,6 @@ class SuccessViewController: UIViewController {
     }
 
     @IBAction func viewDetailsClicked(_ sender: Any) {
-        self.navigationController?.isNavigationBarHidden = false
         onDone(true)
     }
 }

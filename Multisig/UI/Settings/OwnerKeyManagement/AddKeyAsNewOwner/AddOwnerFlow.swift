@@ -13,18 +13,19 @@ class AddOwnerFlow: SafeSettingsChangeFlow {
     var newOwner: AddressInfo?
 
     var newConfirmations: Int?
+    var addOwnerTransactionDetails: SCGModels.TransactionDetails?
 
-    var addOwnerFactory: AddOwnerFlowFactory {
-        factory as! AddOwnerFlowFactory
-    }
-
-    init(newOwner: AddressInfo?, safe: Safe, factory: AddOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+    init(newOwner: AddressInfo, safe: Safe, factory: AddOwnerFlowFactory = .init(), navigationController: UINavigationController, presenter: UIViewController? = nil, completion: @escaping (_ success: Bool) -> Void) {
+        self.factory = factory
+        self.safe = safe
         self.newOwner = newOwner
         super.init(safe: safe, factory: factory, navigationController: navigationController, completion: completion)
     }
 
     override func start() {
         confirmations(stepNumber: 1, maxSteps: 2)
+        confirmations()
+        super.start()
     }
 
     func confirmations(stepNumber: Int, maxSteps: Int) {

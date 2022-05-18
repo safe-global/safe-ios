@@ -25,6 +25,7 @@ class RemoveOwnerFlow: SafeSettingsChangeFlow {
 
     override func start() {
         confirmations()
+        super.start()
     }
 
     func confirmations() {
