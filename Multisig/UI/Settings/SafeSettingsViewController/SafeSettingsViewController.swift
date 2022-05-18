@@ -243,7 +243,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.RequiredConfirmations.confirmations(let name):
-            return tableView.basicCell(name: name, indexPath: indexPath, withDisclosure: !safe.isReadOnly, canSelect: !safe.isReadOnly)
+            return tableView.basicCell(name: name,
+                                       indexPath: indexPath,
+                                       withDisclosure: !safe.isReadOnly,
+                                       disclosureImage: UIImage(named: "arrow"),
+                                       canSelect: !safe.isReadOnly)
 
         case Section.OwnerAddresses.ownerInfo(let info):
             let keyInfo = try? KeyInfo.keys(addresses: [info.address]).first
