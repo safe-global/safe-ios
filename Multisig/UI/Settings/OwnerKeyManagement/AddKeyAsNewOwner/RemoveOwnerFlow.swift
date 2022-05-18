@@ -71,7 +71,7 @@ class RemoveOwnerFlow: SafeSettingsChangeFlow {
     }
 }
 
-class RemoveOwnerFlowFactory: FlowFactory {
+class RemoveOwnerFlowFactory: SafeSettingsFlowFactory {
     func confirmations(step: Int, maxSteps: Int, safe: Safe, completion: @escaping (_ newConfirmations: Int) -> Void) -> EditConfirmationsViewController {
         let confirmationsVC = EditConfirmationsViewController()
         confirmationsVC.confirmations = Int(safe.threshold ?? 1)

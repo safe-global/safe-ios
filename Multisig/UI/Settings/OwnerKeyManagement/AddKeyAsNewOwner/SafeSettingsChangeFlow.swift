@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 
 class SafeSettingsChangeFlow: UIFlow {
-    var factory: FlowFactory!
+    var factory: SafeSettingsFlowFactory!
     var safe: Safe
     var transaction: SCGModels.TransactionDetails?
 
-    init(safe: Safe, factory: FlowFactory, navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
+    init(safe: Safe, factory: SafeSettingsFlowFactory, navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
         self.safe = safe
         self.factory = factory
         super.init(navigationController: navigationController, completion: completion)
@@ -22,7 +22,7 @@ class SafeSettingsChangeFlow: UIFlow {
 }
 
 
-class FlowFactory {
+class SafeSettingsFlowFactory {
     func confirmations(
         confirmations: Int,
         minConfirmations: Int,
