@@ -335,40 +335,28 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     func addOwner() {
-        addOwnerFlow = AddOwnerFlowFromSettings(safe: safe!, presenter: self) { [unowned self] _ in
+        addOwnerFlow = AddOwnerFlowFromSettings(safe: safe!) { [unowned self] _ in
             addOwnerFlow = nil
         }
-        addOwnerFlow.start()
+        present(flow: addOwnerFlow)
     }
 
     func replace(owner: Address, prevOwner: Address?) {
-        guard let navigationController = navigationController else {
-            return
-        }
-
-        replaceOwnerFlow = ReplaceOwnerFromSettingsFlow(ownerToReplace: owner,
-                                                        prevOwner: prevOwner,
-                                                        safe: safe!,
-                                                        navigationController: navigationController, completion: { [unowned self] _ in
+        replaceOwnerFlow = ReplaceOwnerFromSettingsFlow(
+            ownerToReplace: owner,
+            prevOwner: prevOwner,
+            safe: safe!
+        ) { [unowned self] _ in
             replaceOwnerFlow = nil
-        })
-
-        replaceOwnerFlow.start()
+        }
+        present(flow: replaceOwnerFlow)
     }
 
     func remove(owner: Address, prevOwner: Address?) {
-        let cancellableNavigationController = CancellableNavigationController()
-        removeOwnerFlow = RemoveOwnerFlow(
-                owner: owner,
-                prevOwner: prevOwner,
-                safe: safe!,
-                navigationController: cancellableNavigationController,
-                presenter: self,
-                completion: { [unowned self] _ in
-                    removeOwnerFlow = nil
-                }
-        )
-        removeOwnerFlow.start()
+        removeOwnerFlow = RemoveOwnerFlow(owner: owner, prevOwner: prevOwner, safe: safe!) { [unowned self] _ in
+            removeOwnerFlow = nil
+        }
+        present(flow: removeOwnerFlow)
     }
 
     private func addressDetailsCell(address: Address,
@@ -435,10 +423,10 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 return
             }
             if !isReadOnly {
-                changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe!, presenter: self, completion: { [unowned self] _ in
+                changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe!) { [unowned self] _ in
                     changeConfirmationsFlow = nil
-                })
-                changeConfirmationsFlow.start()
+                }
+                present(flow: changeConfirmationsFlow)
             }
         case Section.Advanced.advanced(_):
             let advancedSafeSettingsViewController = AdvancedSafeSettingsViewController()

@@ -14,18 +14,12 @@ class ChangeConfirmationsFlow: SafeSettingsChangeFlow {
         factory as! ChangeConfirmationsFlowFactory
     }
 
-    init(safe: Safe, presenter: UIViewController, factory: ChangeConfirmationsFlowFactory = .init(), completion: @escaping (_ success: Bool) -> Void) {
-        let navigationController = CancellableNavigationController()
-        super.init(
-            safe: safe,
-            factory: factory,
-            navigationController: navigationController,
-            presenter: presenter,
-            completion: completion
-        )
-        navigationController.onCancel = { [unowned self] in
-            stop(success: false)
-        }
+    init(safe: Safe, completion: @escaping (_ success: Bool) -> Void) {
+        super.init(safe: safe, factory: ChangeConfirmationsFlowFactory(), completion: completion)
+    }
+
+    override func start() {
+        confirmations()
     }
 
     func confirmations() {
@@ -66,11 +60,6 @@ class ChangeConfirmationsFlow: SafeSettingsChangeFlow {
             stop(success: !showTxDetails)
         }
         show(successVC)
-    }
-
-    override func start() {
-        confirmations()
-        super.start()
     }
 }
 

@@ -13,33 +13,21 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
     var newAddress: Address?
     var newAddressName: String?
 
-    var addOwnerFlowFactory: AddOwnerFlowFactory {
-        factory as! AddOwnerFlowFactory
-    }
-    
-    init(safe: Safe,
-         factory: AddOwnerFlowFactory = .init(),
-         presenter: UIViewController,
-         completion: @escaping (_ success: Bool) -> Void
-    ) {
-        super.init(newOwner: nil,
-                   safe: safe,
-                   factory: factory,
-                   navigationController: CancellableNavigationController(),
-                   presenter: presenter,
-                   completion: completion)
+    init(safe: Safe, completion: @escaping (_ success: Bool) -> Void) {
+        super.init(newOwner: nil, safe: safe, completion: completion)
     }
 
     override func start() {
         enterAddressViewController()
-        super.start()
     }
 
     func enterAddressViewController() {
-        let viewController = addOwnerFlowFactory.enterOwnerAddress(chain: safe.chain!,
-                                                                   stepNumber: 1,
-                                                                   maxSteps: 3,
-                                                                   trackingEvent: .addOwnerSelectAddress) { [unowned self] address, resolvedName  in
+        let viewController = addOwnerFactory.enterOwnerAddress(
+            chain: safe.chain!,
+            stepNumber: 1,
+            maxSteps: 3,
+            trackingEvent: .addOwnerSelectAddress
+        ) { [unowned self] address, resolvedName  in
             newAddress = address
 
             if let resolvedName = resolvedName {
@@ -55,7 +43,7 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
 
     func enterOwnerNameViewController() {
         assert(newAddress != nil)
-        let viewController = addOwnerFlowFactory.enterOwnerName(
+        let viewController = addOwnerFactory.enterOwnerName(
             safe: safe,
             address: newAddress!,
             stepNumber: 1,

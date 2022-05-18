@@ -8,56 +8,6 @@
 
 import UIKit
 
-class UIFlow {
-
-    var navigationController: UINavigationController
-    var completion: (_ success: Bool) -> Void
-    weak var presenter: UIViewController?
-
-    internal init(navigationController: UINavigationController, presenter: UIViewController? = nil, completion: @escaping (_ success: Bool) -> Void) {
-        self.navigationController = navigationController
-        self.completion = completion
-        self.presenter = presenter
-    }
-
-    func start() {
-        if let presenter = presenter {
-            // guaranteed to exist at this point
-            let rootVC = navigationController.viewControllers.first!
-            ViewControllerFactory.addCloseButton(rootVC)
-            presenter.present(navigationController, animated: true)
-        }
-    }
-
-    func stop(success: Bool) {
-        if let presenter = presenter {
-            presenter.dismiss(animated: true) { [unowned self] in
-                completion(success)
-            }
-        } else {
-            completion(success)
-        }
-    }
-
-    func show(_ vc: UIViewController) {
-        if navigationController.viewControllers.isEmpty {
-            navigationController.viewControllers = [vc]
-        } else {
-            navigationController.show(vc, sender: navigationController)
-        }
-    }
-}
-
-//
-// Rationale for implementing UI navigation with a "flow", "factory", and separate view controllers.
-//
-// I want view controllers to be usable in different contexts --> isolate them
-// I want to create view controllers with parameters in different flows --> use factory pattern
-// I want the whole flow to be defined in one place --> create an object for that ('flow')
-// I want the flow to be integratable into existing navigation stack --> pass the navigation controller to work with
-// I want the flow to be stand-alone when opened from different places in the app --> create a navigation controller for the standalone case
-// I want to have variations in the flows based on where it should be opened or based on the passed in parameters --> sub-class or enum/bool flags. If more variations can be added in the future, then it is better to subclass.
-//
 class BackupFlow: UIFlow {
     // Backup flow variation for suggesting backup after generating a key:
     //
@@ -66,17 +16,15 @@ class BackupFlow: UIFlow {
     //                               -> canceled
 
     var mnemonic: String
-    var factory: BackupFlowFactory
+    var factory: BackupFlowFactory = BackupFlowFactory()
 
-    init(mnemonic: String, factory: BackupFlowFactory = BackupFlowFactory(), navigationController: UINavigationController, presenter: UIViewController? = nil, completion: @escaping (_ success: Bool) -> Void) {
+    init(mnemonic: String, completion: @escaping (_ success: Bool) -> Void) {
         self.mnemonic = mnemonic
-        self.factory = factory
-        super.init(navigationController: navigationController, presenter: presenter, completion: completion)
+        super.init(completion: completion)
     }
 
     override func start() {
         intro()
-        super.start()
     }
 
     func intro() {
@@ -129,29 +77,15 @@ class ModalBackupFlow: BackupFlow {
     //                    \
     //                     -> canceled
 
-    convenience init?(keyInfo: KeyInfo, presenter: UIViewController, factory: BackupFlowFactory = BackupFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
+    convenience init?(keyInfo: KeyInfo, completion: @escaping (_ success: Bool) -> Void) {
         guard let mnemonic = try? keyInfo.privateKey()?.mnemonic else {
             return nil
         }
-        self.init(mnemonic: mnemonic, presenter: presenter, factory: factory, completion: completion)
-    }
-
-    init(mnemonic: String, presenter: UIViewController, factory: BackupFlowFactory = BackupFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
-        let navigationController = CancellableNavigationController()
-        super.init(mnemonic: mnemonic,
-                   factory: factory,
-                   navigationController: navigationController,
-                   presenter: presenter,
-                   completion: completion)
-
-        navigationController.onCancel = { [unowned self] in
-            stop(success: false)
-        }
+        self.init(mnemonic: mnemonic, completion: completion)
     }
 
     override func start() {
         passcode()
-        super.start()
     }
 
     func passcode() {

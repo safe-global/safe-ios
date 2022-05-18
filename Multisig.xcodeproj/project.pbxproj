@@ -338,6 +338,7 @@
 		0A802B9024E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B8F24E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift */; };
 		0A802B9224E5843B0001790F /* PagedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B9124E5843B0001790F /* PagedRequest.swift */; };
 		0A81E310246C062400425DEF /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A81E30F246C062400425DEF /* Icons.swift */; };
+		0A864D282835563D00AE1B36 /* UIFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A864D272835563C00AE1B36 /* UIFlow.swift */; };
 		0A86EE5D25CC2B2B0059876E /* RetryFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A86EE5C25CC2B2B0059876E /* RetryFooterView.swift */; };
 		0A86EE6325CC2B350059876E /* LoadingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A86EE6225CC2B350059876E /* LoadingFooterView.swift */; };
 		0A86EE6925CC2B410059876E /* IdleFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A86EE6825CC2B410059876E /* IdleFooterView.swift */; };
@@ -1142,6 +1143,7 @@
 		0A802B8F24E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeClientGatewayServiceIntegrationTests.swift; sourceTree = "<group>"; };
 		0A802B9124E5843B0001790F /* PagedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagedRequest.swift; sourceTree = "<group>"; };
 		0A81E30F246C062400425DEF /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
+		0A864D272835563C00AE1B36 /* UIFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFlow.swift; sourceTree = "<group>"; };
 		0A86EE5C25CC2B2B0059876E /* RetryFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryFooterView.swift; sourceTree = "<group>"; };
 		0A86EE6225CC2B350059876E /* LoadingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooterView.swift; sourceTree = "<group>"; };
 		0A86EE6825CC2B410059876E /* IdleFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleFooterView.swift; sourceTree = "<group>"; };
@@ -3481,6 +3483,7 @@
 			isa = PBXGroup;
 			children = (
 				0A5B157928085BC1003AD853 /* BackupFlow.swift */,
+				0A864D272835563C00AE1B36 /* UIFlow.swift */,
 				0AF8D1AB2822DFA20035DCF7 /* CancellableNavigationController.swift */,
 				6A9A770A2804182700C229FC /* BackupIntroViewController.swift */,
 				6A9A770B2804182700C229FC /* BackupIntroViewController.xib */,
@@ -4571,6 +4574,7 @@
 				0A8CDD4927A5AE860020066C /* CreateSafeFormUIModel.swift in Sources */,
 				0A5B157C280863DF003AD853 /* EnterPasscodeViewController.swift in Sources */,
 				D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */,
+				0A864D282835563D00AE1B36 /* UIFlow.swift in Sources */,
 				04576A0227C8F26100881206 /* CDEthTransaction.swift in Sources */,
 				043350B92816D522003725E2 /* ReviewSafeTransactionViewController.swift in Sources */,
 				6A252CF228169352001F0887 /* AddKeyAsOwnerIntroViewController.swift in Sources */,
