@@ -25,7 +25,9 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
     }
 
     func enterAddressViewController() {
-        let viewController = addOwnerFlowFromSettingsFactory.enterOwnerAddress { [unowned self] address, resolvedName  in
+        let viewController = addOwnerFlowFromSettingsFactory.enterOwnerAddress(stepNumber: 1,
+                                                                               maxSteps: 3,
+                                                                               trackingEvent: .addOwnerSelectAddress) { [unowned self] address, resolvedName  in
             newAddress = address
 
             if let resolvedName = resolvedName {
@@ -41,7 +43,11 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
 
     func enterOwnerNameViewController() {
         assert(newAddress != nil)
-        let viewController = addOwnerFlowFromSettingsFactory.enterOwnerName(safe: safe, address: newAddress!) { [unowned self] name in
+        let viewController = addOwnerFlowFromSettingsFactory.enterOwnerName(safe: safe,
+                                                                            address: newAddress!,
+                                                                            stepNumber: 1,
+                                                                            maxSteps: 3,
+                                                                            trackingEvent: .addOwnerSpecifyName) { [unowned self] name in
             newAddressName = name
             confirmations()
         }
@@ -55,22 +61,5 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
 }
 
 class AddOwnerFlowFromSettingsFactory: AddOwnerFlowFactory {
-    func enterOwnerAddress(completion: @escaping (Address, String?) -> Void) -> EnterOwnerAddressViewController {
-        let enterOwnerAddressVC = EnterOwnerAddressViewController()
-        enterOwnerAddressVC.stepNumber = 1
-        enterOwnerAddressVC.maxSteps = 3
-        enterOwnerAddressVC.trackingEvent = .addOwnerSelectAddress
-
-        enterOwnerAddressVC.completion = completion
-
-        return enterOwnerAddressVC
-    }
-
-    func enterOwnerName(safe: Safe, address: Address, completion: @escaping (String) -> Void) -> EnterOwnerNameViewController {
-        let enterNameVC = EnterOwnerNameViewController()
-        enterNameVC.address = address
-        enterNameVC.prefix = safe.chain!.shortName
-        enterNameVC.completion = completion
-        return enterNameVC
-    }
+    
 }

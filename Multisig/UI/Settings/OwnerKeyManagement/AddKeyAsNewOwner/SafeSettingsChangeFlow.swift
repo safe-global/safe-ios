@@ -45,6 +45,37 @@ class FlowFactory {
         return confirmationsVC
     }
 
+    func enterOwnerAddress(stepNumber: Int,
+                           maxSteps: Int,
+                           trackingEvent: TrackingEvent,
+                           completion: @escaping (Address, String?) -> Void) -> EnterOwnerAddressViewController {
+        let enterOwnerAddressVC = EnterOwnerAddressViewController()
+        enterOwnerAddressVC.stepNumber = 1
+        enterOwnerAddressVC.maxSteps = 3
+        enterOwnerAddressVC.trackingEvent = trackingEvent
+
+        enterOwnerAddressVC.completion = completion
+
+        return enterOwnerAddressVC
+    }
+
+    func enterOwnerName(safe: Safe,
+                        address: Address,
+                        stepNumber: Int,
+                        maxSteps: Int,
+                        trackingEvent: TrackingEvent,
+                        completion: @escaping (String) -> Void) -> EnterOwnerNameViewController {
+        let enterNameVC = EnterOwnerNameViewController()
+        enterNameVC.address = address
+        enterNameVC.prefix = safe.chain!.shortName
+        enterNameVC.completion = completion
+        enterNameVC.trackingEvent = trackingEvent
+        enterNameVC.stepNumber = stepNumber
+        enterNameVC.maxSteps = maxSteps
+        
+        return enterNameVC
+    }
+
     func success(bodyText: String, trackingEvent: TrackingEvent, completion: @escaping (_ showTxDetails: Bool) -> Void) -> SuccessViewController {
         let successVC = SuccessViewController(
             titleText: "Your transaction is submitted!",

@@ -28,6 +28,8 @@ class EnterOwnerNameViewController: UIViewController {
 
     var stepNumber: Int = 1
     var maxSteps: Int = 3
+    
+    var trackingEvent: TrackingEvent?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +63,9 @@ class EnterOwnerNameViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.addOwnerSpecifyName)
+        if let trackingEvent = trackingEvent {
+            Tracker.trackEvent(trackingEvent)
+        }
     }
 
     private func validateName() {
