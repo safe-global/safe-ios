@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 class AddOwnerFlowFromSettings: AddOwnerFlow {
-    var newAddress: Address?
     var newAddressName: String?
 
     init(safe: Safe, completion: @escaping (_ success: Bool) -> Void) {

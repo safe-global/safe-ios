@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class AddOwnerFlow: SafeSettingsChangeFlow {
-    var newOwner: AddressInfo?
+    var newOwner: Address?
 
     var newConfirmations: Int?
     var addOwnerTransactionDetails: SCGModels.TransactionDetails?
@@ -84,7 +84,7 @@ class AddOwnerFlowFactory: SafeSettingsFlowFactory {
 
     func review(
         safe: Safe,
-        key: AddressInfo,
+        key: Address,
         newThreshold: Int,
         stepNumber: Int,
         maxSteps: Int,
