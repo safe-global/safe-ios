@@ -24,7 +24,7 @@ class ReplaceOwnerFromSettingsFlow: ReplaceOwnerFlow {
 
     func enterAddressViewController() {
         let viewController = replaceOwnerFactory.enterOwnerAddress(
-            chain: safe.chain!,
+            safe: safe,
             stepNumber: 1,
             maxSteps: 3,
             trackingEvent: .replaceOwnerSelectNew

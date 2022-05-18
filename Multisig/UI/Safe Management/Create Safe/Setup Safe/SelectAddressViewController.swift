@@ -53,7 +53,7 @@ class SelectAddressViewController: UIAlertController {
         addressBookVC.filterByChain = chain
         addressBookVC.isPickerModeEnabled = true
         addressBookVC.onSelect = { [unowned addressBookVC, unowned self] address in
-            addressBookVC.dismiss(animated: true) {
+            addressBookVC.dismiss(animated: true) { [unowned self] in
                 completion(address)
             }
         }

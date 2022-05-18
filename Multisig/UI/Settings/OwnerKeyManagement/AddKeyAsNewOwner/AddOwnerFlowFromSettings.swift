@@ -22,7 +22,7 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
 
     func enterAddressViewController() {
         let viewController = addOwnerFactory.enterOwnerAddress(
-            chain: safe.chain!,
+            safe: safe,
             stepNumber: 1,
             maxSteps: 3,
             trackingEvent: .addOwnerSelectAddress
