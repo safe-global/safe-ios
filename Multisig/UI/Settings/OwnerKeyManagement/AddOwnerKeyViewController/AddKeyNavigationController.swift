@@ -31,6 +31,8 @@ class AddKeyNavigationController: UINavigationController, UINavigationController
     func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
         if let selectWalletVC = viewControllers.compactMap({ $0 as? SelectWalletViewController }).first {
             selectWalletVC.cancelExistingConnection()
+        } else if let vc = viewControllers.compactMap({ $0 as? AddOwnerKeyViewController }).first {
+            vc.completion()
         }
     }
 }
