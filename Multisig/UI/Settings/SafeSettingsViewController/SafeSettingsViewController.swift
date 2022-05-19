@@ -343,6 +343,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             addOwnerFlow = nil
         }
         present(flow: addOwnerFlow)
+        Tracker.trackEvent(.addOwnerFromSettings)
     }
 
     func replace(owner: Address, prevOwner: Address?) {
@@ -354,6 +355,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             replaceOwnerFlow = nil
         }
         present(flow: replaceOwnerFlow)
+        Tracker.trackEvent(.replaceOwnerFromSettings)
     }
 
     func remove(owner: Address, prevOwner: Address?) {
@@ -361,6 +363,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             removeOwnerFlow = nil
         }
         present(flow: removeOwnerFlow)
+        Tracker.trackEvent(.userRemoveOwnerFromSettings)
     }
 
     private func addressDetailsCell(address: Address,
