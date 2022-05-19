@@ -10,18 +10,7 @@ import UIKit
 
 class WarningTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var warningView: WarningView!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    @IBOutlet private weak var warningView: WarningView!
 
     func set(image: UIImage? = nil, title: String? = nil, description: String? = nil) {
         warningView.set(image: image, title: title, description: description)
