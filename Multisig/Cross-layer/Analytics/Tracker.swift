@@ -64,12 +64,12 @@ class Tracker {
     ///   - event: occurred event
     ///   - parameters: optional parameters that will be combined with the Trackable.parameters. These parameters
     ///                 will override any parameters from Trackable with the same key.
-    func track(event: Trackable, parameters: [String: Any]? = nil) {
+    func track(event: Trackable, parameters: [String: Any]? = nil, file: StaticString = #file, line: UInt = #line, function: StaticString = #function) {
         var joinedParameters = event.parameters ?? [:]
         parameters?.forEach { joinedParameters[$0.key] = $0.value }
         let trackedParameters: [String: Any]? = joinedParameters.isEmpty ? nil : joinedParameters
         for handler in trackingHandlers {
-            handler.track(event: event.eventName, parameters: trackedParameters)
+            handler.track(event: event.eventName, parameters: trackedParameters, file: file, line: line, function: function)
         }
     }
 
@@ -78,9 +78,9 @@ class Tracker {
     /// - Parameters:
     ///   - value: String value
     ///   - property: UserProperty
-    func setUserProperty(_ value: String, for property: UserProperty) {
+    func setUserProperty(_ value: String, for property: UserProperty, file: StaticString = #file, line: UInt = #line, function: StaticString = #function) {
         for handler in trackingHandlers {
-            handler.setUserProperty(value, for: property)
+            handler.setUserProperty(value, for: property, file: file, line: line, function: function)
         }
     }
 
@@ -101,14 +101,14 @@ protocol TrackingHandler: AnyObject {
     /// - Parameters:
     ///   - event: occurred event
     ///   - parameters: optional parameters
-    func track(event: String, parameters: [String: Any]?)
+    func track(event: String, parameters: [String: Any]?, file: StaticString, line: UInt, function: StaticString)
 
     /// Set user property for tracking events.
     ///
     /// - Parameters:
     ///   - value: String value
     ///   - property: UserProperty
-    func setUserProperty(_ value: String, for property: UserProperty)
+    func setUserProperty(_ value: String, for property: UserProperty, file: StaticString, line: UInt, function: StaticString)
 
     /// Specifies if tracking should be enabled for tracking handler
     ///
@@ -140,13 +140,13 @@ extension Trackable {
 protocol ScreenTrackingEvent: Trackable {}
 
 extension Tracker {
-    static func trackEvent(_ event: TrackingEvent, parameters: [String: Any]? = nil) {
+    static func trackEvent(_ event: TrackingEvent, parameters: [String: Any]? = nil, file: StaticString = #file, line: UInt = #line, function: StaticString = #function) {
         var parameters = parameters ?? [String: Any]()
         if shouldAddChainIdParam(for: event) && parameters["chain_id"] == nil {
             let chainId = try? Safe.getSelected()?.chain?.id ?? "none"
             parameters["chain_id"] = chainId
         }
-        Tracker.shared.track(event: event, parameters: parameters)
+        Tracker.shared.track(event: event, parameters: parameters, file: file, line: line, function: function)
     }
     
     static func parametersWithWalletName(_ walletName: String, parameters: [String: Any]? = nil) -> [String: Any] {
