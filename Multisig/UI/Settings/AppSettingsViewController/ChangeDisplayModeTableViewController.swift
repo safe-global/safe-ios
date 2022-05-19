@@ -45,7 +45,6 @@ class ChangeDisplayModeTableViewController: UITableViewController {
         let cell = tableView.basicCell(
             name: "\(items[indexPath.row].name)",
             indexPath: indexPath,
-            withDisclosure: false,
             disclosureImage: disclosureImage
         )
         return cell

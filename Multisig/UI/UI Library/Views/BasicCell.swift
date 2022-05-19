@@ -26,6 +26,13 @@ class BasicCell: UITableViewCell {
         setSupplementary(nil)
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        setDetail(nil)
+        setSupplementary(nil)
+        setDisclosureImage(UIImage(named: "arrow"))
+    }
+
     func setTitle(_ value: String?, style: GNOTextStyle = .primary) {
         titleLabel.text = value
         titleLabel.setStyle(style)

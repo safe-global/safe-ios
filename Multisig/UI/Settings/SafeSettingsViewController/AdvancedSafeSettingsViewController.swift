@@ -122,7 +122,7 @@ extension AdvancedSafeSettingsViewController {
                                           prefix: safe.chain!.shortName)
             } else {
                 return tableView.basicCell(
-                    name: "Not set", indexPath: indexPath, withDisclosure: false, canSelect: false)
+                    name: "Not set", indexPath: indexPath, disclosureImage: nil, canSelect: false)
             }
 
         case Section.FallbackHandler.fallbackHandlerHelpLink:
@@ -143,7 +143,7 @@ extension AdvancedSafeSettingsViewController {
                                           prefix: safe.chain!.shortName)
             } else {
                 return tableView.basicCell(
-                    name: "Not set", indexPath: indexPath, withDisclosure: false, canSelect: false)
+                    name: "Not set", indexPath: indexPath, disclosureImage: nil, canSelect: false)
             }
 
         case Section.GuardInfo.guardInfoHelpLink:
@@ -154,7 +154,7 @@ extension AdvancedSafeSettingsViewController {
         case Section.Nonce.nonce(let nonce):
             return tableView.basicCell(name: nonce,
                                        indexPath: indexPath,
-                                       withDisclosure: false,
+                                       disclosureImage: nil,
                                        canSelect: false)
 
         case Section.Module.module(let info):

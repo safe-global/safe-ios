@@ -77,7 +77,6 @@ extension SelectFiatViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.basicCell(
             name: NSLocale.getCurrencyFullName(code: code),
             indexPath: indexPath,
-            withDisclosure: false,
             disclosureImage: disclosureImage
         )
 
