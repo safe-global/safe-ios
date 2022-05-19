@@ -23,6 +23,7 @@ class SafeCellBuilder {
 
         tableView.registerCell(HelpTextTableViewCell.self)
         tableView.registerCell(StepperTableViewCell.self)
+        tableView.registerCell(WarningTableViewCell.self)
     }
 
     func helpTextCell(_ text: String, hyperlink: String, indexPath: IndexPath) -> HelpTextTableViewCell {
@@ -61,5 +62,12 @@ class SafeCellBuilder {
         let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
         view.setName(text)
         return view
+    }
+
+    func warningCell(image: UIImage? = nil, title: String? = nil, description: String? = nil, for indexPath: IndexPath) -> WarningTableViewCell {
+        let cell = tableView.dequeueCell(WarningTableViewCell.self, for: indexPath)
+        cell.set(image: image, title: title, description: description)
+
+        return cell
     }
 }

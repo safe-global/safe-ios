@@ -18,6 +18,7 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
 
     private var stepLabel: UILabel!
 
+    @IBOutlet weak var warningView: WarningView!
     var stepNumber: Int = 1
     var maxSteps: Int = 2
     var minConfirmations: Int = 1
@@ -69,10 +70,14 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
         }
     }
 
+    func showWarning() -> Bool {
+         confirmations >= maxConfirmations
+    }
+
     // MARK: Table View Content and Events
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        showWarning() ? 3 : 2
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -87,10 +92,17 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
                         if let cell = tableView.cellForRow(at: indexPath) as? StepperTableViewCell {
                             cell.setText("\(confirmations) out of \(maxConfirmations)")
                         }
+
+                        tableView.reloadData()
                     }
             )
-        } else {
+        } else if indexPath.row == 1 {
             return cellBuilder.thresholdHelpCell(for: indexPath)
+        } else {
+            return cellBuilder.warningCell(image: nil,
+                                           title: nil,
+                                           description: "We recommend to set a threshold which is lower than the total number of owners of your Safe.",
+                                           for: indexPath)
         }
     }
 
