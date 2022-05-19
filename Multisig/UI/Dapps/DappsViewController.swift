@@ -152,7 +152,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
         switch item {
         case Section.WalletConnect.noSessions(let name):
             return tableView.basicCell(
-                name: name, indexPath: indexPath, withDisclosure: false, canSelect: false)
+                name: name, indexPath: indexPath, disclosureImage: nil, canSelect: false)
 
         case Section.WalletConnect.activeSession(let wcSession):
             switch wcSession.status {

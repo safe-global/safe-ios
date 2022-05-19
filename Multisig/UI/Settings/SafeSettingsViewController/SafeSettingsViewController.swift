@@ -94,6 +94,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                              .ownerKeyRemoved,
                              .ownerKeyUpdated,
                              .selectedSafeUpdated,
+                             .selectedSafeChanged,
                              .addressbookChanged,
                              .chainSettingsChanged] {
             notificationCenter.addObserver(
@@ -190,19 +191,26 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     private func updateSections() {
         sections = []
 
-        guard let safe = safe else { return }
+        guard
+            let safe = safe,
+            let threshold = safe.threshold,
+            let ownersInfo = safe.ownersInfo,
+            let implementationInfo = safe.implementationInfo,
+            let implementationVersionState = safe.implementationVersionState,
+            let version = safe.version
+        else { return }
 
         sections += [
             (section: .name("Safe Name"), items: [Section.Name.name(safe.name ?? "Safe \(safe.addressValue.ellipsized())")]),
 
             (section: .requiredConfirmations("Required confirmations"),
-             items: [Section.RequiredConfirmations.confirmations("\(safe.threshold!) out of \(safe.ownersInfo!.count)")]),
+             items: [Section.RequiredConfirmations.confirmations("\(threshold) out of \(ownersInfo.count)")]),
 
             (section: .ownerAddresses("Owners"),
-             items: safe.ownersInfo!.map { Section.OwnerAddresses.ownerInfo($0) }),
+             items: ownersInfo.map { Section.OwnerAddresses.ownerInfo($0) }),
 
             (section: .safeVersion("Safe version"),
-             items: [Section.ContractVersion.versionInfo(safe.implementationInfo!, safe.implementationVersionState!, safe.version!)]),
+             items: [Section.ContractVersion.versionInfo(implementationInfo, implementationVersionState, version)]),
 
             (section: .ensName("ENS name"), items: [Section.EnsName.ensName]),
 
@@ -245,8 +253,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         case Section.RequiredConfirmations.confirmations(let name):
             return tableView.basicCell(name: name,
                                        indexPath: indexPath,
-                                       withDisclosure: !safe.isReadOnly,
-                                       disclosureImage: UIImage(named: "arrow"),
+                                       disclosureImage: safe.isReadOnly ? nil : UIImage(named: "arrow"),
                                        canSelect: !safe.isReadOnly)
 
         case Section.OwnerAddresses.ownerInfo(let info):
@@ -309,7 +316,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard isValid(path: indexPath), safe != nil && !safeOwners.isEmpty else { return nil }
+        guard isValid(path: indexPath), let safe = safe, !safe.isReadOnly, !safeOwners.isEmpty else { return nil }
 
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
@@ -453,7 +460,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {
-        guard isValid(section: _section) else {
+        guard isValid(section: _section), let safe = safe else {
             return nil
         }
         let section = sections[_section].section
@@ -471,9 +478,10 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             view = tableView.dequeueHeaderFooterView(OwnerHeaderView.self)
             let ownerHeaderView = view as! OwnerHeaderView
             ownerHeaderView.setName(name)
-            ownerHeaderView.setNumber(safe?.ownersInfo?.count)
-            ownerHeaderView.onAdd = { [unowned self] in
+            ownerHeaderView.setNumber(safe.ownersInfo?.count)
+            ownerHeaderView.addButton.isHidden = safe.isReadOnly
 
+            ownerHeaderView.onAdd = { [unowned self] in
                 Tracker.trackEvent(.addOwnerFromSettings)
 
                 let enterOwnerAddressVC = EnterOwnerAddressViewController()

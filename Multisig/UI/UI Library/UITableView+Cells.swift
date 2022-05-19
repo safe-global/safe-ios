@@ -13,21 +13,16 @@ extension UITableView {
                    icon: String? = nil,
                    detail: String? = nil,
                    indexPath: IndexPath,
-                   withDisclosure: Bool = true,
-                   disclosureImage: UIImage? = nil,
+                   disclosureImage: UIImage? = UIImage(named: "arrow"),
                    supplementaryImage: UIImage? = nil,
                    canSelect: Bool = true) -> BasicCell {
         let cell = dequeueCell(BasicCell.self, for: indexPath)
         cell.setTitle(name)
         cell.setIcon(icon)
         cell.setDetail(detail)
+        cell.setDisclosureImage(disclosureImage)
         cell.setSupplementary(supplementaryImage)
-        if !withDisclosure {
-            cell.setDisclosureImage(disclosureImage)
-        }
-        if !canSelect {
-            cell.selectionStyle = .none
-        }
+        cell.selectionStyle = canSelect ? .default : .none
         return cell
     }
 
@@ -36,8 +31,7 @@ extension UITableView {
                    placeholder: UIImage? = nil,
                    detail: String? = nil,
                    indexPath: IndexPath,
-                   withDisclosure: Bool = true,
-                   disclosureImage: UIImage? = nil,
+                   disclosureImage: UIImage? = UIImage(named: "arrow"),
                    supplementaryImage: UIImage? = nil,
                    canSelect: Bool = true) -> BasicCell {
         let cell = dequeueCell(BasicCell.self, for: indexPath)
@@ -45,15 +39,8 @@ extension UITableView {
         cell.setIcon(url: iconURL, placeholder: placeholder)
         cell.setDetail(detail)
         cell.setSupplementary(supplementaryImage)
-        
-        if !withDisclosure {
-            cell.setDisclosureImage(disclosureImage)
-        }
-
-        if !canSelect {
-            cell.selectionStyle = .none
-        }
-
+        cell.setDisclosureImage(disclosureImage)
+        cell.selectionStyle = canSelect ? .default : .none
         return cell
     }
 

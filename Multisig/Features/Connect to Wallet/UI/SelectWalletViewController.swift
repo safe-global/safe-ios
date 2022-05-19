@@ -98,7 +98,7 @@ extension SelectWalletViewController: UITableViewDelegate, UITableViewDataSource
                 name: "Show QR Code",
                 icon: "qrcode",
                 indexPath: indexPath,
-                withDisclosure: false,
+                disclosureImage: nil,
                 canSelect: false
             )
         default:
@@ -108,7 +108,7 @@ extension SelectWalletViewController: UITableViewDelegate, UITableViewDataSource
                 iconURL: wallet.imageSmallUrl,
                 placeholder: UIImage(named: "ico-wallet-placeholder")!,
                 indexPath: indexPath,
-                withDisclosure: false,
+                disclosureImage: nil,
                 canSelect: false
             )
         }
