@@ -317,13 +317,21 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         switch item {
         case Section.OwnerAddresses.ownerInfo(let info):
             guard let ownerIndex = (safeOwners.firstIndex { $0.address == info.address }) else { return nil }
+
+            var actions: [UIContextualAction] = []
+
             let prevOwner = safeOwners.before(ownerIndex)
-            let deleteAction = UIContextualAction(style: .destructive, title: "Remove") {
-                [unowned self] _, _, completion in
-                self.remove(owner: info.address, prevOwner: prevOwner?.address)
-                completion(true)
+
+            if safeOwners.count > 1 {
+                let removeOwnerAction = UIContextualAction(style: .destructive, title: "Remove") {
+                    [unowned self] _, _, completion in
+                    self.remove(owner: info.address, prevOwner: prevOwner?.address)
+                    completion(true)
+                }
+                removeOwnerAction.backgroundColor = .error
+
+                actions.append(removeOwnerAction)
             }
-            deleteAction.backgroundColor = .error
 
             let replaceAction = UIContextualAction(style: .normal, title: "Replace") {
                 [unowned self] _, _, completion in
@@ -332,7 +340,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             }
             replaceAction.backgroundColor = .tertiaryLabel
 
-            return UISwipeActionsConfiguration(actions: [deleteAction, replaceAction])
+            actions.append(replaceAction)
+            return UISwipeActionsConfiguration(actions: actions)
         default:
             return nil
         }
