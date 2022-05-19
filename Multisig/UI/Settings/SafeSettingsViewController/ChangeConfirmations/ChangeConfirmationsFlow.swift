@@ -68,7 +68,7 @@ class ChangeConfirmationsFlowFactory: SafeSettingsFlowFactory {
         confirmations(
             confirmations: Int(safe.threshold ?? 1),
             minConfirmations: 1,
-            maxConfirmations: max(1, (safe.ownersInfo ?? []).count) + 1,
+            maxConfirmations: max(1, (safe.ownersInfo ?? []).count),
             stepNumber: stepNumber,
             maxSteps: maxSteps,
             promptText: "",
