@@ -17,10 +17,10 @@ class AddKeyFlow: UIFlow {
     var createPasscodeFlow: CreatePasscodeFlow!
     var factory: AddKeyFlowFactory
 
-    init(badge: String, factory: AddKeyFlowFactory, navigationController: UINavigationController, completion: @escaping (Bool) -> Void) {
+    init(badge: String, factory: AddKeyFlowFactory, completion: @escaping (Bool) -> Void) {
         self.factory = factory
         self.badgeImageName = badge
-        super.init(navigationController: navigationController, completion: completion)
+        super.init(completion: completion)
     }
 
 
@@ -93,11 +93,11 @@ class AddKeyFlow: UIFlow {
     }
 
     func createPasscode() {
-        createPasscodeFlow = CreatePasscodeFlow(navigationController: navigationController, completion: { [unowned self] _ in
+        createPasscodeFlow = CreatePasscodeFlow(completion: { [unowned self] _ in
             createPasscodeFlow = nil
             didCreatePasscode()
         })
-        createPasscodeFlow.start()
+        push(flow: createPasscodeFlow)
     }
 
     func didCreatePasscode() {

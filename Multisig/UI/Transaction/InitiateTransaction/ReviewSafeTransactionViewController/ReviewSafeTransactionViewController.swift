@@ -28,10 +28,7 @@ class ReviewSafeTransactionViewController: UIViewController {
     var trackingEvent: TrackingEvent = .assetsTransferReview
 
     var safe: Safe!
-    var address: Address!
-    var data: Data?
-    var value: UInt256 = 0
-    var nonce: UInt256String!
+    var nonce: UInt256String?
     var safeTxGas: UInt256String?
     var minimalNonce: UInt256String?
     
@@ -44,18 +41,14 @@ class ReviewSafeTransactionViewController: UIViewController {
 
     var sectionItems = [SectionItem]()
 
-    convenience init(safe: Safe, address: Address, value: UInt256 = 0, data: Data? = nil) {
+    convenience init(safe: Safe) {
         self.init(namedClass: ReviewSafeTransactionViewController.self)
         self.safe = safe
-        self.address = address
-        self.data = data
-        self.value = value
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        assert(address != nil)
         assert(safe != nil)
 
         navigationItem.title = "Review"
@@ -108,14 +101,23 @@ class ReviewSafeTransactionViewController: UIViewController {
     }
 
     private func loadData() {
+        guard
+            let tx = createTransaction(),
+            let chainId = tx.chainId,
+            let safeAddress = tx.safe?.address
+        else { return }
+
         startLoading()
         currentDataTask?.cancel()
-        currentDataTask = App.shared.clientGatewayService.asyncTransactionEstimation(chainId: safe.chain!.id!,
-                                                                   safeAddress: safe.addressValue,
-                                                                   to: address,
-                                                                   value: value,
-                                                                   data: data,
-                                                                   operation: .call) { [weak self] result in
+
+        currentDataTask = App.shared.clientGatewayService.asyncTransactionEstimation(
+            chainId: chainId,
+            safeAddress: safeAddress,
+            to: tx.to.address,
+            value: tx.value.value,
+            data: tx.data?.data,
+            operation: tx.operation
+        ) { [weak self] result in
             guard let `self` = self else { return }
             switch result {
             case .failure(let error):
@@ -232,9 +234,9 @@ class ReviewSafeTransactionViewController: UIViewController {
 
     private func proposeTransaction(transaction: Transaction, keyInfo: KeyInfo, signature: String) {
         currentDataTask = App.shared.clientGatewayService.asyncProposeTransaction(transaction: transaction,
-                                                                             sender: AddressString(keyInfo.address),
-                                                                             signature: signature,
-                                                                             chainId: safe.chain!.id!) { result in
+                                                                                  sender: AddressString(keyInfo.address),
+                                                                                  signature: signature,
+                                                                                  chainId: safe.chain!.id!) { result in
             // NOTE: sometimes the data of the transaction list is not
             // updated right away, we'll give a moment for the backend
             // to catch up before finishing with this request.

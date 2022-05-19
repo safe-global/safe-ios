@@ -20,8 +20,8 @@ class ImportKeyFlow: AddKeyFlow {
         case seed
     }
 
-    init(factory: ImportKeyFlowFactory = ImportKeyFlowFactory(), navigationController: UINavigationController, completion: @escaping (Bool) -> Void) {
-        super.init(badge: KeyType.deviceGenerated.imageName, factory: factory, navigationController: navigationController, completion: completion)
+    init(completion: @escaping (Bool) -> Void) {
+        super.init(badge: KeyType.deviceGenerated.imageName, factory: ImportKeyFlowFactory(), completion: completion)
     }
 
     override func didIntro() {

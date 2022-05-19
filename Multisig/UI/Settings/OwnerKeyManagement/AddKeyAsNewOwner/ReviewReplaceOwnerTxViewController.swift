@@ -6,7 +6,7 @@
 import UIKit
 
 class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
-    private var owner: AddressInfo!
+    private var owner: Address!
     private var ownerToBeReplaced: Address!
     private var previousOwner: Address?
     private var ownersCount: Int = 0
@@ -21,14 +21,13 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
 
     convenience init(
         safe: Safe,
-        owner: AddressInfo,
+        owner: Address,
         ownerToBeReplaced: Address,
         previousOwner: Address?,
         ownersCount: Int,
-        threshold: Int) {
-        self.init(safe: safe,
-                address: owner.address,
-                data: SafeTransactionController.shared.addOwnerWithThresholdData(owner: owner.address, threshold: 0)) //Add tx type swap owner
+        threshold: Int
+    ) {
+        self.init(safe: safe)
         self.owner = owner
         self.ownerToBeReplaced = ownerToBeReplaced
         self.previousOwner = previousOwner
@@ -72,7 +71,7 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
             safe: safe,
             prevOwner: previousOwner,
             oldOwner: ownerToBeReplaced,
-            newOwner: owner.address,
+            newOwner: owner,
             safeTxGas: safeTxGas,
             nonce: nonce
         )
@@ -81,7 +80,7 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
     override func headerCell() -> UITableViewCell {
             let cell = tableView.dequeueCell(ReplaceOwnerTableViewCell.self)
 
-            let (newOwnerName, _) = NamingPolicy.name(for: owner.address,
+            let (newOwnerName, _) = NamingPolicy.name(for: owner,
                                                     info: nil,
                                                     chainId: safe.chain!.id!)
 
@@ -90,7 +89,7 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
                                                 chainId: safe.chain!.id!)
 
             cell.set(
-                newOwner: AddressInfo(address: owner.address, name: newOwnerName),
+                newOwner: AddressInfo(address: owner, name: newOwnerName),
                 oldOwner: AddressInfo(address: ownerToBeReplaced, name: oldOwnerName)
             )
         

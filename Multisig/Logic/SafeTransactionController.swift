@@ -17,7 +17,7 @@ class SafeTransactionController {
 
     private init() { }
 
-    func changeThreshold(safe: Safe, safeTxGas: UInt256String?, nonce: UInt256String, threshold: Int) -> Transaction? {
+    func changeThreshold(safe: Safe, safeTxGas: UInt256String?, nonce: UInt256String?, threshold: Int) -> Transaction? {
         guard let data = changeThresholdData(threshold: threshold) else { return nil }
         let tx = Transaction(safeAddress: safe.addressValue,
                 chainId: safe.chain!.id!,
@@ -26,7 +26,7 @@ class SafeTransactionController {
                 amount: "0",
                 data: data,
                 safeTxGas: safeTxGas ?? "0",
-                nonce: nonce)
+                nonce: nonce ?? "0")
         return tx
 
     }
@@ -38,7 +38,7 @@ class SafeTransactionController {
 
     func addOwnerWithThresholdTransaction(safe: Safe,
                                           safeTxGas: UInt256String?,
-                                          nonce: UInt256String,
+                                          nonce: UInt256String?,
                                           owner: Address,
                                           threshold: Int) -> Transaction? {
         guard let data = addOwnerWithThresholdData(owner: owner, threshold: threshold) else { return nil }
@@ -49,7 +49,7 @@ class SafeTransactionController {
                              amount: "0",
                              data: data,
                              safeTxGas: safeTxGas ?? "0",
-                             nonce: nonce)
+                             nonce: nonce ?? "0")
 
         return tx
     }
@@ -65,7 +65,7 @@ class SafeTransactionController {
                       oldOwner: Address,
                       newOwner: Address,
                       safeTxGas: UInt256String?,
-                      nonce: UInt256String) -> Transaction? {
+                      nonce: UInt256String?) -> Transaction? {
         guard let data = replaceOwnerData(prevOwner: prevOwner, oldOwner: oldOwner, newOwner: newOwner) else { return nil }
         let tx = Transaction(safeAddress: safe.addressValue,
                              chainId: safe.chain!.id!,
@@ -74,7 +74,7 @@ class SafeTransactionController {
                              amount: "0",
                              data: data,
                              safeTxGas: safeTxGas ?? "0",
-                             nonce: nonce)
+                             nonce: nonce ?? "0")
 
         return tx
     }
@@ -92,7 +92,7 @@ class SafeTransactionController {
                      safeTxGas: UInt256String?,
                      prevOwner: Address?,
                      oldOwner: Address,
-                     nonce: UInt256String,
+                     nonce: UInt256String?,
                      threshold: Int) -> Transaction? {
         guard let data = removeOwnerData(prevOwner: prevOwner,
                                          oldOwner: oldOwner,
@@ -106,7 +106,7 @@ class SafeTransactionController {
                              amount: "0",
                              data: data,
                              safeTxGas: safeTxGas ?? "0",
-                             nonce: nonce)
+                             nonce: nonce ?? "0")
 
         return tx
     }

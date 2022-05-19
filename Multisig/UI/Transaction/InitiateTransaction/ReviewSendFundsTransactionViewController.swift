@@ -17,14 +17,12 @@ class ReviewSendFundsTransactionViewController: ReviewSafeTransactionViewControl
     var formattedAmount: String {
         TokenFormatter().string(from: amount, shortFormat: false)
     }
-    
+    var recipient: Address!
     var tokenBalance: TokenBalance!
     
-    convenience init(safe: Safe,
-                     address: Address,
-                     tokenBalance: TokenBalance,
-                     amount: BigDecimal) {
-        self.init(safe: safe, address: address)
+    convenience init(safe: Safe, recipient: Address, tokenBalance: TokenBalance, amount: BigDecimal) {
+        self.init(safe: safe)
+        self.recipient = recipient
         self.amount = amount
         self.tokenBalance = tokenBalance
     }
@@ -46,7 +44,7 @@ class ReviewSendFundsTransactionViewController: ReviewSafeTransactionViewControl
 
     override func createTransaction() -> Transaction? {
         Transaction(safe: safe,
-                    toAddress: address,
+                    toAddress: recipient,
                     tokenAddress: Address(stringLiteral: tokenBalance.address),
                     amount: UInt256String(amount.value),
                     safeTxGas: safeTxGas,
@@ -57,8 +55,8 @@ class ReviewSendFundsTransactionViewController: ReviewSafeTransactionViewControl
         let cell = tableView.dequeueCell(ReviewSendFundsTransactionHeaderTableViewCell.self)
         let prefix = safe.chain!.shortName
         cell.setFromAddress(safe.addressValue, label: safe.name, prefix: prefix)
-        let (name, imageURL) = NamingPolicy.name(for: address, info: nil, chainId: safe.chain!.id!)
-        cell.setToAddress(address, label: name, imageUri: imageURL, prefix: prefix)
+        let (name, imageURL) = NamingPolicy.name(for: recipient, info: nil, chainId: safe.chain!.id!)
+        cell.setToAddress(recipient, label: name, imageUri: imageURL, prefix: prefix)
         cell.setToken(amount: formattedAmount,
                       symbol: tokenBalance.symbol,
                       fiatBalance:  "",
