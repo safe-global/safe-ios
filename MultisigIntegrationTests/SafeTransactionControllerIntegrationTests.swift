@@ -127,6 +127,36 @@ class SafeTransactionControllerIntegrationTests: CoreDataTestCase {
         waitForExpectations(timeout: 15)
     }
 
+    func testRemoveOwner() throws {
+        let oldOwner: Address = "0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0"
+        let safeAddress: Address = "0x193BF1F9655eAA511d2255c0efF1D7693c59d77F"
+        let defaultSafe = createSafe(name: "foo", address: "0x193BF1F9655eAA511d2255c0efF1D7693c59d77F", chain: try! makeChain(id: "4"))
+        let threshold = 1
+
+        let exp = expectation(description: "proposing")
+        let tx = SafeTransactionController.shared.removeOwner(safe: defaultSafe, safeTxGas: nil, prevOwner: nil, oldOwner: oldOwner, nonce: "1", threshold: threshold)!
+        let signature = try SafeTransactionSigner().sign(tx, key: privateKey)
+        let transactionSignature = signature.hexadecimal
+
+        proposeTransaction(
+                transaction: tx,
+                sender: proposingOwner,
+                chainId: rinkebyChainId,
+                signature: transactionSignature
+        ) { result in
+            do {
+                let txDetails = try result.get()
+                print(txDetails)
+            } catch {
+                XCTFail("Failed: \(error)")
+            }
+
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 15)
+    }
+
     // Helper methods
     func proposeTransaction(transaction: Transaction,
                             sender: Address,
