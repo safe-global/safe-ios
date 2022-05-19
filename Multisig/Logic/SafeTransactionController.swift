@@ -11,6 +11,7 @@ import Solidity
 import Ethereum
 import SafeAbi
 import JsonRpc2
+import Json
 
 class SafeTransactionController {
     static let shared = SafeTransactionController()
@@ -150,7 +151,8 @@ class SafeTransactionController {
             }
 
             if let error = response.error {
-                dispatchOnMainThread(completion(.failure(error)))
+                let jsonError = (try? error.data?.convert(to: Json.NSError.self))?.nsError() ?? (error as NSError)
+                dispatchOnMainThread(completion(.failure(jsonError)))
                 return
             }
 
