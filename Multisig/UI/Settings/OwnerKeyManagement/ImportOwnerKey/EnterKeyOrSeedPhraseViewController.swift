@@ -19,11 +19,16 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
     @IBOutlet private weak var scrollView: UIScrollView!
 
     private var nextButton: UIBarButtonItem!
+    private var secureButton: UIBarButtonItem!
 
     private var keyboardBehavior: KeyboardAvoidingBehavior!
 
+    private var enteredText: String = ""
+    private var isSecure: Bool = true
+
     private(set) var seedNode: HDNode?
     private(set) var privateKey: PrivateKey?
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +38,9 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         keyboardBehavior = KeyboardAvoidingBehavior(scrollView: scrollView)
 
         nextButton = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapNextButton(_:)))
-        navigationItem.rightBarButtonItem = nextButton
+        secureButton = UIBarButtonItem(image: secureButtonImage, style: .plain, target: self, action: #selector(didTapSecureButton(_:)))
+
+        navigationItem.rightBarButtonItems = [nextButton, secureButton]
         nextButton.isEnabled = false
 
         descriptionLabel.setStyle(.primary)
@@ -70,8 +77,19 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         keyboardBehavior.stop()
     }
 
+    @objc private func didTapSecureButton(_ sender: Any) {
+        isSecure = !isSecure
+        secureButton.image = secureButtonImage
+        textView.text = isSecure ? secured(enteredText) : enteredText
+        updateTextDependentViews(with: enteredText)
+    }
+
+    var secureButtonImage: UIImage? {
+        isSecure ? UIImage(named: "ico-text-secure") : UIImage(named: "ico-text-insecure")
+    }
+
     @objc private func didTapNextButton(_ sender: Any) {
-        let phrase = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        let phrase = enteredText.trimmingCharacters(in: .whitespacesAndNewlines)
         if isPotentiallyValidSeedPhrase(phrase) {
             nextButton.isEnabled = false
             guard let seedData = BIP39.seedFromMmemonics(phrase),
@@ -120,6 +138,10 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         errorLabel.isHidden = error == nil
         textView.layer.borderColor = error == nil ? UIColor.labelTertiary.cgColor : UIColor.error.cgColor
     }
+
+    private func secured(_ text: String) -> String {
+        text.map { _ in "●" }.joined()
+    }
 }
 
 extension EnterKeyOrSeedPhraseViewController: UITextViewDelegate {
@@ -127,7 +149,23 @@ extension EnterKeyOrSeedPhraseViewController: UITextViewDelegate {
         keyboardBehavior.activeTextView = textView
     }
 
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let oldText = enteredText
+        let newText = (oldText as NSString).replacingCharacters(in: range, with: text)
+        enteredText = newText
+        updateTextDependentViews(with: newText)
+        if isSecure {
+            textView.text = secured(newText)
+            return false
+        }
+        return true
+    }
+
     func textViewDidChange(_ textView: UITextView) {
-        updateTextDependentViews(with: textView.text)
+        // after entering the text via password autofill, the text view shows the text in clear.
+        // This secures text in that case.
+        if isSecure && !textView.text.isEmpty && !textView.text.allSatisfy({ $0 == "●" }) {
+            textView.text = secured(textView.text)
+        }
     }
 }
