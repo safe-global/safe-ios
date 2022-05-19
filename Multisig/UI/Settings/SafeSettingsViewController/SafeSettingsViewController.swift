@@ -311,7 +311,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard isValid(path: indexPath), safe != nil && !safeOwners.isEmpty else { return nil }
+        guard isValid(path: indexPath), let safe = safe, !safe.isReadOnly, !safeOwners.isEmpty else { return nil }
 
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
