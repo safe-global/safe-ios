@@ -22,9 +22,7 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
     var onSuccess: ((SCGModels.TransactionDetails) -> ())?
 
     convenience init(safe: Safe, owner: Address, oldOwnersCount: Int, oldThreshold: Int, newThreshold: Int) {
-        self.init(safe: safe,
-                  ethTransactionRecipient: safe.addressValue,
-                  data: SafeTransactionController.shared.addOwnerWithThresholdData(owner: owner, threshold: newThreshold))
+        self.init(safe: safe)
         self.owner = owner
         self.oldThreshold = oldThreshold
         self.oldOwnersCount = oldOwnersCount

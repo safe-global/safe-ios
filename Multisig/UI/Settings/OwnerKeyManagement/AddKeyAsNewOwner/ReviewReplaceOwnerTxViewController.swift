@@ -25,10 +25,9 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
         ownerToBeReplaced: Address,
         previousOwner: Address?,
         ownersCount: Int,
-        threshold: Int) {
-        self.init(safe: safe,
-                  ethTransactionRecipient: safe.addressValue,
-                data: SafeTransactionController.shared.addOwnerWithThresholdData(owner: owner, threshold: 0)) //Add tx type swap owner
+        threshold: Int
+    ) {
+        self.init(safe: safe)
         self.owner = owner
         self.ownerToBeReplaced = ownerToBeReplaced
         self.previousOwner = previousOwner

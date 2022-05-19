@@ -28,10 +28,7 @@ class ReviewSafeTransactionViewController: UIViewController {
     var trackingEvent: TrackingEvent = .assetsTransferReview
 
     var safe: Safe!
-    var ethTransactionRecipient: Address!
-    var data: Data?
-    var value: UInt256 = 0
-    var nonce: UInt256String!
+    var nonce: UInt256String?
     var safeTxGas: UInt256String?
     var minimalNonce: UInt256String?
     
@@ -44,18 +41,14 @@ class ReviewSafeTransactionViewController: UIViewController {
 
     var sectionItems = [SectionItem]()
 
-    convenience init(safe: Safe, ethTransactionRecipient: Address, value: UInt256 = 0, data: Data? = nil) {
+    convenience init(safe: Safe) {
         self.init(namedClass: ReviewSafeTransactionViewController.self)
         self.safe = safe
-        self.ethTransactionRecipient = ethTransactionRecipient
-        self.data = data
-        self.value = value
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        assert(ethTransactionRecipient != nil)
         assert(safe != nil)
 
         navigationItem.title = "Review"
@@ -108,15 +101,22 @@ class ReviewSafeTransactionViewController: UIViewController {
     }
 
     private func loadData() {
+        guard
+            let tx = createTransaction(),
+            let chainId = tx.chainId,
+            let safeAddress = tx.safe?.address
+        else { return }
+
         startLoading()
         currentDataTask?.cancel()
+
         currentDataTask = App.shared.clientGatewayService.asyncTransactionEstimation(
-            chainId: safe.chain!.id!,
-            safeAddress: safe.addressValue,
-            to: ethTransactionRecipient,
-            value: value,
-            data: data,
-            operation: .call
+            chainId: chainId,
+            safeAddress: safeAddress,
+            to: tx.to.address,
+            value: tx.value.value,
+            data: tx.data?.data,
+            operation: tx.operation
         ) { [weak self] result in
             guard let `self` = self else { return }
             switch result {

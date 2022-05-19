@@ -20,12 +20,7 @@ class ReviewChangeConfirmationsTxViewController: ReviewSafeTransactionViewContro
     var changeConfirmationsFlow: ChangeConfirmationsFlow!
 
     convenience init(safe: Safe, ownersCount: Int, oldThreshold: Int, newThreshold: Int) {
-        self.init(
-                safe: safe,
-                ethTransactionRecipient: safe.addressValue,
-                data: SafeTransactionController.shared.changeThresholdData(threshold: newThreshold)
-        )
-
+        self.init(safe: safe)
         self.ownersCount = ownersCount
         self.oldThreshold = oldThreshold
         self.newThreshold = newThreshold
