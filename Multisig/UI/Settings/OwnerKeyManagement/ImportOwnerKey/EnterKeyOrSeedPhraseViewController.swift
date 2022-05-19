@@ -160,4 +160,12 @@ extension EnterKeyOrSeedPhraseViewController: UITextViewDelegate {
         }
         return true
     }
+
+    func textViewDidChange(_ textView: UITextView) {
+        // after entering the text via password autofill, the text view shows the text in clear.
+        // This secures text in that case.
+        if isSecure && !textView.text.isEmpty && !textView.text.allSatisfy({ $0 == "●" }) {
+            textView.text = secured(textView.text)
+        }
+    }
 }
