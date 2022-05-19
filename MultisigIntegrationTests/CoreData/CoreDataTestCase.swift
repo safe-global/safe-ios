@@ -8,6 +8,7 @@
 
 import XCTest
 import CoreData
+import Version
 @testable import Multisig
 
 class CoreDataTestCase: XCTestCase {
@@ -19,11 +20,12 @@ class CoreDataTestCase: XCTestCase {
     }
 
     @discardableResult
-    func createSafe(name: String, address: String, chain: Chain = Chain.mainnetChain()) -> Safe {
+    func createSafe(name: String, address: String, chain: Chain = Chain.mainnetChain(), contractVersion: String = Version(1, 3, 0).description) -> Safe {
         let safe = Safe(context: context)
         safe.name = name
         safe.address = address
         safe.chain = chain
+        safe.contractVersion = contractVersion
         try! context.save()
         return safe
     }
