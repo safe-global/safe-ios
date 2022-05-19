@@ -230,7 +230,7 @@ class ReviewSafeTransactionViewController: UIViewController {
         return nil
     }
 
-    func proposeTransaction(transaction: Transaction, keyInfo: KeyInfo, signature: String) {
+    private func proposeTransaction(transaction: Transaction, keyInfo: KeyInfo, signature: String) {
         currentDataTask = App.shared.clientGatewayService.asyncProposeTransaction(transaction: transaction,
                                                                              sender: AddressString(keyInfo.address),
                                                                              signature: signature,
