@@ -60,6 +60,8 @@
 		045A175F2833D69F0020484B /* SafeSettingsChangeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045A175E2833D69F0020484B /* SafeSettingsChangeFlow.swift */; };
 		045A17612833DCF30020484B /* AddOwnerFlowFromSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045A17602833DCF30020484B /* AddOwnerFlowFromSettings.swift */; };
 		045A17632833E04B0020484B /* ReplaceOwnerFromSettingsFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045A17622833E04B0020484B /* ReplaceOwnerFromSettingsFlow.swift */; };
+		045A176C283675D50020484B /* WarningTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045A176A283675D50020484B /* WarningTableViewCell.swift */; };
+		045A176D283675D50020484B /* WarningTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045A176B283675D50020484B /* WarningTableViewCell.xib */; };
 		04626EB6265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */; };
 		0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */; };
 		0463F5C126296924009C04FA /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 0463F5C026296924009C04FA /* FirebaseRemoteConfig */; };
@@ -890,6 +892,8 @@
 		045A175E2833D69F0020484B /* SafeSettingsChangeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeSettingsChangeFlow.swift; sourceTree = "<group>"; };
 		045A17602833DCF30020484B /* AddOwnerFlowFromSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerFlowFromSettings.swift; sourceTree = "<group>"; };
 		045A17622833E04B0020484B /* ReplaceOwnerFromSettingsFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceOwnerFromSettingsFlow.swift; sourceTree = "<group>"; };
+		045A176A283675D50020484B /* WarningTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarningTableViewCell.swift; sourceTree = "<group>"; };
+		045A176B283675D50020484B /* WarningTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WarningTableViewCell.xib; sourceTree = "<group>"; };
 		04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeyDetailsViewController.swift; sourceTree = "<group>"; };
 		0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRemoteConfig.swift; sourceTree = "<group>"; };
 		0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyProtectionScreenViewController.swift; sourceTree = "<group>"; };
@@ -1797,6 +1801,15 @@
 			path = DetailAccountCell;
 			sourceTree = "<group>";
 		};
+		045A1769283675D50020484B /* WarningTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				045A176A283675D50020484B /* WarningTableViewCell.swift */,
+				045A176B283675D50020484B /* WarningTableViewCell.xib */,
+			);
+			path = WarningTableViewCell;
+			sourceTree = "<group>";
+		};
 		04626EB3265E6B8D00CC7FC8 /* OwnerKeyDetailsViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1955,6 +1968,7 @@
 		04B4B6F325B9E09C00CFE24B /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				045A1769283675D50020484B /* WarningTableViewCell */,
 				6A7A489D2823A261003278C8 /* SafeOwnerCell */,
 				04077B40278E22C300AF6376 /* ReviewTransactionCells */,
 				0455A43727205897008B772D /* DetailAccountCell */,
@@ -4057,6 +4071,7 @@
 				04D968D5276B872D00CE4A9E /* TransactionViewController.xib in Resources */,
 				5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
+				045A176D283675D50020484B /* WarningTableViewCell.xib in Resources */,
 				0AEEBC80258CE25700F3A6F9 /* WebImageView.xib in Resources */,
 				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
 				550FB1A226691CA300C13D54 /* dapps-mainnet.json in Resources */,
@@ -4215,6 +4230,7 @@
 				0468FB8825912E6800541536 /* HistoryTransactionsViewController.swift in Sources */,
 				55CCD5832750FBFC004EA3E3 /* LedgerBluetoothIssueFooterView.swift in Sources */,
 				55AC9E49248681A100B0BC24 /* LinkButton.swift in Sources */,
+				045A176C283675D50020484B /* WarningTableViewCell.swift in Sources */,
 				0A2AD3BC27ECD6CA00A0A6FD /* QRCodeShareViewController.swift in Sources */,
 				0A8AEB2025A4764F002A3FE1 /* ActionDetailAddressCell.swift in Sources */,
 				9388B98227C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift in Sources */,

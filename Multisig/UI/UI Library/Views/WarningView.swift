@@ -40,6 +40,7 @@ class WarningView: UINibView {
         descriptionLabel.text = description
         descriptionLabel.isHidden = description == nil
     }
+
     @IBAction func actionButtonClicked(_ sender: Any) {
         onClick?()
     }
