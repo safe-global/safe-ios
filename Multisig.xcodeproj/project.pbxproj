@@ -57,6 +57,9 @@
 		04576A0027C7DBCF00881206 /* SafeCreationMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045769FF27C7DBCF00881206 /* SafeCreationMonitor.swift */; };
 		04576A0227C8F26100881206 /* CDEthTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04576A0127C8F26100881206 /* CDEthTransaction.swift */; };
 		04576A0427C933D700881206 /* SafeCreationCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04576A0327C933D700881206 /* SafeCreationCall.swift */; };
+		045A175F2833D69F0020484B /* SafeSettingsChangeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045A175E2833D69F0020484B /* SafeSettingsChangeFlow.swift */; };
+		045A17612833DCF30020484B /* AddOwnerFlowFromSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045A17602833DCF30020484B /* AddOwnerFlowFromSettings.swift */; };
+		045A17632833E04B0020484B /* ReplaceOwnerFromSettingsFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045A17622833E04B0020484B /* ReplaceOwnerFromSettingsFlow.swift */; };
 		04626EB6265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */; };
 		0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */; };
 		0463F5C126296924009C04FA /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 0463F5C026296924009C04FA /* FirebaseRemoteConfig */; };
@@ -335,6 +338,7 @@
 		0A802B9024E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B8F24E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift */; };
 		0A802B9224E5843B0001790F /* PagedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B9124E5843B0001790F /* PagedRequest.swift */; };
 		0A81E310246C062400425DEF /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A81E30F246C062400425DEF /* Icons.swift */; };
+		0A864D282835563D00AE1B36 /* UIFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A864D272835563C00AE1B36 /* UIFlow.swift */; };
 		0A86EE5D25CC2B2B0059876E /* RetryFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A86EE5C25CC2B2B0059876E /* RetryFooterView.swift */; };
 		0A86EE6325CC2B350059876E /* LoadingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A86EE6225CC2B350059876E /* LoadingFooterView.swift */; };
 		0A86EE6925CC2B410059876E /* IdleFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A86EE6825CC2B410059876E /* IdleFooterView.swift */; };
@@ -484,7 +488,6 @@
 		0AE0AFED2805C6B9002594CB /* VerifyPhraseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE0AFEB2805C6B9002594CB /* VerifyPhraseViewController.xib */; };
 		0AE0AFEF2805CC20002594CB /* WordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE0AFEE2805CC20002594CB /* WordView.xib */; };
 		0AE0AFF12805CC2B002594CB /* WordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0AFF02805CC2B002594CB /* WordView.swift */; };
-		0AE19BE6281AC2640048088E /* SafeTransactionIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE19BE5281AC2640048088E /* SafeTransactionIntegrationTests.swift */; };
 		0AE46C87257684B8001DC62B /* LoadSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE46C86257684B8001DC62B /* LoadSafeViewController.swift */; };
 		0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE46C8C257684DF001DC62B /* LoadSafeViewController.xib */; };
 		0AE8C0442579317700E62B34 /* DetailDisclosingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8C0422579317700E62B34 /* DetailDisclosingCell.swift */; };
@@ -884,6 +887,9 @@
 		045769FF27C7DBCF00881206 /* SafeCreationMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCreationMonitor.swift; sourceTree = "<group>"; };
 		04576A0127C8F26100881206 /* CDEthTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDEthTransaction.swift; sourceTree = "<group>"; };
 		04576A0327C933D700881206 /* SafeCreationCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCreationCall.swift; sourceTree = "<group>"; };
+		045A175E2833D69F0020484B /* SafeSettingsChangeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeSettingsChangeFlow.swift; sourceTree = "<group>"; };
+		045A17602833DCF30020484B /* AddOwnerFlowFromSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerFlowFromSettings.swift; sourceTree = "<group>"; };
+		045A17622833E04B0020484B /* ReplaceOwnerFromSettingsFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceOwnerFromSettingsFlow.swift; sourceTree = "<group>"; };
 		04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeyDetailsViewController.swift; sourceTree = "<group>"; };
 		0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRemoteConfig.swift; sourceTree = "<group>"; };
 		0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyProtectionScreenViewController.swift; sourceTree = "<group>"; };
@@ -1136,6 +1142,7 @@
 		0A802B8F24E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeClientGatewayServiceIntegrationTests.swift; sourceTree = "<group>"; };
 		0A802B9124E5843B0001790F /* PagedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagedRequest.swift; sourceTree = "<group>"; };
 		0A81E30F246C062400425DEF /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
+		0A864D272835563C00AE1B36 /* UIFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFlow.swift; sourceTree = "<group>"; };
 		0A86EE5C25CC2B2B0059876E /* RetryFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryFooterView.swift; sourceTree = "<group>"; };
 		0A86EE6225CC2B350059876E /* LoadingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooterView.swift; sourceTree = "<group>"; };
 		0A86EE6825CC2B410059876E /* IdleFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleFooterView.swift; sourceTree = "<group>"; };
@@ -1285,7 +1292,6 @@
 		0AE0AFEB2805C6B9002594CB /* VerifyPhraseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VerifyPhraseViewController.xib; sourceTree = "<group>"; };
 		0AE0AFEE2805CC20002594CB /* WordView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WordView.xib; sourceTree = "<group>"; };
 		0AE0AFF02805CC2B002594CB /* WordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordView.swift; sourceTree = "<group>"; };
-		0AE19BE5281AC2640048088E /* SafeTransactionIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTransactionIntegrationTests.swift; sourceTree = "<group>"; };
 		0AE46C86257684B8001DC62B /* LoadSafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadSafeViewController.swift; sourceTree = "<group>"; };
 		0AE46C8C257684DF001DC62B /* LoadSafeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadSafeViewController.xib; sourceTree = "<group>"; };
 		0AE8C0422579317700E62B34 /* DetailDisclosingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDisclosingCell.swift; sourceTree = "<group>"; };
@@ -2706,7 +2712,6 @@
 				0A3DFF002667D7DA00B45770 /* CoreData */,
 				0A64313F247ED1AA006FD30A /* MultisigIntegrationTests.xctestplan */,
 				0A802B8F24E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift */,
-				0AE19BE5281AC2640048088E /* SafeTransactionIntegrationTests.swift */,
 				0A513A9C2768EBC900F07D5A /* DelegateKeyTests.swift */,
 				5532D4D02449A1E40067505A /* MockLogger.swift */,
 				0A9BC34D2460567200EB9C5D /* ENSIntegrationTests.swift */,
@@ -3475,6 +3480,7 @@
 			isa = PBXGroup;
 			children = (
 				0A5B157928085BC1003AD853 /* BackupFlow.swift */,
+				0A864D272835563C00AE1B36 /* UIFlow.swift */,
 				0AF8D1AB2822DFA20035DCF7 /* CancellableNavigationController.swift */,
 				6A9A770A2804182700C229FC /* BackupIntroViewController.swift */,
 				6A9A770B2804182700C229FC /* BackupIntroViewController.xib */,
@@ -3499,11 +3505,13 @@
 				0A5C0C512818204F0061D96F /* EditConfirmationsViewController.xib */,
 				6A252CF028169352001F0887 /* AddKeyAsOwnerIntroViewController.swift */,
 				6A252CF128169352001F0887 /* AddKeyAsOwnerIntroViewController.xib */,
-				6A386C5E281A9D46003FBCB3 /* ReviewAddOwnerTxViewController.swift */,
 				6A7A489928201697003278C8 /* SafeOwnerPickerViewController.swift */,
 				6A7A489A28201697003278C8 /* SafeOwnerPickerViewController.xib */,
+				045A175E2833D69F0020484B /* SafeSettingsChangeFlow.swift */,
 				0ABC00272823BE6800F42D29 /* AddOwnerFlow.swift */,
+				045A17602833DCF30020484B /* AddOwnerFlowFromSettings.swift */,
 				0ABC00292823D4CD00F42D29 /* ReplaceOwnerFlow.swift */,
+				045A17622833E04B0020484B /* ReplaceOwnerFromSettingsFlow.swift */,
 				04AFFBD1282BBE1900429513 /* RemoveOwnerFlow.swift */,
 				6A386C5E281A9D46003FBCB3 /* ReviewAddOwnerTxViewController.swift */,
 				AD303A2303B63B1408463F64 /* ReviewReplaceOwnerTxViewController.swift */,
@@ -3538,15 +3546,6 @@
 			path = TableViewHeader;
 			sourceTree = "<group>";
 		};
-		AD30347831BBAF9E3E43EEA3 /* ChangeConfirmations */ = {
-			isa = PBXGroup;
-			children = (
-				AD303AD3E32FBAF7FC2B202B /* ChangeConfirmationsFlow.swift */,
-				AD303815FA00D7D2A33A3F8C /* ReviewChangeConfirmationsTxViewController.swift */,
-			);
-			path = ChangeConfirmations;
-			sourceTree = "<group>";
-		};
 		6AAE34E1282A81DD00CCFC95 /* AddOwnerKey */ = {
 			isa = PBXGroup;
 			children = (
@@ -3556,6 +3555,15 @@
 				6AAE34E7282A833D00CCFC95 /* EnterOwnerNameViewController.xib */,
 			);
 			path = AddOwnerKey;
+			sourceTree = "<group>";
+		};
+		AD30347831BBAF9E3E43EEA3 /* ChangeConfirmations */ = {
+			isa = PBXGroup;
+			children = (
+				AD303AD3E32FBAF7FC2B202B /* ChangeConfirmationsFlow.swift */,
+				AD303815FA00D7D2A33A3F8C /* ReviewChangeConfirmationsTxViewController.swift */,
+			);
+			path = ChangeConfirmations;
 			sourceTree = "<group>";
 		};
 		B0D61012F3C4AC13FA79F697 /* Features */ = {
@@ -3912,21 +3920,21 @@
 			);
 			mainGroup = 0A93DD4A2445CC8A00688050;
 			packageReferences = (
-				55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter.git" */,
-				55D3FF63260B2550008ABD2B /* XCRemoteSwiftPackageReference "Kingfisher.git" */,
-				55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit.git" */,
-				55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy.git" */,
-				5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift.git" */,
-				0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk.git" */,
-				5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift.git" */,
-				0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing.git" */,
-				55DA0661269C9411006C9AA5 /* XCRemoteSwiftPackageReference "Version.git" */,
-				0ACCC6E32742991100EC79B9 /* XCRemoteSwiftPackageReference "Web3.swift.git" */,
-				93EE3F732760F49700111F17 /* XCRemoteSwiftPackageReference "intercom-ios.git" */,
-				D80B5A11276B5FAD00D6E024 /* XCRemoteSwiftPackageReference "SkeletonView.git" */,
-				93D9013C27727E2400624B29 /* XCRemoteSwiftPackageReference "WhatsNewKit.git" */,
-				0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift.git" */,
-				0A3E98092806FAD300E90EEC /* XCRemoteSwiftPackageReference "swift-algorithms.git" */,
+				55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */,
+				55D3FF63260B2550008ABD2B /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit" */,
+				55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */,
+				5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift" */,
+				0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift" */,
+				0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+				55DA0661269C9411006C9AA5 /* XCRemoteSwiftPackageReference "Version" */,
+				0ACCC6E32742991100EC79B9 /* XCRemoteSwiftPackageReference "Web3.swift" */,
+				93EE3F732760F49700111F17 /* XCRemoteSwiftPackageReference "intercom-ios" */,
+				D80B5A11276B5FAD00D6E024 /* XCRemoteSwiftPackageReference "SkeletonView" */,
+				93D9013C27727E2400624B29 /* XCRemoteSwiftPackageReference "WhatsNewKit" */,
+				0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift" */,
+				0A3E98092806FAD300E90EEC /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				043350AD2808628E003725E2 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
@@ -4348,12 +4356,14 @@
 				0A6886D12588FC180045CAB5 /* EnterAddressNameViewController.swift in Sources */,
 				0A9366A5278EE8FE001918A9 /* FormViewController.swift in Sources */,
 				55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */,
+				045A17632833E04B0020484B /* ReplaceOwnerFromSettingsFlow.swift in Sources */,
 				0A3DFEFF2667D3D100B45770 /* TestCoreDataStack.swift in Sources */,
 				6AAE34DE282A2F0400CCFC95 /* OwnerHeaderView.swift in Sources */,
 				0468FB9925912E8300541536 /* TransactionListHeaderTableViewCell.swift in Sources */,
 				04CE3F9624B6115200826AEE /* Collectible.swift in Sources */,
 				04CE3FA024B7191E00826AEE /* CollectibleViewModel.swift in Sources */,
 				558836702565385F0014E8C7 /* RemoveCell.swift in Sources */,
+				045A175F2833D69F0020484B /* SafeSettingsChangeFlow.swift in Sources */,
 				0AF1C81225408EA000E28669 /* SegmentViewController.swift in Sources */,
 				0A6C85B2245071510026139E /* Address.swift in Sources */,
 				0A00712A254B379000A57CAF /* UIColor+Styles.swift in Sources */,
@@ -4546,6 +4556,7 @@
 				04273E5826AEE06500A14E95 /* BluetoothController.swift in Sources */,
 				0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */,
 				0439638527077E3D00018F74 /* TransactionEstimationRequest.swift in Sources */,
+				045A17612833DCF30020484B /* AddOwnerFlowFromSettings.swift in Sources */,
 				048D72CD2685DC780095999C /* SelectNetworkTableViewCell.swift in Sources */,
 				0A57C5A42577DC5600420303 /* DetailExpandableTextCell.swift in Sources */,
 				0AF78A3527E0FB21001BAFE0 /* AddKeyNavigationController.swift in Sources */,
@@ -4560,6 +4571,7 @@
 				0A8CDD4927A5AE860020066C /* CreateSafeFormUIModel.swift in Sources */,
 				0A5B157C280863DF003AD853 /* EnterPasscodeViewController.swift in Sources */,
 				D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */,
+				0A864D282835563D00AE1B36 /* UIFlow.swift in Sources */,
 				04576A0227C8F26100881206 /* CDEthTransaction.swift in Sources */,
 				043350B92816D522003725E2 /* ReviewSafeTransactionViewController.swift in Sources */,
 				6A252CF228169352001F0887 /* AddKeyAsOwnerIntroViewController.swift in Sources */,
@@ -4735,7 +4747,6 @@
 				0A9D5CE427D8EC280075A21D /* WCRegistryIntegrationTests.swift in Sources */,
 				6A91EFDC27DA2CF9009E63E9 /* WCAppRegistryRepositoryTests.swift in Sources */,
 				0A9BC35D2460581A00EB9C5D /* ENSIntegrationTests.swift in Sources */,
-				0AE19BE6281AC2640048088E /* SafeTransactionIntegrationTests.swift in Sources */,
 				0A3DFEF82667D22B00B45770 /* MockSecureStore.swift in Sources */,
 				0A3DFEFC2667D2DF00B45770 /* SafeTests.swift in Sources */,
 				0A747198269F1122008E9F2D /* BalancesViewControllerSnapshotTests.swift in Sources */,
@@ -6097,7 +6108,7 @@
 				minimumVersion = 3.0.0;
 			};
 		};
-		0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk.git" */ = {
+		0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
@@ -6105,7 +6116,7 @@
 				minimumVersion = 8.0.0;
 			};
 		};
-		0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift.git" */ = {
+		0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gnosis/WalletConnectSwift.git";
 			requirement = {
@@ -6113,7 +6124,7 @@
 				kind = branch;
 			};
 		};
-		0A3E98092806FAD300E90EEC /* XCRemoteSwiftPackageReference "swift-algorithms.git" */ = {
+		0A3E98092806FAD300E90EEC /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-algorithms.git";
 			requirement = {
@@ -6121,7 +6132,7 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing.git" */ = {
+		0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
 			requirement = {
@@ -6129,7 +6140,7 @@
 				minimumVersion = 1.9.0;
 			};
 		};
-		0ACCC6E32742991100EC79B9 /* XCRemoteSwiftPackageReference "Web3.swift.git" */ = {
+		0ACCC6E32742991100EC79B9 /* XCRemoteSwiftPackageReference "Web3.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gnosis/Web3.swift.git";
 			requirement = {
@@ -6137,7 +6148,7 @@
 				kind = branch;
 			};
 		};
-		5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift.git" */ = {
+		5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sche/resolution-swift.git";
 			requirement = {
@@ -6145,7 +6156,7 @@
 				kind = branch;
 			};
 		};
-		55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy.git" */ = {
+		55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gnosis/SwiftAccessPolicy.git";
 			requirement = {
@@ -6153,7 +6164,7 @@
 				kind = branch;
 			};
 		};
-		5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift.git" */ = {
+		5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gnosis/BlockiesSwift.git";
 			requirement = {
@@ -6161,7 +6172,7 @@
 				kind = branch;
 			};
 		};
-		55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter.git" */ = {
+		55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gnosis/SwiftCryptoTokenFormatter.git";
 			requirement = {
@@ -6169,7 +6180,7 @@
 				minimumVersion = 1.1.0;
 			};
 		};
-		55D3FF63260B2550008ABD2B /* XCRemoteSwiftPackageReference "Kingfisher.git" */ = {
+		55D3FF63260B2550008ABD2B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
@@ -6177,7 +6188,7 @@
 				minimumVersion = 7.0.0;
 			};
 		};
-		55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit.git" */ = {
+		55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/datatheorem/TrustKit.git";
 			requirement = {
@@ -6185,7 +6196,7 @@
 				minimumVersion = 1.7.0;
 			};
 		};
-		55DA0661269C9411006C9AA5 /* XCRemoteSwiftPackageReference "Version.git" */ = {
+		55DA0661269C9411006C9AA5 /* XCRemoteSwiftPackageReference "Version" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mxcl/Version.git";
 			requirement = {
@@ -6193,7 +6204,7 @@
 				minimumVersion = 2.0.1;
 			};
 		};
-		93D9013C27727E2400624B29 /* XCRemoteSwiftPackageReference "WhatsNewKit.git" */ = {
+		93D9013C27727E2400624B29 /* XCRemoteSwiftPackageReference "WhatsNewKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SvenTiigi/WhatsNewKit.git";
 			requirement = {
@@ -6201,7 +6212,7 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		93EE3F732760F49700111F17 /* XCRemoteSwiftPackageReference "intercom-ios.git" */ = {
+		93EE3F732760F49700111F17 /* XCRemoteSwiftPackageReference "intercom-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/intercom/intercom-ios.git";
 			requirement = {
@@ -6209,7 +6220,7 @@
 				minimumVersion = 10.3.5;
 			};
 		};
-		D80B5A11276B5FAD00D6E024 /* XCRemoteSwiftPackageReference "SkeletonView.git" */ = {
+		D80B5A11276B5FAD00D6E024 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
 			requirement = {
@@ -6227,37 +6238,37 @@
 		};
 		0463F5C026296924009C04FA /* FirebaseRemoteConfig */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk.git" */;
+			package = 0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseRemoteConfig;
 		};
 		0463F5C226296924009C04FA /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk.git" */;
+			package = 0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
 		};
 		0463F5C426296924009C04FA /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk.git" */;
+			package = 0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
 		};
 		0A06533227B6C1500008C5F1 /* WalletConnectSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift.git" */;
+			package = 0A06533127B6C1500008C5F1 /* XCRemoteSwiftPackageReference "WalletConnectSwift" */;
 			productName = WalletConnectSwift;
 		};
 		0A29B5612666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk.git" */;
+			package = 0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalyticsWithoutAdIdSupport;
 		};
 		0A2A3A6C26AEBA50005FAEB7 /* SwiftCryptoTokenFormatter */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter.git" */;
+			package = 55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */;
 			productName = SwiftCryptoTokenFormatter;
 		};
 		0A3E980A2806FAD300E90EEC /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0A3E98092806FAD300E90EEC /* XCRemoteSwiftPackageReference "swift-algorithms.git" */;
+			package = 0A3E98092806FAD300E90EEC /* XCRemoteSwiftPackageReference "swift-algorithms" */;
 			productName = Algorithms;
 		};
 		0A5B87E1278633FF000B66EA /* Ethereum */ = {
@@ -6266,67 +6277,67 @@
 		};
 		0A61E83B2670DE68009D68A4 /* SnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing.git" */;
+			package = 0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
 			productName = SnapshotTesting;
 		};
 		0ACCC6E42742991100EC79B9 /* Web3 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0ACCC6E32742991100EC79B9 /* XCRemoteSwiftPackageReference "Web3.swift.git" */;
+			package = 0ACCC6E32742991100EC79B9 /* XCRemoteSwiftPackageReference "Web3.swift" */;
 			productName = Web3;
 		};
 		0ACCC6E62742992600EC79B9 /* Web3 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0ACCC6E32742991100EC79B9 /* XCRemoteSwiftPackageReference "Web3.swift.git" */;
+			package = 0ACCC6E32742991100EC79B9 /* XCRemoteSwiftPackageReference "Web3.swift" */;
 			productName = Web3;
 		};
 		55413670265E438500796F91 /* UnstoppableDomainsResolution */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift.git" */;
+			package = 5541366F265E438500796F91 /* XCRemoteSwiftPackageReference "resolution-swift" */;
 			productName = UnstoppableDomainsResolution;
 		};
 		55888DFE260C4F6200940347 /* SwiftAccessPolicy */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy.git" */;
+			package = 55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */;
 			productName = SwiftAccessPolicy;
 		};
 		5591CEED260C725C0067DFDF /* BlockiesSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift.git" */;
+			package = 5591CEEC260C725B0067DFDF /* XCRemoteSwiftPackageReference "BlockiesSwift" */;
 			productName = BlockiesSwift;
 		};
 		55D3FE8B260A0F88008ABD2B /* SwiftCryptoTokenFormatter */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter.git" */;
+			package = 55D3FE8A260A0F88008ABD2B /* XCRemoteSwiftPackageReference "SwiftCryptoTokenFormatter" */;
 			productName = SwiftCryptoTokenFormatter;
 		};
 		55D3FF64260B2551008ABD2B /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55D3FF63260B2550008ABD2B /* XCRemoteSwiftPackageReference "Kingfisher.git" */;
+			package = 55D3FF63260B2550008ABD2B /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
 		55D3FF8F260B2B21008ABD2B /* TrustKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit.git" */;
+			package = 55D3FF8E260B2B21008ABD2B /* XCRemoteSwiftPackageReference "TrustKit" */;
 			productName = TrustKit;
 		};
 		55DA0662269C9411006C9AA5 /* Version */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 55DA0661269C9411006C9AA5 /* XCRemoteSwiftPackageReference "Version.git" */;
+			package = 55DA0661269C9411006C9AA5 /* XCRemoteSwiftPackageReference "Version" */;
 			productName = Version;
 		};
 		93D9013D27727E2500624B29 /* WhatsNewKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 93D9013C27727E2400624B29 /* XCRemoteSwiftPackageReference "WhatsNewKit.git" */;
+			package = 93D9013C27727E2400624B29 /* XCRemoteSwiftPackageReference "WhatsNewKit" */;
 			productName = WhatsNewKit;
 		};
 		93EE3F742760F49800111F17 /* Intercom */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 93EE3F732760F49700111F17 /* XCRemoteSwiftPackageReference "intercom-ios.git" */;
+			package = 93EE3F732760F49700111F17 /* XCRemoteSwiftPackageReference "intercom-ios" */;
 			productName = Intercom;
 		};
 		D80B5A12276B5FAD00D6E024 /* SkeletonView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D80B5A11276B5FAD00D6E024 /* XCRemoteSwiftPackageReference "SkeletonView.git" */;
+			package = D80B5A11276B5FAD00D6E024 /* XCRemoteSwiftPackageReference "SkeletonView" */;
 			productName = SkeletonView;
 		};
 /* End XCSwiftPackageProductDependency section */

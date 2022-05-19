@@ -17,7 +17,7 @@ class SafeTransactionController {
 
     private init() { }
 
-    func changeThreshold(safe: Safe, safeTxGas: UInt256String?, nonce: UInt256String, threshold: Int) -> Transaction? {
+    func changeThreshold(safe: Safe, safeTxGas: UInt256String?, nonce: UInt256String?, threshold: Int) -> Transaction? {
         guard let data = changeThresholdData(threshold: threshold) else { return nil }
         let tx = Transaction(safeAddress: safe.addressValue,
                 chainId: safe.chain!.id!,
@@ -26,7 +26,7 @@ class SafeTransactionController {
                 amount: "0",
                 data: data,
                 safeTxGas: safeTxGas ?? "0",
-                nonce: nonce)
+                nonce: nonce ?? "0")
         return tx
 
     }
@@ -38,7 +38,7 @@ class SafeTransactionController {
 
     func addOwnerWithThresholdTransaction(safe: Safe,
                                           safeTxGas: UInt256String?,
-                                          nonce: UInt256String,
+                                          nonce: UInt256String?,
                                           owner: Address,
                                           threshold: Int) -> Transaction? {
         guard let data = addOwnerWithThresholdData(owner: owner, threshold: threshold) else { return nil }
@@ -49,7 +49,7 @@ class SafeTransactionController {
                              amount: "0",
                              data: data,
                              safeTxGas: safeTxGas ?? "0",
-                             nonce: nonce)
+                             nonce: nonce ?? "0")
 
         return tx
     }
@@ -65,7 +65,7 @@ class SafeTransactionController {
                       oldOwner: Address,
                       newOwner: Address,
                       safeTxGas: UInt256String?,
-                      nonce: UInt256String) -> Transaction? {
+                      nonce: UInt256String?) -> Transaction? {
         guard let data = replaceOwnerData(prevOwner: prevOwner, oldOwner: oldOwner, newOwner: newOwner) else { return nil }
         let tx = Transaction(safeAddress: safe.addressValue,
                              chainId: safe.chain!.id!,
@@ -74,7 +74,7 @@ class SafeTransactionController {
                              amount: "0",
                              data: data,
                              safeTxGas: safeTxGas ?? "0",
-                             nonce: nonce)
+                             nonce: nonce ?? "0")
 
         return tx
     }
@@ -92,7 +92,7 @@ class SafeTransactionController {
                      safeTxGas: UInt256String?,
                      prevOwner: Address?,
                      oldOwner: Address,
-                     nonce: UInt256String,
+                     nonce: UInt256String?,
                      threshold: Int) -> Transaction? {
         guard let data = removeOwnerData(prevOwner: prevOwner,
                                          oldOwner: oldOwner,
@@ -106,7 +106,7 @@ class SafeTransactionController {
                              amount: "0",
                              data: data,
                              safeTxGas: safeTxGas ?? "0",
-                             nonce: nonce)
+                             nonce: nonce ?? "0")
 
         return tx
     }
@@ -119,33 +119,6 @@ class SafeTransactionController {
         let threshold = Sol.UInt256.init(threshold)
 
         return GnosisSafe_v1_3_0.removeOwner(prevOwner: prevOwner, owner: oldOwner, _threshold: threshold).encode()
-    }
-
-    func proposeTransaction(transaction: Transaction,
-                            sender: Address,
-                            chainId: String,
-                            signature: String,
-                            completion: @escaping (Result<SCGModels.TransactionDetails, Error>) -> Void) -> URLSessionTask? {
-        let task = App.shared.clientGatewayService.asyncProposeTransaction(transaction: transaction,
-                                                                sender: AddressString(sender),
-                                                                signature: signature,
-                                                                chainId: chainId) { result in
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(600)) {
-                switch result {
-                case .failure(let error):
-                    if (error as NSError).code == URLError.cancelled.rawValue &&
-                        (error as NSError).domain == NSURLErrorDomain {
-                        // Estimation was canceled, ignore.
-                        return
-                    }
-
-                default: break
-                }
-
-                completion(result)
-            }
-        }
-        return task
     }
 
     func getOwners(safe: Address, chain: Chain, completion: @escaping (Result<[Address], Error>) -> Void) -> URLSessionTask? {

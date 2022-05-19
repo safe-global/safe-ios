@@ -13,26 +13,34 @@ class EnterOwnerNameViewController: UIViewController {
     var prefix: String?
     var address: Address!
     var name: String?
-    var completion: (Address, String) -> Void = { _, _ in }
+    var completion: (String) -> Void = { _ in }
 
     @IBOutlet weak var identiconView: IdenticonView!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var textField: GNOTextField!
     @IBOutlet weak var disclaimerLabel: UILabel!
     @IBOutlet weak var continueButton: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var buttonBottomConstraint: NSLayoutConstraint!
 
     private var stepLabel: UILabel!
 
     private var debounceTimer: Timer!
     private let debounceDuration: TimeInterval = 0.250
 
+    private var keyboardBehavior: KeyboardAvoidingBehavior!
+
     var stepNumber: Int = 1
     var maxSteps: Int = 3
+    
+    var trackingEvent: TrackingEvent?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "Add owner"
+
+        keyboardBehavior = KeyboardAvoidingBehavior(scrollView: scrollView)
 
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
         stepLabel.textAlignment = .right
@@ -57,11 +65,59 @@ class EnterOwnerNameViewController: UIViewController {
         continueButton.setText("Continue", .filled)
 
         validateName()
+
+        NotificationCenter.default.addObserver(self,
+                                       selector: #selector(willShowKeyboard(_:)),
+                                       name: UIResponder.keyboardWillShowNotification,
+                                       object: nil)
+        NotificationCenter.default.addObserver(self,
+                                       selector: #selector(willHideKeyboard(_:)),
+                                       name: UIResponder.keyboardWillHideNotification,
+                                       object: nil)
+
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        keyboardBehavior.start()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.addOwnerSpecifyName)
+        if let trackingEvent = trackingEvent {
+            Tracker.trackEvent(trackingEvent)
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        keyboardBehavior.stop()
+    }
+
+    @objc func willShowKeyboard(_ notification: NSNotification) {
+        guard
+            let frameEnd = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+            let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber
+        else {
+            return
+        }
+
+        UIView.animate(withDuration: animationDuration.doubleValue) { [weak self] in
+            self?.buttonBottomConstraint?.constant = 16 + frameEnd.cgRectValue.height
+            self?.view?.layoutIfNeeded()
+        }
+    }
+
+    @objc func willHideKeyboard(_ notification: NSNotification) {
+        guard
+            let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber
+        else {
+            return
+        }
+        UIView.animate(withDuration: animationDuration.doubleValue) { [weak self] in
+            self?.buttonBottomConstraint?.constant = 16
+            self?.view?.layoutIfNeeded()
+        }
     }
 
     private func validateName() {
@@ -80,11 +136,16 @@ class EnterOwnerNameViewController: UIViewController {
     }
 
     @IBAction func didTapContinue(_ sender: Any) {
-        completion(address, name!)
+        completion(name!)
     }
 }
 
 extension EnterOwnerNameViewController: UITextFieldDelegate {
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        keyboardBehavior.activeTextField = textField
+    }
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         debounceTimer?.invalidate()
         debounceTimer = Timer.scheduledTimer(withTimeInterval: debounceDuration, repeats: false, block: { [weak self] _ in

@@ -23,13 +23,12 @@ class ReviewRemoveOwnerViewController: ReviewSafeTransactionViewController {
     var onSuccess: ((SCGModels.TransactionDetails) -> ())?
 
     convenience init(safe: Safe, owner: Address, previousOwner: Address?, oldOwnersCount: Int, oldThreshold: Int, newThreshold: Int) {
-        self.init(safe: safe,
-                  address: owner,
-                  data: SafeTransactionController.shared.removeOwnerData(prevOwner: previousOwner, oldOwner: owner, threshold: newThreshold))
+        self.init(safe: safe)
         self.owner = owner
         self.oldThreshold = oldThreshold
         self.oldOwnersCount = oldOwnersCount
         self.newThreshold = newThreshold
+        self.previousOwner = previousOwner
     }
 
     override func viewDidLoad() {

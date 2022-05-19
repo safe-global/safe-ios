@@ -6,27 +6,27 @@
 import Foundation
 import UIKit
 
-class ChangeConfirmationsFlow: UIFlow {
-    var factory: ChangeConfirmationsFlowFactory
-    var safe: Safe
+class ChangeConfirmationsFlow: SafeSettingsChangeFlow {
     var newConfirmations: Int?
     var changeConfirmationsTransactionDetails: SCGModels.TransactionDetails?
 
-    init(safe: Safe, factory: ChangeConfirmationsFlowFactory = .init(), presenter: UIViewController, completion: @escaping (Bool) -> ()) {
-        self.factory = factory
-        self.safe = safe
-        let navigationController = CancellableNavigationController()
-        super.init(navigationController: navigationController, presenter: presenter, completion: completion)
-        navigationController.onCancel = { [unowned self] in
-            stop(success: false)
-        }
+    var changeConfirmationsFlowFactory: ChangeConfirmationsFlowFactory {
+        factory as! ChangeConfirmationsFlowFactory
+    }
+
+    init(safe: Safe, completion: @escaping (_ success: Bool) -> Void) {
+        super.init(safe: safe, factory: ChangeConfirmationsFlowFactory(), completion: completion)
+    }
+
+    override func start() {
+        confirmations()
     }
 
     func confirmations() {
-        let confirmationsVC = factory.confirmations(
-                step: 1,
-                maxSteps: 2,
-                safe: safe
+        let confirmationsVC = changeConfirmationsFlowFactory.confirmations(
+            safe: safe,
+            stepNumber: 1,
+            maxSteps: 2
         ) { [unowned self] newConfirmations in
             self.newConfirmations = newConfirmations
             review()
@@ -36,48 +36,44 @@ class ChangeConfirmationsFlow: UIFlow {
 
     func review() {
         assert(newConfirmations != nil)
-        let reviewVC = factory.review(
+        let reviewVC = changeConfirmationsFlowFactory.review(
                 step: 2,
                 maxSteps: 2,
                 safe: safe,
                 newThreshold: newConfirmations!) { [unowned self] txDetails in
-            changeConfirmationsTransactionDetails = txDetails
+            transaction = txDetails
             success()
         }
         show(reviewVC)
     }
 
     func success() {
-        assert(changeConfirmationsTransactionDetails != nil)
-        let successVC = factory.success { [unowned self] showTxDetails in
+        assert(transaction != nil)
+        let successVC = factory.success (bodyText: "The confirmations will be changed once this transaction is executed.",
+                                         trackingEvent: .changeConfirmationsSuccess){ [unowned self] showTxDetails in
             if showTxDetails {
                 NotificationCenter.default.post(
-                        name: .initiateTxNotificationReceived,
-                        object: self,
-                        userInfo: ["transactionDetails": changeConfirmationsTransactionDetails!])
+                    name: .initiateTxNotificationReceived,
+                    object: self,
+                    userInfo: ["transactionDetails": transaction!])
             }
             stop(success: !showTxDetails)
         }
         show(successVC)
     }
-
-    override func start() {
-        confirmations()
-        super.start()
-    }
 }
 
-class ChangeConfirmationsFlowFactory {
-    func confirmations(step: Int, maxSteps: Int, safe: Safe, completion: @escaping (_ newConfirmations: Int) -> Void) -> EditConfirmationsViewController {
-        let confirmationsVC = EditConfirmationsViewController()
-        confirmationsVC.confirmations = Int(safe.threshold ?? 0)
-        confirmationsVC.minConfirmations = 1
-        confirmationsVC.maxConfirmations = max(1, (safe.ownersInfo ?? []).count)
-        confirmationsVC.stepNumber = step
-        confirmationsVC.maxSteps = maxSteps
-        confirmationsVC.trackingEvent = .changeConfirmations
-        confirmationsVC.completion = completion
-        return confirmationsVC
+class ChangeConfirmationsFlowFactory: SafeSettingsFlowFactory {
+    func confirmations(safe: Safe, stepNumber: Int, maxSteps: Int, completion: @escaping (_ newConfirmations: Int) -> Void) -> EditConfirmationsViewController {
+        confirmations(
+            confirmations: Int(safe.threshold ?? 1),
+            minConfirmations: 1,
+            maxConfirmations: max(1, (safe.ownersInfo ?? []).count) + 1,
+            stepNumber: stepNumber,
+            maxSteps: maxSteps,
+            promptText: "",
+            trackingEvent: .changeConfirmations,
+            completion: completion)
     }
 
     func review(step: Int, maxSteps: Int, safe: Safe, newThreshold: Int, completion: @escaping (SCGModels.TransactionDetails) -> Void) -> ReviewChangeConfirmationsTxViewController {

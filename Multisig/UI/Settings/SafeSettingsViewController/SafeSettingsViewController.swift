@@ -30,7 +30,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     private var changeConfirmationsFlow: ChangeConfirmationsFlow!
     private var removeOwnerFlow: RemoveOwnerFlow!
-
+    private var replaceOwnerFlow: ReplaceOwnerFromSettingsFlow!
+    private var addOwnerFlow: AddOwnerFlowFromSettings!
+    
     enum Section {
         case name(String)
         case requiredConfirmations(String)
@@ -146,7 +148,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                             (error as NSError).domain == NSURLErrorDomain {
                             return
                         }
-                        self.onError(GSError.error(description: "Failed to load safe settings", error: error))
+                        self.onError(GSError.error(description: "Failed to load safe settings", error: GSError.detailedError(from: error)))
                     }
                 case .success(let safeInfo):
                     DispatchQueue.main.async { [weak self] in
@@ -160,7 +162,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 }
             }
         } catch {
-            onError(GSError.error(description: "Failed to load safe settings", error: error))
+            onError(GSError.error(description: "Failed to load safe settings", error: GSError.detailedError(from: error)))
         }
     }
 
@@ -176,7 +178,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
             switch result {
             case .failure(let error):
-                self.onError(GSError.error(description: "Failed to load safe owners", error: error))
+                if (error as NSError).code == URLError.cancelled.rawValue &&
+                    (error as NSError).domain == NSURLErrorDomain {
+                    return
+                }
+                self.onError(GSError.error(description: "Failed to load safe owners", error: GSError.detailedError(from: error)))
             case .success(let owners):
                 self.safeOwners = owners.compactMap { owner in
                     AddressInfo.init(address: owner)
@@ -322,40 +328,62 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         switch item {
         case Section.OwnerAddresses.ownerInfo(let info):
             guard let ownerIndex = (safeOwners.firstIndex { $0.address == info.address }) else { return nil }
+
+            var actions: [UIContextualAction] = []
+
             let prevOwner = safeOwners.before(ownerIndex)
-            let deleteAction = UIContextualAction(style: .destructive, title: "Remove") {
-                [unowned self] _, _, completion in
-                self.remove(owner: info.address, prevOwner: prevOwner?.address)
-                completion(true)
+
+            if safeOwners.count > 1 {
+                let removeOwnerAction = UIContextualAction(style: .destructive, title: "Remove") {
+                    [unowned self] _, _, completion in
+                    self.remove(owner: info.address, prevOwner: prevOwner?.address)
+                    completion(true)
+                }
+                removeOwnerAction.backgroundColor = .error
+
+                actions.append(removeOwnerAction)
             }
-            deleteAction.backgroundColor = .error
 
             let replaceAction = UIContextualAction(style: .normal, title: "Replace") {
                 [unowned self] _, _, completion in
-                // TODO: Display replace owner flow
+                self.replace(owner: info.address, prevOwner: prevOwner?.address)
                 completion(true)
             }
             replaceAction.backgroundColor = .tertiaryLabel
 
-            return UISwipeActionsConfiguration(actions: [deleteAction, replaceAction])
+            actions.append(replaceAction)
+            return UISwipeActionsConfiguration(actions: actions)
         default:
             return nil
         }
     }
 
+    func addOwner() {
+        addOwnerFlow = AddOwnerFlowFromSettings(safe: safe!) { [unowned self] _ in
+            addOwnerFlow = nil
+        }
+        present(flow: addOwnerFlow)
+        Tracker.trackEvent(.addOwnerFromSettings)
+    }
+
+    func replace(owner: Address, prevOwner: Address?) {
+        replaceOwnerFlow = ReplaceOwnerFromSettingsFlow(
+            ownerToReplace: owner,
+            prevOwner: prevOwner,
+            safe: safe!
+        ) { [unowned self] _ in
+            replaceOwnerFlow = nil
+        }
+        present(flow: replaceOwnerFlow)
+        Tracker.trackEvent(.replaceOwnerFromSettings)
+    }
+
     func remove(owner: Address, prevOwner: Address?) {
-        let cancellableNavigationController = CancellableNavigationController()
-        removeOwnerFlow = RemoveOwnerFlow(
-                owner: owner,
-                prevOwner: prevOwner,
-                safe: safe!,
-                navigationController: cancellableNavigationController,
-                presenter: self,
-                completion: { [unowned self] _ in
-                    removeOwnerFlow = nil
-                }
-        )
-        removeOwnerFlow.start()
+        removeOwnerFlow = RemoveOwnerFlow(owner: owner, prevOwner: prevOwner, safe: safe!) { [unowned self] _ in
+            removeOwnerFlow = nil
+        }
+        present(flow: removeOwnerFlow)
+        Tracker.trackEvent(.userRemoveOwnerFromSettings)
     }
 
     private func addressDetailsCell(address: Address,
@@ -422,10 +450,10 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 return
             }
             if !isReadOnly {
-                changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe!, presenter: self, completion: { [unowned self] _ in
+                changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe!) { [unowned self] _ in
                     changeConfirmationsFlow = nil
-                })
-                changeConfirmationsFlow.start()
+                }
+                present(flow: changeConfirmationsFlow)
             }
         case Section.Advanced.advanced(_):
             let advancedSafeSettingsViewController = AdvancedSafeSettingsViewController()
@@ -483,15 +511,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
             ownerHeaderView.onAdd = { [unowned self] in
                 Tracker.trackEvent(.addOwnerFromSettings)
-
-                let enterOwnerAddressVC = EnterOwnerAddressViewController()
-                enterOwnerAddressVC.completion = { [unowned self] in
-                    //TODO Open key details?
-                    self.dismiss(animated: false)
-                }
-                ViewControllerFactory.addCloseButton(enterOwnerAddressVC)
-                let vc = UINavigationController(rootViewController: enterOwnerAddressVC)
-                present(vc, animated: true)
+                addOwner()
             }
 
         case Section.safeVersion(let name):

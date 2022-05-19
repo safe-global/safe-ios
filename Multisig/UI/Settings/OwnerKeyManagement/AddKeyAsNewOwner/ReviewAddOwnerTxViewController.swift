@@ -9,7 +9,7 @@
 import UIKit
 
 class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
-    private var owner: AddressInfo!
+    private var owner: Address!
     private var oldOwnersCount: Int = 0
     private var oldThreshold: Int = 0
     private var newThreshold: Int = 0
@@ -21,10 +21,8 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
 
     var onSuccess: ((SCGModels.TransactionDetails) -> ())?
 
-    convenience init(safe: Safe, owner: AddressInfo, oldOwnersCount: Int, oldThreshold: Int, newThreshold: Int) {
-        self.init(safe: safe,
-                  address: owner.address,
-                  data: SafeTransactionController.shared.addOwnerWithThresholdData(owner: owner.address, threshold: newThreshold))
+    convenience init(safe: Safe, owner: Address, oldOwnersCount: Int, oldThreshold: Int, newThreshold: Int) {
+        self.init(safe: safe)
         self.owner = owner
         self.oldThreshold = oldThreshold
         self.oldOwnersCount = oldOwnersCount
@@ -66,18 +64,18 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
         SafeTransactionController.shared.addOwnerWithThresholdTransaction(safe: safe,
                                                                           safeTxGas: safeTxGas,
                                                                           nonce: nonce,
-                                                                          owner: owner.address,
+                                                                          owner: owner,
                                                                           threshold: newThreshold)
     }
 
     override func headerCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(AddRemoveOwnerTableViewCell.self)
 
-        let (name, _) = NamingPolicy.name(for: owner.address,
+        let (name, _) = NamingPolicy.name(for: owner,
                                                     info: nil,
                                                     chainId: safe.chain!.id!)
 
-        cell.set(owner: AddressInfo(address: owner.address, name: name), action: .addingOwner)
+        cell.set(owner: AddressInfo(address: owner, name: name), action: .addingOwner)
 
         return cell
     }

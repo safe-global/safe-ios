@@ -112,7 +112,7 @@ extension Transaction {
           tokenAddress: Address,
           amount: UInt256String?,
           safeTxGas: UInt256String?,
-          nonce: UInt256String) {
+          nonce: UInt256String?) {
 
         if tokenAddress == Address.zero {
             self.init(safeAddress: safe.addressValue,
@@ -122,7 +122,7 @@ extension Transaction {
                       amount: amount,
                       data: Data(),
                       safeTxGas: safeTxGas,
-                      nonce: nonce)
+                      nonce: nonce ?? "0")
         } else {
             let input = ERC20.transfer(
                 to: Sol.Address(stringLiteral: toAddress.checksummedWithoutPrefix),
@@ -136,7 +136,7 @@ extension Transaction {
                       amount: "0",
                       data: input,
                       safeTxGas: safeTxGas,
-                      nonce: nonce)
+                      nonce: nonce ?? "0")
         }
     }
 

@@ -279,10 +279,10 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
 
     private func startBackup() {
         Tracker.trackEvent(.backupFromKeyDetails)
-        backupFlow = ModalBackupFlow(keyInfo: keyInfo, presenter: self, completion: { success in
+        backupFlow = ModalBackupFlow(keyInfo: keyInfo) { [unowned self] success in
             self.backupFlow = nil
-        })
-        backupFlow?.start()
+        }
+        backupFlow?.modal(from: self)
     }
 
     private func keyTypeCell(type: KeyType, indexPath: IndexPath) -> UITableViewCell {

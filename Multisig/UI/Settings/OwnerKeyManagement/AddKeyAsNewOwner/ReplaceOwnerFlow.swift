@@ -9,20 +9,18 @@
 import Foundation
 import UIKit
 
-class ReplaceOwnerFlow: UIFlow {
-
-    var factory: ReplaceOwnerFlowFactory
-    var safe: Safe
-    var newOwner: AddressInfo
+class ReplaceOwnerFlow: SafeSettingsChangeFlow {
+    var newOwner: Address?
     var ownerToReplace: Address?
     var prevOwner: Address?
-    var replaceOwnerTransactionDetails: SCGModels.TransactionDetails?
 
-    internal init(newOwner: AddressInfo, safe: Safe, factory: ReplaceOwnerFlowFactory = .init(), navigationController: UINavigationController, completion: @escaping (_ success: Bool) -> Void) {
-        self.factory = factory
-        self.safe = safe
+    var replaceOwnerFactory: ReplaceOwnerFlowFactory {
+        factory as! ReplaceOwnerFlowFactory
+    }
+
+    internal init(newOwner: Address?, safe: Safe, completion: @escaping (_ success: Bool) -> Void) {
         self.newOwner = newOwner
-        super.init(navigationController: navigationController, completion: completion)
+        super.init(safe: safe, factory: ReplaceOwnerFlowFactory(), completion: completion)
     }
 
     override func start() {
@@ -30,7 +28,7 @@ class ReplaceOwnerFlow: UIFlow {
     }
 
     func pickOwnerToReplace() {
-        let pickOwnerToReplaceVC = factory.pickOwnerToReplace() { [unowned self] previousOwner, ownerToReplace in
+        let pickOwnerToReplaceVC = replaceOwnerFactory.pickOwnerToReplace() { [unowned self] previousOwner, ownerToReplace in
             self.ownerToReplace = ownerToReplace
             self.prevOwner = previousOwner
             review()
@@ -40,27 +38,29 @@ class ReplaceOwnerFlow: UIFlow {
 
     func review() {
         assert(ownerToReplace != nil)
-        let reviewVC = factory.review(
+        assert(newOwner != nil)
+        let reviewVC = replaceOwnerFactory.review(
             step: 2,
             maxSteps: 2,
             safe: safe,
-            newOwner: newOwner,
+            newOwner: newOwner!,
             ownerToReplace: ownerToReplace!,
             previousOwner: prevOwner) { [unowned self] txDetails in
-                replaceOwnerTransactionDetails = txDetails
+                transaction = txDetails
                 success()
             }
         show(reviewVC)
     }
 
     func success() {
-        assert(replaceOwnerTransactionDetails != nil)
-        let successVC = factory.success { [unowned self] showTxDetails in
+        assert(transaction != nil)
+        let successVC = factory.success (bodyText: "It needs to be confirmed and executed first before the owner will be replaced.",
+                                         trackingEvent: .replaceOwnerSuccess){ [unowned self] showTxDetails in
             if showTxDetails {
                 NotificationCenter.default.post(
                     name: .initiateTxNotificationReceived,
                     object: self,
-                    userInfo: ["transactionDetails": replaceOwnerTransactionDetails!])
+                    userInfo: ["transactionDetails": transaction!])
             }
             stop(success: !showTxDetails)
         }
@@ -68,7 +68,7 @@ class ReplaceOwnerFlow: UIFlow {
     }
 }
 
-class ReplaceOwnerFlowFactory {
+class ReplaceOwnerFlowFactory: SafeSettingsFlowFactory {
 
     func pickOwnerToReplace(onContinue: @escaping (_ previousOwner: Address?, _ ownerToReplace: Address) -> Void) -> SafeOwnerPickerViewController {
         let safeOwnerPickerVC = SafeOwnerPickerViewController()
@@ -80,7 +80,7 @@ class ReplaceOwnerFlowFactory {
         step: Int,
         maxSteps: Int,
         safe: Safe,
-        newOwner: AddressInfo,
+        newOwner: Address,
         ownerToReplace: Address,
         previousOwner: Address?,
         completion: @escaping (SCGModels.TransactionDetails) -> Void
@@ -98,16 +98,5 @@ class ReplaceOwnerFlowFactory {
         addOwnerReviewVC.maxSteps = maxSteps
         addOwnerReviewVC.onSuccess = completion
         return addOwnerReviewVC
-    }
-
-    func success(completion: @escaping (_ showTxDetails: Bool) -> Void) -> SuccessViewController {
-        let successVC = SuccessViewController(
-            titleText: "Your transaction is submitted!",
-            bodyText: "It needs to be confirmed and executed first before the owner will be replaced.",
-            primaryAction: "View transaction details",
-            secondaryAction: "Done",
-            trackingEvent: .replaceOwnerSuccess)
-        successVC.onDone = completion
-        return successVC
     }
 }
