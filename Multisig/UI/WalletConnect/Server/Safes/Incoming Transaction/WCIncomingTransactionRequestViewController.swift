@@ -86,12 +86,11 @@ class WCIncomingTransactionRequestViewController: UIViewController {
         self.keyInfo = keyInfo
 
         var confirmTrackingParams: [String: Any] = ["source": "incoming"]
+        confirmTrackingParams = TrackingEvent.keyTypeParameters(keyInfo, parameters: confirmTrackingParams)
 
         switch keyInfo.keyType {
 
         case .deviceImported, .deviceGenerated:
-            confirmTrackingParams["key_type"] = keyInfo.keyType == .deviceImported ? "imported" : "generated"
-
             DispatchQueue.global().async { [unowned self] in
                 do {
                     let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
@@ -109,10 +108,7 @@ class WCIncomingTransactionRequestViewController: UIViewController {
         case .walletConnect:
             guard presentedViewController == nil else { return }
 
-            confirmTrackingParams["key_type"] = "connected"
-            let connection = WebConnectionController.shared.walletConnection(keyInfo: keyInfo).first
-            let walletName = connection?.remotePeer?.name ?? "Unknown"
-            confirmTrackingParams = Tracker.parametersWithWalletName(walletName, parameters: confirmTrackingParams)
+            confirmTrackingParams = TrackingEvent.parametersWithWalletName(keyInfo, parameters: confirmTrackingParams)
 
             let signVC = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: safe.chain!)
             signVC.onSuccess = { [weak self] signature in
@@ -126,8 +122,6 @@ class WCIncomingTransactionRequestViewController: UIViewController {
             present(vc, animated: true)
 
         case .ledgerNanoX:
-            confirmTrackingParams["key_type"] = "ledger_nano_x"
-
             let request = SignRequest(title: "Confirm Incoming Transaction",
                                       tracking: ["action" : "wc_incoming_confirm"],
                                       signer: keyInfo,

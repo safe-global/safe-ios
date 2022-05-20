@@ -298,3 +298,37 @@ enum TrackingEvent: String, Trackable {
     case reviewChangeConfirmations                  = "screen_review_change_confirmations"
     case changeConfirmationsSuccess                 = "screen_change_confirmations_success"
 }
+
+extension TrackingEvent {
+    static func keyTypeParameters(_ keyInfo: KeyInfo, parameters: [String: Any]? = nil) -> [String: Any] {
+        var parameters = parameters ?? [String: Any]()
+        parameters["key_type"] = keyInfo.keyType.trackingValue
+        return parameters
+    }
+
+    static func parametersWithWalletName(_ keyInfo: KeyInfo, parameters: [String: Any]? = nil) -> [String: Any] {
+        var parameters = parameters ?? [String: Any]()
+        let connection = WebConnectionController.shared.walletConnection(keyInfo: keyInfo).first
+        var walletName = connection?.remotePeer?.name ?? "Unknown"
+        if walletName.count > 100 {
+            walletName = String(walletName.prefix(100))
+        }
+        parameters["wallet"] = walletName
+        return parameters
+    }
+}
+
+extension KeyType {
+    var trackingValue: String {
+        switch self {
+        case .deviceGenerated:
+            return "generated"
+        case .deviceImported:
+            return "imported"
+        case .ledgerNanoX:
+            return "ledger_nano_x"
+        case .walletConnect:
+            return "connected"
+        }
+    }
+}

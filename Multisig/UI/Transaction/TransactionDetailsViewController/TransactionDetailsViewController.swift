@@ -382,9 +382,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                         case .deviceGenerated, .deviceImported:
                             Tracker.trackEvent(.transactionDetailsTransactionConfirmed)
                         case .walletConnect:
-                            let connection = WebConnectionController.shared.walletConnection(keyInfo: keyInfo).first
-                            let walletName = connection?.remotePeer?.name ?? "Unknown"
-                            Tracker.trackEvent(.transactionDetailsTxConfirmedWC, parameters: Tracker.parametersWithWalletName(walletName))
+                            Tracker.trackEvent(.transactionDetailsTxConfirmedWC,
+                                               parameters: TrackingEvent.parametersWithWalletName(keyInfo))
                         case .ledgerNanoX:
                             Tracker.trackEvent(.transactionDetailsTxConfirmedLedgerNanoX)
                         }
