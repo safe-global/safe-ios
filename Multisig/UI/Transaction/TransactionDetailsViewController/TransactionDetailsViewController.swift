@@ -383,7 +383,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                             Tracker.trackEvent(.transactionDetailsTransactionConfirmed)
                         case .walletConnect:
                             Tracker.trackEvent(.transactionDetailsTxConfirmedWC,
-                                               parameters: TrackingEvent.parametersWithWalletName(keyInfo))
+                                               parameters: TrackingEvent.keyTypeParameters(keyInfo))
                         case .ledgerNanoX:
                             Tracker.trackEvent(.transactionDetailsTxConfirmedLedgerNanoX)
                         }

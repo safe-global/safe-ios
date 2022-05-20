@@ -543,37 +543,13 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
             bodyText: "It normally takes some time for a transaction to be executed.",
             primaryAction: "View transaction details",
             secondaryAction: nil,
-            trackingEvent: .executeSuccess
+            trackingEvent: .userTransactionExecuteSubmitted
         )
 
         // track key type
         if let key = self.controller.selectedKey?.key {
-            let trackedKeyType: String
-
-            switch key.keyType {
-            case .deviceImported:
-                trackedKeyType = "imported"
-
-            case .deviceGenerated:
-                trackedKeyType = "generated"
-
-            case .walletConnect:
-                trackedKeyType = "wallet_connect"
-
-            case .ledgerNanoX:
-                trackedKeyType = "ledger_nano_x"
-            }
-
-            let trackingParams = [
-                "keyType": trackedKeyType,
-                "chain_id": self.controller.chainId
-            ]
-            
-            if key.keyType == .walletConnect {
-                successVC.trackingParams = TrackingEvent.parametersWithWalletName(key, parameters: trackingParams)
-            } else {
-                successVC.trackingParams = trackingParams
-            }
+            let trackingParameters: [String: Any] = ["source": "tx_details"]
+            successVC.trackingParams = TrackingEvent.keyTypeParameters(key, parameters: trackingParameters)
         }
 
         successVC.onDone = { [weak self] _ in
@@ -583,5 +559,4 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
 
         self.show(successVC, sender: self)
     }
-
 }

@@ -52,7 +52,6 @@ enum TrackingEvent: String, Trackable {
     case reviewExecutionAdvanced                    = "screen_exec_tx_review_advanced"
     case reviewExecutionSelectKey                   = "screen_select_exec_key"
     case reviewExecutionLedger                      = "screen_exec_tx_ledger_confirm"
-    case executeSuccess                             = "screen_exec_tx_submitted"
     case executeFailure                             = "user_exec_tx_failed"
     case reviewExecutionFieldEdited                 = "user_edit_exec_tx_fee_fields"
     case reviewExecutionSelectedKeyChanged          = "user_select_exec_key_change"
@@ -189,6 +188,14 @@ enum TrackingEvent: String, Trackable {
     // key_type (String): one of [“imported”, “generated”, “ledger_nano_x”, “connected”]
     // wallet (String?): name of the wallet (first 100 chars) for “connected” keys
     case userTransactionConfirmed                   = "user_transaction_confirmed"
+
+    // MARK: Execute transaction
+
+    // chain_id (String): Chain id
+    // source (String): one of [“tx_details”, “ctw”]
+    // keyType: one of [imported, generated, wallet_connect, ledger_nano_x]
+    // wallet (String?): name of the wallet (first 100 chars)
+    case userTransactionExecuteSubmitted            = "user_transaction_exec_submitted"
     
     // MARK: Create Safe
     case createSafe                                 = "screen_cs"
@@ -236,7 +243,6 @@ enum TrackingEvent: String, Trackable {
 
     // MARK: Signature Request
     case webConnectionSignRequest                   = "screen_ctw_eth_sign"
-    case webConnectionSignRequestConfirmed          = "user_ctw_eth_sign_confirmed"
     case webConnectionSignRequestRejected           = "user_ctw_eth_sign_rejected"
 
     // MARK: Send Transaction Request
@@ -303,10 +309,13 @@ extension TrackingEvent {
     static func keyTypeParameters(_ keyInfo: KeyInfo, parameters: [String: Any]? = nil) -> [String: Any] {
         var parameters = parameters ?? [String: Any]()
         parameters["key_type"] = keyInfo.keyType.trackingValue
+        if keyInfo.keyType == .walletConnect {
+            parameters = parametersWithWalletName(keyInfo, parameters: parameters)
+        }
         return parameters
     }
 
-    static func parametersWithWalletName(_ keyInfo: KeyInfo, parameters: [String: Any]? = nil) -> [String: Any] {
+    static private func parametersWithWalletName(_ keyInfo: KeyInfo, parameters: [String: Any]? = nil) -> [String: Any] {
         var parameters = parameters ?? [String: Any]()
         let connection = WebConnectionController.shared.walletConnection(keyInfo: keyInfo).first
         var walletName = connection?.remotePeer?.name ?? "Unknown"

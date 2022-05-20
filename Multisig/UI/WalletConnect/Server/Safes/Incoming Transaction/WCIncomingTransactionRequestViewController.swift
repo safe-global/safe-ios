@@ -72,9 +72,9 @@ class WCIncomingTransactionRequestViewController: UIViewController {
             [unowned self] keyInfo in
 
             // dismiss presented ChooseOwnerKeyViewController right after receiving the completion
-            dismiss(animated: true) {
+            dismiss(animated: true) { [unowned self] in
                 guard let keyInfo = keyInfo else { return }
-                sign(keyInfo: keyInfo)
+                self.sign(keyInfo: keyInfo)
             }
         }
 
@@ -107,8 +107,6 @@ class WCIncomingTransactionRequestViewController: UIViewController {
 
         case .walletConnect:
             guard presentedViewController == nil else { return }
-
-            confirmTrackingParams = TrackingEvent.parametersWithWalletName(keyInfo, parameters: confirmTrackingParams)
 
             let signVC = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: safe.chain!)
             signVC.onSuccess = { [weak self] signature in

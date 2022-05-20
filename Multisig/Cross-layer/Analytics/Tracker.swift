@@ -159,6 +159,7 @@ extension Tracker {
         event.rawValue.starts(with: "screen") ||
             [
                 .userTransactionConfirmed,
+                .userTransactionExecuteSubmitted,
                 .transactionDetailsTransactionConfirmed,
                 .transactionDetailsTxConfirmedWC,
                 .transactionDetailsTransactionRejected,
