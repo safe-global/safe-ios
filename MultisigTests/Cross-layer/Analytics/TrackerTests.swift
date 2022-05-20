@@ -85,11 +85,11 @@ class TestHandler: TrackingHandler {
     var events: [(event: String, parameters: [String: Any]?)] = []
     var properties: [(property: String, value: String)] = []
 
-    func track(event: String, parameters: [String: Any]?) {
+    func track(event: String, parameters: [String: Any]?, file: StaticString = #file, line: UInt = #line, function: StaticString = #function) {
         events.append((event, parameters))
     }
 
-    func setUserProperty(_ value: String, for property: UserProperty) {
+    func setUserProperty(_ value: String, for property: UserProperty, file: StaticString = #file, line: UInt = #line, function: StaticString = #function) {
         properties.append((property: property.rawValue, value: value))
     }
 

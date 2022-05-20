@@ -101,6 +101,9 @@ protocol TrackingHandler: AnyObject {
     /// - Parameters:
     ///   - event: occurred event
     ///   - parameters: optional parameters
+    ///   - file: file name this was called from. Usually #file
+    ///   - line: line in file this was called from. Usually #line
+    ///   - function: function anme this was called from. Usually #function
     func track(event: String, parameters: [String: Any]?, file: StaticString, line: UInt, function: StaticString)
 
     /// Set user property for tracking events.
@@ -108,6 +111,9 @@ protocol TrackingHandler: AnyObject {
     /// - Parameters:
     ///   - value: String value
     ///   - property: UserProperty
+    ///   - file: file name this was called from. Usually #file
+    ///   - line: line in file this was called from. Usually #line
+    ///   - function: function anme this was called from. Usually #function
     func setUserProperty(_ value: String, for property: UserProperty, file: StaticString, line: UInt, function: StaticString)
 
     /// Specifies if tracking should be enabled for tracking handler
