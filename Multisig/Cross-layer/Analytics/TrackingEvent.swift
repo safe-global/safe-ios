@@ -175,15 +175,20 @@ enum TrackingEvent: String, Trackable {
 
     case walletConnectIncomingTransaction           = "screen_wc_incoming_transaction"
     case walletConnectEditParameters                = "screen_wc_edit_parameters"
-    case incomingTxConfirmed                        = "incoming_tx_confirmed"
-    case incomingTxConfirmedWalletConnect           = "incoming_tx_confirmed_wc"
-    case incomingTxConfirmedLedger                  = "incoming_tx_confirmed_ledger_nx"
     case advancedTxParamsOpenedHelp                 = "advanced_tx_params_opened_help"
 
     case ledgerKeyImported                          = "user_ledger_nano_x_key_imported"
     case ledgerSelectDevice                         = "screen_select_ledger_nano_x_device"
     case ledgerSelectKey                            = "screen_select_ledger_nano_x_key"
     case ledgerEnterKeyName                         = "screen_ledger_nano_x_enter_name"
+
+    // MARK: Confirm transactions
+
+    // chain_id (String): Chain id
+    // source (String): one of [“tx_details”, “incoming”, “ctw”]
+    // key_type (String): one of [“imported”, “generated”, “ledger_nano_x”, “connected”]
+    // wallet (String?): name of the wallet (first 100 chars) for “connected” keys
+    case userTransactionConfirmed                   = "user_transaction_confirmed"
     
     // MARK: Create Safe
     case createSafe                                 = "screen_cs"
