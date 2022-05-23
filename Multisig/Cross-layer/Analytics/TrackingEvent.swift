@@ -74,9 +74,6 @@ enum TrackingEvent: String, Trackable {
     case transactionsDetailsAdvanced                = "screen_tx_details_advanced"
     case transactionsDetailsAction                  = "screen_tx_details_action"
     case transactionDetailsActionList               = "screen_tx_details_action_list"
-    case transactionDetailsTransactionRejected      = "user_tx_rejected"
-    case transactionDetailsTxRejectedWC             = "user_tx_rejected_walletconnect"
-    case transactionDetailsTxRejectedLedgerNanoX    = "user_tx_rejected_ledger_nano_x"
 
     case dapps                                      = "screen_dapps"
     case dappsNoSafe                                = "screen_dapps_no_safe"
@@ -186,6 +183,14 @@ enum TrackingEvent: String, Trackable {
     // wallet (String?): name of the wallet (first 100 chars) for “connected” keys
     case userTransactionConfirmed                   = "user_transaction_confirmed"
 
+    // MARK: Reject transactions
+
+    // chain_id (String): Chain id
+    // source (String) = “tx_details”
+    // key_type (String): one of [“imported”, “generated”, “ledger_nano_x”, “connected”]
+    // wallet (String?): name of the wallet (first 100 chars) for “connected” keys
+    case userTransactionRejected                    = "user_transaction_rejected"
+
     // MARK: Execute transaction
 
     // chain_id (String): Chain id
@@ -244,7 +249,6 @@ enum TrackingEvent: String, Trackable {
 
     // MARK: Send Transaction Request
     case webConnectionSendRequest                   = "screen_ctw_eth_send_tx"
-    case webConnectionSendRequestConfirmed          = "user_ctw_eth_send_tx_confirmed"
     case webConnectionSendRequestRejected           = "user_ctw_eth_send_tx_rejected"
 
     // MARK: add delegate key

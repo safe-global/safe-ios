@@ -102,8 +102,9 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
 
     override func didConfirm() {
         userDidSubmit()
-        Tracker.trackEvent(.webConnectionSendRequestConfirmed,
-                           parameters: TrackingEvent.keyTypeParameters(keyInfo))
+        Tracker.trackEvent(.userTransactionExecuteSubmitted,
+                           parameters: TrackingEvent.keyTypeParameters(keyInfo, parameters: ["source": "ctw"])
+        )
     }
 
     func reloadData() {
