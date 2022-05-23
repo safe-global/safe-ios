@@ -160,8 +160,6 @@ extension Tracker {
             [
                 .userTransactionConfirmed,
                 .userTransactionExecuteSubmitted,
-                .transactionDetailsTransactionConfirmed,
-                .transactionDetailsTxConfirmedWC,
                 .transactionDetailsTransactionRejected,
                 .transactionDetailsTxRejectedWC,
                 .dappConnectedWithScanButton,
