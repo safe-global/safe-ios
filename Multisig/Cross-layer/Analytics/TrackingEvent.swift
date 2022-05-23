@@ -316,15 +316,15 @@ extension TrackingEvent {
         return parameters
     }
 
-    static private func parametersWithWalletName(_ keyInfo: KeyInfo, parameters: [String: Any]? = nil) -> [String: Any] {
-        var parameters = parameters ?? [String: Any]()
+    static private func parametersWithWalletName(_ keyInfo: KeyInfo, parameters: [String: Any]) -> [String: Any] {
         let connection = WebConnectionController.shared.walletConnection(keyInfo: keyInfo).first
         var walletName = connection?.remotePeer?.name ?? "Unknown"
         if walletName.count > 100 {
             walletName = String(walletName.prefix(100))
         }
-        parameters["wallet"] = walletName
-        return parameters
+        var updatedParameters = parameters
+        updatedParameters["wallet"] = walletName
+        return updatedParameters
     }
 }
 
