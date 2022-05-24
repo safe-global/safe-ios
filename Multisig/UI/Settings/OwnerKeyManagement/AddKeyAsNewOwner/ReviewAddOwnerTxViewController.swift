@@ -104,4 +104,8 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
     override func onSuccess(transaction: SCGModels.TransactionDetails) {
         onSuccess?(transaction)
     }
+
+    override func getTrackingEvent() -> TrackingEvent {
+        .settingsTxAdvancedParams
+    }
 }

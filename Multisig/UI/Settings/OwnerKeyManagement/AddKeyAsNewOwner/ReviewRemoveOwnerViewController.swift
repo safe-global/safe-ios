@@ -103,4 +103,7 @@ class ReviewRemoveOwnerViewController: ReviewSafeTransactionViewController {
         onSuccess?(transaction)
     }
 
+    override func getTrackingEvent() -> TrackingEvent {
+        .settingsTxAdvancedParams
+    }
 }
