@@ -27,13 +27,11 @@ class EnterOwnerAddressViewController: UIViewController {
     private var name: String?
 
     private var addOwnerFlow: AddOwnerFlow!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         assert(safe?.chain != nil)
-
-        title = "Add owner"
 
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
         stepLabel.textAlignment = .right
