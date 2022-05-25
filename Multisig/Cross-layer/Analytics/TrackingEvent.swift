@@ -52,7 +52,6 @@ enum TrackingEvent: String, Trackable {
     case reviewExecutionAdvanced                    = "screen_exec_tx_review_advanced"
     case reviewExecutionSelectKey                   = "screen_select_exec_key"
     case reviewExecutionLedger                      = "screen_exec_tx_ledger_confirm"
-    case executeSuccess                             = "screen_exec_tx_submitted"
     case executeFailure                             = "user_exec_tx_failed"
     case reviewExecutionFieldEdited                 = "user_edit_exec_tx_fee_fields"
     case reviewExecutionSelectedKeyChanged          = "user_select_exec_key_change"
@@ -75,12 +74,6 @@ enum TrackingEvent: String, Trackable {
     case transactionsDetailsAdvanced                = "screen_tx_details_advanced"
     case transactionsDetailsAction                  = "screen_tx_details_action"
     case transactionDetailsActionList               = "screen_tx_details_action_list"
-    case transactionDetailsTransactionConfirmed     = "user_tx_confirmed"
-    case transactionDetailsTxConfirmedWC            = "user_tx_confirmed_walletconnect"
-    case transactionDetailsTxConfirmedLedgerNanoX   = "user_tx_confirmed_ledger_nano_x"
-    case transactionDetailsTransactionRejected      = "user_tx_rejected"
-    case transactionDetailsTxRejectedWC             = "user_tx_rejected_walletconnect"
-    case transactionDetailsTxRejectedLedgerNanoX    = "user_tx_rejected_ledger_nano_x"
 
     case dapps                                      = "screen_dapps"
     case dappsNoSafe                                = "screen_dapps_no_safe"
@@ -175,15 +168,36 @@ enum TrackingEvent: String, Trackable {
 
     case walletConnectIncomingTransaction           = "screen_wc_incoming_transaction"
     case walletConnectEditParameters                = "screen_wc_edit_parameters"
-    case incomingTxConfirmed                        = "incoming_tx_confirmed"
-    case incomingTxConfirmedWalletConnect           = "incoming_tx_confirmed_wc"
-    case incomingTxConfirmedLedger                  = "incoming_tx_confirmed_ledger_nx"
     case advancedTxParamsOpenedHelp                 = "advanced_tx_params_opened_help"
 
     case ledgerKeyImported                          = "user_ledger_nano_x_key_imported"
     case ledgerSelectDevice                         = "screen_select_ledger_nano_x_device"
     case ledgerSelectKey                            = "screen_select_ledger_nano_x_key"
     case ledgerEnterKeyName                         = "screen_ledger_nano_x_enter_name"
+
+    // MARK: Confirm transactions
+
+    // chain_id (String): Chain id
+    // source (String): one of [“tx_details”, “incoming”, “ctw”]
+    // key_type (String): one of [“imported”, “generated”, “ledger_nano_x”, “connected”]
+    // wallet (String?): name of the wallet (first 100 chars) for “connected” keys
+    case userTransactionConfirmed                   = "user_transaction_confirmed"
+
+    // MARK: Reject transactions
+
+    // chain_id (String): Chain id
+    // source (String) = “tx_details”
+    // key_type (String): one of [“imported”, “generated”, “ledger_nano_x”, “connected”]
+    // wallet (String?): name of the wallet (first 100 chars) for “connected” keys
+    case userTransactionRejected                    = "user_transaction_rejected"
+
+    // MARK: Execute transaction
+
+    // chain_id (String): Chain id
+    // source (String): one of [“tx_details”, “ctw”]
+    // keyType: one of [imported, generated, wallet_connect, ledger_nano_x]
+    // wallet (String?): name of the wallet (first 100 chars)
+    case userTransactionExecuteSubmitted            = "user_transaction_exec_submitted"
     
     // MARK: Create Safe
     case createSafe                                 = "screen_cs"
@@ -231,12 +245,10 @@ enum TrackingEvent: String, Trackable {
 
     // MARK: Signature Request
     case webConnectionSignRequest                   = "screen_ctw_eth_sign"
-    case webConnectionSignRequestConfirmed          = "user_ctw_eth_sign_confirmed"
     case webConnectionSignRequestRejected           = "user_ctw_eth_sign_rejected"
 
     // MARK: Send Transaction Request
     case webConnectionSendRequest                   = "screen_ctw_eth_send_tx"
-    case webConnectionSendRequestConfirmed          = "user_ctw_eth_send_tx_confirmed"
     case webConnectionSendRequestRejected           = "user_ctw_eth_send_tx_rejected"
 
     // MARK: add delegate key
@@ -292,4 +304,41 @@ enum TrackingEvent: String, Trackable {
     case changeConfirmations                        = "screen_change_confirmations"
     case reviewChangeConfirmations                  = "screen_review_change_confirmations"
     case changeConfirmationsSuccess                 = "screen_change_confirmations_success"
+}
+
+extension TrackingEvent {
+    static func keyTypeParameters(_ keyInfo: KeyInfo, parameters: [String: Any]? = nil) -> [String: Any] {
+        var parameters = parameters ?? [String: Any]()
+        parameters["key_type"] = keyInfo.keyType.trackingValue
+        if keyInfo.keyType == .walletConnect {
+            parameters = parametersWithWalletName(keyInfo, parameters: parameters)
+        }
+        return parameters
+    }
+
+    static private func parametersWithWalletName(_ keyInfo: KeyInfo, parameters: [String: Any]) -> [String: Any] {
+        let connection = WebConnectionController.shared.walletConnection(keyInfo: keyInfo).first
+        var walletName = connection?.remotePeer?.name ?? "Unknown"
+        if walletName.count > 100 {
+            walletName = String(walletName.prefix(100))
+        }
+        var updatedParameters = parameters
+        updatedParameters["wallet"] = walletName
+        return updatedParameters
+    }
+}
+
+extension KeyType {
+    var trackingValue: String {
+        switch self {
+        case .deviceGenerated:
+            return "generated"
+        case .deviceImported:
+            return "imported"
+        case .ledgerNanoX:
+            return "ledger_nano_x"
+        case .walletConnect:
+            return "connected"
+        }
+    }
 }

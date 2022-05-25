@@ -377,17 +377,10 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                     DispatchQueue.main.async {
                         NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
                         App.shared.snackbar.show(message: "Confirmation successfully submitted")
-
-                        switch keyInfo.keyType {
-                        case .deviceGenerated, .deviceImported:
-                            Tracker.trackEvent(.transactionDetailsTransactionConfirmed)
-                        case .walletConnect:
-                            let connection = WebConnectionController.shared.walletConnection(keyInfo: keyInfo).first
-                            let walletName = connection?.remotePeer?.name ?? "Unknown"
-                            Tracker.trackEvent(.transactionDetailsTxConfirmedWC, parameters: Tracker.parametersWithWalletName(walletName))
-                        case .ledgerNanoX:
-                            Tracker.trackEvent(.transactionDetailsTxConfirmedLedgerNanoX)
-                        }
+                        Tracker.trackEvent(
+                            .userTransactionConfirmed,
+                            parameters: TrackingEvent.keyTypeParameters(keyInfo, parameters: ["source": "tx_details"])
+                        )
                     }
                 }
 

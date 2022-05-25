@@ -183,14 +183,10 @@ class RejectionConfirmationViewController: UIViewController {
                     case .success(_):
                         NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
 
-                        switch keyInfo.keyType {
-                        case .deviceGenerated, .deviceImported:
-                            Tracker.trackEvent(.transactionDetailsTransactionRejected)
-                        case .walletConnect:
-                            Tracker.trackEvent(.transactionDetailsTxRejectedWC)
-                        case .ledgerNanoX:
-                            Tracker.trackEvent(.transactionDetailsTxRejectedLedgerNanoX)
-                        }
+                        Tracker.trackEvent(
+                            .userTransactionRejected,
+                            parameters: TrackingEvent.keyTypeParameters(keyInfo, parameters: ["source": "tx_details"])
+                        )
 
                         App.shared.snackbar.show(message: "Rejection successfully submitted")
                         self?.navigationController?.popToRootViewController(animated: true)
