@@ -48,6 +48,7 @@ class SafeSettingsFlowFactory {
     func enterOwnerAddress(safe: Safe,
                            stepNumber: Int,
                            maxSteps: Int,
+                           title: String,
                            trackingEvent: TrackingEvent,
                            completion: @escaping (Address, String?) -> Void) -> EnterOwnerAddressViewController {
         let enterOwnerAddressVC = EnterOwnerAddressViewController()
@@ -56,7 +57,7 @@ class SafeSettingsFlowFactory {
         enterOwnerAddressVC.trackingEvent = trackingEvent
         enterOwnerAddressVC.safe = safe
         enterOwnerAddressVC.completion = completion
-
+        enterOwnerAddressVC.title = title
         return enterOwnerAddressVC
     }
 
@@ -64,6 +65,7 @@ class SafeSettingsFlowFactory {
                         address: Address,
                         stepNumber: Int,
                         maxSteps: Int,
+                        title: String,
                         trackingEvent: TrackingEvent,
                         completion: @escaping (String) -> Void) -> EnterOwnerNameViewController {
         let enterNameVC = EnterOwnerNameViewController()
@@ -73,7 +75,8 @@ class SafeSettingsFlowFactory {
         enterNameVC.trackingEvent = trackingEvent
         enterNameVC.stepNumber = stepNumber
         enterNameVC.maxSteps = maxSteps
-        
+        enterNameVC.title = title
+
         return enterNameVC
     }
 

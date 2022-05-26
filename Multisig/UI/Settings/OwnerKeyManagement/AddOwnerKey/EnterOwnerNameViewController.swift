@@ -38,8 +38,6 @@ class EnterOwnerNameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Add owner"
-
         keyboardBehavior = KeyboardAvoidingBehavior(scrollView: scrollView)
 
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
