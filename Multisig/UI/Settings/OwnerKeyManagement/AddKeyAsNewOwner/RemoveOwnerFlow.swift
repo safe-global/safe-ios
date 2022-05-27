@@ -8,6 +8,15 @@
 
 import UIKit
 
+/// Flow for removing owner from a safe.
+///
+/// Expects that an owner to be removed is known in advance.
+///
+/// Screen sequence:
+///
+/// 1. Edit Confirmations
+/// 2. Review
+/// 3. Success
 class RemoveOwnerFlow: SafeSettingsChangeFlow {
     var ownerToRemove: Address?
     var prevOwner: Address?

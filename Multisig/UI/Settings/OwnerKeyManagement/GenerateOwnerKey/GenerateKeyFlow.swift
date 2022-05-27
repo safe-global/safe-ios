@@ -9,6 +9,20 @@
 import Foundation
 import UIKit
 
+/// Flow for generating a new private key
+///
+/// Screen sequence:
+///
+/// 1. Intro (in superclass)
+/// 2. Key is generated
+/// 3. Enter Name (in superclass)
+/// 4. Create Passcode (in superclass)
+/// 5. Backup Key
+/// 6. Add Key as Safe Owner
+/// 6.1. Add as new owner OR
+/// 6.2. Replace existing owner
+/// 7. If user selected 'open tx details' then flow closes.
+/// 7.1. Otherwise, Key Details screen
 class GenerateKeyFlow: AddKeyFlow {
 
     var flowFactory: GenerateKeyFactory {

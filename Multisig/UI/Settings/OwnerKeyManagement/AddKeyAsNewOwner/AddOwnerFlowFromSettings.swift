@@ -9,6 +9,18 @@
 import Foundation
 import UIKit
 
+/// Flow for adding new owner to a safe.
+///
+/// Expected to be opened modally.
+/// Expects that the new owner address is not known.
+///
+/// Screen sequence:
+///
+/// 1. Enter Address
+/// 1.1. If address's name is unknown, then Enter Name
+/// 2. Edit Confirmations (in superclass)
+/// 3. Review (in superclass)
+/// 4. Success (in superclass)
 class AddOwnerFlowFromSettings: AddOwnerFlow {
     var newAddressName: String?
 
