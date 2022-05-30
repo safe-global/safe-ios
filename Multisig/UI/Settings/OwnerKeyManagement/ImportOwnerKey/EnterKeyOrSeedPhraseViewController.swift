@@ -25,6 +25,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
 
     private var enteredText: String = ""
     private var isSecure: Bool = true
+    private var secureSymbol: Character = "⦁"
 
     private(set) var seedNode: HDNode?
     private(set) var privateKey: PrivateKey?
@@ -140,7 +141,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
     }
 
     private func secured(_ text: String) -> String {
-        text.map { _ in "●" }.joined()
+        text.map { _ in String(secureSymbol) }.joined()
     }
 }
 
@@ -164,7 +165,7 @@ extension EnterKeyOrSeedPhraseViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         // after entering the text via password autofill, the text view shows the text in clear.
         // This secures text in that case.
-        if isSecure && !textView.text.isEmpty && !textView.text.allSatisfy({ $0 == "●" }) {
+        if isSecure && !textView.text.isEmpty && !textView.text.allSatisfy({ $0 == secureSymbol }) {
             textView.text = secured(textView.text)
         }
     }
