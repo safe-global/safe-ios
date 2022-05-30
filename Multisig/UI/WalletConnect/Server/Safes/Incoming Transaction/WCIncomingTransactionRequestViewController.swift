@@ -72,9 +72,9 @@ class WCIncomingTransactionRequestViewController: UIViewController {
             [unowned self] keyInfo in
 
             // dismiss presented ChooseOwnerKeyViewController right after receiving the completion
-            dismiss(animated: true) {
+            dismiss(animated: true) { [unowned self] in
                 guard let keyInfo = keyInfo else { return }
-                sign(keyInfo: keyInfo)
+                self.sign(keyInfo: keyInfo)
             }
         }
 
@@ -85,6 +85,9 @@ class WCIncomingTransactionRequestViewController: UIViewController {
     private func sign(keyInfo: KeyInfo) {
         self.keyInfo = keyInfo
 
+        var confirmTrackingParams: [String: Any] = ["source": "incoming"]
+        confirmTrackingParams = TrackingEvent.keyTypeParameters(keyInfo, parameters: confirmTrackingParams)
+
         switch keyInfo.keyType {
 
         case .deviceImported, .deviceGenerated:
@@ -92,7 +95,8 @@ class WCIncomingTransactionRequestViewController: UIViewController {
                 do {
                     let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
                     self.sendConfirmationAndDismiss(signature: signature.hexadecimal,
-                                                    trackingEvent: .incomingTxConfirmed)
+                                                    trackingEvent: .userTransactionConfirmed,
+                                                    trackingParameters: confirmTrackingParams)
                 } catch {
                     DispatchQueue.main.async {
                         App.shared.snackbar.show(
@@ -102,7 +106,18 @@ class WCIncomingTransactionRequestViewController: UIViewController {
             }
 
         case .walletConnect:
-            signWithWalletConnect(transaction, keyInfo: keyInfo)
+            guard presentedViewController == nil else { return }
+
+            let signVC = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: safe.chain!)
+            signVC.onSuccess = { [weak self] signature in
+                DispatchQueue.global().async {
+                    self?.sendConfirmationAndDismiss(signature: signature,
+                                                     trackingEvent: .userTransactionConfirmed,
+                                                     trackingParameters: confirmTrackingParams)
+                }
+            }
+            let vc = ViewControllerFactory.pageSheet(viewController: signVC, halfScreen: true)
+            present(vc, animated: true)
 
         case .ledgerNanoX:
             let request = SignRequest(title: "Confirm Incoming Transaction",
@@ -114,24 +129,12 @@ class WCIncomingTransactionRequestViewController: UIViewController {
 
             vc.completion = { [weak self] signature in
                 DispatchQueue.global().async {
-                    self?.sendConfirmationAndDismiss(signature: signature, trackingEvent: .incomingTxConfirmedLedger)
+                    self?.sendConfirmationAndDismiss(signature: signature,
+                                                     trackingEvent: .userTransactionConfirmed,
+                                                     trackingParameters: confirmTrackingParams)
                 }
             }
         }
-    }
-
-    private func signWithWalletConnect(_ transaction: Transaction, keyInfo: KeyInfo) {
-        guard presentedViewController == nil else { return }
-        
-        let signVC = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: safe.chain!)
-        signVC.onSuccess = { [weak self] signature in
-            DispatchQueue.global().async {
-                self?.sendConfirmationAndDismiss(signature: signature,
-                                                 trackingEvent: .incomingTxConfirmedWalletConnect)
-            }
-        }
-        let vc = ViewControllerFactory.pageSheet(viewController: signVC, halfScreen: true)
-        present(vc, animated: true)
     }
 
     private func sendConfirmationAndDismiss(signature: String, trackingEvent: TrackingEvent, trackingParameters: [String: Any]? = nil) {

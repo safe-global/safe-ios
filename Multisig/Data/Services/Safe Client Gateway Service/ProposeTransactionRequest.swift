@@ -71,6 +71,7 @@ extension SafeClientGatewayService {
                             completion: completion)
     }
 
+    @discardableResult
     func proposeTransaction(transaction: Transaction, sender: AddressString, signature: String, chainId: String) throws -> SCGModels.TransactionDetails? {
         let request = ProposeTransactionRequest(safe: transaction.safe!,
                                                 sender: sender,

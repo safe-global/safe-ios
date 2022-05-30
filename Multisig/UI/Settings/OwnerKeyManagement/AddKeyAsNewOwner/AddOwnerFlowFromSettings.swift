@@ -25,6 +25,7 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
             safe: safe,
             stepNumber: 1,
             maxSteps: 3,
+            title: "Add owner",
             trackingEvent: .addOwnerSelectAddress
         ) { [unowned self] address, resolvedName  in
             newOwner = address
@@ -47,6 +48,7 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
             address: newOwner!,
             stepNumber: 1,
             maxSteps: 3,
+            title: "Add owner",
             trackingEvent: .addOwnerSpecifyName
         ) { [unowned self] name in
             newAddressName = name

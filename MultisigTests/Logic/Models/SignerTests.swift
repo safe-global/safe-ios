@@ -31,8 +31,7 @@ class SignerTests: XCTestCase {
                                                s: EthereumQuantity(signature.s.makeBytes()))
             XCTAssertEqual(pubKey.address.hex(eip55: true), expectedSigner)
         } catch {
-            XCTFail()
-            print("error: \(error)")
+            XCTFail("error: \(error)")
         }
     }
 

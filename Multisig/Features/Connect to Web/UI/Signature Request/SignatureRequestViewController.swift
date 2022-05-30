@@ -224,10 +224,11 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
         }
     }
 
-    private func confirm(signature: Data) {
+    private func confirm(signature: Data, trackingParameters: [String: Any]? = nil) {
+        let trackingParameters: [String: Any] = ["source": "ctw"]
         if let keyInfo = keyInfo {
-            Tracker.trackEvent(.webConnectionSignRequestConfirmed,
-                               parameters: TrackingEvent.keyTypeParameters(keyInfo))
+            Tracker.trackEvent(.userTransactionConfirmed,
+                               parameters: TrackingEvent.keyTypeParameters(keyInfo, parameters: trackingParameters))
         }
         controller.respond(request: request, with: WebConnectionSignatureRequest.response(signature: signature))
     }

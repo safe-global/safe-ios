@@ -101,6 +101,9 @@ protocol TrackingHandler: AnyObject {
     /// - Parameters:
     ///   - event: occurred event
     ///   - parameters: optional parameters
+    ///   - file: file name this was called from. Usually #file
+    ///   - line: line in file this was called from. Usually #line
+    ///   - function: function anme this was called from. Usually #function
     func track(event: String, parameters: [String: Any]?, file: StaticString, line: UInt, function: StaticString)
 
     /// Set user property for tracking events.
@@ -108,6 +111,9 @@ protocol TrackingHandler: AnyObject {
     /// - Parameters:
     ///   - value: String value
     ///   - property: UserProperty
+    ///   - file: file name this was called from. Usually #file
+    ///   - line: line in file this was called from. Usually #line
+    ///   - function: function anme this was called from. Usually #function
     func setUserProperty(_ value: String, for property: UserProperty, file: StaticString, line: UInt, function: StaticString)
 
     /// Specifies if tracking should be enabled for tracking handler
@@ -148,24 +154,12 @@ extension Tracker {
         }
         Tracker.shared.track(event: event, parameters: parameters, file: file, line: line, function: function)
     }
-    
-    static func parametersWithWalletName(_ walletName: String, parameters: [String: Any]? = nil) -> [String: Any] {
-        var parameters = parameters ?? [String: Any]()
-        var walletName = walletName
-        if walletName.count > 100 {
-            walletName = String(walletName.prefix(100))
-        }
-        parameters["wallet"] = walletName
-        return parameters
-    }
 
     private static func shouldAddChainIdParam(for event: TrackingEvent) -> Bool {
         event.rawValue.starts(with: "screen") ||
             [
-                .transactionDetailsTransactionConfirmed,
-                .transactionDetailsTxConfirmedWC,
-                .transactionDetailsTransactionRejected,
-                .transactionDetailsTxRejectedWC,
+                .userTransactionConfirmed,
+                .userTransactionExecuteSubmitted,
                 .dappConnectedWithScanButton,
                 .dappConnectedWithUniversalLink,
                 .selectDapp,
