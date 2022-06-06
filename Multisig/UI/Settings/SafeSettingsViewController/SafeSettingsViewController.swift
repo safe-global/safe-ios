@@ -257,9 +257,10 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.RequiredConfirmations.confirmations(let name):
+            let changeConfirmationDisabled = safe.isReadOnly || safe.ownersInfo?.count ?? 1 < 2 || safeOwners.count < 2
             return tableView.basicCell(name: name,
                                        indexPath: indexPath,
-                                       disclosureImage: safe.isReadOnly ? nil : UIImage(named: "arrow"),
+                                       disclosureImage: changeConfirmationDisabled ? nil : UIImage(named: "arrow"),
                                        canSelect: !safe.isReadOnly)
 
         case Section.OwnerAddresses.ownerInfo(let info):
@@ -446,15 +447,17 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             show(editSafeNameViewController, sender: self)
 
         case Section.RequiredConfirmations.confirmations(_):
-            guard let isReadOnly = safe?.isReadOnly else {
+            guard let safe = safe,
+                  !safe.isReadOnly,
+                  safe.ownersInfo?.count ?? 1 >= 2,
+                  safeOwners.count >= 2 else {
                 return
             }
-            if !isReadOnly {
-                changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe!) { [unowned self] _ in
-                    changeConfirmationsFlow = nil
-                }
-                present(flow: changeConfirmationsFlow)
+
+            changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe) { [unowned self] _ in
+                changeConfirmationsFlow = nil
             }
+            present(flow: changeConfirmationsFlow)
         case Section.Advanced.advanced(_):
             let advancedSafeSettingsViewController = AdvancedSafeSettingsViewController()
             let ribbon = RibbonViewController(rootViewController: advancedSafeSettingsViewController)
