@@ -69,7 +69,7 @@ struct LaunchView: View {
                         // so we can not track on view appear
                         Tracker.trackEvent(.launchTerms)
                     }
-                        .buttonStyle(GNOFilledButtonStyle())
+                        .buttonStyle(GNOFilledWhiteButtonStyle())
                 }
             }
             .padding(.horizontal)
@@ -80,6 +80,7 @@ struct LaunchView: View {
                       isAgreeWithTermsPresented: $showTerms,
                       onStart: onStart)
         })
+        .background(Color.splashBackground)
         .edgesIgnoringSafeArea(.all)
         .onAppear {
             Tracker.trackEvent(.launch)

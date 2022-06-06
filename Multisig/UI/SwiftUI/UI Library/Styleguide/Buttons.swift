@@ -22,6 +22,20 @@ struct GNOFilledButtonStyle: ButtonStyle {
     }
 }
 
+struct GNOFilledWhiteButtonStyle: ButtonStyle {
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .frame(maxWidth: .infinity)
+            .font(.gnoHeadline2)
+            .background(Color.white)
+            .foregroundColor(Color.primary)
+            .cornerRadius(10)
+            .cardShadowTooltip()
+    }
+}
+
 struct GNOBorderedButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -42,7 +56,7 @@ struct GNOBorderedButtonStyle: ButtonStyle {
 struct GNOPlainButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding()
+            .padding(4)
             .font(.gnoBody)
             .foregroundColor(
                 configuration.isPressed ? Color.primaryPressed : .primary)
