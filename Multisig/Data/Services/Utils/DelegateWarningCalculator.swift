@@ -13,7 +13,7 @@ class DelegateWarningCalculator {
         // if txData.to
 
         // for testing. This should replace any false value with true ad thus fail the first test
-        txData.trustedDelegateCallTarget = true
+        // txData.trustedDelegateCallTarget = true
 
         guard var decoded = txData.dataDecoded, decoded.method == "multiSend", let parameters = decoded.parameters else {
             return

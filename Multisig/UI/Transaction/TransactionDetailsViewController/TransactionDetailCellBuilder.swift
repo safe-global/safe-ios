@@ -373,18 +373,6 @@ class TransactionDetailCellBuilder {
 
     // MARK: - Transaction Screen Pieces
 
-//    private func buildDelegateWarning(_ tx: SCGModels.TransactionDetails) {
-//        if let trustedDelegateCallTarget = tx.txData?.trustedDelegateCallTarget {
-//            print("trustedDelegateCallTarget | trustedDelegateCallTarget: \(trustedDelegateCallTarget)")
-//            if !trustedDelegateCallTarget {
-//                print ("trustedDelegateCallTarget | Show warning...")
-//
-//                let cell = newCell(DetailAccountCell.self)
-//                result.append(cell)
-//            }
-//        }
-//    }
-
     func buildTransferHeader(
         address: Address,
         label: String?,
@@ -678,9 +666,9 @@ class TransactionDetailCellBuilder {
                  browseURL: URL? = nil,
                  prefix: String? = nil,
                  showDelegateWarning: Bool = false) {
-        if showDelegateWarning {
-            print("showDelegateWarning: \(showDelegateWarning)")
-        }
+
+        print("\(address.ellipsized()) showDelegateWarning: \(showDelegateWarning)")
+
         let cell = newCell(DetailAccountCell.self)
         cell.setAccount(address: address,
                         label: label,
