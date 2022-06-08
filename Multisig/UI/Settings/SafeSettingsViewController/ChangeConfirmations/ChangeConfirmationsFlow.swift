@@ -14,8 +14,9 @@ class ChangeConfirmationsFlow: SafeSettingsChangeFlow {
         factory as! ChangeConfirmationsFlowFactory
     }
 
-    init(safe: Safe, completion: @escaping (_ success: Bool) -> Void) {
-        super.init(safe: safe, factory: ChangeConfirmationsFlowFactory(), completion: completion)
+    init?(safe: Safe?, completion: @escaping (_ success: Bool) -> Void) {
+        guard Self.canChangeConfirmations(safe: safe) else { return nil }
+        super.init(safe: safe!, factory: ChangeConfirmationsFlowFactory(), completion: completion)
     }
 
     override func start() {
@@ -60,6 +61,10 @@ class ChangeConfirmationsFlow: SafeSettingsChangeFlow {
             stop(success: !showTxDetails)
         }
         show(successVC)
+    }
+
+    static func canChangeConfirmations(safe: Safe?) -> Bool{
+        safe != nil && !safe!.isReadOnly && safe!.ownersInfo?.count ?? 1 >= 2
     }
 }
 
