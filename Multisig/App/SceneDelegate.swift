@@ -202,6 +202,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return termsWindow
     }
 
+    func makeOnboardingWindow() -> UIWindow {
+        let onboardingWindow = makeWindow(scene: scene!)
+        onboardingWindow.rootViewController = OnboardingViewController(completion: { [unowned self] in
+            onOnboardingCompletion()
+            AppSettings.onboardingPresented = true
+        })
+
+        return onboardingWindow
+    }
+
     func onAppUpdateCompletion() {
         if !AppSettings.termsAccepted {
             showWindow(makeTermsWindow())
@@ -218,6 +228,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func onTermsCompletion() {
+        showWindow(makeOnboardingWindow())
+    }
+
+    func onOnboardingCompletion() {
         showMainContentWindow()
     }
 
