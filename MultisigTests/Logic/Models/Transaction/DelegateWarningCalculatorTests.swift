@@ -35,18 +35,13 @@ class DelegateWarningCalculatorTests: XCTestCase {
 
         DelegateWarningCalculator.addMissingTrustedDelegateCallTargets(txData: &txData)
 
-        print("multiSendTxs: decodedData.txData!: \(txData)\n")
-
         XCTAssertFalse(txData.trustedDelegateCallTarget!)
 
         guard let parameters = decodedData.txData?.dataDecoded?.parameters else {
             return
         }
         if case let SCGModels.DataDecoded.Parameter.ValueDecoded.multiSend(multiSendTxs)? = parameters[0].valueDecoded {
-//            print("multiSendTxs: \(multiSendTxs[0])\n")
-//            XCTAssertTrue(multiSendTxs[0].trustedDelegateCallTarget!)
-//            print("multiSendTxs: \(multiSendTxs[1])\n")
-//            XCTAssertTrue(multiSendTxs[1].trustedDelegateCallTarget!)
+            // trustedDelegateCallTarget is nil here
             print("multiSendTxs: \(multiSendTxs[2])\n")
             XCTAssertFalse(multiSendTxs[2].trustedDelegateCallTarget!)
         } else {
