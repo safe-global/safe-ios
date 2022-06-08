@@ -280,7 +280,8 @@ class TransactionDetailCellBuilder {
                         title: "New mastercopy:",
                         imageUri: imageUri,
                         browseURL: chain.browserURL(address: implementation.checksummed),
-                        prefix: chain.shortName)
+                        prefix: chain.shortName,
+                        showDelegateWarning: !(tx.txData?.trustedDelegateCallTarget ?? true))
 
             case .enableModule(let moduleTx):
                 let (label, imageUri) = NamingPolicy.name(for: moduleTx.module, chainId: chain.id!)
@@ -290,7 +291,8 @@ class TransactionDetailCellBuilder {
                         title: "Enable module:",
                         imageUri: imageUri,
                         browseURL: chain.browserURL(address: module.checksummed),
-                        prefix: chain.shortName)
+                        prefix: chain.shortName,
+                        showDelegateWarning: !(tx.txData?.trustedDelegateCallTarget ?? true))
 
             case .disableModule(let moduleTx):
                 let (label, imageUri) = NamingPolicy.name(for: moduleTx.module, chainId: chain.id!)
@@ -300,7 +302,8 @@ class TransactionDetailCellBuilder {
                         title: "Disable module:",
                         imageUri: imageUri,
                         browseURL: chain.browserURL(address: module.checksummed),
-                        prefix: chain.shortName)
+                        prefix: chain.shortName,
+                        showDelegateWarning: !(tx.txData?.trustedDelegateCallTarget ?? true))
                 
             case .setGuard(let guardTx):
                 let (label, imageUri) = NamingPolicy.name(for: guardTx.guard, chainId: chain.id!)
@@ -310,7 +313,8 @@ class TransactionDetailCellBuilder {
                         title: "Set guard:",
                         imageUri: imageUri,
                         browseURL: chain.browserURL(address: guardContract.checksummed),
-                        prefix: chain.shortName)
+                        prefix: chain.shortName,
+                        showDelegateWarning: !(tx.txData?.trustedDelegateCallTarget ?? true))
                 
             case .deleteGuard:
                 text("Delete Guard", title: "Settings change:", expandableTitle: nil, copyText: nil)
@@ -341,13 +345,14 @@ class TransactionDetailCellBuilder {
                 }
             }
 
-
+            //TODO: buildDelegateWarning()
             address(customTx.to.value.address,
                 label: label,
                 title: title,
                 imageUri: addressLogoUri,
                 browseURL: chain.browserURL(address: customTx.to.value.address.checksummed),
-                prefix: chain.shortName
+                prefix: chain.shortName,
+                showDelegateWarning: !(tx.txData?.trustedDelegateCallTarget ?? true)
             )
             buildActions(tx)
             buildHexData(tx)
@@ -367,6 +372,18 @@ class TransactionDetailCellBuilder {
     }
 
     // MARK: - Transaction Screen Pieces
+
+//    private func buildDelegateWarning(_ tx: SCGModels.TransactionDetails) {
+//        if let trustedDelegateCallTarget = tx.txData?.trustedDelegateCallTarget {
+//            print("trustedDelegateCallTarget | trustedDelegateCallTarget: \(trustedDelegateCallTarget)")
+//            if !trustedDelegateCallTarget {
+//                print ("trustedDelegateCallTarget | Show warning...")
+//
+//                let cell = newCell(DetailAccountCell.self)
+//                result.append(cell)
+//            }
+//        }
+//    }
 
     func buildTransferHeader(
         address: Address,
@@ -659,14 +676,19 @@ class TransactionDetailCellBuilder {
                  title: String?,
                  imageUri: URL? = nil,
                  browseURL: URL? = nil,
-                 prefix: String? = nil) {
+                 prefix: String? = nil,
+                 showDelegateWarning: Bool = false) {
+        if showDelegateWarning {
+            print("showDelegateWarning: \(showDelegateWarning)")
+        }
         let cell = newCell(DetailAccountCell.self)
         cell.setAccount(address: address,
                         label: label,
                         title: title,
                         imageUri: imageUri,
                         browseURL: browseURL,
-                        prefix: prefix)
+                        prefix: prefix,
+                        showDelegateWarning: showDelegateWarning)
         result.append(cell)
     }
 

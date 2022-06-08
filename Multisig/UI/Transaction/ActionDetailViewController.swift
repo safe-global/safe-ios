@@ -127,7 +127,8 @@ class ActionDetailViewController: UITableViewController {
                     title: title,
                     imageUri: imageUri,
                     browseURL: chain.browserURL(address: tx.to.address.checksummed),
-                    prefix: chain.shortName
+                    prefix: chain.shortName,
+                    showDelegateWarning: !(tx.trustedDelegateCallTarget ?? true)
             )
             append(txBuilder.result)
         }

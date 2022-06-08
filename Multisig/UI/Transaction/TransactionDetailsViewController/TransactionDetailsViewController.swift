@@ -461,7 +461,10 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         self.tx = transformer.transformed(transaction: self.tx!)
 
         trackScreen()
-
+        if let txData = self.tx!.txData {
+            // Maybe there is a better place to add this. How would I do this while the data is being parsed?
+            DelegateWarningCalculator.addMissingTrustedDelegateCallTargets(txData: txData)
+        }
         cells = builder.build(self.tx!)
     }
 

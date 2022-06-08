@@ -11,6 +11,7 @@ import UIKit
 class DetailAccountCell: UITableViewCell {
     @IBOutlet private weak var addressInfoView: AddressInfoView!
     @IBOutlet private weak var qrCodeView: QRCodeView!
+    @IBOutlet private weak var warningView: WarningView!
 
     func setAccount(address: Address, label: String? = nil,
                     title: String? = nil,
@@ -20,7 +21,8 @@ class DetailAccountCell: UITableViewCell {
                     copyEnabled: Bool = true,
                     browseURL: URL? = nil,
                     prefix: String? = nil,
-                    titleStyle: GNOTextStyle = .headline) {
+                    titleStyle: GNOTextStyle = .headline,
+                    showDelegateWarning: Bool = false) {
         addressInfoView.setAddress(address, label: label,
                                    imageUri: imageUri,
                                    badgeName: badgeName,
@@ -29,6 +31,9 @@ class DetailAccountCell: UITableViewCell {
         addressInfoView.setTitle(title, style: titleStyle)
         qrCodeView.isHidden = !showQRCode
         qrCodeView.value = address.checksummed
+
+        warningView.isHidden = !showDelegateWarning
+        warningView.set(title: "Unexpected DelegateCall")
 
         addressInfoView.copyEnabled = copyEnabled
     }

@@ -25,6 +25,9 @@ class WarningView: UINibView {
         actionButton.setTitle("", for: .normal)
         titleLabel.setStyle(.headline)
         descriptionLabel.setStyle(.secondary)
+
+        //TODO: Add orange line on the left
+        //TODO: Add URL with text Read More
     }
 
     func set(image: UIImage? = nil, title: String? = nil, description: String? = nil) {

@@ -437,6 +437,7 @@ extension SCGModels {
                     var value: UInt256String?
                     var data: DataString?
                     var dataDecoded: DataDecoded?
+                    var trustedDelegateCallTarget: Bool? // Added by DelegateWarningCalculator
                 }
                 
             }
@@ -503,6 +504,7 @@ extension SCGModels {
         var hexData: DataString?
         var dataDecoded: DataDecoded?
         var addressInfoIndex: AddressInfoIndex?
+        var trustedDelegateCallTarget: Bool?
     }
 
     struct SafeAppInfo: Decodable {
