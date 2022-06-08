@@ -20,9 +20,12 @@ class DelegateWarningCalculatorTests: XCTestCase {
         decoder.dateDecodingStrategy = .millisecondsSince1970
         var decodedData = try decoder.decode(SCGModels.TransactionDetails.self, from: data)
 
-        DelegateWarningCalculator.addMissingTrustedDelegateCallTargets(txData: &decodedData.txData!)
+        var txData: SCGModels.TxData = decodedData.txData!
+        XCTAssertFalse(txData.trustedDelegateCallTarget!)
 
-        XCTAssertFalse(decodedData.txData?.trustedDelegateCallTarget ?? true)
+        DelegateWarningCalculator.addMissingTrustedDelegateCallTargets(txData: &txData)
+
+        XCTAssertTrue(txData.trustedDelegateCallTarget!)
     }
 
     func testMultiSendInnerWarning() throws {
@@ -32,11 +35,13 @@ class DelegateWarningCalculatorTests: XCTestCase {
         decoder.dateDecodingStrategy = .millisecondsSince1970
         var decodedData = try decoder.decode(SCGModels.TransactionDetails.self, from: data)
 
-        DelegateWarningCalculator.addMissingTrustedDelegateCallTargets(txData: &decodedData.txData!)
+        var txData: SCGModels.TxData = decodedData.txData!
+        DelegateWarningCalculator.addMissingTrustedDelegateCallTargets(txData: &txData)
 
-        print("multiSendTxs: decodedData.txData!: \(decodedData.txData!)\n")
+        print("multiSendTxs: decodedData.txData!: \(txData)\n")
 
-        XCTAssertFalse(decodedData.txData?.trustedDelegateCallTarget ?? true)
+        XCTAssertFalse(txData.trustedDelegateCallTarget ?? true)
+
         guard let parameters = decodedData.txData?.dataDecoded?.parameters else {
             return
         }
