@@ -18,7 +18,9 @@ class DelegateWarningCalculatorTests: XCTestCase {
         let data = jsonData("DelegateWarningTopLevel")
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .millisecondsSince1970
-        let decodedData = try decoder.decode(SCGModels.TransactionDetails.self, from: data)
+        var decodedData = try decoder.decode(SCGModels.TransactionDetails.self, from: data)
+
+        DelegateWarningCalculator.addMissingTrustedDelegateCallTargets(txData: &decodedData.txData!)
 
         XCTAssertFalse(decodedData.txData?.trustedDelegateCallTarget ?? true)
     }
@@ -31,6 +33,8 @@ class DelegateWarningCalculatorTests: XCTestCase {
         var decodedData = try decoder.decode(SCGModels.TransactionDetails.self, from: data)
 
         DelegateWarningCalculator.addMissingTrustedDelegateCallTargets(txData: &decodedData.txData!)
+
+        print("multiSendTxs: decodedData.txData!: \(decodedData.txData!)\n")
 
         XCTAssertFalse(decodedData.txData?.trustedDelegateCallTarget ?? true)
         guard let parameters = decodedData.txData?.dataDecoded?.parameters else {

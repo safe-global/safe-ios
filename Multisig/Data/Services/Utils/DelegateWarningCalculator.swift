@@ -12,11 +12,14 @@ class DelegateWarningCalculator {
         // TODO check: if operation is DELEGATE then to-address must be in addressInfoIndex otherwise trustedDelegateCallTarget = false
         // if txData.to
 
+        // for testing. This should replace any false value with true ad thus fail the first test
+        txData.trustedDelegateCallTarget = true
+
         if txData.dataDecoded?.method == "multiSend" {
             guard let parameters = txData.dataDecoded?.parameters else {
                 return
             }
-            for parameter in parameters {
+            for var parameter in parameters {
                 if case let SCGModels.DataDecoded.Parameter.ValueDecoded.multiSend(multiSendTxs)? = parameter.valueDecoded {
                     print("--> Multisend: (\(multiSendTxs.count) actions)")
                     for var multiSendTx in multiSendTxs {
