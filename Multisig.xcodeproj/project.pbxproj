@@ -752,7 +752,7 @@
 		AD30333439A0A2388F0749B0 /* ChangeConfirmationsFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303AD3E32FBAF7FC2B202B /* ChangeConfirmationsFlow.swift */; };
 		AD303399362FE10A1FB79BB6 /* ReviewChangeConfirmationsTxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303815FA00D7D2A33A3F8C /* ReviewChangeConfirmationsTxViewController.swift */; };
 		AD303414E96F6CD45E31FBE7 /* WhatsNewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3035EE31CD4171C56B475B /* WhatsNewHandler.swift */; };
-		AD3037813C6EAFD3D4BA259E /* DelegateWarningCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303BF18FC3591AD8AF6FBC /* DelegateWarningCalculatorTests.swift */; };
+		AD30360125D8B1D8735A8CF4 /* DelegateWarningCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303BF18FC3591AD8AF6FBC /* DelegateWarningCalculatorTests.swift */; };
 		AD30396CD3C3B22102CB8156 /* DelegateWarningMultiSend.json in Resources */ = {isa = PBXBuildFile; fileRef = AD30320FB98CBA790C56F472 /* DelegateWarningMultiSend.json */; };
 		AD303ABF1DBCA951A106ECD5 /* ReviewReplaceOwnerTxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303A2303B63B1408463F64 /* ReviewReplaceOwnerTxViewController.swift */; };
 		AD303F546D6DDF8E749E77BE /* DelegateWarningCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD30344347AAE28AEE159D2A /* DelegateWarningCalculator.swift */; };
@@ -4731,7 +4731,6 @@
 				AD30333439A0A2388F0749B0 /* ChangeConfirmationsFlow.swift in Sources */,
 				AD303399362FE10A1FB79BB6 /* ReviewChangeConfirmationsTxViewController.swift in Sources */,
 				AD303F546D6DDF8E749E77BE /* DelegateWarningCalculator.swift in Sources */,
-				AD3037813C6EAFD3D4BA259E /* DelegateWarningCalculatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4763,6 +4762,7 @@
 				0ACC4C4E247534EC00ADF201 /* GnosisSafeTests.swift in Sources */,
 				047300FE24781081004F1200 /* AddressTests.swift in Sources */,
 				0A9BC34A246053AD00EB9C5D /* ENSContractsTests.swift in Sources */,
+				AD30360125D8B1D8735A8CF4 /* DelegateWarningCalculatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
