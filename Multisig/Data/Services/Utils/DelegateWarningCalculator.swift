@@ -15,33 +15,37 @@ class DelegateWarningCalculator {
         // for testing. This should replace any false value with true ad thus fail the first test
         txData.trustedDelegateCallTarget = true
 
-        if txData.dataDecoded?.method == "multiSend" {
-            guard let parameters = txData.dataDecoded?.parameters else {
-                return
-            }
-            for var parameter in parameters {
-                if case let SCGModels.DataDecoded.Parameter.ValueDecoded.multiSend(multiSendTxs)? = parameter.valueDecoded {
-                    print("--> Multisend: (\(multiSendTxs.count) actions)")
-                    for var multiSendTx in multiSendTxs {
-                        if multiSendTx.operation == .delegate {
-                            print("--> Multisend: is DELEGATE, addressInfo: \(txData.addressInfoIndex?.values[multiSendTx.to]?.addressInfo)")
-                            if txData.addressInfoIndex?.values[multiSendTx.to]?.addressInfo == nil {
-                                print("--> Multisend: multiSendTx.trustedDelegateCallTarget = false")
-                                multiSendTx.trustedDelegateCallTarget = false
-                                // TODO: also set surrounding tx trustedDelegateCallTarget to false
-                                txData.trustedDelegateCallTarget = false
-                            } else {
-                                print("--> Multisend: multiSendTx.trustedDelegateCallTarget = true")
-                                multiSendTx.trustedDelegateCallTarget = true
-                            }
-                        } else {
-                            print("--> Multisend: multiSendTx.trustedDelegateCallTarget = true (no delegate)")
-                            multiSendTx.trustedDelegateCallTarget = true
-                        }
-                        print("--> Multisend TX trustedDelegateCallTarget: \(multiSendTx.trustedDelegateCallTarget!)")
-                    }
-                }
-            }
+        guard var decoded = txData.dataDecoded, decoded.method == "multiSend", let parameters = decoded.parameters else {
+            return
         }
+
+        decoded.parameters = parameters.map { parameter in
+            guard case let SCGModels.DataDecoded.Parameter.ValueDecoded.multiSend(multiSendTxs)? = parameter.valueDecoded else {
+                return parameter
+            }
+
+            let modifiedMultiSendTxList: [SCGModels.DataDecoded.Parameter.ValueDecoded.MultiSendTx] = multiSendTxs.map { multiSendTx in
+                var modifiedMultiSendTx = multiSendTx
+
+                let isUntrusted =
+                    multiSendTx.operation == .delegate && txData.addressInfoIndex?.values[multiSendTx.to]?.addressInfo == nil
+
+                modifiedMultiSendTx.trustedDelegateCallTarget = !isUntrusted
+
+                if isUntrusted {
+                    txData.trustedDelegateCallTarget = false
+                }
+                
+                return modifiedMultiSendTx
+            }
+
+            var modifiedParameter = parameter
+            modifiedParameter.valueDecoded = SCGModels.DataDecoded.Parameter.ValueDecoded.multiSend(modifiedMultiSendTxList)
+            return modifiedParameter
+        }
+
+        txData.dataDecoded = decoded
+
+        return
     }
 }
