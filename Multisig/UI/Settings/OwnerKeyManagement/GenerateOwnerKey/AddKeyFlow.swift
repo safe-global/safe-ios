@@ -9,6 +9,17 @@
 import Foundation
 import UIKit
 
+
+/// Basis for flows that add private key
+///
+/// 1. Intro screen
+/// 2. Override didIntro() to implement actual key input
+/// 3. Call didGetKey() at some point to continue
+/// 4. Enter Name screen
+/// 5. Override doImport() to save key and entered name
+/// 6. (optional) override didImport()
+/// 7. Create Passcode screen
+/// 8. (optional) override didCreatePasscode()
 class AddKeyFlow: UIFlow {
     var privateKey: PrivateKey?
     var keyName: String?
@@ -17,6 +28,11 @@ class AddKeyFlow: UIFlow {
     var createPasscodeFlow: CreatePasscodeFlow!
     var factory: AddKeyFlowFactory
 
+    /// Constructor
+    /// - Parameters:
+    ///   - badge: image name for a 'type' of the key in the identicons
+    ///   - factory: screen factory
+    ///   - completion: completion block called when flow ends. Argument is `true` when flow successful.
     init(badge: String, factory: AddKeyFlowFactory, completion: @escaping (Bool) -> Void) {
         self.factory = factory
         self.badgeImageName = badge

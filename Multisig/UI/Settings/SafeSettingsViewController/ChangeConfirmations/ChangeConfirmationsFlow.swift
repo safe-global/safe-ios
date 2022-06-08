@@ -6,6 +6,13 @@
 import Foundation
 import UIKit
 
+/// Flow for changing required number of transaction confirmations in the safe.
+///
+/// Screen sequence:
+///
+/// 1. Edit Confirmations
+/// 2. Review
+/// 3. Success
 class ChangeConfirmationsFlow: SafeSettingsChangeFlow {
     var newConfirmations: Int?
     var changeConfirmationsTransactionDetails: SCGModels.TransactionDetails?

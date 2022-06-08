@@ -9,6 +9,12 @@
 import Foundation
 import UIKit
 
+/// Flow for creating a passcode
+///
+/// Screen sequence:
+///
+/// 1. Create Passcode
+/// 1.1. Nothing, if the passcode already created.
 class CreatePasscodeFlow: UIFlow {
     var factory: PasscodeFlowFactory
 
