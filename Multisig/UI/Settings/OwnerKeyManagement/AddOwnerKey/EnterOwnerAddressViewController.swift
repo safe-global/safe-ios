@@ -26,8 +26,6 @@ class EnterOwnerAddressViewController: UIViewController {
     private var address: Address?
     private var name: String?
 
-    private var addOwnerFlow: AddOwnerFlow!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
