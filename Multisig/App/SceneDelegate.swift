@@ -206,7 +206,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let onboardingWindow = makeWindow(scene: scene!)
         onboardingWindow.rootViewController = OnboardingViewController(completion: { [unowned self] in
             onOnboardingCompletion()
-            AppSettings.onboardingPresented = true
         })
 
         return onboardingWindow
