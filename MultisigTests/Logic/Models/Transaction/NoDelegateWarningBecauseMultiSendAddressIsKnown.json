@@ -77,8 +77,8 @@
               }
             },
             {
-              "operation": 0,
-              "to": "0xeD1dA5365ff0a4915b10F4E9d2433f9608a83c78",
+              "operation": 1,
+              "to": "0xc7AD46e0b8a400Bb3C915120d284AafbA8fc4735",
               "value": "100000000000000",
               "data": "0xd0e30db0",
               "dataDecoded": {
@@ -97,7 +97,6 @@
     },
     "value": "0",
     "operation": 0,
-    "trustedDelegateCallTarget": false,
     "addressInfoIndex": {
       "0xc7AD46e0b8a400Bb3C915120d284AafbA8fc4735": {
         "value": "0xc7AD46e0b8a400Bb3C915120d284AafbA8fc4735",
