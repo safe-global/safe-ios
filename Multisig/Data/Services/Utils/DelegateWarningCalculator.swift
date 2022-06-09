@@ -7,50 +7,6 @@ import Foundation
 
 // used to enhance txData to contain trustedDelegateCallTarget flags in every displayed tx (also multisend inner txs)
 class DelegateWarningCalculator {
-
-    static func addMissingTrustedDelegateCallTargets(txData: inout SCGModels.TxData) {
-
-        // TODO check: if operation is DELEGATE then to-address must be in addressInfoIndex otherwise trustedDelegateCallTarget = false
-        // if txData.to
-
-        // for testing. This should replace any false value with true ad thus fail the first test
-        // txData.trustedDelegateCallTarget = true
-
-        guard var decoded = txData.dataDecoded, decoded.method == "multiSend", let parameters = decoded.parameters else {
-            return
-        }
-
-        decoded.parameters = parameters.map { parameter in
-            guard case let SCGModels.DataDecoded.Parameter.ValueDecoded.multiSend(multiSendTxs)? = parameter.valueDecoded else {
-                return parameter
-            }
-
-            let modifiedMultiSendTxList: [SCGModels.DataDecoded.Parameter.ValueDecoded.MultiSendTx] = multiSendTxs.map { multiSendTx in
-                var modifiedMultiSendTx = multiSendTx
-
-                let isUntrusted =
-                    multiSendTx.operation == .delegate && txData.addressInfoIndex?.values[multiSendTx.to]?.addressInfo == nil
-
-                modifiedMultiSendTx.trustedDelegateCallTarget = !isUntrusted
-
-                if isUntrusted {
-                    txData.trustedDelegateCallTarget = false
-                }
-                
-                return modifiedMultiSendTx
-            }
-
-            var modifiedParameter = parameter
-            modifiedParameter.valueDecoded = SCGModels.DataDecoded.Parameter.ValueDecoded.multiSend(modifiedMultiSendTxList)
-            return modifiedParameter
-        }
-
-        txData.dataDecoded = decoded
-
-        return
-    }
-
-
     private static let UNTRUSTED = true
     private static let TRUSTED = false
 
@@ -96,7 +52,7 @@ class DelegateWarningCalculator {
                 let allTransactionsTrusted = multiSendTransactions.allSatisfy { multiSendTx in
 
                     // checks each sub-transaction recursively
-                    !isUntrusted(tx: multiSendTx, addressIndex: addressIndex)
+                    !isUntrusted(multiSendTx: multiSendTx, addressIndex: addressIndex)
                 }
                 // parameter is trusted when all sub-transactions are trusted.
                 return allTransactionsTrusted
@@ -118,13 +74,13 @@ class DelegateWarningCalculator {
     /// If the multisend transaction is itself a multi-send
     ///
     /// - Parameters:
-    ///   - tx: multisend transaction
+    ///   - multiSendTx: multisend transaction
     ///   - addressIndex: name index of addresses in the decoded transaction data
     /// - Returns: true if transaction is untrusted, false otherwise.
-    static func isUntrusted(tx: MultiSendTx, addressIndex: AddressInfoIndex?) -> Bool {
-        let result = tx.operation == .delegate && addressIndex?.values[tx.to]?.addressInfo == nil
+    static func isUntrusted(multiSendTx: MultiSendTx, addressIndex: AddressInfoIndex?) -> Bool {
+        let result = multiSendTx.operation == .delegate && addressIndex?.values[multiSendTx.to]?.addressInfo == nil
         // Recursion: check sub-transactions if they are untrusted in case the 'self' is trusted
-        return result || isUntrusted(data: tx.dataDecoded, addressIndex: addressIndex)
+        return result || isUntrusted(data: multiSendTx.dataDecoded, addressIndex: addressIndex)
     }
 
 }
