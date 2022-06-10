@@ -67,18 +67,29 @@ class GenerateKeyFlow: AddKeyFlow {
     func addKeyAsOwner() {
         assert(keyInfo != nil)
         safe = try? Safe.getSelected()
-        guard safe != nil, !safe!.isReadOnly else {
+        guard let safe = safe else {
             didAddKeyAsOwner()
             return
         }
-        let addVC = flowFactory.addAsOwner { [unowned self] in
-            addOwner()
-        } replaced: { [unowned self] in
-            replaceOwner()
-        } skipped: { [unowned self] in
-            didAddKeyAsOwner()
+
+        if safe.isReadOnly {
+            let vc = flowFactory.inviteToAddOwner {
+
+            } skipped: { [unowned self] in
+                didAddKeyAsOwner()
+            }
+            show(vc)
+
+        } else {
+            let addVC = flowFactory.addAsOwner { [unowned self] in
+                addOwner()
+            } replaced: { [unowned self] in
+                replaceOwner()
+            } skipped: { [unowned self] in
+                didAddKeyAsOwner()
+            }
+            show(addVC)
         }
-        show(addVC)
     }
 
     func addOwner() {
@@ -146,12 +157,20 @@ class GenerateKeyFactory: AddKeyFlowFactory {
         return introVC
     }
 
+    func inviteToAddOwner(share: @escaping () -> Void, skipped: @escaping () -> Void) -> CreateInviteOwnerIntroViewController {
+        let introVC = CreateInviteOwnerIntroViewController()
+        ViewControllerFactory.removeNavigationItem(introVC)
+        introVC.onShare = share
+        introVC.onSkip = skipped
+        return introVC
+    }
+
     func addAsOwner(added: @escaping () -> Void, replaced: @escaping () -> Void, skipped: @escaping () -> Void) -> AddKeyAsOwnerIntroViewController {
         let introVC = AddKeyAsOwnerIntroViewController()
+        ViewControllerFactory.removeNavigationItem(introVC)
         introVC.onAdd = added
         introVC.onReplace = replaced
         introVC.onSkip = skipped
-        introVC.navigationItem.hidesBackButton = true
         return introVC
     }
 
