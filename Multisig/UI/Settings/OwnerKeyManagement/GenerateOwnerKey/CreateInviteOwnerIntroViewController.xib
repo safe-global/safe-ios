@@ -25,10 +25,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0zq-yV-9tp">
-                    <rect key="frame" x="20" y="44" width="374" height="710"/>
+                    <rect key="frame" x="20" y="44" width="374" height="670"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="ZDZ-Vg-Oao">
-                            <rect key="frame" x="0.0" y="216" width="374" height="278.5"/>
+                            <rect key="frame" x="0.0" y="196" width="374" height="278.5"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-add-key-as-owner" translatesAutoresizingMaskIntoConstraints="NO" id="oJ4-7p-ztb">
                                     <rect key="frame" x="98.5" y="0.0" width="177" height="157"/>
@@ -55,7 +55,7 @@
                     </subviews>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="1rK-OU-DES">
-                    <rect key="frame" x="16" y="754" width="382" height="128"/>
+                    <rect key="frame" x="16" y="714" width="382" height="128"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ld-6v-iay">
                             <rect key="frame" x="0.0" y="0.0" width="382" height="56"/>
@@ -90,14 +90,14 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="0zq-yV-9tp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="DM4-5P-WXK"/>
-                <constraint firstItem="1rK-OU-DES" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="20" id="KH4-zh-qzB"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="1rK-OU-DES" secondAttribute="bottom" constant="20" id="KH4-zh-qzB"/>
                 <constraint firstItem="0zq-yV-9tp" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="KPK-dI-x9g"/>
                 <constraint firstAttribute="trailing" secondItem="0zq-yV-9tp" secondAttribute="trailing" constant="20" id="N2b-ra-FUb"/>
                 <constraint firstItem="1rK-OU-DES" firstAttribute="top" secondItem="0zq-yV-9tp" secondAttribute="bottom" id="Va5-sY-Vgc"/>
                 <constraint firstItem="1rK-OU-DES" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="hun-r4-0zF"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="1rK-OU-DES" secondAttribute="trailing" constant="16" id="tbJ-hj-rx2"/>
             </constraints>
-            <point key="canvasLocation" x="132" y="91"/>
+            <point key="canvasLocation" x="131.8840579710145" y="90.401785714285708"/>
         </view>
     </objects>
     <resources>

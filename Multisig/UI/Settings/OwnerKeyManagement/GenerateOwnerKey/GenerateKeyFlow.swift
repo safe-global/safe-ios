@@ -76,7 +76,7 @@ class GenerateKeyFlow: AddKeyFlow {
             let vc = flowFactory.inviteToAddOwner {
 
             } skipped: { [unowned self] in
-                didInviteToAddKey()
+                didAddKeyAsOwner()
             }
             show(vc)
 
@@ -90,7 +90,6 @@ class GenerateKeyFlow: AddKeyFlow {
             }
             show(addVC)
         }
-
     }
 
     func addOwner() {
@@ -107,14 +106,6 @@ class GenerateKeyFlow: AddKeyFlow {
             didReplaceKeyAsOwner(openKeyDetails: skippedTxDetails)
         }
         push(flow: replaceOwnerFlow)
-    }
-
-    func didInviteToAddKey(openKeyDetails: Bool = true) {
-        guard openKeyDetails else {
-            stop(success: true)
-            return
-        }
-        details()
     }
 
     func didAddKeyAsOwner(openKeyDetails: Bool = true) {
