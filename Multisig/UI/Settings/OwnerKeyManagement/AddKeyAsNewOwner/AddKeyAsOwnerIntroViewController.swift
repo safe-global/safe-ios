@@ -26,18 +26,6 @@ class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentation
 
         presentationController?.delegate = self
 
-        // remove underline from navigationItem
-        let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.configureWithTransparentBackground()
-        navigationBarAppearance.backgroundColor = .clear
-        navigationBarAppearance.shadowColor = .clear
-        navigationItem.scrollEdgeAppearance = navigationBarAppearance
-
-        // disable swipe back
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-
-        navigationController?.isNavigationBarHidden = false
-
         titleLabel.setStyle(.primary)
         descriptionLabel.setStyle(.secondary)
         addButton.setText("Add as owner", .filled)
