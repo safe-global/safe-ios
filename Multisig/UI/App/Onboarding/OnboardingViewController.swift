@@ -24,7 +24,7 @@ class OnboardingViewController: UIViewController {
                                                           image: UIImage(named: "ico-onboarding-1")!,
                                                           backgroundImage: UIImage(named: "ico-onboarding-background-1")!),
                                            OnboardingStep(title: "Stay in control of your funds",
-                                                          description: (text: "Define how you manage digital assets and who gets authorized access to your crypto. Use multiple signer keys for better security.", highlightedText: "Use multiple signer keys"),
+                                                          description: (text: "Define how you manage digital assets and who gets authorized access to your crypto. Use multiple signer keys for better security.", highlightedText: "multiple signer keys"),
                                                           image: UIImage(named: "ico-onboarding-2")!,
                                                           backgroundImage: UIImage(named: "ico-onboarding-background-2")!),
                                            OnboardingStep(title: "Enjoy stealth security from Multi-signature",
