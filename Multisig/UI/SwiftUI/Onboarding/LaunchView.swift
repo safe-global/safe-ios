@@ -47,11 +47,12 @@ struct LaunchView: View {
     var body: some View {
         GeometryReader { geometryProxy in
             ZStack(alignment: .centerAlignment) {
-                // anchor to position text image in the center of the screen
-                Rectangle()
-                    .hidden()
-                    .alignmentGuide(.centerVerticalAlignment) { $0[VerticalAlignment.center] }
-                    .position(y: geometryProxy.size.height / 2)
+                Image("ico-splash-gradient")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 274, height: 286)
+                    .position(x: geometryProxy.size.width - 137, y: geometryProxy.size.height - 143)
+
 
                 VStack(alignment: .center, spacing: 0) {
                     // 100 x 153 px, so no additional framing is required
@@ -72,6 +73,7 @@ struct LaunchView: View {
                         .buttonStyle(GNOFilledWhiteButtonStyle())
                 }
             }
+
             .padding(.horizontal)
         }
         .navigationBarHidden(true)

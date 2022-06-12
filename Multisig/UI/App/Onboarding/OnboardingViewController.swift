@@ -20,15 +20,15 @@ class OnboardingViewController: UIViewController {
     @IBOutlet private weak var collectionView: UICollectionView!
 
     private let steps: [OnboardingStep] = [OnboardingStep(title: "The world of Web3 in your pocket",
-                                                          description: "Use the most popular Ethereum-compatible networks, connect to dApps, get transaction notifications and more.",
+                                                          description: (text: "Use the most popular Ethereum-compatible networks, connect to dApps, get transaction notifications and more.", highlightedText: "connect to dApps"),
                                                           image: UIImage(named: "ico-onboarding-1")!,
                                                           backgroundImage: UIImage(named: "ico-onboarding-background-1")!),
                                            OnboardingStep(title: "Stay in control of your funds",
-                                                          description: "Define how you manage digital assets and who gets authorized access to your crypto. Use multiple signer keys for better security.",
+                                                          description: (text: "Define how you manage digital assets and who gets authorized access to your crypto. Use multiple signer keys for better security.", highlightedText: "Use multiple signer keys"),
                                                           image: UIImage(named: "ico-onboarding-2")!,
                                                           backgroundImage: UIImage(named: "ico-onboarding-background-2")!),
                                            OnboardingStep(title: "Enjoy stealth security from Multi-signature",
-                                                          description: "About $107B worth of digital assets are already securely stored by individuals and teams using Gnosis Safe.",
+                                                                  description: (text:"About $107B worth of digital assets are already securely stored by individuals and teams using Gnosis Safe.", highlightedText: "$107B worth of digital assets"),
                                                           image: UIImage(named: "ico-onboarding-3")!,
                                                           backgroundImage: UIImage(named: "ico-onboarding-background-3")!)
     ]
@@ -46,8 +46,8 @@ class OnboardingViewController: UIViewController {
         completelyNewLabel.setStyle(.secondary)
         loadSafeButton.setText("Add existing Safe", .bordered)
         createSafeButton.setText("Create new Safe", .filled)
-        demoButton.setText("Explore Demo", .plain)
-        skipButton.setText("Skip", .plain)
+        demoButton.setText("Explore Demo", .primary)
+        skipButton.setText("Skip", .primary)
         let nib = UINib(nibName: OnboardingStepCollectionViewCell.identifier, bundle: Bundle(for: OnboardingStepCollectionViewCell.self))
         collectionView.register(nib, forCellWithReuseIdentifier: OnboardingStepCollectionViewCell.identifier)
 

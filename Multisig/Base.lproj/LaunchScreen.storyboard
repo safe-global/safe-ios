@@ -25,6 +25,9 @@
                                 <rect key="frame" x="49.666666666666657" y="405" width="315" height="86"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-splash-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="HE7-XI-zng">
+                                <rect key="frame" x="140" y="610" width="274" height="286"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="splashBackground"/>
@@ -32,20 +35,23 @@
                             <constraint firstItem="Iqr-mN-Ycx" firstAttribute="top" secondItem="1gs-g6-Bnu" secondAttribute="bottom" constant="40" id="AhB-Ob-69V"/>
                             <constraint firstItem="Iqr-mN-Ycx" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="GrW-9P-X2e"/>
                             <constraint firstItem="Iqr-mN-Ycx" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="LGN-tn-F0C"/>
+                            <constraint firstItem="HE7-XI-zng" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="O4b-CJ-Ype"/>
+                            <constraint firstAttribute="bottom" secondItem="HE7-XI-zng" secondAttribute="bottom" id="YRA-K3-zF0"/>
                             <constraint firstItem="1gs-g6-Bnu" firstAttribute="centerX" secondItem="Iqr-mN-Ycx" secondAttribute="centerX" id="hxY-7O-sOt"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
     <resources>
+        <image name="ico-splash-gradient" width="274" height="286"/>
         <image name="ico-splash-text" width="315" height="86"/>
         <image name="launchscreen-logo" width="100" height="153"/>
         <namedColor name="splashBackground">
-            <color red="0.0" green="0.5490196078431373" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.54900002479553223" blue="0.45100000500679016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

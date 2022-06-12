@@ -33,4 +33,25 @@ extension String {
         
         return attributedString
     }
+
+    func highlightRange(originalStyle: GNOTextStyle = .secondary,
+                        highlightStyle: GNOTextStyle = .primary,
+                        textToHightlight: String? = nil) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString(
+            string: self,
+            attributes: [
+                .font: UIFont.gnoFont(forTextStyle: originalStyle),
+                .foregroundColor: originalStyle.color!,
+                .kern: -0.41
+            ]
+        )
+
+        if let textToHightlight = textToHightlight {
+            let rangeToHightlight = (attributedString.string as NSString).range(of: textToHightlight)
+            attributedString.addAttribute(
+                .foregroundColor, value: highlightStyle.color ?? .labelPrimary, range: rangeToHightlight)
+        }
+
+        return attributedString
+    }
 }

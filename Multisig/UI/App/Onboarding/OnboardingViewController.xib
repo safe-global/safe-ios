@@ -6,7 +6,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,7 +29,7 @@
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="EMK-Pw-1gj">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                    <color key="backgroundColor" name="backgroundQuaternary"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="sAe-Y0-g4L">
                         <size key="itemSize" width="128" height="128"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -44,7 +43,7 @@
                     </userDefinedRuntimeAttributes>
                 </collectionView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J5g-y8-c6N">
-                    <rect key="frame" x="364" y="64" width="30" height="30"/>
+                    <rect key="frame" x="364" y="44" width="30" height="30"/>
                     <state key="normal" title="Skip"/>
                     <connections>
                         <action selector="skipButtonTouched:" destination="-1" eventType="touchUpInside" id="Lcw-zN-IXQ"/>
@@ -52,7 +51,7 @@
                 </button>
                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="ljv-kU-Rbz">
                     <rect key="frame" x="149.5" y="608" width="115.5" height="26"/>
-                    <color key="pageIndicatorTintColor" name="labelSecondary"/>
+                    <color key="pageIndicatorTintColor" name="labelTetriary"/>
                     <color key="currentPageIndicatorTintColor" name="primary"/>
                 </pageControl>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="GKZ-H6-Lx8">
@@ -83,16 +82,16 @@
                             </connections>
                         </button>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yTp-l2-HW8">
-                            <rect key="frame" x="47.5" y="144" width="279.5" height="44"/>
+                            <rect key="frame" x="59.5" y="144" width="255.5" height="44"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completely new to Safe? " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1t-72-vR5">
-                                    <rect key="frame" x="0.0" y="0.0" width="193" height="44"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completely new here?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1t-72-vR5">
+                                    <rect key="frame" x="0.0" y="0.0" width="169" height="44"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ff3-SB-tpI">
-                                    <rect key="frame" x="193" y="0.0" width="86.5" height="44"/>
+                                    <rect key="frame" x="169" y="0.0" width="86.5" height="44"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="nCe-09-EMK"/>
                                     </constraints>
@@ -112,7 +111,7 @@
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" name="backgroundOnboarding"/>
             <constraints>
                 <constraint firstItem="GKZ-H6-Lx8" firstAttribute="top" secondItem="ljv-kU-Rbz" secondAttribute="bottom" constant="20" id="296-qp-zrb"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="GKZ-H6-Lx8" secondAttribute="bottom" constant="20" id="8fL-Zt-PVR"/>
@@ -122,7 +121,7 @@
                 <constraint firstItem="EMK-Pw-1gj" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="L7g-o3-AwZ"/>
                 <constraint firstItem="GKZ-H6-Lx8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="M2b-bt-8hk"/>
                 <constraint firstItem="ljv-kU-Rbz" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="bFH-12-mR9"/>
-                <constraint firstItem="J5g-y8-c6N" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="nD7-T3-Vhh"/>
+                <constraint firstItem="J5g-y8-c6N" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="nD7-T3-Vhh"/>
                 <constraint firstItem="EMK-Pw-1gj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="q67-7G-2yd"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="GKZ-H6-Lx8" secondAttribute="trailing" constant="20" id="vNo-1E-aGc"/>
             </constraints>
@@ -130,17 +129,14 @@
         </view>
     </objects>
     <resources>
-        <namedColor name="backgroundQuaternary">
+        <namedColor name="backgroundOnboarding">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="labelSecondary">
-            <color red="0.36470588235294116" green="0.42745098039215684" blue="0.45490196078431372" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="labelTetriary">
+            <color red="0.0" green="0.078431372549019607" blue="0.15686274509803921" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="primary">
             <color red="0.0" green="0.54509803921568623" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

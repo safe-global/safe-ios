@@ -59,6 +59,7 @@ extension GNOTextStyle {
     static let title3 = GNOTextStyle(size: 20, weight: .regular, color: .labelPrimary)
     static let title4 = GNOTextStyle(size: 26, weight: .regular, color: .labelPrimary)
     static let title5 = GNOTextStyle(size: 20, weight: .medium, color: .labelPrimary)
+    static let title6 = GNOTextStyle(size: 26, weight: .medium, color: .labelPrimary)
 }
 
 extension GNOTextStyle {

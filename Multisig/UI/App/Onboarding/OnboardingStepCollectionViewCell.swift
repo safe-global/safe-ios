@@ -18,9 +18,14 @@ class OnboardingStepCollectionViewCell: UICollectionViewCell {
 
     func configure(step: OnboardingStep) {
         titleLabel.text = step.title
-        descriptionLabel.text = step.description
-        titleLabel.setStyle(.title4)
-        descriptionLabel.setStyle(.secondary)
+        titleLabel.setStyle(.title6)
+
+        if let hightlightedText = step.description.highlightedText {
+            descriptionLabel.attributedText = step.description.text.highlightRange(textToHightlight: hightlightedText)
+        } else {
+            descriptionLabel.text = step.description.text
+            descriptionLabel.setStyle(.secondary)
+        }
         imageView.image = step.image
         backgroundImageView.image = step.backgroundImage
     }
@@ -32,7 +37,7 @@ class OnboardingStepCollectionViewCell: UICollectionViewCell {
 
 struct OnboardingStep {
     let title: String
-    let description: String
+    let description: (text: String, highlightedText: String?)
     let image: UIImage
     let backgroundImage: UIImage?
 }
