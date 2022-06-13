@@ -15,6 +15,7 @@ class OnboardingViewController: UIViewController {
     @IBOutlet private weak var demoButton: UIButton!
     @IBOutlet private weak var completelyNewLabel: UILabel!
     @IBOutlet private weak var skipButton: UIButton!
+    @IBOutlet private weak var closeButton: UIButton!
     @IBOutlet private weak var actionsContainerView: UIStackView!
     @IBOutlet private weak var pageControl: UIPageControl!
     @IBOutlet private weak var collectionView: UICollectionView!
@@ -135,7 +136,12 @@ class OnboardingViewController: UIViewController {
                           animations: { [weak self] in
             guard let self = self else { return }
             self.skipButton.isHidden = !self.actionsContainerView.isHidden
+            self.closeButton.isHidden = !self.skipButton.isHidden
           })
+    }
+
+    @IBAction func didTapClosed(_ sender: Any) {
+        completion()
     }
 }
 

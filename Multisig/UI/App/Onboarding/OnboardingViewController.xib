@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OnboardingViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="actionsContainerView" destination="GKZ-H6-Lx8" id="gXz-tw-Ksl"/>
+                <outlet property="closeButton" destination="L5k-xz-R27" id="JwV-ne-k3Z"/>
                 <outlet property="collectionView" destination="EMK-Pw-1gj" id="9LU-jA-693"/>
                 <outlet property="completelyNewLabel" destination="C1t-72-vR5" id="q2T-em-rtr"/>
                 <outlet property="createSafeButton" destination="qhZ-mD-MTE" id="UUa-kf-hLp"/>
@@ -42,13 +44,6 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </collectionView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J5g-y8-c6N">
-                    <rect key="frame" x="325" y="44" width="30" height="30"/>
-                    <state key="normal" title="Skip"/>
-                    <connections>
-                        <action selector="skipButtonTouched:" destination="-1" eventType="touchUpInside" id="Lcw-zN-IXQ"/>
-                    </connections>
-                </button>
                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="ljv-kU-Rbz">
                     <rect key="frame" x="131.33333333333334" y="546" width="112.66666666666666" height="20"/>
                     <constraints>
@@ -115,6 +110,36 @@
                         <constraint firstItem="qhZ-mD-MTE" firstAttribute="width" secondItem="GKZ-H6-Lx8" secondAttribute="width" id="tQH-v4-IAs"/>
                     </constraints>
                 </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="529-IX-U4W">
+                    <rect key="frame" x="295" y="44" width="60" height="44"/>
+                    <subviews>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L5k-xz-R27" userLabel="Close">
+                            <rect key="frame" x="0.0" y="0.0" width="60" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="Bwu-Nm-N8M"/>
+                                <constraint firstAttribute="width" constant="60" id="Dny-Tr-ooy"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal">
+                                <imageReference key="image" image="xmark" catalog="system" symbolScale="large"/>
+                            </state>
+                            <connections>
+                                <action selector="didTapClosed:" destination="-1" eventType="touchUpInside" id="znj-kX-j5Z"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J5g-y8-c6N">
+                            <rect key="frame" x="0.0" y="0.0" width="60" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="60" id="8ve-nE-civ"/>
+                                <constraint firstAttribute="height" constant="44" id="IWi-2G-61D"/>
+                            </constraints>
+                            <state key="normal" title="Skip"/>
+                            <connections>
+                                <action selector="skipButtonTouched:" destination="-1" eventType="touchUpInside" id="Lcw-zN-IXQ"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" name="backgroundOnboarding"/>
@@ -122,12 +147,12 @@
                 <constraint firstItem="GKZ-H6-Lx8" firstAttribute="top" secondItem="ljv-kU-Rbz" secondAttribute="bottom" constant="24" id="296-qp-zrb"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="GKZ-H6-Lx8" secondAttribute="bottom" constant="16" id="8fL-Zt-PVR"/>
                 <constraint firstItem="EMK-Pw-1gj" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="9o4-u5-qWA"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="J5g-y8-c6N" secondAttribute="trailing" constant="20" id="AZ3-Gb-82G"/>
                 <constraint firstAttribute="bottom" secondItem="EMK-Pw-1gj" secondAttribute="bottom" id="CoT-qj-irt"/>
                 <constraint firstItem="EMK-Pw-1gj" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="L7g-o3-AwZ"/>
                 <constraint firstItem="GKZ-H6-Lx8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="M2b-bt-8hk"/>
                 <constraint firstItem="ljv-kU-Rbz" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="bFH-12-mR9"/>
-                <constraint firstItem="J5g-y8-c6N" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="nD7-T3-Vhh"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="529-IX-U4W" secondAttribute="trailing" constant="20" id="fsc-YZ-o9Y"/>
+                <constraint firstItem="529-IX-U4W" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="lOW-31-0Xy"/>
                 <constraint firstItem="EMK-Pw-1gj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="q67-7G-2yd"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="GKZ-H6-Lx8" secondAttribute="trailing" constant="20" id="vNo-1E-aGc"/>
             </constraints>
@@ -135,6 +160,7 @@
         </view>
     </objects>
     <resources>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="backgroundOnboarding">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
