@@ -19,8 +19,8 @@ class WarningView: UINibView {
     override func commonInit() {
         super.commonInit()
         clipsToBounds = true
-        layer.cornerRadius = 4
         backgroundColor = .backgroundTertiary
+        layer.cornerRadius = 6
 
         actionButton.setTitle("", for: .normal)
         titleLabel.setStyle(.headline)
@@ -28,6 +28,9 @@ class WarningView: UINibView {
 
         //TODO: Add orange line on the left
         //TODO: Add URL with text Read More
+
+
+        
     }
 
     func set(image: UIImage? = nil, title: String? = nil, description: String? = nil) {

@@ -75,9 +75,6 @@ class MultiSendListTableViewController: UITableViewController {
                         prefix: chain.shortName)
         cell.setAction(tx.dataDecoded?.method ?? "Action #\(indexPath.row + 1)")
         let untrusted = DelegateWarningCalculator.isUntrusted(multiSendTx: tx, addressInfoIndex: addressInfoIndex)
-        print("  tx.dataDecoded: \(tx)")
-        print("addressInfoIndex: \(addressInfoIndex)")
-        print("       untrusted: \(untrusted)")
         cell.setDelegateWarning(untrusted)
         cell.selectionStyle = .none
         return cell

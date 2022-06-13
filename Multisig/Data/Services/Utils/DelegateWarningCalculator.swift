@@ -19,7 +19,9 @@ class DelegateWarningCalculator {
     typealias AddressInfoIndex = SCGModels.AddressInfoIndex
 
 
-    static func isUntrusted(txData: SCGModels.TxData) -> Bool {
+    static func isUntrusted(txData: SCGModels.TxData?) -> Bool {
+        guard let txData = txData else { return true }
+
         if txData.trustedDelegateCallTarget == false {
             return UNTRUSTED
         } else if txData.trustedDelegateCallTarget == true {
