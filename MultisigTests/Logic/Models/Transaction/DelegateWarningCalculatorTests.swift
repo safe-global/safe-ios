@@ -7,19 +7,22 @@ import XCTest
 @testable import Multisig
 import Version
 
-class DelegateWarningCalculatorTests: XCTestCase {
+typealias TxData = SCGModels.TxData
 
-    private func jsonData(_ name: String) -> Data {
-        try! Data(contentsOf: Bundle(for: Self.self).url(forResource: name, withExtension: "json")!)
+class DelegateWarningCalculatorTests: XCTestCase {
+    var decoder: JSONDecoder = JSONDecoder()
+
+    override func setUp() {
+        decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .millisecondsSince1970
+    }
+
+    override func tearDown() {
     }
 
     func testTopLevelWarning() throws {
         // https://safe-client.gnosis.io/v1/chains/4/transactions/multisig_0x73a7AA145338587f7aB7f63c06d187C85dF4727e_0xba28109747222d6cfb7f0fb75f03d49957e343674bc116162b038e244dbcc6d6
-        let data = jsonData("DelegateWarningTopLevel")
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .millisecondsSince1970
-        let decodedData = try decoder.decode(SCGModels.TransactionDetails.self, from: data)
-        let txData: SCGModels.TxData = decodedData.txData!
+        let txData = try loadAndParseFile(fileName: "DelegateWarningTopLevel")
 
         let result = DelegateWarningCalculator.isUntrusted(txData: txData)
 
@@ -27,12 +30,7 @@ class DelegateWarningCalculatorTests: XCTestCase {
     }
 
     func testMultiSendInnerWarning() throws {
-        // https://safe-client.gnosis.io/v1/chains/4/transactions/multisig_0x73a7AA145338587f7aB7f63c06d187C85dF4727e_0xba28109747222d6cfb7f0fb75f03d49957e343674bc116162b038e244dbcc6d6
-        let data = jsonData("DelegateWarningMultiSend")
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .millisecondsSince1970
-        let decodedData = try decoder.decode(SCGModels.TransactionDetails.self, from: data)
-        let txData: SCGModels.TxData = decodedData.txData!
+        let txData = try loadAndParseFile(fileName: "DelegateWarningMultiSend")
 
         let result = DelegateWarningCalculator.isUntrusted(txData: txData)
 
@@ -40,12 +38,7 @@ class DelegateWarningCalculatorTests: XCTestCase {
     }
 
     func testMultiSendInnerWarningAndNotTopLevel() throws {
-        // https://safe-client.gnosis.io/v1/chains/4/transactions/multisig_0x73a7AA145338587f7aB7f63c06d187C85dF4727e_0xba28109747222d6cfb7f0fb75f03d49957e343674bc116162b038e244dbcc6d6
-        let data = jsonData("DelegateWarningNotTopLevel")
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .millisecondsSince1970
-        let decodedData = try decoder.decode(SCGModels.TransactionDetails.self, from: data)
-        let txData: SCGModels.TxData = decodedData.txData!
+        let txData = try loadAndParseFile(fileName: "NoDelegateOperationButDelegateFlag")
 
         let result = DelegateWarningCalculator.isUntrusted(txData: txData)
 
@@ -53,16 +46,41 @@ class DelegateWarningCalculatorTests: XCTestCase {
     }
 
     func testMultiSendOperationIsDelegateButToAddressIsKnown() throws {
-        // https://safe-client.gnosis.io/v1/chains/4/transactions/multisig_0x73a7AA145338587f7aB7f63c06d187C85dF4727e_0xba28109747222d6cfb7f0fb75f03d49957e343674bc116162b038e244dbcc6d6
-        let data = jsonData("NoDelegateWarningBecauseMultiSendAddressIsKnown")
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .millisecondsSince1970
-        let decodedData = try decoder.decode(SCGModels.TransactionDetails.self, from: data)
-        let txData: SCGModels.TxData = decodedData.txData!
+        let txData = try loadAndParseFile(fileName: "NoDelegateWarningBecauseMultiSendAddressIsKnown")
 
         let result = DelegateWarningCalculator.isUntrusted(txData: txData)
 
-        // Multisend operation is delegate but to address is known
+        // Multisend operation is delegate but to: address is known
         XCTAssertFalse(result)
+    }
+
+    func testMultiSendOperationNoDelegateNoFlag() throws {
+        let txData = try loadAndParseFile(fileName: "NoDelegateWarningBecauseNoDelegateOperation")
+
+        let result = DelegateWarningCalculator.isUntrusted(txData: txData)
+
+        // No delegate operation to be found. And no trustedDelegateCallTarget
+        XCTAssertFalse(result)
+    }
+
+    func testOuterTxHasWarning() throws {
+        let txData = try loadAndParseFile(fileName: "NoDelegateOperationButDelegateFlag")
+
+        let result = DelegateWarningCalculator.isUntrusted(txData: txData)
+
+        // No delegate operation to be found. But trustedDelegateCallTarget -> Warning
+        XCTAssertTrue(result)
+    }
+
+
+    // Helper
+    private func loadAndParseFile(fileName: String) throws -> TxData {
+        let data = jsonData(fileName)
+        let decodedData = try decoder.decode(SCGModels.TransactionDetails.self, from: data)
+        return decodedData.txData!
+    }
+
+    private func jsonData(_ name: String) -> Data {
+        try! Data(contentsOf: Bundle(for: Self.self).url(forResource: name, withExtension: "json")!)
     }
 }
