@@ -13,20 +13,22 @@ class WarningView: UINibView {
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var iconImageView: UIImageView!
-
+    @IBOutlet weak var leftBar: UIImageView!
     @IBOutlet weak var actionButton: UIButton!
+
     var onClick: (() ->())?
     override func commonInit() {
         super.commonInit()
         clipsToBounds = true
         backgroundColor = .backgroundTertiary
-        layer.cornerRadius = 6
+        layer.cornerRadius = 4
 
         actionButton.setTitle("", for: .normal)
         titleLabel.setStyle(.headline)
         descriptionLabel.setStyle(.secondary)
 
         //TODO: Add orange line on the left
+        leftBar.isHidden = true
         //TODO: Add URL with text Read More
 
 
@@ -45,6 +47,10 @@ class WarningView: UINibView {
 
         descriptionLabel.text = description
         descriptionLabel.isHidden = description == nil
+    }
+
+    func showLeftBar(_ show: Bool) {
+        leftBar.isHidden = !show
     }
 
     @IBAction func actionButtonClicked(_ sender: Any) {

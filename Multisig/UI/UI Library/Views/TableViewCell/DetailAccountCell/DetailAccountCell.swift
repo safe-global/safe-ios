@@ -34,6 +34,7 @@ class DetailAccountCell: UITableViewCell {
 
         warningView.isHidden = !showDelegateWarning
         warningView.set(title: "Unexpected DelegateCall")
+        warningView.showLeftBar(true)
 
         addressInfoView.copyEnabled = copyEnabled
     }
