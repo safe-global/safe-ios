@@ -110,6 +110,24 @@ class DelegateWarningCalculatorTests: XCTestCase {
         XCTAssertFalse(result)
     }
 
+    func testTransferNoWarningButDelegate() throws {
+        let txData = try loadAndParseFile(fileName: "TransferNoWarningButDelegate")
+
+        let result = DelegateWarningCalculator.isUntrusted(txData: txData)
+
+        // Delegate flag not set. But Delegate with unknown Address -> Warning
+        XCTAssertTrue(result)
+    }
+
+    func testTransferNoWarningButDelegateWithName() throws {
+        let txData = try loadAndParseFile(fileName: "TransferNoWarningButDelegateWithName")
+
+        let result = DelegateWarningCalculator.isUntrusted(txData: txData)
+
+        // Delegate flag not set. But Delegate with known Address -> No Warning
+        XCTAssertFalse(result)
+    }
+
     // Helper
     private func loadAndParseFile(fileName: String) throws -> TxData {
         let data = jsonData(fileName)

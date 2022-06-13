@@ -748,6 +748,8 @@
 		93EF2FAC27C551B60077BE95 /* FinalStepInstructionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93EF2FAA27C551B60077BE95 /* FinalStepInstructionTableViewCell.xib */; };
 		93EF2FAF27C551DC0077BE95 /* StepInstructionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EF2FAD27C551DC0077BE95 /* StepInstructionTableViewCell.swift */; };
 		93EF2FB027C551DC0077BE95 /* StepInstructionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93EF2FAE27C551DC0077BE95 /* StepInstructionTableViewCell.xib */; };
+		AD30300ED9B2007E6F045F29 /* TransferNoWarningButDelegate.json in Resources */ = {isa = PBXBuildFile; fileRef = AD3039F3310C12E13DD7F4D4 /* TransferNoWarningButDelegate.json */; };
+		AD3031332AAA437DA1EED403 /* TransferNoWarningButDelegateWithName.json in Resources */ = {isa = PBXBuildFile; fileRef = AD30370F4D8215898B27959A /* TransferNoWarningButDelegateWithName.json */; };
 		AD30333439A0A2388F0749B0 /* ChangeConfirmationsFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303AD3E32FBAF7FC2B202B /* ChangeConfirmationsFlow.swift */; };
 		AD303399362FE10A1FB79BB6 /* ReviewChangeConfirmationsTxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303815FA00D7D2A33A3F8C /* ReviewChangeConfirmationsTxViewController.swift */; };
 		AD303414E96F6CD45E31FBE7 /* WhatsNewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3035EE31CD4171C56B475B /* WhatsNewHandler.swift */; };
@@ -1585,8 +1587,10 @@
 		AD30344347AAE28AEE159D2A /* DelegateWarningCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegateWarningCalculator.swift; sourceTree = "<group>"; };
 		AD30357FB6EC8DC8DA51ADE4 /* DelegateWarningTopLevel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DelegateWarningTopLevel.json; sourceTree = "<group>"; };
 		AD3035EE31CD4171C56B475B /* WhatsNewHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsNewHandler.swift; sourceTree = "<group>"; };
+		AD30370F4D8215898B27959A /* TransferNoWarningButDelegateWithName.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransferNoWarningButDelegateWithName.json; sourceTree = "<group>"; };
 		AD303815FA00D7D2A33A3F8C /* ReviewChangeConfirmationsTxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewChangeConfirmationsTxViewController.swift; sourceTree = "<group>"; };
 		AD3038DD24B2E7744E2EE9A4 /* NoDelegateOperationButDelegateFlag.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NoDelegateOperationButDelegateFlag.json; sourceTree = "<group>"; };
+		AD3039F3310C12E13DD7F4D4 /* TransferNoWarningButDelegate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransferNoWarningButDelegate.json; sourceTree = "<group>"; };
 		AD303A2303B63B1408463F64 /* ReviewReplaceOwnerTxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewReplaceOwnerTxViewController.swift; sourceTree = "<group>"; };
 		AD303AD3E32FBAF7FC2B202B /* ChangeConfirmationsFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeConfirmationsFlow.swift; sourceTree = "<group>"; };
 		AD303BF18FC3591AD8AF6FBC /* DelegateWarningCalculatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegateWarningCalculatorTests.swift; sourceTree = "<group>"; };
@@ -2117,6 +2121,8 @@
 				AD3038DD24B2E7744E2EE9A4 /* NoDelegateOperationButDelegateFlag.json */,
 				AD303DAF50ACA9AB6A3ED41D /* TransferNoDelegateWarning.json */,
 				AD3032263454247E99CC6C62 /* TransferWithDelegateWarning.json */,
+				AD3039F3310C12E13DD7F4D4 /* TransferNoWarningButDelegate.json */,
+				AD30370F4D8215898B27959A /* TransferNoWarningButDelegateWithName.json */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";
@@ -4196,6 +4202,8 @@
 				AD3035B91EE9230361E91E3D /* NoDelegateOperationButDelegateFlag.json in Resources */,
 				AD303FEF053E282FD249D1DE /* TransferNoDelegateWarning.json in Resources */,
 				AD3035E931C77DDDE6F63872 /* TransferWithDelegateWarning.json in Resources */,
+				AD30300ED9B2007E6F045F29 /* TransferNoWarningButDelegate.json in Resources */,
+				AD3031332AAA437DA1EED403 /* TransferNoWarningButDelegateWithName.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
