@@ -50,12 +50,15 @@
                     </connections>
                 </button>
                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="ljv-kU-Rbz">
-                    <rect key="frame" x="131.33333333333334" y="558" width="112.66666666666666" height="20"/>
+                    <rect key="frame" x="131.33333333333334" y="546" width="112.66666666666666" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="UMb-wi-K5v"/>
                     </constraints>
                     <color key="pageIndicatorTintColor" name="labelTetriary"/>
                     <color key="currentPageIndicatorTintColor" name="primary"/>
+                    <connections>
+                        <action selector="pageChanged:" destination="-1" eventType="valueChanged" id="TNa-WT-vMu"/>
+                    </connections>
                 </pageControl>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GKZ-H6-Lx8">
                     <rect key="frame" x="20" y="590" width="335" height="172"/>
@@ -116,7 +119,7 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" name="backgroundOnboarding"/>
             <constraints>
-                <constraint firstItem="GKZ-H6-Lx8" firstAttribute="top" secondItem="ljv-kU-Rbz" secondAttribute="bottom" constant="12" id="296-qp-zrb"/>
+                <constraint firstItem="GKZ-H6-Lx8" firstAttribute="top" secondItem="ljv-kU-Rbz" secondAttribute="bottom" constant="24" id="296-qp-zrb"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="GKZ-H6-Lx8" secondAttribute="bottom" constant="16" id="8fL-Zt-PVR"/>
                 <constraint firstItem="EMK-Pw-1gj" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="9o4-u5-qWA"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="J5g-y8-c6N" secondAttribute="trailing" constant="20" id="AZ3-Gb-82G"/>

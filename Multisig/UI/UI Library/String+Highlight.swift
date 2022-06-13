@@ -48,8 +48,10 @@ extension String {
 
         if let textToHightlight = textToHightlight {
             let rangeToHightlight = (attributedString.string as NSString).range(of: textToHightlight)
-            attributedString.addAttribute(
-                .foregroundColor, value: highlightStyle.color ?? .labelPrimary, range: rangeToHightlight)
+            attributedString.addAttributes([
+                .font: UIFont.gnoFont(forTextStyle: highlightStyle),
+                .foregroundColor: highlightStyle.color ?? .labelPrimary],
+                range: rangeToHightlight)
         }
 
         return attributedString

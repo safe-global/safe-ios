@@ -202,9 +202,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return termsWindow
     }
 
+    func showOnboardingWindow() {
+        if let presentedWindow = presentedWindow,
+           let root = presentedWindow.rootViewController,
+           root is OnboardingViewController {
+            return
+        }
+
+        showWindow(makeOnboardingWindow())
+    }
+
     func makeOnboardingWindow() -> UIWindow {
+        AppSettings.onboardingCompleted = false
+
         let onboardingWindow = makeWindow(scene: scene!)
         onboardingWindow.rootViewController = OnboardingViewController(completion: { [unowned self] in
+            AppSettings.onboardingCompleted = true
             onOnboardingCompletion()
         })
 
@@ -216,6 +229,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             showWindow(makeTermsWindow())
         } else if shouldShowPasscode {
             showWindow(makeEnterPasscodeWindow())
+        } else if !AppSettings.onboardingCompleted {
+            showOnboardingWindow()
         } else {
             showMainContentWindow()
         }

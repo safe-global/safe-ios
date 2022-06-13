@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E258" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AddressBookEntry" representedClassName="AddressBookEntry" syncable="YES" codeGenerationType="class">
         <attribute name="additionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="address" optional="YES" attributeType="String"/>
@@ -17,6 +17,7 @@
         <attribute name="lastBuildVersion" optional="YES" attributeType="String"/>
         <attribute name="lastIgnoredUpdateVersion" optional="YES" attributeType="String"/>
         <attribute name="lastMarketingVersion" optional="YES" attributeType="String"/>
+        <attribute name="onboardingCompleted" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="passcodeBannerDismissed" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="passcodeOptions" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="passcodeWasSetAtLeastOnce" optional="YES" attributeType="Boolean" defaultValueString="NO"/>
@@ -184,7 +185,7 @@
     </entity>
     <elements>
         <element name="AddressBookEntry" positionX="403.780517578125" positionY="-260.6335754394531" width="128" height="89"/>
-        <element name="AppSettings" positionX="-234.1375732421875" positionY="377.9746704101562" width="128" height="284"/>
+        <element name="AppSettings" positionX="-234.1375732421875" positionY="377.9746704101562" width="128" height="299"/>
         <element name="AppUser" positionX="-389.4071044921875" positionY="380.6794738769531" width="128" height="89"/>
         <element name="CDEthTransaction" positionX="-76.98681640625" positionY="383.9258422851562" width="128" height="149"/>
         <element name="CDWCAppRegistryEntry" positionX="-270" positionY="-108" width="128" height="284"/>

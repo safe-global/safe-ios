@@ -18,10 +18,14 @@ class OnboardingStepCollectionViewCell: UICollectionViewCell {
 
     func configure(step: OnboardingStep) {
         titleLabel.text = step.title
-        titleLabel.setStyle(.title6)
+        titleLabel.setStyle(.Updated.title)
 
         if let hightlightedText = step.description.highlightedText {
-            descriptionLabel.attributedText = step.description.text.highlightRange(textToHightlight: hightlightedText)
+            descriptionLabel.attributedText = step.description.text.highlightRange(
+                originalStyle: .secondary,
+                highlightStyle: .primary.weight(.semibold),
+                textToHightlight: hightlightedText
+            )
         } else {
             descriptionLabel.text = step.description.text
             descriptionLabel.setStyle(.secondary)

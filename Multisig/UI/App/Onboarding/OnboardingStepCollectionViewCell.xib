@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,23 +20,23 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-onboarding-background-1" translatesAutoresizingMaskIntoConstraints="NO" id="a9L-En-sFG">
                         <rect key="frame" x="0.0" y="44" width="549" height="903"/>
                     </imageView>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="7aA-D2-YDH">
-                        <rect key="frame" x="20" y="84" width="509" height="319.5"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="47" translatesAutoresizingMaskIntoConstraints="NO" id="7aA-D2-YDH">
+                        <rect key="frame" x="20" y="218.5" width="509" height="344.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-onboarding-1" translatesAutoresizingMaskIntoConstraints="NO" id="UQw-Ko-pd6">
                                 <rect key="frame" x="169.5" y="0.0" width="170" height="220"/>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fb2-zU-cWe">
-                                <rect key="frame" x="3.5" y="250" width="502" height="69.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="3mB-7a-urV">
+                                <rect key="frame" x="3.5" y="267" width="502" height="77.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The world of Web3 in your pocket" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7g6-GW-Qnm">
-                                        <rect key="frame" x="0.0" y="0.0" width="502" height="20.5"/>
+                                        <rect key="frame" x="123" y="0.0" width="256.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use the most popular Ethereum-compatible networks, connect to dApps, get transaction notifications and more." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XKR-aO-sDU">
-                                        <rect key="frame" x="0.0" y="28.5" width="502" height="41"/>
+                                        <rect key="frame" x="0.0" y="36.5" width="502" height="41"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -51,11 +50,11 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstItem="a9L-En-sFG" firstAttribute="bottom" secondItem="ZTg-uK-7eu" secondAttribute="bottom" id="0O5-nx-zjZ"/>
+                <constraint firstItem="7g6-GW-Qnm" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" id="3dd-a2-QVb"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="a9L-En-sFG" secondAttribute="trailing" id="FjE-G2-oDb"/>
                 <constraint firstItem="7aA-D2-YDH" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="20" id="L4y-Gg-hCM"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="top" secondItem="a9L-En-sFG" secondAttribute="top" id="QZg-AP-lwD"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="7aA-D2-YDH" secondAttribute="trailing" constant="20" id="rky-SL-EvM"/>
-                <constraint firstItem="7aA-D2-YDH" firstAttribute="top" secondItem="ZTg-uK-7eu" secondAttribute="top" constant="40" id="tk1-lb-ZPa"/>
                 <constraint firstItem="a9L-En-sFG" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" id="uhP-1e-Zg4"/>
             </constraints>
             <size key="customSize" width="549" height="981"/>

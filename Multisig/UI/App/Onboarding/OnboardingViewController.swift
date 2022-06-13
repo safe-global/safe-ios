@@ -103,11 +103,12 @@ class OnboardingViewController: UIViewController {
     }
 
     @IBAction private func skipButtonTouched(_ sender: Any) {
-        collectionView.scrollToItem(at: IndexPath(item: steps.count - 1, section: 0),
+        let page = steps.count - 1
+        collectionView.scrollToItem(at: IndexPath(item: page, section: 0),
                                     at: .centeredHorizontally,
                                     animated: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) { [weak self] in
-            self?.bindCurrentStep()
+            self?.bindCurrentStep(page: page)
         }
     }
 
@@ -116,18 +117,17 @@ class OnboardingViewController: UIViewController {
 
         collectionView.scrollToItem(at: IndexPath(item: pc.currentPage, section: 0),
                                         at: .centeredHorizontally, animated: true)
-        bindCurrentStep()
+        bindCurrentStep(page: pc.currentPage)
     }
 
-    private func bindCurrentStep() {
-        pageControl.currentPage = Int(collectionView.contentOffset.x) / Int(collectionView.frame.width)
+    private func bindCurrentStep(page: Int) {
+        pageControl.currentPage = page
 
-        
         UIView.transition(with: actionsContainerView, duration: 0.4,
                           options: .transitionCrossDissolve,
                           animations: { [weak self] in
             guard let self = self else { return }
-            self.actionsContainerView.isHidden = self.pageControl.currentPage != self.pageControl.numberOfPages - 1
+            self.actionsContainerView.isHidden = page != self.pageControl.numberOfPages - 1
           })
 
         UIView.transition(with: skipButton, duration: 0.4,
@@ -157,6 +157,7 @@ extension OnboardingViewController: UICollectionViewDataSource, UICollectionView
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        bindCurrentStep()
+        let page = Int(collectionView.contentOffset.x) / Int(collectionView.frame.width)
+        bindCurrentStep(page: page)
     }
 }
