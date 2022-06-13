@@ -72,6 +72,23 @@ class DelegateWarningCalculatorTests: XCTestCase {
         XCTAssertTrue(result)
     }
 
+    func testDataDecodedWithFlagAndMultiSend() throws {
+        let txData = try loadAndParseFile(fileName: "DelegateWarningMultiSend")
+
+        let result = DelegateWarningCalculator.isUntrusted(dataDecoded: txData.dataDecoded, addressInfoIndex: txData.addressInfoIndex)
+
+        // Delegate operation to be found. With unknown Address -> Warning
+        XCTAssertTrue(result)
+    }
+
+    func testDataDecodedWithoutFlagAndMultiSend() throws {
+        let txData = try loadAndParseFile(fileName: "DelegateWarningNotTopLevel")
+
+        let result = DelegateWarningCalculator.isUntrusted(dataDecoded: txData.dataDecoded, addressInfoIndex: txData.addressInfoIndex)
+
+        // Delegate operation to be found. With unknown Address -> Warning
+        XCTAssertTrue(result)
+    }
 
     // Helper
     private func loadAndParseFile(fileName: String) throws -> TxData {
