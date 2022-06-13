@@ -20,6 +20,7 @@ class DelegateWarningCalculatorTests: XCTestCase {
     override func tearDown() {
     }
 
+    // MultiSend TXs
     func testTopLevelWarning() throws {
         // https://safe-client.gnosis.io/v1/chains/4/transactions/multisig_0x73a7AA145338587f7aB7f63c06d187C85dF4727e_0xba28109747222d6cfb7f0fb75f03d49957e343674bc116162b038e244dbcc6d6
         let txData = try loadAndParseFile(fileName: "DelegateWarningTopLevel")
@@ -88,6 +89,25 @@ class DelegateWarningCalculatorTests: XCTestCase {
 
         // Delegate operation to be found. With unknown Address -> Warning
         XCTAssertTrue(result)
+    }
+
+    // Transfers
+    func testTransferWithDelegateWarning() throws {
+        let txData = try loadAndParseFile(fileName: "TransferWithDelegateWarning")
+
+        let result = DelegateWarningCalculator.isUntrusted(txData: txData)
+
+        // Delegate flag set to false -> Warning
+        XCTAssertTrue(result)
+    }
+
+    func testTransferNoDelegateWarning() throws {
+        let txData = try loadAndParseFile(fileName: "TransferNoDelegateWarning")
+
+        let result = DelegateWarningCalculator.isUntrusted(txData: txData)
+
+        // Delegate flag set not set -> No Warning
+        XCTAssertFalse(result)
     }
 
     // Helper

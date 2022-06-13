@@ -754,12 +754,14 @@
 		AD303448E17612A50DFF26DF /* DelegateWarningNotTopLevel.json in Resources */ = {isa = PBXBuildFile; fileRef = AD303C1150C4F4070D76632E /* DelegateWarningNotTopLevel.json */; };
 		AD30357FF0006EB541E85F7D /* NoDelegateWarningBecauseMultiSendAddressIsKnown.json in Resources */ = {isa = PBXBuildFile; fileRef = AD30324716BFFE79E830673F /* NoDelegateWarningBecauseMultiSendAddressIsKnown.json */; };
 		AD3035B91EE9230361E91E3D /* NoDelegateOperationButDelegateFlag.json in Resources */ = {isa = PBXBuildFile; fileRef = AD3038DD24B2E7744E2EE9A4 /* NoDelegateOperationButDelegateFlag.json */; };
+		AD3035E931C77DDDE6F63872 /* TransferWithDelegateWarning.json in Resources */ = {isa = PBXBuildFile; fileRef = AD3032263454247E99CC6C62 /* TransferWithDelegateWarning.json */; };
 		AD30360125D8B1D8735A8CF4 /* DelegateWarningCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303BF18FC3591AD8AF6FBC /* DelegateWarningCalculatorTests.swift */; };
 		AD30377B2E867EBF8647725B /* DelegateWarningMultiSend.json in Resources */ = {isa = PBXBuildFile; fileRef = AD30320FB98CBA790C56F472 /* DelegateWarningMultiSend.json */; };
 		AD303ABF1DBCA951A106ECD5 /* ReviewReplaceOwnerTxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303A2303B63B1408463F64 /* ReviewReplaceOwnerTxViewController.swift */; };
 		AD303C6514DB164B8DE3BC73 /* DelegateWarningTopLevel.json in Resources */ = {isa = PBXBuildFile; fileRef = AD30357FB6EC8DC8DA51ADE4 /* DelegateWarningTopLevel.json */; };
 		AD303E80E0AC44F56C729462 /* NoDelegateWarningBecauseNoDelegateOperation.json in Resources */ = {isa = PBXBuildFile; fileRef = AD303139191A822F493B9A87 /* NoDelegateWarningBecauseNoDelegateOperation.json */; };
 		AD303F546D6DDF8E749E77BE /* DelegateWarningCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD30344347AAE28AEE159D2A /* DelegateWarningCalculator.swift */; };
+		AD303FEF053E282FD249D1DE /* TransferNoDelegateWarning.json in Resources */ = {isa = PBXBuildFile; fileRef = AD303DAF50ACA9AB6A3ED41D /* TransferNoDelegateWarning.json */; };
 		B0D61076463C900689962202 /* WebConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61C735006E56DDC45BA49 /* WebConnectionController.swift */; };
 		B0D61167B7886798C36728CC /* WCGetDappsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D616B8A5937E8F937F1596 /* WCGetDappsRequest.swift */; };
 		B0D61252B0B0760008CF6F19 /* WebConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6117DB078A3ABA481B50C /* WebConnection.swift */; };
@@ -1578,6 +1580,7 @@
 		93EF2FAE27C551DC0077BE95 /* StepInstructionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepInstructionTableViewCell.xib; sourceTree = "<group>"; };
 		AD303139191A822F493B9A87 /* NoDelegateWarningBecauseNoDelegateOperation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NoDelegateWarningBecauseNoDelegateOperation.json; sourceTree = "<group>"; };
 		AD30320FB98CBA790C56F472 /* DelegateWarningMultiSend.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DelegateWarningMultiSend.json; sourceTree = "<group>"; };
+		AD3032263454247E99CC6C62 /* TransferWithDelegateWarning.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransferWithDelegateWarning.json; sourceTree = "<group>"; };
 		AD30324716BFFE79E830673F /* NoDelegateWarningBecauseMultiSendAddressIsKnown.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NoDelegateWarningBecauseMultiSendAddressIsKnown.json; sourceTree = "<group>"; };
 		AD30344347AAE28AEE159D2A /* DelegateWarningCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegateWarningCalculator.swift; sourceTree = "<group>"; };
 		AD30357FB6EC8DC8DA51ADE4 /* DelegateWarningTopLevel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DelegateWarningTopLevel.json; sourceTree = "<group>"; };
@@ -1588,6 +1591,7 @@
 		AD303AD3E32FBAF7FC2B202B /* ChangeConfirmationsFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeConfirmationsFlow.swift; sourceTree = "<group>"; };
 		AD303BF18FC3591AD8AF6FBC /* DelegateWarningCalculatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegateWarningCalculatorTests.swift; sourceTree = "<group>"; };
 		AD303C1150C4F4070D76632E /* DelegateWarningNotTopLevel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DelegateWarningNotTopLevel.json; sourceTree = "<group>"; };
+		AD303DAF50ACA9AB6A3ED41D /* TransferNoDelegateWarning.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransferNoDelegateWarning.json; sourceTree = "<group>"; };
 		B0D610B9708DF8BFD4A612D2 /* WebConnectionRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionRepositoryTests.swift; sourceTree = "<group>"; };
 		B0D610E20B243B7AEB248725 /* WebConnectionContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebConnectionContainerViewController.xib; sourceTree = "<group>"; };
 		B0D6112F4A567FB24FEEFAD6 /* WebConnectionSignatureRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionSignatureRequest.swift; sourceTree = "<group>"; };
@@ -2111,6 +2115,8 @@
 				AD30324716BFFE79E830673F /* NoDelegateWarningBecauseMultiSendAddressIsKnown.json */,
 				AD303139191A822F493B9A87 /* NoDelegateWarningBecauseNoDelegateOperation.json */,
 				AD3038DD24B2E7744E2EE9A4 /* NoDelegateOperationButDelegateFlag.json */,
+				AD303DAF50ACA9AB6A3ED41D /* TransferNoDelegateWarning.json */,
+				AD3032263454247E99CC6C62 /* TransferWithDelegateWarning.json */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";
@@ -4188,6 +4194,8 @@
 				AD30357FF0006EB541E85F7D /* NoDelegateWarningBecauseMultiSendAddressIsKnown.json in Resources */,
 				AD303E80E0AC44F56C729462 /* NoDelegateWarningBecauseNoDelegateOperation.json in Resources */,
 				AD3035B91EE9230361E91E3D /* NoDelegateOperationButDelegateFlag.json in Resources */,
+				AD303FEF053E282FD249D1DE /* TransferNoDelegateWarning.json in Resources */,
+				AD3035E931C77DDDE6F63872 /* TransferWithDelegateWarning.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
