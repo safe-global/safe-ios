@@ -13,6 +13,8 @@
 		04077B3F278CB85F00AF6376 /* ActivityButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04077B3E278CB85F00AF6376 /* ActivityButtonView.xib */; };
 		04131FBD2851571E001F60C2 /* CreateInviteOwnerIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04131FBB2851571E001F60C2 /* CreateInviteOwnerIntroViewController.swift */; };
 		04131FBE2851571E001F60C2 /* CreateInviteOwnerIntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04131FBC2851571E001F60C2 /* CreateInviteOwnerIntroViewController.xib */; };
+		04131FC1285683BA001F60C2 /* ShareAddOwnerLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04131FBF285683BA001F60C2 /* ShareAddOwnerLinkViewController.swift */; };
+		04131FC2285683BA001F60C2 /* ShareAddOwnerLinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04131FC0285683BA001F60C2 /* ShareAddOwnerLinkViewController.xib */; };
 		041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C2A572456F4F50044A24C /* SafeInfoView.swift */; };
 		041C2A5A2456F53E0044A24C /* QRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C2A592456F53E0044A24C /* QRView.swift */; };
 		041DAAE9274BC4DD000829C8 /* WalletConnectKeyAddedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041DAAE8274BC4DD000829C8 /* WalletConnectKeyAddedViewController.swift */; };
@@ -847,6 +849,8 @@
 		04077B3E278CB85F00AF6376 /* ActivityButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityButtonView.xib; sourceTree = "<group>"; };
 		04131FBB2851571E001F60C2 /* CreateInviteOwnerIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInviteOwnerIntroViewController.swift; sourceTree = "<group>"; };
 		04131FBC2851571E001F60C2 /* CreateInviteOwnerIntroViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateInviteOwnerIntroViewController.xib; sourceTree = "<group>"; };
+		04131FBF285683BA001F60C2 /* ShareAddOwnerLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAddOwnerLinkViewController.swift; sourceTree = "<group>"; };
+		04131FC0285683BA001F60C2 /* ShareAddOwnerLinkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareAddOwnerLinkViewController.xib; sourceTree = "<group>"; };
 		041C2A572456F4F50044A24C /* SafeInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeInfoView.swift; sourceTree = "<group>"; };
 		041C2A592456F53E0044A24C /* QRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRView.swift; sourceTree = "<group>"; };
 		041DAAE8274BC4DD000829C8 /* WalletConnectKeyAddedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectKeyAddedViewController.swift; sourceTree = "<group>"; };
@@ -3216,6 +3220,8 @@
 				0ABC00212823139D00F42D29 /* CreatePasscodeFlow.swift */,
 				04131FBB2851571E001F60C2 /* CreateInviteOwnerIntroViewController.swift */,
 				04131FBC2851571E001F60C2 /* CreateInviteOwnerIntroViewController.xib */,
+				04131FBF285683BA001F60C2 /* ShareAddOwnerLinkViewController.swift */,
+				04131FC0285683BA001F60C2 /* ShareAddOwnerLinkViewController.xib */,
 			);
 			path = GenerateOwnerKey;
 			sourceTree = "<group>";
@@ -4130,6 +4136,7 @@
 				0A22E12825E4FA3200D24DE1 /* SwitchTableViewCell.xib in Resources */,
 				558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
+				04131FC2285683BA001F60C2 /* ShareAddOwnerLinkViewController.xib in Resources */,
 				0ADA90F8256548C60004DEC0 /* SnackbarViewController.xib in Resources */,
 				0A04507B278DAD4000650F71 /* SecondaryDetailDisclosureCell.xib in Resources */,
 				0A478D3C25B863D60038363E /* DerivedKeyTableViewCell.xib in Resources */,
@@ -4667,6 +4674,7 @@
 				0ABC00202823058200F42D29 /* GenerateKeyFlow.swift in Sources */,
 				0A5C2DCE25628277009808CB /* SafeInfoViewController.swift in Sources */,
 				0AC60C512549AF2200A63AE2 /* NoSafeBarView.swift in Sources */,
+				04131FC1285683BA001F60C2 /* ShareAddOwnerLinkViewController.swift in Sources */,
 				0A007124254B255C00A57CAF /* UIFont+Styles.swift in Sources */,
 				0ACC302227BFB5C300586795 /* Address+Solidity.swift in Sources */,
 				0AF1C8302540923C00E28669 /* LoadableViewController.swift in Sources */,
