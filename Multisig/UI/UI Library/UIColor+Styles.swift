@@ -30,6 +30,7 @@ extension UIColor {
     static let labelSecondary = UIColor(named: "labelSecondary")!
     static let labelTertiary = UIColor(named: "labelTetriary")!
     static let border = UIColor(named: "border")!
+    static let splashBackground = UIColor(named:"splashBackground")!
 }
 
 extension UIColor {

@@ -136,6 +136,10 @@
 		04CE3FA024B7191E00826AEE /* CollectibleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3F9E24B7191E00826AEE /* CollectibleViewModel.swift */; };
 		04CF31BF27B6B9D2001BEEED /* TitledMiniPieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CF31BE27B6B9D2001BEEED /* TitledMiniPieceView.swift */; };
 		04CF31C127B6B9DC001BEEED /* TitledMiniPieceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04CF31C027B6B9DC001BEEED /* TitledMiniPieceView.xib */; };
+		04D093E9284FD348003F38CF /* OnboardingStepCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D093E7284FD348003F38CF /* OnboardingStepCollectionViewCell.swift */; };
+		04D093EA284FD348003F38CF /* OnboardingStepCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D093E8284FD348003F38CF /* OnboardingStepCollectionViewCell.xib */; };
+		04D093ED284FD439003F38CF /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D093EB284FD439003F38CF /* OnboardingViewController.swift */; };
+		04D093EE284FD439003F38CF /* OnboardingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D093EC284FD439003F38CF /* OnboardingViewController.xib */; };
 		04D1306C25DD525A0032FA03 /* ProposeTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D1306B25DD525A0032FA03 /* ProposeTransactionRequest.swift */; };
 		04D1309D25E2BB830032FA03 /* RejectionConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1309B25E2BB830032FA03 /* RejectionConfirmationViewController.xib */; };
 		04D1309E25E2BB830032FA03 /* RejectionConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D1309C25E2BB830032FA03 /* RejectionConfirmationViewController.swift */; };
@@ -968,6 +972,10 @@
 		04CE3F9E24B7191E00826AEE /* CollectibleViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectibleViewModel.swift; sourceTree = "<group>"; };
 		04CF31BE27B6B9D2001BEEED /* TitledMiniPieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledMiniPieceView.swift; sourceTree = "<group>"; };
 		04CF31C027B6B9DC001BEEED /* TitledMiniPieceView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitledMiniPieceView.xib; sourceTree = "<group>"; };
+		04D093E7284FD348003F38CF /* OnboardingStepCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepCollectionViewCell.swift; sourceTree = "<group>"; };
+		04D093E8284FD348003F38CF /* OnboardingStepCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingStepCollectionViewCell.xib; sourceTree = "<group>"; };
+		04D093EB284FD439003F38CF /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		04D093EC284FD439003F38CF /* OnboardingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingViewController.xib; sourceTree = "<group>"; };
 		04D1306B25DD525A0032FA03 /* ProposeTransactionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposeTransactionRequest.swift; sourceTree = "<group>"; };
 		04D1309B25E2BB830032FA03 /* RejectionConfirmationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RejectionConfirmationViewController.xib; sourceTree = "<group>"; };
 		04D1309C25E2BB830032FA03 /* RejectionConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RejectionConfirmationViewController.swift; sourceTree = "<group>"; };
@@ -2001,6 +2009,17 @@
 			path = Collectible;
 			sourceTree = "<group>";
 		};
+		04D093D6284CF5BA003F38CF /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				04D093E7284FD348003F38CF /* OnboardingStepCollectionViewCell.swift */,
+				04D093E8284FD348003F38CF /* OnboardingStepCollectionViewCell.xib */,
+				04D093EB284FD439003F38CF /* OnboardingViewController.swift */,
+				04D093EC284FD439003F38CF /* OnboardingViewController.xib */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		04D1309A25E2BB830032FA03 /* RejectionConfirmationViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2919,6 +2938,7 @@
 		0AF432C4244DF8FC00E22E50 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				04D093D6284CF5BA003F38CF /* Onboarding */,
 				047A658525AE095700AE8845 /* SnackbarViewController */,
 				0AC60C772549C50E00A63AE2 /* HeaderViewController */,
 				0A0C607A255D83E80085C178 /* ViewControllerFactory.swift */,
@@ -3998,6 +4018,7 @@
 				0A57C5C12577F08B00420303 /* ConfirmationCreatedPiece.xib in Resources */,
 				0471B3BE262742CD001F2D3B /* UpdateAppViewController.xib in Resources */,
 				93EF2FAC27C551B60077BE95 /* FinalStepInstructionTableViewCell.xib in Resources */,
+				04D093EE284FD439003F38CF /* OnboardingViewController.xib in Resources */,
 				04B4B68F25B8857F00CFE24B /* AccountInfoView.xib in Resources */,
 				0A86EE6F25CC2B4C0059876E /* RetryFooterView.xib in Resources */,
 				0439B2972804633900796F18 /* WarningView.xib in Resources */,
@@ -4038,6 +4059,7 @@
 				0AE8C0A3257947CF00E62B34 /* DetailStatusCell.xib in Resources */,
 				04131FBE2851571E001F60C2 /* CreateInviteOwnerIntroViewController.xib in Resources */,
 				550FB1A126691CA300C13D54 /* dapps-rinkeby.json in Resources */,
+				04D093EA284FD348003F38CF /* OnboardingStepCollectionViewCell.xib in Resources */,
 				0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */,
 				550FB1A626691CD800C13D54 /* SigningKeyTableViewCell.xib in Resources */,
 				0AF1C88E2541AD4200E28669 /* ScrollableEmptyView.xib in Resources */,
@@ -4273,6 +4295,7 @@
 				6A7A489B28201697003278C8 /* SafeOwnerPickerViewController.swift in Sources */,
 				5556A03724489F37003EC861 /* CoreDataStack.swift in Sources */,
 				0ABC0026282313E700F42D29 /* ImportKeyFlow.swift in Sources */,
+				04D093ED284FD439003F38CF /* OnboardingViewController.swift in Sources */,
 				6ADEB01B2795AB410062ADFE /* InfoLabel.swift in Sources */,
 				0A045086278DC04C00650F71 /* BorderedInnerTableCell.swift in Sources */,
 				04B4B60225B84D6900CFE24B /* AccountInfoView.swift in Sources */,
@@ -4476,6 +4499,7 @@
 				6ADEB02727B559370062ADFE /* WebConnectionOwnerView.swift in Sources */,
 				557D80B8270B32F80036D6D0 /* SignatureRequestViewController.swift in Sources */,
 				551DDEE9244F183500C719D3 /* Selection.swift in Sources */,
+				04D093E9284FD348003F38CF /* OnboardingStepCollectionViewCell.swift in Sources */,
 				0A5B15802808640F003AD853 /* ChangePasscodeEnterNewViewController.swift in Sources */,
 				04FC26B625CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift in Sources */,
 				0AFD9DCE27BFF01000011CF1 /* SendTransactionContentViewController.swift in Sources */,

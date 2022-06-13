@@ -24,6 +24,9 @@ extension AppSettings {
     @AppSetting(\.termsAccepted)
     static var termsAccepted: Bool
 
+    @AppSetting(\.onboardingCompleted)
+    static var onboardingCompleted: Bool
+
     @AppSetting(\.trackingEnabled)
     static var trackingEnabled: Bool {
         didSet {
