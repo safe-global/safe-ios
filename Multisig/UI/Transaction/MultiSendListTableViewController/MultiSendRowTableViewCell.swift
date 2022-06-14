@@ -29,6 +29,6 @@ class MultiSendRowTableViewCell: UITableViewCell {
     }
 
     func setDelegateWarning(_ showDelegateWarning: Bool) {
-            delegateWarning.isHidden = !showDelegateWarning
+        delegateWarning.isHidden = !showDelegateWarning
     }
 }

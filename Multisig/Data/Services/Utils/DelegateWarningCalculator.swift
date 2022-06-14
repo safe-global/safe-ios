@@ -17,7 +17,6 @@ class DelegateWarningCalculator {
     typealias MultiSendTx = SCGModels.DataDecoded.Parameter.ValueDecoded.MultiSendTx
     typealias AddressInfoIndex = SCGModels.AddressInfoIndex
 
-
     static func isUntrusted(txData: SCGModels.TxData?) -> Bool {
         guard let txData = txData else { return true }
 

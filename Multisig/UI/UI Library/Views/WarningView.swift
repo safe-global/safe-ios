@@ -20,8 +20,8 @@ class WarningView: UINibView {
     override func commonInit() {
         super.commonInit()
         clipsToBounds = true
-        backgroundColor = .backgroundTertiary
         layer.cornerRadius = 4
+        backgroundColor = .backgroundTertiary
 
         actionButton.setTitle("", for: .normal)
         titleLabel.setStyle(.headline)
