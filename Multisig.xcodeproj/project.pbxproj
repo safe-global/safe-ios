@@ -86,6 +86,8 @@
 		0471B3BD262742CD001F2D3B /* UpdateAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0471B3BB262742CD001F2D3B /* UpdateAppViewController.swift */; };
 		0471B3BE262742CD001F2D3B /* UpdateAppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0471B3BC262742CD001F2D3B /* UpdateAppViewController.xib */; };
 		0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0471D13124728C2C00B22A70 /* EmailLink.swift */; };
+		0472B2A82857B43E0049BA17 /* ShareTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2A72857B43E0049BA17 /* ShareTextView.swift */; };
+		0472B2AA2857B44F0049BA17 /* ShareTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2A92857B44F0049BA17 /* ShareTextView.xib */; };
 		047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FB24780C81004F1200 /* CharacterSet+Hex.swift */; };
 		047300FE24781081004F1200 /* AddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FD24781081004F1200 /* AddressTests.swift */; };
 		047588182774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */; };
@@ -918,6 +920,8 @@
 		0471B3BB262742CD001F2D3B /* UpdateAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAppViewController.swift; sourceTree = "<group>"; };
 		0471B3BC262742CD001F2D3B /* UpdateAppViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateAppViewController.xib; sourceTree = "<group>"; };
 		0471D13124728C2C00B22A70 /* EmailLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLink.swift; sourceTree = "<group>"; };
+		0472B2A72857B43E0049BA17 /* ShareTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareTextView.swift; sourceTree = "<group>"; };
+		0472B2A92857B44F0049BA17 /* ShareTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareTextView.xib; sourceTree = "<group>"; };
 		047300FB24780C81004F1200 /* CharacterSet+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Hex.swift"; sourceTree = "<group>"; };
 		047300FD24781081004F1200 /* AddressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTests.swift; sourceTree = "<group>"; };
 		047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSendFundsTransactionViewController.swift; sourceTree = "<group>"; };
@@ -3345,6 +3349,8 @@
 				0439B2962804633900796F18 /* WarningView.xib */,
 				6A252CF62818512D001F0887 /* OwnerActionView.swift */,
 				6A252CF828185148001F0887 /* OwnerActionView.xib */,
+				0472B2A72857B43E0049BA17 /* ShareTextView.swift */,
+				0472B2A92857B44F0049BA17 /* ShareTextView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4110,6 +4116,7 @@
 				0ADD0FB427C148880099DF7D /* DatePickerViewController.xib in Resources */,
 				0AD0273A25A34FF600886671 /* MultiSendRowTableViewCell.xib in Resources */,
 				04D1323625E43C560032FA03 /* DetailRejectionInfoCell.xib in Resources */,
+				0472B2AA2857B44F0049BA17 /* ShareTextView.xib in Resources */,
 				6A1CFA4B2807F24800B2C340 /* NoScreenshotViewController.xib in Resources */,
 				0A2AD3BD27ECD6CA00A0A6FD /* QRCodeShareViewController.xib in Resources */,
 				0468EE9E26148A3B008270BF /* PrivacyProtectionScreenViewController.xib in Resources */,
@@ -4446,6 +4453,7 @@
 				0AE8C0562579328800E62B34 /* ExternalURLCell.swift in Sources */,
 				0A9BC33B2460352E00EB9C5D /* EthHasher.swift in Sources */,
 				55B64666253051630050BD95 /* SelectOwnerAddressViewModel.swift in Sources */,
+				0472B2A82857B43E0049BA17 /* ShareTextView.swift in Sources */,
 				0428DB1225CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift in Sources */,
 				5534F7372760C7670018E655 /* CreatePasscodeSuggestionViewController.swift in Sources */,
 				0AC2A3CA26FB6B84002CB26A /* WebAppURLBuilder.swift in Sources */,
