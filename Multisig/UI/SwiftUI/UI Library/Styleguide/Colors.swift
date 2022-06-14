@@ -24,6 +24,7 @@ extension Color {
     static let labelPrimary = Color("labelPrimary")
     static let labelSecondary = Color("labelSecondary")
     static let labelTetriary = Color("labelTetriary")
+    static let splashBackground = Color("splashBackground")
 }
 
 extension View {

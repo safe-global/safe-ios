@@ -1,17 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "gnosis_safe.pdf",
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "eeaa21c4-436e-45fb-951b-b82e9246c90f.pdf",
+      "filename" : "Safe Multisig Mainnet-1.pdf",
       "idiom" : "universal"
     }
   ],

@@ -31,30 +31,32 @@ struct TermsView: View {
 
     var body: some View {
         VStack(spacing: interItemSpacing) {
-            Text("Please review our Terms of Use and Privacy Policy.")
+            Text("Our Terms of Use and Privacy Policy")
                 .headline()
                 .multilineTextAlignment(.center)
 
             VStack(alignment: .leading) {
-                BulletText("We do not collect demographic data such as age or gender.")
                 BulletText("We collect anonymized app usage data and crash reports to ensure the quality of our app.")
-
-                HStack {
-                    LinkButton("Privacy Policy", url: legal.privacyURL)
-                    LinkButton("Terms of Use", url: legal.termsURL)
+                BulletText("We do not collect demographic data such as age or gender.")
+                HStack (spacing: 0) {
+                    BulletText("Read more in")
+                    LinkButton("Privacy Policy", url: legal.privacyURL).padding(0)
+                    Text("and").body(.labelSecondary)
+                    LinkButton("Terms of Use", url: legal.termsURL).padding(0)
                 }
             }
 
-            Button("Agree") {
+            Button("Accept") {
                 agreeWithTerms()
                 AppSettings.trackingEnabled = true
             }
             .buttonStyle(GNOFilledButtonStyle())
 
-            Button("Agree without Sharing Usage Data") {
+            Button("Accept without sharing data") {
                 agreeWithTerms()
                 AppSettings.trackingEnabled = false
             }
+            .padding(.bottom)
             .buttonStyle(GNOPlainButtonStyle())
         }
         .padding(.top, topPadding)
@@ -80,10 +82,10 @@ struct TermsView: View {
         var body: some View {
             HStack(alignment: .top) {
                 Image("ico-bullet-point")
-                    .foregroundColor(.primary)
+                    .foregroundColor(.labelTetriary)
                     .padding(.top, bulletTopPadding)
                 Text(text)
-                    .font(.gnoBody)
+                    .body(.labelSecondary)
             }
         }
     }
