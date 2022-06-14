@@ -5,7 +5,6 @@
 
 import Foundation
 
-// used to enhance txData to contain trustedDelegateCallTarget flags in every displayed tx (also multisend inner txs)
 class DelegateWarningCalculator {
     private static let UNTRUSTED = true
     private static let TRUSTED = false
