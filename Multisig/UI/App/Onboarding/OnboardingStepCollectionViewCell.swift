@@ -44,4 +44,5 @@ struct OnboardingStep {
     let description: (text: String, highlightedText: String?)
     let image: UIImage
     let backgroundImage: UIImage?
+    let trackingEvent: TrackingEvent?
 }
