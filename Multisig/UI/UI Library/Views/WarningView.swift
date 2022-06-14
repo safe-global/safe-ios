@@ -13,7 +13,7 @@ class WarningView: UINibView {
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var iconImageView: UIImageView!
-    @IBOutlet weak var leftBar: UIImageView!
+    @IBOutlet weak var leftBar: UIView!
     @IBOutlet weak var actionButton: UIButton!
 
     var onClick: (() ->())?
@@ -27,12 +27,7 @@ class WarningView: UINibView {
         titleLabel.setStyle(.headline)
         descriptionLabel.setStyle(.secondary)
 
-        //TODO: Add orange line on the left
         leftBar.isHidden = true
-        //TODO: Add URL with text Read More
-
-
-        
     }
 
     func set(image: UIImage? = nil, title: String? = nil, description: String? = nil) {

@@ -14,7 +14,7 @@
                 <outlet property="actionButton" destination="xye-lp-Nby" id="G5A-oH-SKz"/>
                 <outlet property="descriptionLabel" destination="1M0-X0-u76" id="JDx-QE-Lkx"/>
                 <outlet property="iconImageView" destination="dWX-cl-Xr0" id="xcH-gn-I6t"/>
-                <outlet property="leftBar" destination="6YA-oX-DG3" id="2yG-Oo-qea"/>
+                <outlet property="leftBar" destination="MVe-kG-XUE" id="xLO-Nj-MXv"/>
                 <outlet property="titleLabel" destination="UXE-9x-evA" id="z25-ik-KXi"/>
             </connections>
         </placeholder>
@@ -23,13 +23,13 @@
             <rect key="frame" x="0.0" y="0.0" width="347" height="121"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6YA-oX-DG3">
-                    <rect key="frame" x="0.0" y="0.0" width="10" height="121"/>
-                    <color key="tintColor" name="warning"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MVe-kG-XUE">
+                    <rect key="frame" x="0.0" y="0.0" width="4" height="121"/>
+                    <color key="backgroundColor" name="warning"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="10" id="HPr-Bx-5Ym"/>
+                        <constraint firstAttribute="width" constant="4" id="YVN-Xj-Njc"/>
                     </constraints>
-                </imageView>
+                </view>
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="GZr-Dh-NwN">
                     <rect key="frame" x="16" y="20" width="315" height="81"/>
                     <subviews>
@@ -73,14 +73,14 @@
             <color key="backgroundColor" name="backgroundWarning"/>
             <constraints>
                 <constraint firstItem="GZr-Dh-NwN" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="IqS-mv-Gsw"/>
+                <constraint firstItem="MVe-kG-XUE" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="JMj-k2-Zfa"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="GZr-Dh-NwN" secondAttribute="trailing" constant="16" id="KZU-K1-UTy"/>
-                <constraint firstItem="6YA-oX-DG3" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="NZ6-rk-OoU"/>
-                <constraint firstItem="6YA-oX-DG3" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="NaT-d9-Uxn"/>
                 <constraint firstItem="xye-lp-Nby" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="Nc7-ag-gdv"/>
+                <constraint firstAttribute="bottom" secondItem="MVe-kG-XUE" secondAttribute="bottom" id="Zjk-Vg-ufw"/>
                 <constraint firstItem="GZr-Dh-NwN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="ebW-3a-iiY"/>
                 <constraint firstItem="xye-lp-Nby" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="f0A-Fl-Kan"/>
+                <constraint firstItem="MVe-kG-XUE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="nBA-gA-e9p"/>
                 <constraint firstItem="xye-lp-Nby" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="nGx-mL-PwD"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="6YA-oX-DG3" secondAttribute="bottom" id="nS8-pQ-SrV"/>
                 <constraint firstItem="xye-lp-Nby" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="pYg-5k-Zh3"/>
                 <constraint firstAttribute="bottom" secondItem="GZr-Dh-NwN" secondAttribute="bottom" constant="20" id="r5W-fw-xbS"/>
             </constraints>
@@ -90,7 +90,6 @@
     </objects>
     <resources>
         <image name="ico-info-toolbar" width="24" height="24"/>
-        <image name="ico-vertical" width="2" height="5"/>
         <namedColor name="backgroundWarning">
             <color red="1" green="0.95686274509803926" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
