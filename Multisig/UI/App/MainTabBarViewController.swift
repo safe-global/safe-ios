@@ -121,13 +121,16 @@ class MainTabBarViewController: UITabBarController {
 
         presentDelayedControllers()
 
-        let vc = AddOwnerExceptionViewController.safeNotFound(
-            address: "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7",
-            chain: Chain.mainnetChain()
-        ) {
-            print("added")
-        } onClose: {
-            print("closed")
+//        let vc = AddOwnerExceptionViewController.safeNotFound(
+//            address: "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7",
+//            chain: Chain.mainnetChain()
+//        ) {
+//            print("added")
+//        } onClose: {
+//            print("closed")
+//        }
+        let vc = InactiveLinkViewController {
+            print("done")
         }
         let nav = ViewControllerFactory.modal(viewController: vc)
         present(nav, animated: true)

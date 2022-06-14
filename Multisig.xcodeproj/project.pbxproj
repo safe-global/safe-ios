@@ -422,6 +422,8 @@
 		0AA9F25924992CB6005BD60F /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F25824992CB6005BD60F /* TransactionTests.swift */; };
 		0AADCDB728589DCC00A0139B /* AddOwnerExceptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AADCDB528589DCC00A0139B /* AddOwnerExceptionViewController.swift */; };
 		0AADCDB828589DCC00A0139B /* AddOwnerExceptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AADCDB628589DCC00A0139B /* AddOwnerExceptionViewController.xib */; };
+		0AADCDBB2858AA4700A0139B /* InactiveLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AADCDB92858AA4700A0139B /* InactiveLinkViewController.swift */; };
+		0AADCDBC2858AA4700A0139B /* InactiveLinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AADCDBA2858AA4700A0139B /* InactiveLinkViewController.xib */; };
 		0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D5D24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift */; };
 		0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */; };
 		0AB5DF8F270DD185005BFB43 /* CreateDelegateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB5DF8E270DD185005BFB43 /* CreateDelegateRequest.swift */; };
@@ -1241,6 +1243,8 @@
 		0AA9F25824992CB6005BD60F /* TransactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTests.swift; sourceTree = "<group>"; };
 		0AADCDB528589DCC00A0139B /* AddOwnerExceptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerExceptionViewController.swift; sourceTree = "<group>"; };
 		0AADCDB628589DCC00A0139B /* AddOwnerExceptionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOwnerExceptionViewController.xib; sourceTree = "<group>"; };
+		0AADCDB92858AA4700A0139B /* InactiveLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactiveLinkViewController.swift; sourceTree = "<group>"; };
+		0AADCDBA2858AA4700A0139B /* InactiveLinkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InactiveLinkViewController.xib; sourceTree = "<group>"; };
 		0AB34D5D24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateDecodingStrategy+GnosisSafeServices.swift"; sourceTree = "<group>"; };
 		0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesRequest.swift; sourceTree = "<group>"; };
 		0AB5DF8E270DD185005BFB43 /* CreateDelegateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDelegateRequest.swift; sourceTree = "<group>"; };
@@ -3550,6 +3554,8 @@
 				6A7A489928201697003278C8 /* SafeOwnerPickerViewController.swift */,
 				6A7A489A28201697003278C8 /* SafeOwnerPickerViewController.xib */,
 				045A175E2833D69F0020484B /* SafeSettingsChangeFlow.swift */,
+				0AADCDB92858AA4700A0139B /* InactiveLinkViewController.swift */,
+				0AADCDBA2858AA4700A0139B /* InactiveLinkViewController.xib */,
 				0AADCDB528589DCC00A0139B /* AddOwnerExceptionViewController.swift */,
 				0AADCDB628589DCC00A0139B /* AddOwnerExceptionViewController.xib */,
 				0ABC00272823BE6800F42D29 /* AddOwnerFlow.swift */,
@@ -4186,6 +4192,7 @@
 				B0D6178FC710D4E943B4F9F5 /* WebConnectionContainerViewController.xib in Resources */,
 				0A0391CB27C565D4003C871A /* IconButtonTableViewCell.xib in Resources */,
 				B0D613F1FF3262B3A295206C /* ActionPanelView.xib in Resources */,
+				0AADCDBC2858AA4700A0139B /* InactiveLinkViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4747,6 +4754,7 @@
 				8D7DFB2CEBACCDB9E9CCF6BC /* WebConnectionExpirationMonitor.swift in Sources */,
 				B0D613CC4045E3CCE3AF91AB /* WebConnectionSendTransactionRequest.swift in Sources */,
 				6A9A770C2804182700C229FC /* BackupIntroViewController.swift in Sources */,
+				0AADCDBB2858AA4700A0139B /* InactiveLinkViewController.swift in Sources */,
 				B0D61F54F176906A7C5A65CB /* SendTransactionRequestViewController.swift in Sources */,
 				B0D6163E30FA92C423E1D6AB /* JsonAppRegistryEntry.swift in Sources */,
 				B0D61167B7886798C36728CC /* WCGetDappsRequest.swift in Sources */,

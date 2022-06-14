@@ -35,6 +35,7 @@ class AddOwnerExceptionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        ViewControllerFactory.makeTransparentNavigationBar(self)
         ViewControllerFactory.addCloseButton(self)
 
         iconView.image = iconImage
