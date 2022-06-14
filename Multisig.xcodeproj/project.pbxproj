@@ -424,6 +424,8 @@
 		0AADCDB828589DCC00A0139B /* AddOwnerExceptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AADCDB628589DCC00A0139B /* AddOwnerExceptionViewController.xib */; };
 		0AADCDBB2858AA4700A0139B /* InactiveLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AADCDB92858AA4700A0139B /* InactiveLinkViewController.swift */; };
 		0AADCDBC2858AA4700A0139B /* InactiveLinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AADCDBA2858AA4700A0139B /* InactiveLinkViewController.xib */; };
+		0AADCDBE2858CD3800A0139B /* AddOwnerRequestUrlValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AADCDBD2858CD3800A0139B /* AddOwnerRequestUrlValidator.swift */; };
+		0AADCDC02858CE2600A0139B /* AddOwnerRequestValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AADCDBF2858CE2600A0139B /* AddOwnerRequestValidatorTests.swift */; };
 		0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D5D24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift */; };
 		0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */; };
 		0AB5DF8F270DD185005BFB43 /* CreateDelegateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB5DF8E270DD185005BFB43 /* CreateDelegateRequest.swift */; };
@@ -1245,6 +1247,8 @@
 		0AADCDB628589DCC00A0139B /* AddOwnerExceptionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOwnerExceptionViewController.xib; sourceTree = "<group>"; };
 		0AADCDB92858AA4700A0139B /* InactiveLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactiveLinkViewController.swift; sourceTree = "<group>"; };
 		0AADCDBA2858AA4700A0139B /* InactiveLinkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InactiveLinkViewController.xib; sourceTree = "<group>"; };
+		0AADCDBD2858CD3800A0139B /* AddOwnerRequestUrlValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerRequestUrlValidator.swift; sourceTree = "<group>"; };
+		0AADCDBF2858CE2600A0139B /* AddOwnerRequestValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerRequestValidatorTests.swift; sourceTree = "<group>"; };
 		0AB34D5D24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateDecodingStrategy+GnosisSafeServices.swift"; sourceTree = "<group>"; };
 		0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesRequest.swift; sourceTree = "<group>"; };
 		0AB5DF8E270DD185005BFB43 /* CreateDelegateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDelegateRequest.swift; sourceTree = "<group>"; };
@@ -2102,6 +2106,7 @@
 			children = (
 				551DDEEA244F192300C719D3 /* Models */,
 				0A9366BC279090CC001918A9 /* OwnerKeySelectionPolicyTests.swift */,
+				0AADCDBF2858CE2600A0139B /* AddOwnerRequestValidatorTests.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -3558,6 +3563,7 @@
 				0AADCDBA2858AA4700A0139B /* InactiveLinkViewController.xib */,
 				0AADCDB528589DCC00A0139B /* AddOwnerExceptionViewController.swift */,
 				0AADCDB628589DCC00A0139B /* AddOwnerExceptionViewController.xib */,
+				0AADCDBD2858CD3800A0139B /* AddOwnerRequestUrlValidator.swift */,
 				0ABC00272823BE6800F42D29 /* AddOwnerFlow.swift */,
 				045A17602833DCF30020484B /* AddOwnerFlowFromSettings.swift */,
 				0ABC00292823D4CD00F42D29 /* ReplaceOwnerFlow.swift */,
@@ -4504,6 +4510,7 @@
 				0AE0AFEC2805C6B9002594CB /* VerifyPhraseViewController.swift in Sources */,
 				047691592464026400D73D8B /* SectionHeader.swift in Sources */,
 				0AF5C66D27BAA74300BFEA52 /* WebConnectionTableViewCell.swift in Sources */,
+				0AADCDBE2858CD3800A0139B /* AddOwnerRequestUrlValidator.swift in Sources */,
 				0455A44527282EAA008B772D /* FileManagerWrapper.swift in Sources */,
 				04273E6026D43F0400A14E95 /* IdenticonView.swift in Sources */,
 				555312EF2506641D0008206B /* RIPEMD160.swift in Sources */,
@@ -4780,6 +4787,7 @@
 				0A0EFC9F246EADC200D3D8BF /* DisplayURLTests.swift in Sources */,
 				0A9BC3482460539F00EB9C5D /* ContractTests.swift in Sources */,
 				555312F2250673AD0008206B /* BIP39Tests.swift in Sources */,
+				0AADCDC02858CE2600A0139B /* AddOwnerRequestValidatorTests.swift in Sources */,
 				0AF78A3027E0AAD3001BAFE0 /* WCAppRegistryEntryTests.swift in Sources */,
 				D86A68DF274E692500D7F5C5 /* TestingAppDelegate.swift in Sources */,
 				5532D4CA2449A1980067505A /* CrashlyticsLoggerTests.swift in Sources */,
