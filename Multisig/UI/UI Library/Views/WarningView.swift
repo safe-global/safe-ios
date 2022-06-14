@@ -15,6 +15,7 @@ class WarningView: UINibView {
     @IBOutlet private weak var iconImageView: UIImageView!
     @IBOutlet weak var leftBar: UIView!
     @IBOutlet weak var actionButton: UIButton!
+    @IBOutlet weak var contentStackView: UIStackView!
 
     var onClick: (() ->())?
     override func commonInit() {
@@ -28,6 +29,7 @@ class WarningView: UINibView {
         descriptionLabel.setStyle(.secondary)
 
         leftBar.isHidden = true
+        contentStackView.spacing = 16
     }
 
     func set(image: UIImage? = nil, title: String? = nil, description: String? = nil) {
@@ -46,6 +48,11 @@ class WarningView: UINibView {
 
     func showLeftBar(_ show: Bool) {
         leftBar.isHidden = !show
+        if show {
+            contentStackView.spacing = 8
+        } else {
+            contentStackView.spacing = 16
+        }
     }
 
     @IBAction func actionButtonClicked(_ sender: Any) {

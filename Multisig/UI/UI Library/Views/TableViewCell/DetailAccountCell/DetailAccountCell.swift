@@ -35,6 +35,10 @@ class DetailAccountCell: UITableViewCell {
         warningView.isHidden = !showDelegateWarning
         warningView.set(title: "Unexpected DelegateCall")
         warningView.showLeftBar(true)
+        warningView.onClick = {
+            let url = URL(string: "https://help.gnosis-safe.io/en/articles/6302452-unexpected-delegate-calls")!
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
 
         addressInfoView.copyEnabled = copyEnabled
     }
