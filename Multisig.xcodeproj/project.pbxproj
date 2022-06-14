@@ -420,6 +420,10 @@
 		0AA9F2552498CC82005BD60F /* DataString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F2542498CC82005BD60F /* DataString.swift */; };
 		0AA9F25724991988005BD60F /* TokenBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F25624991988005BD60F /* TokenBalance.swift */; };
 		0AA9F25924992CB6005BD60F /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F25824992CB6005BD60F /* TransactionTests.swift */; };
+		0AADCDB728589DCC00A0139B /* AddOwnerExceptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AADCDB528589DCC00A0139B /* AddOwnerExceptionViewController.swift */; };
+		0AADCDB828589DCC00A0139B /* AddOwnerExceptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AADCDB628589DCC00A0139B /* AddOwnerExceptionViewController.xib */; };
+		0AADCDBB2858AA4700A0139B /* InactiveLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AADCDB92858AA4700A0139B /* InactiveLinkViewController.swift */; };
+		0AADCDBC2858AA4700A0139B /* InactiveLinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AADCDBA2858AA4700A0139B /* InactiveLinkViewController.xib */; };
 		0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D5D24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift */; };
 		0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */; };
 		0AB5DF8F270DD185005BFB43 /* CreateDelegateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB5DF8E270DD185005BFB43 /* CreateDelegateRequest.swift */; };
@@ -1237,6 +1241,10 @@
 		0AA9F2542498CC82005BD60F /* DataString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataString.swift; sourceTree = "<group>"; };
 		0AA9F25624991988005BD60F /* TokenBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBalance.swift; sourceTree = "<group>"; };
 		0AA9F25824992CB6005BD60F /* TransactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTests.swift; sourceTree = "<group>"; };
+		0AADCDB528589DCC00A0139B /* AddOwnerExceptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerExceptionViewController.swift; sourceTree = "<group>"; };
+		0AADCDB628589DCC00A0139B /* AddOwnerExceptionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOwnerExceptionViewController.xib; sourceTree = "<group>"; };
+		0AADCDB92858AA4700A0139B /* InactiveLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InactiveLinkViewController.swift; sourceTree = "<group>"; };
+		0AADCDBA2858AA4700A0139B /* InactiveLinkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InactiveLinkViewController.xib; sourceTree = "<group>"; };
 		0AB34D5D24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateDecodingStrategy+GnosisSafeServices.swift"; sourceTree = "<group>"; };
 		0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesRequest.swift; sourceTree = "<group>"; };
 		0AB5DF8E270DD185005BFB43 /* CreateDelegateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDelegateRequest.swift; sourceTree = "<group>"; };
@@ -3546,6 +3554,10 @@
 				6A7A489928201697003278C8 /* SafeOwnerPickerViewController.swift */,
 				6A7A489A28201697003278C8 /* SafeOwnerPickerViewController.xib */,
 				045A175E2833D69F0020484B /* SafeSettingsChangeFlow.swift */,
+				0AADCDB92858AA4700A0139B /* InactiveLinkViewController.swift */,
+				0AADCDBA2858AA4700A0139B /* InactiveLinkViewController.xib */,
+				0AADCDB528589DCC00A0139B /* AddOwnerExceptionViewController.swift */,
+				0AADCDB628589DCC00A0139B /* AddOwnerExceptionViewController.xib */,
 				0ABC00272823BE6800F42D29 /* AddOwnerFlow.swift */,
 				045A17602833DCF30020484B /* AddOwnerFlowFromSettings.swift */,
 				0ABC00292823D4CD00F42D29 /* ReplaceOwnerFlow.swift */,
@@ -4069,6 +4081,7 @@
 				5562DD722693425E00B56722 /* NetworkIndicatorHeaderView.xib in Resources */,
 				0A8AEB2125A4764F002A3FE1 /* ActionDetailAddressCell.xib in Resources */,
 				0468FB9525912E8300541536 /* TransactionListHeaderTableViewCell.xib in Resources */,
+				0AADCDB828589DCC00A0139B /* AddOwnerExceptionViewController.xib in Resources */,
 				0AF78A3227E0E07B001BAFE0 /* PendingWalletActionViewController.xib in Resources */,
 				557D80B0270B32F80036D6D0 /* WCIncomingTransactionRequestViewController.xib in Resources */,
 				55413678265E4A0000796F91 /* AddOwnerKeyCell.xib in Resources */,
@@ -4179,6 +4192,7 @@
 				B0D6178FC710D4E943B4F9F5 /* WebConnectionContainerViewController.xib in Resources */,
 				0A0391CB27C565D4003C871A /* IconButtonTableViewCell.xib in Resources */,
 				B0D613F1FF3262B3A295206C /* ActionPanelView.xib in Resources */,
+				0AADCDBC2858AA4700A0139B /* InactiveLinkViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4323,6 +4337,7 @@
 				550FB1A826691D0A00C13D54 /* OwnerKeyController.swift in Sources */,
 				0A9E8E7725B9CA4200256AD3 /* BannerTableViewCell.swift in Sources */,
 				0AF8832225A5EC1F00029A43 /* ActionDetailTableViewCell.swift in Sources */,
+				0AADCDB728589DCC00A0139B /* AddOwnerExceptionViewController.swift in Sources */,
 				0A3FDAEF26AEB603006A7DC3 /* Chain+Shared.swift in Sources */,
 				0AE0AFF12805CC2B002594CB /* WordView.swift in Sources */,
 				0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */,
@@ -4739,6 +4754,7 @@
 				8D7DFB2CEBACCDB9E9CCF6BC /* WebConnectionExpirationMonitor.swift in Sources */,
 				B0D613CC4045E3CCE3AF91AB /* WebConnectionSendTransactionRequest.swift in Sources */,
 				6A9A770C2804182700C229FC /* BackupIntroViewController.swift in Sources */,
+				0AADCDBB2858AA4700A0139B /* InactiveLinkViewController.swift in Sources */,
 				B0D61F54F176906A7C5A65CB /* SendTransactionRequestViewController.swift in Sources */,
 				B0D6163E30FA92C423E1D6AB /* JsonAppRegistryEntry.swift in Sources */,
 				B0D61167B7886798C36728CC /* WCGetDappsRequest.swift in Sources */,
