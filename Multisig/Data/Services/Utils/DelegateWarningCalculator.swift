@@ -71,8 +71,6 @@ class DelegateWarningCalculator {
     /// Multi Send transaction is potentially dangerous (untrusted) if it is a "delegate call"
     /// operation and the recipient (target) address, "to", does not have a name resolved.
     ///
-    /// If the multisend transaction is itself a multi-send
-    ///
     /// - Parameters:
     ///   - multiSendTx: multisend transaction
     ///   - addressInfoIndex: name index of addresses in the decoded transaction data

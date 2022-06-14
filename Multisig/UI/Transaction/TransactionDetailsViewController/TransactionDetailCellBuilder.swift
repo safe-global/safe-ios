@@ -672,8 +672,6 @@ class TransactionDetailCellBuilder {
                  prefix: String? = nil,
                  showDelegateWarning: Bool = false) {
 
-        print("\(address.ellipsized()) showDelegateWarning: \(showDelegateWarning)")
-
         let cell = newCell(DetailAccountCell.self)
         cell.setAccount(address: address,
                         label: label,
