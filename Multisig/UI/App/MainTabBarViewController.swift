@@ -120,6 +120,17 @@ class MainTabBarViewController: UITabBarController {
         WebConnectionController.shared.reconnect()
 
         presentDelayedControllers()
+        
+        let vc = AddOwnerExceptionViewController.safeNotFound(
+            address: "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7",
+            chain: Chain.mainnetChain()
+        ) {
+            print("added")
+        } onClose: {
+            print("closed")
+        }
+        let nav = ViewControllerFactory.modal(viewController: vc)
+        present(nav, animated: true)
     }
 
     private func balancesTabViewController() -> BalancesUINavigationController {

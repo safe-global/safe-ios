@@ -84,6 +84,7 @@ enum ViewControllerFactory {
             UIBarButtonItem(barButtonSystemItem: .close, target: vc, action: #selector(CloseModal.closeModal))
     }
 
+    // TODO: Bad name, rename.
     static func removeNavigationItem(_ vc: UIViewController) {
         // remove underline from navigationItem
         let navigationBarAppearance = UINavigationBarAppearance()
