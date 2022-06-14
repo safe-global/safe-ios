@@ -50,9 +50,11 @@ class WarningView: UINibView {
         leftBar.isHidden = !show
         if show {
             contentStackView.spacing = 8
-            titleLabel.hyperLinkLabel(titleLabel.text!, linkText: "Learn More")
+            titleLabel.hyperLinkLabel(titleLabel.text!, linkText: "Learn More", linkIcon: nil)
+            titleLabel.adjustsFontSizeToFitWidth = true
         } else {
             contentStackView.spacing = 16
+            titleLabel.adjustsFontSizeToFitWidth = false
         }
     }
 
