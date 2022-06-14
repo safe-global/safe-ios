@@ -73,9 +73,14 @@ class GenerateKeyFlow: AddKeyFlow {
         }
 
         if safe.isReadOnly {
-            let vc = flowFactory.inviteToAddOwner {
+            let vc = flowFactory.inviteToAddOwner { [unowned self] in
+                let vc = flowFactory.shareAddKeyAsOwnerLink(owner: keyInfo!, safe: safe) {
+                    stop(success: true)
+                    return
+                }
 
-            } skipped: { [unowned self] in
+                show(vc)
+            } onSkip: { [unowned self] in
                 didAddKeyAsOwner()
             }
             show(vc)
@@ -157,12 +162,21 @@ class GenerateKeyFactory: AddKeyFlowFactory {
         return introVC
     }
 
-    func inviteToAddOwner(share: @escaping () -> Void, skipped: @escaping () -> Void) -> CreateInviteOwnerIntroViewController {
-        let introVC = CreateInviteOwnerIntroViewController()
+    func inviteToAddOwner(share: @escaping () -> Void, onSkip: @escaping () -> ()) -> CreateInviteOwnerIntroViewController {
+        let introVC = CreateInviteOwnerIntroViewController(onShare: share, onSkip: onSkip)
         ViewControllerFactory.removeNavigationItem(introVC)
-        introVC.onShare = share
-        introVC.onSkip = skipped
         return introVC
+    }
+
+    func shareAddKeyAsOwnerLink(owner: AddressInfo, safe: Safe, onFinish: @escaping () -> Void) -> UIViewController {
+        let vc = ShareAddOwnerLinkViewController(owner: owner,
+                                                 safe: safe,
+                                                 onFinish: onFinish)
+
+        ViewControllerFactory.removeNavigationItem(vc)
+        ViewControllerFactory.addCloseButton(vc)
+
+        return vc
     }
 
     func addAsOwner(added: @escaping () -> Void, replaced: @escaping () -> Void, skipped: @escaping () -> Void) -> AddKeyAsOwnerIntroViewController {
