@@ -416,10 +416,11 @@ extension MainTabBarViewController: NavigationRouter {
         } else if route.path == NavigationRoute.deploymentFailedPath {
             presentFailedDeployment(safe: route.info["safe"] as! Safe)
         } else if route.path == NavigationRoute.requestToAddOwnerPath {
-            // TODO: Open the add owner flow.
-            let _ = route.info["parameters"] as! AddOwnerRequestParameters
+            let parameters = route.info["parameters"] as! AddOwnerRequestParameters
 
-            let vc = InactiveLinkViewController { [weak self] in
+            let vc = ValidateRequestToAddOwnerViewController()
+            vc.parameters = parameters
+            vc.onCancel = { [weak self] in
                 self?.dismiss(animated: true)
             }
             let nav = ViewControllerFactory.modal(viewController: vc)

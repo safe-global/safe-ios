@@ -35,14 +35,14 @@
                         <action selector="didTapCancelButton:" destination="-1" eventType="touchUpInside" id="UMX-Xz-n3Y"/>
                     </connections>
                 </button>
-                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="v7D-d1-m7i">
-                    <rect key="frame" x="152" y="409.5" width="111.5" height="77.5"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="v7D-d1-m7i">
+                    <rect key="frame" x="16" y="409.5" width="382" height="77.5"/>
                     <subviews>
-                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="9Fk-RK-XNw">
-                            <rect key="frame" x="0.0" y="0.0" width="111.5" height="37"/>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="9Fk-RK-XNw">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="37"/>
                         </activityIndicatorView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Verifying link..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KFB-yo-lNl">
-                            <rect key="frame" x="0.0" y="57" width="111.5" height="20.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verifying link..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KFB-yo-lNl">
+                            <rect key="frame" x="0.0" y="57" width="382" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -56,8 +56,10 @@
                 <constraint firstItem="xYT-YA-hTN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="4n5-DQ-2OR"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="xYT-YA-hTN" secondAttribute="trailing" constant="16" id="5uC-Lh-Lk0"/>
                 <constraint firstItem="v7D-d1-m7i" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="8jb-f4-GhA"/>
+                <constraint firstItem="v7D-d1-m7i" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="XnH-ad-NWI"/>
                 <constraint firstItem="xYT-YA-hTN" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="-16" id="d8x-r4-kZs"/>
                 <constraint firstItem="v7D-d1-m7i" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="lXJ-el-ef1"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="v7D-d1-m7i" secondAttribute="trailing" constant="16" id="vfi-1g-lvg"/>
             </constraints>
             <point key="canvasLocation" x="132" y="132"/>
         </view>

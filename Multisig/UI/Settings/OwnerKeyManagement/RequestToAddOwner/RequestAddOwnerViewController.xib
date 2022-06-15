@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RequestAddOwnerViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="closeButton" destination="94a-9Y-ck0" id="COJ-2m-3ze"/>
+                <outlet property="ownerInfoView" destination="L8G-nb-jAo" id="pJy-ca-1KZ"/>
+                <outlet property="safeInfoView" destination="o0T-2X-4XQ" id="Ufc-fB-pUq"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="94a-9Y-ck0">
+                    <rect key="frame" x="16" y="802" width="382" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="hzd-E3-ij1"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Close">
+                        <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="didTapClose:" destination="-1" eventType="touchUpInside" id="h1n-aC-eW2"/>
+                    </connections>
+                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="NgF-sH-8zg">
+                    <rect key="frame" x="16" y="369.5" width="382" height="157"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o0T-2X-4XQ" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="66"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="66" id="elM-U4-syD"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L8G-nb-jAo" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="91" width="382" height="66"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="66" id="dpL-2v-fVl"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="94a-9Y-ck0" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="0o2-11-i67"/>
+                <constraint firstItem="NgF-sH-8zg" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="1FK-t8-7SW"/>
+                <constraint firstItem="NgF-sH-8zg" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Msx-sq-VHl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="94a-9Y-ck0" secondAttribute="bottom" constant="16" id="Swk-bB-DFp"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="NgF-sH-8zg" secondAttribute="trailing" constant="16" id="mwl-ij-r8p"/>
+                <constraint firstItem="NgF-sH-8zg" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="sTH-dt-TBg"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="94a-9Y-ck0" secondAttribute="trailing" constant="16" id="vUw-Ve-lM8"/>
+            </constraints>
+            <point key="canvasLocation" x="131.8840579710145" y="131.91964285714286"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

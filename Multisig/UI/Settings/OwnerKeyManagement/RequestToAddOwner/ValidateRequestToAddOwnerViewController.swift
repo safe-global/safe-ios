@@ -15,16 +15,20 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
 
     var parameters: AddOwnerRequestParameters!
-    var safeLoader = SafeInfoLoader()
     var onCancel: () -> Void = { }
+
+    private var safeLoader = SafeInfoLoader()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         ViewControllerFactory.addCloseButton(self)
+        ViewControllerFactory.makeTransparentNavigationBar(self)
 
         descriptionLabel.setStyle(.primary)
 
         cancelButton.setText("Cancel", .plain)
+
+        validate()
     }
 
     override func closeModal() {
@@ -45,29 +49,62 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
         do {
             let info = try result.get()
 
-            #error("Continue from here")
+            let isAlreaydAnOwner = info.owners.contains(where: { $0.addressInfo.address == parameters.ownerAddress })
+            if isAlreaydAnOwner {
+                let inactiveLinkVC = InactiveLinkViewController.inactiveLink(completion: onCancel)
+                show(inactiveLinkVC, sender: self)
+                return
+            }
+
+            // do we have such a safe?
+            guard let safe = Safe.by(address: parameters.safeAddress.checksummed, chainId: parameters.chain.id!) else {
+                let noSafeVC = AddOwnerExceptionViewController.safeNotFound(
+                    address: parameters.safeAddress,
+                    chain: parameters.chain,
+                    onAdd: {
+                        // add safe
+                        // re-trigger validation
+                    },
+                    onClose: onCancel)
+                show(noSafeVC, sender: self)
+                return
+            }
 
             // update database
+            safe.update(from: info)
 
-            // is owner in the list?
-                // show inactive link
-
-            // do I not have safe?
-                // show no safe
-
-            // is safe read only?
-                // show safe read only
+            if safe.isReadOnly {
+                let readOnlyVC = AddOwnerExceptionViewController.safeReadOnly(
+                    address: parameters.safeAddress,
+                    chain: parameters.chain,
+                    onAdd: {
+                        // add new owner
+                        // re-trigger validation
+                    },
+                    onClose: onCancel
+                )
+                show(readOnlyVC, sender: self)
+                return
+            }
 
             // all passed
                 // show the 'receive'
+            let requestVC = RequestAddOwnerViewController()
+            requestVC.safe = safe
+            requestVC.parameters = parameters
+            requestVC.onDone = onCancel
+            show(requestVC, sender: self)
 
         } catch {
             // show error screen
+            let errorVC = InactiveLinkViewController.broken(error, completion: onCancel)
+            show(errorVC, sender: self)
         }
     }
 
     func cancel() {
         safeLoader.cancel()
+        onCancel()
     }
 
 }
@@ -81,6 +118,7 @@ class SafeInfoLoader {
     private var address: Address!
 
     private var tasks: [URLSessionTask?]!
+    // FIXME: it can happen that the owners fail first. Need a queue, not a group.
     private var group: DispatchGroup!
     private var timeout = 60
 

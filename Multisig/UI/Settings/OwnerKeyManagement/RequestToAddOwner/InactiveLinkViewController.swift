@@ -15,12 +15,10 @@ class InactiveLinkViewController: UIViewController {
     @IBOutlet weak var bodyLabel: UILabel!
     @IBOutlet weak var doneLabel: UIButton!
 
+    var titleText: String?
+    var bodyText: String?
+    var buttonText: String = "OK"
     var onDone: () -> Void = { }
-
-    convenience init(completion: @escaping () -> Void) {
-        self.init()
-        onDone = completion
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,12 +26,12 @@ class InactiveLinkViewController: UIViewController {
         ViewControllerFactory.addCloseButton(self)
 
         titleLabel.setStyle(.title3.weight(.semibold))
-        titleLabel.text = "This link is no longer active"
+        titleLabel.text = titleText
 
         bodyLabel.setStyle(.secondary)
-        bodyLabel.text = "The new owner has already been added by someone else."
+        bodyLabel.text = bodyText
 
-        doneLabel.setText("Got it", .filled)
+        doneLabel.setText(buttonText, .filled)
     }
 
     override func closeModal() {
@@ -42,5 +40,23 @@ class InactiveLinkViewController: UIViewController {
 
     @IBAction func didTapDone(_ sender: Any) {
         onDone()
+    }
+
+    static func inactiveLink(completion: @escaping () -> Void) -> InactiveLinkViewController {
+        let vc = InactiveLinkViewController()
+        vc.titleText = "This link is no longer active"
+        vc.bodyText = "The new owner has already been added by someone else."
+        vc.buttonText = "Got it"
+        vc.onDone = completion
+        return vc
+    }
+
+    static func broken(_ error: Error, completion: @escaping () -> Void) -> InactiveLinkViewController {
+        let vc = InactiveLinkViewController()
+        vc.titleText = "Something went wrong"
+        vc.bodyText = error.localizedDescription
+        vc.buttonText = "Close"
+        vc.onDone = completion
+        return vc
     }
 }
