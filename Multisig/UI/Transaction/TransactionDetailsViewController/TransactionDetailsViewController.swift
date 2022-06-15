@@ -461,7 +461,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         self.tx = transformer.transformed(transaction: self.tx!)
 
         trackScreen()
-
         cells = builder.build(self.tx!)
     }
 

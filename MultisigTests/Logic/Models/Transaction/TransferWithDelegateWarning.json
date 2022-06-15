@@ -1,0 +1,111 @@
+{
+  "safeAddress": "0x1C8b9B78e3085866521FE206fa4c1a67F49f153A",
+  "txId": "multisig_0x1C8b9B78e3085866521FE206fa4c1a67F49f153A_0xee3e53583844a34dd142507b8f1d1fe1e87ebcf24bdba9121b4f823917db2782",
+  "executedAt": 1649250693000,
+  "txStatus": "SUCCESS",
+  "txInfo": {
+    "type": "Transfer",
+    "sender": {
+      "value": "0x1C8b9B78e3085866521FE206fa4c1a67F49f153A"
+    },
+    "recipient": {
+      "value": "0x1C8b9B78e3085866521FE206fa4c1a67F49f153A"
+    },
+    "direction": "OUTGOING",
+    "transferInfo": {
+      "type": "NATIVE_COIN",
+      "value": "2000000000000000000"
+    }
+  },
+  "txData": {
+    "hexData": null,
+    "dataDecoded": null,
+    "to": {
+      "value": "0x1C8b9B78e3085866521FE206fa4c1a67F49f153A"
+    },
+    "value": "2000000000000000000",
+    "operation": 0,
+    "trustedDelegateCallTarget": false
+  },
+  "detailedExecutionInfo": {
+    "type": "MULTISIG",
+    "submittedAt": 1649250693000,
+    "nonce": 446,
+    "safeTxGas": "0",
+    "baseGas": "0",
+    "gasPrice": "0",
+    "gasToken": "0x0000000000000000000000000000000000000000",
+    "refundReceiver": {
+      "value": "0x0000000000000000000000000000000000000000"
+    },
+    "safeTxHash": "0xee3e53583844a34dd142507b8f1d1fe1e87ebcf24bdba9121b4f823917db2782",
+    "executor": {
+      "value": "0xE86935943315293154c7AD63296b4e1adAc76364"
+    },
+    "signers": [
+      {
+        "value": "0x774d7Dec19225e046769Cf05E4aa524b72814C62"
+      },
+      {
+        "value": "0x649657A4B59D3cCB5E11e789eD19672CEbBd05Fd"
+      },
+      {
+        "value": "0x16d5f334FDecA18be326aEB05e9133E0ac24514B"
+      },
+      {
+        "value": "0x9a9F856aCF92A51b4dD741Df80D95712D5412d03"
+      },
+      {
+        "value": "0xb926a9024db4C113b45f968A9Fd457A13D581574"
+      },
+      {
+        "value": "0xacC806a95dD12584ac8BA7F9Ad6d1F5235CCb17d"
+      },
+      {
+        "value": "0x9326070485D1E85665EdBE2208084910C2Adf65D"
+      },
+      {
+        "value": "0x3C34ED2e417dE5B1CFE6aEdF30D47d269d09b427"
+      },
+      {
+        "value": "0xe44F9E113Fbd671Bf697d5a1cf1716E1a8c3F35b"
+      },
+      {
+        "value": "0x3f17f1962B36e491b30A40b2405849e597Ba5FB5"
+      },
+      {
+        "value": "0x757266fB3445117868d2997e3cf726b46680c852"
+      },
+      {
+        "value": "0x47fc70650f612E9c1D149f7508b593f344beb202"
+      },
+      {
+        "value": "0xD28293bf13549Abb49Ed1D83D515301A05E3Fc8d"
+      },
+      {
+        "value": "0x5c9E7b93900536D9cc5559b881375Bae93c933D0"
+      },
+      {
+        "value": "0xE86935943315293154c7AD63296b4e1adAc76364"
+      }
+    ],
+    "confirmationsRequired": 2,
+    "confirmations": [
+      {
+        "signer": {
+          "value": "0x5c9E7b93900536D9cc5559b881375Bae93c933D0"
+        },
+        "signature": "0xbd85dab4002e50482e3186dec4a672b68e61d17aacd789dcfd7c1534dac227920182da54a141dbc6da0297fcd6f465176b5872d36ab7a37e7ab4eff68ecc60641c",
+        "submittedAt": 1649250693000
+      },
+      {
+        "signer": {
+          "value": "0xE86935943315293154c7AD63296b4e1adAc76364"
+        },
+        "signature": "0xfdbed0199ce903e04b51ce750750d2555de0d5647380cc5586620232548b8db22a5459f7f7205352496fd775b4c086d765ccc6a6260a375388a929eb2c4f024e1c",
+        "submittedAt": 1649250693000
+      }
+    ]
+  },
+  "txHash": "0xee5c09da5b5ece10d6931115640b491f8e64bf0aef3db560822b7bcbbf4ae208"
+}

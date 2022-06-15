@@ -11,11 +11,13 @@ import UIKit
 class MultiSendRowTableViewCell: UITableViewCell {
     @IBOutlet weak var addressInfoView: AddressInfoView!
     @IBOutlet private weak var actionLabel: UILabel!
+    @IBOutlet weak var delegateWarning: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         addressInfoView.copyEnabled = false
         actionLabel.setStyle(.primary)
+        delegateWarning.isHidden = true
     }
 
     func setAddress(_ address: Address, label: String?, imageUri: URL?, prefix: String?) {
@@ -24,5 +26,9 @@ class MultiSendRowTableViewCell: UITableViewCell {
 
     func setAction(_ text: String?) {
         actionLabel.text = text
+    }
+
+    func setDelegateWarning(_ showDelegateWarning: Bool) {
+        delegateWarning.isHidden = !showDelegateWarning
     }
 }

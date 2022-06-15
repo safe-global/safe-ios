@@ -29,6 +29,10 @@ class WalletConnectServerController: ServerDelegate {
         server = Server(delegate: self)        
     }
 
+    func canConnect(url: String) -> Bool {
+        WCURL(url) != nil
+    }
+
     func connect(url: String) throws {
         guard let wcurl = WCURL(url) else { throw GSError.InvalidWalletConnectQRCode() }
         do {

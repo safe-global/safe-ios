@@ -102,10 +102,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         handleUserActivity(userActivity)
     }
 
+    // Handles opening of a universal link.
+    //
+    // Supported link types:
+    // - WalletConnect links from dapps to connect to the safe
+    //   - 'connect' link to establish new connection
+    //   - 'open' link to move the app to foreground so that it is able to process WalletConnect request or response.
+    // - Request To Add Owner
+    //   - https://gnosis-safe.io/app/<network:safe_address>/addOwner?address=<owner_address>
     private func handleUserActivity(_ userActivity: NSUserActivity) {
-        // Does not make scense to handle WalletConnect URLs without a safe
-        guard let _ = try? Safe.getSelected() else { return }
-
         // Get URL components from the incoming user activity.
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
               let incomingURL = userActivity.webpageURL,
@@ -113,15 +118,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        // Check if URL is a potential WalletConnect session
-        guard let params = components.queryItems,
-              !params.isEmpty,
-              let wcURL = params[0].value else {
+        // handle wallet connect
+        if let wcURL = components.queryItems?.first?.value,
+           WalletConnectSafesServerController.shared.canConnect(url: wcURL),
+           (try? Safe.getSelected()) != nil {
+            try? WalletConnectSafesServerController.shared.connect(url: wcURL)
+            WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithUniversalLink
             return
         }
 
-        try? WalletConnectSafesServerController.shared.connect(url: wcURL)
-        WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithUniversalLink
+        // handle request to add owner
+        if AddOwnerRequestValidator.isValid(url: incomingURL),
+           let params = AddOwnerRequestValidator.parameters(from: incomingURL) {
+            DefaultNavigationRouter.shared.navigate(to: .requestToAddOwner(params))
+        }
     }
 
     // MARK: - Window Management

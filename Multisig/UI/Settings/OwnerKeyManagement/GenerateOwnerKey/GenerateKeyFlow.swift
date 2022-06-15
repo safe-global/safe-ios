@@ -164,7 +164,7 @@ class GenerateKeyFactory: AddKeyFlowFactory {
 
     func inviteToAddOwner(share: @escaping () -> Void, onSkip: @escaping () -> ()) -> CreateInviteOwnerIntroViewController {
         let introVC = CreateInviteOwnerIntroViewController(onShare: share, onSkip: onSkip)
-        ViewControllerFactory.removeNavigationItem(introVC)
+        ViewControllerFactory.makeTransparentNavigationBar(introVC)
         return introVC
     }
 
@@ -173,7 +173,7 @@ class GenerateKeyFactory: AddKeyFlowFactory {
                                                  safe: safe,
                                                  onFinish: onFinish)
 
-        ViewControllerFactory.removeNavigationItem(vc)
+        ViewControllerFactory.makeTransparentNavigationBar(vc)
         ViewControllerFactory.addCloseButton(vc)
 
         return vc
@@ -181,7 +181,7 @@ class GenerateKeyFactory: AddKeyFlowFactory {
 
     func addAsOwner(added: @escaping () -> Void, replaced: @escaping () -> Void, skipped: @escaping () -> Void) -> AddKeyAsOwnerIntroViewController {
         let introVC = AddKeyAsOwnerIntroViewController()
-        ViewControllerFactory.removeNavigationItem(introVC)
+        ViewControllerFactory.makeTransparentNavigationBar(introVC)
         introVC.onAdd = added
         introVC.onReplace = replaced
         introVC.onSkip = skipped

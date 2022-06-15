@@ -23,15 +23,18 @@ class OnboardingViewController: UIViewController {
     private let steps: [OnboardingStep] = [OnboardingStep(title: "The world of Web3 in your pocket",
                                                           description: (text: "Use the most popular Ethereum-compatible networks, connect to dApps, get transaction notifications and more.", highlightedText: "connect to dApps"),
                                                           image: UIImage(named: "ico-onboarding-1")!,
-                                                          backgroundImage: UIImage(named: "ico-onboarding-background-1")!),
+                                                          backgroundImage: UIImage(named: "ico-onboarding-background-1")!,
+                                                          trackingEvent: .screenOnboarding1),
                                            OnboardingStep(title: "Stay in control of your funds",
                                                           description: (text: "Define how you manage digital assets and who gets authorized access to your crypto. Use multiple signer keys for better security.", highlightedText: "multiple signer keys"),
                                                           image: UIImage(named: "ico-onboarding-2")!,
-                                                          backgroundImage: UIImage(named: "ico-onboarding-background-2")!),
+                                                          backgroundImage: UIImage(named: "ico-onboarding-background-2")!,
+                                                          trackingEvent: .screenOnboarding2),
                                            OnboardingStep(title: "Enjoy stealth security from Multi-signature",
                                                                   description: (text:"About $107B worth of digital assets are already securely stored by individuals and teams using Gnosis Safe.", highlightedText: "$107B worth of digital assets"),
                                                           image: UIImage(named: "ico-onboarding-3")!,
-                                                          backgroundImage: UIImage(named: "ico-onboarding-background-3")!)
+                                                          backgroundImage: UIImage(named: "ico-onboarding-background-3")!,
+                                                          trackingEvent: .screenOnboarding3)
     ]
 
     private var completion: () -> () = { }
@@ -57,6 +60,7 @@ class OnboardingViewController: UIViewController {
 
         pageControl.numberOfPages = self.steps.count
         actionsContainerView.isHidden = true
+        bindCurrentStep(page: 0)
     }
 
     @IBAction private func didTapLoadSafe(_ sender: Any) {
@@ -104,6 +108,7 @@ class OnboardingViewController: UIViewController {
     }
 
     @IBAction private func skipButtonTouched(_ sender: Any) {
+        Tracker.trackEvent(.onboardingSkipped)
         let page = steps.count - 1
         collectionView.scrollToItem(at: IndexPath(item: page, section: 0),
                                     at: .centeredHorizontally,
@@ -135,9 +140,20 @@ class OnboardingViewController: UIViewController {
                           options: .transitionCrossDissolve,
                           animations: { [weak self] in
             guard let self = self else { return }
-            self.skipButton.isHidden = !self.actionsContainerView.isHidden
-            self.closeButton.isHidden = !self.skipButton.isHidden
+            self.closeButton.isHidden = page != self.pageControl.numberOfPages - 1
           })
+
+        UIView.transition(with: skipButton, duration: 0.4,
+                          options: .transitionCrossDissolve,
+                          animations: { [weak self] in
+            guard let self = self else { return }
+            self.skipButton.isHidden = page == self.pageControl.numberOfPages - 1
+          })
+
+        let step = steps[page]
+        if let event = step.trackingEvent {
+            Tracker.trackEvent(event)
+        }
     }
 
     @IBAction func didTapClosed(_ sender: Any) {
@@ -145,7 +161,7 @@ class OnboardingViewController: UIViewController {
     }
 }
 
-extension OnboardingViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension OnboardingViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return steps.count
     }

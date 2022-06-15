@@ -24,7 +24,7 @@ class TransactionTests: XCTestCase {
         let _ = try decoder.decode(SCGModels.TransactionDetails.self, from: data)
     }
 
-    func testTransactoinEncodedData_v1_2_0() throws {
+    func testTransactionEncodedData_v1_2_0() throws {
         var tx = Transaction(to: "0x8e6A5aDb2B88257A3DAc7A76A7B4EcaCdA090b66",
                              value: "1000123",
                              data: "0x561001057600080fd5b5060405161060a3803806106",
