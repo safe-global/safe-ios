@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MakeKeyAnOwnerViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="addOwnerView" destination="brn-0e-9pT" id="3io-xt-Prc"/>
+                <outlet property="continueButton" destination="nrj-oK-oin" id="7Db-Ga-iPz"/>
+                <outlet property="infoBoxView" destination="Cq4-eb-Ul9" id="vwg-Bw-fJk"/>
+                <outlet property="messageLabel" destination="rTn-C4-EbE" id="tjF-Tf-XYK"/>
+                <outlet property="rejectButton" destination="b7N-zd-CA0" id="SIN-Zr-s2h"/>
+                <outlet property="titleLabel" destination="t7j-K5-pny" id="9ug-Eb-YHJ"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Someone requested to make this key as an owner" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t7j-K5-pny">
+                    <rect key="frame" x="32" y="60" width="350" height="41"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="brn-0e-9pT" customClass="AddOwnerView" customModule="Multisig" customModuleProvider="target">
+                    <rect key="frame" x="16" y="117" width="382" height="132"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="132" id="xiT-2g-6EN"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like to continue?  This will create a new transaction that will need to be confirmed by other owners." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTn-C4-EbE">
+                    <rect key="frame" x="16" y="281" width="382" height="81.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cq4-eb-Ul9" customClass="InfoBoxView" customModule="Multisig" customModuleProvider="target">
+                    <rect key="frame" x="16" y="692" width="382" height="76"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="76" placeholder="YES" id="r4H-Ra-niK"/>
+                    </constraints>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="rcr-1V-dIc">
+                    <rect key="frame" x="16" y="790" width="382" height="56"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b7N-zd-CA0">
+                            <rect key="frame" x="0.0" y="0.0" width="183" height="56"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" id="WEY-Fu-Sjr"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Button">
+                                <color key="titleColor" name="labelPrimary"/>
+                            </state>
+                            <connections>
+                                <action selector="didTapReject:" destination="-1" eventType="touchUpInside" id="eJD-u1-E13"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nrj-oK-oin">
+                            <rect key="frame" x="199" y="0.0" width="183" height="56"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" id="SHs-NL-fXa"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Button">
+                                <color key="titleColor" name="labelPrimary"/>
+                            </state>
+                            <connections>
+                                <action selector="didTapContinue:" destination="-1" eventType="touchUpInside" id="elb-il-eeK"/>
+                                <action selector="didTapReject:" destination="-1" eventType="touchUpInside" id="hSx-PC-4D2"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="brn-0e-9pT" firstAttribute="top" secondItem="t7j-K5-pny" secondAttribute="bottom" constant="16" id="1ct-Jd-SEJ"/>
+                <constraint firstItem="t7j-K5-pny" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="1ju-9y-hCP"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="t7j-K5-pny" secondAttribute="trailing" constant="32" id="AXA-YD-3m1"/>
+                <constraint firstItem="rcr-1V-dIc" firstAttribute="top" secondItem="Cq4-eb-Ul9" secondAttribute="bottom" constant="22" id="CxM-E9-bwA"/>
+                <constraint firstItem="rTn-C4-EbE" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="NFS-Dw-jvt"/>
+                <constraint firstItem="t7j-K5-pny" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="PrL-cW-HhW"/>
+                <constraint firstItem="rTn-C4-EbE" firstAttribute="top" secondItem="brn-0e-9pT" secondAttribute="bottom" constant="32" id="QOi-8d-dZZ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="rcr-1V-dIc" secondAttribute="bottom" constant="16" id="VJO-LD-Byt"/>
+                <constraint firstItem="rcr-1V-dIc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="VWe-jf-ejd"/>
+                <constraint firstItem="brn-0e-9pT" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="abi-Zl-YzR"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rTn-C4-EbE" secondAttribute="trailing" constant="16" id="bSZ-Qa-LJs"/>
+                <constraint firstItem="Cq4-eb-Ul9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="gFc-k5-zsc"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rcr-1V-dIc" secondAttribute="trailing" constant="16" id="gUd-ab-0Aa"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="brn-0e-9pT" secondAttribute="trailing" constant="16" id="j1d-rN-RUF"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Cq4-eb-Ul9" secondAttribute="trailing" constant="16" id="zXc-MI-qtJ"/>
+            </constraints>
+            <point key="canvasLocation" x="132" y="131"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="labelPrimary">
+            <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
