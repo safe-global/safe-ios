@@ -9,14 +9,14 @@
 import UIKit
 
 class MultiSendListTableViewController: UITableViewController {
-    typealias Transaction = SCGModels.DataDecoded.Parameter.ValueDecoded.MultiSendTx
+    typealias MultiSendTx = SCGModels.DataDecoded.Parameter.ValueDecoded.MultiSendTx
     typealias AddressInfoIndex = SCGModels.AddressInfoIndex
 
-    var transactions: [Transaction] = []
+    var transactions: [MultiSendTx] = []
     var addressInfoIndex: AddressInfoIndex?
     var chain: Chain!
 
-    convenience init(transactions: [Transaction], addressInfoIndex: AddressInfoIndex?, chain: Chain) {
+    convenience init(transactions: [MultiSendTx], addressInfoIndex: AddressInfoIndex?, chain: Chain) {
         self.init()
         self.transactions = transactions
         self.addressInfoIndex = addressInfoIndex
@@ -74,6 +74,8 @@ class MultiSendListTableViewController: UITableViewController {
                         imageUri: imageUri,
                         prefix: chain.shortName)
         cell.setAction(tx.dataDecoded?.method ?? "Action #\(indexPath.row + 1)")
+        let untrusted = DelegateWarningCalculator.isUntrusted(multiSendTx: tx, addressInfoIndex: addressInfoIndex)
+        cell.setDelegateWarning(untrusted)
         cell.selectionStyle = .none
         return cell
     }

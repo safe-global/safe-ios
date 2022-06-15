@@ -503,6 +503,7 @@ extension SCGModels {
         var hexData: DataString?
         var dataDecoded: DataDecoded?
         var addressInfoIndex: AddressInfoIndex?
+        var trustedDelegateCallTarget: Bool?
     }
 
     struct SafeAppInfo: Decodable {
