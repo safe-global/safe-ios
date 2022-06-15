@@ -88,7 +88,7 @@ class EnterOwnerAddressViewController: UIViewController {
     }
 
     private func checkEqualToSafe() {
-        guard safe.addressValue != address else { return }
+        guard safe.addressValue == address else { return }
         handleError(error: "Cannot use Safe itself as owner.", text: address?.checksummed)
     }
 
