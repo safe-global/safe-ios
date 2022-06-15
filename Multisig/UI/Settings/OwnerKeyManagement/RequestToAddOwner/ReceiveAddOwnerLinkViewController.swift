@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MakeKeyAnOwnerViewController: UIViewController {
+class ReceiveAddOwnerLinkViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!

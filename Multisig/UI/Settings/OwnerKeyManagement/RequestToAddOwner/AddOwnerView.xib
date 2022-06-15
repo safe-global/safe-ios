@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,14 +20,14 @@
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="eaz-Xa-MWJ">
                     <rect key="frame" x="33.5" y="16" width="196" height="421"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jh9-kA-9Mk" customClass="KeyInfoView" customModule="Multisig" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jh9-kA-9Mk" customClass="IdenticonInfoView" customModule="Multisig" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="68" height="421"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="68" id="eVe-2h-PFC"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iJu-bH-KvH" customClass="KeyInfoView" customModule="Multisig" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iJu-bH-KvH" customClass="IdenticonInfoView" customModule="Multisig" customModuleProvider="target">
                             <rect key="frame" x="128" y="0.0" width="68" height="421"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>

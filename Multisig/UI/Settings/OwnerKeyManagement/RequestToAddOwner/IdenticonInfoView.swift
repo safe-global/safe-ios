@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KeyInfoView: UINibView {
+class IdenticonInfoView: UINibView {
 
     @IBOutlet weak var blockie: IdenticonView!
     @IBOutlet weak var nameLabel: UILabel!
