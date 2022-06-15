@@ -34,7 +34,7 @@
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GZr-Dh-NwN">
-                    <rect key="frame" x="16" y="5" width="315" height="111"/>
+                    <rect key="frame" x="16" y="20" width="315" height="81"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-info-toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="dWX-cl-Xr0">
                             <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -79,12 +79,12 @@
                 <constraint firstItem="MVe-kG-XUE" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="JMj-k2-Zfa"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="GZr-Dh-NwN" secondAttribute="trailing" constant="16" id="KZU-K1-UTy"/>
                 <constraint firstAttribute="bottom" secondItem="MVe-kG-XUE" secondAttribute="bottom" id="Zjk-Vg-ufw"/>
-                <constraint firstItem="GZr-Dh-NwN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="ebW-3a-iiY" userLabel="Stack View.top = top + 20"/>
+                <constraint firstItem="GZr-Dh-NwN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="ebW-3a-iiY" userLabel="Stack View.top = top + 20"/>
                 <constraint firstItem="xye-lp-Nby" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="f0A-Fl-Kan"/>
                 <constraint firstItem="MVe-kG-XUE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="nBA-gA-e9p"/>
                 <constraint firstItem="xye-lp-Nby" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="nGx-mL-PwD"/>
                 <constraint firstItem="xye-lp-Nby" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="pYg-5k-Zh3"/>
-                <constraint firstAttribute="bottom" secondItem="GZr-Dh-NwN" secondAttribute="bottom" constant="5" id="r5W-fw-xbS" userLabel="bottom = Stack View.bottom + 20"/>
+                <constraint firstAttribute="bottom" secondItem="GZr-Dh-NwN" secondAttribute="bottom" constant="20" id="r5W-fw-xbS" userLabel="bottom = Stack View.bottom + 20"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="83.333333333333343" y="-127.56696428571428"/>

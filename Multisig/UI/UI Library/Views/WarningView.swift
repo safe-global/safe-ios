@@ -55,8 +55,8 @@ class WarningView: UINibView {
             contentStackView.spacing = 8
             titleLabel.hyperLinkLabel("\(titleLabel.text!)\u{00A0}", linkText: "Learn More", linkIcon: nil)
             titleLabel.adjustsFontSizeToFitWidth = true
-            topMargin.constant = 10
-            bottomMargin.constant = 10
+            topMargin.constant = 12
+            bottomMargin.constant = 12
         } else {
             contentStackView.spacing = 16
             titleLabel.adjustsFontSizeToFitWidth = false
