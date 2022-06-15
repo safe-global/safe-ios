@@ -48,6 +48,7 @@ class WarningView: UINibView {
         descriptionLabel.isHidden = description == nil
     }
 
+    // Do everything required for delegate warning if true
     func showLeftBar(_ show: Bool) {
         leftBar.isHidden = !show
         if show {
@@ -59,8 +60,6 @@ class WarningView: UINibView {
         } else {
             contentStackView.spacing = 16
             titleLabel.adjustsFontSizeToFitWidth = false
-            topMargin.constant = 20
-            bottomMargin.constant = 20
         }
     }
 
