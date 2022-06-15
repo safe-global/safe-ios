@@ -111,9 +111,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // - Request To Add Owner
     //   - https://gnosis-safe.io/app/<network:safe_address>/addOwner?address=<owner_address>
     private func handleUserActivity(_ userActivity: NSUserActivity) {
-        // Does not make sense to handle WalletConnect URLs without a safe
-        guard let _ = try? Safe.getSelected() else { return }
-
         // Get URL components from the incoming user activity.
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
               let incomingURL = userActivity.webpageURL,
@@ -123,7 +120,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // handle wallet connect
         if let wcURL = components.queryItems?.first?.value,
-           WalletConnectSafesServerController.shared.canConnect(url: wcURL) {
+           WalletConnectSafesServerController.shared.canConnect(url: wcURL),
+           (try? Safe.getSelected()) != nil {
             try? WalletConnectSafesServerController.shared.connect(url: wcURL)
             WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithUniversalLink
             return
