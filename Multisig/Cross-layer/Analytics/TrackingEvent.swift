@@ -304,6 +304,12 @@ enum TrackingEvent: String, Trackable {
     case changeConfirmations                        = "screen_change_confirmations"
     case reviewChangeConfirmations                  = "screen_review_change_confirmations"
     case changeConfirmationsSuccess                 = "screen_change_confirmations_success"
+
+    case screenOnboarding1                          = "screen_onboarding_1"
+    case screenOnboarding2                          = "screen_onboarding_2"
+    case screenOnboarding3                          = "screen_onboarding_3"
+    case onboardingSkipped                          = "user_skip_onboarding"
+
 }
 
 extension TrackingEvent {
