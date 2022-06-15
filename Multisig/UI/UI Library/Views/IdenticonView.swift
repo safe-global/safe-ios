@@ -46,7 +46,6 @@ class IdenticonView: UINibView {
             ownerCountFrameView.isHidden = false
         } else {
             ownerCountFrameView.isHidden = true
-            //NSLayoutConstraint.deactivate([identiconLeading])
         }
     }
 }
