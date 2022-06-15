@@ -8,13 +8,17 @@
 
 import UIKit
 
+/// Flow for backing up a seed phrase.
+///
+/// Expected to be embedded into a `GenerateKeyFlow`.
+///
+/// Screen sequence:
+///
+/// 1. Intro
+/// 2. Show Seed
+/// 3. Verify Seed
+/// 4. Success
 class BackupFlow: UIFlow {
-    // Backup flow variation for suggesting backup after generating a key:
-    //
-    // existing navigation -> intro -> seed -> verify -> success -> completed
-    //                              \
-    //                               -> canceled
-
     var mnemonic: String
     var factory: BackupFlowFactory = BackupFlowFactory()
 
@@ -70,12 +74,17 @@ class BackupFlow: UIFlow {
     }
 }
 
+/// Flow to back up a seed phrase in a modal way.
+///
+/// Expected to be opened as a separate flow, modally.
+///
+/// Screen sequence:
+///
+/// 1. Enter Passcode
+/// 2. Show Seed (in superclass)
+/// 3. Verify Seed (in superclass)
+/// 4. Success (in superclass)
 class ModalBackupFlow: BackupFlow {
-    // Modification of the base backup flow to make it a standalone:
-    //
-    // modal -> passcode -> seed -> verify -> success -> completed
-    //                    \
-    //                     -> canceled
 
     convenience init?(keyInfo: KeyInfo, completion: @escaping (_ success: Bool) -> Void) {
         guard let mnemonic = try? keyInfo.privateKey()?.mnemonic else {

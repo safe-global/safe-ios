@@ -257,10 +257,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.RequiredConfirmations.confirmations(let name):
+            let canChangeConfirmations = ChangeConfirmationsFlow.canChangeConfirmations(safe: safe)
             return tableView.basicCell(name: name,
                                        indexPath: indexPath,
-                                       disclosureImage: safe.isReadOnly ? nil : UIImage(named: "arrow"),
-                                       canSelect: !safe.isReadOnly)
+                                       disclosureImage: canChangeConfirmations ? UIImage(named: "arrow") : nil,
+                                       canSelect: canChangeConfirmations)
 
         case Section.OwnerAddresses.ownerInfo(let info):
             let keyInfo = try? KeyInfo.keys(addresses: [info.address]).first
@@ -446,15 +447,15 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             show(editSafeNameViewController, sender: self)
 
         case Section.RequiredConfirmations.confirmations(_):
-            guard let isReadOnly = safe?.isReadOnly else {
+            changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe) { [unowned self] _ in
+                changeConfirmationsFlow = nil
+            }
+
+            guard changeConfirmationsFlow != nil else {
                 return
             }
-            if !isReadOnly {
-                changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe!) { [unowned self] _ in
-                    changeConfirmationsFlow = nil
-                }
-                present(flow: changeConfirmationsFlow)
-            }
+
+            present(flow: changeConfirmationsFlow)
         case Section.Advanced.advanced(_):
             let advancedSafeSettingsViewController = AdvancedSafeSettingsViewController()
             let ribbon = RibbonViewController(rootViewController: advancedSafeSettingsViewController)

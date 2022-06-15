@@ -84,9 +84,23 @@ enum ViewControllerFactory {
             UIBarButtonItem(barButtonSystemItem: .close, target: vc, action: #selector(CloseModal.closeModal))
     }
 
+    static func makeTransparentNavigationBar(_ vc: UIViewController) {
+        // remove underline from navigationItem
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithTransparentBackground()
+        navigationBarAppearance.backgroundColor = .backgroundSecondary
+        navigationBarAppearance.shadowColor = .clear
+        vc.navigationItem.hidesBackButton = true
+        vc.navigationItem.scrollEdgeAppearance = navigationBarAppearance
+
+        // disable swipe back
+        vc.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+
+        vc.navigationController?.isNavigationBarHidden = false
+    }
+
     static func modal(viewController: UIViewController, halfScreen: Bool = false) -> UIViewController {
-        viewController.navigationItem.leftBarButtonItem =
-            UIBarButtonItem(barButtonSystemItem: .close, target: viewController, action: #selector(CloseModal.closeModal))
+        Self.addCloseButton(viewController)
         let navController = UINavigationController(rootViewController: viewController)
         if #unavailable(iOS 15) {
             // explicitly set background color to prevent transparent background in dark mode (iOS 14)

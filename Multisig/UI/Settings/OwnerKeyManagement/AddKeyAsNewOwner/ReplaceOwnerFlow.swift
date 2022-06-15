@@ -9,6 +9,17 @@
 import Foundation
 import UIKit
 
+/// Flow for replacing an owner of a safe with another address.
+///
+/// Expects that a new owner address is known.
+///
+/// This class is also a base for another flow where the owner to replace is known
+/// but the new owner is unknown.
+///
+/// Screen sequence:
+/// 1. Pick Owner to Replace
+/// 2. Review
+/// 3. Success
 class ReplaceOwnerFlow: SafeSettingsChangeFlow {
     var newOwner: Address?
     var ownerToReplace: Address?

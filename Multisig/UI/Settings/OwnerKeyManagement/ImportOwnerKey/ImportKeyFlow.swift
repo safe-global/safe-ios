@@ -9,6 +9,15 @@
 import Foundation
 import UIKit
 
+/// Flow for importing a private key from seed phrase or plain text.
+///
+/// Screen sequence:
+///
+/// 1. Intro (in superclass)
+/// 2. Enter Key or Seed
+/// 2.1. If entered seed, then Pick Derived Account
+/// 3. Enter Name (in superclass)
+/// 4. Create Passcode (in superclass)
 class ImportKeyFlow: AddKeyFlow {
     var keySource: KeySource?
     var flowFactory: ImportKeyFlowFactory {

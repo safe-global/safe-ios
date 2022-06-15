@@ -9,6 +9,18 @@
 import Foundation
 import UIKit
 
+/// Flow that adds an address as a new owner to a safe.
+///
+/// Expects that an owner address and safe is known.
+///
+/// This flow is also a base class for a modified "add owner" flow
+/// where it is possible that the new owner address is not known in advance.
+///
+/// Screen sequence:
+///
+/// 1. Edit Confirmations
+/// 2. Review
+/// 3. Success
 class AddOwnerFlow: SafeSettingsChangeFlow {
     var newOwner: Address?
 

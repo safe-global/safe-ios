@@ -26,8 +26,6 @@ class EnterOwnerAddressViewController: UIViewController {
     private var address: Address?
     private var name: String?
 
-    private var addOwnerFlow: AddOwnerFlow!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -71,6 +69,7 @@ class EnterOwnerAddressViewController: UIViewController {
             self.addressField.setAddress(address, label: resolvedName)
             self.name = resolvedName
 
+            self.checkEqualToSafe()
             self.checkExisting()
         }
 
@@ -86,6 +85,11 @@ class EnterOwnerAddressViewController: UIViewController {
 
     private func clearErrors() {
         addressField.setError(nil)
+    }
+
+    private func checkEqualToSafe() {
+        guard safe.addressValue == address else { return }
+        handleError(error: "Cannot use Safe itself as owner.", text: address?.checksummed)
     }
 
     private func checkExisting() {

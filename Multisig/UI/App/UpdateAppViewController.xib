@@ -22,7 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchscreen-logo" translatesAutoresizingMaskIntoConstraints="NO" id="EB0-0a-oQ1">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-logo" translatesAutoresizingMaskIntoConstraints="NO" id="EB0-0a-oQ1">
                     <rect key="frame" x="129" y="277" width="156" height="136"/>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="QXK-OG-Fdw">
@@ -72,7 +72,7 @@
         </view>
     </objects>
     <resources>
-        <image name="launchscreen-logo" width="156" height="136"/>
+        <image name="ico-logo" width="156" height="136"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
