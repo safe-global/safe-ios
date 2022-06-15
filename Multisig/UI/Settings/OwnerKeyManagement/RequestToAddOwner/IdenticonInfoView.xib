@@ -31,11 +31,11 @@
                                 <constraint firstAttribute="width" constant="64" id="RHp-KV-KIL"/>
                             </constraints>
                         </view>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="vmL-WZ-T7g">
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="vmL-WZ-T7g">
                             <rect key="frame" x="186.5" y="80" width="41.5" height="275"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="615-Bc-qrY">
-                                    <rect key="frame" x="0.0" y="0.0" width="41.5" height="254.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="41.5" height="250.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>

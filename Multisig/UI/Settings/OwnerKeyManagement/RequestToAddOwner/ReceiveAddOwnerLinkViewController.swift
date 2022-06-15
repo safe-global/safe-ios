@@ -18,17 +18,36 @@ class ReceiveAddOwnerLinkViewController: UIViewController {
     @IBOutlet weak var continueButton: UIButton!
 
     var safe: Safe!
-  
+    var parameters: AddOwnerRequestParameters!
     var onContinue: (() -> ())!
     var onReject: (() -> ())!
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ViewControllerFactory.addCloseButton(self)
         ViewControllerFactory.makeTransparentNavigationBar(self)
 
-        titleLabel.setStyle(.primary)
+        titleLabel.setStyle(.title5)
         messageLabel.setStyle(.secondary)
+
+        // if owner is added
+        let ownerKeyInfo = try? KeyInfo.firstKey(address: parameters.ownerAddress)
+        // if there is an address book entry
+        let (ownerName, _) = NamingPolicy.name(for: parameters.ownerAddress,
+                                                info: nil,
+                                                chainId: safe.chain!.id!)
+
+        var ownerInfo: AddressInfo!
+        if let ownerKeyInfo = ownerKeyInfo {
+            ownerInfo = AddressInfo(address: ownerKeyInfo.address, name: ownerKeyInfo.name)
+            addOwnerView.set(owner: ownerInfo, badgeName: ownerKeyInfo.keyType.imageName, safe: safe, reqConfirmations: Int(safe.threshold!), ownerCount: safe.ownersInfo?.count ?? 0)
+
+        } else {
+            ownerInfo = AddressInfo(address: parameters.ownerAddress, name: ownerName)
+            addOwnerView.set(owner: ownerInfo, safe: safe, reqConfirmations: Int(safe.threshold!), ownerCount: safe.ownersInfo?.count ?? 0)
+        }
+
         infoBoxView.setText("Make sure you trust this key before confirming.")
         rejectButton.setText("Reject", .filledError)
         continueButton.setText("Continue...", .filled)
