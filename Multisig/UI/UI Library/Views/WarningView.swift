@@ -16,6 +16,8 @@ class WarningView: UINibView {
     @IBOutlet weak var leftBar: UIView!
     @IBOutlet weak var actionButton: UIButton!
     @IBOutlet weak var contentStackView: UIStackView!
+    @IBOutlet weak var topMargin: NSLayoutConstraint!
+    @IBOutlet weak var bottomMargin: NSLayoutConstraint!
 
     var onClick: (() ->())?
     override func commonInit() {
@@ -52,9 +54,13 @@ class WarningView: UINibView {
             contentStackView.spacing = 8
             titleLabel.hyperLinkLabel("\(titleLabel.text!)\u{00A0}", linkText: "Learn More", linkIcon: nil)
             titleLabel.adjustsFontSizeToFitWidth = true
+            topMargin.constant = 10
+            bottomMargin.constant = 10
         } else {
             contentStackView.spacing = 16
             titleLabel.adjustsFontSizeToFitWidth = false
+            topMargin.constant = 20
+            bottomMargin.constant = 20
         }
     }
 
