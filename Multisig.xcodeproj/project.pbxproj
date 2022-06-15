@@ -750,6 +750,14 @@
 		6ADEB01C2795AB410062ADFE /* InfoLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB01A2795AB410062ADFE /* InfoLabel.xib */; };
 		6ADEB02727B559370062ADFE /* WebConnectionOwnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */; };
 		6ADEB02827B559370062ADFE /* WebConnectionOwnerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */; };
+		6AFD26DB285764A200336FFE /* MakeKeyAnOwnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFD26D9285764A200336FFE /* MakeKeyAnOwnerViewController.swift */; };
+		6AFD26DC285764A200336FFE /* MakeKeyAnOwnerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AFD26DA285764A200336FFE /* MakeKeyAnOwnerViewController.xib */; };
+		6AFD26DE28578F1200336FFE /* KeyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFD26DD28578F1200336FFE /* KeyInfoView.swift */; };
+		6AFD26E0285797DD00336FFE /* KeyInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AFD26DF285797DD00336FFE /* KeyInfoView.xib */; };
+		6AFD26E228589AFF00336FFE /* AddOwnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFD26E128589AFF00336FFE /* AddOwnerView.swift */; };
+		6AFD26E428589B0C00336FFE /* AddOwnerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AFD26E328589B0C00336FFE /* AddOwnerView.xib */; };
+		6AFD26E62859E8EC00336FFE /* InfoBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFD26E52859E8EC00336FFE /* InfoBoxView.swift */; };
+		6AFD26E82859E8FA00336FFE /* InfoBoxView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AFD26E72859E8FA00336FFE /* InfoBoxView.xib */; };
 		8D7DF1A98F3C869DE4CCB3CC /* CDWCAppRegistryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7DFDBABFA6FD66092A4378 /* CDWCAppRegistryEntry.swift */; };
 		8D7DFB2CEBACCDB9E9CCF6BC /* WebConnectionExpirationMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7DF152EC9E12AF6029DA1E /* WebConnectionExpirationMonitor.swift */; };
 		935DCA4C27BD14C600F09EE4 /* WebConnectionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */; };
@@ -1589,6 +1597,14 @@
 		6ADEB01A2795AB410062ADFE /* InfoLabel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoLabel.xib; sourceTree = "<group>"; };
 		6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnectionOwnerView.swift; sourceTree = "<group>"; };
 		6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebConnectionOwnerView.xib; sourceTree = "<group>"; };
+		6AFD26D9285764A200336FFE /* MakeKeyAnOwnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeKeyAnOwnerViewController.swift; sourceTree = "<group>"; };
+		6AFD26DA285764A200336FFE /* MakeKeyAnOwnerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MakeKeyAnOwnerViewController.xib; sourceTree = "<group>"; };
+		6AFD26DD28578F1200336FFE /* KeyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyInfoView.swift; sourceTree = "<group>"; };
+		6AFD26DF285797DD00336FFE /* KeyInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyInfoView.xib; sourceTree = "<group>"; };
+		6AFD26E128589AFF00336FFE /* AddOwnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerView.swift; sourceTree = "<group>"; };
+		6AFD26E328589B0C00336FFE /* AddOwnerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOwnerView.xib; sourceTree = "<group>"; };
+		6AFD26E52859E8EC00336FFE /* InfoBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBoxView.swift; sourceTree = "<group>"; };
+		6AFD26E72859E8FA00336FFE /* InfoBoxView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoBoxView.xib; sourceTree = "<group>"; };
 		8D7DF152EC9E12AF6029DA1E /* WebConnectionExpirationMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionExpirationMonitor.swift; sourceTree = "<group>"; };
 		8D7DFDBABFA6FD66092A4378 /* CDWCAppRegistryEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDWCAppRegistryEntry.swift; sourceTree = "<group>"; };
 		935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionDetailsViewController.swift; sourceTree = "<group>"; };
@@ -3506,7 +3522,11 @@
 		55F91A8E25BEABA100938475 /* OwnerKeyManagement */ = {
 			isa = PBXGroup;
 			children = (
+
 				0AADCDC12858E82F00A0139B /* RequestToAddOwner */,
+
+				6AFD26D82857646200336FFE /* MakeKeyAnOwner */,
+
 				6AAE34E1282A81DD00CCFC95 /* AddOwnerKey */,
 				6A252CEF281692FE001F0887 /* AddKeyAsNewOwner */,
 				6A1CFA4C280819C600B2C340 /* Backup */,
@@ -3634,6 +3654,21 @@
 				6AAE34E7282A833D00CCFC95 /* EnterOwnerNameViewController.xib */,
 			);
 			path = AddOwnerKey;
+			sourceTree = "<group>";
+		};
+		6AFD26D82857646200336FFE /* MakeKeyAnOwner */ = {
+			isa = PBXGroup;
+			children = (
+				6AFD26D9285764A200336FFE /* MakeKeyAnOwnerViewController.swift */,
+				6AFD26DA285764A200336FFE /* MakeKeyAnOwnerViewController.xib */,
+				6AFD26DD28578F1200336FFE /* KeyInfoView.swift */,
+				6AFD26DF285797DD00336FFE /* KeyInfoView.xib */,
+				6AFD26E128589AFF00336FFE /* AddOwnerView.swift */,
+				6AFD26E328589B0C00336FFE /* AddOwnerView.xib */,
+				6AFD26E52859E8EC00336FFE /* InfoBoxView.swift */,
+				6AFD26E72859E8FA00336FFE /* InfoBoxView.xib */,
+			);
+			path = MakeKeyAnOwner;
 			sourceTree = "<group>";
 		};
 		AD30347831BBAF9E3E43EEA3 /* ChangeConfirmations */ = {
@@ -4067,7 +4102,9 @@
 				0AE0AFEF2805CC20002594CB /* WordView.xib in Resources */,
 				55F9B7A026D66630003D1C68 /* LedgerPendingConfirmationViewController.xib in Resources */,
 				0AE0AFED2805C6B9002594CB /* VerifyPhraseViewController.xib in Resources */,
+				6AFD26DC285764A200336FFE /* MakeKeyAnOwnerViewController.xib in Resources */,
 				558836712565385F0014E8C7 /* RemoveCell.xib in Resources */,
+				6AFD26E0285797DD00336FFE /* KeyInfoView.xib in Resources */,
 				6AAE34E0282A2F1600CCFC95 /* OwnerHeaderView.xib in Resources */,
 				6AAE34E9282A833D00CCFC95 /* EnterOwnerNameViewController.xib in Resources */,
 				6A386C5D281A7792003FBCB3 /* AddRemoveOwnerTableViewCell.xib in Resources */,
@@ -4123,6 +4160,7 @@
 				D88FA81F2770869E0023B77F /* TokenAmountField.xib in Resources */,
 				6AAE34E5282A824800CCFC95 /* EnterOwnerAddressViewController.xib in Resources */,
 				D80B5A0B2769F95000D6E024 /* AssetsViewController.xib in Resources */,
+				6AFD26E428589B0C00336FFE /* AddOwnerView.xib in Resources */,
 				043350AC28086126003725E2 /* SuccessAnimation.json in Resources */,
 				0A86EE7B25CC2C600059876E /* IdleFooterView.xib in Resources */,
 				04E4CD67277752C400B558F4 /* TokenAmountInfoView.xib in Resources */,
@@ -4145,6 +4183,7 @@
 				550FB1A226691CA300C13D54 /* dapps-mainnet.json in Resources */,
 				0A86EE7525CC2BC30059876E /* LoadingFooterView.xib in Resources */,
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
+				6AFD26E82859E8FA00336FFE /* InfoBoxView.xib in Resources */,
 				5559A91927675E3700237A5D /* dapps-optimism.json in Resources */,
 				0A04506B278D800700650F71 /* ReviewExecutionViewController.xib in Resources */,
 				0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */,
@@ -4284,6 +4323,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AFA729E24BF363400A370EE /* SlicedText.swift in Sources */,
+				6AFD26E228589AFF00336FFE /* AddOwnerView.swift in Sources */,
 				049EB0FF25AF713700F66CEA /* TimeZone+Offset.swift in Sources */,
 				049A9DDA2602211500CA5723 /* FiatCodesRequest.swift in Sources */,
 				3E373F772631781A00D8107A /* EnterUnstoppableNameViewController.swift in Sources */,
@@ -4474,6 +4514,7 @@
 				55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */,
 				D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */,
 				6A39DC9327C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift in Sources */,
+				6AFD26DB285764A200336FFE /* MakeKeyAnOwnerViewController.swift in Sources */,
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
 				0493A28B262979820056EC49 /* UpdateController.swift in Sources */,
 				048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */,
@@ -4482,6 +4523,7 @@
 				6AA2724A27DF566B00934B37 /* PendingWalletActionViewController.swift in Sources */,
 				0ADD19C4265EA23200EB0F2B /* SeedPhraseView.swift in Sources */,
 				0AC60C9D2549D63300A63AE2 /* NoSafesViewController.swift in Sources */,
+				6AFD26E62859E8EC00336FFE /* InfoBoxView.swift in Sources */,
 				0A06533927B6D4960008C5F1 /* ChooseOwnerBasicHeaderView.swift in Sources */,
 				0A95894025EFBE1E005011D7 /* KeyInfo.swift in Sources */,
 				0AF1042A26BACF59009C4B14 /* OnboardingLedgerKeyViewController.swift in Sources */,
@@ -4677,6 +4719,7 @@
 				D865178127687E0B000B4C04 /* SuccessViewController.swift in Sources */,
 				0A478D3325B861D50038363E /* DefaultKeyTableViewCell.swift in Sources */,
 				550FB1C326691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift in Sources */,
+				6AFD26DE28578F1200336FFE /* KeyInfoView.swift in Sources */,
 				0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */,
 				0A5B157A28085BC1003AD853 /* BackupFlow.swift in Sources */,
 				043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */,
