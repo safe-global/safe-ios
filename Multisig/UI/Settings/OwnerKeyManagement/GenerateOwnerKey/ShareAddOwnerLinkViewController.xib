@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShareAddOwnerLinkViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="addOwnerView" destination="JBg-mE-5NB" id="pYi-nY-0B5"/>
                 <outlet property="doneButton" destination="aAD-ZO-tL8" id="h6z-Mp-fHo"/>
                 <outlet property="shareLinkView" destination="bza-ao-xUm" id="zPx-IP-xRX"/>
                 <outlet property="tableView" destination="ibh-O4-9pj" id="1VG-pK-sd3"/>
@@ -33,8 +34,12 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ibh-O4-9pj">
-                            <rect key="frame" x="0.0" y="50.5" width="374" height="591.5"/>
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JBg-mE-5NB" customClass="AddOwnerView" customModule="Multisig" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="50.5" width="374" height="130"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ibh-O4-9pj">
+                            <rect key="frame" x="0.0" y="210.5" width="374" height="431.5"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <connections>
                                 <outlet property="dataSource" destination="-1" id="4Gh-9T-Tcv"/>

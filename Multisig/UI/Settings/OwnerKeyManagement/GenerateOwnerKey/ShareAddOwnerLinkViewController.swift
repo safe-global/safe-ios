@@ -14,6 +14,7 @@ class ShareAddOwnerLinkViewController: UIViewController {
     @IBOutlet private weak var shareLinkView: ShareTextView!
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var doneButton: UIButton!
+    @IBOutlet private weak var addOwnerView: AddOwnerView!
 
     var owner: AddressInfo!
     var safe: Safe!
@@ -54,6 +55,25 @@ class ShareAddOwnerLinkViewController: UIViewController {
             }
 
             self?.present(vc, animated: true, completion: nil)
+        }
+
+        if let ownerKeyInfo = try? KeyInfo.firstKey(address: owner.address) {
+            addOwnerView.set(owner: AddressInfo(address: ownerKeyInfo.address,
+                                                name: ownerKeyInfo.name),
+                             badgeName: ownerKeyInfo.keyType.imageName,
+                             safe: safe,
+                             reqConfirmations: Int(safe.threshold!),
+                             ownerCount: safe.ownersInfo?.count ?? 0)
+
+        } else {
+            let (ownerName, _) = NamingPolicy.name(for: owner.address,
+                                                    info: nil,
+                                                    chainId: safe.chain!.id!)
+            addOwnerView.set(owner: AddressInfo(address: owner.address,
+                                                name: ownerName),
+                             safe: safe,
+                             reqConfirmations: Int(safe.threshold!),
+                             ownerCount: safe.ownersInfo?.count ?? 0)
         }
     }
 
