@@ -15,7 +15,6 @@
                 <outlet property="badgeFrameView" destination="0dR-3L-KoS" id="rOW-22-PG9"/>
                 <outlet property="badgeImageView" destination="4X5-SV-Sri" id="Vh9-cY-36G"/>
                 <outlet property="identiconImageView" destination="AR4-Or-uAh" id="p2O-rD-rbO"/>
-                <outlet property="identiconLeading" destination="2BW-oL-i9Z" id="I4f-Vm-yd0"/>
                 <outlet property="ownerCountFrameView" destination="lYH-QD-nMg" id="aRU-dU-34f"/>
                 <outlet property="ownerCountLabel" destination="sl3-FE-c0n" id="j3q-Xg-W6Q"/>
             </connections>
@@ -26,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AR4-Or-uAh" userLabel="Identicon">
-                    <rect key="frame" x="15" y="52" width="158" height="158"/>
+                    <rect key="frame" x="0.0" y="0.0" width="210" height="210"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="AR4-Or-uAh" secondAttribute="height" id="5tH-wk-mll"/>
@@ -34,10 +33,10 @@
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lYH-QD-nMg" userLabel="OwnerCountFrameView" customClass="CircleView" customModule="Multisig" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="44" width="30" height="105.5"/>
+                    <rect key="frame" x="-15" y="-69" width="30" height="140"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3/5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sl3-FE-c0n">
-                            <rect key="frame" x="2" y="2" width="26" height="101.5"/>
+                            <rect key="frame" x="2" y="2" width="26" height="136"/>
                             <color key="backgroundColor" name="primaryDisabled"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" name="primary"/>
@@ -53,10 +52,10 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0dR-3L-KoS" userLabel="BadgeFrameView" customClass="CircleView" customModule="Multisig" customModuleProvider="target">
-                    <rect key="frame" x="102.5" y="105" width="105.5" height="105.5"/>
+                    <rect key="frame" x="121" y="105" width="140" height="140"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4X5-SV-Sri" userLabel="Badge">
-                            <rect key="frame" x="2" y="2" width="101.5" height="101.5"/>
+                            <rect key="frame" x="2" y="2" width="136" height="136"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="4X5-SV-Sri" secondAttribute="height" id="h2V-Yi-rme"/>
@@ -76,15 +75,15 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="AR4-Or-uAh" firstAttribute="leading" secondItem="lYH-QD-nMg" secondAttribute="trailing" multiplier="0.5" id="2BW-oL-i9Z"/>
+                <constraint firstItem="AR4-Or-uAh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="0e4-vF-dbM"/>
                 <constraint firstItem="lYH-QD-nMg" firstAttribute="height" relation="greaterThanOrEqual" secondItem="AR4-Or-uAh" secondAttribute="width" multiplier="2:3" id="7A2-bt-5yH"/>
+                <constraint firstItem="lYH-QD-nMg" firstAttribute="centerX" secondItem="AR4-Or-uAh" secondAttribute="leading" multiplier="0.4" id="CAZ-sr-ApW"/>
+                <constraint firstItem="lYH-QD-nMg" firstAttribute="centerY" secondItem="AR4-Or-uAh" secondAttribute="top" multiplier="0.2" constant="1" id="Iyy-vo-E6F"/>
                 <constraint firstItem="0dR-3L-KoS" firstAttribute="width" secondItem="AR4-Or-uAh" secondAttribute="height" multiplier="2:3" id="Ldu-TO-Udz"/>
-                <constraint firstItem="lYH-QD-nMg" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="YW5-JM-7D4"/>
+                <constraint firstItem="AR4-Or-uAh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="XKL-zg-0ic"/>
                 <constraint firstItem="AR4-Or-uAh" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="bS8-dK-N9l"/>
-                <constraint firstItem="AR4-Or-uAh" firstAttribute="top" secondItem="lYH-QD-nMg" secondAttribute="top" constant="8" id="lQY-Ja-1p4"/>
                 <constraint firstItem="0dR-3L-KoS" firstAttribute="top" secondItem="AR4-Or-uAh" secondAttribute="bottom" multiplier="0.5" id="lcY-jb-hYT"/>
                 <constraint firstItem="0dR-3L-KoS" firstAttribute="leading" secondItem="AR4-Or-uAh" secondAttribute="trailing" multiplier="0.5" constant="16" id="uD4-Lr-QfS"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="top" secondItem="lYH-QD-nMg" secondAttribute="top" id="xyv-75-zoj"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="45.652173913043484" y="-129.24107142857142"/>
