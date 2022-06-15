@@ -626,17 +626,6 @@ enum GSError {
         let loggable: Bool = false
     }
 
-    // MARK: Request To Add Owner
-
-    struct LoadSafeTimedOut: DetailedLocalizedError {
-        let description = "Loading safe information failed"
-        let reason = "Request to server timed out"
-        let howToFix = "Please try again later"
-        let domain = iOSErrorDomain
-        let code = 1325
-        let loggable: Bool = false
-    }
-
     // - MARK: - Unstoppable domain errors
 
     struct UDUnsuportedName: DetailedLocalizedError {

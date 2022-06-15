@@ -430,6 +430,7 @@
 		0AADCDC52858E8A100A0139B /* ValidateRequestToAddOwnerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AADCDC32858E8A100A0139B /* ValidateRequestToAddOwnerViewController.xib */; };
 		0AADCDC82859BA9F00A0139B /* RequestAddOwnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AADCDC62859BA9F00A0139B /* RequestAddOwnerViewController.swift */; };
 		0AADCDC92859BA9F00A0139B /* RequestAddOwnerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AADCDC72859BA9F00A0139B /* RequestAddOwnerViewController.xib */; };
+		0AADCDCB2859CAAC00A0139B /* SafeInfoLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AADCDCA2859CAAC00A0139B /* SafeInfoLoader.swift */; };
 		0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D5D24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift */; };
 		0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */; };
 		0AB5DF8F270DD185005BFB43 /* CreateDelegateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB5DF8E270DD185005BFB43 /* CreateDelegateRequest.swift */; };
@@ -1257,6 +1258,7 @@
 		0AADCDC32858E8A100A0139B /* ValidateRequestToAddOwnerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ValidateRequestToAddOwnerViewController.xib; sourceTree = "<group>"; };
 		0AADCDC62859BA9F00A0139B /* RequestAddOwnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAddOwnerViewController.swift; sourceTree = "<group>"; };
 		0AADCDC72859BA9F00A0139B /* RequestAddOwnerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RequestAddOwnerViewController.xib; sourceTree = "<group>"; };
+		0AADCDCA2859CAAC00A0139B /* SafeInfoLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInfoLoader.swift; sourceTree = "<group>"; };
 		0AB34D5D24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateDecodingStrategy+GnosisSafeServices.swift"; sourceTree = "<group>"; };
 		0AB34D6524B71DE300A43988 /* CollectiblesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesRequest.swift; sourceTree = "<group>"; };
 		0AB5DF8E270DD185005BFB43 /* CreateDelegateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDelegateRequest.swift; sourceTree = "<group>"; };
@@ -2801,6 +2803,7 @@
 				0AADCDC72859BA9F00A0139B /* RequestAddOwnerViewController.xib */,
 				0AADCDC22858E8A100A0139B /* ValidateRequestToAddOwnerViewController.swift */,
 				0AADCDC32858E8A100A0139B /* ValidateRequestToAddOwnerViewController.xib */,
+				0AADCDCA2859CAAC00A0139B /* SafeInfoLoader.swift */,
 			);
 			path = RequestToAddOwner;
 			sourceTree = "<group>";
@@ -4613,6 +4616,7 @@
 				0A3FDAEC26AEB5BF006A7DC3 /* KeyInfo+Shared.swift in Sources */,
 				04CE3F9924B6120F00826AEE /* CollectibleMetaData.swift in Sources */,
 				0A0EFCAA246EB28600D3D8BF /* Pasteboard.swift in Sources */,
+				0AADCDCB2859CAAC00A0139B /* SafeInfoLoader.swift in Sources */,
 				550FB19E26691CA300C13D54 /* DappsViewController.swift in Sources */,
 				0AB5DF8F270DD185005BFB43 /* CreateDelegateRequest.swift in Sources */,
 				55CA3EB9250A234F0080DF7F /* SecureStore.swift in Sources */,
