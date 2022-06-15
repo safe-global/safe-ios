@@ -750,10 +750,10 @@
 		6ADEB01C2795AB410062ADFE /* InfoLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB01A2795AB410062ADFE /* InfoLabel.xib */; };
 		6ADEB02727B559370062ADFE /* WebConnectionOwnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */; };
 		6ADEB02827B559370062ADFE /* WebConnectionOwnerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */; };
-		6AFD26DB285764A200336FFE /* MakeKeyAnOwnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFD26D9285764A200336FFE /* MakeKeyAnOwnerViewController.swift */; };
-		6AFD26DC285764A200336FFE /* MakeKeyAnOwnerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AFD26DA285764A200336FFE /* MakeKeyAnOwnerViewController.xib */; };
-		6AFD26DE28578F1200336FFE /* KeyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFD26DD28578F1200336FFE /* KeyInfoView.swift */; };
-		6AFD26E0285797DD00336FFE /* KeyInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AFD26DF285797DD00336FFE /* KeyInfoView.xib */; };
+		6AFD26DB285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFD26D9285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift */; };
+		6AFD26DC285764A200336FFE /* ReceiveAddOwnerLinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AFD26DA285764A200336FFE /* ReceiveAddOwnerLinkViewController.xib */; };
+		6AFD26DE28578F1200336FFE /* IdenticonInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFD26DD28578F1200336FFE /* IdenticonInfoView.swift */; };
+		6AFD26E0285797DD00336FFE /* IdenticonInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AFD26DF285797DD00336FFE /* IdenticonInfoView.xib */; };
 		6AFD26E228589AFF00336FFE /* AddOwnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFD26E128589AFF00336FFE /* AddOwnerView.swift */; };
 		6AFD26E428589B0C00336FFE /* AddOwnerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AFD26E328589B0C00336FFE /* AddOwnerView.xib */; };
 		6AFD26E62859E8EC00336FFE /* InfoBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFD26E52859E8EC00336FFE /* InfoBoxView.swift */; };
@@ -1597,10 +1597,10 @@
 		6ADEB01A2795AB410062ADFE /* InfoLabel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoLabel.xib; sourceTree = "<group>"; };
 		6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnectionOwnerView.swift; sourceTree = "<group>"; };
 		6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebConnectionOwnerView.xib; sourceTree = "<group>"; };
-		6AFD26D9285764A200336FFE /* MakeKeyAnOwnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeKeyAnOwnerViewController.swift; sourceTree = "<group>"; };
-		6AFD26DA285764A200336FFE /* MakeKeyAnOwnerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MakeKeyAnOwnerViewController.xib; sourceTree = "<group>"; };
-		6AFD26DD28578F1200336FFE /* KeyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyInfoView.swift; sourceTree = "<group>"; };
-		6AFD26DF285797DD00336FFE /* KeyInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyInfoView.xib; sourceTree = "<group>"; };
+		6AFD26D9285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddOwnerLinkViewController.swift; sourceTree = "<group>"; };
+		6AFD26DA285764A200336FFE /* ReceiveAddOwnerLinkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceiveAddOwnerLinkViewController.xib; sourceTree = "<group>"; };
+		6AFD26DD28578F1200336FFE /* IdenticonInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdenticonInfoView.swift; sourceTree = "<group>"; };
+		6AFD26DF285797DD00336FFE /* IdenticonInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IdenticonInfoView.xib; sourceTree = "<group>"; };
 		6AFD26E128589AFF00336FFE /* AddOwnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerView.swift; sourceTree = "<group>"; };
 		6AFD26E328589B0C00336FFE /* AddOwnerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOwnerView.xib; sourceTree = "<group>"; };
 		6AFD26E52859E8EC00336FFE /* InfoBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBoxView.swift; sourceTree = "<group>"; };
@@ -2811,6 +2811,8 @@
 		0AADCDC12858E82F00A0139B /* RequestToAddOwner */ = {
 			isa = PBXGroup;
 			children = (
+				6AFD26D9285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift */,
+				6AFD26DA285764A200336FFE /* ReceiveAddOwnerLinkViewController.xib */,
 				0AADCDB92858AA4700A0139B /* InactiveLinkViewController.swift */,
 				0AADCDBA2858AA4700A0139B /* InactiveLinkViewController.xib */,
 				0AADCDB528589DCC00A0139B /* AddOwnerExceptionViewController.swift */,
@@ -2820,6 +2822,12 @@
 				0AADCDC22858E8A100A0139B /* ValidateRequestToAddOwnerViewController.swift */,
 				0AADCDC32858E8A100A0139B /* ValidateRequestToAddOwnerViewController.xib */,
 				0AADCDCA2859CAAC00A0139B /* SafeInfoLoader.swift */,
+				6AFD26DD28578F1200336FFE /* IdenticonInfoView.swift */,
+				6AFD26DF285797DD00336FFE /* IdenticonInfoView.xib */,
+				6AFD26E128589AFF00336FFE /* AddOwnerView.swift */,
+				6AFD26E328589B0C00336FFE /* AddOwnerView.xib */,
+				6AFD26E52859E8EC00336FFE /* InfoBoxView.swift */,
+				6AFD26E72859E8FA00336FFE /* InfoBoxView.xib */,
 			);
 			path = RequestToAddOwner;
 			sourceTree = "<group>";
@@ -3522,11 +3530,7 @@
 		55F91A8E25BEABA100938475 /* OwnerKeyManagement */ = {
 			isa = PBXGroup;
 			children = (
-
 				0AADCDC12858E82F00A0139B /* RequestToAddOwner */,
-
-				6AFD26D82857646200336FFE /* MakeKeyAnOwner */,
-
 				6AAE34E1282A81DD00CCFC95 /* AddOwnerKey */,
 				6A252CEF281692FE001F0887 /* AddKeyAsNewOwner */,
 				6A1CFA4C280819C600B2C340 /* Backup */,
@@ -3654,21 +3658,6 @@
 				6AAE34E7282A833D00CCFC95 /* EnterOwnerNameViewController.xib */,
 			);
 			path = AddOwnerKey;
-			sourceTree = "<group>";
-		};
-		6AFD26D82857646200336FFE /* MakeKeyAnOwner */ = {
-			isa = PBXGroup;
-			children = (
-				6AFD26D9285764A200336FFE /* MakeKeyAnOwnerViewController.swift */,
-				6AFD26DA285764A200336FFE /* MakeKeyAnOwnerViewController.xib */,
-				6AFD26DD28578F1200336FFE /* KeyInfoView.swift */,
-				6AFD26DF285797DD00336FFE /* KeyInfoView.xib */,
-				6AFD26E128589AFF00336FFE /* AddOwnerView.swift */,
-				6AFD26E328589B0C00336FFE /* AddOwnerView.xib */,
-				6AFD26E52859E8EC00336FFE /* InfoBoxView.swift */,
-				6AFD26E72859E8FA00336FFE /* InfoBoxView.xib */,
-			);
-			path = MakeKeyAnOwner;
 			sourceTree = "<group>";
 		};
 		AD30347831BBAF9E3E43EEA3 /* ChangeConfirmations */ = {
@@ -4102,9 +4091,9 @@
 				0AE0AFEF2805CC20002594CB /* WordView.xib in Resources */,
 				55F9B7A026D66630003D1C68 /* LedgerPendingConfirmationViewController.xib in Resources */,
 				0AE0AFED2805C6B9002594CB /* VerifyPhraseViewController.xib in Resources */,
-				6AFD26DC285764A200336FFE /* MakeKeyAnOwnerViewController.xib in Resources */,
+				6AFD26DC285764A200336FFE /* ReceiveAddOwnerLinkViewController.xib in Resources */,
 				558836712565385F0014E8C7 /* RemoveCell.xib in Resources */,
-				6AFD26E0285797DD00336FFE /* KeyInfoView.xib in Resources */,
+				6AFD26E0285797DD00336FFE /* IdenticonInfoView.xib in Resources */,
 				6AAE34E0282A2F1600CCFC95 /* OwnerHeaderView.xib in Resources */,
 				6AAE34E9282A833D00CCFC95 /* EnterOwnerNameViewController.xib in Resources */,
 				6A386C5D281A7792003FBCB3 /* AddRemoveOwnerTableViewCell.xib in Resources */,
@@ -4514,7 +4503,7 @@
 				55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */,
 				D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */,
 				6A39DC9327C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift in Sources */,
-				6AFD26DB285764A200336FFE /* MakeKeyAnOwnerViewController.swift in Sources */,
+				6AFD26DB285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift in Sources */,
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
 				0493A28B262979820056EC49 /* UpdateController.swift in Sources */,
 				048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */,
@@ -4719,7 +4708,7 @@
 				D865178127687E0B000B4C04 /* SuccessViewController.swift in Sources */,
 				0A478D3325B861D50038363E /* DefaultKeyTableViewCell.swift in Sources */,
 				550FB1C326691E1500C13D54 /* OnboardingConnectOwnerKeyViewController.swift in Sources */,
-				6AFD26DE28578F1200336FFE /* KeyInfoView.swift in Sources */,
+				6AFD26DE28578F1200336FFE /* IdenticonInfoView.swift in Sources */,
 				0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */,
 				0A5B157A28085BC1003AD853 /* BackupFlow.swift in Sources */,
 				043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */,

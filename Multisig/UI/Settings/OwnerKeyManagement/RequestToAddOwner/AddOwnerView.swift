@@ -11,8 +11,8 @@ import UIKit
 
 class AddOwnerView: UINibView {
 
-    @IBOutlet weak var ownerInfo: KeyInfoView!
-    @IBOutlet weak var safeInfo: KeyInfoView!
+    @IBOutlet weak var ownerInfo: IdenticonInfoView!
+    @IBOutlet weak var safeInfo: IdenticonInfoView!
 
     override func commonInit() {
         super.commonInit()
