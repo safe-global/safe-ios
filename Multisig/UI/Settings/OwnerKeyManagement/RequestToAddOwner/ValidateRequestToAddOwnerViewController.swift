@@ -61,34 +61,13 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
 
             let isAlreaydAnOwner = info.owners.contains(where: { $0.addressInfo.address == parameters.ownerAddress })
             if isAlreaydAnOwner {
-                let inactiveLinkVC = InactiveLinkViewController.inactiveLink(completion: onCancel)
-                show(inactiveLinkVC, sender: self)
+                handleOwnerAlreadyInOwnerList()
                 return
             }
 
             // do we have such a safe?
             guard let safe = Safe.by(address: parameters.safeAddress.checksummed, chainId: parameters.chain.id!) else {
-
-                // safe must be added to the app to continue
-                let noSafeVC = AddOwnerExceptionViewController.safeNotFound(
-                    address: parameters.safeAddress,
-                    chain: parameters.chain,
-                    onAdd: { [unowned self] in
-                        // add safe
-                        Safe.create(
-                            address: parameters.safeAddress.checksummed,
-                            version: info.version,
-                            name: "Safe",
-                            chain: parameters.chain
-                        )
-
-                        App.shared.notificationHandler.safeAdded(address: parameters.safeAddress)
-
-                        // re-trigger validation
-                        revalidate()
-                    },
-                    onClose: onCancel)
-                show(noSafeVC, sender: self)
+                handleSafeNotAdded(info: info)
                 return
             }
 
@@ -96,43 +75,79 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
             safe.update(from: info)
 
             if safe.isReadOnly {
-                // if safe is read-only then can't add new owner.
-
-                let readOnlyVC = AddOwnerExceptionViewController.safeReadOnly(
-                    address: parameters.safeAddress,
-                    chain: parameters.chain,
-                    onAdd: { [unowned self] in
-                        // add new owner
-                        let addOwnerVC = ViewControllerFactory.addOwnerViewController { [weak self] in
-                            // owner added, close opened screen.
-                            self?.dismiss(animated: true) {
-                                // re-trigger validation
-                                self?.revalidate()
-                            }
-                        }
-
-                        // start adding owner
-                        present(addOwnerVC, animated: true)
-                    },
-                    onClose: onCancel
-                )
-                show(readOnlyVC, sender: self)
+                handleSafeReadOnly()
                 return
             }
 
             // all requirements passed
-                // show the 'receive' screen
-            let requestVC = RequestAddOwnerViewController()
-            requestVC.safe = safe
-            requestVC.parameters = parameters
-            requestVC.onDone = onCancel
-            show(requestVC, sender: self)
+            handleValidationSuccess(safe: safe)
 
         } catch {
             // show error screen
             let errorVC = InactiveLinkViewController.broken(error, completion: onCancel)
             show(errorVC, sender: self)
         }
+    }
+
+    func handleOwnerAlreadyInOwnerList() {
+        let inactiveLinkVC = InactiveLinkViewController.inactiveLink(completion: onCancel)
+        show(inactiveLinkVC, sender: self)
+    }
+
+    func handleSafeNotAdded(info: SCGModels.SafeInfoExtended) {
+        // safe must be added to the app to continue
+        let noSafeVC = AddOwnerExceptionViewController.safeNotFound(
+            address: parameters.safeAddress,
+            chain: parameters.chain,
+            onAdd: { [unowned self] in
+                // add safe
+                Safe.create(
+                    address: parameters.safeAddress.checksummed,
+                    version: info.version,
+                    name: "Safe",
+                    chain: parameters.chain
+                )
+
+                App.shared.notificationHandler.safeAdded(address: parameters.safeAddress)
+
+                // re-trigger validation
+                revalidate()
+            },
+            onClose: onCancel)
+        show(noSafeVC, sender: self)
+    }
+
+    func handleSafeReadOnly() {
+        // if safe is read-only then can't add new owner.
+
+        let readOnlyVC = AddOwnerExceptionViewController.safeReadOnly(
+            address: parameters.safeAddress,
+            chain: parameters.chain,
+            onAdd: { [unowned self] in
+                // add new owner
+                let addOwnerVC = ViewControllerFactory.addOwnerViewController { [weak self] in
+                    // owner added, close opened screen.
+                    self?.dismiss(animated: true) {
+                        // re-trigger validation
+                        self?.revalidate()
+                    }
+                }
+
+                // start adding owner
+                present(addOwnerVC, animated: true)
+            },
+            onClose: onCancel
+        )
+        show(readOnlyVC, sender: self)
+    }
+
+    func handleValidationSuccess(safe: Safe) {
+        // show the 'receive' screen
+        let requestVC = RequestAddOwnerViewController()
+        requestVC.safe = safe
+        requestVC.parameters = parameters
+        requestVC.onDone = onCancel
+        show(requestVC, sender: self)
     }
 
     func cancel() {
