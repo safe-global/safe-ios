@@ -36,7 +36,7 @@
                     <rect key="frame" x="16" y="117" width="382" height="132"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="132" id="xiT-2g-6EN"/>
+                        <constraint firstAttribute="height" constant="132" placeholder="YES" id="xiT-2g-6EN"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like to continue?  This will create a new transaction that will need to be confirmed by other owners." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTn-C4-EbE">

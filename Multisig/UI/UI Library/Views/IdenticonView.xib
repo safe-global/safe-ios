@@ -33,12 +33,12 @@
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lYH-QD-nMg" userLabel="OwnerCountFrameView" customClass="CircleView" customModule="Multisig" customModuleProvider="target">
-                    <rect key="frame" x="-15" y="-69" width="30" height="140"/>
+                    <rect key="frame" x="-21" y="-52.5" width="105" height="105"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3/5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sl3-FE-c0n">
-                            <rect key="frame" x="2" y="2" width="26" height="136"/>
+                            <rect key="frame" x="2" y="2" width="101" height="101"/>
                             <color key="backgroundColor" name="primaryDisabled"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <fontDescription key="fontDescription" name=".SFNS-Regular" family=".AppleSystemUIFont" pointSize="15"/>
                             <color key="textColor" name="primary"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -76,9 +76,10 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="AR4-Or-uAh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="0e4-vF-dbM"/>
-                <constraint firstItem="lYH-QD-nMg" firstAttribute="height" relation="greaterThanOrEqual" secondItem="AR4-Or-uAh" secondAttribute="width" multiplier="2:3" id="7A2-bt-5yH"/>
-                <constraint firstItem="lYH-QD-nMg" firstAttribute="centerX" secondItem="AR4-Or-uAh" secondAttribute="leading" multiplier="0.4" id="CAZ-sr-ApW"/>
-                <constraint firstItem="lYH-QD-nMg" firstAttribute="centerY" secondItem="AR4-Or-uAh" secondAttribute="top" multiplier="0.2" constant="1" id="Iyy-vo-E6F"/>
+                <constraint firstItem="lYH-QD-nMg" firstAttribute="height" relation="greaterThanOrEqual" secondItem="AR4-Or-uAh" secondAttribute="width" multiplier="1:2" id="7A2-bt-5yH"/>
+                <constraint firstItem="lYH-QD-nMg" firstAttribute="trailing" secondItem="AR4-Or-uAh" secondAttribute="trailing" multiplier="0.4" id="9R8-zF-w5o"/>
+                <constraint firstItem="lYH-QD-nMg" firstAttribute="width" relation="greaterThanOrEqual" secondItem="AR4-Or-uAh" secondAttribute="width" multiplier="0.5" id="Dll-pR-TAZ"/>
+                <constraint firstItem="lYH-QD-nMg" firstAttribute="centerY" secondItem="AR4-Or-uAh" secondAttribute="top" multiplier="0.8" id="Iyy-vo-E6F"/>
                 <constraint firstItem="0dR-3L-KoS" firstAttribute="width" secondItem="AR4-Or-uAh" secondAttribute="height" multiplier="2:3" id="Ldu-TO-Udz"/>
                 <constraint firstItem="AR4-Or-uAh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="XKL-zg-0ic"/>
                 <constraint firstItem="AR4-Or-uAh" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="bS8-dK-N9l"/>

@@ -26,11 +26,11 @@
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="XYU-wg-ikw">
                     <rect key="frame" x="16" y="16" width="382" height="864"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-info" translatesAutoresizingMaskIntoConstraints="NO" id="02d-Zd-qWZ">
-                            <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="ico-info-24" translatesAutoresizingMaskIntoConstraints="NO" id="02d-Zd-qWZ">
+                            <rect key="frame" x="0.0" y="0.0" width="17" height="24"/>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Make sure you trust this key before confirming." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AQ4-pi-bRx">
-                            <rect key="frame" x="24" y="0.0" width="358" height="20.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" ambiguous="YES" text="Make sure you trust this key before confirming." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AQ4-pi-bRx">
+                            <rect key="frame" x="25" y="0.0" width="357" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -54,7 +54,7 @@
         </view>
     </objects>
     <resources>
-        <image name="ico-info" width="16" height="16"/>
+        <image name="ico-info-24" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

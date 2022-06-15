@@ -42,7 +42,7 @@ class IdenticonView: UINibView {
 
         if let reqConfirmations = reqConfirmations,
            let owners = owners {
-            ownerCountLabel.text = "\(reqConfirmations)/\(owners)"
+            ownerCountLabel.text = " \(reqConfirmations)/\(owners) "
             ownerCountFrameView.isHidden = false
         } else {
             ownerCountFrameView.isHidden = true
