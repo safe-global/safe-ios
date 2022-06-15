@@ -310,6 +310,24 @@ enum TrackingEvent: String, Trackable {
     case screenOnboarding3                          = "screen_onboarding_3"
     case onboardingSkipped                          = "user_skip_onboarding"
 
+    // Share link
+    case screenAddKeyAsOwnerShareInfo               = "screen_add_key_as_owner_share_info"
+    case userSkipShareLink                          = "user_skip_share_link"
+    case screenAddOwnerShareLink                    = "screen_add_owner_share_link"
+    case userAddOwnerShareLink                      = "user_add_owner_share_link"
+
+    // Handle link
+    case screenOwnerFromLink                        = "screen_owner_from_link"
+    case userRejectOwnerFromLink                    = "user_reject_owner_from_link"
+    case screenOwnerFromLinkChooseName              = "screen_owner_from_link_choose_name"
+    case screenOwnerFromLinkNoKey                   = "screen_owner_from_link_no_key"
+    case userOwnerFromLinkNoKeySkip                 = "user_owner_from_link_no_key_skip"
+    case userOwnerFromLinkNoKeyAddIt                = "user_owner_from_link_no_key_add_it"
+    case screenOwnerFromLinkNoSafe                  = "screen_owner_from_link_no_safe"
+    case userOwnerFromLinkNoSafeSkip                = "user_owner_from_link_no_safe_skip"
+    case screenOwnerFromLinkAddSafeName             = "screen_owner_from_link_add_safe_name"
+    case userOwnerFromLinkSafeNameAdded             = "user_owner_from_link_safe_name_added "
+
 }
 
 extension TrackingEvent {
