@@ -70,6 +70,7 @@ class SafeSettingsFlowFactory {
                         maxSteps: Int,
                         title: String,
                         trackingEvent: TrackingEvent,
+                        trackingParameters: [String: Any]? = nil,
                         completion: @escaping (String) -> Void) -> EnterOwnerNameViewController {
         let enterNameVC = EnterOwnerNameViewController()
         enterNameVC.address = address

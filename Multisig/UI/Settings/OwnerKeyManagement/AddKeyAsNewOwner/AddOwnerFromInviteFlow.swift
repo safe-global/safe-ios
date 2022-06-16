@@ -32,7 +32,8 @@ class AddOwnerFromInviteFlow: AddOwnerFlow {
                                stepNumber: 1,
                                maxSteps: 3,
                                title: "Add owner",
-                               trackingEvent: .screenOwnerFromLinkChooseName) { [unowned self] name in
+                               trackingEvent: .screenOwnerFromLinkChooseName,
+                                trackingParameters: ["add_owner_chain_id" : safe.chain!.id!]) { [unowned self] name in
             newOwnerName = name
             confirmations()
         }

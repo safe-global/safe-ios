@@ -34,6 +34,7 @@ class EnterOwnerNameViewController: UIViewController {
     var maxSteps: Int = 3
     
     var trackingEvent: TrackingEvent?
+    var trackingParameters: [String: Any]? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,7 +84,7 @@ class EnterOwnerNameViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if let trackingEvent = trackingEvent {
-            Tracker.trackEvent(trackingEvent)
+            Tracker.trackEvent(trackingEvent, parameters: trackingParameters)
         }
     }
 

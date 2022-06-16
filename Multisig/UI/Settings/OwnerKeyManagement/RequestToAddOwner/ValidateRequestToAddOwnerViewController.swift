@@ -103,7 +103,8 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
             address: parameters.safeAddress,
             chain: parameters.chain,
             onAdd: { [unowned self] in
-                Tracker.trackEvent(.userOwnerFromLinkSafeNameAdded)
+                Tracker.trackEvent(.userOwnerFromLinkSafeNameAdded,
+                                   parameters: ["add_owner_chain_id" : parameters.chain.id!])
                 Safe.create(
                     address: parameters.safeAddress.checksummed,
                     version: info.version,
@@ -116,9 +117,10 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
                 // re-trigger validation
                 revalidate()
             },
-            onClose: { [weak self] in
-                Tracker.trackEvent(.userOwnerFromLinkNoSafeSkip)
-                self?.onCancel()
+            onClose: { [unowned self] in
+                Tracker.trackEvent(.userOwnerFromLinkNoSafeSkip,
+                                   parameters: ["add_owner_chain_id" : parameters.chain.id!])
+                onCancel()
             })
         show(noSafeVC, sender: self)
     }
@@ -130,7 +132,8 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
             address: parameters.safeAddress,
             chain: parameters.chain,
             onAdd: { [unowned self] in
-                Tracker.trackEvent(.userOwnerFromLinkNoKeyAddIt)
+                Tracker.trackEvent(.userOwnerFromLinkNoKeyAddIt,
+                                   parameters: ["add_owner_chain_id" : parameters.chain.id!])
                 // add new owner
                 let addOwnerVC = ViewControllerFactory.addOwnerViewController { [weak self] in
                     // owner added, close opened screen.
@@ -144,9 +147,10 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
                 // start adding owner
                 present(addOwnerVC, animated: true)
             },
-            onClose: { [weak self] in
-                Tracker.trackEvent(.userOwnerFromLinkNoKeySkip)
-                self?.onCancel()
+            onClose: { [unowned self] in
+                Tracker.trackEvent(.userOwnerFromLinkNoKeySkip,
+                                   parameters: ["add_owner_chain_id" : parameters.chain.id!])
+                onCancel()
             }
         )
         show(readOnlyVC, sender: self)
