@@ -24,24 +24,24 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="355"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="INN-aA-lxe" customClass="IdenticonView" customModule="Multisig" customModuleProvider="target">
-                            <rect key="frame" x="175" y="0.0" width="64" height="64"/>
+                            <rect key="frame" x="171" y="0.0" width="72" height="72"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="64" id="EIu-f5-Oxt"/>
-                                <constraint firstAttribute="width" constant="64" id="RHp-KV-KIL"/>
+                                <constraint firstAttribute="height" constant="72" id="EIu-f5-Oxt"/>
+                                <constraint firstAttribute="width" constant="72" id="RHp-KV-KIL"/>
                             </constraints>
                         </view>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="vmL-WZ-T7g">
-                            <rect key="frame" x="186.5" y="80" width="41.5" height="275"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="vmL-WZ-T7g">
+                            <rect key="frame" x="186.5" y="88" width="41.5" height="267"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="615-Bc-qrY">
-                                    <rect key="frame" x="0.0" y="0.0" width="41.5" height="250.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="615-Bc-qrY">
+                                    <rect key="frame" x="0.0" y="0.0" width="41.5" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3a-cP-K1C">
-                                    <rect key="frame" x="0.0" y="254.5" width="41.5" height="20.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3a-cP-K1C">
+                                    <rect key="frame" x="0.0" y="22.5" width="41.5" height="244.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>

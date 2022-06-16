@@ -45,7 +45,7 @@ class ReceiveAddOwnerLinkViewController: UIViewController {
 
         } else {
             ownerInfo = AddressInfo(address: parameters.ownerAddress, name: ownerName)
-            addOwnerView.set(owner: ownerInfo, safe: safe, reqConfirmations: Int(safe.threshold!), ownerCount: safe.ownersInfo?.count ?? 0)
+            addOwnerView.set(owner: ownerInfo, badgeName: nil, safe: safe, reqConfirmations: Int(safe.threshold!), ownerCount: safe.ownersInfo?.count ?? 0)
         }
 
         infoBoxView.setText("Make sure you trust this key before confirming.")
@@ -58,6 +58,7 @@ class ReceiveAddOwnerLinkViewController: UIViewController {
     }
 
     @IBAction func didTapContinue(_ sender: Any) {
+        //TODO: select safe from the link before proceeding with add owner flow
         onContinue()
     }
 }

@@ -10,9 +10,9 @@ import UIKit
 
 class IdenticonInfoView: UINibView {
 
-    @IBOutlet weak var blockie: IdenticonView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet private weak var blockie: IdenticonView!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var addressLabel: UILabel!
 
     override func commonInit() {
         super.commonInit()

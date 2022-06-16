@@ -11,9 +11,9 @@ import UIKit
 class IdenticonView: UINibView {
     @IBOutlet private weak var identiconImageView: UIImageView!
     @IBOutlet private weak var badgeImageView: UIImageView!
-    @IBOutlet weak var badgeFrameView: CircleView!
-    @IBOutlet weak var ownerCountFrameView: CircleView!
-    @IBOutlet weak var ownerCountLabel: UILabel!
+    @IBOutlet private weak var badgeFrameView: CircleView!
+    @IBOutlet private weak var ownerCountFrameView: CircleView!
+    @IBOutlet private weak var ownerCountLabel: UILabel!
 
     @IBOutlet weak var identiconLeading: NSLayoutConstraint!
 
