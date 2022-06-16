@@ -7,6 +7,18 @@
 //
 
 import Foundation
+
+/// Flow for Replacing owner of a safe.
+///
+/// Expects that an owner to be add is known in advance.
+///
+/// Screen sequence:
+///
+/// 1. Enter new owner name
+/// 2. Select owner to be replaced
+/// 3. Review
+/// 4. Success
+///
 class ReplaceOwnerFromInviteFlow: ReplaceOwnerFlow {
     var newOwnerName: String?
 

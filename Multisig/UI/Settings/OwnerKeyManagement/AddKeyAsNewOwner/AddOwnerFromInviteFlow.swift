@@ -7,6 +7,18 @@
 //
 
 import Foundation
+
+/// Flow that adds an address as a new owner to a safe.
+///
+/// Expects that an owner address and safe is known.
+///
+///
+/// Screen sequence:
+///
+/// 1. Enter new owner name
+/// 2. Edit Confirmations
+/// 3. Review
+/// 4. Success
 class AddOwnerFromInviteFlow: AddOwnerFlow {
     var newOwnerName: String?
 

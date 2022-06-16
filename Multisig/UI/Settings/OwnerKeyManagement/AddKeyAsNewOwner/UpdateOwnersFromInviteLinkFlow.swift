@@ -8,8 +8,19 @@
 
 import Foundation
 import UIKit
-
-class AddOwnerFromInviteLinkFlow: UIFlow {
+///
+/// Flow that update  owners of a safe.
+///
+/// Expects that paramters are passed.
+///
+///
+/// Screen sequence:
+///
+/// 1. Validate paramter and check if safe, owner and chain is there
+/// 2. Select whether add/replace owner
+/// 3. Start the corresponding flow
+///
+class UpdateOwnersFromInviteLinkFlow: UIFlow {
     var parameters: AddOwnerRequestParameters!
 
     private var replaceOwnerFlow: ReplaceOwnerFromInviteFlow!

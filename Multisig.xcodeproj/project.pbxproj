@@ -88,7 +88,7 @@
 		0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0471D13124728C2C00B22A70 /* EmailLink.swift */; };
 		0472B2A82857B43E0049BA17 /* ShareTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2A72857B43E0049BA17 /* ShareTextView.swift */; };
 		0472B2AA2857B44F0049BA17 /* ShareTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2A92857B44F0049BA17 /* ShareTextView.xib */; };
-		0472B2AC285B5D030049BA17 /* AddOwnerFromInviteLinkFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2AB285B5D030049BA17 /* AddOwnerFromInviteLinkFlow.swift */; };
+		0472B2AC285B5D030049BA17 /* UpdateOwnersFromInviteLinkFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2AB285B5D030049BA17 /* UpdateOwnersFromInviteLinkFlow.swift */; };
 		0472B2AE285B80880049BA17 /* AddOwnerFromInviteFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2AD285B80880049BA17 /* AddOwnerFromInviteFlow.swift */; };
 		0472B2B0285B9D190049BA17 /* ReplaceOwnerFromInviteFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2AF285B9D190049BA17 /* ReplaceOwnerFromInviteFlow.swift */; };
 		047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FB24780C81004F1200 /* CharacterSet+Hex.swift */; };
@@ -960,7 +960,7 @@
 		0471D13124728C2C00B22A70 /* EmailLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLink.swift; sourceTree = "<group>"; };
 		0472B2A72857B43E0049BA17 /* ShareTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareTextView.swift; sourceTree = "<group>"; };
 		0472B2A92857B44F0049BA17 /* ShareTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareTextView.xib; sourceTree = "<group>"; };
-		0472B2AB285B5D030049BA17 /* AddOwnerFromInviteLinkFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerFromInviteLinkFlow.swift; sourceTree = "<group>"; };
+		0472B2AB285B5D030049BA17 /* UpdateOwnersFromInviteLinkFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOwnersFromInviteLinkFlow.swift; sourceTree = "<group>"; };
 		0472B2AD285B80880049BA17 /* AddOwnerFromInviteFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerFromInviteFlow.swift; sourceTree = "<group>"; };
 		0472B2AF285B9D190049BA17 /* ReplaceOwnerFromInviteFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceOwnerFromInviteFlow.swift; sourceTree = "<group>"; };
 		047300FB24780C81004F1200 /* CharacterSet+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Hex.swift"; sourceTree = "<group>"; };
@@ -3673,7 +3673,7 @@
 				6A386C5E281A9D46003FBCB3 /* ReviewAddOwnerTxViewController.swift */,
 				AD303A2303B63B1408463F64 /* ReviewReplaceOwnerTxViewController.swift */,
 				04AFFBCF282AFC0100429513 /* ReviewRemoveOwnerViewController.swift */,
-				0472B2AB285B5D030049BA17 /* AddOwnerFromInviteLinkFlow.swift */,
+				0472B2AB285B5D030049BA17 /* UpdateOwnersFromInviteLinkFlow.swift */,
 				0472B2AD285B80880049BA17 /* AddOwnerFromInviteFlow.swift */,
 				0472B2AF285B9D190049BA17 /* ReplaceOwnerFromInviteFlow.swift */,
 			);
@@ -4745,7 +4745,7 @@
 				0A93DDB924461C1400688050 /* Fonts.swift in Sources */,
 				0468FB45259106F400541536 /* StyledView.swift in Sources */,
 				0AFA729C24BF361600A370EE /* SlicedString.swift in Sources */,
-				0472B2AC285B5D030049BA17 /* AddOwnerFromInviteLinkFlow.swift in Sources */,
+				0472B2AC285B5D030049BA17 /* UpdateOwnersFromInviteLinkFlow.swift in Sources */,
 				045769FD27C7DBBF00881206 /* SafeDeployingViewController.swift in Sources */,
 				550FB1AA26691D2E00C13D54 /* UITableView+Cells.swift in Sources */,
 				0A5B15882808649E003AD853 /* CreatePasscodeController.swift in Sources */,

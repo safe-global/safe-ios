@@ -16,7 +16,7 @@ class MainTabBarViewController: UITabBarController {
 
     private weak var transactionsSegementControl: SegmentViewController?
     private var appearsFirstTime: Bool = true
-    private var addOwnerFlow: AddOwnerFromInviteLinkFlow!
+    private var addOwnerFlow: UpdateOwnersFromInviteLinkFlow!
     
     // In-memory queue of incoming requests to present. Due to limitation of UIKit,
     // only one view controller can be presented at the same time.
@@ -419,7 +419,7 @@ extension MainTabBarViewController: NavigationRouter {
         } else if route.path == NavigationRoute.requestToAddOwnerPath {
             let parameters = route.info["parameters"] as! AddOwnerRequestParameters
 
-            addOwnerFlow = AddOwnerFromInviteLinkFlow(parameters: parameters) { [unowned self] _ in
+            addOwnerFlow = UpdateOwnersFromInviteLinkFlow(parameters: parameters) { [unowned self] _ in
                 addOwnerFlow = nil
                 dismiss(animated: true)
             }
