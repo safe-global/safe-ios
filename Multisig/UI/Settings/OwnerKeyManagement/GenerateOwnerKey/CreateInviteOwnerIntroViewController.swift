@@ -25,18 +25,20 @@ class CreateInviteOwnerIntroViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         titleLabel.setStyle(.title5)
         descriptionLabel.setStyle(.secondary)
         shareButton.setText("Share link", .filled)
         notThisTimeButton.setText("Not this time", .primary)
+        Tracker.trackEvent(.screenAddKeyAsOwnerShareInfo)
     }
 
     @IBAction func didTapShareButton(_ sender: Any) {
+        Tracker.trackEvent(.userAddOwnerShareLink)
         onShare?()
     }
 
     @IBAction func didTapNotThisTimeButton(_ sender: Any) {
+        Tracker.trackEvent(.userSkipShareLink)
         onSkip?()
     }
 }
