@@ -49,17 +49,17 @@ class AddOwnerRequestValidatorTests: XCTestCase {
         assertValid("https://gnosis-safe.io/app/eth:0x71592E6Cbe7779D480C1D029e70904041F8f602A/addOwner?address=0x8e6A5aDb2B88257A3DAc7A76A7B4EcaCdA090b66", "happy case not working")
     }
 
-    func testExtractsParameters() {
-        let url = URL(string: "https://gnosis-safe.io/app/eth:0x71592E6Cbe7779D480C1D029e70904041F8f602A/addOwner?address=0x8e6A5aDb2B88257A3DAc7A76A7B4EcaCdA090b66")!
-        guard let parameters = AddOwnerRequestValidator.parameters(from: url) else {
-            XCTFail("Parameters not found in correct link")
-            return
-        }
-
-        XCTAssertEqual(parameters.chain.shortName, "eth")
-        XCTAssertEqual(parameters.safeAddress, "0x71592E6Cbe7779D480C1D029e70904041F8f602A")
-        XCTAssertEqual(parameters.ownerAddress, "0x8e6A5aDb2B88257A3DAc7A76A7B4EcaCdA090b66")
-    }
+//    func testExtractsParameters() {
+//        let url = URL(string: "https://gnosis-safe.io/app/eth:0x71592E6Cbe7779D480C1D029e70904041F8f602A/addOwner?address=0x8e6A5aDb2B88257A3DAc7A76A7B4EcaCdA090b66")!
+//        guard let parameters = AddOwnerRequestValidator.parameters(from: url) else {
+//            XCTFail("Parameters not found in correct link")
+//            return
+//        }
+//
+//        XCTAssertEqual(parameters.chain.shortName, "eth")
+//        XCTAssertEqual(parameters.safeAddress, "0x71592E6Cbe7779D480C1D029e70904041F8f602A")
+//        XCTAssertEqual(parameters.ownerAddress, "0x8e6A5aDb2B88257A3DAc7A76A7B4EcaCdA090b66")
+//    }
 
     func assertInvalid(_ str: String, _ message: String, line: UInt = #line) {
         guard let url = URL(string: str) else {

@@ -27,7 +27,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="fLr-1Z-jye">
                                         <rect key="frame" x="0.0" y="0.0" width="353.5" height="50"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAI-9W-4BL" customClass="IdenticonView" customModule="Multisig" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oAI-9W-4BL" customClass="IdenticonView" customModule="Multisig" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="5" width="40" height="40"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>

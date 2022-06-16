@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ico-connecting-key.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

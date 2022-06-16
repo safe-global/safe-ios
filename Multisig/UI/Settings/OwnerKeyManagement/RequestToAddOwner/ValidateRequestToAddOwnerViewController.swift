@@ -15,6 +15,7 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
 
     var parameters: AddOwnerRequestParameters!
+    var onContinue: () -> Void = { }
     var onCancel: () -> Void = { }
 
     private var safeLoader = SafeInfoLoader()
@@ -143,10 +144,11 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
 
     func handleValidationSuccess(safe: Safe) {
         // show the 'receive' screen
-        let requestVC = RequestAddOwnerViewController()
+        let requestVC = ReceiveAddOwnerLinkViewController()
         requestVC.safe = safe
         requestVC.parameters = parameters
-        requestVC.onDone = onCancel
+        requestVC.onContinue = onContinue
+        requestVC.onReject = onCancel
         show(requestVC, sender: self)
     }
 

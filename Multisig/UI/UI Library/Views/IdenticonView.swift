@@ -11,22 +11,42 @@ import UIKit
 class IdenticonView: UINibView {
     @IBOutlet private weak var identiconImageView: UIImageView!
     @IBOutlet private weak var badgeImageView: UIImageView!
-    @IBOutlet weak var badgeFrameView: CircleView!
+    @IBOutlet private weak var badgeFrameView: CircleView!
+    @IBOutlet private weak var ownerCountFrameView: CircleView!
+    @IBOutlet private weak var ownerCountLabel: UILabel!
+
+    @IBOutlet weak var identiconLeading: NSLayoutConstraint!
 
     override func commonInit() {
         super.commonInit()
+
         badgeFrameView.clipsToBounds = true
         badgeFrameView.layer.borderColor = UIColor.whiteOrBlack.cgColor
         badgeFrameView.backgroundColor = .labelSecondary
+
+        ownerCountFrameView.clipsToBounds = true
+        ownerCountFrameView.layer.borderColor = UIColor.whiteOrBlack.cgColor
+        ownerCountFrameView.backgroundColor = .primaryDisabled
+
+        ownerCountLabel.setStyle(.footnote2)
+        ownerCountLabel.textColor = .primary
     }
 
-    func set(address: Address, imageURL: URL? = nil, badgeName: String? = nil) {
+    func set(address: Address, imageURL: URL? = nil, badgeName: String? = nil, reqConfirmations: Int? = nil, owners: Int? = nil) {
         identiconImageView.setCircleImage(url: imageURL, address: address)
         if let badgeName = badgeName {
             badgeImageView.image = UIImage(named: badgeName)
         }
 
         badgeFrameView.isHidden = badgeName == nil
+
+        if let reqConfirmations = reqConfirmations,
+           let owners = owners {
+            ownerCountLabel.text = " \(reqConfirmations)/\(owners) "
+            ownerCountFrameView.isHidden = false
+        } else {
+            ownerCountFrameView.isHidden = true
+        }
     }
 }
 

@@ -11,6 +11,7 @@ import UIKit
 extension UIColor {
     static let primary = UIColor(named: "primary")!
     static let primaryPressed = UIColor(named: "primaryPressed")!
+    static let primaryDisabled = UIColor(named: "primaryDisabled")!
     static let cardShadowTooltip = UIColor(named: "cardShadowTooltip")!
     static let error = UIColor(named: "error")!
     static let errorPressed = UIColor(named: "errorPressed")!
