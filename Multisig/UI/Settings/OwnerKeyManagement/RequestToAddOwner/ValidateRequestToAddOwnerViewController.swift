@@ -97,6 +97,7 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
 
     func handleSafeNotAdded(info: SCGModels.SafeInfoExtended) {
         // safe must be added to the app to continue
+        Tracker.trackEvent(.screenOwnerFromLinkNoSafe)
         let noSafeVC = AddOwnerExceptionViewController.safeNotFound(
             address: parameters.safeAddress,
             chain: parameters.chain,
@@ -120,7 +121,7 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
 
     func handleSafeReadOnly() {
         // if safe is read-only then can't add new owner.
-
+        Tracker.trackEvent(.screenOwnerFromLinkNoKey)
         let readOnlyVC = AddOwnerExceptionViewController.safeReadOnly(
             address: parameters.safeAddress,
             chain: parameters.chain,
