@@ -60,8 +60,8 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
         do {
             let info = try result.get()
 
-            let isAlreaydAnOwner = info.owners.contains(where: { $0.addressInfo.address == parameters.ownerAddress })
-            if isAlreaydAnOwner {
+            let isAlreadyAnOwner = info.owners.contains(where: { $0.addressInfo.address == parameters.ownerAddress })
+            if isAlreadyAnOwner {
                 handleOwnerAlreadyInOwnerList()
                 return
             }
