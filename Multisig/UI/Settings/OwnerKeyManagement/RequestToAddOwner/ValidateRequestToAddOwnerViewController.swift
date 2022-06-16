@@ -103,7 +103,7 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
             address: parameters.safeAddress,
             chain: parameters.chain,
             onAdd: { [unowned self] in
-                // add safe
+                Tracker.trackEvent(.userOwnerFromLinkSafeNameAdded)
                 Safe.create(
                     address: parameters.safeAddress.checksummed,
                     version: info.version,
@@ -116,7 +116,10 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
                 // re-trigger validation
                 revalidate()
             },
-            onClose: onCancel)
+            onClose: { [weak self] in
+                Tracker.trackEvent(.userOwnerFromLinkNoSafeSkip)
+                self?.onCancel()
+            })
         show(noSafeVC, sender: self)
     }
 
@@ -127,9 +130,11 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
             address: parameters.safeAddress,
             chain: parameters.chain,
             onAdd: { [unowned self] in
+                Tracker.trackEvent(.userOwnerFromLinkNoKeyAddIt)
                 // add new owner
                 let addOwnerVC = ViewControllerFactory.addOwnerViewController { [weak self] in
                     // owner added, close opened screen.
+
                     self?.dismiss(animated: true) {
                         // re-trigger validation
                         self?.revalidate()
@@ -139,7 +144,10 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
                 // start adding owner
                 present(addOwnerVC, animated: true)
             },
-            onClose: onCancel
+            onClose: { [weak self] in
+                Tracker.trackEvent(.userOwnerFromLinkNoKeySkip)
+                self?.onCancel()
+            }
         )
         show(readOnlyVC, sender: self)
     }

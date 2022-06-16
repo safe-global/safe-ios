@@ -32,7 +32,7 @@ class AddOwnerFromInviteFlow: AddOwnerFlow {
                                stepNumber: 1,
                                maxSteps: 3,
                                title: "Add owner",
-                               trackingEvent: .addOwnerSpecifyName) { [unowned self] name in
+                               trackingEvent: .screenOwnerFromLinkChooseName) { [unowned self] name in
             newOwnerName = name
             confirmations()
         }

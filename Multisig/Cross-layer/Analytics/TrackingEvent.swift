@@ -319,14 +319,14 @@ enum TrackingEvent: String, Trackable {
     // Handle link
     case screenOwnerFromLink                        = "screen_owner_from_link"
     case userRejectOwnerFromLink                    = "user_reject_owner_from_link"
-    case screenOwnerFromLinkChooseName              = "screen_owner_from_link_choose_name" // not used
+    case screenOwnerFromLinkChooseName              = "screen_owner_from_link_choose_name"
     case screenOwnerFromLinkNoKey                   = "screen_owner_from_link_no_key"
-    case userOwnerFromLinkNoKeySkip                 = "user_owner_from_link_no_key_skip" // not used
-    case userOwnerFromLinkNoKeyAddIt                = "user_owner_from_link_no_key_add_it" // not used
+    case userOwnerFromLinkNoKeySkip                 = "user_owner_from_link_no_key_skip"
+    case userOwnerFromLinkNoKeyAddIt                = "user_owner_from_link_no_key_add_it"
     case screenOwnerFromLinkNoSafe                  = "screen_owner_from_link_no_safe"
-    case userOwnerFromLinkNoSafeSkip                = "user_owner_from_link_no_safe_skip" // not used
+    case userOwnerFromLinkNoSafeSkip                = "user_owner_from_link_no_safe_skip"
     case screenOwnerFromLinkAddSafeName             = "screen_owner_from_link_add_safe_name" // not used
-    case userOwnerFromLinkSafeNameAdded             = "user_owner_from_link_safe_name_added " // not used
+    case userOwnerFromLinkSafeNameAdded             = "user_owner_from_link_safe_name_added"
 
 }
 
