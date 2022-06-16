@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShareAddOwnerLinkViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="addOwnerView" destination="JBg-mE-5NB" id="pYi-nY-0B5"/>
+                <outlet property="doneButton" destination="aAD-ZO-tL8" id="h6z-Mp-fHo"/>
+                <outlet property="shareLinkView" destination="bza-ao-xUm" id="zPx-IP-xRX"/>
+                <outlet property="tableView" destination="ibh-O4-9pj" id="1VG-pK-sd3"/>
+                <outlet property="titleLabel" destination="gGU-WJ-You" id="fHd-OZ-jlr"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="fi0-Ec-EYf">
+                    <rect key="frame" x="20" y="64" width="374" height="642"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share a link to this key with other owners" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gGU-WJ-You">
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JBg-mE-5NB" customClass="AddOwnerView" customModule="Multisig" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="50.5" width="374" height="130"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ibh-O4-9pj">
+                            <rect key="frame" x="0.0" y="210.5" width="374" height="431.5"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="4Gh-9T-Tcv"/>
+                                <outlet property="delegate" destination="-1" id="WMI-i8-rlg"/>
+                            </connections>
+                        </tableView>
+                    </subviews>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Gpu-EK-h6E">
+                    <rect key="frame" x="16" y="714" width="382" height="128"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bza-ao-xUm" customClass="ShareTextView" customModule="Multisig" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="56"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aAD-ZO-tL8">
+                            <rect key="frame" x="0.0" y="72" width="382" height="56"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" id="Hik-Ap-8TK"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Done">
+                                <color key="titleColor" name="labelPrimary"/>
+                            </state>
+                            <connections>
+                                <action selector="doneButtonTouched:" destination="-1" eventType="touchUpInside" id="xkn-bD-2Hh"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="bza-ao-xUm" firstAttribute="height" secondItem="aAD-ZO-tL8" secondAttribute="height" id="530-mK-1z2"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Gpu-EK-h6E" secondAttribute="trailing" constant="16" id="3ex-OY-zVa"/>
+                <constraint firstItem="fi0-Ec-EYf" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="7AN-Jw-4fi"/>
+                <constraint firstItem="Gpu-EK-h6E" firstAttribute="top" secondItem="fi0-Ec-EYf" secondAttribute="bottom" constant="8" id="Cbt-o4-MsT"/>
+                <constraint firstItem="fi0-Ec-EYf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="EFx-1X-rYU"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Gpu-EK-h6E" secondAttribute="bottom" constant="20" id="FmE-Cu-tDE"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="fi0-Ec-EYf" secondAttribute="trailing" constant="20" id="PBe-zu-Rac"/>
+                <constraint firstItem="Gpu-EK-h6E" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="g9A-L6-hvJ"/>
+            </constraints>
+            <point key="canvasLocation" x="133" y="132"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="labelPrimary">
+            <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

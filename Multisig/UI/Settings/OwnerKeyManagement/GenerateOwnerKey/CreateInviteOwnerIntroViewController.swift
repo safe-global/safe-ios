@@ -15,9 +15,13 @@ class CreateInviteOwnerIntroViewController: UIViewController {
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var notThisTimeButton: UIButton!
 
-    var onShare: (() -> ())?
-
-    var onSkip: (() -> ())?
+    var onShare: (() -> ())!
+    var onSkip: (() -> ())!
+    convenience init(onShare: @escaping () -> (), onSkip: @escaping () -> ()) {
+        self.init(namedClass: CreateInviteOwnerIntroViewController.self)
+        self.onSkip = onSkip
+        self.onShare = onShare
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

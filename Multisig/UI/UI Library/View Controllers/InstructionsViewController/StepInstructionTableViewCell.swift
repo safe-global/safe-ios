@@ -12,6 +12,7 @@ class StepInstructionTableViewCell: UITableViewCell {
     @IBOutlet weak var circleLabel: UILabel!
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var verticalBarView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
