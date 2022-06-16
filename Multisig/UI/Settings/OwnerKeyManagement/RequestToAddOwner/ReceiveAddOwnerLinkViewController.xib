@@ -79,7 +79,6 @@
                             </state>
                             <connections>
                                 <action selector="didTapContinue:" destination="-1" eventType="touchUpInside" id="elb-il-eeK"/>
-                                <action selector="didTapReject:" destination="-1" eventType="touchUpInside" id="hSx-PC-4D2"/>
                             </connections>
                         </button>
                     </subviews>

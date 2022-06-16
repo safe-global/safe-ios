@@ -75,6 +75,7 @@ class AddOwnerFlow: SafeSettingsChangeFlow {
                     object: self,
                     userInfo: ["transactionDetails": transaction!])
             }
+            
             stop(success: !showTxDetails)
         }
         show(successVC)
