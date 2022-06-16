@@ -58,6 +58,7 @@ class ReceiveAddOwnerLinkViewController: UIViewController {
     }
 
     @IBAction func didTapContinue(_ sender: Any) {
+        //TODO: select safe from the link before proceeding with add owner flow
         onContinue()
     }
 }

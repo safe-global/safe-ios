@@ -14,10 +14,6 @@ class AddOwnerView: UINibView {
     @IBOutlet weak var ownerInfo: IdenticonInfoView!
     @IBOutlet weak var safeInfo: IdenticonInfoView!
 
-    override func commonInit() {
-        super.commonInit()
-    }
-
     func set(owner: AddressInfo, badgeName: String? = nil, safe: Safe, reqConfirmations: Int, ownerCount: Int) {
         ownerInfo.set(owner: owner, badgeName: badgeName)
         safeInfo.set(owner: AddressInfo(address: safe.addressValue, name: safe.name!), reqConfirmations: reqConfirmations, ownerCount: ownerCount)
