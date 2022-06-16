@@ -24,7 +24,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="RLO-jp-56e">
                                 <rect key="frame" x="0.0" y="0.0" width="433" height="50"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="fLr-1Z-jye">
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="fLr-1Z-jye">
                                         <rect key="frame" x="0.0" y="0.0" width="353.5" height="50"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oAI-9W-4BL" customClass="IdenticonView" customModule="Multisig" customModuleProvider="target">
@@ -36,7 +36,7 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="bAS-Zz-brk">
-                                                <rect key="frame" x="60" y="3" width="293.5" height="44.5"/>
+                                                <rect key="frame" x="52" y="3" width="301.5" height="44.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NX1-4x-wY1">
                                                         <rect key="frame" x="0.0" y="0.0" width="73" height="20"/>
