@@ -25,7 +25,7 @@ class ReceiveAddOwnerLinkViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Tracker.trackEvent(.screenOwnerFromLink)
+        Tracker.trackEvent(.screenOwnerFromLink, parameters: ["add_owner_chain_id" : safe.chain?.id])
 
         ViewControllerFactory.addCloseButton(self)
         ViewControllerFactory.makeTransparentNavigationBar(self)
