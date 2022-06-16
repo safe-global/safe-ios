@@ -18,8 +18,9 @@ class ReceiveAddOwnerLinkViewController: UIViewController {
     @IBOutlet weak var continueButton: UIButton!
 
     var safe: Safe!
-    var parameters: AddOwnerRequestParameters!
-    var onContinue: (() -> ())!
+    var owner: Address!
+    var onAddOwner: ((Safe, Address) -> ())!
+    var onReplaceOwner: ((Safe, Address) -> ())!
     var onReject: (() -> ())!
 
     
@@ -34,9 +35,9 @@ class ReceiveAddOwnerLinkViewController: UIViewController {
         messageLabel.setStyle(.secondary)
 
         // if owner is added
-        let ownerKeyInfo = try? KeyInfo.firstKey(address: parameters.ownerAddress)
+        let ownerKeyInfo = try? KeyInfo.firstKey(address: owner)
         // if there is an address book entry
-        let (ownerName, _) = NamingPolicy.name(for: parameters.ownerAddress,
+        let (ownerName, _) = NamingPolicy.name(for: owner,
                                                 info: nil,
                                                 chainId: safe.chain!.id!)
 
@@ -46,7 +47,7 @@ class ReceiveAddOwnerLinkViewController: UIViewController {
             addOwnerView.set(owner: ownerInfo, badgeName: ownerKeyInfo.keyType.imageName, safe: safe, reqConfirmations: Int(safe.threshold!), ownerCount: safe.ownersInfo?.count ?? 0)
 
         } else {
-            ownerInfo = AddressInfo(address: parameters.ownerAddress, name: ownerName)
+            ownerInfo = AddressInfo(address: owner, name: ownerName)
             addOwnerView.set(owner: ownerInfo, badgeName: nil, safe: safe, reqConfirmations: Int(safe.threshold!), ownerCount: safe.ownersInfo?.count ?? 0)
         }
 
@@ -61,7 +62,25 @@ class ReceiveAddOwnerLinkViewController: UIViewController {
     }
 
     @IBAction func didTapContinue(_ sender: Any) {
-        //TODO: select safe from the link before proceeding with add owner flow
-        onContinue()
+        safe.select()
+
+        let add = UIAlertAction(title: "Add new owner", style: .default) { [unowned self] _ in
+            onAddOwner(safe, owner)
+        }
+
+        let replace = UIAlertAction(title: "Replace owner", style: .default) { [unowned self] _ in
+            onReplaceOwner(safe, owner)
+        }
+
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
+        let alertController = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet)
+        alertController.addAction(add)
+        alertController.addAction(replace)
+        alertController.addAction(cancel)
+        present(alertController, animated: true)
     }
 }
