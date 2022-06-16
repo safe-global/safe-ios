@@ -127,7 +127,8 @@ class ActionDetailViewController: UITableViewController {
                     title: title,
                     imageUri: imageUri,
                     browseURL: chain.browserURL(address: tx.to.address.checksummed),
-                    prefix: chain.shortName
+                    prefix: chain.shortName,
+                    showDelegateWarning: DelegateWarningCalculator.isUntrusted(multiSendTx: tx, addressInfoIndex: addressInfoIndex)
             )
             append(txBuilder.result)
         }

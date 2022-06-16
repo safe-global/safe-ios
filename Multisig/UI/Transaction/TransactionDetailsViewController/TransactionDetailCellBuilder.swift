@@ -218,7 +218,9 @@ class TransactionDetailCellBuilder {
                     title: "Set fallback handler:",
                     imageUri: imageUri,
                     browseURL: chain.browserURL(address: handler.checksummed),
-                    prefix: chain.shortName)
+                    prefix: chain.shortName,
+                    showDelegateWarning: DelegateWarningCalculator.isUntrusted(txData: tx.txData)
+                )
 
             case .addOwner(let addOwnerTx):
                 let (label, imgageUri) = NamingPolicy.name(for: addOwnerTx.owner, chainId: chain.id!)
@@ -280,7 +282,9 @@ class TransactionDetailCellBuilder {
                         title: "New mastercopy:",
                         imageUri: imageUri,
                         browseURL: chain.browserURL(address: implementation.checksummed),
-                        prefix: chain.shortName)
+                        prefix: chain.shortName,
+                        showDelegateWarning: DelegateWarningCalculator.isUntrusted(txData: tx.txData)
+                )
 
             case .enableModule(let moduleTx):
                 let (label, imageUri) = NamingPolicy.name(for: moduleTx.module, chainId: chain.id!)
@@ -290,7 +294,9 @@ class TransactionDetailCellBuilder {
                         title: "Enable module:",
                         imageUri: imageUri,
                         browseURL: chain.browserURL(address: module.checksummed),
-                        prefix: chain.shortName)
+                        prefix: chain.shortName,
+                        showDelegateWarning: DelegateWarningCalculator.isUntrusted(txData: tx.txData)
+                )
 
             case .disableModule(let moduleTx):
                 let (label, imageUri) = NamingPolicy.name(for: moduleTx.module, chainId: chain.id!)
@@ -300,7 +306,9 @@ class TransactionDetailCellBuilder {
                         title: "Disable module:",
                         imageUri: imageUri,
                         browseURL: chain.browserURL(address: module.checksummed),
-                        prefix: chain.shortName)
+                        prefix: chain.shortName,
+                        showDelegateWarning: DelegateWarningCalculator.isUntrusted(txData: tx.txData)
+                )
                 
             case .setGuard(let guardTx):
                 let (label, imageUri) = NamingPolicy.name(for: guardTx.guard, chainId: chain.id!)
@@ -310,7 +318,9 @@ class TransactionDetailCellBuilder {
                         title: "Set guard:",
                         imageUri: imageUri,
                         browseURL: chain.browserURL(address: guardContract.checksummed),
-                        prefix: chain.shortName)
+                        prefix: chain.shortName,
+                        showDelegateWarning: DelegateWarningCalculator.isUntrusted(txData: tx.txData)
+                )
                 
             case .deleteGuard:
                 text("Delete Guard", title: "Settings change:", expandableTitle: nil, copyText: nil)
@@ -341,13 +351,13 @@ class TransactionDetailCellBuilder {
                 }
             }
 
-
             address(customTx.to.value.address,
                 label: label,
                 title: title,
                 imageUri: addressLogoUri,
                 browseURL: chain.browserURL(address: customTx.to.value.address.checksummed),
-                prefix: chain.shortName
+                prefix: chain.shortName,
+                showDelegateWarning: DelegateWarningCalculator.isUntrusted(txData: tx.txData)
             )
             buildActions(tx)
             buildHexData(tx)
@@ -659,14 +669,17 @@ class TransactionDetailCellBuilder {
                  title: String?,
                  imageUri: URL? = nil,
                  browseURL: URL? = nil,
-                 prefix: String? = nil) {
+                 prefix: String? = nil,
+                 showDelegateWarning: Bool = false) {
+
         let cell = newCell(DetailAccountCell.self)
         cell.setAccount(address: address,
                         label: label,
                         title: title,
                         imageUri: imageUri,
                         browseURL: browseURL,
-                        prefix: prefix)
+                        prefix: prefix,
+                        showDelegateWarning: showDelegateWarning)
         result.append(cell)
     }
 

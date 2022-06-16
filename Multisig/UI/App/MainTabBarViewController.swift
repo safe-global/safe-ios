@@ -384,6 +384,8 @@ extension MainTabBarViewController: NavigationRouter {
             return true
         } else if route.path == NavigationRoute.deploymentFailedPath {
             return true
+        } else if route.path == NavigationRoute.requestToAddOwnerPath {
+            return true
         }
 
         return false
@@ -413,6 +415,16 @@ extension MainTabBarViewController: NavigationRouter {
             switchTo(indexPath: Path.balances)
         } else if route.path == NavigationRoute.deploymentFailedPath {
             presentFailedDeployment(safe: route.info["safe"] as! Safe)
+        } else if route.path == NavigationRoute.requestToAddOwnerPath {
+            let parameters = route.info["parameters"] as! AddOwnerRequestParameters
+
+            let vc = ValidateRequestToAddOwnerViewController()
+            vc.parameters = parameters
+            vc.onCancel = { [weak self] in
+                self?.dismiss(animated: true)
+            }
+            let nav = ViewControllerFactory.modal(viewController: vc)
+            presentWhenReady(nav)
         }
     }
 

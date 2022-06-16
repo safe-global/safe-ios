@@ -100,6 +100,7 @@
                 <outlet property="circleLabel" destination="76G-bI-Opo" id="40D-DH-uY1"/>
                 <outlet property="descriptionLabel" destination="aEl-Hx-Rhz" id="Qda-n0-Vk9"/>
                 <outlet property="headerLabel" destination="8YV-Zg-VEu" id="cLa-kU-f2f"/>
+                <outlet property="verticalBarView" destination="c4W-9e-d2L" id="OV8-S6-Ov5"/>
             </connections>
             <point key="canvasLocation" x="245.6521739130435" y="185.15625"/>
         </tableViewCell>

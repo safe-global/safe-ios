@@ -68,4 +68,12 @@ extension NavigationRoute {
         route.info["safe"] = safe
         return route
     }
+
+    static let requestToAddOwnerPath = "/addOwner"
+
+    static func requestToAddOwner(_ params: AddOwnerRequestParameters) -> NavigationRoute {
+        var route = NavigationRoute(path: requestToAddOwnerPath)
+        route.info["parameters"] = params
+        return route
+    }
 }
