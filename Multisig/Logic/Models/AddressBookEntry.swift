@@ -72,6 +72,14 @@ extension AddressBookEntry {
         }
     }
 
+    static func addOrUpdate(_ address: String, chain: Chain, name: String) {
+        if Self.exists(address, chainId: chain.id!) {
+            Self.update(address, chainId: chain.id!, name: name)
+        } else {
+            Self.create(address: address, name: name, chain: chain)
+        }
+    }
+
     static func exists(_ address: String, chainId: String) -> Bool {
         by(address: address, chainId: chainId) != nil
     }

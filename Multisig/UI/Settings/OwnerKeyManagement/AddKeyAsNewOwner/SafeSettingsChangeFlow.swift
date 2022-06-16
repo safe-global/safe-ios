@@ -65,6 +65,7 @@ class SafeSettingsFlowFactory {
 
     func enterOwnerName(safe: Safe,
                         address: Address,
+                        name: String? = nil,
                         stepNumber: Int,
                         maxSteps: Int,
                         title: String,
@@ -72,6 +73,7 @@ class SafeSettingsFlowFactory {
                         completion: @escaping (String) -> Void) -> EnterOwnerNameViewController {
         let enterNameVC = EnterOwnerNameViewController()
         enterNameVC.address = address
+        enterNameVC.name = name
         enterNameVC.prefix = safe.chain!.shortName
         enterNameVC.completion = completion
         enterNameVC.trackingEvent = trackingEvent
