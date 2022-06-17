@@ -77,6 +77,11 @@ class ShareAddOwnerLinkViewController: UIViewController {
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.screenAddOwnerShareLink)
+    }
+
     @IBAction func doneButtonTouched(_ sender: Any) {
         onFinish()
     }

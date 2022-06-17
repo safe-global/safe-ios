@@ -26,6 +26,8 @@ class ReceiveAddOwnerLinkViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        Tracker.trackEvent(.screenOwnerFromLink, parameters: ["add_owner_chain_id" : safe.chain?.id])
+
         ViewControllerFactory.addCloseButton(self)
         ViewControllerFactory.makeTransparentNavigationBar(self)
 
@@ -55,6 +57,7 @@ class ReceiveAddOwnerLinkViewController: UIViewController {
      }
 
     @IBAction func didTapReject(_ sender: Any) {
+        Tracker.trackEvent(.userRejectOwnerFromLink)
         onReject()
     }
 

@@ -33,7 +33,7 @@ class ReplaceOwnerFromInviteFlow: ReplaceOwnerFlow {
                                stepNumber: 1,
                                maxSteps: 3,
                                title: "Replace owner",
-                               trackingEvent: .replaceOwnerNewOwnerName) { [unowned self] name in
+                               trackingEvent: .screenOwnerFromLinkChooseName) { [unowned self] name in
             newOwnerName = name
             pickOwnerToReplace()
         }

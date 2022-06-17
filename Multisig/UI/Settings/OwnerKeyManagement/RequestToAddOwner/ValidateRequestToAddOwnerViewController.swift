@@ -61,8 +61,8 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
         do {
             let info = try result.get()
 
-            let isAlreaydAnOwner = info.owners.contains(where: { $0.addressInfo.address == parameters.ownerAddress })
-            if isAlreaydAnOwner {
+            let isAlreadyAnOwner = info.owners.contains(where: { $0.addressInfo.address == parameters.ownerAddress })
+            if isAlreadyAnOwner {
                 handleOwnerAlreadyInOwnerList()
                 return
             }
@@ -98,11 +98,13 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
 
     func handleSafeNotAdded(info: SCGModels.SafeInfoExtended) {
         // safe must be added to the app to continue
+        Tracker.trackEvent(.screenOwnerFromLinkNoSafe)
         let noSafeVC = AddOwnerExceptionViewController.safeNotFound(
             address: parameters.safeAddress,
             chain: parameters.chain,
             onAdd: { [unowned self] in
-                // add safe
+                Tracker.trackEvent(.userOwnerFromLinkSafeNameAdded,
+                                   parameters: ["add_owner_chain_id" : parameters.chain.id!])
                 Safe.create(
                     address: parameters.safeAddress.checksummed,
                     version: info.version,
@@ -115,20 +117,27 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
                 // re-trigger validation
                 revalidate()
             },
-            onClose: onCancel)
+            onClose: { [unowned self] in
+                Tracker.trackEvent(.userOwnerFromLinkNoSafeSkip,
+                                   parameters: ["add_owner_chain_id" : parameters.chain.id!])
+                onCancel()
+            })
         show(noSafeVC, sender: self)
     }
 
     func handleSafeReadOnly() {
         // if safe is read-only then can't add new owner.
-
+        Tracker.trackEvent(.screenOwnerFromLinkNoKey)
         let readOnlyVC = AddOwnerExceptionViewController.safeReadOnly(
             address: parameters.safeAddress,
             chain: parameters.chain,
             onAdd: { [unowned self] in
+                Tracker.trackEvent(.userOwnerFromLinkNoKeyAddIt,
+                                   parameters: ["add_owner_chain_id" : parameters.chain.id!])
                 // add new owner
                 let addOwnerVC = ViewControllerFactory.addOwnerViewController { [weak self] in
                     // owner added, close opened screen.
+
                     self?.dismiss(animated: true) {
                         // re-trigger validation
                         self?.revalidate()
@@ -138,7 +147,11 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
                 // start adding owner
                 present(addOwnerVC, animated: true)
             },
-            onClose: onCancel
+            onClose: { [unowned self] in
+                Tracker.trackEvent(.userOwnerFromLinkNoKeySkip,
+                                   parameters: ["add_owner_chain_id" : parameters.chain.id!])
+                onCancel()
+            }
         )
         show(readOnlyVC, sender: self)
     }
