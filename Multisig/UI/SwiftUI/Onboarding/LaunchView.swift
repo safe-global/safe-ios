@@ -89,8 +89,6 @@ struct LaunchView: View {
         .onAppear {
             Tracker.trackEvent(.launch)
         }
-
-
     }
 }
 
