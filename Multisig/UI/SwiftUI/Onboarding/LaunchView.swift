@@ -46,13 +46,14 @@ struct LaunchView: View {
 
     var body: some View {
         GeometryReader { geometryProxy in
+
             ZStack(alignment: .centerAlignment) {
+
                 Image("ico-splash-gradient")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 274, height: 286)
                     .position(x: geometryProxy.size.width - 137, y: geometryProxy.size.height - 143)
-
 
                 VStack(alignment: .center, spacing: 0) {
                     // 100 x 153 px, so no additional framing is required
@@ -63,17 +64,18 @@ struct LaunchView: View {
                     Image("ico-splash-text")
                         .alignmentGuide(.centerVerticalAlignment) { $0[VerticalAlignment.center] }
                         .padding(.bottom, self.textToButtonSpacing)
-
-                    Button("Get Started") {
-                        self.showTerms = true
-                        // overlay view is loaded immediately
-                        // so we can not track on view appear
-                        Tracker.trackEvent(.launchTerms)
-                    }
-                        .buttonStyle(GNOFilledWhiteButtonStyle())
                 }
-            }
 
+                Button("Get Started") {
+                    self.showTerms = true
+                    // overlay view is loaded immediately
+                    // so we can not track on view appear
+                    Tracker.trackEvent(.launchTerms)
+                }
+                .buttonStyle(GNOFilledWhiteButtonStyle())
+                .position(x: geometryProxy.size.width / 2 - 16, y: geometryProxy.size.height - 72)
+
+            }
             .padding(.horizontal)
         }
         .navigationBarHidden(true)
