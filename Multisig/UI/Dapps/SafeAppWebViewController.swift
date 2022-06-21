@@ -25,30 +25,14 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
         webView = WKWebView(frame: .zero, configuration: webConfiguration)
         webView.uiDelegate = self
         webConfiguration.userContentController.add(self, name: "message")
-        webConfiguration.userContentController.add(self, name: "click")
-        webConfiguration.userContentController.add(self, name: "input")
-        webConfiguration.userContentController.add(self, name: "load")
 
         let source = """
                      window.addEventListener('message', function(e) { 
                        window.webkit.messageHandlers.message.postMessage(JSON.stringify(e.data));
                      });
-
-                     window.addEventListener('click', function(e) { 
-                       window.webkit.messageHandlers.click.postMessage(JSON.stringify(e.data));
-                     });
-
-                     window.addEventListener('input', function(e) { 
-                       window.webkit.messageHandlers.input.postMessage(JSON.stringify(e.data));
-                     });
-
-                     window.addEventListener('load', function(e) { 
-                       window.webkit.messageHandlers.load.postMessage(JSON.stringify(e.data));
-                     });
                      """
         let script = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
         webConfiguration.userContentController.addUserScript(script)
-
 
         view = webView
     }
