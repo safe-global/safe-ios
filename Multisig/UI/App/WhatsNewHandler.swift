@@ -9,7 +9,7 @@ import WhatsNewKit
 class WhatsNewHandler {
     private let whatsNew = WhatsNew(
             // Show the WhatsNew screen only once for users of this version
-            version: WhatsNew.Version(major: 3, minor: 15, patch: 0),
+            version: WhatsNew.Version(major: 3, minor: 14, patch: 0),
             title: "What's new",
             items: [
                 WhatsNew.Item(
