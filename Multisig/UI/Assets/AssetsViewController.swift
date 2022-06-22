@@ -11,7 +11,9 @@ import UIKit
 class AssetsViewController: ContainerViewController {
 
     @IBOutlet private weak var totalBalanceView: TotalBalanceView!
-    
+
+    @IBOutlet weak var safeTokenBannerContainer: UIView!
+
     @IBOutlet private weak var contentView: UIView!
     
     private var balances: [TokenBalance]?
