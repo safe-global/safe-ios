@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AssetsViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="jwx-DX-oEe" id="6EI-Ew-daR"/>
+                <outlet property="safeTokenBanner" destination="UIi-KY-9bN" id="g0l-y5-4my"/>
                 <outlet property="safeTokenBannerContainer" destination="9Yi-nl-8r0" id="YEf-c2-Hfs"/>
                 <outlet property="totalBalanceView" destination="JaT-py-F36" id="IlT-hu-QFd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

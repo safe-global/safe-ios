@@ -11,9 +11,8 @@ import UIKit
 class AssetsViewController: ContainerViewController {
 
     @IBOutlet private weak var totalBalanceView: TotalBalanceView!
-
     @IBOutlet weak var safeTokenBannerContainer: UIView!
-
+    @IBOutlet weak var safeTokenBanner: SafeTokenBanner!
     @IBOutlet private weak var contentView: UIView!
     
     private var balances: [TokenBalance]?
@@ -83,7 +82,14 @@ class AssetsViewController: ContainerViewController {
         let remoteConfig = FirebaseRemoteConfig.shared
         if !NSString(string: remoteConfig.value(key: .safeClaimEnabled) ?? "false").boolValue {
             safeTokenBannerContainer.isHidden = true
-        } 
+        } else {
+            safeTokenBanner.onClose = { [weak self] in
+                self?.safeTokenBannerContainer.isHidden = true
+            }
+            safeTokenBanner.onClaim = {
+                //TODO: start safe token claim flow
+            }
+        }
     }
     
     private func showSelectAssetsViewController() {
