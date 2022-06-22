@@ -25,10 +25,15 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
         webView = WKWebView(frame: .zero, configuration: webConfiguration)
         webView.uiDelegate = self
         webConfiguration.userContentController.add(self, name: "message")
+        webConfiguration.userContentController.add(self, name: "messageData")
 
         let source = """
                      window.addEventListener('message', function(e) { 
-                       window.webkit.messageHandlers.message.postMessage(JSON.stringify(e.data));
+                       window.webkit.messageHandlers.message.postMessage(JSON.stringify(e));
+                     });
+
+                     window.addEventListener('message', function(e) { 
+                       window.webkit.messageHandlers.messageData.postMessage(JSON.stringify(e.data));
                      });
                      """
         let script = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
@@ -40,7 +45,8 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let myURL = URL(string: "https://cowswap.exchange")
+        //let myURL = URL(string: "https://cowswap.exchange")
+        let myURL = URL(string: "https://app.uniswap.org")
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
     }
