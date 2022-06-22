@@ -30,6 +30,7 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
         let source = """
                      window.addEventListener('message', function(e) { 
                        window.webkit.messageHandlers.message.postMessage(JSON.stringify(e));
+                       console.log(e)
                      });
 
                      window.addEventListener('message', function(e) { 
@@ -46,9 +47,23 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
         super.viewDidLoad()
 
         //let myURL = URL(string: "https://cowswap.exchange")
-        let myURL = URL(string: "https://app.uniswap.org")
+        let urlString = "https://app.uniswap.org"
+//        let urlString = "https://cowswap.exchange"
+
+        let myURL = URL(string: urlString)
         let myRequest = URLRequest(url: myURL!)
-        webView.load(myRequest)
+        webView.loadHTMLString("""
+                               <html>
+                                    <head>
+                                        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+                                    </head>
+                                    <body>
+                                        <iframe height="100%" width="100%" frameborder="0" id="iframe-\(urlString)" src="\(urlString)" title="Safe-App" allow="camera" class="sc-fvpsdx leyeXM">
+                                        </iframe>
+                                    </body>
+                               </html>
+                               """, baseURL: myURL)
+        //webView.load(myRequest)
     }
 
     ///
