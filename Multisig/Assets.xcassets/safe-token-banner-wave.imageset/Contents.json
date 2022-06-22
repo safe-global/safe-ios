@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "safe_token_banner_wave.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
