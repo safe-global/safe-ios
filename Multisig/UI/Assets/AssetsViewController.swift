@@ -79,6 +79,11 @@ class AssetsViewController: ContainerViewController {
             }
             Tracker.trackEvent(.assetTransferSendClicked)
         }
+
+        let remoteConfig = FirebaseRemoteConfig.shared
+        if !NSString(string: remoteConfig.value(key: .safeClaimEnabled) ?? "false").boolValue {
+            safeTokenBannerContainer.isHidden = true
+        } 
     }
     
     private func showSelectAssetsViewController() {
