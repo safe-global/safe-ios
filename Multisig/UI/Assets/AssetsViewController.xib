@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -13,8 +12,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AssetsViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="jwx-DX-oEe" id="6EI-Ew-daR"/>
-                <outlet property="safeTokenBanner" destination="UIi-KY-9bN" id="g0l-y5-4my"/>
-                <outlet property="safeTokenBannerContainer" destination="9Yi-nl-8r0" id="YEf-c2-Hfs"/>
                 <outlet property="totalBalanceView" destination="JaT-py-F36" id="IlT-hu-QFd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -25,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="AYv-jp-SQ9">
-                    <rect key="frame" x="0.0" y="44" width="414" height="345"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="150"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JaT-py-F36" customClass="TotalBalanceView" customModule="Multisig" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
@@ -34,29 +31,10 @@
                                 <constraint firstAttribute="height" constant="150" id="cX1-Ag-6xP"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Yi-nl-8r0" userLabel="Safe Token Banner Container">
-                            <rect key="frame" x="0.0" y="150" width="414" height="195"/>
-                            <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UIi-KY-9bN" customClass="SafeTokenBanner" customModule="Multisig" customModuleProvider="target">
-                                    <rect key="frame" x="16" y="12" width="382" height="171"/>
-                                    <color key="backgroundColor" name="backgroundTransparent"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="171" id="rxt-nZ-edO"/>
-                                    </constraints>
-                                </view>
-                            </subviews>
-                            <color key="backgroundColor" name="backgroundTetriary"/>
-                            <constraints>
-                                <constraint firstAttribute="bottom" secondItem="UIi-KY-9bN" secondAttribute="bottom" constant="12" id="3tC-z9-b9D"/>
-                                <constraint firstItem="UIi-KY-9bN" firstAttribute="leading" secondItem="9Yi-nl-8r0" secondAttribute="leading" constant="16" id="5TN-5p-4Dp"/>
-                                <constraint firstAttribute="trailing" secondItem="UIi-KY-9bN" secondAttribute="trailing" constant="16" id="JGU-bd-xGV"/>
-                                <constraint firstItem="UIi-KY-9bN" firstAttribute="top" secondItem="9Yi-nl-8r0" secondAttribute="top" constant="12" id="YDF-jG-bA1"/>
-                            </constraints>
-                        </view>
                     </subviews>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jwx-DX-oEe">
-                    <rect key="frame" x="0.0" y="389" width="414" height="473"/>
+                    <rect key="frame" x="0.0" y="194" width="414" height="668"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
             </subviews>
@@ -75,12 +53,6 @@
         </view>
     </objects>
     <resources>
-        <namedColor name="backgroundTetriary">
-            <color red="0.93333333333333335" green="0.93725490196078431" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="backgroundTransparent">
-            <color red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
