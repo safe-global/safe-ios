@@ -76,7 +76,7 @@ class DelegateWarningCalculator {
     ///   - addressInfoIndex: name index of addresses in the decoded transaction data
     /// - Returns: true if transaction is untrusted, false otherwise.
     static func isUntrusted(multiSendTx: MultiSendTx, addressInfoIndex: AddressInfoIndex?) -> Bool {
-        let result = multiSendTx.operation == .delegate && addressInfoIndex?.values[multiSendTx.to]?.addressInfo == nil
+        let result = multiSendTx.operation == .delegate
         // Recursion: check sub-transactions if they are untrusted in case the 'self' is trusted
         return result || isUntrusted(dataDecoded: multiSendTx.dataDecoded, addressInfoIndex: addressInfoIndex)
     }
