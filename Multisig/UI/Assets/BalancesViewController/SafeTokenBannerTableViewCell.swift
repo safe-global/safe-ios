@@ -10,15 +10,13 @@ import UIKit
 
 class SafeTokenBannerTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    @IBOutlet weak var banner: SafeTokenBanner!
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    var onClaim: () -> Void = {}
+    var onClose: () -> Void = {}
 
-        // Configure the view for the selected state
+    func setupBanner(onClaim: @escaping () -> Void, onClose: @escaping () -> Void) {
+        banner.onClaim = onClaim
+        banner.onClose = onClose
     }
-    
 }

@@ -767,6 +767,8 @@
 		6AFD26E82859E8FA00336FFE /* InfoBoxView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AFD26E72859E8FA00336FFE /* InfoBoxView.xib */; };
 		6AFD26EB2861B0CF00336FFE /* SafeTokenBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFD26EA2861B0CF00336FFE /* SafeTokenBanner.swift */; };
 		6AFD26ED2861B0DE00336FFE /* SafeTokenBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AFD26EC2861B0DE00336FFE /* SafeTokenBanner.xib */; };
+		6AFD26F0286466B900336FFE /* SafeTokenBannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFD26EE286466B900336FFE /* SafeTokenBannerTableViewCell.swift */; };
+		6AFD26F1286466B900336FFE /* SafeTokenBannerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AFD26EF286466B900336FFE /* SafeTokenBannerTableViewCell.xib */; };
 		8D7DF1A98F3C869DE4CCB3CC /* CDWCAppRegistryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7DFDBABFA6FD66092A4378 /* CDWCAppRegistryEntry.swift */; };
 		8D7DFB2CEBACCDB9E9CCF6BC /* WebConnectionExpirationMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7DF152EC9E12AF6029DA1E /* WebConnectionExpirationMonitor.swift */; };
 		935DCA4C27BD14C600F09EE4 /* WebConnectionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */; };
@@ -1635,6 +1637,8 @@
 		6AFD26E72859E8FA00336FFE /* InfoBoxView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoBoxView.xib; sourceTree = "<group>"; };
 		6AFD26EA2861B0CF00336FFE /* SafeTokenBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTokenBanner.swift; sourceTree = "<group>"; };
 		6AFD26EC2861B0DE00336FFE /* SafeTokenBanner.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeTokenBanner.xib; sourceTree = "<group>"; };
+		6AFD26EE286466B900336FFE /* SafeTokenBannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeTokenBannerTableViewCell.swift; sourceTree = "<group>"; };
+		6AFD26EF286466B900336FFE /* SafeTokenBannerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeTokenBannerTableViewCell.xib; sourceTree = "<group>"; };
 		8D7DF152EC9E12AF6029DA1E /* WebConnectionExpirationMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionExpirationMonitor.swift; sourceTree = "<group>"; };
 		8D7DFDBABFA6FD66092A4378 /* CDWCAppRegistryEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDWCAppRegistryEntry.swift; sourceTree = "<group>"; };
 		935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionDetailsViewController.swift; sourceTree = "<group>"; };
@@ -2895,6 +2899,8 @@
 				0A9E8E7625B9CA4200256AD3 /* BannerTableViewCell.xib */,
 				0AF1C91D2541DB3F00E28669 /* BalanceTableViewCell.swift */,
 				0AF1C91E2541DB3F00E28669 /* BalanceTableViewCell.xib */,
+				6AFD26EE286466B900336FFE /* SafeTokenBannerTableViewCell.swift */,
+				6AFD26EF286466B900336FFE /* SafeTokenBannerTableViewCell.xib */,
 			);
 			path = BalancesViewController;
 			sourceTree = "<group>";
@@ -4195,6 +4201,7 @@
 				0ADD19C6265EA23200EB0F2B /* SeedWordCollectionViewCell.xib in Resources */,
 				0439B29D28048A5F00796F18 /* BackupKeyTableViewCell.xib in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
+				6AFD26F1286466B900336FFE /* SafeTokenBannerTableViewCell.xib in Resources */,
 				0AE8C0A3257947CF00E62B34 /* DetailStatusCell.xib in Resources */,
 				04131FBE2851571E001F60C2 /* CreateInviteOwnerIntroViewController.xib in Resources */,
 				550FB1A126691CA300C13D54 /* dapps-rinkeby.json in Resources */,
@@ -4505,6 +4512,7 @@
 				0AC5F56B25DD4A4B00DEF0D7 /* AuthenticationController.swift in Sources */,
 				550FB1CA26691E7500C13D54 /* SafeContract.swift in Sources */,
 				550FB1C426691E1500C13D54 /* SelectWalletViewController.swift in Sources */,
+				6AFD26F0286466B900336FFE /* SafeTokenBannerTableViewCell.swift in Sources */,
 				0A616B9B26AEFD4B00FCEDB9 /* MultisigNotification.swift in Sources */,
 				048B3B0E25A5E7AB0005219B /* EditSafeNameViewController.swift in Sources */,
 				0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */,
