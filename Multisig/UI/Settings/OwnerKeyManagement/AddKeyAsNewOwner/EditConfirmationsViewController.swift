@@ -83,7 +83,7 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             return cellBuilder.thresholdCell(
-                    "\(confirmations) out of \(maxConfirmations)",
+                    "\(min(confirmations, maxConfirmations)) out of \(maxConfirmations)",
                     range: (minConfirmations...maxConfirmations),
                     value: confirmations,
                     indexPath: indexPath,
