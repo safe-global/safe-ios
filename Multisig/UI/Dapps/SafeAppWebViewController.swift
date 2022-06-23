@@ -23,21 +23,47 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
 
         if let message = message {
             if message.contains("getSafeInfo") {
-                handleGetSafeInfo()
+                handleGetSafeInfo(message)
             } else {
-                print("SafeAppWebViewController | Unknown message: \(message)" )
+                print("SafeAppWebViewController | Unknown message: \(message)")
             }
         }
     }
 
-    private func handleGetSafeInfo() {
+    private func handleGetSafeInfo(_ message: String) {
         print("SafeAppWebViewController | handleGetSafeInfo()")
+        print("SafeAppWebViewController | Message: \(message)")
 
-        try! sendData(Safe.getSelected()?.address)
+        let decoder = JSONDecoder()
+        let jsonData = message.data(using: .utf8)!
+        do {
+            let result = try decoder.decode(SafeInfoRequestData.self, from: jsonData)
+            // {"id":"72a4662487","method":"getSafeInfo","env":{"sdkVersion":"6.2.0"}}
+
+            print ("SafeAppWebViewController |     id: \(result.id!)")
+            print ("SafeAppWebViewController | method: \(result.method!)")
+            print ("SafeAppWebViewController |    env: \(result.env!)")
+
+            try! sendData(id: result.id!, method: result.method!, address: Safe.getSelected()?.address!)
+
+        } catch {
+            print("SafeAppWebViewController | Exception thrown for message: \(message)")
+        }
+
     }
 
-    private func sendData(_ address: String?) {
+    private func sendData(id: String, method: String, address: String?) {
 
+
+        print("SafeAppWebViewController | aaddress: \(address)")
+
+        webView.evaluateJavaScript("""
+                                   successMessage = JSON.parse('{"id":"\(id)","success":true,"version":"6.2.0","data":{"safeAddress":"\(address!)","chainId":4,"threshold":2,"owners":[]}}');
+                                   iframe = document.getElementById('iframe-https://cowswap.exchange'); 
+                                   iframe.contentWindow.postMessage(successMessage);
+                                   """) { any, error in
+            print("SafeAppWebViewController | \(any) error in JS execution: \(error)")
+        }
     }
 
     override func loadView() {
@@ -86,4 +112,18 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
                                </html>
                                """, baseURL: myURL)
     }
+}
+
+struct SafeInfoRequestData: Codable {
+    var id: String?
+    var method: String?
+    var env: EnvironmentData?
+}
+struct EnvironmentData: Codable {
+    var sdkVersion: String?
+}
+struct SafeInfoResponseData: Codable  {
+
+    var id: String?
+    var method: String
 }
