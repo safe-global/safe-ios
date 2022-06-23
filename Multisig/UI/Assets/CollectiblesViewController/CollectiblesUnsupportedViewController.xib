@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -19,43 +19,56 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="r21-5g-ANo">
-                    <rect key="frame" x="40" y="207.5" width="334" height="212"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O5G-zJ-iDw">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="ico-no-collectibles" translatesAutoresizingMaskIntoConstraints="NO" id="07F-fq-6rt">
-                            <rect key="frame" x="99" y="0.0" width="136" height="110"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="110" id="fRX-pZ-8lh"/>
-                                <constraint firstAttribute="width" constant="136" id="mCT-HN-vrP"/>
-                            </constraints>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This app does not support access to collectibles." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d6U-iB-aQc">
-                            <rect key="frame" x="26.5" y="125" width="281.5" height="41"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ea4-Nb-xf2">
-                            <rect key="frame" x="103.5" y="181" width="127" height="31"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" title="View in Browser"/>
-                            <connections>
-                                <action selector="didTapButton:" destination="-1" eventType="touchUpInside" id="0ie-Q0-fOr"/>
-                            </connections>
-                        </button>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="r21-5g-ANo">
+                            <rect key="frame" x="42" y="164" width="236" height="212"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="ico-no-collectibles" translatesAutoresizingMaskIntoConstraints="NO" id="07F-fq-6rt">
+                                    <rect key="frame" x="50" y="0.0" width="136" height="110"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="110" id="fRX-pZ-8lh"/>
+                                        <constraint firstAttribute="width" constant="136" id="mCT-HN-vrP"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This app does not support access to collectibles." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d6U-iB-aQc">
+                                    <rect key="frame" x="16" y="125" width="204.5" height="41"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ea4-Nb-xf2">
+                                    <rect key="frame" x="54.5" y="181" width="127" height="31"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" title="View in Browser"/>
+                                    <connections>
+                                        <action selector="didTapButton:" destination="-1" eventType="touchUpInside" id="0ie-Q0-fOr"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
                     </subviews>
-                </stackView>
+                    <color key="backgroundColor" name="backgroundPrimary"/>
+                    <constraints>
+                        <constraint firstItem="r21-5g-ANo" firstAttribute="centerY" secondItem="O5G-zJ-iDw" secondAttribute="centerY" multiplier="0.95" id="VDv-Qs-pNt"/>
+                        <constraint firstItem="r21-5g-ANo" firstAttribute="leading" secondItem="O5G-zJ-iDw" secondAttribute="leading" constant="42" id="aYk-gv-vDR"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="190" id="kkr-W8-5Zb"/>
+                        <constraint firstAttribute="trailing" secondItem="r21-5g-ANo" secondAttribute="trailing" constant="42" id="nO5-LL-0dL"/>
+                        <constraint firstItem="r21-5g-ANo" firstAttribute="centerX" secondItem="O5G-zJ-iDw" secondAttribute="centerX" id="vQ2-10-onc"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" name="backgroundPrimary"/>
             <constraints>
-                <constraint firstItem="r21-5g-ANo" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Fot-Se-ig6"/>
-                <constraint firstItem="r21-5g-ANo" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.7" id="aHj-pR-46e"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="r21-5g-ANo" secondAttribute="trailing" constant="40" id="ugI-cI-xze"/>
-                <constraint firstItem="r21-5g-ANo" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="w57-7b-AcH"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="O5G-zJ-iDw" secondAttribute="bottom" id="DUq-sd-cpv"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="O5G-zJ-iDw" secondAttribute="trailing" id="dSL-UW-KzL"/>
+                <constraint firstItem="O5G-zJ-iDw" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="rNt-zf-AIh"/>
+                <constraint firstItem="O5G-zJ-iDw" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="v39-6Q-eqm"/>
             </constraints>
             <point key="canvasLocation" x="139" y="135"/>
         </view>
