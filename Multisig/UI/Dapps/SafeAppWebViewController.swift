@@ -9,13 +9,36 @@ import UIKit
 
 class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        print("---->       didReceive message: \(message)")
-        print("---->  didReceive message.name: \(message.name)")
-        print("---->  didReceive message.body: \(message.body)")
-        print("----> didReceive message.world.name: \(message.world.name)")
+//        print("---->       didReceive message: \(message)")
+//        print("---->  didReceive message.name: \(message.name)")
+//        print("---->  didReceive message.body: \(message.body)")
+//        print("----> didReceive message.world.name: \(message.world.name)")
+
+        handleMessage(message.body as? String)
     }
 
     var webView: WKWebView!
+
+    private func handleMessage(_ message: String?) {
+
+        if let message = message {
+            if message.contains("getSafeInfo") {
+                handleGetSafeInfo()
+            } else {
+                print("SafeAppWebViewController | Unknown message: \(message)" )
+            }
+        }
+    }
+
+    private func handleGetSafeInfo() {
+        print("SafeAppWebViewController | handleGetSafeInfo()")
+
+        try! sendData(Safe.getSelected()?.address)
+    }
+
+    private func sendData(_ address: String?) {
+
+    }
 
     override func loadView() {
         let webConfiguration = WKWebViewConfiguration()
@@ -46,9 +69,8 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //let myURL = URL(string: "https://cowswap.exchange")
-        let urlString = "https://app.uniswap.org"
-//        let urlString = "https://cowswap.exchange"
+//        let urlString = "https://app.uniswap.org"
+        let urlString = "https://cowswap.exchange"
 
         let myURL = URL(string: urlString)
         let myRequest = URLRequest(url: myURL!)
@@ -63,42 +85,5 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
                                     </body>
                                </html>
                                """, baseURL: myURL)
-        //webView.load(myRequest)
-    }
-
-    ///
-    /// - Parameters:
-    ///   - webView:
-    ///   - navigationAction:
-    ///   - decisionHandler:
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction,
-                          decisionHandler: @escaping (WKNavigationActionPolicy) -> Swift.Void) {
-
-        //link to intercept www.example.com
-        print("navigationAction: \(navigationAction)")
-        // navigation types: linkActivated, formSubmitted,
-        //                   backForward, reload, formResubmitted, other
-
-        if navigationAction.navigationType == .linkActivated {
-            if navigationAction.request.url!.absoluteString == "http://www.example.com" {
-                //do stuff
-                print("navigationAction: \(navigationAction)")
-                //this tells the webview to cancel the request
-                decisionHandler(.cancel)
-                return
-            }
-        }
-
-        //this tells the webview to allow the request
-        decisionHandler(.allow)
-
-    }
-
-    func webView(_ webView: WKWebView, commitPreviewingViewController previewingViewController: UIViewController) {
-        print("navigationAction: previewingViewController: \(previewingViewController)")
-    }
-
-    func webView(_ webView: WKWebView, shouldPreviewElement elementInfo: WKPreviewElementInfo) -> Bool {
-        fatalError("webView(_:shouldPreviewElement:) has not been implemented")
     }
 }
