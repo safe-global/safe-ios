@@ -47,12 +47,12 @@ class DelegateWarningCalculatorTests: XCTestCase {
     }
 
     func testMultiSendOperationIsDelegateButToAddressIsKnown() throws {
-        let txData = try loadAndParseFile(fileName: "NoDelegateWarningBecauseMultiSendAddressIsKnown")
+        let txData = try loadAndParseFile(fileName: "DelegateWarningEvenIfMultiSendAddressIsKnown")
 
         let result = DelegateWarningCalculator.isUntrusted(txData: txData)
 
         // Multisend operation is delegate but to: address is known
-        XCTAssertFalse(result)
+        XCTAssertTrue(result)
     }
 
     func testMultiSendOperationNoDelegateNoFlag() throws {
