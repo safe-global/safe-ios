@@ -13,25 +13,25 @@ class WhatsNewHandler {
             title: "What's new",
             items: [
                 WhatsNew.Item(
-                        title: "SAFE Airdrop",
+                        title: "The SAFE Airdrop!",
                         subtitle: "Check if your Safe is eligible for the SAFE airdrop and claim the tokens in the app.",
-                        image: UIImage(named: "ico-whats-new-safe")
+                        image: UIImage(named: "ico-whats-new-safe-airdrop")
                 ),
                 WhatsNew.Item(
                         title: "Edit Safe Owners",
                         subtitle: "Connect your owner key to the Safe and edit Safe owners and confirmation requirements in the Safe settings.",
-                        image: UIImage(named: "ico-whats-new-safe")
+                        image: UIImage(named: "ico-whats-new-edit-safe-owners")
                 ),
                 WhatsNew.Item(
                         title: "Request to join a Safe",
                         subtitle: "After creating new owner key request to join the selected Safe by sharing a link with one of the owners.",
-                        image: UIImage(named: "ico-whats-new-connect")
+                        image: UIImage(named: "ico-whats-new-join-safe")
                 ),
                 //FIXME: This item is just a backup if the airdrop will not available at the time of the release
                 WhatsNew.Item(
                         title: "Swap Tokens",
                         subtitle: "Swap your tokens in the app for any Safe on the Gnosis Chain network.",
-                        image: UIImage(named: "ico-whats-new-connect")
+                        image: UIImage(named: "ico-whats-new-swap-tokens")
                 )
             ]
     )
