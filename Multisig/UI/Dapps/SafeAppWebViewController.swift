@@ -8,12 +8,20 @@ import WebKit
 import UIKit
 
 class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageHandler {
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-//        print("---->       didReceive message: \(message)")
-//        print("---->  didReceive message.name: \(message.name)")
-//        print("---->  didReceive message.body: \(message.body)")
-//        print("----> didReceive message.world.name: \(message.world.name)")
 
+    // TODO: Next steps
+    // - Embed webview in NavBarController so there is a back button to go back
+    // - Decide, where the entry pooint should be and enter WebView form there if it is not too hidden :-)
+    // - hand over rpcCalls and post result to WebView
+    // - handle Missing calls:
+    //    sendTransactions
+    //    getChainInfo
+    //    getTxBySafeTxHash
+    //    getSafeBalances
+    //    signMessage
+    
+
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         handleMessage(message.body as? String)
     }
 
@@ -24,9 +32,30 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
         if let message = message {
             if message.contains("getSafeInfo") {
                 handleGetSafeInfo(message)
+            } else if  message.contains("rpcCall"){
+                handleRpcCall(message)
             } else {
                 print("SafeAppWebViewController | Unknown message: \(message)")
             }
+        }
+    }
+
+    private func handleRpcCall(_ message: String) {
+        let decoder = JSONDecoder()
+        let jsonData = message.data(using: .utf8)!
+        do {
+            let result = try decoder.decode(RpcCallData.self, from: jsonData)
+            // {"id":"4a59adf4dc","method":"rpcCall","params":{"call":"eth_getCode","params":["0x1c8b9b78e3085866521fe206fa4c1a67f49f153a","latest"]},"env":{"sdkVersion":"6.2.0"}}
+            // {"id":"b026a52183","method":"rpcCall","params":{"call":"eth_getBlockByNumber","params":["latest",false]},"env":{"sdkVersion":"6.2.0"}} <- Not parsed correctly because of Boolean in call params
+            print ("SafeAppWebViewController |     id: \(result.id!)")
+            print ("SafeAppWebViewController | method: \(result.method!)")
+            print ("SafeAppWebViewController |    env: \(result.env!)")
+            print ("SafeAppWebViewController | params: \(result.params!)")
+
+            // TODO: Execute RPC call asynchronously and gather result
+
+        } catch {
+            print("SafeAppWebViewController | Exception thrown while decoding message: \(message)")
         }
     }
 
@@ -44,17 +73,14 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
             print ("SafeAppWebViewController | method: \(result.method!)")
             print ("SafeAppWebViewController |    env: \(result.env!)")
 
-            try! sendData(id: result.id!, method: result.method!, address: Safe.getSelected()?.address!)
+            try! sendResponse(id: result.id!, method: result.method!, address: Safe.getSelected()?.address!)
 
         } catch {
-            print("SafeAppWebViewController | Exception thrown for message: \(message)")
+            print("SafeAppWebViewController | Exception thrown while decoding message: \(message)")
         }
-
     }
 
-    private func sendData(id: String, method: String, address: String?) {
-
-
+    private func sendResponse(id: String, method: String, address: String?) {
         print("SafeAppWebViewController | aaddress: \(address)")
 
         webView.evaluateJavaScript("""
@@ -73,15 +99,9 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
         webConfiguration.preferences = preferences
         webView = WKWebView(frame: .zero, configuration: webConfiguration)
         webView.uiDelegate = self
-        webConfiguration.userContentController.add(self, name: "message")
         webConfiguration.userContentController.add(self, name: "messageData")
 
         let source = """
-                     window.addEventListener('message', function(e) { 
-                       window.webkit.messageHandlers.message.postMessage(JSON.stringify(e));
-                       console.log(e)
-                     });
-
                      window.addEventListener('message', function(e) { 
                        window.webkit.messageHandlers.messageData.postMessage(JSON.stringify(e.data));
                      });
@@ -114,6 +134,16 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
     }
 }
 
+struct RpcCallData: Codable {
+    var id: String?
+    var method: String?
+    var params: RpcCallParamsData?
+    var env: EnvironmentData?
+}
+struct RpcCallParamsData: Codable {
+    var call: String?
+    var params: [String]? // What type can we use if strings and booleans are mixed in the array?
+}
 struct SafeInfoRequestData: Codable {
     var id: String?
     var method: String?
@@ -123,7 +153,6 @@ struct EnvironmentData: Codable {
     var sdkVersion: String?
 }
 struct SafeInfoResponseData: Codable  {
-
     var id: String?
     var method: String
 }
