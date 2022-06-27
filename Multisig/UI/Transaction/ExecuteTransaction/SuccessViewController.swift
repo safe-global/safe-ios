@@ -22,6 +22,7 @@ class SuccessViewController: UIViewController {
     private var primaryAction: String?
     private var secondaryAction: String?
     private var trackingEvent: TrackingEvent?
+    private var wasNavBarHidden: Bool = false
 
     var trackingParams: [String: Any]? = nil
 
@@ -44,7 +45,8 @@ class SuccessViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        wasNavBarHidden = navigationController?.isNavigationBarHidden ?? false
         navigationController?.isNavigationBarHidden = true
         navigationItem.backButtonTitle = "Back"
 
@@ -83,10 +85,12 @@ class SuccessViewController: UIViewController {
     }
 
     @IBAction func didTapDone(_ sender: Any) {
+        navigationController?.isNavigationBarHidden = wasNavBarHidden
         onDone(false)
     }
 
     @IBAction func viewDetailsClicked(_ sender: Any) {
+        navigationController?.isNavigationBarHidden = wasNavBarHidden
         onDone(true)
     }
 }
