@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "safe-token-banner-ico2.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

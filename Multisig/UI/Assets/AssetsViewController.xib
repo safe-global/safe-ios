@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,13 +21,18 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JaT-py-F36" customClass="TotalBalanceView" customModule="Multisig" customModuleProvider="target">
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="AYv-jp-SQ9">
                     <rect key="frame" x="0.0" y="44" width="414" height="150"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="150" id="cX1-Ag-6xP"/>
-                    </constraints>
-                </view>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JaT-py-F36" customClass="TotalBalanceView" customModule="Multisig" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="150" id="cX1-Ag-6xP"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jwx-DX-oEe">
                     <rect key="frame" x="0.0" y="194" width="414" height="668"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -36,13 +41,13 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="jwx-DX-oEe" firstAttribute="top" secondItem="JaT-py-F36" secondAttribute="bottom" id="5QA-dT-Qu2"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JaT-py-F36" secondAttribute="trailing" id="Fnb-Av-Kes"/>
-                <constraint firstItem="JaT-py-F36" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="LmH-Uc-QAE"/>
-                <constraint firstItem="JaT-py-F36" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="V2F-ct-UK9"/>
+                <constraint firstItem="jwx-DX-oEe" firstAttribute="top" secondItem="AYv-jp-SQ9" secondAttribute="bottom" id="Q4C-hM-uHA"/>
+                <constraint firstItem="AYv-jp-SQ9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="YL9-Gi-4Yz"/>
                 <constraint firstItem="jwx-DX-oEe" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="YwL-HB-5pg"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="jwx-DX-oEe" secondAttribute="bottom" id="ej1-tJ-aV3"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jwx-DX-oEe" secondAttribute="trailing" id="oFL-gB-bB9"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="AYv-jp-SQ9" secondAttribute="trailing" id="ofv-01-BmX"/>
+                <constraint firstItem="AYv-jp-SQ9" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="rd0-wm-RFx"/>
             </constraints>
             <point key="canvasLocation" x="132" y="131"/>
         </view>
