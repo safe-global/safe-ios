@@ -22,6 +22,7 @@ class AddressInfoView: UINibView {
     static let defaultIconSize: CGFloat = 36
 
     private(set) var address: Address!
+    private(set) var ensName: String?
     private(set) var browseURL: URL?
     private(set) var prefix: String?
     private(set) var label: String?
@@ -69,6 +70,7 @@ class AddressInfoView: UINibView {
     ///   - browseURL: if not nil, then the detail button will show that would open the browser to look for this address
     ///   - prefix: chain prefix
     func setAddress(_ address: Address,
+                    ensName: String? = nil,
                     label: String? = nil,
                     imageUri: URL? = nil,
                     showIdenticon: Bool = true,
@@ -76,6 +78,7 @@ class AddressInfoView: UINibView {
                     browseURL: URL? = nil,
                     prefix: String? = nil) {
         self.address = address
+        self.ensName = ensName
         self.browseURL = browseURL
         self.prefix = prefix
         self.label = label
@@ -149,7 +152,9 @@ class AddressInfoView: UINibView {
 
     @objc func displayAddress() {
         addressLabel.isHidden = false
-        if let _ = label {
+        if let ensName = ensName {
+            addressLabel.text = ensName
+        } else if let _ = label {
             addressLabel.text = prependingPrefixString() + self.address.ellipsized()
         } else {
             let prefixString = prependingPrefixString()
