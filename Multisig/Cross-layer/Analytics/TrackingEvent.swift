@@ -328,6 +328,10 @@ enum TrackingEvent: String, Trackable {
     case screenOwnerFromLinkAddSafeName             = "screen_owner_from_link_add_safe_name" // not used
     case userOwnerFromLinkSafeNameAdded             = "user_owner_from_link_safe_name_added"
 
+    // MARK: Safe Token Claim
+    case bannerSafeTokenClaim                       = "user_banner_safe_token_claim"
+    case bannerSafeTokenSkip                        = "user_banner_safe_token_skip"
+
 }
 
 extension TrackingEvent {

@@ -12,11 +12,13 @@ import UIKit
 class BalancesViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
 
     private enum Section {
+        case safeTokenBanner
         case importKeyBanner
         case passcodeBanner
         case balances(items: [TokenBalance])
     }
     var clientGatewayService: BalancesAPI = App.shared.clientGatewayService
+    var remoteConfig: FirebaseRemoteConfig = FirebaseRemoteConfig.shared
 
     override var isEmpty: Bool { sections.isEmpty }
 
@@ -39,6 +41,16 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         OwnerKeyController.hasPrivateKey && AppSettings.shouldOfferToSetupPasscode
     }
 
+    private var shouldShowSafeTokenBanner: Bool {
+        safeTokenBannerWasShown != true &&
+        NSString(string: remoteConfig.value(key: .safeClaimEnabled) ?? "false").boolValue
+    }
+
+    private var safeTokenBannerWasShown: Bool? {
+        get { AppSettings.safeTokenBannerWasShown }
+        set { AppSettings.safeTokenBannerWasShown = newValue }
+    }
+
     convenience init() {
         self.init(namedClass: Self.superclass())
     }
@@ -47,6 +59,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
         tableView.registerCell(BalanceTableViewCell.self)
         tableView.registerCell(BannerTableViewCell.self)
+        tableView.registerCell(SafeTokenBannerTableViewCell.self)
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
@@ -143,11 +156,15 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         guard !items.isEmpty else { return [] }
 
         var sections = [Section]()
-        if shouldShowImportKeyBanner {
+
+        if shouldShowSafeTokenBanner {
+            sections.append(.safeTokenBanner)
+        } else if shouldShowImportKeyBanner {
             sections.append(.importKeyBanner)
         } else if shouldShowPasscodeBanner {
             sections.append(.passcodeBanner)
         }
+
         sections.append(.balances(items: items))
         return sections
     }
@@ -158,13 +175,15 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
-        case .importKeyBanner, .passcodeBanner: return 1
+        case .safeTokenBanner, .importKeyBanner, .passcodeBanner: return 1
         case .balances(items: let items): return items.count
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
+        case .safeTokenBanner:
+            return safeTokenBanner(indexPath: indexPath)
         case .importKeyBanner:
             return importKeyBanner(indexPath: indexPath)
         case .passcodeBanner:
@@ -217,6 +236,23 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         transferFundsVC.tokenBalance = balance
         let ribbon = ViewControllerFactory.ribbonWith(viewController: transferFundsVC)
         present(ViewControllerFactory.modal(viewController: ribbon), animated: true)
+    }
+
+    private func safeTokenBanner(indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(SafeTokenBannerTableViewCell.self, for: indexPath)
+        cell.setupBanner(
+            onClaim: { [unowned self] in
+                //TODO: start safe token claim flow
+                safeTokenBannerWasShown = true
+                Tracker.trackEvent(.bannerSafeTokenClaim)
+            },
+            onClose: { [unowned self] in
+                safeTokenBannerWasShown = true
+                recreateSectionsWithCurrentItems()
+                Tracker.trackEvent(.bannerSafeTokenSkip)
+            })
+        cell.selectionStyle = .none
+        return cell
     }
 
     private func importKeyBanner(indexPath: IndexPath) -> UITableViewCell {
