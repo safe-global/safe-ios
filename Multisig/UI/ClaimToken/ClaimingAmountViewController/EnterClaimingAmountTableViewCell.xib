@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="406" id="KGk-i7-Jjw" customClass="EnterClaimingAmountTableViewCell" customModule="Multisig" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="342" height="406"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="342" height="406"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="ZwF-jm-pAN">
+                        <rect key="frame" x="16" y="16" width="310" height="374"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fa3-MW-662">
+                                <rect key="frame" x="0.0" y="0.0" width="310" height="49"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How much you want to claim?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yd-3F-yKi">
+                                        <rect key="frame" x="0.0" y="0.0" width="310" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select all tokens or custom amount. " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WT8-h6-7ZD">
+                                        <rect key="frame" x="0.0" y="28.5" width="310" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="b8F-4l-TfE">
+                                <rect key="frame" x="0.0" y="73" width="310" height="124"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jak-v9-BOp">
+                                        <rect key="frame" x="0.0" y="0.0" width="310" height="56"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wzZ-3z-4pk" customClass="TokenAmountField" customModule="Multisig" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="310" height="56"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="56" id="jxL-NJ-ext"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JEO-Sf-B6Z">
+                                                <rect key="frame" x="259" y="12.5" width="51" height="31"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Max"/>
+                                                <connections>
+                                                    <action selector="maxButtonTouched:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="NUU-fk-20k"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="JEO-Sf-B6Z" secondAttribute="trailing" id="1cC-18-tcO"/>
+                                            <constraint firstAttribute="trailing" secondItem="wzZ-3z-4pk" secondAttribute="trailing" id="2Hd-Fa-akP"/>
+                                            <constraint firstItem="wzZ-3z-4pk" firstAttribute="leading" secondItem="Jak-v9-BOp" secondAttribute="leading" id="G8N-PU-LFP"/>
+                                            <constraint firstItem="JEO-Sf-B6Z" firstAttribute="centerY" secondItem="wzZ-3z-4pk" secondAttribute="centerY" id="H1a-bG-oQt"/>
+                                            <constraint firstItem="wzZ-3z-4pk" firstAttribute="top" secondItem="Jak-v9-BOp" secondAttribute="top" id="WjC-Mc-MWf"/>
+                                            <constraint firstAttribute="bottom" secondItem="wzZ-3z-4pk" secondAttribute="bottom" id="cnf-bk-Usj"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TPa-39-r2V">
+                                        <rect key="frame" x="0.0" y="68" width="310" height="56"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="56" id="9WV-Z9-8cy"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Delegate to a Safe Guardian">
+                                            <color key="titleColor" name="labelPrimary"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="claimButtonTouched:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="6R2-c2-AM4"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Yon-dd-LYG">
+                                <rect key="frame" x="0.0" y="221" width="310" height="153"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delegating to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ur6-zw-uSW">
+                                        <rect key="frame" x="0.0" y="0.0" width="310" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RjV-gl-bhK">
+                                        <rect key="frame" x="0.0" y="28.5" width="310" height="124.5"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rlm-E3-wJL" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="16" width="278" height="92.5"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Rlm-E3-wJL" secondAttribute="trailing" constant="16" id="EbK-y8-gaQ"/>
+                                            <constraint firstItem="Rlm-E3-wJL" firstAttribute="leading" secondItem="RjV-gl-bhK" secondAttribute="leading" constant="16" id="PJo-iO-2zg"/>
+                                            <constraint firstAttribute="bottom" secondItem="Rlm-E3-wJL" secondAttribute="bottom" constant="16" id="g3G-Lb-eYD"/>
+                                            <constraint firstItem="Rlm-E3-wJL" firstAttribute="top" secondItem="RjV-gl-bhK" secondAttribute="top" constant="16" id="wFZ-qN-cmI"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="ZwF-jm-pAN" secondAttribute="trailing" constant="16" id="7xJ-Hh-ttw"/>
+                    <constraint firstItem="ZwF-jm-pAN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="DdH-P4-jIv"/>
+                    <constraint firstItem="ZwF-jm-pAN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="ZL8-I8-qdX"/>
+                    <constraint firstAttribute="bottom" secondItem="ZwF-jm-pAN" secondAttribute="bottom" constant="16" id="eKV-Uw-yZu"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addressContainerView" destination="RjV-gl-bhK" id="nDO-5C-BzG"/>
+                <outlet property="addressInfoView" destination="Rlm-E3-wJL" id="Zxs-lp-Hff"/>
+                <outlet property="amountTextField" destination="wzZ-3z-4pk" id="Qxy-U3-rOx"/>
+                <outlet property="claimButton" destination="TPa-39-r2V" id="1Gj-rk-b8A"/>
+                <outlet property="delegateToLabel" destination="Ur6-zw-uSW" id="BzG-mc-e4e"/>
+                <outlet property="descriptionLabel" destination="WT8-h6-7ZD" id="Q2T-N7-YZV"/>
+                <outlet property="maxButton" destination="JEO-Sf-B6Z" id="J4I-KN-UmG"/>
+                <outlet property="titleLabel" destination="0Yd-3F-yKi" id="PFo-Co-mpS"/>
+            </connections>
+            <point key="canvasLocation" x="147.82608695652175" y="252.45535714285714"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="labelPrimary">
+            <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

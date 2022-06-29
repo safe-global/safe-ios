@@ -13,7 +13,9 @@ class ClaimSafeTokenFlow: UIFlow {
     var safe: Safe
     var transaction: SCGModels.TransactionDetails?
 
-    init(safe: Safe, factory: ClaimSafeTokenFlowFactory, completion: @escaping (_ success: Bool) -> Void) {
+    init(safe: Safe,
+         factory: ClaimSafeTokenFlowFactory = ClaimSafeTokenFlowFactory(),
+         completion: @escaping (_ success: Bool) -> Void) {
         self.safe = safe
         self.factory = factory
         super.init(completion: completion)
@@ -22,7 +24,6 @@ class ClaimSafeTokenFlow: UIFlow {
     override func start() {
         chooseDelegateIntro()
     }
-
 
     func chooseDelegateIntro() {
         let vc = factory.chooseDelegateIntro { [unowned self] in
@@ -35,7 +36,10 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     func chooseGuardian() {
-        let vc = factory.chooseGuardian()
+        let vc = factory.chooseGuardian() { [unowned self] guardian in
+            selectAmount(guardian: guardian)
+        }
+
         show(vc)
     }
 
@@ -43,16 +47,24 @@ class ClaimSafeTokenFlow: UIFlow {
 
     }
 
+    func selectAmount(guardian: Guardian) {
+        let vc = factory.selectAmount(guardian: guardian) { [unowned self] in
+            success()
+        }
+
+        show(vc)
+    }
+
     func success() {
-        assert(transaction != nil)
+        //assert(transaction != nil)
         let successVC = factory.success (bodyText: "It needs to be confirmed and executed first before the token claiming.",
                                          trackingEvent: .addAsOwnerSuccess) { [unowned self] showTxDetails in
-            if showTxDetails {
-                NotificationCenter.default.post(
-                    name: .initiateTxNotificationReceived,
-                    object: self,
-                    userInfo: ["transactionDetails": transaction!])
-            }
+//            if showTxDetails {
+//                NotificationCenter.default.post(
+//                    name: .initiateTxNotificationReceived,
+//                    object: self,
+//                    userInfo: ["transactionDetails": transaction!])
+//            }
 
             stop(success: !showTxDetails)
         }
@@ -72,9 +84,15 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
-    func chooseGuardian() -> ChooseGuardianViewController {
+    func chooseGuardian(_ onSelect: @escaping (Guardian) -> ()) -> ChooseGuardianViewController {
         let vc = ChooseGuardianViewController()
+        vc.onSelect = onSelect
+        
+        return vc
+    }
 
+    func selectAmount(guardian: Guardian, onClaim: @escaping () -> ()) -> ClaimingAmountViewController {
+        let vc = ClaimingAmountViewController(guardian: guardian, onClaim: onClaim)
         return vc
     }
 

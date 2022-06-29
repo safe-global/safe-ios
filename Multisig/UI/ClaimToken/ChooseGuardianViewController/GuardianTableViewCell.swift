@@ -9,6 +9,8 @@
 import UIKit
 
 class GuardianTableViewCell: UITableViewCell {
+    weak var tableView: UITableView?
+    
     @IBOutlet private weak var addressInfoView: AddressInfoView!
     @IBOutlet private weak var selectButton: UIButton!
     @IBOutlet private weak var descriptionLabel: UILabel!
@@ -28,10 +30,10 @@ class GuardianTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        UIView.animate(withDuration: 0.5) { [weak self] in
-            self?.descriptionLabel.numberOfLines = selected ? 0 : 1
-            self?.layoutIfNeeded()
-        }
+        tableView?.beginUpdates()
+        self.descriptionLabel.numberOfLines = selected ? 0 : 1
+        self.selectButton.isHidden = !selected
+        tableView?.endUpdates()
     }
 
     @IBAction func selectButtonTouched(_ sender: Any) {
@@ -42,12 +44,12 @@ class GuardianTableViewCell: UITableViewCell {
         addressInfoView.setAddress(guardian.address,
                                    ensName: guardian.ensName,
                                    label: guardian.name,
-                                   imageUri: guardian.imageURL == nil ? nil : URL(string: guardian.imageURL!),
+                                   imageUri: guardian.imageURL,
                                    showIdenticon: true,
                                    badgeName: nil,
                                    browseURL: nil,
                                    prefix: nil)
-
+        addressInfoView.copyEnabled = false
         descriptionLabel.text = guardian.message
     }
 }

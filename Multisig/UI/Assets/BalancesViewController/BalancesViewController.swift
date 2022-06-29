@@ -28,6 +28,8 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     private let tableBackgroundColor: UIColor = .backgroundPrimary
 
+    private var claimTokenFlow: ClaimSafeTokenFlow!
+
     private var shouldShowImportKeyBanner: Bool {
         importKeyBannerWasShown != true
     }
@@ -42,6 +44,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     }
 
     private var shouldShowSafeTokenBanner: Bool {
+        return true
         safeTokenBannerWasShown != true &&
         NSString(string: remoteConfig.value(key: .safeClaimEnabled) ?? "false").boolValue
     }
@@ -243,8 +246,16 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         cell.setupBanner(
             onClaim: { [unowned self] in
                 //TODO: start safe token claim flow
-                safeTokenBannerWasShown = true
+                guard let safe = try? Safe.getSelected() else {
+                    return
+                }
+
+                //safeTokenBannerWasShown = true
                 Tracker.trackEvent(.bannerSafeTokenClaim)
+                claimTokenFlow = ClaimSafeTokenFlow(safe: safe) { [unowned self] _ in
+                    claimTokenFlow = nil
+                }
+                present(flow: claimTokenFlow)
             },
             onClose: { [unowned self] in
                 safeTokenBannerWasShown = true

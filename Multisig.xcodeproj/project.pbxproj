@@ -92,15 +92,17 @@
 		0472B2AE285B80880049BA17 /* AddOwnerFromInviteFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2AD285B80880049BA17 /* AddOwnerFromInviteFlow.swift */; };
 		0472B2B0285B9D190049BA17 /* ReplaceOwnerFromInviteFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2AF285B9D190049BA17 /* ReplaceOwnerFromInviteFlow.swift */; };
 		0472B2B22869D3510049BA17 /* ClaimSafeTokenFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2B12869D3510049BA17 /* ClaimSafeTokenFlow.swift */; };
-		0472B2B62869D5680049BA17 /* TokenClaimingIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2B42869D5680049BA17 /* TokenClaimingIntroViewController.swift */; };
-		0472B2B72869D5680049BA17 /* TokenClaimingIntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2B52869D5680049BA17 /* TokenClaimingIntroViewController.xib */; };
 		0472B2BA2869D66A0049BA17 /* ChooseDelegateIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2B82869D66A0049BA17 /* ChooseDelegateIntroViewController.swift */; };
 		0472B2BB2869D66A0049BA17 /* ChooseDelegateIntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2B92869D66A0049BA17 /* ChooseDelegateIntroViewController.xib */; };
 		0472B2BE286A49420049BA17 /* ChooseGuardianViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2BC286A49420049BA17 /* ChooseGuardianViewController.swift */; };
-		0472B2BF286A49420049BA17 /* ChooseGuardianViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2BD286A49420049BA17 /* ChooseGuardianViewController.xib */; };
 		0472B2C3286A497A0049BA17 /* GuardianTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2C1286A497A0049BA17 /* GuardianTableViewCell.swift */; };
 		0472B2C4286A497A0049BA17 /* GuardianTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2C2286A497A0049BA17 /* GuardianTableViewCell.xib */; };
 		0472B2C6286A6FB70049BA17 /* Guardians.csv in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2C5286A6FB70049BA17 /* Guardians.csv */; };
+		0472B2C9286BC5D70049BA17 /* ClaimingAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2C7286BC5D70049BA17 /* ClaimingAmountViewController.swift */; };
+		0472B2CE286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2CC286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.swift */; };
+		0472B2CF286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2CD286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib */; };
+		0472B2D2286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2D0286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.swift */; };
+		0472B2D3286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2D1286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.xib */; };
 		047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FB24780C81004F1200 /* CharacterSet+Hex.swift */; };
 		047300FE24781081004F1200 /* AddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FD24781081004F1200 /* AddressTests.swift */; };
 		047588182774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */; };
@@ -978,15 +980,17 @@
 		0472B2AD285B80880049BA17 /* AddOwnerFromInviteFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerFromInviteFlow.swift; sourceTree = "<group>"; };
 		0472B2AF285B9D190049BA17 /* ReplaceOwnerFromInviteFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceOwnerFromInviteFlow.swift; sourceTree = "<group>"; };
 		0472B2B12869D3510049BA17 /* ClaimSafeTokenFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimSafeTokenFlow.swift; sourceTree = "<group>"; };
-		0472B2B42869D5680049BA17 /* TokenClaimingIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenClaimingIntroViewController.swift; sourceTree = "<group>"; };
-		0472B2B52869D5680049BA17 /* TokenClaimingIntroViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenClaimingIntroViewController.xib; sourceTree = "<group>"; };
 		0472B2B82869D66A0049BA17 /* ChooseDelegateIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseDelegateIntroViewController.swift; sourceTree = "<group>"; };
 		0472B2B92869D66A0049BA17 /* ChooseDelegateIntroViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseDelegateIntroViewController.xib; sourceTree = "<group>"; };
 		0472B2BC286A49420049BA17 /* ChooseGuardianViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseGuardianViewController.swift; sourceTree = "<group>"; };
-		0472B2BD286A49420049BA17 /* ChooseGuardianViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseGuardianViewController.xib; sourceTree = "<group>"; };
 		0472B2C1286A497A0049BA17 /* GuardianTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianTableViewCell.swift; sourceTree = "<group>"; };
 		0472B2C2286A497A0049BA17 /* GuardianTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuardianTableViewCell.xib; sourceTree = "<group>"; };
 		0472B2C5286A6FB70049BA17 /* Guardians.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Guardians.csv; sourceTree = "<group>"; };
+		0472B2C7286BC5D70049BA17 /* ClaimingAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimingAmountViewController.swift; sourceTree = "<group>"; };
+		0472B2CC286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableClaimingAmountTableViewCell.swift; sourceTree = "<group>"; };
+		0472B2CD286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AvailableClaimingAmountTableViewCell.xib; sourceTree = "<group>"; };
+		0472B2D0286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterClaimingAmountTableViewCell.swift; sourceTree = "<group>"; };
+		0472B2D1286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterClaimingAmountTableViewCell.xib; sourceTree = "<group>"; };
 		047300FB24780C81004F1200 /* CharacterSet+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Hex.swift"; sourceTree = "<group>"; };
 		047300FD24781081004F1200 /* AddressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTests.swift; sourceTree = "<group>"; };
 		047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSendFundsTransactionViewController.swift; sourceTree = "<group>"; };
@@ -1958,12 +1962,11 @@
 		0472B2B32869D5480049BA17 /* ClaimToken */ = {
 			isa = PBXGroup;
 			children = (
-				0472B2C0286A49470049BA17 /* ChooseGuardianViewController */,
 				0472B2B12869D3510049BA17 /* ClaimSafeTokenFlow.swift */,
-				0472B2B42869D5680049BA17 /* TokenClaimingIntroViewController.swift */,
-				0472B2B52869D5680049BA17 /* TokenClaimingIntroViewController.xib */,
 				0472B2B82869D66A0049BA17 /* ChooseDelegateIntroViewController.swift */,
 				0472B2B92869D66A0049BA17 /* ChooseDelegateIntroViewController.xib */,
+				0472B2C0286A49470049BA17 /* ChooseGuardianViewController */,
+				0472B2CB286BCAE70049BA17 /* ClaimingAmountViewController */,
 			);
 			path = ClaimToken;
 			sourceTree = "<group>";
@@ -1972,11 +1975,22 @@
 			isa = PBXGroup;
 			children = (
 				0472B2BC286A49420049BA17 /* ChooseGuardianViewController.swift */,
-				0472B2BD286A49420049BA17 /* ChooseGuardianViewController.xib */,
 				0472B2C1286A497A0049BA17 /* GuardianTableViewCell.swift */,
 				0472B2C2286A497A0049BA17 /* GuardianTableViewCell.xib */,
 			);
 			path = ChooseGuardianViewController;
+			sourceTree = "<group>";
+		};
+		0472B2CB286BCAE70049BA17 /* ClaimingAmountViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0472B2C7286BC5D70049BA17 /* ClaimingAmountViewController.swift */,
+				0472B2CC286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.swift */,
+				0472B2CD286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib */,
+				0472B2D0286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.swift */,
+				0472B2D1286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.xib */,
+			);
+			path = ClaimingAmountViewController;
 			sourceTree = "<group>";
 		};
 		047588152774D6A2001DD992 /* ReviewSafeTransactionViewController */ = {
@@ -4269,10 +4283,8 @@
 				55413678265E4A0000796F91 /* AddOwnerKeyCell.xib in Resources */,
 				93EF2FB027C551DC0077BE95 /* StepInstructionTableViewCell.xib in Resources */,
 				0A045081278DAD9000650F71 /* DisclosureWithContentCell.xib in Resources */,
-				0472B2BF286A49420049BA17 /* ChooseGuardianViewController.xib in Resources */,
 				0A6886932588F87E0045CAB5 /* EnterAddressNameViewController.xib in Resources */,
 				55DA0669269DD573006C9AA5 /* dapps-xdai.json in Resources */,
-				0472B2B72869D5680049BA17 /* TokenClaimingIntroViewController.xib in Resources */,
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				049A9D7125F9303000CA5723 /* ChooseOwnerKeyViewController.xib in Resources */,
 				D88FA81F2770869E0023B77F /* TokenAmountField.xib in Resources */,
@@ -4292,6 +4304,7 @@
 				0A478D5925B876AF0038363E /* ButtonTableViewCell.xib in Resources */,
 				0428DA5B25CBFC25002CF4A9 /* HelpLinkTableViewCell.xib in Resources */,
 				0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */,
+				0472B2CF286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib in Resources */,
 				04D968D5276B872D00CE4A9E /* TransactionViewController.xib in Resources */,
 				5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
@@ -4322,6 +4335,7 @@
 				6A7A48A12823A297003278C8 /* SafeOwnerCell.xib in Resources */,
 				0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */,
 				0A06533727B6D1070008C5F1 /* ChooseOwnerDetailHeaderView.xib in Resources */,
+				0472B2D3286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.xib in Resources */,
 				0ADD0FB427C148880099DF7D /* DatePickerViewController.xib in Resources */,
 				0AD0273A25A34FF600886671 /* MultiSendRowTableViewCell.xib in Resources */,
 				04D1323625E43C560032FA03 /* DetailRejectionInfoCell.xib in Resources */,
@@ -4824,6 +4838,7 @@
 				0472B2AC285B5D030049BA17 /* UpdateOwnersFromInviteLinkFlow.swift in Sources */,
 				045769FD27C7DBBF00881206 /* SafeDeployingViewController.swift in Sources */,
 				550FB1AA26691D2E00C13D54 /* UITableView+Cells.swift in Sources */,
+				0472B2D2286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.swift in Sources */,
 				0A5B15882808649E003AD853 /* CreatePasscodeController.swift in Sources */,
 				04273E5826AEE06500A14E95 /* BluetoothController.swift in Sources */,
 				0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */,
@@ -4884,6 +4899,7 @@
 				55CCD58727550F42004EA3E3 /* DelegateKeyController.swift in Sources */,
 				0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */,
 				0AB5DFB3270F48EB005BFB43 /* LedgerSignerViewController.swift in Sources */,
+				0472B2CE286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.swift in Sources */,
 				0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */,
 				0A9D5CEB27D8F48B0075A21D /* WCAppRegistryEntry.swift in Sources */,
 				6AFD26EB2861B0CF00336FFE /* SafeTokenBanner.swift in Sources */,
@@ -4939,6 +4955,7 @@
 				0A9366B7279067A8001918A9 /* FeeLegacyFormModel.swift in Sources */,
 				0A5F4829254C56580069C98D /* SafeEntryTableViewCell.swift in Sources */,
 				555312E9250653800008206B /* BIP32HDNode.swift in Sources */,
+				0472B2C9286BC5D70049BA17 /* ClaimingAmountViewController.swift in Sources */,
 				0455A43127204A5B008B772D /* CreateAddressBookEntryViewController.swift in Sources */,
 				93EF2FAB27C551B60077BE95 /* FinalStepInstructionTableViewCell.swift in Sources */,
 				0ADDA2112453467A0066457E /* RoundedTextField.swift in Sources */,
@@ -4971,7 +4988,6 @@
 				6A252CF72818512D001F0887 /* OwnerActionView.swift in Sources */,
 				B0D6186603DDC723F98E4282 /* WebConnectionOpenRequest.swift in Sources */,
 				6A1CFA4A2807F24800B2C340 /* NoScreenshotViewController.swift in Sources */,
-				0472B2B62869D5680049BA17 /* TokenClaimingIntroViewController.swift in Sources */,
 				8D7DFB2CEBACCDB9E9CCF6BC /* WebConnectionExpirationMonitor.swift in Sources */,
 				B0D613CC4045E3CCE3AF91AB /* WebConnectionSendTransactionRequest.swift in Sources */,
 				6A9A770C2804182700C229FC /* BackupIntroViewController.swift in Sources */,

@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,10 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChooseDelegateIntroViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
-                <outlet property="chooseGuardianButton" destination="iDe-tV-LXS" id="LVU-b8-rx0"/>
-                <outlet property="customAddressButton" destination="IO8-jP-Bia" id="dn5-wM-Vpn"/>
-                <outlet property="descriptionLabel" destination="E9g-9f-6XY" id="PrI-xs-ahF"/>
-                <outlet property="titleLabel" destination="B7B-JZ-z5o" id="RhY-Dh-sOe"/>
+                <outlet property="chooseGuardianButton" destination="iDe-tV-LXS" id="ZOp-gu-1wB"/>
+                <outlet property="customAddressButton" destination="IO8-jP-Bia" id="SOf-TB-6HN"/>
+                <outlet property="descriptionLabel" destination="E9g-9f-6XY" id="x4L-ax-pwB"/>
+                <outlet property="titleLabel" destination="B7B-JZ-z5o" id="nRv-8K-EYf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -33,21 +32,21 @@
                                 <constraint firstAttribute="height" constant="56" id="A21-dG-3uu"/>
                             </constraints>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="Share link">
+                            <state key="normal" title="Delegate to a Safe Guardian">
                                 <color key="titleColor" name="labelPrimary"/>
                             </state>
                             <connections>
-                                <action selector="didChooseGuardianButton:" destination="-1" eventType="touchUpInside" id="4Gf-Qt-Fr3"/>
+                                <action selector="didChooseGuardianButton:" destination="-1" eventType="touchUpInside" id="q5K-rJ-Zdo"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IO8-jP-Bia">
                             <rect key="frame" x="0.0" y="72" width="382" height="56"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="Not this time">
+                            <state key="normal" title="Custom address">
                                 <color key="titleColor" name="labelPrimary"/>
                             </state>
                             <connections>
-                                <action selector="didCustomAddressButton:" destination="-1" eventType="touchUpInside" id="8yo-ET-A50"/>
+                                <action selector="didCustomAddressButton:" destination="-1" eventType="touchUpInside" id="PlR-Eu-LfQ"/>
                             </connections>
                         </button>
                     </subviews>

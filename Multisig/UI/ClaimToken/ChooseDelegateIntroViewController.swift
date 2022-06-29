@@ -21,7 +21,7 @@ class ChooseDelegateIntroViewController: UIViewController {
     var onChooseGuardian: (() -> ())?
     var onCustomAddress: (() -> ())?
     convenience init(stepNumber: Int = 1, maxSteps: Int = 3, onChooseGuardian: @escaping () -> (), onCustomAddress: @escaping () -> ()) {
-        self.init(namedClass: CreateInviteOwnerIntroViewController.self)
+        self.init(namedClass: ChooseDelegateIntroViewController.self)
         self.stepNumber = stepNumber
         self.maxSteps = maxSteps
         self.onChooseGuardian = onChooseGuardian
@@ -34,6 +34,7 @@ class ChooseDelegateIntroViewController: UIViewController {
         descriptionLabel.setStyle(.secondary)
         chooseGuardianButton.setText("Delegate to a Safe Guardian", .filled)
         customAddressButton.setText("Custom address", .primary)
+        navigationItem.title = "Safe Token Claiming"
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
         stepLabel.textAlignment = .right
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
