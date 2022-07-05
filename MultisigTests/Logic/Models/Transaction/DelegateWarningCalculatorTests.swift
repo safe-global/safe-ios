@@ -128,9 +128,18 @@ class DelegateWarningCalculatorTests: XCTestCase {
         XCTAssertTrue(result)
 
         // But we need to warn about embedded delegate multisends
-
-       // let result = DelegateWarningCalculator.isUntrusted(dataDecoded: txData.dataDecoded, addressInfoIndex: txData.addressInfoIndex)
-
+        txData.dataDecoded?.parameters?.forEach { parameter in
+            switch parameter.valueDecoded {
+            case .multiSend(let multiSendTransactions):
+                multiSendTransactions.filter { tx in
+                            tx.operation != Multisig.SCGModels.Operation.delegate
+                        }
+                        .forEach { tx in
+                            XCTAssertFalse(DelegateWarningCalculator.isUntrusted(multiSendTx: tx, addressInfoIndex: txData.addressInfoIndex))
+                        }
+            default: break
+            }
+        }
     }
 
     // Helper
