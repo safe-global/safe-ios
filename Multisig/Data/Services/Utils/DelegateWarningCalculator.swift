@@ -10,15 +10,17 @@ class DelegateWarningCalculator {
     private static let TRUSTED = false
 
     // MultiSendTx is untrusted: operation = delegate && 'to' address is not 'known'
-        // 'resolving the name': look up in the address info index
+    // 'resolving the name': look up in the address info index
     // Safe Tx is untrusted: operation = delegate && 'to' is not 'known'
-        // 'resolving name': 'to' object's .name is nil
+    // 'resolving name': 'to' object's .name is nil
 
     typealias MultiSendTx = SCGModels.DataDecoded.Parameter.ValueDecoded.MultiSendTx
     typealias AddressInfoIndex = SCGModels.AddressInfoIndex
 
     static func isUntrusted(txData: SCGModels.TxData?) -> Bool {
-        guard let txData = txData else { return true }
+        guard let txData = txData else {
+            return UNTRUSTED
+        }
 
         if txData.trustedDelegateCallTarget == false {
             return UNTRUSTED
@@ -30,17 +32,15 @@ class DelegateWarningCalculator {
         // if multi-send
         if let data = txData.dataDecoded, data.method == "multiSend" {
             return isUntrusted(dataDecoded: data, addressInfoIndex: txData.addressInfoIndex)
-        } else {
-            // check safe tx
-            let untrusted = txData.operation == .delegate && txData.to.addressInfo.name == nil
-            let result = untrusted ? UNTRUSTED : TRUSTED
-            return result
         }
+
+        return TRUSTED
     }
 
-
     static func isUntrusted(dataDecoded: SCGModels.DataDecoded?, addressInfoIndex: AddressInfoIndex?) -> Bool {
-        guard let data = dataDecoded, let parameters = data.parameters else { return TRUSTED }
+        guard let data = dataDecoded, let parameters = data.parameters else {
+            return TRUSTED
+        }
 
         // check if all parameters are trusted, recursively.
         let allParametersTrusted = parameters.allSatisfy { parameter in
@@ -57,9 +57,9 @@ class DelegateWarningCalculator {
                 // parameter is trusted when all sub-transactions are trusted.
                 return allTransactionsTrusted
 
-            // if it's nil (.none) or not decoded, then we say it's trusted
+                    // if it's nil (.none) or not decoded, then we say it's trusted
             case .none, .unknown:
-                return true
+                return UNTRUSTED
             }
         }
 
@@ -80,5 +80,4 @@ class DelegateWarningCalculator {
         // Recursion: check sub-transactions if they are untrusted in case the 'self' is trusted
         return result || isUntrusted(dataDecoded: multiSendTx.dataDecoded, addressInfoIndex: addressInfoIndex)
     }
-
 }
