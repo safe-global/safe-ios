@@ -119,6 +119,20 @@ class DelegateWarningCalculatorTests: XCTestCase {
         XCTAssertFalse(result)
     }
 
+    func testWarnAboutAnyNestedMultisendWithDelegate() throws {
+        let txData = try loadAndParseFile(fileName: "WarnAboutAnyNestedMultisendWithDelegate")
+
+        let result = DelegateWarningCalculator.isUntrusted(txData: txData)
+
+        // Top level delegate is untrusted
+        XCTAssertTrue(result)
+
+        // But we need to warn about embedded delegate multisends
+
+       // let result = DelegateWarningCalculator.isUntrusted(dataDecoded: txData.dataDecoded, addressInfoIndex: txData.addressInfoIndex)
+
+    }
+
     // Helper
     private func loadAndParseFile(fileName: String) throws -> TxData {
         let data = jsonData(fileName)
