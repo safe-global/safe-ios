@@ -11,7 +11,7 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
 
     // TODO: Next steps
     // - Embed webview in NavBarController so there is a back button to go back
-    // - Decide, where the entry pooint should be and enter WebView form there if it is not too hidden :-)
+    // - Decide, where the entry point should be and enter WebView form there if it is not too hidden :-)
     // - hand over rpcCalls and post result to WebView
     // - handle Missing calls:
     //    sendTransactions
@@ -19,7 +19,7 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
     //    getTxBySafeTxHash
     //    getSafeBalances
     //    signMessage
-    
+
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         handleMessage(message.body as? String)
