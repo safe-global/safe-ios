@@ -15,6 +15,7 @@ class OwnerActionView: UINibView {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var actionTag: TagView!
 
+    private var networkPrefix: String? = nil
 
     override func commonInit() {
         super.commonInit()
@@ -22,10 +23,12 @@ class OwnerActionView: UINibView {
         addressLabel.setStyle(.tertiary)
     }
 
-    func set(owner: AddressInfo, action: OwnerAction) {
+    func set(owner: AddressInfo, action: OwnerAction, prefix: String? = nil) {
         blockie.set(address: owner.address)
         nameLabel.text = owner.name
-        addressLabel.text = owner.address.ellipsized()
+        networkPrefix = prefix
+        addressLabel.text = prependingPrefixString() + owner.address.ellipsized()
+
         switch action {
         case .addingOwner:
             actionTag.set(title: "Adding owner", style: .footnote2, backgroundColor: .backgroundPositive, textColor: .primary)
@@ -34,6 +37,14 @@ class OwnerActionView: UINibView {
         case .removingOwner:
             actionTag.set(title: "Removing owner", style: .footnote2, backgroundColor: .backgroundError, textColor: .error)
         }
+    }
+
+    private func prependingPrefixString() -> String {
+        AppSettings.prependingChainPrefixToAddresses ? prefixString() : ""
+    }
+
+    private func prefixString() -> String {
+        networkPrefix != nil ? "\(networkPrefix!):" : ""
     }
 }
 

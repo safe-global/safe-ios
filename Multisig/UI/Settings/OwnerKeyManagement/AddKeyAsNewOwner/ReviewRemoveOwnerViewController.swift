@@ -77,7 +77,7 @@ class ReviewRemoveOwnerViewController: ReviewSafeTransactionViewController {
                                                     info: nil,
                                                     chainId: safe.chain!.id!)
 
-        cell.set(owner: AddressInfo(address: owner, name: name), action: .removingOwner)
+        cell.set(owner: AddressInfo(address: owner, name: name), action: .removingOwner, prefix: safe.chain?.shortName)
 
         return cell
     }
