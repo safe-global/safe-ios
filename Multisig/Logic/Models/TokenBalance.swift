@@ -99,4 +99,6 @@ extension TokenBalance {
         let fullBalance = tokenAmount.description
         return "\(fullBalance) \(symbol)"
     }
+
+    static let nativeTokenAddress: String = Address.zero.checksummed
 }
