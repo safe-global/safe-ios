@@ -47,7 +47,8 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
                                 .selectedSafeUpdated,
                                 .ownerKeyImported,
                                 .ownerKeyRemoved,
-                                .ownerKeyUpdated] {
+                                .ownerKeyUpdated,
+                                .keyHasBeenBackedUp] {
             notificationCenter.addObserver(self, selector: #selector(lazyReloadData), name: notification, object: nil)
         }
     }

@@ -76,4 +76,6 @@ extension NSNotification.Name {
     // MARK: - Chain settings changed
 
     static let chainSettingsChanged = NSNotification.Name("io.gnosis.safe.chainSettingsChanged")
+
+    static let keyHasBeenBackedUp = NSNotification.Name("io.gnosis.safe.keyHasBeenBackedUp")
 }

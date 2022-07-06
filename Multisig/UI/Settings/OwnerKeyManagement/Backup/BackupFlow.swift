@@ -144,6 +144,7 @@ class BackupFlowFactory {
     }
 
     func success(completion: @escaping (_ didTapPrimary: Bool) -> Void) -> SuccessViewController {
+        NotificationCenter.default.post(name: .keyHasBeenBackedUp, object: nil)
         let successVC = SuccessViewController(
             titleText: "Your key is backed up!",
             bodyText: "If you lose your phone, you can recover this key with the seed phrase you just backed up.",
