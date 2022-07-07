@@ -39,6 +39,36 @@ class DefaultNavigationRouter: NavigationRouter {
     func navigate(to route: NavigationRoute) {
         sceneDelegate?.navigate(to: route)
     }
+
+    private let pattern = "^https://gnosis-safe.io/app/([-a-zA-Z0-9]{1,20}):(0x[a-fA-F0-9]{40})/([-a-zA-Z0-9]{1,20})(/[-a-zA-Z0-9_]{1,118})?"
+
+    func routeFrom(from url: URL) -> NavigationRoute? {
+        let matches = url.absoluteString.capturedValues(pattern: pattern).flatMap { $0 }
+        guard matches.count >= 3,
+                let ـ = Address(matches[1]),
+              let chain = Chain.by(shortName: matches[0]) else { return nil }
+
+        let safeAddress = matches[1]
+        let chainId = chain.id!
+
+        let page = matches[2]
+        if page == "balances" {
+            return NavigationRoute.showAssets(matches[1], chainId: chainId)
+        } else if page == "transactions" {
+            var details = matches[3]
+            details.removeFirst()
+
+            if details == "history" {
+                return NavigationRoute.showTransactionHistory(safeAddress, chainId: chainId)
+            } else if details == "queue" {
+                return NavigationRoute.showTransactionQueued(safeAddress, chainId: chainId)
+            } else {
+                return NavigationRoute.showTransactionDetails(safeAddress, chainId: chainId, transactionId: details)
+            }
+        }
+
+        return nil
+    }
 }
 
 extension NavigationRoute {

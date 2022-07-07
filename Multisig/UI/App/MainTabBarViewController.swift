@@ -417,7 +417,7 @@ extension MainTabBarViewController: NavigationRouter {
                     safe.select()
                 }
                 if let transactionId = route.info["transactionId"] as? String {
-
+                    showTransactionDetails(transactionId: transactionId)
                 } else if route.path.contains("history") {
                     switchTo(indexPath: Path.history)
                 } else {

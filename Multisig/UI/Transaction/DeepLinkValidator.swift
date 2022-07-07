@@ -8,24 +8,24 @@
 
 import Foundation
 
-struct DeepLinkValidator {
-    private static let pattern = "^https://gnosis-safe.io/app/([-a-zA-Z0-9]{1,20}):(0x[a-fA-F0-9]{40})/([-a-zA-Z0-9])/([-a-zA-Z0-9])"
-
-    static func isValid(url: URL) -> Bool {
-        guard url.absoluteString.matches(pattern: pattern) else { return false }
-
-        let matches = url.absoluteString.capturedValues(pattern: pattern).flatMap { $0 }
-
-        guard
-            matches.count >= 3 &&
-            // safe address at position 1
-            Address(matches[1]) != nil
-        else {
-            return false
-        }
-        return true
-    }
-
+//struct DeepLinkValidator {
+//    private static let pattern = "^https://gnosis-safe.io/app/([-a-zA-Z0-9]{1,20}):(0x[a-fA-F0-9]{40})/([-a-zA-Z0-9])/([-a-zA-Z0-9])?"
+//
+//    static func isValid(url: URL) -> Bool {
+//        guard url.absoluteString.matches(pattern: pattern) else { return false }
+//
+//        let matches = url.absoluteString.capturedValues(pattern: pattern).flatMap { $0 }
+//
+//        guard
+//            matches.count >= 3 &&
+//            // safe address at position 1
+//            Address(matches[1]) != nil
+//        else {
+//            return false
+//        }
+//        return true
+//    }
+//
 //    static func parameters(from url: URL) -> TransactionRequestParameters? {
 //        let matches = url.absoluteString.capturedValues(pattern: pattern).flatMap { $0 }
 //        guard
@@ -42,4 +42,4 @@ struct DeepLinkValidator {
 //            ownerAddress: owner
 //        )
 //    }
-}
+//}
