@@ -344,7 +344,12 @@ class MainTabBarViewController: UITabBarController {
                 self?.present(vc, animated: true)
             })
     }
-    
+
+    private func showTransactionDetails(transactionId: String) {
+        let vc = ViewControllerFactory.transactionDetailsViewController(transactionId: transactionId)
+        presentWhenReady(vc)
+    }
+
     private func showTransactionDetails(safeTxHash: Data) {
         let vc = ViewControllerFactory.transactionDetailsViewController(safeTxHash: safeTxHash)
         presentWhenReady(vc)
@@ -381,6 +386,8 @@ extension MainTabBarViewController: NavigationRouter {
     func canNavigate(to route: NavigationRoute) -> Bool {
         if route.path.starts(with: "/settings/") {
             return true
+        } else if route.path.starts(with: "/transactions/") {
+            return true
         } else if route.path == NavigationRoute.showAssets().path {
             return true
         } else if route.path == NavigationRoute.deploymentFailedPath {
@@ -398,6 +405,24 @@ extension MainTabBarViewController: NavigationRouter {
 
             if let appSettingsVC = settingsTabVC.appSettingsViewController {
                 appSettingsVC.navigateAfterDelay(to: route)
+            }
+        } else if route.path.starts(with: "/transactions/") {
+            if let rawAddress = route.info["address"] as? String,
+               let rawChainId = route.info["chainId"] as? String {
+                guard let safe = Safe.by(address: rawAddress, chainId: rawChainId) else {
+                    // don't navigate, exit because the route can't work.
+                    return
+                }
+                if !safe.isSelected {
+                    safe.select()
+                }
+                if let transactionId = route.info["transactionId"] as? String {
+
+                } else if route.path.contains("history") {
+                    switchTo(indexPath: Path.history)
+                } else {
+                    switchTo(indexPath: Path.queue)
+                }
             }
         } else if route.path == NavigationRoute.showAssets().path {
             // if there is address and chain id, then switch to that safe.

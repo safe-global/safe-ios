@@ -76,4 +76,29 @@ extension NavigationRoute {
         route.info["parameters"] = params
         return route
     }
+
+    static func showTransactionHistory(_ address: String, chainId: String) -> NavigationRoute {
+        var route = NavigationRoute(path: "/transactions/history/")
+        route.info["address"] = address
+        route.info["chainId"] = chainId
+
+        return route
+    }
+
+    static func showTransactionQueued(_ address: String, chainId: String) -> NavigationRoute {
+        var route = NavigationRoute(path: "/transactions/queued/")
+        route.info["address"] = address
+        route.info["chainId"] = chainId
+
+        return route
+    }
+
+    static func showTransactionDetails(_ address: String, chainId: String, transactionId: String) -> NavigationRoute {
+        var route = NavigationRoute(path: "/transactions/details/")
+        route.info["address"] = address
+        route.info["chainId"] = chainId
+        route.info["transactionId"] = transactionId
+
+        return route
+    }
 }
