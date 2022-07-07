@@ -83,7 +83,6 @@
 		0468FB9725912E8300541536 /* TransactionsListConflictHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0468FB9125912E8300541536 /* TransactionsListConflictHeaderTableViewCell.xib */; };
 		0468FB9825912E8300541536 /* TransactionListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0468FB9225912E8300541536 /* TransactionListTableViewCell.xib */; };
 		0468FB9925912E8300541536 /* TransactionListHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468FB9325912E8300541536 /* TransactionListHeaderTableViewCell.swift */; };
-		046FFE042875DA74007428D7 /* DeepLinkValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FFE032875DA74007428D7 /* DeepLinkValidator.swift */; };
 		0471B3BD262742CD001F2D3B /* UpdateAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0471B3BB262742CD001F2D3B /* UpdateAppViewController.swift */; };
 		0471B3BE262742CD001F2D3B /* UpdateAppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0471B3BC262742CD001F2D3B /* UpdateAppViewController.xib */; };
 		0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0471D13124728C2C00B22A70 /* EmailLink.swift */; };
@@ -960,7 +959,6 @@
 		0468FB9125912E8300541536 /* TransactionsListConflictHeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionsListConflictHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		0468FB9225912E8300541536 /* TransactionListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionListTableViewCell.xib; sourceTree = "<group>"; };
 		0468FB9325912E8300541536 /* TransactionListHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionListHeaderTableViewCell.swift; sourceTree = "<group>"; };
-		046FFE032875DA74007428D7 /* DeepLinkValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkValidator.swift; sourceTree = "<group>"; };
 		0471B3BB262742CD001F2D3B /* UpdateAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAppViewController.swift; sourceTree = "<group>"; };
 		0471B3BC262742CD001F2D3B /* UpdateAppViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateAppViewController.xib; sourceTree = "<group>"; };
 		0471D13124728C2C00B22A70 /* EmailLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLink.swift; sourceTree = "<group>"; };
@@ -2528,7 +2526,6 @@
 				0A8AEB1725A4726E002A3FE1 /* ActionDetailExpandableCell.xib */,
 				0A8AEB1E25A4764F002A3FE1 /* ActionDetailAddressCell.swift */,
 				0A8AEB1F25A4764F002A3FE1 /* ActionDetailAddressCell.xib */,
-				046FFE032875DA74007428D7 /* DeepLinkValidator.swift */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";
@@ -4439,7 +4436,6 @@
 				5588363C2562904E0014E8C7 /* ContractVersionStatusCell.swift in Sources */,
 				0A06533B27B6D4A10008C5F1 /* ChooseOwnerDetailHeaderView.swift in Sources */,
 				041C2A5A2456F53E0044A24C /* QRView.swift in Sources */,
-				046FFE042875DA74007428D7 /* DeepLinkValidator.swift in Sources */,
 				0428DA4D25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.swift in Sources */,
 				0A791D9F24D309CE00D70DA9 /* ScreenMetrics.swift in Sources */,
 				0A9366AF278F0A9F001918A9 /* LabeledTextField.swift in Sources */,
