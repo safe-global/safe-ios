@@ -64,7 +64,7 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
             trackingEvent: .addOwnerSpecifyName
         ) { [unowned self] name in
             newAddressName = name
-            AddressBookEntry.addOrUpdate(newOwner!.checksummed, chain: safe.chain!, name: newAddressName!)
+            AddressBookEntry.addOrUpdate(newOwner!.checksummed, chain: safe.chain!, name: name)
             confirmations()
         }
 
