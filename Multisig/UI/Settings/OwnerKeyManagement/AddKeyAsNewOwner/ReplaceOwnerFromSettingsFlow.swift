@@ -64,6 +64,7 @@ class ReplaceOwnerFromSettingsFlow: ReplaceOwnerFlow {
             trackingEvent: .replaceOwnerNewOwnerName
         ) { [unowned self] name in
             newAddressName = name
+            AddressBookEntry.addOrUpdate(newOwner!.checksummed, chain: safe.chain!, name: name)
             review()
         }
 

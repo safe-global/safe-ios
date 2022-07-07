@@ -64,6 +64,7 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
             trackingEvent: .addOwnerSpecifyName
         ) { [unowned self] name in
             newAddressName = name
+            AddressBookEntry.addOrUpdate(newOwner!.checksummed, chain: safe.chain!, name: newAddressName!)
             confirmations()
         }
 
@@ -76,6 +77,7 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
 
     override func success() {
         assert(transaction != nil)
+        // TODO remove this here?
         AddressBookEntry.addOrUpdate(newOwner!.checksummed, chain: safe.chain!, name: newAddressName!)
         let successVC = factory.success (bodyText: "It needs to be confirmed and executed first before the owner will be added.",
                                          trackingEvent: .addAsOwnerSuccess) { [unowned self] showTxDetails in
