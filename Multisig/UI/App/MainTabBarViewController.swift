@@ -482,7 +482,7 @@ extension MainTabBarViewController: NavigationRouter {
 
     func switchTransactions(segment: Int) {
         if let segmentVC = transactionsSegementControl, segment < segmentVC.segmentItems.count {
-            segmentVC.selectedIndex = segment
+            segmentVC.selectSegment(at: segment)
         }
     }
 
@@ -493,14 +493,14 @@ extension MainTabBarViewController: NavigationRouter {
 
     func switchAssets(segment: Int) {
         guard let vc = balancesTabVC.assetsViewController, segment < vc.segmentVC.segmentItems.count else { return }
-        vc.segmentVC.selectedIndex = segment
+        vc.segmentVC.selectSegment(at: segment)
     }
 
     func switchSettings(segment: Int) {
         guard let segmentVC = settingsTabVC.segmentViewController, segment < segmentVC.segmentItems.count else {
             return
         }
-        segmentVC.selectedIndex = segment
+        segmentVC.selectSegment(at: segment)
     }
 }
 
