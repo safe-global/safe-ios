@@ -30,10 +30,19 @@ class CreatePasscodeFlowTests: CoreDataTestCase {
 
             // create new window with a root view controller (which is presenter)
         let presenterVC = UIViewController()
+        presenterVC.view.backgroundColor = .white
 
-        let window = UIWindow()
-        window.rootViewController = presenterVC
-        window.makeKeyAndVisible()
+        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+            XCTFail("Can't find scene to present window on it")
+            return
+        }
+
+        let originalWindow = scene.windows.first(where: { $0.isKeyWindow })
+
+        let testWindow = UIWindow(windowScene: scene)
+        testWindow.frame = UIScreen.main.bounds
+        testWindow.rootViewController = presenterVC
+        testWindow.makeKeyAndVisible()
 
         // Present the flow modally
             // this will present modal animated, so we need to wait
@@ -57,5 +66,14 @@ class CreatePasscodeFlowTests: CoreDataTestCase {
         }
             // check that that screen is 'create passcode view controller'
         XCTAssertTrue(topScreen is CreatePasscodeViewController, "not a create passcode screen")
+
+        // dismiss the flow
+        presenterVC.dismiss(animated: false)
+        _ = XCTWaiter.wait(for: [expectation(description: "wait")], timeout: 0.5)
+
+        // remove the created test window
+        originalWindow?.makeKeyAndVisible()
+        testWindow.removeFromSuperview()
+        testWindow.windowScene = nil
     }
 }
