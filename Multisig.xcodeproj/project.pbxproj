@@ -467,6 +467,8 @@
 		0AC60C892549C9D800A63AE2 /* SegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60C882549C9D800A63AE2 /* SegmentView.swift */; };
 		0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC60C8E2549C9F300A63AE2 /* SegmentView.xib */; };
 		0AC60C9D2549D63300A63AE2 /* NoSafesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C8282540914600E28669 /* NoSafesViewController.swift */; };
+		0AC62ED328781A31007945A1 /* WalletConnectSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0AC62ED228781A31007945A1 /* WalletConnectSwift */; };
+		0AC62ED628783700007945A1 /* CreatePasscodeFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC62ED528783700007945A1 /* CreatePasscodeFlowTests.swift */; };
 		0AC94458254068D800921CA5 /* NSNotification+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC94457254068D800921CA5 /* NSNotification+Events.swift */; };
 		0ACB4CD5256BC2B000845BF4 /* TransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB4CD4256BC2B000845BF4 /* TransactionDetailsViewController.swift */; };
 		0ACB4CDB256BCD6900845BF4 /* SwiftUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB4CDA256BCD6900845BF4 /* SwiftUITableViewCell.swift */; };
@@ -1325,6 +1327,7 @@
 		0AC60C562549AF3800A63AE2 /* NoSafeBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoSafeBarView.xib; sourceTree = "<group>"; };
 		0AC60C882549C9D800A63AE2 /* SegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentView.swift; sourceTree = "<group>"; };
 		0AC60C8E2549C9F300A63AE2 /* SegmentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentView.xib; sourceTree = "<group>"; };
+		0AC62ED528783700007945A1 /* CreatePasscodeFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeFlowTests.swift; sourceTree = "<group>"; };
 		0AC94457254068D800921CA5 /* NSNotification+Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Events.swift"; sourceTree = "<group>"; };
 		0ACB4CD4256BC2B000845BF4 /* TransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewController.swift; sourceTree = "<group>"; };
 		0ACB4CDA256BCD6900845BF4 /* SwiftUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUITableViewCell.swift; sourceTree = "<group>"; };
@@ -2399,6 +2402,7 @@
 		0A5B158528086454003AD853 /* Create Passcode */ = {
 			isa = PBXGroup;
 			children = (
+				0ABC00212823139D00F42D29 /* CreatePasscodeFlow.swift */,
 				0A5B15872808649E003AD853 /* CreatePasscodeController.swift */,
 				0A5B15832808643B003AD853 /* CreatePasscodeViewController.swift */,
 				0A5B158128086424003AD853 /* RepeatPasscodeViewController.swift */,
@@ -2840,6 +2844,7 @@
 		0A9BC3542460581500EB9C5D /* MultisigIntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
+				0AC62ED4287836DF007945A1 /* UI Unit Tests */,
 				6A91EFD827DA2C45009E63E9 /* Data */,
 				0A3DFF002667D7DA00B45770 /* CoreData */,
 				0A64313F247ED1AA006FD30A /* MultisigIntegrationTests.xctestplan */,
@@ -2941,6 +2946,14 @@
 				0AC60C8E2549C9F300A63AE2 /* SegmentView.xib */,
 			);
 			path = SegmentViewController;
+			sourceTree = "<group>";
+		};
+		0AC62ED4287836DF007945A1 /* UI Unit Tests */ = {
+			isa = PBXGroup;
+			children = (
+				0AC62ED528783700007945A1 /* CreatePasscodeFlowTests.swift */,
+			);
+			path = "UI Unit Tests";
 			sourceTree = "<group>";
 		};
 		0ACDC01624925B36002035A2 /* Analytics */ = {
@@ -3357,7 +3370,6 @@
 			children = (
 				0ABC001F2823058100F42D29 /* GenerateKeyFlow.swift */,
 				0ABC0023282313B300F42D29 /* AddKeyFlow.swift */,
-				0ABC00212823139D00F42D29 /* CreatePasscodeFlow.swift */,
 				04131FBB2851571E001F60C2 /* CreateInviteOwnerIntroViewController.swift */,
 				04131FBC2851571E001F60C2 /* CreateInviteOwnerIntroViewController.xib */,
 				04131FBF285683BA001F60C2 /* ShareAddOwnerLinkViewController.swift */,
@@ -4994,6 +5006,7 @@
 				0A3DFEF72667D1C000B45770 /* CoreDataTestCase.swift in Sources */,
 				0A06532F27B68AF40008C5F1 /* WebConnectionRepositoryTests.swift in Sources */,
 				0A802B9024E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift in Sources */,
+				0AC62ED628783700007945A1 /* CreatePasscodeFlowTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
