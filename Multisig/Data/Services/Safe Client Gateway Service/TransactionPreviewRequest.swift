@@ -59,7 +59,7 @@ extension SafeClientGatewayService {
         chainId: String,
         completion: @escaping (Result<TransactionPreviewRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
 
-        return asyncExecute(request: TransactionPreviewRequest(safe: transaction.safe!,
+        asyncExecuteMock(request: TransactionPreviewRequest(safe: transaction.safe!,
                                                                sender: sender,
                                                                transaction: transaction,
                                                                chainId: chainId),
@@ -67,11 +67,11 @@ extension SafeClientGatewayService {
     }
 
     @discardableResult
-    func prviewTransaction(transaction: Transaction, sender: AddressString, chainId: String) throws -> SCGModels.TransactionDetails? {
+    func previewTransaction(transaction: Transaction, sender: AddressString, chainId: String) throws -> SCGModels.TransactionDetails? {
         let request = TransactionPreviewRequest(safe: transaction.safe!,
                                                 sender: sender,
                                                 transaction: transaction,
                                                 chainId: chainId)
-        return try execute(request: request)
+        return try executeMock(request: request)
     }
 }

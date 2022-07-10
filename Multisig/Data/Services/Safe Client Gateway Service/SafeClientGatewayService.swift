@@ -11,6 +11,7 @@ import Foundation
 class SafeClientGatewayService {
     var url: URL
     private let httpClient: JSONHTTPClient
+    private let mockHttpClient: MockJSONHttpClient
 
     var jsonDecoder: JSONDecoder {
         httpClient.jsonDecoder
@@ -20,6 +21,7 @@ class SafeClientGatewayService {
         self.url = url
         httpClient = JSONHTTPClient(url: url, logger: logger)
         httpClient.jsonDecoder.dateDecodingStrategy = .millisecondsSince1970
+        mockHttpClient = MockJSONHttpClient()
     }
 
     @discardableResult
@@ -29,5 +31,15 @@ class SafeClientGatewayService {
 
     func asyncExecute<T: JSONRequest>(request: T, completion: @escaping (Result<T.ResponseType, Error>) -> Void) -> URLSessionTask? {
         httpClient.asyncExecute(request: request, completion: completion)
+    }
+
+    // Calls to Mocked responses
+    @discardableResult
+    func executeMock<T: JSONRequest>(request: T) throws -> T.ResponseType? {
+        try mockHttpClient.execute(request: request)
+    }
+
+    func asyncExecuteMock<T: JSONRequest>(request: T, completion: @escaping (Result<T.ResponseType, Error>) -> Void) -> URLSessionTask? {
+        mockHttpClient.asyncExecute(request: request, completion: completion)
     }
 }
