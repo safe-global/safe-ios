@@ -9,8 +9,7 @@ class DelegateWarningCalculator {
     private static let UNTRUSTED = true
     private static let TRUSTED = false
 
-    // MultiSendTx is untrusted: operation = delegate && 'to' address is not 'known'
-    // 'resolving the name': look up in the address info index
+    // MultiSendTx is untrusted: operation = delegate
     // Safe Tx is untrusted: operation = delegate && 'to' is not 'known'
     // 'resolving name': 'to' object's .name is nil
 
@@ -59,7 +58,7 @@ class DelegateWarningCalculator {
 
                     // if it's nil (.none) or not decoded, then we say it's trusted
             case .none, .unknown:
-                return UNTRUSTED
+                return true // true means trusted in this case. Do not use UN/TRUSTED here
             }
         }
 

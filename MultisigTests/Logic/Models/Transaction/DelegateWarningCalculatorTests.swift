@@ -58,10 +58,10 @@ class DelegateWarningCalculatorTests: XCTestCase {
     func testMultiSendOperationNoDelegateNoFlag() throws {
         let txData = try loadAndParseFile(fileName: "NoDelegateWarningBecauseNoDelegateOperation")
 
-        let result = DelegateWarningCalculator.isUntrusted(txData: txData)
+        let untrusted = DelegateWarningCalculator.isUntrusted(txData: txData)
 
         // No delegate operation to be found. And no trustedDelegateCallTarget
-        XCTAssertFalse(result)
+        XCTAssertFalse(untrusted)
     }
 
     func testOuterTxHasWarning() throws {
