@@ -93,7 +93,6 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
 
     override func success() {
         assert(transaction != nil)
-        // TODO remove this here?
         AddressBookEntry.addOrUpdate(newOwner!.checksummed, chain: safe.chain!, name: newAddressName!)
         super.success()
     }
