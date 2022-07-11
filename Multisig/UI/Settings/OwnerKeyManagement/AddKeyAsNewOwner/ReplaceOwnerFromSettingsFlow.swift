@@ -64,10 +64,15 @@ class ReplaceOwnerFromSettingsFlow: ReplaceOwnerFlow {
             trackingEvent: .replaceOwnerNewOwnerName
         ) { [unowned self] name in
             newAddressName = name
-            AddressBookEntry.addOrUpdate(newOwner!.checksummed, chain: safe.chain!, name: name)
             review()
         }
 
         show(viewController)
+    }
+
+    override func success() {
+        assert(transaction != nil)
+        AddressBookEntry.addOrUpdate(newOwner!.checksummed, chain: safe.chain!, name: newAddressName!)
+        super.success()
     }
 }
