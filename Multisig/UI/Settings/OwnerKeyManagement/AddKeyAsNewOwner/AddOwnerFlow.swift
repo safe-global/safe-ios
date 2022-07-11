@@ -96,19 +96,21 @@ class AddOwnerFlowFactory: SafeSettingsFlowFactory {
     }
 
     func review(
-        safe: Safe,
-        newOwner: Address,
-        newThreshold: Int,
-        stepNumber: Int,
-        maxSteps: Int,
-        completion: @escaping (SCGModels.TransactionDetails) -> Void
+            safe: Safe,
+            newOwner: Address,
+            newThreshold: Int,
+            stepNumber: Int,
+            maxSteps: Int,
+            newAddressName: String? = nil,
+            completion: @escaping (SCGModels.TransactionDetails) -> Void
     ) -> ReviewAddOwnerTxViewController {
         let addOwnerReviewVC = ReviewAddOwnerTxViewController(
             safe: safe,
             owner: newOwner,
             oldOwnersCount: safe.ownersInfo?.count ?? 1,
             oldThreshold: Int(safe.threshold ?? 1),
-            newThreshold: newThreshold)
+            newThreshold: newThreshold,
+            newAddressName: newAddressName)
         addOwnerReviewVC.stepNumber = stepNumber
         addOwnerReviewVC.maxSteps = maxSteps
         addOwnerReviewVC.onSuccess = completion

@@ -13,6 +13,7 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
     private var oldOwnersCount: Int = 0
     private var oldThreshold: Int = 0
     private var newThreshold: Int = 0
+    private var newAddressName: String? = nil
 
     private var stepLabel: UILabel!
 
@@ -21,12 +22,13 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
 
     var onSuccess: ((SCGModels.TransactionDetails) -> ())?
 
-    convenience init(safe: Safe, owner: Address, oldOwnersCount: Int, oldThreshold: Int, newThreshold: Int) {
+    convenience init(safe: Safe, owner: Address, oldOwnersCount: Int, oldThreshold: Int, newThreshold: Int, newAddressName: String? = nil) {
         self.init(safe: safe)
         self.owner = owner
         self.oldThreshold = oldThreshold
         self.oldOwnersCount = oldOwnersCount
         self.newThreshold = newThreshold
+        self.newAddressName = newAddressName
         trackingEvent = .settingsTxAdvancedParams
     }
 
@@ -74,8 +76,8 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
         let (name, _) = NamingPolicy.name(for: owner,
                                                     info: nil,
                                                     chainId: safe.chain!.id!)
-
-        cell.set(owner: AddressInfo(address: owner, name: name), action: .addingOwner)
+        let newName = newAddressName ?? name
+        cell.set(owner: AddressInfo(address: owner, name: newName), action: .addingOwner)
 
         return cell
     }

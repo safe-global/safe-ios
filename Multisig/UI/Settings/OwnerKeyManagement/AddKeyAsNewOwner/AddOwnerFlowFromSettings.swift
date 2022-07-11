@@ -74,6 +74,23 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
         confirmations(stepNumber: 2, maxSteps: 3)
     }
 
+    override func review(stepNumber: Int, maxSteps: Int) {
+        assert(newConfirmations != nil)
+        assert(newOwner != nil)
+        let reviewVC = addOwnerFactory.review(
+                safe: safe,
+                newOwner: newOwner!,
+                newThreshold: newConfirmations!,
+                stepNumber: stepNumber,
+                maxSteps: maxSteps,
+                newAddressName: newAddressName
+        ) { [unowned self] txDetails in
+            transaction = txDetails
+            success()
+        }
+        show(reviewVC)
+    }
+
     override func success() {
         assert(transaction != nil)
         // TODO remove this here?
