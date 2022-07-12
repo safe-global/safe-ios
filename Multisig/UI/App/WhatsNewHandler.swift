@@ -15,7 +15,7 @@ class WhatsNewHandler {
                 WhatsNew.Item(
                         title: "Open Links in App",
                         subtitle: "Now you can open links to assets or transactions, or transaction details of a safe in the mobile app",
-                        image: UIImage(named: "ico-whats-open-links-in-app")
+                        image: UIImage(named: "ico-whats-new-open-links-in-app")
                 ),
                 WhatsNew.Item(
                         title: "Review Delegate Calls",
