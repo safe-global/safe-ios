@@ -131,6 +131,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if AddOwnerRequestValidator.isValid(url: incomingURL),
            let params = AddOwnerRequestValidator.parameters(from: incomingURL) {
             DefaultNavigationRouter.shared.navigate(to: .requestToAddOwner(params))
+            return
+        }
+
+        if let navigationRoute = DefaultNavigationRouter.shared.routeFrom(from: incomingURL) {
+            DefaultNavigationRouter.shared.navigate(to: navigationRoute)
         }
     }
 
