@@ -34,11 +34,6 @@ class SafeClientGatewayService {
     }
 
     // Calls to Mocked responses
-    @discardableResult
-    func executeMock<T: JSONRequest>(request: T) throws -> T.ResponseType? {
-        try mockHttpClient.execute(request: request)
-    }
-
     func asyncExecuteMock<T: JSONRequest>(request: T, completion: @escaping (Result<T.ResponseType, Error>) -> Void) -> URLSessionTask? {
         mockHttpClient.asyncExecute(request: request, completion: completion)
     }

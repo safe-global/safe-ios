@@ -215,19 +215,20 @@ class WCIncomingTransactionRequestViewController: UIViewController {
 
         tableView.estimatedRowHeight = BasicCell.rowHeight
 
-        // TODO request preview
-
+        // TODO Is this the right place of this call?
          App.shared.clientGatewayService.asyncPreviewTransaction(
                 transaction: transaction,
-                sender: AddressString("0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7"),
+                sender: AddressString(safe.addressValue),
                 chainId: safe.chain!.id!
         ) { result in
             switch result {
             case .success(let response):
-                print("Response: \(response)")
+                // Handle result
+                print("---> Response (success): \(response)")
 
-            case .failure(_):
-                print("Response: Failure")
+            case .failure(let error):
+                // handle failure
+                print("---> Response: Failure! \(error)")
             }
         }
 

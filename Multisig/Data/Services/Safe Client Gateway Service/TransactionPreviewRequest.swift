@@ -59,19 +59,11 @@ extension SafeClientGatewayService {
         chainId: String,
         completion: @escaping (Result<TransactionPreviewRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
 
+        // Will always return the mocked response in completion
         asyncExecuteMock(request: TransactionPreviewRequest(safe: transaction.safe!,
                                                                sender: sender,
                                                                transaction: transaction,
                                                                chainId: chainId),
                             completion: completion)
-    }
-
-    @discardableResult
-    func previewTransaction(transaction: Transaction, sender: AddressString, chainId: String) throws -> SCGModels.TransactionDetails? {
-        let request = TransactionPreviewRequest(safe: transaction.safe!,
-                                                sender: sender,
-                                                transaction: transaction,
-                                                chainId: chainId)
-        return try executeMock(request: request)
     }
 }

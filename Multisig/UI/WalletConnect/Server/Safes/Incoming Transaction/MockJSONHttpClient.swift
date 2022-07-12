@@ -26,54 +26,41 @@ class MockJSONHttpClient {
         try! Data(contentsOf: Bundle(for: Self.self).url(forResource: name, withExtension: "json")!)
     }
 
-//    private func request<T: JSONRequest>(from request: T) throws -> Request {
-//        let requestData = request.httpMethod != "GET" ? (try jsonEncoder.encode(request)) : nil
-//        let requestHeaders = request.httpMethod != "GET" ? ["Content-Type": "application/json"] : [:]
-//        let httpRequest = Request(httpMethod: request.httpMethod,
-//                urlPath: request.urlPath,
-//                query: request.query,
-//                body: requestData,
-//                headers: requestHeaders,
-//                url: request.url)
-//        return httpRequest
-//    }
-
-    public func execute<T: JSONRequest>(request jsonRequest: T) throws -> T.ResponseType? {
-//        let request = try self.request(from: jsonRequest)
-        //TODO check we can handle the request
-        if jsonRequest is TransactionPreviewRequest {
-            //TODO: Get response here from file and serve it
-            let tx = try! loadAndParseFile(fileName: "MultiSendApproveMultihopBatchSwapExactIn")
-
-            print("---> TransactionPreviewRequest | tx: \(tx)")
-            print("---> TransactionPreviewRequest | TransactionPreviewRequest....")
-
-            //completion(.success(tx))
-        } else {
-
-            print("---> TransactionPreviewRequest | Unexpected request... -> error")
-            //completion(.failure(error))
-        }
-
-        return nil
-    }
-
     func asyncExecute<T: JSONRequest>(request: T, completion: @escaping (Result<T.ResponseType, Error>) -> ()) -> URLSessionTask? {
-        //TODO check we can handle the request
+        //Check if we can handle the request
         if request is TransactionPreviewRequest {
-            //TODO: Get response here from file and serve it
-            let tx = try! loadAndParseFile(fileName: "MultiSendApproveMultihopBatchSwapExactIn")
-
-            print("---> TransactionPreviewRequest | tx: \(tx)")
-            print("---> TransactionPreviewRequest | TransactionPreviewRequest....")
-
-            //completion(.success(tx))
+            let txData = jsonData("MultiSendApproveMultihopBatchSwapExactIn")
+            do {
+                let output: T.ResponseType = try self.response(from: txData)
+                completion(.success(output))
+            } catch {
+                completion(.failure(error))
+            }
         } else {
-
             print("---> TransactionPreviewRequest | Unexpected request... -> error")
-            //completion(.failure(error))
+            //completion(.failure(InvalidRequestError))
         }
 
         return nil
     }
+
+    private func response<T: Decodable>(from data: Data) throws -> T {
+        var json = data
+        if json.isEmpty {
+            json = "{}".data(using: .utf8)!
+        }
+        let response: T
+        do {
+            response = try decoder.decode(T.self, from: json)
+        } catch {
+            print("Failed to decode response: \(error)")
+            throw error
+        }
+        return response
+    }
+
 }
+
+//class InvalidRequestError: Error {
+//
+//}
