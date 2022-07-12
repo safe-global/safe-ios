@@ -15,14 +15,12 @@ class WhatsNewHandler {
                 WhatsNew.Item(
                         title: "Open Links in App",
                         subtitle: "Now you can open links to assets or transactions, or transaction details of a safe in the mobile app",
-                        //TODO: adjust image
-                        image: UIImage(named: "ico-whats-new-edit-safe-owners")
+                        image: UIImage(named: "ico-whats-open-links-in-app")
                 ),
                 WhatsNew.Item(
                         title: "Review Delegate Calls",
-                        subtitle: "Bring attention to potentially dangerous transactions marked with warning of \"unexpected delegate calls\" in transaction details",
-                        //TODO: adjust image
-                        image: UIImage(named: "ico-whats-new-edit-safe-owners")
+                        subtitle: "Bring attention to potentially dangerous transactions marked with warning of «unexpected delegate calls» in transaction details",
+                        image: UIImage(named: "ico-whats-new-review-delegate-calls")
                 ),
                 WhatsNew.Item(
                         title: "Edit Safe Owners",

@@ -1,0 +1,22 @@
+{
+  "images" : [
+    {
+      "filename" : "ico-whats-new-open-links-in-app.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-whats-new-open-links-in-app-1.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
