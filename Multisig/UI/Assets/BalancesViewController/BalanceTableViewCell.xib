@@ -18,23 +18,35 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YE3-hn-3h7">
-                        <rect key="frame" x="20" y="16" width="28" height="28"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="28" id="6Kl-nK-4Z6"/>
-                            <constraint firstAttribute="height" constant="28" id="Eo8-LP-TfF"/>
-                        </constraints>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6g-6D-x6l">
-                        <rect key="frame" x="56" y="0.0" width="194.5" height="60"/>
-                        <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="5Oe-4f-zHg"/>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="cWl-KU-m9w"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MII-WX-GmO">
+                        <rect key="frame" x="20" y="16" width="77.5" height="28"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YE3-hn-3h7">
+                                <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="28" id="6Kl-nK-4Z6"/>
+                                    <constraint firstAttribute="height" constant="28" id="Eo8-LP-TfF"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6g-6D-x6l">
+                                <rect key="frame" x="36" y="4" width="41.5" height="20.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="5Oe-4f-zHg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-external-link" translatesAutoresizingMaskIntoConstraints="NO" id="b46-da-cS0">
+                                <rect key="frame" x="77.5" y="6" width="16" height="16"/>
+                                <color key="tintColor" name="icon"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="FlK-6o-2jX"/>
+                                    <constraint firstAttribute="width" secondItem="b46-da-cS0" secondAttribute="height" id="dRa-sg-XZo"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                    </stackView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rL5-mS-zou">
                         <rect key="frame" x="262.5" y="9.5" width="41.5" height="41"/>
                         <subviews>
@@ -55,20 +67,17 @@
                 </subviews>
                 <color key="backgroundColor" name="backgroundSecondary"/>
                 <constraints>
-                    <constraint firstItem="a6g-6D-x6l" firstAttribute="leading" secondItem="YE3-hn-3h7" secondAttribute="trailing" constant="8" symbolic="YES" id="NuV-BC-XNy"/>
-                    <constraint firstItem="a6g-6D-x6l" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Qvz-X8-NZH"/>
-                    <constraint firstItem="rL5-mS-zou" firstAttribute="leading" secondItem="a6g-6D-x6l" secondAttribute="trailing" constant="12" id="WEq-OQ-2Ga"/>
+                    <constraint firstItem="rL5-mS-zou" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MII-WX-GmO" secondAttribute="trailing" constant="12" id="1aS-TI-dO9"/>
+                    <constraint firstItem="MII-WX-GmO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="1aa-lH-4tV"/>
                     <constraint firstItem="rL5-mS-zou" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="exK-yc-6IS"/>
-                    <constraint firstAttribute="bottom" secondItem="a6g-6D-x6l" secondAttribute="bottom" id="n7l-DR-3sa"/>
-                    <constraint firstItem="YE3-hn-3h7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="tSZ-lC-s32"/>
+                    <constraint firstItem="MII-WX-GmO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="jEg-B8-dCi"/>
+                    <constraint firstAttribute="bottom" secondItem="MII-WX-GmO" secondAttribute="bottom" constant="16" id="o0V-ko-gJ3"/>
                     <constraint firstAttribute="trailing" secondItem="rL5-mS-zou" secondAttribute="trailing" constant="16" id="wJX-Mw-XPi"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <constraints>
-                <constraint firstItem="YE3-hn-3h7" firstAttribute="centerY" secondItem="njF-e1-oar" secondAttribute="centerY" id="FFJ-H4-BzG"/>
-            </constraints>
             <connections>
+                <outlet property="browseIcon" destination="b46-da-cS0" id="3I9-hm-kZM"/>
                 <outlet property="cellDetailLabel" destination="Hno-zE-SiG" id="wpu-ek-o7s"/>
                 <outlet property="cellImageView" destination="YE3-hn-3h7" id="moF-qu-Fyp"/>
                 <outlet property="cellMainLabel" destination="a6g-6D-x6l" id="KMW-xB-bM5"/>
@@ -78,8 +87,12 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="icon-external-link" width="16" height="16"/>
         <namedColor name="backgroundSecondary">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="icon">
+            <color red="0.69803921568627447" green="0.73333333333333328" blue="0.75294117647058822" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

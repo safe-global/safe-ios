@@ -33,6 +33,7 @@
                     </button>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-external-link" translatesAutoresizingMaskIntoConstraints="NO" id="Q6Q-DG-QLN">
                         <rect key="frame" x="79" y="22" width="16" height="16"/>
+                        <color key="tintColor" name="primary"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="16" id="YA3-fA-5aa"/>
                             <constraint firstAttribute="height" constant="16" id="gGZ-8N-W1k"/>

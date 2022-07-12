@@ -101,7 +101,7 @@ extension UILabel {
         attributedText = NSAttributedString(string: text, attributes: style.attributes)
     }
 
-    func hyperLinkLabel(_ prefixText: String = "", prefixStyle: GNOTextStyle = .primary, linkText: String = "", linkStyle: GNOTextStyle = .primaryButton, linkIcon: UIImage? = UIImage(named: "icon-external-link")) {
+    func hyperLinkLabel(_ prefixText: String = "", prefixStyle: GNOTextStyle = .primary, linkText: String = "", linkStyle: GNOTextStyle = .primaryButton, linkIcon: UIImage? = UIImage(named: "icon-external-link")!.withTintColor(.primary)) {
         let result = NSMutableAttributedString()
 
         if !prefixText.isEmpty {

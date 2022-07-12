@@ -14,6 +14,7 @@ class BalanceTableViewCell: UITableViewCell {
     @IBOutlet private weak var cellDetailLabel: UILabel!
     @IBOutlet private weak var cellSubDetailLabel: UILabel!
     @IBOutlet private weak var cellImageView: UIImageView!
+    @IBOutlet private weak var browseIcon: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,5 +46,9 @@ class BalanceTableViewCell: UITableViewCell {
 
     func setImage(_ image: UIImage) {
         cellImageView.image = image
+    }
+
+    func setBrowsingEnabled(_ enabled: Bool = false) {
+        browseIcon.isHidden = !enabled
     }
 }

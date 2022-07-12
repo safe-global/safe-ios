@@ -23,12 +23,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="440.5" height="76"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JIJ-bo-L14" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
-                                <rect key="frame" x="16" y="16" width="296.5" height="44"/>
+                                <rect key="frame" x="16" y="16" width="272.5" height="44"/>
                                 <color key="backgroundColor" name="backgroundSecondary"/>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-info-toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="TAP-Ph-7yB">
-                                <rect key="frame" x="320.5" y="26" width="0.0" height="24"/>
+                                <rect key="frame" x="296.5" y="26" width="24" height="24"/>
                                 <color key="tintColor" name="warning"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="24" id="wA9-JY-V8Y"/>
+                                </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ogd-oH-yAA" userLabel="Action Label">
                                 <rect key="frame" x="328.5" y="16" width="100" height="44"/>
