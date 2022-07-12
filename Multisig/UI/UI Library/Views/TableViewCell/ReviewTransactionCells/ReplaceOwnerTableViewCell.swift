@@ -17,8 +17,8 @@ class ReplaceOwnerTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    func set(newOwner: AddressInfo, oldOwner: AddressInfo) {
-        newOwnerView.set(owner: newOwner, action: .addingOwner)
-        oldOwnerView.set(owner: oldOwner, action: .replacingOwner)
+    func set(newOwner: AddressInfo, oldOwner: AddressInfo, prefix: String? = nil) {
+        newOwnerView.set(owner: newOwner, action: .addingOwner, prefix: prefix)
+        oldOwnerView.set(owner: oldOwner, action: .replacingOwner, prefix: prefix)
     }
 }

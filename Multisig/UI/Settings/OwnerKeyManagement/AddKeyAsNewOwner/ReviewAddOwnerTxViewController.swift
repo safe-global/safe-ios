@@ -77,7 +77,7 @@ class ReviewAddOwnerTxViewController: ReviewSafeTransactionViewController {
                                                     info: nil,
                                                     chainId: safe.chain!.id!)
         let newName = newAddressName ?? name
-        cell.set(owner: AddressInfo(address: owner, name: newName), action: .addingOwner)
+        cell.set(owner: AddressInfo(address: owner, name: newName), action: .addingOwner, prefix: safe.chain?.shortName)
 
         return cell
     }
