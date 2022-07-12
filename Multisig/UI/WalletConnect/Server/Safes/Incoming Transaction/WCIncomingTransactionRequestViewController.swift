@@ -215,7 +215,7 @@ class WCIncomingTransactionRequestViewController: UIViewController {
 
         tableView.estimatedRowHeight = BasicCell.rowHeight
 
-        // TODO Is this the right place of this call?
+        // TODO Is this the right place for this call?
          App.shared.clientGatewayService.asyncPreviewTransaction(
                 transaction: transaction,
                 sender: AddressString(safe.addressValue),
