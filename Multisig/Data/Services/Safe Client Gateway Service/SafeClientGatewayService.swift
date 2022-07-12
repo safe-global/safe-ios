@@ -33,7 +33,7 @@ class SafeClientGatewayService {
         httpClient.asyncExecute(request: request, completion: completion)
     }
 
-    // Calls to Mocked responses
+    // Returns mocked response in completion
     func asyncExecuteMock<T: JSONRequest>(request: T, completion: @escaping (Result<T.ResponseType, Error>) -> Void) -> URLSessionTask? {
         mockHttpClient.asyncExecute(request: request, completion: completion)
     }
