@@ -66,4 +66,13 @@ extension SafeClientGatewayService {
                                                                chainId: chainId),
                             completion: completion)
     }
+
+    @discardableResult
+    func previewTransaction(transaction: Transaction, sender: AddressString, chainId: String) throws -> SCGModels.TransactionDetails? {
+        let request = TransactionPreviewRequest(safe: transaction.safe!,
+                sender: sender,
+                transaction: transaction,
+                chainId: chainId)
+        return try execute(request: request)
+    }
 }
