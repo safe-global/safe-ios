@@ -18,40 +18,59 @@ class ActivityButtonView: UINibView {
 
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var actionButton: UIButton!
+    @IBOutlet private weak var rejectButton: UIButton!
 
     @IBInspectable
-    var title: String = "Button"
+    var actionTitle: String = "Button"
+    @IBInspectable
+    var rejectTitle: String = "Reject"
 
-    var onClick: (() -> Void)?
+    var onAction: (() -> Void)?
+    var onReject: (() -> Void)?
 
     var state: ActivityButtonViewState = .normal {
         didSet {
             switch state {
             case .loading:
                 actionButton.isEnabled = false
+                rejectButton.isEnabled = false
                 activityIndicator.isHidden = false
                 activityIndicator.startAnimating()
                 actionButton.setText("", .filled)
+                rejectButton.setText("", .filledError)
             case .normal:
                 actionButton.isEnabled = true
+                rejectButton.isEnabled = true
                 activityIndicator.isHidden = true
                 activityIndicator.stopAnimating()
-                actionButton.setText(title, .filled)
+                actionButton.setText(actionTitle, .filled)
+                rejectButton.setText(rejectTitle, .filledError)
             case .disabled:
                 actionButton.isEnabled = false
+                rejectButton.isEnabled = false
                 activityIndicator.isHidden = true
                 activityIndicator.stopAnimating()
                 actionButton.setText("", .filled)
+                rejectButton.setText("", .filledError)
             }
         }
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        actionButton.setText(title, .filled)
+        actionButton.setText(actionTitle, .filled)
+        rejectButton.setText(rejectTitle, .filledError)
+    }
+
+    @IBAction func rejectButtonTouched(_ sender: Any) {
+        onReject?()
     }
 
     @IBAction private func actionButtonTouched(_ sender: Any) {
-        onClick?()
+        onAction?()
+    }
+
+    func set(rejectionEnabled: Bool = false) {
+        rejectButton.isHidden = !rejectionEnabled
     }
 }
