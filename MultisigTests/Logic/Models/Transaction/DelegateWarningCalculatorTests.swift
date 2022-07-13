@@ -47,21 +47,21 @@ class DelegateWarningCalculatorTests: XCTestCase {
     }
 
     func testMultiSendOperationIsDelegateButToAddressIsKnown() throws {
-        let txData = try loadAndParseFile(fileName: "NoDelegateWarningBecauseMultiSendAddressIsKnown")
+        let txData = try loadAndParseFile(fileName: "DelegateWarningEvenIfMultiSendAddressIsKnown")
 
         let result = DelegateWarningCalculator.isUntrusted(txData: txData)
 
         // Multisend operation is delegate but to: address is known
-        XCTAssertFalse(result)
+        XCTAssertTrue(result)
     }
 
     func testMultiSendOperationNoDelegateNoFlag() throws {
         let txData = try loadAndParseFile(fileName: "NoDelegateWarningBecauseNoDelegateOperation")
 
-        let result = DelegateWarningCalculator.isUntrusted(txData: txData)
+        let untrusted = DelegateWarningCalculator.isUntrusted(txData: txData)
 
         // No delegate operation to be found. And no trustedDelegateCallTarget
-        XCTAssertFalse(result)
+        XCTAssertFalse(untrusted)
     }
 
     func testOuterTxHasWarning() throws {
@@ -110,15 +110,6 @@ class DelegateWarningCalculatorTests: XCTestCase {
         XCTAssertFalse(result)
     }
 
-    func testTransferNoWarningButDelegate() throws {
-        let txData = try loadAndParseFile(fileName: "TransferNoWarningButDelegate")
-
-        let result = DelegateWarningCalculator.isUntrusted(txData: txData)
-
-        // Delegate flag not set. But Delegate with unknown Address -> Warning
-        XCTAssertTrue(result)
-    }
-
     func testTransferNoWarningButDelegateWithName() throws {
         let txData = try loadAndParseFile(fileName: "TransferNoWarningButDelegateWithName")
 
@@ -126,6 +117,29 @@ class DelegateWarningCalculatorTests: XCTestCase {
 
         // Delegate flag not set. But Delegate with known Address -> No Warning
         XCTAssertFalse(result)
+    }
+
+    func testWarnAboutAnyNestedMultisendWithDelegate() throws {
+        let txData = try loadAndParseFile(fileName: "WarnAboutAnyNestedMultisendWithDelegate")
+
+        let result = DelegateWarningCalculator.isUntrusted(txData: txData)
+
+        // Top level delegate is untrusted
+        XCTAssertTrue(result)
+
+        // But we need to warn about embedded delegate multisends
+        txData.dataDecoded?.parameters?.forEach { parameter in
+            switch parameter.valueDecoded {
+            case .multiSend(let multiSendTransactions):
+                multiSendTransactions.filter { tx in
+                            tx.operation != Multisig.SCGModels.Operation.delegate
+                        }
+                        .forEach { tx in
+                            XCTAssertFalse(DelegateWarningCalculator.isUntrusted(multiSendTx: tx, addressInfoIndex: txData.addressInfoIndex))
+                        }
+            default: break
+            }
+        }
     }
 
     // Helper
