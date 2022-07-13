@@ -96,7 +96,7 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
             cell.set(
                 newOwner: AddressInfo(address: owner, name: newName),
                 oldOwner: AddressInfo(address: ownerToBeReplaced, name: oldOwnerName),
-                    prefix: safe.chain?.shortName
+                prefix: safe.chain?.shortName
             )
         
             return cell
