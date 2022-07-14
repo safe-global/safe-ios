@@ -10,7 +10,6 @@ import Foundation
 
 enum WebAppURLBuilder {
     static func url(safe: Address, chainPrefix: String) -> URL? {
-        let path = "https://gnosis-safe.io/app/\(chainPrefix):\(safe.description)/balances/collectibles"
-        return URL(string: path)
+        return App.configuration.services.webAppURL.appendingPathComponent("app/\(chainPrefix):\(safe.description)/balances/collectibles")
     }
 }
