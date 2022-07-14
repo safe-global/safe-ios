@@ -37,8 +37,8 @@ class MockJSONHttpClient {
                 completion(.failure(error))
             }
         } else {
-            print("---> TransactionPreviewRequest | Unexpected request... -> error")
-            //completion(.failure(InvalidRequestError))
+            print("---> TransactionPreviewRequest | Unexpected request... -> InvalidRequestError")
+            completion(.failure("InvalidRequestError"))
         }
 
         return nil
