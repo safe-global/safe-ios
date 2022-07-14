@@ -47,7 +47,7 @@ protocol WebConnectionSingleRequestSubject: AnyObject {
 /// Use the `shared` instance since the controller's lifetime is the same as the app's lifetime.
 ///
 /// Remember to set the `delegate` in order to respond to connection events.
-class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSubject, WebConnectionListSubject, WebConnectionRequestSubject, WebConnectionSingleRequestSubject, Client2Delegate {
+class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSubject, WebConnectionListSubject, WebConnectionRequestSubject, WebConnectionSingleRequestSubject, ClientDelegateV2 {
 
     static let shared = WebConnectionController()
 
@@ -695,6 +695,10 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         handleSessionUpdate(updatedSession)
     }
 
+    func server(_ server: Server, willReconnect session: Session) {
+        // not implemented
+    }
+
     // MARK: - Server Request Handling
 
     func canHandle(request: Request) -> Bool {
@@ -882,6 +886,10 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     // called when received 'wc_updateSession' with approved = true
     func client(_ client: Client, didUpdate session: Session) {
         handleSessionUpdate(session)
+    }
+
+    func client(_ client: Client, willReconnect session: Session) {
+        // not implemented
     }
 
     // MARK: - Connect Wallet Logic
