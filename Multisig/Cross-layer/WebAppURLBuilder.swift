@@ -10,6 +10,6 @@ import Foundation
 
 enum WebAppURLBuilder {
     static func url(safe: Address, chainPrefix: String) -> URL? {
-        return App.configuration.services.webAppURL.appendingPathComponent("app/\(chainPrefix):\(safe.description)/balances/collectibles")
+        return App.configuration.services.webAppURL.appendingPathComponent("\(chainPrefix):\(safe.description)/balances/collectibles")
     }
 }

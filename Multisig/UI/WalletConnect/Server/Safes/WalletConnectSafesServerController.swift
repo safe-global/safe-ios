@@ -54,7 +54,7 @@ class WalletConnectSafesServerController: WalletConnectServerController {
     override func server(_ server: Server, shouldStart session: Session, completion: @escaping (Session.WalletInfo) -> Void) {
         let walletMeta = Session.ClientMeta(name: "Gnosis Safe",
                                             description: "The most trusted platform to manage digital assets.",
-                                            icons: [App.configuration.services.webAppURL.appendingPathComponent("app/favicon.ico")],
+                                            icons: [App.configuration.services.webAppURL.appendingPathComponent("favicon.ico")],
                                             url: App.configuration.services.webAppURL)
 
         guard let safe = try? Safe.getSelected(),
