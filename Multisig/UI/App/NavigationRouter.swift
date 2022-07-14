@@ -40,7 +40,7 @@ class DefaultNavigationRouter: NavigationRouter {
         sceneDelegate?.navigate(to: route)
     }
 
-    private let pattern = "^https://gnosis-safe.io/app/([-a-zA-Z0-9]{1,20}):(0x[a-fA-F0-9]{40})/([-a-zA-Z0-9]{1,20})(/[-a-zA-Z0-9_]+)?"
+    private let pattern = "^\(App.configuration.services.webAppURL)([-a-zA-Z0-9]{1,20}):(0x[a-fA-F0-9]{40})/([-a-zA-Z0-9]{1,20})(/[-a-zA-Z0-9_]+)?"
 
     func routeFrom(from url: URL) -> NavigationRoute? {
         let matches = url.absoluteString.capturedValues(pattern: pattern).flatMap { $0 }

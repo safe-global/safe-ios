@@ -106,7 +106,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         guard let safe = safe,
               let tx = tx else { return }
 
-        let text = AppConfiguration().services.webAppURL.appendingPathComponent("\(safe.chain!.shortName!):\(safe.displayAddress)/transactions/\(tx.txId)")
+        let text = App.configuration.services.webAppURL.appendingPathComponent("\(safe.chain!.shortName!):\(safe.displayAddress)/transactions/\(tx.txId)")
         let vc = UIActivityViewController(activityItems: [text], applicationActivities: nil)
         vc.completionWithItemsHandler = { _, success, _, _ in
             if success {
