@@ -44,9 +44,12 @@ class UIFlow {
         presenter = vc
 
         if let presentedViewController = presenter.presentedViewController {
-            presentedViewController.dismiss(animated: true)
+            presentedViewController.dismiss(animated: true) { [weak self] in
+                self?.presenter.present(nav, animated: true)
+            }
+        } else {
+            presenter.present(nav, animated: true)
         }
-        presenter.present(nav, animated: true)
     }
 
     func push(from vc: UIViewController) {
