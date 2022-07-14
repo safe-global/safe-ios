@@ -101,6 +101,7 @@ class AddOwnerFlowFactory: SafeSettingsFlowFactory {
         newThreshold: Int,
         stepNumber: Int,
         maxSteps: Int,
+        newAddressName: String? = nil,
         completion: @escaping (SCGModels.TransactionDetails) -> Void
     ) -> ReviewAddOwnerTxViewController {
         let addOwnerReviewVC = ReviewAddOwnerTxViewController(
@@ -108,7 +109,8 @@ class AddOwnerFlowFactory: SafeSettingsFlowFactory {
             owner: newOwner,
             oldOwnersCount: safe.ownersInfo?.count ?? 1,
             oldThreshold: Int(safe.threshold ?? 1),
-            newThreshold: newThreshold)
+            newThreshold: newThreshold,
+            newAddressName: newAddressName)
         addOwnerReviewVC.stepNumber = stepNumber
         addOwnerReviewVC.maxSteps = maxSteps
         addOwnerReviewVC.onSuccess = completion
