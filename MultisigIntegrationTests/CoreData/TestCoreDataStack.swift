@@ -14,7 +14,7 @@ import CoreData
 class TestCoreDataStack: CoreDataProtocol {
     // Using the in-memory container unit testing requires loading the xcdatamodel to be loaded from the main bundle
     var managedObjectModel: NSManagedObjectModel = {
-        let managedObjectModel = NSManagedObjectModel.mergedModel(from: [Bundle.main])!
+        let managedObjectModel = NSManagedObjectModel.mergedModel(from: [Bundle(for: type(of: self))])!
         return managedObjectModel
     }()
 
