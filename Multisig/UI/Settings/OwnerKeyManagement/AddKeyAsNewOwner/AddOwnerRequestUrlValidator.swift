@@ -15,7 +15,21 @@ struct AddOwnerRequestParameters {
 }
 
 struct AddOwnerRequestValidator {
-    private static let pattern = "^\(App.configuration.services.webAppURL)([-a-zA-Z0-9]{1,20}):(0x[a-fA-F0-9]{40})/addOwner\\?address=(0x[a-fA-F0-9]{40})$"
+
+    private static var _webAppURL: URL = App.configuration.services.webAppURL
+    static var webAppURL: URL {
+
+        get {
+            _webAppURL
+        }
+
+        set {
+            _webAppURL = newValue
+            pattern = "^\(newValue)([-a-zA-Z0-9]{1,20}):(0x[a-fA-F0-9]{40})/addOwner\\?address=(0x[a-fA-F0-9]{40})$"
+        }
+    }
+
+    private static var pattern = "^\(webAppURL)([-a-zA-Z0-9]{1,20}):(0x[a-fA-F0-9]{40})/addOwner\\?address=(0x[a-fA-F0-9]{40})$"
 
     static func isValid(url: URL) -> Bool {
         guard url.absoluteString.matches(pattern: pattern) else { return false }
