@@ -14,6 +14,8 @@ class CreatePasscodeFlowTests: CoreDataTestCase {
     var testWindow: UIWindow!
     var presenterVC: UIViewController!
 
+    let waitingTime: TimeInterval = 2
+
     override func setUp() {
         super.setUp()
         // NOTE: each test starts with an empty database
@@ -27,7 +29,7 @@ class CreatePasscodeFlowTests: CoreDataTestCase {
         // dismiss the flow
         presenterVC?.dismiss(animated: false)
         // wait for dismissal animation to complete
-        wait(timeout: 0.5)
+        wait(timeout: waitingTime)
 
         removeTestWindow()
     }
@@ -43,7 +45,7 @@ class CreatePasscodeFlowTests: CoreDataTestCase {
         let flow = CreatePasscodeFlow(completion: { _ in })
         flow.modal(from: presenterVC)
         // wait for presentation animation to complete
-        wait(timeout: 0.5)
+        wait(timeout: waitingTime)
 
         // 3. then it shows 'create passcode' screen
         let topScreen = topPresentedController()

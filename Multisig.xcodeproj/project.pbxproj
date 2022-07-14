@@ -467,7 +467,6 @@
 		0AC60C892549C9D800A63AE2 /* SegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60C882549C9D800A63AE2 /* SegmentView.swift */; };
 		0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC60C8E2549C9F300A63AE2 /* SegmentView.xib */; };
 		0AC60C9D2549D63300A63AE2 /* NoSafesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C8282540914600E28669 /* NoSafesViewController.swift */; };
-		0AC62ED328781A31007945A1 /* WalletConnectSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0AC62ED228781A31007945A1 /* WalletConnectSwift */; };
 		0AC62ED628783700007945A1 /* CreatePasscodeFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC62ED528783700007945A1 /* CreatePasscodeFlowTests.swift */; };
 		0AC94458254068D800921CA5 /* NSNotification+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC94457254068D800921CA5 /* NSNotification+Events.swift */; };
 		0ACB4CD5256BC2B000845BF4 /* TransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB4CD4256BC2B000845BF4 /* TransactionDetailsViewController.swift */; };
