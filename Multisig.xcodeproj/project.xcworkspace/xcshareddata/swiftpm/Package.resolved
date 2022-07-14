@@ -285,7 +285,7 @@
         "repositoryURL": "https://github.com/gnosis/Web3.swift.git",
         "state": {
           "branch": "update-cryptoswift-1.5.1",
-          "revision": "bb7593cbde04cd86eff56bffb32666a660022703",
+          "revision": "420ce9f98b5ae2ccd9117515dda40819f5317036",
           "version": null
         }
       },
