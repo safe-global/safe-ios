@@ -44,7 +44,7 @@ class UIFlow {
         presenter = vc
 
         if presenter.presentedViewController != nil {
-            presenter.show(nav, sender: nil)
+            presenter.presentedViewController!.present(nav, animated: true)
         } else {
             presenter.present(nav, animated: true)
         }
