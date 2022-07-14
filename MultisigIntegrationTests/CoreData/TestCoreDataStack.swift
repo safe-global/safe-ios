@@ -7,14 +7,15 @@
 //
 
 import CoreData
+@testable import Multisig
 
-#if DEBUG
+//#if DEBUG
 // This class is part of Multisig target so we could use it in previews.
 
 class TestCoreDataStack: CoreDataProtocol {
     // Using the in-memory container unit testing requires loading the xcdatamodel to be loaded from the main bundle
     var managedObjectModel: NSManagedObjectModel = {
-        let managedObjectModel = NSManagedObjectModel.mergedModel(from: [Bundle(for: type(of: self))])!
+        let managedObjectModel = NSManagedObjectModel.mergedModel(from: [Bundle.main])!
         return managedObjectModel
     }()
 
@@ -41,4 +42,4 @@ class TestCoreDataStack: CoreDataProtocol {
     }
 }
 
-#endif
+//#endif

@@ -232,7 +232,6 @@
 		0A3DFEFA2667D2C100B45770 /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03A24489F5D003EC861 /* CoreDataStackTests.swift */; };
 		0A3DFEFC2667D2DF00B45770 /* SafeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551DDEEF244F1A0A00C719D3 /* SafeTests.swift */; };
 		0A3DFEFE2667D3A700B45770 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A3DFEFD2667D3A700B45770 /* README.md */; };
-		0A3DFEFF2667D3D100B45770 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */; };
 		0A3E980B2806FAD300E90EEC /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3E980A2806FAD300E90EEC /* Algorithms */; };
 		0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3F34D82477E4E900E872AF /* KeyboardAdaptive.swift */; };
 		0A3FDAD826AEB0DE006A7DC3 /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
@@ -349,7 +348,7 @@
 		0A7AEAF42463185C00014184 /* ENSNameLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF32463185C00014184 /* ENSNameLoader.swift */; };
 		0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF52463189400014184 /* CenteredAddressWithLink.swift */; };
 		0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7AEAF72463190100014184 /* LoadableENSNameText.swift */; };
-		0A7B35172880718D00EC04EC /* Multisig.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03524489F37003EC861 /* Multisig.xcdatamodeld */; };
+		0A7B3518288071EB00EC04EC /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5556A03B24489F5D003EC861 /* TestCoreDataStack.swift */; };
 		0A802B8124E413450001790F /* HTTPClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B8024E413450001790F /* HTTPClientError.swift */; };
 		0A802B9024E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B8F24E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift */; };
 		0A802B9224E5843B0001790F /* PagedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A802B9124E5843B0001790F /* PagedRequest.swift */; };
@@ -4580,7 +4579,6 @@
 				0A9366A5278EE8FE001918A9 /* FormViewController.swift in Sources */,
 				55CEFC0C24939079003B2B19 /* ConsoleTracker.swift in Sources */,
 				045A17632833E04B0020484B /* ReplaceOwnerFromSettingsFlow.swift in Sources */,
-				0A3DFEFF2667D3D100B45770 /* TestCoreDataStack.swift in Sources */,
 				6AAE34DE282A2F0400CCFC95 /* OwnerHeaderView.swift in Sources */,
 				0468FB9925912E8300541536 /* TransactionListHeaderTableViewCell.swift in Sources */,
 				04CE3F9624B6115200826AEE /* Collectible.swift in Sources */,
@@ -5001,7 +4999,7 @@
 				0A109E2F268A240F00226708 /* ChainTests.swift in Sources */,
 				0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */,
 				550A6182268A23A9002C02E1 /* SafeNetworkMigrationTests.swift in Sources */,
-				0A7B35172880718D00EC04EC /* Multisig.xcdatamodeld in Sources */,
+				0A7B3518288071EB00EC04EC /* TestCoreDataStack.swift in Sources */,
 				0A01DCE42770B0A100A87D7A /* TransactionIntegrationTests.swift in Sources */,
 				0A61E83E2670DED5009D68A4 /* BalanceTableViewCellTests.swift in Sources */,
 				0A3DFEF72667D1C000B45770 /* CoreDataTestCase.swift in Sources */,
