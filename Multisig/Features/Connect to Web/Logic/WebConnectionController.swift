@@ -47,7 +47,7 @@ protocol WebConnectionSingleRequestSubject: AnyObject {
 /// Use the `shared` instance since the controller's lifetime is the same as the app's lifetime.
 ///
 /// Remember to set the `delegate` in order to respond to connection events.
-class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSubject, WebConnectionListSubject, WebConnectionRequestSubject, WebConnectionSingleRequestSubject, Client2Delegate {
+class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSubject, WebConnectionListSubject, WebConnectionRequestSubject, WebConnectionSingleRequestSubject, ClientDelegateV2 {
 
     static let shared = WebConnectionController()
 
@@ -411,17 +411,17 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 peerId: UUID().uuidString,
                 peerType: .thisApp,
                 role: .wallet,
-                url: URL(string: "https://gnosis-safe.io/")!,
+                url: App.configuration.services.webAppURL,
                 name: "Gnosis Safe",
                 description: "The most trusted platform to manage digital assets",
-                icons: [URL(string: "https://gnosis-safe.io/app/favicon.ico")!],
+                icons: [App.configuration.services.webAppURL.appendingPathComponent("favicon.ico")],
                 deeplinkScheme: "gnosissafe:"
         )
         connection.remotePeer = GnosisSafeWebPeerInfo(
                 peerId: "",
                 peerType: .gnosisSafeWeb,
                 role: .dapp,
-                url: URL(string: "https://gnosis-safe.io/")!,
+                url: App.configuration.services.webAppURL,
                 name: "",
                 description: nil,
                 icons: [],
@@ -695,6 +695,10 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         handleSessionUpdate(updatedSession)
     }
 
+    func server(_ server: Server, willReconnect session: Session) {
+        // not implemented
+    }
+
     // MARK: - Server Request Handling
 
     func canHandle(request: Request) -> Bool {
@@ -884,6 +888,10 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         handleSessionUpdate(session)
     }
 
+    func client(_ client: Client, willReconnect session: Session) {
+        // not implemented
+    }
+
     // MARK: - Connect Wallet Logic
 
     func walletConnection(keyInfo: KeyInfo) -> [WebConnection] {
@@ -914,10 +922,10 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 peerId: UUID().uuidString,
                 peerType: .thisApp,
                 role: .dapp,
-                url: URL(string: "https://gnosis-safe.io/")!,
+                url: App.configuration.services.webAppURL,
                 name: "Gnosis Safe",
                 description: "The most trusted platform to manage digital assets",
-                icons: [URL(string: "https://gnosis-safe.io/app/favicon.ico")!],
+                icons: [App.configuration.services.webAppURL.appendingPathComponent("favicon.ico")],
                 deeplinkScheme: "gnosissafe:"
         )
         if let info = info {
@@ -925,7 +933,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 peerId: "",
                 peerType: .wallet,
                 role: .wallet,
-                url: info.homepage ?? URL(string: "https://gnosis-safe.io/")!,
+                url: info.homepage ?? App.configuration.services.webAppURL,
                 name: info.name,
                 description: info.description,
                 icons: info.imageLargeUrl.map { [$0] } ?? [],
@@ -935,7 +943,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 peerId: "",
                 peerType: .wallet,
                 role: .wallet,
-                url: URL(string: "https://gnosis-safe.io/")!,
+                url: App.configuration.services.webAppURL,
                 name: "WalletConnect",
                 description: "WalletConnect",
                 icons: [],

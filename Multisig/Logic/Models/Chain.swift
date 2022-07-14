@@ -239,7 +239,7 @@ extension Chain {
         guard let addressUrlTemplate = blockExplorerUrlAddress
         else {
             assertionFailure("Block explorer url called when no chain's blockExplorerUrlAddress found")
-            return URL(string: "https://gnosis-safe.io/")!
+            return App.configuration.services.webAppURL
         }
         return URL(string: addressUrlTemplate.replacingOccurrences(of: "{{address}}", with: address))!
     }
@@ -248,7 +248,7 @@ extension Chain {
         guard let txHashUrlTemplate = blockExplorerUrlTxHash
         else {
             assertionFailure("Block explorer url called when no chain's blockExplorerUrlTxHash found")
-            return URL(string: "https://gnosis-safe.io/")!
+            return App.configuration.services.webAppURL
         }
         return URL(string: txHashUrlTemplate.replacingOccurrences(of: "{{txHash}}", with: txHash))!
     }

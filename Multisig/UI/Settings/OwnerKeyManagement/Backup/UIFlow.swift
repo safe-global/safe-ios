@@ -42,7 +42,14 @@ class UIFlow {
         ViewControllerFactory.addCloseButton(rootVC)
 
         presenter = vc
-        presenter.present(nav, animated: true)
+
+        if let presentedViewController = presenter.presentedViewController {
+            presentedViewController.dismiss(animated: true) { [weak self] in
+                self?.presenter.present(nav, animated: true)
+            }
+        } else {
+            presenter.present(nav, animated: true)
+        }
     }
 
     func push(from vc: UIViewController) {

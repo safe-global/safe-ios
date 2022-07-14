@@ -94,6 +94,7 @@ class ReplaceOwnerFlowFactory: SafeSettingsFlowFactory {
         newOwner: Address,
         ownerToReplace: Address,
         previousOwner: Address?,
+        newAddressName: String? = nil,
         completion: @escaping (SCGModels.TransactionDetails) -> Void
     ) -> ReviewReplaceOwnerTxViewController {
 
@@ -103,7 +104,8 @@ class ReplaceOwnerFlowFactory: SafeSettingsFlowFactory {
             ownerToBeReplaced: ownerToReplace,
             previousOwner: previousOwner,
             ownersCount: safe.ownersInfo?.count ?? 0,
-            threshold: Int(safe.threshold ?? 0)
+            threshold: Int(safe.threshold ?? 0),
+            newAddressName: newAddressName
         )
         addOwnerReviewVC.stepNumber = step
         addOwnerReviewVC.maxSteps = maxSteps

@@ -13,13 +13,23 @@ class WhatsNewHandler {
             title: "What's new",
             items: [
                 WhatsNew.Item(
+                        title: "Open Links in App",
+                        subtitle: "Now you can open links to assets or transactions, or transaction details of a safe in the mobile app",
+                        image: UIImage(named: "ico-whats-new-open-links-in-app")
+                ),
+                WhatsNew.Item(
+                        title: "Review Delegate Calls",
+                        subtitle: "Bring attention to potentially dangerous transactions marked with warning of «unexpected delegate calls» in transaction details",
+                        image: UIImage(named: "ico-whats-new-review-delegate-calls")
+                ),
+                WhatsNew.Item(
                         title: "Edit Safe Owners",
-                        subtitle: "Connect your owner key to the Safe and edit Safe owners and confirmation requirements in the Safe settings.",
+                        subtitle: "Connect your owner key to the Safe and edit Safe owners and confirmation requirements in the Safe settings",
                         image: UIImage(named: "ico-whats-new-edit-safe-owners")
                 ),
                 WhatsNew.Item(
                         title: "Request to join a Safe",
-                        subtitle: "After creating new owner key request to join the selected Safe by sharing a link with one of the owners.",
+                        subtitle: "After creating new owner key request to join the selected Safe by sharing a link with one of the owners",
                         image: UIImage(named: "ico-whats-new-join-safe")
                 )
             ]

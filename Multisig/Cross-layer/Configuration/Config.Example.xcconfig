@@ -121,7 +121,7 @@ CONTACT_EMAIL           = safe@gnosis.io
 
 // Web app url
 GNOSIS_SAFE_WEB_URL_PROD     = https:/$()/gnosis-safe.io/app/
-GNOSIS_SAFE_WEB_URL_STAGING     =  https:/$()/safe-team.staging.gnosisdev.com/
+GNOSIS_SAFE_WEB_URL_STAGING     =  https:/$()/safe-team.staging.gnosisdev.com/app/
 
 // App Review URLs
 _APP_STORE_REVIEW_URL_DEV        = https:/$()/apps.apple.com/app/id1515758190?action=write-review

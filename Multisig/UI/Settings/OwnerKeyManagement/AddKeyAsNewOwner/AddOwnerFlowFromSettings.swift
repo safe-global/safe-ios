@@ -74,20 +74,26 @@ class AddOwnerFlowFromSettings: AddOwnerFlow {
         confirmations(stepNumber: 2, maxSteps: 3)
     }
 
+    override func review(stepNumber: Int, maxSteps: Int) {
+        assert(newConfirmations != nil)
+        assert(newOwner != nil)
+        let reviewVC = addOwnerFactory.review(
+                safe: safe,
+                newOwner: newOwner!,
+                newThreshold: newConfirmations!,
+                stepNumber: stepNumber,
+                maxSteps: maxSteps,
+                newAddressName: newAddressName
+        ) { [unowned self] txDetails in
+            transaction = txDetails
+            success()
+        }
+        show(reviewVC)
+    }
+
     override func success() {
         assert(transaction != nil)
         AddressBookEntry.addOrUpdate(newOwner!.checksummed, chain: safe.chain!, name: newAddressName!)
-        let successVC = factory.success (bodyText: "It needs to be confirmed and executed first before the owner will be added.",
-                                         trackingEvent: .addAsOwnerSuccess) { [unowned self] showTxDetails in
-            if showTxDetails {
-                NotificationCenter.default.post(
-                    name: .initiateTxNotificationReceived,
-                    object: self,
-                    userInfo: ["transactionDetails": transaction!])
-            }
-
-            stop(success: !showTxDetails)
-        }
-        show(successVC)
+        super.success()
     }
 }

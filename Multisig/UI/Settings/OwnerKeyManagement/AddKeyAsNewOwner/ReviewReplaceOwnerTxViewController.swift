@@ -7,6 +7,7 @@ import UIKit
 
 class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
     private var owner: Address!
+    private var newAddressName: String? = nil
     private var ownerToBeReplaced: Address!
     private var previousOwner: Address?
     private var ownersCount: Int = 0
@@ -25,7 +26,8 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
         ownerToBeReplaced: Address,
         previousOwner: Address?,
         ownersCount: Int,
-        threshold: Int
+        threshold: Int,
+        newAddressName: String? = nil
     ) {
         self.init(safe: safe)
         self.owner = owner
@@ -33,6 +35,7 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
         self.previousOwner = previousOwner
         self.ownersCount = ownersCount
         self.threshold = threshold
+        self.newAddressName = newAddressName
 
         trackingEvent = .settingsTxAdvancedParams
     }
@@ -88,8 +91,10 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
                                                 info: nil,
                                                 chainId: safe.chain!.id!)
 
+            let newName = newAddressName ?? newOwnerName
+
             cell.set(
-                newOwner: AddressInfo(address: owner, name: newOwnerName),
+                newOwner: AddressInfo(address: owner, name: newName),
                 oldOwner: AddressInfo(address: ownerToBeReplaced, name: oldOwnerName),
                 prefix: safe.chain?.shortName
             )
