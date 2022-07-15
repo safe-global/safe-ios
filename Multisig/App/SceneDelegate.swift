@@ -32,6 +32,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // MARK: - Scene Life Cycle
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+#if DEBUG
+        guard UIApplication.shared.delegate is AppDelegate else {
+            // assume we're in a testing mode, so exit any further configuration
+            return
+        }
+#endif
+
         let darkNavBar = UINavigationBar.appearance(for: .init(userInterfaceStyle: .dark))
         darkNavBar.barTintColor = .backgroundQuaternary
         darkNavBar.isTranslucent = false
@@ -56,6 +63,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
+#if DEBUG
+        guard UIApplication.shared.delegate is AppDelegate else {
+            // assume we're in a testing mode, so exit any further configuration
+            return
+        }
+#endif
+
         App.shared.notificationHandler.appEnteredForeground()
 
         if scene.activationState == .unattached && updateAppWindow?.rootViewController != nil {
@@ -66,6 +80,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
+#if DEBUG
+        guard UIApplication.shared.delegate is AppDelegate else {
+            // assume we're in a testing mode, so exit any further configuration
+            return
+        }
+#endif
+
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         App.shared.clientGatewayHostObserver.startObserving()
@@ -82,6 +103,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
+#if DEBUG
+        guard UIApplication.shared.delegate is AppDelegate else {
+            // assume we're in a testing mode, so exit any further configuration
+            return
+        }
+#endif
+
         App.shared.clientGatewayHostObserver.stopObserving()
 
         PendingTransactionMonitor.stopMonitoring()
@@ -94,11 +122,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
+#if DEBUG
+        guard UIApplication.shared.delegate is AppDelegate else {
+            // assume we're in a testing mode, so exit any further configuration
+            return
+        }
+#endif
+
         // Save changes in the application's managed object context when the application transitions to the background.
         App.shared.coreDataStack.saveContext()
     }
 
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+#if DEBUG
+        guard UIApplication.shared.delegate is AppDelegate else {
+            // assume we're in a testing mode, so exit any further configuration
+            return
+        }
+#endif
+
         handleUserActivity(userActivity)
     }
 

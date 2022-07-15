@@ -15,6 +15,7 @@ class CoreDataTestCase: XCTestCase {
     var context: NSManagedObjectContext!
 
     override func setUpWithError() throws {
+        try super.setUpWithError()
         App.shared.coreDataStack = TestCoreDataStack()
         context = App.shared.coreDataStack.viewContext
     }

@@ -326,6 +326,9 @@
 		0A6430E2247EC2C7006FD30A /* ConfigurationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6430E1247EC2C7006FD30A /* ConfigurationKey.swift */; };
 		0A6430F5247ECB3E006FD30A /* ConfigurationKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6430F4247ECB3E006FD30A /* ConfigurationKeyTests.swift */; };
 		0A6552282881642300701238 /* UIIntegrationTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6552272881642300701238 /* UIIntegrationTestCase.swift */; };
+		0A65522B28816B9900701238 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */; };
+		0A65526D28816D7900701238 /* TestingSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65522C28816BB400701238 /* TestingSceneDelegate.swift */; };
+		0A65526E28816D7900701238 /* TestingSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65522C28816BB400701238 /* TestingSceneDelegate.swift */; };
 		0A67AC9625E3BE4400B3E97C /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A67AC9425E3BE4400B3E97C /* PasscodeViewController.swift */; };
 		0A67AC9725E3BE4400B3E97C /* PasscodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A67AC9525E3BE4400B3E97C /* PasscodeViewController.xib */; };
 		0A6886932588F87E0045CAB5 /* EnterAddressNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A6886912588F87E0045CAB5 /* EnterAddressNameViewController.xib */; };
@@ -470,8 +473,8 @@
 		0AC60C892549C9D800A63AE2 /* SegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60C882549C9D800A63AE2 /* SegmentView.swift */; };
 		0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC60C8E2549C9F300A63AE2 /* SegmentView.xib */; };
 		0AC60C9D2549D63300A63AE2 /* NoSafesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C8282540914600E28669 /* NoSafesViewController.swift */; };
-		0AC63626287EB85D00286F22 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = 0AC63625287EB85D00286F22 /* Web3 */; };
 		0AC62ED628783700007945A1 /* CreatePasscodeFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC62ED528783700007945A1 /* CreatePasscodeFlowTests.swift */; };
+		0AC63626287EB85D00286F22 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = 0AC63625287EB85D00286F22 /* Web3 */; };
 		0AC94458254068D800921CA5 /* NSNotification+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC94457254068D800921CA5 /* NSNotification+Events.swift */; };
 		0ACB4CD5256BC2B000845BF4 /* TransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB4CD4256BC2B000845BF4 /* TransactionDetailsViewController.swift */; };
 		0ACB4CDB256BCD6900845BF4 /* SwiftUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB4CDA256BCD6900845BF4 /* SwiftUITableViewCell.swift */; };
@@ -1184,6 +1187,7 @@
 		0A6430F6247ECCF6006FD30A /* MultisigTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MultisigTests.xctestplan; sourceTree = "<group>"; };
 		0A64313F247ED1AA006FD30A /* MultisigIntegrationTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MultisigIntegrationTests.xctestplan; sourceTree = "<group>"; };
 		0A6552272881642300701238 /* UIIntegrationTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIIntegrationTestCase.swift; sourceTree = "<group>"; };
+		0A65522C28816BB400701238 /* TestingSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingSceneDelegate.swift; sourceTree = "<group>"; };
 		0A67AC9425E3BE4400B3E97C /* PasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
 		0A67AC9525E3BE4400B3E97C /* PasscodeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PasscodeViewController.xib; sourceTree = "<group>"; };
 		0A6886912588F87E0045CAB5 /* EnterAddressNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterAddressNameViewController.xib; sourceTree = "<group>"; };
@@ -2263,6 +2267,8 @@
 			isa = PBXGroup;
 			children = (
 				0A616B9C26B0109F00FCEDB9 /* README.md */,
+				D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */,
+				0A65522C28816BB400701238 /* TestingSceneDelegate.swift */,
 				0A3FDAF726AEB7CD006A7DC3 /* CoreData */,
 				0A3FDAF826AEB7F0006A7DC3 /* Utils */,
 			);
@@ -3977,7 +3983,6 @@
 		D86A68E2274E6B3E00D7F5C5 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -4970,6 +4975,7 @@
 				0A096CC32608F4750034E6BC /* SignerTests.swift in Sources */,
 				5532D4CD2449A1980067505A /* LogServiceTests.swift in Sources */,
 				0A6430F5247ECB3E006FD30A /* ConfigurationKeyTests.swift in Sources */,
+				0A65526D28816D7900701238 /* TestingSceneDelegate.swift in Sources */,
 				0A0EFC9F246EADC200D3D8BF /* DisplayURLTests.swift in Sources */,
 				0A9BC3482460539F00EB9C5D /* ContractTests.swift in Sources */,
 				555312F2250673AD0008206B /* BIP39Tests.swift in Sources */,
@@ -5009,6 +5015,7 @@
 				555DA304250A477900C3A0BE /* KeychainServiceIntegrationTests.swift in Sources */,
 				0A559A6926720E5300E83A9E /* BannerTableViewCellTests.swift in Sources */,
 				0AF8D1AA2822C74E0035DCF7 /* SafeTransactionControllerIntegrationTests.swift in Sources */,
+				0A65526E28816D7900701238 /* TestingSceneDelegate.swift in Sources */,
 				04248BDB272E21C500431397 /* AddressBookTests.swift in Sources */,
 				0A3DFEF62667D1A800B45770 /* AuthenticationControllerTests.swift in Sources */,
 				0A3DFEFA2667D2C100B45770 /* CoreDataStackTests.swift in Sources */,
@@ -5018,6 +5025,7 @@
 				550A6182268A23A9002C02E1 /* SafeNetworkMigrationTests.swift in Sources */,
 				0A7B3518288071EB00EC04EC /* TestCoreDataStack.swift in Sources */,
 				0A01DCE42770B0A100A87D7A /* TransactionIntegrationTests.swift in Sources */,
+				0A65522B28816B9900701238 /* TestingAppDelegate.swift in Sources */,
 				0A61E83E2670DED5009D68A4 /* BalanceTableViewCellTests.swift in Sources */,
 				0A3DFEF72667D1C000B45770 /* CoreDataTestCase.swift in Sources */,
 				0A06532F27B68AF40008C5F1 /* WebConnectionRepositoryTests.swift in Sources */,
