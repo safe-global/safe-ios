@@ -296,7 +296,6 @@
 		0A5B15802808640F003AD853 /* ChangePasscodeEnterNewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B157F2808640F003AD853 /* ChangePasscodeEnterNewViewController.swift */; };
 		0A5B158228086424003AD853 /* RepeatPasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B158128086424003AD853 /* RepeatPasscodeViewController.swift */; };
 		0A5B15842808643B003AD853 /* CreatePasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B15832808643B003AD853 /* CreatePasscodeViewController.swift */; };
-		0A5B15882808649E003AD853 /* CreatePasscodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B15872808649E003AD853 /* CreatePasscodeController.swift */; };
 		0A5B87E2278633FF000B66EA /* Ethereum in Frameworks */ = {isa = PBXBuildFile; productRef = 0A5B87E1278633FF000B66EA /* Ethereum */; };
 		0A5C0C4C2817F1DE0061D96F /* SafeCellBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C0C4B2817F1DE0061D96F /* SafeCellBuilder.swift */; };
 		0A5C0C532818204F0061D96F /* EditConfirmationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C0C512818204F0061D96F /* EditConfirmationsViewController.xib */; };
@@ -1159,7 +1158,6 @@
 		0A5B157F2808640F003AD853 /* ChangePasscodeEnterNewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasscodeEnterNewViewController.swift; sourceTree = "<group>"; };
 		0A5B158128086424003AD853 /* RepeatPasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatPasscodeViewController.swift; sourceTree = "<group>"; };
 		0A5B15832808643B003AD853 /* CreatePasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeViewController.swift; sourceTree = "<group>"; };
-		0A5B15872808649E003AD853 /* CreatePasscodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasscodeController.swift; sourceTree = "<group>"; };
 		0A5C0C4B2817F1DE0061D96F /* SafeCellBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeCellBuilder.swift; sourceTree = "<group>"; };
 		0A5C0C512818204F0061D96F /* EditConfirmationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditConfirmationsViewController.xib; sourceTree = "<group>"; };
 		0A5C0C522818204F0061D96F /* EditConfirmationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditConfirmationsViewController.swift; sourceTree = "<group>"; };
@@ -2420,7 +2418,6 @@
 			isa = PBXGroup;
 			children = (
 				0ABC00212823139D00F42D29 /* CreatePasscodeFlow.swift */,
-				0A5B15872808649E003AD853 /* CreatePasscodeController.swift */,
 				0A5B15832808643B003AD853 /* CreatePasscodeViewController.swift */,
 				0A5B158128086424003AD853 /* RepeatPasscodeViewController.swift */,
 			);
@@ -4804,7 +4801,6 @@
 				0472B2AC285B5D030049BA17 /* UpdateOwnersFromInviteLinkFlow.swift in Sources */,
 				045769FD27C7DBBF00881206 /* SafeDeployingViewController.swift in Sources */,
 				550FB1AA26691D2E00C13D54 /* UITableView+Cells.swift in Sources */,
-				0A5B15882808649E003AD853 /* CreatePasscodeController.swift in Sources */,
 				04273E5826AEE06500A14E95 /* BluetoothController.swift in Sources */,
 				0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */,
 				0439638527077E3D00018F74 /* TransactionEstimationRequest.swift in Sources */,
