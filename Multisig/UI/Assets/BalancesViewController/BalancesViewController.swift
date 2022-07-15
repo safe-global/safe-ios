@@ -19,6 +19,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     }
     var clientGatewayService: BalancesAPI = App.shared.clientGatewayService
     var remoteConfig: FirebaseRemoteConfig = FirebaseRemoteConfig.shared
+    var createPasscodeFlow: CreatePasscodeFlow!
 
     override var isEmpty: Bool { sections.isEmpty }
 
@@ -285,15 +286,12 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             AppSettings.passcodeBannerDismissed = true
             recreateSectionsWithCurrentItems()
 
-            let vc = CreatePasscodeViewController { [weak self] in
-                
-                self?.dismiss(animated: true, completion: {
-                    self?.recreateSectionsWithCurrentItems()
-                })
+            createPasscodeFlow = CreatePasscodeFlow(completion: { [unowned self] _ in
+                createPasscodeFlow = nil
+                recreateSectionsWithCurrentItems()
+            })
+            present(flow: createPasscodeFlow)
 
-            }
-            let nav = UINavigationController(rootViewController: vc)
-            present(nav, animated: true)
             Tracker.trackEvent(.setupPasscodeFromBanner)
         }
         cell.selectionStyle = .none

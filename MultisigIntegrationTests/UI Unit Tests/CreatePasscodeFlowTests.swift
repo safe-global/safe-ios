@@ -29,4 +29,19 @@ class CreatePasscodeFlowTests: UIIntegrationTestCase {
         XCTAssertTrue(topScreen is CreatePasscodeViewController, "not a create passcode screen")
     }
 
+    // create passcode screen
+        // * skip -> closes flow
+        // * swipe down -> closes flow / calls completion
+        // enter 3 digits, erase one digit
+        // * enter 6 digits -> goes to repeat screen
+
+    // repeat passcode
+        // * back -> goes to create
+        // * skip -> closes flow
+        // * swipe down -> closes flow
+        // enter 3 digits, erase
+        // enter 6 digits, all different
+        // enter 6 digits, 5 same, 1 different
+        // * enter 6 digits, all same -> completed with success
+
 }
