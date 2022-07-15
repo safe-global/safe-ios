@@ -51,6 +51,11 @@ enum ViewControllerFactory {
         return nav
     }
 
+    static func transactionDetailsViewController(transactionId: String) -> UIViewController {
+        let vc = TransactionDetailsViewController(transactionID: transactionId)
+        return modalWithRibbon(viewController: vc)
+    }
+
     static func transactionDetailsViewController(safeTxHash: Data) -> UIViewController {
         let vc = TransactionDetailsViewController(safeTxHash: safeTxHash)
         return modalWithRibbon(viewController: vc)

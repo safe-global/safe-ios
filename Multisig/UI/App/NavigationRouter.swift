@@ -39,6 +39,36 @@ class DefaultNavigationRouter: NavigationRouter {
     func navigate(to route: NavigationRoute) {
         sceneDelegate?.navigate(to: route)
     }
+
+    private let pattern = "^\(App.configuration.services.webAppURL)([-a-zA-Z0-9]{1,20}):(0x[a-fA-F0-9]{40})/([-a-zA-Z0-9]{1,20})(/[-a-zA-Z0-9_]+)?"
+
+    func routeFrom(from url: URL) -> NavigationRoute? {
+        let matches = url.absoluteString.capturedValues(pattern: pattern).flatMap { $0 }
+        guard matches.count >= 3,
+                let ـ = Address(matches[1]),
+              let chain = Chain.by(shortName: matches[0]) else { return nil }
+
+        let safeAddress = matches[1]
+        let chainId = chain.id!
+
+        let page = matches[2]
+        if page == "balances" {
+            return NavigationRoute.showAssets(matches[1], chainId: chainId)
+        } else if page == "transactions" {
+            var details = matches[3]
+            details.removeFirst()
+
+            if details == "history" {
+                return NavigationRoute.showTransactionHistory(safeAddress, chainId: chainId)
+            } else if details == "queue" {
+                return NavigationRoute.showTransactionQueued(safeAddress, chainId: chainId)
+            } else {
+                return NavigationRoute.showTransactionDetails(safeAddress, chainId: chainId, transactionId: details)
+            }
+        }
+
+        return nil
+    }
 }
 
 extension NavigationRoute {
@@ -74,6 +104,31 @@ extension NavigationRoute {
     static func requestToAddOwner(_ params: AddOwnerRequestParameters) -> NavigationRoute {
         var route = NavigationRoute(path: requestToAddOwnerPath)
         route.info["parameters"] = params
+        return route
+    }
+
+    static func showTransactionHistory(_ address: String, chainId: String) -> NavigationRoute {
+        var route = NavigationRoute(path: "/transactions/history/")
+        route.info["address"] = address
+        route.info["chainId"] = chainId
+
+        return route
+    }
+
+    static func showTransactionQueued(_ address: String, chainId: String) -> NavigationRoute {
+        var route = NavigationRoute(path: "/transactions/queued/")
+        route.info["address"] = address
+        route.info["chainId"] = chainId
+
+        return route
+    }
+
+    static func showTransactionDetails(_ address: String, chainId: String, transactionId: String) -> NavigationRoute {
+        var route = NavigationRoute(path: "/transactions/details/")
+        route.info["address"] = address
+        route.info["chainId"] = chainId
+        route.info["transactionId"] = transactionId
+
         return route
     }
 }

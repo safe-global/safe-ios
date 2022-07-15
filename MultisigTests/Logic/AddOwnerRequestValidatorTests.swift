@@ -11,6 +11,10 @@ import XCTest
 
 class AddOwnerRequestValidatorTests: XCTestCase {
 
+    override func setUp() async throws {
+        AddOwnerRequestValidator.webAppURL = URL(string: "https://gnosis-safe.io/app/")!
+    }
+
     func testAddOwnerRequestUrls() {
         assertInvalid("https://gnosis-safe.io", "missing path and query")
         assertInvalid("ftp://url?query=https://gnosis-safe.io/", "must start with the correct link")

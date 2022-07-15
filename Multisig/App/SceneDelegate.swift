@@ -109,7 +109,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     //   - 'connect' link to establish new connection
     //   - 'open' link to move the app to foreground so that it is able to process WalletConnect request or response.
     // - Request To Add Owner
-    //   - https://gnosis-safe.io/app/<network:safe_address>/addOwner?address=<owner_address>
+    //   - <web app url>/<network:safe_address>/addOwner?address=<owner_address>
     private func handleUserActivity(_ userActivity: NSUserActivity) {
         // Get URL components from the incoming user activity.
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
@@ -131,6 +131,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if AddOwnerRequestValidator.isValid(url: incomingURL),
            let params = AddOwnerRequestValidator.parameters(from: incomingURL) {
             DefaultNavigationRouter.shared.navigate(to: .requestToAddOwner(params))
+            return
+        }
+
+        if let navigationRoute = DefaultNavigationRouter.shared.routeFrom(from: incomingURL) {
+            DefaultNavigationRouter.shared.navigate(to: navigationRoute)
         }
     }
 
