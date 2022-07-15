@@ -10,7 +10,6 @@ import XCTest
 @testable import Multisig
 
 class CreatePasscodeFlowTests: UIIntegrationTestCase {
-    var waitingTime: TimeInterval = 1
 
     // Given passcode is not set,
     // when create passcode flow starts,
@@ -23,7 +22,7 @@ class CreatePasscodeFlowTests: UIIntegrationTestCase {
         let flow = CreatePasscodeFlow(completion: { _ in })
         flow.modal(from: presenterVC)
         // wait for presentation animation to complete
-        wait(timeout: waitingTime)
+        wait(timeout: 0.5)
 
         // 3. then it shows 'create passcode' screen
         let topScreen = topPresentedController()
