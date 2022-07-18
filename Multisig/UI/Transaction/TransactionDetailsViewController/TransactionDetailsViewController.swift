@@ -225,7 +225,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                   multisigInfo.canSign
                     else { return false }
 
-            if (status == .awaitingExecution || status == .pendingFailed) && !multisigInfo.isRejected() && !pendingExecution {
+            if status == .awaitingExecution && !multisigInfo.isRejected() && !pendingExecution {
                  return true
             } else if status.isAwatingConfiramtions {
                 return true
@@ -541,7 +541,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     // returns true if the app has means to execute the transaction and the transaction has all required confirmations
     func needsYourExecution(tx: SCGModels.TransactionDetails) -> Bool {
-        if tx.txStatus == .awaitingExecution || tx.txStatus == .pendingFailed,
+        if tx.txStatus == .awaitingExecution,
            let multisigInfo = tx.multisigInfo,
            // unclear why the confirmations only count ecdsa
            tx.ecdsaConfirmations.count >= multisigInfo.confirmationsRequired,
