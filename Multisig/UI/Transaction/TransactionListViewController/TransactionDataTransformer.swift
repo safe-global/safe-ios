@@ -57,9 +57,9 @@ class TransactionDataTransformer {
                     // assume the safe tx not minded yet
                     txItem.transaction.txStatus = .pending
 
-                case (.awaitingExecution, .pendingFailed):
+                case (.awaitingExecution, .awaitingExecution):
                     // show that execution attempt failed
-                    txItem.transaction.txStatus = .pendingFailed
+                    txItem.transaction.txStatus = .awaitingExecution
 
                 case (.awaitingExecution, .success):
                     // tx was mined but the backend hasn't updated yet. Keep it pending.
@@ -134,11 +134,6 @@ class TransactionDataTransformer {
         case (.awaitingExecution, .pending):
             // assume the safe tx not minded yet
             transaction.txStatus = .pending
-            transaction.txHash = localTx.ethTxHash.map(DataString.init(hex:))
-
-        case (.awaitingExecution, .pendingFailed):
-            // transaction mined and failed, show this status.
-            transaction.txStatus = .pendingFailed
             transaction.txHash = localTx.ethTxHash.map(DataString.init(hex:))
 
         case (.awaitingExecution, .success):

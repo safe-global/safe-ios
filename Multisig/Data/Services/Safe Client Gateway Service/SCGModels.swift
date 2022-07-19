@@ -124,8 +124,6 @@ extension SCGModels {
         case success = "SUCCESS"
         // UI-only status when tx was submitted to the mempool(cgw status is AWAITING_EXECUTION)
         case pending = "PENDING"
-        // UI-only status when submitted transaction failed. (cgw status is AWAITING_EXECUTION)
-        case pendingFailed = "PENDING_FAILED"
     }
 
     enum ExecutionInfo: Decodable {
