@@ -29,10 +29,6 @@ enum ViewControllerFactory {
         return tabBarVC
     }
 
-    static func createPasscodeViewController(completion: @escaping () -> Void) -> UIViewController {
-        UINavigationController(rootViewController: CreatePasscodeViewController(completion))
-    }
-
     static func enterPasscodeViewController(completion: @escaping () -> Void) -> UIViewController {
         let vc = EnterPasscodeViewController()
         vc.showsCloseButton = false
