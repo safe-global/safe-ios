@@ -128,7 +128,7 @@ class AddKeyOnboardingViewController: UITableViewController {
             createPasscodeFlow = nil
             didCreatePasscode()
         })
-        present(flow: createPasscodeFlow)
+        present(flow: createPasscodeFlow, dismissableOnSwipe: false)
     }
 
     func didCreatePasscode() {
