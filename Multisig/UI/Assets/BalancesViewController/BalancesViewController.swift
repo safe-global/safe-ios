@@ -45,7 +45,6 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     }
 
     private var shouldShowSafeTokenBanner: Bool {
-        return true
         safeTokenBannerWasShown != true &&
         NSString(string: remoteConfig.value(key: .safeClaimEnabled) ?? "false").boolValue
     }
