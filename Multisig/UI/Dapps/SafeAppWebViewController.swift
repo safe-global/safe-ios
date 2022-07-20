@@ -134,21 +134,21 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
         case .object(let value):
             responseDataString = try! encoder.encode(value).makeString()
         case .none:
-            print("\(#file).\(#function) | String expected: \(response?.result)")
+            responseDataString = ""
         case .string(let value):
             responseDataString = try! encoder.encode(value).makeString()
         case .array(let value):
             responseDataString = try! encoder.encode(value).makeString()
-        case .some(.int(_)):
-            print("\(#file).\(#function) | String expected: \(response?.result)")
-        case .some(.uint(_)):
-            print("\(#file).\(#function) | String expected: \(response?.result)")
-        case .some(.double(_)):
-            print("\(#file).\(#function) | String expected: \(response?.result)")
-        case .some(.bool(_)):
-            print("\(#file).\(#function) | String expected: \(response?.result)")
-        case .some(.null):
-            print("\(#file).\(#function) | String expected: \(response?.result)")
+        case .int(let value):
+            responseDataString = try! encoder.encode(value).makeString()
+        case .uint(let value):
+            responseDataString = try! encoder.encode(value).makeString()
+        case .double(let value):
+            responseDataString = try! encoder.encode(value).makeString()
+        case .bool(let value):
+            responseDataString = try! encoder.encode(value).makeString()
+        case .null:
+            responseDataString = ""
         }
 
         print("---------> \(#file).\(#function) | responseAsData: \(responseDataString)")
