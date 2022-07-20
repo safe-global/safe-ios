@@ -74,6 +74,7 @@ CLIENT_GATEWAY_URL      = $(_CLIENT_GATEWAY_URL_$(SERVICE_ENV):default=$(_CLIENT
 FIREBASE_CONFIG         = $(_FIREBASE_CONFIG_$(SERVICE_ENV):default=$(_FIREBASE_CONFIG_PROD))
 LOGGERS                 = $(_LOGGERS_$(SERVICE_ENV):default=$(_LOGGERS_PROD))
 LOG_LEVEL               = $(_LOG_LEVEL_$(SERVICE_ENV):default=$(_LOG_LEVEL_PROD))
+GNOSIS_SAFE_WEB_URL     = $(GNOSIS_SAFE_WEB_URL_$(SERVICE_ENV):default=$(GNOSIS_SAFE_WEB_URL_PROD))
 
 // Make sure to review/change the SSL pinning configuration in the
 // Info.plist file (TSKConfiguration key). For details, read documentation:
@@ -119,7 +120,8 @@ FEATURE_SUGGESTION_URL  = https:/$()/safe.cnflx.io/
 CONTACT_EMAIL           = safe@gnosis.io
 
 // Web app url
-GNOSIS_SAFE_WEB_URL     = https:/$()/gnosis-safe.io/app/
+GNOSIS_SAFE_WEB_URL_PROD     = https:/$()/gnosis-safe.io/app/
+GNOSIS_SAFE_WEB_URL_STAGING     =  https:/$()/safe-team.staging.gnosisdev.com/app/
 
 // App Review URLs
 _APP_STORE_REVIEW_URL_DEV        = https:/$()/apps.apple.com/app/id1515758190?action=write-review

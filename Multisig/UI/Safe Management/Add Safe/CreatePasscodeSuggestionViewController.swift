@@ -14,13 +14,17 @@ class CreatePasscodeSuggestionViewController: UIViewController {
     @IBOutlet private weak var subtitleLabel: UILabel!
     @IBOutlet private weak var createButton: UIButton!
     @IBOutlet private weak var notNowButton: UIButton!
+    private var createPasscodeFlow: CreatePasscodeFlow!
 
     var onExit: (() -> Void)!
 
     @IBAction private func onCreate(_ sender: Any) {
-        let passcodeVC = CreatePasscodeViewController()
-        passcodeVC.completion = onExit
-        show(passcodeVC, sender: nil)
+        createPasscodeFlow = CreatePasscodeFlow(completion: { [unowned self] _ in
+            createPasscodeFlow = nil
+            onExit()
+        })
+        push(flow: createPasscodeFlow)
+
         Tracker.trackEvent(.userPasscodeSuggestionAccepted)
     }
 

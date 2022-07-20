@@ -215,6 +215,22 @@ class WCIncomingTransactionRequestViewController: UIViewController {
 
         tableView.estimatedRowHeight = BasicCell.rowHeight
 
+        App.shared.clientGatewayService.asyncPreviewTransaction(
+                transaction: transaction,
+                sender: AddressString(safe.addressValue),
+                chainId: safe.chain!.id!
+        ) { result in
+            switch result {
+            case .success(let response):
+                // Handle result
+                print("---> Response (success): \(response)")
+
+            case .failure(let error):
+                // handle failure
+                print("---> Response: Failure! \(error)")
+            }
+        }
+
         buildSections()
     }
 

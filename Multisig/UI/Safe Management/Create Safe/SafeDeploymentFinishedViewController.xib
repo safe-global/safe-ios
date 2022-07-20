@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -84,6 +84,7 @@
                                 <constraint firstAttribute="height" constant="40" id="BST-ef-MQ4"/>
                             </constraints>
                             <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
+                            <color key="tintColor" name="primary"/>
                             <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="View Transaction on Etherscan" image="icon-external-link">
                                 <color key="titleColor" name="primaryLabel"/>
@@ -113,6 +114,9 @@
     <resources>
         <image name="icon-external-link" width="16" height="16"/>
         <image name="safe-created-animation-1" width="211" height="211"/>
+        <namedColor name="primary">
+            <color red="0.0" green="0.54509803921568623" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="primaryLabel">
             <color red="0.0" green="0.074509803921568626" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

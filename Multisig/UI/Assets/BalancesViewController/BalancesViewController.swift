@@ -19,6 +19,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     }
     var clientGatewayService: BalancesAPI = App.shared.clientGatewayService
     var remoteConfig: FirebaseRemoteConfig = FirebaseRemoteConfig.shared
+    var createPasscodeFlow: CreatePasscodeFlow!
 
     override var isEmpty: Bool { sections.isEmpty }
 
@@ -197,6 +198,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             cell.setMainText(item.symbol)
             cell.setDetailText(item.balance)
             cell.setSubDetailText(item.fiatBalance)
+            cell.setBrowsingEnabled(item.address != TokenBalance.nativeTokenAddress)
             if let image = item.image {
                 cell.setImage(image)
             } else {
@@ -211,20 +213,8 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         case .balances(items: let items):
             do {
                 let item = items[indexPath.row]
-                guard let safe = try Safe.getSelected() else { return }
-                if safe.isReadOnly {
-                    let vc = AddOwnerFirstViewController()
-                    vc.onSuccess = { [weak self, unowned safe] in
-                        if !safe.isReadOnly {
-                            self?.showSend(balance: item)
-                        }
-                        self?.dismiss(animated: true)
-                    }
-                    let navigationController = UINavigationController(rootViewController: vc)
-                    self.present(navigationController, animated: true)
-                } else {
-                    self.showSend(balance: item)
-                }
+                guard let safe = try Safe.getSelected(), item.address != TokenBalance.nativeTokenAddress else { return }
+                openInSafari(safe.chain!.browserURL(address: item.address))
             } catch {
                 App.shared.snackbar.show(
                     error: GSError.error(description: "Failed to update selected safe", error: error))
@@ -307,15 +297,12 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             AppSettings.passcodeBannerDismissed = true
             recreateSectionsWithCurrentItems()
 
-            let vc = CreatePasscodeViewController { [weak self] in
-                
-                self?.dismiss(animated: true, completion: {
-                    self?.recreateSectionsWithCurrentItems()
-                })
+            createPasscodeFlow = CreatePasscodeFlow(completion: { [unowned self] _ in
+                createPasscodeFlow = nil
+                recreateSectionsWithCurrentItems()
+            })
+            present(flow: createPasscodeFlow)
 
-            }
-            let nav = UINavigationController(rootViewController: vc)
-            present(nav, animated: true)
             Tracker.trackEvent(.setupPasscodeFromBanner)
         }
         cell.selectionStyle = .none

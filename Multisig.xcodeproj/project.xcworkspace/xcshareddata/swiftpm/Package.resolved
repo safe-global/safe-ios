@@ -42,16 +42,16 @@
         "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
         "state": {
           "branch": null,
-          "revision": "4b0565384d3c4c588af09e660535b2c7c9bf5b39",
-          "version": "1.4.2"
+          "revision": "039f56c5d7960f277087a0be51f5eb04ed0ec073",
+          "version": "1.5.1"
         }
       },
       {
         "package": "EthereumAddress",
-        "repositoryURL": "https://github.com/sche/EthereumAddress.git",
+        "repositoryURL": "https://github.com/safe-global/EthereumAddress.git",
         "state": {
-          "branch": "update-CryptoSwift-version",
-          "revision": "6726437315d1f50bc24adea258d04ede3d0f73cb",
+          "branch": "update-cryptoswift-1.5.1",
+          "revision": "6156ce94d4663b0a499e87cef64def56a068ed7d",
           "version": null
         }
       },
@@ -174,10 +174,10 @@
       },
       {
         "package": "UnstoppableDomainsResolution",
-        "repositoryURL": "https://github.com/sche/resolution-swift.git",
+        "repositoryURL": "https://github.com/safe-global/resolution-swift",
         "state": {
-          "branch": "update-deps",
-          "revision": "9da1a31c88a867a70555311143fed14b9fd88f5c",
+          "branch": "update-cryptoswift-1.5.1",
+          "revision": "0bc612c38cef2ffa7d25020e90ae15327390bb62",
           "version": null
         }
       },
@@ -200,29 +200,11 @@
         }
       },
       {
-        "package": "Starscream",
-        "repositoryURL": "https://github.com/daltoniam/Starscream.git",
-        "state": {
-          "branch": null,
-          "revision": "e6b65c6d9077ea48b4a7bdda8994a1d3c6969c8d",
-          "version": "3.1.1"
-        }
-      },
-      {
         "package": "swift-algorithms",
         "repositoryURL": "https://github.com/apple/swift-algorithms.git",
         "state": {
           "branch": null,
           "revision": "b14b7f4c528c942f121c8b860b9410b2bf57825e",
-          "version": "1.0.0"
-        }
-      },
-      {
-        "package": "swift-nio-zlib-support",
-        "repositoryURL": "https://github.com/apple/swift-nio-zlib-support.git",
-        "state": {
-          "branch": null,
-          "revision": "37760e9a52030bb9011972c5213c3350fa9d41fd",
           "version": "1.0.0"
         }
       },
@@ -291,19 +273,19 @@
       },
       {
         "package": "WalletConnectSwift",
-        "repositoryURL": "https://github.com/gnosis/WalletConnectSwift.git",
+        "repositoryURL": "https://github.com/WalletConnect/WalletConnectSwift",
         "state": {
-          "branch": "gnosis-safe-ios",
-          "revision": "dd999dd7ba24d38ab779a6f4c76bec29bb069464",
-          "version": null
+          "branch": null,
+          "revision": "e0bbfd16d5c54a7aa7e316956d765399c6332fa2",
+          "version": "1.7.0"
         }
       },
       {
         "package": "Web3",
         "repositoryURL": "https://github.com/gnosis/Web3.swift.git",
         "state": {
-          "branch": "0.5.4",
-          "revision": "182ff667d6bceccafa3d3aa64ab64f2585001b99",
+          "branch": "update-cryptoswift-1.5.1",
+          "revision": "420ce9f98b5ae2ccd9117515dda40819f5317036",
           "version": null
         }
       },

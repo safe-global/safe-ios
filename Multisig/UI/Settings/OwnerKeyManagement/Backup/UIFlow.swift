@@ -29,8 +29,9 @@ class UIFlow {
         self.completion = completion
     }
 
-    func modal(from vc: UIViewController) {
+    func modal(from vc: UIViewController, dismissableOnSwipe: Bool = true) {
         let nav = CancellableNavigationController()
+        nav.dismissableOnSwipe = dismissableOnSwipe
         nav.onCancel = { [unowned self] in
             stop(success: false)
         }
@@ -42,7 +43,14 @@ class UIFlow {
         ViewControllerFactory.addCloseButton(rootVC)
 
         presenter = vc
-        presenter.present(nav, animated: true)
+
+        if let presentedViewController = presenter.presentedViewController {
+            presentedViewController.dismiss(animated: true) { [weak self] in
+                self?.presenter.present(nav, animated: true)
+            }
+        } else {
+            presenter.present(nav, animated: true)
+        }
     }
 
     func push(from vc: UIViewController) {
@@ -79,8 +87,8 @@ class UIFlow {
 }
 
 extension UIViewController {
-    func present(flow: UIFlow) {
-        flow.modal(from: self)
+    func present(flow: UIFlow, dismissableOnSwipe: Bool = true) {
+        flow.modal(from: self, dismissableOnSwipe: dismissableOnSwipe)
     }
 
     func push(flow: UIFlow) {

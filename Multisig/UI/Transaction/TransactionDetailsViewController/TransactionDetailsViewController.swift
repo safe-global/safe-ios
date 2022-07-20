@@ -29,6 +29,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private var safe: Safe!
     private var loadSafeInfoDataTask: URLSessionTask?
     private var ledgerController: LedgerController?
+    private var shareButton: UIBarButtonItem!
 
     private enum TransactionSource {
         case id(String)
@@ -92,6 +93,28 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 object: nil)
         }
         tableView.backgroundColor = .backgroundSecondary
+
+        shareButton = UIBarButtonItem(image: UIImage(named: "ico-share")!.withTintColor(.primary),
+                                      style: .plain,
+                                      target: self,
+                                      action: #selector(didTapShare(_:)))
+
+        navigationItem.rightBarButtonItem = shareButton
+    }
+
+    @objc private func didTapShare(_ sender: Any) {
+        guard let safe = safe,
+              let tx = tx else { return }
+
+        let text = App.configuration.services.webAppURL.appendingPathComponent("\(safe.chain!.shortName!):\(safe.displayAddress)/transactions/\(tx.txId)")
+        let vc = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+        vc.completionWithItemsHandler = { _, success, _, _ in
+            if success {
+                App.shared.snackbar.show(message: "Transaction link shared")
+            }
+        }
+
+        present(vc, animated: true, completion: nil)
     }
 
     private func updateSafeInfo() {
@@ -202,7 +225,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                   multisigInfo.canSign
                     else { return false }
 
-            if (status == .awaitingExecution || status == .pendingFailed) && !multisigInfo.isRejected() && !pendingExecution {
+            if status == .awaitingExecution && !multisigInfo.isRejected() && !pendingExecution {
                  return true
             } else if status.isAwatingConfiramtions {
                 return true
@@ -518,7 +541,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
     // returns true if the app has means to execute the transaction and the transaction has all required confirmations
     func needsYourExecution(tx: SCGModels.TransactionDetails) -> Bool {
-        if tx.txStatus == .awaitingExecution || tx.txStatus == .pendingFailed,
+        if tx.txStatus == .awaitingExecution,
            let multisigInfo = tx.multisigInfo,
            // unclear why the confirmations only count ecdsa
            tx.ecdsaConfirmations.count >= multisigInfo.confirmationsRequired,

@@ -198,7 +198,7 @@ class ChainPendingTransactionMonitor {
                         // now update the data with the receipt results
                         if receipt.status == "0x0" {
                             // transaction failed
-                            cdTxData.ethTx.status = SCGModels.TxStatus.pendingFailed.rawValue
+                            cdTxData.ethTx.status = SCGModels.TxStatus.awaitingExecution.rawValue
                             cdTxData.ethTx.dateExecutedAt = Date()
                         } else if receipt.status == "0x1" {
                             // successful

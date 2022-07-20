@@ -69,4 +69,28 @@ class ReplaceOwnerFromSettingsFlow: ReplaceOwnerFlow {
 
         show(viewController)
     }
+
+    override func review() {
+        assert(ownerToReplace != nil)
+        assert(newOwner != nil)
+        let reviewVC = replaceOwnerFactory.review(
+                step: 2,
+                maxSteps: 2,
+                safe: safe,
+                newOwner: newOwner!,
+                ownerToReplace: ownerToReplace!,
+                previousOwner: prevOwner,
+                newAddressName: newAddressName
+        ) { [unowned self] txDetails in
+            transaction = txDetails
+            success()
+        }
+        show(reviewVC)
+    }
+
+    override func success() {
+        assert(transaction != nil)
+        AddressBookEntry.addOrUpdate(newOwner!.checksummed, chain: safe.chain!, name: newAddressName!)
+        super.success()
+    }
 }

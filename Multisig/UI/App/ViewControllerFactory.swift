@@ -29,10 +29,6 @@ enum ViewControllerFactory {
         return tabBarVC
     }
 
-    static func createPasscodeViewController(completion: @escaping () -> Void) -> UIViewController {
-        UINavigationController(rootViewController: CreatePasscodeViewController(completion))
-    }
-
     static func enterPasscodeViewController(completion: @escaping () -> Void) -> UIViewController {
         let vc = EnterPasscodeViewController()
         vc.showsCloseButton = false
@@ -49,6 +45,11 @@ enum ViewControllerFactory {
         let controller = AddOwnerKeyViewController(completion: completion)
         let nav = AddKeyNavigationController(rootViewController: controller)
         return nav
+    }
+
+    static func transactionDetailsViewController(transactionId: String) -> UIViewController {
+        let vc = TransactionDetailsViewController(transactionID: transactionId)
+        return modalWithRibbon(viewController: vc)
     }
 
     static func transactionDetailsViewController(safeTxHash: Data) -> UIViewController {
