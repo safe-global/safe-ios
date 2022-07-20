@@ -16,6 +16,8 @@ class CancellableNavigationController: UINavigationController, UIAdaptivePresent
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presentationController?.delegate = self
+        // disable swipe down gesture
+        isModalInPresentation = true
     }
 
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
