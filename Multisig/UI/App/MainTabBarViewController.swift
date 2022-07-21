@@ -121,9 +121,6 @@ class MainTabBarViewController: UITabBarController {
         WebConnectionController.shared.reconnect()
 
         presentDelayedControllers()
-
-        let vc = SafeAppWebViewController()
-        show(vc, sender: self)
     }
 
     private func balancesTabViewController() -> BalancesUINavigationController {
