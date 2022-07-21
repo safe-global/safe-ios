@@ -8,6 +8,8 @@ import WebKit
 import UIKit
 import JsonRpc2
 import Json
+import Ethereum
+
 
 class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageHandler {
 
@@ -15,15 +17,16 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
     // - Embed webview in NavBarController so there is a back button to go back
     // - Decide, where the entry point should be and enter WebView form there if it is not too hidden :-)
     // - hand over rpcCalls and post result to WebView
-    //    -
+    //    - rpcCalls - done
     // - handle Missing calls:
-    //    sendTransactions
+    //    sendTransactions - in progress
     //    getChainInfo
     //    getTxBySafeTxHash
     //    getSafeBalances
     //    signMessage
 
     private var rpcClient: JsonRpc2.Client? = nil
+    private let safe: Safe = try! Safe.getSelected()!
 
     func clientForChain(_ chain: Chain) {
         let urlString = chain.authenticatedRpcUrl.absoluteString
@@ -37,7 +40,7 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
     var webView: WKWebView!
 
     private func handleMessage(_ message: String?) {
-        print("\(#file).\(#function) | message: \(message!)")
+        //LogService.shared.debug(" | message: \(message!)")
 
         if let message = message {
             if message.contains("getSafeInfo") {
@@ -47,7 +50,9 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
             } else if message.contains("sendTransactions") {
                 handleSendTransactions(message)
             } else {
-                print("\(#file).\(#function) | Unknown message: \(message)")
+                if (!message.contains("\"success\":true,")) {
+                    LogService.shared.error(" | Unknown message: \(message)")
+                }
             }
         }
     }
@@ -58,19 +63,82 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
         let jsonData = message.data(using: .utf8)!
         do {
             let result = try decoder.decode(SendTransactionsData.self, from: jsonData)
+            LogService.shared.debug(" | txs: \(result)")
+            let privateKey = try! PrivateKey(data: Data(hex: "0xda18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322")) //0xE86935943315293154c7AD63296b4e1adAc76364
 
-            print("-------> \(#file).\(#function) | txs: \(result)")
+            //TODO get nonce from estimate Call. This only works if queue is empty
+            if let safeNonce = safe.nonce {
+                let nonce: UInt256String = UInt256String(safeNonce)
+                // TODO create a Transaction for signing
+                if let tx = result.params?.txs?[0],
+                   let id = safe.chain?.id,
+                   let to = tx.to {
+                    if let transaction: Transaction = Transaction(
+                            safeAddress: safe.addressValue,
+                            chainId: id,
+                            toAddress: Address(exactly: to.value),
+                            contractVersion: safe.contractVersion!,
+                            amount: tx.value,
+                            data: tx.data?.data32 ?? Data(),
+                            safeTxGas: "100000",
+                            nonce: nonce
+                    ) {
+                        LogService.shared.info(" ------>       transaction to be signed: \(transaction)")
 
+                        // TODO Sign tx
+                        let signature = try SafeTransactionSigner().sign(transaction, key: privateKey)
+
+                        // TODO Propose transaction
+                        LogService.shared.info(" ------>       signature: \(signature)")
+
+                        let address: Address = "0xE86935943315293154c7AD63296b4e1adAc76364"
+                        let keyInfo: KeyInfo = try! KeyInfo.firstKey(address: address)!
+
+                        proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: signature.hexadecimal)
+
+                    }
+                }
+            }
 
 
         } catch {
-            print("\(#file).\(#function) | Exception thrown while decoding message: \(message)")
+            LogService.shared.error(" | Exception thrown while decoding message: \(message) \(error)")
         }
 
     }
 
+    private func proposeTransaction(transaction: Transaction, keyInfo: KeyInfo, signature: String) {
+        let currentDataTask = App.shared.clientGatewayService.asyncProposeTransaction(transaction: transaction,
+                sender: AddressString(keyInfo.address),
+                signature: signature,
+                chainId: safe.chain!.id!) { result in
+            // NOTE: sometimes the data of the transaction list is not
+            // updated right away, we'll give a moment for the backend
+            // to catch up before finishing with this request.
+            DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(600)) {
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else {
+                        return
+                    }
+                    //self.endConfirm()
+                    switch result {
+                    case .failure(let error):
+                        if (error as NSError).code == URLError.cancelled.rawValue &&
+                                   (error as NSError).domain == NSURLErrorDomain {
+                            return
+                        }
+                        App.shared.snackbar.show(error: GSError.error(description: "Failed to create transaction", error: error))
+                    case .success(let transaction):
+                        NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
+                        //self.onSuccess(transaction: transaction)
+                    }
+                }
+            }
+        }
+    }
+
     private func handleRpcCall(_ message: String) {
-        if let chain = try! Safe.getSelected()?.chain {
+        if let chain = safe.chain {
             clientForChain(chain)
 
             let decoder = JSONDecoder()
@@ -90,14 +158,14 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
                     }
                 }
             } catch {
-                print("\(#file).\(#function) | Exception thrown while decoding message: \(message)")
+                LogService.shared.error(" | Exception thrown while decoding message: \(message)")
             }
         }
     }
 
     private func handleGetSafeInfo(_ message: String) {
-        print("\(#file).\(#function) | handleGetSafeInfo()")
-        print("\(#file).\(#function) | Message: \(message)")
+        LogService.shared.debug(" | handleGetSafeInfo()")
+        LogService.shared.debug(" | Message: \(message)")
 
         let decoder = JSONDecoder()
         let jsonData = message.data(using: .utf8)!
@@ -105,14 +173,14 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
             let result = try decoder.decode(SafeInfoRequestData.self, from: jsonData)
             // {"id":"72a4662487","method":"getSafeInfo","env":{"sdkVersion":"6.2.0"}}
 
-            print("\(#file).\(#function) |     id: \(result.id!)")
-            print("\(#file).\(#function) | method: \(result.method!)")
-            print("\(#file).\(#function) |    env: \(result.env!)")
+            LogService.shared.debug(" |     id: \(result.id!)")
+            LogService.shared.debug(" | method: \(result.method!)")
+            LogService.shared.debug(" |    env: \(result.env!)")
 
-            try! sendSafeInfoResponse(id: result.id!, method: result.method!, address: Safe.getSelected()?.address!, chainId: Safe.getSelected()?.chain?.id ?? "1", threshold: Safe.getSelected()?.threshold ?? 1)
+            try! sendSafeInfoResponse(id: result.id!, method: result.method!, address: safe.address!, chainId: safe.chain?.id ?? "1", threshold: safe.threshold ?? 1)
 
         } catch {
-            print("\(#file).\(#function) | Exception thrown while decoding message: \(message)")
+            LogService.shared.debug(" | Exception thrown while decoding message: \(message)")
         }
     }
 
@@ -121,14 +189,14 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
                        {"safeAddress":"\(address!)","chainId":\(chainId),"threshold":\(threshold),"owners":[]}
                        """
 
-        print("------> \(#file).\(#function) |    response: \(response)")
+        LogService.shared.debug(" |    response: \(response)")
 
         webView.evaluateJavaScript("""
                                    successMessage = JSON.parse('{"id":"\(id)","success":true,"version":"6.2.0","data":\(response)}');
                                    iframe = document.getElementById('iframe-https://cowswap.exchange'); 
                                    iframe.contentWindow.postMessage(successMessage);
                                    """) { any, error in
-            print("\(#file).\(#function) | \(any) error in JS execution: \(error)")
+            LogService.shared.debug(" | \(any) error in JS execution: \(error)")
         }
     }
 
@@ -158,13 +226,13 @@ class SafeAppWebViewController: UIViewController, WKUIDelegate, WKScriptMessageH
             responseDataString = ""
         }
 
-        print("---------> \(#file).\(#function) | responseAsData: \(responseDataString)")
+        LogService.shared.debug(" | responseAsData: \(responseDataString)")
         webView.evaluateJavaScript("""
                                    successMessage = JSON.parse('{"id":"\(id)","success":true,"version":"6.2.0","data":\(responseDataString)}');
                                    iframe = document.getElementById('iframe-https://cowswap.exchange'); 
                                    iframe.contentWindow.postMessage(successMessage);
                                    """) { any, error in
-            print("\(#file).\(#function) | \(any) error in JS execution: \(error)")
+            LogService.shared.debug(" | \(any) error in JS execution: \(error)")
         }
     }
 
@@ -249,9 +317,9 @@ struct SendTxParams: Codable {
 }
 
 struct SendTx: Codable {
-    var value: String?
-    var data: String?
-    var gas: String?
-    var from: String?
-    var to: String?
+    var value: UInt256String?
+    var data: UInt256String?
+    var gas: UInt256String?
+    var from: UInt256String?
+    var to: UInt256String?
 }
