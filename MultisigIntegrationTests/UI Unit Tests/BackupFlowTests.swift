@@ -46,11 +46,7 @@ class BackupFlowTests: UIIntegrationTestCase {
 
         let flow = BackupFlow(mnemonic: mnemonic) { success in }
         flow.modal(from: presenterVC)
-        // wait for presentation animation to complete
-        wait(timeout: waitingTime)
-
-        let backupIntroVC = topPresentedController() as! BackupIntroViewController
-        backupIntroVC.backupCompletion(true)
+        flow.seed()
         // wait for presentation animation to complete
         wait(timeout: waitingTime)
 
@@ -62,14 +58,7 @@ class BackupFlowTests: UIIntegrationTestCase {
 
         let flow = BackupFlow(mnemonic: mnemonic) { success in }
         flow.modal(from: presenterVC)
-        wait(timeout: waitingTime)
-
-        let backupIntroVC = topPresentedController() as! BackupIntroViewController
-        backupIntroVC.backupCompletion(true)
-        wait(timeout: waitingTime)
-
-        let seedVC = topPresentedController() as! BackupSeedPhraseViewController
-        seedVC.onContinue!()
+        flow.verify()
         wait(timeout: waitingTime)
 
         let topScreen = topPresentedController()
@@ -80,14 +69,7 @@ class BackupFlowTests: UIIntegrationTestCase {
 
         let flow = BackupFlow(mnemonic: mnemonic) { success in }
         flow.modal(from: presenterVC)
-        wait(timeout: waitingTime)
-
-        let backupIntroVC = topPresentedController() as! BackupIntroViewController
-        backupIntroVC.backupCompletion(true)
-        wait(timeout: waitingTime)
-
-        let seedVC = topPresentedController() as! BackupSeedPhraseViewController
-        seedVC.onContinue!()
+        flow.verify()
         wait(timeout: waitingTime)
 
         let verifyVC = topPresentedController() as! VerifyPhraseViewController
@@ -97,7 +79,7 @@ class BackupFlowTests: UIIntegrationTestCase {
         // scenario 1: first word is incorrect
         // scenario 2: second word is incorrect
         // scenario 3: third word is incorrect
-        
+
 //        verifyVC.moveToNext()
 //        XCTAssertEqual(verifyVC.state, .question, "wrong state")
 
