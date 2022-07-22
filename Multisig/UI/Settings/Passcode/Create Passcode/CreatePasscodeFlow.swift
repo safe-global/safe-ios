@@ -38,6 +38,8 @@ class CreatePasscodeFlow: UIFlow {
                 stop(success: false)
                 return
             }
+            // reset to remove from memory
+            createVC.passcode = nil
             repeatPasscode(passcode: passcode)
         }
         createVC.skipCompletion = { [unowned self] in
@@ -50,9 +52,13 @@ class CreatePasscodeFlow: UIFlow {
     func repeatPasscode(passcode: String) {
         let repeatVC = factory.repeatPasscode(passcode)
         repeatVC.completion = { [unowned self, unowned repeatVC] in
+            // reset from memory
+            repeatVC.passcode = nil
             setupBiometry(presenter: repeatVC)
         }
         repeatVC.skipCompletion = { [unowned self] in
+            // reset passcode from memory
+            repeatVC.passcode = nil
             stop(success: false)
         }
         show(repeatVC)
