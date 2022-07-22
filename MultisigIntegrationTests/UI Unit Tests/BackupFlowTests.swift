@@ -75,6 +75,13 @@ class BackupFlowTests: UIIntegrationTestCase {
         let verifyVC = topPresentedController() as! VerifyPhraseViewController
         XCTAssertEqual(verifyVC.state, .question, "wrong state")
 
+        // scenario 1: first word is incorrect
+        let firstQuestion = verifyVC.questions[0]
+        let firstWrongAnswer = firstQuestion.choices.firstIndex(where: { $0 != firstQuestion.correctAnswer})!
+        verifyVC.didSelectWord(at: firstWrongAnswer)
+        XCTAssertEqual(verifyVC.state, .incorrect, "wrong state")
+
+
         //TODO: click through questions selecting wrong words
         // scenario 1: first word is incorrect
         // scenario 2: second word is incorrect
