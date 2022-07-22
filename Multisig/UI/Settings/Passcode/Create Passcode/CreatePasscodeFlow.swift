@@ -24,26 +24,96 @@ class CreatePasscodeFlow: UIFlow {
     }
 
     override func start() {
-        create()
+        createPasscode()
     }
 
-    func create() {
+    func createPasscode() {
         guard !App.shared.auth.isPasscodeSetAndAvailable else {
             stop(success: false)
             return
         }
-        let createVC = factory.create { [unowned self] in
+        let createVC = factory.create()
+        createVC.completion = { [unowned self, unowned createVC] in
+            guard let passcode = createVC.passcode else {
+                stop(success: false)
+                return
+            }
+            repeatPasscode(passcode: passcode)
+        }
+        createVC.skipCompletion = { [unowned self] in
+            stop(success: false)
+        }
+
+        show(createVC)
+    }
+
+    func repeatPasscode(passcode: String) {
+        let repeatVC = factory.repeatPasscode(passcode)
+        repeatVC.completion = { [unowned self, unowned repeatVC] in
+            setupBiometry(presenter: repeatVC)
+        }
+        repeatVC.skipCompletion = { [unowned self] in
+            stop(success: false)
+        }
+        show(repeatVC)
+    }
+
+    func setupBiometry(presenter: UIViewController) {
+        // if device does not support biometrics, finish right away
+        guard App.shared.auth.isBiometricsSupported else {
+            stop(success: true)
+            return
+        }
+
+        //   if device supports it, ask if to enable biometry
+        let biometryAlert = factory.enableBiometryAlert { [unowned self] in
             stop(success: true)
         }
-        show(createVC)
+
+        presenter.present(biometryAlert, animated: true)
+    }
+
+    override func stop(success: Bool) {
+        super.stop(success: success)
+        if success {
+            App.shared.snackbar.show(message: "Passcode created")
+        }
     }
 }
 
 class PasscodeFlowFactory {
-    func create(completion: @escaping () -> Void) -> CreatePasscodeViewController {
-        let createVC = CreatePasscodeViewController(completion)
+    func create() -> CreatePasscodeViewController {
+        let createVC = CreatePasscodeViewController()
         createVC.navigationItem.hidesBackButton = true
         return createVC
+    }
+
+    func repeatPasscode(_ passcode: String) -> RepeatPasscodeViewController {
+        RepeatPasscodeViewController(passcode: passcode)
+    }
+
+    func enableBiometryAlert(completion: @escaping () -> Void) -> UIAlertController {
+        let shouldEnableVC = UIAlertController(
+            title: "Activate Biometry?",
+            message: "Would you like to enable login with biometrics?",
+            preferredStyle: .alert)
+
+        //      if yes, ask to authenticate with biometry
+        shouldEnableVC.addAction(UIAlertAction(title: "Enable", style: .default, handler: { _ in
+
+            App.shared.auth.activateBiometrics { _ in
+                // in any resulting case, finish.
+                completion()
+            }
+
+        }))
+
+        //      if no, finish right away
+        shouldEnableVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+            completion()
+        }))
+
+        return shouldEnableVC
     }
 
     func enter(biometry: Bool = true, options: PasscodeOptions = [], reset: @escaping () -> Void = { }, completion: @escaping (_ success: Bool) -> Void) -> EnterPasscodeViewController? {

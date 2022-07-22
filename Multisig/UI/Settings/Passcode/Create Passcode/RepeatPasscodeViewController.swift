@@ -41,7 +41,6 @@ class RepeatPasscodeViewController: PasscodeViewController {
         if text == passcode {
             do {
                 try App.shared.auth.createPasscode(plaintextPasscode: text)
-                App.shared.snackbar.show(message: "Passcode created")
                 completion()
             } catch {
                 showGenericError(description: "Failed to create passcode", error: error)
