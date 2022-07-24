@@ -25,10 +25,6 @@ class ClaimGetStartedViewController: UIViewController {
         ViewControllerFactory.addCloseButton(self)
         ViewControllerFactory.makeTransparentNavigationBar(self)
 
-        stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
-        stepLabel.textAlignment = .right
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
-
         titleLabel.setStyle(.claimTitle)
         startClaimButton.setText("Start your claiming process", .filled)
 
