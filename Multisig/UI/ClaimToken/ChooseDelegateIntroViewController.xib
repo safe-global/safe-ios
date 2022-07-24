@@ -45,7 +45,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="RFH-7f-pFO">
-                    <rect key="frame" x="16" y="722" width="382" height="120"/>
+                    <rect key="frame" x="16" y="726" width="382" height="120"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iDe-tV-LXS">
                             <rect key="frame" x="0.0" y="0.0" width="382" height="56"/>
@@ -79,7 +79,7 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="RFH-7f-pFO" secondAttribute="bottom" constant="20" id="3AT-l2-dAj"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="RFH-7f-pFO" secondAttribute="bottom" constant="16" id="3AT-l2-dAj"/>
                 <constraint firstItem="B7B-JZ-z5o" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="4" id="3tQ-Uj-NNq"/>
                 <constraint firstItem="E9g-9f-6XY" firstAttribute="top" secondItem="x9v-ws-7sH" secondAttribute="bottom" constant="24" id="JPY-pG-icx"/>
                 <constraint firstItem="B7B-JZ-z5o" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="M4d-5N-rQv"/>
