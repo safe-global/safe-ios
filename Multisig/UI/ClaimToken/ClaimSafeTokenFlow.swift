@@ -22,7 +22,14 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     override func start() {
-        chooseDelegateIntro()
+        showIntro()
+    }
+
+    func showIntro() {
+        let vc = factory.claimGetStarted { [unowned self] in
+            chooseDelegateIntro()
+        }
+        show(vc)
     }
 
     func chooseDelegateIntro() {
@@ -31,7 +38,6 @@ class ClaimSafeTokenFlow: UIFlow {
         } onCustomAddress: { [unowned self] in
             enterCustomAddress()
         }
-
         show(vc)
     }
 
@@ -39,7 +45,6 @@ class ClaimSafeTokenFlow: UIFlow {
         let vc = factory.chooseGuardian() { [unowned self] guardian in
             selectAmount(guardian: guardian)
         }
-
         show(vc)
     }
 
@@ -74,6 +79,13 @@ class ClaimSafeTokenFlow: UIFlow {
 }
 
 class ClaimSafeTokenFlowFactory {
+
+    func claimGetStarted(onStartClaim: @escaping () -> ()) -> ClaimGetStartedViewController {
+        let vc = ClaimGetStartedViewController()
+        vc.onStartClaim = onStartClaim
+        return vc
+    }
+
     func chooseDelegateIntro(onChooseGuardian: @escaping () -> (),
                              onCustomAddress: @escaping () -> ()) -> ChooseDelegateIntroViewController{
         let vc = ChooseDelegateIntroViewController(stepNumber: 1,
