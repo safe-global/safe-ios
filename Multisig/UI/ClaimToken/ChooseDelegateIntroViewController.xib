@@ -39,7 +39,7 @@
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9g-9f-6XY">
                     <rect key="frame" x="16" y="254.5" width="382" height="122"/>
-                    <string key="text">A delegate is someone you select to make governance decision on your behalf. You still rerain full ownership of your tokens, but you delegate will wield the voting power assosiated with those token. You can delegate to anyone, including yourself.</string>
+                    <string key="text">A delegate is someone you select to make governance decision on your behalf. You still retain full ownership of your tokens, but you delegate will wield the voting power associated with those token. You can delegate to anyone, including yourself.</string>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
