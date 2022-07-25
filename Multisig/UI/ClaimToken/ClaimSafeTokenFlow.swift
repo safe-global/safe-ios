@@ -49,7 +49,7 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     func enterCustomAddress() {
-        let vc = factory.enterCustomAddress() { [unowned self] address in
+        let vc = factory.enterCustomAddress(mainnet: self.safe.chain?.id == Chain.ChainID.ethereumMainnet) { [unowned self] address in
             //TODO: set delegate and proceed
         }
         show(vc)
@@ -104,8 +104,9 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
-    func enterCustomAddress(_ onContinue: @escaping (Address) -> ()) -> EnterCustomAddressViewController {
+    func enterCustomAddress(mainnet: Bool, _ onContinue: @escaping (Address) -> ()) -> EnterCustomAddressViewController {
         let vc = EnterCustomAddressViewController()
+        vc.mainnet = mainnet
         vc.onContinue = onContinue
         return vc
     }

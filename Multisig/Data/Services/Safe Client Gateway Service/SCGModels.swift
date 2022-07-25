@@ -344,7 +344,7 @@ extension SCGModels {
                 struct DisableModule: Decodable {
                     var module: AddressInfo
                 }
-                     
+
                 struct SetGuard: Decodable {
                     var `guard`: AddressInfo
                 }
@@ -587,7 +587,7 @@ extension SCGModels {
         }
 
         var prefixString: String {
-            AppSettings.prependingChainPrefixToAddresses ? "\(shortName):" : "" 
+            AppSettings.prependingChainPrefixToAddresses ? "\(shortName):" : ""
         }
     }
 
@@ -675,19 +675,19 @@ extension SCGModels.AddressInfo {
 extension SCGModels.Chain {
 
     private static func createChainInfo(id: String,
-                         chainName: String,
-                         rpcUrl: URL,
-                         rpcUrlAuthentication: SCGModels.RpcAuthentication.Authentication = .apiKeyPath,
-                         blockExplorerUrlAddress: String,
-                         blockExplorerUrlTxHash: String,
-                         ensRegistryAddress: String,
-                         shortName: String,
-                         currencyName: String,
-                         currencySymbl: String,
-                         currencyDecimals: Int,
-                         currencyLogo: URL,
-                         themeTextColor: String,
-                         themeBackgroundColor: String) -> SCGModels.Chain {
+                                        chainName: String,
+                                        rpcUrl: URL,
+                                        rpcUrlAuthentication: SCGModels.RpcAuthentication.Authentication = .apiKeyPath,
+                                        blockExplorerUrlAddress: String,
+                                        blockExplorerUrlTxHash: String,
+                                        ensRegistryAddress: String,
+                                        shortName: String,
+                                        currencyName: String,
+                                        currencySymbl: String,
+                                        currencyDecimals: Int,
+                                        currencyLogo: URL,
+                                        themeTextColor: String,
+                                        themeBackgroundColor: String) -> SCGModels.Chain {
 
         SCGModels.Chain(
             chainId: UInt256String(stringLiteral: id),
