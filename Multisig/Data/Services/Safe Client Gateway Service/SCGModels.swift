@@ -672,4 +672,78 @@ extension SCGModels.AddressInfo {
     }
 }
 
+extension SCGModels.Chain {
+
+    private static func createChainInfo(id: UInt256,
+                         chainName: String,
+                         rpcUrl: URL,
+                         rpcUrlAuthentication: SCGModels.RpcAuthentication.Authentication = .apiKeyPath,
+                         blockExplorerUrlAddress: String,
+                         blockExplorerUrlTxHash: String,
+                         ensRegistryAddress: String,
+                         shortName: String,
+                         currencyName: String,
+                         currencySymbl: String,
+                         currencyDecimals: Int,
+                         currencyLogo: URL,
+                         themeTextColor: String,
+                         themeBackgroundColor: String) -> SCGModels.Chain {
+
+        SCGModels.Chain(
+                chainId: UInt256String(id),
+                chainName: chainName,
+                rpcUri: SCGModels.RpcAuthentication(authentication: rpcUrlAuthentication, value: rpcUrl),
+                blockExplorerUriTemplate: SCGModels.BlockExplorerUriTemplate(address: blockExplorerUrlAddress,
+                                                                             txHash: blockExplorerUrlTxHash),
+                nativeCurrency: SCGModels.Currency(name: currencyName,
+                                                   symbol: currencySymbl,
+                                                   decimals: currencyDecimals,
+                                                   logoUri: currencyLogo),
+                theme: SCGModels.Theme(textColor: themeTextColor,
+                                       backgroundColor: themeBackgroundColor),
+                ensRegistryAddress: AddressString(ensRegistryAddress),
+                shortName: shortName,
+                l2: false,
+                features: [],
+                gasPrice: [])
+    }
+
+    static func mainnetChain() -> SCGModels.Chain {
+        let chain = Chain.mainnetChain()
+        return createChainInfo(
+            id: try! UInt256(chain.id!),
+            chainName: chain.name!,
+            rpcUrl: chain.rpcUrl!,
+            blockExplorerUrlAddress: chain.blockExplorerUrlAddress!,
+            blockExplorerUrlTxHash: chain.blockExplorerUrlTxHash!,
+            ensRegistryAddress: chain.ensRegistryAddress!,
+            shortName: chain.shortName!,
+            currencyName: chain.nativeCurrency!.name!,
+            currencySymbl: chain.nativeCurrency!.symbol!,
+            currencyDecimals: Int(chain.nativeCurrency!.decimals),
+            currencyLogo: chain.nativeCurrency!.logoUrl!,
+            themeTextColor: chain.theme!.textColor!,
+            themeBackgroundColor: chain.theme!.backgroundColor!
+        )
+    }
+
+    static func rinkebyChain() -> SCGModels.Chain {
+        let chain = Chain.rinkebyChain()
+        return createChainInfo(
+            id: try! UInt256(chain.id!),
+            chainName: chain.name!,
+            rpcUrl: chain.rpcUrl!,
+            blockExplorerUrlAddress: chain.blockExplorerUrlAddress!,
+            blockExplorerUrlTxHash: chain.blockExplorerUrlTxHash!,
+            ensRegistryAddress: chain.ensRegistryAddress!,
+            shortName: chain.shortName!,
+            currencyName: chain.nativeCurrency!.name!,
+            currencySymbl: chain.nativeCurrency!.symbol!,
+            currencyDecimals: Int(chain.nativeCurrency!.decimals),
+            currencyLogo: chain.nativeCurrency!.logoUrl!,
+            themeTextColor: chain.theme!.textColor!,
+            themeBackgroundColor: chain.theme!.backgroundColor!
+        )
+    }
+}
 
