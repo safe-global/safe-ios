@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InstructionStepView" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="circleLabel" destination="2tm-S5-2ir" id="03U-7x-491"/>
+                <outlet property="descriptionLabel" destination="cFu-O8-fXP" id="DeG-4X-r6h"/>
+                <outlet property="headerLabel" destination="qRN-SG-Fd6" id="PLt-kl-ynN"/>
+                <outlet property="verticalBarView" destination="acj-Bo-Wq8" id="gk4-6Q-dbP"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="379" height="572"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="MKd-uH-w24">
+                    <rect key="frame" x="16" y="0.0" width="347" height="564"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xEK-1K-gcH">
+                            <rect key="frame" x="0.0" y="0.0" width="28" height="162.5"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qs8-dW-L4f">
+                                    <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="btF-XP-zaB">
+                                            <rect key="frame" x="0.0" y="0.5" width="28" height="27"/>
+                                            <color key="tintColor" name="backgroundTetriary"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tm-S5-2ir">
+                                            <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" name="labelSecondary"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="28" id="CZR-vq-RAC"/>
+                                        <constraint firstItem="btF-XP-zaB" firstAttribute="top" secondItem="qs8-dW-L4f" secondAttribute="top" id="MCD-yL-NDw"/>
+                                        <constraint firstItem="btF-XP-zaB" firstAttribute="leading" secondItem="qs8-dW-L4f" secondAttribute="leading" id="MOn-sr-AbF"/>
+                                        <constraint firstAttribute="width" constant="28" id="PJo-K6-U5V"/>
+                                        <constraint firstItem="2tm-S5-2ir" firstAttribute="leading" secondItem="qs8-dW-L4f" secondAttribute="leading" id="cit-VK-dz1"/>
+                                        <constraint firstItem="2tm-S5-2ir" firstAttribute="top" secondItem="qs8-dW-L4f" secondAttribute="top" id="itj-B8-U7i"/>
+                                        <constraint firstAttribute="trailing" secondItem="btF-XP-zaB" secondAttribute="trailing" id="mVs-Ku-hp3"/>
+                                        <constraint firstAttribute="bottom" secondItem="btF-XP-zaB" secondAttribute="bottom" id="v9X-Kj-0RT"/>
+                                        <constraint firstAttribute="bottom" secondItem="2tm-S5-2ir" secondAttribute="bottom" id="wUT-NO-nKk"/>
+                                        <constraint firstAttribute="trailing" secondItem="2tm-S5-2ir" secondAttribute="trailing" id="x33-Br-tQe"/>
+                                    </constraints>
+                                </view>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-vertical" translatesAutoresizingMaskIntoConstraints="NO" id="acj-Bo-Wq8">
+                                    <rect key="frame" x="13" y="36" width="2" height="126.5"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="2" id="LwT-xb-hqu"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="28" id="G6V-CC-pro"/>
+                            </constraints>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="hPQ-iX-h6A">
+                            <rect key="frame" x="44" y="0.0" width="303" height="146.5"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Header text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRN-SG-Fd6">
+                                    <rect key="frame" x="0.0" y="0.0" width="303" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cFu-O8-fXP">
+                                    <rect key="frame" x="0.0" y="24.5" width="303" height="122"/>
+                                    <string key="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a g</string>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="acj-Bo-Wq8" firstAttribute="bottom" secondItem="cFu-O8-fXP" secondAttribute="bottom" constant="16" id="ELx-wc-CDT"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="MKd-uH-w24" secondAttribute="trailing" constant="16" id="WXb-co-I9C"/>
+                <constraint firstAttribute="bottom" secondItem="MKd-uH-w24" secondAttribute="bottom" constant="8" id="noF-B0-ZRH"/>
+                <constraint firstItem="MKd-uH-w24" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="xjd-pk-ebL"/>
+                <constraint firstItem="MKd-uH-w24" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="zXg-Hi-5Dj"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="22" y="232"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="circle.fill" catalog="system" width="128" height="121"/>
+        <image name="ico-vertical" width="2" height="5"/>
+        <namedColor name="backgroundTetriary">
+            <color red="0.93333333333333335" green="0.93725490196078431" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="labelSecondary">
+            <color red="0.36470588235294116" green="0.42745098039215684" blue="0.45490196078431372" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

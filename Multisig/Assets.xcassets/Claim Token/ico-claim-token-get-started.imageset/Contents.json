@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ico-claim-token-get-started.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

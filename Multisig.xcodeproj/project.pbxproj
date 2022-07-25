@@ -751,6 +751,11 @@
 		6A39DC9327C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A39DC9127C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift */; };
 		6A39DC9427C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A39DC9227C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib */; };
 		6A68612F28816B18009FB8DF /* BackupFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A68612E28816B18009FB8DF /* BackupFlowTests.swift */; };
+		6A6A10592889496100B852D5 /* ClaimGetStartedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6A10572889496100B852D5 /* ClaimGetStartedViewController.swift */; };
+		6A6A105A2889496100B852D5 /* ClaimGetStartedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A6A10582889496100B852D5 /* ClaimGetStartedViewController.xib */; };
+		6A6A105D2889A31200B852D5 /* InstructionStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6A105C2889A31200B852D5 /* InstructionStepView.swift */; };
+		6A6A105F2889A32300B852D5 /* InstructionStepListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6A105E2889A32300B852D5 /* InstructionStepListView.swift */; };
+		6A6A10612889A33500B852D5 /* InstructionStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A6A10602889A33500B852D5 /* InstructionStepView.xib */; };
 		6A7A489B28201697003278C8 /* SafeOwnerPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7A489928201697003278C8 /* SafeOwnerPickerViewController.swift */; };
 		6A7A489C28201697003278C8 /* SafeOwnerPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A7A489A28201697003278C8 /* SafeOwnerPickerViewController.xib */; };
 		6A7A48A02823A297003278C8 /* SafeOwnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7A489E2823A297003278C8 /* SafeOwnerCell.swift */; };
@@ -1640,6 +1645,11 @@
 		6A39DC9127C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentFinishedViewController.swift; sourceTree = "<group>"; };
 		6A39DC9227C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeDeploymentFinishedViewController.xib; sourceTree = "<group>"; };
 		6A68612E28816B18009FB8DF /* BackupFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupFlowTests.swift; sourceTree = "<group>"; };
+		6A6A10572889496100B852D5 /* ClaimGetStartedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimGetStartedViewController.swift; sourceTree = "<group>"; };
+		6A6A10582889496100B852D5 /* ClaimGetStartedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClaimGetStartedViewController.xib; sourceTree = "<group>"; };
+		6A6A105C2889A31200B852D5 /* InstructionStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionStepView.swift; sourceTree = "<group>"; };
+		6A6A105E2889A32300B852D5 /* InstructionStepListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionStepListView.swift; sourceTree = "<group>"; };
+		6A6A10602889A33500B852D5 /* InstructionStepView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstructionStepView.xib; sourceTree = "<group>"; };
 		6A7A489928201697003278C8 /* SafeOwnerPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeOwnerPickerViewController.swift; sourceTree = "<group>"; };
 		6A7A489A28201697003278C8 /* SafeOwnerPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeOwnerPickerViewController.xib; sourceTree = "<group>"; };
 		6A7A489E2823A297003278C8 /* SafeOwnerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeOwnerCell.swift; sourceTree = "<group>"; };
@@ -1978,11 +1988,14 @@
 		0472B2B32869D5480049BA17 /* ClaimToken */ = {
 			isa = PBXGroup;
 			children = (
+				6A6A105B2889A2B700B852D5 /* Views */,
 				0472B2B12869D3510049BA17 /* ClaimSafeTokenFlow.swift */,
 				0472B2B82869D66A0049BA17 /* ChooseDelegateIntroViewController.swift */,
 				0472B2B92869D66A0049BA17 /* ChooseDelegateIntroViewController.xib */,
 				0472B2C0286A49470049BA17 /* ChooseGuardianViewController */,
 				0472B2CB286BCAE70049BA17 /* ClaimingAmountViewController */,
+				6A6A10572889496100B852D5 /* ClaimGetStartedViewController.swift */,
+				6A6A10582889496100B852D5 /* ClaimGetStartedViewController.xib */,
 			);
 			path = ClaimToken;
 			sourceTree = "<group>";
@@ -3781,6 +3794,16 @@
 			path = AddKeyAsNewOwner;
 			sourceTree = "<group>";
 		};
+		6A6A105B2889A2B700B852D5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6A6A105E2889A32300B852D5 /* InstructionStepListView.swift */,
+				6A6A105C2889A31200B852D5 /* InstructionStepView.swift */,
+				6A6A10602889A33500B852D5 /* InstructionStepView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		6A7A489D2823A261003278C8 /* SafeOwnerCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -4296,6 +4319,7 @@
 				6AFD26F1286466B900336FFE /* SafeTokenBannerTableViewCell.xib in Resources */,
 				0AE8C0A3257947CF00E62B34 /* DetailStatusCell.xib in Resources */,
 				04131FBE2851571E001F60C2 /* CreateInviteOwnerIntroViewController.xib in Resources */,
+				6A6A10612889A33500B852D5 /* InstructionStepView.xib in Resources */,
 				550FB1A126691CA300C13D54 /* dapps-rinkeby.json in Resources */,
 				04D093EA284FD348003F38CF /* OnboardingStepCollectionViewCell.xib in Resources */,
 				0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */,
@@ -4376,6 +4400,7 @@
 				049A9DB225FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib in Resources */,
 				6A7A489C28201697003278C8 /* SafeOwnerPickerViewController.xib in Resources */,
 				0ABE698927920294003338AF /* ErrorTableViewCell.xib in Resources */,
+				6A6A105A2889496100B852D5 /* ClaimGetStartedViewController.xib in Resources */,
 				04077B38278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.xib in Resources */,
 				0A9A1A33257924C600B44405 /* DetailMultiAccountsCell.xib in Resources */,
 				0A9A1A37257924C600B44405 /* DetailAccountCell.xib in Resources */,
@@ -4796,6 +4821,7 @@
 				55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */,
 				0ADD19A6265E53BE00EB0F2B /* QRCodeView.swift in Sources */,
 				04D968D4276B872D00CE4A9E /* TransactionViewController.swift in Sources */,
+				6A6A10592889496100B852D5 /* ClaimGetStartedViewController.swift in Sources */,
 				0ADA911225656FEC0004DEC0 /* TransactionListViewController.swift in Sources */,
 				3E373F7D2631784200D8107A /* BlockchainDomainManager.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
@@ -4804,6 +4830,7 @@
 				D80B5A0F276A367A00D6E024 /* AddOwnerFirstViewController.swift in Sources */,
 				0A9366AC278F0175001918A9 /* ContainerTableViewCell.swift in Sources */,
 				0A57C5B52577F02E00420303 /* ConfirmationConfirmedPiece.swift in Sources */,
+				6A6A105F2889A32300B852D5 /* InstructionStepListView.swift in Sources */,
 				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,
 				0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */,
 				043963832704E25800018F74 /* AdvancedTransactionDetailsViewController.swift in Sources */,
@@ -4869,7 +4896,6 @@
 				045769FD27C7DBBF00881206 /* SafeDeployingViewController.swift in Sources */,
 				550FB1AA26691D2E00C13D54 /* UITableView+Cells.swift in Sources */,
 				0472B2D2286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.swift in Sources */,
-				0A5B15882808649E003AD853 /* CreatePasscodeController.swift in Sources */,
 				04273E5826AEE06500A14E95 /* BluetoothController.swift in Sources */,
 				0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */,
 				0439638527077E3D00018F74 /* TransactionEstimationRequest.swift in Sources */,
@@ -4910,6 +4936,7 @@
 				0A530720254311C400E8A270 /* SafeTransactionSigner.swift in Sources */,
 				0A2F1A6E267A538E00C09F03 /* GSLabel.swift in Sources */,
 				0439B29C28048A5F00796F18 /* BackupKeyTableViewCell.swift in Sources */,
+				6A6A105D2889A31200B852D5 /* InstructionStepView.swift in Sources */,
 				0A9366B3278F1EA0001918A9 /* HyperlinkButtonView.swift in Sources */,
 				0A478D5825B876AF0038363E /* ButtonTableViewCell.swift in Sources */,
 				5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */,
