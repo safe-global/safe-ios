@@ -49,7 +49,8 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     func enterCustomAddress() {
-
+        let vc = EnterCustomAddressViewController()
+        show(vc)
     }
 
     func selectAmount(guardian: Guardian) {
