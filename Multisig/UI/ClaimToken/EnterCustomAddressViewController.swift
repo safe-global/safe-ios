@@ -26,7 +26,7 @@ class EnterCustomAddressViewController: UIViewController {
     private var address: Address? { addressField?.address }
 
     var mainnet: Bool = true
-    var onContinue: (() -> ())?
+    var onContinue: ((_ address: Address) -> ())?
 
 
     override func viewDidLoad() {
@@ -162,7 +162,7 @@ class EnterCustomAddressViewController: UIViewController {
     }
 
     @IBAction func didTapContinueButton(_ sender: Any) {
-        onContinue?()
+        onContinue?(address!)
     }
 }
 

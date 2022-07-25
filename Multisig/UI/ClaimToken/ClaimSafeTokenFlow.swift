@@ -49,7 +49,9 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     func enterCustomAddress() {
-        let vc = EnterCustomAddressViewController()
+        let vc = factory.enterCustomAddress() { [unowned self] address in
+            //TODO: set delegate and proceed
+        }
         show(vc)
     }
 
@@ -93,14 +95,18 @@ class ClaimSafeTokenFlowFactory {
                                                    maxSteps: 3,
                                                    onChooseGuardian: onChooseGuardian,
                                                    onCustomAddress: onCustomAddress)
-
         return vc
     }
 
     func chooseGuardian(_ onSelect: @escaping (Guardian) -> ()) -> ChooseGuardianViewController {
         let vc = ChooseGuardianViewController()
         vc.onSelect = onSelect
-        
+        return vc
+    }
+
+    func enterCustomAddress(_ onContinue: @escaping (Address) -> ()) -> EnterCustomAddressViewController {
+        let vc = EnterCustomAddressViewController()
+        vc.onContinue = onContinue
         return vc
     }
 
