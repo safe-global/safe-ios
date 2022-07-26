@@ -22,13 +22,19 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     override func start() {
-        showIntro()
+        //showIntro()
+        showNotAvailable()
     }
 
     func showIntro() {
         let vc = factory.claimGetStarted { [unowned self] in
             chooseDelegateIntro()
         }
+        show(vc)
+    }
+
+    func showNotAvailable() {
+        let vc = ClaimNotAvailableViewController()
         show(vc)
     }
 
