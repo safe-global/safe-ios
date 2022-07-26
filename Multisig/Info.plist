@@ -57,6 +57,10 @@
 	<string>$(DESKTOP_PAIRING_URL)</string>
 	<key>DISCORD_URL</key>
 	<string>$(DISCORD_URL)</string>
+	<key>FORUM_URL</key>
+	<string>${FORUM_URL)</string>
+	<key>SAFE_DAO_URL</key>
+	<string>${SAFE_DAO_URL)</string>
 	<key>FALLBACKHANDLER_URL</key>
 	<string>$(FALLBACKHANDLER_URL)</string>
 	<key>FEATURE_SUGGESTION_URL</key>
