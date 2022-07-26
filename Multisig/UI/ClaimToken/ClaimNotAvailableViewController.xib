@@ -26,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="UBV-15-5WL">
-                    <rect key="frame" x="16" y="98" width="382" height="612.5"/>
+                    <rect key="frame" x="16" y="98" width="382" height="604.5"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="iTK-bk-gVa">
                             <rect key="frame" x="0.0" y="0.0" width="382" height="320.5"/>
@@ -56,15 +56,15 @@
                                 </label>
                             </subviews>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="d4e-RO-d2T">
-                            <rect key="frame" x="0.0" y="340.5" width="382" height="272"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="d4e-RO-d2T">
+                            <rect key="frame" x="0.0" y="340.5" width="382" height="264"/>
                             <subviews>
                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WHT-dq-u9Y" customClass="HyperlinkButtonView" customModule="Multisig" customModuleProvider="target">
                                     <rect key="frame" x="71" y="0.0" width="240" height="128"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mfa-y7-bXw" customClass="HyperlinkButtonView" customModule="Multisig" customModuleProvider="target">
-                                    <rect key="frame" x="71" y="144" width="240" height="128"/>
+                                    <rect key="frame" x="71" y="136" width="240" height="128"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                             </subviews>
