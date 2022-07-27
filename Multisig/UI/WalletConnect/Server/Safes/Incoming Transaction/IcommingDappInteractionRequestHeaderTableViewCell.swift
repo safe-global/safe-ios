@@ -24,12 +24,14 @@ class IcommingDappInteractionRequestHeaderTableViewCell: UITableViewCell {
         fromLabel.setStyle(.secondary)
     }
 
-    func setFromAddress(_ address: Address, label: String?, prefix: String?) {
+    func setFromAddress(_ address: Address, label: String?, prefix: String?, title: String? = "From") {
         fromAddressInfoView.setAddress(address, label: label, prefix: prefix)
+        fromLabel.text = title
     }
 
-    func setToAddress(_ address: Address, label: String?, imageUri: URL?, prefix: String?) {
+    func setToAddress(_ address: Address, label: String?, imageUri: URL?, prefix: String?, title: String? = "To") {
         toAddressInfoView.setAddress(address, label: label, imageUri: imageUri, prefix: prefix)
+        toLabel.text = title
     }
 
     func setDapp(imageURL: URL? = nil, name: String) {

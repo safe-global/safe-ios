@@ -26,16 +26,13 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
     private var transaction: Transaction!
     private lazy var trackingParameters: [String: Any] = { ["chain_id": safe.chain!.id!] }()
 
-    @IBAction private func reject(_ sender: Any) {
-
-    }
-
     convenience init(transaction: Transaction,
                      safe: Safe,
                      topic: String) {
         self.init(safe: safe)
         self.transaction = transaction
         self.session = try! Session.from(WCSession.get(topic: topic)!)
+        shouldLoadTransactionPreview = true
     }
 
     // MARK: - ViewController life cycle
@@ -54,22 +51,6 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
 
         tableView.registerCell(IcommingDappInteractionRequestHeaderTableViewCell.self)
         tableView.registerCell(DetailTransferInfoCell.self)
-
-        App.shared.clientGatewayService.asyncPreviewTransaction(
-                transaction: transaction,
-                sender: AddressString(safe.addressValue),
-                chainId: safe.chain!.id!
-        ) { result in
-            switch result {
-            case .success(let response):
-                // Handle result
-                print("---> Response (success): \(response)")
-
-            case .failure(let error):
-                // handle failure
-                print("---> Response: Failure! \(error)")
-            }
-        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -79,9 +60,12 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
 
     override func createSections() {
         sectionItems = [SectionItem.header(headerCell()),
-                        SectionItem.data(dataCell()),
-                        SectionItem.transactionType(transactionType()),
-                        SectionItem.advanced(parametersCell())]
+                        SectionItem.data(dataCell())]
+        if let _ = transactionPreview?.txData?.dataDecoded {
+            sectionItems.append(SectionItem.transactionType(transactionType()))
+        }
+        sectionItems.append(SectionItem.advanced(parametersCell()))
+
     }
 
     override func headerCell() -> UITableViewCell {
@@ -92,12 +76,21 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
         let (addressName, imageURL) = NamingPolicy.name(for: transaction.to.address,
                                                  info: nil,
                                                  chainId: safe.chain!.id!)
-        cell.setToAddress(transaction.to.address, label: addressName, imageUri: imageURL, prefix: chain.shortName)
-        cell.setFromAddress(safe.addressValue, label: safe.name, prefix: chain.shortName)
+        cell.setToAddress(transaction.to.address,
+                          label: addressName,
+                          imageUri: imageURL,
+                          prefix: chain.shortName,
+                          title: "Interact with:")
+        cell.setFromAddress(safe.addressValue,
+                            label: safe.name,
+                            prefix: chain.shortName,
+                            title: "Sending from:")
         return cell
     }
 
     func transactionType() -> UITableViewCell {
+        guard let dataDecoded = transactionPreview?.txData?.dataDecoded else { return UITableViewCell() }
+
         let tableCell = tableView.dequeueCell(BorderedInnerTableCell.self)
 
         tableCell.selectionStyle = .none
@@ -106,49 +99,38 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
         tableCell.tableView.registerCell(IncommingTransactionRequestTypeTableViewCell.self)
 
         let cell = tableCell.tableView.dequeueCell(IncommingTransactionRequestTypeTableViewCell.self)
-
-        cell.set(imageName: "", name: "Contract interaction", description: "swapExactETHForTokens")
-        tableCell.setCells([cell])
-        tableCell.onCellTap = { [unowned self] _ in
-
+        
+        let addressInfoIndex = transactionPreview?.txData?.addressInfoIndex
+        var description: String?
+        if dataDecoded.method == "multiSend",
+           let param = dataDecoded.parameters?.first,
+           param.type == "bytes",
+           case let SCGModels.DataDecoded.Parameter.ValueDecoded.multiSend(multiSendTxs)? = param.valueDecoded {
+            description = "Multisend (\(multiSendTxs.count) actions)"
+            tableCell.onCellTap = { [unowned self] _ in
+                let root = MultiSendListTableViewController(transactions: multiSendTxs,
+                                                            addressInfoIndex: addressInfoIndex,
+                                                            chain: safe.chain!)
+                let vc = RibbonViewController(rootViewController: root)
+                show(vc, sender: self)
+            }
+        } else {
+            description = "Action (\(dataDecoded.method))"
+            tableCell.onCellTap = { [unowned self] _ in
+                let root = ActionDetailViewController(decoded: dataDecoded,
+                                                      addressInfoIndex: addressInfoIndex,
+                                                      chain: safe.chain!,
+                                                      data: transactionPreview?.txData?.hexData)
+                let vc = RibbonViewController(rootViewController: root)
+                show(vc, sender: self)
+            }
         }
+
+        cell.set(imageName: "", name: "Contract interaction", description: description)
+        tableCell.setCells([cell])
 
         return tableCell
     }
-//    override func headerCell() -> UITableViewCell {
-//        let cell = tableView.dequeueCell(DetailTransferInfoCell.self)
-//        let chain = safe.chain!
-//
-//        let coin = chain.nativeCurrency!
-//        let decimalAmount = BigDecimal(
-//            Int256(transaction.value.value) * -1,
-//            Int(coin.decimals)
-//        )
-//        let amount = TokenFormatter().string(
-//            from: decimalAmount,
-//            decimalSeparator: Locale.autoupdatingCurrent.decimalSeparator ?? ".",
-//            thousandSeparator: Locale.autoupdatingCurrent.groupingSeparator ?? ","
-//        )
-//        let tokenText = "\(amount) \(coin.symbol!)"
-//        let tokenDetail = amount == "0" ? "\(transaction.data?.data.count ?? 0) Bytes" : nil
-//        let (addressName, _) = NamingPolicy.name(for: transaction.to.address,
-//                                                    info: nil,
-//                                                    chainId: safe.chain!.id!)
-//
-//        cell.setToken(text: tokenText, style: .secondary)
-//        cell.setToken(image: coin.logoUrl)
-//        cell.setDetail(tokenDetail)
-//
-//        cell.setAddress(transaction.to.address,
-//                        label: addressName,
-//                        imageUri: nil,
-//                        browseURL: chain.browserURL(address: transaction.to.address.checksummed),
-//                        prefix: chain.shortName)
-//        cell.setOutgoing(true)
-//        cell.selectionStyle = .none
-//
-//        return cell
-//    }
 
     override func createTransaction() -> Transaction? {
         transaction

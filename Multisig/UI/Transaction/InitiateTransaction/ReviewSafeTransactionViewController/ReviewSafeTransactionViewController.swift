@@ -32,6 +32,9 @@ class ReviewSafeTransactionViewController: UIViewController {
     var safeTxGas: UInt256String?
     var minimalNonce: UInt256String?
 
+    var transactionPreview: SCGModels.TrasactionPreview?
+    var shouldLoadTransactionPreview: Bool = false
+
     enum SectionItem {
         case header(UITableViewCell)
         case safeInfo(UITableViewCell)
@@ -146,11 +149,38 @@ class ReviewSafeTransactionViewController: UIViewController {
                     self.safeTxGas = UInt256String(estimatedSafeTxGas)
                 }
 
-                DispatchQueue.main.async {
-                    self.endLoading()
-                    self.bindData()
+                if self.shouldLoadTransactionPreview {
+                    self.currentDataTask = App.shared.clientGatewayService.asyncPreviewTransaction(
+                        transaction: tx,
+                        sender: AddressString(self.safe.addressValue),
+                        chainId: self.safe.chain!.id!
+                    ) { result in
+                        switch result {
+                        case .success(let response):
+                            self.transactionPreview = response
+                            self.onSuccess()
+                        case .failure(let error):
+                            DispatchQueue.main.async { [weak self] in
+                                guard let `self` = self else { return }
+                                if (error as NSError).code == URLError.cancelled.rawValue &&
+                                    (error as NSError).domain == NSURLErrorDomain {
+                                    return
+                                }
+                                self.showError(GSError.error(description: "Failed to create transaction", error: error))
+                            }
+                        }
+                    }
+                } else {
+                    self.onSuccess()
                 }
             }
+        }
+    }
+
+    func onSuccess() {
+        DispatchQueue.main.async {
+            self.endLoading()
+            self.bindData()
         }
     }
 
