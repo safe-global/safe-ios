@@ -59,8 +59,6 @@ extension Transaction {
     }
 
     init?(wcRequest: WCSendTransactionRequest, safe: Safe) {
-        dispatchPrecondition(condition: .notOnQueue(.main))
-
         guard safe.addressValue == wcRequest.from.address, let chainId = safe.chain?.id else { return nil }
 
         self.safe = wcRequest.from
@@ -72,27 +70,7 @@ extension Transaction {
         self.data = wcRequest.data
         self.operation = .call
         self.safeTxGas = wcRequest.gas ?? "0"
-
-        let estimationResult: SCGModels.TransactionEstimation
-        do {
-            estimationResult = try App.shared.clientGatewayService
-                .syncTransactionEstimation(
-                    chainId: chainId,
-                    safeAddress: safe.addressValue,
-                    to: to.address,
-                    value: value.value,
-                    data: data?.data,
-                    operation: operation)
-
-            self.nonce = estimationResult.recommendedNonce
-
-            if let estimatedSafeTxGas = UInt256(estimationResult.safeTxGas) {
-                self.safeTxGas = UInt256String(estimatedSafeTxGas)
-            }
-        } catch {
-            LogService.shared.error("Estimation error: \(error)")
-            return nil
-        }
+        self.nonce = UInt256String(safe.nonce ?? 0)
 
         // For contracts starting 1.3.0 we setup safeTxGas to zero
         if self.safeVersion! >= Version(1, 3, 0) {

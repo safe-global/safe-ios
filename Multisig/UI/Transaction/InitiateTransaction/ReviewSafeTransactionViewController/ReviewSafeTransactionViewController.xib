@@ -100,20 +100,20 @@
                             </constraints>
                         </view>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="aov-dj-KCM">
-                            <rect key="frame" x="0.0" y="24" width="414" height="673"/>
+                            <rect key="frame" x="0.0" y="24" width="414" height="653"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <connections>
                                 <outlet property="dataSource" destination="-1" id="9bW-Rl-dFG"/>
                             </connections>
                         </tableView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You’re about to initiate a Safe transaction. It won’t be submitted to blockchain yet." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rk7-IC-5SQ">
-                            <rect key="frame" x="16" y="705" width="382" height="41"/>
+                            <rect key="frame" x="16" y="685" width="382" height="41"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gK1-hy-yCc" customClass="ActivityButtonView" customModule="Multisig" customModuleProvider="target">
-                            <rect key="frame" x="16" y="762" width="382" height="56"/>
+                            <rect key="frame" x="16" y="742" width="382" height="56"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="56" id="TEN-dA-36H"/>
@@ -127,7 +127,7 @@
                     <constraints>
                         <constraint firstItem="gK1-hy-yCc" firstAttribute="leading" secondItem="fbw-rN-H8L" secondAttribute="leading" constant="16" id="5wj-Jc-qVs"/>
                         <constraint firstItem="IRg-BM-ssd" firstAttribute="top" secondItem="fbw-rN-H8L" secondAttribute="top" id="7Uq-g3-XKQ"/>
-                        <constraint firstAttribute="bottom" secondItem="gK1-hy-yCc" secondAttribute="bottom" id="JoX-Wx-zVq"/>
+                        <constraint firstAttribute="bottom" secondItem="gK1-hy-yCc" secondAttribute="bottom" constant="20" id="JoX-Wx-zVq"/>
                         <constraint firstAttribute="trailing" secondItem="IRg-BM-ssd" secondAttribute="trailing" id="Js7-WU-ZOX"/>
                         <constraint firstItem="IRg-BM-ssd" firstAttribute="leading" secondItem="fbw-rN-H8L" secondAttribute="leading" id="LXk-oN-khn"/>
                         <constraint firstItem="aov-dj-KCM" firstAttribute="centerX" secondItem="fbw-rN-H8L" secondAttribute="centerX" id="NpS-1a-kl8"/>

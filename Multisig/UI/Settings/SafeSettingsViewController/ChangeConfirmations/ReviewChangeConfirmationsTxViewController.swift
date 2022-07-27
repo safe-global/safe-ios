@@ -37,9 +37,6 @@ class ReviewChangeConfirmationsTxViewController: ReviewSafeTransactionViewContro
 
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
-
-        confirmButtonView.title = "Submit"
-        confirmButtonView.state = .normal
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -31,11 +31,16 @@ class ReviewSafeTransactionViewController: UIViewController {
     var nonce: UInt256String?
     var safeTxGas: UInt256String?
     var minimalNonce: UInt256String?
-    
+
+    var transactionPreview: SCGModels.TrasactionPreview?
+    var shouldLoadTransactionPreview: Bool = false
+
     enum SectionItem {
         case header(UITableViewCell)
         case safeInfo(UITableViewCell)
         case valueChange(UITableViewCell)
+        case data(UITableViewCell)
+        case transactionType(UITableViewCell)
         case advanced(UITableViewCell)
     }
 
@@ -61,6 +66,7 @@ class ReviewSafeTransactionViewController: UIViewController {
         tableView.registerCell(BorderedInnerTableCell.self)
         tableView.registerCell(DetailAccountCell.self)
         tableView.registerCell(ValueChangeTableViewCell.self)
+        tableView.registerCell(DetailExpandableTextCell.self)
 
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
@@ -68,8 +74,10 @@ class ReviewSafeTransactionViewController: UIViewController {
         ribbonView.update(chain: safe.chain)
         loadData()
 
+        confirmButtonView.actionTitle = "Submit"
         confirmButtonView.state = .normal
-        confirmButtonView.onClick = { [weak self] in
+
+        confirmButtonView.onAction = { [weak self] in
             guard let `self` = self else { return }
             let descriptionText = "An owner key will be used to confirm this transaction."
             let vc = ChooseOwnerKeyViewController(
@@ -141,11 +149,38 @@ class ReviewSafeTransactionViewController: UIViewController {
                     self.safeTxGas = UInt256String(estimatedSafeTxGas)
                 }
 
-                DispatchQueue.main.async {
-                    self.endLoading()
-                    self.bindData()
+                if self.shouldLoadTransactionPreview {
+                    self.currentDataTask = App.shared.clientGatewayService.asyncPreviewTransaction(
+                        transaction: tx,
+                        sender: AddressString(self.safe.addressValue),
+                        chainId: self.safe.chain!.id!
+                    ) { result in
+                        switch result {
+                        case .success(let response):
+                            self.transactionPreview = response
+                            self.onSuccess()
+                        case .failure(let error):
+                            DispatchQueue.main.async { [weak self] in
+                                guard let `self` = self else { return }
+                                if (error as NSError).code == URLError.cancelled.rawValue &&
+                                    (error as NSError).domain == NSURLErrorDomain {
+                                    return
+                                }
+                                self.showError(GSError.error(description: "Failed to create transaction", error: error))
+                            }
+                        }
+                    }
+                } else {
+                    self.onSuccess()
                 }
             }
+        }
+    }
+
+    func onSuccess() {
+        DispatchQueue.main.async {
+            self.endLoading()
+            self.bindData()
         }
     }
 
@@ -229,7 +264,7 @@ class ReviewSafeTransactionViewController: UIViewController {
     }
 
     func createTransaction() -> Transaction? {
-        return nil
+        nil
     }
 
     private func proposeTransaction(transaction: Transaction, keyInfo: KeyInfo, signature: String) {
@@ -308,6 +343,20 @@ class ReviewSafeTransactionViewController: UIViewController {
         return tableCell
     }
 
+    func dataCell() -> UITableViewCell {
+        guard let transaction = createTransaction() else { return UITableViewCell() }
+
+        let cell = tableView.dequeueCell(DetailExpandableTextCell.self)
+        let data = transaction.data?.description ?? ""
+        cell.tableView = tableView
+        cell.setTitle("Data")
+        cell.setText(data)
+        cell.setCopyText(data)
+        cell.setExpandableTitle("\(transaction.data?.data.count ?? 0) Bytes")
+        cell.selectionStyle = .none
+        return cell
+    }
+
     private func showEditParameters() {
         guard let nonce = nonce,
               let minimalNonce = minimalNonce else { return }
@@ -348,6 +397,8 @@ extension ReviewSafeTransactionViewController: UITableViewDataSource {
         case SectionItem.safeInfo(let cell): return cell
         case SectionItem.advanced(let cell): return cell
         case SectionItem.valueChange(let cell): return cell
+        case SectionItem.data(let cell): return cell
+        default: return UITableViewCell()
         }
     }
 }

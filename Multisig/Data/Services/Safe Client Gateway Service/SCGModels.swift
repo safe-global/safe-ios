@@ -494,6 +494,12 @@ extension SCGModels {
         }
     }
 
+    struct TrasactionPreview: Decodable {
+        var txInfo: TxInfo
+        var txData: TxData?
+        var safeAppInfo: SafeAppInfo?
+    }
+
     struct TxData: Decodable {
         var to: AddressInfo
         var value: UInt256String

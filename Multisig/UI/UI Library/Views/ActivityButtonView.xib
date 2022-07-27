@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="actionButton" destination="hCj-uC-YBc" id="U68-SI-vsb"/>
                 <outlet property="activityIndicator" destination="eul-gI-0s1" id="kch-fq-x9J"/>
+                <outlet property="rejectButton" destination="5dY-lL-wYZ" id="Hyh-yE-rbg"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -20,13 +21,25 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="118"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCj-uC-YBc">
-                    <rect key="frame" x="0.0" y="22" width="414" height="118"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <connections>
-                        <action selector="actionButtonTouched:" destination="-1" eventType="touchUpInside" id="pzG-x0-CxK"/>
-                    </connections>
-                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0PB-W5-860">
+                    <rect key="frame" x="0.0" y="44" width="414" height="74"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5dY-lL-wYZ">
+                            <rect key="frame" x="0.0" y="0.0" width="203" height="74"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <connections>
+                                <action selector="rejectButtonTouched:" destination="-1" eventType="touchUpInside" id="tdD-Gr-N7u"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCj-uC-YBc">
+                            <rect key="frame" x="211" y="0.0" width="203" height="74"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <connections>
+                                <action selector="actionButtonTouched:" destination="-1" eventType="touchUpInside" id="pzG-x0-CxK"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="eul-gI-0s1">
                     <rect key="frame" x="197" y="71" width="20" height="20"/>
                 </activityIndicatorView>
@@ -34,12 +47,12 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="hCj-uC-YBc" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="5iW-aK-mds"/>
-                <constraint firstItem="hCj-uC-YBc" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="9hL-7n-ore"/>
-                <constraint firstItem="hCj-uC-YBc" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="Rn4-qh-v73"/>
-                <constraint firstItem="hCj-uC-YBc" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="UIB-hM-Q9M"/>
+                <constraint firstItem="0PB-W5-860" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="QV0-dn-ytf"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="0PB-W5-860" secondAttribute="trailing" id="S3d-HY-Wdl"/>
                 <constraint firstItem="eul-gI-0s1" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="bJk-QC-E5G"/>
                 <constraint firstItem="eul-gI-0s1" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="g8U-g1-fwJ"/>
+                <constraint firstItem="0PB-W5-860" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="hej-9a-6Ka"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="0PB-W5-860" secondAttribute="bottom" id="lw1-sL-yeA"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="131.8840579710145" y="-128.57142857142856"/>
