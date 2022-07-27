@@ -38,10 +38,4 @@ class IcommingDappInteractionRequestHeaderTableViewCell: UITableViewCell {
         dappNameLabel.text = name
         dappImageView.kf.setImage(with: imageURL, placeholder: UIImage(named: "ico-empty-circle"))
     }
-
-//    func setToken(amount: String, symbol: String, fiatBalance: String?, image url: URL?) {
-//        tokenInfoView.setText("\(amount) \(symbol)", style: .title4)
-//        tokenInfoView.setDetail(fiatBalance, style: .footnote4)
-//        tokenInfoView.setImage(url)
-//    }
 }
