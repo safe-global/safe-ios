@@ -54,6 +54,22 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
 
         tableView.registerCell(IcommingDappInteractionRequestHeaderTableViewCell.self)
         tableView.registerCell(DetailTransferInfoCell.self)
+
+        App.shared.clientGatewayService.asyncPreviewTransaction(
+                transaction: transaction,
+                sender: AddressString(safe.addressValue),
+                chainId: safe.chain!.id!
+        ) { result in
+            switch result {
+            case .success(let response):
+                // Handle result
+                print("---> Response (success): \(response)")
+
+            case .failure(let error):
+                // handle failure
+                print("---> Response: Failure! \(error)")
+            }
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

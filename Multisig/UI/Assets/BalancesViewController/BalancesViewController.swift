@@ -19,6 +19,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     }
     var clientGatewayService: BalancesAPI = App.shared.clientGatewayService
     var remoteConfig: FirebaseRemoteConfig = FirebaseRemoteConfig.shared
+    var createPasscodeFlow: CreatePasscodeFlow!
 
     override var isEmpty: Bool { sections.isEmpty }
 
@@ -27,6 +28,8 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     private var sections: [Section] = []
 
     private let tableBackgroundColor: UIColor = .backgroundPrimary
+
+    private var claimTokenFlow: ClaimSafeTokenFlow!
 
     private var shouldShowImportKeyBanner: Bool {
         importKeyBannerWasShown != true
@@ -232,8 +235,16 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         cell.setupBanner(
             onClaim: { [unowned self] in
                 //TODO: start safe token claim flow
-                safeTokenBannerWasShown = true
+                guard let safe = try? Safe.getSelected() else {
+                    return
+                }
+
+                //safeTokenBannerWasShown = true
                 Tracker.trackEvent(.bannerSafeTokenClaim)
+                claimTokenFlow = ClaimSafeTokenFlow(safe: safe) { [unowned self] _ in
+                    claimTokenFlow = nil
+                }
+                present(flow: claimTokenFlow)
             },
             onClose: { [unowned self] in
                 safeTokenBannerWasShown = true
@@ -285,15 +296,12 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             AppSettings.passcodeBannerDismissed = true
             recreateSectionsWithCurrentItems()
 
-            let vc = CreatePasscodeViewController { [weak self] in
-                
-                self?.dismiss(animated: true, completion: {
-                    self?.recreateSectionsWithCurrentItems()
-                })
+            createPasscodeFlow = CreatePasscodeFlow(completion: { [unowned self] _ in
+                createPasscodeFlow = nil
+                recreateSectionsWithCurrentItems()
+            })
+            present(flow: createPasscodeFlow)
 
-            }
-            let nav = UINavigationController(rootViewController: vc)
-            present(nav, animated: true)
             Tracker.trackEvent(.setupPasscodeFromBanner)
         }
         cell.selectionStyle = .none

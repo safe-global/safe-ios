@@ -27,6 +27,7 @@ class AddKeyOnboardingViewController: UITableViewController {
     var cards: [Card] = []
     private var nextButton: UIBarButtonItem!
     var viewTrackingEvent: TrackingEvent!
+    var createPasscodeFlow: CreatePasscodeFlow!
 
     // set by a controller during some step in the flow
     var keyParameters: AddKeyParameters?
@@ -123,16 +124,11 @@ class AddKeyOnboardingViewController: UITableViewController {
     }
 
     func showCreatePasscode() {
-        let createPasscodeVC = CreatePasscodeController { [unowned self] in
-            dismiss(animated: true) { [unowned self] in
-                didCreatePasscode()
-            }
-        }
-        guard let createPasscodeVC = createPasscodeVC else {
+        createPasscodeFlow = CreatePasscodeFlow(completion: { [unowned self] _ in
+            createPasscodeFlow = nil
             didCreatePasscode()
-            return
-        }
-        present(createPasscodeVC, animated: true)
+        })
+        present(flow: createPasscodeFlow, dismissableOnSwipe: false)
     }
 
     func didCreatePasscode() {

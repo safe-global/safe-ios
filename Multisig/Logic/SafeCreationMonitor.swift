@@ -52,12 +52,6 @@ class SafeCreationMonitor {
                 if let date = tx.dateSubmittedAt, Date().timeIntervalSince(date) >= Self.safeCreationTimeout {
                     fallthrough
                 }
-
-            case .pendingFailed:
-                safe.safeStatus = .deploymentFailed
-                NotificationCenter.default.post(name: .safeCreationUpdate, object: self, userInfo: ["safe": safe,
-                                                                                                    "success": false,
-                                                                                                    "chain": safe.chain!])
             default:
                 break
             }

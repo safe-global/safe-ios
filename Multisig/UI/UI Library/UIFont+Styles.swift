@@ -56,6 +56,9 @@ extension GNOTextStyle {
     static let headline = GNOTextStyle(size: 17, weight: .semibold, color: .labelPrimary)
     static let headline2 = GNOTextStyle(size: 17, weight: .bold)
 
+    //FIXME: clarify title style name
+    static let claimTitle = GNOTextStyle(size: 27, weight: .bold, color: .labelPrimary)
+
     static let title3 = GNOTextStyle(size: 20, weight: .regular, color: .labelPrimary)
     static let title4 = GNOTextStyle(size: 26, weight: .regular, color: .labelPrimary)
     static let title5 = GNOTextStyle(size: 20, weight: .medium, color: .labelPrimary)

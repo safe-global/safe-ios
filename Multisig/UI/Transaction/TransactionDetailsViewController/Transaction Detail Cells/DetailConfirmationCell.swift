@@ -89,15 +89,6 @@ class DetailConfirmationCell: UITableViewCell {
             status.setText("Pending", style: .primaryButton)
             status.setSymbol("circle", color: .primary)
             views.append(status)
-
-        case .pendingFailed:
-            let status = ConfirmationStatusPiece(frame: bounds)
-            status.setText("Execution Failed", style: .error)
-            status.setSymbol("xmark.circle", color: .error)
-            views.append(status)
-
-            let exeuctePiece = executionPiece(frame: bounds)
-            views.append(exeuctePiece)
         }
 
         for view in stackView.arrangedSubviews {

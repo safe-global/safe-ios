@@ -109,7 +109,8 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         tableView.registerCell(HelpLinkTableViewCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
-        for notification in [Notification.Name.ownerKeyUpdated] {
+        for notification in [Notification.Name.ownerKeyUpdated,
+                             .ownerKeyBackedUp] {
             NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(reloadData),

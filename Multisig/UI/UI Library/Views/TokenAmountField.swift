@@ -39,6 +39,13 @@ class TokenAmountField: UINibView {
         borderImage.tintColor = .labelTertiary
         errorLabel.isHidden = true
     }
+
+    func setToken(image: UIImage? = nil, amount: String = "") {
+        iconImage.image = image ?? UIImage(named: "ico-token-placeholder")
+        amountTextField.text = amount
+        borderImage.tintColor = .labelTertiary
+        errorLabel.isHidden = true
+    }
     
     func showError(message: String?) {
         if let message = message {

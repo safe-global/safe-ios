@@ -66,7 +66,7 @@ class EnterOwnerAddressViewController: UIViewController {
                 info: nil,
                 chainId: self.safe.chain!.id!)
 
-            self.addressField.setAddress(address, label: resolvedName)
+            self.addressField.setAddress(address, label: resolvedName, prefix: self.safe.chain?.shortName)
             self.name = resolvedName
 
             self.checkEqualToSafe()

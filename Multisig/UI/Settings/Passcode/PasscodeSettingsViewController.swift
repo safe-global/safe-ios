@@ -28,6 +28,7 @@ class PasscodeSettingsViewController: UITableViewController {
     }
 
     private var data: [(section: Section, rows: [Row])] = []
+    private var createPasscodeFlow: CreatePasscodeFlow!
 
     private var isPasscodeSet: Bool {
         App.shared.auth.isPasscodeSetAndAvailable
@@ -96,13 +97,11 @@ class PasscodeSettingsViewController: UITableViewController {
     }
 
     private func createPasscode() {
-        let vc = CreatePasscodeViewController { [unowned self] in
-            self.dismiss(animated: true) {
-                self.reloadData()
-            }
-        }
-        let nav = UINavigationController(rootViewController: vc)
-        present(nav, animated: true, completion: nil)
+        createPasscodeFlow = CreatePasscodeFlow(completion: { [unowned self] _ in
+            createPasscodeFlow = nil
+            reloadData()
+        })
+        present(flow: createPasscodeFlow)
     }
 
     private func deletePasscode() {

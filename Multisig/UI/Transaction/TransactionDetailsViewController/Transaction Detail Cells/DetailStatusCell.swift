@@ -53,7 +53,7 @@ class DetailStatusCell: UITableViewCell {
         switch status {
         case .awaitingExecution, .awaitingConfirmations, .awaitingYourConfirmation, .pending:
             return .pending
-        case .failed, .pendingFailed:
+        case .failed:
             return .error
         case .cancelled:
             return .labelSecondary
@@ -69,7 +69,7 @@ class DetailStatusCell: UITableViewCell {
 }
 
 extension SCGModels.TxStatus {
-    static let queueStatuses = [awaitingConfirmations, .awaitingExecution, .awaitingYourConfirmation, .pending, .pendingFailed]
+    static let queueStatuses = [awaitingConfirmations, .awaitingExecution, .awaitingYourConfirmation, .pending]
     static let historyStatuses = [success, .failed, .cancelled]
     static let failedStatuses = [failed, .cancelled]
 
@@ -99,8 +99,6 @@ extension SCGModels.TxStatus {
             return "Needs your confirmation"
         case .pending:
              return "Pending"
-        case .pendingFailed:
-            return "Execution failed"
         case .failed:
             return "Failed"
         case .cancelled:
