@@ -298,6 +298,24 @@ extension Chain {
             themeBackgroundColor: "#E8E7E6")
     }
 
+    static func rinkebyChain() -> Chain {
+        try! Chain.by(ChainID.ethereumRinkeby) ?? Chain.create(
+            chainId: ChainID.ethereumRinkeby,
+            chainName: "Rinkeby",
+            rpcUrl: URL(string: "https://rinkeby.infura.io/v3/")!,
+            rpcUrlAuthentication: SCGModels.RpcAuthentication.Authentication.apiKeyPath.rawValue,
+            blockExplorerUrlAddress: "https://rinkeby.etherscan.io/address/{{address}}",
+            blockExplorerUrlTxHash: "https://rinkeby.etherscan.io/tx/{{txHash}}",
+            ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e",
+            shortName: "rin",
+            currencyName: "Ether",
+            currencySymbl: "ETH",
+            currencyDecimals: 18,
+            currencyLogo: URL(string: "https://safe-transaction-assets.staging.gnosisdev.com/chains/4/currency_logo.png")!,
+            themeTextColor: "#ffffff",
+            themeBackgroundColor: "#E8673C")
+    }
+
     typealias ChainSafes = [(chain: Chain, safes: [Safe])]
 
     /// Returns safes grouped by chain with the following logic applied:

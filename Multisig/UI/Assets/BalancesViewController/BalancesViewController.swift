@@ -45,8 +45,14 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     }
 
     private var shouldShowSafeTokenBanner: Bool {
-        safeTokenBannerWasShown != true &&
-        NSString(string: remoteConfig.value(key: .safeClaimEnabled) ?? "false").boolValue
+        guard let safe = try? Safe.getSelected() else {
+            return false
+        }
+        return  safeTokenBannerWasShown != true &&
+                // claim possible only on mainnet or rinkeby (for testing)
+                (safe.chain?.id == Chain.ChainID.ethereumMainnet || safe.chain?.id == Chain.ChainID.ethereumRinkeby) &&
+                // claim flag has to be enabled in Firebase Remote Config
+                NSString(string: remoteConfig.value(key: .safeClaimEnabled) ?? "false").boolValue
     }
 
     private var safeTokenBannerWasShown: Bool? {
