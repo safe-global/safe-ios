@@ -61,17 +61,12 @@ class WCRequestsHandler: RequestHandler {
 
             safe.update(from: safeInfo)
 
-            guard let transaction = Transaction(wcRequest: wcRequest, safe: safe),
-                  let importedKeysAddresses = try? KeyInfo.all().map({ $0.address }) else {
+            guard let transaction = Transaction(wcRequest: wcRequest, safe: safe) else {
                 server.send(try! Response(request: request, error: .requestRejected))
                 return
             }
 
-            // check if safe owner is imported to initiate transactions
-
-            let safeOwnerAddresses = Set(safeInfo.owners.map { $0.value.address })
-            let importedKeysForSafe = safeOwnerAddresses.intersection(importedKeysAddresses)
-            guard !importedKeysForSafe.isEmpty else {
+            guard !safe.isReadOnly else {
                 DispatchQueue.main.async {
                     App.shared.snackbar.show(message: "Please import Safe Owner Key to initiate WalletConnect transactions")
                 }
@@ -85,8 +80,7 @@ class WCRequestsHandler: RequestHandler {
                 let confirmationController = WCIncomingTransactionRequestViewController(
                     transaction: transaction,
                     safe: safe,
-                    topic: request.url.topic,
-                    importedKeysForSafe: [Address](importedKeysForSafe))
+                    topic: request.url.topic)
 
                 confirmationController.onReject = { [unowned self] in
                     self.server.send(try! Response(request: request, error: .requestRejected))
@@ -97,7 +91,7 @@ class WCRequestsHandler: RequestHandler {
                 }
 
                 let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
-                sceneDelegate.present(ViewControllerFactory.modalWithRibbon(viewController: confirmationController, storedChain: safe.chain))
+                sceneDelegate.present(ViewControllerFactory.modal(viewController: confirmationController))
             }
         } else {
             do {

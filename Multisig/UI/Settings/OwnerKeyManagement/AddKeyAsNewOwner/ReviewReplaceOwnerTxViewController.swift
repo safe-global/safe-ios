@@ -52,8 +52,6 @@ class ReviewReplaceOwnerTxViewController: ReviewSafeTransactionViewController {
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
         tableView.registerCell(ReplaceOwnerTableViewCell.self)
-        confirmButtonView.title = "Submit"
-        confirmButtonView.state = .normal
     }
 
     override func viewDidAppear(_ animated: Bool) {

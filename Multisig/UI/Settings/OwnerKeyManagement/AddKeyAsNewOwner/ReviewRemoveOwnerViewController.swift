@@ -44,8 +44,6 @@ class ReviewRemoveOwnerViewController: ReviewSafeTransactionViewController {
         assert(safe != nil)
 
         tableView.registerCell(AddRemoveOwnerTableViewCell.self)
-        confirmButtonView.title = "Submit"
-        confirmButtonView.state = .normal
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -32,7 +32,7 @@ struct TransactionPreviewRequest: JSONRequest {
     var httpMethod: String { "POST" }
     var urlPath: String { "/v1/chains/\(chainId)/transactions/\(safe)/preview" }
 
-    typealias ResponseType = SCGModels.TransactionDetails
+    typealias ResponseType = SCGModels.TrasactionPreview
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -68,7 +68,7 @@ extension SafeClientGatewayService {
     }
 
     @discardableResult
-    func previewTransaction(transaction: Transaction, sender: AddressString, chainId: String) throws -> SCGModels.TransactionDetails? {
+    func previewTransaction(transaction: Transaction, sender: AddressString, chainId: String) throws -> SCGModels.TrasactionPreview? {
         let request = TransactionPreviewRequest(safe: transaction.safe!,
                 sender: sender,
                 transaction: transaction,

@@ -104,6 +104,12 @@ struct AppConfiguration {
 
         @ConfigurationKey("APP_STORE_REVIEW_URL")
         var appStoreReviewURL: URL
+
+        @ConfigurationKey("FORUM_URL")
+        var forumURL: URL
+
+        @ConfigurationKey("SAFE_DAO_URL")
+        var safeDAOURL: URL
     }
 
     struct App {
