@@ -1380,7 +1380,7 @@ extension Eth.TransactionEip1559: EthTransaction {
 
         print("-----> update(): before  fee: \(fee)")
 
-        fee.gas = 500_000
+        fee.gas = 15_000_000
         fee.maxFeePerGas = (fee.maxPriorityFee ?? 0) + newFee
         fee.maxPriorityFee = max(fee.maxPriorityFee ?? 0, newFee)
         print("-----> update(): AFTER  fee: \(fee)")

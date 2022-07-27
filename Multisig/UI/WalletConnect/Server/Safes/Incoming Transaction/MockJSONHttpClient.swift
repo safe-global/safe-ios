@@ -60,7 +60,3 @@ class MockJSONHttpClient {
     }
 
 }
-
-//class InvalidRequestError: Error {
-//
-//}

@@ -56,7 +56,7 @@ class TransactionEstimationController {
         var oracleFee: Sol.UInt256? = nil
 
         if fixedGasPrice == nil {
-            for case SCGModels.GasPrice.oracle(let oracle) in chain.gasPrice  {
+            for case SCGModels.GasPrice.oracle(let oracle) in chain.gasPrice {
                 // fixedGasPrice = Sol.UInt256(fixed.weiValue)!
 
                 //TODO ask oracle to get price
@@ -64,13 +64,28 @@ class TransactionEstimationController {
                 // TODO Implement api call to get gas price from url
                 // It should be in the response in parameter gasParameter
 
-                oracleFee = Sol.UInt256(72_600_000_000)  // 1.5 == 1_500_000_000
-// 145_200_000_000
-                print("----> oracleFee \(oracleFee) (hard coded for oracle)")
+                oracleFee = Sol.UInt256(72_600_000_000)
+
+                let client = GasPriceOracleService(url: URL(string: oracle.uri)!, gasParameter: oracle.gasParameter)
+
+                let task = try! client.asyncExecute(request: GasPriceOracleRequest()) { result in
+                    print("-------> result: \(result)")
+
+                    switch result {
+                    case .success(let response):
+                        print("-------> response: \(response)")
+//                        oracleFee = Sol.UInt256(exactly: try! result.get().standard?.data32!)
+//                        print("-------> oracleFee \(oracleFee)")
+
+                    case .failure(let error):
+                        print("-------> error: \(error)")
+                    }
+                }
+
+                print("-------> result \(task)")
                 break
             }
         }
-        print("----> // remove the fee because we want to estimate it")
 
         // remove the fee because we want to estimate it.
         var tx = tx
@@ -79,6 +94,7 @@ class TransactionEstimationController {
             tx.update(newFee: oracleFee)
             print("----> After applying oracleFee tx: \(tx)")
         } else {
+            print("----> // remove the fee because we want to estimate it")
             print("----> tx.removeFee()")
             tx.removeFee()
         }
@@ -106,9 +122,14 @@ class TransactionEstimationController {
 
 
         do {
+
+            // Here we get the extimated amount of gas
             getEstimateRequest = try usingLegacyGasApi ? getEstimateLegacy.request(id: .int(1)) : getEstimateNew.request(id: .int(1))
             getTransactionCountRequest = try getTransactionCount.request(id: .int(2))
             getGasPriceRequest = try getGasPrice.request(id: .int(3))
+
+
+            // This call fails if the amount of gas is too high. Default for Polygon seems to be 500.000.000. Which makes no sense as Blocks oar 15 million of gas.
             ethCallRequest = try usingLegacyGasApi ? ethCallLegacy.request(id: .int(4)) : ethCallNew.request(id: .int(4))
             getBalanceRequest = try getBalance.request(id: .int(5))
 
@@ -121,7 +142,9 @@ class TransactionEstimationController {
         }
 
         let task = rpcClient.send(request: batch) { [weak self] batchResponse in
-            guard let self = self else { return }
+            guard let self = self else {
+                return
+            }
             guard let batchResponse = batchResponse else {
                 // no response is a failed batch request
                 dispatchOnMainThread(completion(.failure(TransactionEstimationError(code: -1, message: "Server did not respond"))))
@@ -140,6 +163,7 @@ class TransactionEstimationController {
 
             case .array(let responses):
                 // at this point it is guaranteed that there's a response object for each request.
+
                 // we get the result or error for each request
                 func result<T: JsonRpc2Method>(request: JsonRpc2.Request, method: T, responses: [JsonRpc2.Response]) -> Result<T.Return, Error> where T.Return: Decodable {
                     let id = request.id
@@ -155,14 +179,17 @@ class TransactionEstimationController {
                         return .failure(error)
                     }
                 }
+
                 let gasResult = usingLegacyGasApi ?
-                    result(request: getEstimateRequest, method: getEstimateLegacy, responses: responses).map(\.storage)
-                    : result(request: getEstimateRequest, method: getEstimateNew, responses: responses).map(\.storage)
+                        result(request: getEstimateRequest, method: getEstimateLegacy, responses: responses).map(\.storage)
+                        : result(request: getEstimateRequest, method: getEstimateNew, responses: responses).map(\.storage)
                 let txCountResult = result(request: getTransactionCountRequest, method: getTransactionCount, responses: responses).map(\.storage)
-                let priceResult = fixedGasPrice.map { .success($0) } ?? result(request: getGasPriceRequest, method: getGasPrice, responses: responses).map(\.storage)
+                let priceResult = fixedGasPrice.map {
+                    .success($0)
+                } ?? result(request: getGasPriceRequest, method: getGasPrice, responses: responses).map(\.storage)
                 let callResult = usingLegacyGasApi ?
-                    result(request: ethCallRequest, method: ethCallLegacy, responses: responses).map(\.storage)
-                    : result(request: ethCallRequest, method: ethCallNew, responses: responses).map(\.storage)
+                        result(request: ethCallRequest, method: ethCallLegacy, responses: responses).map(\.storage)
+                        : result(request: ethCallRequest, method: ethCallNew, responses: responses).map(\.storage)
                 let getBalanceResult = result(request: getBalanceRequest, method: getBalance, responses: responses).map(\.storage)
 
                 if let oracleFee = oracleFee {
@@ -195,7 +222,8 @@ class TransactionEstimationController {
                         dispatchOnMainThread(completion(.success((gasResult, txCountResult, .success(oracleFee), callResult, getBalanceResult))))
                     } else {
                         dispatchOnMainThread(completion(.success((gasResult, txCountResult, priceResult, callResult, getBalanceResult))))
-                    }                }
+                    }
+                }
             }
         }
         return task

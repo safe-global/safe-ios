@@ -228,7 +228,8 @@ class TransactionExecutionController {
 
                 let resultError: Error? = errors.isEmpty ? nil : TransactionExecutionAggregateError(errors: errors)
                 self.errorMessage = resultError?.localizedDescription
-                
+
+                print("------> tx: \(tx.totalFee) \n \n -----> calling completion()")
                 completion()
             }
         }
