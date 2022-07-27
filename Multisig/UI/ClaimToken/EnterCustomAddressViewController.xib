@@ -22,13 +22,18 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VXP-Wu-QCR" customClass="AddressField" customModule="Multisig" customModuleProvider="target">
+                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ZcG-bR-yvZ">
                     <rect key="frame" x="16" y="60" width="382" height="56"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="56" id="mVb-Q8-OwM"/>
-                    </constraints>
-                </view>
+                    <subviews>
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VXP-Wu-QCR" customClass="AddressField" customModule="Multisig" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="56"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="mVb-Q8-OwM"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="egI-xR-BoB">
                     <rect key="frame" x="16" y="790" width="382" height="56"/>
                     <constraints>
@@ -48,10 +53,10 @@
             <constraints>
                 <constraint firstItem="egI-xR-BoB" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="3eW-IY-DLs"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="egI-xR-BoB" secondAttribute="trailing" constant="16" id="BMV-QE-k9k"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="VXP-Wu-QCR" secondAttribute="trailing" constant="16" id="O2D-PJ-zHl"/>
-                <constraint firstItem="VXP-Wu-QCR" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="UOK-Yn-VKf"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ZcG-bR-yvZ" secondAttribute="trailing" constant="16" id="PHL-Pe-JOp"/>
+                <constraint firstItem="ZcG-bR-yvZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="dFE-st-SGx"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="egI-xR-BoB" secondAttribute="bottom" constant="16" id="g36-Ry-10X"/>
-                <constraint firstItem="VXP-Wu-QCR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="ntd-n0-IZf"/>
+                <constraint firstItem="ZcG-bR-yvZ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="zWx-Yy-KtY"/>
             </constraints>
             <point key="canvasLocation" x="139" y="83"/>
         </view>
