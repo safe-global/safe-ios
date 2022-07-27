@@ -118,6 +118,9 @@ TWITTER_URL             = https:/$()/twitter.com/gnosisSafe
 HELP_CENTER_URL         = https:/$()/help.gnosis-safe.io/
 FEATURE_SUGGESTION_URL  = https:/$()/safe.cnflx.io/
 CONTACT_EMAIL           = safe@gnosis.io
+FORUM_URL               = https:/$()/forum.gnosis-safe.io/
+//TODO: adjust safe dao url
+SAFE_DAO_URL            = https:/$()/gnosis-safe.io/
 
 // Web app url
 GNOSIS_SAFE_WEB_URL_PROD     = https:/$()/gnosis-safe.io/app/
