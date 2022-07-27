@@ -1338,6 +1338,7 @@ public protocol EthTransaction: EthSignable, EthRawTransaction {
 
     var totalFee: Sol.UInt256 { get }
 
+    mutating func update(newFee: Sol.UInt256)
     mutating func update(gas: Sol.UInt64, transactionCount: Sol.UInt64, baseFee: Sol.UInt256)
     mutating func updateSignature(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256)
     mutating func removeFee()
@@ -1370,7 +1371,19 @@ extension Eth.TransactionEip1559: EthTransaction {
     public mutating func update(gas: Sol.UInt64, transactionCount: Sol.UInt64, baseFee: Sol.UInt256) {
         nonce = transactionCount
         fee.gas = gas
+        print("-----> update baseFee param: \(baseFee)")
         fee.maxFeePerGas = (fee.maxPriorityFee ?? 0) + baseFee
+        print("-----> After update: fee.maxFeePerGas: \(fee.maxFeePerGas)")
+    }
+
+    public mutating func update(newFee: Sol.UInt256) {
+
+        print("-----> update(): before  fee: \(fee)")
+
+        fee.gas = 500_000
+        fee.maxFeePerGas = (fee.maxPriorityFee ?? 0) + newFee
+        fee.maxPriorityFee = max(fee.maxPriorityFee ?? 0, newFee)
+        print("-----> update(): AFTER  fee: \(fee)")
     }
 
     public mutating func updateSignature(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256) {
@@ -1594,6 +1607,10 @@ extension Eth.TransactionEip2930: EthTransaction {
         nonce = transactionCount
         fee.gas = gas
         fee.gasPrice = baseFee
+    }
+
+    public mutating func update(newFee: Sol.UInt256) {
+        fee.gasPrice = newFee
     }
 
     public mutating func updateSignature(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256) {
@@ -1845,6 +1862,10 @@ extension Eth.TransactionLegacy: EthTransaction {
         nonce = transactionCount
         fee.gas = gas
         fee.gasPrice = baseFee
+    }
+
+    public mutating func update(newFee: Sol.UInt256) {
+        fee.gasPrice = newFee
     }
 
     public mutating func updateSignature(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256) {
