@@ -22,8 +22,10 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     override func start() {
-        //showIntro()
-        showNotAvailable()
+        //TODO check claim availability
+        // if available show intro
+        showIntro()
+        // if not available show not available
     }
 
     func showIntro() {
@@ -34,7 +36,7 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     func showNotAvailable() {
-        let vc = ClaimNotAvailableViewController()
+        let vc = factory.claimNotAvailable()
         show(vc)
     }
 
@@ -92,6 +94,11 @@ class ClaimSafeTokenFlowFactory {
     func claimGetStarted(onStartClaim: @escaping () -> ()) -> ClaimGetStartedViewController {
         let vc = ClaimGetStartedViewController()
         vc.onStartClaim = onStartClaim
+        return vc
+    }
+
+    func claimNotAvailable() -> ClaimNotAvailableViewController {
+        let vc = ClaimNotAvailableViewController()
         return vc
     }
 
