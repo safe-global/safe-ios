@@ -50,6 +50,6 @@ class GuardianTableViewCell: UITableViewCell {
                                    browseURL: nil,
                                    prefix: nil)
         addressInfoView.copyEnabled = false
-        descriptionLabel.text = guardian.message
+        descriptionLabel.text = guardian.reason
     }
 }
