@@ -68,26 +68,32 @@ class TransactionEstimationController {
 
                 let client = GasPriceOracleService(url: URL(string: oracle.uri)!, gasParameter: oracle.gasParameter)
 
-                let task = try! client.asyncExecute(request: GasPriceOracleRequest()) { result in
+                client.asyncExecute(request: GasPriceOracleRequest(), completion: { result in
+
                     print("-------> result: \(result)")
 
                     switch result {
                     case .success(let response):
-                        print("-------> response: \(response)")
+                        DispatchQueue.main.async {
+                            print("-------> response: .success(\(response))")
 //                        oracleFee = Sol.UInt256(exactly: try! result.get().standard?.data32!)
 //                        print("-------> oracleFee \(oracleFee)")
-
+                        }
                     case .failure(let error):
-                        print("-------> error: \(error)")
+                        DispatchQueue.main.async {
+                            print("-------> error: .failure(\(error))")
+                        }
                     }
-                }
+                })
+//                print("-------> task: \(task)")
 
-                print("-------> result \(task)")
+
                 break
             }
         }
 
         // remove the fee because we want to estimate it.
+
         var tx = tx
         if let oracleFee = oracleFee {
             print("----> Using oracleFee: \(oracleFee)")
@@ -167,7 +173,9 @@ class TransactionEstimationController {
                 // we get the result or error for each request
                 func result<T: JsonRpc2Method>(request: JsonRpc2.Request, method: T, responses: [JsonRpc2.Response]) -> Result<T.Return, Error> where T.Return: Decodable {
                     let id = request.id
-                    let resp = responses.first { $0.id == id }!
+                    let resp = responses.first {
+                        $0.id == id
+                    }!
                     if let error = resp.error {
                         return .failure(error)
                     }
