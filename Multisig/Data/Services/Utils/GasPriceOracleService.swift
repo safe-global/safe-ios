@@ -4,7 +4,7 @@
 //
 
 import Foundation
-import Json
+//import Json
 
 class GasPriceOracleService {
     var url: URL
@@ -35,22 +35,23 @@ class GasPriceOracleService {
     }
 }
 
-//struct Key: CodingKey {
+struct Key: CodingKey {
 
-//    var stringValue: String
-//
-//    init?(stringValue: String) {
-//        self.stringValue = stringValue
-//    }
-//
-//    var intValue: Int?
-//
-//    init?(intValue: Int) {
-//        self.intValue = intValue
-//        self.stringValue = String(intValue)
-//    }
-//}
+    var stringValue: String
 
+    init?(stringValue: String) {
+        self.stringValue = stringValue
+    }
+
+    var intValue: Int?
+
+    init?(intValue: Int) {
+        self.intValue = intValue
+        self.stringValue = String(intValue)
+    }
+}
+
+//This should be a dynamic type with the gasParameter name. Maybe this can be done with CodingKey?
 struct GasPriceOracleResponse: Decodable {
     var safeLow: String? = nil
     var standard: UInt256String?

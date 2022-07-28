@@ -35,6 +35,8 @@ class TransactionEstimationController {
     let rpcClient: JsonRpc2.Client
     let chain: Chain
 
+    private var gasPriceOracleTask: URLSessionTask? = nil
+
     init(rpcUri: String, chain: Chain) {
         self.chain = chain
         self.rpcClient = JsonRpc2.Client(transport: JsonRpc2.ClientHTTPTransport(url: rpcUri), serializer: JsonRpc2.DefaultSerializer())
@@ -68,7 +70,8 @@ class TransactionEstimationController {
 
                 let client = GasPriceOracleService(url: URL(string: oracle.uri)!, gasParameter: oracle.gasParameter)
 
-                client.asyncExecute(request: GasPriceOracleRequest(), completion: { result in
+                gasPriceOracleTask?.cancel()
+                gasPriceOracleTask = client.asyncExecute(request: GasPriceOracleRequest(), completion: { result in
 
                     print("-------> result: \(result)")
 
@@ -85,7 +88,7 @@ class TransactionEstimationController {
                         }
                     }
                 })
-//                print("-------> task: \(task)")
+                print("-------> task: \(gasPriceOracleTask)")
 
 
                 break
