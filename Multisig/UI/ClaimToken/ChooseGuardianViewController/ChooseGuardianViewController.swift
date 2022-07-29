@@ -54,16 +54,26 @@ class ChooseGuardianViewController: LoadableViewController {
     }
 
     private func createGuardiansFrom(csv: String) {
+
         let entites = csv.split(whereSeparator: \.isNewline).dropFirst().prefix(2)
         entites.forEach { entry in
-            var values: [String] = entry.components(separatedBy: ",")
+
+            let values: [String] = entry.components(separatedBy: ",")
+
+            let name = values[1]
+            let reason = values[2]
+            let previousContribution = values[3]
             let address = Address(values[4]) ?? Address.zero
             let ensName = address == Address.zero ? values[4] : nil
-            let guardian = Guardian(name: values[1],
-                                    imageURLString: values[5],
-                                    ensName: ensName,
+            let imageUrl = values[5]
+
+            let guardian = Guardian(name: name,
+                                    reason: reason,
+                                    previousContribution: previousContribution,
                                     address: address,
-                                    message: values[2] + " " + values[3])
+                                    ensName: ensName,
+                                    imageURLString: imageUrl)
+            
             guardians.append(guardian)
         }
     }
@@ -79,7 +89,12 @@ extension ChooseGuardianViewController: UITableViewDelegate, UITableViewDataSour
         cell.set(guardian: guardians[indexPath.row])
         cell.tableView = tableView
         cell.onSelect = { [unowned self] in
-            onSelect?(guardians[indexPath.row])
+            //onSelect?(guardians[indexPath.row])
+
+
+            let vc = GuardianDetailsViewController()
+            vc.guardian = guardians[indexPath.row]
+            show(vc, sender: nil)
         }
 
         return cell
@@ -88,10 +103,11 @@ extension ChooseGuardianViewController: UITableViewDelegate, UITableViewDataSour
 
 struct Guardian {
     let name: String?
-    let imageURLString: String?
-    let ensName: String?
+    let reason: String?
+    let previousContribution: String?
     let address: Address
-    let message: String?
+    let ensName: String?
+    let imageURLString: String?
 
     var imageURL: URL? {
         imageURLString == nil ? nil : URL(string: imageURLString!)
