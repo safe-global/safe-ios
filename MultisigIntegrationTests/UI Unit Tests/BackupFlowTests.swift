@@ -78,7 +78,6 @@ class BackupFlowTests: UIIntegrationTestCase {
         let verifyVC = topPresentedController() as! VerifyPhraseViewController
         XCTAssertEqual(verifyVC.state, .question, "wrong state")
 
-        // scenario 1: first word is incorrect
         let firstQuestion = verifyVC.questions[0]
         let firstWrongAnswer = firstQuestion.choices.firstIndex(where: { $0 != firstQuestion.correctAnswer})!
         verifyVC.didSelectWord(at: firstWrongAnswer)
@@ -184,5 +183,25 @@ class BackupFlowTests: UIIntegrationTestCase {
         wait(timeout: waitingTime)
 
         XCTAssertEqual(verifyVC.state, .completed, "wrong state")
+    }
+
+    func test_updateKey() {
+
+        let privateKey = try! PrivateKey(mnemonic: mnemonic, pathIndex: 0)
+        do {
+            try KeyInfo.import(address: privateKey.address, name: "key", privateKey: privateKey)
+        } catch {
+            XCTFail()
+        }
+
+        let flow = BackupFlow(mnemonic: mnemonic) { success in }
+        flow.modal(from: presenterVC)
+        flow.updateKey()
+        // wait for presentation animation to complete
+        wait(timeout: waitingTime)
+
+        let keyItem = try! KeyInfo.firstKey(address: privateKey.address)
+
+        XCTAssertTrue(keyItem!.backedup, "key not backed up")
     }
 }
