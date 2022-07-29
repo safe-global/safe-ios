@@ -59,17 +59,20 @@ class BackupFlowTests: UIIntegrationTestCase {
         let flow = BackupFlow(mnemonic: mnemonic) { success in }
         flow.modal(from: presenterVC)
         flow.verify()
+        // wait for presentation animation to complete
         wait(timeout: waitingTime)
 
         let topScreen = topPresentedController()
         XCTAssertTrue(topScreen is VerifyPhraseViewController, "not a verify seed phrase screen")
     }
 
-    func test_verifySeedFailure() {
+    // scenario 1: first word is incorrect
+    func test_verifySeedFailure_firstWord() {
 
         let flow = BackupFlow(mnemonic: mnemonic) { success in }
         flow.modal(from: presenterVC)
         flow.verify()
+        // wait for presentation animation to complete
         wait(timeout: waitingTime)
 
         let verifyVC = topPresentedController() as! VerifyPhraseViewController
@@ -80,19 +83,101 @@ class BackupFlowTests: UIIntegrationTestCase {
         let firstWrongAnswer = firstQuestion.choices.firstIndex(where: { $0 != firstQuestion.correctAnswer})!
         verifyVC.didSelectWord(at: firstWrongAnswer)
         XCTAssertEqual(verifyVC.state, .incorrect, "wrong state")
+    }
+
+    // scenario 2: second word is incorrect
+    func test_verifySeedFailure_secondWord() {
+
+        let flow = BackupFlow(mnemonic: mnemonic) { success in }
+        flow.modal(from: presenterVC)
+        flow.verify()
+        // wait for presentation animation to complete
+        wait(timeout: waitingTime)
+
+        let verifyVC = topPresentedController() as! VerifyPhraseViewController
+        XCTAssertEqual(verifyVC.state, .question, "wrong state")
 
 
-        //TODO: click through questions selecting wrong words
-        // scenario 1: first word is incorrect
-        // scenario 2: second word is incorrect
-        // scenario 3: third word is incorrect
+        let firstQuestion = verifyVC.questions[0]
+        let firstCorrectAnswer = firstQuestion.choices.firstIndex(where: { $0 == firstQuestion.correctAnswer})!
+        verifyVC.didSelectWord(at: firstCorrectAnswer)
+        XCTAssertEqual(verifyVC.state, .correct, "wrong state")
 
-//        verifyVC.moveToNext()
-//        XCTAssertEqual(verifyVC.state, .question, "wrong state")
+        // wait for presentation animation to complete
+        wait(timeout: waitingTime)
 
+        let secondQuestion = verifyVC.questions[1]
+        let secondWrongAnswer = secondQuestion.choices.firstIndex(where: { $0 != secondQuestion.correctAnswer})!
+        verifyVC.didSelectWord(at: secondWrongAnswer)
+        XCTAssertEqual(verifyVC.state, .incorrect, "wrong state")
+    }
+
+    // scenario 3: third word is incorrect
+    func test_verifySeedFailure_thirdWord() {
+
+        let flow = BackupFlow(mnemonic: mnemonic) { success in }
+        flow.modal(from: presenterVC)
+        flow.verify()
+        // wait for presentation animation to complete
+        wait(timeout: waitingTime)
+
+        let verifyVC = topPresentedController() as! VerifyPhraseViewController
+        XCTAssertEqual(verifyVC.state, .question, "wrong state")
+
+
+        let firstQuestion = verifyVC.questions[0]
+        let firstCorrectAnswer = firstQuestion.choices.firstIndex(where: { $0 == firstQuestion.correctAnswer})!
+        verifyVC.didSelectWord(at: firstCorrectAnswer)
+        XCTAssertEqual(verifyVC.state, .correct, "wrong state")
+
+        // wait for presentation animation to complete
+        wait(timeout: waitingTime)
+
+        let secondQuestion = verifyVC.questions[1]
+        let secondCorrectAnswer = secondQuestion.choices.firstIndex(where: { $0 == secondQuestion.correctAnswer})!
+        verifyVC.didSelectWord(at: secondCorrectAnswer)
+        XCTAssertEqual(verifyVC.state, .correct, "wrong state")
+
+        // wait for presentation animation to complete
+        wait(timeout: waitingTime)
+
+        let thirdQuestion = verifyVC.questions[2]
+        let thirdWrongAnswer = thirdQuestion.choices.firstIndex(where: { $0 != thirdQuestion.correctAnswer})!
+        verifyVC.didSelectWord(at: thirdWrongAnswer)
+        XCTAssertEqual(verifyVC.state, .incorrect, "wrong state")
     }
 
     func test_verifySeedSuccess() {
-        //TODO: click through questions selecting correct words
+
+        let flow = BackupFlow(mnemonic: mnemonic) { success in }
+        flow.modal(from: presenterVC)
+        flow.verify()
+        // wait for presentation animation to complete
+        wait(timeout: waitingTime)
+
+        let verifyVC = topPresentedController() as! VerifyPhraseViewController
+        XCTAssertEqual(verifyVC.state, .question, "wrong state")
+
+
+        let firstQuestion = verifyVC.questions[0]
+        let firstCorrectAnswer = firstQuestion.choices.firstIndex(where: { $0 == firstQuestion.correctAnswer})!
+        verifyVC.didSelectWord(at: firstCorrectAnswer)
+        XCTAssertEqual(verifyVC.state, .correct, "wrong state")
+
+        // wait for presentation animation to complete
+        wait(timeout: waitingTime)
+
+        let secondQuestion = verifyVC.questions[1]
+        let secondCorrectAnswer = secondQuestion.choices.firstIndex(where: { $0 == secondQuestion.correctAnswer})!
+        verifyVC.didSelectWord(at: secondCorrectAnswer)
+        XCTAssertEqual(verifyVC.state, .correct, "wrong state")
+
+        // wait for presentation animation to complete
+        wait(timeout: waitingTime)
+
+        let thirdQuestion = verifyVC.questions[2]
+        let thirdCorrectAnswer = thirdQuestion.choices.firstIndex(where: { $0 == thirdQuestion.correctAnswer})!
+        verifyVC.didSelectWord(at: thirdCorrectAnswer)
+        XCTAssertEqual(verifyVC.state, .correct, "wrong state")
     }
 }
