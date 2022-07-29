@@ -53,7 +53,7 @@ class GuardianDetailsViewController: UIViewController {
 
         continueButton.setText("Select & Continue", .filled)
 
-        if (guardian.address == Address.zero) {
+        if guardian.address == Address.zero {
 
             continueButton.isEnabled = false
 
