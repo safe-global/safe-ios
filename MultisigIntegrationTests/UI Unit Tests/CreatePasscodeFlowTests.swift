@@ -11,7 +11,7 @@ import XCTest
 
 class CreatePasscodeFlowTests: UIIntegrationTestCase {
     var keychainService: SecureStore!
-    let animationDuration: TimeInterval = 0.5
+    let animationDuration: TimeInterval = 1
 
     override func setUpWithError() throws {
         try super.setUpWithError()
@@ -81,8 +81,26 @@ class CreatePasscodeFlowTests: UIIntegrationTestCase {
 
     // Given passcode is not set
     // and create passcode flow started
-    // when user enters passcode
+    // when user enters a passcode
     // then "repeat passcode" screen shown
+    func test_whenEntersPasscode_thenOpensRepeatPasscode() {
+        // Given passcode is not set
+        XCTAssertEqual(App.shared.auth.isPasscodeSetAndAvailable, false, "passcode must be not set")
+        // and create passcode flow starts,
+        _ = startModalCreatePasscodeFlow()
+
+        // when user enters a passcode
+        guard let passcodeVC = topPresentedController() as? CreatePasscodeViewController else {
+            XCTFail()
+            return
+        }
+        passcodeVC.append(text: "123456")
+        wait(timeout: animationDuration)
+
+        // then "repeat passcode" screen shown
+        let topScreen = topPresentedController()
+        XCTAssertTrue(topScreen is RepeatPasscodeViewController, "not a repeat passcode screen")
+    }
 
     // Given passcode is not set
     // and create passcode flow started

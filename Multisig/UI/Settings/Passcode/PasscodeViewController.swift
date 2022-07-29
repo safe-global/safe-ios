@@ -73,6 +73,16 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
         keyboardBehavior.stop()
     }
 
+    func append(text: String) {
+        self.textFieldDidBeginEditing(textField)
+        let shouldChange = self.textField(
+            textField,
+            shouldChangeCharactersIn: NSRange(location: textField.text?.count ?? 0, length: 0),
+            replacementString: text)
+        guard shouldChange else { return }
+        textField.text = (textField.text ?? "") + text
+    }
+
     func reset() {
         textField.text = nil
         updateSymbols(text: "")
