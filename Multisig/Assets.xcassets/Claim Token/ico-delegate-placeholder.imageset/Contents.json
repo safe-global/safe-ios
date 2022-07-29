@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ico-delegate-placeholder.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

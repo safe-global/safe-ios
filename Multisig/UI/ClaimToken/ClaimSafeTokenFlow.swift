@@ -58,7 +58,15 @@ class ClaimSafeTokenFlow: UIFlow {
 
     func enterCustomAddress() {
         let vc = factory.enterCustomAddress(mainnet: self.safe.chain?.id == Chain.ChainID.ethereumMainnet) { [unowned self] address in
-            //TODO: set delegate and proceed
+            let guardian = Guardian(
+                name: nil,
+                reason: nil,
+                previousContribution: nil,
+                address: address,
+                ensName: nil,
+                imageURLString: nil
+            )
+            selectAmount(guardian: guardian)
         }
         show(vc)
     }
@@ -67,7 +75,6 @@ class ClaimSafeTokenFlow: UIFlow {
         let vc = factory.selectAmount(guardian: guardian) { [unowned self] in
             success()
         }
-
         show(vc)
     }
 
@@ -111,9 +118,9 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
-    func chooseGuardian(_ onSelect: @escaping (Guardian) -> ()) -> ChooseGuardianViewController {
-        let vc = ChooseGuardianViewController()
-        vc.onSelect = onSelect
+    func chooseGuardian(_ onSelected: @escaping (Guardian) -> ()) -> SelectGuardianViewController {
+        let vc = SelectGuardianViewController()
+        vc.onSelected = onSelected
         return vc
     }
 
