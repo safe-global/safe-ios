@@ -44,7 +44,7 @@ class ChooseGuardianViewController: LoadableViewController {
         tableView.separatorStyle = .none
 
         emptyView.setText("No guardian found")
-        emptyView.setImage(UIImage(named: "ico-wallet-placeholder")!)
+        emptyView.setImage(UIImage(named: "ico-delegate-placeholder")!)
     }
 
     func filterData(searchTerm: String) {
