@@ -182,14 +182,10 @@ class BackupFlowTests: UIIntegrationTestCase {
         XCTAssertEqual(verifyVC.state, .completed, "wrong state")
     }
 
-    func test_updateKey() {
+    func test_updateKey() throws {
 
-        let privateKey = try! PrivateKey(mnemonic: mnemonic, pathIndex: 0)
-        do {
-            try KeyInfo.import(address: privateKey.address, name: "key", privateKey: privateKey)
-        } catch {
-            XCTFail()
-        }
+        let privateKey = try PrivateKey(mnemonic: mnemonic, pathIndex: 0)
+        try KeyInfo.import(address: privateKey.address, name: "key", privateKey: privateKey)
 
         let flow = BackupFlow(mnemonic: mnemonic) { success in }
         flow.modal(from: presenterVC)
@@ -197,7 +193,7 @@ class BackupFlowTests: UIIntegrationTestCase {
         // wait for presentation animation to complete
         wait(timeout: waitingTime)
 
-        let keyItem = try! KeyInfo.firstKey(address: privateKey.address)!
+        let keyItem = try KeyInfo.firstKey(address: privateKey.address)!
 
         XCTAssertTrue(keyItem.backedup, "key not backed up")
     }
