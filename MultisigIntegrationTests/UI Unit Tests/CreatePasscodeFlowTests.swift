@@ -10,6 +10,13 @@ import XCTest
 @testable import Multisig
 
 class CreatePasscodeFlowTests: UIIntegrationTestCase {
+    var keychainService: SecureStore!
+
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        keychainService = KeychainService(identifier: "KeychainIntegrationTest \(name)")
+        App.shared.keychainService = keychainService
+    }
 
     // Given passcode is not set,
     // when create passcode flow starts,
@@ -32,6 +39,22 @@ class CreatePasscodeFlowTests: UIIntegrationTestCase {
     // Given passcode is set,
     // when create passcode flow starts,
     // then it doesn't show anything
+    func test_doesntShowCreatePasscode() throws {
+        // Given passcode is set,
+        try App.shared.auth.createPasscode(plaintextPasscode: "123456")
+        XCTAssertEqual(App.shared.auth.isPasscodeSetAndAvailable, true, "passcode must be set")
+
+        // when create passcode flow starts,
+        let flow = CreatePasscodeFlow(completion: { _ in })
+        flow.modal(from: presenterVC)
+        // wait for presentation animation to complete
+        wait(timeout: 0.5)
+
+        // then it doesn't show anything
+        XCTAssertNil(presentedController, "expected that nothing is presented")
+    }
+
+    // try with the "nav controller" presentation, not modal
 
     // Given passcode is not set
     // and create passcode flow started

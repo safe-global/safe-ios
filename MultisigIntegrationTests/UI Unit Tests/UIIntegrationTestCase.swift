@@ -13,6 +13,10 @@ class UIIntegrationTestCase: CoreDataTestCase {
     var testWindow: UIWindow!
     var presenterVC: UIViewController!
 
+    var presentedController: UIViewController? {
+         presenterVC.presentedViewController
+    }
+
     override func setUpWithError() throws {
         try super.setUpWithError()
         // NOTE: each test starts with an empty database
@@ -61,7 +65,7 @@ class UIIntegrationTestCase: CoreDataTestCase {
     /// Returns a view controller at the top of navigation stack from the presented navigation controller
     func topPresentedController(_ line: UInt = #line) -> UIViewController! {
         // get the presented navigation controller
-        guard let navigationController = presenterVC.presentedViewController as? UINavigationController else {
+        guard let navigationController = presentedController as? UINavigationController else {
             XCTFail("expected to find navigationController, but found \(presenterVC.presentedViewController as Any)", line: line)
             return nil
         }
