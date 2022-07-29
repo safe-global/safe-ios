@@ -200,8 +200,8 @@ class BackupFlowTests: UIIntegrationTestCase {
         // wait for presentation animation to complete
         wait(timeout: waitingTime)
 
-        let keyItem = try! KeyInfo.firstKey(address: privateKey.address)
+        let keyItem = try! KeyInfo.firstKey(address: privateKey.address)!
 
-        XCTAssertTrue(keyItem!.backedup, "key not backed up")
+        XCTAssertTrue(keyItem.backedup, "key not backed up")
     }
 }
