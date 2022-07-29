@@ -87,7 +87,8 @@ class CreatePasscodeFlowTests: UIIntegrationTestCase {
         // Given passcode is not set
         XCTAssertEqual(App.shared.auth.isPasscodeSetAndAvailable, false, "passcode must be not set")
         // and create passcode flow starts,
-        _ = startModalCreatePasscodeFlow()
+        let flow = startModalCreatePasscodeFlow()
+        XCTAssertNotNil(flow) // to silence the 'unused' warning and retain the flow for duration of the test
 
         // when user enters a passcode
         guard let passcodeVC = topPresentedController() as? CreatePasscodeViewController else {
