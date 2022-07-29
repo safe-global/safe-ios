@@ -9,33 +9,65 @@
 import UIKit
 
 class ChooseGuardianViewController: LoadableViewController {
-    var stepNumber: Int = 1
-    var maxSteps: Int = 3
 
-    var guardians: [Guardian] = []
-    var onSelect: ((Guardian) -> ())?
     private var stepLabel: UILabel!
-    
+    private var stepNumber: Int = 2
+    private var maxSteps: Int = 3
+
+    private var guardians: [Guardian] = []
+    private var filteredGuardians: [Guardian] = []
+
+    var onSelected: ((Guardian) -> ())?
+    var onReloaded: (() -> ())?
+
     convenience init() {
         self.init(namedClass: Self.superclass())
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        ViewControllerFactory.makeTransparentNavigationBar(self)
+        navigationItem.hidesBackButton = false
+
+        stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
+        stepLabel.textAlignment = .right
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
+        stepLabel.setStyle(.tertiary)
+        stepLabel.text = "\(stepNumber) of \(maxSteps)"
+
         tableView.registerCell(GuardianTableViewCell.self)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 200
         tableView.separatorStyle = .none
-        stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
-        stepLabel.textAlignment = .right
-        navigationItem.title = "Safe Token Claiming"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
 
-        stepLabel.setStyle(.tertiary)
-        stepLabel.text = "\(stepNumber) of \(maxSteps)"
+        emptyView.setText("No guardian found")
+        emptyView.setImage(UIImage(named: "ico-wallet-placeholder")!)
     }
+
+    func filterData(searchTerm: String) {
+        let searchTerm = searchTerm.lowercased()
+        if !searchTerm.isEmpty {
+            filteredGuardians = guardians.filter { guardian in
+                return guardian.name?.lowercased().contains(searchTerm) ?? false ||
+                guardian.ensName?.lowercased().contains(searchTerm) ?? false ||
+                guardian.address == Address(searchTerm)
+            }
+
+        } else {
+            filteredGuardians = guardians
+        }
+        if isEmpty {
+            showOnly(view: emptyView)
+        } else {
+            showOnly(view: tableView)
+        }
+        tableView.reloadData()
+    }
+
+    override var isEmpty: Bool { filteredGuardians.isEmpty }
 
     override func reloadData() {
         super.reloadData()
@@ -44,18 +76,22 @@ class ChooseGuardianViewController: LoadableViewController {
             do {
                 let contents = try String(contentsOfFile: filepath)
                 createGuardiansFrom(csv: contents)
+                filteredGuardians = guardians
                 onSuccess()
+                onReloaded?()
             } catch {
                 onError(GSError.error(description: "Failed to load guardians"))
+                onReloaded?()
             }
         } else {
             onError(GSError.error(description: "Failed to load guardians"))
+            onReloaded?()
         }
     }
 
     private func createGuardiansFrom(csv: String) {
 
-        let entites = csv.split(whereSeparator: \.isNewline).dropFirst().prefix(2)
+        let entites = csv.split(whereSeparator: \.isNewline).dropFirst().prefix(8)
         entites.forEach { entry in
 
             let values: [String] = entry.components(separatedBy: ",")
@@ -80,24 +116,23 @@ class ChooseGuardianViewController: LoadableViewController {
 }
 
 extension ChooseGuardianViewController: UITableViewDelegate, UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guardians.count
+        filteredGuardians.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(GuardianTableViewCell.self)
-        cell.set(guardian: guardians[indexPath.row])
+        cell.set(guardian: filteredGuardians[indexPath.row])
         cell.tableView = tableView
-        cell.onSelect = { [unowned self] in
-            //onSelect?(guardians[indexPath.row])
-
-
-            let vc = GuardianDetailsViewController()
-            vc.guardian = guardians[indexPath.row]
-            show(vc, sender: nil)
-        }
-
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = GuardianDetailsViewController()
+        vc.onSelected = onSelected
+        vc.guardian = filteredGuardians[indexPath.row]
+        show(vc, sender: nil)
     }
 }
 
