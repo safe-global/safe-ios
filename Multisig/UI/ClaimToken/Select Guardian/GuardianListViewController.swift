@@ -10,6 +10,13 @@ import UIKit
 
 class ChooseGuardianViewController: LoadableViewController {
 
+    private enum Section {
+        case guardiansCount(count: Int)
+        case guardians(items: [Guardian])
+    }
+
+    private var sections: [Section] = []
+
     private var stepLabel: UILabel!
     private var stepNumber: Int = 2
     private var maxSteps: Int = 3
@@ -37,6 +44,7 @@ class ChooseGuardianViewController: LoadableViewController {
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
         tableView.registerCell(GuardianTableViewCell.self)
+        tableView.registerCell(GuardianCountTableViewCell.self)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
@@ -45,6 +53,17 @@ class ChooseGuardianViewController: LoadableViewController {
 
         emptyView.setText("No guardian found")
         emptyView.setImage(UIImage(named: "ico-delegate-placeholder")!)
+    }
+
+    private func makeSections(items: [Guardian]) -> [Section] {
+        guard !items.isEmpty else { return [] }
+
+        var sections = [Section]()
+
+        sections.append(.guardiansCount(count: items.count))
+        sections.append(.guardians(items: items))
+
+        return sections
     }
 
     func filterData(searchTerm: String) {
@@ -59,6 +78,7 @@ class ChooseGuardianViewController: LoadableViewController {
         } else {
             filteredGuardians = guardians
         }
+        sections = makeSections(items: filteredGuardians)
         if isEmpty {
             showOnly(view: emptyView)
         } else {
@@ -67,7 +87,7 @@ class ChooseGuardianViewController: LoadableViewController {
         tableView.reloadData()
     }
 
-    override var isEmpty: Bool { filteredGuardians.isEmpty }
+    override var isEmpty: Bool { sections.isEmpty }
 
     override func reloadData() {
         super.reloadData()
@@ -77,6 +97,7 @@ class ChooseGuardianViewController: LoadableViewController {
                 let contents = try String(contentsOfFile: filepath)
                 createGuardiansFrom(csv: contents)
                 filteredGuardians = guardians
+                sections = makeSections(items: filteredGuardians)
                 onSuccess()
                 onReloaded?()
             } catch {
@@ -117,22 +138,48 @@ class ChooseGuardianViewController: LoadableViewController {
 
 extension ChooseGuardianViewController: UITableViewDelegate, UITableViewDataSource {
 
+    func numberOfSections(in tableView: UITableView) -> Int {
+       sections.count
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        filteredGuardians.count
+        switch sections[section] {
+        case .guardiansCount: return 1
+        case .guardians(items: let items): return items.count
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(GuardianTableViewCell.self)
-        cell.set(guardian: filteredGuardians[indexPath.row])
-        cell.tableView = tableView
-        return cell
+
+        switch sections[indexPath.section] {
+
+        case .guardiansCount(count: let count):
+            let cell = tableView.dequeueCell(GuardianCountTableViewCell.self)
+            cell.setCount(count)
+            return cell
+
+        case .guardians(items: let items):
+            let cell = tableView.dequeueCell(GuardianTableViewCell.self)
+            cell.set(guardian: items[indexPath.row])
+            cell.tableView = tableView
+            return cell
+        }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = GuardianDetailsViewController()
-        vc.onSelected = onSelected
-        vc.guardian = filteredGuardians[indexPath.row]
-        show(vc, sender: nil)
+
+        switch sections[indexPath.section] {
+
+        case .guardians(items: let items):
+            let item = items[indexPath.row]
+            let vc = GuardianDetailsViewController()
+            vc.onSelected = onSelected
+            vc.guardian = item
+            show(vc, sender: nil)
+            break
+
+        default: break
+        }
     }
 }
 
