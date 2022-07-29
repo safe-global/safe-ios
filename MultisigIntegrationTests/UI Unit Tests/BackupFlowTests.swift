@@ -96,7 +96,6 @@ class BackupFlowTests: UIIntegrationTestCase {
         let verifyVC = topPresentedController() as! VerifyPhraseViewController
         XCTAssertEqual(verifyVC.state, .question, "wrong state")
 
-
         let firstQuestion = verifyVC.questions[0]
         let firstCorrectAnswer = firstQuestion.choices.firstIndex(where: { $0 == firstQuestion.correctAnswer})!
         verifyVC.didSelectWord(at: firstCorrectAnswer)
@@ -122,7 +121,6 @@ class BackupFlowTests: UIIntegrationTestCase {
 
         let verifyVC = topPresentedController() as! VerifyPhraseViewController
         XCTAssertEqual(verifyVC.state, .question, "wrong state")
-
 
         let firstQuestion = verifyVC.questions[0]
         let firstCorrectAnswer = firstQuestion.choices.firstIndex(where: { $0 == firstQuestion.correctAnswer})!
@@ -156,7 +154,6 @@ class BackupFlowTests: UIIntegrationTestCase {
 
         let verifyVC = topPresentedController() as! VerifyPhraseViewController
         XCTAssertEqual(verifyVC.state, .question, "wrong state")
-
 
         let firstQuestion = verifyVC.questions[0]
         let firstCorrectAnswer = firstQuestion.choices.firstIndex(where: { $0 == firstQuestion.correctAnswer})!
