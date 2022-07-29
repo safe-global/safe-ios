@@ -12,6 +12,8 @@ class UIIntegrationTestCase: CoreDataTestCase {
     var originalWindow: UIWindow?
     var testWindow: UIWindow!
     var presenterVC: UIViewController!
+    var pushingNavVC: UINavigationController!
+    var pushingVC: UIViewController!
 
     var presentedController: UIViewController? {
          presenterVC.presentedViewController
@@ -41,6 +43,11 @@ class UIIntegrationTestCase: CoreDataTestCase {
     func installTestWindow(_ line: UInt = #line) {
         presenterVC = UIViewController()
         presenterVC.view.backgroundColor = .flatOrange
+
+        pushingVC = UIViewController()
+        pushingVC.view.backgroundColor = UIColor(red: 118.0/255.0, green: 251.0/255.0, blue: 155.0/255.0, alpha: 1)
+        pushingNavVC = UINavigationController(rootViewController: pushingVC)
+
 
         guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
             XCTFail("Can't find scene to present window on it", line: line)
