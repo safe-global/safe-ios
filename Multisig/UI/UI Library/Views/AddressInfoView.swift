@@ -103,12 +103,15 @@ class AddressInfoView: UINibView {
     // show address with identicon, and show label or address ellipsized.
     func setAddressOneLine(
         _ address: Address,
+        ensName: String? = nil,
+        hideAddress: Bool = true,
         label: String? = nil,
         imageUri: URL? = nil,
         badgeName: String? = nil,
         prefix: String? = nil
     ) {
         self.address = address
+        self.ensName = ensName
         self.browseURL = nil
         self.prefix = prefix
         self.label = label
@@ -119,7 +122,12 @@ class AddressInfoView: UINibView {
         } else {
             textLabel.text = prependingPrefixString() + self.address.ellipsized()
         }
-        addressLabel.isHidden = true
+
+        if !hideAddress {
+            displayAddress()
+        } else {
+            addressLabel.isHidden = true
+        }
 
         identiconView.isHidden = false
         identiconView.set(address: address, imageURL: imageUri, badgeName: badgeName)
