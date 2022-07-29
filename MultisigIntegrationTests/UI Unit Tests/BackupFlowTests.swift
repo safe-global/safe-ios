@@ -179,5 +179,10 @@ class BackupFlowTests: UIIntegrationTestCase {
         let thirdCorrectAnswer = thirdQuestion.choices.firstIndex(where: { $0 == thirdQuestion.correctAnswer})!
         verifyVC.didSelectWord(at: thirdCorrectAnswer)
         XCTAssertEqual(verifyVC.state, .correct, "wrong state")
+
+        // wait for presentation animation to complete
+        wait(timeout: waitingTime)
+
+        XCTAssertEqual(verifyVC.state, .completed, "wrong state")
     }
 }
