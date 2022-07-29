@@ -22,16 +22,12 @@ class GuardianDetailsViewController: UIViewController {
     private var stepNumber: Int = 2
     private var maxSteps: Int = 3
 
-    private var guardianAddress: Address = Address.zero
-
     var chain: Chain! = Chain.mainnetChain()
     var guardian: Guardian!
-    var onContinue: ((_ address: Address) -> ())?
+    var onSelected: ((Guardian) -> ())?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        guardianAddress = guardian.address
 
         ViewControllerFactory.makeTransparentNavigationBar(self)
         navigationItem.hidesBackButton = false
@@ -57,7 +53,7 @@ class GuardianDetailsViewController: UIViewController {
 
         continueButton.setText("Select & Continue", .filled)
 
-        if (guardianAddress == Address.zero) {
+        if (guardian.address == Address.zero) {
 
             continueButton.isEnabled = false
 
@@ -69,9 +65,22 @@ class GuardianDetailsViewController: UIViewController {
                         ensRegistryAddress: AddressString(chain.ensRegistryAddress!)
                     )
                     do {
-                        guardianAddress = try blockchainDomainManager.resolveEnsDomain(domain: ensName)
+
+                        let guardianAddress = try blockchainDomainManager.resolveEnsDomain(domain: ensName)
+
                         viewOnEtherscan.url = chain.browserURL(address: guardianAddress.checksummed)
+
+                        guardian = Guardian(
+                            name: guardian.name,
+                            reason: guardian.reason,
+                            previousContribution: guardian.previousContribution,
+                            address: guardianAddress,
+                            ensName: guardian.ensName,
+                            imageURLString: guardian.imageURLString
+                        )
+
                         continueButton.isEnabled = true
+
                     } catch {
                         let gsError = GSError.error(description: "ENS resolution failed", error: error)
                         App.shared.snackbar.show(error: gsError)
@@ -87,6 +96,6 @@ class GuardianDetailsViewController: UIViewController {
     }
 
     @IBAction func didTapContinueButton(_ sender: Any) {
-        onContinue?(guardianAddress)
+        onSelected?(guardian)
     }
 }
