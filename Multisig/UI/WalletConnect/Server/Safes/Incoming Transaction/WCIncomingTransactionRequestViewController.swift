@@ -190,8 +190,8 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
     }
 
     override func onSuccess(transaction: SCGModels.TransactionDetails) {
-        DispatchQueue.main.async { [unowned self] in
-            dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
         }
 
         App.shared.snackbar.show(message: "The transaction is submitted and can be confirmed by other owners.")
