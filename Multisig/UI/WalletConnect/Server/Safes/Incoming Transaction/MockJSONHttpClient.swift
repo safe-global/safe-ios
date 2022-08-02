@@ -28,6 +28,7 @@ class MockJSONHttpClient {
 
     func asyncExecute<T: JSONRequest>(request: T, completion: @escaping (Result<T.ResponseType, Error>) -> ()) -> URLSessionTask? {
         //Check if we can handle the request
+        // TODO: Remove because it's not needed 
         if request is TransactionPreviewRequest {
             let txData = jsonData("MultiSendApproveMultihopBatchSwapExactIn")
             do {
