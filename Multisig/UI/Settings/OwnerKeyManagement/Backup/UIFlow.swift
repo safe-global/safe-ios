@@ -39,7 +39,10 @@ class UIFlow {
 
         start()
 
-        let rootVC = navigationController.viewControllers.first!
+        guard let rootVC = navigationController.viewControllers.first else {
+            // nothing to present, exit
+            return
+        }
         ViewControllerFactory.addCloseButton(rootVC)
 
         presenter = vc

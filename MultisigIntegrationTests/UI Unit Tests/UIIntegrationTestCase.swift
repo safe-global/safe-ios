@@ -12,6 +12,12 @@ class UIIntegrationTestCase: CoreDataTestCase {
     var originalWindow: UIWindow?
     var testWindow: UIWindow!
     var presenterVC: UIViewController!
+    var pushingNavVC: UINavigationController!
+    var pushingVC: UIViewController!
+
+    var presentedController: UIViewController? {
+         presenterVC.presentedViewController
+    }
 
     override func setUpWithError() throws {
         try super.setUpWithError()
@@ -38,6 +44,11 @@ class UIIntegrationTestCase: CoreDataTestCase {
         presenterVC = UIViewController()
         presenterVC.view.backgroundColor = .flatOrange
 
+        pushingVC = UIViewController()
+        pushingVC.view.backgroundColor = UIColor(red: 118.0/255.0, green: 251.0/255.0, blue: 155.0/255.0, alpha: 1)
+        pushingNavVC = UINavigationController(rootViewController: pushingVC)
+
+
         guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
             XCTFail("Can't find scene to present window on it", line: line)
             return
@@ -61,7 +72,7 @@ class UIIntegrationTestCase: CoreDataTestCase {
     /// Returns a view controller at the top of navigation stack from the presented navigation controller
     func topPresentedController(_ line: UInt = #line) -> UIViewController! {
         // get the presented navigation controller
-        guard let navigationController = presenterVC.presentedViewController as? UINavigationController else {
+        guard let navigationController = presentedController as? UINavigationController else {
             XCTFail("expected to find navigationController, but found \(presenterVC.presentedViewController as Any)", line: line)
             return nil
         }
