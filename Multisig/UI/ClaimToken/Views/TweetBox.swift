@@ -46,6 +46,9 @@ class TweetBox: UINibView {
     }
 
     @IBAction func didTapTweetButton(_ sender: Any) {
-        //TODO: tweet
+        let shareString = "https://twitter.com/intent/tweet?text=\(tweetLabel.text!)"
+        let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        let url = URL(string: escapedShareString)
+        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
     }
 }
