@@ -13,11 +13,7 @@ class TweetBox: UINibView {
     
     @IBOutlet weak var tweetLabel: UILabel!
     @IBOutlet weak var tweetButton: UIButton!
-
-    override func commonInit() {
-        super.commonInit()
-        tweetButton.setText("Tweet", .tweet)
-    }
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
