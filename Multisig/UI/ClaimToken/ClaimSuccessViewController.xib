@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ClaimSuccessViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="okButton" destination="bQf-nv-fCd" id="3p9-X5-uyd"/>
+                <outlet property="textLabel" destination="Qlq-FI-vd3" id="dQ9-Hp-Swd"/>
+                <outlet property="titleLabel" destination="Sj1-az-efs" id="R6x-E9-dio"/>
+                <outlet property="tweetBox" destination="57G-qb-fCs" id="EvY-gi-6IV"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bQf-nv-fCd">
+                    <rect key="frame" x="16" y="790" width="382" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="drl-lu-TOt"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="OK, Great">
+                        <color key="titleColor" name="labelPrimary"/>
+                    </state>
+                    <connections>
+                        <action selector="didTapOkButton:" destination="-1" eventType="touchUpInside" id="Srj-cE-ovF"/>
+                    </connections>
+                </button>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-claim-success" translatesAutoresizingMaskIntoConstraints="NO" id="hX5-2h-ziT">
+                    <rect key="frame" x="16" y="98" width="382" height="110"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congrats!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sj1-az-efs">
+                    <rect key="frame" x="16" y="240" width="382" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qlq-FI-vd3">
+                    <rect key="frame" x="32" y="277" width="350" height="81.5"/>
+                    <string key="text">You successfully created transaction to claim 10 SAFE Tokens! Go ahead, approve and execute it. Remember to share your claim on Twitter ;)</string>
+                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="57G-qb-fCs" customClass="TweetBox" customModule="Multisig" customModuleProvider="target">
+                    <rect key="frame" x="16" y="374.5" width="382" height="200"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" placeholder="YES" id="g08-0G-85J"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Qlq-FI-vd3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="7mx-xr-bU2"/>
+                <constraint firstItem="Qlq-FI-vd3" firstAttribute="top" secondItem="Sj1-az-efs" secondAttribute="bottom" constant="16" id="9qx-AE-aoU"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Sj1-az-efs" secondAttribute="trailing" constant="16" id="I7g-RB-47Z"/>
+                <constraint firstItem="57G-qb-fCs" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="IBw-JW-A0G"/>
+                <constraint firstItem="57G-qb-fCs" firstAttribute="top" secondItem="Qlq-FI-vd3" secondAttribute="bottom" constant="16" id="IWz-el-yUm"/>
+                <constraint firstItem="bQf-nv-fCd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="LOb-uR-HcP"/>
+                <constraint firstItem="hX5-2h-ziT" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="54" id="QEa-gA-4gu"/>
+                <constraint firstItem="Sj1-az-efs" firstAttribute="top" secondItem="hX5-2h-ziT" secondAttribute="bottom" constant="32" id="QHy-Jd-fOc"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hX5-2h-ziT" secondAttribute="trailing" constant="16" id="QUI-1D-4FE"/>
+                <constraint firstItem="Sj1-az-efs" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="QW1-xD-f1A"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="57G-qb-fCs" secondAttribute="trailing" constant="16" id="jO9-qd-Cd6"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="bQf-nv-fCd" secondAttribute="bottom" constant="16" id="qEc-73-zUY"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Qlq-FI-vd3" secondAttribute="trailing" constant="32" id="qhG-rG-RBg"/>
+                <constraint firstItem="hX5-2h-ziT" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="r8j-Xb-uXI"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="bQf-nv-fCd" secondAttribute="trailing" constant="16" id="uI8-Nb-n5B"/>
+            </constraints>
+            <point key="canvasLocation" x="133" y="85"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ico-claim-success" width="110" height="110"/>
+        <namedColor name="labelPrimary">
+            <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -785,6 +785,10 @@
 		6AD4772C2892BE90004C736D /* SelectGuardianViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AD4772A2892BE90004C736D /* SelectGuardianViewController.xib */; };
 		6AD4772F28932160004C736D /* GuardianCountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD4772D28932160004C736D /* GuardianCountTableViewCell.swift */; };
 		6AD4773028932160004C736D /* GuardianCountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AD4772E28932160004C736D /* GuardianCountTableViewCell.xib */; };
+		6AD4773328986556004C736D /* ClaimSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD4773128986556004C736D /* ClaimSuccessViewController.swift */; };
+		6AD4773428986556004C736D /* ClaimSuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AD4773228986556004C736D /* ClaimSuccessViewController.xib */; };
+		6AD477362898E341004C736D /* TweetBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD477352898E341004C736D /* TweetBox.swift */; };
+		6AD477382898E360004C736D /* TweetBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AD477372898E360004C736D /* TweetBox.xib */; };
 		6ADEB01B2795AB410062ADFE /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB0192795AB410062ADFE /* InfoLabel.swift */; };
 		6ADEB01C2795AB410062ADFE /* InfoLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB01A2795AB410062ADFE /* InfoLabel.xib */; };
 		6ADEB02727B559370062ADFE /* WebConnectionOwnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */; };
@@ -1689,6 +1693,10 @@
 		6AD4772A2892BE90004C736D /* SelectGuardianViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectGuardianViewController.xib; sourceTree = "<group>"; };
 		6AD4772D28932160004C736D /* GuardianCountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianCountTableViewCell.swift; sourceTree = "<group>"; };
 		6AD4772E28932160004C736D /* GuardianCountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuardianCountTableViewCell.xib; sourceTree = "<group>"; };
+		6AD4773128986556004C736D /* ClaimSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimSuccessViewController.swift; sourceTree = "<group>"; };
+		6AD4773228986556004C736D /* ClaimSuccessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClaimSuccessViewController.xib; sourceTree = "<group>"; };
+		6AD477352898E341004C736D /* TweetBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetBox.swift; sourceTree = "<group>"; };
+		6AD477372898E360004C736D /* TweetBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TweetBox.xib; sourceTree = "<group>"; };
 		6ADEB0192795AB410062ADFE /* InfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
 		6ADEB01A2795AB410062ADFE /* InfoLabel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoLabel.xib; sourceTree = "<group>"; };
 		6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnectionOwnerView.swift; sourceTree = "<group>"; };
@@ -2020,6 +2028,8 @@
 				6A4BC4D5288DD921002B6DDA /* EnterCustomAddressViewController.xib */,
 				6A947214288FDE8300807B3B /* ClaimNotAvailableViewController.swift */,
 				6A947215288FDE8300807B3B /* ClaimNotAvailableViewController.xib */,
+				6AD4773128986556004C736D /* ClaimSuccessViewController.swift */,
+				6AD4773228986556004C736D /* ClaimSuccessViewController.xib */,
 			);
 			path = ClaimToken;
 			sourceTree = "<group>";
@@ -3830,6 +3840,8 @@
 				6A6A105E2889A32300B852D5 /* InstructionStepListView.swift */,
 				6A6A105C2889A31200B852D5 /* InstructionStepView.swift */,
 				6A6A10602889A33500B852D5 /* InstructionStepView.xib */,
+				6AD477352898E341004C736D /* TweetBox.swift */,
+				6AD477372898E360004C736D /* TweetBox.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4436,6 +4448,7 @@
 				0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */,
 				04B4B6E625B9A08D00CFE24B /* CardTableViewCell.xib in Resources */,
 				0A045087278DC04C00650F71 /* BorderedInnerTableCell.xib in Resources */,
+				6AD477382898E360004C736D /* TweetBox.xib in Resources */,
 				0AF1C88F2541AD4200E28669 /* ScrollableDataErrorView.xib in Resources */,
 				0A57C8EA2587AECB00B7C019 /* EnterSafeAddressViewController.xib in Resources */,
 				550FB1B526691D9500C13D54 /* DetailedCell.xib in Resources */,
@@ -4456,6 +4469,7 @@
 				0ADA90F8256548C60004DEC0 /* SnackbarViewController.xib in Resources */,
 				6AD4772C2892BE90004C736D /* SelectGuardianViewController.xib in Resources */,
 				0A04507B278DAD4000650F71 /* SecondaryDetailDisclosureCell.xib in Resources */,
+				6AD4773428986556004C736D /* ClaimSuccessViewController.xib in Resources */,
 				0A478D3C25B863D60038363E /* DerivedKeyTableViewCell.xib in Resources */,
 				0A57C5E52577FBD900420303 /* DetailConfirmationCell.xib in Resources */,
 				0AADCDC52858E8A100A0139B /* ValidateRequestToAddOwnerViewController.xib in Resources */,
@@ -4756,6 +4770,7 @@
 				55CA3EBB250A237C0080DF7F /* KeychainService.swift in Sources */,
 				D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */,
 				6A39DC9327C64254006BCAE7 /* SafeDeploymentFinishedViewController.swift in Sources */,
+				6AD4773328986556004C736D /* ClaimSuccessViewController.swift in Sources */,
 				6AFD26DB285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift in Sources */,
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
 				0493A28B262979820056EC49 /* UpdateController.swift in Sources */,
@@ -4891,6 +4906,7 @@
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
 				557D80B5270B32F80036D6D0 /* WCSendTransactionRequest.swift in Sources */,
 				0A045089278E282800650F71 /* DefaultAccountBalanceLoader.swift in Sources */,
+				6AD477362898E341004C736D /* TweetBox.swift in Sources */,
 				0A5B157E280863FB003AD853 /* RepeatChangedPasscodeViewController.swift in Sources */,
 				0A6886D02588FC180045CAB5 /* EnterENSNameViewController.swift in Sources */,
 				0468FB8625912E6800541536 /* QueuedTransactionsViewController.swift in Sources */,

@@ -242,6 +242,17 @@ extension GNOButtonStyle {
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ]))
     ])
+
+    static let tweet = GNOButtonStyle(appearance: [
+        (.normal, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-tweet-normal"), textAttributes: [
+            .foregroundColor: UIColor.white,
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
+        ])),
+        (.highlighted, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-tweet-pressed"), textAttributes: [
+            .foregroundColor: UIColor.white,
+            .font: UIFont.gnoFont(forTextStyle: .headline2)
+        ]))
+    ])
 }
 
 extension UIButton {
