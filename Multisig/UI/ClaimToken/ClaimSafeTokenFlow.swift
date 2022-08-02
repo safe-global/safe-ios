@@ -79,19 +79,17 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     func success() {
-        //assert(transaction != nil)
-        let successVC = factory.success (bodyText: "It needs to be confirmed and executed first before the token claiming.",
-                                         trackingEvent: .addAsOwnerSuccess) { [unowned self] showTxDetails in
-//            if showTxDetails {
-//                NotificationCenter.default.post(
-//                    name: .initiateTxNotificationReceived,
-//                    object: self,
-//                    userInfo: ["transactionDetails": transaction!])
-//            }
+        assert(transaction != nil)
+        //TODO: pass amount
+        let successVC = factory.success (amount: "10") { [unowned self] in
 
-            stop(success: !showTxDetails)
+            //                NotificationCenter.default.post(
+            //                    name: .initiateTxNotificationReceived,
+            //                    object: self,
+            //                    userInfo: ["transactionDetails": transaction!])
+
+            stop(success: true)
         }
-
         show(successVC)
     }
 }
@@ -136,16 +134,11 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
-    func success(bodyText: String,
-                 trackingEvent: TrackingEvent,
-                 completion: @escaping (_ showTxDetails: Bool) -> Void) -> SuccessViewController {
-        let successVC = SuccessViewController(
-            titleText: "Your transaction is submitted!",
-            bodyText: bodyText,
-            primaryAction: "View transaction details",
-            secondaryAction: "Done",
-            trackingEvent: trackingEvent)
-        successVC.onDone = completion
+    func success(amount: String,
+                 completion: @escaping () -> Void) -> ClaimSuccessViewController {
+        let successVC = ClaimSuccessViewController()
+        successVC.amount = amount
+        successVC.onOk = completion
         return successVC
     }
 }

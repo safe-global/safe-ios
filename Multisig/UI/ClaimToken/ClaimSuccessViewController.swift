@@ -16,7 +16,7 @@ class ClaimSuccessViewController: UIViewController {
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var tweetBox: TweetBox!
 
-    var amount: String = "10"
+    var amount: String!
 
     var onOk: (() -> ())?
 
@@ -28,7 +28,7 @@ class ClaimSuccessViewController: UIViewController {
 
         titleLabel.setStyle(.claimTitle)
 
-        let amountString = "\(amount) SAFE"
+        let amountString = "\(amount!) SAFE"
         let text = "You successfully created transaction to claim \(amountString) Tokens! Go ahead, approve and execute it. Remember to share your claim on Twitter ;)"
         textLabel.attributedText = text.highlightRange(
             originalStyle: .secondary,
@@ -46,6 +46,12 @@ class ClaimSuccessViewController: UIViewController {
         )
 
         okButton.setText("OK, Great", .filled)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        //TODO track screen
     }
 
     @IBAction func didTapOkButton(_ sender: Any) {
