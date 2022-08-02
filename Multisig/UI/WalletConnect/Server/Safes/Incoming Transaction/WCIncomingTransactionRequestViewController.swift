@@ -71,10 +71,25 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
     override func headerCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(IcommingDappInteractionRequestHeaderTableViewCell.self)
         let chain = safe.chain!
+        var addressInfo: SCGModels.AddressInfo?
+
+        switch transactionPreview!.txInfo {
+        case .transfer(let transferInfo):
+            let isOutgoing = transferInfo.direction == .outgoing
+            if isOutgoing {
+               addressInfo = transferInfo.recipient
+            } else {
+                addressInfo = transferInfo.sender
+            }
+        case .custom(let customInfo):
+            addressInfo = customInfo.to
+        default:
+            addressInfo = transactionPreview?.txData?.to
+        }
 
         cell.setDapp(imageURL: session.dAppInfo.peerMeta.icons[0], name: session.dAppInfo.peerMeta.name)
         let (addressName, imageURL) = NamingPolicy.name(for: transaction.to.address,
-                                                 info: nil,
+                                                        info: addressInfo?.addressInfo,
                                                  chainId: safe.chain!.id!)
         cell.setToAddress(transaction.to.address,
                           label: addressName,
@@ -113,7 +128,7 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
         case .settingsChange(let settingsChangeInfo):
             name = settingsChangeInfo.dataDecoded.method
             imageName = "ico-settings-tx"
-        case .custom(let customInfo):
+        case .custom(let _):
             name = "Contract interaction"
             imageName = "ico-custom-tx"
         case .rejection(_):
@@ -158,7 +173,8 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
     }
 
     override func createTransaction() -> Transaction? {
-        transaction
+        transaction.update(nonce: nonce, safeTxGas: safeTxGas)
+        return transaction
     }
 
     override func getTrackingEvent() -> TrackingEvent {
@@ -171,6 +187,17 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
         case SectionItem.transactionType(let cell): return cell
         default: return super.tableView(tableView, cellForRowAt: indexPath)
         }
+    }
+
+    override func onSuccess(transaction: SCGModels.TransactionDetails) {
+        DispatchQueue.main.async { [unowned self] in
+            dismiss(animated: true, completion: nil)
+        }
+
+        App.shared.snackbar.show(message: "The transaction is submitted and can be confirmed by other owners.")
+
+        guard let multisigInfo = transaction.multisigInfo else { return }
+        onSubmit?(multisigInfo.nonce, multisigInfo.safeTxHash)
     }
 }
 

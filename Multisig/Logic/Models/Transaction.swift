@@ -156,6 +156,17 @@ extension Transaction {
         updateSafeTxHash()
     }
 
+    mutating func update(nonce: UInt256String? ,safeTxGas: UInt256String?) {
+        if let nonce = nonce {
+            self.nonce = nonce
+        }
+        if let safeTxGas = safeTxGas {
+            self.safeTxGas = safeTxGas
+        }
+
+        safeTxHash = safeTransactionHash()
+    }
+
     mutating func updateSafeTxHash() {
         safeTxHash = safeTransactionHash()
     }
