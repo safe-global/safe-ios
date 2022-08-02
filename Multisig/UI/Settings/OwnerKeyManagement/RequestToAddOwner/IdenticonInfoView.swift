@@ -32,5 +32,18 @@ class IdenticonInfoView: UINibView {
         }
         addressLabel.text = owner.address.ellipsized()
     }
+
+    func setGuardian(guardian: Guardian) {
+
+        blockie.set(address: guardian.address, imageURL: guardian.imageURL)
+
+        nameLabel.text = guardian.name
+        
+        if let ensName = guardian.ensName {
+            addressLabel.text = ensName
+        } else {
+            addressLabel.text = guardian.address.ellipsized()
+        }
+    }
 }
 
