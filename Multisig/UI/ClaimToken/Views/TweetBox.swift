@@ -16,6 +16,7 @@ class TweetBox: UINibView {
 
     override func commonInit() {
         super.commonInit()
+        tweetButton.setText("Tweet", .tweet)
     }
 
     override func awakeFromNib() {
@@ -26,7 +27,7 @@ class TweetBox: UINibView {
         layer.cornerRadius = 8
 
         tweetLabel.setStyle(.secondary.color(.labelPrimary))
-        tweetButton.setText("Tweet", .filled)
+        tweetButton.setText("Tweet", .tweet)
     }
 
     func setTweet(text: String, hashtags: [String]) {

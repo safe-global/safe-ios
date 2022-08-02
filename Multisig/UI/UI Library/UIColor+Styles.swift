@@ -26,6 +26,7 @@ extension UIColor {
     static let backgroundPositive = UIColor(named: "backgroundPositive")!
     static let backgroundWarning = UIColor(named: "backgroundWarning")!
     static let backgroundError = UIColor(named: "backgroundError")!
+    static let backgroundTweet = UIColor(named: "backgroundTweet")!
     static let whiteOrBlack = UIColor(named: "backgroundWhiteOrBlack")!
     static let labelPrimary = UIColor(named: "labelPrimary")!
     static let labelSecondary = UIColor(named: "labelSecondary")!
