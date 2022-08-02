@@ -102,6 +102,31 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
         
         let addressInfoIndex = transactionPreview?.txData?.addressInfoIndex
         var description: String?
+        var imageName: String = "ico-custom-tx"
+        var name: String = "Contract interaction"
+
+        switch transactionPreview!.txInfo {
+        case .transfer(let transferInfo):
+            let isOutgoing = transferInfo.direction == .outgoing
+            imageName = isOutgoing ? "ico-outgoing-tx" : "ico-incomming-tx"
+            name = isOutgoing ? "Send" : "Receive"
+        case .settingsChange(let settingsChangeInfo):
+            name = settingsChangeInfo.dataDecoded.method
+            imageName = "ico-settings-tx"
+        case .custom(let customInfo):
+            name = "Contract interaction"
+            imageName = "ico-custom-tx"
+        case .rejection(_):
+            name = "On-chain rejection"
+            imageName = "ico-rejection-tx"
+        case .creation(_):
+            imageName = "ico-settings-tx"
+            name = "Safe created"
+        case .unknown:
+            imageName = "ico-custom-tx"
+            name = "Unknown operation"
+        }
+
         if dataDecoded.method == "multiSend",
            let param = dataDecoded.parameters?.first,
            param.type == "bytes",
@@ -126,7 +151,7 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
             }
         }
 
-        cell.set(imageName: "", name: "Contract interaction", description: description)
+        cell.set(imageName: imageName, name: name, description: description)
         tableCell.setCells([cell])
 
         return tableCell
