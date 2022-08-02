@@ -15,6 +15,7 @@
                 <outlet property="okButton" destination="bQf-nv-fCd" id="3p9-X5-uyd"/>
                 <outlet property="textLabel" destination="Qlq-FI-vd3" id="dQ9-Hp-Swd"/>
                 <outlet property="titleLabel" destination="Sj1-az-efs" id="R6x-E9-dio"/>
+                <outlet property="tweetBox" destination="57G-qb-fCs" id="EvY-gi-6IV"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -52,6 +53,13 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="57G-qb-fCs" customClass="TweetBox" customModule="Multisig" customModuleProvider="target">
+                    <rect key="frame" x="16" y="374.5" width="382" height="200"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" placeholder="YES" id="g08-0G-85J"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -59,11 +67,14 @@
                 <constraint firstItem="Qlq-FI-vd3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="7mx-xr-bU2"/>
                 <constraint firstItem="Qlq-FI-vd3" firstAttribute="top" secondItem="Sj1-az-efs" secondAttribute="bottom" constant="16" id="9qx-AE-aoU"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Sj1-az-efs" secondAttribute="trailing" constant="16" id="I7g-RB-47Z"/>
+                <constraint firstItem="57G-qb-fCs" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="IBw-JW-A0G"/>
+                <constraint firstItem="57G-qb-fCs" firstAttribute="top" secondItem="Qlq-FI-vd3" secondAttribute="bottom" constant="16" id="IWz-el-yUm"/>
                 <constraint firstItem="bQf-nv-fCd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="LOb-uR-HcP"/>
                 <constraint firstItem="hX5-2h-ziT" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="54" id="QEa-gA-4gu"/>
                 <constraint firstItem="Sj1-az-efs" firstAttribute="top" secondItem="hX5-2h-ziT" secondAttribute="bottom" constant="32" id="QHy-Jd-fOc"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hX5-2h-ziT" secondAttribute="trailing" constant="16" id="QUI-1D-4FE"/>
                 <constraint firstItem="Sj1-az-efs" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="QW1-xD-f1A"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="57G-qb-fCs" secondAttribute="trailing" constant="16" id="jO9-qd-Cd6"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="bQf-nv-fCd" secondAttribute="bottom" constant="16" id="qEc-73-zUY"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Qlq-FI-vd3" secondAttribute="trailing" constant="32" id="qhG-rG-RBg"/>
                 <constraint firstItem="hX5-2h-ziT" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="r8j-Xb-uXI"/>

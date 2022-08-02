@@ -21,11 +21,12 @@ class TweetBox: UINibView {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        layer.borderWidth = 10
+        layer.borderWidth = 2
         layer.borderColor = UIColor.backgroundPrimary.cgColor
         layer.cornerRadius = 8
 
         tweetLabel.setStyle(.secondary.color(.labelPrimary))
+        tweetButton.setText("Tweet", .filled)
     }
 
     func setTweet(text: String, hashtags: [String]) {
@@ -36,7 +37,7 @@ class TweetBox: UINibView {
             }
             .joined(separator: " ")
 
-        tweetLabel.attributedText = text.highlightRange(
+        tweetLabel.attributedText = "\(text) \(hashtagsString)".highlightRange(
             originalStyle: .secondary.color(.labelPrimary),
             highlightStyle: .primary.color(.primary),
             textToHightlight: hashtagsString
@@ -44,5 +45,6 @@ class TweetBox: UINibView {
     }
 
     @IBAction func didTapTweetButton(_ sender: Any) {
+        //TODO: tweet
     }
 }

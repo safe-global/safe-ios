@@ -14,6 +14,7 @@ class ClaimSuccessViewController: UIViewController {
     @IBOutlet weak var okButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet weak var tweetBox: TweetBox!
 
     var amount: String = "10"
 
@@ -28,11 +29,20 @@ class ClaimSuccessViewController: UIViewController {
         titleLabel.setStyle(.claimTitle)
 
         let amountString = "\(amount) SAFE"
-        let text = "You successfully created transaction to claim \(amountLabel) Tokens! Go ahead, approve and execute it. Remember to share your claim on Twitter ;)"
+        let text = "You successfully created transaction to claim \(amountString) Tokens! Go ahead, approve and execute it. Remember to share your claim on Twitter ;)"
         textLabel.attributedText = text.highlightRange(
             originalStyle: .secondary,
             highlightStyle: .primary,
             textToHightlight: amountString
+        )
+
+        tweetBox.setTweet(
+            text: "I just got my Safe token Airdrop. Did you get yours? ;)",
+            hashtags: [
+                "staysafe",
+                "safedao",
+                "safeairdrop"
+            ]
         )
 
         okButton.setText("OK, Great", .filled)
