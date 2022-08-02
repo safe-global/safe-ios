@@ -90,7 +90,7 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
         cell.setDapp(imageURL: session.dAppInfo.peerMeta.icons[0], name: session.dAppInfo.peerMeta.name)
         let (addressName, imageURL) = NamingPolicy.name(for: transaction.to.address,
                                                         info: addressInfo?.addressInfo,
-                                                 chainId: safe.chain!.id!)
+                                                        chainId: safe.chain!.id!)
         cell.setToAddress(transaction.to.address,
                           label: addressName,
                           imageUri: imageURL,
