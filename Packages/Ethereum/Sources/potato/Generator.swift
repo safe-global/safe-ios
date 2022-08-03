@@ -9,28 +9,40 @@ import Foundation
 import Solidity
 import SafeDeployments
 
+protocol ContractABI: Codable {
+    var contractName: String { get }
+    var abi: Sol.Json.Contract { get }
+}
+
+struct JsonContractABI: ContractABI {
+    var contractName: String
+    var abi: Sol.Json.Contract
+}
+
+extension Safe.Deployment: ContractABI {}
+
 struct Generator {
-    var deployment: Safe.Deployment
+    var contract: ContractABI
     var contractNamePrefix: String = ""
     var contractNameSuffix: String = ""
 
     func generate() -> String {
-        file(deployment: deployment)
+        file(deployment: contract)
     }
 
-    func file(deployment: Safe.Deployment) -> String {
-        let contract = self.contract(deployment: deployment)
+    func file(contract: ContractABI) -> String {
+        let contract = self.contract(contract: contract)
         let result = Template.file
             .replacingOccurrences(of: "<#content#>", with: contract)
         return result
     }
 
     // contract
-    func contract(deployment: Safe.Deployment) -> String {
-        let abi = deployment.abi.abi.filter { $0.type == .function }.map { $0 as! Sol.Json.Function }
+    func contract(contract: ContractABI) -> String {
+        let abi = contract.abi.abi.filter { $0.type == .function }.map { $0 as! Sol.Json.Function }
         let members = functions(abi)
         let result = Template.contract
-            .replacingOccurrences(of: "<#ContractName#>", with: contractName(from: deployment.contractName))
+            .replacingOccurrences(of: "<#ContractName#>", with: contractName(from: contract.contractName))
             .replacingOccurrences(of: "<#Members#>", with: members)
         return result
     }

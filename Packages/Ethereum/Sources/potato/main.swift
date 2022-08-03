@@ -11,7 +11,7 @@ import Foundation
 import SafeDeployments
 
 func printUsage() {
-    print("Usage: \(URL(fileURLWithPath: CommandLine.arguments[0]).lastPathComponent) CONTRACT_ID VERSION")
+    print("Usage: \(URL(fileURLWithPath: CommandLine.arguments[0]).lastPathComponent) safe CONTRACT_ID VERSION | potato abi FILENAME")
 }
 
 let args = Array(CommandLine.arguments.dropFirst())
@@ -34,12 +34,12 @@ guard let version = Safe.Version(rawValue: args[1]) else {
 }
 
 do {
-    guard let deployment = try Safe.Deployment.find(contract: contract, version: version) else {
+    guard let contract = try Safe.Deployment.find(contract: contract, version: version) else {
         print("Safe deployment not found")
         exit(EXIT_FAILURE)
     }
 
-    let generator = Generator(deployment: deployment, contractNameSuffix: "_" + version.identifier)
+    let generator = Generator(deployment: contract, contractNameSuffix: "_" + version.identifier)
     let output = generator.generate()
     print(output)
 
@@ -47,3 +47,8 @@ do {
     print("Error: \(error)")
     exit(EXIT_FAILURE)
 }
+
+
+// potato safe gnosis_safe v1.1.1 > SafeAbi/GnosisSafe_v1_1_1.swift
+
+// potato abi <filename.json> > SafeClaimingAbi/DelegateRegistry.swift
