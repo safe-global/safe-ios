@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ClaimSuccessViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="animationView" destination="mQC-4M-811" id="aaf-dz-JJd"/>
                 <outlet property="okButton" destination="bQf-nv-fCd" id="3p9-X5-uyd"/>
                 <outlet property="textLabel" destination="Qlq-FI-vd3" id="dQ9-Hp-Swd"/>
                 <outlet property="titleLabel" destination="Sj1-az-efs" id="R6x-E9-dio"/>
@@ -37,9 +38,6 @@
                         <action selector="didTapOkButton:" destination="-1" eventType="touchUpInside" id="Srj-cE-ovF"/>
                     </connections>
                 </button>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-claim-success" translatesAutoresizingMaskIntoConstraints="NO" id="hX5-2h-ziT">
-                    <rect key="frame" x="16" y="98" width="382" height="110"/>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congrats!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sj1-az-efs">
                     <rect key="frame" x="16" y="240" width="382" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -60,31 +58,40 @@
                         <constraint firstAttribute="height" constant="200" placeholder="YES" id="g08-0G-85J"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mQC-4M-811" customClass="AnimationView" customModule="Lottie">
+                    <rect key="frame" x="16" y="98" width="382" height="110"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="110" id="8dx-ks-B17"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="SuccessAnimation"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="Sj1-az-efs" firstAttribute="top" secondItem="mQC-4M-811" secondAttribute="bottom" constant="32" id="11T-bL-DzU"/>
                 <constraint firstItem="Qlq-FI-vd3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="7mx-xr-bU2"/>
                 <constraint firstItem="Qlq-FI-vd3" firstAttribute="top" secondItem="Sj1-az-efs" secondAttribute="bottom" constant="16" id="9qx-AE-aoU"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Sj1-az-efs" secondAttribute="trailing" constant="16" id="I7g-RB-47Z"/>
                 <constraint firstItem="57G-qb-fCs" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="IBw-JW-A0G"/>
                 <constraint firstItem="57G-qb-fCs" firstAttribute="top" secondItem="Qlq-FI-vd3" secondAttribute="bottom" constant="16" id="IWz-el-yUm"/>
                 <constraint firstItem="bQf-nv-fCd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="LOb-uR-HcP"/>
-                <constraint firstItem="hX5-2h-ziT" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="54" id="QEa-gA-4gu"/>
-                <constraint firstItem="Sj1-az-efs" firstAttribute="top" secondItem="hX5-2h-ziT" secondAttribute="bottom" constant="32" id="QHy-Jd-fOc"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hX5-2h-ziT" secondAttribute="trailing" constant="16" id="QUI-1D-4FE"/>
                 <constraint firstItem="Sj1-az-efs" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="QW1-xD-f1A"/>
+                <constraint firstItem="mQC-4M-811" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="W5B-VD-8cF"/>
+                <constraint firstItem="mQC-4M-811" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="54" id="bWH-wK-qp9"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="mQC-4M-811" secondAttribute="trailing" constant="16" id="eTH-Vv-8y0"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="57G-qb-fCs" secondAttribute="trailing" constant="16" id="jO9-qd-Cd6"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="bQf-nv-fCd" secondAttribute="bottom" constant="16" id="qEc-73-zUY"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Qlq-FI-vd3" secondAttribute="trailing" constant="32" id="qhG-rG-RBg"/>
-                <constraint firstItem="hX5-2h-ziT" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="r8j-Xb-uXI"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="bQf-nv-fCd" secondAttribute="trailing" constant="16" id="uI8-Nb-n5B"/>
             </constraints>
             <point key="canvasLocation" x="133" y="85"/>
         </view>
     </objects>
     <resources>
-        <image name="ico-claim-success" width="110" height="110"/>
         <namedColor name="labelPrimary">
             <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

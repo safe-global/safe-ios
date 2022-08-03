@@ -15,6 +15,7 @@ class IcommingDappInteractionRequestHeaderTableViewCell: UITableViewCell {
     @IBOutlet private weak var toAddressInfoView: AddressInfoView!
     @IBOutlet private weak var fromLabel: UILabel!
     @IBOutlet private weak var toLabel: UILabel!
+    @IBOutlet weak var dappInfoContainerView: UIStackView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,5 +38,9 @@ class IcommingDappInteractionRequestHeaderTableViewCell: UITableViewCell {
     func setDapp(imageURL: URL? = nil, name: String) {
         dappNameLabel.text = name
         dappImageView.kf.setImage(with: imageURL, placeholder: UIImage(named: "ico-empty-circle"))
+    }
+
+    func setDappInfo(hidden: Bool) {
+        dappInfoContainerView.isHidden = hidden
     }
 }

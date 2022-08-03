@@ -66,6 +66,7 @@
 		045A17632833E04B0020484B /* ReplaceOwnerFromSettingsFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045A17622833E04B0020484B /* ReplaceOwnerFromSettingsFlow.swift */; };
 		045A176C283675D50020484B /* WarningTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045A176A283675D50020484B /* WarningTableViewCell.swift */; };
 		045A176D283675D50020484B /* WarningTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045A176B283675D50020484B /* WarningTableViewCell.xib */; };
+		045DBCF5289AF40D003C910C /* ReviewClaimSafeTokenTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045DBCF4289AF40D003C910C /* ReviewClaimSafeTokenTransactionViewController.swift */; };
 		04626EB6265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */; };
 		0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */; };
 		0463F5C126296924009C04FA /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 0463F5C026296924009C04FA /* FirebaseRemoteConfig */; };
@@ -988,6 +989,7 @@
 		045A17622833E04B0020484B /* ReplaceOwnerFromSettingsFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceOwnerFromSettingsFlow.swift; sourceTree = "<group>"; };
 		045A176A283675D50020484B /* WarningTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarningTableViewCell.swift; sourceTree = "<group>"; };
 		045A176B283675D50020484B /* WarningTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WarningTableViewCell.xib; sourceTree = "<group>"; };
+		045DBCF4289AF40D003C910C /* ReviewClaimSafeTokenTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewClaimSafeTokenTransactionViewController.swift; sourceTree = "<group>"; };
 		04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeyDetailsViewController.swift; sourceTree = "<group>"; };
 		0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRemoteConfig.swift; sourceTree = "<group>"; };
 		0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyProtectionScreenViewController.swift; sourceTree = "<group>"; };
@@ -2036,6 +2038,7 @@
 				6A947215288FDE8300807B3B /* ClaimNotAvailableViewController.xib */,
 				6AD4773128986556004C736D /* ClaimSuccessViewController.swift */,
 				6AD4773228986556004C736D /* ClaimSuccessViewController.xib */,
+				045DBCF4289AF40D003C910C /* ReviewClaimSafeTokenTransactionViewController.swift */,
 			);
 			path = ClaimToken;
 			sourceTree = "<group>";
@@ -4716,6 +4719,7 @@
 				0AA9F2532498CC70005BD60F /* UInt256String.swift in Sources */,
 				55FBC2D526BA91E4002C2553 /* SelectLedgerDeviceViewController.swift in Sources */,
 				049A9DB125FA6D5F00CA5723 /* ChooseOwnerTableViewCell.swift in Sources */,
+				045DBCF5289AF40D003C910C /* ReviewClaimSafeTokenTransactionViewController.swift in Sources */,
 				0AF8D1AC2822DFA20035DCF7 /* CancellableNavigationController.swift in Sources */,
 				93EF2FAF27C551DC0077BE95 /* StepInstructionTableViewCell.swift in Sources */,
 				0ACDC01524925A96002035A2 /* FirebaseConfig.swift in Sources */,

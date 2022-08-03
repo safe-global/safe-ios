@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftCryptoTokenFormatter
+import Lottie
 
 class ClaimSuccessViewController: UIViewController {
 
@@ -15,6 +16,7 @@ class ClaimSuccessViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var tweetBox: TweetBox!
+    @IBOutlet weak var animationView: AnimationView!
 
     var amount: String!
 
@@ -46,6 +48,9 @@ class ClaimSuccessViewController: UIViewController {
         )
 
         okButton.setText("OK, Great", .filled)
+        animationView.contentMode = .scaleAspectFit
+        animationView.backgroundBehavior = .pauseAndRestore
+        animationView.play()
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -1,49 +1,32 @@
 //
-//  WCIncomingTransactionRequestViewController.swift
+//  ReviewClaimSafeTokenTransactionViewController.swift
 //  Multisig
 //
-//  Created by Andrey Scherbovich on 02.02.21.
-//  Copyright © 2021 Gnosis Ltd. All rights reserved.
+//  Created by Mouaz on 8/3/22.
+//  Copyright © 2022 Gnosis Ltd. All rights reserved.
 //
 
 import UIKit
-import WalletConnectSwift
-import Kingfisher
 import SwiftCryptoTokenFormatter
-import Version
 
-fileprivate protocol SectionItem {}
-
-class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewController {
-    var onReject: (() -> Void)?
+class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewController {
     var onSubmit: ((_ nonce: UInt256String, _ safeTxHash: HashString) -> Void)?
 
-    private var session: Session!
     private var transaction: Transaction!
-    private lazy var trackingParameters: [String: Any] = { ["chain_id": safe.chain!.id!] }()
-
+    private var guardian: Guardian
+    private var amount: BigDecimal
     convenience init(transaction: Transaction,
-                     safe: Safe,
-                     topic: String) {
+                     safe: Safe, guardian: Guardian, amount: BigDecimal) {
         self.init(safe: safe)
-        self.transaction = transaction
-        self.session = try! Session.from(WCSession.get(topic: topic)!)
+        self.amount = amount
+        self.guardian = guardian
         shouldLoadTransactionPreview = true
     }
 
-    // MARK: - ViewController life cycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationItem.leftBarButtonItem = nil
-
-        confirmButtonView.rejectTitle = "Reject"
-        confirmButtonView.set(rejectionEnabled: true)
-        confirmButtonView.onReject = { [unowned self] in
-            onReject?()
-            dismiss(animated: true, completion: nil)
-        }
+        
+        confirmButtonView.set(rejectionEnabled: false)
 
         tableView.registerCell(IcommingDappInteractionRequestHeaderTableViewCell.self)
         tableView.registerCell(DetailTransferInfoCell.self)
@@ -68,7 +51,7 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
         let cell = tableView.dequeueCell(IcommingDappInteractionRequestHeaderTableViewCell.self)
         let chain = safe.chain!
 
-        cell.setDapp(imageURL: session.dAppInfo.peerMeta.icons[0], name: session.dAppInfo.peerMeta.name)
+        cell.setDappInfo(hidden: true)
         let (addressName, imageURL) = NamingPolicy.name(for: transaction.to.address,
                                                  info: nil,
                                                  chainId: safe.chain!.id!)
@@ -76,11 +59,12 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
                           label: addressName,
                           imageUri: imageURL,
                           prefix: chain.shortName,
-                          title: "Interact with:")
+                          title: "To:")
+
         cell.setFromAddress(safe.addressValue,
                             label: safe.name,
                             prefix: chain.shortName,
-                            title: "Sending from:")
+                            title: "From:")
         return cell
     }
 
@@ -95,7 +79,7 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
         tableCell.tableView.registerCell(IncommingTransactionRequestTypeTableViewCell.self)
 
         let cell = tableCell.tableView.dequeueCell(IncommingTransactionRequestTypeTableViewCell.self)
-        
+
         let addressInfoIndex = transactionPreview?.txData?.addressInfoIndex
         var description: String?
         if dataDecoded.method == "multiSend",
@@ -128,14 +112,16 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
         return tableCell
     }
 
-    override func createTransaction() -> Transaction? {
-        transaction
-    }
+    // TODO: Create transaction
+//    override func createTransaction() -> Transaction? {
+//        transaction
+//    }
 
-    override func getTrackingEvent() -> TrackingEvent {
-        .walletConnectEditParameters
-    }
-
+    // TODO: Fill the tracking event
+//    override func getTrackingEvent() -> TrackingEvent {
+//
+//
+//    }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sectionItems[indexPath.row]
         switch item {
@@ -144,4 +130,3 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
         }
     }
 }
-
