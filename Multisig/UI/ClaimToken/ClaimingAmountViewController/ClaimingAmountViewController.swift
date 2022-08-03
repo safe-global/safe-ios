@@ -19,7 +19,7 @@ class ClaimingAmountViewController: LoadableViewController {
     private var safe: Safe!
     private var stepNumber: Int = 2
     private var maxSteps: Int = 3
-    private var onClaim: (() -> ())?
+    private var onClaim: ((Guardian, String) -> ())?
     private var claimingAmount: SafeClaimingAmount!
 
     private var stepLabel: UILabel!
@@ -31,7 +31,7 @@ class ClaimingAmountViewController: LoadableViewController {
                      maxSteps: Int = 3,
                      guardian: Guardian,
                      safe: Safe,
-                     onClaim: @escaping () -> ()) {
+                     onClaim: @escaping (Guardian, String) -> ()) {
         self.init(namedClass: Self.superclass())
         self.stepNumber = stepNumber
         self.maxSteps = maxSteps
@@ -89,7 +89,7 @@ extension ClaimingAmountViewController: UITableViewDelegate, UITableViewDataSour
             cell.set(value: "0",
                      maxValue: tokenFormatter.string(from: claimingAmount.totalClaimable),
                      guardian: guardian) { [unowned self] claimingValue in
-                onClaim?()
+                onClaim?(guardian, claimingValue)
             }
             return cell
         }

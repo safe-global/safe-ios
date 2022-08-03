@@ -22,10 +22,11 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     override func start() {
-        //TODO check claim availability
-        // if available show intro
-        showIntro()
-        // if not available show not available
+        if let _ = SafeClaimingController.shared.claimingAmountFor(safe: safe.addressValue) {
+            showIntro()
+        } else {
+            showNotAvailable()
+        }
     }
 
     func showIntro() {
@@ -72,30 +73,25 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     func selectAmount(guardian: Guardian) {
-        let vc = factory.selectAmount(safe: safe, guardian: guardian) { [unowned self] in
-            success()
+        let vc = factory.selectAmount(safe: safe, guardian: guardian) { [unowned self] (guardian, amount) in
+            success(amount: amount)
         }
+
         show(vc)
     }
 
-    func success() {
-        assert(transaction != nil)
-        //TODO: pass amount
-        let successVC = factory.success (amount: "10") { [unowned self] in
-
-            //                NotificationCenter.default.post(
-            //                    name: .initiateTxNotificationReceived,
-            //                    object: self,
-            //                    userInfo: ["transactionDetails": transaction!])
-
+    func success(amount: String) {
+        let successVC = factory.success (amount: amount) { [unowned self] in
+            SafeClaimingController.shared.claimFor(safe: safe.addressValue)
+            NotificationCenter.default.post(name: .initiateTxNotificationReceived, object: self, userInfo: nil)
             stop(success: true)
         }
+
         show(successVC)
     }
 }
 
 class ClaimSafeTokenFlowFactory {
-
     func claimGetStarted(onStartClaim: @escaping () -> ()) -> ClaimGetStartedViewController {
         let vc = ClaimGetStartedViewController()
         vc.onStartClaim = onStartClaim
@@ -129,7 +125,7 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
-    func selectAmount(safe: Safe, guardian: Guardian, onClaim: @escaping () -> ()) -> ClaimingAmountViewController {
+    func selectAmount(safe: Safe, guardian: Guardian, onClaim: @escaping (Guardian, String) -> ()) -> ClaimingAmountViewController {
         let vc = ClaimingAmountViewController(guardian: guardian, safe: safe, onClaim: onClaim)
         return vc
     }

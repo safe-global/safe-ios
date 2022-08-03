@@ -45,13 +45,6 @@ final class HeaderViewController: ContainerViewController {
             present(flow: claimTokenFlow)
         }
 
-        var claimableAmountValue: String?
-        if let safe = try? Safe.getSelected(),
-           let claimableAmount = SafeClaimingController.shared.claimingAmountFor(safe: safe.addressValue) {
-            claimableAmountValue = TokenFormatter().string(from: claimableAmount.totalClaimable)
-        }
-
-        safeBarView.set(claimableAmount: claimableAmountValue)
         reloadHeaderBar()
         displayRootController()
         addObservers()
@@ -61,7 +54,7 @@ final class HeaderViewController: ContainerViewController {
 
     private func addObservers() {
         let updateNotifications: [NSNotification.Name] = [
-            .selectedSafeChanged, .selectedSafeUpdated, .ownerKeyImported, .ownerKeyRemoved
+            .selectedSafeChanged, .selectedSafeUpdated, .ownerKeyImported, .ownerKeyRemoved, .initiateTxNotificationReceived
         ]
         for name in updateNotifications {
             notificationCenter.addObserver(self,
@@ -138,7 +131,7 @@ final class HeaderViewController: ContainerViewController {
     }
 
     @objc private func didReceiveUpdateNotification(_ notification: Notification) {
-        if notification.name == .selectedSafeChanged {
+        if [.selectedSafeChanged, .initiateTxNotificationReceived].contains(notification.name) {
             reloadSafeData()
         }
         reloadHeaderBar()
@@ -179,6 +172,13 @@ final class HeaderViewController: ContainerViewController {
         currentDataTask?.cancel()
         do {
             guard let safe = try Safe.getSelected() else { return }
+            var claimableAmountValue: String?
+            if let claimableAmount = SafeClaimingController.shared.claimingAmountFor(safe: safe.addressValue) {
+                claimableAmountValue = TokenFormatter().string(from: claimableAmount.totalClaimable)
+            }
+
+            safeBarView.set(claimableAmount: claimableAmountValue)
+
             currentDataTask = clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
                                                                  chainId: safe.chain!.id!) { [weak self] result in
                 DispatchQueue.main.async { [weak self] in
