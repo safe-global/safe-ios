@@ -72,7 +72,7 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     func selectAmount(guardian: Guardian) {
-        let vc = factory.selectAmount(guardian: guardian) { [unowned self] in
+        let vc = factory.selectAmount(safe: safe, guardian: guardian) { [unowned self] in
             success()
         }
         show(vc)
@@ -129,8 +129,8 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
-    func selectAmount(guardian: Guardian, onClaim: @escaping () -> ()) -> ClaimingAmountViewController {
-        let vc = ClaimingAmountViewController(guardian: guardian, onClaim: onClaim)
+    func selectAmount(safe: Safe, guardian: Guardian, onClaim: @escaping () -> ()) -> ClaimingAmountViewController {
+        let vc = ClaimingAmountViewController(guardian: guardian, safe: safe, onClaim: onClaim)
         return vc
     }
 

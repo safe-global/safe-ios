@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftCryptoTokenFormatter
 
 class ClaimingAmountViewController: LoadableViewController {
     enum RowItem {
@@ -15,27 +16,35 @@ class ClaimingAmountViewController: LoadableViewController {
     }
 
     private var guardian: Guardian!
+    private var safe: Safe!
     private var stepNumber: Int = 2
     private var maxSteps: Int = 3
     private var onClaim: (() -> ())?
+    private var claimingAmount: SafeClaimingAmount!
 
     private var stepLabel: UILabel!
 
     var rows: [RowItem] = [.claimable, .claimingAmount]
+    private let tokenFormatter = TokenFormatter()
 
     convenience init(stepNumber: Int = 2,
                      maxSteps: Int = 3,
                      guardian: Guardian,
+                     safe: Safe,
                      onClaim: @escaping () -> ()) {
         self.init(namedClass: Self.superclass())
         self.stepNumber = stepNumber
         self.maxSteps = maxSteps
         self.onClaim = onClaim
         self.guardian = guardian
+        self.safe = safe
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        claimingAmount = SafeClaimingController.shared.claimingAmountFor(safe: safe.addressValue)
+        assert(claimingAmount != nil)
+
         tableView.registerCell(AvailableClaimingAmountTableViewCell.self)
         tableView.registerCell(EnterClaimingAmountTableViewCell.self)
         tableView.delegate = self
@@ -67,16 +76,19 @@ extension ClaimingAmountViewController: UITableViewDelegate, UITableViewDataSour
         switch row {
         case .claimable:
             let cell = tableView.dequeueCell(AvailableClaimingAmountTableViewCell.self)
-            cell.set(claimableNowUserAirdropValue: "109.92",
-                     claimableNowEcosystemAirdropValue: "19.46",
-                     claimableNowTotal: "129.38",
-                     claimableInFutureUserAirdropValue: "109.92",
-                     claimableInFutureEcosystemAirdropValue: "19.46",
-                     claimableInFutureTotal: "129.38")
+
+            cell.set(claimableNowUserAirdropValue: tokenFormatter.string(from: claimingAmount.userAmount.now),
+                     claimableNowEcosystemAirdropValue: tokenFormatter.string(from: claimingAmount.ecosystemAmount.now),
+                     claimableNowTotal: tokenFormatter.string(from: claimingAmount.totalClaimable),
+                     claimableInFutureUserAirdropValue: tokenFormatter.string(from: claimingAmount.userAmount.future),
+                     claimableInFutureEcosystemAirdropValue: tokenFormatter.string(from: claimingAmount.ecosystemAmount.future),
+                     claimableInFutureTotal: tokenFormatter.string(from: claimingAmount.totalClaimableInFuture))
             return cell
         case .claimingAmount:
             let cell = tableView.dequeueCell(EnterClaimingAmountTableViewCell.self)
-            cell.set(value: "0", maxValue: "129.38", guardian: guardian) { [unowned self] claimingValue in
+            cell.set(value: "0",
+                     maxValue: tokenFormatter.string(from: claimingAmount.totalClaimable),
+                     guardian: guardian) { [unowned self] claimingValue in
                 onClaim?()
             }
             return cell

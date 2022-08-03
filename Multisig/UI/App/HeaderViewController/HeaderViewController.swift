@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftCryptoTokenFormatter
 
 /// Header bar will adapt to the devices size
 final class HeaderViewController: ContainerViewController {
@@ -43,6 +44,14 @@ final class HeaderViewController: ContainerViewController {
             }
             present(flow: claimTokenFlow)
         }
+
+        var claimableAmountValue: String?
+        if let safe = try? Safe.getSelected(),
+           let claimableAmount = SafeClaimingController.shared.claimingAmountFor(safe: safe.addressValue) {
+            claimableAmountValue = TokenFormatter().string(from: claimableAmount.totalClaimable)
+        }
+
+        safeBarView.set(claimableAmount: claimableAmountValue)
         reloadHeaderBar()
         displayRootController()
         addObservers()

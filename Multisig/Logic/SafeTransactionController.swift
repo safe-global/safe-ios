@@ -174,12 +174,4 @@ class SafeTransactionController {
 
         return task
     }
-
-    func claimSafeToken() -> Transaction? {
-
-    }
-
-    func claimSafeTokenData() -> Data? {
-
-    }
 }
