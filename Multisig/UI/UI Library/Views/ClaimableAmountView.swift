@@ -10,7 +10,9 @@ import UIKit
 
 class ClaimableAmountView: UINibView {
     @IBOutlet private weak var label: UILabel!
+    @IBOutlet private weak var claimButton: UIButton!
 
+    var onClaim: (() -> ())?
     override func awakeFromNib() {
         super.awakeFromNib()
         label.setStyle(.headline)
@@ -18,5 +20,9 @@ class ClaimableAmountView: UINibView {
 
     func set(value: String) {
         label.text = value
+    }
+
+    @IBAction func claimButtonTouched(_ sender: Any) {
+        onClaim?()
     }
 }

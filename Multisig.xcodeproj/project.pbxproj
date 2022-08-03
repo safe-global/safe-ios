@@ -111,6 +111,7 @@
 		0472B2D3286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2D1286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.xib */; };
 		047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FB24780C81004F1200 /* CharacterSet+Hex.swift */; };
 		047300FE24781081004F1200 /* AddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FD24781081004F1200 /* AddressTests.swift */; };
+		04734A2A289AA60800F3696E /* SafeClaimingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04734A29289AA60800F3696E /* SafeClaimingController.swift */; };
 		047588182774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */; };
 		047691592464026400D73D8B /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691582464026400D73D8B /* SectionHeader.swift */; };
 		0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */; };
@@ -1029,6 +1030,7 @@
 		0472B2D1286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterClaimingAmountTableViewCell.xib; sourceTree = "<group>"; };
 		047300FB24780C81004F1200 /* CharacterSet+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Hex.swift"; sourceTree = "<group>"; };
 		047300FD24781081004F1200 /* AddressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTests.swift; sourceTree = "<group>"; };
+		04734A29289AA60800F3696E /* SafeClaimingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeClaimingController.swift; sourceTree = "<group>"; };
 		047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSendFundsTransactionViewController.swift; sourceTree = "<group>"; };
 		047691582464026400D73D8B /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -3415,6 +3417,7 @@
 				550FB1A726691D0A00C13D54 /* OwnerKeyController.swift */,
 				048D72BE268359E20095999C /* ChainManager.swift */,
 				0493A28A262979820056EC49 /* UpdateController.swift */,
+				04734A29289AA60800F3696E /* SafeClaimingController.swift */,
 				0A6C85B02450712D0026139E /* Ethereum */,
 				0AF432D5244F075800E22E50 /* Models */,
 				04248BD8272DF18C00431397 /* NamingPolicy.swift */,
@@ -4880,6 +4883,7 @@
 				0AFD9DCC27BFE18800011CF1 /* SignatureRequestContentViewController.swift in Sources */,
 				55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */,
 				0ADD19A6265E53BE00EB0F2B /* QRCodeView.swift in Sources */,
+				04734A2A289AA60800F3696E /* SafeClaimingController.swift in Sources */,
 				04D968D4276B872D00CE4A9E /* TransactionViewController.swift in Sources */,
 				6A6A10592889496100B852D5 /* ClaimGetStartedViewController.swift in Sources */,
 				0ADA911225656FEC0004DEC0 /* TransactionListViewController.swift in Sources */,

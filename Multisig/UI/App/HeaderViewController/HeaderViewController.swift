@@ -24,6 +24,7 @@ final class HeaderViewController: ContainerViewController {
 
     var clientGatewayService = App.shared.clientGatewayService
     var notificationCenter = NotificationCenter.default
+    private var claimTokenFlow: ClaimSafeTokenFlow!
 
     convenience init(rootViewController: UIViewController) {
         self.init(namedClass: nil)
@@ -35,6 +36,13 @@ final class HeaderViewController: ContainerViewController {
         super.viewDidLoad()
         headerBar.backgroundColor = .backgroundSecondary
         safeBarView.addTarget(self, action: #selector(didTapSafeBarView(_:)), for: .touchUpInside)
+        safeBarView.set { [unowned self] in
+            guard let safe = try? Safe.getSelected() else { return }
+            claimTokenFlow = ClaimSafeTokenFlow(safe: safe) { [unowned self] _ in
+                claimTokenFlow = nil
+            }
+            present(flow: claimTokenFlow)
+        }
         reloadHeaderBar()
         displayRootController()
         addObservers()

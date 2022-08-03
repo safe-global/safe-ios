@@ -115,7 +115,7 @@ class ChooseGuardianViewController: LoadableViewController {
         let entites = csv.split(whereSeparator: \.isNewline).dropFirst().prefix(8)
         entites.forEach { entry in
 
-            let values: [String] = entry.components(separatedBy: ",")
+            let values: [String] = entry.components(separatedBy: ";")
 
             let name = values[1]
             let reason = values[2]
