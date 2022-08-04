@@ -19,31 +19,25 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="55b-Zd-qdw">
-                        <rect key="frame" x="8" y="40" width="562" height="843"/>
+                        <rect key="frame" x="8" y="40" width="562" height="642"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your available Airdrop" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kgz-qb-93O">
-                                <rect key="frame" x="0.0" y="0.0" width="562" height="161"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="MVq-1N-B1W">
-                                <rect key="frame" x="0.0" y="201" width="562" height="642"/>
+                                <rect key="frame" x="0.0" y="0.0" width="562" height="642"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HTd-oO-ZNU">
                                         <rect key="frame" x="0.0" y="0.0" width="562" height="311"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="j8x-bz-Dl1">
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="j8x-bz-Dl1">
                                                 <rect key="frame" x="16" y="16" width="530" height="279"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Claimable now" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aS5-pc-2rQ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="530" height="58"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="530" height="74"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Cy-Dm-ZsZ">
-                                                        <rect key="frame" x="0.0" y="78" width="530" height="40"/>
+                                                        <rect key="frame" x="0.0" y="90" width="530" height="40"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Airdrop" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kz-bU-S92">
                                                                 <rect key="frame" x="0.0" y="8" width="96.5" height="24"/>
@@ -80,7 +74,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kuo-TW-5eK">
-                                                        <rect key="frame" x="0.0" y="138" width="530" height="40"/>
+                                                        <rect key="frame" x="0.0" y="146" width="530" height="40"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ecosystem Airdrop" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWG-NQ-1Dm">
                                                                 <rect key="frame" x="0.0" y="8" width="143.5" height="24"/>
@@ -117,7 +111,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S9I-X0-dmV">
-                                                        <rect key="frame" x="0.0" y="198" width="530" height="1"/>
+                                                        <rect key="frame" x="0.0" y="202" width="530" height="1"/>
                                                         <color key="backgroundColor" name="border"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="XY0-0J-7uK"/>
@@ -175,17 +169,17 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9lc-zU-xxZ">
                                         <rect key="frame" x="0.0" y="331" width="562" height="311"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="CAh-Fs-yv2">
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="CAh-Fs-yv2">
                                                 <rect key="frame" x="16" y="16" width="530" height="279"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Claimable in future (vested)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dW4-R6-ojW">
-                                                        <rect key="frame" x="0.0" y="0.0" width="530" height="58"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="530" height="74"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VXp-aa-Dgb">
-                                                        <rect key="frame" x="0.0" y="78" width="530" height="40"/>
+                                                        <rect key="frame" x="0.0" y="90" width="530" height="40"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Airdrop" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cnl-ly-XzH">
                                                                 <rect key="frame" x="0.0" y="8" width="96.5" height="24"/>
@@ -222,7 +216,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tie-eI-GaZ">
-                                                        <rect key="frame" x="0.0" y="138" width="530" height="40"/>
+                                                        <rect key="frame" x="0.0" y="146" width="530" height="40"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ecosystem Airdrop" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltZ-VJ-oOw">
                                                                 <rect key="frame" x="0.0" y="8" width="143.5" height="24"/>
@@ -259,7 +253,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gnf-Cu-v2R">
-                                                        <rect key="frame" x="0.0" y="198" width="530" height="1"/>
+                                                        <rect key="frame" x="0.0" y="202" width="530" height="1"/>
                                                         <color key="backgroundColor" name="border"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="7SH-iN-Pcq"/>
@@ -346,7 +340,6 @@
                 <outlet property="claimableNowTotalAvailalbleValueLabel" destination="lRg-Wa-Ple" id="1vH-SU-7os"/>
                 <outlet property="claimableNowUserAirdropTitleLabel" destination="9kz-bU-S92" id="VTI-9q-y5N"/>
                 <outlet property="claimableNowUserAirdropValueLabel" destination="PYz-DJ-dCa" id="NF8-3D-JQA"/>
-                <outlet property="titleLabel" destination="kgz-qb-93O" id="U9j-Eb-a6Y"/>
             </connections>
             <point key="canvasLocation" x="318.84057971014494" y="415.51339285714283"/>
         </tableViewCell>

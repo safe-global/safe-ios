@@ -12,7 +12,6 @@ class SelectGuardianViewController: ContainerViewController, UISearchBarDelegate
 
     private let guardiansController = ChooseGuardianViewController()
 
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var guardiansView: UIView!
 
@@ -24,7 +23,7 @@ class SelectGuardianViewController: ContainerViewController, UISearchBarDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "Choose a delegate"
         ViewControllerFactory.makeTransparentNavigationBar(self)
         navigationItem.hidesBackButton = false
 
@@ -33,8 +32,6 @@ class SelectGuardianViewController: ContainerViewController, UISearchBarDelegate
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
-
-        titleLabel.setStyle(.claimTitle)
 
         searchBar.placeholder = "Name, address or ENS"
         searchBar.delegate = self

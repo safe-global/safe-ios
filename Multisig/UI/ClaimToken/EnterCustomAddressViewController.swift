@@ -34,7 +34,7 @@ class EnterCustomAddressViewController: UIViewController {
 
         ViewControllerFactory.makeTransparentNavigationBar(self)
         navigationItem.hidesBackButton = false
-        title = "Custom address"
+        navigationItem.title = "Custom address"
 
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
         stepLabel.textAlignment = .right

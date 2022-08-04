@@ -9,7 +9,6 @@
 import UIKit
 
 class AvailableClaimingAmountTableViewCell: UITableViewCell {
-    @IBOutlet private weak var titleLabel: UILabel!
 
     @IBOutlet private weak var claimableNowContainerView: UIView!
     @IBOutlet private weak var claimableNowTitleLabel: UILabel!
@@ -39,9 +38,8 @@ class AvailableClaimingAmountTableViewCell: UITableViewCell {
         claimableInFutureContainerView.layer.cornerRadius = 10
         claimableInFutureContainerView.layer.borderColor = UIColor.clear.cgColor
 
-        titleLabel.setStyle(.title6)
-        claimableNowTitleLabel.setStyle(.title3)
-        claimableInFutureitleLabel.setStyle(.title3)
+        claimableNowTitleLabel.setStyle(.primary)
+        claimableInFutureitleLabel.setStyle(.primary)
 
         claimableNowUserAirdropTitleLabel.setStyle(.secondary)
         claimableNowEcosystemAirdropTitleLabel.setStyle(.secondary)

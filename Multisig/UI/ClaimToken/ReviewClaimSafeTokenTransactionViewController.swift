@@ -13,8 +13,8 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
     var onSubmit: ((_ nonce: UInt256String, _ safeTxHash: HashString) -> Void)?
 
     private var transaction: Transaction!
-    private var guardian: Guardian
-    private var amount: BigDecimal
+    private var guardian: Guardian!
+    private var amount: BigDecimal!
     convenience init(transaction: Transaction,
                      safe: Safe, guardian: Guardian, amount: BigDecimal) {
         self.init(safe: safe)
@@ -25,16 +25,11 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationItem.title = "Review transaction"
         confirmButtonView.set(rejectionEnabled: false)
 
         tableView.registerCell(IcommingDappInteractionRequestHeaderTableViewCell.self)
         tableView.registerCell(DetailTransferInfoCell.self)
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        Tracker.trackEvent(.walletConnectIncomingTransaction, parameters: trackingParameters)
     }
 
     override func createSections() {

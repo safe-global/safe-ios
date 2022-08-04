@@ -39,7 +39,7 @@ do {
         exit(EXIT_FAILURE)
     }
 
-    let generator = Generator(deployment: contract, contractNameSuffix: "_" + version.identifier)
+    let generator = Generator(contract: contract, contractNameSuffix: "_" + version.identifier)
     let output = generator.generate()
     print(output)
 

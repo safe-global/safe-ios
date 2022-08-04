@@ -57,7 +57,7 @@ class ClaimingAmountViewController: LoadableViewController {
 
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
-        navigationItem.title = "Safe Token Claiming"
+        navigationItem.title = "Your available allocation"
     }
 
     override func reloadData() {

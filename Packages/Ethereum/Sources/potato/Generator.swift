@@ -27,7 +27,7 @@ struct Generator {
     var contractNameSuffix: String = ""
 
     func generate() -> String {
-        file(deployment: contract)
+        file(contract: contract)
     }
 
     func file(contract: ContractABI) -> String {
