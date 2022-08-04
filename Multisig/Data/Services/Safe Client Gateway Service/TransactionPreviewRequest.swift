@@ -59,8 +59,7 @@ extension SafeClientGatewayService {
         chainId: String,
         completion: @escaping (Result<TransactionPreviewRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
 
-        // Will always return the mocked response in completion
-        asyncExecuteMock(request: TransactionPreviewRequest(safe: transaction.safe!,
+        asyncExecute(request: TransactionPreviewRequest(safe: transaction.safe!,
                                                                sender: sender,
                                                                transaction: transaction,
                                                                chainId: chainId),
