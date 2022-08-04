@@ -22,11 +22,15 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     override func start() {
-        if let _ = SafeClaimingController.shared.claimingAmountFor(safe: safe.addressValue) {
-            showIntro()
-        } else {
+        //TODO remove workaround and check claim availability
+        if safe.addressValue == Address(exactly: "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7") {
+            // if not available show not available
             showNotAvailable()
+        } else {
+            // if available show intro
+           showIntro()
         }
+
     }
 
     func showIntro() {
