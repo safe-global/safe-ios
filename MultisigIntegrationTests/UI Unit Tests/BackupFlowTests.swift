@@ -78,10 +78,7 @@ class BackupFlowTests: UIIntegrationTestCase {
         let verifyVC = topPresentedController() as! VerifyPhraseViewController
         XCTAssertEqual(verifyVC.state, .question, "wrong state")
 
-        let firstQuestion = verifyVC.questions[0]
-        let firstWrongAnswer = firstQuestion.choices.firstIndex(where: { $0 != firstQuestion.correctAnswer})!
-        verifyVC.didSelectWord(at: firstWrongAnswer)
-        XCTAssertEqual(verifyVC.state, .incorrect, "wrong state")
+        verifyVC.verifyAnswerSelection(questionPosition: 0, answerCorrect: false)
     }
 
     // scenario 2: second word is incorrect
@@ -96,18 +93,11 @@ class BackupFlowTests: UIIntegrationTestCase {
         let verifyVC = topPresentedController() as! VerifyPhraseViewController
         XCTAssertEqual(verifyVC.state, .question, "wrong state")
 
-        let firstQuestion = verifyVC.questions[0]
-        let firstCorrectAnswer = firstQuestion.choices.firstIndex(where: { $0 == firstQuestion.correctAnswer})!
-        verifyVC.didSelectWord(at: firstCorrectAnswer)
-        XCTAssertEqual(verifyVC.state, .correct, "wrong state")
-
+        verifyVC.verifyAnswerSelection(questionPosition: 0, answerCorrect: true)
         // wait for presentation animation to complete
         wait(timeout: waitingTime)
 
-        let secondQuestion = verifyVC.questions[1]
-        let secondWrongAnswer = secondQuestion.choices.firstIndex(where: { $0 != secondQuestion.correctAnswer})!
-        verifyVC.didSelectWord(at: secondWrongAnswer)
-        XCTAssertEqual(verifyVC.state, .incorrect, "wrong state")
+        verifyVC.verifyAnswerSelection(questionPosition: 1, answerCorrect: false)
     }
 
     // scenario 3: third word is incorrect
@@ -122,26 +112,15 @@ class BackupFlowTests: UIIntegrationTestCase {
         let verifyVC = topPresentedController() as! VerifyPhraseViewController
         XCTAssertEqual(verifyVC.state, .question, "wrong state")
 
-        let firstQuestion = verifyVC.questions[0]
-        let firstCorrectAnswer = firstQuestion.choices.firstIndex(where: { $0 == firstQuestion.correctAnswer})!
-        verifyVC.didSelectWord(at: firstCorrectAnswer)
-        XCTAssertEqual(verifyVC.state, .correct, "wrong state")
-
+        verifyVC.verifyAnswerSelection(questionPosition: 0, answerCorrect: true)
         // wait for presentation animation to complete
         wait(timeout: waitingTime)
 
-        let secondQuestion = verifyVC.questions[1]
-        let secondCorrectAnswer = secondQuestion.choices.firstIndex(where: { $0 == secondQuestion.correctAnswer})!
-        verifyVC.didSelectWord(at: secondCorrectAnswer)
-        XCTAssertEqual(verifyVC.state, .correct, "wrong state")
-
+        verifyVC.verifyAnswerSelection(questionPosition: 1, answerCorrect: true)
         // wait for presentation animation to complete
         wait(timeout: waitingTime)
 
-        let thirdQuestion = verifyVC.questions[2]
-        let thirdWrongAnswer = thirdQuestion.choices.firstIndex(where: { $0 != thirdQuestion.correctAnswer})!
-        verifyVC.didSelectWord(at: thirdWrongAnswer)
-        XCTAssertEqual(verifyVC.state, .incorrect, "wrong state")
+        verifyVC.verifyAnswerSelection(questionPosition: 2, answerCorrect: false)
     }
 
     func test_verifySeedSuccess() {
@@ -155,27 +134,15 @@ class BackupFlowTests: UIIntegrationTestCase {
         let verifyVC = topPresentedController() as! VerifyPhraseViewController
         XCTAssertEqual(verifyVC.state, .question, "wrong state")
 
-        let firstQuestion = verifyVC.questions[0]
-        let firstCorrectAnswer = firstQuestion.choices.firstIndex(where: { $0 == firstQuestion.correctAnswer})!
-        verifyVC.didSelectWord(at: firstCorrectAnswer)
-        XCTAssertEqual(verifyVC.state, .correct, "wrong state")
-
+        verifyVC.verifyAnswerSelection(questionPosition: 0, answerCorrect: true)
         // wait for presentation animation to complete
         wait(timeout: waitingTime)
 
-        let secondQuestion = verifyVC.questions[1]
-        let secondCorrectAnswer = secondQuestion.choices.firstIndex(where: { $0 == secondQuestion.correctAnswer})!
-        verifyVC.didSelectWord(at: secondCorrectAnswer)
-        XCTAssertEqual(verifyVC.state, .correct, "wrong state")
-
+        verifyVC.verifyAnswerSelection(questionPosition: 1, answerCorrect: true)
         // wait for presentation animation to complete
         wait(timeout: waitingTime)
 
-        let thirdQuestion = verifyVC.questions[2]
-        let thirdCorrectAnswer = thirdQuestion.choices.firstIndex(where: { $0 == thirdQuestion.correctAnswer})!
-        verifyVC.didSelectWord(at: thirdCorrectAnswer)
-        XCTAssertEqual(verifyVC.state, .correct, "wrong state")
-
+        verifyVC.verifyAnswerSelection(questionPosition: 2, answerCorrect: true)
         // wait for presentation animation to complete
         wait(timeout: waitingTime)
 
@@ -196,5 +163,31 @@ class BackupFlowTests: UIIntegrationTestCase {
         let keyItem = try KeyInfo.firstKey(address: privateKey.address)!
 
         XCTAssertTrue(keyItem.backedup, "key not backed up")
+    }
+}
+
+extension VerifyPhraseViewController {
+
+    func verifyAnswerSelection(questionPosition: Int, answerCorrect: Bool) {
+
+        let question = questions[questionPosition]
+
+        let answer = question.choices.firstIndex(where: {
+            var result: Bool!
+            if answerCorrect {
+                result = $0 == question.correctAnswer
+            } else {
+                result = $0 != question.correctAnswer
+            }
+            return result
+        })!
+
+        didSelectWord(at: answer)
+
+        if answerCorrect {
+            XCTAssertEqual(state, .correct, "wrong state")
+        } else {
+            XCTAssertEqual(state, .incorrect, "wrong state")
+        }
     }
 }
