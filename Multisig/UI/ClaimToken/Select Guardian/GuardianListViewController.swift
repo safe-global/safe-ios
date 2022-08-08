@@ -51,7 +51,7 @@ class ChooseGuardianViewController: LoadableViewController {
         tableView.estimatedRowHeight = 200
         tableView.separatorStyle = .none
 
-        emptyView.setText("No guardian found")
+        emptyView.setText("No delegates were found. Try to search again or use a custom address.")
         emptyView.setImage(UIImage(named: "ico-delegate-placeholder")!)
     }
 

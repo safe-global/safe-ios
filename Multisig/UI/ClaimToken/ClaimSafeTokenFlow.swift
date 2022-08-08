@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import SwiftCryptoTokenFormatter
 
 class ClaimSafeTokenFlow: UIFlow {
     var factory: ClaimSafeTokenFlowFactory!
     var safe: Safe
-    var transaction: SCGModels.TransactionDetails?
+    var guardian: Guardian!
+    var amount: String!
 
     init(safe: Safe,
          factory: ClaimSafeTokenFlowFactory = ClaimSafeTokenFlowFactory(),
@@ -78,10 +80,26 @@ class ClaimSafeTokenFlow: UIFlow {
 
     func selectAmount(guardian: Guardian) {
         let vc = factory.selectAmount(safe: safe, guardian: guardian) { [unowned self] (guardian, amount) in
-            success(amount: amount)
+            self.guardian = guardian
+            self.amount = amount
+            review(stepNumber: 4, maxSteps: 4)
         }
 
         show(vc)
+    }
+
+    func review(stepNumber: Int, maxSteps: Int) {
+        assert(guardian != nil)
+        assert(amount != nil)
+        let reviewVC = factory.review(
+            safe: safe,
+            guardian: guardian,
+            amount: amount,
+            stepNumber: stepNumber,
+            maxSteps: maxSteps) { [unowned self] in
+                success(amount: amount)
+            }
+        show(reviewVC)
     }
 
     func success(amount: String) {
@@ -110,7 +128,7 @@ class ClaimSafeTokenFlowFactory {
     func chooseDelegateIntro(onChooseGuardian: @escaping () -> (),
                              onCustomAddress: @escaping () -> ()) -> ChooseDelegateIntroViewController{
         let vc = ChooseDelegateIntroViewController(stepNumber: 1,
-                                                   maxSteps: 3,
+                                                   maxSteps: 4,
                                                    onChooseGuardian: onChooseGuardian,
                                                    onCustomAddress: onCustomAddress)
         return vc
@@ -133,6 +151,23 @@ class ClaimSafeTokenFlowFactory {
         let vc = ClaimingAmountViewController(guardian: guardian, safe: safe, onClaim: onClaim)
         return vc
     }
+
+    func review(
+        safe: Safe,
+        guardian: Guardian,
+        amount: String,
+        stepNumber: Int,
+        maxSteps: Int,
+        newAddressName: String? = nil,
+        completion: @escaping () -> Void
+    ) -> ReviewClaimSafeTokenTransactionViewController {
+        let reviewVC = ReviewClaimSafeTokenTransactionViewController(safe: safe, guardian: guardian, amount: amount)
+        reviewVC.stepNumber = stepNumber
+        reviewVC.maxSteps = maxSteps
+        reviewVC.onSuccess = completion
+        return reviewVC
+    }
+
 
     func success(amount: String,
                  completion: @escaping () -> Void) -> ClaimSuccessViewController {

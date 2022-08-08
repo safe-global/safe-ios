@@ -17,7 +17,7 @@ class SelectGuardianViewController: ContainerViewController, UISearchBarDelegate
 
     private var stepLabel: UILabel!
     private var stepNumber: Int = 2
-    private var maxSteps: Int = 3
+    private var maxSteps: Int = 4
     
     var onSelected: ((Guardian) -> ())?
 
@@ -45,6 +45,8 @@ class SelectGuardianViewController: ContainerViewController, UISearchBarDelegate
             guardiansController
         ]
         displayChild(at: 0, in: guardiansView)
+
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

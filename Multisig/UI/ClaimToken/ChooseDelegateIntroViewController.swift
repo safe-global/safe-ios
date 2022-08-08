@@ -9,6 +9,7 @@
 import UIKit
 
 class ChooseDelegateIntroViewController: UIViewController {
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var chooseGuardianButton: UIButton!
     @IBOutlet weak var customAddressButton: UIButton!
@@ -30,7 +31,6 @@ class ChooseDelegateIntroViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "Choose a delegate"
         ViewControllerFactory.makeTransparentNavigationBar(self)
         navigationItem.hidesBackButton = false
 
@@ -39,7 +39,7 @@ class ChooseDelegateIntroViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
-
+        titleLabel.setStyle(GNOTextStyle.Updated.title)
         descriptionLabel.setStyle(.secondary)
         chooseGuardianButton.setText("Delegate to a Safe Guardian", .filled)
         customAddressButton.setText("Custom Address", .bordered)

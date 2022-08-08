@@ -17,8 +17,8 @@ class ClaimingAmountViewController: LoadableViewController {
 
     private var guardian: Guardian!
     private var safe: Safe!
-    private var stepNumber: Int = 2
-    private var maxSteps: Int = 3
+    private var stepNumber: Int = 3
+    private var maxSteps: Int = 4
     private var onClaim: ((Guardian, String) -> ())?
     private var claimingAmount: SafeClaimingAmount!
 
@@ -27,8 +27,8 @@ class ClaimingAmountViewController: LoadableViewController {
     var rows: [RowItem] = [.claimable, .claimingAmount]
     private let tokenFormatter = TokenFormatter()
 
-    convenience init(stepNumber: Int = 2,
-                     maxSteps: Int = 3,
+    convenience init(stepNumber: Int = 3,
+                     maxSteps: Int = 4,
                      guardian: Guardian,
                      safe: Safe,
                      onClaim: @escaping (Guardian, String) -> ()) {

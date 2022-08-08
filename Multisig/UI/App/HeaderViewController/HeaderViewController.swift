@@ -173,8 +173,8 @@ final class HeaderViewController: ContainerViewController {
         do {
             guard let safe = try Safe.getSelected() else { return }
             var claimableAmountValue: String?
-            if let claimableAmount = SafeClaimingController.shared.claimingAmountFor(safe: safe.addressValue) {
-                claimableAmountValue = TokenFormatter().string(from: claimableAmount.totalClaimable)
+            if safe.addressValue != Address(exactly: "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7") {
+                claimableAmountValue = "0"
             }
 
             safeBarView.set(claimableAmount: claimableAmountValue)

@@ -19,10 +19,10 @@ class SafeClaimingController {
     }
 
     func claimingAmountFor(safe: Address) -> SafeClaimingAmount? {
-        guard !hasClaimed(safe: safe) else { return nil }
+        guard !hasClaimed(safe: safe) && safe != Address(exactly: "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7") else { return nil }
 
-        return SafeClaimingAmount(ecosystemAmount: (now: BigDecimal(10012, 2), future: BigDecimal(5014, 2)),
-                                  userAmount: (now: BigDecimal(12050, 2), future: BigDecimal(7067, 2)))
+        return SafeClaimingAmount(ecosystemAmount: (now: BigDecimal(0, 2), future: BigDecimal(0, 2)),
+                                  userAmount: (now: BigDecimal(12050, 2), future: BigDecimal(12050, 2)))
     }
 
     func claimFor(safe: Address) {

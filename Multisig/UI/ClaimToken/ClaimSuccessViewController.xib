@@ -39,27 +39,27 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congrats!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sj1-az-efs">
-                    <rect key="frame" x="16" y="240" width="382" height="21"/>
+                    <rect key="frame" x="16" y="182" width="382" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qlq-FI-vd3">
-                    <rect key="frame" x="32" y="277" width="350" height="81.5"/>
+                    <rect key="frame" x="32" y="219" width="350" height="81.5"/>
                     <string key="text">You successfully created transaction to claim 10 SAFE Tokens! Go ahead, approve and execute it. Remember to share your claim on Twitter ;)</string>
                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="57G-qb-fCs" customClass="TweetBox" customModule="Multisig" customModuleProvider="target">
-                    <rect key="frame" x="16" y="374.5" width="382" height="200"/>
+                    <rect key="frame" x="16" y="316.5" width="382" height="200"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="200" placeholder="YES" id="g08-0G-85J"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mQC-4M-811" customClass="AnimationView" customModule="Lottie">
-                    <rect key="frame" x="16" y="98" width="382" height="110"/>
+                    <rect key="frame" x="16" y="52" width="382" height="110"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="110" id="8dx-ks-B17"/>
@@ -72,7 +72,7 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="Sj1-az-efs" firstAttribute="top" secondItem="mQC-4M-811" secondAttribute="bottom" constant="32" id="11T-bL-DzU"/>
+                <constraint firstItem="Sj1-az-efs" firstAttribute="top" secondItem="mQC-4M-811" secondAttribute="bottom" constant="20" id="11T-bL-DzU"/>
                 <constraint firstItem="Qlq-FI-vd3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="7mx-xr-bU2"/>
                 <constraint firstItem="Qlq-FI-vd3" firstAttribute="top" secondItem="Sj1-az-efs" secondAttribute="bottom" constant="16" id="9qx-AE-aoU"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Sj1-az-efs" secondAttribute="trailing" constant="16" id="I7g-RB-47Z"/>
@@ -81,7 +81,7 @@
                 <constraint firstItem="bQf-nv-fCd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="LOb-uR-HcP"/>
                 <constraint firstItem="Sj1-az-efs" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="QW1-xD-f1A"/>
                 <constraint firstItem="mQC-4M-811" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="W5B-VD-8cF"/>
-                <constraint firstItem="mQC-4M-811" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="54" id="bWH-wK-qp9"/>
+                <constraint firstItem="mQC-4M-811" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="bWH-wK-qp9"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="mQC-4M-811" secondAttribute="trailing" constant="16" id="eTH-Vv-8y0"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="57G-qb-fCs" secondAttribute="trailing" constant="16" id="jO9-qd-Cd6"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="bQf-nv-fCd" secondAttribute="bottom" constant="16" id="qEc-73-zUY"/>

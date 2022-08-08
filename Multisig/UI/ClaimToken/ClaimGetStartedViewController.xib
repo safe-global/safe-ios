@@ -26,13 +26,13 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                 </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-claim-token-get-started" translatesAutoresizingMaskIntoConstraints="NO" id="5A7-et-shp">
-                    <rect key="frame" x="103.5" y="101" width="207" height="142"/>
+                    <rect key="frame" x="103.5" y="44" width="207" height="142"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="142" id="SXr-W4-1V8"/>
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pbK-SG-UxT" customClass="InstructionStepListView" customModule="Multisig" customModuleProvider="target">
-                    <rect key="frame" x="16" y="275" width="382" height="483"/>
+                    <rect key="frame" x="16" y="222" width="382" height="552"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5CJ-zJ-OBj">
@@ -54,12 +54,13 @@
             <constraints>
                 <constraint firstItem="5A7-et-shp" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="1g7-Pe-tK3"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="5CJ-zJ-OBj" secondAttribute="trailing" constant="16" id="30D-7j-XHG"/>
-                <constraint firstItem="5A7-et-shp" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="57" id="6hk-vP-L3v"/>
+                <constraint firstItem="5A7-et-shp" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="6hk-vP-L3v"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ps5-qH-Lrm" secondAttribute="bottom" id="8tA-WH-lKM"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="pbK-SG-UxT" secondAttribute="trailing" constant="16" id="EzP-i9-hD1"/>
                 <constraint firstItem="5CJ-zJ-OBj" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="FYk-BR-x70"/>
                 <constraint firstItem="pbK-SG-UxT" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="O6G-E1-zJx"/>
                 <constraint firstItem="ps5-qH-Lrm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="RcU-6u-NR0"/>
+                <constraint firstItem="5CJ-zJ-OBj" firstAttribute="top" relation="greaterThanOrEqual" secondItem="pbK-SG-UxT" secondAttribute="bottom" constant="16" id="b60-F6-fNR"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ps5-qH-Lrm" secondAttribute="trailing" id="f9o-zY-Tmg"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="5CJ-zJ-OBj" secondAttribute="bottom" constant="16" id="onU-NF-zYS"/>
                 <constraint firstItem="pbK-SG-UxT" firstAttribute="top" secondItem="5A7-et-shp" secondAttribute="bottom" constant="36" id="qrl-Qf-zf6"/>

@@ -39,7 +39,7 @@ class AvailableClaimingAmountTableViewCell: UITableViewCell {
         claimableInFutureContainerView.layer.borderColor = UIColor.clear.cgColor
 
         claimableNowTitleLabel.setStyle(.primary)
-        claimableInFutureitleLabel.setStyle(.primary)
+        claimableInFutureitleLabel.setStyle(GNOTextStyle.Updated.background)
 
         claimableNowUserAirdropTitleLabel.setStyle(.secondary)
         claimableNowEcosystemAirdropTitleLabel.setStyle(.secondary)
@@ -48,12 +48,12 @@ class AvailableClaimingAmountTableViewCell: UITableViewCell {
         claimableNowEcosystemAirdropValueLabel.setStyle(.primary)
         claimableNowTotalAvailalbleValueLabel.setStyle(.title6)
 
-        claimableInFutureUserAirdropTitleLabel.setStyle(.secondary)
-        claimableInFutureEcosystemAirdropTitleLabel.setStyle(.secondary)
-        claimableInFutureTotalAvailalbleTitleLabel.setStyle(.secondary)
-        claimableInFutureUserAirdropValueLabel.setStyle(.primary)
-        claimableInFutureEcosystemAirdropValueLabel.setStyle(.primary)
-        claimableInFutureTotalAvailalbleValueLabel.setStyle(.title6)
+        claimableInFutureUserAirdropTitleLabel.setStyle(GNOTextStyle.Updated.border)
+        claimableInFutureEcosystemAirdropTitleLabel.setStyle(GNOTextStyle.Updated.border)
+        claimableInFutureTotalAvailalbleTitleLabel.setStyle(GNOTextStyle.Updated.border)
+        claimableInFutureUserAirdropValueLabel.setStyle(GNOTextStyle.Updated.background)
+        claimableInFutureEcosystemAirdropValueLabel.setStyle(GNOTextStyle.Updated.background)
+        claimableInFutureTotalAvailalbleValueLabel.setStyle(GNOTextStyle.Updated.whiteTitle)
     }
 
     func set(claimableNowUserAirdropValue: String,

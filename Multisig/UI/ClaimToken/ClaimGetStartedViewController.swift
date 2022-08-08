@@ -40,9 +40,6 @@ class ClaimGetStartedViewController: UIViewController {
                 description: "Owners are owner keys that control Safe. Add owners and specify the number of required signatures."
             )
         ])
-
-
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     @IBAction func didTapStartClaimButton(_ sender: Any) {

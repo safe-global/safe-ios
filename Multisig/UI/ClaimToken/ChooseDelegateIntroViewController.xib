@@ -14,7 +14,8 @@
             <connections>
                 <outlet property="chooseGuardianButton" destination="iDe-tV-LXS" id="ZOp-gu-1wB"/>
                 <outlet property="customAddressButton" destination="IO8-jP-Bia" id="SOf-TB-6HN"/>
-                <outlet property="descriptionLabel" destination="E9g-9f-6XY" id="x4L-ax-pwB"/>
+                <outlet property="descriptionLabel" destination="0Cg-9n-XwV" id="j1O-V5-4X4"/>
+                <outlet property="titleLabel" destination="L6g-5h-2v2" id="INS-Xn-3y5"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,20 +24,6 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-set-delegate" translatesAutoresizingMaskIntoConstraints="NO" id="x9v-ws-7sH">
-                    <rect key="frame" x="144" y="104.5" width="126" height="126"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="126" id="IRf-3n-x4V"/>
-                        <constraint firstAttribute="width" constant="126" id="Png-RQ-PPX"/>
-                    </constraints>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9g-9f-6XY">
-                    <rect key="frame" x="16" y="254.5" width="382" height="122"/>
-                    <string key="text">A delegate is someone you select to make governance decision on your behalf. You still retain full ownership of your tokens, but you delegate will wield the voting power associated with those token. You can delegate to anyone, including yourself.</string>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="RFH-7f-pFO">
                     <rect key="frame" x="16" y="726" width="382" height="120"/>
                     <subviews>
@@ -68,24 +55,55 @@
                         <constraint firstItem="IO8-jP-Bia" firstAttribute="height" secondItem="iDe-tV-LXS" secondAttribute="height" id="bZU-UK-5VH"/>
                     </constraints>
                 </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JDD-Yk-kfK">
+                    <rect key="frame" x="20" y="84" width="374" height="329"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Qcm-Gd-blf">
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="329"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-delegate-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="SmO-Ka-EbC">
+                                    <rect key="frame" x="124" y="0.0" width="126" height="126"/>
+                                </imageView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="SAH-VH-Adm">
+                                    <rect key="frame" x="2" y="150" width="370.5" height="179"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a delegate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L6g-5h-2v2">
+                                            <rect key="frame" x="114" y="0.0" width="142.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Cg-9n-XwV">
+                                            <rect key="frame" x="0.0" y="36.5" width="370.5" height="142.5"/>
+                                            <string key="text">A delegate is someone you select to make governance decisions on your behalf for all of your vested and unvested tokens. You still retain full ownership over your tokens and you can always change the delegate at a later point.
+
+</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="RFH-7f-pFO" secondAttribute="bottom" constant="16" id="3AT-l2-dAj"/>
-                <constraint firstItem="E9g-9f-6XY" firstAttribute="top" secondItem="x9v-ws-7sH" secondAttribute="bottom" constant="24" id="JPY-pG-icx"/>
-                <constraint firstItem="E9g-9f-6XY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="PTy-gP-U1x"/>
-                <constraint firstItem="x9v-ws-7sH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="60.5" id="Pxp-D0-Ncg"/>
+                <constraint firstAttribute="trailing" secondItem="JDD-Yk-kfK" secondAttribute="trailing" constant="20" id="FUJ-QT-asm"/>
                 <constraint firstItem="RFH-7f-pFO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="bLv-wC-sRc"/>
+                <constraint firstItem="JDD-Yk-kfK" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="40" id="e1x-vx-b8m"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="RFH-7f-pFO" secondAttribute="trailing" constant="16" id="fJx-25-jWq"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="E9g-9f-6XY" secondAttribute="trailing" constant="16" id="nkk-Ph-YAh"/>
-                <constraint firstItem="x9v-ws-7sH" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="oFV-5Q-IuS"/>
+                <constraint firstItem="JDD-Yk-kfK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="jka-3c-R12"/>
             </constraints>
             <point key="canvasLocation" x="-274" y="125"/>
         </view>
     </objects>
     <resources>
-        <image name="ico-set-delegate" width="126" height="126"/>
+        <image name="ico-delegate-placeholder" width="126" height="126"/>
         <namedColor name="labelPrimary">
             <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
