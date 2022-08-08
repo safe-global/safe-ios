@@ -40,23 +40,23 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n3I-Ys-RyQ">
-                                <rect key="frame" x="0.0" y="84" width="288" height="0.0"/>
+                                <rect key="frame" x="0.0" y="84" width="288" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ji-rZ-oqD" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="100" width="288" height="71.5"/>
+                                <rect key="frame" x="0.0" y="120.5" width="288" height="51"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2m-Qx-GI9">
-                                <rect key="frame" x="0.0" y="187.5" width="288" height="0.0"/>
+                                <rect key="frame" x="0.0" y="187.5" width="288" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lyk-D6-Bo4" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="203.5" width="288" height="71.5"/>
+                                <rect key="frame" x="0.0" y="224" width="288" height="51"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
@@ -76,6 +76,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="dappImageView" destination="IHF-2Y-wyE" id="OHr-ca-6Tx"/>
+                <outlet property="dappInfoContainerView" destination="D7q-Rf-V6J" id="jvB-d8-U41"/>
                 <outlet property="dappNameLabel" destination="BSQ-HD-wtU" id="azs-5Q-biR"/>
                 <outlet property="fromAddressInfoView" destination="6Ji-rZ-oqD" id="0T4-m9-DDH"/>
                 <outlet property="fromLabel" destination="n3I-Ys-RyQ" id="MO2-mv-dca"/>

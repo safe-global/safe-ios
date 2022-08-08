@@ -51,7 +51,7 @@ class ChooseGuardianViewController: LoadableViewController {
         tableView.estimatedRowHeight = 200
         tableView.separatorStyle = .none
 
-        emptyView.setText("No guardian found")
+        emptyView.setText("No delegates were found. Try to search again or use a custom address.")
         emptyView.setImage(UIImage(named: "ico-delegate-placeholder")!)
     }
 
@@ -115,7 +115,7 @@ class ChooseGuardianViewController: LoadableViewController {
         let entites = csv.split(whereSeparator: \.isNewline).dropFirst().prefix(8)
         entites.forEach { entry in
 
-            let values: [String] = entry.components(separatedBy: ",")
+            let values: [String] = entry.components(separatedBy: ";")
 
             let name = values[1]
             let reason = values[2]

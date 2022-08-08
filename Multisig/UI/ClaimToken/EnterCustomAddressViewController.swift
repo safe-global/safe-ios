@@ -16,7 +16,7 @@ class EnterCustomAddressViewController: UIViewController {
 
     private var stepLabel: UILabel!
     private var stepNumber: Int = 2
-    private var maxSteps: Int = 3
+    private var maxSteps: Int = 4
 
     private var debounceTimer: Timer!
     private let debounceDuration: TimeInterval = 0.250
@@ -34,7 +34,7 @@ class EnterCustomAddressViewController: UIViewController {
 
         ViewControllerFactory.makeTransparentNavigationBar(self)
         navigationItem.hidesBackButton = false
-        title = "Custom address"
+        navigationItem.title = "Custom address"
 
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
         stepLabel.textAlignment = .right
@@ -55,6 +55,7 @@ class EnterCustomAddressViewController: UIViewController {
         }
 
         trackingParameters = { ["chain_id" : chain.chainId.description] }()
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     private func didTapAddressField() {

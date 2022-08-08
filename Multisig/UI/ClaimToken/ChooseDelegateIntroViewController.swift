@@ -39,8 +39,7 @@ class ChooseDelegateIntroViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
-
-        titleLabel.setStyle(.claimTitle)
+        titleLabel.setStyle(GNOTextStyle.Updated.title)
         descriptionLabel.setStyle(.secondary)
         chooseGuardianButton.setText("Delegate to a Safe Guardian", .filled)
         customAddressButton.setText("Custom Address", .bordered)

@@ -17,10 +17,11 @@ class SafeBarView: UINibView {
     @IBOutlet private weak var accessoryLabel: UILabel!
     @IBOutlet private weak var detailLabel: UILabel!
     @IBOutlet private weak var button: UIButton!
+    @IBOutlet private weak var claimableAmountView: ClaimableAmountView!
 
     private(set) var prefix: String?
     private(set) var address: Address!
-
+    
     override func commonInit() {
         super.commonInit()
         setReadOnly(false)
@@ -68,6 +69,18 @@ class SafeBarView: UINibView {
     func setReadOnly(_ readOnly: Bool) {
         accessoryLabel.text = readOnly ? "Read-only" : nil
         accessoryLabel.isHidden = !readOnly
+    }
+
+    func set(claimableAmount: String?) {
+        if let claimableAmount = claimableAmount {
+            claimableAmountView.isHidden = false
+            claimableAmountView.set(value: claimableAmount)
+        } else { claimableAmountView.isHidden = true }
+    }
+
+    // encapsulating the button's target-action API
+    func set(onClaim: @escaping () -> ()) {
+        claimableAmountView.onClaim = onClaim
     }
 
     // encapsulating the button's target-action API

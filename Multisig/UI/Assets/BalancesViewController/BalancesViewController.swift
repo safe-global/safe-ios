@@ -48,7 +48,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         guard let safe = try? Safe.getSelected() else {
             return false
         }
-        return  safeTokenBannerWasShown != true &&
+        return safeTokenBannerWasShown != true &&
                 // claim possible only on mainnet or rinkeby (for testing)
                 (safe.chain?.id == Chain.ChainID.ethereumMainnet || safe.chain?.id == Chain.ChainID.ethereumRinkeby) &&
                 // claim flag has to be enabled in Firebase Remote Config

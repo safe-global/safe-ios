@@ -26,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="UBV-15-5WL">
-                    <rect key="frame" x="16" y="98" width="382" height="604.5"/>
+                    <rect key="frame" x="16" y="44" width="382" height="738"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="iTK-bk-gVa">
                             <rect key="frame" x="0.0" y="0.0" width="382" height="320.5"/>
@@ -57,14 +57,14 @@
                             </subviews>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="d4e-RO-d2T">
-                            <rect key="frame" x="0.0" y="340.5" width="382" height="264"/>
+                            <rect key="frame" x="0.0" y="340.5" width="382" height="397.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WHT-dq-u9Y" customClass="HyperlinkButtonView" customModule="Multisig" customModuleProvider="target">
-                                    <rect key="frame" x="71" y="0.0" width="240" height="128"/>
+                                    <rect key="frame" x="71" y="0.0" width="240" height="261.5"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mfa-y7-bXw" customClass="HyperlinkButtonView" customModule="Multisig" customModuleProvider="target">
-                                    <rect key="frame" x="71" y="136" width="240" height="128"/>
+                                    <rect key="frame" x="71" y="269.5" width="240" height="128"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                             </subviews>
@@ -89,8 +89,9 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="GyO-zv-0dH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="89G-vA-G0D"/>
-                <constraint firstItem="UBV-15-5WL" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="54" id="DD6-iK-X0t"/>
+                <constraint firstItem="UBV-15-5WL" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="DD6-iK-X0t"/>
                 <constraint firstItem="UBV-15-5WL" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Duj-6D-CUD"/>
+                <constraint firstItem="UBV-15-5WL" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="GyO-zv-0dH" secondAttribute="top" constant="-8" id="hDW-Ci-Ku6"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="GyO-zv-0dH" secondAttribute="trailing" constant="16" id="nsG-8T-w2c"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="GyO-zv-0dH" secondAttribute="bottom" constant="16" id="pVD-hc-5HS"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="UBV-15-5WL" secondAttribute="trailing" constant="16" id="zCu-pO-2Qh"/>

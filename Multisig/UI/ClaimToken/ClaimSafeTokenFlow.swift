@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import SwiftCryptoTokenFormatter
 
 class ClaimSafeTokenFlow: UIFlow {
     var factory: ClaimSafeTokenFlowFactory!
     var safe: Safe
-    var transaction: SCGModels.TransactionDetails?
+    var guardian: Guardian!
+    var amount: String!
 
     init(safe: Safe,
          factory: ClaimSafeTokenFlowFactory = ClaimSafeTokenFlowFactory(),
@@ -77,30 +79,41 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     func selectAmount(guardian: Guardian) {
-        let vc = factory.selectAmount(guardian: guardian) { [unowned self] in
-            success()
+        let vc = factory.selectAmount(safe: safe, guardian: guardian) { [unowned self] (guardian, amount) in
+            self.guardian = guardian
+            self.amount = amount
+            review(stepNumber: 4, maxSteps: 4)
         }
+
         show(vc)
     }
 
-    func success() {
-        assert(transaction != nil)
-        //TODO: pass amount
-        let successVC = factory.success (amount: "10") { [unowned self] in
+    func review(stepNumber: Int, maxSteps: Int) {
+        assert(guardian != nil)
+        assert(amount != nil)
+        let reviewVC = factory.review(
+            safe: safe,
+            guardian: guardian,
+            amount: amount,
+            stepNumber: stepNumber,
+            maxSteps: maxSteps) { [unowned self] in
+                success(amount: amount)
+            }
+        show(reviewVC)
+    }
 
-            //                NotificationCenter.default.post(
-            //                    name: .initiateTxNotificationReceived,
-            //                    object: self,
-            //                    userInfo: ["transactionDetails": transaction!])
-
+    func success(amount: String) {
+        let successVC = factory.success (amount: amount) { [unowned self] in
+            SafeClaimingController.shared.claimFor(safe: safe.addressValue)
+            NotificationCenter.default.post(name: .initiateTxNotificationReceived, object: self, userInfo: nil)
             stop(success: true)
         }
+
         show(successVC)
     }
 }
 
 class ClaimSafeTokenFlowFactory {
-
     func claimGetStarted(onStartClaim: @escaping () -> ()) -> ClaimGetStartedViewController {
         let vc = ClaimGetStartedViewController()
         vc.onStartClaim = onStartClaim
@@ -115,7 +128,7 @@ class ClaimSafeTokenFlowFactory {
     func chooseDelegateIntro(onChooseGuardian: @escaping () -> (),
                              onCustomAddress: @escaping () -> ()) -> ChooseDelegateIntroViewController{
         let vc = ChooseDelegateIntroViewController(stepNumber: 1,
-                                                   maxSteps: 3,
+                                                   maxSteps: 4,
                                                    onChooseGuardian: onChooseGuardian,
                                                    onCustomAddress: onCustomAddress)
         return vc
@@ -134,10 +147,27 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
-    func selectAmount(guardian: Guardian, onClaim: @escaping () -> ()) -> ClaimingAmountViewController {
-        let vc = ClaimingAmountViewController(guardian: guardian, onClaim: onClaim)
+    func selectAmount(safe: Safe, guardian: Guardian, onClaim: @escaping (Guardian, String) -> ()) -> ClaimingAmountViewController {
+        let vc = ClaimingAmountViewController(guardian: guardian, safe: safe, onClaim: onClaim)
         return vc
     }
+
+    func review(
+        safe: Safe,
+        guardian: Guardian,
+        amount: String,
+        stepNumber: Int,
+        maxSteps: Int,
+        newAddressName: String? = nil,
+        completion: @escaping () -> Void
+    ) -> ReviewClaimSafeTokenTransactionViewController {
+        let reviewVC = ReviewClaimSafeTokenTransactionViewController(safe: safe, guardian: guardian, amount: amount)
+        reviewVC.stepNumber = stepNumber
+        reviewVC.maxSteps = maxSteps
+        reviewVC.onSuccess = completion
+        return reviewVC
+    }
+
 
     func success(amount: String,
                  completion: @escaping () -> Void) -> ClaimSuccessViewController {

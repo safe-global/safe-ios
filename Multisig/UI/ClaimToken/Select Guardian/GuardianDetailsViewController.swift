@@ -20,7 +20,7 @@ class GuardianDetailsViewController: UIViewController {
 
     private var stepLabel: UILabel!
     private var stepNumber: Int = 2
-    private var maxSteps: Int = 3
+    private var maxSteps: Int = 4
 
     var chain: Chain! = Chain.mainnetChain()
     var guardian: Guardian!

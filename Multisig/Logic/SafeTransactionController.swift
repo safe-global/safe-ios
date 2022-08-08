@@ -174,4 +174,9 @@ class SafeTransactionController {
 
         return task
     }
+
+    //TODO: implement method 
+    func claimTokenTransaction(safe: Safe, safeTxGas: UInt256String?, nonce: UInt256String?) -> Transaction? {
+        nil
+    }
 }

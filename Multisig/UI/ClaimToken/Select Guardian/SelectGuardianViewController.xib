@@ -13,7 +13,6 @@
             <connections>
                 <outlet property="guardiansView" destination="ARJ-eK-pMY" id="jWq-Ja-bRi"/>
                 <outlet property="searchBar" destination="SDy-xD-CtL" id="ucj-uJ-cPE"/>
-                <outlet property="titleLabel" destination="4kx-5r-0Gt" id="dZ8-1c-AcK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,37 +21,28 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a delegate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4kx-5r-0Gt">
-                    <rect key="frame" x="16" y="48" width="382" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="SDy-xD-CtL">
-                    <rect key="frame" x="8" y="79" width="398" height="36"/>
+                    <rect key="frame" x="8" y="52" width="398" height="36"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="36" id="tWY-eY-de5"/>
                     </constraints>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ARJ-eK-pMY" userLabel="Guardians">
-                    <rect key="frame" x="0.0" y="131" width="414" height="715"/>
+                    <rect key="frame" x="0.0" y="104" width="414" height="742"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="4kx-5r-0Gt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="2m4-cc-9in"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SDy-xD-CtL" secondAttribute="trailing" constant="8" id="5EV-WL-CCB"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4kx-5r-0Gt" secondAttribute="trailing" constant="16" id="Swx-Ps-g5W"/>
-                <constraint firstItem="SDy-xD-CtL" firstAttribute="top" secondItem="4kx-5r-0Gt" secondAttribute="bottom" constant="10" id="i7g-In-kUj"/>
+                <constraint firstItem="SDy-xD-CtL" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="ZrB-qP-Kh2"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ARJ-eK-pMY" secondAttribute="bottom" constant="16" id="jS0-Bh-ebk"/>
                 <constraint firstItem="ARJ-eK-pMY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="lGS-ZR-1aY"/>
                 <constraint firstItem="ARJ-eK-pMY" firstAttribute="top" secondItem="SDy-xD-CtL" secondAttribute="bottom" constant="16" id="n8p-EW-X6f"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ARJ-eK-pMY" secondAttribute="trailing" id="ybV-jS-Sc2"/>
                 <constraint firstItem="SDy-xD-CtL" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="ytY-pb-zvE"/>
-                <constraint firstItem="4kx-5r-0Gt" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="4" id="zPA-US-a8h"/>
             </constraints>
             <point key="canvasLocation" x="132" y="98"/>
         </view>

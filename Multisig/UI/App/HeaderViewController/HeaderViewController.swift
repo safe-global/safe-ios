@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftCryptoTokenFormatter
 
 /// Header bar will adapt to the devices size
 final class HeaderViewController: ContainerViewController {
@@ -24,6 +25,7 @@ final class HeaderViewController: ContainerViewController {
 
     var clientGatewayService = App.shared.clientGatewayService
     var notificationCenter = NotificationCenter.default
+    private var claimTokenFlow: ClaimSafeTokenFlow!
 
     convenience init(rootViewController: UIViewController) {
         self.init(namedClass: nil)
@@ -35,6 +37,14 @@ final class HeaderViewController: ContainerViewController {
         super.viewDidLoad()
         headerBar.backgroundColor = .backgroundSecondary
         safeBarView.addTarget(self, action: #selector(didTapSafeBarView(_:)), for: .touchUpInside)
+        safeBarView.set { [unowned self] in
+            guard let safe = try? Safe.getSelected() else { return }
+            claimTokenFlow = ClaimSafeTokenFlow(safe: safe) { [unowned self] _ in
+                claimTokenFlow = nil
+            }
+            present(flow: claimTokenFlow)
+        }
+
         reloadHeaderBar()
         displayRootController()
         addObservers()
@@ -44,7 +54,7 @@ final class HeaderViewController: ContainerViewController {
 
     private func addObservers() {
         let updateNotifications: [NSNotification.Name] = [
-            .selectedSafeChanged, .selectedSafeUpdated, .ownerKeyImported, .ownerKeyRemoved
+            .selectedSafeChanged, .selectedSafeUpdated, .ownerKeyImported, .ownerKeyRemoved, .initiateTxNotificationReceived
         ]
         for name in updateNotifications {
             notificationCenter.addObserver(self,
@@ -121,7 +131,7 @@ final class HeaderViewController: ContainerViewController {
     }
 
     @objc private func didReceiveUpdateNotification(_ notification: Notification) {
-        if notification.name == .selectedSafeChanged {
+        if [.selectedSafeChanged, .initiateTxNotificationReceived].contains(notification.name) {
             reloadSafeData()
         }
         reloadHeaderBar()
@@ -162,6 +172,14 @@ final class HeaderViewController: ContainerViewController {
         currentDataTask?.cancel()
         do {
             guard let safe = try Safe.getSelected() else { return }
+            var claimableAmountValue: String?
+            if safe.addressValue != Address(exactly: "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7") {
+                // TODO: Get actual value instead of 0 always 
+                claimableAmountValue = "0"
+            }
+
+            safeBarView.set(claimableAmount: claimableAmountValue)
+
             currentDataTask = clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
                                                                  chainId: safe.chain!.id!) { [weak self] result in
                 DispatchQueue.main.async { [weak self] in

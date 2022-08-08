@@ -9,7 +9,6 @@
 import UIKit
 
 class AvailableClaimingAmountTableViewCell: UITableViewCell {
-    @IBOutlet private weak var titleLabel: UILabel!
 
     @IBOutlet private weak var claimableNowContainerView: UIView!
     @IBOutlet private weak var claimableNowTitleLabel: UILabel!
@@ -39,9 +38,8 @@ class AvailableClaimingAmountTableViewCell: UITableViewCell {
         claimableInFutureContainerView.layer.cornerRadius = 10
         claimableInFutureContainerView.layer.borderColor = UIColor.clear.cgColor
 
-        titleLabel.setStyle(.title6)
-        claimableNowTitleLabel.setStyle(.title3)
-        claimableInFutureitleLabel.setStyle(.title3)
+        claimableNowTitleLabel.setStyle(.primary)
+        claimableInFutureitleLabel.setStyle(GNOTextStyle.Updated.background)
 
         claimableNowUserAirdropTitleLabel.setStyle(.secondary)
         claimableNowEcosystemAirdropTitleLabel.setStyle(.secondary)
@@ -50,12 +48,12 @@ class AvailableClaimingAmountTableViewCell: UITableViewCell {
         claimableNowEcosystemAirdropValueLabel.setStyle(.primary)
         claimableNowTotalAvailalbleValueLabel.setStyle(.title6)
 
-        claimableInFutureUserAirdropTitleLabel.setStyle(.secondary)
-        claimableInFutureEcosystemAirdropTitleLabel.setStyle(.secondary)
-        claimableInFutureTotalAvailalbleTitleLabel.setStyle(.secondary)
-        claimableInFutureUserAirdropValueLabel.setStyle(.primary)
-        claimableInFutureEcosystemAirdropValueLabel.setStyle(.primary)
-        claimableInFutureTotalAvailalbleValueLabel.setStyle(.title6)
+        claimableInFutureUserAirdropTitleLabel.setStyle(GNOTextStyle.Updated.border)
+        claimableInFutureEcosystemAirdropTitleLabel.setStyle(GNOTextStyle.Updated.border)
+        claimableInFutureTotalAvailalbleTitleLabel.setStyle(GNOTextStyle.Updated.border)
+        claimableInFutureUserAirdropValueLabel.setStyle(GNOTextStyle.Updated.background)
+        claimableInFutureEcosystemAirdropValueLabel.setStyle(GNOTextStyle.Updated.background)
+        claimableInFutureTotalAvailalbleValueLabel.setStyle(GNOTextStyle.Updated.whiteTitle)
     }
 
     func set(claimableNowUserAirdropValue: String,

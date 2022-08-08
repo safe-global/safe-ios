@@ -10,7 +10,6 @@ import UIKit
 
 class ClaimGetStartedViewController: UIViewController {
 
-    @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var startClaimButton: UIButton!
     @IBOutlet private weak var instructionsView: InstructionStepListView!
 
@@ -25,7 +24,6 @@ class ClaimGetStartedViewController: UIViewController {
         ViewControllerFactory.addCloseButton(self)
         ViewControllerFactory.makeTransparentNavigationBar(self)
 
-        titleLabel.setStyle(.claimTitle)
         startClaimButton.setText("Start your claiming process", .filled)
 
         instructionsView.setContent(steps: [

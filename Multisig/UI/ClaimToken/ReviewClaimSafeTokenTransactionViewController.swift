@@ -1,57 +1,50 @@
 //
-//  WCIncomingTransactionRequestViewController.swift
+//  ReviewClaimSafeTokenTransactionViewController.swift
 //  Multisig
 //
-//  Created by Andrey Scherbovich on 02.02.21.
-//  Copyright © 2021 Gnosis Ltd. All rights reserved.
+//  Created by Mouaz on 8/3/22.
+//  Copyright © 2022 Gnosis Ltd. All rights reserved.
 //
 
 import UIKit
-import WalletConnectSwift
-import Kingfisher
 import SwiftCryptoTokenFormatter
-import Version
 
-fileprivate protocol SectionItem {}
+class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewController {
+    private var stepLabel: UILabel!
+    
+    var stepNumber: Int = 4
+    var maxSteps: Int = 4
 
-class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewController {
-    var onReject: (() -> Void)?
-    var onSubmit: ((_ nonce: UInt256String, _ safeTxHash: HashString) -> Void)?
+    var onSuccess: (() -> ())?
 
-    private var session: Session!
-    private var transaction: Transaction!
-    private lazy var trackingParameters: [String: Any] = { ["chain_id": safe.chain!.id!] }()
-
-    convenience init(transaction: Transaction,
-                     safe: Safe,
-                     topic: String) {
+    private var guardian: Guardian!
+    private var amount: String!
+    convenience init(safe: Safe, guardian: Guardian, amount: String) {
         self.init(safe: safe)
-        self.transaction = transaction
-        self.session = try! Session.from(WCSession.get(topic: topic)!)
+        self.amount = amount
+        self.guardian = guardian
         shouldLoadTransactionPreview = true
     }
 
-    // MARK: - ViewController life cycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
+        stepLabel.textAlignment = .right
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
 
-        navigationItem.leftBarButtonItem = nil
-
-        confirmButtonView.rejectTitle = "Reject"
-        confirmButtonView.set(rejectionEnabled: true)
-        confirmButtonView.onReject = { [unowned self] in
-            onReject?()
-            dismiss(animated: true, completion: nil)
-        }
+        stepLabel.setStyle(.tertiary)
+        stepLabel.text = "\(stepNumber) of \(maxSteps)"
+        
+        navigationItem.title = "Review transaction"
+        confirmButtonView.set(rejectionEnabled: false)
 
         tableView.registerCell(IcommingDappInteractionRequestHeaderTableViewCell.self)
         tableView.registerCell(DetailTransferInfoCell.self)
-    }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        Tracker.trackEvent(.walletConnectIncomingTransaction, parameters: trackingParameters)
+        confirmButtonView.onAction = {
+            NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
+            self.onSuccess?()
+        }
     }
 
     override func createSections() {
@@ -64,7 +57,12 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
 
     }
 
+    override func createTransaction() -> Transaction? {
+        SafeTransactionController.shared.claimTokenTransaction(safe: safe, safeTxGas: safeTxGas, nonce: nonce)
+    }
+
     override func headerCell() -> UITableViewCell {
+        guard let tx = createTransaction() else { return UITableViewCell() }
         let cell = tableView.dequeueCell(IcommingDappInteractionRequestHeaderTableViewCell.self)
         let chain = safe.chain!
         var addressInfo: SCGModels.AddressInfo?
@@ -83,11 +81,11 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
             addressInfo = transactionPreview?.txData?.to
         }
 
-        cell.setDapp(imageURL: session.dAppInfo.peerMeta.icons[0], name: session.dAppInfo.peerMeta.name)
-        let (addressName, imageURL) = NamingPolicy.name(for: transaction.to.address,
+        let (addressName, imageURL) = NamingPolicy.name(for: tx.to.address,
                                                         info: addressInfo?.addressInfo,
                                                         chainId: safe.chain!.id!)
-        cell.setToAddress(transaction.to.address,
+        cell.setDappInfo(hidden: true)
+        cell.setToAddress(tx.to.address,
                           label: addressName,
                           imageUri: imageURL,
                           prefix: chain.shortName,
@@ -110,7 +108,7 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
         tableCell.tableView.registerCell(IncommingTransactionRequestTypeTableViewCell.self)
 
         let cell = tableCell.tableView.dequeueCell(IncommingTransactionRequestTypeTableViewCell.self)
-        
+
         let addressInfoIndex = transactionPreview?.txData?.addressInfoIndex
         var description: String?
         var imageName: String = "ico-custom-tx"
@@ -141,9 +139,11 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
         if dataDecoded.method == "multiSend",
            let param = dataDecoded.parameters?.first,
            param.type == "bytes",
-           case let SCGModels.DataDecoded.Parameter.ValueDecoded.multiSend(multiSendTxs)? = param.valueDecoded {
+           case var SCGModels.DataDecoded.Parameter.ValueDecoded.multiSend(multiSendTxs)? = param.valueDecoded {
             description = "Multisend (\(multiSendTxs.count) actions)"
             tableCell.onCellTap = { [unowned self] _ in
+                multiSendTxs[1].dataDecoded = SCGModels.DataDecoded(method: "redeem")
+                multiSendTxs[2].dataDecoded = SCGModels.DataDecoded(method: "claimTokensViaModule")
                 let root = MultiSendListTableViewController(transactions: multiSendTxs,
                                                             addressInfoIndex: addressInfoIndex,
                                                             chain: safe.chain!)
@@ -168,15 +168,11 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
         return tableCell
     }
 
-    override func createTransaction() -> Transaction? {
-        transaction.update(nonce: nonce, safeTxGas: safeTxGas)
-        return transaction
-    }
-
-    override func getTrackingEvent() -> TrackingEvent {
-        .walletConnectEditParameters
-    }
-
+    // TODO: Fill the tracking event
+//    override func getTrackingEvent() -> TrackingEvent {
+//
+//
+//    }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sectionItems[indexPath.row]
         switch item {
@@ -184,16 +180,4 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
         default: return super.tableView(tableView, cellForRowAt: indexPath)
         }
     }
-
-    override func onSuccess(transaction: SCGModels.TransactionDetails) {
-        DispatchQueue.main.async { [weak self] in
-            self?.dismiss(animated: true, completion: nil)
-        }
-
-        App.shared.snackbar.show(message: "The transaction is submitted and can be confirmed by other owners.")
-
-        guard let multisigInfo = transaction.multisigInfo else { return }
-        onSubmit?(multisigInfo.nonce, multisigInfo.safeTxHash)
-    }
 }
-

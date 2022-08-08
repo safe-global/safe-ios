@@ -23,7 +23,7 @@ class EnterClaimingAmountTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.setStyle(.title6)
+        titleLabel.setStyle(GNOTextStyle.Updated.title)
         descriptionLabel.setStyle(.secondary)
         maxButton.setText("Max", .primary)
         claimButton.setText("Claim tokens", .filled)
