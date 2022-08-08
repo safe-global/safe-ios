@@ -168,43 +168,6 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
         return tableCell
     }
 
-    private var currentDataTask: URLSessionTask?
-
-    override func loadData() {
-        guard
-            let tx = createTransaction(),
-            let chainId = tx.chainId,
-            let safeAddress = tx.safe?.address
-        else { return }
-
-        startLoading()
-        currentDataTask?.cancel()
-
-        self.minimalNonce = UInt256String(safe.nonce ?? 0)
-        self.nonce = UInt256String(safe.nonce ?? 0)
-
-        self.currentDataTask = App.shared.clientGatewayService.asyncPreviewTransaction(
-            transaction: tx,
-            sender: AddressString(self.safe.addressValue),
-            chainId: self.safe.chain!.id!
-        ) { result in
-            switch result {
-            case .success(let response):
-                self.transactionPreview = response
-                self.onSuccess()
-            case .failure(let error):
-                DispatchQueue.main.async { [weak self] in
-                    guard let `self` = self else { return }
-                    if (error as NSError).code == URLError.cancelled.rawValue &&
-                        (error as NSError).domain == NSURLErrorDomain {
-                        return
-                    }
-                    self.showError(GSError.error(description: "Failed to create transaction", error: error))
-                }
-            }
-        }
-    }
-
     // TODO: Fill the tracking event
 //    override func getTrackingEvent() -> TrackingEvent {
 //

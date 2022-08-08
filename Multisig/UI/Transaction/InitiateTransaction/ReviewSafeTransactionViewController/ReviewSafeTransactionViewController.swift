@@ -177,14 +177,14 @@ class ReviewSafeTransactionViewController: UIViewController {
         }
     }
 
-    func onSuccess() {
+    private func onSuccess() {
         DispatchQueue.main.async {
             self.endLoading()
             self.bindData()
         }
     }
 
-    func showError(_ error: DetailedLocalizedError) {
+    private func showError(_ error: DetailedLocalizedError) {
         App.shared.snackbar.show(error: error)
         loadingActivityIndicator.isHidden = true
         loadingActivityIndicator.stopAnimating()
