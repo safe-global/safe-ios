@@ -174,6 +174,7 @@ final class HeaderViewController: ContainerViewController {
             guard let safe = try Safe.getSelected() else { return }
             var claimableAmountValue: String?
             if safe.addressValue != Address(exactly: "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7") {
+                // TODO: Get actual value instead of 0 always 
                 claimableAmountValue = "0"
             }
 
