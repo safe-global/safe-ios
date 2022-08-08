@@ -72,7 +72,7 @@ class ChooseGuardianViewController: LoadableViewController {
             filteredGuardians = guardians.filter { guardian in
                 return guardian.name?.lowercased().contains(searchTerm) ?? false ||
                 guardian.ensName?.lowercased().contains(searchTerm) ?? false ||
-                guardian.address == Address(searchTerm)
+                guardian.address.hexadecimal.lowercased().contains(searchTerm)
             }
 
         } else {
