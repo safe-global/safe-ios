@@ -52,16 +52,32 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "DelegateRegistry"
-            isEnabled = "YES">
+            argument = "VestingPool"
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "gnosis_safe_l2"
+            argument = "SafeToken"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "Airdrop"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "DelegateRegistry"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "multi_send_call_only"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "v1.3.0"
             isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "gnosis_safe_l2"
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
    </LaunchAction>

@@ -9,16 +9,6 @@ import Foundation
 import Solidity
 import SafeDeployments
 
-protocol ContractABI: Codable {
-    var contractName: String { get }
-    var abi: Sol.Json.Contract { get }
-}
-
-struct JsonContractABI: ContractABI {
-    var contractName: String
-    var abi: Sol.Json.Contract
-}
-
 extension Safe.Deployment: ContractABI {}
 
 struct Generator {
@@ -130,12 +120,20 @@ struct Generator {
             return "Sol.UInt256"
         case "int256":
             return "Sol.Int256"
+        case "uint16":
+            return "Sol.UInt16"
+        case "uint64":
+            return "Sol.UInt64"
+        case "uint128":
+            return "Sol.UInt128"
         case "bool":
             return "Sol.Bool"
         case "bytes4":
             return "Sol.Bytes4"
         case "bytes32":
             return "Sol.Bytes32"
+        case "bytes32[]":
+            return "Sol.Array<Sol.Bytes32>"
         case "address[]":
             return "Sol.Array<Sol.Address>"
         default:
