@@ -35,7 +35,8 @@ class App {
     lazy var clientGatewayService = SafeClientGatewayService(
         url: App.configuration.services.clientGatewayURL,
         logger: LogService.shared)
-
+    lazy var claimingService = SafeClaimingService(logger: LogService.shared)
+    
     var nodeService = EthereumNodeService()
 
     let notificationHandler = RemoteNotificationHandler()

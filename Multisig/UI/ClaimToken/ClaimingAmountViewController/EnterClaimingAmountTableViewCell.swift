@@ -46,8 +46,8 @@ class EnterClaimingAmountTableViewCell: UITableViewCell {
     func set(value: String, maxValue: String, guardian: Guardian, onClaim: @escaping (String) -> ()) {
         amountTextField.balance = value
         self.maxValue = maxValue
-        addressInfoView.setAddress(guardian.address,
-                                   ensName: guardian.ensName,
+        addressInfoView.setAddress(guardian.address.address,
+                                   ensName: guardian.ens,
                                    label: guardian.name,
                                    imageUri: guardian.imageURL,
                                    showIdenticon: true,

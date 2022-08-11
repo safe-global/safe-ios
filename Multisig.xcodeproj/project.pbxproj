@@ -116,6 +116,8 @@
 		047588182774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */; };
 		047691592464026400D73D8B /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691582464026400D73D8B /* SectionHeader.swift */; };
 		0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */; };
+		047A5B8F28A54FCB00BB8B2A /* SafeClaimingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5B8E28A54FCB00BB8B2A /* SafeClaimingService.swift */; };
+		047A5B9128A5582F00BB8B2A /* GuardiansRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5B9028A5582F00BB8B2A /* GuardiansRequest.swift */; };
 		048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */; };
 		048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */; };
 		048AA142260D053400382E24 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048AA141260D053300382E24 /* MainTabBarViewController.swift */; };
@@ -1037,6 +1039,8 @@
 		047691582464026400D73D8B /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataClass.swift"; sourceTree = "<group>"; };
+		047A5B8E28A54FCB00BB8B2A /* SafeClaimingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeClaimingService.swift; sourceTree = "<group>"; };
+		047A5B9028A5582F00BB8B2A /* GuardiansRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardiansRequest.swift; sourceTree = "<group>"; };
 		048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNotificationTokenRequest.swift; sourceTree = "<group>"; };
 		048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisterNotificationTokenRequest.swift; sourceTree = "<group>"; };
 		048AA141260D053300382E24 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
@@ -2087,6 +2091,15 @@
 				0A946D08246C4C5F00456BD5 /* Get In Touch */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		047A5B8D28A54FAC00BB8B2A /* Safe Claiming Service  */ = {
+			isa = PBXGroup;
+			children = (
+				047A5B8E28A54FCB00BB8B2A /* SafeClaimingService.swift */,
+				047A5B9028A5582F00BB8B2A /* GuardiansRequest.swift */,
+			);
+			path = "Safe Claiming Service ";
 			sourceTree = "<group>";
 		};
 		047A653225ADE8E800AE8845 /* SwiftUI */ = {
@@ -3473,6 +3486,7 @@
 		5532D4DF2449A4C00067505A /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				047A5B8D28A54FAC00BB8B2A /* Safe Claiming Service  */,
 				5532D4B72449A17D0067505A /* Utils */,
 				0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */,
 				043ABD0924EF0C33008826D5 /* Safe Client Gateway Service */,
@@ -4788,6 +4802,7 @@
 				6AFD26DB285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift in Sources */,
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
 				0493A28B262979820056EC49 /* UpdateController.swift in Sources */,
+				047A5B8F28A54FCB00BB8B2A /* SafeClaimingService.swift in Sources */,
 				048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */,
 				554A16B3266E4D4900807049 /* EIP712Transformer.swift in Sources */,
 				048D72BF268359E20095999C /* ChainManager.swift in Sources */,
@@ -4931,6 +4946,7 @@
 				6AC2D47727EC661D00D422CA /* SignatureRequestToWalletViewController.swift in Sources */,
 				04AFFBD2282BBE1900429513 /* RemoveOwnerFlow.swift in Sources */,
 				5596C03E25507F3C00EF23A5 /* CollectibleTableViewCell.swift in Sources */,
+				047A5B9128A5582F00BB8B2A /* GuardiansRequest.swift in Sources */,
 				0A3FDAEC26AEB5BF006A7DC3 /* KeyInfo+Shared.swift in Sources */,
 				04CE3F9924B6120F00826AEE /* CollectibleMetaData.swift in Sources */,
 				0A0EFCAA246EB28600D3D8BF /* Pasteboard.swift in Sources */,
