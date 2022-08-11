@@ -104,7 +104,6 @@
 		0472B2BE286A49420049BA17 /* GuardianListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2BC286A49420049BA17 /* GuardianListViewController.swift */; };
 		0472B2C3286A497A0049BA17 /* GuardianTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2C1286A497A0049BA17 /* GuardianTableViewCell.swift */; };
 		0472B2C4286A497A0049BA17 /* GuardianTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2C2286A497A0049BA17 /* GuardianTableViewCell.xib */; };
-		0472B2C6286A6FB70049BA17 /* Guardians.csv in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2C5286A6FB70049BA17 /* Guardians.csv */; };
 		0472B2C9286BC5D70049BA17 /* ClaimingAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2C7286BC5D70049BA17 /* ClaimingAmountViewController.swift */; };
 		0472B2CE286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2CC286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.swift */; };
 		0472B2CF286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2CD286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib */; };
@@ -1026,7 +1025,6 @@
 		0472B2BC286A49420049BA17 /* GuardianListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianListViewController.swift; sourceTree = "<group>"; };
 		0472B2C1286A497A0049BA17 /* GuardianTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianTableViewCell.swift; sourceTree = "<group>"; };
 		0472B2C2286A497A0049BA17 /* GuardianTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuardianTableViewCell.xib; sourceTree = "<group>"; };
-		0472B2C5286A6FB70049BA17 /* Guardians.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Guardians.csv; sourceTree = "<group>"; };
 		0472B2C7286BC5D70049BA17 /* ClaimingAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimingAmountViewController.swift; sourceTree = "<group>"; };
 		0472B2CC286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableClaimingAmountTableViewCell.swift; sourceTree = "<group>"; };
 		0472B2CD286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AvailableClaimingAmountTableViewCell.xib; sourceTree = "<group>"; };
@@ -3270,7 +3268,6 @@
 			children = (
 				043350AA28086115003725E2 /* Animations */,
 				0A93DD5F2445CC8B00688050 /* Assets.xcassets */,
-				0472B2C5286A6FB70049BA17 /* Guardians.csv */,
 				0A93DDAA244604A400688050 /* Averta-Regular.otf */,
 				0A93DD642445CC8B00688050 /* LaunchScreen.storyboard */,
 			);
@@ -4353,7 +4350,6 @@
 				558836712565385F0014E8C7 /* RemoveCell.xib in Resources */,
 				6AFD26E0285797DD00336FFE /* IdenticonInfoView.xib in Resources */,
 				6AAE34E0282A2F1600CCFC95 /* OwnerHeaderView.xib in Resources */,
-				0472B2C6286A6FB70049BA17 /* Guardians.csv in Resources */,
 				6AAE34E9282A833D00CCFC95 /* EnterOwnerNameViewController.xib in Resources */,
 				6A386C5D281A7792003FBCB3 /* AddRemoveOwnerTableViewCell.xib in Resources */,
 				6ADEB01C2795AB410062ADFE /* InfoLabel.xib in Resources */,
