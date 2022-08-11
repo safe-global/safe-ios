@@ -78,36 +78,35 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
 
     @objc private func update() {
-        var wcSessionItems: [SectionItem]
-        do {
-            wcSessionItems = try WCSession.getAll().compactMap {
-                guard $0.session != nil,
-                      let session = try? Session.from($0),
-                      let selectedSafe = try? Safe.getSelected(),
-                      session.walletInfo!.accounts.contains(selectedSafe.address!) else {
-                    return nil
-                }
-                return Section.WalletConnect.activeSession($0)
-            }
-            if wcSessionItems.isEmpty {
-                wcSessionItems.append(Section.WalletConnect.noSessions("No active sessions"))
-            }
-        } catch {
-            wcSessionItems = [Section.WalletConnect.noSessions("No active sessions")]
-            App.shared.snackbar.show(
-                error: GSError.error(description: "Could not load WalletConnect sessions", error: error))
-        }
-
-        sections = [
-            (section: .walletConnect("WalletConnect"), items: wcSessionItems)
-        ]
-
-        let dappSectionItems = DappsDataSource().dapps.map { Section.Dapp.dapp($0) }
-        if !dappSectionItems.isEmpty {
-            sections.append((section: .dapp("Dapps supporting Gnosis Safe"), items: dappSectionItems))
-        }
-
         DispatchQueue.main.async { [unowned self] in
+            var wcSessionItems: [SectionItem]
+            do {
+                wcSessionItems = try WCSession.getAll().compactMap {
+                    guard $0.session != nil,
+                          let session = try? Session.from($0),
+                          let selectedSafe = try? Safe.getSelected(),
+                          session.walletInfo!.accounts.contains(selectedSafe.address!) else {
+                        return nil
+                    }
+                    return Section.WalletConnect.activeSession($0)
+                }
+                if wcSessionItems.isEmpty {
+                    wcSessionItems.append(Section.WalletConnect.noSessions("No active sessions"))
+                }
+            } catch {
+                wcSessionItems = [Section.WalletConnect.noSessions("No active sessions")]
+                App.shared.snackbar.show(
+                    error: GSError.error(description: "Could not load WalletConnect sessions", error: error))
+            }
+
+            sections = [
+                (section: .walletConnect("WalletConnect"), items: wcSessionItems)
+            ]
+
+            let dappSectionItems = DappsDataSource().dapps.map { Section.Dapp.dapp($0) }
+            if !dappSectionItems.isEmpty {
+                sections.append((section: .dapp("Dapps supporting Gnosis Safe"), items: dappSectionItems))
+            }
             self.tableView.reloadData()
         }
     }
