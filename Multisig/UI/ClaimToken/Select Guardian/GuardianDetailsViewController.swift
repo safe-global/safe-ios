@@ -76,8 +76,8 @@ class GuardianDetailsViewController: UIViewController {
                             contribution: guardian.contribution,
                             address: AddressString(guardianAddress),
                             ens: guardian.ens,
-                            image_url: guardian.image_url,
-                            start_date: guardian.start_date
+                            imageUrl: guardian.imageUrl,
+                            startDate: guardian.startDate
                         )
 
                         continueButton.isEnabled = true

@@ -24,10 +24,10 @@ struct Guardian: Decodable {
     let contribution: String?
     let address: AddressString
     let ens: String?
-    let image_url: String?
-    let start_date: String?
+    let imageUrl: String?
+    let startDate: String?
     var imageURL: URL? {
-        image_url == nil ? nil : URL(string: image_url!)
+        imageUrl == nil ? nil : URL(string: imageUrl!)
     }
 }
 
