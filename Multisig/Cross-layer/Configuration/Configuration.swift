@@ -139,6 +139,8 @@ struct AppConfiguration {
     
     struct FeatureToggles {
         // Add feature toggles here
+        @ConfigurationKey("IS_KEYSTONE_ENABLED")
+        var isKeystoneEnabled: Bool
     }
 
     let services = Services()
