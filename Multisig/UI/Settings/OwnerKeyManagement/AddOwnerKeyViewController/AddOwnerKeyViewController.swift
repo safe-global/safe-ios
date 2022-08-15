@@ -86,6 +86,7 @@ class AddOwnerKeyViewController: UITableViewController {
 
     var importKeyFlow: ImportKeyFlow!
     var generateKeyFlow: GenerateKeyFlow!
+    var connectKeystoneFlow: ConnectKeystoneFlow!
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let controller: UIViewController
@@ -114,7 +115,12 @@ class AddOwnerKeyViewController: UITableViewController {
             controller = OnboardingLedgerKeyViewController(completion: completion)
             
         case .keystone:
-            controller = UIViewController()
+            connectKeystoneFlow = ConnectKeystoneFlow { [unowned self] _ in
+                connectKeystoneFlow = nil
+                completion()
+            }
+            push(flow: connectKeystoneFlow)
+            return
         }
         show(controller, sender: self)
     }
