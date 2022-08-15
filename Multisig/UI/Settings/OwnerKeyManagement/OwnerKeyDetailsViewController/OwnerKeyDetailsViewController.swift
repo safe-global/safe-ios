@@ -447,6 +447,9 @@ extension KeyType {
             return "Ledger Nano X"
         case .walletConnect:
             return "WalletConnect"
+        case .keystone:
+            // To be implemented
+            return ""
         }
     }
 }

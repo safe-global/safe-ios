@@ -504,6 +504,10 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
             }
 
             present(vc, animated: true, completion: nil)
+            
+        case .keystone:
+            // To be implemented
+            break
         }
     }
 

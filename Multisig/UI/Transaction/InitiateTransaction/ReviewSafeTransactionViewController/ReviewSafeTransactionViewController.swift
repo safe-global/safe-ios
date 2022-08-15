@@ -254,6 +254,10 @@ class ReviewSafeTransactionViewController: UIViewController {
             vc.onClose = { [weak self] in
                 self?.endConfirm()
             }
+            
+        case .keystone:
+            // To be implemented
+            break
         }
     }
 

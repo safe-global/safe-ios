@@ -125,6 +125,9 @@ enum KeyConnectionStatus {
             } else {
                 self = .disconnected
             }
+        case .keystone:
+            // To be implemented
+            self = .none
         }
     }
 }
