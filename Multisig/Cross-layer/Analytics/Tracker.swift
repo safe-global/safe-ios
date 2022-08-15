@@ -188,6 +188,9 @@ extension Tracker {
             Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numKeysWalletConnect)
         case .ledgerNanoX:
             Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numKeysLedgerNanoX)
+        case .keystone:
+            // To be implemented
+            break
         }
     }
 

@@ -767,6 +767,10 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             }
 
             present(vc, animated: true, completion: nil)
+
+        case .keystone:
+            // To be implemented
+            break
         }
     }
 

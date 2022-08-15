@@ -367,6 +367,9 @@ extension KeyType {
             return "ledger_nano_x"
         case .walletConnect:
             return "connected"
+        case .keystone:
+            // To be implemented
+            return ""
         }
     }
 }

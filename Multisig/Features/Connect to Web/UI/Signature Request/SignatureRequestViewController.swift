@@ -221,6 +221,10 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
                 signature[64] -= 4
                 self?.confirm(signature: signature)
             }
+            
+        case .keystone:
+            // To be implemented
+            break
         }
     }
 

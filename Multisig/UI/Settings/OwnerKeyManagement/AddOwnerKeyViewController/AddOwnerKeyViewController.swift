@@ -17,7 +17,8 @@ class AddOwnerKeyViewController: UITableViewController {
         (.deviceGenerated, "Create new owner key", "Create a new key that you can use as an owner of your Safe"),
         (.ledgerNanoX, "Connect Ledger Nano X", "Add a key from your hardware wallet")
     ]
-
+    private let toggles = App.configuration.toggles
+    
     convenience init(showsCloseButton: Bool = true, completion: @escaping () -> Void) {
         self.init()
         self.completion = completion
@@ -41,6 +42,12 @@ class AddOwnerKeyViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .backgroundPrimary
 
+        if toggles.isKeystoneEnabled {
+            keyTypes.append(
+                (.keystone, "Connect Keystone", "Connect your key via QR code")
+            )
+        }
+        
         keyTypes.append(
             (.walletConnect, "Connect key", "Connect an existing key from another wallet using WalletConnect")
         )
@@ -71,6 +78,8 @@ class AddOwnerKeyViewController: UITableViewController {
             cell.set(iconName: "ico-ledger")
         case .walletConnect:
             cell.set(iconName: "ico-add-walletconnect")
+        case .keystone:
+            cell.set(iconName: "ico-add-keystone")
         }
         return cell
     }
@@ -103,6 +112,9 @@ class AddOwnerKeyViewController: UITableViewController {
 
         case .ledgerNanoX:
             controller = OnboardingLedgerKeyViewController(completion: completion)
+            
+        case .keystone:
+            controller = UIViewController()
         }
         show(controller, sender: self)
     }

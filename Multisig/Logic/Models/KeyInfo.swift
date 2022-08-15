@@ -17,6 +17,7 @@ enum KeyType: Int, CaseIterable {
     case deviceGenerated = 1
     case walletConnect = 2
     case ledgerNanoX = 3
+    case keystone = 4
 }
 
 extension KeyInfo {

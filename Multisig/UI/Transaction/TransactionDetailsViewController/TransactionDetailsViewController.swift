@@ -382,6 +382,10 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                     self?.reloadData()
                 }
             }
+            
+        case .keystone:
+            // To be implemented
+            break
         }
     }
 

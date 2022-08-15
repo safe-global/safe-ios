@@ -126,6 +126,9 @@ class RejectionConfirmationViewController: UIViewController {
             vc.onClose = { [weak self] in
                 self?.endLoading()
             }
+        case .keystone:
+            // To be implemented
+            break
         }
     }
 
