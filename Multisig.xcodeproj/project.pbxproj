@@ -613,6 +613,7 @@
 		3E373F762631781A00D8107A /* EnterUnstoppableNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E373F742631781900D8107A /* EnterUnstoppableNameViewController.xib */; };
 		3E373F772631781A00D8107A /* EnterUnstoppableNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */; };
 		3E373F7D2631784200D8107A /* BlockchainDomainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */; };
+		47646ED428AA72DD009DC437 /* ConnectKeystoneFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */; };
 		5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5503F62B2550625F0046545C /* CollectiblesViewController.swift */; };
 		550A6182268A23A9002C02E1 /* SafeNetworkMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550A6181268A23A9002C02E1 /* SafeNetworkMigrationTests.swift */; };
 		550FB19E26691CA300C13D54 /* DappsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB19926691CA300C13D54 /* DappsViewController.swift */; };
@@ -1523,6 +1524,7 @@
 		3E373F742631781900D8107A /* EnterUnstoppableNameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterUnstoppableNameViewController.xib; sourceTree = "<group>"; };
 		3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterUnstoppableNameViewController.swift; sourceTree = "<group>"; };
 		3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockchainDomainManager.swift; sourceTree = "<group>"; };
+		47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectKeystoneFlow.swift; sourceTree = "<group>"; };
 		5503F62B2550625F0046545C /* CollectiblesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesViewController.swift; sourceTree = "<group>"; };
 		550A6181268A23A9002C02E1 /* SafeNetworkMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeNetworkMigrationTests.swift; sourceTree = "<group>"; };
 		550FB19926691CA300C13D54 /* DappsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DappsViewController.swift; sourceTree = "<group>"; };
@@ -3354,6 +3356,14 @@
 			path = Buttons;
 			sourceTree = "<group>";
 		};
+		47646ED228AA725B009DC437 /* KeystoneOwnerKey */ = {
+			isa = PBXGroup;
+			children = (
+				47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */,
+			);
+			path = KeystoneOwnerKey;
+			sourceTree = "<group>";
+		};
 		5503F62A255062070046545C /* CollectiblesViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3792,6 +3802,7 @@
 				5541367A265E566B00796F91 /* GenerateOwnerKey */,
 				55413679265E558A00796F91 /* ImportOwnerKey */,
 				55FBC2D326BA915B002C2553 /* LedgerOwnerKey */,
+				47646ED228AA725B009DC437 /* KeystoneOwnerKey */,
 				04626EB3265E6B8D00CC7FC8 /* OwnerKeyDetailsViewController */,
 				049A9D1425F7C67800CA5723 /* OwnerKeysListViewController */,
 				0ADD19B6265EA23200EB0F2B /* PrivateKeyViewController */,
@@ -5143,6 +5154,7 @@
 				B0D618BE28AD77EA68D0551C /* WebConnectionsViewController.swift in Sources */,
 				B0D61BA23BDD098DE8AD3008 /* CDWCRequest.swift in Sources */,
 				6A386C6A281ADAFD003FBCB3 /* ValueChangeTableViewCell.swift in Sources */,
+				47646ED428AA72DD009DC437 /* ConnectKeystoneFlow.swift in Sources */,
 				04AFFBD0282AFC0100429513 /* ReviewRemoveOwnerViewController.swift in Sources */,
 				B0D61252B0B0760008CF6F19 /* WebConnection.swift in Sources */,
 				B0D61AA858C67B86EC281328 /* GnosisSafeWebPeerInfo.swift in Sources */,

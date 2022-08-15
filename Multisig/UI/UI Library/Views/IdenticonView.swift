@@ -62,8 +62,7 @@ extension KeyType {
         case .ledgerNanoX:
             return "ico-key-type-ledger"
         case .keystone:
-            // To be implemented
-            return ""
+            return "ico-key-type-keystone"
         }
     }
 }
