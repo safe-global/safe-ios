@@ -116,8 +116,6 @@ class ChooseGuardianViewController: LoadableViewController {
                     self.filteredGuardians = results
                     self.sections = self.makeSections(items: self.filteredGuardians)
                     self.onSuccess()
-//                    onSuccess()
-//                    onReloaded?()
                 }
             }
         }
