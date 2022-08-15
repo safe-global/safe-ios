@@ -263,5 +263,7 @@
 	<string>$(WALLETCONNECT_BRIDGE_URL)</string>
 	<key>WALLETCONNECT_REGISTRY_URL</key>
 	<string>$(WALLETCONNECT_REGISTRY_URL)</string>
+	<key>IS_KEYSTONE_ENABLED</key>
+	<false/>
 </dict>
 </plist>
