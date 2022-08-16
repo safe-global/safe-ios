@@ -10,28 +10,28 @@ import UIKit
 
 class SafeTokenBanner: UINibView {
 
+    @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var claimButton: UIButton!
 
     var onClaim: (() -> Void)?
+    var onClose: (() -> Void)?
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [
-            UIColor(hex: "#008C73")!.cgColor,
-            UIColor(hex: "#008C8C")!.cgColor
-        ]
-        layer.addSublayer(gradientLayer)
-        layer.cornerRadius = 8
         clipsToBounds = true
+        layer.cornerRadius = 8
         titleLabel.setStyle(.headline)
         titleLabel.textColor = .primaryDisabled
         messageLabel.setStyle(.callout)
         messageLabel.textColor = .primaryDisabled
         claimButton.titleLabel?.setStyle(.primary)
+        claimButton.setTitleColor(.black, for: .normal)
+    }
+
+    @IBAction func didTapClose(_ sender: Any) {
+        onClose?()
         claimButton.setTitleColor(.black, for: .normal)
     }
 

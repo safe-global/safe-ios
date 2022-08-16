@@ -49,10 +49,16 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             return false
         }
         return true
-        // claim possible only on mainnet or rinkeby (for testing)
+        return safeTokenBannerWasShown != true &&
+                // claim possible only on mainnet or rinkeby (for testing)
                 (safe.chain?.id == Chain.ChainID.ethereumMainnet || safe.chain?.id == Chain.ChainID.ethereumRinkeby) &&
                 // claim flag has to be enabled in Firebase Remote Config
                 NSString(string: remoteConfig.value(key: .safeClaimEnabled) ?? "false").boolValue
+    }
+
+    private var safeTokenBannerWasShown: Bool? {
+        get { AppSettings.safeTokenBannerWasShown }
+        set { AppSettings.safeTokenBannerWasShown = newValue }
     }
 
     convenience init() {
@@ -246,6 +252,11 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                     claimTokenFlow = nil
                 }
                 present(flow: claimTokenFlow)
+            },
+            onClose: { [unowned self] in
+                safeTokenBannerWasShown = true
+                recreateSectionsWithCurrentItems()
+                Tracker.trackEvent(.bannerSafeTokenSkip)
             })
         cell.selectionStyle = .none
         return cell

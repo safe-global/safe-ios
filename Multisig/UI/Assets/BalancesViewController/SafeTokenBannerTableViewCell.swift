@@ -15,7 +15,8 @@ class SafeTokenBannerTableViewCell: UITableViewCell {
     var onClaim: () -> Void = {}
     var onClose: () -> Void = {}
 
-    func setupBanner(onClaim: @escaping () -> Void) {
+    func setupBanner(onClaim: @escaping () -> Void, onClose: @escaping () -> Void) {
         banner.onClaim = onClaim
+        banner.onClose = onClose
     }
 }
