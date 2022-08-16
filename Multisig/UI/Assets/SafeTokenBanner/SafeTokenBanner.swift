@@ -16,7 +16,6 @@ class SafeTokenBanner: UINibView {
     @IBOutlet weak var claimButton: UIButton!
 
     var onClaim: (() -> Void)?
-    var onClose: (() -> Void)?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,10 +33,6 @@ class SafeTokenBanner: UINibView {
         messageLabel.setStyle(.callout)
         messageLabel.textColor = .primaryDisabled
         claimButton.titleLabel?.setStyle(.primary)
-    }
-
-    @IBAction func didTapClose(_ sender: Any) {
-        onClose?()
     }
 
     @IBAction func didTapClaim(_ sender: Any) {

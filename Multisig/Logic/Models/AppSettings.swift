@@ -72,9 +72,6 @@ extension AppSettings {
     @UserDefault(key: "io.gnosis.multisig.importKeyBannerWasShown")
     static var importKeyBannerWasShown: Bool?
 
-    @UserDefault(key: "io.gnosis.multisig.safeTokenBannerWasShown")
-    static var safeTokenBannerWasShown: Bool?
-
     @AppSetting(\.lastMarketingVersion)
     static var lastMarketingVersion: String?
 
