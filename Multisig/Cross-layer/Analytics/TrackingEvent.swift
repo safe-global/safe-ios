@@ -176,6 +176,8 @@ enum TrackingEvent: String, Trackable {
     case ledgerSelectKey                            = "screen_select_ledger_nano_x_key"
     case ledgerEnterKeyName                         = "screen_ledger_nano_x_enter_name"
 
+    case keystoneQRScanner                          = "screen_keystone_scan"
+
     // MARK: Confirm transactions
 
     // chain_id (String): Chain id
