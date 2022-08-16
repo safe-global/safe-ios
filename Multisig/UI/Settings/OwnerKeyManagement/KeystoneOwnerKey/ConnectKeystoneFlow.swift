@@ -17,6 +17,46 @@ final class ConnectKeystoneFlow: AddKeyFlow {
     init(completion: @escaping (Bool) -> Void) {
         super.init(badge: KeyType.keystone.imageName, factory: ConnectKeystoneFactory(), completion: completion)
     }
+    
+    override func didIntro() {
+        super.didIntro()
+        scan()
+    }
+    
+    private func scan() {
+        let vc = QRCodeScannerViewController()
+
+        let string = "Scan your Keystone wallet QR code to connect." as NSString
+        let textStyle = GNOTextStyle.primary.color(.white)
+        let highlightStyle = textStyle.weight(.bold)
+        let label = NSMutableAttributedString(string: string as String, attributes: textStyle.attributes)
+        label.setAttributes(highlightStyle.attributes, range: string.range(of: "Keystone"))
+        vc.attributedLabel = label
+
+        vc.scannedValueValidator = { value in
+            // TODO: Keystone - QR Code validation rule
+            guard value.starts(with: "safe-wc:") else {
+                return .failure(GSError.InvalidWalletConnectQRCode())
+            }
+            return .success(value)
+        }
+        vc.modalPresentationStyle = .overFullScreen
+        vc.delegate = self
+        vc.setup()
+        navigationController.present(vc, animated: true)
+
+        Tracker.trackEvent(.keystoneQRScanner)
+    }
+}
+
+extension ConnectKeystoneFlow: QRCodeScannerViewControllerDelegate {
+    func scannerViewControllerDidScan(_ code: String) {
+        
+    }
+    
+    func scannerViewControllerDidCancel() {
+        navigationController.dismiss(animated: true)
+    }
 }
 
 final class ConnectKeystoneFactory: AddKeyFlowFactory {
