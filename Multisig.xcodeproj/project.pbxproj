@@ -104,7 +104,6 @@
 		0472B2BE286A49420049BA17 /* GuardianListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2BC286A49420049BA17 /* GuardianListViewController.swift */; };
 		0472B2C3286A497A0049BA17 /* GuardianTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2C1286A497A0049BA17 /* GuardianTableViewCell.swift */; };
 		0472B2C4286A497A0049BA17 /* GuardianTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2C2286A497A0049BA17 /* GuardianTableViewCell.xib */; };
-		0472B2C6286A6FB70049BA17 /* Guardians.csv in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2C5286A6FB70049BA17 /* Guardians.csv */; };
 		0472B2C9286BC5D70049BA17 /* ClaimingAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2C7286BC5D70049BA17 /* ClaimingAmountViewController.swift */; };
 		0472B2CE286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2CC286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.swift */; };
 		0472B2CF286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2CD286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib */; };
@@ -116,6 +115,8 @@
 		047588182774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */; };
 		047691592464026400D73D8B /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691582464026400D73D8B /* SectionHeader.swift */; };
 		0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */; };
+		047A5B8F28A54FCB00BB8B2A /* SafeClaimingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5B8E28A54FCB00BB8B2A /* SafeClaimingService.swift */; };
+		047A5B9128A5582F00BB8B2A /* GuardiansRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5B9028A5582F00BB8B2A /* GuardiansRequest.swift */; };
 		048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */; };
 		048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */; };
 		048AA142260D053400382E24 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048AA141260D053300382E24 /* MainTabBarViewController.swift */; };
@@ -1024,7 +1025,6 @@
 		0472B2BC286A49420049BA17 /* GuardianListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianListViewController.swift; sourceTree = "<group>"; };
 		0472B2C1286A497A0049BA17 /* GuardianTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianTableViewCell.swift; sourceTree = "<group>"; };
 		0472B2C2286A497A0049BA17 /* GuardianTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuardianTableViewCell.xib; sourceTree = "<group>"; };
-		0472B2C5286A6FB70049BA17 /* Guardians.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Guardians.csv; sourceTree = "<group>"; };
 		0472B2C7286BC5D70049BA17 /* ClaimingAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimingAmountViewController.swift; sourceTree = "<group>"; };
 		0472B2CC286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableClaimingAmountTableViewCell.swift; sourceTree = "<group>"; };
 		0472B2CD286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AvailableClaimingAmountTableViewCell.xib; sourceTree = "<group>"; };
@@ -1037,6 +1037,8 @@
 		047691582464026400D73D8B /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataClass.swift"; sourceTree = "<group>"; };
+		047A5B8E28A54FCB00BB8B2A /* SafeClaimingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeClaimingService.swift; sourceTree = "<group>"; };
+		047A5B9028A5582F00BB8B2A /* GuardiansRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardiansRequest.swift; sourceTree = "<group>"; };
 		048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNotificationTokenRequest.swift; sourceTree = "<group>"; };
 		048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisterNotificationTokenRequest.swift; sourceTree = "<group>"; };
 		048AA141260D053300382E24 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
@@ -2087,6 +2089,15 @@
 				0A946D08246C4C5F00456BD5 /* Get In Touch */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		047A5B8D28A54FAC00BB8B2A /* Safe Claiming Service  */ = {
+			isa = PBXGroup;
+			children = (
+				047A5B8E28A54FCB00BB8B2A /* SafeClaimingService.swift */,
+				047A5B9028A5582F00BB8B2A /* GuardiansRequest.swift */,
+			);
+			path = "Safe Claiming Service ";
 			sourceTree = "<group>";
 		};
 		047A653225ADE8E800AE8845 /* SwiftUI */ = {
@@ -3257,7 +3268,6 @@
 			children = (
 				043350AA28086115003725E2 /* Animations */,
 				0A93DD5F2445CC8B00688050 /* Assets.xcassets */,
-				0472B2C5286A6FB70049BA17 /* Guardians.csv */,
 				0A93DDAA244604A400688050 /* Averta-Regular.otf */,
 				0A93DD642445CC8B00688050 /* LaunchScreen.storyboard */,
 			);
@@ -3473,6 +3483,7 @@
 		5532D4DF2449A4C00067505A /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				047A5B8D28A54FAC00BB8B2A /* Safe Claiming Service  */,
 				5532D4B72449A17D0067505A /* Utils */,
 				0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */,
 				043ABD0924EF0C33008826D5 /* Safe Client Gateway Service */,
@@ -4339,7 +4350,6 @@
 				558836712565385F0014E8C7 /* RemoveCell.xib in Resources */,
 				6AFD26E0285797DD00336FFE /* IdenticonInfoView.xib in Resources */,
 				6AAE34E0282A2F1600CCFC95 /* OwnerHeaderView.xib in Resources */,
-				0472B2C6286A6FB70049BA17 /* Guardians.csv in Resources */,
 				6AAE34E9282A833D00CCFC95 /* EnterOwnerNameViewController.xib in Resources */,
 				6A386C5D281A7792003FBCB3 /* AddRemoveOwnerTableViewCell.xib in Resources */,
 				6ADEB01C2795AB410062ADFE /* InfoLabel.xib in Resources */,
@@ -4788,6 +4798,7 @@
 				6AFD26DB285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift in Sources */,
 				0AA9F2552498CC82005BD60F /* DataString.swift in Sources */,
 				0493A28B262979820056EC49 /* UpdateController.swift in Sources */,
+				047A5B8F28A54FCB00BB8B2A /* SafeClaimingService.swift in Sources */,
 				048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */,
 				554A16B3266E4D4900807049 /* EIP712Transformer.swift in Sources */,
 				048D72BF268359E20095999C /* ChainManager.swift in Sources */,
@@ -4931,6 +4942,7 @@
 				6AC2D47727EC661D00D422CA /* SignatureRequestToWalletViewController.swift in Sources */,
 				04AFFBD2282BBE1900429513 /* RemoveOwnerFlow.swift in Sources */,
 				5596C03E25507F3C00EF23A5 /* CollectibleTableViewCell.swift in Sources */,
+				047A5B9128A5582F00BB8B2A /* GuardiansRequest.swift in Sources */,
 				0A3FDAEC26AEB5BF006A7DC3 /* KeyInfo+Shared.swift in Sources */,
 				04CE3F9924B6120F00826AEE /* CollectibleMetaData.swift in Sources */,
 				0A0EFCAA246EB28600D3D8BF /* Pasteboard.swift in Sources */,

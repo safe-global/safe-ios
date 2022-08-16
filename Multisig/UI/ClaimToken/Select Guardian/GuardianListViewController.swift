@@ -9,7 +9,7 @@
 import UIKit
 
 class ChooseGuardianViewController: LoadableViewController {
-
+    private var currentDataTask: URLSessionTask?
     private enum Section {
         case guardiansCount(count: Int)
         case guardians(items: [Guardian])
@@ -71,8 +71,8 @@ class ChooseGuardianViewController: LoadableViewController {
         if !searchTerm.isEmpty {
             filteredGuardians = guardians.filter { guardian in
                 return guardian.name?.lowercased().contains(searchTerm) ?? false ||
-                guardian.ensName?.lowercased().contains(searchTerm) ?? false ||
-                guardian.address.hexadecimal.lowercased().contains(searchTerm)
+                guardian.ens?.lowercased().contains(searchTerm) ?? false ||
+                guardian.address.description.lowercased().contains(searchTerm)
             }
 
         } else {
@@ -91,47 +91,33 @@ class ChooseGuardianViewController: LoadableViewController {
 
     override func reloadData() {
         super.reloadData()
-        guardians = []
-        if let filepath = Bundle.main.path(forResource: "Guardians", ofType: "csv") {
-            do {
-                let contents = try String(contentsOfFile: filepath)
-                createGuardiansFrom(csv: contents)
-                filteredGuardians = guardians
-                sections = makeSections(items: filteredGuardians)
-                onSuccess()
-                onReloaded?()
-            } catch {
-                onError(GSError.error(description: "Failed to load guardians"))
-                onReloaded?()
+        currentDataTask?.cancel()
+        currentDataTask = App.shared.claimingService.asyncGuardians() { [weak self] result in
+            guard let `self` = self else { return }
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else { return }
+                    // ignore cancellation error due to cancelling the
+                    // currently running task. Otherwise user will see
+                    // meaningless message.
+                    if (error as NSError).code == URLError.cancelled.rawValue &&
+                        (error as NSError).domain == NSURLErrorDomain {
+                        return
+                    }
+
+                    self.onError(GSError.error(description: "Failed to load guardians", error: error))
+                    self.onReloaded?()
+                }
+            case .success(let results):
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else { return }
+                    self.guardians = results
+                    self.filteredGuardians = results
+                    self.sections = self.makeSections(items: self.filteredGuardians)
+                    self.onSuccess()
+                }
             }
-        } else {
-            onError(GSError.error(description: "Failed to load guardians"))
-            onReloaded?()
-        }
-    }
-
-    private func createGuardiansFrom(csv: String) {
-
-        let entites = csv.split(whereSeparator: \.isNewline).dropFirst().prefix(8)
-        entites.forEach { entry in
-
-            let values: [String] = entry.components(separatedBy: ";")
-
-            let name = values[1]
-            let reason = values[2]
-            let previousContribution = values[3]
-            let address = Address(values[4]) ?? Address.zero
-            let ensName = address == Address.zero ? values[4] : nil
-            let imageUrl = values[5]
-
-            let guardian = Guardian(name: name,
-                                    reason: reason,
-                                    previousContribution: previousContribution,
-                                    address: address,
-                                    ensName: ensName,
-                                    imageURLString: imageUrl)
-            
-            guardians.append(guardian)
         }
     }
 }
@@ -183,15 +169,4 @@ extension ChooseGuardianViewController: UITableViewDelegate, UITableViewDataSour
     }
 }
 
-struct Guardian {
-    let name: String?
-    let reason: String?
-    let previousContribution: String?
-    let address: Address
-    let ensName: String?
-    let imageURLString: String?
 
-    var imageURL: URL? {
-        imageURLString == nil ? nil : URL(string: imageURLString!)
-    }
-}

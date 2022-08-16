@@ -68,10 +68,11 @@ class ClaimSafeTokenFlow: UIFlow {
             let guardian = Guardian(
                 name: nil,
                 reason: nil,
-                previousContribution: nil,
-                address: address,
-                ensName: nil,
-                imageURLString: nil
+                contribution: nil,
+                address: AddressString(address),
+                ens: nil,
+                imageUrl: nil,
+                startDate: nil
             )
             selectAmount(guardian: guardian)
         }

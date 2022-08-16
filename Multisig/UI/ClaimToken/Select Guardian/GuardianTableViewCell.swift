@@ -26,8 +26,8 @@ class GuardianTableViewCell: UITableViewCell {
     func set(guardian: Guardian) {
 
         addressInfoView.setAddressOneLine(
-            guardian.address,
-            ensName: guardian.ensName,
+            guardian.address.address,
+            ensName: guardian.ens,
             hideAddress: false,
             label: guardian.name,
             imageUri: guardian.imageURL,

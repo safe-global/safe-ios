@@ -49,16 +49,16 @@ class GuardianDetailsViewController: UIViewController {
 
         contributionTitleLabel.setStyle(.headline)
         contributionTextLabel.setStyle(.secondary)
-        contributionTextLabel.text = guardian.previousContribution
+        contributionTextLabel.text = guardian.contribution
 
         continueButton.setText("Select & Continue", .filled)
 
-        if guardian.address == Address.zero {
+        if guardian.address.address == Address.zero {
 
             continueButton.isEnabled = false
 
             DispatchQueue.main.async { [unowned self] in
-                if let ensName = guardian.ensName {
+                if let ensName = guardian.ens {
                     let blockchainDomainManager = BlockchainDomainManager(
                         rpcURL: chain.authenticatedRpcUrl,
                         chainId: chain.id!,
@@ -73,10 +73,11 @@ class GuardianDetailsViewController: UIViewController {
                         guardian = Guardian(
                             name: guardian.name,
                             reason: guardian.reason,
-                            previousContribution: guardian.previousContribution,
-                            address: guardianAddress,
-                            ensName: guardian.ensName,
-                            imageURLString: guardian.imageURLString
+                            contribution: guardian.contribution,
+                            address: AddressString(guardianAddress),
+                            ens: guardian.ens,
+                            imageUrl: guardian.imageUrl,
+                            startDate: guardian.startDate
                         )
 
                         continueButton.isEnabled = true
@@ -91,7 +92,7 @@ class GuardianDetailsViewController: UIViewController {
             }
 
         } else {
-            viewOnEtherscan.url = chain.browserURL(address: guardian.address.checksummed)
+            viewOnEtherscan.url = chain.browserURL(address: guardian.address.address.checksummed)
         }
     }
 
