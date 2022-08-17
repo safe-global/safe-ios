@@ -10,10 +10,10 @@ import UIKit
 
 class SafeTokenBanner: UINibView {
 
-    @IBOutlet weak var closeButton: UIButton!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var messageLabel: UILabel!
-    @IBOutlet weak var claimButton: UIButton!
+    @IBOutlet private weak var closeButton: UIButton!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var messageLabel: UILabel!
+    @IBOutlet private weak var claimButton: UIButton!
 
     var onClaim: (() -> Void)?
     var onClose: (() -> Void)?
@@ -32,7 +32,6 @@ class SafeTokenBanner: UINibView {
 
     @IBAction func didTapClose(_ sender: Any) {
         onClose?()
-        claimButton.setTitleColor(.black, for: .normal)
     }
 
     @IBAction func didTapClaim(_ sender: Any) {
