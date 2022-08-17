@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import URKit
 
 final class ConnectKeystoneFlow: AddKeyFlow {
     var flowFactory: ConnectKeystoneFactory {
@@ -34,11 +35,12 @@ final class ConnectKeystoneFlow: AddKeyFlow {
         vc.attributedLabel = label
 
         vc.scannedValueValidator = { value in
-            // TODO: Keystone - QR Code validation rule
-            guard value.starts(with: "safe-wc:") else {
+            if let decodedUR = try? URDecoder.decode(value),
+               KeystoneURValidator.validate(urType: decodedUR.type) {
+                return .success(value)
+            } else {
                 return .failure(GSError.InvalidWalletConnectQRCode())
             }
-            return .success(value)
         }
         vc.modalPresentationStyle = .overFullScreen
         vc.delegate = self
