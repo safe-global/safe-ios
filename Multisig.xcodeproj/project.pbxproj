@@ -616,6 +616,7 @@
 		47646ED428AA72DD009DC437 /* ConnectKeystoneFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */; };
 		47F7128F28ABC9E900B6133A /* URKit in Frameworks */ = {isa = PBXBuildFile; productRef = 47F7128E28ABC9E900B6133A /* URKit */; };
 		47F7129228ABD51D00B6133A /* WolfBase in Frameworks */ = {isa = PBXBuildFile; productRef = 47F7129128ABD51D00B6133A /* WolfBase */; };
+		47F7129428ACA59600B6133A /* KeystoneURValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F7129328ACA59600B6133A /* KeystoneURValidator.swift */; };
 		5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5503F62B2550625F0046545C /* CollectiblesViewController.swift */; };
 		550A6182268A23A9002C02E1 /* SafeNetworkMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550A6181268A23A9002C02E1 /* SafeNetworkMigrationTests.swift */; };
 		550FB19E26691CA300C13D54 /* DappsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB19926691CA300C13D54 /* DappsViewController.swift */; };
@@ -1527,6 +1528,7 @@
 		3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterUnstoppableNameViewController.swift; sourceTree = "<group>"; };
 		3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockchainDomainManager.swift; sourceTree = "<group>"; };
 		47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectKeystoneFlow.swift; sourceTree = "<group>"; };
+		47F7129328ACA59600B6133A /* KeystoneURValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystoneURValidator.swift; sourceTree = "<group>"; };
 		5503F62B2550625F0046545C /* CollectiblesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesViewController.swift; sourceTree = "<group>"; };
 		550A6181268A23A9002C02E1 /* SafeNetworkMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeNetworkMigrationTests.swift; sourceTree = "<group>"; };
 		550FB19926691CA300C13D54 /* DappsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DappsViewController.swift; sourceTree = "<group>"; };
@@ -3364,6 +3366,7 @@
 			isa = PBXGroup;
 			children = (
 				47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */,
+				47F7129328ACA59600B6133A /* KeystoneURValidator.swift */,
 			);
 			path = KeystoneOwnerKey;
 			sourceTree = "<group>";
@@ -5037,6 +5040,7 @@
 				0A096CBE2608D9370034E6BC /* NetworkStatusObserver.swift in Sources */,
 				0ABE698827920294003338AF /* ErrorTableViewCell.swift in Sources */,
 				0A8CDD4927A5AE860020066C /* CreateSafeFormUIModel.swift in Sources */,
+				47F7129428ACA59600B6133A /* KeystoneURValidator.swift in Sources */,
 				0A5B157C280863DF003AD853 /* EnterPasscodeViewController.swift in Sources */,
 				D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */,
 				0A864D282835563D00AE1B36 /* UIFlow.swift in Sources */,
