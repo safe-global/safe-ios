@@ -56,6 +56,27 @@ final class ConnectKeystoneFlow: AddKeyFlow {
         }
         show(pickerVC)
     }
+    
+    override func doImport() -> Bool {
+        if let privateKey = privateKey,
+           let keyName = keyName {
+            return OwnerKeyController.importKey(keystone: privateKey, name: keyName, isDrivedFromSeedPhrase: true)
+        } else {
+            return false
+        }
+    }
+    
+    override func didImport() {
+        if let addressInfo = keyInfo,
+           let keyInfo = try? KeyInfo.firstKey(address: addressInfo.address) {
+            let keyVC = flowFactory.details(keyInfo: keyInfo) { [unowned self] in
+                stop(success: true)
+            }
+            show(keyVC)
+        } else {
+            stop(success: true)
+        }
+    }
 }
 
 extension ConnectKeystoneFlow: QRCodeScannerViewControllerDelegate {
@@ -102,5 +123,9 @@ final class ConnectKeystoneFactory: AddKeyFlowFactory {
             completion(key)
         }
         return pickDerivedKeyVC
+    }
+    
+    func details(keyInfo: KeyInfo, completion: @escaping () -> Void) -> OwnerKeyDetailsViewController {
+        OwnerKeyDetailsViewController(keyInfo: keyInfo, completion: completion)
     }
 }
