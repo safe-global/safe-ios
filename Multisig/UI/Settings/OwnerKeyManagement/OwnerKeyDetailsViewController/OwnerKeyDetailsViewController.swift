@@ -448,8 +448,7 @@ extension KeyType {
         case .walletConnect:
             return "WalletConnect"
         case .keystone:
-            // To be implemented
-            return ""
+            return "Keystone"
         }
     }
 }

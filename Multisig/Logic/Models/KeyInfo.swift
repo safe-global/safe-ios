@@ -238,6 +238,35 @@ extension KeyInfo {
         return item
     }
 
+    /// Will save the key info from Keystone hardware in the persistence store.
+    /// - Parameters:
+    ///   - address: address of the  key
+    ///   - name: name of the key
+    ///   - privateKey: private key to save
+    @discardableResult
+    static func `import`(keystone address: Address, name: String, privateKey: PrivateKey) throws -> KeyInfo {
+        let context = App.shared.coreDataStack.viewContext
+
+        let fr = KeyInfo.fetchRequest().by(address: address)
+        let item: KeyInfo
+
+        if (try context.fetch(fr).first) != nil {
+            throw GSError.DuplicateKey()
+        } else {
+            item = KeyInfo(context: context)
+        }
+
+        item.address = address
+        item.name = name
+        item.keyID = privateKey.id
+        item.keyType = .keystone
+        item.backedup = false
+
+        item.save()
+        try privateKey.save()
+
+        return item
+    }
 
     @discardableResult
     static func update(keyInfo: KeyInfo, connection: WebConnection) throws -> KeyInfo? {
