@@ -13,6 +13,8 @@ class EnterCustomAddressViewController: UIViewController {
 
     @IBOutlet private weak var continueButton: UIButton!
     @IBOutlet private weak var addressField: AddressField!
+    @IBOutlet private weak var hintLabel: UILabel!
+    @IBOutlet private weak var descriptionLabel: UILabel!
 
     private var stepLabel: UILabel!
     private var stepNumber: Int = 2
@@ -34,7 +36,7 @@ class EnterCustomAddressViewController: UIViewController {
 
         ViewControllerFactory.makeTransparentNavigationBar(self)
         navigationItem.hidesBackButton = false
-        navigationItem.title = "Custom address"
+        navigationItem.title = "Custom address or ENS"
 
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
         stepLabel.textAlignment = .right
@@ -42,11 +44,14 @@ class EnterCustomAddressViewController: UIViewController {
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
-        addressField.setPlaceholderText("Enter delegate address")
+        addressField.setPlaceholderText("Address or ENS")
         addressField.onTap = { [weak self] in self?.didTapAddressField() }
 
         continueButton.setText("Select & Continue", .filled)
         continueButton.isEnabled = false
+
+        descriptionLabel.setStyle(.secondary)
+        hintLabel.setStyle(.footnote4)
 
         if mainnet {
             chain = SCGModels.Chain.mainnetChain()
@@ -55,7 +60,7 @@ class EnterCustomAddressViewController: UIViewController {
         }
 
         trackingParameters = { ["chain_id" : chain.chainId.description] }()
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .never
     }
 
     private func didTapAddressField() {
