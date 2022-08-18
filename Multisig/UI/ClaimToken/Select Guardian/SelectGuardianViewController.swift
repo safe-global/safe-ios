@@ -18,7 +18,8 @@ class SelectGuardianViewController: ContainerViewController, UISearchBarDelegate
     private var stepLabel: UILabel!
     private var stepNumber: Int = 2
     private var maxSteps: Int = 4
-    
+    private var keyboardBehavior: KeyboardAvoidingBehavior!
+
     var onSelected: ((Guardian) -> ())?
 
     override func viewDidLoad() {
@@ -46,10 +47,30 @@ class SelectGuardianViewController: ContainerViewController, UISearchBarDelegate
         ]
         displayChild(at: 0, in: guardiansView)
 
+        keyboardBehavior = KeyboardAvoidingBehavior(scrollView: guardiansController.tableView)
+        keyboardBehavior.hidesKeyboardOnTap = false
         navigationController?.navigationBar.prefersLargeTitles = true
+        searchBar.searchTextField.delegate = self
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guardiansController.filterData(searchTerm: searchText)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        keyboardBehavior.start(hidesKeyboardOnTap: false)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        keyboardBehavior.stop()
+    }
+}
+
+extension SelectGuardianViewController: UITextFieldDelegate {
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        keyboardBehavior.activeTextField = textField
     }
 }

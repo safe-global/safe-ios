@@ -107,6 +107,7 @@ class AddressInfoView: UINibView {
         hideAddress: Bool = true,
         label: String? = nil,
         imageUri: URL? = nil,
+        placeholderImage: String? = nil,
         badgeName: String? = nil,
         prefix: String? = nil
     ) {
@@ -130,7 +131,10 @@ class AddressInfoView: UINibView {
         }
 
         identiconView.isHidden = false
-        identiconView.set(address: address, imageURL: imageUri, badgeName: badgeName)
+        identiconView.set(address: address,
+                          imageURL: imageUri,
+                          placeholderImage: placeholderImage,
+                          badgeName: badgeName)
 
         detailButton.isHidden = browseURL == nil
     }
