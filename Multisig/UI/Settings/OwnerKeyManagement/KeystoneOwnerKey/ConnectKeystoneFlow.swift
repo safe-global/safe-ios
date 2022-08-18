@@ -49,11 +49,25 @@ final class ConnectKeystoneFlow: AddKeyFlow {
 
         Tracker.trackEvent(.keystoneQRScanner)
     }
+    
+    func pickAccount(_ node: HDNode) {
+        let pickerVC = flowFactory.derivedAccountPicker(node: node) { [unowned self] privateKey in
+            didGetKey(privateKey: privateKey)
+        }
+        show(pickerVC)
+    }
 }
 
 extension ConnectKeystoneFlow: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
-        
+        navigationController.dismiss(animated: true) { [unowned self] in
+            if let decodedUR = try? URDecoder.decode(code),
+               let hdNode = HDNode(seed: decodedUR.cbor) {
+                pickAccount(hdNode)
+            } else {
+                App.shared.snackbar.show(error: GSError.InvalidWalletConnectQRCode())
+            }
+        }
     }
     
     func scannerViewControllerDidCancel() {
@@ -79,5 +93,14 @@ final class ConnectKeystoneFactory: AddKeyFlowFactory {
         introVC.viewTrackingEvent = .keystoneOwnerOnboarding
         introVC.navigationItem.title = "Connect Keystone"
         return introVC
+    }
+    
+    func derivedAccountPicker(node: HDNode, completion: @escaping (_ privateKey: PrivateKey) -> Void) -> KeyPickerController {
+        let pickDerivedKeyVC = KeyPickerController(node: node)
+        pickDerivedKeyVC.completion = { [unowned pickDerivedKeyVC] in
+            let key = pickDerivedKeyVC.privateKey!
+            completion(key)
+        }
+        return pickDerivedKeyVC
     }
 }
