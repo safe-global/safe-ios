@@ -58,6 +58,7 @@ class AddressField: UINibView {
         if let address = address {
             addressView.setAddress(address, label: label, prefix: prefix)
             showInputView(addressView)
+            borderView.tintColor = .borderSelected
         } else {
             showInputView(placeholderLabel)
         }

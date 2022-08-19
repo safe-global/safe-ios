@@ -14,6 +14,8 @@
             <connections>
                 <outlet property="addressField" destination="VXP-Wu-QCR" id="LM1-Mi-fs2"/>
                 <outlet property="continueButton" destination="egI-xR-BoB" id="Psh-JJ-McO"/>
+                <outlet property="descriptionLabel" destination="Hde-lS-rfK" id="HZI-FU-MTk"/>
+                <outlet property="hintLabel" destination="XF6-gw-1Wm" id="oe7-uH-bS0"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,16 +24,28 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ZcG-bR-yvZ">
-                    <rect key="frame" x="16" y="60" width="382" height="56"/>
+                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZcG-bR-yvZ">
+                    <rect key="frame" x="16" y="60" width="382" height="154"/>
                     <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can select yourself or any other person to be a delegate." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hde-lS-rfK">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="41"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VXP-Wu-QCR" customClass="AddressField" customModule="Multisig" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="382" height="56"/>
+                            <rect key="frame" x="0.0" y="49" width="382" height="56"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="mVb-Q8-OwM"/>
                             </constraints>
                         </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="For gasless voting, we suggest selecting an EOA wallet e.g. your connected wallet." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XF6-gw-1Wm">
+                            <rect key="frame" x="0.0" y="113" width="382" height="41"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="egI-xR-BoB">
