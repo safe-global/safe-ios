@@ -19,17 +19,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2xW-Xn-Bve">
-                        <rect key="frame" x="16" y="8" width="288" height="195"/>
+                        <rect key="frame" x="16" y="8" width="288" height="187"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="dsG-wD-d2X">
-                                <rect key="frame" x="16" y="16" width="256" height="163"/>
+                                <rect key="frame" x="16" y="16" width="256" height="155"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zKy-3T-jAg" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="256" height="134.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTy-B8-eYp">
-                                        <rect key="frame" x="0.0" y="150.5" width="256" height="12.5"/>
+                                        <rect key="frame" x="0.0" y="150.5" width="256" height="4.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -49,7 +49,7 @@
                 <constraints>
                     <constraint firstItem="2xW-Xn-Bve" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="CUF-8T-7wV"/>
                     <constraint firstAttribute="trailing" secondItem="2xW-Xn-Bve" secondAttribute="trailing" constant="16" id="dE8-TO-G43"/>
-                    <constraint firstAttribute="bottom" secondItem="2xW-Xn-Bve" secondAttribute="bottom" id="eIM-sD-Rik"/>
+                    <constraint firstAttribute="bottom" secondItem="2xW-Xn-Bve" secondAttribute="bottom" constant="8" id="eIM-sD-Rik"/>
                     <constraint firstItem="2xW-Xn-Bve" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="mt1-Ac-5oc"/>
                 </constraints>
             </tableViewCellContentView>

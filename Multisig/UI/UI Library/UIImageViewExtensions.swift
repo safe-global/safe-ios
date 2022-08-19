@@ -43,9 +43,9 @@ extension UIImageView {
     }
 
     /// Sets the image from URL or uses blocky for the address if image can't be loaded
-    func setCircleImage(url: URL?, address: Address) {
+    func setCircleImage(url: URL?, placeholderName: String? = nil, address: Address) {
         let blocky = BlockiesImageProvider(seed: address.hexadecimal).image()?.circleShape()
-        setCircleShapeImage(url: url, placeholder: blocky)
+        setCircleShapeImage(url: url, placeholder: UIImage(named: (placeholderName ?? "")) ?? blocky)
     }
 
     func setImage(url: URL?, placeholder: UIImage?, failedImage: UIImage?) {
