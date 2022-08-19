@@ -32,7 +32,7 @@ struct EmailSupportViewController: UIViewControllerRepresentable {
         let chain = safe != nil ? "\(safe!.chain!.name!) (\(safe!.chain!.id!))" : "None"
 
         let message = """
-        Gnosis Safe \(version)
+        Safe \(version)
         Safe address: \(address)
         Chain: \(chain)
         Feedback:
@@ -63,7 +63,7 @@ class MailComposeHandler: NSObject, MFMailComposeViewControllerDelegate {
 
 struct EmailSupportViewController_Previews: PreviewProvider {
     static var previews: some View {
-        EmailSupportViewController(url: URL(string: "safe@gnosis.io")!)
+        EmailSupportViewController(url: URL(string: "support@safe.global")!)
     }
 }
 

@@ -26,7 +26,7 @@ class SafeLoadedViewController: AccountActionCompletedViewController {
         } catch {
             fatalError()
         }
-        titleText = "Load Gnosis Safe"
+        titleText = "Load Safe"
         headerText = "Safe loaded"
         primaryActionName = "Add owner key"
         secondaryActionName = "Skip"

@@ -30,7 +30,7 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
 
                     .init(image: UIImage(named: "ico-onboarding-import-key-2"),
                             title: "How secure is that?",
-                            body: "WalletConnect is a secure protocol for exchanging messages. Gnosis Safe app will not get access to your private key stored in your wallet."),
+                            body: "WalletConnect is a secure protocol for exchanging messages. Safe app will not get access to your private key stored in your wallet."),
 
                     .init(image: UIImage(named: "ico-onboarding-import-key-3"),
                             title: "Is my wallet supported?",

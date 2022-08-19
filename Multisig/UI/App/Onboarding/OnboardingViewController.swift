@@ -31,7 +31,7 @@ class OnboardingViewController: UIViewController {
                                                           backgroundImage: UIImage(named: "ico-onboarding-background-2")!,
                                                           trackingEvent: .screenOnboarding2),
                                            OnboardingStep(title: "Enjoy stealth security from Multi-signature",
-                                                                  description: (text:"About $107B worth of digital assets are already securely stored by individuals and teams using Gnosis Safe.", highlightedText: "$107B worth of digital assets"),
+                                                                  description: (text:"About $107B worth of digital assets are already securely stored by individuals and teams using Safe.", highlightedText: "$107B worth of digital assets"),
                                                           image: UIImage(named: "ico-onboarding-3")!,
                                                           backgroundImage: UIImage(named: "ico-onboarding-background-3")!,
                                                           trackingEvent: .screenOnboarding3)
@@ -66,7 +66,7 @@ class OnboardingViewController: UIViewController {
     @IBAction private func didTapLoadSafe(_ sender: Any) {
         Tracker.trackEvent(.addSafeFromOnboarding)
         let selectNetworkVC = SelectNetworkViewController()
-        selectNetworkVC.screenTitle = "Load Gnosis Safe"
+        selectNetworkVC.screenTitle = "Load Safe"
         selectNetworkVC.descriptionText = "Select network on which your Safe was created:"
         selectNetworkVC.completion = { [unowned selectNetworkVC, weak self] chain  in
             let vc = EnterSafeAddressViewController()

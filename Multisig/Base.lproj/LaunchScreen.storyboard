@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchscreen-logo" translatesAutoresizingMaskIntoConstraints="NO" id="1gs-g6-Bnu">
-                                <rect key="frame" x="157" y="212" width="100" height="153"/>
+                                <rect key="frame" x="60" y="120" width="294" height="245"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-splash-text" translatesAutoresizingMaskIntoConstraints="NO" id="Iqr-mN-Ycx">
@@ -32,12 +32,15 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="splashBackground"/>
                         <constraints>
+                            <constraint firstItem="1gs-g6-Bnu" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="60" id="1wg-gL-weR"/>
                             <constraint firstItem="Iqr-mN-Ycx" firstAttribute="top" secondItem="1gs-g6-Bnu" secondAttribute="bottom" constant="40" id="AhB-Ob-69V"/>
+                            <constraint firstAttribute="trailing" secondItem="1gs-g6-Bnu" secondAttribute="trailing" constant="60" id="GbW-9u-Ldn"/>
                             <constraint firstItem="Iqr-mN-Ycx" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="GrW-9P-X2e"/>
                             <constraint firstItem="Iqr-mN-Ycx" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="LGN-tn-F0C"/>
                             <constraint firstItem="HE7-XI-zng" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="O4b-CJ-Ype"/>
                             <constraint firstAttribute="bottom" secondItem="HE7-XI-zng" secondAttribute="bottom" id="YRA-K3-zF0"/>
                             <constraint firstItem="1gs-g6-Bnu" firstAttribute="centerX" secondItem="Iqr-mN-Ycx" secondAttribute="centerX" id="hxY-7O-sOt"/>
+                            <constraint firstItem="1gs-g6-Bnu" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="120" id="yDL-Lw-VbY"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -49,7 +52,7 @@
     <resources>
         <image name="ico-splash-gradient" width="274" height="286"/>
         <image name="ico-splash-text" width="315" height="86"/>
-        <image name="launchscreen-logo" width="100" height="153"/>
+        <image name="launchscreen-logo" width="636" height="858"/>
         <namedColor name="splashBackground">
             <color red="0.0" green="0.54900002479553223" blue="0.45100000500679016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

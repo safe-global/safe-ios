@@ -14,7 +14,7 @@ class AddOwnerKeyViewController: UITableViewController {
     private var showsCloseButton: Bool = true
     private var keyTypes: [(type: KeyType, title: String, subtitle: String)] = [
         (.deviceImported, "Import existing owner key", "Import an existing key or a seed phrase"),
-        (.deviceGenerated, "Create new owner key", "Create a new key that you can use as an owner of your Gnosis Safe"),
+        (.deviceGenerated, "Create new owner key", "Create a new key that you can use as an owner of your Safe"),
         (.ledgerNanoX, "Connect Ledger Nano X", "Add a key from your hardware wallet")
     ]
 

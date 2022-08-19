@@ -126,7 +126,7 @@ extension AdvancedSafeSettingsViewController {
             }
 
         case Section.FallbackHandler.fallbackHandlerHelpLink:
-            return helpLinkCell(text: "What is a fallback handler and how does it relate to the Gnosis Safe",
+            return helpLinkCell(text: "What is a fallback handler and how does it relate to the Safe",
                                 url: App.configuration.help.fallbackHandlerURL,
                                 indexPath: indexPath)
 
