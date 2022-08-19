@@ -42,7 +42,7 @@ class ChooseDelegateIntroViewController: UIViewController {
         titleLabel.setStyle(GNOTextStyle.Updated.title)
         descriptionLabel.setStyle(.secondary)
         chooseGuardianButton.setText("Delegate to a Safe Guardian", .filled)
-        customAddressButton.setText("Custom Address", .bordered)
+        customAddressButton.setText("Delegate to custom address or ENS", .primary)
     }
 
     @IBAction func didChooseGuardianButton(_ sender: Any) {

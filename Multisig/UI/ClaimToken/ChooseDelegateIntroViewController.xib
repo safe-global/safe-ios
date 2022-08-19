@@ -24,6 +24,59 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ztP-8m-zZg">
+                    <rect key="frame" x="0.0" y="68" width="414" height="650"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hbx-z2-tv4">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="329"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Qcm-Gd-blf">
+                                    <rect key="frame" x="16" y="0.0" width="382" height="329"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-set-delegate" translatesAutoresizingMaskIntoConstraints="NO" id="SmO-Ka-EbC">
+                                            <rect key="frame" x="128" y="0.0" width="126" height="126"/>
+                                        </imageView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="SAH-VH-Adm">
+                                            <rect key="frame" x="6" y="150" width="370.5" height="179"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a delegate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L6g-5h-2v2">
+                                                    <rect key="frame" x="114" y="0.0" width="142.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Cg-9n-XwV">
+                                                    <rect key="frame" x="0.0" y="36.5" width="370.5" height="142.5"/>
+                                                    <string key="text">A delegate is someone you select to make governance decisions on your behalf for all of your vested and unvested tokens. You still retain full ownership over your tokens and you can always change the delegate at a later point.
+You can also delegate to a non-listed address or yourself.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="Qcm-Gd-blf" secondAttribute="trailing" constant="16" id="7r8-XC-bNJ"/>
+                                <constraint firstItem="Qcm-Gd-blf" firstAttribute="top" secondItem="hbx-z2-tv4" secondAttribute="top" id="cM5-kW-tLd"/>
+                                <constraint firstItem="Qcm-Gd-blf" firstAttribute="leading" secondItem="hbx-z2-tv4" secondAttribute="leading" constant="16" id="ilq-Ys-dfO"/>
+                                <constraint firstAttribute="bottom" secondItem="Qcm-Gd-blf" secondAttribute="bottom" id="xmy-SF-1KH"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="hbx-z2-tv4" firstAttribute="top" secondItem="8bT-4c-sxo" secondAttribute="top" id="43T-yQ-IkM"/>
+                        <constraint firstItem="hbx-z2-tv4" firstAttribute="leading" secondItem="8bT-4c-sxo" secondAttribute="leading" id="Lfq-zG-4Km"/>
+                        <constraint firstItem="hbx-z2-tv4" firstAttribute="width" secondItem="Vo0-nB-cdF" secondAttribute="width" id="T4g-3g-Mnq"/>
+                        <constraint firstItem="hbx-z2-tv4" firstAttribute="bottom" secondItem="8bT-4c-sxo" secondAttribute="bottom" id="dbx-gc-ZRc"/>
+                        <constraint firstItem="hbx-z2-tv4" firstAttribute="trailing" secondItem="8bT-4c-sxo" secondAttribute="trailing" id="uXh-fL-XL0"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="8bT-4c-sxo"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="Vo0-nB-cdF"/>
+                </scrollView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="RFH-7f-pFO">
                     <rect key="frame" x="16" y="726" width="382" height="120"/>
                     <subviews>
@@ -43,7 +96,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IO8-jP-Bia">
                             <rect key="frame" x="0.0" y="64" width="382" height="56"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="Custom address">
+                            <state key="normal" title="Delegate to custom address or ENS">
                                 <color key="titleColor" name="labelPrimary"/>
                             </state>
                             <connections>
@@ -55,49 +108,17 @@
                         <constraint firstItem="IO8-jP-Bia" firstAttribute="height" secondItem="iDe-tV-LXS" secondAttribute="height" id="bZU-UK-5VH"/>
                     </constraints>
                 </stackView>
-                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JDD-Yk-kfK">
-                    <rect key="frame" x="20" y="84" width="374" height="329"/>
-                    <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Qcm-Gd-blf">
-                            <rect key="frame" x="0.0" y="0.0" width="374" height="329"/>
-                            <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-set-delegate" translatesAutoresizingMaskIntoConstraints="NO" id="SmO-Ka-EbC">
-                                    <rect key="frame" x="124" y="0.0" width="126" height="126"/>
-                                </imageView>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="SAH-VH-Adm">
-                                    <rect key="frame" x="2" y="150" width="370.5" height="179"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a delegate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L6g-5h-2v2">
-                                            <rect key="frame" x="114" y="0.0" width="142.5" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Cg-9n-XwV">
-                                            <rect key="frame" x="0.0" y="36.5" width="370.5" height="142.5"/>
-                                            <string key="text">A delegate is someone you select to make governance decisions on your behalf for all of your vested and unvested tokens. You still retain full ownership over your tokens and you can always change the delegate at a later point.
-
-</string>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </stackView>
-                            </subviews>
-                        </stackView>
-                    </subviews>
-                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="RFH-7f-pFO" secondAttribute="bottom" constant="16" id="3AT-l2-dAj"/>
-                <constraint firstAttribute="trailing" secondItem="JDD-Yk-kfK" secondAttribute="trailing" constant="20" id="FUJ-QT-asm"/>
+                <constraint firstItem="ztP-8m-zZg" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Q2z-B7-SUP"/>
                 <constraint firstItem="RFH-7f-pFO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="bLv-wC-sRc"/>
-                <constraint firstItem="JDD-Yk-kfK" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="40" id="e1x-vx-b8m"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="RFH-7f-pFO" secondAttribute="trailing" constant="16" id="fJx-25-jWq"/>
-                <constraint firstItem="JDD-Yk-kfK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="jka-3c-R12"/>
+                <constraint firstItem="ztP-8m-zZg" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="gya-v3-VLg"/>
+                <constraint firstItem="RFH-7f-pFO" firstAttribute="top" secondItem="ztP-8m-zZg" secondAttribute="bottom" constant="8" id="hzw-gY-OgT"/>
+                <constraint firstItem="ztP-8m-zZg" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="24" id="xhi-j6-ISK"/>
             </constraints>
             <point key="canvasLocation" x="-274" y="125"/>
         </view>
