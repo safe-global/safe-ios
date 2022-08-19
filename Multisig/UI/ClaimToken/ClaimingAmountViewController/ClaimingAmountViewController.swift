@@ -58,6 +58,8 @@ class ClaimingAmountViewController: LoadableViewController {
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
         navigationItem.title = "Your available allocation"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
     }
 
     override func reloadData() {

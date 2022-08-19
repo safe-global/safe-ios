@@ -32,8 +32,8 @@ class IdenticonView: UINibView {
         ownerCountLabel.textColor = .primary
     }
 
-    func set(address: Address, imageURL: URL? = nil, badgeName: String? = nil, reqConfirmations: Int? = nil, owners: Int? = nil) {
-        identiconImageView.setCircleImage(url: imageURL, address: address)
+    func set(address: Address, imageURL: URL? = nil, placeholderImage: String? = nil, badgeName: String? = nil, reqConfirmations: Int? = nil, owners: Int? = nil) {
+        identiconImageView.setCircleImage(url: imageURL, placeholderName: placeholderImage, address: address)
         if let badgeName = badgeName {
             badgeImageView.image = UIImage(named: badgeName)
         }

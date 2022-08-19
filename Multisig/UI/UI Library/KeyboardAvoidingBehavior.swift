@@ -11,8 +11,9 @@ import UIKit
 class KeyboardAvoidingBehavior {
     private weak var scrollView: UIScrollView!
     private let notificationCenter: NotificationCenter
+    private var touchRecognizer: UITapGestureRecognizer!
 
-    var hidesKeyboardOnTap: Bool = true
+    var hidesKeyboardOnTap: Bool = false
 
     /// Set this variable to reference active text field when a text field gets focus
     var activeTextField: UITextField? {
@@ -34,12 +35,21 @@ class KeyboardAvoidingBehavior {
     init(scrollView: UIScrollView, notificationCenter: NotificationCenter = NotificationCenter.default) {
         self.scrollView = scrollView
         self.notificationCenter = notificationCenter
-        let touchRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapScrollView))
-        scrollView.gestureRecognizers?.forEach { touchRecognizer.require(toFail: $0) }
-        scrollView.addGestureRecognizer(touchRecognizer)
+
     }
 
-    func start() {
+    func start(hidesKeyboardOnTap: Bool = true) {
+        self.hidesKeyboardOnTap = hidesKeyboardOnTap
+        if touchRecognizer == nil {
+            touchRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapScrollView))
+        }
+
+        if hidesKeyboardOnTap {
+            scrollView.gestureRecognizers?.forEach { touchRecognizer.require(toFail: $0) }
+            scrollView.addGestureRecognizer(touchRecognizer)
+        } else {
+            scrollView.removeGestureRecognizer(touchRecognizer)
+        }
         notificationCenter.addObserver(self,
                                        selector: #selector(didShowKeyboard(_:)),
                                        name: UIResponder.keyboardDidShowNotification,

@@ -14,13 +14,16 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="129" id="KGk-i7-Jjw" customClass="SafeTokenBannerTableViewCell" customModule="Multisig" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tyu-ht-CN0" customClass="SafeTokenBanner" customModule="Multisig" customModuleProvider="target">
-                        <rect key="frame" x="16" y="12" width="288" height="105"/>
+                        <rect key="frame" x="16" y="12" width="288" height="140"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="140" id="jh1-lk-Jda"/>
+                        </constraints>
                     </view>
                 </subviews>
                 <constraints>

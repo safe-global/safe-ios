@@ -31,11 +31,13 @@ class GuardianTableViewCell: UITableViewCell {
             hideAddress: false,
             label: guardian.name,
             imageUri: guardian.imageURL,
+            placeholderImage: "ico-no-delegate-placeholder",
             badgeName: nil,
             prefix: nil)
 
         addressInfoView.copyEnabled = false
         
         descriptionLabel.text = guardian.reason
+        layoutIfNeeded()
     }
 }
