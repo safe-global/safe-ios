@@ -113,7 +113,7 @@ class WebConnectionRequestViewController: WebConnectionContainerViewController, 
             actionPanelView.setEnabled(false)
 
         case .connected:
-            App.shared.snackbar.show(message: "Connected to Gnosis Safe.", icon: .success)
+            App.shared.snackbar.show(message: "Connected to Safe.", icon: .success)
 
         case .failed:
             let message = ["Failed to connect.", (connection.lastError ?? "")].joined(separator: " ")

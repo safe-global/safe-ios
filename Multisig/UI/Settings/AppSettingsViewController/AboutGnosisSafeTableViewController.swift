@@ -30,7 +30,7 @@ class AboutGnosisSafeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "About Gnosis Safe"
+        navigationItem.title = "About Safe"
         
         tableView.registerCell(BasicCell.self)
         

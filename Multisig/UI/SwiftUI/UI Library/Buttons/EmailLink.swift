@@ -52,6 +52,6 @@ struct EmailLink: View {
 
 struct EmailLink_Previews: PreviewProvider {
     static var previews: some View {
-        EmailLink(title: "Email", url: URL(string: "safe@gnosis.io")!)
+        EmailLink(title: "Email", url: URL(string: "support@safe.global")!)
     }
 }

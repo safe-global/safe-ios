@@ -11,7 +11,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Gnosis Safe</string>
+	<string>Safe</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -150,13 +150,13 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Allow Gnosis Safe to connect hardware devices and sign transactions.</string>
+	<string>Allow Safe to connect hardware devices and sign transactions.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Enable Bluetooth to connect your hardware wallet</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Safe need to use camera to scan QR code.</string>
 	<key>NSFaceIDUsageDescription</key>
-	<string>This will allow Gnosis Safe to access your Face ID to open app and sign transactions.</string>
+	<string>This will allow Safe to access your Face ID to open app and sign transactions.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>The app needs access to the photo library if you need to share your screenshot with our support team.</string>
 	<key>PAY_FOR_CANCELLATION_URL</key>

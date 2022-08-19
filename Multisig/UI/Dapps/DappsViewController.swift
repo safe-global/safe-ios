@@ -105,7 +105,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
 
             let dappSectionItems = DappsDataSource().dapps.map { Section.Dapp.dapp($0) }
             if !dappSectionItems.isEmpty {
-                sections.append((section: .dapp("Dapps supporting Gnosis Safe"), items: dappSectionItems))
+                sections.append((section: .dapp("Dapps supporting Safe"), items: dappSectionItems))
             }
             self.tableView.reloadData()
         }
@@ -233,7 +233,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
             return nil
         }
         let view = tableView.dequeueHeaderFooterView(ExternalLinkHeaderFooterView.self)
-        view.set(label: "How to connect a dapp via WalletConnect on Gnosis Safe Mobile?")
+        view.set(label: "How to connect a dapp via WalletConnect on Safe Mobile?")
         view.set(url: App.configuration.help.connectDappOnMobileURL)
         return view
     }

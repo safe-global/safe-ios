@@ -25,7 +25,7 @@ class EnterSafeAddressViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Load Gnosis Safe"
+        navigationItem.title = "Load Safe"
 
         headerLabel.setStyle(.headline)
 
@@ -56,8 +56,8 @@ class EnterSafeAddressViewController: UIViewController {
         enterAddressVC.address = address
         enterAddressVC.prefix = chain.shortName
         enterAddressVC.trackingEvent = .safeAddName
-        enterAddressVC.screenTitle = "Load Gnosis Safe"
-        enterAddressVC.descriptionText = "Choose a name for the Safe. The name is only stored locally and will not be shared with Gnosis or any third parties."
+        enterAddressVC.screenTitle = "Load Safe"
+        enterAddressVC.descriptionText = "Choose a name for the Safe. The name is only stored locally and will not be shared with us or any third parties"
         enterAddressVC.actionTitle = "Next"
         enterAddressVC.placeholder = "Enter name"
 

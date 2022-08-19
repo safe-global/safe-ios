@@ -215,7 +215,7 @@ class TransactionExecutionController {
                     let execTransactionSuccess = try partialResults.ethCall.get()
                     let success = try Sol.Bool(execTransactionSuccess).storage
                     guard success else {
-                        throw TransactionExecutionError(code: -7, message: "Internal Gnosis Safe transaction fails. Please double check whether this transaction is valid with the current state of the Safe.")
+                        throw TransactionExecutionError(code: -7, message: "Internal Safe transaction fails. Please double check whether this transaction is valid with the current state of the Safe.")
                     }
                 } catch {
                     errors.append(error)
@@ -265,7 +265,7 @@ class TransactionExecutionController {
 
         let input: Data
 
-        // select the appropriate Gnosis Safe contract ABI version
+        // select the appropriate Safe contract ABI version
         let safeVersion = Version(safeVersionString) ?? Version(1, 3, 0)
         let isL2Contract = chainIsL2 && safeVersion >= Version(1, 3, 0)
 
