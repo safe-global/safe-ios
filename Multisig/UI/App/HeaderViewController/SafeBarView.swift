@@ -71,11 +71,8 @@ class SafeBarView: UINibView {
         accessoryLabel.isHidden = !readOnly
     }
 
-    func set(claimableAmount: String?) {
-        if let claimableAmount = claimableAmount {
-            claimableAmountView.isHidden = false
-            claimableAmountView.set(value: claimableAmount)
-        } else { claimableAmountView.isHidden = true }
+    func set(safeTokenClaimable: Bool) {
+        claimableAmountView.isHidden = !safeTokenClaimable
     }
 
     // encapsulating the button's target-action API
