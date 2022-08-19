@@ -9,17 +9,15 @@
 import UIKit
 
 class ClaimableAmountView: UINibView {
-    @IBOutlet private weak var label: UILabel!
     @IBOutlet private weak var claimButton: UIButton!
 
     var onClaim: (() -> ())?
     override func awakeFromNib() {
         super.awakeFromNib()
-        label.setStyle(.headline)
-    }
-
-    func set(value: String) {
-        label.text = value
+        layer.borderWidth = 2
+        layer.cornerRadius = 8
+        clipsToBounds = true
+        layer.borderColor = UIColor.clear.cgColor
     }
 
     @IBAction func claimButtonTouched(_ sender: Any) {
