@@ -30,7 +30,7 @@ struct GNOFilledWhiteButtonStyle: ButtonStyle {
             .frame(maxWidth: .infinity)
             .font(.gnoHeadline2)
             .background(Color.white)
-            .foregroundColor(Color.primary)
+            .foregroundColor(Color.black)
             .cornerRadius(10)
             .cardShadowTooltip()
     }
