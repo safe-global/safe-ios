@@ -9,28 +9,13 @@ import WhatsNewKit
 class WhatsNewHandler {
     private let whatsNew = WhatsNew(
             // Show the WhatsNew screen only once for users of this version
-            version: WhatsNew.Version(major: 3, minor: 14, patch: 0),
+            version: WhatsNew.Version(major: 3, minor: 15, patch: 0),
             title: "What's new",
             items: [
                 WhatsNew.Item(
-                        title: "Open Links in App",
-                        subtitle: "Now you can open links to assets or transactions, or transaction details of a safe in the mobile app",
+                        title: "We have changed!",
+                        subtitle: "Gnosis Safe rebranded to Safe. Following a successful spin-off vote from Gnosis in GIP-29, we are rebranding to Safe. Now and over the coming time, you will see a new look and a better visual experience to your ever secure Gnosis Safe that you love.",
                         image: UIImage(named: "ico-whats-new-open-links-in-app")
-                ),
-                WhatsNew.Item(
-                        title: "Review Delegate Calls",
-                        subtitle: "Bring attention to potentially dangerous transactions marked with warning of «unexpected delegate calls» in transaction details",
-                        image: UIImage(named: "ico-whats-new-review-delegate-calls")
-                ),
-                WhatsNew.Item(
-                        title: "Edit Safe Owners",
-                        subtitle: "Connect your owner key to the Safe and edit Safe owners and confirmation requirements in the Safe settings",
-                        image: UIImage(named: "ico-whats-new-edit-safe-owners")
-                ),
-                WhatsNew.Item(
-                        title: "Request to join a Safe",
-                        subtitle: "After creating new owner key request to join the selected Safe by sharing a link with one of the owners",
-                        image: UIImage(named: "ico-whats-new-join-safe")
                 )
             ]
     )
