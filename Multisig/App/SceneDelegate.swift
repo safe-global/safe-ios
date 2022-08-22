@@ -282,12 +282,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func onAppUpdateCompletion() {
-        // FIXME: Remove when the launch screen fixed
-        if !AppSettings.termsAccepted {
-            AppSettings.termsAccepted = true
-        }
-        // END OF FIXME
-
         if !AppSettings.termsAccepted {
             showWindow(makeTermsWindow())
         } else if shouldShowPasscode {
