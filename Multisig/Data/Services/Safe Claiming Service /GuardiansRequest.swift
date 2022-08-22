@@ -12,7 +12,7 @@ struct GuardiansRequest: JSONRequest {
     var httpMethod: String { "GET" }
 
     var urlPath: String {
-        "/api/v1/guardians/"
+        "/claiming-app-data/resources/data/guardians.json"
     }
 
     typealias ResponseType = [Guardian]
@@ -24,10 +24,12 @@ struct Guardian: Decodable {
     let contribution: String?
     let address: AddressString
     let ens: String?
-    let imageUrl: String?
-    let startDate: String?
+    let image: String?
     var imageURL: URL? {
-        imageUrl == nil ? nil : URL(string: imageUrl!)
+        guard let image = image else {
+            return nil
+        }
+        return URL(string: "https://5afe.github.io/claiming-app-data/resources/data/images/\(image)")
     }
 }
 

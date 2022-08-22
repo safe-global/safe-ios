@@ -71,8 +71,7 @@ class ClaimSafeTokenFlow: UIFlow {
                 contribution: nil,
                 address: AddressString(address),
                 ens: nil,
-                imageUrl: nil,
-                startDate: nil
+                image: nil
             )
             selectAmount(guardian: guardian)
         }

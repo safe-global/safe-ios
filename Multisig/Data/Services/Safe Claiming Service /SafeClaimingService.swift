@@ -16,7 +16,7 @@ class SafeClaimingService {
     }
 
     init(logger: Logger) {
-        self.url = URL(string: "https://claim-mobile-api.herokuapp.com")!
+        self.url = URL(string: "https://5afe.github.io/")!
         httpClient = JSONHTTPClient(url: url, logger: logger)
         httpClient.jsonDecoder.dateDecodingStrategy = .millisecondsSince1970
     }

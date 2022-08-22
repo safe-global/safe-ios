@@ -8,11 +8,12 @@
 import Foundation
 
 // TODO: Behave the same way as Swift Array / Data of bytes
-public protocol SolFixedBytes: SolAbiEncodable, Hashable {
+public protocol SolFixedBytes: SolAbiEncodable, Hashable, ExpressibleByStringLiteral {
     static var byteCount: Int { get }
     var storage: Data { get set }
     init()
     init(storage: Data)
+    init?(hex: String)
 }
 
 // MARK: - Encoding
@@ -56,5 +57,27 @@ extension SolFixedBytes {
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(storage)
+    }
+}
+
+extension SolFixedBytes {
+    public init?(hex: String) {
+        let data = Data(hex: hex)
+        if data.count != Self.byteCount {
+            return nil
+        }
+        self.init(storage: data)
+    }
+
+    public init(stringLiteral value: String) {
+        self.init(hex: value)!
+    }
+
+    public init(extendedGraphemeClusterLiteral value: String) {
+        self.init(hex: value)!
+    }
+
+    public init(unicodeScalarLiteral value: String) {
+        self.init(hex: value)!
     }
 }
