@@ -43,6 +43,8 @@ class IdenticonInfoView: UINibView {
         
         if let ensName = guardian.ens {
             addressLabel.text = ensName
+            addressLabel.numberOfLines = 0
+            addressLabel.textAlignment = .center
         } else {
             addressLabel.text = guardian.address.address.ellipsized()
         }
