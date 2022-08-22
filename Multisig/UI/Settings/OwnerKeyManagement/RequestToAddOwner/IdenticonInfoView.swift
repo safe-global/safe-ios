@@ -35,7 +35,9 @@ class IdenticonInfoView: UINibView {
 
     func setGuardian(guardian: Guardian) {
 
-        blockie.set(address: guardian.address.address, imageURL: guardian.imageURL)
+        blockie.set(address: guardian.address.address,
+                    imageURL: guardian.imageURL,
+                    placeholderImage: "ico-no-delegate-placeholder")
 
         nameLabel.text = guardian.name
         
