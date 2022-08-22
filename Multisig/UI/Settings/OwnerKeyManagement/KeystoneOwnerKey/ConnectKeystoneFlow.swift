@@ -60,7 +60,7 @@ final class ConnectKeystoneFlow: AddKeyFlow {
     override func doImport() -> Bool {
         if let privateKey = privateKey,
            let keyName = keyName {
-            return OwnerKeyController.importKey(keystone: privateKey, name: keyName, isDrivedFromSeedPhrase: true)
+            return OwnerKeyController.importKey(keystone: privateKey, name: keyName)
         } else {
             return false
         }
