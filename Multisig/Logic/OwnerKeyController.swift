@@ -111,7 +111,7 @@ class OwnerKeyController {
         }
     }
 
-    static func importKey(keystone privateKey: PrivateKey, name: String, isDrivedFromSeedPhrase: Bool) -> Bool {
+    static func importKey(keystone privateKey: PrivateKey, name: String) -> Bool {
         do {
             try KeyInfo.import(keystone: privateKey.address, name: name, privateKey: privateKey)
 

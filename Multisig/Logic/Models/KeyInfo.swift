@@ -258,7 +258,7 @@ extension KeyInfo {
 
         item.address = address
         item.name = name
-        item.keyID = privateKey.id
+        item.keyID = "keystone:\(address.checksummed)"
         item.keyType = .keystone
         item.backedup = false
 
