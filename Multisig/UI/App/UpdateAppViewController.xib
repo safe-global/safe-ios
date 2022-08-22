@@ -75,7 +75,7 @@
         </view>
     </objects>
     <resources>
-        <image name="ico-logo" width="636" height="858"/>
+        <image name="ico-logo" width="596" height="842"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
