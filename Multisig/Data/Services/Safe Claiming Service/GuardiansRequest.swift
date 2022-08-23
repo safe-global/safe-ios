@@ -18,20 +18,6 @@ struct GuardiansRequest: JSONRequest {
     typealias ResponseType = [Guardian]
 }
 
-struct Guardian: Decodable {
-    let name: String?
-    let reason: String?
-    let contribution: String?
-    let address: AddressString
-    let ens: String?
-    let image: String?
-    var imageURL: URL? {
-        guard let image = image else {
-            return nil
-        }
-        return URL(string: "https://5afe.github.io/claiming-app-data/resources/data/images/\(image)")
-    }
-}
 
 extension SafeClaimingService {
     func asyncGuardians(completion: @escaping (Result<GuardiansRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
