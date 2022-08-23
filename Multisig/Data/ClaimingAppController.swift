@@ -89,11 +89,44 @@ class ClaimingAppController {
         }
     }
 
-    // TODO: create claiming transaction for amount and delegate
-        // [user.redeem]
-        // user.claimViaModule|claimTokens
-        // [registry.setDelegate]
-        // [ecosystem.redeem]
-        // [ecosystem.claimViaModule|claimTokens]
+    // Important: the code below allows you to claim "0" amount and set delegate
+    // However, the requirements for the app state that user must put non-zero amount to the claiming field.
+    // This means that claiming or setting delegate not possible if claiming 0 tokens.
+
+    // requires:
+        // safe token paused status
+        // for each airdrop contract
+            // allocation data
+            // current vesting data
+        // amount to claim
+            // number in wei less or equal to the total claimable amount or MAX_VALUE
+        // delegate address or nil
+            // if nil, setting delegate will be skipped
+        // timestamp of the claiming event (to take the vested amount)
+    // guarantees: returns the set of transactions for the claiming and setting delegate
+        // delegate:
+            // nil - no setDelegate
+            // not nil - setDelegate transaction present
+
+        // remaining to claim = claimed amount
+        // for each airdrop contract allocation:
+            // if remainig is 0 then stop
+            // available = how many tokens available to claim now from the contract
+            // claimed share = remaining = max ? max : min(available, remaining)
+            // if claimed share > 0 or is MAX
+                // if not redeemed, then redeem
+                // add claim share based on the safe token paused state
+                    // use `claimVestedTokensViaModule` or `claimVestedTokens`
+                // remaining -= claimed share = max ? 0 : claimed share
+
+    // transaction combinator
+        // requires: list of transactions
+        // guarantees:
+            // if single transaction, then will create a call to that transaction itself vai Safe taransaction
+            // else will put everythign in multisend and put that into a Safe transaction
+        // if resulting set of transactions has more than 1 transaction
+            // then wraps this set in a multi-send with a delegate call
+        // otherwise uses that 1 transaction
+        // then uses resulting transaction as a payload to the Safe contract to create a Safe transaction
 
 }

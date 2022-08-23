@@ -19,7 +19,6 @@ class SafeClaimingService {
         self.url = URL(string: "https://5afe.github.io/")!
         httpClient = JSONHTTPClient(url: url, logger: logger)
         httpClient.jsonDecoder.dateDecodingStrategy = .millisecondsSince1970
-        httpClient.jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
     }
 
     @discardableResult
