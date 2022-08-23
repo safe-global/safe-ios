@@ -52,7 +52,7 @@ class RpcClient {
                 }
 
             }
-            dispatchOnMainThread(completion(callResult))
+            completion(callResult)
         }
     }
 

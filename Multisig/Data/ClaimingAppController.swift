@@ -38,7 +38,14 @@ class ClaimingAppController {
 
     // TODO: Static Data
         // get guardians list
-        // get vesting data with proof
+        // https://5afe.github.io/claiming-app-data/resources/data/guardians.json
+        // get guardian image
+        // https://5afe.github.io/claiming-app-data/resources/data/images/0x26416423d530b1931A2a7a6b7D435Fac65eED27d_3x.png
+
+        // get vesting data
+        // https://5afe.github.io/claiming-app-data/resources/data/allocations/0x000543d851cd52a6bfd83a1d168d35deae4e3590.json
+        // https://5afe.github.io/claiming-app-data/resources/data/allocations.json
+
 
     // MARK: - Safe Token Contract
 
@@ -50,7 +57,7 @@ class ClaimingAppController {
             let result = contractResult.map { pausedResult in
                 return pausedResult._arg0.storage
             }
-            dispatchOnMainThread(completion(result))
+            completion(result)
         }
     }
 
@@ -65,7 +72,7 @@ class ClaimingAppController {
 
     func isVestingRedeemed(hash: Sol.Bytes32, contract: Sol.Address, completion: @escaping (Result<Bool, Error>) -> Void) -> URLSessionTask? {
         return getVesting(hash: hash, contract: contract) { result in
-            dispatchOnMainThread(completion(result.map({ $0.account != 0 })))
+            completion(result.map({ $0.account != 0 }))
         }
     }
 
@@ -75,9 +82,9 @@ class ClaimingAppController {
             to: configuration.delegateRegistry,
             input: DelegateRegistry.delegation(_arg0: delegator, _arg1: configuration.delegateId)
         ) { result in
-            dispatchOnMainThread(completion(result.map({ returns in
+            completion(result.map({ returns in
                 returns._arg0
-            })))
+            }))
         }
     }
 

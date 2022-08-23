@@ -132,7 +132,7 @@ class SafeTransactionController {
             let result = contractResult.map { returns in
                 returns._arg0.elements.compactMap(Address.init)
             }
-            dispatchOnMainThread(completion(result))
+            completion(result)
         }
     }
 
