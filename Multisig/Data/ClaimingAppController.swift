@@ -30,22 +30,23 @@ class ClaimingAppController {
 
     var configuration: Configuration
     var rpcClient: RpcClient
+    var claimingService: SafeClaimingService
 
     init(configuration: Configuration = .rinkeby, chain: Chain = .rinkebyChain()) {
         self.configuration = configuration
         self.rpcClient = RpcClient(chain: chain)
+        claimingService = App.shared.claimingService
     }
 
-    // TODO: Static Data
-        // get guardians list
-        // https://5afe.github.io/claiming-app-data/resources/data/guardians.json
-        // get guardian image
-        // https://5afe.github.io/claiming-app-data/resources/data/images/0x26416423d530b1931A2a7a6b7D435Fac65eED27d_3x.png
+    // MARK: - Static data
 
-        // get vesting data
-        // https://5afe.github.io/claiming-app-data/resources/data/allocations/0x000543d851cd52a6bfd83a1d168d35deae4e3590.json
-        // https://5afe.github.io/claiming-app-data/resources/data/allocations.json
+    func guardians(completion: @escaping (Result<[Guardian], Error>) -> Void) -> URLSessionTask? {
+        claimingService.asyncGuardians(completion: completion)
+    }
 
+    func allocations(address: Address, completion: @escaping (Result<[Allocation], Error>) -> Void) -> URLSessionTask? {
+        claimingService.asyncAllocations(account: address, completion: completion)
+    }
 
     // MARK: - Safe Token Contract
 
@@ -63,21 +64,21 @@ class ClaimingAppController {
 
     // MARK: - Airdrop Contract
 
-    func getVesting(hash: Sol.Bytes32, contract: Sol.Address, completion: @escaping (Result<Airdrop.vestings.Returns, Error>) -> Void) -> URLSessionTask? {
+    func vesting(id: Sol.Bytes32, contract: Sol.Address, completion: @escaping (Result<Airdrop.vestings.Returns, Error>) -> Void) -> URLSessionTask? {
         return rpcClient.eth_call(
             to: contract,
-            input: Airdrop.vestings(_arg0: hash),
+            input: Airdrop.vestings(_arg0: id),
             completion: completion)
     }
 
     func isVestingRedeemed(hash: Sol.Bytes32, contract: Sol.Address, completion: @escaping (Result<Bool, Error>) -> Void) -> URLSessionTask? {
-        return getVesting(hash: hash, contract: contract) { result in
+        return vesting(id: hash, contract: contract) { result in
             completion(result.map({ $0.account != 0 }))
         }
     }
 
     // MARK: - Delegate Registry Contract
-    func getDelegate(of delegator: Sol.Address, completion: @escaping (Result<Sol.Address, Error>) -> Void) -> URLSessionTask? {
+    func delegate(of delegator: Sol.Address, completion: @escaping (Result<Sol.Address, Error>) -> Void) -> URLSessionTask? {
         return rpcClient.eth_call(
             to: configuration.delegateRegistry,
             input: DelegateRegistry.delegation(_arg0: delegator, _arg1: configuration.delegateId)
