@@ -2097,13 +2097,13 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		047A5B8D28A54FAC00BB8B2A /* Safe Claiming Service  */ = {
+		047A5B8D28A54FAC00BB8B2A /* Safe Claiming Service */ = {
 			isa = PBXGroup;
 			children = (
 				047A5B8E28A54FCB00BB8B2A /* SafeClaimingService.swift */,
 				047A5B9028A5582F00BB8B2A /* GuardiansRequest.swift */,
 			);
-			path = "Safe Claiming Service ";
+			path = "Safe Claiming Service";
 			sourceTree = "<group>";
 		};
 		047A653225ADE8E800AE8845 /* SwiftUI */ = {
@@ -3492,7 +3492,7 @@
 		5532D4DF2449A4C00067505A /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				047A5B8D28A54FAC00BB8B2A /* Safe Claiming Service  */,
+				047A5B8D28A54FAC00BB8B2A /* Safe Claiming Service */,
 				5532D4B72449A17D0067505A /* Utils */,
 				0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */,
 				043ABD0924EF0C33008826D5 /* Safe Client Gateway Service */,
