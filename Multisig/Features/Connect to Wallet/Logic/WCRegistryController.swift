@@ -31,7 +31,9 @@ class WCRegistryController {
 
     static let excludedWallets = [
         // excluded because it's this app
-        "Gnosis Safe Multisig"
+        "Gnosis Safe Multisig",
+        "Safe",
+        "Safe Multisig"
     ]
 
     weak var delegate: WCRegistryControllerDelegate?
