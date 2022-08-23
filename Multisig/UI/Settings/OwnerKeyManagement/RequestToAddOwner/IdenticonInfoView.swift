@@ -35,12 +35,16 @@ class IdenticonInfoView: UINibView {
 
     func setGuardian(guardian: Guardian) {
 
-        blockie.set(address: guardian.address.address, imageURL: guardian.imageURL)
+        blockie.set(address: guardian.address.address,
+                    imageURL: guardian.imageURL,
+                    placeholderImage: "ico-no-delegate-placeholder")
 
         nameLabel.text = guardian.name
         
         if let ensName = guardian.ens {
             addressLabel.text = ensName
+            addressLabel.numberOfLines = 0
+            addressLabel.textAlignment = .center
         } else {
             addressLabel.text = guardian.address.address.ellipsized()
         }

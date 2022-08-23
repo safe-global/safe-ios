@@ -107,7 +107,12 @@ extension UILabel {
         attributedText = NSAttributedString(string: text, attributes: style.attributes)
     }
 
-    func hyperLinkLabel(_ prefixText: String = "", prefixStyle: GNOTextStyle = .primary, linkText: String = "", linkStyle: GNOTextStyle = .primaryButton, linkIcon: UIImage? = UIImage(named: "icon-external-link")!.withTintColor(.primary)) {
+    func hyperLinkLabel(_ prefixText: String = "",
+                        prefixStyle: GNOTextStyle = .primary,
+                        linkText: String = "",
+                        linkStyle: GNOTextStyle = .primaryButton,
+                        linkIcon: UIImage? = UIImage(named: "icon-external-link")!.withTintColor(.primary),
+                        underlined: Bool = true) {
         let result = NSMutableAttributedString()
 
         if !prefixText.isEmpty {
@@ -118,7 +123,9 @@ extension UILabel {
         // text + non-breaking space
         let attributedLinkText = NSMutableAttributedString(string: "\(linkText)\u{00A0}")
         attributedLinkText.addAttributes(linkStyle.attributes, range: NSRange(location: 0, length: attributedLinkText.length))
-        attributedLinkText.addAttributes([NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue], range: NSRange(location: 0, length: attributedLinkText.length))
+        if underlined {
+            attributedLinkText.addAttributes([NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue], range: NSRange(location: 0, length: attributedLinkText.length))
+        }
 
         result.append(attributedLinkText)
 

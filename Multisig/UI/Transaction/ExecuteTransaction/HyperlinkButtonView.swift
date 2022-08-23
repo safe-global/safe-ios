@@ -14,10 +14,10 @@ class HyperlinkButtonView: UINibView, ExternalURLSource {
 
     var url: URL?
 
-    func setText(_ value: String?) {
+    func setText(_ value: String?, underlined: Bool = true) {
         label.text = nil
         if let text = value {
-            label.hyperLinkLabel(linkText: text)
+            label.hyperLinkLabel(linkText: text, underlined: underlined)
         } else {
             label.attributedText = nil
         }
