@@ -123,56 +123,17 @@ class SafeTransactionController {
     }
 
     func getOwners(safe: Address, chain: Chain, completion: @escaping (Result<[Address], Error>) -> Void) -> URLSessionTask? {
-        let rpcClient = JsonRpc2.Client(transport: JsonRpc2.ClientHTTPTransport(url: chain.authenticatedRpcUrl.absoluteString), serializer: JsonRpc2.DefaultSerializer())
-
-        let tx: EthTransaction = Eth.TransactionEip1559(
+        let client = RpcClient(chain: chain)
+        
+        return client.eth_call(
             to: Sol.Address(maybeData: safe.data32)!,
-            input: Sol.Bytes(storage: GnosisSafe_v1_3_0.getOwners().encode())
-        )
-
-        // latest is the default for web3 js lib, replicating it here
-        let block: EthRpc1.BlockSpecifier = .tag(.latest)
-
-        let ethCall = EthRpc1.eth_callLegacyApi(transaction: EthRpc1.EstimateGasLegacyTransaction(tx), block: block)
-
-
-        let request: JsonRpc2.Request
-        do {
-            request = try ethCall.request(id: .int(0))
-        } catch {
-            dispatchOnMainThread(completion(.failure(error)))
-            return nil
+            input: GnosisSafe_v1_3_0.getOwners()
+        ) { contractResult in
+            let result = contractResult.map { returns in
+                returns._arg0.elements.compactMap(Address.init)
+            }
+            completion(result)
         }
-
-        let task = rpcClient.send(request: request) { response in
-            guard let response = response else {
-                dispatchOnMainThread(completion(.failure("No response")))
-                return
-            }
-
-            if let error = response.error {
-                let jsonError = (try? error.data?.convert(to: Json.NSError.self))?.nsError() ?? (error as NSError)
-                dispatchOnMainThread(completion(.failure(jsonError)))
-                return
-            }
-
-            guard let result = response.result else {
-                dispatchOnMainThread(completion(.failure("No result")))
-                return
-            }
-
-            do {
-                let contractResponse = try ethCall.result(from: result).storage
-
-                let returns = try GnosisSafe_v1_3_0.getOwners.Returns.init(contractResponse)
-                let addresses = returns._arg0.elements.compactMap(Address.init)
-                dispatchOnMainThread(completion(.success(addresses)))
-            } catch {
-                dispatchOnMainThread(completion(.failure(error)))
-            }
-        }
-
-        return task
     }
 
     //TODO: implement method 

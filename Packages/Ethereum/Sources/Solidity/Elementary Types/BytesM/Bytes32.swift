@@ -17,3 +17,4 @@ extension Sol.Bytes32: SolFixedBytes {
     public static var byteCount: Int { 32 }
 }
 
+

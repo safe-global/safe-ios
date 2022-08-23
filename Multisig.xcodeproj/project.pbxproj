@@ -386,6 +386,9 @@
 		0A86EE6F25CC2B4C0059876E /* RetryFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A86EE6E25CC2B4C0059876E /* RetryFooterView.xib */; };
 		0A86EE7525CC2BC30059876E /* LoadingFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A86EE7425CC2BC30059876E /* LoadingFooterView.xib */; };
 		0A86EE7B25CC2C600059876E /* IdleFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A86EE7A25CC2C600059876E /* IdleFooterView.xib */; };
+		0A884C4228B3AAFF00D008A0 /* ClaimingAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A884C4128B3AAFF00D008A0 /* ClaimingAppController.swift */; };
+		0A884C4428B3B4BC00D008A0 /* ClaimingAppControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A884C4328B3B4BC00D008A0 /* ClaimingAppControllerTests.swift */; };
+		0A884C4628B3B7F800D008A0 /* RpcClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A884C4528B3B7F800D008A0 /* RpcClient.swift */; };
 		0A8AEB1025A4712B002A3FE1 /* ActionDetailTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8AEB0E25A4712B002A3FE1 /* ActionDetailTextCell.swift */; };
 		0A8AEB1125A4712B002A3FE1 /* ActionDetailTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8AEB0F25A4712B002A3FE1 /* ActionDetailTextCell.xib */; };
 		0A8AEB1825A4726E002A3FE1 /* ActionDetailExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8AEB1625A4726E002A3FE1 /* ActionDetailExpandableCell.swift */; };
@@ -1280,6 +1283,9 @@
 		0A86EE6E25CC2B4C0059876E /* RetryFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RetryFooterView.xib; sourceTree = "<group>"; };
 		0A86EE7425CC2BC30059876E /* LoadingFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingFooterView.xib; sourceTree = "<group>"; };
 		0A86EE7A25CC2C600059876E /* IdleFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IdleFooterView.xib; sourceTree = "<group>"; };
+		0A884C4128B3AAFF00D008A0 /* ClaimingAppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimingAppController.swift; sourceTree = "<group>"; };
+		0A884C4328B3B4BC00D008A0 /* ClaimingAppControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimingAppControllerTests.swift; sourceTree = "<group>"; };
+		0A884C4528B3B7F800D008A0 /* RpcClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RpcClient.swift; sourceTree = "<group>"; };
 		0A8AEB0E25A4712B002A3FE1 /* ActionDetailTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDetailTextCell.swift; sourceTree = "<group>"; };
 		0A8AEB0F25A4712B002A3FE1 /* ActionDetailTextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionDetailTextCell.xib; sourceTree = "<group>"; };
 		0A8AEB1625A4726E002A3FE1 /* ActionDetailExpandableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDetailExpandableCell.swift; sourceTree = "<group>"; };
@@ -2091,13 +2097,13 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		047A5B8D28A54FAC00BB8B2A /* Safe Claiming Service  */ = {
+		047A5B8D28A54FAC00BB8B2A /* Safe Claiming Service */ = {
 			isa = PBXGroup;
 			children = (
 				047A5B8E28A54FCB00BB8B2A /* SafeClaimingService.swift */,
 				047A5B9028A5582F00BB8B2A /* GuardiansRequest.swift */,
 			);
-			path = "Safe Claiming Service ";
+			path = "Safe Claiming Service";
 			sourceTree = "<group>";
 		};
 		047A653225ADE8E800AE8845 /* SwiftUI */ = {
@@ -3005,6 +3011,7 @@
 				0A61E8432670E5FF009D68A4 /* UI Snapshot Tests */,
 				0A01DCE32770B0A100A87D7A /* TransactionIntegrationTests.swift */,
 				0AF8D1A92822C74E0035DCF7 /* SafeTransactionControllerIntegrationTests.swift */,
+				0A884C4328B3B4BC00D008A0 /* ClaimingAppControllerTests.swift */,
 			);
 			path = MultisigIntegrationTests;
 			sourceTree = "<group>";
@@ -3241,6 +3248,8 @@
 		0AF432C5244DFA0200E22E50 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				0A884C4128B3AAFF00D008A0 /* ClaimingAppController.swift */,
+				0A884C4528B3B7F800D008A0 /* RpcClient.swift */,
 				5532D4DF2449A4C00067505A /* Services */,
 				5556A03324489F37003EC861 /* Persistence */,
 			);
@@ -3483,7 +3492,7 @@
 		5532D4DF2449A4C00067505A /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				047A5B8D28A54FAC00BB8B2A /* Safe Claiming Service  */,
+				047A5B8D28A54FAC00BB8B2A /* Safe Claiming Service */,
 				5532D4B72449A17D0067505A /* Utils */,
 				0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */,
 				043ABD0924EF0C33008826D5 /* Safe Client Gateway Service */,
@@ -4970,6 +4979,7 @@
 				0A6886E72589080A0045CAB5 /* GNOTextField.swift in Sources */,
 				04D131DB25E416FC0032FA03 /* RejectionCreatedPiece.swift in Sources */,
 				6A4BC4D6288DD921002B6DDA /* EnterCustomAddressViewController.swift in Sources */,
+				0A884C4628B3B7F800D008A0 /* RpcClient.swift in Sources */,
 				0A478D3B25B863D60038363E /* DerivedKeyTableViewCell.swift in Sources */,
 				55883612255C15870014E8C7 /* UIViewController+Safari.swift in Sources */,
 				0A93DDB924461C1400688050 /* Fonts.swift in Sources */,
@@ -5105,6 +5115,7 @@
 				049257AE273C239C00507C33 /* String+Highlight.swift in Sources */,
 				0A0EFCAC246EB32400D3D8BF /* CopyButton.swift in Sources */,
 				0A63C7E32602725100D36B22 /* AddressInfo.swift in Sources */,
+				0A884C4228B3AAFF00D008A0 /* ClaimingAppController.swift in Sources */,
 				550FB19F26691CA300C13D54 /* DappsDataSource.swift in Sources */,
 				0A74EEFD268DF37100EB0EFB /* RibbonViewController.swift in Sources */,
 				AD303414E96F6CD45E31FBE7 /* WhatsNewHandler.swift in Sources */,
@@ -5186,6 +5197,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A884C4428B3B4BC00D008A0 /* ClaimingAppControllerTests.swift in Sources */,
 				0A513A9D2768EBC900F07D5A /* DelegateKeyTests.swift in Sources */,
 				0A61E8422670E474009D68A4 /* CellTestViewController.swift in Sources */,
 				0A9D5CE427D8EC280075A21D /* WCRegistryIntegrationTests.swift in Sources */,

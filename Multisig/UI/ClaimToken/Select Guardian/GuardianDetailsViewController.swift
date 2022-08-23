@@ -54,43 +54,8 @@ class GuardianDetailsViewController: UIViewController {
         continueButton.setText("Select & Continue", .filled)
 
         if guardian.address.address == Address.zero {
-
+            App.shared.snackbar.show(message: "Missing ENS name or guardian address")
             continueButton.isEnabled = false
-
-            DispatchQueue.main.async { [unowned self] in
-                if let ensName = guardian.ens {
-                    let blockchainDomainManager = BlockchainDomainManager(
-                        rpcURL: chain.authenticatedRpcUrl,
-                        chainId: chain.id!,
-                        ensRegistryAddress: AddressString(chain.ensRegistryAddress!)
-                    )
-                    do {
-
-                        let guardianAddress = try blockchainDomainManager.resolveEnsDomain(domain: ensName)
-
-                        viewOnEtherscan.url = chain.browserURL(address: guardianAddress.checksummed)
-
-                        guardian = Guardian(
-                            name: guardian.name,
-                            reason: guardian.reason,
-                            contribution: guardian.contribution,
-                            address: AddressString(guardianAddress),
-                            ens: guardian.ens,
-                            imageUrl: guardian.imageUrl,
-                            startDate: guardian.startDate
-                        )
-
-                        continueButton.isEnabled = true
-
-                    } catch {
-                        let gsError = GSError.error(description: "ENS resolution failed", error: error)
-                        App.shared.snackbar.show(error: gsError)
-                    }
-                } else {
-                    App.shared.snackbar.show(message: "Missing ENS name and address")
-                }
-            }
-
         } else {
             viewOnEtherscan.url = chain.browserURL(address: guardian.address.address.checksummed)
         }
