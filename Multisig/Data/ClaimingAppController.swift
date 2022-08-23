@@ -73,7 +73,7 @@ class ClaimingAppController {
 
     func isVestingRedeemed(hash: Sol.Bytes32, contract: Sol.Address, completion: @escaping (Result<Bool, Error>) -> Void) -> URLSessionTask? {
         return vesting(id: hash, contract: contract) { result in
-            completion(result.map({ $0.account != 0 }))
+            completion(result.map({ $0.isRedeemed }))
         }
     }
 
@@ -104,29 +104,178 @@ class ClaimingAppController {
             // if nil, setting delegate will be skipped
         // timestamp of the claiming event (to take the vested amount)
     // guarantees: returns the set of transactions for the claiming and setting delegate
-        // delegate:
-            // nil - no setDelegate
-            // not nil - setDelegate transaction present
+    typealias Vesting = Airdrop.vestings.Returns
 
-        // remaining to claim = claimed amount
-        // for each airdrop contract allocation:
-            // if remainig is 0 then stop
-            // available = how many tokens available to claim now from the contract
-            // claimed share = remaining = max ? max : min(available, remaining)
+    func safeTransaction(to: Sol.Address, abi: Data) -> Transaction {
+        safeTransaction(to: AddressString(Address(to)!), abi: abi)
+    }
+
+    func safeTransaction(to: AddressString, abi: Data) -> Transaction {
+        Transaction(
+            to: to,
+            value: "0",
+            data: DataString(abi),
+            operation: .call,
+            safeTxGas: "0",
+            baseGas: "0",
+            gasPrice: "0",
+            gasToken: .zero,
+            refundReceiver: .zero,
+            nonce: "0"
+        )
+    }
+
+
+    func claimingTransactions(
+        amount: Sol.UInt128,
+        beneficiary: Address,
+        delegate: Address?,
+        timestamp: TimeInterval,
+        allocations: [(allocation: Allocation, vesting: Vesting)],
+        safeTokenPaused: Bool
+    ) -> [Transaction] {
+        var result = [Transaction]()
+        if let delegate = delegate {
+            let setDelegateCall = DelegateRegistry.setDelegate(
+                id: configuration.delegateId,
+                delegate: try! Sol.Address(delegate.data32)
+            ).encode()
+            result.append(safeTransaction(to: configuration.delegateRegistry, abi: setDelegateCall))
+        }
+
+        let CLAIM_MAX_VALUE = Sol.UInt128.max
+
+        var remainingToClaim = amount
+
+        for airdrop in allocations {
+            if remainingToClaim == 0 { break }
+
+            // available - how many tokens available to claim now from the contract
+            let available = airdrop.vesting.vestedAmount(at: timestamp)
+
+            let claimedShare = remainingToClaim == CLAIM_MAX_VALUE ? CLAIM_MAX_VALUE : min(available, remainingToClaim)
+
             // if claimed share > 0 or is MAX
-                // if not redeemed, then redeem
+            if claimedShare > 0 || claimedShare == CLAIM_MAX_VALUE {
+
+                if !airdrop.vesting.isRedeemed {
+                    let redeemCall = Airdrop.redeem(
+                        curveType: Sol.UInt8(airdrop.allocation.curve),
+                        durationWeeks: Sol.UInt16(airdrop.allocation.durationWeeks),
+                        startDate: Sol.UInt64(airdrop.allocation.startDate),
+                        amount: Sol.UInt128(airdrop.allocation.amount.value),
+                        // TODO: Add proof
+                        proof: Sol.Array<Sol.Bytes32>()
+                    ).encode()
+
+                    result.append(safeTransaction(to: airdrop.allocation.contract, abi: redeemCall))
+                }
+
                 // add claim share based on the safe token paused state
-                    // use `claimVestedTokensViaModule` or `claimVestedTokens`
-                // remaining -= claimed share = max ? 0 : claimed share
+                // use `claimVestedTokensViaModule` or `claimVestedTokens`
+                let claimCall: Data
+                if safeTokenPaused {
+                    claimCall = Airdrop.claimVestedTokensViaModule(
+                        vestingId: Sol.Bytes32(storage: airdrop.allocation.vestingId.data),
+                        beneficiary: try! Sol.Address(beneficiary.data32),
+                        tokensToClaim: claimedShare
+                    ).encode()
+                } else {
+                    claimCall = Airdrop.claimVestedTokens(
+                        vestingId: Sol.Bytes32(storage: airdrop.allocation.vestingId.data),
+                        beneficiary: try! Sol.Address(beneficiary.data32),
+                        tokensToClaim: claimedShare
+                    ).encode()
+                }
+                result.append(safeTransaction(to: airdrop.allocation.contract, abi: claimCall))
+
+                // reduce remaining amount by the share of the claimed for this airdrop contract
+                if claimedShare != CLAIM_MAX_VALUE {
+                    remainingToClaim -= claimedShare
+                }
+            }
+        }
+        return result
+    }
 
     // transaction combinator
-        // requires: list of transactions
-        // guarantees:
-            // if single transaction, then will create a call to that transaction itself vai Safe taransaction
-            // else will put everythign in multisend and put that into a Safe transaction
-        // if resulting set of transactions has more than 1 transaction
-            // then wraps this set in a multi-send with a delegate call
-        // otherwise uses that 1 transaction
-        // then uses resulting transaction as a payload to the Safe contract to create a Safe transaction
+    // requires: list of transactions
+    // guarantees:
+        // if single transaction, then will create a call to that transaction itself vai Safe taransaction
+        // else will put everything in multisend and put that into a Safe transaction
+    func combine(transactions: [Transaction]) -> Transaction? {
+        guard transactions.count > 1 else { return transactions.first }
+
+        // TODO: implement abi.encodePacked algorithm and join the resulting data for each transaction
+        _ = transactions.map { tx in
+            [Sol.UInt8(tx.operation.rawValue),
+             try! Sol.Address(tx.to.address.data32),
+             Sol.UInt256(tx.value.value),
+             Sol.UInt256((tx.data?.data ?? Data()).count),
+             Sol.Bytes(storage: tx.data?.data ?? Data())
+            ]
+        }
+
+        // TODO: create MultiSend contract ABI
+
+        let multiSendCall = MultiSendCallOnly.multiSend(transactions: Sol.Bytes()).encode()
+
+        // TODO: multi-send address is based on the deployment version of the contracts
+
+        return safeTransaction(to: .zero, abi: multiSendCall)
+    }
+}
+
+extension ClaimingAppController.Vesting {
+    var isRedeemed: Bool {
+        account != 0
+    }
+
+    func vestedAmount(at timestamp: TimeInterval) -> Sol.UInt128 {
+        // Convert vesting duration to seconds
+        let durationSeconds = Sol.UInt64(durationWeeks) * 7 * 24 * 60 * 60
+
+        // If contract is paused use the pausing date to calculate amount
+        let vestedSeconds = pausingDate > 0
+            ? pausingDate - startDate
+            : Sol.UInt64(timestamp) - startDate
+
+        let result: Sol.UInt128
+
+        if (vestedSeconds >= durationSeconds) {
+            // If vesting time is longer than duration everything has been vested
+            result = amount
+        } else if curveType == 0 {
+            // Linear vesting
+            result = calculateLinear(amount, vestedSeconds, durationSeconds);
+        } else if curveType == 1 {
+            // Exponential vesting
+            result = calculateExponential(amount, vestedSeconds, durationSeconds);
+        } else {
+            // This is unreachable because it is not possible to add a vesting with an invalid curve type
+            result = 0
+        }
+        return result
+    }
+
+    func calculateLinear(
+        _ targetAmount: Sol.UInt128,
+        _ elapsedTime: Sol.UInt64,
+        _ totalTime: Sol.UInt64
+    ) -> Sol.UInt128 {
+        // Calculate vested amount on linear curve: targetAmount * elapsedTime / totalTime
+        let amount = (Sol.UInt256(targetAmount) * Sol.UInt256(elapsedTime)) / Sol.UInt256(totalTime);
+        return Sol.UInt128(amount)
+    }
+
+    func calculateExponential(
+        _ targetAmount: Sol.UInt128,
+        _ elapsedTime: Sol.UInt64,
+        _ totalTime: Sol.UInt64
+    ) -> Sol.UInt128 {
+        // Calculate vested amount on exponential curve: targetAmount * elapsedTime^2 / totalTime^2
+        let amount = (Sol.UInt256(targetAmount) * Sol.UInt256(elapsedTime) * Sol.UInt256(elapsedTime)) / (Sol.UInt256(totalTime) * Sol.UInt256(totalTime));
+        return Sol.UInt128(amount);
+    }
 
 }
