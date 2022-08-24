@@ -12,6 +12,7 @@ public protocol SolAbiEncodable {
     var headSize: Int { get }
     var canonicalName: String { get }
     func encode() -> Data
+    func encodePacked() -> Data
     mutating func decode(from data: Data, offset: inout Int) throws
     init()
 }

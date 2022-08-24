@@ -9,6 +9,9 @@
 import Foundation
 import SafeAbi
 import Solidity
+import Version
+
+import SafeDeployments
 
 class ClaimingAppController {
 
@@ -18,13 +21,15 @@ class ClaimingAppController {
         var ecosystemAirdrop: Sol.Address
         var delegateRegistry: Sol.Address
         var delegateId: Sol.Bytes32 = Sol.Bytes32(storage: "safe.eth".data(using: .utf8)!.rightPadded(to: 32))
+        var chainId: String
 
         static let rinkeby = Configuration(
             safeToken: "0xCFf1b0FdE85C102552D1D96084AF148f478F964A",
             userAirdrop: "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
             ecosystemAirdrop: "0x82F1267759e9Bea202a46f8FC04704b6A5E2Af77",
             // https://github.com/gnosis/delegate-registry/blob/main/networks.json
-            delegateRegistry: "0x469788fE6E9E9681C6ebF3bF78e7Fd26Fc015446"
+            delegateRegistry: "0x469788fE6E9E9681C6ebF3bF78e7Fd26Fc015446",
+            chainId: "4"
         )
     }
 
@@ -89,9 +94,25 @@ class ClaimingAppController {
         }
     }
 
-    // Important: the code below allows you to claim "0" amount and set delegate
-    // However, the requirements for the app state that user must put non-zero amount to the claiming field.
-    // This means that claiming or setting delegate not possible if claiming 0 tokens.
+    typealias Vesting = Airdrop.vestings.Returns
+
+    func safeTransaction(to: Sol.Address, abi: Data, operation: SCGModels.Operation = .call) -> Transaction {
+        safeTransaction(to: AddressString(Address(to)!), abi: abi, operation: operation)
+    }
+    func safeTransaction(to: AddressString, abi: Data, operation: SCGModels.Operation = .call) -> Transaction {
+        Transaction(
+            to: to,
+            value: "0",
+            data: DataString(abi),
+            operation: operation,
+            safeTxGas: "0",
+            baseGas: "0",
+            gasPrice: "0",
+            gasToken: .zero,
+            refundReceiver: .zero,
+            nonce: "0"
+        )
+    }
 
     // requires:
         // safe token paused status
@@ -104,28 +125,6 @@ class ClaimingAppController {
             // if nil, setting delegate will be skipped
         // timestamp of the claiming event (to take the vested amount)
     // guarantees: returns the set of transactions for the claiming and setting delegate
-    typealias Vesting = Airdrop.vestings.Returns
-
-    func safeTransaction(to: Sol.Address, abi: Data) -> Transaction {
-        safeTransaction(to: AddressString(Address(to)!), abi: abi)
-    }
-
-    func safeTransaction(to: AddressString, abi: Data) -> Transaction {
-        Transaction(
-            to: to,
-            value: "0",
-            data: DataString(abi),
-            operation: .call,
-            safeTxGas: "0",
-            baseGas: "0",
-            gasPrice: "0",
-            gasToken: .zero,
-            refundReceiver: .zero,
-            nonce: "0"
-        )
-    }
-
-
     func claimingTransactions(
         amount: Sol.UInt128,
         beneficiary: Address,
@@ -203,26 +202,39 @@ class ClaimingAppController {
     // guarantees:
         // if single transaction, then will create a call to that transaction itself vai Safe taransaction
         // else will put everything in multisend and put that into a Safe transaction
-    func combine(transactions: [Transaction]) -> Transaction? {
+    func combine(transactions: [Transaction], safe: Safe) -> Transaction? {
         guard transactions.count > 1 else { return transactions.first }
 
-        // TODO: implement abi.encodePacked algorithm and join the resulting data for each transaction
-        _ = transactions.map { tx in
-            [Sol.UInt8(tx.operation.rawValue),
+        // From MultiSend contract documentation:
+        /// @param transactions Encoded transactions. Each transaction is encoded as a packed bytes of
+        ///                     operation as a uint8 with 0 for a call or 1 for a delegatecall (=> 1 byte),
+        ///                     to as a address (=> 20 bytes),
+        ///                     value as a uint256 (=> 32 bytes),
+        ///                     data length as a uint256 (=> 32 bytes),
+        ///                     data as bytes.
+        ///                     see abi.encodePacked for more information on packed encoding
+
+
+        let packedTransactions = Sol.Bytes(storage: transactions.flatMap { tx -> [Data] in
+            [Sol.UInt8(tx.operation.rawValue) as SolAbiEncodable,
              try! Sol.Address(tx.to.address.data32),
              Sol.UInt256(tx.value.value),
              Sol.UInt256((tx.data?.data ?? Data()).count),
              Sol.Bytes(storage: tx.data?.data ?? Data())
-            ]
+            ].map { $0.encodePacked() }
+        }.reduce(Data(), +))
+
+        let isSafe1_3_0 = safe.contractVersion != nil && Version(safe.contractVersion!)! >= Version(1, 3, 0)
+
+        if safe.contractVersion == nil || isSafe1_3_0 {
+            let multiSendCall = MultiSend_v1_3_0.multiSend(transactions: packedTransactions).encode()
+            let multiSendAddress = try! SafeDeployments.Safe.Deployment.find(contract: .MultiSend, version: .v1_3_0)!.address(for: configuration.chainId)!
+            return safeTransaction(to: multiSendAddress, abi: multiSendCall, operation: .delegate)
+        } else {
+            let multiSendCall = MultiSend_v1_1_1.multiSend(transactions: packedTransactions).encode()
+            let multiSendAddress = try! SafeDeployments.Safe.Deployment.find(contract: .MultiSend, version: .v1_1_1)!.address(for: configuration.chainId)!
+            return safeTransaction(to: multiSendAddress, abi: multiSendCall, operation: .delegate)
         }
-
-        // TODO: create MultiSend contract ABI
-
-        let multiSendCall = MultiSendCallOnly.multiSend(transactions: Sol.Bytes()).encode()
-
-        // TODO: multi-send address is based on the deployment version of the contracts
-
-        return safeTransaction(to: .zero, abi: multiSendCall)
     }
 }
 

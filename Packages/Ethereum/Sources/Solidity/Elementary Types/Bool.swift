@@ -14,14 +14,17 @@ extension Sol {
         public var storage: Swift.Bool
         public init() { storage = false }
         public init(storage: Swift.Bool) { self.storage = storage }
+
+        public var uint8Value: Sol.UInt8 {
+            storage ? 1 : 0
+        }
     }
 }
 
 extension Sol.Bool: SolAbiEncodable {
     public func encode() -> Data {
         // bool: as in the uint8 case, where 1 is used for true and 0 for false
-        let value = storage ? Sol.UInt8(1) : Sol.UInt8(0)
-        let result = value.encode()
+        let result = uint8Value.encode()
         return result
     }
 
@@ -42,6 +45,11 @@ extension Sol.Bool: SolAbiEncodable {
             // what got instead?
             throw SolAbiDecodingError.dataInvalid
         }
+    }
+
+    public func encodePacked() -> Data {
+        let result = uint8Value.encodePacked()
+        return result
     }
 
     public var canonicalName: String {
