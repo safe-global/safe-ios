@@ -66,3 +66,9 @@ extension Sol.Bool: Hashable {
         hasher.combine(storage)
     }
 }
+
+extension Sol.Bool: ExpressibleByBooleanLiteral {
+    public init(booleanLiteral value: Bool) {
+        self.init(storage: value)
+    }
+}

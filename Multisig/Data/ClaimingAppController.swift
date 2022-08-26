@@ -97,8 +97,9 @@ class ClaimingAppController {
     typealias Vesting = Airdrop.vestings.Returns
 
     func safeTransaction(to: Sol.Address, abi: Data, operation: SCGModels.Operation = .call) -> Transaction {
-        safeTransaction(to: AddressString(Address(to)!), abi: abi, operation: operation)
+        safeTransaction(to: AddressString(to), abi: abi, operation: operation)
     }
+
     func safeTransaction(to: AddressString, abi: Data, operation: SCGModels.Operation = .call) -> Transaction {
         Transaction(
             to: to,
