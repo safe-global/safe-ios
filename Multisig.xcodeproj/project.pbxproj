@@ -3366,9 +3366,16 @@
 			isa = PBXGroup;
 			children = (
 				47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */,
-				47F7129328ACA59600B6133A /* KeystoneURValidator.swift */,
 			);
 			path = KeystoneOwnerKey;
+			sourceTree = "<group>";
+		};
+		47DF358528B9481700EBEF3E /* Keystone */ = {
+			isa = PBXGroup;
+			children = (
+				47F7129328ACA59600B6133A /* KeystoneURValidator.swift */,
+			);
+			path = Keystone;
 			sourceTree = "<group>";
 		};
 		5503F62A255062070046545C /* CollectiblesViewController */ = {
@@ -3458,6 +3465,7 @@
 		5532D4912448A1960067505A /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				47DF358528B9481700EBEF3E /* Keystone */,
 				55FBC2D626BA9815002C2553 /* Ledger */,
 				0AD6EF1D25CAF5EC00EE5512 /* AppReviewController.swift */,
 				0455A44427282EA9008B772D /* FileManagerWrapper.swift */,
