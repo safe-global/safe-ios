@@ -15,9 +15,9 @@ class AddOwnerKeyViewController: UITableViewController {
     private var keyTypes: [(type: KeyType, title: String, subtitle: String)] = [
         (.deviceImported, "Import existing owner key", "Import an existing key or a seed phrase"),
         (.deviceGenerated, "Create new owner key", "Create a new key that you can use as an owner of your Safe"),
-        (.ledgerNanoX, "Connect Ledger Nano X", "Add a key from your hardware wallet")
+        (.ledgerNanoX, "Connect Ledger Nano X", "Add a key from your hardware wallet"),
+        (.keystone, "Connect Keystone", "Connect your key via QR code")
     ]
-    private let toggles = App.configuration.toggles
     
     convenience init(showsCloseButton: Bool = true, completion: @escaping () -> Void) {
         self.init()
@@ -41,12 +41,6 @@ class AddOwnerKeyViewController: UITableViewController {
         tableView.estimatedRowHeight = 90
         tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .backgroundPrimary
-
-        if toggles.isKeystoneEnabled {
-            keyTypes.append(
-                (.keystone, "Connect Keystone", "Connect your key via QR code")
-            )
-        }
         
         keyTypes.append(
             (.walletConnect, "Connect key", "Connect an existing key from another wallet using WalletConnect")
