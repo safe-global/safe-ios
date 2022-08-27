@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0406701228BABB60003DCCED /* BadgeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0406701128BABB60003DCCED /* BadgeImage.swift */; };
+		0406701428BABB83003DCCED /* BadgeImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0406701328BABB83003DCCED /* BadgeImage.xib */; };
 		04077B37278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04077B35278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.swift */; };
 		04077B38278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04077B36278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.xib */; };
 		04077B3D278CB85000AF6376 /* ActivityButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04077B3C278CB84F00AF6376 /* ActivityButtonView.swift */; };
@@ -938,6 +940,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0406701128BABB60003DCCED /* BadgeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeImage.swift; sourceTree = "<group>"; };
+		0406701328BABB83003DCCED /* BadgeImage.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BadgeImage.xib; sourceTree = "<group>"; };
 		04077B35278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSendFundsTransactionHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		04077B36278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewSendFundsTransactionHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		04077B3C278CB84F00AF6376 /* ActivityButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityButtonView.swift; sourceTree = "<group>"; };
@@ -3671,6 +3675,8 @@
 				0472B2A92857B44F0049BA17 /* ShareTextView.xib */,
 				046FFE182899681B007428D7 /* ClaimableAmountView.swift */,
 				046FFE1A28996831007428D7 /* ClaimableAmountView.xib */,
+				0406701128BABB60003DCCED /* BadgeImage.swift */,
+				0406701328BABB83003DCCED /* BadgeImage.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4461,6 +4467,7 @@
 				04C5ED3B27878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.xib in Resources */,
 				550FB1B326691D9500C13D54 /* ExternalLinkHeaderFooterView.xib in Resources */,
 				0A573F6E25877586009EF0C1 /* AddressField.xib in Resources */,
+				0406701428BABB83003DCCED /* BadgeImage.xib in Resources */,
 				6A9A771128041DA700C229FC /* TipsView.xib in Resources */,
 				0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */,
 				5559A91727675DB600237A5D /* dapps-arbitrum.json in Resources */,
@@ -5047,6 +5054,7 @@
 				0A478D5825B876AF0038363E /* ButtonTableViewCell.swift in Sources */,
 				5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */,
 				0A465C2E246C196900AFA467 /* Theme.swift in Sources */,
+				0406701228BABB60003DCCED /* BadgeImage.swift in Sources */,
 				049A9DD026020C0B00CA5723 /* SelectFiatViewController.swift in Sources */,
 				0ABE69852791B47B003338AF /* Fee1559FormModel.swift in Sources */,
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,

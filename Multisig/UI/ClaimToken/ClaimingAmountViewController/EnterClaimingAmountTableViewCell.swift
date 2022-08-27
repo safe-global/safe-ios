@@ -17,6 +17,7 @@ class EnterClaimingAmountTableViewCell: UITableViewCell {
     @IBOutlet private weak var addressInfoView: AddressInfoView!
     @IBOutlet private weak var delegateToLabel: UILabel!
     @IBOutlet private weak var addressContainerView: UIView!
+    @IBOutlet private weak var delegatingDescriptionLabel: UILabel!
 
     private var maxValue: String?
     private var onClaim: ((String) -> ())?
@@ -26,11 +27,12 @@ class EnterClaimingAmountTableViewCell: UITableViewCell {
         titleLabel.setStyle(GNOTextStyle.Updated.title)
         descriptionLabel.setStyle(.secondary)
         maxButton.setText("Max", .primary)
-        claimButton.setText("Claim tokens", .filled)
+        claimButton.setText("Claim & Delegate", .filled)
         addressContainerView.layer.borderWidth = 2
         addressContainerView.layer.cornerRadius = 10
         addressContainerView.layer.borderColor = UIColor.border.cgColor
         delegateToLabel.setStyle(.secondary)
+        delegatingDescriptionLabel.setStyle(.footnote4)
 
         amountTextField.setToken(image: UIImage(named: "ico-safe-token-logo"), amount: "0")
     }

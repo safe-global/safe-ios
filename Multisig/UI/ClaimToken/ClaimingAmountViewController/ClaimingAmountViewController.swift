@@ -57,7 +57,7 @@ class ClaimingAmountViewController: LoadableViewController {
 
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
-        navigationItem.title = "Your available allocation"
+        navigationItem.title = "Your Safe allocation"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
     }
