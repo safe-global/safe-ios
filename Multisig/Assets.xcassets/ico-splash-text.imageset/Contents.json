@@ -1,8 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "The most trusted platform to manage digital assets on Ethereum.-1.pdf",
-      "idiom" : "universal"
+      "filename" : "ico-splash-text.pdf",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
