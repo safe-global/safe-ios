@@ -119,7 +119,23 @@ class ClaimingAppController {
         // safe token paused status
         // for each airdrop contract
             // allocation data
+                // account
+                // vestingId
+                // contract
+                // chainId
+                // durationWeeks
+                // amount
+                // curve
             // current vesting data
+                // account
+                // curveType
+                // managed
+                // durationWeeks
+                // startDate
+                // amount
+                // amountClaimed
+                // pausingDate
+                // cancelled
         // amount to claim
             // number in wei less or equal to the total claimable amount or MAX_VALUE
         // delegate address or nil
@@ -147,28 +163,33 @@ class ClaimingAppController {
 
         var remainingToClaim = amount
 
-        for airdrop in allocations {
+        for (allocation, currentVesting) in allocations {
             if remainingToClaim == 0 { break }
 
             // available - how many tokens available to claim now from the contract
-            let available = airdrop.vesting.vestedAmount(at: timestamp)
+                // if redeemed, we can use `vesting` as is, otherwise
+                // it's going to be zero and we won't get accurate vested amount
+            let vesting = currentVesting.account == 0 ? Vesting(allocation) : currentVesting
+
+            let available = vesting.vestedAmount(at: timestamp)
 
             let claimedShare = remainingToClaim == CLAIM_MAX_VALUE ? CLAIM_MAX_VALUE : min(available, remainingToClaim)
 
             // if claimed share > 0 or is MAX
             if claimedShare > 0 || claimedShare == CLAIM_MAX_VALUE {
 
-                if !airdrop.vesting.isRedeemed {
+                if !currentVesting.isRedeemed {
                     let redeemCall = Airdrop.redeem(
-                        curveType: Sol.UInt8(airdrop.allocation.curve),
-                        durationWeeks: Sol.UInt16(airdrop.allocation.durationWeeks),
-                        startDate: Sol.UInt64(airdrop.allocation.startDate),
-                        amount: Sol.UInt128(airdrop.allocation.amount.value),
-                        // TODO: Add proof
-                        proof: Sol.Array<Sol.Bytes32>()
+                        curveType: Sol.UInt8(allocation.curve),
+                        durationWeeks: Sol.UInt16(allocation.durationWeeks),
+                        startDate: Sol.UInt64(allocation.startDate),
+                        amount: Sol.UInt128(allocation.amount.value),
+                        proof: Sol.Array<Sol.Bytes32>(elements: allocation.proof?.map { data in
+                            Sol.Bytes32(storage: data.data)
+                        } ?? [])
                     ).encode()
 
-                    result.append(safeTransaction(to: airdrop.allocation.contract, abi: redeemCall))
+                    result.append(safeTransaction(to: allocation.contract, abi: redeemCall))
                 }
 
                 // add claim share based on the safe token paused state
@@ -176,18 +197,18 @@ class ClaimingAppController {
                 let claimCall: Data
                 if safeTokenPaused {
                     claimCall = Airdrop.claimVestedTokensViaModule(
-                        vestingId: Sol.Bytes32(storage: airdrop.allocation.vestingId.data),
+                        vestingId: Sol.Bytes32(storage: allocation.vestingId.data),
                         beneficiary: try! Sol.Address(beneficiary.data32),
                         tokensToClaim: claimedShare
                     ).encode()
                 } else {
                     claimCall = Airdrop.claimVestedTokens(
-                        vestingId: Sol.Bytes32(storage: airdrop.allocation.vestingId.data),
+                        vestingId: Sol.Bytes32(storage: allocation.vestingId.data),
                         beneficiary: try! Sol.Address(beneficiary.data32),
                         tokensToClaim: claimedShare
                     ).encode()
                 }
-                result.append(safeTransaction(to: airdrop.allocation.contract, abi: claimCall))
+                result.append(safeTransaction(to: allocation.contract, abi: claimCall))
 
                 // reduce remaining amount by the share of the claimed for this airdrop contract
                 if claimedShare != CLAIM_MAX_VALUE {
@@ -240,6 +261,21 @@ class ClaimingAppController {
 }
 
 extension ClaimingAppController.Vesting {
+
+    init(_ allocation: Allocation) {
+        self.init(
+            account: try! Sol.Address(allocation.account.address.data32),
+            curveType: Sol.UInt8(exactly: allocation.curve) ?? 0,
+            managed: false,
+            durationWeeks: Sol.UInt16(exactly: allocation.durationWeeks) ?? 0,
+            startDate: Sol.UInt64(exactly: allocation.startDate) ?? 0,
+            amount: Sol.UInt128(exactly: allocation.amount.value) ?? 0,
+            amountClaimed: 0,
+            pausingDate: 0,
+            cancelled: false
+        )
+    }
+
     var isRedeemed: Bool {
         account != 0
     }

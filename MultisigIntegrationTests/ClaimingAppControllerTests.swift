@@ -154,7 +154,7 @@ class ClaimingAppControllerTests: XCTestCase {
         XCTAssertTrue(transactions.isEmpty)
     }
 
-    // case 3.1:
+    // case 3.1: partial claiming when eligible only for user airdrop
         // claimed amount: 100
         // safe token: paused
         // user airdrop: not redeemed
@@ -194,7 +194,7 @@ class ClaimingAppControllerTests: XCTestCase {
         XCTAssertEqual(transactions.count, 3, "Unexpected number of transactions")
 
         // Delegate Registry . setDelegate ( new delegate )
-        XCTAssertEqual(transactions[0].to, "0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0")
+        XCTAssertEqual(transactions[0].to, AddressString(controller.configuration.delegateRegistry))
         XCTAssertEqual(
             transactions[0].data,
             DataString(hex:
@@ -254,7 +254,7 @@ class ClaimingAppControllerTests: XCTestCase {
         // User Airdrop . claimVestedTokensViaModule( 100 )
         XCTAssertEqual(transactions[2].to, AddressString(controller.configuration.userAirdrop))
         XCTAssertEqual(
-            transactions[1].data,
+            transactions[2].data,
             DataString(hex:
                        "0x" +
                        // keccak(claimVestedTokensViaModule(bytes32,address,uint128))[0..<4]
