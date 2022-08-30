@@ -26,7 +26,7 @@ class WhatsNewHandler {
         let whatsNews = [whatsNew]
         var configuration = WhatsNewViewController.Configuration()
 
-        configuration.backgroundColor = .backgroundQuaternary
+        configuration.backgroundColor = .backgroundSecondary
 
         configuration.titleView.titleColor = .labelPrimary
         configuration.titleView.titleFont = .systemFont(ofSize: 26, weight: .regular)
