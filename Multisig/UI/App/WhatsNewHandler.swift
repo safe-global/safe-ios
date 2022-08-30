@@ -5,53 +5,63 @@
 
 import UIKit
 import WhatsNewKit
+import SwiftUI
 
 class WhatsNewHandler {
-    private let whatsNew = WhatsNew(
-            // Show the WhatsNew screen only once for users of this version
-            version: WhatsNew.Version(major: 3, minor: 16, patch: 0),
-            title: "What's new",
-            items: [
-                WhatsNew.Item(
-                        title: "We have changed!",
-                        subtitle: "Gnosis Safe rebranded to Safe. Following a successful spin-off vote from Gnosis in GIP-29, we are rebranding to Safe. Now and over the coming time, you will see a new look and a better visual experience to your ever secure Gnosis Safe that you love.",
-                        image: UIImage(named: "ico-whats-new-rebrand")
-                )
-            ]
-    )
-
     var whatsNewViewController: WhatsNewViewController?
 
     init() {
-        let whatsNews = [whatsNew]
-        var configuration = WhatsNewViewController.Configuration()
+        let title: WhatsNew.Title
+        let featureText: WhatsNew.Text
 
-        configuration.backgroundColor = .backgroundSecondary
+        if #available(iOS 15, *) {
+            var titleString = AttributedString("What's new")
+            titleString.font = .systemFont(ofSize: 26, weight: .regular)
+            titleString.foregroundColor = .labelPrimary
+            title = .init(text: WhatsNew.Text(titleString))
 
-        configuration.titleView.titleColor = .labelPrimary
-        configuration.titleView.titleFont = .systemFont(ofSize: 26, weight: .regular)
 
-        configuration.itemsView.titleFont = .systemFont(ofSize: 16, weight: .bold)
-        configuration.itemsView.titleColor = .labelPrimary
-        configuration.itemsView.subtitleColor = .labelSecondary
+            var featureString = AttributedString("Gnosis Safe has rebranded to Safe following a successful spin-off from the Gnosis DAO.\n\nNow and over the coming versions, you will see a new look and a better user experience for your ever secure Gnosis Safe.")
+            featureString.foregroundColor = .labelSecondary
 
-        configuration.detailButton?.titleColor = .primary
-        configuration.completionButton.backgroundColor = .primary
-        configuration.completionButton.title = "Let's go"
+            featureText = .init(featureString)
+            
+        } else {
+            title = "What's new"
+            featureText = "Gnosis Safe has rebranded to Safe following a successful spin-off from the Gnosis DAO.\n\nNow and over the coming versions, you will see a new look and a better user experience for your ever secure Gnosis Safe."
+        }
 
-        configuration.itemsView.autoTintImage = false
 
-        let keyValueVersionStore = KeyValueWhatsNewVersionStore(
-                keyValueable: UserDefaults.standard
+        let whatsNew = WhatsNew(
+            version: "3.16.0",
+            title: title,
+            features: [
+                WhatsNew.Feature(
+                    image: WhatsNew.Feature.Image(name: "ico-whats-new-rebrand", bundle: .main, renderingMode: .original, foregroundColor: nil),
+                    title: "Meet the new Safe!",
+                    subtitle: featureText
+                )
+            ],
+            primaryAction: WhatsNew.PrimaryAction(
+                title: "Let's go",
+                backgroundColor: .primary,
+                foregroundColor: .backgroundPrimary,
+                hapticFeedback: .notification(.success),
+                onDismiss: nil
+            ),
+            secondaryAction: nil
         )
 
-        let whatsNewForCurrentVersion = whatsNews.get(byVersion: .current())
-        if let whatsNewForCurrentVersion = whatsNewForCurrentVersion {
-            whatsNewViewController = WhatsNewViewController(
-                    whatsNew: whatsNewForCurrentVersion,
-                    configuration: configuration,
-                    versionStore: keyValueVersionStore // use InMemoryWhatsNewVersionStore() for debugging
-            )
-        }
+        // for debugging, use the In-memory store version
+        let versionStore: WhatsNewVersionStore = UserDefaultsWhatsNewVersionStore()
+        // let versionStore: WhatsNewVersionStore = InMemoryWhatsNewVersionStore()
+
+        let layout = WhatsNew.Layout(featureImageWidth: 60, featureHorizontalAlignment: .top)
+
+        whatsNewViewController = WhatsNewViewController(
+            whatsNew: whatsNew,
+            versionStore: versionStore,
+            layout: layout
+        )
     }
 }
