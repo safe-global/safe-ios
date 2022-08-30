@@ -21,7 +21,7 @@ class WhatsNewHandler {
             title = .init(text: WhatsNew.Text(titleString))
 
 
-            var featureString = AttributedString("\nGnosis Safe rebranded to Safe. Following a successful spin-off vote from Gnosis in GIP-29, we are rebranding to Safe.\n\nNow and over the coming time, you will see a new look and a better visual experience to your ever secure Gnosis Safe that you love.")
+            var featureString = AttributedString("Gnosis Safe rebranded to Safe. Following a successful spin-off vote from Gnosis in GIP-29, we are rebranding to Safe.\n\nNow and over the coming time, you will see a new look and a better visual experience to your ever secure Gnosis Safe that you love.")
             featureString.foregroundColor = .labelSecondary
 
             featureText = .init(featureString)
