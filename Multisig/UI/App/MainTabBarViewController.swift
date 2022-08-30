@@ -116,7 +116,9 @@ class MainTabBarViewController: UITabBarController {
 
         onFirstAppear(self)
 
-        WhatsNewHandler().whatsNewViewController?.present(on: self)
+        if let whatsNewVC = WhatsNewHandler().whatsNewViewController {
+            present(whatsNewVC, animated: true)
+        }
 
         WebConnectionController.shared.reconnect()
 
