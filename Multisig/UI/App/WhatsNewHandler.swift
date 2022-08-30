@@ -21,14 +21,14 @@ class WhatsNewHandler {
             title = .init(text: WhatsNew.Text(titleString))
 
 
-            var featureString = AttributedString("Gnosis Safe rebranded to Safe. Following a successful spin-off vote from Gnosis in GIP-29, we are rebranding to Safe.\n\nNow and over the coming time, you will see a new look and a better visual experience to your ever secure Gnosis Safe that you love.")
+            var featureString = AttributedString("Gnosis Safe has rebranded to ‘Safe’ following a successful spin-off from the Gnosis DAO.\n\nNow and over the coming versions, you will see a new look and a better user experience for your ever secure Gnosis Safe.")
             featureString.foregroundColor = .labelSecondary
 
             featureText = .init(featureString)
             
         } else {
             title = "What's new"
-            featureText = "Gnosis Safe rebranded to Safe. Following a successful spin-off vote from Gnosis in GIP-29, we are rebranding to Safe.\nNow and over the coming time, you will see a new look and a better visual experience to your ever secure Gnosis Safe that you love."
+            featureText = "Gnosis Safe has rebranded to ‘Safe’ following a successful spin-off from the Gnosis DAO.\n\nNow and over the coming versions, you will see a new look and a better user experience for your ever secure Gnosis Safe."
         }
 
 
@@ -38,7 +38,7 @@ class WhatsNewHandler {
             features: [
                 WhatsNew.Feature(
                     image: WhatsNew.Feature.Image(name: "ico-whats-new-rebrand", bundle: .main, renderingMode: .original, foregroundColor: nil),
-                    title: "We have changed!",
+                    title: "Meet the new Safe!",
                     subtitle: featureText
                 )
             ],
