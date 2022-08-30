@@ -9,7 +9,7 @@ import WhatsNewKit
 class WhatsNewHandler {
     private let whatsNew = WhatsNew(
             // Show the WhatsNew screen only once for users of this version
-            version: WhatsNew.Version(major: 3, minor: 17, patch: 0),
+            version: WhatsNew.Version(major: 3, minor: 16, patch: 0),
             title: "What's new",
             items: [
                 WhatsNew.Item(
@@ -50,7 +50,7 @@ class WhatsNewHandler {
             whatsNewViewController = WhatsNewViewController(
                     whatsNew: whatsNewForCurrentVersion,
                     configuration: configuration,
-                    versionStore: InMemoryWhatsNewVersionStore() //for debugging
+                    versionStore: keyValueVersionStore // use InMemoryWhatsNewVersionStore() for debugging
             )
         }
     }
