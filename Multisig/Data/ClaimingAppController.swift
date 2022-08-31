@@ -171,7 +171,7 @@ class ClaimingAppController {
                 // it's going to be zero and we won't get accurate vested amount
             let vesting = currentVesting.account == 0 ? Vesting(allocation) : currentVesting
 
-            let available = vesting.vestedAmount(at: timestamp)
+            let available = vesting.vestedAmount(at: timestamp) - vesting.amountClaimed
 
             let claimedShare = remainingToClaim == CLAIM_MAX_VALUE ? CLAIM_MAX_VALUE : min(available, remainingToClaim)
 
