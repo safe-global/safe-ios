@@ -61,8 +61,8 @@ class WhatsNewHandler {
         )
 
         // for debugging, use the In-memory store version
-//        let versionStore: WhatsNewVersionStore = UserDefaultsWhatsNewVersionStore()
-         let versionStore: WhatsNewVersionStore = InMemoryWhatsNewVersionStore()
+        let versionStore: WhatsNewVersionStore = UserDefaultsWhatsNewVersionStore()
+//         let versionStore: WhatsNewVersionStore = InMemoryWhatsNewVersionStore()
 
         let layout = WhatsNew.Layout(featureImageWidth: 60, featureHorizontalAlignment: .top)
 
