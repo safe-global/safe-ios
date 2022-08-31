@@ -155,6 +155,120 @@ class ClaimingAppControllerTests: XCTestCase {
         XCTAssertTrue(transactions.isEmpty)
     }
 
+    func test_claiming_endToEnd() throws {
+        continueAfterFailure = false
+
+        let networkTimeout: TimeInterval = 3600
+
+        // safe address
+        let safeAddress: Address = "0xEe6f78FeD18A20Af43d394f0F7dDc1aCf5d96d01"
+        // safe owner keys
+        let safeOwnerAddress: Address = "0x30846555A08e3e63897b063782b715e901FF57Be"
+        let safeOwnerKey = try PrivateKey(mnemonic: "series dad erosion illness attract shove matrix able trial turtle casino alcohol", pathIndex: 0)
+
+        let amountToClaim: Sol.UInt128 = 100
+
+        let chain = Chain.rinkebyChain()
+
+        // get safe info
+        let safe: Safe = Safe.create(address: safeAddress.checksummed, version: "1.3.0", name: "Claim Test Safe", chain: chain, selected: true, status: .deployed)
+
+        let expInfo = expectation(description: "SafeInfo")
+        _ = App.shared.clientGatewayService.asyncSafeInfo(safeAddress: safeAddress, chainId: chain.id!) { result in
+            do {
+                let safeInfo = try result.get()
+                safe.update(from: safeInfo)
+            } catch {
+                XCTFail("Failed to get safe info: \(error)")
+            }
+            expInfo.fulfill()
+        }
+        waitForExpectations(timeout: networkTimeout)
+
+        // get current safe token balance
+        var safeBalanceBefore: SafeBalanceSummary!
+        let expBalance = expectation(description: "SafeBalance")
+        _ = App.shared.clientGatewayService.asyncBalances(safeAddress: safeAddress, chainId: chain.id!) { result in
+            do {
+                safeBalanceBefore = try result.get()
+            } catch {
+                XCTFail("Failed to get safe balances: \(error)")
+            }
+            expBalance.fulfill()
+        }
+        waitForExpectations(timeout: networkTimeout)
+
+        // get all vesting data
+        var claimData: ClaimingAppController.ClaimingData!
+        let expData = expectation(description: "ClaimData")
+        controller.asyncFetchData(account: safeAddress, timeout: networkTimeout) { result in
+            do {
+                claimData = try result.get()
+            } catch {
+                XCTFail("Failed to get claim data: \(error)")
+            }
+            expData.fulfill()
+        }
+        waitForExpectations(timeout: networkTimeout)
+
+        // create redeem & claiming transaction data
+        guard var transaction = controller.claimingTransaction(
+            safe: safe,
+            amount: amountToClaim,
+            delegate: safeOwnerAddress,
+            data: claimData
+        ) else {
+            XCTFail("Claiming transaction not created")
+            return
+        }
+
+        // estimate transaction
+        var estimation: SCGModels.TransactionEstimation!
+        let expEstimate = expectation(description: "Estimate")
+        _ = App.shared.clientGatewayService.asyncTransactionEstimation(
+            chainId: transaction.chainId!,
+            safeAddress: transaction.safe!.address,
+            to: transaction.to.address,
+            value: transaction.value.value,
+            data: transaction.data!.data,
+            operation: transaction.operation
+        ) { result in
+            do {
+                estimation = try result.get()
+            } catch {
+                XCTFail("Can't estimate transaction: \(error)")
+            }
+            expEstimate.fulfill()
+        }
+        waitForExpectations(timeout: networkTimeout)
+
+        transaction.nonce = estimation.recommendedNonce
+
+        // sign transaction
+        let safeTxHash = transaction.safeTxHash!.description
+        let signature = try! SafeTransactionSigner().sign(transaction, key: safeOwnerKey)
+
+        // submit transaction
+        var submittedTransaction: SCGModels.TransactionDetails!
+        let expSubmit = expectation(description: "Submit")
+        _ = App.shared.clientGatewayService.asyncProposeTransaction(
+            transaction: transaction,
+            sender: AddressString(safeOwnerAddress),
+            signature: signature.hexadecimal,
+            chainId: transaction.chainId!
+        ) { result in
+            do {
+                submittedTransaction = try result.get()
+            } catch {
+                XCTFail("Failed to submit transaction: \(error)")
+            }
+            expSubmit.fulfill()
+        }
+        waitForExpectations(timeout: networkTimeout)
+
+        print(submittedTransaction)
+    }
+
     func test_claimingTransactions() throws {
         continueAfterFailure = false
 

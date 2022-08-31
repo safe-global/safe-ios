@@ -69,7 +69,7 @@ class ClaimingAppController {
 
     // MARK: - Airdrop Contract
 
-    func vesting(id: Sol.Bytes32, contract: Sol.Address, completion: @escaping (Result<Airdrop.vestings.Returns, Error>) -> Void) -> URLSessionTask? {
+    func vesting(id: Sol.Bytes32, contract: Sol.Address, completion: @escaping (Result<Vesting, Error>) -> Void) -> URLSessionTask? {
         return rpcClient.eth_call(
             to: contract,
             input: Airdrop.vestings(_arg0: id),
@@ -94,6 +94,119 @@ class ClaimingAppController {
         }
     }
 
+    struct ClaimingData {
+        var account: Address = .zero
+        var allocations: [Allocation] = []
+        // vestings by id = `allocation.contract.checksummed`_`allocation.vestingId`
+        var vestings: [String: Vesting] = [:]
+        var tokenPaused: Bool = true
+        var delegate: Sol.Address? = nil
+
+        var allocationsData: [(allocation: Allocation, vesting: Vesting)] {
+            var result: [(allocation: Allocation, vesting: Vesting)] = []
+
+            for allocation in allocations {
+                let vestingDictId = allocation.contract.address.checksummed + "_" + allocation.vestingId.description
+                if let vesting = vestings[vestingDictId] {
+                    result.append((allocation, vesting))
+                }
+            }
+
+            return result
+        }
+
+        // TODO: sanity checks
+    }
+
+    func asyncFetchData(account: Address, timeout: TimeInterval = 60, completion: @escaping (Result<ClaimingData, Error>) -> Void) {
+        DispatchQueue.global().async { [unowned self] in
+            fetchData(account: account, timeout: timeout, completion: completion)
+        }
+    }
+
+    func fetchData(account: Address, timeout: TimeInterval = 60, completion: @escaping (Result<ClaimingData, Error>) -> Void) {
+        //          | -> allocations -> [vestings] -> |
+        // account  | -> is paused                 -> | -> all data loaded
+        //          |-> delegate                   -> |
+        // any error -> everything fails
+        var data = ClaimingData(account: account)
+        var errors: [Error] = []
+
+
+        let group = DispatchGroup()
+
+        // get allocations
+        group.enter()
+        _ = allocations(address: account) { [weak self] result in
+            guard let self = self else { return }
+            do {
+                data.allocations = try result.get()
+
+                // get contract vesting data for each allocation
+                for allocation in data.allocations {
+
+                    // async get current vesting for the allocation
+                    let vestingDictId = allocation.contract.address.checksummed + "_" + allocation.vestingId.description
+
+                    group.enter()
+                    _ = self.vesting(
+                        id: Sol.Bytes32(storage: allocation.vestingId.data),
+                        contract: try! Sol.Address(data: allocation.contract.data32)
+                    ) { vestingResult in
+                        do {
+                            data.vestings[vestingDictId] = try vestingResult.get()
+                        } catch {
+                            errors.append(error)
+                        }
+                        group.leave()
+                    }
+                }
+            } catch {
+                errors.append(error)
+            }
+            group.leave()
+        }
+
+        // get is paused
+        group.enter()
+        _ = isSafeTokenPaused(completion: { result in
+            do {
+                data.tokenPaused = try result.get()
+            } catch {
+                errors.append(error)
+            }
+            group.leave()
+        })
+
+        // get delegate
+        group.enter()
+        _ = delegate(of: try! Sol.Address(data: account.data32), completion: { result in
+            do {
+                let delegate = try result.get()
+                data.delegate = delegate == 0 ? nil : delegate
+            } catch {
+                errors.append(error)
+            }
+            group.leave()
+        })
+
+        // wait for all requests to complete
+        let waitResult = group.wait(timeout: .now() + .seconds(Int(timeout)))
+
+        guard case DispatchTimeoutResult.success = waitResult else {
+            dispatchOnMainThread(completion(.failure(GSError.TimeOut())))
+            return
+        }
+
+        if let error = errors.first {
+            dispatchOnMainThread(completion(.failure(error)))
+            return
+        }
+
+        // otherwise, complete with success
+        dispatchOnMainThread(completion(.success(data)))
+    }
+
     typealias Vesting = Airdrop.vestings.Returns
 
     func safeTransaction(to: Sol.Address, abi: Data, operation: SCGModels.Operation = .call) -> Transaction {
@@ -113,6 +226,24 @@ class ClaimingAppController {
             refundReceiver: .zero,
             nonce: "0"
         )
+    }
+
+    func claimingTransaction(
+        safe: Safe,
+        amount: Sol.UInt128,
+        delegate: Address?,
+        data: ClaimingData
+    ) -> Transaction? {
+        let transactions = claimingTransactions(
+            amount: amount,
+            beneficiary: safe.addressValue,
+            delegate: delegate,
+            timestamp: Date().timeIntervalSince1970,
+            allocations: data.allocationsData,
+            safeTokenPaused: data.tokenPaused
+        )
+        let result = combine(transactions: transactions, safe: safe)
+        return result
     }
 
     // requires:
@@ -171,7 +302,7 @@ class ClaimingAppController {
                 // it's going to be zero and we won't get accurate vested amount
             let vesting = currentVesting.account == 0 ? Vesting(allocation) : currentVesting
 
-            let available = vesting.vestedAmount(at: timestamp) - vesting.amountClaimed
+            let available = vesting.available(at: timestamp)
 
             let claimedShare = remainingToClaim == CLAIM_MAX_VALUE ? CLAIM_MAX_VALUE : min(available, remainingToClaim)
 
@@ -248,15 +379,28 @@ class ClaimingAppController {
 
         let isSafe1_3_0 = safe.contractVersion != nil && Version(safe.contractVersion!)! >= Version(1, 3, 0)
 
+        let to: Address
+        let data: Data
+
         if safe.contractVersion == nil || isSafe1_3_0 {
-            let multiSendCall = MultiSend_v1_3_0.multiSend(transactions: packedTransactions).encode()
-            let multiSendAddress = try! SafeDeployments.Safe.Deployment.find(contract: .MultiSend, version: .v1_3_0)!.address(for: configuration.chainId)!
-            return safeTransaction(to: multiSendAddress, abi: multiSendCall, operation: .delegate)
+            data = MultiSend_v1_3_0.multiSend(transactions: packedTransactions).encode()
+            to = try! Address(SafeDeployments.Safe.Deployment.find(contract: .MultiSend, version: .v1_3_0)!.address(for: configuration.chainId)!)
         } else {
-            let multiSendCall = MultiSend_v1_1_1.multiSend(transactions: packedTransactions).encode()
-            let multiSendAddress = try! SafeDeployments.Safe.Deployment.find(contract: .MultiSend, version: .v1_1_1)!.address(for: configuration.chainId)!
-            return safeTransaction(to: multiSendAddress, abi: multiSendCall, operation: .delegate)
+            data = MultiSend_v1_1_1.multiSend(transactions: packedTransactions).encode()
+            to = try! Address(SafeDeployments.Safe.Deployment.find(contract: .MultiSend, version: .v1_1_1)!.address(for: configuration.chainId)!)
         }
+
+        let result = Transaction(
+            safeAddress: safe.addressValue,
+            chainId: safe.chain!.id!,
+            toAddress: to,
+            contractVersion: safe.contractVersion!,
+            amount: nil,
+            data: data,
+            safeTxGas: nil,
+            nonce: "0",
+            operation: .delegate)
+        return result
     }
 }
 
@@ -278,6 +422,11 @@ extension ClaimingAppController.Vesting {
 
     var isRedeemed: Bool {
         account != 0
+    }
+
+    func available(at timestamp: TimeInterval) -> Sol.UInt128 {
+        let result = vestedAmount(at: timestamp) - amountClaimed
+        return result
     }
 
     func vestedAmount(at timestamp: TimeInterval) -> Sol.UInt128 {
