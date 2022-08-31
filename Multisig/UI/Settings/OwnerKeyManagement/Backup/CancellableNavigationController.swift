@@ -22,6 +22,7 @@ class CancellableNavigationController: UINavigationController, UIAdaptivePresent
     }
 
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        guard dismissableOnSwipe else { return }
         onCancel?()
     }
 }

@@ -99,27 +99,7 @@ class PasscodeFlowFactory {
     }
 
     func enableBiometryAlert(completion: @escaping () -> Void) -> UIAlertController {
-        let shouldEnableVC = UIAlertController(
-            title: "Activate Biometry?",
-            message: "Would you like to enable login with biometrics?",
-            preferredStyle: .alert)
-
-        //      if yes, ask to authenticate with biometry
-        shouldEnableVC.addAction(UIAlertAction(title: "Enable", style: .default, handler: { _ in
-
-            App.shared.auth.activateBiometrics { _ in
-                // in any resulting case, finish.
-                completion()
-            }
-
-        }))
-
-        //      if no, finish right away
-        shouldEnableVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
-            completion()
-        }))
-
-        return shouldEnableVC
+        ActivateBiometryAlertController(completion: completion)
     }
 
     func enter(biometry: Bool = true, options: PasscodeOptions = [], reset: @escaping () -> Void = { }, completion: @escaping (_ success: Bool) -> Void) -> EnterPasscodeViewController? {

@@ -489,6 +489,7 @@
 		0AC2A3C726FB6802002CB26A /* CollectiblesUnsupportedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC2A3C526FB6802002CB26A /* CollectiblesUnsupportedViewController.swift */; };
 		0AC2A3C826FB6802002CB26A /* CollectiblesUnsupportedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC2A3C626FB6802002CB26A /* CollectiblesUnsupportedViewController.xib */; };
 		0AC2A3CA26FB6B84002CB26A /* WebAppURLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC2A3C926FB6B84002CB26A /* WebAppURLBuilder.swift */; };
+		0AC2BAE728B8F9B500AB66EB /* ActivateBiometryAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC2BAE628B8F9B500AB66EB /* ActivateBiometryAlertController.swift */; };
 		0AC5F56B25DD4A4B00DEF0D7 /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC5F56A25DD4A4B00DEF0D7 /* AuthenticationController.swift */; };
 		0AC5F5B325DD510600DEF0D7 /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC5F5B225DD510600DEF0D7 /* AppUser.swift */; };
 		0AC60C512549AF2200A63AE2 /* NoSafeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60C502549AF2200A63AE2 /* NoSafeBarView.swift */; };
@@ -1395,6 +1396,7 @@
 		0AC2A3C526FB6802002CB26A /* CollectiblesUnsupportedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesUnsupportedViewController.swift; sourceTree = "<group>"; };
 		0AC2A3C626FB6802002CB26A /* CollectiblesUnsupportedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectiblesUnsupportedViewController.xib; sourceTree = "<group>"; };
 		0AC2A3C926FB6B84002CB26A /* WebAppURLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAppURLBuilder.swift; sourceTree = "<group>"; };
+		0AC2BAE628B8F9B500AB66EB /* ActivateBiometryAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivateBiometryAlertController.swift; sourceTree = "<group>"; };
 		0AC5F56A25DD4A4B00DEF0D7 /* AuthenticationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationController.swift; sourceTree = "<group>"; };
 		0AC5F5B225DD510600DEF0D7 /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
 		0AC60C502549AF2200A63AE2 /* NoSafeBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSafeBarView.swift; sourceTree = "<group>"; };
@@ -2564,6 +2566,7 @@
 			isa = PBXGroup;
 			children = (
 				0ABC00212823139D00F42D29 /* CreatePasscodeFlow.swift */,
+				0AC2BAE628B8F9B500AB66EB /* ActivateBiometryAlertController.swift */,
 				0A5B15832808643B003AD853 /* CreatePasscodeViewController.swift */,
 				0A5B158128086424003AD853 /* RepeatPasscodeViewController.swift */,
 			);
@@ -5051,6 +5054,7 @@
 				0ABE69852791B47B003338AF /* Fee1559FormModel.swift in Sources */,
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
 				0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */,
+				0AC2BAE728B8F9B500AB66EB /* ActivateBiometryAlertController.swift in Sources */,
 				0A04506F278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift in Sources */,
 				0A478D1B25B860240038363E /* KeyPickerController.swift in Sources */,
 				0AF2737724DD48AD007E4012 /* NotificationPayload.swift in Sources */,
