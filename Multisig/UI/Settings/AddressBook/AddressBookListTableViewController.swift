@@ -213,7 +213,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
 
         let enterNameVC = EnterAddressNameViewController()
         enterNameVC.actionTitle = "Save"
-        enterNameVC.descriptionText = "Choose a name for the entry. The name is only stored locally and will not be shared with Gnosis or any third parties."
+        enterNameVC.descriptionText = "Choose a name for the entry. The name is only stored locally and will not be shared with us or any third parties."
         enterNameVC.screenTitle = "Enter entry Name"
         enterNameVC.trackingEvent = .addressBookEditEntry
         enterNameVC.placeholder = "Enter name"
