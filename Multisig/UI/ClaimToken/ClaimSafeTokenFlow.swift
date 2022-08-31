@@ -37,7 +37,7 @@ class ClaimSafeTokenFlow: UIFlow {
 
     func showIntro() {
         let vc = factory.claimGetStarted { [unowned self] in
-            chooseDelegateIntro()
+            chooseDelegateIntro()  // TODO: Jump to Tutorial
         }
         show(vc)
     }
