@@ -265,11 +265,11 @@ extension ClaimingAppController.Vesting {
     init(_ allocation: Allocation) {
         self.init(
             account: try! Sol.Address(allocation.account.address.data32),
-            curveType: Sol.UInt8(exactly: allocation.curve) ?? 0,
+            curveType: Sol.UInt8(clamping: allocation.curve),
             managed: false,
-            durationWeeks: Sol.UInt16(exactly: allocation.durationWeeks) ?? 0,
-            startDate: Sol.UInt64(exactly: allocation.startDate) ?? 0,
-            amount: Sol.UInt128(exactly: allocation.amount.value) ?? 0,
+            durationWeeks: Sol.UInt16(clamping: allocation.durationWeeks),
+            startDate: Sol.UInt64(clamping: allocation.startDate),
+            amount: Sol.UInt128(clamping: allocation.amount.value),
             amountClaimed: 0,
             pausingDate: 0,
             cancelled: false
