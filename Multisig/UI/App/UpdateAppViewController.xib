@@ -23,7 +23,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-logo" translatesAutoresizingMaskIntoConstraints="NO" id="EB0-0a-oQ1">
-                    <rect key="frame" x="60" y="120" width="294" height="293"/>
+                    <rect key="frame" x="170" y="313" width="74" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="EB0-0a-oQ1" secondAttribute="height" multiplier="106:143" id="O4i-ly-rg3"/>
+                        <constraint firstAttribute="height" constant="100" id="pOK-Wo-Xmf"/>
+                    </constraints>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="QXK-OG-Fdw">
                     <rect key="frame" x="16" y="453" width="382" height="211"/>
@@ -64,11 +68,8 @@
             <constraints>
                 <constraint firstItem="EB0-0a-oQ1" firstAttribute="bottom" secondItem="QXK-OG-Fdw" secondAttribute="top" constant="-40" id="ARl-ZE-ulP"/>
                 <constraint firstItem="QXK-OG-Fdw" firstAttribute="centerX" secondItem="EB0-0a-oQ1" secondAttribute="centerX" id="VGS-YW-HKW"/>
-                <constraint firstItem="EB0-0a-oQ1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="60" id="b6H-Rr-D9T"/>
                 <constraint firstItem="QXK-OG-Fdw" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-16" id="t21-Yg-LHa"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="leading" secondItem="QXK-OG-Fdw" secondAttribute="leading" constant="-16" id="ta8-Sz-Ncn"/>
-                <constraint firstAttribute="trailing" secondItem="EB0-0a-oQ1" secondAttribute="trailing" constant="60" id="ucK-rO-ono"/>
-                <constraint firstItem="EB0-0a-oQ1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="120" id="v7x-16-VhT"/>
                 <constraint firstItem="QXK-OG-Fdw" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="xpq-Dl-Flh"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="64.955357142857139"/>

@@ -41,7 +41,7 @@ class GuardianDetailsViewController: UIViewController {
 
         identiconInfoView.setGuardian(guardian: guardian)
 
-        viewOnEtherscan.setText("View on Etherscan")
+        viewOnEtherscan.setText("View on Etherscan", underlined: false)
 
         reasonTitleLabel.setStyle(.headline)
         reasonTextLabel.setStyle(.secondary)

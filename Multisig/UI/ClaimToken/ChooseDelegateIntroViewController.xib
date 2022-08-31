@@ -28,28 +28,27 @@
                     <rect key="frame" x="0.0" y="68" width="414" height="650"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hbx-z2-tv4">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="186.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="308.5"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Qcm-Gd-blf">
-                                    <rect key="frame" x="16" y="0.0" width="382" height="186.5"/>
+                                    <rect key="frame" x="16" y="0.0" width="382" height="308.5"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-set-delegate" translatesAutoresizingMaskIntoConstraints="NO" id="SmO-Ka-EbC">
                                             <rect key="frame" x="128" y="0.0" width="126" height="126"/>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="SAH-VH-Adm">
-                                            <rect key="frame" x="120" y="150" width="142.5" height="36.5"/>
+                                            <rect key="frame" x="10.5" y="150" width="361.5" height="158.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a delegate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L6g-5h-2v2">
-                                                    <rect key="frame" x="0.0" y="0.0" width="142.5" height="20.5"/>
+                                                    <rect key="frame" x="109.5" y="0.0" width="142.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Cg-9n-XwV">
-                                                    <rect key="frame" x="71" y="36.5" width="0.0" height="0.0"/>
-                                                    <string key="text">A delegate is someone you select to make governance decisions on your behalf for all of your vested and unvested tokens. You still retain full ownership over your tokens and you can always change the delegate at a later point.
-You can also delegate to a non-listed address or yourself.</string>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="0.0"/>
+                                                    <rect key="frame" x="0.0" y="36.5" width="361.5" height="122"/>
+                                                    <string key="text">A delegate is someone you select to make governance decisions on your behalf. You still retain full ownership of your tokens, but your delegate will wield the voting power associated with those tokens, including your unvested allocation.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
