@@ -11,10 +11,14 @@ import UIKit
 class InstructionStepView: UINibView {
 
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var horizontalStackView: UIStackView!
+    @IBOutlet weak var bulletPointLabel: UILabel!
 
     override func commonInit() {
         super.commonInit()
         descriptionLabel.setStyle(.secondary)
+        bulletPointLabel.text = "\u{2022}"
+        bulletPointLabel.setStyle(.secondary)
     }
 
     func setData(description: String) {
