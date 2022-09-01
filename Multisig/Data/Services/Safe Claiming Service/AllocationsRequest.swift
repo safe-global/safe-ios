@@ -14,7 +14,7 @@ struct AllocationsRequest: JSONRequest {
     var httpMethod: String { "GET" }
 
     var urlPath: String {
-        "/claiming-app-data/resources/data/allocations/\(account.hexadecimal).json"
+        "/claiming-app-data/resources/data/allocations/\(account.checksummed).json"
     }
 
     typealias ResponseType = [Allocation]
