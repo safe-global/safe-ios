@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MKd-uH-w24" userLabel="StackView">
-                    <rect key="frame" x="16" y="0.0" width="347" height="111"/>
+                    <rect key="frame" x="24" y="0.0" width="339" height="111"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X0C-F1-2FP" userLabel="Bullet">
                             <rect key="frame" x="0.0" y="8.5" width="8" height="20.5"/>
@@ -32,7 +32,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cFu-O8-fXP">
-                            <rect key="frame" x="16" y="8" width="331" height="103"/>
+                            <rect key="frame" x="16" y="8" width="323" height="103"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="331" id="d9D-jz-gQM"/>
                             </constraints>
@@ -53,7 +53,7 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="MKd-uH-w24" secondAttribute="trailing" constant="16" id="WXb-co-I9C"/>
                 <constraint firstAttribute="bottom" secondItem="MKd-uH-w24" secondAttribute="bottom" constant="8" id="noF-B0-ZRH"/>
-                <constraint firstItem="MKd-uH-w24" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="xjd-pk-ebL"/>
+                <constraint firstItem="MKd-uH-w24" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="xjd-pk-ebL"/>
                 <constraint firstItem="MKd-uH-w24" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="zXg-Hi-5Dj"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
