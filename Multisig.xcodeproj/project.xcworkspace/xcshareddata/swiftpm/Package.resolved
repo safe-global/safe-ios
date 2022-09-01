@@ -263,6 +263,15 @@
         }
       },
       {
+        "package": "URRegistry",
+        "repositoryURL": "https://github.com/KeystoneHQ/ur-registry-ios.git",
+        "state": {
+          "branch": "main",
+          "revision": "304ccefd26199caaac68e67db10bf5be30b0a888",
+          "version": null
+        }
+      },
+      {
         "package": "URKit",
         "repositoryURL": "https://github.com/BlockchainCommons/URKit.git",
         "state": {
