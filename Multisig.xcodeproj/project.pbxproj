@@ -351,6 +351,10 @@
 		0A65522B28816B9900701238 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86A68DE274E692400D7F5C5 /* TestingAppDelegate.swift */; };
 		0A65526D28816D7900701238 /* TestingSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65522C28816BB400701238 /* TestingSceneDelegate.swift */; };
 		0A65526E28816D7900701238 /* TestingSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65522C28816BB400701238 /* TestingSceneDelegate.swift */; };
+		0A6630EC28C0F22400F0FFAE /* AllocationBoxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6630EA28C0F22400F0FFAE /* AllocationBoxCell.swift */; };
+		0A6630ED28C0F22400F0FFAE /* AllocationBoxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A6630EB28C0F22400F0FFAE /* AllocationBoxCell.xib */; };
+		0A6630F028C10DC300F0FFAE /* AllocationTotalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6630EE28C10DC300F0FFAE /* AllocationTotalCell.swift */; };
+		0A6630F128C10DC300F0FFAE /* AllocationTotalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A6630EF28C10DC300F0FFAE /* AllocationTotalCell.xib */; };
 		0A67AC9625E3BE4400B3E97C /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A67AC9425E3BE4400B3E97C /* PasscodeViewController.swift */; };
 		0A67AC9725E3BE4400B3E97C /* PasscodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A67AC9525E3BE4400B3E97C /* PasscodeViewController.xib */; };
 		0A6886932588F87E0045CAB5 /* EnterAddressNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A6886912588F87E0045CAB5 /* EnterAddressNameViewController.xib */; };
@@ -1254,6 +1258,10 @@
 		0A64313F247ED1AA006FD30A /* MultisigIntegrationTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MultisigIntegrationTests.xctestplan; sourceTree = "<group>"; };
 		0A6552272881642300701238 /* UIIntegrationTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIIntegrationTestCase.swift; sourceTree = "<group>"; };
 		0A65522C28816BB400701238 /* TestingSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingSceneDelegate.swift; sourceTree = "<group>"; };
+		0A6630EA28C0F22400F0FFAE /* AllocationBoxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationBoxCell.swift; sourceTree = "<group>"; };
+		0A6630EB28C0F22400F0FFAE /* AllocationBoxCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllocationBoxCell.xib; sourceTree = "<group>"; };
+		0A6630EE28C10DC300F0FFAE /* AllocationTotalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocationTotalCell.swift; sourceTree = "<group>"; };
+		0A6630EF28C10DC300F0FFAE /* AllocationTotalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllocationTotalCell.xib; sourceTree = "<group>"; };
 		0A67AC9425E3BE4400B3E97C /* PasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
 		0A67AC9525E3BE4400B3E97C /* PasscodeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PasscodeViewController.xib; sourceTree = "<group>"; };
 		0A6886912588F87E0045CAB5 /* EnterAddressNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterAddressNameViewController.xib; sourceTree = "<group>"; };
@@ -2081,6 +2089,10 @@
 			isa = PBXGroup;
 			children = (
 				0472B2C7286BC5D70049BA17 /* ClaimingAmountViewController.swift */,
+				0A6630EE28C10DC300F0FFAE /* AllocationTotalCell.swift */,
+				0A6630EF28C10DC300F0FFAE /* AllocationTotalCell.xib */,
+				0A6630EA28C0F22400F0FFAE /* AllocationBoxCell.swift */,
+				0A6630EB28C0F22400F0FFAE /* AllocationBoxCell.xib */,
 				0472B2CC286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.swift */,
 				0472B2CD286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib */,
 				0472B2D0286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.swift */,
@@ -4484,6 +4496,7 @@
 				04D1323625E43C560032FA03 /* DetailRejectionInfoCell.xib in Resources */,
 				0472B2AA2857B44F0049BA17 /* ShareTextView.xib in Resources */,
 				6A1CFA4B2807F24800B2C340 /* NoScreenshotViewController.xib in Resources */,
+				0A6630F128C10DC300F0FFAE /* AllocationTotalCell.xib in Resources */,
 				0A2AD3BD27ECD6CA00A0A6FD /* QRCodeShareViewController.xib in Resources */,
 				0468EE9E26148A3B008270BF /* PrivacyProtectionScreenViewController.xib in Resources */,
 				049A9DB225FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib in Resources */,
@@ -4522,6 +4535,7 @@
 				0A57C5E52577FBD900420303 /* DetailConfirmationCell.xib in Resources */,
 				0AADCDC52858E8A100A0139B /* ValidateRequestToAddOwnerViewController.xib in Resources */,
 				0ADD19C1265EA23200EB0F2B /* PrivateKeyViewController.xib in Resources */,
+				0A6630ED28C0F22400F0FFAE /* AllocationBoxCell.xib in Resources */,
 				5588363D2562904E0014E8C7 /* ContractVersionStatusCell.xib in Resources */,
 				D8A6B12E2779D01900438460 /* AdvancedParametersViewController.xib in Resources */,
 				0AADCDC92859BA9F00A0139B /* RequestAddOwnerViewController.xib in Resources */,
@@ -4645,6 +4659,7 @@
 				9388B98227C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift in Sources */,
 				0AE8C0442579317700E62B34 /* DetailDisclosingCell.swift in Sources */,
 				0AD0273225A34E2F00886671 /* MultiSendListTableViewController.swift in Sources */,
+				0A6630F028C10DC300F0FFAE /* AllocationTotalCell.swift in Sources */,
 				5532D4BE2449A17D0067505A /* CrashlyticsLogger.swift in Sources */,
 				0A9366B9279073E3001918A9 /* TextValidator.swift in Sources */,
 				D80B5A0A2769F95000D6E024 /* AssetsViewController.swift in Sources */,
@@ -5096,6 +5111,7 @@
 				5562DD732693425E00B56722 /* NetworkIndicatorHeaderView.swift in Sources */,
 				0AB34D6624B71DE300A43988 /* CollectiblesRequest.swift in Sources */,
 				55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */,
+				0A6630EC28C0F22400F0FFAE /* AllocationBoxCell.swift in Sources */,
 				0428DA5A25CBFC25002CF4A9 /* HelpLinkTableViewCell.swift in Sources */,
 				0A0391CC27C565D4003C871A /* HelpTextTableViewCell.swift in Sources */,
 				0A72AC622453169700840641 /* LinkText.swift in Sources */,
