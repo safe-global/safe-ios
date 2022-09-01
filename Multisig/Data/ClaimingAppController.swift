@@ -273,6 +273,7 @@ class ClaimingAppController {
             // if nil, setting delegate will be skipped
         // timestamp of the claiming event (to take the vested amount)
     // guarantees: returns the set of transactions for the claiming and setting delegate
+
     func claimingTransactions(
         amount: Sol.UInt128,
         beneficiary: Address,
@@ -283,71 +284,80 @@ class ClaimingAppController {
     ) -> [Transaction] {
         var result = [Transaction]()
         if let delegate = delegate {
-            let setDelegateCall = DelegateRegistry.setDelegate(
-                id: configuration.delegateId,
-                delegate: try! Sol.Address(delegate.data32)
-            ).encode()
+            let setDelegateCall = setDelegateCallData(delegate)
             result.append(safeTransaction(to: configuration.delegateRegistry, abi: setDelegateCall))
         }
 
         let CLAIM_MAX_VALUE = Sol.UInt128.max
 
-        var remainingToClaim = amount
+        var remainingAmount = amount
 
         for (allocation, currentVesting) in allocations {
-            if remainingToClaim == 0 { break }
+            if remainingAmount == 0 { break }
 
-            // available - how many tokens available to claim now from the contract
-                // if redeemed, we can use `vesting` as is, otherwise
-                // it's going to be zero and we won't get accurate vested amount
+            // account == 0 when the vesting is not redeemed yet, so we'll create it from allocation data
+            // so that we can calculate available token amount.
             let vesting = currentVesting.account == 0 ? Vesting(allocation) : currentVesting
 
-            let available = vesting.available(at: timestamp)
+            let availableAmount = vesting.available(at: timestamp)
 
-            let claimedShare = remainingToClaim == CLAIM_MAX_VALUE ? CLAIM_MAX_VALUE : min(available, remainingToClaim)
+            let claimedAmount = remainingAmount == CLAIM_MAX_VALUE ? CLAIM_MAX_VALUE : min(availableAmount, remainingAmount)
 
-            // if claimed share > 0 or is MAX
-            if claimedShare > 0 || claimedShare == CLAIM_MAX_VALUE {
+            if claimedAmount > 0 || claimedAmount == CLAIM_MAX_VALUE {
 
                 if !currentVesting.isRedeemed {
-                    let redeemCall = Airdrop.redeem(
-                        curveType: Sol.UInt8(allocation.curve),
-                        durationWeeks: Sol.UInt16(allocation.durationWeeks),
-                        startDate: Sol.UInt64(allocation.startDate),
-                        amount: Sol.UInt128(allocation.amount.value),
-                        proof: Sol.Array<Sol.Bytes32>(elements: allocation.proof?.map { data in
-                            Sol.Bytes32(storage: data.data)
-                        } ?? [])
-                    ).encode()
-
+                    let redeemCall = redeemCallData(allocation)
                     result.append(safeTransaction(to: allocation.contract, abi: redeemCall))
                 }
 
-                // add claim share based on the safe token paused state
-                // use `claimVestedTokensViaModule` or `claimVestedTokens`
-                let claimCall: Data
-                if safeTokenPaused {
-                    claimCall = Airdrop.claimVestedTokensViaModule(
-                        vestingId: Sol.Bytes32(storage: allocation.vestingId.data),
-                        beneficiary: try! Sol.Address(beneficiary.data32),
-                        tokensToClaim: claimedShare
-                    ).encode()
-                } else {
-                    claimCall = Airdrop.claimVestedTokens(
-                        vestingId: Sol.Bytes32(storage: allocation.vestingId.data),
-                        beneficiary: try! Sol.Address(beneficiary.data32),
-                        tokensToClaim: claimedShare
-                    ).encode()
-                }
+                let claimCall = claimCallData(safeTokenPaused, allocation, beneficiary, claimedAmount)
                 result.append(safeTransaction(to: allocation.contract, abi: claimCall))
 
-                // reduce remaining amount by the share of the claimed for this airdrop contract
-                if claimedShare != CLAIM_MAX_VALUE {
-                    remainingToClaim -= claimedShare
+                if claimedAmount != CLAIM_MAX_VALUE {
+                    remainingAmount -= claimedAmount
                 }
             }
         }
         return result
+    }
+
+    fileprivate func setDelegateCallData(_ delegate: Address) -> Data {
+        return DelegateRegistry.setDelegate(
+            id: configuration.delegateId,
+            delegate: try! Sol.Address(delegate.data32)
+        ).encode()
+    }
+
+    fileprivate func redeemCallData(_ allocation: Allocation) -> Data {
+        return Airdrop.redeem(
+            curveType: Sol.UInt8(allocation.curve),
+            durationWeeks: Sol.UInt16(allocation.durationWeeks),
+            startDate: Sol.UInt64(allocation.startDate),
+            amount: Sol.UInt128(allocation.amount.value),
+            proof: Sol.Array<Sol.Bytes32>(elements: allocation.proof?.map { data in
+                Sol.Bytes32(storage: data.data)
+            } ?? [])
+        ).encode()
+    }
+
+    fileprivate func claimCallData(_ safeTokenPaused: Bool, _ allocation: Allocation, _ beneficiary: Address, _ claimedShare: Sol.UInt128) -> Data {
+        // add claim share based on the safe token paused state
+        // use `claimVestedTokensViaModule` or `claimVestedTokens`
+        let claimCall: Data
+        if safeTokenPaused {
+            claimCall = Airdrop.claimVestedTokensViaModule(
+                vestingId: Sol.Bytes32(storage: allocation.vestingId.data),
+                beneficiary: try! Sol.Address(beneficiary.data32),
+                tokensToClaim: claimedShare
+            ).encode()
+        } else {
+            claimCall = Airdrop.claimVestedTokens(
+                vestingId: Sol.Bytes32(storage: allocation.vestingId.data),
+                beneficiary: try! Sol.Address(beneficiary.data32),
+                tokensToClaim: claimedShare
+            ).encode()
+        }
+        return claimCall
     }
 
     // transaction combinator
@@ -356,7 +366,21 @@ class ClaimingAppController {
         // if single transaction, then will create a call to that transaction itself vai Safe taransaction
         // else will put everything in multisend and put that into a Safe transaction
     func combine(transactions: [Transaction], safe: Safe) -> Transaction? {
-        guard transactions.count > 1 else { return transactions.first }
+        if transactions.isEmpty { return nil }
+        if transactions.count == 1 {
+            let result = Transaction(
+                safeAddress: safe.addressValue,
+                chainId: safe.chain!.id!,
+                toAddress: transactions[0].to.address,
+                contractVersion: safe.contractVersion!,
+                amount: nil,
+                data: transactions[0].data?.data ?? Data(),
+                safeTxGas: nil,
+                nonce: "0",
+                operation: .call
+            )
+            return result
+        }
 
         // From MultiSend contract documentation:
         /// @param transactions Encoded transactions. Each transaction is encoded as a packed bytes of

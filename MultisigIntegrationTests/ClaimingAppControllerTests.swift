@@ -185,19 +185,6 @@ class ClaimingAppControllerTests: XCTestCase {
         }
         waitForExpectations(timeout: networkTimeout)
 
-        // get current safe token balance
-        var safeBalanceBefore: SafeBalanceSummary!
-        let expBalance = expectation(description: "SafeBalance")
-        _ = App.shared.clientGatewayService.asyncBalances(safeAddress: safeAddress, chainId: chain.id!) { result in
-            do {
-                safeBalanceBefore = try result.get()
-            } catch {
-                XCTFail("Failed to get safe balances: \(error)")
-            }
-            expBalance.fulfill()
-        }
-        waitForExpectations(timeout: networkTimeout)
-
         // get all vesting data
         var claimData: ClaimingAppController.ClaimingData!
         let expData = expectation(description: "ClaimData")
@@ -215,7 +202,7 @@ class ClaimingAppControllerTests: XCTestCase {
         guard var transaction = controller.claimingTransaction(
             safe: safe,
             amount: amountToClaim,
-            delegate: safeOwnerAddress,
+            delegate: try! claimData.delegate != Sol.Address(safeOwnerAddress.data32) ? safeOwnerAddress : nil,
             data: claimData
         ) else {
             XCTFail("Claiming transaction not created")
@@ -223,29 +210,29 @@ class ClaimingAppControllerTests: XCTestCase {
         }
 
         // estimate transaction
-        // estimation fails, so we just create a transaction right away.
 
-//        var estimation: SCGModels.TransactionEstimation!
-//        let expEstimate = expectation(description: "Estimate")
-//        _ = App.shared.clientGatewayService.asyncTransactionEstimation(
-//            chainId: transaction.chainId!,
-//            safeAddress: transaction.safe!.address,
-//            to: transaction.to.address,
-//            value: transaction.value.value,
-//            data: transaction.data!.data,
-//            operation: transaction.operation
-//        ) { result in
-//            do {
-//                estimation = try result.get()
-//            } catch {
-//                XCTFail("Can't estimate transaction: \(error)")
-//            }
-//            expEstimate.fulfill()
-//        }
-//        waitForExpectations(timeout: networkTimeout)
-//
-//        transaction.nonce = estimation.recommendedNonce
-        transaction.nonce = 1
+        var estimation: SCGModels.TransactionEstimation!
+        let expEstimate = expectation(description: "Estimate")
+        _ = App.shared.clientGatewayService.asyncTransactionEstimation(
+            chainId: transaction.chainId!,
+            safeAddress: transaction.safe!.address,
+            to: transaction.to.address,
+            value: transaction.value.value,
+            data: transaction.data!.data,
+            operation: transaction.operation
+        ) { result in
+            do {
+                estimation = try result.get()
+            } catch {
+                XCTFail("Can't estimate transaction: \(error)")
+            }
+            expEstimate.fulfill()
+        }
+        waitForExpectations(timeout: networkTimeout)
+
+        // uncomment for debugging, when estimation call above fails
+//        transaction.nonce = 2
+        transaction.nonce = estimation.recommendedNonce
         transaction.updateSafeTxHash()
 
         // sign transaction
@@ -271,6 +258,7 @@ class ClaimingAppControllerTests: XCTestCase {
         }
         waitForExpectations(timeout: networkTimeout)
 
+        XCTAssertNotNil(submittedTransaction)
     }
 
     func test_claimingTransactions() throws {
