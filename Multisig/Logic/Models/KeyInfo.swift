@@ -240,14 +240,13 @@ extension KeyInfo {
 
     /// Will save the key info from Keystone hardware in the persistence store.
     /// - Parameters:
-    ///   - address: address of the  key
+    ///   - publicKey: public key to save
     ///   - name: name of the key
-    ///   - privateKey: private key to save
     @discardableResult
-    static func `import`(keystone address: Address, name: String, privateKey: PrivateKey) throws -> KeyInfo {
+    static func `import`(keystone publicKey: PublicKey, name: String) throws -> KeyInfo {
         let context = App.shared.coreDataStack.viewContext
 
-        let fr = KeyInfo.fetchRequest().by(address: address)
+        let fr = KeyInfo.fetchRequest().by(address: publicKey.address)
         let item: KeyInfo
 
         if (try context.fetch(fr).first) != nil {
@@ -256,14 +255,14 @@ extension KeyInfo {
             item = KeyInfo(context: context)
         }
 
-        item.address = address
+        item.address = publicKey.address
         item.name = name
-        item.keyID = "keystone:\(address.checksummed)"
+        item.keyID = "keystone:\(publicKey.address.checksummed)"
         item.keyType = .keystone
         item.backedup = false
-
+        item.metadata = publicKey.keyData
+        
         item.save()
-        try privateKey.save()
 
         return item
     }
