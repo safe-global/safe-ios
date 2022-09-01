@@ -23,16 +23,13 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="claim-background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="ps5-qH-Lrm">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="W9F-mH-wp5" userLabel="ScrollableContentAndButton">
                     <rect key="frame" x="0.0" y="44" width="414" height="802"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gIC-9Y-Jhg" userLabel="ScrollView">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="730"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="UQa-cG-vaL" userLabel="ScrollableStackView">
+                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="UQa-cG-vaL" userLabel="Content">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="380.5"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-claim-token-get-started" translatesAutoresizingMaskIntoConstraints="NO" id="5A7-et-shp">
@@ -90,21 +87,16 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="ps5-qH-Lrm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="7iq-Le-MS1"/>
                 <constraint firstItem="W9F-mH-wp5" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Dn4-4I-lhM"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="W9F-mH-wp5" secondAttribute="bottom" constant="16" id="JTX-66-1CH"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ps5-qH-Lrm" secondAttribute="trailing" id="Nl7-kq-ZAO"/>
-                <constraint firstItem="ps5-qH-Lrm" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="aIY-2L-voF"/>
                 <constraint firstItem="W9F-mH-wp5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bt7-mG-dEZ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="W9F-mH-wp5" secondAttribute="trailing" id="itJ-bl-RYN"/>
-                <constraint firstAttribute="bottom" secondItem="ps5-qH-Lrm" secondAttribute="bottom" id="uFk-Pb-b25"/>
                 <constraint firstAttribute="trailing" secondItem="W9F-mH-wp5" secondAttribute="trailing" id="xfz-Fw-eHk"/>
             </constraints>
             <point key="canvasLocation" x="131.8840579710145" y="131.91964285714286"/>
         </view>
     </objects>
     <resources>
-        <image name="claim-background-gradient" width="375" height="700"/>
         <image name="ico-claim-token-get-started" width="207" height="142"/>
         <namedColor name="labelPrimary">
             <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
