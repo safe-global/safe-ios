@@ -12,6 +12,7 @@ class ClaimGetStartedViewController: UIViewController {
 
     @IBOutlet private weak var startClaimButton: UIButton!
     @IBOutlet private weak var instructionsView: InstructionStepListView!
+    @IBOutlet private weak var screenTitle: UILabel!
 
     private var stepLabel: UILabel!
     private var instructionsVC: InstructionsViewController!
@@ -25,19 +26,18 @@ class ClaimGetStartedViewController: UIViewController {
         ViewControllerFactory.makeTransparentNavigationBar(self)
 
         startClaimButton.setText("Start your claiming process", .filled)
+        screenTitle.text = "Welcome to the next generation of digital ownership!"
+        screenTitle.setStyle(.claimTitle)
 
         instructionsView.setContent(steps: [
             InstructionStepListView.Step(
-                title: "The Safe DAO tokenomics",
-                description: "How do you want to identify your Safe?"
+                description: "SafeDAO is on a mission to unlock digital ownership for everyone in web3."
             ),
             InstructionStepListView.Step(
-                title: "Our governance model",
-                description: "Safe will only exist on the selected network."
+                description: "We will do this by establishing a universal standard for custody of digital assets, data and identity with smart contract based accounts."
             ),
             InstructionStepListView.Step(
-                title: "How to earn with SAFE tokens",
-                description: "Owners are owner keys that control Safe. Add owners and specify the number of required signatures."
+                description: "You have been chosen to help govern the SafeDAO, and decide on the future of web3 ownership. Use this power wisely!"
             )
         ])
     }
