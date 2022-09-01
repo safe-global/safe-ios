@@ -11,6 +11,8 @@ import UIKit
 import URKit
 
 final class ConnectKeystoneFlow: AddKeyFlow {
+    var publicKey: PublicKey?
+    
     var flowFactory: ConnectKeystoneFactory {
         factory as! ConnectKeystoneFactory
     }
@@ -51,16 +53,58 @@ final class ConnectKeystoneFlow: AddKeyFlow {
     }
     
     func pickAccount(_ node: HDNode) {
-        let pickerVC = flowFactory.derivedAccountPicker(node: node) { [unowned self] privateKey in
-            didGetKey(privateKey: privateKey)
+        let pickerVC = flowFactory.derivedAccountPicker(node: node) { [unowned self] publicKey in
+            didGetKey(publicKey: publicKey)
         }
         show(pickerVC)
     }
     
+    func didGetKey(publicKey: PublicKey) {
+        self.publicKey = publicKey
+        enterName()
+    }
+    
+    override func enterName() {
+        guard let publicKey = publicKey else { return }
+        let parameters = AddKeyParameters(
+            address: publicKey.address,
+            keyName: nil,
+            badgeName: badgeImageName
+        )
+        let nameVC = factory.enterName(parameters: parameters) { [unowned self] name in
+            keyName = name
+            importKey()
+        }
+        show(nameVC)
+    }
+    
+    override func importKey() {
+        guard let publicKey = publicKey else { return }
+        let existingKey = try! KeyInfo.firstKey(address: publicKey.address)
+        guard existingKey == nil else {
+            App.shared.snackbar.show(error: GSError.KeyAlreadyImported())
+            stop(success: false)
+            return
+        }
+
+        let success = doImport()
+
+        guard success, let key = try? KeyInfo.keys(addresses: [publicKey.address]).first else {
+            stop(success: false)
+            return
+        }
+
+        keyInfo = AddressInfo(address: key.address, name: key.name)
+
+        AppSettings.hasShownImportKeyOnboarding = true
+
+        didImport()
+    }
+    
     override func doImport() -> Bool {
-        if let privateKey = privateKey,
+        if let publicKey = publicKey,
            let keyName = keyName {
-            return OwnerKeyController.importKey(keystone: privateKey, name: keyName)
+            return OwnerKeyController.importKey(keystone: publicKey, name: keyName)
         } else {
             return false
         }
@@ -82,8 +126,7 @@ final class ConnectKeystoneFlow: AddKeyFlow {
 extension ConnectKeystoneFlow: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
         navigationController.dismiss(animated: true) { [unowned self] in
-            if let decodedUR = try? URDecoder.decode(code),
-               let hdNode = HDNode(seed: decodedUR.cbor) {
+            if let hdNode = HDNode(ur: code) {
                 pickAccount(hdNode)
             } else {
                 App.shared.snackbar.show(error: GSError.InvalidWalletConnectQRCode())
@@ -116,11 +159,12 @@ final class ConnectKeystoneFactory: AddKeyFlowFactory {
         return introVC
     }
     
-    func derivedAccountPicker(node: HDNode, completion: @escaping (_ privateKey: PrivateKey) -> Void) -> KeyPickerController {
+    func derivedAccountPicker(node: HDNode, completion: @escaping (_ publicKey: PublicKey) -> Void) -> KeyPickerController {
         let pickDerivedKeyVC = KeyPickerController(node: node)
         pickDerivedKeyVC.completion = { [unowned pickDerivedKeyVC] in
-            let key = pickDerivedKeyVC.privateKey!
-            completion(key)
+            if let key = pickDerivedKeyVC.publicKey {
+                completion(key)
+            }
         }
         return pickDerivedKeyVC
     }

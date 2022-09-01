@@ -23,8 +23,8 @@ struct PublicKey {
         Data(_store.rawPublicKey)
     }
     
-    init(data: Data) throws {
-        _store = try EthereumPublicKey(data)
+    init(hexPublicKey: String) throws {
+        _store = try EthereumPublicKey(hexPublicKey: hexPublicKey)
         self.id = Self.identifier(Address(_store.address))
     }
     
