@@ -21,8 +21,16 @@ class WhatsNewHandler {
             title = .init(text: WhatsNew.Text(titleString))
 
 
-            var featureString = AttributedString("Gnosis Safe has rebranded to Safe following a successful spin-off from the Gnosis DAO.\n\nNow and over the coming versions, you will see a new look and a better user experience for your ever secure Gnosis Safe.")
+            var featureString = AttributedString("$1 has rebranded to $2 following a successful spin-off from the Gnosis DAO.\n\nNow and over the coming versions, you will see a new look and a better user experience for your ever secure Gnosis Safe.")
             featureString.foregroundColor = .labelSecondary
+
+            var word1 = AttributedString("Gnosis Safe")
+            word1.foregroundColor = .labelPrimary
+            var word2 = AttributedString("Safe")
+            word2.foregroundColor = .labelPrimary
+
+            featureString.replaceSubrange(featureString.range(of: "$1")!, with: word1)
+            featureString.replaceSubrange(featureString.range(of: "$2")!, with: word2)
 
             featureText = .init(featureString)
             
@@ -54,7 +62,7 @@ class WhatsNewHandler {
 
         // for debugging, use the In-memory store version
         let versionStore: WhatsNewVersionStore = UserDefaultsWhatsNewVersionStore()
-        // let versionStore: WhatsNewVersionStore = InMemoryWhatsNewVersionStore()
+//         let versionStore: WhatsNewVersionStore = InMemoryWhatsNewVersionStore()
 
         let layout = WhatsNew.Layout(featureImageWidth: 60, featureHorizontalAlignment: .top)
 
