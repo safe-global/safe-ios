@@ -23,6 +23,9 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="claim-background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="ps5-qH-Lrm">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="W9F-mH-wp5" userLabel="ScrollableContentAndButton">
                     <rect key="frame" x="0.0" y="44" width="414" height="802"/>
                     <subviews>
@@ -46,12 +49,6 @@
                                         </label>
                                         <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pbK-SG-UxT" userLabel="ListView" customClass="InstructionStepListView" customModule="Multisig" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="238.5" width="414" height="142"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="claim-background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="ps5-qH-Lrm">
-                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="818"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                     </subviews>
@@ -93,10 +90,14 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="ps5-qH-Lrm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="7iq-Le-MS1"/>
                 <constraint firstItem="W9F-mH-wp5" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Dn4-4I-lhM"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="W9F-mH-wp5" secondAttribute="bottom" constant="16" id="JTX-66-1CH"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ps5-qH-Lrm" secondAttribute="trailing" id="Nl7-kq-ZAO"/>
+                <constraint firstItem="ps5-qH-Lrm" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="aIY-2L-voF"/>
                 <constraint firstItem="W9F-mH-wp5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bt7-mG-dEZ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="W9F-mH-wp5" secondAttribute="trailing" id="itJ-bl-RYN"/>
+                <constraint firstAttribute="bottom" secondItem="ps5-qH-Lrm" secondAttribute="bottom" id="uFk-Pb-b25"/>
                 <constraint firstAttribute="trailing" secondItem="W9F-mH-wp5" secondAttribute="trailing" id="xfz-Fw-eHk"/>
             </constraints>
             <point key="canvasLocation" x="131.8840579710145" y="131.91964285714286"/>
