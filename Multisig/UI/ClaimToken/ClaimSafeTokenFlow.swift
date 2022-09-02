@@ -54,6 +54,8 @@ class ClaimSafeTokenFlow: UIFlow {
             enterCustomAddress()
         }
         show(vc)
+        vc.navigationItem.largeTitleDisplayMode = .always
+        vc.navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     func chooseGuardian() {
@@ -134,8 +136,10 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
-    func chooseGuardian(_ onSelected: @escaping (Guardian) -> ()) -> SelectGuardianViewController {
-        let vc = SelectGuardianViewController()
+    func chooseGuardian(_ onSelected: @escaping (Guardian) -> ()) -> GuardianListViewController {
+//        let vc = SelectGuardianViewController()
+//        vc.onSelected = onSelected
+        let vc = GuardianListViewController()
         vc.onSelected = onSelected
         return vc
     }

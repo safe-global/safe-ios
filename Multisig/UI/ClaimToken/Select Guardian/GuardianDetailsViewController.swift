@@ -29,9 +29,9 @@ class GuardianDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ViewControllerFactory.makeTransparentNavigationBar(self)
-        navigationItem.hidesBackButton = false
-        title = "Choose a delegate"
+        ViewControllerFactory.removeNavigationBarBorder(self)
+        
+        title = "Delegate"
 
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
         stepLabel.textAlignment = .right

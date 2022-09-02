@@ -10,9 +10,6 @@ import UIKit
 import SwiftCryptoTokenFormatter
 
 class ClaimTokensViewController: LoadableViewController {
-    // TODO: tap on the background -> close keyboard
-    // TODO: tap on the background -> close all tooltips
-    // TODO: keyboard open/close -> scroll to show text field, delegate, and the button
     // TODO: standard, collapsible title of navigation
     // TODO: nice-to-have: make tooltip a bit narrower so that the text reads better; + dark mode version of tooltip
 
@@ -31,8 +28,11 @@ class ClaimTokensViewController: LoadableViewController {
     private var onClaim: ((Guardian, String) -> ())?
     private var claimingAmount: SafeClaimingAmount!
 
-    private weak var claimButtonContainer: UIView!
-    private weak var claimButton: UIButton!
+    private var claimButtonContainer: UIView!
+    private var claimButton: UIButton!
+    private var claimButtonBottom: NSLayoutConstraint!
+
+    private var keyboardBehavior: KeyboardAvoidingBehavior!
 
     private var stepLabel: UILabel!
 
@@ -54,6 +54,8 @@ class ClaimTokensViewController: LoadableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Your SAFE allocation"
+
         claimingAmount = SafeClaimingController.shared.claimingAmountFor(safe: safe.addressValue)
         assert(claimingAmount != nil)
 
@@ -77,51 +79,94 @@ class ClaimTokensViewController: LoadableViewController {
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
-        navigationItem.title = "Your SAFE allocation"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .always
         ViewControllerFactory.removeNavigationBarBorder(self)
 
         addClaimButton()
+
+        keyboardBehavior = KeyboardAvoidingBehavior(scrollView: tableView)
+        keyboardBehavior.adjustsInsets = false
+
+        keyboardBehavior.willShowKeyboard = { [unowned self] kbFrame in
+            UIView.animate(withDuration: 0.25) { [unowned self] in
+                claimButtonBottom.constant = kbFrame.height - view.safeAreaInsets.bottom
+                view.setNeedsLayout()
+                view.layoutIfNeeded()
+            }
+        }
+
+        keyboardBehavior.willHideKeyboard = { [unowned self] in
+            UIView.animate(withDuration: 0.25) { [unowned self] in
+                claimButtonBottom.constant = 0
+                view.setNeedsLayout()
+                view.layoutIfNeeded()
+            }
+        }
+
+        notificationCenter.addObserver(self, selector: #selector(didBeginEditing), name: UITextField.textDidBeginEditingNotification, object: nil)
     }
 
     fileprivate func addClaimButton() {
-        let button = UIButton(type: .custom)
-        button.setText("Claim & Delegate", .filled)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(didTapClaimButton), for: .touchUpInside)
-        claimButton = button
+        claimButton = UIButton(type: .custom)
+        claimButton.setText("Claim & Delegate", .filled)
+        claimButton.translatesAutoresizingMaskIntoConstraints = false
+        claimButton.addTarget(self, action: #selector(didTapClaimButton), for: .touchUpInside)
 
-        let container = UIView()
-        container.backgroundColor = .backgroundSecondary
-        container.translatesAutoresizingMaskIntoConstraints = false
-        claimButtonContainer = container
+        claimButtonContainer = UIView()
+        claimButtonContainer.backgroundColor = .backgroundSecondary
+        claimButtonContainer.translatesAutoresizingMaskIntoConstraints = false
 
-        container.addSubview(button)
-        view.addSubview(container)
+        claimButtonContainer.addSubview(claimButton)
+        view.addSubview(claimButtonContainer)
 
-        container.addConstraints([
-            button.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16),
-            container.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: 16),
-            button.topAnchor.constraint(equalTo: container.topAnchor, constant: 8),
-            container.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: 20),
-            button.heightAnchor.constraint(equalToConstant: 56)
+        claimButtonContainer.addConstraints([
+            claimButton.leadingAnchor.constraint(equalTo: claimButtonContainer.leadingAnchor, constant: 16),
+            claimButtonContainer.trailingAnchor.constraint(equalTo: claimButton.trailingAnchor, constant: 16),
+            claimButton.topAnchor.constraint(equalTo: claimButtonContainer.topAnchor, constant: 8),
+            claimButtonContainer.bottomAnchor.constraint(equalTo: claimButton.bottomAnchor, constant: 20),
+            claimButton.heightAnchor.constraint(equalToConstant: 56)
         ])
+
+        // need to remember in order to modify bottom spacing when keyboard is shown or hidden
+        claimButtonBottom = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: claimButtonContainer.bottomAnchor)
+
+        // inject the button container below tableView and above the bottom of the screen
+
+            // reset table view layout
+        let tableViewConstraints = view.constraints.filter { ($0.firstItem as? UITableView) == tableView }
+        NSLayoutConstraint.deactivate(tableViewConstraints)
 
         view.addConstraints([
-            container.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            container.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            container.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+            // re-attach table view
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: claimButtonContainer.topAnchor),
 
-        var insets = tableView.contentInset
-        insets.bottom = 16
-        tableView.contentInset = insets
+            // attach button container
+            claimButtonContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            claimButtonContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            claimButtonBottom
+        ])
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableView.flashScrollIndicators()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        keyboardBehavior.start()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        keyboardBehavior.stop()
+    }
+
+    @objc func didBeginEditing(_ notification: NSNotification) {
+        guard let textField = notification.object as? UITextField else { return }
+        keyboardBehavior.activeTextField = textField
     }
 
     @objc func didTapClaimButton() {

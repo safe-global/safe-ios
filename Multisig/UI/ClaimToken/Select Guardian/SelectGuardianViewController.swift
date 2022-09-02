@@ -10,7 +10,7 @@ import UIKit
 
 class SelectGuardianViewController: ContainerViewController, UISearchBarDelegate {
 
-    private let guardiansController = ChooseGuardianViewController()
+    private let guardiansController = GuardianListViewController()
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var guardiansView: UIView!
@@ -25,8 +25,7 @@ class SelectGuardianViewController: ContainerViewController, UISearchBarDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Choose a delegate"
-        ViewControllerFactory.makeTransparentNavigationBar(self)
-        navigationItem.hidesBackButton = false
+        ViewControllerFactory.removeNavigationBarBorder(self)
 
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
         stepLabel.textAlignment = .right
@@ -49,12 +48,11 @@ class SelectGuardianViewController: ContainerViewController, UISearchBarDelegate
 
         keyboardBehavior = KeyboardAvoidingBehavior(scrollView: guardiansController.tableView)
         keyboardBehavior.hidesKeyboardOnTap = false
-        navigationController?.navigationBar.prefersLargeTitles = true
         searchBar.searchTextField.delegate = self
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guardiansController.filterData(searchTerm: searchText)
+//        guardiansController.filterData(searchTerm: searchText)
     }
 
     override func viewWillAppear(_ animated: Bool) {

@@ -8,9 +8,7 @@
 
 import UIKit
 
-class GuardianTableViewCell: UITableViewCell {
-    weak var tableView: UITableView?
-    
+class GuardianTableViewCell: UITableViewCell {    
     @IBOutlet private weak var addressInfoView: AddressInfoView!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var containerView: UIView!

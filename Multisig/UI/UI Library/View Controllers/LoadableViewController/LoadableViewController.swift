@@ -21,10 +21,11 @@ import UIKit
 ///      - showOnly(view: emptyView) - shown onSuccess() when isEmpty returns true
 ///      - showOnly(view: tableView) - shown onSuccess() in isEmpty is false
 class LoadableViewController: UIViewController {
+    // tableView has to be the first view in order for large title "collapse on scroll" animation to be enabled
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var loadingView: LoadingView!
     @IBOutlet weak var dataErrorView: ScrollableDataErrorView!
     @IBOutlet weak var emptyView: ScrollableEmptyView!
-    @IBOutlet weak var tableView: UITableView!
     @IBOutlet private var allViews: [UIView]!
     private var refreshControls: [UIRefreshControl] = []
     private var needsReload: Bool = false
@@ -42,6 +43,8 @@ class LoadableViewController: UIViewController {
         refreshControls = [emptyView.refreshControl,
                            dataErrorView.refreshControl,
                            tableView.refreshControl].compactMap { $0 }
+
+        showOnly(view: tableView)
 
         setNeedsReload()
 
@@ -97,6 +100,13 @@ class LoadableViewController: UIViewController {
         if needsReload {
             setNeedsReload(false)
             reloadData()
+        }
+
+        // iOS quirk: large title does not appear after pushing
+        DispatchQueue.main.async { [unowned self] in
+            UIView.animate(withDuration: 0.2) { [unowned self] in
+                navigationController?.navigationBar.sizeToFit()
+            }
         }
     }
 

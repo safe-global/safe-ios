@@ -31,8 +31,7 @@ class ChooseDelegateIntroViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ViewControllerFactory.makeTransparentNavigationBar(self)
-        navigationItem.hidesBackButton = false
+        ViewControllerFactory.removeNavigationBarBorder(self)
 
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
         stepLabel.textAlignment = .right

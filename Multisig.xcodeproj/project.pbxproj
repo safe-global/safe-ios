@@ -2072,6 +2072,8 @@
 		0472B2C0286A49470049BA17 /* Select Guardian */ = {
 			isa = PBXGroup;
 			children = (
+				6AD477292892BE90004C736D /* SelectGuardianViewController.swift */,
+				6AD4772A2892BE90004C736D /* SelectGuardianViewController.xib */,
 				0472B2BC286A49420049BA17 /* GuardianListViewController.swift */,
 				0472B2C1286A497A0049BA17 /* GuardianTableViewCell.swift */,
 				0472B2C2286A497A0049BA17 /* GuardianTableViewCell.xib */,
@@ -2079,8 +2081,6 @@
 				6AD4772E28932160004C736D /* GuardianCountTableViewCell.xib */,
 				6A9472182891711500807B3B /* GuardianDetailsViewController.swift */,
 				6A9472192891711500807B3B /* GuardianDetailsViewController.xib */,
-				6AD477292892BE90004C736D /* SelectGuardianViewController.swift */,
-				6AD4772A2892BE90004C736D /* SelectGuardianViewController.xib */,
 			);
 			path = "Select Guardian";
 			sourceTree = "<group>";

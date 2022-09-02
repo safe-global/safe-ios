@@ -34,8 +34,7 @@ class EnterCustomAddressViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ViewControllerFactory.makeTransparentNavigationBar(self)
-        navigationItem.hidesBackButton = false
+        ViewControllerFactory.removeNavigationBarBorder(self)
         navigationItem.title = "Custom address or ENS"
 
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
@@ -60,7 +59,6 @@ class EnterCustomAddressViewController: UIViewController {
         }
 
         trackingParameters = { ["chain_id" : chain.chainId.description] }()
-        navigationItem.largeTitleDisplayMode = .never
     }
 
     private func didTapAddressField() {

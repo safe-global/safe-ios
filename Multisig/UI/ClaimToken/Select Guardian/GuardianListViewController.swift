@@ -1,5 +1,5 @@
 //
-//  ChooseGuardianViewController.swift
+//  GuardianListViewController.swift
 //  Multisig
 //
 //  Created by Moaaz on 6/27/22.
@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ChooseGuardianViewController: LoadableViewController {
+
+class GuardianListViewController: LoadableViewController {
     private var currentDataTask: URLSessionTask?
     private enum Section {
         case guardiansCount(count: Int)
@@ -27,6 +28,9 @@ class ChooseGuardianViewController: LoadableViewController {
     var onSelected: ((Guardian) -> ())?
     var onReloaded: (() -> ())?
 
+    private var searchController: UISearchController!
+    private var resultsController: GuardianSearchResultController!
+
     convenience init() {
         self.init(namedClass: Self.superclass())
     }
@@ -34,8 +38,22 @@ class ChooseGuardianViewController: LoadableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ViewControllerFactory.makeTransparentNavigationBar(self)
-        navigationItem.hidesBackButton = false
+        ViewControllerFactory.removeNavigationBarBorder(self)
+        title = "Choose a delegate"
+
+        resultsController = GuardianSearchResultController()
+
+        resultsController.tableView.delegate = self
+
+        searchController = UISearchController(searchResultsController: resultsController)
+        searchController.delegate = self
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.autocapitalizationType = .none
+        searchController.searchBar.delegate = self
+
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
 
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
         stepLabel.textAlignment = .right
@@ -64,27 +82,6 @@ class ChooseGuardianViewController: LoadableViewController {
         sections.append(.guardians(items: items))
 
         return sections
-    }
-
-    func filterData(searchTerm: String) {
-        let searchTerm = searchTerm.lowercased()
-        if !searchTerm.isEmpty {
-            filteredGuardians = guardians.filter { guardian in
-                return guardian.name?.lowercased().contains(searchTerm) ?? false ||
-                guardian.ens?.lowercased().contains(searchTerm) ?? false ||
-                guardian.address.description.lowercased().contains(searchTerm)
-            }
-
-        } else {
-            filteredGuardians = guardians
-        }
-        sections = makeSections(items: filteredGuardians)
-        if isEmpty {
-            showOnly(view: emptyView)
-        } else {
-            showOnly(view: tableView)
-        }
-        tableView.reloadData()
     }
 
     override var isEmpty: Bool { sections.isEmpty }
@@ -122,7 +119,23 @@ class ChooseGuardianViewController: LoadableViewController {
     }
 }
 
-extension ChooseGuardianViewController: UITableViewDelegate, UITableViewDataSource {
+extension GuardianListViewController: UISearchResultsUpdating, UISearchBarDelegate, UISearchControllerDelegate {
+
+    func updateSearchResults(for searchController: UISearchController) {
+        // TODO: update results
+        if let resultsController = searchController.searchResultsController as? GuardianSearchResultController {
+            resultsController.filteredGuardians = Array(guardians.prefix(3))
+            resultsController.tableView.reloadData()
+        }
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+
+}
+
+extension GuardianListViewController: UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
        sections.count
@@ -147,7 +160,6 @@ extension ChooseGuardianViewController: UITableViewDelegate, UITableViewDataSour
         case .guardians(items: let items):
             let cell = tableView.dequeueCell(GuardianTableViewCell.self)
             cell.set(guardian: items[indexPath.row])
-            cell.tableView = tableView
             return cell
         }
     }
@@ -162,7 +174,6 @@ extension ChooseGuardianViewController: UITableViewDelegate, UITableViewDataSour
             vc.onSelected = onSelected
             vc.guardian = item
             show(vc, sender: nil)
-            break
 
         default: break
         }
@@ -170,3 +181,21 @@ extension ChooseGuardianViewController: UITableViewDelegate, UITableViewDataSour
 }
 
 
+class GuardianSearchResultController: UITableViewController {
+    var filteredGuardians: [Guardian] = []
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.registerCell(GuardianTableViewCell.self)
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        filteredGuardians.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(GuardianTableViewCell.self)
+        cell.set(guardian: filteredGuardians[indexPath.row])
+        return cell
+    }
+}
