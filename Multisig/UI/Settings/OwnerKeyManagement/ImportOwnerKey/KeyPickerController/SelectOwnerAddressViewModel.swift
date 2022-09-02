@@ -18,7 +18,7 @@ class SelectOwnerAddressViewModel {
         var name: String?
         var exists: Bool { name != nil }
     }
-    
+
     static let notSelectedIndex = -1
 
     var items = [KeyAddressInfo]()

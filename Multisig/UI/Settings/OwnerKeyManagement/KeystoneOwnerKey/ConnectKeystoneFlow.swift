@@ -151,7 +151,7 @@ final class ConnectKeystoneFactory: AddKeyFlowFactory {
                       title: "Secured QR codes",
                       body: "Sign anywhere without USB cables or unstable bluetooth via secured and verifiable QR codes."),
 
-                .init(image: UIImage(named: "ico-onboarding-import-key-2"),
+                .init(image: UIImage(named: "ico-onboarding-keystone-key"),
                       title: "How secure is that?",
                       body: "Your key will remain on your Keystone wallet. We do not store it in the app.")]
         introVC.viewTrackingEvent = .keystoneOwnerOnboarding
