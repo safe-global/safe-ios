@@ -14,10 +14,9 @@ extension NSNotification.Name {
 
 public final class Tooltip: BaseCustomView {
 
-    // TODO: replace with a white arrow
-    static let arrowUp = UIImage(named: "ico-tooltip-arrow")!
-    static let arrowDown = UIImage(cgImage:  UIImage(named: "ico-tooltip-arrow")!.cgImage!,
-                                    scale:  UIImage(named: "ico-tooltip-arrow")!.scale,
+    static let arrowUp = UIImage(named: "ico-tooltip-arrow-white")!
+    static let arrowDown = UIImage(cgImage:  arrowUp.cgImage!,
+                                    scale:  arrowUp.scale,
                                     orientation: .downMirrored)
 
     private let label = UILabel()

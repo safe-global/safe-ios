@@ -13,6 +13,8 @@ class ClaimingAmountViewController: LoadableViewController {
     // TODO: tap on the background -> close keyboard
     // TODO: tap on the background -> close all tooltips
     // TODO: keyboard open/close -> scroll to show text field, delegate, and the button
+    // TODO: standard, collapsible title of navigation
+    // TODO: nice-to-have: make tooltip a bit narrower so that the text reads better; + dark mode version of tooltip
 
     enum RowItem {
         case claimableNow
@@ -57,7 +59,6 @@ class ClaimingAmountViewController: LoadableViewController {
 
         view.backgroundColor = .backgroundSecondary
 
-        tableView.registerCell(AvailableClaimingAmountTableViewCell.self)
         tableView.registerCell(EnterClaimingAmountTableViewCell.self)
         tableView.registerCell(AllocationTotalCell.self)
         tableView.registerCell(AllocationBoxCell.self)
@@ -118,15 +119,18 @@ class ClaimingAmountViewController: LoadableViewController {
         tableView.contentInset = insets
     }
 
-    @objc func didTapClaimButton() {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.flashScrollIndicators()
+    }
 
+    @objc func didTapClaimButton() {
     }
 
     @IBAction private func editButtonTouched(_ sender: Any) {
     }
 
     override func reloadData() {
-
     }
 }
 

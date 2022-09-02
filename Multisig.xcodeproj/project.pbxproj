@@ -107,8 +107,6 @@
 		0472B2C3286A497A0049BA17 /* GuardianTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2C1286A497A0049BA17 /* GuardianTableViewCell.swift */; };
 		0472B2C4286A497A0049BA17 /* GuardianTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2C2286A497A0049BA17 /* GuardianTableViewCell.xib */; };
 		0472B2C9286BC5D70049BA17 /* ClaimingAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2C7286BC5D70049BA17 /* ClaimingAmountViewController.swift */; };
-		0472B2CE286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2CC286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.swift */; };
-		0472B2CF286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2CD286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib */; };
 		0472B2D2286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472B2D0286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.swift */; };
 		0472B2D3286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0472B2D1286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.xib */; };
 		047300FC24780C81004F1200 /* CharacterSet+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047300FB24780C81004F1200 /* CharacterSet+Hex.swift */; };
@@ -1042,8 +1040,6 @@
 		0472B2C1286A497A0049BA17 /* GuardianTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianTableViewCell.swift; sourceTree = "<group>"; };
 		0472B2C2286A497A0049BA17 /* GuardianTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuardianTableViewCell.xib; sourceTree = "<group>"; };
 		0472B2C7286BC5D70049BA17 /* ClaimingAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimingAmountViewController.swift; sourceTree = "<group>"; };
-		0472B2CC286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableClaimingAmountTableViewCell.swift; sourceTree = "<group>"; };
-		0472B2CD286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AvailableClaimingAmountTableViewCell.xib; sourceTree = "<group>"; };
 		0472B2D0286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterClaimingAmountTableViewCell.swift; sourceTree = "<group>"; };
 		0472B2D1286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterClaimingAmountTableViewCell.xib; sourceTree = "<group>"; };
 		047300FB24780C81004F1200 /* CharacterSet+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Hex.swift"; sourceTree = "<group>"; };
@@ -2097,8 +2093,6 @@
 				0A6630EF28C10DC300F0FFAE /* AllocationTotalCell.xib */,
 				0A6630EA28C0F22400F0FFAE /* AllocationBoxCell.swift */,
 				0A6630EB28C0F22400F0FFAE /* AllocationBoxCell.xib */,
-				0472B2CC286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.swift */,
-				0472B2CD286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib */,
 				0472B2D0286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.swift */,
 				0472B2D1286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.xib */,
 				0A26FAB928C1F22500B0F519 /* SelectedDelegateCell.swift */,
@@ -4464,7 +4458,6 @@
 				0A478D5925B876AF0038363E /* ButtonTableViewCell.xib in Resources */,
 				0428DA5B25CBFC25002CF4A9 /* HelpLinkTableViewCell.xib in Resources */,
 				0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */,
-				0472B2CF286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib in Resources */,
 				0A26FABC28C1F22500B0F519 /* SelectedDelegateCell.xib in Resources */,
 				04D968D5276B872D00CE4A9E /* TransactionViewController.xib in Resources */,
 				5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */,
@@ -5093,7 +5086,6 @@
 				55CCD58727550F42004EA3E3 /* DelegateKeyController.swift in Sources */,
 				0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */,
 				0AB5DFB3270F48EB005BFB43 /* LedgerSignerViewController.swift in Sources */,
-				0472B2CE286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.swift in Sources */,
 				0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */,
 				0A9D5CEB27D8F48B0075A21D /* WCAppRegistryEntry.swift in Sources */,
 				6AFD26EB2861B0CF00336FFE /* SafeTokenBanner.swift in Sources */,

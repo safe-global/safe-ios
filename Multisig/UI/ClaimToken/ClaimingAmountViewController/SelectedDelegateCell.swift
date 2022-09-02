@@ -17,12 +17,17 @@ class SelectedDelegateCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        addressContainer.layer.borderColor = UIColor.border.cgColor
         headerLabel.setStyle(.secondary)
         detailLabel.setStyle(.footnote4)
         editButton.setText("Edit", .primary)
         headerLabel.text = "Delegating to:"
         detailLabel.text = "You only delegate your voting power and not the ownership over your tokens."
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // changing here to react to dark/light color change
+        addressContainer.layer.borderColor = UIColor.border.cgColor
     }
 
     var guardian: Guardian? {

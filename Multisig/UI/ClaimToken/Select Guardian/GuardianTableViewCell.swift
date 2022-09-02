@@ -23,6 +23,12 @@ class GuardianTableViewCell: UITableViewCell {
         descriptionLabel.setStyle(.secondary)
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // changing here to react to dark/light color change
+        containerView.layer.borderColor = UIColor.border.cgColor
+    }
+
     func set(guardian: Guardian) {
 
         addressInfoView.setAddressOneLine(

@@ -17,6 +17,10 @@ class ClaimableAmountView: UINibView {
         layer.borderWidth = 2
         layer.cornerRadius = 8
         clipsToBounds = true
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
         layer.borderColor = UIColor.clear.cgColor
     }
 

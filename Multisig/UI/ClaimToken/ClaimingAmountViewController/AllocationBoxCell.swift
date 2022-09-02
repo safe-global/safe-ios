@@ -173,7 +173,7 @@ class AllocationBoxCell: UITableViewCell {
             boxBackgroundColor = .primary
             headerStyle = .headline.color(.white)
             titleStyle = .Updated.border
-            valueStyle = .Updated.whiteTitle
+            valueStyle = .Updated.whiteTitle.color(.white)
             headerButtonHidden = true
             titleButtonImage = .darkCircle
 
