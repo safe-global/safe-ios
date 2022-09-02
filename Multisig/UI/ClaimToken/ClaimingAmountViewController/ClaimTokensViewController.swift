@@ -10,7 +10,6 @@ import UIKit
 import SwiftCryptoTokenFormatter
 
 class ClaimTokensViewController: LoadableViewController {
-    // TODO: standard, collapsible title of navigation
     // TODO: nice-to-have: make tooltip a bit narrower so that the text reads better; + dark mode version of tooltip
 
     enum RowItem {
