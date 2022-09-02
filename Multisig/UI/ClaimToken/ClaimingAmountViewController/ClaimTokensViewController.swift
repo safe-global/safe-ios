@@ -9,7 +9,7 @@
 import UIKit
 import SwiftCryptoTokenFormatter
 
-class ClaimingAmountViewController: LoadableViewController {
+class ClaimTokensViewController: LoadableViewController {
     // TODO: tap on the background -> close keyboard
     // TODO: tap on the background -> close all tooltips
     // TODO: keyboard open/close -> scroll to show text field, delegate, and the button
@@ -59,7 +59,7 @@ class ClaimingAmountViewController: LoadableViewController {
 
         view.backgroundColor = .backgroundSecondary
 
-        tableView.registerCell(EnterClaimingAmountTableViewCell.self)
+        tableView.registerCell(ClaimedAmountInputCell.self)
         tableView.registerCell(AllocationTotalCell.self)
         tableView.registerCell(AllocationBoxCell.self)
         tableView.registerCell(SelectedDelegateCell.self)
@@ -134,7 +134,7 @@ class ClaimingAmountViewController: LoadableViewController {
     }
 }
 
-extension ClaimingAmountViewController: UITableViewDelegate, UITableViewDataSource {
+extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         rows.count
     }
@@ -171,7 +171,7 @@ extension ClaimingAmountViewController: UITableViewDelegate, UITableViewDataSour
             return cell
 
         case .claimingAmount:
-            let cell = tableView.dequeueCell(EnterClaimingAmountTableViewCell.self)
+            let cell = tableView.dequeueCell(ClaimedAmountInputCell.self)
             cell.set(value: "0",
                      maxValue: tokenFormatter.string(from: claimingAmount.totalClaimable))
             return cell

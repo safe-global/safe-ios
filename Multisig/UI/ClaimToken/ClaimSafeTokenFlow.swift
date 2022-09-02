@@ -147,8 +147,8 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
-    func selectAmount(safe: Safe, guardian: Guardian, onClaim: @escaping (Guardian, String) -> ()) -> ClaimingAmountViewController {
-        let vc = ClaimingAmountViewController(guardian: guardian, safe: safe, onClaim: onClaim)
+    func selectAmount(safe: Safe, guardian: Guardian, onClaim: @escaping (Guardian, String) -> ()) -> ClaimTokensViewController {
+        let vc = ClaimTokensViewController(guardian: guardian, safe: safe, onClaim: onClaim)
         return vc
     }
 

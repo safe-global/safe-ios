@@ -1,5 +1,5 @@
 //
-//  EnterClaimingAmountTableViewCell.swift
+//  ClaimedAmountInputCell.swift
 //  Multisig
 //
 //  Created by Moaaz on 6/29/22.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EnterClaimingAmountTableViewCell: UITableViewCell {
+class ClaimedAmountInputCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var amountTextField: TokenAmountField!
