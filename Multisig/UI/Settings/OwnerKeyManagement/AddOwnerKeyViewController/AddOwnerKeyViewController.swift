@@ -18,7 +18,7 @@ class AddOwnerKeyViewController: UITableViewController {
         (.ledgerNanoX, "Connect Ledger Nano X", "Add a key from your hardware wallet"),
         (.keystone, "Connect Keystone", "Connect your key via QR code")
     ]
-    
+
     convenience init(showsCloseButton: Bool = true, completion: @escaping () -> Void) {
         self.init()
         self.completion = completion
@@ -41,7 +41,7 @@ class AddOwnerKeyViewController: UITableViewController {
         tableView.estimatedRowHeight = 90
         tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .backgroundPrimary
-        
+
         keyTypes.append(
             (.walletConnect, "Connect key", "Connect an existing key from another wallet using WalletConnect")
         )

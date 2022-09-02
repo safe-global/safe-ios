@@ -18,11 +18,6 @@ class SelectOwnerAddressViewModel {
         var name: String?
         var exists: Bool { name != nil }
     }
-
-    private enum KeyType {
-        case `private`
-        case `public`
-    }
     
     static let notSelectedIndex = -1
 
@@ -49,7 +44,6 @@ class SelectOwnerAddressViewModel {
 
     init(rootNode: HDNode, onSubmit: (() -> Void)? = nil ) {
         self.rootNode = rootNode
-        keyType = rootNode.hasPrivate ? .private : .public
         generateNextPage()
         selectedIndex = items.first?.exists == true ? Self.notSelectedIndex : 0
     }
@@ -104,7 +98,8 @@ class SelectOwnerAddressViewModel {
     func generateNextPage() {
         do {
             let indexes = (items.count..<items.count + pageSize)
-            let addresses = indexes.map(keyType == .private ? privateAddressAt : publicAddressAt)
+            let hasPrivate = rootNode?.hasPrivate ?? false
+            let addresses = indexes.map(hasPrivate ? privateAddressAt : publicAddressAt)
             let infoByAddress = try Dictionary(grouping: KeyInfo.keys(addresses: addresses.compactMap { $0 }), by: \.address)
 
             let nextPage = indexes.enumerated().compactMap { (i, addressIndex) in
