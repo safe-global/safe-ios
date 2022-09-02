@@ -23,11 +23,6 @@ class KeyPickerController: UITableViewController {
         case collapsed, expanded
     }
 
-    private enum KeyType {
-        case `private`
-        case `public`
-    }
-    
     typealias Item = SelectOwnerAddressViewModel.KeyAddressInfo
 
     var completion: () -> Void = { }
@@ -62,7 +57,6 @@ class KeyPickerController: UITableViewController {
 
     convenience init(node: HDNode) {
         self.init()
-        keyType = node.hasPrivate ? .private : .public
         viewModel = SelectOwnerAddressViewModel(rootNode: node)
     }
 
@@ -84,11 +78,8 @@ class KeyPickerController: UITableViewController {
     }
 
     @objc func didTapImport() {
-        if let _ = viewModel.selectedPrivateKey, keyType == .private {
-            self.completion()
-        } else if let _ = viewModel.selectedPublicKey, keyType == .public {
-            self.completion()
-        }
+        guard viewModel.selectedPrivateKey != nil || viewModel.selectedPublicKey != nil else { return }
+        self.completion()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

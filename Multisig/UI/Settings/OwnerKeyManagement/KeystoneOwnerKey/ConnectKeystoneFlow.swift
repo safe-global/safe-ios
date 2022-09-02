@@ -80,7 +80,7 @@ final class ConnectKeystoneFlow: AddKeyFlow {
     
     override func importKey() {
         guard let publicKey = publicKey else { return }
-        let existingKey = try! KeyInfo.firstKey(address: publicKey.address)
+        let existingKey = try? KeyInfo.firstKey(address: publicKey.address)
         guard existingKey == nil else {
             App.shared.snackbar.show(error: GSError.KeyAlreadyImported())
             stop(success: false)
