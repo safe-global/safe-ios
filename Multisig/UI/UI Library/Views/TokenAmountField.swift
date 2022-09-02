@@ -14,6 +14,9 @@ class TokenAmountField: UINibView {
     @IBOutlet private weak var iconImage: UIImageView!
     @IBOutlet private weak var amountTextField: UITextField!
     @IBOutlet private weak var errorLabel: UILabel!
+
+    var borderColorNormal: UIColor = .border
+    var borderColorError: UIColor = .error
     
     var balance: String {
         get { amountTextField.text ?? "" }
@@ -36,14 +39,14 @@ class TokenAmountField: UINibView {
     func setToken(logoURL: URL? = nil, amount: String = "") {
         iconImage.setCircleShapeImage(url: logoURL, placeholder:  UIImage(named: "ico-token-placeholder")!)
         amountTextField.text = amount
-        borderImage.tintColor = .labelTertiary
+        borderImage.tintColor = borderColorNormal
         errorLabel.isHidden = true
     }
 
     func setToken(image: UIImage? = nil, amount: String = "") {
         iconImage.image = image ?? UIImage(named: "ico-token-placeholder")
         amountTextField.text = amount
-        borderImage.tintColor = .labelTertiary
+        borderImage.tintColor = borderColorNormal
         errorLabel.isHidden = true
     }
     
@@ -51,11 +54,11 @@ class TokenAmountField: UINibView {
         if let message = message {
             errorLabel.text = message
             errorLabel.isHidden = false
-            borderImage.tintColor = .error
+            borderImage.tintColor = borderColorError
         } else {
             errorLabel.text = nil
             errorLabel.isHidden = true
-            borderImage.tintColor = .labelTertiary
+            borderImage.tintColor = borderColorNormal
         }
     }
 }

@@ -239,6 +239,8 @@
 		0A22E12825E4FA3200D24DE1 /* SwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A22E12625E4FA3200D24DE1 /* SwitchTableViewCell.xib */; };
 		0A259AB5287D83F9006770E7 /* UnstoppableDomainsResolution in Frameworks */ = {isa = PBXBuildFile; productRef = 0A259AB4287D83F9006770E7 /* UnstoppableDomainsResolution */; };
 		0A259AB7287D85B3006770E7 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = 0A259AB6287D85B3006770E7 /* Web3 */; };
+		0A26FABB28C1F22500B0F519 /* SelectedDelegateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26FAB928C1F22500B0F519 /* SelectedDelegateCell.swift */; };
+		0A26FABC28C1F22500B0F519 /* SelectedDelegateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A26FABA28C1F22500B0F519 /* SelectedDelegateCell.xib */; };
 		0A29B5622666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 0A29B5612666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		0A2A3A6D26AEBA50005FAEB7 /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 0A2A3A6C26AEBA50005FAEB7 /* SwiftCryptoTokenFormatter */; settings = {ATTRIBUTES = (Required, ); }; };
 		0A2AD3BC27ECD6CA00A0A6FD /* QRCodeShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2AD3BA27ECD6CA00A0A6FD /* QRCodeShareViewController.swift */; };
@@ -1169,6 +1171,8 @@
 		0A22E11B25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeSettingsViewController.swift; sourceTree = "<group>"; };
 		0A22E12525E4FA3200D24DE1 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		0A22E12625E4FA3200D24DE1 /* SwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwitchTableViewCell.xib; sourceTree = "<group>"; };
+		0A26FAB928C1F22500B0F519 /* SelectedDelegateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDelegateCell.swift; sourceTree = "<group>"; };
+		0A26FABA28C1F22500B0F519 /* SelectedDelegateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectedDelegateCell.xib; sourceTree = "<group>"; };
 		0A2AD3BA27ECD6CA00A0A6FD /* QRCodeShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeShareViewController.swift; sourceTree = "<group>"; };
 		0A2AD3BB27ECD6CA00A0A6FD /* QRCodeShareViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QRCodeShareViewController.xib; sourceTree = "<group>"; };
 		0A2F1A6D267A538E00C09F03 /* GSLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSLabel.swift; sourceTree = "<group>"; };
@@ -2097,6 +2101,8 @@
 				0472B2CD286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib */,
 				0472B2D0286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.swift */,
 				0472B2D1286BD7C60049BA17 /* EnterClaimingAmountTableViewCell.xib */,
+				0A26FAB928C1F22500B0F519 /* SelectedDelegateCell.swift */,
+				0A26FABA28C1F22500B0F519 /* SelectedDelegateCell.xib */,
 			);
 			path = ClaimingAmountViewController;
 			sourceTree = "<group>";
@@ -4459,6 +4465,7 @@
 				0428DA5B25CBFC25002CF4A9 /* HelpLinkTableViewCell.xib in Resources */,
 				0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */,
 				0472B2CF286BCB530049BA17 /* AvailableClaimingAmountTableViewCell.xib in Resources */,
+				0A26FABC28C1F22500B0F519 /* SelectedDelegateCell.xib in Resources */,
 				04D968D5276B872D00CE4A9E /* TransactionViewController.xib in Resources */,
 				5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
@@ -4914,6 +4921,7 @@
 				557D80B8270B32F80036D6D0 /* SignatureRequestViewController.swift in Sources */,
 				551DDEE9244F183500C719D3 /* Selection.swift in Sources */,
 				04D093E9284FD348003F38CF /* OnboardingStepCollectionViewCell.swift in Sources */,
+				0A26FABB28C1F22500B0F519 /* SelectedDelegateCell.swift in Sources */,
 				0A5B15802808640F003AD853 /* ChangePasscodeEnterNewViewController.swift in Sources */,
 				04FC26B625CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift in Sources */,
 				0AFD9DCE27BFF01000011CF1 /* SendTransactionContentViewController.swift in Sources */,

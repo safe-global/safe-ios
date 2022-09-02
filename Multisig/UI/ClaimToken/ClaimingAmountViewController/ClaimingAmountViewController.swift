@@ -10,11 +10,16 @@ import UIKit
 import SwiftCryptoTokenFormatter
 
 class ClaimingAmountViewController: LoadableViewController {
+    // TODO: tap on the background -> close keyboard
+    // TODO: tap on the background -> close all tooltips
+    // TODO: keyboard open/close -> scroll to show text field, delegate, and the button
+
     enum RowItem {
         case claimableNow
         case claimableFuture
         case claimableTotal
         case claimingAmount
+        case selectedDelegate
     }
 
     private var guardian: Guardian!
@@ -24,9 +29,12 @@ class ClaimingAmountViewController: LoadableViewController {
     private var onClaim: ((Guardian, String) -> ())?
     private var claimingAmount: SafeClaimingAmount!
 
+    private weak var claimButtonContainer: UIView!
+    private weak var claimButton: UIButton!
+
     private var stepLabel: UILabel!
 
-    var rows: [RowItem] = [.claimableNow, .claimableFuture, .claimableTotal, .claimingAmount]
+    var rows: [RowItem] = [.claimableNow, .claimableFuture, .claimableTotal, .claimingAmount, .selectedDelegate]
     private let tokenFormatter = TokenFormatter()
 
     convenience init(stepNumber: Int = 3,
@@ -47,11 +55,13 @@ class ClaimingAmountViewController: LoadableViewController {
         claimingAmount = SafeClaimingController.shared.claimingAmountFor(safe: safe.addressValue)
         assert(claimingAmount != nil)
 
+        view.backgroundColor = .backgroundSecondary
+
         tableView.registerCell(AvailableClaimingAmountTableViewCell.self)
         tableView.registerCell(EnterClaimingAmountTableViewCell.self)
         tableView.registerCell(AllocationTotalCell.self)
-
         tableView.registerCell(AllocationBoxCell.self)
+        tableView.registerCell(SelectedDelegateCell.self)
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -65,9 +75,54 @@ class ClaimingAmountViewController: LoadableViewController {
 
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
-        navigationItem.title = "Your Safe allocation"
+
+        navigationItem.title = "Your SAFE allocation"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
+        ViewControllerFactory.removeNavigationBarBorder(self)
+
+        addClaimButton()
+    }
+
+    fileprivate func addClaimButton() {
+        let button = UIButton(type: .custom)
+        button.setText("Claim & Delegate", .filled)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(didTapClaimButton), for: .touchUpInside)
+        claimButton = button
+
+        let container = UIView()
+        container.backgroundColor = .backgroundSecondary
+        container.translatesAutoresizingMaskIntoConstraints = false
+        claimButtonContainer = container
+
+        container.addSubview(button)
+        view.addSubview(container)
+
+        container.addConstraints([
+            button.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16),
+            container.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: 16),
+            button.topAnchor.constraint(equalTo: container.topAnchor, constant: 8),
+            container.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: 20),
+            button.heightAnchor.constraint(equalToConstant: 56)
+        ])
+
+        view.addConstraints([
+            container.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            container.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            container.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+
+        var insets = tableView.contentInset
+        insets.bottom = 16
+        tableView.contentInset = insets
+    }
+
+    @objc func didTapClaimButton() {
+
+    }
+
+    @IBAction private func editButtonTouched(_ sender: Any) {
     }
 
     override func reloadData() {
@@ -114,10 +169,12 @@ extension ClaimingAmountViewController: UITableViewDelegate, UITableViewDataSour
         case .claimingAmount:
             let cell = tableView.dequeueCell(EnterClaimingAmountTableViewCell.self)
             cell.set(value: "0",
-                     maxValue: tokenFormatter.string(from: claimingAmount.totalClaimable),
-                     guardian: guardian) { [unowned self] claimingValue in
-                onClaim?(guardian, claimingValue)
-            }
+                     maxValue: tokenFormatter.string(from: claimingAmount.totalClaimable))
+            return cell
+
+        case .selectedDelegate:
+            let cell = tableView.dequeueCell(SelectedDelegateCell.self)
+            cell.guardian = guardian
             return cell
         }
     }
