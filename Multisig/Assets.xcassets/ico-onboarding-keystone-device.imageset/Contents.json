@@ -3,6 +3,16 @@
     {
       "filename" : "ico-onboarding-keystone-device.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-onboarding-keystone-device-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

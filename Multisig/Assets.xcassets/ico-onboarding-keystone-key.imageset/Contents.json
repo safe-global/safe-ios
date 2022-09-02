@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "ico-onboarding-keystone-qrcode.pdf",
+      "filename" : "ico-onboarding-keystone-key.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ico-onboarding-keystone-qrcode-dark.pdf",
+      "filename" : "ico-onboarding-keystone-key-dark.pdf",
       "idiom" : "universal"
     }
   ],
