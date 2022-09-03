@@ -9,6 +9,7 @@
 import UIKit
 import Version
 import SwiftCryptoTokenFormatter
+import SwiftUI
 
 fileprivate protocol SectionItem {}
 
@@ -256,8 +257,11 @@ class ReviewSafeTransactionViewController: UIViewController {
             }
             
         case .keystone:
-            // To be implemented
-            break
+            let signVC = UIHostingController(rootView: KeystoneRequestSignatureView())
+            let modalVC = ViewControllerFactory.modalWithRibbon(viewController: signVC, storedChain: safe.chain)
+            signVC.navigationItem.title = "Request signature"
+            
+            presentModal(modalVC)
         }
     }
 

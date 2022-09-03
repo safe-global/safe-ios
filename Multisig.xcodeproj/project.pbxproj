@@ -613,6 +613,7 @@
 		3E373F762631781A00D8107A /* EnterUnstoppableNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E373F742631781900D8107A /* EnterUnstoppableNameViewController.xib */; };
 		3E373F772631781A00D8107A /* EnterUnstoppableNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */; };
 		3E373F7D2631784200D8107A /* BlockchainDomainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */; };
+		47039CEE28C37EDB00081A7A /* KeystoneRequestSignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47039CED28C37EDB00081A7A /* KeystoneRequestSignatureView.swift */; };
 		47368B9B28C0B003008A1D8A /* URRegistry in Frameworks */ = {isa = PBXBuildFile; productRef = 47368B9A28C0B003008A1D8A /* URRegistry */; };
 		473F4B8F28B94CE200B6DE4E /* HDNode+UR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473F4B8E28B94CE200B6DE4E /* HDNode+UR.swift */; };
 		473F4B9128BA47F900B6DE4E /* PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473F4B9028BA47F900B6DE4E /* PublicKey.swift */; };
@@ -1530,6 +1531,7 @@
 		3E373F742631781900D8107A /* EnterUnstoppableNameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterUnstoppableNameViewController.xib; sourceTree = "<group>"; };
 		3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterUnstoppableNameViewController.swift; sourceTree = "<group>"; };
 		3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockchainDomainManager.swift; sourceTree = "<group>"; };
+		47039CED28C37EDB00081A7A /* KeystoneRequestSignatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystoneRequestSignatureView.swift; sourceTree = "<group>"; };
 		473F4B8E28B94CE200B6DE4E /* HDNode+UR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HDNode+UR.swift"; sourceTree = "<group>"; };
 		473F4B9028BA47F900B6DE4E /* PublicKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKey.swift; sourceTree = "<group>"; };
 		47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectKeystoneFlow.swift; sourceTree = "<group>"; };
@@ -3372,6 +3374,7 @@
 			isa = PBXGroup;
 			children = (
 				47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */,
+				47039CED28C37EDB00081A7A /* KeystoneRequestSignatureView.swift */,
 			);
 			path = KeystoneOwnerKey;
 			sourceTree = "<group>";
@@ -5207,6 +5210,7 @@
 				B0D61167B7886798C36728CC /* WCGetDappsRequest.swift in Sources */,
 				B0D61927EF504F463E943EE9 /* WCGetWalletsRequest.swift in Sources */,
 				B0D61DE33EFF15FAD877F293 /* WCRegistryService.swift in Sources */,
+				47039CEE28C37EDB00081A7A /* KeystoneRequestSignatureView.swift in Sources */,
 				8D7DF1A98F3C869DE4CCB3CC /* CDWCAppRegistryEntry.swift in Sources */,
 				AD303ABF1DBCA951A106ECD5 /* ReviewReplaceOwnerTxViewController.swift in Sources */,
 				AD30333439A0A2388F0749B0 /* ChangeConfirmationsFlow.swift in Sources */,
