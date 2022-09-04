@@ -57,6 +57,12 @@ extension Sol.Bytes: SolAbiEncodable {
         let paddingLength = remainder32 == 0 ? 0 : (32 - remainder32)
         offset += intSize + paddingLength
     }
+
+    public func encodePacked() -> Data {
+        // Dynamically-sized types like string, bytes or uint[] are encoded without their length field.
+        // The encoding of string or bytes does not apply padding at the end, unless it is part of an array or struct (then it is padded to a multiple of 32 bytes).
+        return storage
+    }
 }
 
 extension Sol.Bytes: Hashable {

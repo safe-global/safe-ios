@@ -11,7 +11,6 @@ import UIKit
 class InstructionStepListView: UIStackView {
 
     struct Step {
-        let title: String
         let description: String
     }
 
@@ -32,9 +31,9 @@ class InstructionStepListView: UIStackView {
 
         arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-        for (index, step) in steps.enumerated() {
+        for (_, step) in steps.enumerated() {
             let instructionView = InstructionStepView()
-            instructionView.setData(step: index + 1, title: step.title, description: step.description, finalStep: index == steps.count - 1)
+            instructionView.setData(description: step.description)
             addArrangedSubview(instructionView)
         }
     }

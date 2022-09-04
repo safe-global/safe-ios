@@ -453,6 +453,8 @@
 		0A9E8E7725B9CA4200256AD3 /* BannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9E8E7525B9CA4200256AD3 /* BannerTableViewCell.swift */; };
 		0A9E8E7825B9CA4200256AD3 /* BannerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9E8E7625B9CA4200256AD3 /* BannerTableViewCell.xib */; };
 		0AA59CC4270CAE91000CA7B1 /* LedgerKeyAddedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA59CC3270CAE91000CA7B1 /* LedgerKeyAddedViewController.swift */; };
+		0AA5F55D28BF667000D6D220 /* claiming_test_fixtures.json in Resources */ = {isa = PBXBuildFile; fileRef = 0AA5F55C28BF667000D6D220 /* claiming_test_fixtures.json */; };
+		0AA5F55F28BF6F2200D6D220 /* claiming_test_fixtures.yml in Resources */ = {isa = PBXBuildFile; fileRef = 0AA5F55E28BF6F2200D6D220 /* claiming_test_fixtures.yml */; };
 		0AA9F1F42497BCA9005BD60F /* TokenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F1F32497BCA9005BD60F /* TokenInfo.swift */; };
 		0AA9F2072497BE9B005BD60F /* UInt256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F2062497BE9B005BD60F /* UInt256.swift */; };
 		0AA9F2512498CC62005BD60F /* AddressString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9F2502498CC62005BD60F /* AddressString.swift */; };
@@ -493,6 +495,7 @@
 		0AC2A3C726FB6802002CB26A /* CollectiblesUnsupportedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC2A3C526FB6802002CB26A /* CollectiblesUnsupportedViewController.swift */; };
 		0AC2A3C826FB6802002CB26A /* CollectiblesUnsupportedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC2A3C626FB6802002CB26A /* CollectiblesUnsupportedViewController.xib */; };
 		0AC2A3CA26FB6B84002CB26A /* WebAppURLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC2A3C926FB6B84002CB26A /* WebAppURLBuilder.swift */; };
+		0AC2BAE728B8F9B500AB66EB /* ActivateBiometryAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC2BAE628B8F9B500AB66EB /* ActivateBiometryAlertController.swift */; };
 		0AC5F56B25DD4A4B00DEF0D7 /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC5F56A25DD4A4B00DEF0D7 /* AuthenticationController.swift */; };
 		0AC5F5B325DD510600DEF0D7 /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC5F5B225DD510600DEF0D7 /* AppUser.swift */; };
 		0AC60C512549AF2200A63AE2 /* NoSafeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60C502549AF2200A63AE2 /* NoSafeBarView.swift */; };
@@ -1363,6 +1366,8 @@
 		0A9E8E7625B9CA4200256AD3 /* BannerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerTableViewCell.xib; sourceTree = "<group>"; };
 		0AA59CC1270CAD05000CA7B1 /* SafeLoadedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeLoadedViewController.swift; sourceTree = "<group>"; };
 		0AA59CC3270CAE91000CA7B1 /* LedgerKeyAddedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerKeyAddedViewController.swift; sourceTree = "<group>"; };
+		0AA5F55C28BF667000D6D220 /* claiming_test_fixtures.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = claiming_test_fixtures.json; sourceTree = "<group>"; };
+		0AA5F55E28BF6F2200D6D220 /* claiming_test_fixtures.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = claiming_test_fixtures.yml; sourceTree = "<group>"; };
 		0AA9F1F32497BCA9005BD60F /* TokenInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInfo.swift; sourceTree = "<group>"; };
 		0AA9F2062497BE9B005BD60F /* UInt256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UInt256.swift; sourceTree = "<group>"; };
 		0AA9F2502498CC62005BD60F /* AddressString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressString.swift; sourceTree = "<group>"; };
@@ -1403,6 +1408,7 @@
 		0AC2A3C526FB6802002CB26A /* CollectiblesUnsupportedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesUnsupportedViewController.swift; sourceTree = "<group>"; };
 		0AC2A3C626FB6802002CB26A /* CollectiblesUnsupportedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectiblesUnsupportedViewController.xib; sourceTree = "<group>"; };
 		0AC2A3C926FB6B84002CB26A /* WebAppURLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAppURLBuilder.swift; sourceTree = "<group>"; };
+		0AC2BAE628B8F9B500AB66EB /* ActivateBiometryAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivateBiometryAlertController.swift; sourceTree = "<group>"; };
 		0AC5F56A25DD4A4B00DEF0D7 /* AuthenticationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationController.swift; sourceTree = "<group>"; };
 		0AC5F5B225DD510600DEF0D7 /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
 		0AC60C502549AF2200A63AE2 /* NoSafeBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSafeBarView.swift; sourceTree = "<group>"; };
@@ -2576,6 +2582,7 @@
 			isa = PBXGroup;
 			children = (
 				0ABC00212823139D00F42D29 /* CreatePasscodeFlow.swift */,
+				0AC2BAE628B8F9B500AB66EB /* ActivateBiometryAlertController.swift */,
 				0A5B15832808643B003AD853 /* CreatePasscodeViewController.swift */,
 				0A5B158128086424003AD853 /* RepeatPasscodeViewController.swift */,
 			);
@@ -3032,6 +3039,8 @@
 				0A61E8432670E5FF009D68A4 /* UI Snapshot Tests */,
 				0A01DCE32770B0A100A87D7A /* TransactionIntegrationTests.swift */,
 				0AF8D1A92822C74E0035DCF7 /* SafeTransactionControllerIntegrationTests.swift */,
+				0AA5F55E28BF6F2200D6D220 /* claiming_test_fixtures.yml */,
+				0AA5F55C28BF667000D6D220 /* claiming_test_fixtures.json */,
 				0A884C4328B3B4BC00D008A0 /* ClaimingAppControllerTests.swift */,
 			);
 			path = MultisigIntegrationTests;
@@ -4582,8 +4591,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AA5F55F28BF6F2200D6D220 /* claiming_test_fixtures.yml in Resources */,
 				0A61E8452670E632009D68A4 /* __Snapshots__ in Resources */,
 				6A91EFDA27DA2C8D009E63E9 /* wc_registry_wallets.json in Resources */,
+				0AA5F55D28BF667000D6D220 /* claiming_test_fixtures.json in Resources */,
 				0A74719A269F152D008E9F2D /* chains_4_safes_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_balances_usd.json in Resources */,
 				0A3DFEFE2667D3A700B45770 /* README.md in Resources */,
 			);
@@ -5067,6 +5078,7 @@
 				0ABE69852791B47B003338AF /* Fee1559FormModel.swift in Sources */,
 				044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */,
 				0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */,
+				0AC2BAE728B8F9B500AB66EB /* ActivateBiometryAlertController.swift in Sources */,
 				0A04506F278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift in Sources */,
 				0A478D1B25B860240038363E /* KeyPickerController.swift in Sources */,
 				0AF2737724DD48AD007E4012 /* NotificationPayload.swift in Sources */,

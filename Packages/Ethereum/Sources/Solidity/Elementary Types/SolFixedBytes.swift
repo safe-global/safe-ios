@@ -45,6 +45,11 @@ extension SolFixedBytes {
         offset += 32
     }
 
+    public func encodePacked() -> Data {
+        // bytes<M>: enc(X) is the sequence of bytes
+        storage
+    }
+
     public var canonicalName: String {
         "bytes\(Self.byteCount)"
     }

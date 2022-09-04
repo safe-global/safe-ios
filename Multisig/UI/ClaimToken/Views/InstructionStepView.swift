@@ -10,27 +10,18 @@ import UIKit
 
 class InstructionStepView: UINibView {
 
-    @IBOutlet weak var circleLabel: UILabel!
-    @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var verticalBarView: UIImageView!
-
+    @IBOutlet weak var horizontalStackView: UIStackView!
+    @IBOutlet weak var bulletPointLabel: UILabel!
 
     override func commonInit() {
         super.commonInit()
-        circleLabel.setStyle(.secondary)
-        headerLabel.setStyle(.title5)
         descriptionLabel.setStyle(.secondary)
+        bulletPointLabel.text = "\u{2022}"
+        bulletPointLabel.setStyle(.secondary)
     }
 
-    func setData(step: Int, title: String, description: String, finalStep: Bool = false) {
-        circleLabel.text = String(step)
-        headerLabel.text = title
+    func setData(description: String) {
         descriptionLabel.text = description
-        if finalStep {
-            verticalBarView.isHidden = true
-        } else {
-            verticalBarView.isHidden = false
-        }
     }
 }

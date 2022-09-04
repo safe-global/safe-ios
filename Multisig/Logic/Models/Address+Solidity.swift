@@ -10,9 +10,15 @@ import Foundation
 import Solidity
 
 extension Address {
-    init?(_ solAddress: Sol.Address) {
+    init(_ solAddress: Sol.Address) {
         let data = solAddress.encode()
         let bytes20 = Data(Array(data).suffix(20))
-        self.init(bytes20)
+        self.init(bytes20)!
+    }
+}
+
+extension AddressString {
+    init(_ address: Sol.Address) {
+        self.init(Address(address))
     }
 }
