@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WhatIsSafeViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="content1" destination="Rte-Jl-uLO" id="wVL-gJ-4A6"/>
+                <outlet property="nextButton" destination="7jk-74-sU4" id="8KM-bf-bpE"/>
+                <outlet property="titleLabel" destination="IQU-qs-wgH" id="kfD-Hj-b5Z"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="JFU-qv-SA7">
+                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                    <subviews>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2DD-LD-VPa">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="780"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vzp-U0-8re">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="780"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="What is Safe?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQU-qs-wgH" userLabel="title">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="670.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rte-Jl-uLO">
+                                            <rect key="frame" x="0.0" y="678.5" width="414" height="101.5"/>
+                                            <string key="text">Safe is critical infrastructure for web3.  It is a programmable account standard that enables secure management of digital assets, data and identity. 
+With this token launch, Safe is now a community-driven ownership platform.</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="eV0-VL-uA6" firstAttribute="trailing" secondItem="vzp-U0-8re" secondAttribute="trailing" id="6E7-5t-Qgv"/>
+                                <constraint firstItem="vzp-U0-8re" firstAttribute="leading" secondItem="eV0-VL-uA6" secondAttribute="leading" id="71T-1m-IG0"/>
+                                <constraint firstItem="eV0-VL-uA6" firstAttribute="bottom" secondItem="vzp-U0-8re" secondAttribute="bottom" id="Iis-Im-iW7"/>
+                                <constraint firstItem="vzp-U0-8re" firstAttribute="top" secondItem="eV0-VL-uA6" secondAttribute="top" id="Pek-bw-Y5L"/>
+                            </constraints>
+                            <viewLayoutGuide key="contentLayoutGuide" id="Mgb-iD-2yM"/>
+                            <viewLayoutGuide key="frameLayoutGuide" id="eV0-VL-uA6"/>
+                        </scrollView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7jk-74-sU4">
+                            <rect key="frame" x="0.0" y="796" width="414" height="56"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" id="kbY-6f-V7N"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Next">
+                                <color key="titleColor" name="labelPrimary"/>
+                            </state>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="JFU-qv-SA7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4gn-RI-bRZ"/>
+                <constraint firstItem="JFU-qv-SA7" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="PB8-IK-BAC"/>
+                <constraint firstAttribute="bottom" secondItem="JFU-qv-SA7" secondAttribute="bottom" id="Z2m-sA-hqk"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JFU-qv-SA7" secondAttribute="trailing" id="d5i-S4-QPR"/>
+            </constraints>
+            <point key="canvasLocation" x="132" y="132"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="labelPrimary">
+            <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

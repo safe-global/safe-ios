@@ -824,6 +824,8 @@
 		931AB80328808EBC00264AAA /* MultiSendApproveMultihopBatchSwapExactIn.json in Resources */ = {isa = PBXBuildFile; fileRef = 931AB80128808EBC00264AAA /* MultiSendApproveMultihopBatchSwapExactIn.json */; };
 		931AB80428808EBC00264AAA /* MockJSONHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931AB80228808EBC00264AAA /* MockJSONHttpClient.swift */; };
 		931AB80628808F3600264AAA /* TransactionPreviewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931AB80528808F3600264AAA /* TransactionPreviewRequest.swift */; };
+		932EBE0C28C246BA005BE4EC /* WhatIsSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EBE0A28C246BA005BE4EC /* WhatIsSafeViewController.swift */; };
+		932EBE0D28C246BA005BE4EC /* WhatIsSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 932EBE0B28C246BA005BE4EC /* WhatIsSafeViewController.xib */; };
 		935DCA4C27BD14C600F09EE4 /* WebConnectionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */; };
 		9388B98227C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */; };
 		93D9013E27727E2500624B29 /* WhatsNewKit in Frameworks */ = {isa = PBXBuildFile; productRef = 93D9013D27727E2500624B29 /* WhatsNewKit */; };
@@ -1746,6 +1748,8 @@
 		931AB80128808EBC00264AAA /* MultiSendApproveMultihopBatchSwapExactIn.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MultiSendApproveMultihopBatchSwapExactIn.json; sourceTree = "<group>"; };
 		931AB80228808EBC00264AAA /* MockJSONHttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockJSONHttpClient.swift; sourceTree = "<group>"; };
 		931AB80528808F3600264AAA /* TransactionPreviewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionPreviewRequest.swift; sourceTree = "<group>"; };
+		932EBE0A28C246BA005BE4EC /* WhatIsSafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatIsSafeViewController.swift; sourceTree = "<group>"; };
+		932EBE0B28C246BA005BE4EC /* WhatIsSafeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhatIsSafeViewController.xib; sourceTree = "<group>"; };
 		935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionDetailsViewController.swift; sourceTree = "<group>"; };
 		9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentNotificationController.swift; sourceTree = "<group>"; };
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
@@ -2059,6 +2063,7 @@
 				6AD4773128986556004C736D /* ClaimSuccessViewController.swift */,
 				6AD4773228986556004C736D /* ClaimSuccessViewController.xib */,
 				045DBCF4289AF40D003C910C /* ReviewClaimSafeTokenTransactionViewController.swift */,
+				AD30309F1883A02DECB4195D /* Tutorial */,
 			);
 			path = ClaimToken;
 			sourceTree = "<group>";
@@ -3942,6 +3947,15 @@
 			path = SafeTokenBanner;
 			sourceTree = "<group>";
 		};
+		AD30309F1883A02DECB4195D /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				932EBE0A28C246BA005BE4EC /* WhatIsSafeViewController.swift */,
+				932EBE0B28C246BA005BE4EC /* WhatIsSafeViewController.xib */,
+			);
+			path = Tutorial;
+			sourceTree = "<group>";
+		};
 		AD30347831BBAF9E3E43EEA3 /* ChangeConfirmations */ = {
 			isa = PBXGroup;
 			children = (
@@ -4476,6 +4490,7 @@
 				0AE8C05D2579354C00E62B34 /* TokenInfoView.xib in Resources */,
 				0A8AEB1925A4726E002A3FE1 /* ActionDetailExpandableCell.xib in Resources */,
 				04C5DF6C26FB451B0072476C /* KeyTypeTableViewCell.xib in Resources */,
+				932EBE0D28C246BA005BE4EC /* WhatIsSafeViewController.xib in Resources */,
 				6A1CFA5028081A1200B2C340 /* BackupSeedPhraseViewController.xib in Resources */,
 				6A7A48A12823A297003278C8 /* SafeOwnerCell.xib in Resources */,
 				0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */,
@@ -4740,6 +4755,7 @@
 				0A616B9B26AEFD4B00FCEDB9 /* MultisigNotification.swift in Sources */,
 				048B3B0E25A5E7AB0005219B /* EditSafeNameViewController.swift in Sources */,
 				0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */,
+				932EBE0C28C246BA005BE4EC /* WhatIsSafeViewController.swift in Sources */,
 				0A5C0C5628191F400061D96F /* PasscodeProtecting.swift in Sources */,
 				0ADD19C0265EA23200EB0F2B /* PrivateKeyViewController.swift in Sources */,
 				0AADCDC42858E8A100A0139B /* ValidateRequestToAddOwnerViewController.swift in Sources */,
