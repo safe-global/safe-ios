@@ -12,9 +12,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WhatIsSafeViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
-                <outlet property="content1" destination="Rte-Jl-uLO" id="wVL-gJ-4A6"/>
-                <outlet property="nextButton" destination="7jk-74-sU4" id="8KM-bf-bpE"/>
-                <outlet property="titleLabel" destination="IQU-qs-wgH" id="kfD-Hj-b5Z"/>
+                <outlet property="collectionView" destination="SxW-8I-lYu" id="Dkz-9c-yph"/>
+                <outlet property="pageControl" destination="GqP-fS-AfQ" id="ocf-dq-CsD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,68 +22,52 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="JFU-qv-SA7">
-                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
-                    <subviews>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2DD-LD-VPa">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="780"/>
-                            <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vzp-U0-8re">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="780"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="What is Safe?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQU-qs-wgH" userLabel="title">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="670.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rte-Jl-uLO">
-                                            <rect key="frame" x="0.0" y="678.5" width="414" height="101.5"/>
-                                            <string key="text">Safe is critical infrastructure for web3.  It is a programmable account standard that enables secure management of digital assets, data and identity. 
-With this token launch, Safe is now a community-driven ownership platform.</string>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </stackView>
-                            </subviews>
-                            <constraints>
-                                <constraint firstItem="eV0-VL-uA6" firstAttribute="trailing" secondItem="vzp-U0-8re" secondAttribute="trailing" id="6E7-5t-Qgv"/>
-                                <constraint firstItem="vzp-U0-8re" firstAttribute="leading" secondItem="eV0-VL-uA6" secondAttribute="leading" id="71T-1m-IG0"/>
-                                <constraint firstItem="eV0-VL-uA6" firstAttribute="bottom" secondItem="vzp-U0-8re" secondAttribute="bottom" id="Iis-Im-iW7"/>
-                                <constraint firstItem="vzp-U0-8re" firstAttribute="top" secondItem="eV0-VL-uA6" secondAttribute="top" id="Pek-bw-Y5L"/>
-                            </constraints>
-                            <viewLayoutGuide key="contentLayoutGuide" id="Mgb-iD-2yM"/>
-                            <viewLayoutGuide key="frameLayoutGuide" id="eV0-VL-uA6"/>
-                        </scrollView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7jk-74-sU4">
-                            <rect key="frame" x="0.0" y="796" width="414" height="56"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="56" id="kbY-6f-V7N"/>
-                            </constraints>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="Next">
-                                <color key="titleColor" name="labelPrimary"/>
-                            </state>
-                        </button>
-                    </subviews>
-                </stackView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="SxW-8I-lYu">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="812"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6DA-gW-Skf">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="GqP-fS-AfQ">
+                    <rect key="frame" x="149" y="842" width="116" height="20"/>
+                    <color key="backgroundColor" name="warning"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="H9q-aq-4Om"/>
+                    </constraints>
+                    <color key="pageIndicatorTintColor" name="labelTetriary"/>
+                    <color key="currentPageIndicatorTintColor" name="primary"/>
+                    <connections>
+                        <action selector="pageChanged:" destination="-1" eventType="valueChanged" id="D2Q-YK-Gv2"/>
+                    </connections>
+                </pageControl>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="JFU-qv-SA7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4gn-RI-bRZ"/>
-                <constraint firstItem="JFU-qv-SA7" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="PB8-IK-BAC"/>
-                <constraint firstAttribute="bottom" secondItem="JFU-qv-SA7" secondAttribute="bottom" id="Z2m-sA-hqk"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JFU-qv-SA7" secondAttribute="trailing" id="d5i-S4-QPR"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="GqP-fS-AfQ" secondAttribute="bottom" id="Eyk-UC-6aj"/>
+                <constraint firstItem="GqP-fS-AfQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="149" id="HEA-zL-AV6"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="GqP-fS-AfQ" secondAttribute="trailing" constant="149" id="HVm-Ge-MqE"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="SxW-8I-lYu" secondAttribute="bottom" constant="50" id="LLL-ad-1GJ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SxW-8I-lYu" secondAttribute="trailing" id="UPF-ik-rBs"/>
+                <constraint firstItem="SxW-8I-lYu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="gTz-Et-KUe"/>
+                <constraint firstItem="SxW-8I-lYu" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="npB-Tu-i0Z"/>
             </constraints>
             <point key="canvasLocation" x="132" y="132"/>
         </view>
     </objects>
     <resources>
-        <namedColor name="labelPrimary">
-            <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="labelTetriary">
+            <color red="0.0" green="0.078431372549019607" blue="0.15686274509803921" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary">
+            <color red="0.0" green="0.54509803921568623" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="warning">
+            <color red="0.90980392156862744" green="0.40000000000000002" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

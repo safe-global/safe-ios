@@ -828,6 +828,8 @@
 		932EBE0D28C246BA005BE4EC /* WhatIsSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 932EBE0B28C246BA005BE4EC /* WhatIsSafeViewController.xib */; };
 		935DCA4C27BD14C600F09EE4 /* WebConnectionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */; };
 		9388B98227C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */; };
+		93C38DBD28C4E808005188EC /* TutorialScreenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C38DBB28C4E808005188EC /* TutorialScreenCollectionViewCell.swift */; };
+		93C38DBE28C4E808005188EC /* TutorialScreenCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C38DBC28C4E808005188EC /* TutorialScreenCollectionViewCell.xib */; };
 		93D9013E27727E2500624B29 /* WhatsNewKit in Frameworks */ = {isa = PBXBuildFile; productRef = 93D9013D27727E2500624B29 /* WhatsNewKit */; };
 		93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */; };
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
@@ -1752,6 +1754,8 @@
 		932EBE0B28C246BA005BE4EC /* WhatIsSafeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhatIsSafeViewController.xib; sourceTree = "<group>"; };
 		935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionDetailsViewController.swift; sourceTree = "<group>"; };
 		9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentNotificationController.swift; sourceTree = "<group>"; };
+		93C38DBB28C4E808005188EC /* TutorialScreenCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialScreenCollectionViewCell.swift; sourceTree = "<group>"; };
+		93C38DBC28C4E808005188EC /* TutorialScreenCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TutorialScreenCollectionViewCell.xib; sourceTree = "<group>"; };
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
 		93EF2FA127C546330077BE95 /* InstructionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsViewController.swift; sourceTree = "<group>"; };
 		93EF2FA227C546330077BE95 /* InstructionsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstructionsViewController.xib; sourceTree = "<group>"; };
@@ -3952,6 +3956,8 @@
 			children = (
 				932EBE0A28C246BA005BE4EC /* WhatIsSafeViewController.swift */,
 				932EBE0B28C246BA005BE4EC /* WhatIsSafeViewController.xib */,
+				93C38DBB28C4E808005188EC /* TutorialScreenCollectionViewCell.swift */,
+				93C38DBC28C4E808005188EC /* TutorialScreenCollectionViewCell.xib */,
 			);
 			path = Tutorial;
 			sourceTree = "<group>";
@@ -4550,6 +4556,7 @@
 				046FFE0C287F6E91007428D7 /* IncommingTransactionRequestTypeTableViewCell.xib in Resources */,
 				0A0391CD27C565D4003C871A /* HelpTextTableViewCell.xib in Resources */,
 				6A4BC4D7288DD921002B6DDA /* EnterCustomAddressViewController.xib in Resources */,
+				93C38DBE28C4E808005188EC /* TutorialScreenCollectionViewCell.xib in Resources */,
 				93EF2FA827C550BC0077BE95 /* InstructionHeaderTableViewCell.xib in Resources */,
 				0A9A1A36257924C600B44405 /* DetailAccountAndTextCell.xib in Resources */,
 				0A9366B1278F0AA8001918A9 /* LabeledTextField.xib in Resources */,
@@ -5041,6 +5048,7 @@
 				0A21692B24A35A4E00BD1C1E /* SnackbarView.swift in Sources */,
 				049A9D7025F9303000CA5723 /* ChooseOwnerKeyViewController.swift in Sources */,
 				0A465C37246C2ECD00AFA467 /* GetInTouchView.swift in Sources */,
+				93C38DBD28C4E808005188EC /* TutorialScreenCollectionViewCell.swift in Sources */,
 				0ACEF00124C1DE620040A058 /* AddressImage.swift in Sources */,
 				0A096CBE2608D9370034E6BC /* NetworkStatusObserver.swift in Sources */,
 				0ABE698827920294003338AF /* ErrorTableViewCell.swift in Sources */,
