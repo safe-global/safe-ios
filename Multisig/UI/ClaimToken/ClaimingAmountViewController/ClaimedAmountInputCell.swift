@@ -14,6 +14,8 @@ class ClaimedAmountInputCell: UITableViewCell {
     @IBOutlet private weak var amountTextField: TokenAmountField!
     @IBOutlet private weak var maxButton: UIButton!
 
+    var didTapMax: () -> Void = { }
+
     var maxValue: String?
     var balance: String = "" {
         didSet {
@@ -34,6 +36,7 @@ class ClaimedAmountInputCell: UITableViewCell {
 
     @IBAction func maxButtonTouched(_ sender: Any) {
         amountTextField.balance = maxValue ?? "0"
+        didTapMax()
     }
 
 }

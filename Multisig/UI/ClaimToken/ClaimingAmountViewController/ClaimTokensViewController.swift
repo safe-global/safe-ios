@@ -403,7 +403,7 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
                 let userAmount = formatted(amount: claimData.unvestedAmount(for: userAllocation, at: timestamp))
                 let ecosystemAmount = formatted(amount: claimData.unvestedAmount(for: ecosystemAllocation, at: timestamp))
 
-                let halfDate = userAllocation.allocation.startDate + 4 * 52 * 7 * 60 * 60 // 4 years, 52 weeks per year
+                let halfDate = userAllocation.allocation.startDate + 4 * 52 * 7 * 24 * 60 * 60 // 4 years, 52 weeks per year
                 let vestingStartDate = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(halfDate)))
                 cell.headerTooltipText = NSAttributedString(string: "SAFE vesting is vested linearly over 4 years starting on \(vestingStartDate)")
 
@@ -413,7 +413,7 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
                 // must be set at the end to update values
                 cell.style = .lightGuardian
             } else if let userAllocation = userAllocation, claimData.allocationsData.count == 1 {
-                let halfDate = userAllocation.allocation.startDate + 4 * 52 * 7 * 60 * 60 // 4 years, 52 weeks per year
+                let halfDate = userAllocation.allocation.startDate + 4 * 52 * 7 * 24 * 60 * 60 // 4 years, 52 weeks per year
                 let vestingStartDate = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(halfDate)))
                 cell.headerTooltipText = NSAttributedString(string: "SAFE vesting is vested linearly over 4 years starting on \(vestingStartDate)")
 
@@ -436,17 +436,83 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
 
         case .claimableTotal:
             let cell = tableView.dequeueCell(AllocationTotalCell.self)
-            cell.text = "Awarded total allocation is 9000.15 SAFE"
+
+
+            guard let claimData = claimData else {
+                // defaults when data not loaded
+                cell.text = "Awarded total allocation ..."
+                return cell
+            }
+
+
+            let userAllocation = claimData.allocationsData.first {
+                $0.allocation.tag.contains("user")
+            }
+            let ecosystemAllocation = claimData.allocationsData.first {
+                $0.allocation.tag.contains("ecosystem")
+            }
+
+            if userAllocation != nil, ecosystemAllocation != nil, claimData.allocationsData.count == 2 {
+
+                let amount = formatted(amount: claimData.totalAllocatedAmount(of: claimData.allocationsData, at: timestamp))
+                cell.text = "Awarded total allocation is \(amount)"
+
+            } else if userAllocation != nil, claimData.allocationsData.count == 1 {
+
+                let amount = formatted(amount: claimData.totalAllocatedAmount(of: claimData.allocationsData, at: timestamp))
+                cell.text = "Awarded total allocation is \(amount)"
+
+            } else {
+                assertionFailure("Data misconfiguration: user or ecosystem allocations not found")
+                cell.text = "Awarded total allocation is n/a"
+            }
+
             return cell
 
         case .claimingAmount:
             let cell = tableView.dequeueCell(ClaimedAmountInputCell.self)
-//            cell.maxValue = tokenFormatter.string(from: claimingAmount.totalClaimable)
+
+            guard let claimData = claimData else {
+                // defaults when data not loaded
+                cell.maxValue = nil
+                return cell
+            }
+
+            let userAllocation = claimData.allocationsData.first {
+                $0.allocation.tag.contains("user")
+            }
+            let ecosystemAllocation = claimData.allocationsData.first {
+                $0.allocation.tag.contains("ecosystem")
+            }
+
+            if userAllocation != nil, ecosystemAllocation != nil, claimData.allocationsData.count == 2 {
+
+                cell.maxValue = formatted(amount: claimData.totalAvailableAmount(of: claimData.allocationsData, at: timestamp))
+
+            } else if userAllocation != nil, claimData.allocationsData.count == 1 {
+
+                cell.maxValue = formatted(amount: claimData.totalAvailableAmount(of: claimData.allocationsData, at: timestamp))
+
+            } else {
+                assertionFailure("Data misconfiguration: user or ecosystem allocations not found")
+                cell.maxValue = nil
+            }
+
+            cell.didTapMax = { [unowned self] in
+                isMaxAmountSelected = true
+            }
+
             return cell
 
         case .selectedDelegate:
             let cell = tableView.dequeueCell(SelectedDelegateCell.self)
-//            cell.guardian = guardian
+
+            if let guardian = controller.guardian(by: votingPowerDelegate) {
+                cell.guardian = guardian
+            } else {
+                cell.set(address: votingPowerDelegate, chain: controller.chain)
+            }
+
             return cell
         }
     }

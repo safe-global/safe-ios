@@ -47,4 +47,18 @@ class SelectedDelegateCell: UITableViewCell {
             addressView.copyEnabled = false
         }
     }
+
+    func set(address: Address, chain: Chain) {
+        let (label, imageUri) = NamingPolicy.name(for: address, chainId: chain.id!)
+
+        addressView.setAddress(address,
+                                   label: label,
+                                   imageUri: imageUri,
+                                   showIdenticon: true,
+                                   badgeName: nil,
+                                   browseURL: nil,
+                                   prefix: nil)
+        addressView.copyEnabled = false
+    }
+
 }

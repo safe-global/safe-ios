@@ -38,6 +38,12 @@ class ClaimingAppController {
     var rpcClient: RpcClient
     var claimingService: SafeClaimingService
 
+    var chain: Chain {
+        rpcClient.chain
+    }
+
+    private var inMemoryGuardians: [Guardian] = []
+
     init(configuration: Configuration = .rinkeby, chain: Chain = .rinkebyChain()) {
         self.configuration = configuration
         self.rpcClient = RpcClient(chain: chain)
@@ -47,7 +53,18 @@ class ClaimingAppController {
     // MARK: - Static data
 
     func guardians(completion: @escaping (Result<[Guardian], Error>) -> Void) -> URLSessionTask? {
-        claimingService.asyncGuardians(completion: completion)
+        claimingService.asyncGuardians { [weak self] result in
+            guard let self = self else { return }
+            let toReturn = result.map {  guardians -> [Guardian] in
+                self.inMemoryGuardians = guardians
+                return guardians
+            }
+            completion(toReturn)
+        }
+    }
+
+    func guardian(by address: Address) -> Guardian? {
+        inMemoryGuardians.first(where: { $0.address.address == address })
     }
 
     func allocations(address: Address, completion: @escaping (Result<[Allocation], Error>) -> Void) -> URLSessionTask? {
@@ -116,6 +133,13 @@ class ClaimingAppController {
             return result
         }
 
+        func totalAllocatedAmount(of allocationData: [(allocation: Allocation, vesting: Vesting)], at timestamp: TimeInterval) -> Sol.UInt128 {
+            let sum = allocationData.map {
+                vesting(from: $0).amount
+            }.reduce(0, +)
+            return sum
+        }
+
         func totalAvailableAmount(of allocationData: [(allocation: Allocation, vesting: Vesting)], at timestamp: TimeInterval) -> Sol.UInt128 {
             let sum = allocationData.map {
                 availableAmount(for: $0, at: timestamp)
@@ -123,8 +147,13 @@ class ClaimingAppController {
             return sum
         }
 
+        func vesting(from allocationData: (allocation: Allocation, vesting: Vesting)) -> Vesting {
+            let result = allocationData.vesting.account == 0 ? Vesting(allocationData.allocation) : allocationData.vesting
+            return result
+        }
+
         func availableAmount(for allocationData: (allocation: Allocation, vesting: Vesting), at timestamp: TimeInterval) -> Sol.UInt128 {
-            let vesting = allocationData.vesting.account == 0 ? Vesting(allocationData.allocation) : allocationData.vesting
+            let vesting = vesting(from: allocationData)
             let result = vesting.available(at: timestamp)
             return result
         }
@@ -137,7 +166,7 @@ class ClaimingAppController {
         }
 
         func unvestedAmount(for allocationData: (allocation: Allocation, vesting: Vesting), at timestamp: TimeInterval) -> Sol.UInt128 {
-            let vesting = allocationData.vesting.account == 0 ? Vesting(allocationData.allocation) : allocationData.vesting
+            let vesting = vesting(from: allocationData)
             let result = vesting.amount - vesting.available(at: timestamp) - vesting.amountClaimed
             return result
         }
