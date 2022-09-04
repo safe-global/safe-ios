@@ -14,8 +14,12 @@ class ClaimedAmountInputCell: UITableViewCell {
     @IBOutlet private weak var amountTextField: TokenAmountField!
     @IBOutlet private weak var maxButton: UIButton!
 
-    private var maxValue: String?
-    private var onClaim: ((String) -> ())?
+    var maxValue: String?
+    var balance: String = "" {
+        didSet {
+            amountTextField.balance = balance
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,15 +29,11 @@ class ClaimedAmountInputCell: UITableViewCell {
         titleLabel.setStyle(GNOTextStyle.title5.weight(.semibold))
         descriptionLabel.setStyle(.secondary)
         maxButton.setText("Max", .primary)
-        amountTextField.setToken(image: UIImage(named: "ico-safe-token-logo"), amount: "0")
+        amountTextField.setToken(image: UIImage(named: "ico-safe-token-logo"))
     }
 
     @IBAction func maxButtonTouched(_ sender: Any) {
         amountTextField.balance = maxValue ?? "0"
     }
 
-    func set(value: String, maxValue: String) {
-        amountTextField.balance = value
-        self.maxValue = maxValue
-    }
 }

@@ -20,22 +20,24 @@ class ClaimTokensViewController: LoadableViewController {
         case selectedDelegate
     }
 
-    private var guardian: Guardian!
-    private var safe: Safe!
     private var stepNumber: Int = 3
     private var maxSteps: Int = 4
-    private var onClaim: ((Guardian, String) -> ())?
+
+    private var guardian: Guardian!
+    private var safe: Safe!
     private var claimingAmount: SafeClaimingAmount!
 
+    private var onClaim: ((Guardian, String) -> ())?
+
+    private var stepLabel: UILabel!
     private var claimButtonContainer: UIView!
     private var claimButton: UIButton!
     private var claimButtonBottom: NSLayoutConstraint!
-
     private var keyboardBehavior: KeyboardAvoidingBehavior!
 
-    private var stepLabel: UILabel!
 
-    var rows: [RowItem] = [.claimableNow, .claimableFuture, .claimableTotal, .claimingAmount, .selectedDelegate]
+    private var rows: [RowItem] = [.claimableNow, .claimableFuture, .claimableTotal, .claimingAmount, .selectedDelegate]
+
     private let tokenFormatter = TokenFormatter()
 
     convenience init(stepNumber: Int = 3,
@@ -168,14 +170,40 @@ class ClaimTokensViewController: LoadableViewController {
         keyboardBehavior.activeTextField = textField
     }
 
+    // claim & delegate
     @objc func didTapClaimButton() {
+        // claim button is enabled iff amount is correct and delegate selected
+            // amount is correct when amount == MAX OR (amount > 0 && amount <= total available)
+
+        // open the review screen with the selection
+            // review screen will create the transaction via controller
     }
 
+    // edit selected delegate
     @IBAction private func editButtonTouched(_ sender: Any) {
+        // modal to select delegate or select custom address
+        // on completion change the delegate address, selected delegate display
     }
 
+    // pull-to-refresh, initial reload
     override func reloadData() {
+        // hide all tooltips?
+        // fetch all data
+            // update amounts available, claimed, tooltip texts
+            //
     }
+
+    // text field
+        // enters valid numbers only
+        // has limit on the number of decimals
+        // error if negative
+        // error if 0
+        // error if more than available
+
+        // border is green when field is in focus
+        // error is extending vertical size of the field --> the cell must grow
+
+
 }
 
 extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource {
@@ -216,8 +244,7 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
 
         case .claimingAmount:
             let cell = tableView.dequeueCell(ClaimedAmountInputCell.self)
-            cell.set(value: "0",
-                     maxValue: tokenFormatter.string(from: claimingAmount.totalClaimable))
+            cell.maxValue = tokenFormatter.string(from: claimingAmount.totalClaimable)
             return cell
 
         case .selectedDelegate:
