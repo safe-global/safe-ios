@@ -13,6 +13,7 @@ import Version
 
 import SafeDeployments
 
+
 class ClaimingAppController {
 
     struct Configuration {
@@ -115,6 +116,32 @@ class ClaimingAppController {
             return result
         }
 
+        func totalAvailableAmount(of allocationData: [(allocation: Allocation, vesting: Vesting)], at timestamp: TimeInterval) -> Sol.UInt128 {
+            let sum = allocationData.map {
+                availableAmount(for: $0, at: timestamp)
+            }.reduce(0, +)
+            return sum
+        }
+
+        func availableAmount(for allocationData: (allocation: Allocation, vesting: Vesting), at timestamp: TimeInterval) -> Sol.UInt128 {
+            let vesting = allocationData.vesting.account == 0 ? Vesting(allocationData.allocation) : allocationData.vesting
+            let result = vesting.available(at: timestamp)
+            return result
+        }
+
+        func totalUnvestedAmount(of allocationData: [(allocation: Allocation, vesting: Vesting)], at timestamp: TimeInterval) -> Sol.UInt128 {
+            let sum = allocationData.map {
+                unvestedAmount(for: $0, at: timestamp)
+            }.reduce(0, +)
+            return sum
+        }
+
+        func unvestedAmount(for allocationData: (allocation: Allocation, vesting: Vesting), at timestamp: TimeInterval) -> Sol.UInt128 {
+            let vesting = allocationData.vesting.account == 0 ? Vesting(allocationData.allocation) : allocationData.vesting
+            let result = vesting.amount - vesting.available(at: timestamp) - vesting.amountClaimed
+            return result
+        }
+
         // TODO: sanity checks
     }
 
@@ -127,7 +154,7 @@ class ClaimingAppController {
     func fetchData(account: Address, timeout: TimeInterval = 60, completion: @escaping (Result<ClaimingData, Error>) -> Void) {
         //          | -> allocations -> [vestings] -> |
         // account  | -> is paused                 -> | -> all data loaded
-        //          |-> delegate                   -> |
+        //          | -> delegate                  -> |
         // any error -> everything fails
         var data = ClaimingData(account: account)
         var errors: [Error] = []
