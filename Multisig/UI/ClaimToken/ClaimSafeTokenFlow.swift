@@ -172,9 +172,7 @@ class ClaimSafeTokenFlowFactory {
 
     func chooseDelegateIntro(onChooseGuardian: @escaping () -> (),
                              onCustomAddress: @escaping () -> ()) -> ChooseDelegateIntroViewController{
-        let vc = ChooseDelegateIntroViewController(stepNumber: 1,
-                                                   maxSteps: 4,
-                                                   onChooseGuardian: onChooseGuardian,
+        let vc = ChooseDelegateIntroViewController(onChooseGuardian: onChooseGuardian,
                                                    onCustomAddress: onCustomAddress)
         return vc
     }

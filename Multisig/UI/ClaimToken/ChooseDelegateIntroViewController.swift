@@ -13,17 +13,15 @@ class ChooseDelegateIntroViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var chooseGuardianButton: UIButton!
     @IBOutlet weak var customAddressButton: UIButton!
-    var stepNumber: Int = 1
-    var maxSteps: Int = 3
+    var stepNumber: Int = 2
+    var maxSteps: Int = 4
 
     private var stepLabel: UILabel!
 
     var onChooseGuardian: (() -> ())?
     var onCustomAddress: (() -> ())?
-    convenience init(stepNumber: Int = 1, maxSteps: Int = 3, onChooseGuardian: @escaping () -> (), onCustomAddress: @escaping () -> ()) {
+    convenience init(onChooseGuardian: @escaping () -> (), onCustomAddress: @escaping () -> ()) {
         self.init(namedClass: ChooseDelegateIntroViewController.self)
-        self.stepNumber = stepNumber
-        self.maxSteps = maxSteps
         self.onChooseGuardian = onChooseGuardian
         self.onCustomAddress = onCustomAddress
     }
@@ -38,8 +36,12 @@ class ChooseDelegateIntroViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
+
         titleLabel.setStyle(GNOTextStyle.Updated.title)
+
         descriptionLabel.setStyle(.secondary)
+        descriptionLabel.textAlignment = .left
+
         chooseGuardianButton.setText("Delegate to a Safe Guardian", .filled)
         customAddressButton.setText("Delegate to custom address or ENS", .primary)
     }

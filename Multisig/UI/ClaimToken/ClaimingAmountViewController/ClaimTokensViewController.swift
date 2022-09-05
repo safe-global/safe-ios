@@ -21,10 +21,10 @@ class ClaimTokensViewController: LoadableViewController {
     }
 
     // This screen's position in the claiming screen sequence
-    private var stepNumber: Int = 3
+    var stepNumber: Int = 3
 
     // Maximum number of screens in the sequence
-    private var maxSteps: Int = 4
+    var maxSteps: Int = 4
 
     // Selected delegate address (guardian or a custom address)
     private var delegateAddress: Address?
@@ -53,14 +53,10 @@ class ClaimTokensViewController: LoadableViewController {
 
     private let tokenFormatter = TokenFormatter()
 
-    convenience init(stepNumber: Int = 3,
-                     maxSteps: Int = 4,
-                     tokenDelegate: Address?,
+    convenience init(tokenDelegate: Address?,
                      guardian: Guardian?,
                      safe: Safe) {
         self.init(namedClass: Self.superclass())
-        self.stepNumber = stepNumber
-        self.maxSteps = maxSteps
         self.delegateAddress = tokenDelegate
         self.guardian = guardian
         self.safe = safe

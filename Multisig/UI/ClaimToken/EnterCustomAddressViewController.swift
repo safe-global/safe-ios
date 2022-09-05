@@ -36,6 +36,7 @@ class EnterCustomAddressViewController: UIViewController {
 
         ViewControllerFactory.removeNavigationBarBorder(self)
         navigationItem.title = "Custom address or ENS"
+        navigationItem.largeTitleDisplayMode = .never
 
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
         stepLabel.textAlignment = .right

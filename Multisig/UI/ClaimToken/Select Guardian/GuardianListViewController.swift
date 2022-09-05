@@ -20,7 +20,7 @@ class GuardianListViewController: LoadableViewController {
 
     private var stepLabel: UILabel!
     private var stepNumber: Int = 2
-    private var maxSteps: Int = 3
+    private var maxSteps: Int = 4
 
     private var guardians: [Guardian] = []
     private var filteredGuardians: [Guardian] = []
