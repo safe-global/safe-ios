@@ -729,12 +729,12 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
         case let sendTxRequest as WebConnectionSendTransactionRequest:
             guard let from = sendTxRequest.transaction.from,
-                  let address = Address(from),
-                  connection.accounts.contains(address)
+                  connection.accounts.contains(Address(from))
             else {
                 try? server.send(Response(request: wcRequest, error: .invalidParams))
                 return
             }
+            let address = Address(from)
 
             // reject ledger nano x because it is not yet supported for sending transactions
             if let key = try? KeyInfo.firstKey(address: address), key.keyType == .ledgerNanoX {

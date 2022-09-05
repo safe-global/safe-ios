@@ -65,6 +65,12 @@ extension UInt256String: ExpressibleByStringLiteral {
     }
 }
 
+extension UInt256String: ExpressibleByIntegerLiteral {
+    init(integerLiteral value: UInt) {
+        self.init(UInt256(value))
+    }
+}
+
 extension UInt256String: CustomStringConvertible {
     var description: String {
         String(value)
