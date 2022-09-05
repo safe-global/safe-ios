@@ -106,6 +106,8 @@ class GuardianListViewController: LoadableViewController {
                     results = results.shuffled()
                     results.insert(selected, at: 0)
                     self.guardians = results
+                } else {
+                    self.guardians = data.guardians
                 }
 
                 self.sections = self.makeSections(items: self.guardians)
