@@ -37,12 +37,16 @@ extension String {
     func highlightRange(originalStyle: GNOTextStyle = .secondary,
                         highlightStyle: GNOTextStyle = .primary,
                         textToHightlight: String? = nil) -> NSAttributedString {
-        let attributedString = NSMutableAttributedString(
+        var style = NSMutableParagraphStyle()
+        style.lineSpacing = 10
+
+        var attributedString = NSMutableAttributedString(
             string: self,
             attributes: [
                 .font: UIFont.gnoFont(forTextStyle: originalStyle),
                 .foregroundColor: originalStyle.color!,
-                .kern: -0.41
+                .kern: -0.41,
+                .paragraphStyle: style
             ]
         )
 

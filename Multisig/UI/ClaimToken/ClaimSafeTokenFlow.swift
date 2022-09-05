@@ -29,10 +29,16 @@ class ClaimSafeTokenFlow: UIFlow {
             // if not available show not available
             showNotAvailable()
         } else {
-            // if available show intro
-           showIntro()
+            showDisclaimer()
+        }
+    }
+
+    func showDisclaimer() {
+        let vc = factory.legalDisclaimer {[unowned self] in
+            showIntro()
         }
 
+        show(vc)
     }
 
     func showIntro() {
@@ -114,6 +120,12 @@ class ClaimSafeTokenFlow: UIFlow {
 }
 
 class ClaimSafeTokenFlowFactory {
+    func legalDisclaimer(onAgree: @escaping () -> ()) -> LegalDisclaimerViewController {
+        let vc = LegalDisclaimerViewController()
+        vc.onAgree = onAgree
+        return vc
+    }
+
     func claimGetStarted(onStartClaim: @escaping () -> ()) -> ClaimGetStartedViewController {
         let vc = ClaimGetStartedViewController()
         vc.onStartClaim = onStartClaim
