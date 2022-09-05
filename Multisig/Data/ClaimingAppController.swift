@@ -54,6 +54,52 @@ class ClaimingAppController {
         claimingService.asyncGuardians(completion: completion)
     }
 
+    func guardians(for address: Address, completion: @escaping (Result<(guardians: [Guardian], delegate: Address?), Error>) -> Void) {
+        DispatchQueue.global().async { [unowned self] in
+
+            var errors: [Error] = []
+            var resultGuardians: [Guardian]!
+            var resultDelegate: Address?
+
+            let group = DispatchGroup()
+
+            group.enter()
+            _ = guardians { result in
+                do {
+                    resultGuardians = try result.get()
+                } catch {
+                    errors.append(error)
+                }
+                group.leave()
+            }
+
+            group.enter()
+            _ = try! delegate(of: Sol.Address(address.data32)) { result in
+                do {
+                    let resultingAddress = try result.get()
+                    resultDelegate = resultingAddress == 0 ? nil : Address(resultingAddress)
+                } catch {
+                    errors.append(error)
+                }
+                group.leave()
+            }
+
+            let waitResult = group.wait(timeout: .now() + .seconds(60))
+
+            if waitResult == .timedOut {
+                dispatchOnMainThread(completion(.failure(GSError.TimeOut())))
+                return
+            }
+
+            if let error = errors.first {
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            dispatchOnMainThread(completion(.success((resultGuardians, resultDelegate))))
+        }
+    }
+
     func allocations(address: Address, completion: @escaping (Result<[Allocation], Error>) -> Void) -> URLSessionTask? {
         claimingService.asyncAllocations(account: address, chainId: chain.id!, completion: completion)
     }

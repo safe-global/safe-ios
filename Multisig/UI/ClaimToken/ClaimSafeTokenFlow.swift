@@ -17,8 +17,6 @@ class SelectDelegateFlow: UIFlow {
     var customAddress: Address?
 
     init(safe: Safe,
-         guardian: Guardian? = nil,
-        customAddress: Address? = nil,
          factory: ClaimSafeTokenFlowFactory = ClaimSafeTokenFlowFactory(),
          completion: @escaping (_ success: Bool) -> Void) {
         self.safe = safe
@@ -47,6 +45,9 @@ class SelectDelegateFlow: UIFlow {
             customAddress = nil
             stop(success: true)
         }
+        chooseGuardianVC.safe = safe
+        // TODO: inject
+        chooseGuardianVC.controller = ClaimingAppController()
         show(chooseGuardianVC)
     }
 
@@ -87,6 +88,8 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     override func start() {
+        // need to load eligibility status
+
         //TODO remove workaround and check claim availability
         if safe.addressValue == Address(exactly: "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7") {
             // if not available show not available
@@ -112,7 +115,7 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     func chooseDelegate() {
-        delegateFlow = SelectDelegateFlow(safe: safe, guardian: selectedGuardian, customAddress: selectedCustomAddress, factory: factory, completion: { [unowned self] _ in
+        delegateFlow = SelectDelegateFlow(safe: safe, factory: factory, completion: { [unowned self] _ in
             selectedGuardian = delegateFlow.guardian
             selectedCustomAddress = delegateFlow.customAddress
             selectAmount()

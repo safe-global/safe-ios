@@ -23,13 +23,16 @@ class GuardianListViewController: LoadableViewController {
     private var maxSteps: Int = 4
 
     private var guardians: [Guardian] = []
-    private var filteredGuardians: [Guardian] = []
 
     var onSelected: ((Guardian) -> ())?
     var onReloaded: (() -> ())?
 
     private var searchController: UISearchController!
     private var resultsController: GuardianSearchResultController!
+
+    var controller: ClaimingAppController!
+    var safe: Safe!
+    var selectedDelegate: Address?
 
     convenience init() {
         self.init(namedClass: Self.superclass())
@@ -89,32 +92,23 @@ class GuardianListViewController: LoadableViewController {
 
     override func reloadData() {
         super.reloadData()
-        currentDataTask?.cancel()
-        currentDataTask = App.shared.claimingService.asyncGuardians() { [weak self] result in
-            guard let `self` = self else { return }
-            switch result {
-            case .failure(let error):
-                DispatchQueue.main.async { [weak self] in
-                    guard let `self` = self else { return }
-                    // ignore cancellation error due to cancelling the
-                    // currently running task. Otherwise user will see
-                    // meaningless message.
-                    if (error as NSError).code == URLError.cancelled.rawValue &&
-                        (error as NSError).domain == NSURLErrorDomain {
-                        return
-                    }
 
-                    self.onError(GSError.error(description: "Failed to load guardians", error: error))
-                    self.onReloaded?()
+        controller.guardians(for: safe.addressValue) { [weak self] result in
+            guard let `self` = self else { return }
+            do {
+                let data = try result.get()
+                self.guardians = data.guardians
+                self.selectedDelegate = data.delegate
+                self.sections = self.makeSections(items: self.guardians)
+                self.onSuccess()
+            } catch {
+                if (error as NSError).code == URLError.cancelled.rawValue &&
+                    (error as NSError).domain == NSURLErrorDomain {
+                    return
                 }
-            case .success(let results):
-                DispatchQueue.main.async { [weak self] in
-                    guard let `self` = self else { return }
-                    self.guardians = results
-                    self.filteredGuardians = results
-                    self.sections = self.makeSections(items: self.filteredGuardians)
-                    self.onSuccess()
-                }
+
+                self.onError(GSError.error(description: "Failed to load guardians", error: error))
+                self.onReloaded?()
             }
         }
     }
@@ -176,7 +170,8 @@ extension GuardianListViewController: UITableViewDelegate, UITableViewDataSource
 
         case .guardians(items: let items):
             let cell = tableView.dequeueCell(GuardianTableViewCell.self)
-            cell.set(guardian: items[indexPath.row])
+            let item = items[indexPath.row]
+            cell.set(guardian: item, selected: item.address.address == selectedDelegate)
             return cell
         }
     }
