@@ -55,8 +55,15 @@ class ClaimSafeTokenFlow: UIFlow {
 
     func tokenDistribution() {
         let vc = factory.tokenDistribution { [unowned self] in
-            chooseDelegateIntro()  // TODO: Jump to Tutorial
+            whatIsSafe()
+        }
 
+        show(vc)
+    }
+
+    func whatIsSafe() {
+        let vc = factory.whatIsSafe { [unowned self] in
+            chooseDelegateIntro()  // TODO: Jump to Tutorial
         }
 
         show(vc)
@@ -144,6 +151,10 @@ class ClaimSafeTokenFlowFactory {
 
     func tokenDistribution(onNext: @escaping () -> ()) -> TokenDistributionViewController {
         TokenDistributionViewController(stepNumber: 1, maxSteps: 4, onNext: onNext)
+    }
+
+    func whatIsSafe(onNext: @escaping () -> ()) -> WhatIsSafeViewController {
+        WhatIsSafeViewController(stepNumber: 1, maxSteps: 4, onNext: onNext)
     }
 
     func claimNotAvailable() -> ClaimNotAvailableViewController {

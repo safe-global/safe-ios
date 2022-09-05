@@ -117,6 +117,8 @@
 		0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */; };
 		0478383A28C68E7300459F9B /* BorderedCheveronButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0478383928C68E7300459F9B /* BorderedCheveronButton.swift */; };
 		0478383C28C68E8200459F9B /* BorderedCheveronButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0478383B28C68E8200459F9B /* BorderedCheveronButton.xib */; };
+		0478383F28C699BA00459F9B /* WhatIsSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0478383D28C699BA00459F9B /* WhatIsSafeViewController.swift */; };
+		0478384028C699BA00459F9B /* WhatIsSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0478383E28C699BA00459F9B /* WhatIsSafeViewController.xib */; };
 		047A5B8F28A54FCB00BB8B2A /* SafeClaimingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5B8E28A54FCB00BB8B2A /* SafeClaimingService.swift */; };
 		047A5B9128A5582F00BB8B2A /* GuardiansRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5B9028A5582F00BB8B2A /* GuardiansRequest.swift */; };
 		048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */; };
@@ -1054,6 +1056,8 @@
 		0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0478383928C68E7300459F9B /* BorderedCheveronButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedCheveronButton.swift; sourceTree = "<group>"; };
 		0478383B28C68E8200459F9B /* BorderedCheveronButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BorderedCheveronButton.xib; sourceTree = "<group>"; };
+		0478383D28C699BA00459F9B /* WhatIsSafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatIsSafeViewController.swift; sourceTree = "<group>"; };
+		0478383E28C699BA00459F9B /* WhatIsSafeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhatIsSafeViewController.xib; sourceTree = "<group>"; };
 		047A5B8E28A54FCB00BB8B2A /* SafeClaimingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeClaimingService.swift; sourceTree = "<group>"; };
 		047A5B9028A5582F00BB8B2A /* GuardiansRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardiansRequest.swift; sourceTree = "<group>"; };
 		048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNotificationTokenRequest.swift; sourceTree = "<group>"; };
@@ -2075,6 +2079,8 @@
 				04FEFE7B28C5FD570028A349 /* LegalDisclaimerViewController.xib */,
 				04FEFE7E28C6304B0028A349 /* TokenDistributionViewController.swift */,
 				04FEFE7F28C6304B0028A349 /* TokenDistributionViewController.xib */,
+				0478383D28C699BA00459F9B /* WhatIsSafeViewController.swift */,
+				0478383E28C699BA00459F9B /* WhatIsSafeViewController.xib */,
 			);
 			path = ClaimToken;
 			sourceTree = "<group>";
@@ -4437,6 +4443,7 @@
 				0AF1C88E2541AD4200E28669 /* ScrollableEmptyView.xib in Resources */,
 				0A9366AD278F0175001918A9 /* ContainerTableViewCell.xib in Resources */,
 				0A74EEFE268DF37100EB0EFB /* RibbonViewController.xib in Resources */,
+				0478384028C699BA00459F9B /* WhatIsSafeViewController.xib in Resources */,
 				0AC60C572549AF3900A63AE2 /* NoSafeBarView.xib in Resources */,
 				5562DD722693425E00B56722 /* NetworkIndicatorHeaderView.xib in Resources */,
 				0A8AEB2125A4764F002A3FE1 /* ActionDetailAddressCell.xib in Resources */,
@@ -4950,6 +4957,7 @@
 				0471B3BD262742CD001F2D3B /* UpdateAppViewController.swift in Sources */,
 				0AFD9DCC27BFE18800011CF1 /* SignatureRequestContentViewController.swift in Sources */,
 				55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */,
+				0478383F28C699BA00459F9B /* WhatIsSafeViewController.swift in Sources */,
 				0ADD19A6265E53BE00EB0F2B /* QRCodeView.swift in Sources */,
 				04734A2A289AA60800F3696E /* SafeClaimingController.swift in Sources */,
 				04D968D4276B872D00CE4A9E /* TransactionViewController.swift in Sources */,
