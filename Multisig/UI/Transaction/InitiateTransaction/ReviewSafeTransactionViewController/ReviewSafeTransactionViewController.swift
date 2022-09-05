@@ -262,13 +262,18 @@ class ReviewSafeTransactionViewController: UIViewController {
                   let qrValue = URRegistry.shared.requestSign(signRequest: signRequest)
             else {
                 App.shared.snackbar.show(message: "Failed to confirm transaction")
+                endConfirm()
                 return
             }
             
-            let signVC = UIHostingController(rootView: KeystoneRequestSignatureView(qrValue: qrValue))
+            let signVC = UIHostingController(rootView: KeystoneRequestSignatureView(qrValue: qrValue, onTap: { [weak self] in
+                self?.dismiss(animated: true) {
+                    self?.presentScanner()
+                }
+            }))
             let modalVC = ViewControllerFactory.modalWithRibbon(viewController: signVC, storedChain: safe.chain)
             signVC.navigationItem.title = "Request signature"
-            
+
             presentModal(modalVC)
         }
     }
@@ -399,6 +404,25 @@ class ReviewSafeTransactionViewController: UIViewController {
     func onSuccess(transaction: SCGModels.TransactionDetails) {
         
     }
+    
+    private func presentScanner() {
+        let vc = QRCodeScannerViewController()
+
+        let string = "Scan the QR code on the Keystone wallet to confirm the transaction." as NSString
+        let textStyle = GNOTextStyle.primary.color(.white)
+        let highlightStyle = textStyle.weight(.bold)
+        let label = NSMutableAttributedString(string: string as String, attributes: textStyle.attributes)
+        label.setAttributes(highlightStyle.attributes, range: string.range(of: "confirm the transaction"))
+        vc.attributedLabel = label
+
+        vc.scannedValueValidator = { value in
+            return .success(value)
+        }
+        vc.modalPresentationStyle = .overFullScreen
+        vc.delegate = self
+        vc.setup()
+        presentModal(vc)
+    }
 }
 
 extension ReviewSafeTransactionViewController: UITableViewDataSource {
@@ -415,6 +439,20 @@ extension ReviewSafeTransactionViewController: UITableViewDataSource {
         case SectionItem.valueChange(let cell): return cell
         case SectionItem.data(let cell): return cell
         default: return UITableViewCell()
+        }
+    }
+}
+
+extension ReviewSafeTransactionViewController: QRCodeScannerViewControllerDelegate {
+    func scannerViewControllerDidScan(_ code: String) {
+        dismiss(animated: true) {
+            print(code)
+        }
+    }
+    
+    func scannerViewControllerDidCancel() {
+        dismiss(animated: true) { [weak self] in
+            self?.endConfirm()
         }
     }
 }

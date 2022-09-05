@@ -10,6 +10,7 @@ import SwiftUI
 
 struct KeystoneRequestSignatureView: View {
     let qrValue: String
+    let onTap: () -> Void
     
     private let qrViewSide: CGFloat = 237
     
@@ -38,7 +39,7 @@ struct KeystoneRequestSignatureView: View {
             Spacer()
             
             Button("Get signature") {
-                print("Get signature Tapped")
+                onTap()
             }
             .buttonStyle(GNOFilledButtonStyle())
             .padding(.horizontal, Spacing.medium)
@@ -49,6 +50,6 @@ struct KeystoneRequestSignatureView: View {
 
 struct KeystoneRequestSignatureView_Previews: PreviewProvider {
     static var previews: some View {
-        KeystoneRequestSignatureView(qrValue: "0xb09f0eB9bebA0F7be33F1B56396246AA17405584")
+        KeystoneRequestSignatureView(qrValue: "0xb09f0eB9bebA0F7be33F1B56396246AA17405584", onTap: {})
     }
 }
