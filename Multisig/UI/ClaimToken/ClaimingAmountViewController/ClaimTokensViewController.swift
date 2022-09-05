@@ -55,12 +55,13 @@ class ClaimTokensViewController: LoadableViewController {
 
     convenience init(tokenDelegate: Address?,
                      guardian: Guardian?,
-                     safe: Safe) {
+                     safe: Safe,
+                     controller: ClaimingAppController) {
         self.init(namedClass: Self.superclass())
         self.delegateAddress = tokenDelegate
         self.guardian = guardian
         self.safe = safe
-        controller = ClaimingAppController()
+        self.controller = controller
     }
 
     override func viewDidLoad() {

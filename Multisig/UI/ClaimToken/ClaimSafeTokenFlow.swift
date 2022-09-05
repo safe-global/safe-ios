@@ -15,12 +15,15 @@ class SelectDelegateFlow: UIFlow {
     var safe: Safe
     var guardian: Guardian?
     var customAddress: Address?
+    var controller: ClaimingAppController!
 
     init(safe: Safe,
+         controller: ClaimingAppController,
          factory: ClaimSafeTokenFlowFactory = ClaimSafeTokenFlowFactory(),
          completion: @escaping (_ success: Bool) -> Void) {
         self.safe = safe
         self.factory = factory
+        self.controller = controller
         super.init(completion: completion)
     }
 
@@ -46,8 +49,7 @@ class SelectDelegateFlow: UIFlow {
             stop(success: true)
         }
         chooseGuardianVC.safe = safe
-        // TODO: inject
-        chooseGuardianVC.controller = ClaimingAppController()
+        chooseGuardianVC.controller = controller
         show(chooseGuardianVC)
     }
 
@@ -78,12 +80,16 @@ class ClaimSafeTokenFlow: UIFlow {
     var selectedGuardian: Guardian?
     var selectedCustomAddress: Address?
     var delegateFlow: SelectDelegateFlow!
+    var controller: ClaimingAppController!
 
     init(safe: Safe,
          factory: ClaimSafeTokenFlowFactory = ClaimSafeTokenFlowFactory(),
          completion: @escaping (_ success: Bool) -> Void) {
         self.safe = safe
         self.factory = factory
+        // TODO: switch configuration depending on the safe's chain
+        let configuration: ClaimingAppController.Configuration = .rinkeby
+        controller = ClaimingAppController(configuration: configuration, chain: safe.chain!)
         super.init(completion: completion)
     }
 
@@ -115,7 +121,7 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     func chooseDelegate() {
-        delegateFlow = SelectDelegateFlow(safe: safe, factory: factory, completion: { [unowned self] _ in
+        delegateFlow = SelectDelegateFlow(safe: safe, controller: controller, factory: factory, completion: { [unowned self] _ in
             selectedGuardian = delegateFlow.guardian
             selectedCustomAddress = delegateFlow.customAddress
             selectAmount()
@@ -124,7 +130,12 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     func selectAmount() {
-        let claimVC = factory.selectAmount(safe: safe, delegate: delegateFlow.customAddress, guardian: delegateFlow.guardian)
+        let claimVC = factory.selectAmount(
+            safe: safe,
+            delegate: delegateFlow.customAddress,
+            guardian: delegateFlow.guardian,
+            controller: controller
+        )
 
         claimVC.completion = { [unowned self] in
             review(stepNumber: 4, maxSteps: 4)
@@ -193,8 +204,8 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
-    func selectAmount(safe: Safe, delegate: Address?, guardian: Guardian?) -> ClaimTokensViewController {
-        let vc = ClaimTokensViewController(tokenDelegate: delegate, guardian: guardian, safe: safe)
+    func selectAmount(safe: Safe, delegate: Address?, guardian: Guardian?, controller: ClaimingAppController) -> ClaimTokensViewController {
+        let vc = ClaimTokensViewController(tokenDelegate: delegate, guardian: guardian, safe: safe, controller: controller)
         return vc
     }
 
