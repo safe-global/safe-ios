@@ -24,7 +24,7 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
 
     var controller: ClaimingAppController!
 
-    var onSuccess: (() -> Void)?
+    var onSuccess: ((SCGModels.TransactionDetails) -> ())?
 
     override func viewDidLoad() {
         shouldLoadTransactionPreview = true
@@ -42,11 +42,6 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
 
         tableView.registerCell(IcommingDappInteractionRequestHeaderTableViewCell.self)
         tableView.registerCell(DetailTransferInfoCell.self)
-
-        confirmButtonView.onAction = {
-            NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
-            self.onSuccess?()
-        }
     }
 
     override func createSections() {
@@ -64,13 +59,14 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
         let contractDelegate = claimData.delegate.map(Address.init)
         let sameDelegateAsInContract = contractDelegate != nil && contractDelegate == delegateAddress
         let newDelegateAddress: Address? = sameDelegateAsInContract ? nil : delegateAddress
-        let result = controller.claimingTransaction(
+        var result = controller.claimingTransaction(
             safe: self.safe,
             amount: amount,
             delegate: newDelegateAddress,
             data: claimData,
             timestamp: timestamp
         )
+        result?.update(nonce: nonce, safeTxGas: safeTxGas)
         return result
     }
 
@@ -177,6 +173,10 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
         tableCell.setCells([cell])
 
         return tableCell
+    }
+
+    override func onSuccess(transaction: SCGModels.TransactionDetails) {
+        self.onSuccess?(transaction)
     }
 
     // TODO: Fill the tracking event

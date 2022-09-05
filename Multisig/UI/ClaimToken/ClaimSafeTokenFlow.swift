@@ -84,6 +84,7 @@ class ClaimSafeTokenFlow: UIFlow {
     var selectedCustomAddress: Address?
     var delegateFlow: SelectDelegateFlow!
     var controller: ClaimingAppController!
+    var transactionDetails: SCGModels.TransactionDetails!
 
     init(safe: Safe,
          factory: ClaimSafeTokenFlowFactory = ClaimSafeTokenFlowFactory(),
@@ -175,8 +176,10 @@ class ClaimSafeTokenFlow: UIFlow {
         reviewVC.selectedGuardian = selectedGuardian
         reviewVC.selectedCustomAddress = selectedCustomAddress
         reviewVC.controller = controller
+        
 
-        reviewVC.onSuccess = { [unowned self] in
+        reviewVC.onSuccess = { [unowned self] txDetails in
+            transactionDetails = txDetails
             self.success()
         }
         show(reviewVC)
@@ -185,8 +188,12 @@ class ClaimSafeTokenFlow: UIFlow {
     func success() {
         let displayAmount = TokenFormatter().string(from: BigDecimal(Int256(amount!.big()), 18)) + " SAFE"
         let successVC = factory.success(amount: displayAmount) { [unowned self] in
-            SafeClaimingController.shared.claimFor(safe: safe.addressValue)
-            NotificationCenter.default.post(name: .initiateTxNotificationReceived, object: self, userInfo: nil)
+
+            NotificationCenter.default.post(
+                name: .initiateTxNotificationReceived,
+                object: self,
+                userInfo: ["transactionDetails": transactionDetails!])
+
             stop(success: true)
         }
 
