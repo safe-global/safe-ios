@@ -292,7 +292,15 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
 
                 cell.valueText = formatted(amount: claimData.totalAvailableAmount(of: claimData.allocationsData, at: timestamp))
                 cell.headerTooltipText = nil
-                cell.titleTooltipText = NSAttributedString(string: "This includes user allocation of \(userAmount) and Safe guardian allocation of \(ecosystemAmount)")
+                let titleTooltipText = NSMutableAttributedString(string: "This includes user allocation of $user and Safe guardian allocation of $ecosystem")
+
+                let userHighlight = NSAttributedString(string: userAmount, attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .semibold)])
+                titleTooltipText.replaceCharacters(in: (titleTooltipText.string as NSString).range(of: "$user"), with: userHighlight)
+
+                let ecosystemHighlight = NSAttributedString(string: ecosystemAmount, attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .semibold)])
+                titleTooltipText.replaceCharacters(in: (titleTooltipText.string as NSString).range(of: "$ecosystem"), with: ecosystemHighlight)
+
+                cell.titleTooltipText = titleTooltipText
 
                 // must be set at the end to update values
                 cell.style = .darkGuardian
@@ -350,17 +358,35 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
 
                 let halfDate = userAllocation.allocation.startDate + 4 * 52 * 7 * 24 * 60 * 60 // 4 years, 52 weeks per year
                 let vestingStartDate = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(halfDate)))
-                cell.headerTooltipText = NSAttributedString(string: "SAFE vesting is vested linearly over 4 years starting on \(vestingStartDate)")
+
+                let headerTooltipText = NSMutableAttributedString(string: "SAFE vesting is vested linearly over $years starting on \(vestingStartDate)")
+
+                let yearsHighlight = NSAttributedString(string: "4 years", attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .semibold)])
+                headerTooltipText.replaceCharacters(in: (headerTooltipText.string as NSString).range(of: "$years"), with: yearsHighlight)
+
+                cell.headerTooltipText = headerTooltipText
 
                 cell.valueText = formatted(amount: claimData.totalUnvestedAmount(of: claimData.allocationsData, at: timestamp))
-                cell.titleTooltipText = NSAttributedString(string: "This includes user allocation of \(userAmount) and Safe guardian allocation of \(ecosystemAmount)")
+                let titleTooltipText = NSMutableAttributedString(string: "This includes user allocation of $user and Safe guardian allocation of $ecosystem")
 
+                let userHighlight = NSAttributedString(string: userAmount, attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .semibold)])
+                titleTooltipText.replaceCharacters(in: (titleTooltipText.string as NSString).range(of: "$user"), with: userHighlight)
+
+                let ecosystemHighlight = NSAttributedString(string: ecosystemAmount, attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .semibold)])
+                titleTooltipText.replaceCharacters(in: (titleTooltipText.string as NSString).range(of: "$ecosystem"), with: ecosystemHighlight)
+
+                cell.titleTooltipText = titleTooltipText
                 // must be set at the end to update values
                 cell.style = .lightGuardian
             } else if let userAllocation = userAllocation, claimData.allocationsData.count == 1 {
                 let halfDate = userAllocation.allocation.startDate + 4 * 52 * 7 * 24 * 60 * 60 // 4 years, 52 weeks per year
                 let vestingStartDate = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(halfDate)))
-                cell.headerTooltipText = NSAttributedString(string: "SAFE vesting is vested linearly over 4 years starting on \(vestingStartDate)")
+                let headerTooltipText = NSMutableAttributedString(string: "SAFE vesting is vested linearly over $years starting on \(vestingStartDate)")
+
+                let yearsHighlight = NSAttributedString(string: "4 years", attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .semibold)])
+                headerTooltipText.replaceCharacters(in: (headerTooltipText.string as NSString).range(of: "$years"), with: yearsHighlight)
+
+                cell.headerTooltipText = headerTooltipText
 
                 cell.valueText = formatted(amount: claimData.totalUnvestedAmount(of: claimData.allocationsData, at: timestamp))
                 cell.titleTooltipText = NSAttributedString(string: "Not eligible for Safe Guardian allocation. Contribute to the community to become a Safe Guardian.")
