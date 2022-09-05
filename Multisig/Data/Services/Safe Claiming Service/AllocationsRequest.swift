@@ -26,8 +26,7 @@ struct AllocationsRequest: JSONRequest {
 }
 
 extension SafeClaimingService {
-    // TODO: fixme with chain id
-    func asyncAllocations(account: Address, chainId: String = "4", completion: @escaping (Result<AllocationsRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
+    func asyncAllocations(account: Address, chainId: String, completion: @escaping (Result<AllocationsRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
         asyncExecute(request: AllocationsRequest(account: account, chainId: chainId), completion: completion)
     }
 }

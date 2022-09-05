@@ -121,7 +121,6 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     func selectAmount() {
-        // TODO: retain the entered amount
         let claimVC = factory.selectAmount(safe: safe, delegate: delegateFlow.customAddress, guardian: delegateFlow.guardian)
 
         claimVC.completion = { [unowned self] in
@@ -139,7 +138,7 @@ class ClaimSafeTokenFlow: UIFlow {
         assert(amount != nil)
         let reviewVC = factory.review(
             safe: safe,
-            guardian: delegateFlow.guardian!, // FIXME: needs change
+            guardian: delegateFlow.guardian!,
             amount: "0",
             stepNumber: stepNumber,
             maxSteps: maxSteps) { [unowned self] in

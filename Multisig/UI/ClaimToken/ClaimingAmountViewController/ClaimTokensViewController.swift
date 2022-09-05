@@ -11,8 +11,6 @@ import SwiftCryptoTokenFormatter
 import Solidity
 
 class ClaimTokensViewController: LoadableViewController {
-    // TODO: nice-to-have: make tooltip a bit narrower so that the text reads better; + dark mode version of tooltip
-
     // IDs of table rows
     enum RowItem {
         case claimableNow
@@ -66,8 +64,6 @@ class ClaimTokensViewController: LoadableViewController {
         self.delegateAddress = tokenDelegate
         self.guardian = guardian
         self.safe = safe
-
-        // TODO: inject from outside
         controller = ClaimingAppController()
     }
 
@@ -255,8 +251,6 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
 
     func formatted(amount: Sol.UInt128) -> String {
         let decimal = BigDecimal(Int256(amount.big()), 18)
-        // FIXME: this won't produce 2 decimals!
-        // this also cuts off, i.e. it doesn't round up
         let value = tokenFormatter.string(from: decimal)
         let amount = value + " SAFE"
         return amount

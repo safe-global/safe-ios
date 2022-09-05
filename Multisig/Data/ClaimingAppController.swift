@@ -55,7 +55,7 @@ class ClaimingAppController {
     }
 
     func allocations(address: Address, completion: @escaping (Result<[Allocation], Error>) -> Void) -> URLSessionTask? {
-        claimingService.asyncAllocations(account: address, completion: completion)
+        claimingService.asyncAllocations(account: address, chainId: chain.id!, completion: completion)
     }
 
     // MARK: - Safe Token Contract
@@ -157,8 +157,6 @@ class ClaimingAppController {
             let result = vesting.amount - vesting.available(at: timestamp) - vesting.amountClaimed
             return result
         }
-
-        // TODO: sanity checks
     }
 
     func asyncFetchData(account: Address, timeout: TimeInterval = 60, completion: @escaping (Result<ClaimingData, Error>) -> Void) {
