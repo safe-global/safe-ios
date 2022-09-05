@@ -70,9 +70,13 @@ class TokenAmountTextDelegate: NSObject, UITextFieldDelegate {
     private let validationDelayInSeconds: TimeInterval = 0.25
     private var timer: Timer!
     let formatter = TokenFormatter()
+    private weak var otherTextDelegate: UITextFieldDelegate?
 
     weak var textField: TokenAmountField! {
         didSet {
+            if textField?.delegate !== self {
+                otherTextDelegate = textField?.delegate
+            }
             textField?.delegate = self
         }
     }
@@ -198,7 +202,13 @@ class TokenAmountTextDelegate: NSObject, UITextFieldDelegate {
         return shouldReplaceText
     }
 
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        otherTextDelegate?.textFieldDidBeginEditing?(textField)
+    }
+
     func textFieldDidEndEditing(_ textField: UITextField) {
+        otherTextDelegate?.textFieldDidEndEditing?(textField)
+
         defer {
             userDidChangeText()
         }

@@ -17,6 +17,7 @@ class TokenAmountField: UINibView {
 
     var borderColorNormal: UIColor = .border
     var borderColorError: UIColor = .error
+    var borderColorActive: UIColor = .borderSelected
     
     var balance: String {
         get { amountTextField.text ?? "" }
@@ -34,37 +35,58 @@ class TokenAmountField: UINibView {
         amountTextField.placeholder = "Amount"
         errorLabel.setStyle(.error)
         errorLabel.isHidden = true
+        errorLabel.text = nil
+        updateBorder()
     }
     
     func setToken(logoURL: URL? = nil, amount: String = "") {
         iconImage.setCircleShapeImage(url: logoURL, placeholder:  UIImage(named: "ico-token-placeholder")!)
         amountTextField.text = amount
-        borderImage.tintColor = borderColorNormal
         errorLabel.isHidden = true
+        updateBorder()
     }
 
     func setToken(image: UIImage? = nil, amount: String = "") {
         iconImage.image = image ?? UIImage(named: "ico-token-placeholder")
         amountTextField.text = amount
-        borderImage.tintColor = borderColorNormal
         errorLabel.isHidden = true
+        updateBorder()
     }
     
     func showError(message: String?) {
         if let message = message {
             errorLabel.text = message
             errorLabel.isHidden = false
-            borderImage.tintColor = borderColorError
         } else {
             errorLabel.text = nil
             errorLabel.isHidden = true
-            borderImage.tintColor = borderColorNormal
         }
+        updateBorder()
+    }
+
+    func updateBorder() {
+        borderImage.tintColor = textFieldBorderColor
+    }
+
+    var textFieldBorderColor: UIColor {
+        if errorLabel.text != nil {
+            return borderColorError
+        }
+        return amountTextField.isFirstResponder ? borderColorActive : borderColorNormal
     }
 }
 
 // allow only decimal numbers to be entered in the amount field
 extension TokenAmountField: UITextFieldDelegate {
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        updateBorder()
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        updateBorder()
+    }
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let decimalSeparator = Locale.current.decimalSeparator ?? "."
         let inverseSet = CharacterSet.decimalDigits.inverted
