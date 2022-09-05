@@ -136,7 +136,7 @@ extension GuardianListViewController: UISearchResultsUpdating, UISearchBarDelega
 
             return allMatch
         }
-
+        resultsController.selectedDelegate = selectedDelegate
         resultsController.tableView.reloadData()
     }
 
@@ -205,6 +205,7 @@ extension GuardianListViewController: UITableViewDelegate, UITableViewDataSource
 
 class GuardianSearchResultController: UITableViewController {
     var filteredGuardians: [Guardian] = []
+    var selectedDelegate: Address?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -217,7 +218,8 @@ class GuardianSearchResultController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(GuardianTableViewCell.self)
-        cell.set(guardian: filteredGuardians[indexPath.row])
+        let item = filteredGuardians[indexPath.row]
+        cell.set(guardian: item, selected: item.address.address == selectedDelegate)
         return cell
     }
 }
