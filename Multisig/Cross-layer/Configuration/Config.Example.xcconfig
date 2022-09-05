@@ -117,7 +117,7 @@ DISCORD_URL             = https:/$()/discord.gg/TaNjuFzS6X
 TWITTER_URL             = https:/$()/twitter.com/gnosisSafe
 HELP_CENTER_URL         = https:/$()/help.gnosis-safe.io/
 FEATURE_SUGGESTION_URL  = https:/$()/safe.cnflx.io/
-CONTACT_EMAIL           = safe@gnosis.io
+CONTACT_EMAIL           = support@safe.global
 FORUM_URL               = https:/$()/forum.gnosis-safe.io/
 //TODO: adjust safe dao url
 SAFE_DAO_URL            = https:/$()/snapshot.org/#/safe.eth

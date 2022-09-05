@@ -70,16 +70,9 @@ class SelectDelegateFlow: UIFlow {
 
 }
 
+// TODO: open review screen with data at the end
+
 import Solidity
-
-// TODO: refactor with store that stores the current state of the app
-// delegate list, shuffled
-// selected delegate
-// selected user amounts
-// etc.
-
-// every vc can work with the store
-// token flow can work with the store.
 
 class ClaimSafeTokenFlow: UIFlow {
     var factory: ClaimSafeTokenFlowFactory!
@@ -102,30 +95,37 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     override func start() {
-        // need to load eligibility status
+        let startVC = factory.start()
+        startVC.safe = safe
+        startVC.controller = controller
 
-        //TODO remove workaround and check claim availability
-        if safe.addressValue == Address(exactly: "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7") {
-            // if not available show not available
-            showNotAvailable()
-        } else {
-            // if available show intro
-           showIntro()
+        startVC.completion = { [unowned self] isEligible in
+            if isEligible == true {
+                showIntro()
+                navigationController.viewControllers.remove(at: 0)
+            } else if isEligible == false {
+                showNotAvailable()
+                navigationController.viewControllers.remove(at: 0)
+            } else {
+                stop(success: false)
+            }
         }
+
+        show(startVC)
     }
 
     func showIntro() {
         let introVC = factory.claimGetStarted { [unowned self] in
             chooseDelegate()  // TODO: Jump to Tutorial
         }
-        show(introVC)
+        show(introVC, crossDissolve: true)
         introVC.navigationItem.largeTitleDisplayMode = .always
         introVC.navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     func showNotAvailable() {
         let vc = factory.claimNotAvailable()
-        show(vc)
+        show(vc, crossDissolve: true)
     }
 
     func chooseDelegate() {
@@ -181,6 +181,11 @@ class ClaimSafeTokenFlow: UIFlow {
 }
 
 class ClaimSafeTokenFlowFactory {
+    func start() -> ClaimSplashViewController {
+        let vc = ClaimSplashViewController()
+        return vc
+    }
+
     func claimGetStarted(onStartClaim: @escaping () -> ()) -> ClaimGetStartedViewController {
         let vc = ClaimGetStartedViewController()
         vc.onStartClaim = onStartClaim
