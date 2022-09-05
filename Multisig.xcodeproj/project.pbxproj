@@ -115,6 +115,8 @@
 		047588182774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047588162774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift */; };
 		047691592464026400D73D8B /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047691582464026400D73D8B /* SectionHeader.swift */; };
 		0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */; };
+		0478383A28C68E7300459F9B /* BorderedCheveronButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0478383928C68E7300459F9B /* BorderedCheveronButton.swift */; };
+		0478383C28C68E8200459F9B /* BorderedCheveronButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0478383B28C68E8200459F9B /* BorderedCheveronButton.xib */; };
 		047A5B8F28A54FCB00BB8B2A /* SafeClaimingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5B8E28A54FCB00BB8B2A /* SafeClaimingService.swift */; };
 		047A5B9128A5582F00BB8B2A /* GuardiansRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5B9028A5582F00BB8B2A /* GuardiansRequest.swift */; };
 		048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */; };
@@ -1050,6 +1052,8 @@
 		047691582464026400D73D8B /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		0476915A2464034D00D73D8B /* Safe+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0476915B2464034D00D73D8B /* Safe+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Safe+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0478383928C68E7300459F9B /* BorderedCheveronButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedCheveronButton.swift; sourceTree = "<group>"; };
+		0478383B28C68E8200459F9B /* BorderedCheveronButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BorderedCheveronButton.xib; sourceTree = "<group>"; };
 		047A5B8E28A54FCB00BB8B2A /* SafeClaimingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeClaimingService.swift; sourceTree = "<group>"; };
 		047A5B9028A5582F00BB8B2A /* GuardiansRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardiansRequest.swift; sourceTree = "<group>"; };
 		048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNotificationTokenRequest.swift; sourceTree = "<group>"; };
@@ -3692,6 +3696,8 @@
 				0472B2A92857B44F0049BA17 /* ShareTextView.xib */,
 				046FFE182899681B007428D7 /* ClaimableAmountView.swift */,
 				046FFE1A28996831007428D7 /* ClaimableAmountView.xib */,
+				0478383928C68E7300459F9B /* BorderedCheveronButton.swift */,
+				0478383B28C68E8200459F9B /* BorderedCheveronButton.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4417,6 +4423,7 @@
 				D80B5A10276A367A00D6E024 /* AddOwnerFirstViewController.xib in Resources */,
 				0ADD19C6265EA23200EB0F2B /* SeedWordCollectionViewCell.xib in Resources */,
 				0439B29D28048A5F00796F18 /* BackupKeyTableViewCell.xib in Resources */,
+				0478383C28C68E8200459F9B /* BorderedCheveronButton.xib in Resources */,
 				0472B2C4286A497A0049BA17 /* GuardianTableViewCell.xib in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
 				6AFD26F1286466B900336FFE /* SafeTokenBannerTableViewCell.xib in Resources */,
@@ -5121,6 +5128,7 @@
 				0A72AC622453169700840641 /* LinkText.swift in Sources */,
 				04626EB6265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift in Sources */,
 				0A6C131425407B5100EA67E3 /* ContainerViewController.swift in Sources */,
+				0478383A28C68E7300459F9B /* BorderedCheveronButton.swift in Sources */,
 				0A573F2925876B9E009EF0C1 /* AddressField.swift in Sources */,
 				0AD0273925A34FF600886671 /* MultiSendRowTableViewCell.swift in Sources */,
 				5556A03824489F37003EC861 /* Multisig.xcdatamodeld in Sources */,

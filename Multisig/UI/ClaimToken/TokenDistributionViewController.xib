@@ -13,8 +13,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TokenDistributionViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="descriptionLabel" destination="fUy-wE-W5e" id="leF-D1-R5j"/>
+                <outlet property="distributionView" destination="1a5-u5-9zq" id="MhV-wg-jpf"/>
                 <outlet property="nextButton" destination="6sp-Ke-1Io" id="xsz-VI-eq6"/>
-                <outlet property="tableView" destination="YDZ-Qz-KFh" id="F5C-U8-dIe"/>
                 <outlet property="titleLabel" destination="RjQ-2G-AnN" id="Gsa-aQ-0nS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,11 +24,11 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xdE-MG-G0y">
-                    <rect key="frame" x="0.0" y="384" width="414" height="128"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xdE-MG-G0y">
+                    <rect key="frame" x="0.0" y="44" width="414" height="734"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="tsi-yH-xOv">
-                            <rect key="frame" x="16" y="40" width="382" height="379.5"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="tsi-yH-xOv">
+                            <rect key="frame" x="16" y="40" width="382" height="389.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distribution" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RjQ-2G-AnN">
                                     <rect key="frame" x="147" y="0.0" width="88" height="20.5"/>
@@ -40,27 +40,32 @@
                                     <rect key="frame" x="51.5" y="36.5" width="279" height="200"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUy-wE-W5e">
-                                    <rect key="frame" x="2.5" y="252.5" width="377.5" height="61"/>
+                                    <rect key="frame" x="0.0" y="252.5" width="382" height="61"/>
                                     <string key="text">Safe Tokens will be distributed to stakeholders of the ecosystem interested in shaping the future of Safe and smart-contract accounts.</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="YDZ-Qz-KFh">
-                                    <rect key="frame" x="71" y="329.5" width="240" height="50"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1a5-u5-9zq" customClass="BorderedCheveronButton" customModule="Multisig" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="329.5" width="382" height="60"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    <connections>
-                                        <outlet property="dataSource" destination="-1" id="hFM-JO-PqM"/>
-                                    </connections>
-                                </tableView>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="60" id="jkd-Kx-NNm"/>
+                                    </constraints>
+                                </view>
                             </subviews>
+                            <constraints>
+                                <constraint firstItem="1a5-u5-9zq" firstAttribute="width" secondItem="tsi-yH-xOv" secondAttribute="width" id="5IJ-2E-bse"/>
+                                <constraint firstItem="fUy-wE-W5e" firstAttribute="width" secondItem="tsi-yH-xOv" secondAttribute="width" id="jwf-Bd-k4h"/>
+                            </constraints>
                         </stackView>
                     </subviews>
                     <constraints>
                         <constraint firstItem="8vs-Vy-RRz" firstAttribute="top" secondItem="tsi-yH-xOv" secondAttribute="top" constant="-40" id="99g-qr-sKj"/>
                         <constraint firstItem="tsi-yH-xOv" firstAttribute="width" secondItem="xdE-MG-G0y" secondAttribute="width" constant="-32" id="WHr-uG-M7K"/>
+                        <constraint firstItem="tsi-yH-xOv" firstAttribute="bottom" secondItem="8vs-Vy-RRz" secondAttribute="bottom" id="k28-ie-bfd"/>
                         <constraint firstItem="tsi-yH-xOv" firstAttribute="leading" secondItem="8vs-Vy-RRz" secondAttribute="leading" constant="16" id="qnJ-9d-i4l"/>
-                        <constraint firstItem="tsi-yH-xOv" firstAttribute="trailing" secondItem="8vs-Vy-RRz" secondAttribute="trailing" constant="16" id="tNg-ns-yLJ"/>
+                        <constraint firstItem="8vs-Vy-RRz" firstAttribute="trailing" secondItem="tsi-yH-xOv" secondAttribute="trailing" constant="16" id="tNg-ns-yLJ"/>
                     </constraints>
                     <viewLayoutGuide key="contentLayoutGuide" id="8vs-Vy-RRz"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="7V7-Mk-gej"/>
