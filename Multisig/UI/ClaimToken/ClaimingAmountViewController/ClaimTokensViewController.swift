@@ -70,6 +70,7 @@ class ClaimTokensViewController: LoadableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Your SAFE allocation"
+        navigationItem.largeTitleDisplayMode = .always
 
         view.backgroundColor = .backgroundSecondary
 

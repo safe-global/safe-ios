@@ -31,7 +31,8 @@ class GuardianDetailsViewController: UIViewController {
 
         ViewControllerFactory.removeNavigationBarBorder(self)
         
-        title = "Delegate"
+        title = "Choose a delegate"
+        navigationItem.largeTitleDisplayMode = .never
 
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
         stepLabel.textAlignment = .right
