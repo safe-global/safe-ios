@@ -28,7 +28,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="claim-background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="T4t-X8-hHD">
-                    <rect key="frame" x="0.0" y="44" width="390" height="710"/>
+                    <rect key="frame" x="0.0" y="44" width="390" height="700"/>
                 </imageView>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4pP-T8-iVp">
                     <rect key="frame" x="16" y="44" width="358" height="706"/>
@@ -120,13 +120,16 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                     <viewLayoutGuide key="contentLayoutGuide" id="Ozj-J6-HfH"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="D0y-wO-kdl"/>
                 </scrollView>
-                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="00z-yf-QU3">
-                    <rect key="frame" x="161" y="754" width="67" height="56"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="00z-yf-QU3">
+                    <rect key="frame" x="16" y="738" width="358" height="56"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="56" id="3q8-eh-0Qy"/>
                     </constraints>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Next">
+                        <color key="titleColor" name="labelPrimary"/>
+                    </state>
                     <connections>
                         <action selector="nextClicked:" destination="-1" eventType="touchUpInside" id="xMF-KW-tKH"/>
                     </connections>
@@ -135,10 +138,11 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="00z-yf-QU3" firstAttribute="top" secondItem="T4t-X8-hHD" secondAttribute="bottom" id="4L8-Zt-JKK"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="4pP-T8-iVp" secondAttribute="bottom" constant="60" id="7I0-3l-K2w"/>
+                <constraint firstItem="00z-yf-QU3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="AtM-Ku-yhx"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="00z-yf-QU3" secondAttribute="trailing" constant="16" id="E4O-c1-vkC"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4pP-T8-iVp" secondAttribute="trailing" constant="16" id="Hmn-hF-K7T"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="00z-yf-QU3" secondAttribute="bottom" id="Yhf-I6-AWg"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="00z-yf-QU3" secondAttribute="bottom" constant="16" id="Yhf-I6-AWg"/>
                 <constraint firstItem="4pP-T8-iVp" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ZlA-5t-kTF"/>
                 <constraint firstItem="T4t-X8-hHD" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="cYw-ra-3tl"/>
                 <constraint firstItem="T4t-X8-hHD" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="hgF-6g-qhK"/>
@@ -152,6 +156,9 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
         <image name="claim-background-gradient" width="375" height="700"/>
         <namedColor name="borderSelected">
             <color red="0.5725490196078431" green="0.78823529411764703" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="labelPrimary">
+            <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
