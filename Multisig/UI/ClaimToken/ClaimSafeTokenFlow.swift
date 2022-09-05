@@ -9,7 +9,6 @@
 import Foundation
 import SwiftCryptoTokenFormatter
 
-
 class SelectDelegateFlow: UIFlow {
     var factory: ClaimSafeTokenFlowFactory!
     var safe: Safe
@@ -72,6 +71,15 @@ class SelectDelegateFlow: UIFlow {
 }
 
 import Solidity
+
+// TODO: refactor with store that stores the current state of the app
+// delegate list, shuffled
+// selected delegate
+// selected user amounts
+// etc.
+
+// every vc can work with the store
+// token flow can work with the store.
 
 class ClaimSafeTokenFlow: UIFlow {
     var factory: ClaimSafeTokenFlowFactory!

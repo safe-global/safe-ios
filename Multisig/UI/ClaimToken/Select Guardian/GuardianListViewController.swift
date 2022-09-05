@@ -97,8 +97,17 @@ class GuardianListViewController: LoadableViewController {
             guard let `self` = self else { return }
             do {
                 let data = try result.get()
-                self.guardians = data.guardians
                 self.selectedDelegate = data.delegate
+
+                // TODO: move shuffling to the store
+                if let selectedIndex = data.guardians.firstIndex(where: { $0.address.address == data.delegate }) {
+                    var results = data.guardians
+                    let selected = results.remove(at: selectedIndex)
+                    results = results.shuffled()
+                    results.insert(selected, at: 0)
+                    self.guardians = results
+                }
+
                 self.sections = self.makeSections(items: self.guardians)
                 self.onSuccess()
             } catch {
