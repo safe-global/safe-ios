@@ -15,6 +15,7 @@
                 <outlet property="firstParagraph" destination="6U7-EJ-n04" id="l2B-HJ-VJZ"/>
                 <outlet property="highlight1" destination="Dkp-U5-Fvf" id="YRD-U4-ZtE"/>
                 <outlet property="highlight2" destination="8QZ-hR-C8F" id="bME-1m-vI9"/>
+                <outlet property="nextButton" destination="00z-yf-QU3" id="I84-8H-vhg"/>
                 <outlet property="paragraphTitle" destination="PWP-O2-9nM" id="HlE-LK-m8d"/>
                 <outlet property="screenTitle" destination="SGO-G8-5Pn" id="n04-In-ejE"/>
                 <outlet property="secondParagraph" destination="i7c-Xt-UCp" id="19s-YW-ByX"/>
@@ -26,23 +27,26 @@
             <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="claim-background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="T4t-X8-hHD">
+                    <rect key="frame" x="0.0" y="44" width="390" height="710"/>
+                </imageView>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4pP-T8-iVp">
-                    <rect key="frame" x="0.0" y="44" width="300" height="766"/>
+                    <rect key="frame" x="16" y="44" width="358" height="706"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bpq-Qm-n8b">
-                            <rect key="frame" x="0.0" y="0.0" width="300" height="1559.6666666666667"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bpq-Qm-n8b" userLabel="ContentView">
+                            <rect key="frame" x="0.0" y="0.0" width="358" height="1000"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Z4G-kB-4Fi">
-                                    <rect key="frame" x="10" y="20" width="300" height="659"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Z4G-kB-4Fi" userLabel="ContentStackView">
+                                    <rect key="frame" x="10" y="20" width="358" height="332.33333333333331"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SGO-G8-5Pn">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="32.333333333333336"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="358" height="32.333333333333336"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6U7-EJ-n04" userLabel="FirstParagraph">
-                                            <rect key="frame" x="0.0" y="40.333333333333329" width="300" height="121.99999999999999"/>
+                                            <rect key="frame" x="0.0" y="40.333333333333329" width="358" height="121.99999999999999"/>
                                             <string key="text">Safe is critical infrastructure for web3.  It is a programmable account standard that enables secure management of digital assets, data and identity.
 With this token launch, Safe is now a community-driven ownership platform.</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -50,13 +54,13 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QlA-7j-s34">
-                                            <rect key="frame" x="0.0" y="170.33333333333334" width="300" height="20.333333333333343"/>
+                                            <rect key="frame" x="0.0" y="170.33333333333334" width="358" height="20.333333333333343"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="f5q-cJ-KMD">
-                                                    <rect key="frame" x="0.0" y="0.0" width="146.33333333333334" height="20.333333333333332"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="198" height="20.333333333333332"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Total Safes created" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dkp-U5-Fvf" userLabel="Highlight1">
-                                                            <rect key="frame" x="0.0" y="0.0" width="146.33333333333334" height="20.333333333333332"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="198" height="20.333333333333332"/>
                                                             <color key="backgroundColor" name="borderSelected"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
@@ -65,10 +69,10 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="e93-Y7-SE8">
-                                                    <rect key="frame" x="146.33333333333337" y="0.0" width="153.66666666666663" height="20.333333333333332"/>
+                                                    <rect key="frame" x="198" y="0.0" width="160" height="20.333333333333332"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Total value protected" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8QZ-hR-C8F" userLabel="Total value protected">
-                                                            <rect key="frame" x="0.0" y="0.0" width="153.66666666666666" height="20.333333333333332"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="160" height="20.333333333333332"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -79,53 +83,27 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                             </subviews>
                                         </stackView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Why are we launching a token?" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PWP-O2-9nM">
-                                            <rect key="frame" x="0.0" y="198.66666666666669" width="300" height="24"/>
+                                            <rect key="frame" x="0.0" y="198.66666666666669" width="358" height="24"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7c-Xt-UCp">
-                                            <rect key="frame" x="0.0" y="230.66666666666669" width="300" height="20.333333333333343"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7c-Xt-UCp">
+                                            <rect key="frame" x="0.0" y="230.66666666666666" width="358" height="101.66666666666666"/>
                                             <string key="text">As critical web3 infrastructure, Safe needs to be a community-owned, censorship resistant project, with a committed ecosystem stewarding its decisions. A governance token is needed to help coordinate this effort.</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DHq-gN-Wj0" customClass="UILabel" customModule="Multisig" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="259" width="300" height="128"/>
-                                            <color key="backgroundColor" systemColor="systemBrownColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="128" id="n5w-VI-DhT"/>
-                                                <constraint firstAttribute="width" constant="300" id="y5w-6z-40Q"/>
-                                            </constraints>
-                                        </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Y1-zK-LLi">
-                                            <rect key="frame" x="0.0" y="395" width="300" height="128"/>
-                                            <color key="backgroundColor" systemColor="systemGreenColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="300" id="Z4G-rI-I2M"/>
-                                                <constraint firstAttribute="height" constant="128" id="sWU-gd-TRU"/>
-                                            </constraints>
-                                        </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Id-0k-koq">
-                                            <rect key="frame" x="0.0" y="531" width="300" height="128"/>
-                                            <color key="backgroundColor" systemColor="systemBrownColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="300" id="BFl-T2-ifz"/>
-                                                <constraint firstAttribute="height" constant="128" id="gyX-Id-ML6"/>
-                                            </constraints>
-                                        </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="DHq-gN-Wj0" firstAttribute="width" secondItem="Z4G-kB-4Fi" secondAttribute="width" id="7Tg-h5-enP"/>
-                                        <constraint firstItem="8Y1-zK-LLi" firstAttribute="width" secondItem="Z4G-kB-4Fi" secondAttribute="width" id="A5w-vw-rND"/>
                                         <constraint firstItem="QlA-7j-s34" firstAttribute="width" secondItem="Z4G-kB-4Fi" secondAttribute="width" id="Qwu-lH-VCT"/>
                                     </constraints>
                                 </stackView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="1559.6666666666667" id="Beb-5u-h6J"/>
+                                <constraint firstAttribute="height" constant="1000" id="Beb-5u-h6J"/>
                                 <constraint firstItem="Z4G-kB-4Fi" firstAttribute="leading" secondItem="bpq-Qm-n8b" secondAttribute="leading" constant="10" id="CDj-uB-KcK"/>
                                 <constraint firstItem="Z4G-kB-4Fi" firstAttribute="width" secondItem="bpq-Qm-n8b" secondAttribute="width" id="J0z-Le-lPo"/>
                                 <constraint firstItem="Z4G-kB-4Fi" firstAttribute="top" secondItem="bpq-Qm-n8b" secondAttribute="top" constant="20" id="UbJ-XC-1n4"/>
@@ -142,30 +120,41 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                     <viewLayoutGuide key="contentLayoutGuide" id="Ozj-J6-HfH"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="D0y-wO-kdl"/>
                 </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="00z-yf-QU3">
+                    <rect key="frame" x="161" y="754" width="67" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="3q8-eh-0Qy"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                    <connections>
+                        <action selector="nextClicked:" destination="-1" eventType="touchUpInside" id="xMF-KW-tKH"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="4pP-T8-iVp" secondAttribute="bottom" id="7I0-3l-K2w"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4pP-T8-iVp" secondAttribute="trailing" id="Hmn-hF-K7T"/>
+                <constraint firstItem="00z-yf-QU3" firstAttribute="top" secondItem="T4t-X8-hHD" secondAttribute="bottom" id="4L8-Zt-JKK"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="4pP-T8-iVp" secondAttribute="bottom" constant="60" id="7I0-3l-K2w"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4pP-T8-iVp" secondAttribute="trailing" constant="16" id="Hmn-hF-K7T"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="00z-yf-QU3" secondAttribute="bottom" id="Yhf-I6-AWg"/>
                 <constraint firstItem="4pP-T8-iVp" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ZlA-5t-kTF"/>
-                <constraint firstItem="4pP-T8-iVp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="oiJ-VY-cwT"/>
+                <constraint firstItem="T4t-X8-hHD" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="cYw-ra-3tl"/>
+                <constraint firstItem="T4t-X8-hHD" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="hgF-6g-qhK"/>
+                <constraint firstItem="4pP-T8-iVp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="oiJ-VY-cwT"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="T4t-X8-hHD" secondAttribute="trailing" id="sxP-7g-wZc"/>
             </constraints>
             <point key="canvasLocation" x="131.8840579710145" y="131.91964285714286"/>
         </view>
     </objects>
     <resources>
+        <image name="claim-background-gradient" width="375" height="700"/>
         <namedColor name="borderSelected">
             <color red="0.5725490196078431" green="0.78823529411764703" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
