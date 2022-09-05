@@ -78,6 +78,8 @@ class ClaimSafeTokenFlow: UIFlow {
     var factory: ClaimSafeTokenFlowFactory!
     var safe: Safe
     var amount: Sol.UInt128?
+    var claimData: ClaimingAppController.ClaimingData?
+    var timestamp: TimeInterval?
     var selectedGuardian: Guardian?
     var selectedCustomAddress: Address?
     var delegateFlow: SelectDelegateFlow!
@@ -140,13 +142,17 @@ class ClaimSafeTokenFlow: UIFlow {
     func selectAmount() {
         let claimVC = factory.selectAmount(
             safe: safe,
-            delegate: delegateFlow.customAddress,
-            guardian: delegateFlow.guardian,
+            delegate: selectedCustomAddress,
+            guardian: selectedGuardian,
             controller: controller
         )
 
-        claimVC.completion = { [unowned self] in
-            review(stepNumber: 4, maxSteps: 4)
+        claimVC.completion = { [unowned self, unowned claimVC] in
+            amount = claimVC.inputAmount
+            claimData = claimVC.claimData
+            timestamp = claimVC.timestamp
+
+            review()
         }
         claimVC.onEditDelegate = { [unowned self] in
             delegateFlow.popToStart()
@@ -155,22 +161,30 @@ class ClaimSafeTokenFlow: UIFlow {
         show(claimVC)
     }
 
-    func review(stepNumber: Int, maxSteps: Int) {
-        assert(delegateFlow.customAddress != nil || delegateFlow.guardian != nil)
+    func review() {
+        assert(selectedCustomAddress != nil || selectedGuardian != nil)
         assert(amount != nil)
-        let reviewVC = factory.review(
-            safe: safe,
-            guardian: delegateFlow.guardian!,
-            amount: "0",
-            stepNumber: stepNumber,
-            maxSteps: maxSteps) { [unowned self] in
-                success(amount: "0")
-            }
+        assert(claimData != nil)
+        assert(timestamp != nil)
+
+        let reviewVC = ReviewClaimSafeTokenTransactionViewController(safe: safe)
+
+        reviewVC.amount = amount
+        reviewVC.claimData = claimData
+        reviewVC.timestamp = timestamp
+        reviewVC.selectedGuardian = selectedGuardian
+        reviewVC.selectedCustomAddress = selectedCustomAddress
+        reviewVC.controller = controller
+
+        reviewVC.onSuccess = { [unowned self] in
+            self.success()
+        }
         show(reviewVC)
     }
 
-    func success(amount: String) {
-        let successVC = factory.success (amount: amount) { [unowned self] in
+    func success() {
+        let displayAmount = TokenFormatter().string(from: BigDecimal(Int256(amount!.big()), 18)) + " SAFE"
+        let successVC = factory.success(amount: displayAmount) { [unowned self] in
             SafeClaimingController.shared.claimFor(safe: safe.addressValue)
             NotificationCenter.default.post(name: .initiateTxNotificationReceived, object: self, userInfo: nil)
             stop(success: true)
@@ -221,22 +235,18 @@ class ClaimSafeTokenFlowFactory {
         let vc = ClaimTokensViewController(tokenDelegate: delegate, guardian: guardian, safe: safe, controller: controller)
         return vc
     }
-
-    func review(
-        safe: Safe,
-        guardian: Guardian,
-        amount: String,
-        stepNumber: Int,
-        maxSteps: Int,
-        newAddressName: String? = nil,
-        completion: @escaping () -> Void
-    ) -> ReviewClaimSafeTokenTransactionViewController {
-        let reviewVC = ReviewClaimSafeTokenTransactionViewController(safe: safe, guardian: guardian, amount: amount)
-        reviewVC.stepNumber = stepNumber
-        reviewVC.maxSteps = maxSteps
-        reviewVC.onSuccess = completion
-        return reviewVC
-    }
+//
+//    func review(
+//        safe: Safe,
+//        guardian: Guardian,
+//        amount: String,
+//        newAddressName: String? = nil,
+//        completion: @escaping () -> Void
+//    ) -> ReviewClaimSafeTokenTransactionViewController {
+//        let reviewVC = ReviewClaimSafeTokenTransactionViewController(safe: safe, guardian: guardian, amount: amount)
+//        reviewVC.onSuccess = completion
+//        return reviewVC
+//    }
 
 
     func success(amount: String,

@@ -27,17 +27,17 @@ class ClaimTokensViewController: LoadableViewController {
     var maxSteps: Int = 4
 
     // Selected delegate address (guardian or a custom address)
-    private var delegateAddress: Address?
-    private var guardian: Guardian?
+    private (set) var delegateAddress: Address?
+    private (set) var guardian: Guardian?
 
     // Selected safe for which claiming happens.
     private var safe: Safe!
 
     // Unix timestamp to base the amount calculations.
-    private var timestamp: TimeInterval!
+    private (set) var timestamp: TimeInterval!
 
     // Claim data fetched from the data source
-    private var claimData: ClaimingAppController.ClaimingData?
+    private (set) var claimData: ClaimingAppController.ClaimingData?
 
     var completion: () -> Void = { }
     var onEditDelegate: () -> Void = { }
@@ -181,13 +181,12 @@ class ClaimTokensViewController: LoadableViewController {
         keyboardBehavior.activeTextField = textField
     }
 
-    // claim & delegate
     @objc func didTapClaimButton() {
         guard
             let _ = inputAmount,
             let _ = claimData,
             let _ = safe,
-            let _ = delegateAddress,
+            let _ = delegateAddress ?? guardian?.address.address,
             let _ = timestamp
         else {
             return

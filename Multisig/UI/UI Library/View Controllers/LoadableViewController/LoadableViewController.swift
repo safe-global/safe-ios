@@ -44,8 +44,6 @@ class LoadableViewController: UIViewController {
                            dataErrorView.refreshControl,
                            tableView.refreshControl].compactMap { $0 }
 
-        showOnly(view: tableView)
-
         setNeedsReload()
 
         if reactsToSelectedSafeChanges {

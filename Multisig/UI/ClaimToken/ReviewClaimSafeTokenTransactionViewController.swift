@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftCryptoTokenFormatter
+import Solidity
 
 class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewController {
     private var stepLabel: UILabel!
@@ -15,18 +16,19 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
     var stepNumber: Int = 4
     var maxSteps: Int = 4
 
-    var onSuccess: (() -> ())?
+    var amount: Sol.UInt128!
+    var claimData: ClaimingAppController.ClaimingData!
+    var timestamp: TimeInterval!
+    var selectedGuardian: Guardian?
+    var selectedCustomAddress: Address?
 
-    private var guardian: Guardian!
-    private var amount: String!
-    convenience init(safe: Safe, guardian: Guardian, amount: String) {
-        self.init(safe: safe)
-        self.amount = amount
-        self.guardian = guardian
-        shouldLoadTransactionPreview = true
-    }
+    var controller: ClaimingAppController!
+
+    var onSuccess: (() -> Void)?
 
     override func viewDidLoad() {
+        shouldLoadTransactionPreview = true
+
         super.viewDidLoad()
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
         stepLabel.textAlignment = .right
@@ -58,7 +60,18 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
     }
 
     override func createTransaction() -> Transaction? {
-        SafeTransactionController.shared.claimTokenTransaction(safe: safe, safeTxGas: safeTxGas, nonce: nonce)
+        let delegateAddress = selectedCustomAddress ?? selectedGuardian?.address.address
+        let contractDelegate = claimData.delegate.map(Address.init)
+        let sameDelegateAsInContract = contractDelegate != nil && contractDelegate == delegateAddress
+        let newDelegateAddress: Address? = sameDelegateAsInContract ? nil : delegateAddress
+        let result = controller.claimingTransaction(
+            safe: self.safe,
+            amount: amount,
+            delegate: newDelegateAddress,
+            data: claimData,
+            timestamp: timestamp
+        )
+        return result
     }
 
     override func headerCell() -> UITableViewCell {
@@ -139,11 +152,9 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
         if dataDecoded.method == "multiSend",
            let param = dataDecoded.parameters?.first,
            param.type == "bytes",
-           case var SCGModels.DataDecoded.Parameter.ValueDecoded.multiSend(multiSendTxs)? = param.valueDecoded {
+           case let SCGModels.DataDecoded.Parameter.ValueDecoded.multiSend(multiSendTxs)? = param.valueDecoded {
             description = "Multisend (\(multiSendTxs.count) actions)"
             tableCell.onCellTap = { [unowned self] _ in
-                multiSendTxs[1].dataDecoded = SCGModels.DataDecoded(method: "redeem")
-                multiSendTxs[2].dataDecoded = SCGModels.DataDecoded(method: "claimTokensViaModule")
                 let root = MultiSendListTableViewController(transactions: multiSendTxs,
                                                             addressInfoIndex: addressInfoIndex,
                                                             chain: safe.chain!)
