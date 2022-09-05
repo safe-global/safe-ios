@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct KeystoneRequestSignatureView: View {
+    let qrValue: String
+    
     private let qrViewSide: CGFloat = 237
     
     var body: some View {
@@ -20,7 +22,7 @@ struct KeystoneRequestSignatureView: View {
                     .headline()
                     .multilineTextAlignment(.center)
                 
-                QRView(value: "0xb09f0eB9bebA0F7be33F1B56396246AA17405584", width: qrViewSide, height: qrViewSide)
+                QRView(value: qrValue, width: qrViewSide, height: qrViewSide)
                     .padding(.vertical, Spacing.extraLarge)
                 
                 Group {
@@ -47,6 +49,6 @@ struct KeystoneRequestSignatureView: View {
 
 struct KeystoneRequestSignatureView_Previews: PreviewProvider {
     static var previews: some View {
-        KeystoneRequestSignatureView()
+        KeystoneRequestSignatureView(qrValue: "0xb09f0eB9bebA0F7be33F1B56396246AA17405584")
     }
 }

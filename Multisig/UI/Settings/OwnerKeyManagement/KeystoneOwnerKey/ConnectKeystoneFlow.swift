@@ -9,9 +9,11 @@
 import Foundation
 import UIKit
 import URKit
+import URRegistry
 
 final class ConnectKeystoneFlow: AddKeyFlow {
     var publicKey: PublicKey?
+    var sourceFingerprint: UInt32?
     
     var flowFactory: ConnectKeystoneFactory {
         factory as! ConnectKeystoneFactory
@@ -103,8 +105,9 @@ final class ConnectKeystoneFlow: AddKeyFlow {
     
     override func doImport() -> Bool {
         if let publicKey = publicKey,
-           let keyName = keyName {
-            return OwnerKeyController.importKey(keystone: publicKey, name: keyName)
+           let keyName = keyName,
+           let sourceFingerprint = sourceFingerprint {
+            return OwnerKeyController.importKey(keystone: publicKey, name: keyName, sourceFingerprint: sourceFingerprint)
         } else {
             return false
         }
@@ -126,7 +129,12 @@ final class ConnectKeystoneFlow: AddKeyFlow {
 extension ConnectKeystoneFlow: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
         navigationController.dismiss(animated: true) { [unowned self] in
-            if let hdNode = HDNode(ur: code) {
+            if let hdKey = URRegistry.shared.getHDKey(from: code) {
+                sourceFingerprint = hdKey.sourceFingerprint
+                
+                let hdNode = HDNode()
+                hdNode.publicKey = Data(hex: hdKey.key)
+                hdNode.chaincode = Data(hex: hdKey.chainCode)
                 pickAccount(hdNode)
             } else {
                 App.shared.snackbar.show(error: GSError.InvalidWalletConnectQRCode())

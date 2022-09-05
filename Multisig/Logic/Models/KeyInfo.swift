@@ -72,6 +72,19 @@ extension KeyInfo {
         }
     }
 
+    struct KeystoneKeyMetadata: Codable {
+        let sourceFingerprint: UInt32
+        let path: String
+        
+        var data: Data {
+            try! JSONEncoder().encode(self)
+        }
+        
+        static func from(data: Data) -> Self? {
+            try? JSONDecoder().decode(Self.self, from: data)
+        }
+    }
+    
     static func name(address: Address) -> String? {
         guard let keyInfo = try? KeyInfo.keys(addresses: [address]).first else { return nil }
         return keyInfo.name
@@ -243,7 +256,7 @@ extension KeyInfo {
     ///   - publicKey: public key to save
     ///   - name: name of the key
     @discardableResult
-    static func `import`(keystone publicKey: PublicKey, name: String) throws -> KeyInfo {
+    static func `import`(keystone publicKey: PublicKey, name: String, sourceFingerprint: UInt32) throws -> KeyInfo {
         let context = App.shared.coreDataStack.viewContext
 
         let fr = KeyInfo.fetchRequest().by(address: publicKey.address)
@@ -260,7 +273,7 @@ extension KeyInfo {
         item.keyID = "keystone:\(publicKey.address.checksummed)"
         item.keyType = .keystone
         item.backedup = false
-        item.metadata = publicKey.path.data(using: .utf8)
+        item.metadata = KeystoneKeyMetadata(sourceFingerprint: sourceFingerprint, path: publicKey.path).data
         
         item.save()
 

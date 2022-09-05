@@ -111,9 +111,9 @@ class OwnerKeyController {
         }
     }
 
-    static func importKey(keystone publicKey: PublicKey, name: String) -> Bool {
+    static func importKey(keystone publicKey: PublicKey, name: String, sourceFingerprint: UInt32) -> Bool {
         do {
-            try KeyInfo.import(keystone: publicKey, name: name)
+            try KeyInfo.import(keystone: publicKey, name: name, sourceFingerprint: sourceFingerprint)
 
             App.shared.notificationHandler.signingKeyUpdated()
 

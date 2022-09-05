@@ -10,6 +10,7 @@ import UIKit
 import Version
 import SwiftCryptoTokenFormatter
 import SwiftUI
+import URRegistry
 
 fileprivate protocol SectionItem {}
 
@@ -257,7 +258,14 @@ class ReviewSafeTransactionViewController: UIViewController {
             }
             
         case .keystone:
-            let signVC = UIHostingController(rootView: KeystoneRequestSignatureView())
+            guard let signRequest = KeystoneSignRequest(transaction: transaction, keyInfo: keyInfo),
+                  let qrValue = URRegistry.shared.requestSign(signRequest: signRequest)
+            else {
+                App.shared.snackbar.show(message: "Failed to confirm transaction")
+                return
+            }
+            
+            let signVC = UIHostingController(rootView: KeystoneRequestSignatureView(qrValue: qrValue))
             let modalVC = ViewControllerFactory.modalWithRibbon(viewController: signVC, storedChain: safe.chain)
             signVC.navigationItem.title = "Request signature"
             

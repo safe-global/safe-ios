@@ -614,8 +614,8 @@
 		3E373F772631781A00D8107A /* EnterUnstoppableNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */; };
 		3E373F7D2631784200D8107A /* BlockchainDomainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */; };
 		47039CEE28C37EDB00081A7A /* KeystoneRequestSignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47039CED28C37EDB00081A7A /* KeystoneRequestSignatureView.swift */; };
+		47039CF228C579CF00081A7A /* KeystoneSignRequest+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47039CF128C579CF00081A7A /* KeystoneSignRequest+Transaction.swift */; };
 		47368B9B28C0B003008A1D8A /* URRegistry in Frameworks */ = {isa = PBXBuildFile; productRef = 47368B9A28C0B003008A1D8A /* URRegistry */; };
-		473F4B8F28B94CE200B6DE4E /* HDNode+UR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473F4B8E28B94CE200B6DE4E /* HDNode+UR.swift */; };
 		473F4B9128BA47F900B6DE4E /* PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473F4B9028BA47F900B6DE4E /* PublicKey.swift */; };
 		47646ED428AA72DD009DC437 /* ConnectKeystoneFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */; };
 		47F7128F28ABC9E900B6133A /* URKit in Frameworks */ = {isa = PBXBuildFile; productRef = 47F7128E28ABC9E900B6133A /* URKit */; };
@@ -1532,7 +1532,7 @@
 		3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterUnstoppableNameViewController.swift; sourceTree = "<group>"; };
 		3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockchainDomainManager.swift; sourceTree = "<group>"; };
 		47039CED28C37EDB00081A7A /* KeystoneRequestSignatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystoneRequestSignatureView.swift; sourceTree = "<group>"; };
-		473F4B8E28B94CE200B6DE4E /* HDNode+UR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HDNode+UR.swift"; sourceTree = "<group>"; };
+		47039CF128C579CF00081A7A /* KeystoneSignRequest+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeystoneSignRequest+Transaction.swift"; sourceTree = "<group>"; };
 		473F4B9028BA47F900B6DE4E /* PublicKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKey.swift; sourceTree = "<group>"; };
 		47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectKeystoneFlow.swift; sourceTree = "<group>"; };
 		47F7129328ACA59600B6133A /* KeystoneURValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystoneURValidator.swift; sourceTree = "<group>"; };
@@ -3383,8 +3383,8 @@
 			isa = PBXGroup;
 			children = (
 				47F7129328ACA59600B6133A /* KeystoneURValidator.swift */,
-				473F4B8E28B94CE200B6DE4E /* HDNode+UR.swift */,
 				473F4B9028BA47F900B6DE4E /* PublicKey.swift */,
+				47039CF128C579CF00081A7A /* KeystoneSignRequest+Transaction.swift */,
 			);
 			path = Keystone;
 			sourceTree = "<group>";
@@ -4746,6 +4746,7 @@
 				0A9E8E7725B9CA4200256AD3 /* BannerTableViewCell.swift in Sources */,
 				0AF8832225A5EC1F00029A43 /* ActionDetailTableViewCell.swift in Sources */,
 				0AADCDB728589DCC00A0139B /* AddOwnerExceptionViewController.swift in Sources */,
+				47039CF228C579CF00081A7A /* KeystoneSignRequest+Transaction.swift in Sources */,
 				0A3FDAEF26AEB603006A7DC3 /* Chain+Shared.swift in Sources */,
 				0AE0AFF12805CC2B002594CB /* WordView.swift in Sources */,
 				0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */,
@@ -4904,7 +4905,6 @@
 				04273E5C26B41A3700A14E95 /* APDUController.swift in Sources */,
 				0A8AEB1825A4726E002A3FE1 /* ActionDetailExpandableCell.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,
-				473F4B8F28B94CE200B6DE4E /* HDNode+UR.swift in Sources */,
 				0AC0948327946B6600FA1B83 /* PendingTransactionMontior.swift in Sources */,
 				0A63C7B42602087E00D36B22 /* SafeInfoRequest.swift in Sources */,
 				0A57C5D72577F9E600420303 /* ConfirmationStatusPiece.swift in Sources */,
