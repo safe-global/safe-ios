@@ -43,7 +43,7 @@ class ClaimSafeTokenFlow: UIFlow {
 
     func showIntro() {
         let vc = factory.claimGetStarted { [unowned self] in
-            chooseDelegateIntro()  // TODO: Jump to Tutorial
+            tokenDistribution()
         }
         show(vc)
     }
@@ -53,12 +53,22 @@ class ClaimSafeTokenFlow: UIFlow {
         show(vc)
     }
 
+    func tokenDistribution() {
+        let vc = factory.tokenDistribution { [unowned self] in
+            chooseDelegateIntro()  // TODO: Jump to Tutorial
+
+        }
+
+        show(vc)
+    }
+
     func chooseDelegateIntro() {
         let vc = factory.chooseDelegateIntro { [unowned self] in
             chooseGuardian()
         } onCustomAddress: { [unowned self] in
             enterCustomAddress()
         }
+
         show(vc)
     }
 
@@ -132,6 +142,10 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
+    func tokenDistribution(onNext: @escaping () -> ()) -> TokenDistributionViewController {
+        TokenDistributionViewController(stepNumber: 1, maxSteps: 4, onNext: onNext)
+    }
+
     func claimNotAvailable() -> ClaimNotAvailableViewController {
         let vc = ClaimNotAvailableViewController()
         return vc
@@ -139,7 +153,7 @@ class ClaimSafeTokenFlowFactory {
 
     func chooseDelegateIntro(onChooseGuardian: @escaping () -> (),
                              onCustomAddress: @escaping () -> ()) -> ChooseDelegateIntroViewController{
-        let vc = ChooseDelegateIntroViewController(stepNumber: 1,
+        let vc = ChooseDelegateIntroViewController(stepNumber: 2,
                                                    maxSteps: 4,
                                                    onChooseGuardian: onChooseGuardian,
                                                    onCustomAddress: onCustomAddress)
