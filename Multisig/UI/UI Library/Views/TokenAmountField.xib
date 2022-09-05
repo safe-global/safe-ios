@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -43,10 +44,13 @@
                                             </constraints>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Def-GE-vRM">
-                                            <rect key="frame" x="46" y="33.5" width="331" height="18.5"/>
+                                            <rect key="frame" x="46" y="27" width="331" height="32"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uK1-Ie-3QV" userLabel="amount">
-                                                    <rect key="frame" x="0.0" y="0.0" width="331" height="18.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="331" height="32"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="32" id="3dM-fd-Fsb"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                     <connections>
@@ -74,7 +78,7 @@
                                 <constraint firstItem="g5e-am-wi6" firstAttribute="top" secondItem="M9y-P0-zXN" secondAttribute="top" constant="12" id="wEj-lE-Pto"/>
                             </constraints>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="error" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ZI-WV-Ple" userLabel="error">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="error" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ZI-WV-Ple" userLabel="error">
                             <rect key="frame" x="0.0" y="121.5" width="414" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
@@ -87,6 +91,7 @@
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="o39-jf-GLz" secondAttribute="trailing" id="JC4-X8-Ilx"/>
                 <constraint firstItem="o39-jf-GLz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="UtQ-5k-xiM"/>
+                <constraint firstItem="o39-jf-GLz" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="VHB-sY-iAn"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="o39-jf-GLz" secondAttribute="top" id="sYj-b5-YZ4"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>

@@ -288,13 +288,14 @@ class ClaimingAppController {
         safe: Safe,
         amount: Sol.UInt128,
         delegate: Address?,
-        data: ClaimingData
+        data: ClaimingData,
+        timestamp: TimeInterval = Date().timeIntervalSince1970
     ) -> Transaction? {
         let transactions = claimingTransactions(
             amount: amount,
             beneficiary: safe.addressValue,
             delegate: delegate,
-            timestamp: Date().timeIntervalSince1970,
+            timestamp: timestamp,
             allocations: data.allocationsData,
             safeTokenPaused: data.tokenPaused
         )

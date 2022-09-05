@@ -41,33 +41,11 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="b8F-4l-TfE">
                                 <rect key="frame" x="0.0" y="97" width="310" height="56"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jak-v9-BOp">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wzZ-3z-4pk" customClass="TokenAmountField" customModule="Multisig" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="310" height="56"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wzZ-3z-4pk" customClass="TokenAmountField" customModule="Multisig" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="310" height="56"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="56" id="jxL-NJ-ext"/>
-                                                </constraints>
-                                            </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JEO-Sf-B6Z">
-                                                <rect key="frame" x="259" y="12.5" width="51" height="31"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Max"/>
-                                                <connections>
-                                                    <action selector="maxButtonTouched:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="NUU-fk-20k"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="JEO-Sf-B6Z" secondAttribute="trailing" id="1cC-18-tcO"/>
-                                            <constraint firstAttribute="trailing" secondItem="wzZ-3z-4pk" secondAttribute="trailing" id="2Hd-Fa-akP"/>
-                                            <constraint firstItem="wzZ-3z-4pk" firstAttribute="leading" secondItem="Jak-v9-BOp" secondAttribute="leading" id="G8N-PU-LFP"/>
-                                            <constraint firstItem="JEO-Sf-B6Z" firstAttribute="centerY" secondItem="wzZ-3z-4pk" secondAttribute="centerY" id="H1a-bG-oQt"/>
-                                            <constraint firstItem="wzZ-3z-4pk" firstAttribute="top" secondItem="Jak-v9-BOp" secondAttribute="top" id="WjC-Mc-MWf"/>
-                                            <constraint firstAttribute="bottom" secondItem="wzZ-3z-4pk" secondAttribute="bottom" id="cnf-bk-Usj"/>
+                                            <constraint firstAttribute="height" constant="56" placeholder="YES" id="9Tl-rl-PPN"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -86,7 +64,6 @@
             <connections>
                 <outlet property="amountTextField" destination="wzZ-3z-4pk" id="Qxy-U3-rOx"/>
                 <outlet property="descriptionLabel" destination="WT8-h6-7ZD" id="Q2T-N7-YZV"/>
-                <outlet property="maxButton" destination="JEO-Sf-B6Z" id="J4I-KN-UmG"/>
                 <outlet property="titleLabel" destination="0Yd-3F-yKi" id="PFo-Co-mpS"/>
             </connections>
             <point key="canvasLocation" x="147.82608695652175" y="175.78125"/>

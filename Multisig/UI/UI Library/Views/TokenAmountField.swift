@@ -12,7 +12,7 @@ class TokenAmountField: UINibView {
     
     @IBOutlet private weak var borderImage: UIImageView!
     @IBOutlet private weak var iconImage: UIImageView!
-    @IBOutlet private weak var amountTextField: UITextField!
+    @IBOutlet private (set) weak var amountTextField: UITextField!
     @IBOutlet private weak var errorLabel: UILabel!
 
     var borderColorNormal: UIColor = .border

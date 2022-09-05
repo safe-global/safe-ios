@@ -29,27 +29,10 @@ class ClaimTokensViewController: LoadableViewController {
     private var maxSteps: Int = 4
 
     // Selected delegate address (guardian or a custom address)
-    private var votingPowerDelegate: Address!
+    private var delegateAddress: Address!
 
     // Selected safe for which claiming happens.
     private var safe: Safe!
-
-    // Amount for showing in the text field. Nil means empty
-    private var displayClaimAmount: UInt256?
-
-    private var formattedClaimAmount: String? {
-        guard let amount = displayClaimAmount else { return nil }
-        let decimal = BigDecimal(Int256(amount), 18)
-        let string = tokenFormatter.string(from: decimal, shortFormat: false)
-        return string
-    }
-
-    // Amount entered by user.
-    private var inputClaimAmount: UInt256?
-
-    // "Max" means whatever amount is available at the point of transaction execution. A special value.
-    //      When selected, then display amount will be auto-calculated
-    private var isMaxAmountSelected: Bool = false
 
     // Unix timestamp to base the amount calculations.
     private var timestamp: TimeInterval!
@@ -80,7 +63,7 @@ class ClaimTokensViewController: LoadableViewController {
         self.stepNumber = stepNumber
         self.maxSteps = maxSteps
         self.onClaim = onClaim
-        self.votingPowerDelegate = tokenDelegate
+        self.delegateAddress = tokenDelegate
         self.safe = safe
 
         // TODO: inject from outside
@@ -114,6 +97,8 @@ class ClaimTokensViewController: LoadableViewController {
         ViewControllerFactory.removeNavigationBarBorder(self)
 
         addClaimButton()
+
+        claimButton.isEnabled = false
 
         keyboardBehavior = KeyboardAvoidingBehavior(scrollView: tableView)
         keyboardBehavior.adjustsInsets = false
@@ -201,62 +186,40 @@ class ClaimTokensViewController: LoadableViewController {
         keyboardBehavior.activeTextField = textField
     }
 
-    private func setInputAmount(_ string: String?) {
-        guard let string = string?.trimmingCharacters(in: .whitespacesAndNewlines), !string.isEmpty else {
-            // empty string
-            inputClaimAmount = nil
-            return
-        }
-
-        guard let decimalInput = tokenFormatter.number(from: string, precision: 18) else {
-            // not a number
-            inputClaimAmount = nil
-            return
-        }
-
-        if decimalInput.value == 0 {
-            // zero not allowed
-            inputClaimAmount = nil
-            return
-        }
-
-        if decimalInput.value < 0 {
-            // negative not allowed
-            inputClaimAmount = nil
-            return
-        }
-
-        guard let claimData = claimData else {
-            // claim data not loaded, can't set amount
-            inputClaimAmount = nil
-            return
-        }
-
-        guard let timestamp = timestamp else {
-            // internal error, timestamp must be set.
-            inputClaimAmount = nil
-            return
-        }
-
-        // it will truncate the number in case it is too big (> 128 bits).
-        let input = Sol.UInt128(big: UInt256(decimalInput.value))
-
-//        if input > claimData.totalAvailableAmount(at: timestamp) {
-//            // number too big
-//            inputClaimAmount = nil
-//            return
-//        }
-
-        inputClaimAmount = UInt256(decimalInput.value)
-    }
-
     // claim & delegate
     @objc func didTapClaimButton() {
-        // claim button is enabled iff amount is correct and delegate selected
-            // amount is correct when amount == MAX OR (amount > 0 && amount <= total available)
+        guard
+            let _ = inputAmount,
+            let _ = claimData,
+            let _ = safe,
+            let _ = delegateAddress,
+            let _ = timestamp,
+            let onClaim = onClaim
+        else {
+            return
+        }
 
-        // open the review screen with the selection
-            // review screen will create the transaction via controller
+        onClaim()
+    }
+
+    var isMax: Bool {
+        guard
+            let row = rows.firstIndex(of: .claimingAmount),
+            let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? ClaimedAmountInputCell
+        else {
+            return false
+        }
+        return cell.isMax
+    }
+
+    var inputAmount: Sol.UInt128? {
+        guard
+            let row = rows.firstIndex(of: .claimingAmount),
+            let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? ClaimedAmountInputCell
+        else {
+            return nil
+        }
+        return cell.value
     }
 
     // edit selected delegate
@@ -283,17 +246,6 @@ class ClaimTokensViewController: LoadableViewController {
             }
         }
     }
-// rin:0xEe6f78FeD18A20Af43d394f0F7dDc1aCf5d96d01
-    // text field
-        // enters valid numbers only
-        // has limit on the number of decimals
-        // error if negative
-        // error if 0
-        // error if more than available
-
-        // border is green when field is in focus
-        // error is extending vertical size of the field --> the cell must grow
-
 
 }
 
@@ -474,7 +426,7 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
 
             guard let claimData = claimData else {
                 // defaults when data not loaded
-                cell.maxValue = nil
+                cell.valueRange = (0..<0)
                 return cell
             }
 
@@ -487,19 +439,25 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
 
             if userAllocation != nil, ecosystemAllocation != nil, claimData.allocationsData.count == 2 {
 
-                cell.maxValue = formatted(amount: claimData.totalAvailableAmount(of: claimData.allocationsData, at: timestamp))
+                let totalAmount = claimData.totalAvailableAmount(of: claimData.allocationsData, at: timestamp)
+                assert(totalAmount >= 1, "Total amount is less than 1")
+                cell.valueRange = totalAmount >= 1 ? (1..<totalAmount) : (0..<0)
 
             } else if userAllocation != nil, claimData.allocationsData.count == 1 {
 
-                cell.maxValue = formatted(amount: claimData.totalAvailableAmount(of: claimData.allocationsData, at: timestamp))
+                let totalAmount = claimData.totalAvailableAmount(of: claimData.allocationsData, at: timestamp)
+                assert(totalAmount >= 1, "Total amount is less than 1")
+                cell.valueRange = totalAmount >= 1 ? (1..<totalAmount) : (0..<0)
 
             } else {
                 assertionFailure("Data misconfiguration: user or ecosystem allocations not found")
-                cell.maxValue = nil
+                cell.valueRange = (0..<0)
             }
 
-            cell.didTapMax = { [unowned self] in
-                isMaxAmountSelected = true
+            cell.didEndValidating = { [unowned tableView, unowned self] error in
+                tableView.beginUpdates()
+                tableView.endUpdates()
+                claimButton.isEnabled = (error == nil)
             }
 
             return cell
@@ -507,10 +465,10 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
         case .selectedDelegate:
             let cell = tableView.dequeueCell(SelectedDelegateCell.self)
 
-            if let guardian = controller.guardian(by: votingPowerDelegate) {
+            if let guardian = controller.guardian(by: delegateAddress) {
                 cell.guardian = guardian
             } else {
-                cell.set(address: votingPowerDelegate, chain: controller.chain)
+                cell.set(address: delegateAddress, chain: controller.chain)
             }
 
             return cell

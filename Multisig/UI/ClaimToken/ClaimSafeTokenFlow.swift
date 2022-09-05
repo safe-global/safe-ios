@@ -135,8 +135,6 @@ class ClaimSafeTokenFlowFactory {
     }
 
     func chooseGuardian(_ onSelected: @escaping (Guardian) -> ()) -> GuardianListViewController {
-//        let vc = SelectGuardianViewController()
-//        vc.onSelected = onSelected
         let vc = GuardianListViewController()
         vc.onSelected = onSelected
         return vc
