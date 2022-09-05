@@ -260,7 +260,7 @@ extension KeyInfo {
         item.keyID = "keystone:\(publicKey.address.checksummed)"
         item.keyType = .keystone
         item.backedup = false
-        item.metadata = publicKey.keyData
+        item.metadata = publicKey.path.data(using: .utf8)
         
         item.save()
 

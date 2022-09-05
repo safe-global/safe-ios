@@ -13,6 +13,7 @@ struct PublicKey {
     typealias KeyID = String
     
     var id: KeyID
+    var path: String
     private(set) var _store: EthereumPublicKey
     
     var address: Address {
@@ -23,9 +24,10 @@ struct PublicKey {
         Data(_store.rawPublicKey)
     }
     
-    init(hexPublicKey: String) throws {
+    init(hexPublicKey: String, path: String) throws {
         _store = try EthereumPublicKey(hexPublicKey: hexPublicKey)
         self.id = Self.identifier(Address(_store.address))
+        self.path = path
     }
     
     static func identifier(_ address: Address) -> KeyID {

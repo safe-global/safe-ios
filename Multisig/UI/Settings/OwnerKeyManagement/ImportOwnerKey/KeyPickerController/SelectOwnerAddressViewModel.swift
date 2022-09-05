@@ -30,7 +30,7 @@ class SelectOwnerAddressViewModel {
     }
     var selectedPublicKey: PublicKey? {
         guard let keyHex = publicKeyHex(selectedIndex) else { return nil }
-        return try? PublicKey(hexPublicKey: keyHex)
+        return try? PublicKey(hexPublicKey: keyHex, path: "\(HDNode.defaultPath)/\(selectedIndex)")
     }
     
     private var rootNode: HDNode?
@@ -69,7 +69,7 @@ class SelectOwnerAddressViewModel {
         guard let publicKeyHex = publicKeyHex(index) else { return nil }
         
         do {
-            return try PublicKey(hexPublicKey: publicKeyHex).address
+            return try PublicKey(hexPublicKey: publicKeyHex, path: "\(HDNode.defaultPath)/\(index)").address
         } catch {
             LogService.shared.error("Could not derive address: \(error)")
             App.shared.snackbar.show(
