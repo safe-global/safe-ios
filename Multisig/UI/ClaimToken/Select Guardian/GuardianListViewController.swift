@@ -50,6 +50,7 @@ class GuardianListViewController: LoadableViewController {
         searchController.searchResultsUpdater = self
         searchController.searchBar.autocapitalizationType = .none
         searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Name, address or ENS"
 
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -122,11 +123,27 @@ class GuardianListViewController: LoadableViewController {
 extension GuardianListViewController: UISearchResultsUpdating, UISearchBarDelegate, UISearchControllerDelegate {
 
     func updateSearchResults(for searchController: UISearchController) {
-        // TODO: update results
-        if let resultsController = searchController.searchResultsController as? GuardianSearchResultController {
-            resultsController.filteredGuardians = Array(guardians.prefix(3))
-            resultsController.tableView.reloadData()
+        guard let resultsController = searchController.searchResultsController as? GuardianSearchResultController else {
+            return
         }
+        let terms = searchController.searchBar.text!
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .components(separatedBy: " ") as [String]
+
+        resultsController.filteredGuardians = guardians.filter { guardian in
+            // all terms AND with each other
+            let allMatch = terms.allSatisfy { term in
+                // - each tearm is OR of 'contains' name, address, ens
+                // - using comparison that is case-insensitive, and diacritic-insensitive
+                guardian.name?.localizedStandardContains(term) == true ||
+                guardian.address.description.localizedStandardContains(term) ||
+                guardian.ens?.localizedStandardContains(term) == true
+            }
+
+            return allMatch
+        }
+
+        resultsController.tableView.reloadData()
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -165,18 +182,28 @@ extension GuardianListViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let item = self.item(at: indexPath) else { return }
+        let vc = GuardianDetailsViewController()
+        vc.onSelected = onSelected
+        vc.guardian = item
+        show(vc, sender: nil)
+    }
 
+    func item(at indexPath: IndexPath) -> Guardian? {
+        if searchController.isActive {
+            return resultsController.filteredGuardians[indexPath.row]
+        }
         switch sections[indexPath.section] {
 
         case .guardians(items: let items):
             let item = items[indexPath.row]
-            let vc = GuardianDetailsViewController()
-            vc.onSelected = onSelected
-            vc.guardian = item
-            show(vc, sender: nil)
+            return item
 
         default: break
         }
+
+        return nil
     }
 }
 

@@ -799,8 +799,6 @@
 		6AAE34E8282A833D00CCFC95 /* EnterOwnerNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE34E6282A833D00CCFC95 /* EnterOwnerNameViewController.swift */; };
 		6AAE34E9282A833D00CCFC95 /* EnterOwnerNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AAE34E7282A833D00CCFC95 /* EnterOwnerNameViewController.xib */; };
 		6AC2D47727EC661D00D422CA /* SignatureRequestToWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC2D47627EC661D00D422CA /* SignatureRequestToWalletViewController.swift */; };
-		6AD4772B2892BE90004C736D /* SelectGuardianViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD477292892BE90004C736D /* SelectGuardianViewController.swift */; };
-		6AD4772C2892BE90004C736D /* SelectGuardianViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AD4772A2892BE90004C736D /* SelectGuardianViewController.xib */; };
 		6AD4772F28932160004C736D /* GuardianCountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD4772D28932160004C736D /* GuardianCountTableViewCell.swift */; };
 		6AD4773028932160004C736D /* GuardianCountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AD4772E28932160004C736D /* GuardianCountTableViewCell.xib */; };
 		6AD4773328986556004C736D /* ClaimSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD4773128986556004C736D /* ClaimSuccessViewController.swift */; };
@@ -1725,8 +1723,6 @@
 		6AAE34E6282A833D00CCFC95 /* EnterOwnerNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterOwnerNameViewController.swift; sourceTree = "<group>"; };
 		6AAE34E7282A833D00CCFC95 /* EnterOwnerNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterOwnerNameViewController.xib; sourceTree = "<group>"; };
 		6AC2D47627EC661D00D422CA /* SignatureRequestToWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureRequestToWalletViewController.swift; sourceTree = "<group>"; };
-		6AD477292892BE90004C736D /* SelectGuardianViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGuardianViewController.swift; sourceTree = "<group>"; };
-		6AD4772A2892BE90004C736D /* SelectGuardianViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectGuardianViewController.xib; sourceTree = "<group>"; };
 		6AD4772D28932160004C736D /* GuardianCountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianCountTableViewCell.swift; sourceTree = "<group>"; };
 		6AD4772E28932160004C736D /* GuardianCountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuardianCountTableViewCell.xib; sourceTree = "<group>"; };
 		6AD4773128986556004C736D /* ClaimSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimSuccessViewController.swift; sourceTree = "<group>"; };
@@ -2074,8 +2070,6 @@
 		0472B2C0286A49470049BA17 /* Select Guardian */ = {
 			isa = PBXGroup;
 			children = (
-				6AD477292892BE90004C736D /* SelectGuardianViewController.swift */,
-				6AD4772A2892BE90004C736D /* SelectGuardianViewController.xib */,
 				0472B2BC286A49420049BA17 /* GuardianListViewController.swift */,
 				0472B2C1286A497A0049BA17 /* GuardianTableViewCell.swift */,
 				0472B2C2286A497A0049BA17 /* GuardianTableViewCell.xib */,
@@ -4530,7 +4524,6 @@
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
 				04131FC2285683BA001F60C2 /* ShareAddOwnerLinkViewController.xib in Resources */,
 				0ADA90F8256548C60004DEC0 /* SnackbarViewController.xib in Resources */,
-				6AD4772C2892BE90004C736D /* SelectGuardianViewController.xib in Resources */,
 				0A04507B278DAD4000650F71 /* SecondaryDetailDisclosureCell.xib in Resources */,
 				6AD4773428986556004C736D /* ClaimSuccessViewController.xib in Resources */,
 				0A478D3C25B863D60038363E /* DerivedKeyTableViewCell.xib in Resources */,
@@ -4815,7 +4808,6 @@
 				04CE3F9624B6115200826AEE /* Collectible.swift in Sources */,
 				04CE3FA024B7191E00826AEE /* CollectibleViewModel.swift in Sources */,
 				558836702565385F0014E8C7 /* RemoveCell.swift in Sources */,
-				6AD4772B2892BE90004C736D /* SelectGuardianViewController.swift in Sources */,
 				045A175F2833D69F0020484B /* SafeSettingsChangeFlow.swift in Sources */,
 				0AF1C81225408EA000E28669 /* SegmentViewController.swift in Sources */,
 				0A6C85B2245071510026139E /* Address.swift in Sources */,
