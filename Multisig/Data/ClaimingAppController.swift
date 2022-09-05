@@ -42,8 +42,6 @@ class ClaimingAppController {
         rpcClient.chain
     }
 
-    private var inMemoryGuardians: [Guardian] = []
-
     init(configuration: Configuration = .rinkeby, chain: Chain = .rinkebyChain()) {
         self.configuration = configuration
         self.rpcClient = RpcClient(chain: chain)
@@ -53,18 +51,7 @@ class ClaimingAppController {
     // MARK: - Static data
 
     func guardians(completion: @escaping (Result<[Guardian], Error>) -> Void) -> URLSessionTask? {
-        claimingService.asyncGuardians { [weak self] result in
-            guard let self = self else { return }
-            let toReturn = result.map {  guardians -> [Guardian] in
-                self.inMemoryGuardians = guardians
-                return guardians
-            }
-            completion(toReturn)
-        }
-    }
-
-    func guardian(by address: Address) -> Guardian? {
-        inMemoryGuardians.first(where: { $0.address.address == address })
+        claimingService.asyncGuardians(completion: completion)
     }
 
     func allocations(address: Address, completion: @escaping (Result<[Allocation], Error>) -> Void) -> URLSessionTask? {

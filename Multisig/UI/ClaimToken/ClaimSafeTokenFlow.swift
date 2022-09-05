@@ -9,11 +9,74 @@
 import Foundation
 import SwiftCryptoTokenFormatter
 
+
+class SelectDelegateFlow: UIFlow {
+    var factory: ClaimSafeTokenFlowFactory!
+    var safe: Safe
+    var guardian: Guardian?
+    var customAddress: Address?
+
+    init(safe: Safe,
+         guardian: Guardian? = nil,
+        customAddress: Address? = nil,
+         factory: ClaimSafeTokenFlowFactory = ClaimSafeTokenFlowFactory(),
+         completion: @escaping (_ success: Bool) -> Void) {
+        self.safe = safe
+        self.factory = factory
+        super.init(completion: completion)
+    }
+
+    override func start() {
+        chooseDelegateIntro()
+    }
+
+    func chooseDelegateIntro() {
+        let vc = factory.chooseDelegateIntro { [unowned self] in
+            chooseGuardian()
+        } onCustomAddress: { [unowned self] in
+            enterCustomAddress()
+        }
+        show(vc)
+        vc.navigationItem.largeTitleDisplayMode = .always
+        vc.navigationController?.navigationBar.prefersLargeTitles = true
+    }
+
+    func chooseGuardian() {
+        let chooseGuardianVC = factory.chooseGuardian() { [unowned self] selectedGuardian in
+            guardian = selectedGuardian
+            customAddress = nil
+            stop(success: true)
+        }
+        show(chooseGuardianVC)
+    }
+
+    func enterCustomAddress() {
+        let enterAddressVC = factory.enterCustomAddress(mainnet: self.safe.chain?.id == Chain.ChainID.ethereumMainnet) { [unowned self] address in
+            guardian = nil
+            customAddress = address
+            stop(success: true)
+        }
+        show(enterAddressVC)
+    }
+
+    func popToStart() {
+        guard let vc = navigationController.viewControllers.first(where: { $0 is ChooseDelegateIntroViewController }) else {
+            return
+        }
+        navigationController.popToViewController(vc, animated: true)
+    }
+
+}
+
+import Solidity
+
 class ClaimSafeTokenFlow: UIFlow {
     var factory: ClaimSafeTokenFlowFactory!
     var safe: Safe
-    var guardian: Guardian!
-    var amount: String!
+    var amount: Sol.UInt128?
+    var selectedGuardian: Guardian?
+    var selectedCustomAddress: Address?
+    var delegateFlow: SelectDelegateFlow!
 
     init(safe: Safe,
          factory: ClaimSafeTokenFlowFactory = ClaimSafeTokenFlowFactory(),
@@ -32,14 +95,15 @@ class ClaimSafeTokenFlow: UIFlow {
             // if available show intro
            showIntro()
         }
-
     }
 
     func showIntro() {
-        let vc = factory.claimGetStarted { [unowned self] in
-            chooseDelegateIntro()  // TODO: Jump to Tutorial
+        let introVC = factory.claimGetStarted { [unowned self] in
+            chooseDelegate()  // TODO: Jump to Tutorial
         }
-        show(vc)
+        show(introVC)
+        introVC.navigationItem.largeTitleDisplayMode = .always
+        introVC.navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     func showNotAvailable() {
@@ -47,57 +111,39 @@ class ClaimSafeTokenFlow: UIFlow {
         show(vc)
     }
 
-    func chooseDelegateIntro() {
-        let vc = factory.chooseDelegateIntro { [unowned self] in
-            chooseGuardian()
-        } onCustomAddress: { [unowned self] in
-            enterCustomAddress()
-        }
-        show(vc)
-        vc.navigationItem.largeTitleDisplayMode = .always
-        vc.navigationController?.navigationBar.prefersLargeTitles = true
+    func chooseDelegate() {
+        delegateFlow = SelectDelegateFlow(safe: safe, guardian: selectedGuardian, customAddress: selectedCustomAddress, factory: factory, completion: { [unowned self] _ in
+            selectedGuardian = delegateFlow.guardian
+            selectedCustomAddress = delegateFlow.customAddress
+            selectAmount()
+        })
+        push(flow: delegateFlow)
     }
 
-    func chooseGuardian() {
-        let vc = factory.chooseGuardian() { [unowned self] guardian in
-            selectAmount(guardian: guardian)
-        }
-        show(vc)
-    }
+    func selectAmount() {
+        // TODO: retain the entered amount
+        let claimVC = factory.selectAmount(safe: safe, delegate: delegateFlow.customAddress, guardian: delegateFlow.guardian)
 
-    func enterCustomAddress() {
-        let vc = factory.enterCustomAddress(mainnet: self.safe.chain?.id == Chain.ChainID.ethereumMainnet) { [unowned self] address in
-            let guardian = Guardian(
-                name: nil,
-                reason: nil,
-                contribution: nil,
-                address: AddressString(address),
-                ens: nil,
-                image: nil
-            )
-            selectAmount(guardian: guardian)
-        }
-        show(vc)
-    }
-
-    func selectAmount(guardian: Guardian) {
-        let vc = factory.selectAmount(safe: safe, guardian: guardian) { [unowned self] in
+        claimVC.completion = { [unowned self] in
             review(stepNumber: 4, maxSteps: 4)
         }
+        claimVC.onEditDelegate = { [unowned self] in
+            delegateFlow.popToStart()
+        }
 
-        show(vc)
+        show(claimVC)
     }
 
     func review(stepNumber: Int, maxSteps: Int) {
-        assert(guardian != nil)
+        assert(delegateFlow.customAddress != nil || delegateFlow.guardian != nil)
         assert(amount != nil)
         let reviewVC = factory.review(
             safe: safe,
-            guardian: guardian,
-            amount: amount,
+            guardian: delegateFlow.guardian!, // FIXME: needs change
+            amount: "0",
             stepNumber: stepNumber,
             maxSteps: maxSteps) { [unowned self] in
-                success(amount: amount)
+                success(amount: "0")
             }
         show(reviewVC)
     }
@@ -147,8 +193,8 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
-    func selectAmount(safe: Safe, guardian: Guardian, onClaim: @escaping () -> Void) -> ClaimTokensViewController {
-        let vc = ClaimTokensViewController(tokenDelegate: guardian.address.address, safe: safe, onClaim: onClaim)
+    func selectAmount(safe: Safe, delegate: Address?, guardian: Guardian?) -> ClaimTokensViewController {
+        let vc = ClaimTokensViewController(tokenDelegate: delegate, guardian: guardian, safe: safe)
         return vc
     }
 

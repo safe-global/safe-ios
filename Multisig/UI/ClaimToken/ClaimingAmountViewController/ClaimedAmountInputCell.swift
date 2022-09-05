@@ -28,7 +28,8 @@ class ClaimedAmountInputCell: UITableViewCell {
     }
 
     var value: Sol.UInt128? {
-        fieldDelegate.inputNumber
+        get { fieldDelegate.inputNumber }
+        set { fieldDelegate.set(value: newValue) }
     }
 
     var isMax: Bool {
@@ -100,9 +101,25 @@ class TokenAmountTextDelegate: NSObject, UITextFieldDelegate {
 
     var isUsingMaxValue: Bool = false
 
-    func formatted(_ value: Sol.UInt128) -> String {
-        let result = formatter.string(from: BigDecimal(Int256(value.big()), 18))
+    func formatted(_ value: Sol.UInt128, literal: Bool = true) -> String {
+        let decimal = BigDecimal(Int256(value.big()), 18)
+        let result: String
+        if literal {
+            result = formatter.string(from: decimal, thousandSeparator: "", shortFormat: true)
+        } else {
+            result = formatter.string(from: decimal)
+        }
         return result
+    }
+
+    func set(value: Sol.UInt128?) {
+        if let value = value {
+            textField.balance = formatted(value)
+        } else {
+            textField.balance = ""
+        }
+
+        validate()
     }
 
     func setMaxValue() {
@@ -141,8 +158,8 @@ class TokenAmountTextDelegate: NSObject, UITextFieldDelegate {
 
         // must be within value range
         guard valueRange.contains(number) else {
-            let lowBound = formatted(valueRange.lowerBound)
-            let highBound = formatted(valueRange.upperBound)
+            let lowBound = formatted(valueRange.lowerBound, literal: false)
+            let highBound = formatted(valueRange.upperBound, literal: false)
             validationError = "Please enter value in range from \(lowBound) to \(highBound)"
             return
         }

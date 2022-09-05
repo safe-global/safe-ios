@@ -29,7 +29,8 @@ class ClaimTokensViewController: LoadableViewController {
     private var maxSteps: Int = 4
 
     // Selected delegate address (guardian or a custom address)
-    private var delegateAddress: Address!
+    private var delegateAddress: Address?
+    private var guardian: Guardian?
 
     // Selected safe for which claiming happens.
     private var safe: Safe!
@@ -40,8 +41,8 @@ class ClaimTokensViewController: LoadableViewController {
     // Claim data fetched from the data source
     private var claimData: ClaimingAppController.ClaimingData?
 
-    // completion block
-    private var onClaim: (() -> Void)?
+    var completion: () -> Void = { }
+    var onEditDelegate: () -> Void = { }
 
     private var stepLabel: UILabel!
     private var claimButtonContainer: UIView!
@@ -56,14 +57,14 @@ class ClaimTokensViewController: LoadableViewController {
 
     convenience init(stepNumber: Int = 3,
                      maxSteps: Int = 4,
-                     tokenDelegate: Address,
-                     safe: Safe,
-                     onClaim: @escaping () -> ()) {
+                     tokenDelegate: Address?,
+                     guardian: Guardian?,
+                     safe: Safe) {
         self.init(namedClass: Self.superclass())
         self.stepNumber = stepNumber
         self.maxSteps = maxSteps
-        self.onClaim = onClaim
         self.delegateAddress = tokenDelegate
+        self.guardian = guardian
         self.safe = safe
 
         // TODO: inject from outside
@@ -193,13 +194,12 @@ class ClaimTokensViewController: LoadableViewController {
             let _ = claimData,
             let _ = safe,
             let _ = delegateAddress,
-            let _ = timestamp,
-            let onClaim = onClaim
+            let _ = timestamp
         else {
             return
         }
 
-        onClaim()
+        completion()
     }
 
     var isMax: Bool {
@@ -224,8 +224,7 @@ class ClaimTokensViewController: LoadableViewController {
 
     // edit selected delegate
     @IBAction private func editButtonTouched(_ sender: Any) {
-        // modal to select delegate or select custom address
-        // on completion change the delegate address, selected delegate display
+        onEditDelegate()
     }
 
     // pull-to-refresh, initial reload
@@ -465,10 +464,10 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
         case .selectedDelegate:
             let cell = tableView.dequeueCell(SelectedDelegateCell.self)
 
-            if let guardian = controller.guardian(by: delegateAddress) {
-                cell.guardian = guardian
+            if let address = delegateAddress {
+                cell.set(address: address, chain: controller.chain)
             } else {
-                cell.set(address: delegateAddress, chain: controller.chain)
+                cell.guardian = guardian
             }
 
             return cell
