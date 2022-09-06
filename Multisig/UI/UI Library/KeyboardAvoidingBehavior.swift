@@ -32,8 +32,8 @@ class KeyboardAvoidingBehavior {
         }
     }
 
-    var willShowKeyboard: (_ frame: CGRect) -> Void = { _ in }
-    var willHideKeyboard: () -> Void = { }
+    var willShowKeyboard: (_ frame: CGRect, _ animationDuration: TimeInterval) -> Void = { _, _ in }
+    var willHideKeyboard: (_ animationDuration: TimeInterval) -> Void = { _ in }
     var adjustsInsets: Bool = true
 
 
@@ -90,13 +90,16 @@ class KeyboardAvoidingBehavior {
 
     @objc func didReceiveWillShowKeyboard(_ notification: NSNotification) {
         guard let view = scrollView.superview else { return }
-        guard let screenValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+        guard
+            let screenValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue, // NSValue of CGRect
+            let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber  // NSNumber of double
+        else {
             return
         }
         let keyboardScreen = screenValue.cgRectValue
         let keyboardFrame = view.convert(keyboardScreen, from: UIScreen.main.coordinateSpace)
         DispatchQueue.main.async { [weak self] in
-            self?.willShowKeyboard(keyboardFrame)
+            self?.willShowKeyboard(keyboardFrame, duration.doubleValue)
             TooltipSource.hideAll()
             self?.notificationCenter.post(name: .hideAllTooltips, object: nil)
         }
@@ -134,12 +137,17 @@ class KeyboardAvoidingBehavior {
     }
 
     @objc func didReceiveWillHideKeyboard(_ notification: NSNotification) {
+        guard
+            let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber
+        else {
+            return
+        }
         if adjustsInsets {
             scrollView.contentInset.bottom = 0
             scrollView.scrollIndicatorInsets = scrollView.contentInset
-    }
+        }
         DispatchQueue.main.async { [unowned self] in
-            willHideKeyboard()
+            willHideKeyboard(duration.doubleValue)
         }
     }
 
@@ -149,5 +157,22 @@ class KeyboardAvoidingBehavior {
 
     private func deactivate(_ responder: UIView) {
         responder.resignFirstResponder()
+    }
+}
+
+extension UIView.AnimationOptions {
+    init(curve: UIView.AnimationCurve) {
+        switch curve {
+            case .easeIn:
+                self = .curveEaseIn
+            case .easeOut:
+                self = .curveEaseOut
+            case .easeInOut:
+                self = .curveEaseInOut
+            case .linear:
+                self = .curveLinear
+        @unknown default:
+            self = .curveEaseInOut
+        }
     }
 }

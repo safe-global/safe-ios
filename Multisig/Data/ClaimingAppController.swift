@@ -120,6 +120,28 @@ class ClaimingAppController {
             return result
         }
 
+        func findError() -> String? {
+            let OK: String? = nil
+
+            if account.isZero {
+                return "Incorrect data configuration"
+            }
+
+            if allocations.isEmpty {
+                return "No allocations found in the data"
+            }
+
+            if allocations.count != vestings.count {
+                return "Vestings do not match allocations"
+            }
+
+            if allocationsData.count != allocations.count {
+                return "Allocation data is missing some allocations"
+            }
+
+            return OK
+        }
+
         func totalAllocatedAmount(of allocationData: [(allocation: Allocation, vesting: Vesting)], at timestamp: TimeInterval) -> Sol.UInt128 {
             let sum = allocationData.map {
                 vesting(from: $0).amount

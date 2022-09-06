@@ -106,16 +106,16 @@ class ClaimTokensViewController: LoadableViewController {
         keyboardBehavior = KeyboardAvoidingBehavior(scrollView: tableView)
         keyboardBehavior.adjustsInsets = false
 
-        keyboardBehavior.willShowKeyboard = { [unowned self] kbFrame in
-            UIView.animate(withDuration: 0.25) { [unowned self] in
+        keyboardBehavior.willShowKeyboard = { [unowned self] kbFrame, duration in
+            UIView.animate(withDuration: duration) { [unowned self] in
                 claimButtonBottom.constant = kbFrame.height - view.safeAreaInsets.bottom
                 view.setNeedsLayout()
                 view.layoutIfNeeded()
             }
         }
 
-        keyboardBehavior.willHideKeyboard = { [unowned self] in
-            UIView.animate(withDuration: 0.25) { [unowned self] in
+        keyboardBehavior.willHideKeyboard = { [unowned self] duration in
+            UIView.animate(withDuration: duration) { [unowned self] in
                 claimButtonBottom.constant = 0
                 view.setNeedsLayout()
                 view.layoutIfNeeded()
@@ -192,11 +192,9 @@ class ClaimTokensViewController: LoadableViewController {
     // claim & delegate
     @objc func didTapClaimButton() {
         guard
-            let _ = inputAmount,
-            let _ = claimData,
-            let _ = safe,
-            let _ = delegateAddress,
-            let _ = timestamp
+            safe != nil,
+            timestamp != nil,
+            claimButtonEnabled
         else {
             return
         }
@@ -216,10 +214,22 @@ class ClaimTokensViewController: LoadableViewController {
         timestamp = Date().timeIntervalSince1970
         keyboardBehavior.hideKeyboard()
 
+        claimButton.isEnabled = false
+
         controller.asyncFetchData(account: safe.addressValue) { [weak self] result in
             guard let self = self else { return }
+            defer {
+                self.claimButton.isEnabled = self.claimButtonEnabled
+            }
             do {
-                self.claimData = try result.get()
+                let data = try result.get()
+
+                if let error = data.findError() {
+                    self.onError(GSError.error(description: "Internal data error: \(error)"))
+                    return
+                }
+
+                self.claimData = data
                 self.onSuccess()
             } catch {
                 self.onError(GSError.error(description: "Failed to load data", error: error))
@@ -227,6 +237,19 @@ class ClaimTokensViewController: LoadableViewController {
         }
     }
 
+    var claimButtonEnabled: Bool {
+        guard let claimData = claimData else {
+            return false
+        }
+
+        let values = displayValues(from: claimData)
+        let isAmountWithinRange = inputAmount != nil && values.availableRange.contains(inputAmount!) && inputAmount != 0
+        let isAmountCorrect = hasSelectedMaxAmount || isAmountWithinRange
+
+        let isDelegateCorrect = delegateAddress != nil || guardian != nil
+
+        return isAmountCorrect && isDelegateCorrect
+    }
 }
 
 extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource {
@@ -342,10 +365,12 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
         case .claimingAmount:
             let cell = tableView.dequeueCell(ClaimedAmountInputCell.self)
             cell.valueRange = data.availableRange
-            cell.didEndValidating = { [unowned self] error in
+            cell.didEndValidating = { [unowned self, unowned cell] error in
                 tableView.beginUpdates()
                 tableView.endUpdates()
-                claimButton.isEnabled = (error == nil)
+                hasSelectedMaxAmount = cell.isMax
+                inputAmount = cell.value
+                claimButton.isEnabled = (error == nil) && claimButtonEnabled
             }
             return cell
 
@@ -396,7 +421,7 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
         let ecoVestedAmount: Sol.UInt128? = claimData.availableAmount(for: ecosystemAllocation, at: timestamp)
         let otherVestedAmount: Sol.UInt128 = claimData.totalAvailableAmount(of: otherAllocations, at: timestamp)
         let vestedTotal: Sol.UInt128 = claimData.totalAvailableAmount(of: claimData.allocationsData, at: timestamp)
-        let availableRange: Range<Sol.UInt128> = vestedTotal > 0 ? (0..<vestedTotal) : (0..<0)
+        let availableRange: Range<Sol.UInt128> = vestedTotal > 0 ? (1..<vestedTotal) : (0..<0)
 
         let vestedValue = formatted(amount: vestedTotal)
 
