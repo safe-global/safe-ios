@@ -16,6 +16,12 @@ class NavigatingDAOViewController: UIViewController {
     @IBOutlet weak var secondParagraph: UILabel!
     @IBOutlet weak var nextButton: UIButton!
 
+    @IBOutlet weak var item1Label: UILabel!
+    @IBOutlet weak var item2Label: UILabel!
+    @IBOutlet weak var item3Label: UILabel!
+    @IBOutlet weak var item4Label: UILabel!
+    @IBOutlet weak var subTitle: UILabel!
+
     private var stepLabel: UILabel!
 
     private var onNext: (() -> ())?
@@ -54,6 +60,26 @@ class NavigatingDAOViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
+
+
+        item1Label.text = "Discuss SafeDAO improvements - post topics and discuss in our forum."
+        item1Label.setStyle(.secondary)
+
+        item2Label.text = "Propose improvements - read our governance process and post an SIP."
+        item2Label.setStyle(.secondary)
+
+        item3Label.text = "Govern improvements - vote on our Snapshot."
+        item3Label.setStyle(.secondary)
+
+        item4Label.text = "Chat with the community - join our Safe Discord."
+        item4Label.setStyle(.secondary)
+
+        subTitle.attributedText = "Now help decide on the future of ownership with $SAFE.".highlightRange(
+            originalStyle: .headline,
+            highlightStyle: .primaryButton,
+            textToHighlight: "$SAFE"
+        )
+        subTitle.textAlignment = .center
     }
 
     @IBAction func nextClicked(_ sender: Any) {
