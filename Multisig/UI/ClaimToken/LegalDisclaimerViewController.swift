@@ -17,6 +17,7 @@ class LegalDisclaimerViewController: UIViewController {
         super.viewDidLoad()
 
         ViewControllerFactory.removeNavigationBarBorder(self)
+        navigationItem.largeTitleDisplayMode = .never
 
         title = "Legal Disclaimer"
         agreeButton.setText("Agree & Continue", .filled)
