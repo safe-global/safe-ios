@@ -64,8 +64,9 @@
                                         <stackView opaque="NO" contentMode="top" alignment="firstBaseline" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="znU-hc-aCe" userLabel="ItemStackView">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="41"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="AdG-Ut-Iae">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" id="AdG-Ut-Iae">
                                                     <rect key="frame" x="0.0" y="0.0" width="18" height="14"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" name="primary"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Discuss SafeDAO improvements - post topics and discuss in our forum." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0U3-zK-Me5" userLabel="Item1Text">
@@ -79,7 +80,7 @@
                                         <stackView opaque="NO" contentMode="top" alignment="firstBaseline" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="L2T-lM-gKr" userLabel="ItemStackView">
                                             <rect key="frame" x="0.0" y="49" width="382" height="41"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="NUb-0C-LyB">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="NUb-0C-LyB">
                                                     <rect key="frame" x="0.0" y="0.0" width="16.5" height="14"/>
                                                     <color key="tintColor" name="primary"/>
                                                     <constraints>
@@ -97,7 +98,7 @@
                                         <stackView opaque="NO" contentMode="top" alignment="firstBaseline" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="LJT-MC-7aH" userLabel="ItemStackView">
                                             <rect key="frame" x="0.0" y="98" width="382" height="20.5"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="jFO-fM-mIV">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="jFO-fM-mIV">
                                                     <rect key="frame" x="0.0" y="0.0" width="18" height="14"/>
                                                     <color key="tintColor" name="primary"/>
                                                 </imageView>
