@@ -189,7 +189,7 @@ extension Tracker {
         case .ledgerNanoX:
             Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numKeysLedgerNanoX)
         case .keystone:
-            // To be implemented
+            Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numKeysKeystone)
             break
         }
     }

@@ -272,7 +272,6 @@ extension KeyInfo {
         item.name = name
         item.keyID = "keystone:\(publicKey.address.checksummed)"
         item.keyType = .keystone
-        item.backedup = false
         item.metadata = KeystoneKeyMetadata(sourceFingerprint: sourceFingerprint, path: publicKey.path).data
         
         item.save()

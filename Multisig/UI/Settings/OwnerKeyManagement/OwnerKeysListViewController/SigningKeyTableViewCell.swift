@@ -111,7 +111,7 @@ enum KeyConnectionStatus {
 
     init(keyInfo: KeyInfo, chainID: String?) {
         switch keyInfo.keyType {
-        case .deviceGenerated, .deviceImported, .ledgerNanoX:
+        case .deviceGenerated, .deviceImported, .ledgerNanoX, .keystone:
             self = .none
         case .walletConnect:
             if keyInfo.connectedAsDapp {
@@ -125,9 +125,6 @@ enum KeyConnectionStatus {
             } else {
                 self = .disconnected
             }
-        case .keystone:
-            // To be implemented
-            self = .none
         }
     }
 }
