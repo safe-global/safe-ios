@@ -37,7 +37,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="358" height="1000"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Z4G-kB-4Fi" userLabel="ContentStackView">
-                                    <rect key="frame" x="0.0" y="20.000000000000028" width="358" height="488.66666666666674"/>
+                                    <rect key="frame" x="0.0" y="20.000000000000028" width="358" height="484.66666666666674"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SGO-G8-5Pn">
                                             <rect key="frame" x="0.0" y="0.0" width="358" height="32.333333333333336"/>
@@ -54,13 +54,13 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QlA-7j-s34">
-                                            <rect key="frame" x="0.0" y="202.33333333333329" width="358" height="112.66666666666666"/>
+                                            <rect key="frame" x="0.0" y="202.33333333333329" width="358" height="108.66666666666666"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="f5q-cJ-KMD">
-                                                    <rect key="frame" x="0.0" y="0.0" width="169" height="112.66666666666667"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="169" height="108.66666666666667"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Safes created" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dkp-U5-Fvf" userLabel="Safes created">
-                                                            <rect key="frame" x="16" y="16.000000000000004" width="137" height="48.333333333333343"/>
+                                                            <rect key="frame" x="16" y="16.000000000000004" width="137" height="44.333333333333343"/>
                                                             <color key="backgroundColor" name="primaryDisabled"/>
                                                             <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -68,7 +68,7 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                                             <color key="highlightedColor" name="primaryDisabled"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NZN-LW-is6">
-                                                            <rect key="frame" x="16" y="76.333333333333371" width="137" height="20.333333333333329"/>
+                                                            <rect key="frame" x="16" y="72.333333333333371" width="137" height="20.333333333333329"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-private-key" translatesAutoresizingMaskIntoConstraints="NO" id="Qy5-nm-z6o">
                                                                     <rect key="frame" x="0.0" y="0.0" width="17" height="20.333333333333332"/>
@@ -89,7 +89,7 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                                     <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="e93-Y7-SE8">
-                                                    <rect key="frame" x="189" y="0.0" width="169" height="112.66666666666667"/>
+                                                    <rect key="frame" x="189" y="0.0" width="169" height="108.66666666666667"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total value protected" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8QZ-hR-C8F" userLabel="TVP">
                                                             <rect key="frame" x="16" y="15.999999999999996" width="137" height="40.666666666666657"/>
@@ -99,15 +99,15 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="sJI-os-oZk">
-                                                            <rect key="frame" x="16" y="68.666666666666686" width="137" height="28"/>
+                                                            <rect key="frame" x="16" y="68.666666666666686" width="137" height="24"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-token-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="cSg-mb-Py3">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-token" translatesAutoresizingMaskIntoConstraints="NO" id="cSg-mb-Py3">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
                                                                     <color key="backgroundColor" name="primaryDisabled"/>
                                                                     <color key="tintColor" name="labelPrimary"/>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="$41B" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URO-B0-dZh" userLabel="Total value protected">
-                                                                    <rect key="frame" x="36" y="0.0" width="101" height="28"/>
+                                                                    <rect key="frame" x="32" y="0.0" width="105" height="24"/>
                                                                     <color key="backgroundColor" name="primaryDisabled"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
@@ -122,13 +122,13 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                             </subviews>
                                         </stackView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Why are we launching a token?" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PWP-O2-9nM">
-                                            <rect key="frame" x="0.0" y="339" width="358" height="24"/>
+                                            <rect key="frame" x="0.0" y="335" width="358" height="24"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7c-Xt-UCp">
-                                            <rect key="frame" x="0.0" y="387" width="358" height="101.66666666666669"/>
+                                            <rect key="frame" x="0.0" y="383" width="358" height="101.66666666666669"/>
                                             <string key="text">As critical web3 infrastructure, Safe needs to be a community-owned, censorship resistant project, with a committed ecosystem stewarding its decisions. A governance token is needed to help coordinate this effort.</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -193,7 +193,7 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
     <resources>
         <image name="claim-background-gradient" width="375" height="700"/>
         <image name="ico-private-key" width="17" height="20"/>
-        <image name="ico-token-placeholder" width="28" height="28"/>
+        <image name="ico-token" width="24" height="24"/>
         <namedColor name="labelPrimary">
             <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
