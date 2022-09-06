@@ -65,8 +65,8 @@ class AuthenticationController {
         guard let user = user else { return false }
         let password = derivedKey(from: plaintextPasscode)
         let oldPassword = derivedKey(from: plaintextPasscode, useOldSalt: true)
-        return try accessService.verifyPassword(userID: user.id, password: password) || accessService.verifyPassword(userID: user.id
-                                                                                                                     , password: oldPassword)
+        return try accessService.verifyPassword(userID: user.id, password: password) ||
+                    accessService.verifyPassword(userID: user.id , password: oldPassword)
     }
 
     /// Deletes the stored passcode. If passcode not set, this operation
@@ -114,7 +114,6 @@ class AuthenticationController {
     }
 
     private func derivedKey(from plaintext: String, useOldSalt: Bool = false) -> String {
-        // For backward compatibility we can't remove Gnosis from this position for now
         let salt = salt(oldSalt: useOldSalt)
         var derivedKey = [UInt8](repeating: 0, count: 256 / 8)
         let result = CCKeyDerivationPBKDF(
@@ -134,6 +133,7 @@ class AuthenticationController {
         return Data(derivedKey).toHexString()
     }
 
+    // For backward compatibility we need to use both salts for some cases
     private func salt(oldSalt: Bool = false) -> String {
         oldSalt ? "Gnosis Safe Multisig Passcode Salt" : "Safe Multisig Passcode Salt"
     }
