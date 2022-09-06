@@ -32,162 +32,164 @@
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="claim-background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="T4t-X8-hHD">
                     <rect key="frame" x="0.0" y="44" width="390" height="700"/>
                 </imageView>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4pP-T8-iVp">
-                    <rect key="frame" x="16" y="44" width="358" height="686"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="FVp-oJ-Ejw">
+                    <rect key="frame" x="16" y="60" width="358" height="734"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bpq-Qm-n8b" userLabel="ContentView">
-                            <rect key="frame" x="0.0" y="0.0" width="358" height="504.66666666666669"/>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4pP-T8-iVp">
+                            <rect key="frame" x="0.0" y="0.0" width="358" height="662"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Z4G-kB-4Fi" userLabel="ContentStackView">
-                                    <rect key="frame" x="0.0" y="20.000000000000028" width="358" height="484.66666666666674"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bpq-Qm-n8b" userLabel="ContentView">
+                                    <rect key="frame" x="0.0" y="0.0" width="358" height="504.66666666666669"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SGO-G8-5Pn">
-                                            <rect key="frame" x="0.0" y="0.0" width="358" height="32.333333333333336"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6U7-EJ-n04" userLabel="FirstParagraph">
-                                            <rect key="frame" x="0.0" y="56.333333333333329" width="358" height="121.99999999999999"/>
-                                            <string key="text">Safe is critical infrastructure for web3.  It is a programmable account standard that enables secure management of digital assets, data and identity.
-With this token launch, Safe is now a community-driven ownership platform.</string>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QlA-7j-s34">
-                                            <rect key="frame" x="0.0" y="202.33333333333329" width="358" height="108.66666666666666"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Z4G-kB-4Fi" userLabel="ContentStackView">
+                                            <rect key="frame" x="0.0" y="20.000000000000028" width="358" height="484.66666666666674"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="f5q-cJ-KMD" userLabel="Stack View (TSC)">
-                                                    <rect key="frame" x="0.0" y="0.0" width="169" height="108.66666666666667"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SGO-G8-5Pn">
+                                                    <rect key="frame" x="0.0" y="0.0" width="358" height="32.333333333333336"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6U7-EJ-n04" userLabel="FirstParagraph">
+                                                    <rect key="frame" x="0.0" y="56.333333333333343" width="358" height="122"/>
+                                                    <string key="text">Safe is critical infrastructure for web3.  It is a programmable account standard that enables secure management of digital assets, data and identity.
+With this token launch, Safe is now a community-driven ownership platform.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QlA-7j-s34">
+                                                    <rect key="frame" x="0.0" y="202.33333333333329" width="358" height="108.66666666666666"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Safes created" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dkp-U5-Fvf" userLabel="Safes created">
-                                                            <rect key="frame" x="16" y="16.000000000000004" width="137" height="44.333333333333343"/>
-                                                            <color key="backgroundColor" name="primaryDisabled"/>
-                                                            <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <color key="highlightedColor" name="primaryDisabled"/>
-                                                        </label>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NZN-LW-is6">
-                                                            <rect key="frame" x="16" y="72.333333333333371" width="137" height="20.333333333333329"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="f5q-cJ-KMD" userLabel="Stack View (TSC)">
+                                                            <rect key="frame" x="0.0" y="0.0" width="169" height="108.66666666666667"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-private-key" translatesAutoresizingMaskIntoConstraints="NO" id="Qy5-nm-z6o">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="17" height="20.333333333333332"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Safes created" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dkp-U5-Fvf" userLabel="Safes created">
+                                                                    <rect key="frame" x="16" y="16.000000000000004" width="137" height="44.333333333333343"/>
                                                                     <color key="backgroundColor" name="primaryDisabled"/>
-                                                                    <color key="tintColor" name="labelPrimary"/>
-                                                                </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="167,414" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6R-tM-Kvw" userLabel="NumberOfSafesCreated">
-                                                                    <rect key="frame" x="25" y="0.0" width="112" height="20.333333333333332"/>
-                                                                    <color key="backgroundColor" name="primaryDisabled"/>
+                                                                    <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <color key="highlightedColor" name="primaryDisabled"/>
                                                                 </label>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NZN-LW-is6">
+                                                                    <rect key="frame" x="16" y="72.333333333333371" width="137" height="20.333333333333329"/>
+                                                                    <subviews>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-private-key" translatesAutoresizingMaskIntoConstraints="NO" id="Qy5-nm-z6o">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="17" height="20.333333333333332"/>
+                                                                            <color key="backgroundColor" name="primaryDisabled"/>
+                                                                            <color key="tintColor" name="labelPrimary"/>
+                                                                        </imageView>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="167,414" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6R-tM-Kvw" userLabel="NumberOfSafesCreated">
+                                                                            <rect key="frame" x="25" y="0.0" width="112" height="20.333333333333332"/>
+                                                                            <color key="backgroundColor" name="primaryDisabled"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                            <nil key="textColor"/>
+                                                                            <color key="highlightedColor" name="primaryDisabled"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                </stackView>
                                                             </subviews>
-                                                        </stackView>
-                                                    </subviews>
-                                                    <color key="backgroundColor" name="primaryDisabled"/>
-                                                    <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
-                                                </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="e93-Y7-SE8" userLabel="Stack View (TVP)">
-                                                    <rect key="frame" x="189" y="0.0" width="169" height="108.66666666666667"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total value protected" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8QZ-hR-C8F" userLabel="TVP">
-                                                            <rect key="frame" x="16" y="15.999999999999996" width="137" height="40.666666666666657"/>
                                                             <color key="backgroundColor" name="primaryDisabled"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="sJI-os-oZk">
-                                                            <rect key="frame" x="16" y="68.666666666666686" width="137" height="24"/>
+                                                            <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="e93-Y7-SE8" userLabel="Stack View (TVP)">
+                                                            <rect key="frame" x="189" y="0.0" width="169" height="108.66666666666667"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-token" translatesAutoresizingMaskIntoConstraints="NO" id="cSg-mb-Py3">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
-                                                                    <color key="backgroundColor" name="primaryDisabled"/>
-                                                                    <color key="tintColor" name="labelPrimary"/>
-                                                                </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="$41B" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URO-B0-dZh" userLabel="Total value protected">
-                                                                    <rect key="frame" x="32" y="0.0" width="105" height="24"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total value protected" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8QZ-hR-C8F" userLabel="TVP">
+                                                                    <rect key="frame" x="16" y="15.999999999999996" width="137" height="40.666666666666657"/>
                                                                     <color key="backgroundColor" name="primaryDisabled"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="sJI-os-oZk">
+                                                                    <rect key="frame" x="16" y="68.666666666666686" width="137" height="24"/>
+                                                                    <subviews>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-token" translatesAutoresizingMaskIntoConstraints="NO" id="cSg-mb-Py3">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                                            <color key="backgroundColor" name="primaryDisabled"/>
+                                                                            <color key="tintColor" name="labelPrimary"/>
+                                                                        </imageView>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="$41B" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URO-B0-dZh" userLabel="Total value protected">
+                                                                            <rect key="frame" x="32" y="0.0" width="105" height="24"/>
+                                                                            <color key="backgroundColor" name="primaryDisabled"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                            <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                </stackView>
                                                             </subviews>
+                                                            <color key="backgroundColor" name="primaryDisabled"/>
+                                                            <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                                         </stackView>
                                                     </subviews>
-                                                    <color key="backgroundColor" name="primaryDisabled"/>
-                                                    <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                                 </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Why are we launching a token?" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PWP-O2-9nM">
+                                                    <rect key="frame" x="0.0" y="335" width="358" height="24"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7c-Xt-UCp">
+                                                    <rect key="frame" x="0.0" y="383" width="358" height="101.66666666666669"/>
+                                                    <string key="text">As critical web3 infrastructure, Safe needs to be a community-owned, censorship resistant project, with a committed ecosystem stewarding its decisions. A governance token is needed to help coordinate this effort.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="QlA-7j-s34" firstAttribute="width" secondItem="Z4G-kB-4Fi" secondAttribute="width" id="Qwu-lH-VCT"/>
+                                            </constraints>
                                         </stackView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Why are we launching a token?" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PWP-O2-9nM">
-                                            <rect key="frame" x="0.0" y="335" width="358" height="24"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7c-Xt-UCp">
-                                            <rect key="frame" x="0.0" y="383" width="358" height="101.66666666666669"/>
-                                            <string key="text">As critical web3 infrastructure, Safe needs to be a community-owned, censorship resistant project, with a committed ecosystem stewarding its decisions. A governance token is needed to help coordinate this effort.</string>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="QlA-7j-s34" firstAttribute="width" secondItem="Z4G-kB-4Fi" secondAttribute="width" id="Qwu-lH-VCT"/>
+                                        <constraint firstItem="Z4G-kB-4Fi" firstAttribute="leading" secondItem="bpq-Qm-n8b" secondAttribute="leading" id="CDj-uB-KcK"/>
+                                        <constraint firstAttribute="trailing" secondItem="Z4G-kB-4Fi" secondAttribute="trailing" id="Ilr-XF-5Ri"/>
+                                        <constraint firstItem="Z4G-kB-4Fi" firstAttribute="width" secondItem="bpq-Qm-n8b" secondAttribute="width" id="J0z-Le-lPo"/>
+                                        <constraint firstItem="Z4G-kB-4Fi" firstAttribute="top" secondItem="bpq-Qm-n8b" secondAttribute="top" constant="20" id="UbJ-XC-1n4"/>
+                                        <constraint firstAttribute="bottom" secondItem="Z4G-kB-4Fi" secondAttribute="bottom" id="tzN-lV-II3"/>
                                     </constraints>
-                                </stackView>
+                                </view>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="Z4G-kB-4Fi" firstAttribute="leading" secondItem="bpq-Qm-n8b" secondAttribute="leading" id="CDj-uB-KcK"/>
-                                <constraint firstAttribute="trailing" secondItem="Z4G-kB-4Fi" secondAttribute="trailing" id="Ilr-XF-5Ri"/>
-                                <constraint firstItem="Z4G-kB-4Fi" firstAttribute="width" secondItem="bpq-Qm-n8b" secondAttribute="width" id="J0z-Le-lPo"/>
-                                <constraint firstItem="Z4G-kB-4Fi" firstAttribute="top" secondItem="bpq-Qm-n8b" secondAttribute="top" constant="20" id="UbJ-XC-1n4"/>
-                                <constraint firstAttribute="bottom" secondItem="Z4G-kB-4Fi" secondAttribute="bottom" id="tzN-lV-II3"/>
+                                <constraint firstItem="bpq-Qm-n8b" firstAttribute="top" secondItem="4pP-T8-iVp" secondAttribute="top" id="Cdx-vh-5h1"/>
+                                <constraint firstItem="bpq-Qm-n8b" firstAttribute="leading" secondItem="4pP-T8-iVp" secondAttribute="leading" id="GCb-IE-XA6"/>
+                                <constraint firstAttribute="bottom" secondItem="bpq-Qm-n8b" secondAttribute="bottom" id="OYC-2I-ONf"/>
+                                <constraint firstAttribute="trailing" secondItem="bpq-Qm-n8b" secondAttribute="trailing" id="Z4G-se-dBx"/>
+                                <constraint firstItem="bpq-Qm-n8b" firstAttribute="width" secondItem="4pP-T8-iVp" secondAttribute="width" id="qws-Uz-khQ"/>
                             </constraints>
-                        </view>
+                            <viewLayoutGuide key="contentLayoutGuide" id="Ozj-J6-HfH"/>
+                            <viewLayoutGuide key="frameLayoutGuide" id="D0y-wO-kdl"/>
+                        </scrollView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="00z-yf-QU3">
+                            <rect key="frame" x="0.0" y="678" width="358" height="56"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" id="3q8-eh-0Qy"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Next">
+                                <color key="titleColor" name="labelPrimary"/>
+                            </state>
+                            <connections>
+                                <action selector="nextClicked:" destination="-1" eventType="touchUpInside" id="xMF-KW-tKH"/>
+                            </connections>
+                        </button>
                     </subviews>
-                    <constraints>
-                        <constraint firstItem="bpq-Qm-n8b" firstAttribute="top" secondItem="4pP-T8-iVp" secondAttribute="top" id="Cdx-vh-5h1"/>
-                        <constraint firstItem="bpq-Qm-n8b" firstAttribute="leading" secondItem="4pP-T8-iVp" secondAttribute="leading" id="GCb-IE-XA6"/>
-                        <constraint firstAttribute="bottom" secondItem="bpq-Qm-n8b" secondAttribute="bottom" id="OYC-2I-ONf"/>
-                        <constraint firstAttribute="trailing" secondItem="bpq-Qm-n8b" secondAttribute="trailing" id="Z4G-se-dBx"/>
-                        <constraint firstItem="bpq-Qm-n8b" firstAttribute="width" secondItem="4pP-T8-iVp" secondAttribute="width" id="qws-Uz-khQ"/>
-                    </constraints>
-                    <viewLayoutGuide key="contentLayoutGuide" id="Ozj-J6-HfH"/>
-                    <viewLayoutGuide key="frameLayoutGuide" id="D0y-wO-kdl"/>
-                </scrollView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="00z-yf-QU3">
-                    <rect key="frame" x="16" y="738" width="358" height="56"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="56" id="3q8-eh-0Qy"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="Next">
-                        <color key="titleColor" name="labelPrimary"/>
-                    </state>
-                    <connections>
-                        <action selector="nextClicked:" destination="-1" eventType="touchUpInside" id="xMF-KW-tKH"/>
-                    </connections>
-                </button>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="4pP-T8-iVp" secondAttribute="bottom" constant="80" id="7I0-3l-K2w"/>
-                <constraint firstItem="00z-yf-QU3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="AtM-Ku-yhx"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="00z-yf-QU3" secondAttribute="trailing" constant="16" id="E4O-c1-vkC"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4pP-T8-iVp" secondAttribute="trailing" constant="16" id="Hmn-hF-K7T"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="00z-yf-QU3" secondAttribute="bottom" constant="16" id="Yhf-I6-AWg"/>
-                <constraint firstItem="4pP-T8-iVp" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ZlA-5t-kTF"/>
+                <constraint firstItem="FVp-oJ-Ejw" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="cTG-8B-jMD"/>
                 <constraint firstItem="T4t-X8-hHD" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="cYw-ra-3tl"/>
+                <constraint firstAttribute="trailing" secondItem="FVp-oJ-Ejw" secondAttribute="trailing" constant="16" id="cdc-ES-TJ0"/>
                 <constraint firstItem="T4t-X8-hHD" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="hgF-6g-qhK"/>
-                <constraint firstItem="4pP-T8-iVp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="oiJ-VY-cwT"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="FVp-oJ-Ejw" secondAttribute="bottom" constant="16" id="kXC-xs-XP8"/>
+                <constraint firstItem="FVp-oJ-Ejw" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="nUZ-SN-c8N"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="T4t-X8-hHD" secondAttribute="trailing" id="sxP-7g-wZc"/>
             </constraints>
             <point key="canvasLocation" x="131.8840579710145" y="131.91964285714286"/>
