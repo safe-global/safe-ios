@@ -185,25 +185,24 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     func review() {
-        assert(selectedCustomAddress != nil || selectedGuardian != nil)
-        assert(amount != nil)
-        assert(claimData != nil)
-        assert(timestamp != nil)
+        precondition(selectedCustomAddress != nil || selectedGuardian != nil)
+        precondition(amount != nil)
+        precondition(claimData != nil)
+        precondition(timestamp != nil)
 
-        let reviewVC = ReviewClaimSafeTokenTransactionViewController(safe: safe)
-
-        reviewVC.amount = amount
-        reviewVC.claimData = claimData
-        reviewVC.timestamp = timestamp
-        reviewVC.selectedGuardian = selectedGuardian
-        reviewVC.selectedCustomAddress = selectedCustomAddress
-        reviewVC.controller = controller
-        
-
-        reviewVC.onSuccess = { [unowned self] txDetails in
+        let reviewVC = ReviewClaimSafeTokenTransactionViewController(
+            safe: safe,
+            amount: amount!,
+            claimData: claimData!,
+            timestamp: timestamp!,
+            guardian: selectedGuardian,
+            customAddress: selectedCustomAddress,
+            controller: controller
+        ) { [unowned self] txDetails in
             transactionDetails = txDetails
             self.success()
         }
+
         show(reviewVC)
     }
 

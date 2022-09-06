@@ -26,6 +26,26 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
 
     var onSuccess: ((SCGModels.TransactionDetails) -> ())?
 
+    convenience init(
+        safe: Safe,
+        amount: Sol.UInt128,
+        claimData: ClaimingAppController.ClaimingData,
+        timestamp: TimeInterval,
+        guardian: Guardian?,
+        customAddress: Address?,
+        controller: ClaimingAppController,
+        onSuccess: @escaping (SCGModels.TransactionDetails) -> Void
+    ) {
+        self.init(safe: safe)
+        self.amount = amount
+        self.claimData = claimData
+        self.timestamp = timestamp
+        self.selectedGuardian = selectedGuardian
+        self.selectedCustomAddress = selectedCustomAddress
+        self.controller = controller
+        self.onSuccess = onSuccess
+    }
+
     override func viewDidLoad() {
         shouldLoadTransactionPreview = true
 
