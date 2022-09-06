@@ -31,7 +31,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="claim-background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="1Hc-lH-0us">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="700"/>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="7VH-ra-Hnc">
                     <rect key="frame" x="16" y="60" width="382" height="786"/>
@@ -39,124 +39,111 @@
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ua-as-Gz3">
                             <rect key="frame" x="0.0" y="0.0" width="382" height="714"/>
                             <subviews>
-                                <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="SQn-oj-TnE" userLabel="ContentView">
-                                    <rect key="frame" x="0.0" y="0.0" width="382" height="503"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="IcF-Ph-KQU" userLabel="ContentStackView">
+                                    <rect key="frame" x="0.0" y="20" width="382" height="483"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="IcF-Ph-KQU" userLabel="ContentStackView">
-                                            <rect key="frame" x="0.0" y="20" width="382" height="483"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Navigating SafeDAO" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLj-o9-Pv9">
+                                            <rect key="frame" x="0.0" y="0.0" width="382" height="32.5"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HDz-YI-ewy" userLabel="FirstParagraph">
+                                            <rect key="frame" x="0.0" y="56.5" width="382" height="122"/>
+                                            <string key="text">SafeDAO aims to foster a vibrant ecosystem of applications and wallets leveraging Safe smart contract accounts. This will be achieved through data-backed discussions, grants, ecosystem investments, as well as providing developer tools and infrastructure.</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How to get involved:" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKN-cw-K6R">
+                                            <rect key="frame" x="0.0" y="202.5" width="382" height="24"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tLm-2e-2fm" userLabel="CheckListStackView">
+                                            <rect key="frame" x="0.0" y="250.5" width="382" height="167.5"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Navigating SafeDAO" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLj-o9-Pv9">
-                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="32.5"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HDz-YI-ewy" userLabel="FirstParagraph">
-                                                    <rect key="frame" x="0.0" y="56.5" width="382" height="122"/>
-                                                    <string key="text">SafeDAO aims to foster a vibrant ecosystem of applications and wallets leveraging Safe smart contract accounts. This will be achieved through data-backed discussions, grants, ecosystem investments, as well as providing developer tools and infrastructure.</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How to get involved:" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKN-cw-K6R">
-                                                    <rect key="frame" x="0.0" y="202.5" width="382" height="24"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tLm-2e-2fm" userLabel="CheckListStackView">
-                                                    <rect key="frame" x="0.0" y="250.5" width="382" height="167.5"/>
+                                                <stackView opaque="NO" contentMode="top" alignment="firstBaseline" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="znU-hc-aCe" userLabel="ItemStackView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="41"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="top" alignment="firstBaseline" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="znU-hc-aCe" userLabel="ItemStackView">
-                                                            <rect key="frame" x="0.0" y="0.0" width="382" height="41"/>
-                                                            <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="AdG-Ut-Iae">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="18" height="14"/>
-                                                                    <color key="tintColor" name="primary"/>
-                                                                    <edgeInsets key="layoutMargins" top="16" left="8" bottom="8" right="8"/>
-                                                                </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Discuss SafeDAO improvements - post topics and discuss in our forum." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0U3-zK-Me5" userLabel="Item1Text">
-                                                                    <rect key="frame" x="30" y="0.0" width="352" height="41"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                        </stackView>
-                                                        <stackView opaque="NO" contentMode="top" alignment="firstBaseline" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="L2T-lM-gKr" userLabel="ItemStackView">
-                                                            <rect key="frame" x="0.0" y="49" width="382" height="41"/>
-                                                            <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="NUb-0C-LyB">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="16.5" height="14"/>
-                                                                    <color key="tintColor" name="primary"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" constant="16.5" id="cd1-83-MHJ"/>
-                                                                    </constraints>
-                                                                </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Propose improvements - read our governance process and post an SIP." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z7G-zp-con" userLabel="Item2Text">
-                                                                    <rect key="frame" x="28.5" y="0.0" width="353.5" height="41"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                        </stackView>
-                                                        <stackView opaque="NO" contentMode="top" alignment="firstBaseline" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="LJT-MC-7aH" userLabel="ItemStackView">
-                                                            <rect key="frame" x="0.0" y="98" width="382" height="20.5"/>
-                                                            <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="jFO-fM-mIV">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="18" height="14"/>
-                                                                    <color key="tintColor" name="primary"/>
-                                                                </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Govern improvements - vote on our Snapshot." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1B-Mu-vEQ" userLabel="Item3Text">
-                                                                    <rect key="frame" x="30" y="0.0" width="352" height="20.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                        </stackView>
-                                                        <stackView opaque="NO" contentMode="top" alignment="firstBaseline" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="kwU-67-cF5" userLabel="ItemStackView">
-                                                            <rect key="frame" x="0.0" y="126.5" width="382" height="41"/>
-                                                            <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="eeP-M0-8mq">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="18" height="14"/>
-                                                                    <color key="tintColor" name="primary"/>
-                                                                </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Chat with the communiity - join our Safe Discord." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61T-uw-BsL" userLabel="Item4Text">
-                                                                    <rect key="frame" x="30" y="0.0" width="352" height="41"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                        </stackView>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="AdG-Ut-Iae">
+                                                            <rect key="frame" x="0.0" y="0.0" width="18" height="14"/>
+                                                            <color key="tintColor" name="primary"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Discuss SafeDAO improvements - post topics and discuss in our forum." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0U3-zK-Me5" userLabel="Item1Text">
+                                                            <rect key="frame" x="30" y="0.0" width="352" height="41"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                 </stackView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Now help decide on the future of ownership with $SAFE." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxZ-fA-FWu">
-                                                    <rect key="frame" x="0.0" y="442" width="382" height="41"/>
-                                                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="top" alignment="firstBaseline" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="L2T-lM-gKr" userLabel="ItemStackView">
+                                                    <rect key="frame" x="0.0" y="49" width="382" height="41"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="NUb-0C-LyB">
+                                                            <rect key="frame" x="0.0" y="0.0" width="16.5" height="14"/>
+                                                            <color key="tintColor" name="primary"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="16.5" id="cd1-83-MHJ"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Propose improvements - read our governance process and post an SIP." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z7G-zp-con" userLabel="Item2Text">
+                                                            <rect key="frame" x="28.5" y="0.0" width="353.5" height="41"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="top" alignment="firstBaseline" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="LJT-MC-7aH" userLabel="ItemStackView">
+                                                    <rect key="frame" x="0.0" y="98" width="382" height="20.5"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="jFO-fM-mIV">
+                                                            <rect key="frame" x="0.0" y="0.0" width="18" height="14"/>
+                                                            <color key="tintColor" name="primary"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Govern improvements - vote on our Snapshot." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1B-Mu-vEQ" userLabel="Item3Text">
+                                                            <rect key="frame" x="30" y="0.0" width="352" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="top" alignment="firstBaseline" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="kwU-67-cF5" userLabel="ItemStackView">
+                                                    <rect key="frame" x="0.0" y="126.5" width="382" height="41"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="eeP-M0-8mq">
+                                                            <rect key="frame" x="0.0" y="0.0" width="18" height="14"/>
+                                                            <color key="tintColor" name="primary"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Chat with the communiity - join our Safe Discord." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61T-uw-BsL" userLabel="Item4Text">
+                                                            <rect key="frame" x="30" y="0.0" width="352" height="41"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
                                         </stackView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Now help decide on the future of ownership with $SAFE." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxZ-fA-FWu">
+                                            <rect key="frame" x="0.0" y="442" width="382" height="41"/>
+                                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstItem="IcF-Ph-KQU" firstAttribute="leading" secondItem="SQn-oj-TnE" secondAttribute="leading" id="4uG-n5-lZE"/>
-                                        <constraint firstAttribute="trailing" secondItem="IcF-Ph-KQU" secondAttribute="trailing" id="7Ar-cX-tiL"/>
-                                        <constraint firstItem="IcF-Ph-KQU" firstAttribute="width" secondItem="SQn-oj-TnE" secondAttribute="width" id="PGt-eN-Eek"/>
-                                        <constraint firstAttribute="bottom" secondItem="IcF-Ph-KQU" secondAttribute="bottom" id="YU0-Ei-RSI"/>
-                                        <constraint firstItem="IcF-Ph-KQU" firstAttribute="top" secondItem="SQn-oj-TnE" secondAttribute="top" constant="20" id="wQj-9k-ajT"/>
-                                    </constraints>
-                                </view>
+                                </stackView>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="SQn-oj-TnE" firstAttribute="leading" secondItem="5Ua-as-Gz3" secondAttribute="leading" id="Cub-PF-CAT"/>
-                                <constraint firstItem="SQn-oj-TnE" firstAttribute="width" secondItem="5Ua-as-Gz3" secondAttribute="width" id="DOd-a4-Q0p"/>
-                                <constraint firstItem="SQn-oj-TnE" firstAttribute="top" secondItem="5Ua-as-Gz3" secondAttribute="top" id="Dux-Bu-FMD"/>
-                                <constraint firstAttribute="trailing" secondItem="SQn-oj-TnE" secondAttribute="trailing" id="Tbm-f2-6Xz"/>
-                                <constraint firstAttribute="bottom" secondItem="SQn-oj-TnE" secondAttribute="bottom" id="z7q-xR-gPF"/>
+                                <constraint firstAttribute="trailing" secondItem="IcF-Ph-KQU" secondAttribute="trailing" id="4Lf-86-4Xx"/>
+                                <constraint firstItem="IcF-Ph-KQU" firstAttribute="width" secondItem="5Ua-as-Gz3" secondAttribute="width" id="J8i-In-Hzj"/>
+                                <constraint firstAttribute="bottom" secondItem="IcF-Ph-KQU" secondAttribute="bottom" id="KRZ-Ws-pZy"/>
+                                <constraint firstItem="IcF-Ph-KQU" firstAttribute="leading" secondItem="5Ua-as-Gz3" secondAttribute="leading" id="Z35-ge-buv"/>
+                                <constraint firstItem="IcF-Ph-KQU" firstAttribute="top" secondItem="5Ua-as-Gz3" secondAttribute="top" constant="20" id="rRQ-sh-v6J"/>
                             </constraints>
                             <viewLayoutGuide key="contentLayoutGuide" id="TpM-PR-8FK"/>
                             <viewLayoutGuide key="frameLayoutGuide" id="R2h-nv-36F"/>
@@ -176,7 +163,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <viewLayoutGuide key="safeArea" id="uSu-il-oon"/>
+                    <viewLayoutGuide key="safeArea" id="uSu-il-oon" userLabel="Safe Area2"/>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -185,9 +172,8 @@
                 <constraint firstItem="7VH-ra-Hnc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="0Ql-aA-S2k"/>
                 <constraint firstAttribute="trailing" secondItem="7VH-ra-Hnc" secondAttribute="trailing" constant="16" id="7lZ-lZ-RSo"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="1Hc-lH-0us" secondAttribute="trailing" id="Mil-Wg-Wrb"/>
+                <constraint firstItem="1Hc-lH-0us" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Otg-rc-V2W"/>
                 <constraint firstItem="1Hc-lH-0us" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="WlS-BP-8KQ"/>
-                <constraint firstItem="1Hc-lH-0us" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="X7o-Ae-7zX"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="1Hc-lH-0us" secondAttribute="bottom" id="baE-SC-69R"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="7VH-ra-Hnc" secondAttribute="bottom" constant="16" id="cD7-xD-7AB"/>
                 <constraint firstItem="7VH-ra-Hnc" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="cxE-yv-FkI"/>
             </constraints>
