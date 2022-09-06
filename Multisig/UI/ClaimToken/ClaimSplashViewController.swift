@@ -33,9 +33,7 @@ class ClaimSplashViewController: UIViewController {
             DispatchQueue.main.async {
                 do {
                     let allocations = try result.get()
-                    if !allocations.isEmpty {
-                        self.completion(true)
-                    }
+                    self.completion(!allocations.isEmpty)
                 } catch is GSError.EntityNotFound {
                     self.completion(false)
                 } catch let error as DetailedLocalizedError {

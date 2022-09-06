@@ -99,7 +99,6 @@ class GuardianListViewController: LoadableViewController {
                 let data = try result.get()
                 self.selectedDelegate = data.delegate
 
-                // TODO: move shuffling to the store
                 if let selectedIndex = data.guardians.firstIndex(where: { $0.address.address == data.delegate }) {
                     var results = data.guardians
                     let selected = results.remove(at: selectedIndex)
@@ -107,7 +106,7 @@ class GuardianListViewController: LoadableViewController {
                     results.insert(selected, at: 0)
                     self.guardians = results
                 } else {
-                    self.guardians = data.guardians
+                    self.guardians = data.guardians.shuffled()
                 }
 
                 self.sections = self.makeSections(items: self.guardians)
@@ -197,7 +196,7 @@ extension GuardianListViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func item(at indexPath: IndexPath) -> Guardian? {
-        if searchController.isActive {
+        if searchController.isActive && searchController.showsSearchResultsController {
             return resultsController.filteredGuardians[indexPath.row]
         }
         switch sections[indexPath.section] {

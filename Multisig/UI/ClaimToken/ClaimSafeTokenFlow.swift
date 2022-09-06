@@ -8,6 +8,8 @@
 
 import Foundation
 import SwiftCryptoTokenFormatter
+import Solidity
+import UIKit
 
 class SelectDelegateFlow: UIFlow {
     var factory: ClaimSafeTokenFlowFactory!
@@ -61,18 +63,24 @@ class SelectDelegateFlow: UIFlow {
         show(enterAddressVC)
     }
 
-    func popToStart() {
-        guard let vc = navigationController.viewControllers.first(where: { $0 is ChooseDelegateIntroViewController }) else {
+    func popToSelection() {
+        let vcType: UIViewController.Type
+        if guardian != nil {
+            vcType = GuardianListViewController.self
+        } else if customAddress != nil {
+            vcType = EnterCustomAddressViewController.self
+        } else {
+            vcType = ChooseDelegateIntroViewController.self
+        }
+        guard let vc = navigationController.viewControllers.first(where: { type(of: $0) == vcType }) else {
             return
         }
+        customAddress = nil
+        guardian = nil
         navigationController.popToViewController(vc, animated: true)
     }
 
 }
-
-// TODO: open review screen with data at the end
-
-import Solidity
 
 class ClaimSafeTokenFlow: UIFlow {
     var factory: ClaimSafeTokenFlowFactory!
@@ -170,7 +178,7 @@ class ClaimSafeTokenFlow: UIFlow {
             review()
         }
         claimVC.onEditDelegate = { [unowned self] in
-            delegateFlow.popToStart()
+            delegateFlow.popToSelection()
         }
 
         show(claimVC)
