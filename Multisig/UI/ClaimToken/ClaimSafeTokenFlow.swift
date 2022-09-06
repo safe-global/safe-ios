@@ -18,7 +18,7 @@ class SelectDelegateFlow: UIFlow {
 
     init(safe: Safe,
          guardian: Guardian? = nil,
-        customAddress: Address? = nil,
+         customAddress: Address? = nil,
          factory: ClaimSafeTokenFlowFactory = ClaimSafeTokenFlowFactory(),
          completion: @escaping (_ success: Bool) -> Void) {
         self.safe = safe
@@ -92,14 +92,20 @@ class ClaimSafeTokenFlow: UIFlow {
             // if not available show not available
             showNotAvailable()
         } else {
-            // if available show intro
-           showIntro()
+            showIntro()
         }
+    }
+
+    func showDisclaimer() {
+        let vc = factory.legalDisclaimer {[unowned self] in
+            chooseDelegate()
+        }
+        show(vc)
     }
 
     func showIntro() {
         let introVC = factory.claimGetStarted { [unowned self] in
-            chooseDelegate()  // TODO: Jump to Tutorial
+            chooseTutorial()  // TODO: Jump to Tutorial
         }
         show(introVC)
         introVC.navigationItem.largeTitleDisplayMode = .always
@@ -108,6 +114,13 @@ class ClaimSafeTokenFlow: UIFlow {
 
     func showNotAvailable() {
         let vc = factory.claimNotAvailable()
+        show(vc)
+    }
+
+    func chooseTutorial() {
+        let vc = factory.chooseTutorial { [unowned self] in
+            showDisclaimer()
+        }
         show(vc)
     }
 
@@ -159,6 +172,12 @@ class ClaimSafeTokenFlow: UIFlow {
 }
 
 class ClaimSafeTokenFlowFactory {
+    func legalDisclaimer(onAgree: @escaping () -> ()) -> LegalDisclaimerViewController {
+        let vc = LegalDisclaimerViewController()
+        vc.onAgree = onAgree
+        return vc
+    }
+
     func claimGetStarted(onStartClaim: @escaping () -> ()) -> ClaimGetStartedViewController {
         let vc = ClaimGetStartedViewController()
         vc.onStartClaim = onStartClaim
@@ -189,6 +208,11 @@ class ClaimSafeTokenFlowFactory {
         let vc = EnterCustomAddressViewController()
         vc.mainnet = mainnet
         vc.onContinue = onContinue
+        return vc
+    }
+
+    func chooseTutorial(completion: @escaping () -> ()) -> WhatIsSafeViewController {
+        let vc = WhatIsSafeViewController(completion: completion)
         return vc
     }
 

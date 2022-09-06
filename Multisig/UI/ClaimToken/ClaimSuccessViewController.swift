@@ -35,7 +35,7 @@ class ClaimSuccessViewController: UIViewController {
         textLabel.attributedText = text.highlightRange(
             originalStyle: .secondary,
             highlightStyle: .primary,
-            textToHightlight: amountString
+            textToHighlight: amountString
         )
 
         tweetBox.setTweet(
