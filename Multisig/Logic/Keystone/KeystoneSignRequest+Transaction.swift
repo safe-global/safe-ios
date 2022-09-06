@@ -10,20 +10,28 @@ import Foundation
 import URRegistry
 
 extension KeystoneSignRequest {
-    init?(transaction: Transaction, keyInfo: KeyInfo) {
+    init?(transaction: Transaction, keyInfo: KeyInfo, signType: SignType) {
         guard
             let requestId = UUID().uuidString.data(using: .utf8)?.toHexString(),
-            let signData = transaction.data?.data.toHexString(),
             let chainId = transaction.chainId,
             let chainIdNumber = UInt32(chainId),
             let metadata = keyInfo.metadata,
             let keyMetadata = KeyInfo.KeystoneKeyMetadata.from(data: metadata)
         else { return nil }
 
+        var signData = ""
+        
+        switch signType {
+        case .personalMessage:
+            signData = transaction.safeTxHash.hash.toHexString()
+        default:
+            break
+        }
+        
         self.init(
             requestId: requestId,
             signData: signData,
-            signType: .typedTransaction,
+            signType: signType,
             chainId: chainIdNumber,
             path: keyMetadata.path,
             xfp: keyMetadata.sourceFingerprint,

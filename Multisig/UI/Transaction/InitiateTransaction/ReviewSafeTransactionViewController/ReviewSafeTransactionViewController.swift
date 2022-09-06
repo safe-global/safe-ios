@@ -27,6 +27,7 @@ class ReviewSafeTransactionViewController: UIViewController {
     @IBOutlet weak var ribbonView: RibbonView!
 
     private var currentDataTask: URLSessionTask?
+    private var keystoneSignFlow: KeystoneSignFlow!
     var trackingEvent: TrackingEvent = .assetsTransferReview
 
     var safe: Safe!
@@ -258,23 +259,25 @@ class ReviewSafeTransactionViewController: UIViewController {
             }
             
         case .keystone:
-            guard let signRequest = KeystoneSignRequest(transaction: transaction, keyInfo: keyInfo),
-                  let qrValue = URRegistry.shared.requestSign(signRequest: signRequest)
+            guard
+                let signRequest = KeystoneSignRequest(transaction: transaction, keyInfo: keyInfo, signType: .personalMessage)
             else {
                 App.shared.snackbar.show(message: "Failed to confirm transaction")
                 endConfirm()
                 return
             }
             
-            let signVC = UIHostingController(rootView: KeystoneRequestSignatureView(qrValue: qrValue, onTap: { [weak self] in
-                self?.dismiss(animated: true) {
-                    self?.presentScanner()
+            keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: safe.chain) { [unowned self] success in
+                keystoneSignFlow = nil
+                if success {
+                    print("Sign Successfully")
+                } else {
+                    App.shared.snackbar.show(message: "Failed to confirm transaction")
+                    endConfirm()
                 }
-            }))
-            let modalVC = ViewControllerFactory.modalWithRibbon(viewController: signVC, storedChain: safe.chain)
-            signVC.navigationItem.title = "Request signature"
-
-            presentModal(modalVC)
+            }
+            
+            present(flow: keystoneSignFlow)
         }
     }
 
@@ -404,25 +407,6 @@ class ReviewSafeTransactionViewController: UIViewController {
     func onSuccess(transaction: SCGModels.TransactionDetails) {
         
     }
-    
-    private func presentScanner() {
-        let vc = QRCodeScannerViewController()
-
-        let string = "Scan the QR code on the Keystone wallet to confirm the transaction." as NSString
-        let textStyle = GNOTextStyle.primary.color(.white)
-        let highlightStyle = textStyle.weight(.bold)
-        let label = NSMutableAttributedString(string: string as String, attributes: textStyle.attributes)
-        label.setAttributes(highlightStyle.attributes, range: string.range(of: "confirm the transaction"))
-        vc.attributedLabel = label
-
-        vc.scannedValueValidator = { value in
-            return .success(value)
-        }
-        vc.modalPresentationStyle = .overFullScreen
-        vc.delegate = self
-        vc.setup()
-        presentModal(vc)
-    }
 }
 
 extension ReviewSafeTransactionViewController: UITableViewDataSource {
@@ -439,20 +423,6 @@ extension ReviewSafeTransactionViewController: UITableViewDataSource {
         case SectionItem.valueChange(let cell): return cell
         case SectionItem.data(let cell): return cell
         default: return UITableViewCell()
-        }
-    }
-}
-
-extension ReviewSafeTransactionViewController: QRCodeScannerViewControllerDelegate {
-    func scannerViewControllerDidScan(_ code: String) {
-        dismiss(animated: true) {
-            print(code)
-        }
-    }
-    
-    func scannerViewControllerDidCancel() {
-        dismiss(animated: true) { [weak self] in
-            self?.endConfirm()
         }
     }
 }
