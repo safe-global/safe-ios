@@ -18,6 +18,9 @@ class WhatIsSafeViewController: UIViewController {
     @IBOutlet weak var secondParagraph: UILabel!
     @IBOutlet weak var nextButton: UIButton!
 
+    @IBOutlet weak var totalValueProtectedStackView: UIStackView!
+    @IBOutlet weak var totalSafesCreatedStackView: UIStackView!
+
     private var stepLabel: UILabel!
 
     private var onNext: (() -> ())?
@@ -64,7 +67,8 @@ class WhatIsSafeViewController: UIViewController {
         highlight1.setStyle(.callout)
         highlight2.setStyle(.callout)
 
-
+        totalValueProtectedStackView.layer.cornerRadius = 10
+        totalSafesCreatedStackView.layer.cornerRadius = 10
     }
 
     @IBAction func nextClicked(_ sender: Any) {

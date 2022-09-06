@@ -19,6 +19,8 @@
                 <outlet property="paragraphTitle" destination="PWP-O2-9nM" id="HlE-LK-m8d"/>
                 <outlet property="screenTitle" destination="SGO-G8-5Pn" id="n04-In-ejE"/>
                 <outlet property="secondParagraph" destination="i7c-Xt-UCp" id="19s-YW-ByX"/>
+                <outlet property="totalSafesCreatedStackView" destination="f5q-cJ-KMD" id="QBy-Ks-DXd"/>
+                <outlet property="totalValueProtectedStackView" destination="e93-Y7-SE8" id="ky7-z7-0YI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -56,7 +58,7 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QlA-7j-s34">
                                             <rect key="frame" x="0.0" y="202.33333333333329" width="358" height="108.66666666666666"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="f5q-cJ-KMD">
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="f5q-cJ-KMD" userLabel="Stack View (TSC)">
                                                     <rect key="frame" x="0.0" y="0.0" width="169" height="108.66666666666667"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Safes created" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dkp-U5-Fvf" userLabel="Safes created">
@@ -88,7 +90,7 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                                     <color key="backgroundColor" name="primaryDisabled"/>
                                                     <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                                 </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="e93-Y7-SE8">
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="e93-Y7-SE8" userLabel="Stack View (TVP)">
                                                     <rect key="frame" x="189" y="0.0" width="169" height="108.66666666666667"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total value protected" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8QZ-hR-C8F" userLabel="TVP">
