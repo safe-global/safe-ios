@@ -35,14 +35,22 @@ class ClaimSafeTokenFlow: UIFlow {
 
     func showDisclaimer() {
         let vc = factory.legalDisclaimer {[unowned self] in
-            chooseDelegateIntro()
+            showDelegateIntro()
         }
         show(vc)
     }
 
+    func showNavigatingDAO() {
+        let vc = factory.navigatingDAO {[unowned self] in
+            showDisclaimer()
+        }
+        show(vc)
+    }
+
+
     func showIntro() {
         let vc = factory.claimGetStarted { [unowned self] in
-            chooseTutorial()
+            showWhatIsSafe()
         }
         show(vc)
     }
@@ -52,24 +60,23 @@ class ClaimSafeTokenFlow: UIFlow {
         show(vc)
     }
 
-    func chooseDelegateIntro() {
+    func showDelegateIntro() {
         let vc = factory.chooseDelegateIntro { [unowned self] in
-            chooseGuardian()
+            showGuardian()
         } onCustomAddress: { [unowned self] in
             enterCustomAddress()
         }
         show(vc)
     }
 
-    func chooseTutorial() {
-        let vc = factory.chooseTutorial { [unowned self] in
-            showDisclaimer()
-
+    func showWhatIsSafe() {
+        let vc = factory.chooseWhatIsSafe { [unowned self] in
+            showNavigatingDAO()
         }
         show(vc)
     }
 
-    func chooseGuardian() {
+    func showGuardian() {
         let vc = factory.chooseGuardian() { [unowned self] guardian in
             selectAmount(guardian: guardian)
         }
@@ -127,15 +134,15 @@ class ClaimSafeTokenFlow: UIFlow {
 }
 
 class ClaimSafeTokenFlowFactory {
-    func legalDisclaimer(onAgree: @escaping () -> ()) -> NavigatingDAOViewController {
+    func legalDisclaimer(onAgree: @escaping () -> ()) -> LegalDisclaimerViewController {
+        let vc = LegalDisclaimerViewController()
+        vc.onAgree = onAgree
+        return vc
+    }
 
-
+    func navigatingDAO(onAgree: @escaping () -> ()) -> NavigatingDAOViewController {
         let vc = NavigatingDAOViewController(completion: onAgree)
         return vc
-
-//        let vc = LegalDisclaimerViewController()
-//        vc.onAgree = onAgree
-//        return vc
     }
 
     func claimGetStarted(onStartClaim: @escaping () -> ()) -> ClaimGetStartedViewController {
@@ -171,7 +178,7 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
-    func chooseTutorial(completion: @escaping () -> ()) -> WhatIsSafeViewController {
+    func chooseWhatIsSafe(completion: @escaping () -> ()) -> WhatIsSafeViewController {
         let vc = WhatIsSafeViewController(completion: completion)
         return vc
     }
