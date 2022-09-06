@@ -27,8 +27,6 @@ class WhatIsSafeViewController: UIViewController {
     private var stepNumber: Int = 1
     private var maxSteps: Int = 4
 
-    var factory: ClaimSafeTokenFlowFactory!
-
     private var completion: (() -> Void)?
 
     convenience init(stepNumber: Int = 1, maxSteps: Int = 4, completion: @escaping () -> ()) {
