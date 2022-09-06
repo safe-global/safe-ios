@@ -39,6 +39,12 @@ class ClaimTokensViewController: LoadableViewController {
     // Claim data fetched from the data source
     private var claimData: ClaimingAppController.ClaimingData?
 
+    // whether user used max button
+    var hasSelectedMaxAmount: Bool = false
+
+    // amount entered by user
+    var inputAmount: Sol.UInt128? = nil
+
     var completion: () -> Void = { }
     var onEditDelegate: () -> Void = { }
 
@@ -198,26 +204,6 @@ class ClaimTokensViewController: LoadableViewController {
         completion()
     }
 
-    var isMax: Bool {
-        guard
-            let row = rows.firstIndex(of: .claimingAmount),
-            let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? ClaimedAmountInputCell
-        else {
-            return false
-        }
-        return cell.isMax
-    }
-
-    var inputAmount: Sol.UInt128? {
-        guard
-            let row = rows.firstIndex(of: .claimingAmount),
-            let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? ClaimedAmountInputCell
-        else {
-            return nil
-        }
-        return cell.value
-    }
-
     // edit selected delegate
     @IBAction private func editButtonTouched(_ sender: Any) {
         onEditDelegate()
@@ -228,7 +214,6 @@ class ClaimTokensViewController: LoadableViewController {
         super.reloadData()
 
         timestamp = Date().timeIntervalSince1970
-
         keyboardBehavior.hideKeyboard()
 
         controller.asyncFetchData(account: safe.addressValue) { [weak self] result in
@@ -249,6 +234,16 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
         rows.count
     }
 
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let row = rows[indexPath.row]
+
+        if let claimData = claimData {
+            return claimableUserAndEcosystemCell(for: row, claimData: claimData)
+        } else {
+            return claimDataUnavailableCells(for: row)
+        }
+    }
+
     func formatted(amount: Sol.UInt128) -> String {
         let decimal = BigDecimal(Int256(amount.big()), 18)
         let value = tokenFormatter.string(from: decimal)
@@ -256,8 +251,61 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
         return amount
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let row = rows[indexPath.row]
+    func claimDataUnavailableCells(for row: RowItem) -> UITableViewCell {
+        switch row {
+        case .claimableNow:
+            let cell = tableView.dequeueCell(AllocationBoxCell.self)
+            cell.headerText = "Claim now"
+            cell.titleText = "Total"
+            cell.tooltipHostView = view
+            cell.valueText = "..."
+            cell.titleTooltipText = nil
+            cell.headerTooltipText = nil
+
+            // must be set at the end to update values
+            cell.style = .darkUser
+            return cell
+        case .claimableFuture:
+            let cell = tableView.dequeueCell(AllocationBoxCell.self)
+            cell.headerText = "Claim in the future (vesting)"
+            cell.titleText = "Total"
+            cell.tooltipHostView = view
+
+            cell.valueText = "..."
+            cell.titleTooltipText = nil
+            cell.headerTooltipText = nil
+
+            // must be set at the end to update values
+            cell.style = .lightUser
+            return cell
+        case .claimableTotal:
+            let cell = tableView.dequeueCell(AllocationTotalCell.self)
+            cell.text = "Awarded total allocation ..."
+            return cell
+        case .claimingAmount:
+            let cell = tableView.dequeueCell(ClaimedAmountInputCell.self)
+            cell.valueRange = (0..<0)
+            return cell
+        case .selectedDelegate:
+            return delegateCell()
+        }
+    }
+
+    func delegateCell() -> UITableViewCell {
+        let cell = tableView.dequeueCell(SelectedDelegateCell.self)
+
+        if let address = delegateAddress {
+            cell.set(address: address, chain: controller.chain)
+        } else {
+            cell.guardian = guardian
+        }
+
+        return cell
+    }
+
+    func claimableUserAndEcosystemCell(for row: RowItem, claimData: ClaimingAppController.ClaimingData) -> UITableViewCell {
+
+        let data = displayValues(from: claimData)
 
         switch row {
         case .claimableNow:
@@ -266,60 +314,11 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
             cell.titleText = "Total"
             cell.tooltipHostView = view
 
-            guard let claimData = claimData else {
-                // defaults when data not loaded
-                cell.valueText = "..."
-                cell.titleTooltipText = nil
-                cell.headerTooltipText = nil
-
-                // must be set at the end to update values
-                cell.style = .darkUser
-                return cell
-            }
-
-
-            let userAllocation = claimData.allocationsData.first {
-                $0.allocation.tag.contains("user")
-            }
-            let ecosystemAllocation = claimData.allocationsData.first {
-                $0.allocation.tag.contains("ecosystem")
-            }
-
-            if let userAllocation = userAllocation, let ecosystemAllocation = ecosystemAllocation, claimData.allocationsData.count == 2 {
-
-                let userAmount = formatted(amount: claimData.availableAmount(for: userAllocation, at: timestamp))
-                let ecosystemAmount = formatted(amount: claimData.availableAmount(for: ecosystemAllocation, at: timestamp))
-
-                cell.valueText = formatted(amount: claimData.totalAvailableAmount(of: claimData.allocationsData, at: timestamp))
-                cell.headerTooltipText = nil
-                let titleTooltipText = NSMutableAttributedString(string: "This includes user allocation of $user and Safe guardian allocation of $ecosystem")
-
-                let userHighlight = NSAttributedString(string: userAmount, attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .semibold)])
-                titleTooltipText.replaceCharacters(in: (titleTooltipText.string as NSString).range(of: "$user"), with: userHighlight)
-
-                let ecosystemHighlight = NSAttributedString(string: ecosystemAmount, attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .semibold)])
-                titleTooltipText.replaceCharacters(in: (titleTooltipText.string as NSString).range(of: "$ecosystem"), with: ecosystemHighlight)
-
-                cell.titleTooltipText = titleTooltipText
-
-                // must be set at the end to update values
-                cell.style = .darkGuardian
-            } else if userAllocation != nil, claimData.allocationsData.count == 1 {
-                cell.valueText = formatted(amount: claimData.totalAvailableAmount(of: claimData.allocationsData, at: timestamp))
-                cell.headerTooltipText = nil
-                cell.titleTooltipText = NSAttributedString(string: "Not eligible for Safe Guardian allocation. Contribute to the community to become a Safe Guardian.")
-
-                // must be set at the end to update values
-                cell.style = .darkUser
-            } else {
-                assertionFailure("Data misconfiguration: user or ecosystem allocations not found")
-                cell.valueText = "n/a"
-                cell.headerTooltipText = nil
-                cell.titleTooltipText = nil
-
-                // must be set at the end to update values
-                cell.style = .darkUser
-            }
+            cell.valueText = data.vestedValue
+            cell.headerTooltipText = nil
+            cell.titleTooltipText = data.vestedAmountTooltip
+            // must be set at the end to update values
+            cell.style = data.vestedStyle
             return cell
 
         case .claimableFuture:
@@ -328,169 +327,239 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
             cell.titleText = "Total"
             cell.tooltipHostView = view
 
-            guard let claimData = claimData else {
-                // defaults when data not loaded
-                cell.valueText = "..."
-                cell.titleTooltipText = nil
-                cell.headerTooltipText = nil
+            cell.headerTooltipText = data.unvestedDurationTooltip
+            cell.valueText = data.unvestedValue
+            cell.titleTooltipText = data.unvestedAmountTooltip
+            // must be set at the end to update values
+            cell.style = data.unvestedStyle
+            return cell
 
-                // must be set at the end to update values
-                cell.style = .lightUser
-                return cell
-            }
+        case .claimableTotal:
+            let cell = tableView.dequeueCell(AllocationTotalCell.self)
+            cell.text = data.totalValue
+            return cell
 
-            let userAllocation = claimData.allocationsData.first {
-                $0.allocation.tag.contains("user")
+        case .claimingAmount:
+            let cell = tableView.dequeueCell(ClaimedAmountInputCell.self)
+            cell.valueRange = data.availableRange
+            cell.didEndValidating = { [unowned self] error in
+                tableView.beginUpdates()
+                tableView.endUpdates()
+                claimButton.isEnabled = (error == nil)
             }
-            let ecosystemAllocation = claimData.allocationsData.first {
-                $0.allocation.tag.contains("ecosystem")
-            }
+            return cell
+
+        case .selectedDelegate:
+            return delegateCell()
+        }
+    }
+
+    struct DisplayValues {
+        var vestedValue: String
+        var vestedAmountTooltip: NSAttributedString?
+        var vestedStyle: AllocationBoxCell.Style
+
+        var unvestedDurationTooltip: NSAttributedString?
+        var unvestedValue: String
+        var unvestedAmountTooltip: NSAttributedString?
+        var unvestedStyle: AllocationBoxCell.Style
+
+        var totalValue: String
+        var availableRange: Range<Sol.UInt128>
+    }
+
+    func displayValues(from claimData: ClaimingAppController.ClaimingData) -> DisplayValues {
+        let userAllocation = claimData.allocationsData.first {
+            $0.allocation.tag.contains("user")
+        }
+        let ecosystemAllocation = claimData.allocationsData.first {
+            $0.allocation.tag.contains("ecosystem")
+        }
+        let otherAllocations = claimData.allocationsData.filter { item in
+            // not one of the found allocations
+            !(
+                // equal to user allocation
+                (item.allocation.vestingId == userAllocation?.allocation.vestingId &&
+                 item.allocation.contract == userAllocation?.allocation.contract &&
+                 item.allocation.chainId == userAllocation?.allocation.chainId
+                ) ||
+                // OR equal to ecosystem allocation
+                (item.allocation.vestingId == ecosystemAllocation?.allocation.vestingId &&
+                 item.allocation.contract == ecosystemAllocation?.allocation.contract &&
+                 item.allocation.chainId == ecosystemAllocation?.allocation.chainId
+                )
+            )
+        }
+
+        // components and total of vested amount
+        let userVestedAmount: Sol.UInt128? = claimData.availableAmount(for: userAllocation, at: timestamp)
+        let ecoVestedAmount: Sol.UInt128? = claimData.availableAmount(for: ecosystemAllocation, at: timestamp)
+        let otherVestedAmount: Sol.UInt128 = claimData.totalAvailableAmount(of: otherAllocations, at: timestamp)
+        let vestedTotal: Sol.UInt128 = claimData.totalAvailableAmount(of: claimData.allocationsData, at: timestamp)
+        let availableRange: Range<Sol.UInt128> = vestedTotal > 0 ? (0..<vestedTotal) : (0..<0)
+
+        let vestedValue = formatted(amount: vestedTotal)
+
+        // components and total of unvested amount
+        let userUnvestedAmount: Sol.UInt128? = claimData.unvestedAmount(for: userAllocation, at: timestamp)
+        let ecoUnvestedAmount: Sol.UInt128? = claimData.unvestedAmount(for: userAllocation, at: timestamp)
+        let otherUnvestedAmount: Sol.UInt128 = claimData.totalUnvestedAmount(of: otherAllocations, at: timestamp)
+        let unvestedTotal: Sol.UInt128 = claimData.totalUnvestedAmount(of: claimData.allocationsData, at: timestamp)
+
+        let unvestedValue = formatted(amount: unvestedTotal)
+
+        let (amountTooltipTemplateString, isGuardianAllocationStyle) = templates(
+            userAllocation: userAllocation,
+            ecosystemAllocation: ecosystemAllocation,
+            otherAllocations: otherAllocations
+        )
+
+        let vestedAmountTooltip = tooltipString(
+            template: amountTooltipTemplateString,
+            replacements: [
+                "$USER": userVestedAmount,
+                "$ECO": ecoVestedAmount,
+                "$OTHER": otherVestedAmount
+            ]
+        )
+        let unvestedAmountTooltip = tooltipString(
+            template: amountTooltipTemplateString,
+            replacements: [
+                "$USER": userUnvestedAmount,
+                "$ECO": ecoUnvestedAmount,
+                "$OTHER": otherUnvestedAmount
+            ]
+        )
+
+        let darkBoxStyle: AllocationBoxCell.Style = isGuardianAllocationStyle ? .darkGuardian : .darkUser
+        let lightBoxStyle: AllocationBoxCell.Style = isGuardianAllocationStyle ? .lightGuardian : .lightUser
+
+        // INFO: this is incorrect for a general case,
+        // but for this version of the code we assume all vestings are linear and started on the same date
+        let vestingStartDate: UInt64? = claimData.allocationsData.first?.allocation.startDate
+        let vestingDurationWeeks: Int? = claimData.allocationsData.first?.allocation.durationWeeks
+
+        var durationTooltip: NSAttributedString?
+
+        if let vestingStartDate = vestingStartDate, let vestingDurationWeeks = vestingDurationWeeks {
+            let template = "SAFE vesting is vested linearly over $YEARS starting on $START"
+            let durationYears = Int(ceil(Double(vestingDurationWeeks) / 52))
 
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .short
             dateFormatter.timeStyle = .short
 
+            let startDate = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(vestingStartDate)))
 
-            if let userAllocation = userAllocation, let ecosystemAllocation = ecosystemAllocation, claimData.allocationsData.count == 2 {
-
-                let userAmount = formatted(amount: claimData.unvestedAmount(for: userAllocation, at: timestamp))
-                let ecosystemAmount = formatted(amount: claimData.unvestedAmount(for: ecosystemAllocation, at: timestamp))
-
-                let halfDate = userAllocation.allocation.startDate + 4 * 52 * 7 * 24 * 60 * 60 // 4 years, 52 weeks per year
-                let vestingStartDate = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(halfDate)))
-
-                let headerTooltipText = NSMutableAttributedString(string: "SAFE vesting is vested linearly over $years starting on \(vestingStartDate)")
-
-                let yearsHighlight = NSAttributedString(string: "4 years", attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .semibold)])
-                headerTooltipText.replaceCharacters(in: (headerTooltipText.string as NSString).range(of: "$years"), with: yearsHighlight)
-
-                cell.headerTooltipText = headerTooltipText
-
-                cell.valueText = formatted(amount: claimData.totalUnvestedAmount(of: claimData.allocationsData, at: timestamp))
-                let titleTooltipText = NSMutableAttributedString(string: "This includes user allocation of $user and Safe guardian allocation of $ecosystem")
-
-                let userHighlight = NSAttributedString(string: userAmount, attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .semibold)])
-                titleTooltipText.replaceCharacters(in: (titleTooltipText.string as NSString).range(of: "$user"), with: userHighlight)
-
-                let ecosystemHighlight = NSAttributedString(string: ecosystemAmount, attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .semibold)])
-                titleTooltipText.replaceCharacters(in: (titleTooltipText.string as NSString).range(of: "$ecosystem"), with: ecosystemHighlight)
-
-                cell.titleTooltipText = titleTooltipText
-                // must be set at the end to update values
-                cell.style = .lightGuardian
-            } else if let userAllocation = userAllocation, claimData.allocationsData.count == 1 {
-                let halfDate = userAllocation.allocation.startDate + 4 * 52 * 7 * 24 * 60 * 60 // 4 years, 52 weeks per year
-                let vestingStartDate = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(halfDate)))
-                let headerTooltipText = NSMutableAttributedString(string: "SAFE vesting is vested linearly over $years starting on \(vestingStartDate)")
-
-                let yearsHighlight = NSAttributedString(string: "4 years", attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .semibold)])
-                headerTooltipText.replaceCharacters(in: (headerTooltipText.string as NSString).range(of: "$years"), with: yearsHighlight)
-
-                cell.headerTooltipText = headerTooltipText
-
-                cell.valueText = formatted(amount: claimData.totalUnvestedAmount(of: claimData.allocationsData, at: timestamp))
-                cell.titleTooltipText = NSAttributedString(string: "Not eligible for Safe Guardian allocation. Contribute to the community to become a Safe Guardian.")
-
-                // must be set at the end to update values
-                cell.style = .lightUser
-            } else {
-                assertionFailure("Data misconfiguration: user or ecosystem allocations not found")
-                cell.valueText = "n/a"
-                cell.headerTooltipText = nil
-                cell.titleTooltipText = nil
-
-                // must be set at the end to update values
-                cell.style = .darkUser
-            }
-
-            return cell
-
-        case .claimableTotal:
-            let cell = tableView.dequeueCell(AllocationTotalCell.self)
-
-
-            guard let claimData = claimData else {
-                // defaults when data not loaded
-                cell.text = "Awarded total allocation ..."
-                return cell
-            }
-
-
-            let userAllocation = claimData.allocationsData.first {
-                $0.allocation.tag.contains("user")
-            }
-            let ecosystemAllocation = claimData.allocationsData.first {
-                $0.allocation.tag.contains("ecosystem")
-            }
-
-            if userAllocation != nil, ecosystemAllocation != nil, claimData.allocationsData.count == 2 {
-
-                let amount = formatted(amount: claimData.totalAllocatedAmount(of: claimData.allocationsData, at: timestamp))
-                cell.text = "Awarded total allocation is \(amount)"
-
-            } else if userAllocation != nil, claimData.allocationsData.count == 1 {
-
-                let amount = formatted(amount: claimData.totalAllocatedAmount(of: claimData.allocationsData, at: timestamp))
-                cell.text = "Awarded total allocation is \(amount)"
-
-            } else {
-                assertionFailure("Data misconfiguration: user or ecosystem allocations not found")
-                cell.text = "Awarded total allocation is n/a"
-            }
-
-            return cell
-
-        case .claimingAmount:
-            let cell = tableView.dequeueCell(ClaimedAmountInputCell.self)
-
-            guard let claimData = claimData else {
-                // defaults when data not loaded
-                cell.valueRange = (0..<0)
-                return cell
-            }
-
-            let userAllocation = claimData.allocationsData.first {
-                $0.allocation.tag.contains("user")
-            }
-            let ecosystemAllocation = claimData.allocationsData.first {
-                $0.allocation.tag.contains("ecosystem")
-            }
-
-            if userAllocation != nil, ecosystemAllocation != nil, claimData.allocationsData.count == 2 {
-
-                let totalAmount = claimData.totalAvailableAmount(of: claimData.allocationsData, at: timestamp)
-                assert(totalAmount >= 1, "Total amount is less than 1")
-                cell.valueRange = totalAmount >= 1 ? (1..<totalAmount) : (0..<0)
-
-            } else if userAllocation != nil, claimData.allocationsData.count == 1 {
-
-                let totalAmount = claimData.totalAvailableAmount(of: claimData.allocationsData, at: timestamp)
-                assert(totalAmount >= 1, "Total amount is less than 1")
-                cell.valueRange = totalAmount >= 1 ? (1..<totalAmount) : (0..<0)
-
-            } else {
-                assertionFailure("Data misconfiguration: user or ecosystem allocations not found")
-                cell.valueRange = (0..<0)
-            }
-
-            cell.didEndValidating = { [unowned tableView, unowned self] error in
-                tableView.beginUpdates()
-                tableView.endUpdates()
-                claimButton.isEnabled = (error == nil)
-            }
-
-            return cell
-
-        case .selectedDelegate:
-            let cell = tableView.dequeueCell(SelectedDelegateCell.self)
-
-            if let address = delegateAddress {
-                cell.set(address: address, chain: controller.chain)
-            } else {
-                cell.guardian = guardian
-            }
-
-            return cell
+            durationTooltip = attributedString(
+                template: template,
+                replacements: [
+                    "$YEARS": "\(durationYears) years",
+                    "$START": startDate
+                ])
         }
+
+        // Total allocated amount
+        let allocatedTotal: Sol.UInt128 = claimData.totalAllocatedAmount(of: claimData.allocationsData, at: timestamp)
+        let allocatedValue = formatted(amount: allocatedTotal)
+        let allocationText = "Awarded total allocation is \(allocatedValue)."
+
+        return DisplayValues(
+            vestedValue: vestedValue,
+            vestedAmountTooltip: vestedAmountTooltip,
+            vestedStyle: darkBoxStyle,
+            unvestedDurationTooltip: durationTooltip,
+            unvestedValue: unvestedValue,
+            unvestedAmountTooltip: unvestedAmountTooltip,
+            unvestedStyle: lightBoxStyle,
+            totalValue: allocationText,
+            availableRange: availableRange
+        )
+    }
+
+    fileprivate func templates(userAllocation: (allocation: Allocation, vesting: ClaimingAppController.Vesting)?, ecosystemAllocation: (allocation: Allocation, vesting: ClaimingAppController.Vesting)?, otherAllocations: [(allocation: Allocation, vesting: ClaimingAppController.Vesting)]) ->  (amountTooltipTemplateString: String, isGuardianAllocationStyle: Bool) {
+        let template: String
+        let isGuardian: Bool
+
+        // For optional userAllocation, ecosystemAllocation and empty/not empty other allocations
+        // we have 8 different cases to handle
+
+        // user != nil, eco != nil, other = empty
+        if userAllocation != nil, ecosystemAllocation != nil, otherAllocations.isEmpty {
+            template = "This includes user allocation of $USER and Safe guardian allocation of $ECO."
+            isGuardian = true
+        }
+        // user != nil, eco != nil, other = not empty
+        else if userAllocation != nil, ecosystemAllocation != nil, !otherAllocations.isEmpty {
+            template = "This includes user allocation of $USER, Safe guardian allocation of $ECO, and other allocation of $OTHER."
+            isGuardian = true
+        }
+        // user != nil, eco = nil, other = empty
+        else if userAllocation != nil, ecosystemAllocation == nil, otherAllocations.isEmpty {
+            template = "Not eligible for Safe Guardian allocation. Contribute to the community to become a Safe Guardian."
+            isGuardian = false
+        }
+        // user != nil, eco = nil, other = not empty
+        else if userAllocation != nil, ecosystemAllocation == nil, !otherAllocations.isEmpty {
+            template = "This includes user allocation of $USER and other allocation of $OTHER."
+            isGuardian = false
+        }
+        // user = nil, eco != nil, other = empty
+        else if userAllocation == nil, ecosystemAllocation != nil, otherAllocations.isEmpty {
+            template = "This includes Safe guardian allocation of $ECO."
+            isGuardian = true
+        }
+        // user = nil, eco != nil, other = not empty
+        else if userAllocation == nil, ecosystemAllocation != nil, !otherAllocations.isEmpty {
+            template = "This includes Safe guardian allocation of $ECO and other allocation of $OTHER."
+            isGuardian = true
+        }
+        // user = nil, eco = nil, other = empty
+        else if userAllocation == nil, ecosystemAllocation == nil, otherAllocations.isEmpty {
+            template = "Not eligible for SAFE allocations."
+            isGuardian = false
+        }
+        // user = nil, eco = nil, other = not empty
+        else if userAllocation == nil, ecosystemAllocation == nil, !otherAllocations.isEmpty {
+            template = "Not eligible for user or Safe Guardian allocation. Use Safe and contribute to the community to become a Safe Guardian."
+            isGuardian = false
+        } else {
+            preconditionFailure("Not reachable state")
+        }
+
+        return (template, isGuardian)
+    }
+
+    func tooltipString(template: String, replacements: [String: Sol.UInt128?]) -> NSAttributedString {
+        let replacementItems = replacements.compactMap { key, value -> (String, String)? in
+            guard let value = value else { return nil }
+            return (key, formatted(amount: value))
+        }
+
+        let result = attributedString(
+            template: template,
+            replacements: Dictionary(uniqueKeysWithValues: replacementItems))
+        return result
+    }
+
+    func attributedString(
+        template: String,
+        attributes: [NSAttributedString.Key: Any]? = nil,
+        replacements: [String: String],
+        replacementAttributes: [NSAttributedString.Key: Any]? = [
+            .font: UIFont.systemFont(ofSize: 16, weight: .semibold)
+        ]
+    ) -> NSAttributedString {
+
+        let attributedString = NSMutableAttributedString(string: template, attributes: attributes)
+
+        for replacement in replacements {
+            let range = (attributedString.string as NSString).range(of: replacement.key)
+            guard range.location != NSNotFound else { continue }
+            let replacementString = NSAttributedString(string: replacement.value, attributes: replacementAttributes)
+            attributedString.replaceCharacters(in: range, with: replacementString)
+        }
+
+        return attributedString
     }
 }
