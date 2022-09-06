@@ -461,28 +461,23 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
 
         // INFO: this is incorrect for a general case,
         // but for this version of the code we assume all vestings are linear and started on the same date
-        let vestingStartDate: UInt64? = claimData.allocationsData.first?.allocation.startDate
-        let vestingDurationWeeks: Int? = claimData.allocationsData.first?.allocation.durationWeeks
+        let template = "SAFE vesting is vested linearly over $YEARS starting on $START"
 
-        var durationTooltip: NSAttributedString?
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
 
-        if let vestingStartDate = vestingStartDate, let vestingDurationWeeks = vestingDurationWeeks {
-            let template = "SAFE vesting is vested linearly over $YEARS starting on $START"
-            let durationYears = Int(ceil(Double(vestingDurationWeeks) / 52))
+        let startDate = Calendar.autoupdatingCurrent.date(from: DateComponents(year: 2022, month: 9, day: 27))!
 
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .short
-            dateFormatter.timeStyle = .short
+        let startDateText = dateFormatter.string(from: startDate)
 
-            let startDate = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(vestingStartDate)))
+        let durationTooltip = attributedString(
+            template: template,
+            replacements: [
+                "$YEARS": "4 years",
+                "$START": startDateText
+            ])
 
-            durationTooltip = attributedString(
-                template: template,
-                replacements: [
-                    "$YEARS": "\(durationYears) years",
-                    "$START": startDate
-                ])
-        }
 
         // Total allocated amount
         let allocatedTotal: Sol.UInt128 = claimData.totalAllocatedAmount(of: claimData.allocationsData, at: timestamp)

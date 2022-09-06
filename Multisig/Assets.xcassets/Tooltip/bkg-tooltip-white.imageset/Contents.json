@@ -23,6 +23,36 @@
         },
         "mode" : "9-part"
       }
+    },
+    {
+      "alignment-insets" : {
+        "bottom" : 6,
+        "left" : 9,
+        "right" : 11,
+        "top" : 9
+      },
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "background-shape.pdf",
+      "idiom" : "universal",
+      "resizing" : {
+        "cap-insets" : {
+          "bottom" : 16,
+          "left" : 25,
+          "right" : 25,
+          "top" : 18
+        },
+        "center" : {
+          "height" : 1,
+          "mode" : "tile",
+          "width" : 1
+        },
+        "mode" : "9-part"
+      }
     }
   ],
   "info" : {
