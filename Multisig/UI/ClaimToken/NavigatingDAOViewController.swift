@@ -74,11 +74,8 @@ class NavigatingDAOViewController: UIViewController {
         item4Label.text = "Chat with the community - join our Safe Discord."
         item4Label.setStyle(.secondary)
 
-        subTitle.attributedText = "Now help decide on the future of ownership with $SAFE.".highlightRange(
-            originalStyle: .headline,
-            highlightStyle: .primaryButton,
-            textToHighlight: "$SAFE"
-        )
+        subTitle.text = "Now help decide on the future of ownership with $SAFE."
+        subTitle.setStyle(.headline)
         subTitle.textAlignment = .center
     }
 
