@@ -43,7 +43,8 @@ class ClaimSafeTokenFlow: UIFlow {
 
     func showIntro() {
         let vc = factory.claimGetStarted { [unowned self] in
-            chooseDelegateIntro()  // TODO: Jump to Tutorial
+//            chooseDelegateIntro()  // TODO: Jump to Tutorial
+            chooseTutorial()
         }
         show(vc)
     }
@@ -59,6 +60,11 @@ class ClaimSafeTokenFlow: UIFlow {
         } onCustomAddress: { [unowned self] in
             enterCustomAddress()
         }
+        show(vc)
+    }
+
+    func chooseTutorial() {
+        let vc = factory.chooseTutorial()
         show(vc)
     }
 
@@ -156,6 +162,11 @@ class ClaimSafeTokenFlowFactory {
         let vc = EnterCustomAddressViewController()
         vc.mainnet = mainnet
         vc.onContinue = onContinue
+        return vc
+    }
+
+    func chooseTutorial() -> WhatIsSafeViewController {
+        let vc = WhatIsSafeViewController()
         return vc
     }
 

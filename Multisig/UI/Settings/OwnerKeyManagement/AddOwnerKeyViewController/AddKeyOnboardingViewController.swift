@@ -86,7 +86,7 @@ class AddKeyOnboardingViewController: UITableViewController {
         }
         let enterNameVC = EnterAddressNameViewController()
         enterNameVC.actionTitle = "Add"
-        enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
+        enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with us or any third parties."
         enterNameVC.screenTitle = "Enter Key Name"
         enterNameVC.trackingEvent = keyParameters.keyNameTrackingEvent
         enterNameVC.placeholder = "Enter name"

@@ -22,11 +22,11 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="3E1-oh-yiS">
-                    <rect key="frame" x="16" y="60" width="382" height="820"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="3E1-oh-yiS">
+                    <rect key="frame" x="16" y="60" width="382" height="812"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hho-1B-73p">
-                            <rect key="frame" x="0.0" y="0.0" width="382" height="748"/>
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="732"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yVq-6N-I8z">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="818"/>
@@ -56,7 +56,7 @@ None of the information available on this app, or made otherwise available to yo
                             <viewLayoutGuide key="frameLayoutGuide" id="Kuo-2y-bYJ"/>
                         </scrollView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2t-Zm-rfc">
-                            <rect key="frame" x="0.0" y="764" width="382" height="56"/>
+                            <rect key="frame" x="0.0" y="756" width="382" height="56"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="56" id="Ene-12-v1L"/>
                             </constraints>
@@ -74,9 +74,9 @@ None of the information available on this app, or made otherwise available to yo
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="3E1-oh-yiS" secondAttribute="bottom" constant="16" id="3hr-d2-rze"/>
                 <constraint firstItem="3E1-oh-yiS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="83G-OX-kTy"/>
                 <constraint firstItem="3E1-oh-yiS" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="QTD-wY-iad"/>
+                <constraint firstAttribute="bottom" secondItem="3E1-oh-yiS" secondAttribute="bottom" constant="24" id="Yka-xV-BZj"/>
                 <constraint firstAttribute="trailing" secondItem="3E1-oh-yiS" secondAttribute="trailing" constant="16" id="fVp-U0-Ze7"/>
             </constraints>
             <point key="canvasLocation" x="132" y="132"/>
