@@ -1,8 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Safe_Logos_V-Lockup_Green (1).pdf",
-      "idiom" : "universal"
+      "filename" : "launchscreen-logo.pdf",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

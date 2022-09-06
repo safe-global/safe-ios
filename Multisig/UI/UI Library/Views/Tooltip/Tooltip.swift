@@ -23,12 +23,14 @@ public final class Tooltip: BaseCustomView {
     private let background = UIImageView()
 
     private let arrow = UIImageView()
-    private let arrowSize = CGSize(width: 16, height: 9)
+    private let arrowSize = CGSize(width: 16, height: 10)
     
     private var isShowingAboveTarget = true
 
     private let labelHorizontalInset: CGFloat = 12
     private let labelVerticalInset: CGFloat = 10
+
+    private let labelStyle = GNOTextStyle.callout.color(.labelPrimary)
 
     private let horizontalEdgeInset: CGFloat = 15
     private let verticalPadding: CGFloat = 12
@@ -45,7 +47,7 @@ public final class Tooltip: BaseCustomView {
         background.image = UIImage(named: "bkg-tooltip-white")
         addSubview(background)
         
-        label.setStyle(.callout.color(.labelPrimary))
+        label.setStyle(labelStyle)
         label.numberOfLines = 0
         label.textAlignment = .left
         label.isUserInteractionEnabled = true

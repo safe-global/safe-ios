@@ -166,6 +166,28 @@ class ClaimingAppController {
             return result
         }
 
+        func findError() -> String? {
+            let OK: String? = nil
+
+            if account.isZero {
+                return "Incorrect data configuration"
+            }
+
+            if allocations.isEmpty {
+                return "No allocations found in the data"
+            }
+
+            if allocations.count != vestings.count {
+                return "Vestings do not match allocations"
+            }
+
+            if allocationsData.count != allocations.count {
+                return "Allocation data is missing some allocations"
+            }
+
+            return OK
+        }
+
         func totalAllocatedAmount(of allocationData: [(allocation: Allocation, vesting: Vesting)], at timestamp: TimeInterval) -> Sol.UInt128 {
             let sum = allocationData.map {
                 vesting(from: $0).amount
@@ -175,7 +197,7 @@ class ClaimingAppController {
 
         func totalAvailableAmount(of allocationData: [(allocation: Allocation, vesting: Vesting)], at timestamp: TimeInterval) -> Sol.UInt128 {
             let sum = allocationData.map {
-                availableAmount(for: $0, at: timestamp)
+                availableAmount(for: $0, at: timestamp) ?? 0
             }.reduce(0, +)
             return sum
         }
@@ -185,7 +207,11 @@ class ClaimingAppController {
             return result
         }
 
-        func availableAmount(for allocationData: (allocation: Allocation, vesting: Vesting), at timestamp: TimeInterval) -> Sol.UInt128 {
+        func availableAmount(for allocationData: (allocation: Allocation, vesting: Vesting)?, at timestamp: TimeInterval) -> Sol.UInt128? {
+            guard let allocationData = allocationData else {
+                return nil
+            }
+
             let vesting = vesting(from: allocationData)
             let result = vesting.available(at: timestamp)
             return result
@@ -193,12 +219,16 @@ class ClaimingAppController {
 
         func totalUnvestedAmount(of allocationData: [(allocation: Allocation, vesting: Vesting)], at timestamp: TimeInterval) -> Sol.UInt128 {
             let sum = allocationData.map {
-                unvestedAmount(for: $0, at: timestamp)
+                unvestedAmount(for: $0, at: timestamp) ?? 0
             }.reduce(0, +)
             return sum
         }
 
-        func unvestedAmount(for allocationData: (allocation: Allocation, vesting: Vesting), at timestamp: TimeInterval) -> Sol.UInt128 {
+        func unvestedAmount(for allocationData: (allocation: Allocation, vesting: Vesting)?, at timestamp: TimeInterval) -> Sol.UInt128? {
+            guard let allocationData = allocationData else {
+                return nil
+            }
+
             let vesting = vesting(from: allocationData)
             let result = vesting.amount - vesting.available(at: timestamp) - vesting.amountClaimed
             return result

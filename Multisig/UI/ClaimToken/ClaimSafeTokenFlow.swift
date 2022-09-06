@@ -116,10 +116,17 @@ class ClaimSafeTokenFlow: UIFlow {
 
         show(startVC)
     }
+    
+    func showDisclaimer() {
+        let vc = factory.legalDisclaimer {[unowned self] in
+            chooseDelegate()
+        }
+        show(vc)
+    }
 
     func showIntro() {
         let introVC = factory.claimGetStarted { [unowned self] in
-            chooseDelegate()  // TODO: Jump to Tutorial
+            chooseTutorial()
         }
         show(introVC, crossDissolve: true)
         introVC.navigationItem.largeTitleDisplayMode = .always
@@ -129,6 +136,13 @@ class ClaimSafeTokenFlow: UIFlow {
     func showNotAvailable() {
         let vc = factory.claimNotAvailable()
         show(vc, crossDissolve: true)
+    }
+
+    func chooseTutorial() {
+        let vc = factory.chooseTutorial { [unowned self] in
+            showDisclaimer()
+        }
+        show(vc)
     }
 
     func chooseDelegate() {
@@ -207,6 +221,12 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
+    func legalDisclaimer(onAgree: @escaping () -> ()) -> LegalDisclaimerViewController {
+        let vc = LegalDisclaimerViewController()
+        vc.onAgree = onAgree
+        return vc
+    }
+
     func claimGetStarted(onStartClaim: @escaping () -> ()) -> ClaimGetStartedViewController {
         let vc = ClaimGetStartedViewController()
         vc.onStartClaim = onStartClaim
@@ -237,24 +257,15 @@ class ClaimSafeTokenFlowFactory {
         vc.onContinue = onContinue
         return vc
     }
+    func chooseTutorial(completion: @escaping () -> ()) -> WhatIsSafeViewController {
+        let vc = WhatIsSafeViewController(completion: completion)
+        return vc
+    }
 
     func selectAmount(safe: Safe, delegate: Address?, guardian: Guardian?, controller: ClaimingAppController) -> ClaimTokensViewController {
         let vc = ClaimTokensViewController(tokenDelegate: delegate, guardian: guardian, safe: safe, controller: controller)
         return vc
     }
-//
-//    func review(
-//        safe: Safe,
-//        guardian: Guardian,
-//        amount: String,
-//        newAddressName: String? = nil,
-//        completion: @escaping () -> Void
-//    ) -> ReviewClaimSafeTokenTransactionViewController {
-//        let reviewVC = ReviewClaimSafeTokenTransactionViewController(safe: safe, guardian: guardian, amount: amount)
-//        reviewVC.onSuccess = completion
-//        return reviewVC
-//    }
-
 
     func success(amount: String,
                  completion: @escaping () -> Void) -> ClaimSuccessViewController {

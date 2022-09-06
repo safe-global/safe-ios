@@ -66,6 +66,7 @@ extension GNOTextStyle {
 
     enum Updated {
         static let title = GNOTextStyle(size: 27, weight: .semibold, color: .labelPrimary)
+        static let headline = GNOTextStyle(size: 17, weight: .regular, color: .labelSecondary)
         static let border = GNOTextStyle(size: 17, weight: .medium, color: .borderSelected)
         static let whiteTitle = GNOTextStyle(size: 27, weight: .semibold, color: .backgroundSecondary)
     }

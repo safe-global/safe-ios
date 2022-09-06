@@ -1,13 +1,17 @@
 {
   "images" : [
     {
-      "alignment-insets" : {
-        "bottom" : 0,
-        "left" : 1,
-        "right" : 1,
-        "top" : 1
-      },
       "filename" : "ico-tooltip-arrow-white.svg",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Triangle-dark.svg",
       "idiom" : "universal"
     }
   ],

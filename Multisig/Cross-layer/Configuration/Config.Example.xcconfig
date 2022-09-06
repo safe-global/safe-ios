@@ -50,7 +50,7 @@ APP_GROUP_ID            = $(_APP_GROUP_ID_$(SERVICE_ENV):default=$(_APP_GROUP_ID
 
 
 // User-facing name of the app on the Home screen
-_DISPLAY_NAME_PROD     = Safe Multisig
+_DISPLAY_NAME_PROD     = Safe
 _DISPLAY_NAME_STAGING  = Safe Staging
 _DISPLAY_NAME_DEV      = Safe Dev
 

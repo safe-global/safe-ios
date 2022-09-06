@@ -42,7 +42,7 @@ class TweetBox: UINibView {
         tweetLabel.attributedText = "\(text) \(hashtagsString)".highlightRange(
             originalStyle: .secondary.color(.labelPrimary),
             highlightStyle: .primary.color(.primary),
-            textToHightlight: hashtagsString
+            textToHighlight: hashtagsString
         )
     }
 
