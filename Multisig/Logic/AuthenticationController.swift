@@ -112,6 +112,7 @@ class AuthenticationController {
     }
 
     private func derivedKey(from plaintext: String) -> String {
+        // For backward compatibility we can't remove Gnosis from this position for now
         let salt = "Gnosis Safe Multisig Passcode Salt"
         var derivedKey = [UInt8](repeating: 0, count: 256 / 8)
         let result = CCKeyDerivationPBKDF(
