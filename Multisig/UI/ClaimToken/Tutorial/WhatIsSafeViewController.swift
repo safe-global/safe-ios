@@ -12,8 +12,8 @@ class WhatIsSafeViewController: UIViewController {
 
     @IBOutlet weak var firstParagraph: UILabel!
     @IBOutlet weak var screenTitle: UILabel!
-    @IBOutlet weak var highlight1: UILabel!
-    @IBOutlet weak var highlight2: UILabel!
+    @IBOutlet weak var totalSafesCreatedLabel: UILabel!
+    @IBOutlet weak var totalValueProtected: UILabel!
     @IBOutlet weak var paragraphTitle: UILabel!
     @IBOutlet weak var secondParagraph: UILabel!
     @IBOutlet weak var nextButton: UIButton!
@@ -64,8 +64,8 @@ class WhatIsSafeViewController: UIViewController {
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
 
-        highlight1.setStyle(.callout)
-        highlight2.setStyle(.callout)
+        totalSafesCreatedLabel.setStyle(.callout)
+        totalValueProtected.setStyle(.callout)
 
         totalValueProtectedStackView.layer.cornerRadius = 10
         totalSafesCreatedStackView.layer.cornerRadius = 10
