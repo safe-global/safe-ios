@@ -33,7 +33,7 @@
                     <rect key="frame" x="0.0" y="44" width="390" height="700"/>
                 </imageView>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4pP-T8-iVp">
-                    <rect key="frame" x="16" y="44" width="358" height="706"/>
+                    <rect key="frame" x="16" y="44" width="358" height="686"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bpq-Qm-n8b" userLabel="ContentView">
                             <rect key="frame" x="0.0" y="0.0" width="358" height="504.66666666666669"/>
@@ -179,7 +179,7 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="4pP-T8-iVp" secondAttribute="bottom" constant="60" id="7I0-3l-K2w"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="4pP-T8-iVp" secondAttribute="bottom" constant="80" id="7I0-3l-K2w"/>
                 <constraint firstItem="00z-yf-QU3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="AtM-Ku-yhx"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="00z-yf-QU3" secondAttribute="trailing" constant="16" id="E4O-c1-vkC"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4pP-T8-iVp" secondAttribute="trailing" constant="16" id="Hmn-hF-K7T"/>
