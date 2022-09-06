@@ -120,7 +120,6 @@ class OnboardingViewController: UIViewController {
 
     @IBAction func pageChanged(_ sender: Any) {
         let pc = sender as! UIPageControl
-        print ("Page changed")
         collectionView.scrollToItem(at: IndexPath(item: pc.currentPage, section: 0),
                                         at: .centeredHorizontally, animated: true)
         bindCurrentStep(page: pc.currentPage)
@@ -162,23 +161,22 @@ class OnboardingViewController: UIViewController {
 }
 
 extension OnboardingViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    //UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return steps.count
     }
-    // UICollectionViewDataSource
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingStepCollectionViewCell.identifier,
                                                       for: indexPath) as! OnboardingStepCollectionViewCell
         cell.configure(step: steps[indexPath.row])
         return cell
     }
-    // UICollectionViewDelegateFlowLayout
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.collectionView.frame.width, height: self.collectionView.frame.height)
     }
-    // UIScrollViewDelegate
+
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let page = Int(collectionView.contentOffset.x) / Int(collectionView.frame.width)
         bindCurrentStep(page: page)
