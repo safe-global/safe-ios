@@ -40,8 +40,6 @@ class WhatIsSafeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // TODO How to get the back button and not line beween navbar and content?
-//        ViewControllerFactory.makeTransparentNavigationBar(self)
 
         screenTitle.text = "What is Safe?"
         screenTitle.setStyle(.claimTitle)
@@ -63,10 +61,8 @@ class WhatIsSafeViewController: UIViewController {
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
-
         totalSafesCreatedLabel.setStyle(.callout)
         totalValueProtected.setStyle(.callout)
-
         totalValueProtectedStackView.layer.cornerRadius = 10
         totalSafesCreatedStackView.layer.cornerRadius = 10
     }

@@ -13,13 +13,13 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WhatIsSafeViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="firstParagraph" destination="6U7-EJ-n04" id="l2B-HJ-VJZ"/>
-                <outlet property="totalSafesCreatedLabel" destination="Dkp-U5-Fvf" id="YRD-U4-ZtE"/>
-                <outlet property="totalValueProtected" destination="8QZ-hR-C8F" id="bME-1m-vI9"/>
                 <outlet property="nextButton" destination="00z-yf-QU3" id="I84-8H-vhg"/>
                 <outlet property="paragraphTitle" destination="PWP-O2-9nM" id="HlE-LK-m8d"/>
                 <outlet property="screenTitle" destination="SGO-G8-5Pn" id="n04-In-ejE"/>
                 <outlet property="secondParagraph" destination="i7c-Xt-UCp" id="19s-YW-ByX"/>
+                <outlet property="totalSafesCreatedLabel" destination="Dkp-U5-Fvf" id="YRD-U4-ZtE"/>
                 <outlet property="totalSafesCreatedStackView" destination="f5q-cJ-KMD" id="QBy-Ks-DXd"/>
+                <outlet property="totalValueProtected" destination="8QZ-hR-C8F" id="bME-1m-vI9"/>
                 <outlet property="totalValueProtectedStackView" destination="e93-Y7-SE8" id="ky7-z7-0YI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
