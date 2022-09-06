@@ -17,7 +17,7 @@ class TokenDistributionViewController: UIViewController {
 
     private var onNext: (() -> ())?
     private var stepNumber: Int = 1
-    private var maxSteps: Int = 3
+    private var maxSteps: Int = 4
 
     private var stepLabel: UILabel!
 

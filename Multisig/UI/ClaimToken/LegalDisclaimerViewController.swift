@@ -13,6 +13,7 @@ class LegalDisclaimerViewController: UIViewController {
     @IBOutlet private weak var textLabel: UILabel!
 
     var onAgree: (() -> ())?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Legal Disclaimer"
