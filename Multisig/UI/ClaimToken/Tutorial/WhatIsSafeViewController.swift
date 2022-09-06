@@ -60,6 +60,11 @@ class WhatIsSafeViewController: UIViewController {
         stepLabel.setStyle(.tertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
+
+        highlight1.setStyle(.callout)
+        highlight2.setStyle(.callout)
+
+
     }
 
     @IBAction func nextClicked(_ sender: Any) {

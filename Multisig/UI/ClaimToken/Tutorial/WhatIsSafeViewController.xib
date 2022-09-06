@@ -37,7 +37,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="358" height="1000"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Z4G-kB-4Fi" userLabel="ContentStackView">
-                                    <rect key="frame" x="10" y="20" width="358" height="332.33333333333331"/>
+                                    <rect key="frame" x="0.0" y="20" width="358" height="352.66666666666669"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SGO-G8-5Pn">
                                             <rect key="frame" x="0.0" y="0.0" width="358" height="32.333333333333336"/>
@@ -53,26 +53,41 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QlA-7j-s34">
-                                            <rect key="frame" x="0.0" y="170.33333333333334" width="358" height="20.333333333333343"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QlA-7j-s34">
+                                            <rect key="frame" x="0.0" y="170.33333333333334" width="358" height="40.666666666666657"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="f5q-cJ-KMD">
-                                                    <rect key="frame" x="0.0" y="0.0" width="198" height="20.333333333333332"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="f5q-cJ-KMD">
+                                                    <rect key="frame" x="0.0" y="0.0" width="169" height="40.666666666666664"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Total Safes created" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dkp-U5-Fvf" userLabel="Highlight1">
-                                                            <rect key="frame" x="0.0" y="0.0" width="198" height="20.333333333333332"/>
-                                                            <color key="backgroundColor" name="borderSelected"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Safes created" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dkp-U5-Fvf" userLabel="Highlight1">
+                                                            <rect key="frame" x="0.0" y="0.0" width="169" height="20.333333333333332"/>
+                                                            <color key="backgroundColor" name="primaryDisabled"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <color key="highlightedColor" name="primaryDisabled"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Safes created" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6R-tM-Kvw" userLabel="Highlight1">
+                                                            <rect key="frame" x="0.0" y="20.333333333333314" width="169" height="20.333333333333329"/>
+                                                            <color key="backgroundColor" name="primaryDisabled"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <color key="highlightedColor" name="primaryDisabled"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="e93-Y7-SE8">
+                                                    <rect key="frame" x="189" y="0.0" width="169" height="40.666666666666664"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total value protected" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8QZ-hR-C8F" userLabel="Total value protected">
+                                                            <rect key="frame" x="0.0" y="0.0" width="169" height="20.333333333333332"/>
+                                                            <color key="backgroundColor" name="primaryDisabled"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                    </subviews>
-                                                </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="e93-Y7-SE8">
-                                                    <rect key="frame" x="198" y="0.0" width="160" height="20.333333333333332"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Total value protected" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8QZ-hR-C8F" userLabel="Total value protected">
-                                                            <rect key="frame" x="0.0" y="0.0" width="160" height="20.333333333333332"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total value protected" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URO-B0-dZh" userLabel="Total value protected">
+                                                            <rect key="frame" x="0.0" y="20.333333333333314" width="169" height="20.333333333333329"/>
+                                                            <color key="backgroundColor" name="primaryDisabled"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -83,13 +98,13 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                             </subviews>
                                         </stackView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Why are we launching a token?" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PWP-O2-9nM">
-                                            <rect key="frame" x="0.0" y="198.66666666666669" width="358" height="24"/>
+                                            <rect key="frame" x="0.0" y="219" width="358" height="24"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7c-Xt-UCp">
-                                            <rect key="frame" x="0.0" y="230.66666666666666" width="358" height="101.66666666666666"/>
+                                            <rect key="frame" x="0.0" y="250.99999999999997" width="358" height="101.66666666666666"/>
                                             <string key="text">As critical web3 infrastructure, Safe needs to be a community-owned, censorship resistant project, with a committed ecosystem stewarding its decisions. A governance token is needed to help coordinate this effort.</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -103,7 +118,7 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                             </subviews>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1000" id="Beb-5u-h6J"/>
-                                <constraint firstItem="Z4G-kB-4Fi" firstAttribute="leading" secondItem="bpq-Qm-n8b" secondAttribute="leading" constant="10" id="CDj-uB-KcK"/>
+                                <constraint firstItem="Z4G-kB-4Fi" firstAttribute="leading" secondItem="bpq-Qm-n8b" secondAttribute="leading" id="CDj-uB-KcK"/>
                                 <constraint firstItem="Z4G-kB-4Fi" firstAttribute="width" secondItem="bpq-Qm-n8b" secondAttribute="width" id="J0z-Le-lPo"/>
                                 <constraint firstItem="Z4G-kB-4Fi" firstAttribute="top" secondItem="bpq-Qm-n8b" secondAttribute="top" constant="20" id="UbJ-XC-1n4"/>
                             </constraints>
@@ -158,6 +173,9 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
         </namedColor>
         <namedColor name="labelPrimary">
             <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primaryDisabled">
+            <color red="0.93699997663497925" green="0.98000001907348633" blue="0.97299998998641968" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
