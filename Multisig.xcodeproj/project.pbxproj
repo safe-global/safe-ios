@@ -827,6 +827,8 @@
 		931AB80628808F3600264AAA /* TransactionPreviewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931AB80528808F3600264AAA /* TransactionPreviewRequest.swift */; };
 		935DCA4C27BD14C600F09EE4 /* WebConnectionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */; };
 		9388B98227C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */; };
+		93C38DC128C74CAA005188EC /* WhatIsSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C38DBF28C74CAA005188EC /* WhatIsSafeViewController.swift */; };
+		93C38DC228C74CAA005188EC /* WhatIsSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C38DC028C74CAA005188EC /* WhatIsSafeViewController.xib */; };
 		93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */; };
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
 		93EF2FA327C546330077BE95 /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EF2FA127C546330077BE95 /* InstructionsViewController.swift */; };
@@ -1748,6 +1750,8 @@
 		931AB80528808F3600264AAA /* TransactionPreviewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionPreviewRequest.swift; sourceTree = "<group>"; };
 		935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionDetailsViewController.swift; sourceTree = "<group>"; };
 		9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentNotificationController.swift; sourceTree = "<group>"; };
+		93C38DBF28C74CAA005188EC /* WhatIsSafeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WhatIsSafeViewController.swift; path = Tutorial/WhatIsSafeViewController.swift; sourceTree = "<group>"; };
+		93C38DC028C74CAA005188EC /* WhatIsSafeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WhatIsSafeViewController.xib; path = Tutorial/WhatIsSafeViewController.xib; sourceTree = "<group>"; };
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
 		93EF2FA127C546330077BE95 /* InstructionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsViewController.swift; sourceTree = "<group>"; };
 		93EF2FA227C546330077BE95 /* InstructionsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstructionsViewController.xib; sourceTree = "<group>"; };
@@ -2044,6 +2048,8 @@
 		0472B2B32869D5480049BA17 /* ClaimToken */ = {
 			isa = PBXGroup;
 			children = (
+				93C38DBF28C74CAA005188EC /* WhatIsSafeViewController.swift */,
+				93C38DC028C74CAA005188EC /* WhatIsSafeViewController.xib */,
 				6A6A105B2889A2B700B852D5 /* Views */,
 				0472B2B12869D3510049BA17 /* ClaimSafeTokenFlow.swift */,
 				0472B2B82869D66A0049BA17 /* ChooseDelegateIntroViewController.swift */,
@@ -4476,6 +4482,7 @@
 				0AE8C05D2579354C00E62B34 /* TokenInfoView.xib in Resources */,
 				0A8AEB1925A4726E002A3FE1 /* ActionDetailExpandableCell.xib in Resources */,
 				04C5DF6C26FB451B0072476C /* KeyTypeTableViewCell.xib in Resources */,
+				93C38DC228C74CAA005188EC /* WhatIsSafeViewController.xib in Resources */,
 				6A1CFA5028081A1200B2C340 /* BackupSeedPhraseViewController.xib in Resources */,
 				6A7A48A12823A297003278C8 /* SafeOwnerCell.xib in Resources */,
 				0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */,
@@ -4740,6 +4747,7 @@
 				0A616B9B26AEFD4B00FCEDB9 /* MultisigNotification.swift in Sources */,
 				048B3B0E25A5E7AB0005219B /* EditSafeNameViewController.swift in Sources */,
 				0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */,
+				93C38DC128C74CAA005188EC /* WhatIsSafeViewController.swift in Sources */,
 				0A5C0C5628191F400061D96F /* PasscodeProtecting.swift in Sources */,
 				0ADD19C0265EA23200EB0F2B /* PrivateKeyViewController.swift in Sources */,
 				0AADCDC42858E8A100A0139B /* ValidateRequestToAddOwnerViewController.swift in Sources */,

@@ -85,14 +85,18 @@ enum ViewControllerFactory {
             UIBarButtonItem(barButtonSystemItem: .close, target: vc, action: #selector(CloseModal.closeModal))
     }
 
-    static func makeTransparentNavigationBar(_ vc: UIViewController) {
-        // remove underline from navigationItem
+    static func removeUnderlineFromNavigationBar(_ vc: UIViewController) {
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithTransparentBackground()
         navigationBarAppearance.backgroundColor = .backgroundSecondary
         navigationBarAppearance.shadowColor = .clear
-        vc.navigationItem.hidesBackButton = true
         vc.navigationItem.scrollEdgeAppearance = navigationBarAppearance
+    }
+
+    static func makeTransparentNavigationBar(_ vc: UIViewController) {
+        // remove underline from navigationItem
+        removeUnderlineFromNavigationBar(vc)
+        vc.navigationItem.hidesBackButton = true
 
         // disable swipe back
         vc.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
