@@ -29,21 +29,20 @@ class ClaimSafeTokenFlow: UIFlow {
             // if not available show not available
             showNotAvailable()
         } else {
-            showDisclaimer()
+            showIntro()
         }
     }
 
     func showDisclaimer() {
         let vc = factory.legalDisclaimer {[unowned self] in
-            showIntro()
+            chooseDelegateIntro()
         }
-
         show(vc)
     }
 
     func showIntro() {
         let vc = factory.claimGetStarted { [unowned self] in
-            tokenDistribution()
+            chooseTutorial()
         }
         show(vc)
     }
@@ -53,22 +52,19 @@ class ClaimSafeTokenFlow: UIFlow {
         show(vc)
     }
 
-    func tokenDistribution() {
-        let vc = factory.tokenDistribution { [unowned self] in
-            chooseDelegateIntro()  // TODO: Jump to Tutorial
-
-        }
-
-        show(vc)
-    }
-
     func chooseDelegateIntro() {
         let vc = factory.chooseDelegateIntro { [unowned self] in
             chooseGuardian()
         } onCustomAddress: { [unowned self] in
             enterCustomAddress()
         }
+        show(vc)
+    }
 
+    func chooseTutorial() {
+        let vc = factory.chooseTutorial { [unowned self] in
+            showDisclaimer()
+        }
         show(vc)
     }
 
@@ -142,10 +138,6 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
-    func tokenDistribution(onNext: @escaping () -> ()) -> TokenDistributionViewController {
-        TokenDistributionViewController(stepNumber: 1, maxSteps: 4, onNext: onNext)
-    }
-
     func claimNotAvailable() -> ClaimNotAvailableViewController {
         let vc = ClaimNotAvailableViewController()
         return vc
@@ -153,7 +145,7 @@ class ClaimSafeTokenFlowFactory {
 
     func chooseDelegateIntro(onChooseGuardian: @escaping () -> (),
                              onCustomAddress: @escaping () -> ()) -> ChooseDelegateIntroViewController{
-        let vc = ChooseDelegateIntroViewController(stepNumber: 2,
+        let vc = ChooseDelegateIntroViewController(stepNumber: 1,
                                                    maxSteps: 4,
                                                    onChooseGuardian: onChooseGuardian,
                                                    onCustomAddress: onCustomAddress)
@@ -170,6 +162,11 @@ class ClaimSafeTokenFlowFactory {
         let vc = EnterCustomAddressViewController()
         vc.mainnet = mainnet
         vc.onContinue = onContinue
+        return vc
+    }
+
+    func chooseTutorial(completion: @escaping () -> ()) -> WhatIsSafeViewController {
+        let vc = WhatIsSafeViewController(completion: completion)
         return vc
     }
 
