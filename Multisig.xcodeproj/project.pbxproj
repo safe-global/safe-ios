@@ -829,6 +829,8 @@
 		931AB80628808F3600264AAA /* TransactionPreviewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931AB80528808F3600264AAA /* TransactionPreviewRequest.swift */; };
 		935DCA4C27BD14C600F09EE4 /* WebConnectionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */; };
 		9388B98227C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */; };
+		938D326C28C7797700198B7E /* NavigatingDAOViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D326A28C7797700198B7E /* NavigatingDAOViewController.swift */; };
+		938D326D28C7797700198B7E /* NavigatingDAOViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 938D326B28C7797700198B7E /* NavigatingDAOViewController.xib */; };
 		93C38DC128C74CAA005188EC /* WhatIsSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C38DBF28C74CAA005188EC /* WhatIsSafeViewController.swift */; };
 		93C38DC228C74CAA005188EC /* WhatIsSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C38DC028C74CAA005188EC /* WhatIsSafeViewController.xib */; };
 		93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */; };
@@ -1754,6 +1756,8 @@
 		931AB80528808F3600264AAA /* TransactionPreviewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionPreviewRequest.swift; sourceTree = "<group>"; };
 		935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionDetailsViewController.swift; sourceTree = "<group>"; };
 		9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentNotificationController.swift; sourceTree = "<group>"; };
+		938D326A28C7797700198B7E /* NavigatingDAOViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatingDAOViewController.swift; sourceTree = "<group>"; };
+		938D326B28C7797700198B7E /* NavigatingDAOViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NavigatingDAOViewController.xib; sourceTree = "<group>"; };
 		93C38DBF28C74CAA005188EC /* WhatIsSafeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WhatIsSafeViewController.swift; path = Tutorial/WhatIsSafeViewController.swift; sourceTree = "<group>"; };
 		93C38DC028C74CAA005188EC /* WhatIsSafeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WhatIsSafeViewController.xib; path = Tutorial/WhatIsSafeViewController.xib; sourceTree = "<group>"; };
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
@@ -2071,6 +2075,8 @@
 				045DBCF4289AF40D003C910C /* ReviewClaimSafeTokenTransactionViewController.swift */,
 				04FEFE7A28C5FD570028A349 /* LegalDisclaimerViewController.swift */,
 				04FEFE7B28C5FD570028A349 /* LegalDisclaimerViewController.xib */,
+				938D326A28C7797700198B7E /* NavigatingDAOViewController.swift */,
+				938D326B28C7797700198B7E /* NavigatingDAOViewController.xib */,
 			);
 			path = ClaimToken;
 			sourceTree = "<group>";
@@ -4414,6 +4420,7 @@
 				D865177D27675DD1000B4C04 /* TotalBalanceView.xib in Resources */,
 				0A57C5DD2577F9ED00420303 /* ConfirmationStatusPiece.xib in Resources */,
 				55BCFC572554627100020CE7 /* BasicCell.xib in Resources */,
+				938D326D28C7797700198B7E /* NavigatingDAOViewController.xib in Resources */,
 				D80B5A10276A367A00D6E024 /* AddOwnerFirstViewController.xib in Resources */,
 				0ADD19C6265EA23200EB0F2B /* SeedWordCollectionViewCell.xib in Resources */,
 				0439B29D28048A5F00796F18 /* BackupKeyTableViewCell.xib in Resources */,
@@ -4738,6 +4745,7 @@
 				041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */,
 				049A9D3A25F81F2C00CA5723 /* EditOwnerKeyViewController.swift in Sources */,
 				043350C5281887AE003725E2 /* SafeTransactionController.swift in Sources */,
+				938D326C28C7797700198B7E /* NavigatingDAOViewController.swift in Sources */,
 				0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */,
 				0A22E12725E4FA3200D24DE1 /* SwitchTableViewCell.swift in Sources */,
 				0AF1C8A52541ADFF00E28669 /* LoadingView.swift in Sources */,

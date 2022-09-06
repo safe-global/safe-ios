@@ -1,0 +1,63 @@
+//
+//  NavigatingDAOViewController.swift
+//  Multisig
+//
+//  Created by Dirk Jäckel on 06.09.22.
+//  Copyright © 2022 Gnosis Ltd. All rights reserved.
+//
+
+import UIKit
+
+class NavigatingDAOViewController: UIViewController {
+
+    @IBOutlet weak var firstParagraph: UILabel!
+    @IBOutlet weak var screenTitle: UILabel!
+    @IBOutlet weak var paragraphTitle: UILabel!
+    @IBOutlet weak var secondParagraph: UILabel!
+    @IBOutlet weak var nextButton: UIButton!
+
+    private var stepLabel: UILabel!
+
+    private var onNext: (() -> ())?
+    private var stepNumber: Int = 1
+    private var maxSteps: Int = 4
+
+    private var completion: (() -> Void)?
+
+    convenience init(stepNumber: Int = 1, maxSteps: Int = 4, completion: @escaping () -> ()) {
+        self.init(namedClass: NavigatingDAOViewController.self)
+        self.stepNumber = stepNumber
+        self.maxSteps = maxSteps
+        self.completion = completion
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        ViewControllerFactory.removeUnderlineFromNavigationBar(self)
+
+        screenTitle.text = "Navigating SafeDAO"
+        screenTitle.setStyle(.claimTitle)
+
+        firstParagraph.setStyle(.secondary)
+        firstParagraph.text = "SafeDAO aims to foster a vibrant ecosystem of applications and wallets leveraging Safe smart contract accounts. This will be achieved through data-backed discussions, grants, ecosystem investments, as well as providing developer tools and infrastructure."
+
+        paragraphTitle.text = "How to get involved:"
+        paragraphTitle.setStyle(.title5)
+
+        secondParagraph.setStyle(.secondary)
+        secondParagraph.text = "Lorem Ipsum..."
+
+        nextButton.setText("Start claiming", .filled)
+
+        stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
+        stepLabel.textAlignment = .right
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
+        stepLabel.setStyle(.tertiary)
+        stepLabel.text = "\(stepNumber) of \(maxSteps)"
+    }
+
+    @IBAction func nextClicked(_ sender: Any) {
+        completion?()
+    }
+
+}

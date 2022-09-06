@@ -64,6 +64,7 @@ class ClaimSafeTokenFlow: UIFlow {
     func chooseTutorial() {
         let vc = factory.chooseTutorial { [unowned self] in
             showDisclaimer()
+
         }
         show(vc)
     }
@@ -126,10 +127,15 @@ class ClaimSafeTokenFlow: UIFlow {
 }
 
 class ClaimSafeTokenFlowFactory {
-    func legalDisclaimer(onAgree: @escaping () -> ()) -> LegalDisclaimerViewController {
-        let vc = LegalDisclaimerViewController()
-        vc.onAgree = onAgree
+    func legalDisclaimer(onAgree: @escaping () -> ()) -> NavigatingDAOViewController {
+
+
+        let vc = NavigatingDAOViewController(completion: onAgree)
         return vc
+
+//        let vc = LegalDisclaimerViewController()
+//        vc.onAgree = onAgree
+//        return vc
     }
 
     func claimGetStarted(onStartClaim: @escaping () -> ()) -> ClaimGetStartedViewController {
