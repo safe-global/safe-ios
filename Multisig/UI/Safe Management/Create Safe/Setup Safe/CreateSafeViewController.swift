@@ -10,6 +10,7 @@ import UIKit
 import Ethereum
 import Solidity
 import WalletConnectSwift
+import URRegistry
 
 class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CreateSafeFormUIModelDelegate, PasscodeProtecting {
 
@@ -25,6 +26,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     var chain: Chain?
 
     private var cellBuilder: SafeCellBuilder!
+    private var keystoneSignFlow: KeystoneSignFlow!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -769,8 +771,28 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             present(vc, animated: true, completion: nil)
 
         case .keystone:
-            // To be implemented
-            break
+            guard
+                let keyInfo = uiModel.selectedKey,
+                let signRequest = KeystoneSignRequest(
+                    signData: uiModel.transaction.preImageForSigning().toHexString(),
+                    chainId: uiModel.chain.id,
+                    keyInfo: keyInfo,
+                    signType: .transaction
+                )
+            else {
+                return
+            }
+            
+            keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: chain) { [unowned self] success in
+                keystoneSignFlow = nil
+                if success {
+                    print("Sign Successfully")
+                } else {
+                    App.shared.snackbar.show(message: "Signing failed")
+                }
+            }
+            
+            present(flow: keystoneSignFlow)
         }
     }
 

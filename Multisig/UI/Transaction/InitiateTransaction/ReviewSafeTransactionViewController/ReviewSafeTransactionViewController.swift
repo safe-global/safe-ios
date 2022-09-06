@@ -259,8 +259,13 @@ class ReviewSafeTransactionViewController: UIViewController {
             }
             
         case .keystone:
-            guard
-                let signRequest = KeystoneSignRequest(transaction: transaction, keyInfo: keyInfo, signType: .personalMessage)
+            guard                
+                let signRequest = KeystoneSignRequest(
+                    signData: transaction.safeTxHash.hash.toHexString(),
+                    chainId: transaction.chainId,
+                    keyInfo: keyInfo,
+                    signType: .personalMessage
+                )
             else {
                 App.shared.snackbar.show(message: "Failed to confirm transaction")
                 endConfirm()

@@ -10,23 +10,14 @@ import Foundation
 import URRegistry
 
 extension KeystoneSignRequest {
-    init?(transaction: Transaction, keyInfo: KeyInfo, signType: SignType) {
+    init?(signData: HexString, chainId: String?, keyInfo: KeyInfo, signType: SignType) {
         guard
             let requestId = UUID().uuidString.data(using: .utf8)?.toHexString(),
-            let chainId = transaction.chainId,
+            let chainId = chainId,
             let chainIdNumber = UInt32(chainId),
             let metadata = keyInfo.metadata,
             let keyMetadata = KeyInfo.KeystoneKeyMetadata.from(data: metadata)
         else { return nil }
-
-        var signData = ""
-        
-        switch signType {
-        case .personalMessage:
-            signData = transaction.safeTxHash.hash.toHexString()
-        default:
-            break
-        }
         
         self.init(
             requestId: requestId,
@@ -35,7 +26,7 @@ extension KeystoneSignRequest {
             chainId: chainIdNumber,
             path: keyMetadata.path,
             xfp: keyMetadata.sourceFingerprint,
-            address: transaction.to.address.data.toHexString(),
+            address: "",
             origin: "gnosis safe ios"
         )
     }
