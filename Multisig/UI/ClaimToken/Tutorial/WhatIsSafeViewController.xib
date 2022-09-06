@@ -101,7 +101,6 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                     </constraints>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1000" id="Beb-5u-h6J"/>
                                 <constraint firstItem="Z4G-kB-4Fi" firstAttribute="leading" secondItem="bpq-Qm-n8b" secondAttribute="leading" constant="10" id="CDj-uB-KcK"/>
