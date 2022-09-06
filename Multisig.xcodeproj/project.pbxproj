@@ -182,6 +182,8 @@
 		04FA1A2E2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */; };
 		04FA1A342580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */; };
 		04FC26B625CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FC26B425CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift */; };
+		04FEFE7C28C5FD570028A349 /* LegalDisclaimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FEFE7A28C5FD570028A349 /* LegalDisclaimerViewController.swift */; };
+		04FEFE7D28C5FD570028A349 /* LegalDisclaimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04FEFE7B28C5FD570028A349 /* LegalDisclaimerViewController.xib */; };
 		0A007124254B255C00A57CAF /* UIFont+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A007123254B255C00A57CAF /* UIFont+Styles.swift */; };
 		0A00712A254B379000A57CAF /* UIColor+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A007129254B379000A57CAF /* UIColor+Styles.swift */; };
 		0A01DCE42770B0A100A87D7A /* TransactionIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A01DCE32770B0A100A87D7A /* TransactionIntegrationTests.swift */; };
@@ -1116,6 +1118,8 @@
 		04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueuedTransactionsSummaryListRequest.swift; sourceTree = "<group>"; };
 		04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionsSummaryListRequest.swift; sourceTree = "<group>"; };
 		04FC26B425CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSafeSettingsViewController.swift; sourceTree = "<group>"; };
+		04FEFE7A28C5FD570028A349 /* LegalDisclaimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalDisclaimerViewController.swift; sourceTree = "<group>"; };
+		04FEFE7B28C5FD570028A349 /* LegalDisclaimerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LegalDisclaimerViewController.xib; sourceTree = "<group>"; };
 		0A007123254B255C00A57CAF /* UIFont+Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Styles.swift"; sourceTree = "<group>"; };
 		0A007129254B379000A57CAF /* UIColor+Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Styles.swift"; sourceTree = "<group>"; };
 		0A01DCE02770996E00A87D7A /* Ethereum */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Ethereum; path = Packages/Ethereum; sourceTree = "<group>"; };
@@ -2065,6 +2069,8 @@
 				6AD4773128986556004C736D /* ClaimSuccessViewController.swift */,
 				6AD4773228986556004C736D /* ClaimSuccessViewController.xib */,
 				045DBCF4289AF40D003C910C /* ReviewClaimSafeTokenTransactionViewController.swift */,
+				04FEFE7A28C5FD570028A349 /* LegalDisclaimerViewController.swift */,
+				04FEFE7B28C5FD570028A349 /* LegalDisclaimerViewController.xib */,
 			);
 			path = ClaimToken;
 			sourceTree = "<group>";
@@ -4472,6 +4478,7 @@
 				0AC2A3C826FB6802002CB26A /* CollectiblesUnsupportedViewController.xib in Resources */,
 				0A67AC9725E3BE4400B3E97C /* PasscodeViewController.xib in Resources */,
 				55CCD5852750FC10004EA3E3 /* LedgerBluetoothIssueFooterView.xib in Resources */,
+				04FEFE7D28C5FD570028A349 /* LegalDisclaimerViewController.xib in Resources */,
 				55F91A9125BEABA100938475 /* EnterKeyOrSeedPhraseViewController.xib in Resources */,
 				04C5ED3B27878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.xib in Resources */,
 				550FB1B326691D9500C13D54 /* ExternalLinkHeaderFooterView.xib in Resources */,
@@ -4876,6 +4883,7 @@
 				5534F7372760C7670018E655 /* CreatePasscodeSuggestionViewController.swift in Sources */,
 				0AC2A3CA26FB6B84002CB26A /* WebAppURLBuilder.swift in Sources */,
 				0A791D9924D2E3C100D70DA9 /* MethodDecodingError.swift in Sources */,
+				04FEFE7C28C5FD570028A349 /* LegalDisclaimerViewController.swift in Sources */,
 				04273E5C26B41A3700A14E95 /* APDUController.swift in Sources */,
 				0A8AEB1825A4726E002A3FE1 /* ActionDetailExpandableCell.swift in Sources */,
 				5532D4C02449A17D0067505A /* ConsoleLogger.swift in Sources */,

@@ -29,15 +29,19 @@ class ClaimSafeTokenFlow: UIFlow {
             // if not available show not available
             showNotAvailable()
         } else {
-            // if available show intro
-           showIntro()
+            showIntro()
         }
+    }
 
+    func showDisclaimer() {
+        let vc = factory.legalDisclaimer {[unowned self] in
+            chooseDelegateIntro()
+        }
+        show(vc)
     }
 
     func showIntro() {
         let vc = factory.claimGetStarted { [unowned self] in
-//            chooseDelegateIntro()  // TODO: Jump to Tutorial
             chooseTutorial()
         }
         show(vc)
@@ -58,7 +62,9 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     func chooseTutorial() {
-        let vc = factory.chooseTutorial()
+        let vc = factory.chooseTutorial { [unowned self] in
+            showDisclaimer()
+        }
         show(vc)
     }
 
@@ -120,6 +126,12 @@ class ClaimSafeTokenFlow: UIFlow {
 }
 
 class ClaimSafeTokenFlowFactory {
+    func legalDisclaimer(onAgree: @escaping () -> ()) -> LegalDisclaimerViewController {
+        let vc = LegalDisclaimerViewController()
+        vc.onAgree = onAgree
+        return vc
+    }
+
     func claimGetStarted(onStartClaim: @escaping () -> ()) -> ClaimGetStartedViewController {
         let vc = ClaimGetStartedViewController()
         vc.onStartClaim = onStartClaim
@@ -153,8 +165,8 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
-    func chooseTutorial() -> WhatIsSafeViewController {
-        let vc = WhatIsSafeViewController()
+    func chooseTutorial(completion: @escaping () -> ()) -> WhatIsSafeViewController {
+        let vc = WhatIsSafeViewController(completion: completion)
         return vc
     }
 
