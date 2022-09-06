@@ -31,15 +31,16 @@ class WhatIsSafeViewController: UIViewController {
 
     private var completion: (() -> Void)?
 
-    convenience init(stepNumber: Int = 1, maxSteps: Int = 4, onNext: @escaping () -> ()) {
+    convenience init(stepNumber: Int = 1, maxSteps: Int = 4, completion: @escaping () -> ()) {
         self.init(namedClass: WhatIsSafeViewController.self)
         self.stepNumber = stepNumber
         self.maxSteps = maxSteps
-        self.completion = onNext
+        self.completion = completion
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        ViewControllerFactory.removeUnderlineFromNavigationBar(self)
 
         screenTitle.text = "What is Safe?"
         screenTitle.setStyle(.claimTitle)
@@ -68,7 +69,7 @@ class WhatIsSafeViewController: UIViewController {
     }
 
     @IBAction func nextClicked(_ sender: Any) {
-        print("Next button clicked")
+        completion?()
     }
 
 }
