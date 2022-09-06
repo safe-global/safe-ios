@@ -27,10 +27,10 @@ class ClaimNotAvailableViewController: UIViewController {
 
         descriptionLabel.setStyle(.secondary)
 
-        safeDAOLink.setText("Safe DAO")
+        safeDAOLink.setText("Safe DAO", underlined: false)
         safeDAOLink.url = App.configuration.contact.safeDAOURL
 
-        forumLink.setText("Forum")
+        forumLink.setText("Forum", underlined: false)
         forumLink.url = App.configuration.contact.forumURL
 
         okButton.setText("OK, I Understand", .filled)
