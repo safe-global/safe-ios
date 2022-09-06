@@ -30,7 +30,7 @@ class TokenDistributionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        ViewControllerFactory.removeUnderlineFromNavigationBar(self)
+        ViewControllerFactory.removeNavigationBarBorder(self)
         
         distributionView.set("Distribution details") {
             //TODO: Show distribution details
