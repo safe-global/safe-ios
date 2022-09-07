@@ -785,13 +785,13 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             
             keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: chain) { [unowned self] success in
                 keystoneSignFlow = nil
-                if success {
-                    print("Sign Successfully")
-                } else {
+                if !success {
                     App.shared.snackbar.show(message: "Signing failed")
                 }
             }
-            
+            keystoneSignFlow.signCompletion = { signature in
+                
+            }
             present(flow: keystoneSignFlow)
         }
     }

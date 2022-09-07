@@ -14,6 +14,8 @@ class KeystoneSignFlow: UIFlow {
     private let signRequest: KeystoneSignRequest
     private let chain: Chain?
     
+    var signCompletion: ((_ signature: String) -> Void)?
+    
     init(signRequest: KeystoneSignRequest, chain: Chain?, completion: @escaping (Bool) -> Void) {
         self.signRequest = signRequest
         self.chain = chain
@@ -25,7 +27,10 @@ class KeystoneSignFlow: UIFlow {
     }
     
     private func requestSignature() {
-        guard let qrValue = URRegistry.shared.requestSign(signRequest: signRequest) else { return }
+        guard let qrValue = URRegistry.shared.requestSign(signRequest: signRequest) else {
+            stop(success: false)
+            return
+        }
         let signVC = UIHostingController(rootView: KeystoneRequestSignatureView(qrValue: qrValue, onTap: { [weak self] in
             self?.presentScanner()
         }))
@@ -60,9 +65,13 @@ class KeystoneSignFlow: UIFlow {
 
 extension KeystoneSignFlow: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
-        presenter.dismiss(animated: true) {
-            print(code)
+        guard let signature = URRegistry.shared.getSignature(from: code) else {
+            stop(success: false)
+            return
         }
+        
+        signCompletion?(signature)
+        stop(success: true)
     }
     
     func scannerViewControllerDidCancel() {

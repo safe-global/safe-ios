@@ -274,14 +274,14 @@ class ReviewSafeTransactionViewController: UIViewController {
             
             keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: safe.chain) { [unowned self] success in
                 keystoneSignFlow = nil
-                if success {
-                    print("Sign Successfully")
-                } else {
+                if !success {
                     App.shared.snackbar.show(message: "Failed to confirm transaction")
                     endConfirm()
                 }
             }
-            
+            keystoneSignFlow.signCompletion = { signature in
+                
+            }
             present(flow: keystoneSignFlow)
         }
     }
