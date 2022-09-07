@@ -14,7 +14,6 @@ class ClaimGetStartedViewController: UIViewController {
     @IBOutlet private weak var instructionsView: InstructionStepListView!
     @IBOutlet private weak var screenTitle: UILabel!
 
-    private var stepLabel: UILabel!
     private var instructionsVC: InstructionsViewController!
 
     var onStartClaim: (() -> ())?
@@ -23,7 +22,8 @@ class ClaimGetStartedViewController: UIViewController {
         super.viewDidLoad()
 
         ViewControllerFactory.addCloseButton(self)
-        ViewControllerFactory.makeTransparentNavigationBar(self)
+        ViewControllerFactory.removeNavigationBarBorder(self)
+        navigationItem.largeTitleDisplayMode = .never
 
         startClaimButton.setText("Start your claiming process", .filled)
         screenTitle.text = "Welcome to the next generation of digital ownership!"

@@ -145,7 +145,7 @@ class TokenAmountTextDelegate: NSObject, UITextFieldDelegate {
 
         // must be a number
         guard let decimal = formatter.number(from: string, precision: 18) else {
-            validationError = "Please enter a decimal number"
+            validationError = "Please enter a positive number (max 18 digits after decimal point)"
             return
         }
 
@@ -176,6 +176,11 @@ class TokenAmountTextDelegate: NSObject, UITextFieldDelegate {
             return true
         }
         var correctedText = newText
+
+        // replace any of the different 'dot' characters coming from keyboard with a simple '.'
+        for dotChar in ".,٫" {
+            correctedText = correctedText.replacingOccurrences(of: String(dotChar), with: ".")
+        }
 
         if correctedText.hasPrefix(".") {
             correctedText = "0" + correctedText
