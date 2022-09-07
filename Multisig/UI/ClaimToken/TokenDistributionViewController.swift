@@ -24,18 +24,22 @@ class TokenDistributionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        Tracker.trackEvent(.screenClaimDistr)
+
         ViewControllerFactory.removeNavigationBarBorder(self)
         navigationItem.largeTitleDisplayMode = .never
         
-        distributionView.set("Distribution details") {
+        distributionView.set("Distribution details", onClick: {
             //TODO: Show distribution details
-        }
+            Tracker.trackEvent(.userClaimDistrDetails)
+        })
         titleLabel.setStyle(.Updated.title)
         descriptionLabel.setStyle(.secondary)
         nextButton.setText("Next", .filled)
     }
 
     @IBAction func didTapNext(_ sender: Any) {
+        Tracker.trackEvent(.userClaimDistrNext)
         onNext?()
     }
 }

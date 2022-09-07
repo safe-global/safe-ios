@@ -42,6 +42,7 @@ final class HeaderViewController: ContainerViewController {
             claimTokenFlow = ClaimSafeTokenFlow(safe: safe) { [unowned self] _ in
                 claimTokenFlow = nil
             }
+            Tracker.trackEvent(.userClaimOpen)
             present(flow: claimTokenFlow)
         }
 

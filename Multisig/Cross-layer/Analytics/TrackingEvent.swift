@@ -333,7 +333,7 @@ enum TrackingEvent: String, Trackable {
     // Banner Tracking
     case bannerSafeTokenClaim                       = "user_banner_safe_token_claim"
     case bannerSafeTokenSkip                        = "user_banner_safe_token_skip"
-    case bannerUserClaimOpen                        = "user_claim_open"
+    case userClaimOpen                              = "user_claim_open"
 
     // Welcome screen Tracking
     case screenClaimWelcome                         = "screen_claim_welcome"
@@ -361,7 +361,7 @@ enum TrackingEvent: String, Trackable {
 
     // Navigating SafeDAO screen Tracking
     case screenClaimDao                             = "screen_claim_dao"
-    case useClaimDaoStart                           = "user_claim_dao_start"
+    case userClaimDaoStart                           = "user_claim_dao_start"
 
     // Legal disclaimer screen Tracking
     case screenClaimLegal                           = "screen_claim_legal"
