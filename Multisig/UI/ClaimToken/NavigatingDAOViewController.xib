@@ -34,7 +34,7 @@
                     <rect key="frame" x="16" y="60" width="382" height="714"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="IcF-Ph-KQU" userLabel="ContentStackView">
-                            <rect key="frame" x="0.0" y="20" width="382" height="483"/>
+                            <rect key="frame" x="0.0" y="20" width="382" height="503.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Navigating SafeDAO" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLj-o9-Pv9">
                                     <rect key="frame" x="0.0" y="0.0" width="382" height="32.5"/>
@@ -56,66 +56,78 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tLm-2e-2fm" userLabel="CheckListStackView">
-                                    <rect key="frame" x="0.0" y="250.5" width="382" height="167.5"/>
+                                    <rect key="frame" x="0.0" y="250.5" width="382" height="188"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="top" alignment="firstBaseline" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="znU-hc-aCe" userLabel="ItemStackView">
+                                        <stackView opaque="NO" contentMode="top" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="znU-hc-aCe" userLabel="ItemStackView">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="41"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" id="AdG-Ut-Iae">
-                                                    <rect key="frame" x="0.0" y="0.0" width="18" height="14"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="uAJ-Ob-qbQ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="26" height="26"/>
                                                     <color key="tintColor" name="primary"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="uAJ-Ob-qbQ" secondAttribute="height" id="9hm-YK-8Nc"/>
+                                                        <constraint firstAttribute="height" constant="26" id="x8E-JB-FuI"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Discuss SafeDAO improvements - post topics and discuss in our forum." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0U3-zK-Me5" userLabel="Item1Text">
-                                                    <rect key="frame" x="30" y="0.0" width="352" height="41"/>
+                                                    <rect key="frame" x="38" y="0.0" width="344" height="41"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <stackView opaque="NO" contentMode="top" alignment="firstBaseline" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="L2T-lM-gKr" userLabel="ItemStackView">
+                                        <stackView opaque="NO" contentMode="top" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="L2T-lM-gKr" userLabel="ItemStackView">
                                             <rect key="frame" x="0.0" y="49" width="382" height="41"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="NUb-0C-LyB">
-                                                    <rect key="frame" x="0.0" y="0.0" width="16.5" height="14"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="n9l-w0-VpO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="26" height="26"/>
                                                     <color key="tintColor" name="primary"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="16.5" id="cd1-83-MHJ"/>
+                                                        <constraint firstAttribute="height" constant="26" id="0TL-Fp-bOZ"/>
+                                                        <constraint firstAttribute="width" secondItem="n9l-w0-VpO" secondAttribute="height" id="m1t-m1-pHb"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Propose improvements - read our governance process and post an SIP." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z7G-zp-con" userLabel="Item2Text">
-                                                    <rect key="frame" x="28.5" y="0.0" width="353.5" height="41"/>
+                                                    <rect key="frame" x="38" y="0.0" width="344" height="41"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <stackView opaque="NO" contentMode="top" alignment="firstBaseline" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="LJT-MC-7aH" userLabel="ItemStackView">
-                                            <rect key="frame" x="0.0" y="98" width="382" height="20.5"/>
+                                        <stackView opaque="NO" contentMode="top" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="LJT-MC-7aH" userLabel="ItemStackView">
+                                            <rect key="frame" x="0.0" y="98" width="382" height="41"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="jFO-fM-mIV">
-                                                    <rect key="frame" x="0.0" y="0.0" width="18" height="14"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="Neo-RS-AUG">
+                                                    <rect key="frame" x="0.0" y="0.0" width="26" height="26"/>
                                                     <color key="tintColor" name="primary"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="Neo-RS-AUG" secondAttribute="height" id="K90-eg-pcU"/>
+                                                        <constraint firstAttribute="height" constant="26" id="Y8Y-FK-pSd"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Govern improvements - vote on our Snapshot." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1B-Mu-vEQ" userLabel="Item3Text">
-                                                    <rect key="frame" x="30" y="0.0" width="352" height="20.5"/>
+                                                    <rect key="frame" x="38" y="0.0" width="344" height="41"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <stackView opaque="NO" contentMode="top" alignment="firstBaseline" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="kwU-67-cF5" userLabel="ItemStackView">
-                                            <rect key="frame" x="0.0" y="126.5" width="382" height="41"/>
+                                        <stackView opaque="NO" contentMode="top" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="kwU-67-cF5" userLabel="ItemStackView">
+                                            <rect key="frame" x="0.0" y="147" width="382" height="41"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="eeP-M0-8mq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="18" height="14"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="BLZ-22-2c9">
+                                                    <rect key="frame" x="0.0" y="0.0" width="26" height="26"/>
                                                     <color key="tintColor" name="primary"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="26" id="os2-uc-qRV"/>
+                                                        <constraint firstAttribute="width" secondItem="BLZ-22-2c9" secondAttribute="height" id="pcv-ZC-9Wd"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Chat with the communiity - join our Safe Discord." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61T-uw-BsL" userLabel="Item4Text">
-                                                    <rect key="frame" x="30" y="0.0" width="352" height="41"/>
+                                                    <rect key="frame" x="38" y="0.0" width="344" height="41"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -125,7 +137,7 @@
                                     </subviews>
                                 </stackView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Now help decide on the future of ownership with $SAFE." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxZ-fA-FWu">
-                                    <rect key="frame" x="0.0" y="442" width="382" height="41"/>
+                                    <rect key="frame" x="0.0" y="462.5" width="382" height="41"/>
                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
