@@ -29,49 +29,7 @@ class SelectDelegateFlow: UIFlow {
     }
 
     override func start() {
-    func whatIsSafe() {
-        let vc = factory.whatIsSafe { [unowned self] in
-        }
-            chooseDelegateIntro()  // TODO: Jump to Tutorial
-
-        show(vc)
-
-    }
-        show(vc)
-        }
-
-            whatIsSafe()
-    func tokenDistribution() {
-        let vc = factory.tokenDistribution { [unowned self] in
-
-    }
-        let vc = factory.claimNotAvailable()
-        show(vc)
-    func showNotAvailable() {
-
-        show(vc)
-    }
-        }
-            tokenDistribution()
-        let vc = factory.claimGetStarted { [unowned self] in
-    func showIntro() {
-
-    }
-        show(vc)
-
-        }
-            showIntro()
-        let vc = factory.legalDisclaimer {[unowned self] in
-    func showDisclaimer() {
-
-    }
-            showDisclaimer()
-        }
-        } else {
-            showNotAvailable()
-        if safe.addressValue == Address(exactly: "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7") {
-            // if not available show not available
-        //TODO remove workaround and check claim availability
+        chooseDelegateIntro()
     }
 
     func chooseDelegateIntro() {
@@ -204,6 +162,13 @@ class ClaimSafeTokenFlow: UIFlow {
 
     func showTokenDistribution() {
         let vc = factory.chooseTokenDistribution { [unowned self] in
+            showWhatIsSafeToken()
+        }
+        show(vc)
+    }
+
+    func showWhatIsSafeToken() {
+        let vc = factory.whatIsSafeToken { [unowned self] in
             showNavigatingDAO()
         }
         show(vc)
@@ -302,7 +267,7 @@ class ClaimSafeTokenFlowFactory {
     }
 
     func tokenDistribution(onNext: @escaping () -> ()) -> TokenDistributionViewController {
-        TokenDistributionViewController(stepNumber: 1, maxSteps: 4, onNext: onNext)
+        TokenDistributionViewController(onNext: onNext)
     }
 
     func whatIsSafe(onNext: @escaping () -> ()) -> WhatIsSafeViewController {
@@ -334,13 +299,18 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
-    func chooseWhatIsSafe(completion: @escaping () -> ()) -> WhatIsSafeViewController {
-        let vc = WhatIsSafeViewController(completion: completion)
+    func chooseWhatIsSafe(onNext: @escaping () -> ()) -> WhatIsSafeViewController {
+        let vc = WhatIsSafeViewController(onNext: onNext)
         return vc
     }
 
     func chooseTokenDistribution(onNext: @escaping () -> ()) -> TokenDistributionViewController {
         let vc = TokenDistributionViewController(onNext: onNext)
+        return vc
+    }
+
+    func whatIsSafeToken(onNext: @escaping () -> ()) -> WhatIsSafeTokenViewController {
+        let vc = WhatIsSafeTokenViewController(onNext: onNext)
         return vc
     }
 

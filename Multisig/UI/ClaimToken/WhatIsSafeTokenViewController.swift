@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WhatIsSafeViewController: UIViewController {
+class WhatIsSafeTokenViewController: UIViewController {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var nextButton: UIButton!
@@ -21,12 +21,14 @@ class WhatIsSafeViewController: UIViewController {
 
 
     convenience init(onNext: @escaping () -> ()) {
-        self.init(namedClass: WhatIsSafeViewController.self)
+        self.init(namedClass: WhatIsSafeTokenViewController.self)
         self.onNext = onNext
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        ViewControllerFactory.removeNavigationBarBorder(self)
+
         safeProtocolView.set("Safe Protocol") { [unowned self] in
             let vc = ViewControllerFactory.detailedInfoViewController(title: "Safe Protocol",
                                                                       text: "Safe Deployments (core smart contract deployments across multiple networks\nCuration of “trusted lists” (Token lists, dApp lists, module lists)",
