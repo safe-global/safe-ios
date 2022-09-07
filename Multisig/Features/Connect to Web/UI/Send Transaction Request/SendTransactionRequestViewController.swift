@@ -10,6 +10,7 @@ import Solidity
 import WalletConnectSwift
 import JsonRpc2
 import Json
+import URRegistry
 
 class SendTransactionRequestViewController: WebConnectionContainerViewController, WebConnectionRequestObserver, PasscodeProtecting {
 
@@ -30,7 +31,8 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
     private var userParameters = UserDefinedTransactionParameters()
     private var chain: Chain!
     private var keyInfo: KeyInfo!
-
+    private var keystoneSignFlow: KeystoneSignFlow!
+    
     convenience init() {
         self.init(namedClass: WebConnectionContainerViewController.self)
     }
@@ -424,8 +426,45 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
             present(vc, animated: true, completion: nil)
             
         case .keystone:
-            // To be implemented
-            break
+            guard
+                let signRequest = KeystoneSignRequest(
+                    signData: transaction.preImageForSigning().toHexString(),
+                    chainId: chain.id,
+                    keyInfo: keyInfo,
+                    signType: .typedTransaction
+                )
+            else {
+                return
+            }
+            
+            keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: chain) { [unowned self] success in
+                keystoneSignFlow = nil
+                if !success {
+                    App.shared.snackbar.show(message: "Signing failed")
+                }
+            }
+            keystoneSignFlow.signCompletion = { [weak self] signature in
+                guard
+                    let self = self,
+                    let unmarshaledSignature = SECP256K1.unmarshalSignature(signatureData: Data(hex: signature))
+                else { return }
+                                
+                do {
+                    try self.transaction.updateSignature(
+                        v: Sol.UInt256(UInt(unmarshaledSignature.v)),
+                        r: Sol.UInt256(Data(Array(unmarshaledSignature.r))),
+                        s: Sol.UInt256(Data(Array(unmarshaledSignature.s)))
+                    )
+                } catch {
+                    let gsError = GSError.error(description: "Signing failed", error: error)
+                    App.shared.snackbar.show(error: gsError)
+                    return
+                }
+
+                self.submit()
+                
+            }
+            present(flow: keystoneSignFlow)
         }
     }
 
