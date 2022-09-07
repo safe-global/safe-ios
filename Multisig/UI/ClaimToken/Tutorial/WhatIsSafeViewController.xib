@@ -154,9 +154,6 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                     <viewLayoutGuide key="contentLayoutGuide" id="Ozj-J6-HfH"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="D0y-wO-kdl"/>
                 </scrollView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="claim-background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="T4t-X8-hHD">
-                    <rect key="frame" x="0.0" y="88" width="390" height="700"/>
-                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="00z-yf-QU3">
                     <rect key="frame" x="16" y="734" width="358" height="56"/>
                     <constraints>
@@ -179,10 +176,7 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                 <constraint firstItem="00z-yf-QU3" firstAttribute="top" secondItem="4pP-T8-iVp" secondAttribute="bottom" constant="16" id="4sQ-7q-lXF"/>
                 <constraint firstItem="4pP-T8-iVp" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="GpD-Mb-Iu1"/>
                 <constraint firstItem="4pP-T8-iVp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Xjc-8q-Usy"/>
-                <constraint firstItem="T4t-X8-hHD" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="cYw-ra-3tl"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="00z-yf-QU3" secondAttribute="bottom" constant="20" id="gPg-d6-fVl"/>
-                <constraint firstItem="T4t-X8-hHD" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="hgF-6g-qhK"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="T4t-X8-hHD" secondAttribute="trailing" id="sxP-7g-wZc"/>
                 <constraint firstItem="4pP-T8-iVp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="y3t-ad-iB9"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="00z-yf-QU3" secondAttribute="trailing" constant="16" id="zKW-2W-oqD"/>
             </constraints>
@@ -191,7 +185,6 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
         </view>
     </objects>
     <resources>
-        <image name="claim-background-gradient" width="375" height="700"/>
         <image name="ico-private-key" width="17" height="20"/>
         <image name="ico-token" width="24" height="24"/>
         <namedColor name="labelPrimary">
