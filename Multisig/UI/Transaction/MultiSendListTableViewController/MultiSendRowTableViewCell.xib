@@ -23,26 +23,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="440.5" height="76"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JIJ-bo-L14" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
-                                <rect key="frame" x="16" y="16" width="272.5" height="44"/>
+                                <rect key="frame" x="16" y="16" width="380.5" height="44"/>
                                 <color key="backgroundColor" name="backgroundSecondary"/>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-info-toolbar" translatesAutoresizingMaskIntoConstraints="NO" id="TAP-Ph-7yB">
-                                <rect key="frame" x="296.5" y="26" width="24" height="24"/>
+                                <rect key="frame" x="404.5" y="26" width="24" height="24"/>
                                 <color key="tintColor" name="warning"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="wA9-JY-V8Y"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ogd-oH-yAA" userLabel="Action Label">
-                                <rect key="frame" x="328.5" y="16" width="100" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="qxx-d3-txF"/>
-                                    <constraint firstAttribute="width" constant="100" id="sTb-oV-ASb"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <directionalEdgeInsets key="directionalLayoutMargins" top="16" leading="16" bottom="16" trailing="12"/>
                     </stackView>
@@ -57,7 +47,6 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" name="backgroundSecondary"/>
             <connections>
-                <outlet property="actionLabel" destination="ogd-oH-yAA" id="lIe-hW-wqk"/>
                 <outlet property="addressInfoView" destination="JIJ-bo-L14" id="vYn-e2-64y"/>
                 <outlet property="delegateWarning" destination="TAP-Ph-7yB" id="wpx-o3-aVx"/>
             </connections>

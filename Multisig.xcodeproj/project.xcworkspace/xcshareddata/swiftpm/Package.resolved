@@ -123,8 +123,8 @@
         "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
         "state": {
           "branch": null,
-          "revision": "2235a22ca249199cb736237f4bb9cc12b6ed416a",
-          "version": "7.3.0"
+          "revision": "be1a1acb283a702b99b630f586877ba02234b4cb",
+          "version": "7.3.2"
         }
       },
       {
@@ -141,8 +141,8 @@
         "repositoryURL": "https://github.com/airbnb/lottie-ios",
         "state": {
           "branch": null,
-          "revision": "246bab7ef72bad56abefb88e84a08871cecf9cb8",
-          "version": "3.4.0"
+          "revision": "314537ec697719fa33a9d48210f4d06a463286d3",
+          "version": "3.4.3"
         }
       },
       {
@@ -159,8 +159,8 @@
         "repositoryURL": "https://github.com/mxcl/PromiseKit.git",
         "state": {
           "branch": null,
-          "revision": "c946b7561fbe11379a874e59faa2c5f8077ae0e1",
-          "version": "6.17.1"
+          "revision": "43772616c46a44a9977e41924ae01d0e55f2f9ca",
+          "version": "6.18.1"
         }
       },
       {
@@ -195,8 +195,8 @@
         "repositoryURL": "https://github.com/Juanpe/SkeletonView.git",
         "state": {
           "branch": null,
-          "revision": "b640c1d8eee79c3a5ad6e0ae1afd2ae0fea30423",
-          "version": "1.29.3"
+          "revision": "ca7d2edceee613e47b7857029fc82de633460e6f",
+          "version": "1.30.2"
         }
       },
       {
@@ -222,8 +222,8 @@
         "repositoryURL": "https://github.com/apple/swift-protobuf.git",
         "state": {
           "branch": null,
-          "revision": "e1499bc69b9040b29184f7f2996f7bab467c1639",
-          "version": "1.19.0"
+          "revision": "b8230909dedc640294d7324d37f4c91ad3dcf177",
+          "version": "1.20.1"
         }
       },
       {
@@ -249,8 +249,8 @@
         "repositoryURL": "https://github.com/gnosis/SwiftCryptoTokenFormatter.git",
         "state": {
           "branch": null,
-          "revision": "6f605fd7bd61327a6006919e28bf3f0632d1c556",
-          "version": "1.1.0"
+          "revision": "8ad26a303147cfc8df89d2f1ac32a5017855c52c",
+          "version": "1.1.1"
         }
       },
       {
