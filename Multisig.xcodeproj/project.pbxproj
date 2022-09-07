@@ -178,7 +178,6 @@
 		04D1323625E43C560032FA03 /* DetailRejectionInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1323425E43C550032FA03 /* DetailRejectionInfoCell.xib */; };
 		04D224B428C8B4FF00853E34 /* DetailedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D224B228C8B4FF00853E34 /* DetailedInfoViewController.swift */; };
 		04D224B528C8B4FF00853E34 /* DetailedInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D224B328C8B4FF00853E34 /* DetailedInfoViewController.xib */; };
-		04D224B728C8FD9E00853E34 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D224B628C8FD9E00853E34 /* PresentationController.swift */; };
 		04D968D4276B872D00CE4A9E /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D968D2276B872D00CE4A9E /* TransactionViewController.swift */; };
 		04D968D5276B872D00CE4A9E /* TransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D968D3276B872D00CE4A9E /* TransactionViewController.xib */; };
 		04E4CD65277752A500B558F4 /* TokenAmountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E4CD64277752A500B558F4 /* TokenAmountInfoView.swift */; };
@@ -1130,7 +1129,6 @@
 		04D1323425E43C550032FA03 /* DetailRejectionInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailRejectionInfoCell.xib; sourceTree = "<group>"; };
 		04D224B228C8B4FF00853E34 /* DetailedInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInfoViewController.swift; sourceTree = "<group>"; };
 		04D224B328C8B4FF00853E34 /* DetailedInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailedInfoViewController.xib; sourceTree = "<group>"; };
-		04D224B628C8FD9E00853E34 /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
 		04D968D2276B872D00CE4A9E /* TransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
 		04D968D3276B872D00CE4A9E /* TransactionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionViewController.xib; sourceTree = "<group>"; };
 		04E4CD64277752A500B558F4 /* TokenAmountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAmountInfoView.swift; sourceTree = "<group>"; };
@@ -2546,7 +2544,6 @@
 			children = (
 				0AF1C9122541B6A300E28669 /* README.md */,
 				55F91A9725BEABD400938475 /* KeyboardAvoidingBehavior.swift */,
-				04D224B628C8FD9E00853E34 /* PresentationController.swift */,
 				0A0EFCA9246EB28600D3D8BF /* Pasteboard.swift */,
 				0A007129254B379000A57CAF /* UIColor+Styles.swift */,
 				0A007123254B255C00A57CAF /* UIFont+Styles.swift */,
@@ -4695,7 +4692,6 @@
 			files = (
 				046FFE0B287F6E91007428D7 /* IncommingTransactionRequestTypeTableViewCell.swift in Sources */,
 				0AFA729E24BF363400A370EE /* SlicedText.swift in Sources */,
-				04D224B728C8FD9E00853E34 /* PresentationController.swift in Sources */,
 				6AFD26E228589AFF00336FFE /* AddOwnerView.swift in Sources */,
 				049EB0FF25AF713700F66CEA /* TimeZone+Offset.swift in Sources */,
 				049A9DDA2602211500CA5723 /* FiatCodesRequest.swift in Sources */,

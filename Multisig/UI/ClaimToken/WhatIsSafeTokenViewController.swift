@@ -34,21 +34,24 @@ class WhatIsSafeTokenViewController: UIViewController {
             let vc = ViewControllerFactory.detailedInfoViewController(title: "Safe Protocol",
                                                                       text: "Safe Deployments (core smart contract deployments across multiple networks\nCuration of “trusted lists” (Token lists, dApp lists, module lists)",
                                                                       attributedText: nil)
-            presentHalfOfScreen(vc)
+            let viewController = ViewControllerFactory.modal(viewController: vc, halfScreen: true)
+            present(viewController, animated: true)
         }
 
         interfacesView.set("Interfaces") { [unowned self] in
             let vc = ViewControllerFactory.detailedInfoViewController(title: "Interfaces",
                                                                       text: "Decentralized hosting of a Safe frontend using the safe.eth domain\nDecentralized hosting of governance frontends",
                                                                       attributedText: nil)
-            presentHalfOfScreen(vc)
+            let viewController = ViewControllerFactory.modal(viewController: vc, halfScreen: true)
+            present(viewController, animated: true)
         }
 
         assetsView.set("On-chain assets") { [unowned self] in
             let vc = ViewControllerFactory.detailedInfoViewController(title: "On-chain assets",
                                                                       text: "ENS names\nOutstanding Safe token supply\nOther Safe Treasury assets (NFTs, tokens, etc.)",
                                                                       attributedText: nil)
-            presentHalfOfScreen(vc)
+            let viewController = ViewControllerFactory.modal(viewController: vc, halfScreen: true)
+            present(viewController, animated: true)
         }
 
         tokenomicsView.set("Tokenomics") { [unowned self] in
@@ -56,7 +59,8 @@ class WhatIsSafeTokenViewController: UIViewController {
                                                                       text: "Ecosystem reward programs\nUser rewards\nValue capture\nFuture token utility",
                                                                       attributedText: nil)
 
-            presentHalfOfScreen(vc)
+            let viewController = ViewControllerFactory.modal(viewController: vc, halfScreen: true)
+            present(viewController, animated: true)
         }
 
         tokenNonTrnasferableLabel.setStyle(.callout.color(.labelSecondary))
