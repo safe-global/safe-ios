@@ -10,16 +10,15 @@ import UIKit
 
 class NavigatingDAOViewController: UIViewController {
 
-    @IBOutlet weak var firstParagraph: UILabel!
+    @IBOutlet weak var introductionParagraph: UILabel!
     @IBOutlet weak var screenTitle: UILabel!
-    @IBOutlet weak var paragraphTitle: UILabel!
-    @IBOutlet weak var secondParagraph: UILabel!
+    @IBOutlet weak var checklistTitle: UILabel!
     @IBOutlet weak var nextButton: UIButton!
 
-    @IBOutlet weak var item1Label: UILabel!
-    @IBOutlet weak var item2Label: UILabel!
-    @IBOutlet weak var item3Label: UILabel!
-    @IBOutlet weak var item4Label: UILabel!
+    @IBOutlet weak var discussItemLabel: UILabel!
+    @IBOutlet weak var proposeItemLabel: UILabel!
+    @IBOutlet weak var governItemLabel: UILabel!
+    @IBOutlet weak var chatItemLabel: UILabel!
     @IBOutlet weak var subTitle: UILabel!
 
     private var onNext: (() -> ())?
@@ -38,28 +37,25 @@ class NavigatingDAOViewController: UIViewController {
         screenTitle.text = "Navigating SafeDAO"
         screenTitle.setStyle(.claimTitle)
 
-        firstParagraph.setStyle(.secondary)
-        firstParagraph.text = "SafeDAO aims to foster a vibrant ecosystem of applications and wallets leveraging Safe smart contract accounts. This will be achieved through data-backed discussions, grants, ecosystem investments, as well as providing developer tools and infrastructure."
+        introductionParagraph.setStyle(.secondary)
+        introductionParagraph.text = "SafeDAO aims to foster a vibrant ecosystem of applications and wallets leveraging Safe smart contract accounts. This will be achieved through data-backed discussions, grants, ecosystem investments, as well as providing developer tools and infrastructure."
 
-        paragraphTitle.text = "How to get involved:"
-        paragraphTitle.setStyle(.title5)
-
-        secondParagraph.setStyle(.secondary)
-        secondParagraph.text = "Lorem Ipsum..."
+        checklistTitle.text = "How to get involved:"
+        checklistTitle.setStyle(.title5)
 
         nextButton.setText("Start claiming", .filled)
 
-        item1Label.text = "Discuss SafeDAO improvements - post topics and discuss in our forum."
-        item1Label.setStyle(.secondary)
+        discussItemLabel.text = "Discuss SafeDAO improvements - post topics and discuss in our forum."
+        discussItemLabel.setStyle(.secondary)
 
-        item2Label.text = "Propose improvements - read our governance process and post an SIP."
-        item2Label.setStyle(.secondary)
+        proposeItemLabel.text = "Propose improvements - read our governance process and post an SIP."
+        proposeItemLabel.setStyle(.secondary)
 
-        item3Label.text = "Govern improvements - vote on our Snapshot."
-        item3Label.setStyle(.secondary)
+        governItemLabel.text = "Govern improvements - vote on our Snapshot."
+        governItemLabel.setStyle(.secondary)
 
-        item4Label.text = "Chat with the community - join our Safe Discord."
-        item4Label.setStyle(.secondary)
+        chatItemLabel.text = "Chat with the community - join our Safe Discord."
+        chatItemLabel.setStyle(.secondary)
 
         subTitle.text = "Now help decide on the future of ownership with $SAFE."
         subTitle.setStyle(.headline)
