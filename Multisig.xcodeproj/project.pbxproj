@@ -838,6 +838,8 @@
 		931AB80628808F3600264AAA /* TransactionPreviewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931AB80528808F3600264AAA /* TransactionPreviewRequest.swift */; };
 		935DCA4C27BD14C600F09EE4 /* WebConnectionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */; };
 		9388B98227C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */; };
+		938D327028C8808D00198B7E /* NavigatingDAOViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D326E28C8808D00198B7E /* NavigatingDAOViewController.swift */; };
+		938D327128C8808D00198B7E /* NavigatingDAOViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 938D326F28C8808D00198B7E /* NavigatingDAOViewController.xib */; };
 		93C38DC128C74CAA005188EC /* WhatIsSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C38DBF28C74CAA005188EC /* WhatIsSafeViewController.swift */; };
 		93C38DC228C74CAA005188EC /* WhatIsSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C38DC028C74CAA005188EC /* WhatIsSafeViewController.xib */; };
 		93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */; };
@@ -1772,6 +1774,8 @@
 		931AB80528808F3600264AAA /* TransactionPreviewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionPreviewRequest.swift; sourceTree = "<group>"; };
 		935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionDetailsViewController.swift; sourceTree = "<group>"; };
 		9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentNotificationController.swift; sourceTree = "<group>"; };
+		938D326E28C8808D00198B7E /* NavigatingDAOViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigatingDAOViewController.swift; sourceTree = "<group>"; };
+		938D326F28C8808D00198B7E /* NavigatingDAOViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigatingDAOViewController.xib; sourceTree = "<group>"; };
 		93C38DBF28C74CAA005188EC /* WhatIsSafeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WhatIsSafeViewController.swift; path = Tutorial/WhatIsSafeViewController.swift; sourceTree = "<group>"; };
 		93C38DC028C74CAA005188EC /* WhatIsSafeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WhatIsSafeViewController.xib; path = Tutorial/WhatIsSafeViewController.xib; sourceTree = "<group>"; };
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
@@ -2070,6 +2074,8 @@
 		0472B2B32869D5480049BA17 /* ClaimToken */ = {
 			isa = PBXGroup;
 			children = (
+				938D326E28C8808D00198B7E /* NavigatingDAOViewController.swift */,
+				938D326F28C8808D00198B7E /* NavigatingDAOViewController.xib */,
 				93C38DBF28C74CAA005188EC /* WhatIsSafeViewController.swift */,
 				93C38DC028C74CAA005188EC /* WhatIsSafeViewController.xib */,
 				6A6A105B2889A2B700B852D5 /* Views */,
@@ -4393,6 +4399,7 @@
 				0A045077278DACC400650F71 /* MiniAccountAndBalancePiece.xib in Resources */,
 				931AB80328808EBC00264AAA /* MultiSendApproveMultihopBatchSwapExactIn.json in Resources */,
 				0A9275D525ADDF1500755881 /* CollecitbleSectionSeparatorView.xib in Resources */,
+				938D327128C8808D00198B7E /* NavigatingDAOViewController.xib in Resources */,
 				6A252CF928185148001F0887 /* OwnerActionView.xib in Resources */,
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
 				04D1322E25E41E560032FA03 /* RejectionCreatedPiece.xib in Resources */,
@@ -5083,6 +5090,7 @@
 				D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */,
 				0A864D282835563D00AE1B36 /* UIFlow.swift in Sources */,
 				04576A0227C8F26100881206 /* CDEthTransaction.swift in Sources */,
+				938D327028C8808D00198B7E /* NavigatingDAOViewController.swift in Sources */,
 				043350B92816D522003725E2 /* ReviewSafeTransactionViewController.swift in Sources */,
 				6A252CF228169352001F0887 /* AddKeyAsOwnerIntroViewController.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,

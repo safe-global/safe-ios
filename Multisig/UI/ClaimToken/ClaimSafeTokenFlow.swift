@@ -124,7 +124,7 @@ class ClaimSafeTokenFlow: UIFlow {
 
         show(startVC)
     }
-    
+
     func showDisclaimer() {
         let vc = factory.legalDisclaimer {[unowned self] in
             chooseDelegate()
@@ -132,9 +132,16 @@ class ClaimSafeTokenFlow: UIFlow {
         show(vc)
     }
 
+    func showNavigatingDAO() {
+        let vc = factory.navigatingDAO {[unowned self] in
+            showDisclaimer()
+        }
+        show(vc)
+    }
+
     func showIntro() {
         let introVC = factory.claimGetStarted { [unowned self] in
-            chooseTutorial()
+            showWhatIsSafe()
         }
         show(introVC, crossDissolve: true)
         introVC.navigationItem.largeTitleDisplayMode = .always
@@ -146,18 +153,17 @@ class ClaimSafeTokenFlow: UIFlow {
         show(vc, crossDissolve: true)
     }
 
-    func chooseTutorial() {
-        let vc = factory.chooseTutorial { [unowned self] in
-            tokenDistribution()
+    func showWhatIsSafe() {
+        let vc = factory.chooseWhatIsSafe { [unowned self] in
+            showTokenDistribution()
         }
         show(vc)
     }
 
-    func tokenDistribution() {
-        let vc = factory.tokenDistribution { [unowned self] in
-            showDisclaimer()
+    func showTokenDistribution() {
+        let vc = factory.chooseTokenDistribution { [unowned self] in
+            showNavigatingDAO()
         }
-
         show(vc)
     }
 
@@ -242,6 +248,11 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
+    func navigatingDAO(onAgree: @escaping () -> ()) -> NavigatingDAOViewController {
+        let vc = NavigatingDAOViewController(completion: onAgree)
+        return vc
+    }
+
     func claimGetStarted(onStartClaim: @escaping () -> ()) -> ClaimGetStartedViewController {
         let vc = ClaimGetStartedViewController()
         vc.onStartClaim = onStartClaim
@@ -272,12 +283,13 @@ class ClaimSafeTokenFlowFactory {
         vc.onContinue = onContinue
         return vc
     }
-    func chooseTutorial(completion: @escaping () -> ()) -> WhatIsSafeViewController {
+
+    func chooseWhatIsSafe(completion: @escaping () -> ()) -> WhatIsSafeViewController {
         let vc = WhatIsSafeViewController(completion: completion)
         return vc
     }
 
-    func tokenDistribution(onNext: @escaping () -> ()) -> TokenDistributionViewController {
+    func chooseTokenDistribution(onNext: @escaping () -> ()) -> TokenDistributionViewController {
         let vc = TokenDistributionViewController(onNext: onNext)
         return vc
     }
@@ -286,6 +298,7 @@ class ClaimSafeTokenFlowFactory {
         let vc = ClaimTokensViewController(tokenDelegate: delegate, guardian: guardian, safe: safe, controller: controller)
         return vc
     }
+
 
     func success(amount: String,
                  completion: @escaping () -> Void) -> ClaimSuccessViewController {
