@@ -32,6 +32,7 @@ class WhatIsSafeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ViewControllerFactory.removeNavigationBarBorder(self)
+        navigationItem.largeTitleDisplayMode = .never
 
         screenTitle.text = "What is Safe?"
         screenTitle.setStyle(.claimTitle)

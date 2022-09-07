@@ -22,7 +22,8 @@ class ClaimGetStartedViewController: UIViewController {
         super.viewDidLoad()
 
         ViewControllerFactory.addCloseButton(self)
-        ViewControllerFactory.makeTransparentNavigationBar(self)
+        ViewControllerFactory.removeNavigationBarBorder(self)
+        navigationItem.largeTitleDisplayMode = .never
 
         startClaimButton.setText("Start your claiming process", .filled)
         screenTitle.text = "Welcome to the next generation of digital ownership!"

@@ -33,7 +33,8 @@ class NavigatingDAOViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ViewControllerFactory.removeNavigationBarBorder(self)
-
+        navigationItem.largeTitleDisplayMode = .never
+        
         screenTitle.text = "Navigating SafeDAO"
         screenTitle.setStyle(.claimTitle)
 

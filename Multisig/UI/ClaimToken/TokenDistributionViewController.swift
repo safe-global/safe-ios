@@ -25,6 +25,7 @@ class TokenDistributionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ViewControllerFactory.removeNavigationBarBorder(self)
+        navigationItem.largeTitleDisplayMode = .never
         
         distributionView.set("Distribution details") {
             //TODO: Show distribution details
