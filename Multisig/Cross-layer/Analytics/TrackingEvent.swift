@@ -361,7 +361,7 @@ enum TrackingEvent: String, Trackable {
 
     // Navigating SafeDAO screen Tracking
     case screenClaimDao                             = "screen_claim_dao"
-    case userClaimDaoStart                           = "user_claim_dao_start"
+    case userClaimDaoStart                          = "user_claim_dao_start"
 
     // Legal disclaimer screen Tracking
     case screenClaimLegal                           = "screen_claim_legal"
