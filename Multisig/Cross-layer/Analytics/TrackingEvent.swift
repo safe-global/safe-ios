@@ -364,47 +364,47 @@ enum TrackingEvent: String, Trackable {
     case useClaimDaoStart                           = "user_claim_dao_start"
 
     // Legal disclaimer screen Tracking
-    case screen_claim_legal                         = "screen_claim_legal"
-    case user_claim_legal_agree                     = "user_claim_legal_agree"
+    case screenClaimLegal                           = "screen_claim_legal"
+    case userClaimLegalAgree                        = "user_claim_legal_agree"
 
     // Choose a delegate screen Tracking
-    case screen_claim_chdel                         = "screen_claim_chdel"
-    case user_claim_chdel_guard                     = "user_claim_chdel_guard"
-    case user_claim_chdel_addr                      = "user_claim_chdel_addr"
-    case user_claim_chdel_search                    = "user_claim_chdel_search"
-    case screen_claim_chdel_nf                      = "screen_claim_chdel_nf"
+    case screenClaimChdel                           = "screen_claim_chdel"
+    case userClaimChdelGuard                        = "user_claim_chdel_guard"
+    case userClaimChdelAddr                         = "user_claim_chdel_addr"
+    case userClaimChdelSearch                       = "user_claim_chdel_search"
+    case screenClaimChdelNf                         = "screen_claim_chdel_nf"
 
     // Delegate details screen Tracking
-    case screen_claim_deldet                        = "screen_claim_deldet"
-    case user_claim_deldet_select                   = "user_claim_deldet_select"
+    case screenClaimDeldet                          = "screen_claim_deldet"
+    case userClaimDeldetSelect                      = "user_claim_deldet_select"
 
     // Claiming form screen Tracking
-    case screen_claim_form                          = "screen_claim_form"
-    case user_claim_form_fut_tp                     = "user_claim_form_fut_tp"
-    case user_claim_form_max                        = "user_claim_form_max"
-    case user_claim_form_part                       = "user_claim_form_part"
-    case user_claim_form_del                        = "user_claim_form_del"
-    case user_claim_form_claim                      = "user_claim_form_claim"
-    case user_claim_form_reload                     = "user_claim_form_reload"
+    case screenClaimForm                            = "screen_claim_form"
+    case userClaimFormFutTp                         = "user_claim_form_fut_tp"
+    case userClaimFormMax                           = "user_claim_form_max"
+    case userClaimFormPart                          = "user_claim_form_part"
+    case userClaimFormDel                           = "user_claim_form_del"
+    case userClaimFormClaim                         = "user_claim_form_claim"
+    case userClaimFormReload                        = "user_claim_form_reload"
 
     // Review claiming transaction screen Tracking
-    case screen_claim_review                        = "screen_claim_review"
-    case user_claim_review_confirm                  = "user_claim_review_confirm"
-    case user_claim_review_act                      = "user_claim_review_act"
-    case user_claim_review_par                      = "user_claim_review_par"
+    case screenClaimReview                          = "screen_claim_review"
+    case userClaimReviewConfirm                     = "user_claim_review_confirm"
+    case userClaimReview_act                        = "user_claim_review_act"
+    case userClaimReview_par                        = "user_claim_review_par"
 
     // Claiming transaction success screen Tracking
-    case screen_claim_success                       = "screen_claim_success"
-    case user_claim_success_tweet                   = "user_claim_success_tweet"
-    case user_claim_success_close                   = "user_claim_success_close"
-    case user_claim_success_done                    = "user_claim_success_done"
-    case user_claim_success_share                   = "user_claim_success_share"
+    case screenClaimSuccess                         = "screen_claim_success"
+    case userClaimSuccessTweet                      = "user_claim_success_tweet"
+    case userClaimSuccessClose                      = "user_claim_success_close"
+    case userClaimSuccessDone                       = "user_claim_success_done"
+    case userClaimSuccessShare                      = "user_claim_success_share"
 
     // Claiming not eligible screen Tracking
-    case screen_claim_not                           = "screen_claim_not"
-    case user_claim_not_dao                         = "user_claim_not_dao"
-    case user_claim_not_forum                       = "user_claim_not_forum"
-    case user_claim_not_ok                          = "user_claim_not_ok"
+    case screenClaimNot                             = "screen_claim_not"
+    case userClaimNotDao                            = "user_claim_not_dao"
+    case userClaimNotForum                          = "user_claim_not_forum"
+    case userClaimNotOk                             = "user_claim_not_ok"
 }
 
 extension TrackingEvent {
