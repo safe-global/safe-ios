@@ -127,7 +127,7 @@ class ClaimSafeTokenFlow: UIFlow {
 
     func showDisclaimer() {
         let vc = factory.legalDisclaimer {[unowned self] in
-            showDelegateIntro()
+            chooseDelegate()
         }
         show(vc)
     }
@@ -153,40 +153,9 @@ class ClaimSafeTokenFlow: UIFlow {
         show(vc, crossDissolve: true)
     }
 
-    func showDelegateIntro() {
-        let vc = factory.chooseDelegateIntro { [unowned self] in
-            showGuardian()
-        } onCustomAddress: { [unowned self] in
-            enterCustomAddress()
-        }
-        show(vc)
-    }
-
     func showWhatIsSafe() {
         let vc = factory.chooseWhatIsSafe { [unowned self] in
             showTokenDistribution()
-        }
-        show(vc)
-    }
-
-    func showGuardian() {
-        let vc = factory.chooseGuardian() { [unowned self] guardian in
-            selectAmount()
-        }
-        show(vc)
-    }
-
-    func enterCustomAddress() {
-        let vc = factory.enterCustomAddress(mainnet: self.safe.chain?.id == Chain.ChainID.ethereumMainnet) { [unowned self] address in
-            let guardian = Guardian(
-                name: nil,
-                reason: nil,
-                contribution: nil,
-                address: AddressString(address),
-                ens: nil,
-                image: nil
-            )
-            selectAmount()
         }
         show(vc)
     }
