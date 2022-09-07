@@ -619,9 +619,6 @@
 		473F4B9128BA47F900B6DE4E /* PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473F4B9028BA47F900B6DE4E /* PublicKey.swift */; };
 		47646ED428AA72DD009DC437 /* ConnectKeystoneFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */; };
 		47DAEDE628C77456000940FB /* KeystoneSignFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DAEDE528C77456000940FB /* KeystoneSignFlow.swift */; };
-		47F7128F28ABC9E900B6133A /* URKit in Frameworks */ = {isa = PBXBuildFile; productRef = 47F7128E28ABC9E900B6133A /* URKit */; };
-		47F7129228ABD51D00B6133A /* WolfBase in Frameworks */ = {isa = PBXBuildFile; productRef = 47F7129128ABD51D00B6133A /* WolfBase */; };
-		47F7129428ACA59600B6133A /* KeystoneURValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F7129328ACA59600B6133A /* KeystoneURValidator.swift */; };
 		5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5503F62B2550625F0046545C /* CollectiblesViewController.swift */; };
 		550A6182268A23A9002C02E1 /* SafeNetworkMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550A6181268A23A9002C02E1 /* SafeNetworkMigrationTests.swift */; };
 		550FB19E26691CA300C13D54 /* DappsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB19926691CA300C13D54 /* DappsViewController.swift */; };
@@ -1537,7 +1534,6 @@
 		473F4B9028BA47F900B6DE4E /* PublicKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKey.swift; sourceTree = "<group>"; };
 		47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectKeystoneFlow.swift; sourceTree = "<group>"; };
 		47DAEDE528C77456000940FB /* KeystoneSignFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystoneSignFlow.swift; sourceTree = "<group>"; };
-		47F7129328ACA59600B6133A /* KeystoneURValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystoneURValidator.swift; sourceTree = "<group>"; };
 		5503F62B2550625F0046545C /* CollectiblesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesViewController.swift; sourceTree = "<group>"; };
 		550A6181268A23A9002C02E1 /* SafeNetworkMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeNetworkMigrationTests.swift; sourceTree = "<group>"; };
 		550FB19926691CA300C13D54 /* DappsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DappsViewController.swift; sourceTree = "<group>"; };
@@ -1835,7 +1831,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47F7128F28ABC9E900B6133A /* URKit in Frameworks */,
 				0463F5C126296924009C04FA /* FirebaseRemoteConfig in Frameworks */,
 				47368B9B28C0B003008A1D8A /* URRegistry in Frameworks */,
 				55D3FF65260B2551008ABD2B /* Kingfisher in Frameworks */,
@@ -1853,7 +1848,6 @@
 				0A3DAD9526270F4D00743E38 /* idn2.xcframework in Frameworks */,
 				93EE3F752760F49800111F17 /* Intercom in Frameworks */,
 				0A5B87E2278633FF000B66EA /* Ethereum in Frameworks */,
-				47F7129228ABD51D00B6133A /* WolfBase in Frameworks */,
 				55888DFF260C4F6200940347 /* SwiftAccessPolicy in Frameworks */,
 				0463F5C326296924009C04FA /* FirebaseCrashlytics in Frameworks */,
 				93D9013E27727E2500624B29 /* WhatsNewKit in Frameworks */,
@@ -3385,7 +3379,6 @@
 		47DF358528B9481700EBEF3E /* Keystone */ = {
 			isa = PBXGroup;
 			children = (
-				47F7129328ACA59600B6133A /* KeystoneURValidator.swift */,
 				473F4B9028BA47F900B6DE4E /* PublicKey.swift */,
 				47039CF128C579CF00081A7A /* KeystoneSignRequest+Transaction.swift */,
 			);
@@ -4232,8 +4225,6 @@
 				0A0C094B287D7D48000CEB4F /* WalletConnectSwift */,
 				0A259AB4287D83F9006770E7 /* UnstoppableDomainsResolution */,
 				0A259AB6287D85B3006770E7 /* Web3 */,
-				47F7128E28ABC9E900B6133A /* URKit */,
-				47F7129128ABD51D00B6133A /* WolfBase */,
 				47368B9A28C0B003008A1D8A /* URRegistry */,
 			);
 			productName = Multisig;
@@ -4353,8 +4344,6 @@
 				0A0C094A287D7D48000CEB4F /* XCRemoteSwiftPackageReference "WalletConnectSwift" */,
 				0A259AB2287D83D5006770E7 /* XCRemoteSwiftPackageReference "Web3.swift" */,
 				0A259AB3287D83F9006770E7 /* XCRemoteSwiftPackageReference "resolution-swift" */,
-				47F7128D28ABC9E800B6133A /* XCRemoteSwiftPackageReference "URKit" */,
-				47F7129028ABD51D00B6133A /* XCRemoteSwiftPackageReference "WolfBase" */,
 				47368B9928C0B003008A1D8A /* XCRemoteSwiftPackageReference "ur-registry-ios" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
@@ -5066,7 +5055,6 @@
 				0A096CBE2608D9370034E6BC /* NetworkStatusObserver.swift in Sources */,
 				0ABE698827920294003338AF /* ErrorTableViewCell.swift in Sources */,
 				0A8CDD4927A5AE860020066C /* CreateSafeFormUIModel.swift in Sources */,
-				47F7129428ACA59600B6133A /* KeystoneURValidator.swift in Sources */,
 				0A5B157C280863DF003AD853 /* EnterPasscodeViewController.swift in Sources */,
 				D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */,
 				0A864D282835563D00AE1B36 /* UIFlow.swift in Sources */,
@@ -6690,22 +6678,6 @@
 				kind = branch;
 			};
 		};
-		47F7128D28ABC9E800B6133A /* XCRemoteSwiftPackageReference "URKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/BlockchainCommons/URKit.git";
-			requirement = {
-				kind = exactVersion;
-				version = 3.0.2;
-			};
-		};
-		47F7129028ABD51D00B6133A /* XCRemoteSwiftPackageReference "WolfBase" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/wolfmcnally/WolfBase.git";
-			requirement = {
-				kind = exactVersion;
-				version = 3.25.0;
-			};
-		};
 		55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gnosis/SwiftAccessPolicy.git";
@@ -6849,16 +6821,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 47368B9928C0B003008A1D8A /* XCRemoteSwiftPackageReference "ur-registry-ios" */;
 			productName = URRegistry;
-		};
-		47F7128E28ABC9E900B6133A /* URKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 47F7128D28ABC9E800B6133A /* XCRemoteSwiftPackageReference "URKit" */;
-			productName = URKit;
-		};
-		47F7129128ABD51D00B6133A /* WolfBase */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 47F7129028ABD51D00B6133A /* XCRemoteSwiftPackageReference "WolfBase" */;
-			productName = WolfBase;
 		};
 		55888DFE260C4F6200940347 /* SwiftAccessPolicy */ = {
 			isa = XCSwiftPackageProductDependency;

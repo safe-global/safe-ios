@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import URKit
 import URRegistry
 
 final class ConnectKeystoneFlow: AddKeyFlow {
@@ -39,12 +38,10 @@ final class ConnectKeystoneFlow: AddKeyFlow {
         vc.attributedLabel = label
 
         vc.scannedValueValidator = { value in
-            if let decodedUR = try? URDecoder.decode(value),
-               KeystoneURValidator.validate(urType: decodedUR.type) {
-                return .success(value)
-            } else {
+            guard value.starts(with: "UR:CRYPTO-HDKEY") else {
                 return .failure(GSError.InvalidWalletConnectQRCode())
             }
+            return .success(value)
         }
         vc.modalPresentationStyle = .overFullScreen
         vc.delegate = self

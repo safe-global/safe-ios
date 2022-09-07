@@ -272,15 +272,6 @@
         }
       },
       {
-        "package": "URKit",
-        "repositoryURL": "https://github.com/BlockchainCommons/URKit.git",
-        "state": {
-          "branch": null,
-          "revision": "f9716050285389915e1e17d7116ed2a71a95e8ed",
-          "version": "3.0.2"
-        }
-      },
-      {
         "package": "Version",
         "repositoryURL": "https://github.com/mxcl/Version.git",
         "state": {
@@ -314,15 +305,6 @@
           "branch": null,
           "revision": "92a9d6f5f6754aba0df972514fd7686f1de03bcc",
           "version": "1.3.7"
-        }
-      },
-      {
-        "package": "WolfBase",
-        "repositoryURL": "https://github.com/wolfmcnally/WolfBase",
-        "state": {
-          "branch": null,
-          "revision": "696ebcb01b8c16ebf10d95f22199d1ad2006db43",
-          "version": "3.25.0"
         }
       }
     ]

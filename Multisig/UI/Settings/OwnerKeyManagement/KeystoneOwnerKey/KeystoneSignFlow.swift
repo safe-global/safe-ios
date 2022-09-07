@@ -53,6 +53,9 @@ class KeystoneSignFlow: UIFlow {
         vc.attributedLabel = label
 
         vc.scannedValueValidator = { value in
+            guard value.starts(with: "UR:ETH-SIGNATURE") else {
+                return .failure(GSError.InvalidWalletConnectQRCode())
+            }
             return .success(value)
         }
         vc.modalPresentationStyle = .overFullScreen
