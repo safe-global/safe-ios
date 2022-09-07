@@ -13,6 +13,7 @@ import Web3
 import Solidity
 import WalletConnectSwift
 import SafariServices
+import URRegistry
 
 class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting {
 
@@ -37,6 +38,8 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     private var defaultKeyTask: URLSessionTask?
     private var txEstimationTask: URLSessionTask?
     private var sendingTask: URLSessionTask?
+    
+    private var keystoneSignFlow: KeystoneSignFlow!
 
     convenience init(safe: Safe,
                      chain: Chain,
@@ -506,8 +509,41 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
             present(vc, animated: true, completion: nil)
             
         case .keystone:
-            // To be implemented
-            break
+            guard
+                let signRequest = KeystoneSignRequest(
+                    signData: controller.preimageForSigning().toHexString(),
+                    chainId: "\(controller.intChainId)",
+                    keyInfo: keyInfo,
+                    signType: .typedTransaction
+                )
+            else {
+                return
+            }
+            
+            keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: chain) { [unowned self] success in
+                keystoneSignFlow = nil
+                if !success {
+                    App.shared.snackbar.show(message: "Signing failed")
+                }
+            }
+            keystoneSignFlow.signCompletion = { [weak self] signature in
+                guard
+                    let self = self,
+                    let unmarshaledSignature = SECP256K1.unmarshalSignature(signatureData: Data(hex: signature))
+                else { return }
+                                
+                do {
+                    try self.controller.update(signature: (UInt(unmarshaledSignature.v), Array(unmarshaledSignature.r), Array(unmarshaledSignature.s)))
+                } catch {
+                    let gsError = GSError.error(description: "Signing failed", error: error)
+                    App.shared.snackbar.show(error: gsError)
+                    return
+                }
+
+                self.submit()
+                
+            }
+            present(flow: keystoneSignFlow)
         }
     }
 
