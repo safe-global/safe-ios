@@ -149,19 +149,20 @@ class ReviewSafeTransactionViewController: UIViewController {
                     self.safeTxGas = UInt256String(estimatedSafeTxGas)
                 }
 
-                if self.shouldLoadTransactionPreview {
+                if self.shouldLoadTransactionPreview, let transaction = self.createTransaction() {
+                    self.transactionPreview = nil
+
                     self.currentDataTask = App.shared.clientGatewayService.asyncPreviewTransaction(
-                        transaction: tx,
+                        transaction: transaction,
                         sender: AddressString(self.safe.addressValue),
                         chainId: self.safe.chain!.id!
                     ) { result in
-                        switch result {
-                        case .success(let response):
-                            self.transactionPreview = response
-                            self.onSuccess()
-                        case .failure(let error):
-                            DispatchQueue.main.async { [weak self] in
-                                guard let `self` = self else { return }
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .success(let response):
+                                self.transactionPreview = response
+                                self.onSuccess()
+                            case .failure(let error):
                                 if (error as NSError).code == URLError.cancelled.rawValue &&
                                     (error as NSError).domain == NSURLErrorDomain {
                                     return
@@ -171,7 +172,9 @@ class ReviewSafeTransactionViewController: UIViewController {
                         }
                     }
                 } else {
-                    self.onSuccess()
+                    DispatchQueue.main.async {
+                        self.onSuccess()
+                    }
                 }
             }
         }
