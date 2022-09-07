@@ -34,30 +34,19 @@ class NavigatingDAOViewController: UIViewController {
         ViewControllerFactory.removeNavigationBarBorder(self)
         navigationItem.largeTitleDisplayMode = .never
         
-        screenTitle.text = "Navigating SafeDAO"
         screenTitle.setStyle(.claimTitle)
 
         introductionParagraph.setStyle(.secondary)
-        introductionParagraph.text = "SafeDAO aims to foster a vibrant ecosystem of applications and wallets leveraging Safe smart contract accounts. This will be achieved through data-backed discussions, grants, ecosystem investments, as well as providing developer tools and infrastructure."
 
-        checklistTitle.text = "How to get involved:"
         checklistTitle.setStyle(.title5)
 
         nextButton.setText("Start claiming", .filled)
 
-        discussItemLabel.text = "Discuss SafeDAO improvements - post topics and discuss in our forum."
         discussItemLabel.setStyle(.secondary)
-
-        proposeItemLabel.text = "Propose improvements - read our governance process and post an SIP."
         proposeItemLabel.setStyle(.secondary)
-
-        governItemLabel.text = "Govern improvements - vote on our Snapshot."
         governItemLabel.setStyle(.secondary)
-
-        chatItemLabel.text = "Chat with the community - join our Safe Discord."
         chatItemLabel.setStyle(.secondary)
 
-        subTitle.text = "Now help decide on the future of ownership with $SAFE."
         subTitle.setStyle(.headline)
         subTitle.textAlignment = .center
     }
