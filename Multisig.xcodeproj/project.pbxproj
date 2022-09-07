@@ -6723,7 +6723,7 @@
 			repositoryURL = "https://github.com/gnosis/SwiftCryptoTokenFormatter.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.0;
+				minimumVersion = 1.1.1;
 			};
 		};
 		55D3FF63260B2550008ABD2B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {

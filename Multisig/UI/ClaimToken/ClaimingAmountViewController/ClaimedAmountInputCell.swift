@@ -177,6 +177,11 @@ class TokenAmountTextDelegate: NSObject, UITextFieldDelegate {
         }
         var correctedText = newText
 
+        // replace any of the different 'dot' characters coming from keyboard with a simple '.'
+        for dotChar in ".,٫" {
+            correctedText = correctedText.replacingOccurrences(of: String(dotChar), with: ".")
+        }
+
         if correctedText.hasPrefix(".") {
             correctedText = "0" + correctedText
         }
