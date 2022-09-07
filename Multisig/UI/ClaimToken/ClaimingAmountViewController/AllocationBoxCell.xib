@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="186" id="KGk-i7-Jjw" customClass="AllocationBoxCell" customModule="Multisig" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="366" height="186"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="366" height="186"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Idu-Sb-Nit" userLabel="BoxView">
+                        <rect key="frame" x="16" y="8" width="334" height="170"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="sXv-Hb-qfM">
+                                <rect key="frame" x="24" y="24" width="286" height="122"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="iLy-C2-vnb">
+                                        <rect key="frame" x="0.0" y="0.0" width="286" height="24"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Claim now" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t8r-u1-WbU">
+                                                <rect key="frame" x="0.0" y="0.0" width="82.5" height="24"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ei-cV-DZ2" customClass="InfoButton" customModule="Multisig" customModuleProvider="target">
+                                                <rect key="frame" x="90.5" y="0.0" width="24" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="24" id="HXE-Ea-ggy"/>
+                                                    <constraint firstAttribute="height" constant="24" id="JsF-WA-6fh"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="ico-info-24"/>
+                                                <connections>
+                                                    <action selector="didTapAllocationHeaderButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="9wR-39-F42"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jen-y4-7nr" userLabel="Spacer">
+                                                <rect key="frame" x="122.5" y="0.0" width="163.5" height="24"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Wya-N3-eWL">
+                                        <rect key="frame" x="0.0" y="40" width="286" height="82"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ko3-yd-MdG">
+                                                <rect key="frame" x="0.0" y="0.0" width="286" height="24"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6G8-ku-K66">
+                                                        <rect key="frame" x="0.0" y="0.0" width="37" height="24"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" name="borderSelected"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJB-it-AdF" customClass="InfoButton" customModule="Multisig" customModuleProvider="target">
+                                                        <rect key="frame" x="45" y="0.0" width="24" height="24"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="24" id="bzA-sN-R4m"/>
+                                                            <constraint firstAttribute="height" constant="24" id="mJY-xh-3AK"/>
+                                                        </constraints>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" image="ico-shield-circle-dark"/>
+                                                        <connections>
+                                                            <action selector="didTapAllocationTitleButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="cPE-hf-fdd"/>
+                                                        </connections>
+                                                    </button>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5nT-a7-mxN" userLabel="Spacer">
+                                                        <rect key="frame" x="77" y="0.0" width="209" height="24"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3,000.05 SAFE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6iA-ZN-9zt">
+                                                <rect key="frame" x="0.0" y="24" width="286" height="58"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="27"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" name="primary"/>
+                        <constraints>
+                            <constraint firstItem="sXv-Hb-qfM" firstAttribute="top" secondItem="Idu-Sb-Nit" secondAttribute="top" constant="24" id="6ht-n5-5GJ"/>
+                            <constraint firstItem="sXv-Hb-qfM" firstAttribute="leading" secondItem="Idu-Sb-Nit" secondAttribute="leading" constant="24" id="Fpu-I9-n1x"/>
+                            <constraint firstAttribute="trailing" secondItem="sXv-Hb-qfM" secondAttribute="trailing" constant="24" id="Ppz-Qk-GfE"/>
+                            <constraint firstAttribute="bottom" secondItem="sXv-Hb-qfM" secondAttribute="bottom" constant="24" id="Tox-U3-6hz"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Idu-Sb-Nit" secondAttribute="trailing" constant="16" id="GCr-NK-QY5"/>
+                    <constraint firstAttribute="bottom" secondItem="Idu-Sb-Nit" secondAttribute="bottom" constant="8" id="KCI-JA-Ol6"/>
+                    <constraint firstItem="Idu-Sb-Nit" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Zp1-8g-DrM"/>
+                    <constraint firstItem="Idu-Sb-Nit" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="fhH-MB-eu7"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="bodyStack" destination="Wya-N3-eWL" id="mMy-XO-Od8"/>
+                <outlet property="boxInnerBottom" destination="Tox-U3-6hz" id="LbP-dp-FRb"/>
+                <outlet property="boxInnerLeading" destination="Fpu-I9-n1x" id="BiX-IZ-ur0"/>
+                <outlet property="boxInnerTop" destination="6ht-n5-5GJ" id="21V-Bz-ML4"/>
+                <outlet property="boxInnerTrailing" destination="Ppz-Qk-GfE" id="B6C-Fg-48W"/>
+                <outlet property="boxOuterBottom" destination="KCI-JA-Ol6" id="zpV-7z-mzl"/>
+                <outlet property="boxOuterLeading" destination="fhH-MB-eu7" id="ldL-L4-r3l"/>
+                <outlet property="boxOuterTop" destination="Zp1-8g-DrM" id="EPP-nP-a6x"/>
+                <outlet property="boxOuterTrailing" destination="GCr-NK-QY5" id="3WB-7z-weg"/>
+                <outlet property="boxView" destination="Idu-Sb-Nit" id="68r-47-z4H"/>
+                <outlet property="contentStack" destination="sXv-Hb-qfM" id="9dy-el-MMG"/>
+                <outlet property="headerButton" destination="3Ei-cV-DZ2" id="EYg-m2-7s5"/>
+                <outlet property="headerLabel" destination="t8r-u1-WbU" id="2pe-NZ-nmM"/>
+                <outlet property="headerStack" destination="iLy-C2-vnb" id="ePG-aU-wcx"/>
+                <outlet property="titleButton" destination="VJB-it-AdF" id="NwT-w1-EhV"/>
+                <outlet property="titleLabel" destination="6G8-ku-K66" id="03M-GG-gag"/>
+                <outlet property="titleStack" destination="Ko3-yd-MdG" id="Yqa-Ca-zvp"/>
+                <outlet property="valueLabel" destination="6iA-ZN-9zt" id="nls-ha-Ndd"/>
+            </connections>
+            <point key="canvasLocation" x="-5.7971014492753632" y="36.160714285714285"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ico-info-24" width="24" height="24"/>
+        <image name="ico-shield-circle-dark" width="24" height="24"/>
+        <namedColor name="borderSelected">
+            <color red="0.5725490196078431" green="0.78823529411764703" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary">
+            <color red="0.0" green="0.54509803921568623" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

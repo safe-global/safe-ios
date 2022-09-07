@@ -29,9 +29,10 @@ class GuardianDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ViewControllerFactory.makeTransparentNavigationBar(self)
-        navigationItem.hidesBackButton = false
+        ViewControllerFactory.removeNavigationBarBorder(self)
+        
         title = "Choose a delegate"
+        navigationItem.largeTitleDisplayMode = .never
 
         stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
         stepLabel.textAlignment = .right
@@ -59,6 +60,36 @@ class GuardianDetailsViewController: UIViewController {
         } else {
             viewOnEtherscan.url = chain.browserURL(address: guardian.address.address.checksummed)
         }
+
+        let reasonTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+        reasonTextLabel.addGestureRecognizer(reasonTapRecognizer)
+        reasonTextLabel.isUserInteractionEnabled = true
+
+        let contributionTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+        contributionTextLabel.addGestureRecognizer(contributionTapRecognizer)
+        contributionTextLabel.isUserInteractionEnabled = true
+    }
+
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        guard sender.state == .ended, let view = sender.view as? UILabel, view == reasonTextLabel || view == contributionTextLabel, let text = view.text, !text.isEmpty else {
+            return
+        }
+
+        do {
+            let detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+            let matches = detector.matches(in: text, range: NSRange(location: 0, length: text.count))
+            if let match = matches.first, let url = match.url {
+                openInSafari(url)
+                return
+            }
+        } catch {
+            // ignore but log error
+            LogService.shared.error("Can't detect text data types: \(error)")
+        }
+
+        // if all fails, just copy on tap
+        Pasteboard.string = text
+        App.shared.snackbar.show(message: "Copied to clipboard", duration: 2)
     }
 
     @IBAction func didTapContinueButton(_ sender: Any) {

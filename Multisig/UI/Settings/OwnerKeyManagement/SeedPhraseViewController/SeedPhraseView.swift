@@ -59,7 +59,6 @@ class SeedPhraseView: UIView, UICollectionViewDelegateFlowLayout, UICollectionVi
         collectionView.backgroundColor = .clear
 
         self.backgroundColor = .backgroundSecondary
-        self.layer.borderColor = UIColor.separator.cgColor
         self.layer.borderWidth = 2
         self.layer.cornerRadius = 8
 
@@ -83,6 +82,11 @@ class SeedPhraseView: UIView, UICollectionViewDelegateFlowLayout, UICollectionVi
 
         heightConstraint = heightAnchor.constraint(equalToConstant: 240) // this will be changed during update()
         heightConstraint.isActive = true
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.layer.borderColor = UIColor.separator.cgColor
     }
 
     func update() {

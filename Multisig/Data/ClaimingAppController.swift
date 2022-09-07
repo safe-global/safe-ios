@@ -13,6 +13,7 @@ import Version
 
 import SafeDeployments
 
+
 class ClaimingAppController {
 
     struct Configuration {
@@ -37,6 +38,10 @@ class ClaimingAppController {
     var rpcClient: RpcClient
     var claimingService: SafeClaimingService
 
+    var chain: Chain {
+        rpcClient.chain
+    }
+
     init(configuration: Configuration = .rinkeby, chain: Chain = .rinkebyChain()) {
         self.configuration = configuration
         self.rpcClient = RpcClient(chain: chain)
@@ -49,8 +54,54 @@ class ClaimingAppController {
         claimingService.asyncGuardians(completion: completion)
     }
 
+    func guardians(for address: Address, completion: @escaping (Result<(guardians: [Guardian], delegate: Address?), Error>) -> Void) {
+        DispatchQueue.global().async { [unowned self] in
+
+            var errors: [Error] = []
+            var resultGuardians: [Guardian]!
+            var resultDelegate: Address?
+
+            let group = DispatchGroup()
+
+            group.enter()
+            _ = guardians { result in
+                do {
+                    resultGuardians = try result.get()
+                } catch {
+                    errors.append(error)
+                }
+                group.leave()
+            }
+
+            group.enter()
+            _ = try! delegate(of: Sol.Address(address.data32)) { result in
+                do {
+                    let resultingAddress = try result.get()
+                    resultDelegate = resultingAddress == 0 ? nil : Address(resultingAddress)
+                } catch {
+                    errors.append(error)
+                }
+                group.leave()
+            }
+
+            let waitResult = group.wait(timeout: .now() + .seconds(60))
+
+            if waitResult == .timedOut {
+                dispatchOnMainThread(completion(.failure(GSError.TimeOut())))
+                return
+            }
+
+            if let error = errors.first {
+                dispatchOnMainThread(completion(.failure(error)))
+                return
+            }
+
+            dispatchOnMainThread(completion(.success((resultGuardians, resultDelegate))))
+        }
+    }
+
     func allocations(address: Address, completion: @escaping (Result<[Allocation], Error>) -> Void) -> URLSessionTask? {
-        claimingService.asyncAllocations(account: address, completion: completion)
+        claimingService.asyncAllocations(account: address, chainId: chain.id!, completion: completion)
     }
 
     // MARK: - Safe Token Contract
@@ -115,7 +166,73 @@ class ClaimingAppController {
             return result
         }
 
-        // TODO: sanity checks
+        func findError() -> String? {
+            let OK: String? = nil
+
+            if account.isZero {
+                return "Incorrect data configuration"
+            }
+
+            if allocations.isEmpty {
+                return "No allocations found in the data"
+            }
+
+            if allocations.count != vestings.count {
+                return "Vestings do not match allocations"
+            }
+
+            if allocationsData.count != allocations.count {
+                return "Allocation data is missing some allocations"
+            }
+
+            return OK
+        }
+
+        func totalAllocatedAmount(of allocationData: [(allocation: Allocation, vesting: Vesting)], at timestamp: TimeInterval) -> Sol.UInt128 {
+            let sum = allocationData.map {
+                vesting(from: $0).amount
+            }.reduce(0, +)
+            return sum
+        }
+
+        func totalAvailableAmount(of allocationData: [(allocation: Allocation, vesting: Vesting)], at timestamp: TimeInterval) -> Sol.UInt128 {
+            let sum = allocationData.map {
+                availableAmount(for: $0, at: timestamp) ?? 0
+            }.reduce(0, +)
+            return sum
+        }
+
+        func vesting(from allocationData: (allocation: Allocation, vesting: Vesting)) -> Vesting {
+            let result = allocationData.vesting.account == 0 ? Vesting(allocationData.allocation) : allocationData.vesting
+            return result
+        }
+
+        func availableAmount(for allocationData: (allocation: Allocation, vesting: Vesting)?, at timestamp: TimeInterval) -> Sol.UInt128? {
+            guard let allocationData = allocationData else {
+                return nil
+            }
+
+            let vesting = vesting(from: allocationData)
+            let result = vesting.available(at: timestamp)
+            return result
+        }
+
+        func totalUnvestedAmount(of allocationData: [(allocation: Allocation, vesting: Vesting)], at timestamp: TimeInterval) -> Sol.UInt128 {
+            let sum = allocationData.map {
+                unvestedAmount(for: $0, at: timestamp) ?? 0
+            }.reduce(0, +)
+            return sum
+        }
+
+        func unvestedAmount(for allocationData: (allocation: Allocation, vesting: Vesting)?, at timestamp: TimeInterval) -> Sol.UInt128? {
+            guard let allocationData = allocationData else {
+                return nil
+            }
+
+            let vesting = vesting(from: allocationData)
+            let result = vesting.amount - vesting.available(at: timestamp) - vesting.amountClaimed
+            return result
+        }
     }
 
     func asyncFetchData(account: Address, timeout: TimeInterval = 60, completion: @escaping (Result<ClaimingData, Error>) -> Void) {
@@ -127,7 +244,7 @@ class ClaimingAppController {
     func fetchData(account: Address, timeout: TimeInterval = 60, completion: @escaping (Result<ClaimingData, Error>) -> Void) {
         //          | -> allocations -> [vestings] -> |
         // account  | -> is paused                 -> | -> all data loaded
-        //          |-> delegate                   -> |
+        //          | -> delegate                  -> |
         // any error -> everything fails
         var data = ClaimingData(account: account)
         var errors: [Error] = []
@@ -232,13 +349,14 @@ class ClaimingAppController {
         safe: Safe,
         amount: Sol.UInt128,
         delegate: Address?,
-        data: ClaimingData
+        data: ClaimingData,
+        timestamp: TimeInterval = Date().timeIntervalSince1970
     ) -> Transaction? {
         let transactions = claimingTransactions(
             amount: amount,
             beneficiary: safe.addressValue,
             delegate: delegate,
-            timestamp: Date().timeIntervalSince1970,
+            timestamp: timestamp,
             allocations: data.allocationsData,
             safeTokenPaused: data.tokenPaused
         )

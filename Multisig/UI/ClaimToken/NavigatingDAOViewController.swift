@@ -39,7 +39,7 @@ class NavigatingDAOViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        ViewControllerFactory.removeUnderlineFromNavigationBar(self)
+        ViewControllerFactory.removeNavigationBarBorder(self)
 
         screenTitle.text = "Navigating SafeDAO"
         screenTitle.setStyle(.claimTitle)

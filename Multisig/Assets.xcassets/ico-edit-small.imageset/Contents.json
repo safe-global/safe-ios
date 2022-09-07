@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ico-edit-small.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

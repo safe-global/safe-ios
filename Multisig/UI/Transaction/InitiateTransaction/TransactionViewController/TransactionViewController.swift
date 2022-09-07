@@ -239,6 +239,11 @@ extension TransactionViewController: UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         keyboardBehavior.activeTextField = textField
+        amountTextField.updateBorder()
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        amountTextField.updateBorder()
     }
 }
 

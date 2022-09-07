@@ -13,10 +13,12 @@ class LegalDisclaimerViewController: UIViewController {
     @IBOutlet private weak var textLabel: UILabel!
 
     var onAgree: (() -> ())?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ViewControllerFactory.removeUnderlineFromNavigationBar(self)
+        ViewControllerFactory.removeNavigationBarBorder(self)
+        navigationItem.largeTitleDisplayMode = .never
 
         title = "Legal Disclaimer"
         agreeButton.setText("Agree & Continue", .filled)
