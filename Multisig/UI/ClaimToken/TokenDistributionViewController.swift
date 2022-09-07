@@ -26,9 +26,11 @@ class TokenDistributionViewController: UIViewController {
         super.viewDidLoad()
         ViewControllerFactory.removeNavigationBarBorder(self)
         navigationItem.largeTitleDisplayMode = .never
-        
-        distributionView.set("Distribution details") {
-            //TODO: Show distribution details
+        distributionView.set("Distribution details") { [unowned self] in
+            let vc = ViewControllerFactory.detailedInfoViewController(title: "Distribution details",
+                                                                      text: nil,
+                                                                      attributedText: nil)
+
         }
         titleLabel.setStyle(.Updated.title)
         descriptionLabel.setStyle(.secondary)

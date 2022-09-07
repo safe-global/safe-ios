@@ -22,11 +22,10 @@ class WhatIsSafeViewController: UIViewController {
     @IBOutlet weak var totalSafesCreatedStackView: UIStackView!
 
     private var onNext: (() -> ())?
-    private var completion: (() -> Void)?
 
-    convenience init(completion: @escaping () -> ()) {
+    convenience init(onNext: @escaping () -> ()) {
         self.init(namedClass: WhatIsSafeViewController.self)
-        self.completion = completion
+        self.onNext = onNext
     }
 
     override func viewDidLoad() {
@@ -55,6 +54,6 @@ class WhatIsSafeViewController: UIViewController {
     }
 
     @IBAction func nextClicked(_ sender: Any) {
-        completion?()
+        onNext?()
     }
 }
