@@ -23,9 +23,6 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="claim-background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="k6g-6y-8hN">
-                    <rect key="frame" x="0.0" y="44" width="414" height="700"/>
-                </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="W9F-mH-wp5" userLabel="ScrollableContentAndButton">
                     <rect key="frame" x="0.0" y="44" width="414" height="794"/>
                     <subviews>
@@ -90,21 +87,17 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="k6g-6y-8hN" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="9du-Yb-zzS"/>
                 <constraint firstItem="W9F-mH-wp5" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Dn4-4I-lhM"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="W9F-mH-wp5" secondAttribute="bottom" constant="16" id="JTX-66-1CH"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="W9F-mH-wp5" secondAttribute="bottom" constant="24" id="Nlv-Q5-xcl"/>
-                <constraint firstItem="k6g-6y-8hN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="OPc-R3-7xF"/>
                 <constraint firstItem="W9F-mH-wp5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bt7-mG-dEZ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="W9F-mH-wp5" secondAttribute="trailing" id="itJ-bl-RYN"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="k6g-6y-8hN" secondAttribute="trailing" id="omE-x9-xHh"/>
                 <constraint firstAttribute="trailing" secondItem="W9F-mH-wp5" secondAttribute="trailing" id="xfz-Fw-eHk"/>
             </constraints>
             <point key="canvasLocation" x="131.8840579710145" y="131.91964285714286"/>
         </view>
     </objects>
     <resources>
-        <image name="claim-background-gradient" width="375" height="700"/>
         <image name="ico-claim-token-get-started" width="207" height="142"/>
         <namedColor name="labelPrimary">
             <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
