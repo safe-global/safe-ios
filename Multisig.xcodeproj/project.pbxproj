@@ -178,6 +178,10 @@
 		04D1323625E43C560032FA03 /* DetailRejectionInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1323425E43C550032FA03 /* DetailRejectionInfoCell.xib */; };
 		04D224B428C8B4FF00853E34 /* DetailedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D224B228C8B4FF00853E34 /* DetailedInfoViewController.swift */; };
 		04D224B528C8B4FF00853E34 /* DetailedInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D224B328C8B4FF00853E34 /* DetailedInfoViewController.xib */; };
+		04D224BA28C9304600853E34 /* DetailedInfoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D224B828C9304600853E34 /* DetailedInfoListViewController.swift */; };
+		04D224BB28C9304600853E34 /* DetailedInfoListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D224B928C9304600853E34 /* DetailedInfoListViewController.xib */; };
+		04D224BE28C930A900853E34 /* DetailedInfoListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D224BC28C930A900853E34 /* DetailedInfoListTableViewCell.swift */; };
+		04D224BF28C930A900853E34 /* DetailedInfoListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D224BD28C930A900853E34 /* DetailedInfoListTableViewCell.xib */; };
 		04D968D4276B872D00CE4A9E /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D968D2276B872D00CE4A9E /* TransactionViewController.swift */; };
 		04D968D5276B872D00CE4A9E /* TransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D968D3276B872D00CE4A9E /* TransactionViewController.xib */; };
 		04E4CD65277752A500B558F4 /* TokenAmountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E4CD64277752A500B558F4 /* TokenAmountInfoView.swift */; };
@@ -1129,6 +1133,10 @@
 		04D1323425E43C550032FA03 /* DetailRejectionInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailRejectionInfoCell.xib; sourceTree = "<group>"; };
 		04D224B228C8B4FF00853E34 /* DetailedInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInfoViewController.swift; sourceTree = "<group>"; };
 		04D224B328C8B4FF00853E34 /* DetailedInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailedInfoViewController.xib; sourceTree = "<group>"; };
+		04D224B828C9304600853E34 /* DetailedInfoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInfoListViewController.swift; sourceTree = "<group>"; };
+		04D224B928C9304600853E34 /* DetailedInfoListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailedInfoListViewController.xib; sourceTree = "<group>"; };
+		04D224BC28C930A900853E34 /* DetailedInfoListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInfoListTableViewCell.swift; sourceTree = "<group>"; };
+		04D224BD28C930A900853E34 /* DetailedInfoListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailedInfoListTableViewCell.xib; sourceTree = "<group>"; };
 		04D968D2276B872D00CE4A9E /* TransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
 		04D968D3276B872D00CE4A9E /* TransactionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionViewController.xib; sourceTree = "<group>"; };
 		04E4CD64277752A500B558F4 /* TokenAmountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAmountInfoView.swift; sourceTree = "<group>"; };
@@ -2113,6 +2121,10 @@
 				0A50DBDB28C898A900C0CEC6 /* ReviewClaimTokensHeaderCell.xib */,
 				04D224B228C8B4FF00853E34 /* DetailedInfoViewController.swift */,
 				04D224B328C8B4FF00853E34 /* DetailedInfoViewController.xib */,
+				04D224B828C9304600853E34 /* DetailedInfoListViewController.swift */,
+				04D224B928C9304600853E34 /* DetailedInfoListViewController.xib */,
+				04D224BC28C930A900853E34 /* DetailedInfoListTableViewCell.swift */,
+				04D224BD28C930A900853E34 /* DetailedInfoListTableViewCell.xib */,
 			);
 			path = ClaimToken;
 			sourceTree = "<group>";
@@ -4580,6 +4592,7 @@
 				0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */,
 				6AD4773028932160004C736D /* GuardianCountTableViewCell.xib in Resources */,
 				0A22E12825E4FA3200D24DE1 /* SwitchTableViewCell.xib in Resources */,
+				04D224BB28C9304600853E34 /* DetailedInfoListViewController.xib in Resources */,
 				558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
 				04131FC2285683BA001F60C2 /* ShareAddOwnerLinkViewController.xib in Resources */,
@@ -4604,6 +4617,7 @@
 				6A4BC4D7288DD921002B6DDA /* EnterCustomAddressViewController.xib in Resources */,
 				93EF2FA827C550BC0077BE95 /* InstructionHeaderTableViewCell.xib in Resources */,
 				0A9A1A36257924C600B44405 /* DetailAccountAndTextCell.xib in Resources */,
+				04D224BF28C930A900853E34 /* DetailedInfoListTableViewCell.xib in Resources */,
 				0A9366B1278F0AA8001918A9 /* LabeledTextField.xib in Resources */,
 				048D72CE2685DC780095999C /* SelectNetworkTableViewCell.xib in Resources */,
 				0A57C5C72577F75D00420303 /* ConfirmationConfirmedPiece.xib in Resources */,
@@ -5040,6 +5054,7 @@
 				0A5B157E280863FB003AD853 /* RepeatChangedPasscodeViewController.swift in Sources */,
 				0A6886D02588FC180045CAB5 /* EnterENSNameViewController.swift in Sources */,
 				0468FB8625912E6800541536 /* QueuedTransactionsViewController.swift in Sources */,
+				04D224BA28C9304600853E34 /* DetailedInfoListViewController.swift in Sources */,
 				0AFA72A024BF368900A370EE /* SlicedText+Address.swift in Sources */,
 				0ADD199E265E518600EB0F2B /* UIView+Pin.swift in Sources */,
 				04B4B6E525B9A08D00CFE24B /* CardTableViewCell.swift in Sources */,
@@ -5102,6 +5117,7 @@
 				0A096CBE2608D9370034E6BC /* NetworkStatusObserver.swift in Sources */,
 				0ABE698827920294003338AF /* ErrorTableViewCell.swift in Sources */,
 				0A8CDD4927A5AE860020066C /* CreateSafeFormUIModel.swift in Sources */,
+				04D224BE28C930A900853E34 /* DetailedInfoListTableViewCell.swift in Sources */,
 				0A5B157C280863DF003AD853 /* EnterPasscodeViewController.swift in Sources */,
 				D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */,
 				0A864D282835563D00AE1B36 /* UIFlow.swift in Sources */,
