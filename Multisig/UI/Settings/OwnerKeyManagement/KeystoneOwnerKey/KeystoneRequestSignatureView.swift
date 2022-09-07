@@ -7,11 +7,13 @@
 //
 
 import SwiftUI
+import URRegistry
 
 struct KeystoneRequestSignatureView: View {
-    let qrValue: String
     let onTap: () -> Void
     
+    @State private var qrValue = URRegistry.shared.nextPartUnsignedUR
+    private let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
     private let qrViewSide: CGFloat = 237
     
     var body: some View {
@@ -25,6 +27,9 @@ struct KeystoneRequestSignatureView: View {
                 
                 QRView(value: qrValue, width: qrViewSide, height: qrViewSide)
                     .padding(.vertical, Spacing.extraLarge)
+                    .onReceive(timer) { _ in
+                        qrValue = URRegistry.shared.nextPartUnsignedUR
+                    }
                 
                 Group {
                     Text("Sign the transaction with your wallet, then click on ")
@@ -50,6 +55,6 @@ struct KeystoneRequestSignatureView: View {
 
 struct KeystoneRequestSignatureView_Previews: PreviewProvider {
     static var previews: some View {
-        KeystoneRequestSignatureView(qrValue: "0xb09f0eB9bebA0F7be33F1B56396246AA17405584", onTap: {})
+        KeystoneRequestSignatureView(onTap: {})
     }
 }

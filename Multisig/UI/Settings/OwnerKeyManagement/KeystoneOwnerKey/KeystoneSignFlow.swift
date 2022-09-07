@@ -27,11 +27,8 @@ class KeystoneSignFlow: UIFlow {
     }
     
     private func requestSignature() {
-        guard let qrValue = URRegistry.shared.requestSign(signRequest: signRequest) else {
-            stop(success: false)
-            return
-        }
-        let signVC = UIHostingController(rootView: KeystoneRequestSignatureView(qrValue: qrValue, onTap: { [weak self] in
+        URRegistry.shared.setSignRequestUREncoder(with: signRequest)
+        let signVC = UIHostingController(rootView: KeystoneRequestSignatureView(onTap: { [weak self] in
             self?.presentScanner()
         }))
         signVC.navigationItem.title = "Request signature"

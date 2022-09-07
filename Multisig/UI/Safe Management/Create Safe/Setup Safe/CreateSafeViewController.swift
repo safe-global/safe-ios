@@ -777,7 +777,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                     signData: uiModel.transaction.preImageForSigning().toHexString(),
                     chainId: uiModel.chain.id,
                     keyInfo: keyInfo,
-                    signType: .transaction
+                    signType: .typedTransaction
                 )
             else {
                 return
