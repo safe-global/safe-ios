@@ -18,6 +18,7 @@
                 <outlet property="nextButton" destination="Nrg-FS-Yib" id="4Sj-CQ-1lE"/>
                 <outlet property="safeProtocolView" destination="2M4-e6-GE9" id="VlR-Eq-ax5"/>
                 <outlet property="titleLabel" destination="I5W-By-Sic" id="xVZ-6w-4cF"/>
+                <outlet property="tokenNonTrnasferableLabel" destination="LwR-LH-cJd" id="g8e-aJ-Dyk"/>
                 <outlet property="tokenomicsView" destination="iE8-Pc-xkO" id="HXX-Lt-VBr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -31,7 +32,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="782"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="kbH-UY-CZU">
-                            <rect key="frame" x="16" y="0.0" width="382" height="422"/>
+                            <rect key="frame" x="16" y="0.0" width="382" height="458.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What exactly is Safe token and what does it govern?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5W-By-Sic">
                                     <rect key="frame" x="0.0" y="0.0" width="382" height="41"/>
@@ -39,14 +40,31 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eNX-Uj-JDj">
+                                    <rect key="frame" x="0.0" y="57" width="382" height="20.5"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-info" translatesAutoresizingMaskIntoConstraints="NO" id="TxE-9q-9aM">
+                                            <rect key="frame" x="0.0" y="0.0" width="20.5" height="20.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="TxE-9q-9aM" secondAttribute="height" id="ToH-mt-XnM"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safe Token is non-transferable initially." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LwR-LH-cJd">
+                                            <rect key="frame" x="28.5" y="0.0" width="353.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$SAFE is an ERC-20 governance token that stewards infrastructure components of the Safe ecosystem, including:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TDl-8P-leX">
-                                    <rect key="frame" x="0.0" y="57" width="382" height="61"/>
+                                    <rect key="frame" x="0.0" y="93.5" width="382" height="61"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="C8f-TY-66J">
-                                    <rect key="frame" x="0.0" y="134" width="382" height="288"/>
+                                    <rect key="frame" x="0.0" y="170.5" width="382" height="288"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2M4-e6-GE9" customClass="BorderedCheveronButton" customModule="Multisig" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="60"/>
@@ -123,6 +141,7 @@
         </view>
     </objects>
     <resources>
+        <image name="ico-info" width="16" height="16"/>
         <namedColor name="labelPrimary">
             <color red="0.0" green="0.074509803921568626" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

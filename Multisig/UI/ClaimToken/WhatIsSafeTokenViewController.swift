@@ -12,10 +12,11 @@ class WhatIsSafeTokenViewController: UIViewController {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var nextButton: UIButton!
-    @IBOutlet weak var safeProtocolView: BorderedCheveronButton!
-    @IBOutlet weak var interfacesView: BorderedCheveronButton!
-    @IBOutlet weak var assetsView: BorderedCheveronButton!
-    @IBOutlet weak var tokenomicsView: BorderedCheveronButton!
+    @IBOutlet private weak var safeProtocolView: BorderedCheveronButton!
+    @IBOutlet private weak var interfacesView: BorderedCheveronButton!
+    @IBOutlet private weak var assetsView: BorderedCheveronButton!
+    @IBOutlet private weak var tokenomicsView: BorderedCheveronButton!
+    @IBOutlet private weak var tokenNonTrnasferableLabel: UILabel!
 
     private var onNext: (() -> ())?
 
@@ -58,6 +59,7 @@ class WhatIsSafeTokenViewController: UIViewController {
             show(vc, sender: self)
         }
 
+        tokenNonTrnasferableLabel.setStyle(.callout.color(.labelSecondary))
         titleLabel.setStyle(.Updated.title)
         descriptionLabel.setStyle(.secondary)
         nextButton.setText("Next", .filled)
