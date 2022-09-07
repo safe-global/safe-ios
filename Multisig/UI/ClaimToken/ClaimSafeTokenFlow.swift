@@ -154,7 +154,7 @@ class ClaimSafeTokenFlowFactory {
     }
 
     func whatIsSafe(onNext: @escaping () -> ()) -> WhatIsSafeViewController {
-        WhatIsSafeViewController(stepNumber: 1, maxSteps: 4, onNext: onNext)
+        WhatIsSafeViewController(onNext: onNext)
     }
 
     func claimNotAvailable() -> ClaimNotAvailableViewController {

@@ -16,47 +16,49 @@ class WhatIsSafeViewController: UIViewController {
     @IBOutlet weak var interfacesView: BorderedCheveronButton!
     @IBOutlet weak var assetsView: BorderedCheveronButton!
     @IBOutlet weak var tokenomicsView: BorderedCheveronButton!
-    
+
     private var onNext: (() -> ())?
-    private var stepNumber: Int = 1
-    private var maxSteps: Int = 3
 
-    private var stepLabel: UILabel!
 
-    convenience init(stepNumber: Int = 1, maxSteps: Int = 4, onNext: @escaping () -> ()) {
+    convenience init(onNext: @escaping () -> ()) {
         self.init(namedClass: WhatIsSafeViewController.self)
-        self.stepNumber = stepNumber
-        self.maxSteps = maxSteps
         self.onNext = onNext
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        safeProtocolView.set("Interfaces") {
-
+        safeProtocolView.set("Safe Protocol") { [unowned self] in
+            let vc = ViewControllerFactory.detailedInfoViewController(title: "Safe Protocol",
+                                                                      text: "Safe Deployments (core smart contract deployments across multiple networks\nCuration of “trusted lists” (Token lists, dApp lists, module lists)",
+                                                                      attributedText: nil)
+            show(vc, sender: self)
         }
 
-        interfacesView.set("Interfaces") {
-
+        interfacesView.set("Interfaces") { [unowned self] in
+            let vc = ViewControllerFactory.detailedInfoViewController(title: "Interfaces",
+                                                                      text: "Decentralized hosting of a Safe frontend using the safe.eth domain\nDecentralized hosting of governance frontends",
+                                                                      attributedText: nil)
+            show(vc, sender: self)
         }
 
-        assetsView.set("On-chain assets") {
-
+        assetsView.set("On-chain assets") { [unowned self] in
+            let vc = ViewControllerFactory.detailedInfoViewController(title: "On-chain assets",
+                                                                      text: "ENS names\nOutstanding Safe token supply\nOther Safe Treasury assets (NFTs, tokens, etc.)",
+                                                                      attributedText: nil)
+            show(vc, sender: self)
         }
 
-        tokenomicsView.set("Tokenomics") {
+        tokenomicsView.set("Tokenomics") { [unowned self] in
+            let vc = ViewControllerFactory.detailedInfoViewController(title: "Tokenomics",
+                                                                      text: "Ecosystem reward programs\nUser rewards\nValue capture\nFuture token utility",
+                                                                      attributedText: nil)
 
+            show(vc, sender: self)
         }
 
         titleLabel.setStyle(.Updated.title)
         descriptionLabel.setStyle(.secondary)
         nextButton.setText("Next", .filled)
-
-        stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
-        stepLabel.textAlignment = .right
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
-        stepLabel.setStyle(.tertiary)
-        stepLabel.text = "\(stepNumber) of \(maxSteps)"
     }
 
     @IBAction func didTapNext(_ sender: Any) {

@@ -30,8 +30,12 @@ class TokenDistributionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        distributionView.set("Distribution details") {
-            //TODO: Show distribution details
+        distributionView.set("Distribution details") { [unowned self] in
+            let vc = ViewControllerFactory.detailedInfoViewController(title: "Distribution details",
+                                                                      text: nil,
+                                                                      attributedText: nil)
+
+            show(vc, sender: self)
         }
         titleLabel.setStyle(.Updated.title)
         descriptionLabel.setStyle(.secondary)
