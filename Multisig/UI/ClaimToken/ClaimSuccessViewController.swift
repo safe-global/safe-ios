@@ -9,48 +9,84 @@
 import UIKit
 import SwiftCryptoTokenFormatter
 import Lottie
+import Solidity
 
 class ClaimSuccessViewController: UIViewController {
 
     @IBOutlet weak var okButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet weak var askLabel: UILabel!
     @IBOutlet weak var tweetBox: TweetBox!
     @IBOutlet weak var animationView: AnimationView!
+    @IBOutlet weak var shareButton: UIButton!
 
-    var amount: String!
+    var amount: Sol.UInt128!
+    var guardian: Guardian?
+    var hasChangedDelegate: Bool = true
 
     var onOk: (() -> ())?
+    var onShare: (() -> ())?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         ViewControllerFactory.addCloseButton(self)
         ViewControllerFactory.makeTransparentNavigationBar(self)
+        navigationItem.largeTitleDisplayMode = .never
 
-        titleLabel.setStyle(.claimTitle)
+        titleLabel.text = "Congrats!"
+        titleLabel.setStyle(.Updated.title)
 
-        let amountString = "\(amount!) SAFE"
-        let text = "You successfully created transaction to claim \(amountString) Tokens! Go ahead, approve and execute it. Remember to share your claim on Twitter ;)"
+        askLabel.text = "Share your claim on Twitter!"
+        askLabel.setStyle(.headline)
+
+        let displayAmount = TokenFormatter().string(from: BigDecimal(Int256(amount!.big()), 18)) + " SAFE"
+
+        let text = "You successfully started claiming \(displayAmount) tokens! Once you have collected the necessary confirmations, the Safe tokens will be available in this Safe."
+
         textLabel.attributedText = text.highlightRange(
             originalStyle: .secondary,
             highlightStyle: .primary,
-            textToHighlight: amountString
+            textToHighlight: displayAmount
         )
 
-        tweetBox.setTweet(
-            text: "I just got my Safe token Airdrop. Did you get yours? ;)",
-            hashtags: [
-                "staysafe",
-                "safedao",
-                "safeairdrop"
-            ]
-        )
+        tweetBox.setTweet(text: tweetText, highlights: ["@Safe"])
 
-        okButton.setText("OK, Great", .filled)
+        okButton.setText("Done", .filled)
+
+        shareButton.setText("Share transaction", .primary)
+        shareButton.setImage(UIImage(named: "ico-share-small"), for: .normal)
+        shareButton.imageEdgeInsets.right = 16
+
         animationView.contentMode = .scaleAspectFit
         animationView.backgroundBehavior = .pauseAndRestore
         animationView.play()
+    }
+
+    private var tweetText: String {
+        let text: String
+
+        if hasChangedDelegate, let guardian = guardian, let ens = guardian.ens {
+            text = "I've just received my Safe governance tokens and delegated my voting power to \(ens) to help steward the public good that is @Safe 🔰🫡"
+        } else if hasChangedDelegate, guardian != nil {
+            text = "I've just received my Safe governance tokens and delegated my voting power to help steward the public good that is @Safe 🔰🫡"
+        } else {
+            text = "I've just received my Safe governance tokens to help steward the public good that is @Safe 🔰🫡"
+        }
+
+        return text
+    }
+
+    @IBAction func didTapTweetButton(_ sender: Any) {
+        let shareString = "https://twitter.com/intent/tweet?text=\(tweetText)"
+        let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        let url = URL(string: escapedShareString)
+        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+    }
+
+    @IBAction func didTapShare(_ sender: Any) {
+        onShare?()
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -13,6 +13,8 @@ class TweetBox: UINibView {
     
     @IBOutlet weak var tweetLabel: UILabel!
     @IBOutlet weak var tweetButton: UIButton!
+
+    var onTweet: () -> Void = { }
     
 
     override func awakeFromNib() {
@@ -31,25 +33,16 @@ class TweetBox: UINibView {
         layer.borderColor = UIColor.backgroundPrimary.cgColor
     }
 
-    func setTweet(text: String, hashtags: [String]) {
+    func setTweet(text: String, highlights: [String]) {
+        let attributedText = NSMutableAttributedString(string: text, attributes: GNOTextStyle.primary.attributes)
 
-        let hashtagsString = hashtags
-            .map {
-                "#\($0)"
-            }
-            .joined(separator: " ")
-
-        tweetLabel.attributedText = "\(text) \(hashtagsString)".highlightRange(
-            originalStyle: .secondary.color(.labelPrimary),
-            highlightStyle: .primary.color(.primary),
-            textToHighlight: hashtagsString
-        )
+        for string in highlights {
+            let range = (text as NSString).range(of: string)
+            guard range.location != NSNotFound else { continue }
+            attributedText.addAttributes(GNOTextStyle.primary.color(.primary).attributes, range: range)
+        }
+        
+        tweetLabel.attributedText = attributedText
     }
 
-    @IBAction func didTapTweetButton(_ sender: Any) {
-        let shareString = "https://twitter.com/intent/tweet?text=\(tweetLabel.text!)"
-        let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-        let url = URL(string: escapedShareString)
-        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
-    }
 }
