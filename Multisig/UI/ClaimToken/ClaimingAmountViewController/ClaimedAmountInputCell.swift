@@ -145,7 +145,7 @@ class TokenAmountTextDelegate: NSObject, UITextFieldDelegate {
 
         // must be a number
         guard let decimal = formatter.number(from: string, precision: 18) else {
-            validationError = "Please enter a decimal number"
+            validationError = "Please enter a positive number (max 18 digits after decimal point)"
             return
         }
 

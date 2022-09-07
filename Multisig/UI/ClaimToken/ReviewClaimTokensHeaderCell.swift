@@ -9,20 +9,10 @@
 import UIKit
 
 class ReviewClaimTokensHeaderCell: UITableViewCell {
-    @IBOutlet private weak var amountView: ClaimAmountView!
+    @IBOutlet private weak var amountView: TokenInfoView!
     @IBOutlet private weak var delegateView: AddressInfoView!
     @IBOutlet private weak var fromView: AddressInfoView!
     @IBOutlet private weak var toView: AddressInfoView!
-
-    var tokenIcon: UIImage? {
-        get { amountView.image }
-        set { amountView.image = newValue }
-    }
-
-    var amount: String? {
-        get { amountView.amount }
-        set { amountView.amount = newValue }
-    }
 
     var showsDelegate: Bool = true {
         didSet {
@@ -32,9 +22,15 @@ class ReviewClaimTokensHeaderCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        delegateView.setTitle("Delegating voting power to:")
-        fromView.setTitle("From:")
-        toView.setTitle("Interact with:")
+        amountView.setTitle("You're claiming:", style: .secondary)
+        delegateView.setTitle("Delegating voting power to:", style: .secondary)
+        fromView.setTitle("From:", style: .secondary)
+        toView.setTitle("Interact with:", style: .secondary)
+    }
+
+    func setAmount(text: String, image: UIImage?) {
+        amountView.setImage(image)
+        amountView.setText(text, style: .title4.color(.labelPrimary))
     }
 
     func setDelegate(guardian: Guardian?, address: Address?, chain: Chain) {

@@ -245,15 +245,6 @@
         }
       },
       {
-        "package": "SwiftCryptoTokenFormatter",
-        "repositoryURL": "https://github.com/gnosis/SwiftCryptoTokenFormatter.git",
-        "state": {
-          "branch": null,
-          "revision": "6f605fd7bd61327a6006919e28bf3f0632d1c556",
-          "version": "1.1.0"
-        }
-      },
-      {
         "package": "TrustKit",
         "repositoryURL": "https://github.com/datatheorem/TrustKit.git",
         "state": {
