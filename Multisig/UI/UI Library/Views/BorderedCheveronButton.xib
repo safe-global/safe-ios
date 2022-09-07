@@ -20,12 +20,11 @@
             <rect key="frame" x="0.0" y="0.0" width="397" height="60"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bKP-QR-e2i">
-                    <rect key="frame" x="370" y="26" width="7" height="8.5"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.forward" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bKP-QR-e2i">
+                    <rect key="frame" x="367" y="22" width="10" height="16.5"/>
                     <color key="tintColor" name="labelTetriary"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="7" id="WlX-F6-8Xp"/>
-                        <constraint firstAttribute="width" secondItem="bKP-QR-e2i" secondAttribute="height" multiplier="7:12" id="h3b-dG-D9B"/>
+                        <constraint firstAttribute="width" constant="10" id="WlX-F6-8Xp"/>
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CCY-GM-IwB">
@@ -36,7 +35,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGC-82-7sO">
-                    <rect key="frame" x="20" y="60" width="342" height="20.5"/>
+                    <rect key="frame" x="20" y="60" width="339" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -61,7 +60,7 @@
         </view>
     </objects>
     <resources>
-        <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="chevron.forward" catalog="system" width="96" height="128"/>
         <namedColor name="labelTetriary">
             <color red="0.0" green="0.078431372549019607" blue="0.15686274509803921" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
