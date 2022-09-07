@@ -17,7 +17,7 @@ class TokenDistributionViewController: UIViewController {
 
     private var onNext: (() -> ())?
     private var stepNumber: Int = 1
-    private var maxSteps: Int = 3
+    private var maxSteps: Int = 4
 
     private var stepLabel: UILabel!
 
@@ -30,12 +30,12 @@ class TokenDistributionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        ViewControllerFactory.removeNavigationBarBorder(self)
         distributionView.set("Distribution details") { [unowned self] in
             let vc = ViewControllerFactory.detailedInfoViewController(title: "Distribution details",
                                                                       text: nil,
                                                                       attributedText: nil)
 
-            show(vc, sender: self)
         }
         titleLabel.setStyle(.Updated.title)
         descriptionLabel.setStyle(.secondary)

@@ -21,8 +21,12 @@ class ShareTextView: UINibView {
         super.awakeFromNib()
         layer.borderWidth = 2
         layer.cornerRadius = 10
-        layer.borderColor = UIColor.border.cgColor
         textLabel.setStyle(.primary)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.borderColor = UIColor.border.cgColor
     }
 
     func set(text: String) {

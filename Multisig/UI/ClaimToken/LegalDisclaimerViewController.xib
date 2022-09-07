@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hho-1B-73p">
-                    <rect key="frame" x="20" y="64" width="374" height="798"/>
+                    <rect key="frame" x="16" y="16" width="382" height="766"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yVq-6N-I8z">
                             <rect key="frame" x="0.0" y="0.0" width="374" height="818"/>
@@ -40,14 +40,13 @@ None of the information available on this app, or made otherwise available to yo
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
-                            <mutableString key="userLabel">This app is for our community to encourage Safe ecosystem contributors and users to unlock SafeDAO governance. THIS APP IS PROVIDED “AS IS” AND “AS AVAILABLE,” AT YOUR OWN RISK, AND WITHOUT WARRANTIES OF ANY KIND.  We will not be liable for any loss, whether such loss is direct, indirect, special or consequential, suffered by any party as a result of their use of this app. By accessing this app, you represent and warrant: - that you are of legal age and that you will comply with any laws applicable to you and not engage in any illegal activities; - that you are claiming Safe tokens to participate in the SafeDAO governance process and that they do not represent consideration for past or future services; - that you, the country you are a resident of and your wallet address is not on any sanctions lists maintained by the United Nations, Switzerland, the EU, UK or the US; - that you are responsible for any tax obligations arising out of the interaction with this app.  None of the information available on this app, or made otherwise available to you in relation to its use, constitutes any legal, tax, financial or other advice. Where in doubt as to the action you should take, please consult your own legal, financial, tax or other professional advisors.</mutableString>
                         </label>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="yVq-6N-I8z" firstAttribute="bottom" secondItem="92Z-Uj-EXN" secondAttribute="bottom" constant="-100" id="2Wb-Hd-iMz"/>
+                        <constraint firstItem="yVq-6N-I8z" firstAttribute="bottom" secondItem="92Z-Uj-EXN" secondAttribute="bottom" constant="-20" id="2Wb-Hd-iMz"/>
                         <constraint firstItem="yVq-6N-I8z" firstAttribute="trailing" secondItem="92Z-Uj-EXN" secondAttribute="trailing" id="Qpr-fJ-AzE"/>
                         <constraint firstItem="yVq-6N-I8z" firstAttribute="leading" secondItem="92Z-Uj-EXN" secondAttribute="leading" id="ahp-Xa-e1P"/>
-                        <constraint firstItem="yVq-6N-I8z" firstAttribute="top" secondItem="92Z-Uj-EXN" secondAttribute="top" id="fuv-3a-cFw"/>
+                        <constraint firstItem="yVq-6N-I8z" firstAttribute="top" secondItem="92Z-Uj-EXN" secondAttribute="top" constant="20" id="fuv-3a-cFw"/>
                         <constraint firstItem="yVq-6N-I8z" firstAttribute="width" secondItem="Hho-1B-73p" secondAttribute="width" id="uVW-Ql-q1y"/>
                     </constraints>
                     <viewLayoutGuide key="contentLayoutGuide" id="92Z-Uj-EXN"/>
@@ -70,13 +69,13 @@ None of the information available on this app, or made otherwise available to yo
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Hho-1B-73p" secondAttribute="trailing" constant="20" id="PrU-g3-9NQ"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Hho-1B-73p" secondAttribute="bottom" id="ZR5-ES-lgH"/>
-                <constraint firstItem="Hho-1B-73p" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="b6l-T1-Vdg"/>
-                <constraint firstItem="Hho-1B-73p" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="hOr-2e-6nv"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="J2t-Zm-rfc" secondAttribute="bottom" constant="16" id="k07-sE-G8p"/>
-                <constraint firstItem="J2t-Zm-rfc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="kNy-wq-1oT"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="J2t-Zm-rfc" secondAttribute="trailing" constant="16" id="s5t-Ra-l01"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="J2t-Zm-rfc" secondAttribute="trailing" constant="16" id="6d3-cG-0sj"/>
+                <constraint firstItem="Hho-1B-73p" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="7GS-lu-Htp"/>
+                <constraint firstItem="Hho-1B-73p" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="MUp-PZ-bJn"/>
+                <constraint firstItem="Hho-1B-73p" firstAttribute="bottom" secondItem="J2t-Zm-rfc" secondAttribute="top" constant="-8" id="PDF-pS-Eas"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="J2t-Zm-rfc" secondAttribute="bottom" constant="16" id="nDO-I7-fnj"/>
+                <constraint firstItem="J2t-Zm-rfc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="sha-ya-szz"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Hho-1B-73p" secondAttribute="trailing" constant="16" id="tL7-v5-XaP"/>
             </constraints>
             <point key="canvasLocation" x="132" y="132"/>
         </view>
