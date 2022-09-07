@@ -29,9 +29,6 @@
             <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="claim-background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="T4t-X8-hHD">
-                    <rect key="frame" x="0.0" y="44" width="390" height="700"/>
-                </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="FVp-oJ-Ejw">
                     <rect key="frame" x="16" y="60" width="358" height="734"/>
                     <subviews>
@@ -185,18 +182,14 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="FVp-oJ-Ejw" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="cTG-8B-jMD"/>
-                <constraint firstItem="T4t-X8-hHD" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="cYw-ra-3tl"/>
                 <constraint firstAttribute="trailing" secondItem="FVp-oJ-Ejw" secondAttribute="trailing" constant="16" id="cdc-ES-TJ0"/>
-                <constraint firstItem="T4t-X8-hHD" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="hgF-6g-qhK"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="FVp-oJ-Ejw" secondAttribute="bottom" constant="16" id="kXC-xs-XP8"/>
                 <constraint firstItem="FVp-oJ-Ejw" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="nUZ-SN-c8N"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="T4t-X8-hHD" secondAttribute="trailing" id="sxP-7g-wZc"/>
             </constraints>
             <point key="canvasLocation" x="131.8840579710145" y="131.91964285714286"/>
         </view>
     </objects>
     <resources>
-        <image name="claim-background-gradient" width="375" height="700"/>
         <image name="ico-private-key" width="17" height="20"/>
         <image name="ico-token" width="24" height="24"/>
         <namedColor name="labelPrimary">
