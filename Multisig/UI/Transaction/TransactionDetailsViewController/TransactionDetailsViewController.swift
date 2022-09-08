@@ -404,15 +404,9 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                     onError(gsError)
                 }
             }
-            keystoneSignFlow.signCompletion = { [weak self] signature in
-                guard
-                    let self = self,
-                    let unmarshaledSignature = SECP256K1.unmarshalSignature(signatureData: Data(hex: signature))
-                else { return }
-                
+            keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
                 let gnosisSafeSignature = unmarshaledSignature.r + unmarshaledSignature.s + Data([unmarshaledSignature.v + 4])
-                
-                self.confirmAndRefresh(safeTxHash: safeTxHash, signature: gnosisSafeSignature.toHexString(), keyInfo: keyInfo)
+                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: gnosisSafeSignature.toHexString(), keyInfo: keyInfo)
             }
             present(flow: keystoneSignFlow)
         }

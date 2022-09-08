@@ -14,7 +14,7 @@ class KeystoneSignFlow: UIFlow {
     private let signRequest: KeystoneSignRequest
     private let chain: Chain?
     
-    var signCompletion: ((_ signature: String) -> Void)?
+    var signCompletion: ((_ unmarshaledSignature: SECP256K1.UnmarshaledSignature) -> Void)?
     
     init(signRequest: KeystoneSignRequest, chain: Chain?, completion: @escaping (Bool) -> Void) {
         self.signRequest = signRequest
@@ -35,20 +35,20 @@ class KeystoneSignFlow: UIFlow {
         
         let ribbon = ViewControllerFactory.ribbonWith(viewController: signVC)
         ribbon.storedChain = chain
-
+        
         show(ribbon)
     }
     
     private func presentScanner() {
         let vc = QRCodeScannerViewController()
-
+        
         let string = "Scan the QR code on the Keystone wallet to confirm the transaction." as NSString
         let textStyle = GNOTextStyle.primary.color(.white)
         let highlightStyle = textStyle.weight(.bold)
         let label = NSMutableAttributedString(string: string as String, attributes: textStyle.attributes)
         label.setAttributes(highlightStyle.attributes, range: string.range(of: "confirm the transaction"))
         vc.attributedLabel = label
-
+        
         vc.scannedValueValidator = { value in
             guard value.starts(with: "UR:ETH-SIGNATURE") else {
                 return .failure(GSError.InvalidWalletConnectQRCode())
@@ -65,12 +65,15 @@ class KeystoneSignFlow: UIFlow {
 
 extension KeystoneSignFlow: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
-        guard let signature = URRegistry.shared.getSignature(from: code) else {
+        guard
+            let signature = URRegistry.shared.getSignature(from: code),
+            let unmarshaledSignature = SECP256K1.unmarshalSignature(signatureData: Data(hex: signature))
+        else {
             stop(success: false)
             return
         }
         
-        signCompletion?(signature)
+        signCompletion?(unmarshaledSignature)
         stop(success: true)
     }
     

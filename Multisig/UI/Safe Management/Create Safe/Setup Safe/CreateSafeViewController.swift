@@ -789,25 +789,17 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                     App.shared.snackbar.show(error: gsError)
                 }
             }
-            keystoneSignFlow.signCompletion = { [weak self] signature in
-                guard
-                    let self = self,
-                    let unmarshaledSignature = SECP256K1.unmarshalSignature(signatureData: Data(hex: signature))
-                else { return }
-                                
+            keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
                 do {
-                    try self.uiModel.transaction.updateSignature(
+                    try self?.uiModel.transaction.updateSignature(
                         v: Sol.UInt256(UInt(unmarshaledSignature.v)),
                         r: Sol.UInt256(Data(Array(unmarshaledSignature.r))),
                         s: Sol.UInt256(Data(Array(unmarshaledSignature.s)))
                     )
+                    self?.submit()
                 } catch {
                     App.shared.snackbar.show(error: GSError.error(description: "Signing failed", error: error))
-                    return
                 }
-
-                self.submit()
-                
             }
             present(flow: keystoneSignFlow)
         }

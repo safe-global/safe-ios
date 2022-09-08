@@ -279,15 +279,9 @@ class ReviewSafeTransactionViewController: UIViewController {
                     endConfirm()
                 }
             }
-            keystoneSignFlow.signCompletion = { [weak self] signature in
-                guard
-                    let self = self,
-                    let unmarshaledSignature = SECP256K1.unmarshalSignature(signatureData: Data(hex: signature))
-                else { return }
-                
+            keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
                 let gnosisSafeSignature = unmarshaledSignature.r + unmarshaledSignature.s + Data([unmarshaledSignature.v + 4])
-                
-                self.proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: gnosisSafeSignature.toHexString())
+                self?.proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: gnosisSafeSignature.toHexString())
             }
             present(flow: keystoneSignFlow)
         }

@@ -243,10 +243,10 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
                     App.shared.snackbar.show(error: gsError)
                 }
             }
-            keystoneSignFlow.signCompletion = { [weak self] signature in
-                guard let self = self else { return }
-                                
-                self.confirm(signature: Data(hex: signature))
+            keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
+                if let signature = SECP256K1.marshalSignature(v: Data([unmarshaledSignature.v]), r: unmarshaledSignature.r, s: unmarshaledSignature.s) {
+                    self?.confirm(signature: signature)
+                }
             }
             present(flow: keystoneSignFlow)
         }

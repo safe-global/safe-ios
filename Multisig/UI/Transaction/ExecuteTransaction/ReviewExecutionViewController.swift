@@ -527,22 +527,13 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
                     App.shared.snackbar.show(error: gsError)
                 }
             }
-            keystoneSignFlow.signCompletion = { [weak self] signature in
-                guard
-                    let self = self,
-                    let unmarshaledSignature = SECP256K1.unmarshalSignature(signatureData: Data(hex: signature))
-                else { return }
-                                
+            keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
                 do {
-                    try self.controller.update(signature: (UInt(unmarshaledSignature.v), Array(unmarshaledSignature.r), Array(unmarshaledSignature.s)))
+                    try self?.controller.update(signature: (UInt(unmarshaledSignature.v), Array(unmarshaledSignature.r), Array(unmarshaledSignature.s)))
+                    self?.submit()
                 } catch {
-                    let gsError = GSError.error(description: "Signing failed", error: error)
-                    App.shared.snackbar.show(error: gsError)
-                    return
+                    App.shared.snackbar.show(error: GSError.error(description: "Signing failed", error: error))
                 }
-
-                self.submit()
-                
             }
             present(flow: keystoneSignFlow)
         }
