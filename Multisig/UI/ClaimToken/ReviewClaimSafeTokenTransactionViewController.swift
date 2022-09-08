@@ -145,6 +145,8 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
            case let SCGModels.DataDecoded.Parameter.ValueDecoded.multiSend(multiSendTxs)? = param.valueDecoded {
             description = "Multisend (\(multiSendTxs.count) actions)"
             tableCell.onCellTap = { [unowned self] _ in
+                Tracker.trackEvent(.userClaimReviewAct)
+                
                 let root = MultiSendListTableViewController(transactions: multiSendTxs,
                                                             addressInfoIndex: txData.addressInfoIndex,
                                                             chain: safe.chain!)
@@ -154,6 +156,8 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
         } else {
             description = "Action (\(dataDecoded.method))"
             tableCell.onCellTap = { [unowned self] _ in
+                Tracker.trackEvent(.userClaimReviewAct)
+
                 let root = ActionDetailViewController(decoded: dataDecoded,
                                                       addressInfoIndex: txData.addressInfoIndex,
                                                       chain: safe.chain!,
