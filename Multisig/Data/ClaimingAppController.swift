@@ -32,6 +32,19 @@ class ClaimingAppController {
             delegateRegistry: "0x469788fE6E9E9681C6ebF3bF78e7Fd26Fc015446",
             chainId: "4"
         )
+
+        static let mainnet = Configuration(
+            safeToken: "0x5aFE3855358E112B5647B952709E6165e1c1eEEe",
+
+            // TODO: airdrop contract addresses
+            userAirdrop: "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+            ecosystemAirdrop: "0x82F1267759e9Bea202a46f8FC04704b6A5E2Af77",
+
+            // https://github.com/gnosis/delegate-registry/blob/main/networks.json
+            // https://github.com/gnosis/delegate-registry/blob/feature/fix_deployment/networks.json
+            delegateRegistry: "0x469788fE6E9E9681C6ebF3bF78e7Fd26Fc015446",
+            chainId: "1"
+        )
     }
 
     var configuration: Configuration
@@ -42,8 +55,14 @@ class ClaimingAppController {
         rpcClient.chain
     }
 
-    init(configuration: Configuration = .rinkeby, chain: Chain = .rinkebyChain()) {
-        self.configuration = configuration
+    init?(chain: Chain) {
+        if chain.id == Chain.ChainID.ethereumMainnet {
+            self.configuration = .mainnet
+        } else if chain.id == Chain.ChainID.ethereumRinkeby {
+            self.configuration = .rinkeby
+        } else {
+            return nil
+        }
         self.rpcClient = RpcClient(chain: chain)
         claimingService = App.shared.claimingService
     }
@@ -158,6 +177,30 @@ class ClaimingAppController {
         var vestings: [String: Vesting] = [:]
         var tokenPaused: Bool = true
         var delegate: Sol.Address? = nil
+        var guardians: [Guardian] = []
+
+        var isEligible: Bool {
+            !allocations.isEmpty
+        }
+
+        var isRedeemed: Bool {
+            vestings.allSatisfy { _, value in
+                value.isRedeemed
+            }
+        }
+
+        var delegateAddress: Address? {
+            delegate.map(Address.init)
+        }
+
+        func guardian(for address: Address?) -> Guardian? {
+            guard let address = address else {
+                return nil
+            }
+            return guardians.first { g in
+                g.address.address == address
+            }
+        }
 
         var allocationsData: [(allocation: Allocation, vesting: Vesting)] {
             var result: [(allocation: Allocation, vesting: Vesting)] = []
@@ -251,6 +294,7 @@ class ClaimingAppController {
         //          | -> allocations -> [vestings] -> |
         // account  | -> is paused                 -> | -> all data loaded
         //          | -> delegate                  -> |
+        //            -> guardians                 ->
         // any error -> everything fails
         var data = ClaimingData(account: account)
         var errors: [Error] = []
@@ -312,6 +356,17 @@ class ClaimingAppController {
             }
             group.leave()
         })
+
+        // get guardians
+        group.enter()
+        _ = guardians { result in
+            do {
+                data.guardians = try result.get()
+            } catch {
+                errors.append(error)
+            }
+            group.leave()
+        }
 
         // wait for all requests to complete
         let waitResult = group.wait(timeout: .now() + .seconds(Int(timeout)))

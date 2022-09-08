@@ -35,7 +35,10 @@ class App {
     lazy var clientGatewayService = SafeClientGatewayService(
         url: App.configuration.services.clientGatewayURL,
         logger: LogService.shared)
-    lazy var claimingService = SafeClaimingService(logger: LogService.shared)
+    lazy var claimingService = SafeClaimingService(
+        url: App.configuration.services.claimingDataURL,
+        logger: LogService.shared
+    )
     
     var nodeService = EthereumNodeService()
 

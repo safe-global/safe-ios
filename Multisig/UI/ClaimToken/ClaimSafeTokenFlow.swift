@@ -17,19 +17,39 @@ class SelectDelegateFlow: UIFlow {
     var guardian: Guardian?
     var customAddress: Address?
     var controller: ClaimingAppController!
+    var animatedStart: Bool
+    var crossDissolvedStart: Bool
 
     init(safe: Safe,
+         guardian: Guardian?,
+         customAddress: Address?,
+         animated: Bool,
+         crossDissolved: Bool,
          controller: ClaimingAppController,
          factory: ClaimSafeTokenFlowFactory = ClaimSafeTokenFlowFactory(),
          completion: @escaping (_ success: Bool) -> Void) {
         self.safe = safe
         self.factory = factory
+        self.guardian = guardian
+        self.customAddress = customAddress
         self.controller = controller
+        self.animatedStart = animated
+        self.crossDissolvedStart = crossDissolved
         super.init(completion: completion)
     }
 
     override func start() {
         chooseDelegateIntro()
+
+        if guardian != nil {
+            chooseGuardian()
+        } else if customAddress != nil {
+            enterCustomAddress()
+        }
+
+        // resetting to show animation after first start
+        animatedStart = true
+        crossDissolvedStart = false
     }
 
     func chooseDelegateIntro() {
@@ -38,7 +58,7 @@ class SelectDelegateFlow: UIFlow {
         } onCustomAddress: { [unowned self] in
             enterCustomAddress()
         }
-        show(vc)
+        show(vc, animated: animatedStart, crossDissolve: crossDissolvedStart)
         vc.navigationItem.largeTitleDisplayMode = .always
         vc.navigationController?.navigationBar.prefersLargeTitles = true
     }
@@ -51,18 +71,19 @@ class SelectDelegateFlow: UIFlow {
         }
         chooseGuardianVC.safe = safe
         chooseGuardianVC.controller = controller
-        show(chooseGuardianVC)
+        show(chooseGuardianVC, animated: animatedStart, crossDissolve: crossDissolvedStart)
     }
 
     func enterCustomAddress() {
         Tracker.trackEvent(.screenClaimAddr)
-        let enterAddressVC = factory.enterCustomAddress(mainnet: self.safe.chain?.id == Chain.ChainID.ethereumMainnet) { [unowned self] address in
+        let isMainnet = self.safe.chain?.id == Chain.ChainID.ethereumMainnet
+        let enterAddressVC = factory.enterCustomAddress(mainnet: isMainnet, address: customAddress) { [unowned self] address in
             guardian = nil
             customAddress = address
             Tracker.trackEvent(.userClaimAddrSelect)
             stop(success: true)
         }
-        show(enterAddressVC)
+        show(enterAddressVC, animated: animatedStart, crossDissolve: crossDissolvedStart)
     }
 
     func popToSelection() {
@@ -101,9 +122,7 @@ class ClaimSafeTokenFlow: UIFlow {
          completion: @escaping (_ success: Bool) -> Void) {
         self.safe = safe
         self.factory = factory
-        // TODO: switch configuration depending on the safe's chain
-        let configuration: ClaimingAppController.Configuration = .rinkeby
-        controller = ClaimingAppController(configuration: configuration, chain: safe.chain!)
+        controller = ClaimingAppController(chain: safe.chain!)!
         super.init(completion: completion)
     }
 
@@ -112,19 +131,38 @@ class ClaimSafeTokenFlow: UIFlow {
         startVC.safe = safe
         startVC.controller = controller
 
-        startVC.completion = { [unowned self] isEligible in
-            if isEligible == true {
-                showIntro()
-                navigationController.viewControllers.remove(at: 0)
-            } else if isEligible == false {
-                showNotAvailable()
-                navigationController.viewControllers.remove(at: 0)
-            } else {
-                stop(success: false)
-            }
+        timestamp = Date().timeIntervalSince1970
+        startVC.completion = { [unowned self] data in
+            claimData = data
+            showFirstScreen()
+            navigationController.viewControllers.remove(at: 0)
         }
 
         show(startVC)
+    }
+
+    func showFirstScreen() {
+        guard let claimData = claimData, claimData.isEligible else {
+            showNotAvailable(crossDissolve: true)
+            return
+        }
+        if !claimData.isRedeemed {
+            // fresh start
+            showIntro(crossDissolve: true)
+        } else if let delegate = claimData.delegateAddress, let guardian = claimData.guardian(for: delegate) {
+            // guardian found for existing delegate address
+            selectedGuardian = guardian
+            chooseDelegate(animated: false)
+            selectAmount(crossDissolve: true)
+        } else if let delegate = claimData.delegateAddress {
+            // custom address set as delegate
+            selectedCustomAddress = delegate
+            chooseDelegate(animated: false)
+            selectAmount(crossDissolve: true)
+        } else {
+            // no delegate address exists, but already redeemed before
+            chooseDelegate(crossDissolve: true)
+        }
     }
 
     func showDisclaimer() {
@@ -141,18 +179,18 @@ class ClaimSafeTokenFlow: UIFlow {
         show(vc)
     }
 
-    func showIntro() {
+    func showIntro(crossDissolve: Bool = false) {
         let introVC = factory.claimGetStarted { [unowned self] in
             showWhatIsSafe()
         }
-        show(introVC, crossDissolve: true)
+        show(introVC, crossDissolve: crossDissolve)
         introVC.navigationItem.largeTitleDisplayMode = .always
         introVC.navigationController?.navigationBar.prefersLargeTitles = true
     }
 
-    func showNotAvailable() {
+    func showNotAvailable(crossDissolve: Bool = false) {
         let vc = factory.claimNotAvailable()
-        show(vc, crossDissolve: true)
+        show(vc, crossDissolve: crossDissolve)
     }
 
     func showWhatIsSafe() {
@@ -176,16 +214,24 @@ class ClaimSafeTokenFlow: UIFlow {
         show(vc)
     }
 
-    func chooseDelegate() {
-        delegateFlow = SelectDelegateFlow(safe: safe, controller: controller, factory: factory, completion: { [unowned self] _ in
+    func chooseDelegate(animated: Bool = true, crossDissolve: Bool = false) {
+        delegateFlow = SelectDelegateFlow(
+            safe: safe,
+            guardian: selectedGuardian,
+            customAddress: selectedCustomAddress,
+            animated: animated,
+            crossDissolved: crossDissolve,
+            controller: controller,
+            factory: factory
+        ) { [unowned self] _ in
             selectedGuardian = delegateFlow.guardian
             selectedCustomAddress = delegateFlow.customAddress
             selectAmount()
-        })
+        }
         push(flow: delegateFlow)
     }
 
-    func selectAmount() {
+    func selectAmount(crossDissolve: Bool = false) {
         let claimVC = factory.selectAmount(
             safe: safe,
             delegate: selectedCustomAddress,
@@ -204,7 +250,7 @@ class ClaimSafeTokenFlow: UIFlow {
             delegateFlow.popToSelection()
         }
 
-        show(claimVC)
+        show(claimVC, crossDissolve: crossDissolve)
     }
 
     func review() {
@@ -305,10 +351,11 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
-    func enterCustomAddress(mainnet: Bool, _ onContinue: @escaping (Address) -> ()) -> EnterCustomAddressViewController {
+    func enterCustomAddress(mainnet: Bool, address: Address?, _ onContinue: @escaping (Address) -> ()) -> EnterCustomAddressViewController {
         let vc = EnterCustomAddressViewController()
         vc.mainnet = mainnet
         vc.onContinue = onContinue
+        vc.address = address
         return vc
     }
 

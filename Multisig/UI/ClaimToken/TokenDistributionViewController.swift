@@ -29,6 +29,8 @@ class TokenDistributionViewController: UIViewController {
         ViewControllerFactory.removeNavigationBarBorder(self)
         navigationItem.largeTitleDisplayMode = .never
         distributionView.set("Distribution details") { [unowned self] in
+            Tracker.trackEvent(.userClaimDistrDetails)
+
             let content: [(title: String?, description: String?)] = [
                 (title: "60% — Community Treasuries", description: "40% SafeDAO Treasury\n15% GnosisDAO Treasury\n5% Joint Treasury (GNO <> SAFE)"),
                 (title: "15% — Core Contributors", description: "Current and future core contributor teams"),
@@ -37,7 +39,7 @@ class TokenDistributionViewController: UIViewController {
                 (title: "5% — User", description: "2.25% allocation\n2.25% vested allocation")]
             let vc = ViewControllerFactory.modal(viewController: DetailedInfoListViewController(title: "Distribution details",
                                                                                                 content: content,
-                                                                                                trackingEvent: .userClaimDistrDetails))
+                                                                                                trackingEvent: .screenClaimDistrDetail))
             present(vc, animated: true)
         }
         titleLabel.setStyle(.Updated.title)
