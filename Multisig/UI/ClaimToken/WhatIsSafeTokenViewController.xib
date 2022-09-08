@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WhatIsSafeTokenViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="assetsView" destination="W6P-wa-h5V" id="hG8-UV-B3k"/>
+                <outlet property="descriptionLabel" destination="TDl-8P-leX" id="fvB-MZ-G0x"/>
+                <outlet property="interfacesView" destination="Rcc-OU-iSt" id="T6d-Xd-QWx"/>
+                <outlet property="nextButton" destination="Nrg-FS-Yib" id="4Sj-CQ-1lE"/>
+                <outlet property="safeProtocolView" destination="2M4-e6-GE9" id="VlR-Eq-ax5"/>
+                <outlet property="titleLabel" destination="I5W-By-Sic" id="xVZ-6w-4cF"/>
+                <outlet property="tokenNonTrnasferableLabel" destination="LwR-LH-cJd" id="g8e-aJ-Dyk"/>
+                <outlet property="tokenomicsView" destination="iE8-Pc-xkO" id="HXX-Lt-VBr"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lLX-UH-e9f">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="782"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="kbH-UY-CZU">
+                            <rect key="frame" x="16" y="0.0" width="382" height="458.5"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What exactly is Safe token and what does it govern?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5W-By-Sic">
+                                    <rect key="frame" x="0.0" y="0.0" width="382" height="41"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eNX-Uj-JDj">
+                                    <rect key="frame" x="0.0" y="57" width="382" height="20.5"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-info" translatesAutoresizingMaskIntoConstraints="NO" id="TxE-9q-9aM">
+                                            <rect key="frame" x="0.0" y="0.0" width="20.5" height="20.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="TxE-9q-9aM" secondAttribute="height" id="ToH-mt-XnM"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safe Token is non-transferable initially." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LwR-LH-cJd">
+                                            <rect key="frame" x="28.5" y="0.0" width="353.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$SAFE is an ERC-20 governance token that stewards infrastructure components of the Safe ecosystem, including:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TDl-8P-leX">
+                                    <rect key="frame" x="0.0" y="93.5" width="382" height="61"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="C8f-TY-66J">
+                                    <rect key="frame" x="0.0" y="170.5" width="382" height="288"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2M4-e6-GE9" customClass="BorderedCheveronButton" customModule="Multisig" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="382" height="60"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="60" id="CMH-j7-EXb"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rcc-OU-iSt" customClass="BorderedCheveronButton" customModule="Multisig" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="76" width="382" height="60"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="60" id="bKD-xS-0Av"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W6P-wa-h5V" customClass="BorderedCheveronButton" customModule="Multisig" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="152" width="382" height="60"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="60" id="do2-Hd-aKz"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iE8-Pc-xkO" customClass="BorderedCheveronButton" customModule="Multisig" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="228" width="382" height="60"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="60" id="HH6-Qa-AVn"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="TDl-8P-leX" firstAttribute="width" secondItem="kbH-UY-CZU" secondAttribute="width" id="RB0-gY-M8Y"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="9n6-0v-BVT" firstAttribute="trailing" secondItem="kbH-UY-CZU" secondAttribute="trailing" constant="16" id="U7I-7w-uZ4"/>
+                        <constraint firstItem="9n6-0v-BVT" firstAttribute="top" secondItem="kbH-UY-CZU" secondAttribute="top" id="VjE-Zs-89g"/>
+                        <constraint firstItem="kbH-UY-CZU" firstAttribute="leading" secondItem="9n6-0v-BVT" secondAttribute="leading" constant="16" id="Xuf-Jv-OCj"/>
+                        <constraint firstItem="kbH-UY-CZU" firstAttribute="width" secondItem="lLX-UH-e9f" secondAttribute="width" constant="-32" id="eqT-6R-sgj"/>
+                        <constraint firstItem="kbH-UY-CZU" firstAttribute="bottom" secondItem="9n6-0v-BVT" secondAttribute="bottom" id="rwO-1Q-xvO"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="9n6-0v-BVT"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="e83-x8-GRm"/>
+                </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nrg-FS-Yib">
+                    <rect key="frame" x="16" y="790" width="382" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="pky-AV-iUf"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Next">
+                        <color key="titleColor" name="labelPrimary"/>
+                    </state>
+                    <connections>
+                        <action selector="didTapNext:" destination="-1" eventType="touchUpInside" id="qjR-VO-Gx7"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Nrg-FS-Yib" secondAttribute="bottom" constant="16" id="1rn-5G-vx1"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Nrg-FS-Yib" secondAttribute="trailing" constant="16" id="3m5-ET-bbn"/>
+                <constraint firstItem="Nrg-FS-Yib" firstAttribute="top" secondItem="lLX-UH-e9f" secondAttribute="bottom" constant="8" id="U0k-oJ-ISK"/>
+                <constraint firstItem="Nrg-FS-Yib" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="gdA-Ea-dWb"/>
+                <constraint firstAttribute="trailing" secondItem="lLX-UH-e9f" secondAttribute="trailing" id="hJs-ru-iiw"/>
+                <constraint firstItem="lLX-UH-e9f" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ktO-BD-XPj"/>
+                <constraint firstItem="lLX-UH-e9f" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="oRl-kd-Lc0"/>
+            </constraints>
+            <point key="canvasLocation" x="133" y="87"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ico-info" width="16" height="16"/>
+        <namedColor name="labelPrimary">
+            <color red="0.0" green="0.074509803921568626" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

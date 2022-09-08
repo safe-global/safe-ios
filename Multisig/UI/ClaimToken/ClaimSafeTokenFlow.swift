@@ -162,6 +162,13 @@ class ClaimSafeTokenFlow: UIFlow {
 
     func showTokenDistribution() {
         let vc = factory.chooseTokenDistribution { [unowned self] in
+            showWhatIsSafeToken()
+        }
+        show(vc)
+    }
+
+    func showWhatIsSafeToken() {
+        let vc = factory.whatIsSafeToken { [unowned self] in
             showNavigatingDAO()
         }
         show(vc)
@@ -259,6 +266,14 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
+    func tokenDistribution(onNext: @escaping () -> ()) -> TokenDistributionViewController {
+        TokenDistributionViewController(onNext: onNext)
+    }
+
+    func whatIsSafe(onNext: @escaping () -> ()) -> WhatIsSafeViewController {
+        WhatIsSafeViewController(onNext: onNext)
+    }
+
     func claimNotAvailable() -> ClaimNotAvailableViewController {
         let vc = ClaimNotAvailableViewController()
         return vc
@@ -284,13 +299,18 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
-    func chooseWhatIsSafe(completion: @escaping () -> ()) -> WhatIsSafeViewController {
-        let vc = WhatIsSafeViewController(completion: completion)
+    func chooseWhatIsSafe(onNext: @escaping () -> ()) -> WhatIsSafeViewController {
+        let vc = WhatIsSafeViewController(onNext: onNext)
         return vc
     }
 
     func chooseTokenDistribution(onNext: @escaping () -> ()) -> TokenDistributionViewController {
         let vc = TokenDistributionViewController(onNext: onNext)
+        return vc
+    }
+
+    func whatIsSafeToken(onNext: @escaping () -> ()) -> WhatIsSafeTokenViewController {
+        let vc = WhatIsSafeTokenViewController(onNext: onNext)
         return vc
     }
 

@@ -41,6 +41,12 @@ enum ViewControllerFactory {
         return UINavigationController(rootViewController: vc)
     }
 
+    static func detailedInfoViewController(title: String, text: String?, attributedText: NSAttributedString?) -> DetailedInfoViewController {
+        let controller = DetailedInfoViewController(title: title, text: text, attributedText: attributedText)
+
+        return controller
+    }
+
     static func addOwnerViewController(completion: @escaping () -> Void) -> UIViewController {
         let controller = AddOwnerKeyViewController(completion: completion)
         let nav = AddKeyNavigationController(rootViewController: controller)
