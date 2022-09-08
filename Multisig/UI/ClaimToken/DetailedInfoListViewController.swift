@@ -14,15 +14,20 @@ class DetailedInfoListViewController: UIViewController {
 
     var titleText: String!
     var content: [(title: String?, description: String?)]!
+    var trackingEvent: TrackingEvent?
 
-    convenience init(title: String, content: [(title: String?, description: String?)]) {
+    convenience init(title: String, content: [(title: String?, description: String?)], trackingEvent: TrackingEvent? = nil) {
         self.init(namedClass: DetailedInfoListViewController.self)
         self.titleText = title
         self.content = content
+        self.trackingEvent = trackingEvent
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let trackingEvent = trackingEvent {
+            Tracker.trackEvent(trackingEvent)
+        }
         title = titleText
         tableView.registerCell(DetailedInfoListTableViewCell.self)
     }

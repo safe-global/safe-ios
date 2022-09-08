@@ -36,9 +36,8 @@ class TokenDistributionViewController: UIViewController {
                 (title: "5% — Ecosystem (Guardians)", description: "1.25% allocation\n1.25% vested allocation\n2.5% future programs"),
                 (title: "5% — User", description: "2.25% allocation\n2.25% vested allocation")]
             let vc = ViewControllerFactory.modal(viewController: DetailedInfoListViewController(title: "Distribution details",
-                                                                                                content: content))
-            Tracker.trackEvent(.userClaimDistrDetails)
-            Tracker.trackEvent(.screenClaimDistrDetail)
+                                                                                                content: content,
+                                                                                                trackingEvent: .userClaimDistrDetails))
             present(vc, animated: true)
         }
         titleLabel.setStyle(.Updated.title)

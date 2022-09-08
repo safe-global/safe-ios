@@ -349,10 +349,10 @@ enum TrackingEvent: String, Trackable {
     case userClaimDistrNext                         = "user_claim_distr_next"
 
     // Distribution Details Tracking
-    case screenClaimDistrDetail                     = "screen_claim_distr_detail" // implementation missing
+    case screenClaimDistrDetail                     = "screen_claim_distr_detail"
 
     // What is safe token? screen Tracking
-    case screenClaimGov                             = "screen_claim_gov" // implementation missing
+    case screenClaimGov                             = "screen_claim_gov"
     case userClaimGovProto                          = "user_claim_gov_proto"
     case userClaimGovInterface                      = "user_claim_gov_interface"
     case userClaimGovAssets                         = "user_claim_gov_assets"
