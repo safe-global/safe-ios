@@ -25,8 +25,8 @@ class EnterCustomAddressViewController: UIViewController {
 
     private var chain: SCGModels.Chain!
     private var trackingParameters: [String: Any]?
-    private var address: Address? { addressField?.address }
 
+    var address: Address?
     var mainnet: Bool = true
     var onContinue: ((_ address: Address) -> ())?
 
@@ -58,6 +58,12 @@ class EnterCustomAddressViewController: UIViewController {
         } else {
             chain = SCGModels.Chain.rinkebyChain()
         }
+
+        if let address = address {
+            addressField.setAddress(address, prefix: chain.shortName)
+        }
+
+        validateInput()
 
         trackingParameters = { ["chain_id" : chain.chainId.description] }()
     }
@@ -152,6 +158,8 @@ class EnterCustomAddressViewController: UIViewController {
             }
 
             addressField.setAddress(address, prefix: chain.shortName)
+
+            self.address = addressField.address
 
             validateInput()
 

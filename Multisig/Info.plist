@@ -41,6 +41,8 @@
 	<string>1</string>
 	<key>CLIENT_GATEWAY_URL</key>
 	<string>$(CLIENT_GATEWAY_URL)</string>
+	<key>CLAIMING_DATA_URL</key>
+	<string>$(CLAIMING_DATA_URL)</string>
 	<key>CONFIRMATIONS_URL</key>
 	<string>$(CONFIRMATIONS_URL)</string>
 	<key>CONFLICT_URL</key>

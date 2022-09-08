@@ -80,18 +80,19 @@ class UIFlow {
         }
     }
 
-    func show(_ vc: UIViewController, crossDissolve: Bool = false) {
+    func show(_ vc: UIViewController, animated: Bool = true, crossDissolve: Bool = false) {
         if navigationController.viewControllers.isEmpty {
             navigationController.viewControllers = [vc]
-        } else {
-            let animated = !crossDissolve
+        } else if animated {
             if crossDissolve {
                 let transition: CATransition = CATransition()
                 transition.duration = 0.3
                 transition.type = CATransitionType.fade
                 navigationController.view.layer.add(transition, forKey: nil)
             }
-            navigationController.pushViewController(vc, animated: animated)
+            navigationController.pushViewController(vc, animated: !crossDissolve)
+        } else {
+            navigationController.pushViewController(vc, animated: false)
         }
     }
 }

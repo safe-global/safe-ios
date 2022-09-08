@@ -9,6 +9,7 @@
       "safeTokenPaused": true,
       "allocations": [
         {
+          "tag": "user",
           "account": "0x000543D851CD52a6bFD83a1D168D35DeAE4E3590",
           "chainId": 4,
           "contract": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
@@ -73,6 +74,7 @@
       "safeTokenPaused": true,
       "allocations": [
         {
+          "tag": "user",
           "account": "0x000543D851CD52a6bFD83a1D168D35DeAE4E3590",
           "chainId": 4,
           "contract": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
@@ -129,6 +131,7 @@
       "safeTokenPaused": false,
       "allocations": [
         {
+          "tag": "user",
           "account": "0x000543D851CD52a6bFD83a1D168D35DeAE4E3590",
           "chainId": 4,
           "contract": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
@@ -189,6 +192,7 @@
       "safeTokenPaused": false,
       "allocations": [
         {
+          "tag": "user",
           "account": "0x000543D851CD52a6bFD83a1D168D35DeAE4E3590",
           "chainId": 4,
           "contract": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
@@ -543,6 +547,7 @@
       "safeTokenPaused": true,
       "allocations": [
         {
+          "tag": "user",
           "account": "0x000543D851CD52a6bFD83a1D168D35DeAE4E3590",
           "chainId": 4,
           "contract": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",

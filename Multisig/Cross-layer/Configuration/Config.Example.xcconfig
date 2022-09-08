@@ -36,6 +36,12 @@ _CLIENT_GATEWAY_URL_DEV        = https:/$()/safe-client.staging.gnosisdev.com/
 _CLIENT_GATEWAY_URL_STAGING    = https:/$()/safe-client.staging.gnosisdev.com/
 _CLIENT_GATEWAY_URL_PROD       = https:/$()/safe-client.gnosis.io/
 
+// Claiming app service
+_CLAIMING_DATA_URL_DEV        = https:/$()/safe-claiming-app-data.staging.gnosisdev.com/
+_CLAIMING_DATA_URL_STAGING    = https:/$()/safe-claiming-app-data.staging.gnosisdev.com/
+_CLAIMING_DATA_URL_PROD       = https:/$()/safe-claiming-app-data.gnosis-safe.io/
+
+
 // Apps
 _APP_BUNDLE_ID_PROD     = io.gnosis.multisig.prod.mainnet
 _APP_BUNDLE_ID_STAGING  = io.gnosis.multisig.staging.mainnet
@@ -71,6 +77,7 @@ _LOG_LEVEL_DEV              = DEBUG
 // Configuration variables for the app
 
 CLIENT_GATEWAY_URL      = $(_CLIENT_GATEWAY_URL_$(SERVICE_ENV):default=$(_CLIENT_GATEWAY_URL_PROD))
+CLAIMING_DATA_URL       = $(_CLAIMING_DATA_URL_$(SERVICE_ENV):default=$(_CLAIMING_DATA_URL_PROD))
 FIREBASE_CONFIG         = $(_FIREBASE_CONFIG_$(SERVICE_ENV):default=$(_FIREBASE_CONFIG_PROD))
 LOGGERS                 = $(_LOGGERS_$(SERVICE_ENV):default=$(_LOGGERS_PROD))
 LOG_LEVEL               = $(_LOG_LEVEL_$(SERVICE_ENV):default=$(_LOG_LEVEL_PROD))

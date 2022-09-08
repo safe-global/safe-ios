@@ -17,6 +17,9 @@ struct AppConfiguration {
         @ConfigurationKey("CLIENT_GATEWAY_URL")
         var clientGatewayURL: URL
 
+        @ConfigurationKey("CLAIMING_DATA_URL")
+        var claimingDataURL: URL
+
         @ConfigurationKey("INFURA_API_KEY")
         var infuraKey: String
 
