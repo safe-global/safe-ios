@@ -48,6 +48,12 @@ class ClaimingAppController {
         claimingService = App.shared.claimingService
     }
 
+    static func isAvailable(chain: Chain) -> Bool {
+        let isChainSupported = chain.id == Chain.ChainID.ethereumRinkeby || chain.id == Chain.ChainID.ethereumMainnet
+        let isEnabledInConfig = NSString(string: FirebaseRemoteConfig.shared.value(key: .safeClaimEnabled) ?? "false").boolValue
+        return isChainSupported && isEnabledInConfig
+    }
+
     // MARK: - Static data
 
     func guardians(completion: @escaping (Result<[Guardian], Error>) -> Void) -> URLSessionTask? {
