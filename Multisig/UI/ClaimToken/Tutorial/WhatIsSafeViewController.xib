@@ -84,7 +84,7 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
-                                                    <color key="backgroundColor" name="backgroundTetriary"/>
+                                                    <color key="backgroundColor" name="backgroundLightGreen"/>
                                                     <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="e93-Y7-SE8" userLabel="Stack View (TVP)">
@@ -115,7 +115,7 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
-                                                    <color key="backgroundColor" name="backgroundTetriary"/>
+                                                    <color key="backgroundColor" name="backgroundLightGreen"/>
                                                     <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                                 </stackView>
                                             </subviews>
@@ -187,8 +187,8 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
     <resources>
         <image name="ico-private-key" width="17" height="20"/>
         <image name="ico-token" width="24" height="24"/>
-        <namedColor name="backgroundTetriary">
-            <color red="0.93333333333333335" green="0.93725490196078431" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="backgroundLightGreen">
+            <color red="0.93725490196078431" green="0.98039215686274506" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="labelPrimary">
             <color red="0.0" green="0.074509803921568626" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
