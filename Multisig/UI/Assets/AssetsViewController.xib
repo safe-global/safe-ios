@@ -28,7 +28,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="150" id="cX1-Ag-6xP"/>
+                                <constraint firstAttribute="height" constant="150" placeholder="YES" id="cX1-Ag-6xP"/>
                             </constraints>
                         </view>
                     </subviews>
