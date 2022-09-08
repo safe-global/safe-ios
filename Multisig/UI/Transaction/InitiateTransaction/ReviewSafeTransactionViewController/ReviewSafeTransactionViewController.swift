@@ -78,27 +78,44 @@ class ReviewSafeTransactionViewController: UIViewController {
         confirmButtonView.state = .normal
 
         confirmButtonView.onAction = { [weak self] in
-            guard let `self` = self else { return }
-            Tracker.trackEvent(.userClaimReviewConfirm)
+            self?.didConfirm()
+        }
+    }
 
-            let descriptionText = "An owner key will be used to confirm this transaction."
-            let vc = ChooseOwnerKeyViewController(
-                owners: KeyInfo.owners(safe: self.safe),
-                chainID: self.safe.chain!.id,
-                header: .text(description: descriptionText)
-            ) { [weak self] keyInfo in
-                guard let `self` = self else { return }
-                self.dismiss(animated: true) {
-                    if let info = keyInfo {
-                        self.startConfirm()
-                        self.sign(info)
-                    }
+    func didConfirm() {
+        let keys = KeyInfo.owners(safe: self.safe)
+        if keys.isEmpty {
+            let addOwnerVC = AddOwnerFirstViewController()
+            addOwnerVC.onSuccess = { [weak self] in
+                self?.dismiss(animated: true) {
+                    guard let self = self else { return }
+                    // check if we actually added an owner and not some irrelevant key
+                    guard !KeyInfo.owners(safe: self.safe).isEmpty else { return }
+                    self.didConfirm()
                 }
             }
-
-            let navigationController = UINavigationController(rootViewController: vc)
-            self.presentModal(navigationController)
+            let nav = ViewControllerFactory.modal(viewController: addOwnerVC)
+            presentModal(nav)
+            return
         }
+
+        let descriptionText = "An owner key will be used to confirm this transaction."
+        let vc = ChooseOwnerKeyViewController(
+            owners: keys,
+            chainID: self.safe.chain!.id,
+            header: .text(description: descriptionText)
+        ) { [weak self] keyInfo in
+            guard let `self` = self else { return }
+            self.dismiss(animated: true) {
+                if let info = keyInfo {
+                    self.startConfirm()
+                    self.sign(info)
+                }
+            }
+        }
+
+        let navigationController = UINavigationController(rootViewController: vc)
+        self.presentModal(navigationController)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
