@@ -290,7 +290,7 @@ class ClaimingAppController {
         }
     }
 
-    func fetchData(account: Address, timeout: TimeInterval = 3, completion: @escaping (Result<ClaimingData, Error>) -> Void) {
+    func fetchData(account: Address, timeout: TimeInterval = 60, completion: @escaping (Result<ClaimingData, Error>) -> Void) {
         //          | -> allocations -> [vestings] -> |
         // account  | -> is paused                 -> | -> all data loaded
         //          | -> delegate                  -> |
