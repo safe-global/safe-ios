@@ -15,8 +15,8 @@ class SafeClaimingService {
         httpClient.jsonDecoder
     }
 
-    init(logger: Logger) {
-        self.url = URL(string: "https://5afe.github.io/")!
+    init(url: URL, logger: Logger) {
+        self.url = url
         httpClient = JSONHTTPClient(url: url, logger: logger)
         httpClient.jsonDecoder.dateDecodingStrategy = .millisecondsSince1970
     }

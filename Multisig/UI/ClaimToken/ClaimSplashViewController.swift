@@ -14,7 +14,7 @@ class ClaimSplashViewController: UIViewController {
     var safe: Safe!
     var controller: ClaimingAppController!
     
-    var completion: (_ eligible: Bool?) -> Void = { _ in }
+    var completion: (_ claimData: ClaimingAppController.ClaimingData?) -> Void = { _ in }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,28 +22,22 @@ class ClaimSplashViewController: UIViewController {
         
         titleLabel.isSkeletonable = true
         titleLabel.skeletonTextLineHeight = .relativeToFont
+        titleLabel.showAnimatedSkeleton()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         reload()
     }
     
     func reload() {
-        titleLabel.showSkeleton(delay: 0)
-        
-        _ = controller.allocations(address: safe.addressValue) { [weak self] result in
+        controller.asyncFetchData(account: safe.addressValue) { [weak self] result in
             guard let `self` = self else { return }
-            DispatchQueue.main.async {
-                do {
-                    let allocations = try result.get()
-                    self.completion(!allocations.isEmpty)
-                } catch is GSError.EntityNotFound {
-                    self.completion(false)
-                } catch let error as DetailedLocalizedError {
-                    // other error
-                    App.shared.snackbar.show(error: error)
-                    self.completion(nil)
-                } catch {
-                    App.shared.snackbar.show(message: "Failed to load data: \(error.localizedDescription)")
-                    self.completion(nil)
-                }
+            do {
+                let data = try result.get()
+                self.completion(data)
+            } catch {
+                self.completion(nil)
             }
         }
     }

@@ -12,7 +12,7 @@ struct GuardiansRequest: JSONRequest {
     var httpMethod: String { "GET" }
 
     var urlPath: String {
-        "/claiming-app-data/resources/data/guardians.json"
+        "/guardians.json"
     }
 
     typealias ResponseType = [Guardian]

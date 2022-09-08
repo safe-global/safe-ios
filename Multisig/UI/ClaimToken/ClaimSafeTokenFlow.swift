@@ -19,17 +19,27 @@ class SelectDelegateFlow: UIFlow {
     var controller: ClaimingAppController!
 
     init(safe: Safe,
+         guardian: Guardian?,
+         customAddress: Address?,
          controller: ClaimingAppController,
          factory: ClaimSafeTokenFlowFactory = ClaimSafeTokenFlowFactory(),
          completion: @escaping (_ success: Bool) -> Void) {
         self.safe = safe
         self.factory = factory
+        self.guardian = guardian
+        self.customAddress = customAddress
         self.controller = controller
         super.init(completion: completion)
     }
 
     override func start() {
         chooseDelegateIntro()
+
+        if guardian != nil {
+            chooseGuardian()
+        } else if customAddress != nil {
+            enterCustomAddress()
+        }
     }
 
     func chooseDelegateIntro() {
@@ -110,16 +120,35 @@ class ClaimSafeTokenFlow: UIFlow {
         startVC.safe = safe
         startVC.controller = controller
 
-        startVC.completion = { [unowned self] isEligible in
-            if isEligible == true {
-                showIntro()
-                navigationController.viewControllers.remove(at: 0)
-            } else if isEligible == false {
-                showNotAvailable()
-                navigationController.viewControllers.remove(at: 0)
+        timestamp = Date().timeIntervalSince1970
+
+        startVC.completion = { [unowned self] data in
+            claimData = data
+
+            if let claimData = claimData, claimData.isEligible, !claimData.isRedeemed {
+
+                if !claimData.isRedeemed {
+                    showIntro()
+                } else if let delegate = claimData.delegateAddress {
+
+                    if let guardian = claimData.guardian(for: delegate) {
+                        selectedGuardian = guardian
+                    } else {
+                        selectedCustomAddress = delegate
+                    }
+
+                    chooseDelegate()
+                    selectAmount()
+
+                } else {
+                    chooseDelegate()
+                }
+
             } else {
-                stop(success: false)
+                showNotAvailable()
             }
+
+            navigationController.viewControllers.remove(at: 0)
         }
 
         show(startVC)
@@ -175,7 +204,7 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     func chooseDelegate() {
-        delegateFlow = SelectDelegateFlow(safe: safe, controller: controller, factory: factory, completion: { [unowned self] _ in
+        delegateFlow = SelectDelegateFlow(safe: safe, guardian: selectedGuardian, customAddress: selectedCustomAddress, controller: controller, factory: factory, completion: { [unowned self] _ in
             selectedGuardian = delegateFlow.guardian
             selectedCustomAddress = delegateFlow.customAddress
             selectAmount()

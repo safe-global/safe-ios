@@ -158,6 +158,30 @@ class ClaimingAppController {
         var vestings: [String: Vesting] = [:]
         var tokenPaused: Bool = true
         var delegate: Sol.Address? = nil
+        var guardians: [Guardian] = []
+
+        var isEligible: Bool {
+            !allocations.isEmpty
+        }
+
+        var isRedeemed: Bool {
+            vestings.allSatisfy { _, value in
+                value.isRedeemed
+            }
+        }
+
+        var delegateAddress: Address? {
+            delegate.map(Address.init)
+        }
+
+        func guardian(for address: Address?) -> Guardian? {
+            guard let address = address else {
+                return nil
+            }
+            return guardians.first { g in
+                g.address.address == address
+            }
+        }
 
         var allocationsData: [(allocation: Allocation, vesting: Vesting)] {
             var result: [(allocation: Allocation, vesting: Vesting)] = []
@@ -247,10 +271,11 @@ class ClaimingAppController {
         }
     }
 
-    func fetchData(account: Address, timeout: TimeInterval = 60, completion: @escaping (Result<ClaimingData, Error>) -> Void) {
+    func fetchData(account: Address, timeout: TimeInterval = 3, completion: @escaping (Result<ClaimingData, Error>) -> Void) {
         //          | -> allocations -> [vestings] -> |
         // account  | -> is paused                 -> | -> all data loaded
         //          | -> delegate                  -> |
+        //            -> guardians                 ->
         // any error -> everything fails
         var data = ClaimingData(account: account)
         var errors: [Error] = []
@@ -312,6 +337,17 @@ class ClaimingAppController {
             }
             group.leave()
         })
+
+        // get guardians
+        group.enter()
+        _ = guardians { result in
+            do {
+                data.guardians = try result.get()
+            } catch {
+                errors.append(error)
+            }
+            group.leave()
+        }
 
         // wait for all requests to complete
         let waitResult = group.wait(timeout: .now() + .seconds(Int(timeout)))
