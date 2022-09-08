@@ -130,8 +130,11 @@ extension UILabel {
         result.append(attributedLinkText)
 
         if let icon = linkIcon {
-            let attachment = NSTextAttachment()
-            attachment.image = icon.withTintColor(.primary)
+            let attachment = NSTextAttachment(image: icon.withTintColor(.primary))
+            // for some reason the image sticks to the 'top' of the line, so we have to offset it vertically
+            let lineHeight = UIFont.gnoFont(forTextStyle: linkStyle).lineHeight
+            let verticalOffset = (icon.size.height - lineHeight) / 2
+            attachment.bounds = CGRect(x: 0, y: verticalOffset, width: icon.size.width, height: icon.size.height)
             let attachmentString = NSAttributedString(attachment: attachment)
             result.append(attachmentString)
         }
