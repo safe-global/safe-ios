@@ -190,6 +190,7 @@ class ClaimTokensViewController: LoadableViewController {
     }
 
     @objc func didTapClaimButton() {
+        Tracker.trackEvent(.userClaimFormClaim)
         guard
             safe != nil,
             timestamp != nil,
@@ -203,12 +204,15 @@ class ClaimTokensViewController: LoadableViewController {
 
     // edit selected delegate
     @IBAction private func editButtonTouched(_ sender: Any) {
+        Tracker.trackEvent(.userClaimFormDel)
         onEditDelegate()
     }
 
     // pull-to-refresh, initial reload
     override func reloadData() {
         super.reloadData()
+        //TODO Do not track for initial load. 
+        Tracker.trackEvent(.userClaimFormReload)
 
         timestamp = Date().timeIntervalSince1970
         keyboardBehavior.hideKeyboard()
