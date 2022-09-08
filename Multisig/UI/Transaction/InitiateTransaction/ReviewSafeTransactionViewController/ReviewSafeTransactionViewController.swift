@@ -87,7 +87,12 @@ class ReviewSafeTransactionViewController: UIViewController {
         if keys.isEmpty {
             let addOwnerVC = AddOwnerFirstViewController()
             addOwnerVC.onSuccess = { [weak self] in
-                self?.dismiss(animated: true)
+                self?.dismiss(animated: true) {
+                    guard let self = self else { return }
+                    // check if we actually added an owner and not some irrelevant key
+                    guard !KeyInfo.owners(safe: self.safe).isEmpty else { return }
+                    self.didConfirm()
+                }
             }
             let nav = ViewControllerFactory.modal(viewController: addOwnerVC)
             presentModal(nav)
