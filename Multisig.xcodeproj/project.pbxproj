@@ -180,6 +180,7 @@
 		04D224BB28C9304600853E34 /* DetailedInfoListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D224B928C9304600853E34 /* DetailedInfoListViewController.xib */; };
 		04D224BE28C930A900853E34 /* DetailedInfoListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D224BC28C930A900853E34 /* DetailedInfoListTableViewCell.swift */; };
 		04D224BF28C930A900853E34 /* DetailedInfoListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D224BD28C930A900853E34 /* DetailedInfoListTableViewCell.xib */; };
+		04D224C128CA4FFE00853E34 /* NSMutableAttributedString+LineSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D224C028CA4FFD00853E34 /* NSMutableAttributedString+LineSpacing.swift */; };
 		04D968D4276B872D00CE4A9E /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D968D2276B872D00CE4A9E /* TransactionViewController.swift */; };
 		04D968D5276B872D00CE4A9E /* TransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D968D3276B872D00CE4A9E /* TransactionViewController.xib */; };
 		04E4CD65277752A500B558F4 /* TokenAmountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E4CD64277752A500B558F4 /* TokenAmountInfoView.swift */; };
@@ -1131,6 +1132,7 @@
 		04D224B928C9304600853E34 /* DetailedInfoListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailedInfoListViewController.xib; sourceTree = "<group>"; };
 		04D224BC28C930A900853E34 /* DetailedInfoListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInfoListTableViewCell.swift; sourceTree = "<group>"; };
 		04D224BD28C930A900853E34 /* DetailedInfoListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailedInfoListTableViewCell.xib; sourceTree = "<group>"; };
+		04D224C028CA4FFD00853E34 /* NSMutableAttributedString+LineSpacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+LineSpacing.swift"; sourceTree = "<group>"; };
 		04D968D2276B872D00CE4A9E /* TransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
 		04D968D3276B872D00CE4A9E /* TransactionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionViewController.xib; sourceTree = "<group>"; };
 		04E4CD64277752A500B558F4 /* TokenAmountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAmountInfoView.swift; sourceTree = "<group>"; };
@@ -2558,6 +2560,7 @@
 				55883611255C15870014E8C7 /* UIViewController+Safari.swift */,
 				0A5307452543273F00E8A270 /* UIViewController+UINib.swift */,
 				049257AD273C239C00507C33 /* String+Highlight.swift */,
+				04D224C028CA4FFD00853E34 /* NSMutableAttributedString+LineSpacing.swift */,
 				0A839B5F2578EB9500103AD9 /* View Controllers */,
 				558835ED255BFEA80014E8C7 /* Views */,
 			);
@@ -5218,6 +5221,7 @@
 				0A884C4228B3AAFF00D008A0 /* ClaimingAppController.swift in Sources */,
 				550FB19F26691CA300C13D54 /* DappsDataSource.swift in Sources */,
 				0A74EEFD268DF37100EB0EFB /* RibbonViewController.swift in Sources */,
+				04D224C128CA4FFE00853E34 /* NSMutableAttributedString+LineSpacing.swift in Sources */,
 				AD303414E96F6CD45E31FBE7 /* WhatsNewHandler.swift in Sources */,
 				B0D61871594F4DCE72FAD3BD /* WebConnectionRequestViewController.swift in Sources */,
 				0A0391CF27C56616003C871A /* CreateSafeInstructionsViewController.swift in Sources */,
