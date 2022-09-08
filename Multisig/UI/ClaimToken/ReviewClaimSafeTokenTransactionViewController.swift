@@ -44,7 +44,8 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
         shouldLoadTransactionPreview = true
 
         super.viewDidLoad()
-        
+        Tracker.trackEvent(.screenClaimReview)
+
         navigationItem.title = "Review transaction"
         confirmButtonView.set(rejectionEnabled: false)
 

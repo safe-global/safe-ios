@@ -79,6 +79,8 @@ class ReviewSafeTransactionViewController: UIViewController {
 
         confirmButtonView.onAction = { [weak self] in
             guard let `self` = self else { return }
+            Tracker.trackEvent(.userClaimReviewConfirm)
+
             let descriptionText = "An owner key will be used to confirm this transaction."
             let vc = ChooseOwnerKeyViewController(
                 owners: KeyInfo.owners(safe: self.safe),
@@ -340,6 +342,7 @@ class ReviewSafeTransactionViewController: UIViewController {
 
         tableCell.setCells([cell])
         tableCell.onCellTap = { [unowned self] _ in
+            Tracker.trackEvent(.userClaimReviewPar)
             self.showEditParameters()
         }
 

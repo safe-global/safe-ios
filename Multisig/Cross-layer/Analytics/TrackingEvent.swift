@@ -374,6 +374,10 @@ enum TrackingEvent: String, Trackable {
     case userClaimChdelSearch                       = "user_claim_chdel_search" // not used
     case screenClaimChdelNf                         = "screen_claim_chdel_nf" // not used
 
+    // Custom address screen Tracking
+    case screenClaimAddr                            = "screen_claim_addr"
+    case userClaimAddrSelect                        = "user_claim_addr_select"
+
     // Delegate details screen Tracking
     case screenClaimDeldet                          = "screen_claim_deldet"
     case userClaimDeldetSelect                      = "user_claim_deldet_select"
@@ -390,8 +394,8 @@ enum TrackingEvent: String, Trackable {
     // Review claiming transaction screen Tracking
     case screenClaimReview                          = "screen_claim_review"
     case userClaimReviewConfirm                     = "user_claim_review_confirm"
-    case userClaimReview_act                        = "user_claim_review_act"
-    case userClaimReview_par                        = "user_claim_review_par"
+    case userClaimReviewAct                         = "user_claim_review_act"
+    case userClaimReviewPar                         = "user_claim_review_par"
 
     // Claiming transaction success screen Tracking
     case screenClaimSuccess                         = "screen_claim_success"
