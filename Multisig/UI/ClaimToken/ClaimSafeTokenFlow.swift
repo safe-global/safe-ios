@@ -228,15 +228,26 @@ class ClaimSafeTokenFlow: UIFlow {
     }
 
     func success() {
-        let displayAmount = TokenFormatter().string(from: BigDecimal(Int256(amount!.big()), 18)) + " SAFE"
-        let successVC = factory.success(amount: displayAmount) { [unowned self] in
+        let successVC = ClaimSuccessViewController()
+        successVC.amount = amount
+        successVC.guardian = selectedGuardian
+        let selectedAddress = (selectedGuardian?.address.address ?? selectedCustomAddress)
+        successVC.hasChangedDelegate =
+            selectedAddress != nil &&
+            selectedAddress != claimData?.delegate.map(Address.init)
 
+        successVC.onOk = { [unowned self] in
             NotificationCenter.default.post(
                 name: .initiateTxNotificationReceived,
                 object: self,
                 userInfo: ["transactionDetails": transactionDetails!])
 
             stop(success: true)
+        }
+
+        successVC.onShare = { [unowned self, unowned successVC] in
+            let shareVC = factory.share(transaction: transactionDetails, safe: safe)
+            successVC.present(shareVC, animated: true)
         }
 
         show(successVC)
@@ -319,12 +330,12 @@ class ClaimSafeTokenFlowFactory {
         return vc
     }
 
-
-    func success(amount: String,
-                 completion: @escaping () -> Void) -> ClaimSuccessViewController {
-        let successVC = ClaimSuccessViewController()
-        successVC.amount = amount
-        successVC.onOk = completion
-        return successVC
+    func share(transaction: SCGModels.TransactionDetails, safe: Safe) -> UIViewController {
+        let url = App.configuration.services.webAppURL.appendingPathComponent(
+            safe.chain!.shortName! + ":" + safe.displayAddress)
+            .appendingPathComponent("transactions")
+            .appendingPathComponent(transaction.txId)
+        let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        return vc
     }
 }
