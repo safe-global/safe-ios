@@ -11,7 +11,12 @@ import Solidity
 @testable import Multisig
 
 class ClaimingAppControllerTests: XCTestCase {
-    let controller = ClaimingAppController()
+    var controller: ClaimingAppController!
+
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        controller = ClaimingAppController(chain: .rinkebyChain())
+    }
 
     func test_isPaused() {
         let exp = expectation(description: "wait")
@@ -317,7 +322,8 @@ class ClaimingAppControllerTests: XCTestCase {
                         startDate: json.startDate,
                         amount: UInt256String(UInt256(json.amount)!),
                         curve: json.curve,
-                        proof: json.proof.map { DataString(hex: $0) }
+                        proof: json.proof.map { DataString(hex: $0) },
+                        tag: json.tag
                     )
                 }
                 let vestingData: [ClaimingAppController.Vesting] = vestings.map { json in
@@ -347,13 +353,14 @@ class ClaimingAppControllerTests: XCTestCase {
                 var amount: String
                 var curve: Int
                 var proof: [String]
+                var tag: String
 
                 enum CodingKeys: String, CodingKey {
                     case account
                     case chainID = "chainId"
                     case contract
                     case vestingID = "vestingId"
-                    case durationWeeks, startDate, amount, curve, proof
+                    case durationWeeks, startDate, amount, curve, proof, tag
                 }
             }
 
