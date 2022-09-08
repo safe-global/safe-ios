@@ -75,10 +75,12 @@ class SelectDelegateFlow: UIFlow {
     }
 
     func enterCustomAddress() {
+        Tracker.trackEvent(.screenClaimAddr)
         let isMainnet = self.safe.chain?.id == Chain.ChainID.ethereumMainnet
         let enterAddressVC = factory.enterCustomAddress(mainnet: isMainnet, address: customAddress) { [unowned self] address in
             guardian = nil
             customAddress = address
+            Tracker.trackEvent(.userClaimAddrSelect)
             stop(success: true)
         }
         show(enterAddressVC, animated: animatedStart, crossDissolve: crossDissolvedStart)

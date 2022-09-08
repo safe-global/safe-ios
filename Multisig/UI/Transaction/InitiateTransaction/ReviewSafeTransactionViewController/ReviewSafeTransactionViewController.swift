@@ -359,6 +359,7 @@ class ReviewSafeTransactionViewController: UIViewController {
 
         tableCell.setCells([cell])
         tableCell.onCellTap = { [unowned self] _ in
+            Tracker.trackEvent(.userClaimReviewPar)
             self.showEditParameters()
         }
 

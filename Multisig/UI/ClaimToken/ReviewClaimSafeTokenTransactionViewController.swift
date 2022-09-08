@@ -11,11 +11,6 @@ import SwiftCryptoTokenFormatter
 import Solidity
 
 class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewController {
-    private var stepLabel: UILabel!
-    
-    var stepNumber: Int = 4
-    var maxSteps: Int = 4
-
     var amount: Sol.UInt128!
     var claimData: ClaimingAppController.ClaimingData!
     var timestamp: TimeInterval!
@@ -49,13 +44,8 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
         shouldLoadTransactionPreview = true
 
         super.viewDidLoad()
-        stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
-        stepLabel.textAlignment = .right
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
+        Tracker.trackEvent(.screenClaimReview)
 
-        stepLabel.setStyle(.tertiary)
-        stepLabel.text = "\(stepNumber) of \(maxSteps)"
-        
         navigationItem.title = "Review transaction"
         confirmButtonView.set(rejectionEnabled: false)
 
@@ -155,6 +145,8 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
            case let SCGModels.DataDecoded.Parameter.ValueDecoded.multiSend(multiSendTxs)? = param.valueDecoded {
             description = "Multisend (\(multiSendTxs.count) actions)"
             tableCell.onCellTap = { [unowned self] _ in
+                Tracker.trackEvent(.userClaimReviewAct)
+                
                 let root = MultiSendListTableViewController(transactions: multiSendTxs,
                                                             addressInfoIndex: txData.addressInfoIndex,
                                                             chain: safe.chain!)
@@ -164,6 +156,8 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
         } else {
             description = "Action (\(dataDecoded.method))"
             tableCell.onCellTap = { [unowned self] _ in
+                Tracker.trackEvent(.userClaimReviewAct)
+
                 let root = ActionDetailViewController(decoded: dataDecoded,
                                                       addressInfoIndex: txData.addressInfoIndex,
                                                       chain: safe.chain!,

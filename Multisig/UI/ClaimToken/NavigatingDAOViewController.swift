@@ -31,6 +31,8 @@ class NavigatingDAOViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        Tracker.trackEvent(.screenClaimDao)
+
         ViewControllerFactory.removeNavigationBarBorder(self)
         navigationItem.largeTitleDisplayMode = .never
         
@@ -52,6 +54,7 @@ class NavigatingDAOViewController: UIViewController {
     }
 
     @IBAction func nextClicked(_ sender: Any) {
+        Tracker.trackEvent(.userClaimDaoStart)
         completion?()
     }
 

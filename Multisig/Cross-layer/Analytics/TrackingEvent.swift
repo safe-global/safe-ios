@@ -325,13 +325,89 @@ enum TrackingEvent: String, Trackable {
     case userOwnerFromLinkNoKeyAddIt                = "user_owner_from_link_no_key_add_it"
     case screenOwnerFromLinkNoSafe                  = "screen_owner_from_link_no_safe"
     case userOwnerFromLinkNoSafeSkip                = "user_owner_from_link_no_safe_skip"
-    case screenOwnerFromLinkAddSafeName             = "screen_owner_from_link_add_safe_name" // not used
     case userOwnerFromLinkSafeNameAdded             = "user_owner_from_link_safe_name_added"
 
     // MARK: Safe Token Claim
+    // See: https://docs.google.com/spreadsheets/d/1mj9iQIhpM-Pak7lQMb1dmxhQn1QdJoJyhbc730dZNzA/edit#gid=1949479240&range=A244:E244
+    // Banner Tracking
     case bannerSafeTokenClaim                       = "user_banner_safe_token_claim"
     case bannerSafeTokenSkip                        = "user_banner_safe_token_skip"
+    case userClaimOpen                              = "user_claim_open"
 
+    // Welcome screen Tracking
+    case screenClaimWelcome                         = "screen_claim_welcome"
+    case userClaimStart                             = "user_claim_start"
+
+    // What is Safe? screen Tracking
+    case screenClaimWhatis                          = "screen_claim_whatis"
+    case userClaimWhatisNext                        = "user_claim_whatis_next"
+
+    // Distribution screen Tracking
+    case screenClaimDistr                           = "screen_claim_distr"
+    case userClaimDistrDetails                      = "user_claim_distr_details"
+    case userClaimDistrNext                         = "user_claim_distr_next"
+
+    // Distribution Details Tracking
+    case screenClaimDistrDetail                     = "screen_claim_distr_detail"
+
+    // What is safe token? screen Tracking
+    case screenClaimGov                             = "screen_claim_gov"
+    case userClaimGovProto                          = "user_claim_gov_proto"
+    case userClaimGovInterface                      = "user_claim_gov_interface"
+    case userClaimGovAssets                         = "user_claim_gov_assets"
+    case userClaimGovToken                          = "user_claim_gov_token"
+    case userClaimGovNext                           = "user_claim_gov_next"
+
+    // Navigating SafeDAO screen Tracking
+    case screenClaimDao                             = "screen_claim_dao"
+    case userClaimDaoStart                          = "user_claim_dao_start"
+
+    // Legal disclaimer screen Tracking
+    case screenClaimLegal                           = "screen_claim_legal"
+    case userClaimLegalAgree                        = "user_claim_legal_agree"
+
+    // Choose a delegate screen Tracking
+    case screenClaimChdel                           = "screen_claim_chdel"
+    case userClaimChdelGuard                        = "user_claim_chdel_guard"
+    case userClaimChdelAddr                         = "user_claim_chdel_addr"
+    case userClaimChdelSearch                       = "user_claim_chdel_search"
+    case screenClaimChdelNf                         = "screen_claim_chdel_nf"
+
+    // Custom address screen Tracking
+    case screenClaimAddr                            = "screen_claim_addr"
+    case userClaimAddrSelect                        = "user_claim_addr_select"
+
+    // Delegate details screen Tracking
+    case screenClaimDeldet                          = "screen_claim_deldet"
+    case userClaimDeldetSelect                      = "user_claim_deldet_select"
+
+    // Claiming form screen Tracking
+    case screenClaimForm                            = "screen_claim_form"
+    case userClaimFormFutTp                         = "user_claim_form_fut_tp"
+    case userClaimFormMax                           = "user_claim_form_max"
+    case userClaimFormPart                          = "user_claim_form_part"
+    case userClaimFormDel                           = "user_claim_form_del"
+    case userClaimFormClaim                         = "user_claim_form_claim"
+    case userClaimFormReload                        = "user_claim_form_reload"
+
+    // Review claiming transaction screen Tracking
+    case screenClaimReview                          = "screen_claim_review"
+    case userClaimReviewConfirm                     = "user_claim_review_confirm"
+    case userClaimReviewAct                         = "user_claim_review_act"
+    case userClaimReviewPar                         = "user_claim_review_par"
+
+    // Claiming transaction success screen Tracking
+    case screenClaimSuccess                         = "screen_claim_success"
+    case userClaimSuccessTweet                      = "user_claim_success_tweet"
+    case userClaimSuccessClose                      = "user_claim_success_close"
+    case userClaimSuccessDone                       = "user_claim_success_done"
+    case userClaimSuccessShare                      = "user_claim_success_share"
+
+    // Claiming not eligible screen Tracking
+    case screenClaimNot                             = "screen_claim_not"
+    case userClaimNotDao                            = "user_claim_not_dao"
+    case userClaimNotForum                          = "user_claim_not_forum"
+    case userClaimNotOk                             = "user_claim_not_ok"
 }
 
 extension TrackingEvent {

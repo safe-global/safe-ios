@@ -13,10 +13,6 @@ class ChooseDelegateIntroViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var chooseGuardianButton: UIButton!
     @IBOutlet weak var customAddressButton: UIButton!
-    var stepNumber: Int = 2
-    var maxSteps: Int = 4
-
-    private var stepLabel: UILabel!
 
     var onChooseGuardian: (() -> ())?
     var onCustomAddress: (() -> ())?
@@ -28,14 +24,9 @@ class ChooseDelegateIntroViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        Tracker.trackEvent(.screenClaimChdel)
 
         ViewControllerFactory.removeNavigationBarBorder(self)
-
-        stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
-        stepLabel.textAlignment = .right
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
-        stepLabel.setStyle(.tertiary)
-        stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
         titleLabel.setStyle(GNOTextStyle.Updated.title)
 
@@ -47,10 +38,12 @@ class ChooseDelegateIntroViewController: UIViewController {
     }
 
     @IBAction func didChooseGuardianButton(_ sender: Any) {
+        Tracker.trackEvent(.userClaimChdelGuard)
         onChooseGuardian?()
     }
 
     @IBAction func didCustomAddressButton(_ sender: Any) {
+        Tracker.trackEvent(.userClaimChdelAddr)
         onCustomAddress?()
     }
 }

@@ -78,6 +78,8 @@ class AllocationBoxCell: UITableViewCell {
     var headerTooltipText: NSAttributedString?
     var titleTooltipText: NSAttributedString?
 
+    var tapAllocationHeaderButtonTrackingEvent: TrackingEvent?
+
     weak var tooltipHostView: UIView?
 
     private var headerTooltip: Tooltip?
@@ -91,6 +93,9 @@ class AllocationBoxCell: UITableViewCell {
     }
 
     @IBAction func didTapAllocationHeaderButton(_ sender: Any) {
+        if let trackingEvent = tapAllocationHeaderButtonTrackingEvent {
+            Tracker.trackEvent(trackingEvent)
+        }
         showTooltip(text: headerTooltipText, existing: &headerTooltip, button: headerButton)
     }
 

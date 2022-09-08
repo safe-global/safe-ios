@@ -57,6 +57,7 @@ class ClaimedAmountInputCell: UITableViewCell {
     }
 
     @objc func maxButtonTouched(_ sender: Any) {
+        Tracker.trackEvent(.userClaimFormMax)
         fieldDelegate.setMaxValue()
     }
 

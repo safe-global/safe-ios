@@ -20,7 +20,7 @@ class ClaimGetStartedViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        Tracker.trackEvent(.screenClaimWelcome)
         ViewControllerFactory.addCloseButton(self)
         ViewControllerFactory.removeNavigationBarBorder(self)
         navigationItem.largeTitleDisplayMode = .never
@@ -43,6 +43,7 @@ class ClaimGetStartedViewController: UIViewController {
     }
 
     @IBAction func didTapStartClaimButton(_ sender: Any) {
+        Tracker.trackEvent(.userClaimStart)
         onStartClaim?()
     }
 }

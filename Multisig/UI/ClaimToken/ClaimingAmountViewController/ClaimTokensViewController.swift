@@ -20,12 +20,6 @@ class ClaimTokensViewController: LoadableViewController {
         case selectedDelegate
     }
 
-    // This screen's position in the claiming screen sequence
-    var stepNumber: Int = 3
-
-    // Maximum number of screens in the sequence
-    var maxSteps: Int = 4
-
     // Selected delegate address (guardian or a custom address)
     private (set) var delegateAddress: Address?
     private (set) var guardian: Guardian?
@@ -48,7 +42,6 @@ class ClaimTokensViewController: LoadableViewController {
     var completion: () -> Void = { }
     var onEditDelegate: () -> Void = { }
 
-    private var stepLabel: UILabel!
     private var claimButtonContainer: UIView!
     private var claimButton: UIButton!
     private var claimButtonBottom: NSLayoutConstraint!
@@ -72,6 +65,8 @@ class ClaimTokensViewController: LoadableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        Tracker.trackEvent(.screenClaimForm)
+
         title = "Your SAFE allocation"
         navigationItem.largeTitleDisplayMode = .always
 
@@ -87,13 +82,6 @@ class ClaimTokensViewController: LoadableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 200
         tableView.separatorInset = UIEdgeInsets(top: 0, left: .greatestFiniteMagnitude, bottom: 0, right: 0)
-
-        stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
-        stepLabel.textAlignment = .right
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
-
-        stepLabel.setStyle(.tertiary)
-        stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
         ViewControllerFactory.removeNavigationBarBorder(self)
 
@@ -188,6 +176,7 @@ class ClaimTokensViewController: LoadableViewController {
     }
 
     @objc func didTapClaimButton() {
+        Tracker.trackEvent(.userClaimFormClaim)
         guard
             safe != nil,
             timestamp != nil,
@@ -201,7 +190,13 @@ class ClaimTokensViewController: LoadableViewController {
 
     // edit selected delegate
     @IBAction private func editButtonTouched(_ sender: Any) {
+        Tracker.trackEvent(.userClaimFormDel)
         onEditDelegate()
+    }
+
+    override func didStartRefreshing() {
+        super.didStartRefreshing()
+        Tracker.trackEvent(.userClaimFormReload)
     }
 
     // pull-to-refresh, initial reload
@@ -348,6 +343,7 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
             cell.tooltipHostView = view
 
             cell.headerTooltipText = data.unvestedDurationTooltip
+            cell.tapAllocationHeaderButtonTrackingEvent = .userClaimFormFutTp
             cell.valueText = data.unvestedValue
             cell.titleTooltipText = data.unvestedAmountTooltip
             // must be set at the end to update values

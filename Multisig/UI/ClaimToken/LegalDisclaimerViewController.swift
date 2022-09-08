@@ -16,6 +16,7 @@ class LegalDisclaimerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        Tracker.trackEvent(.screenClaimLegal)
 
         ViewControllerFactory.removeNavigationBarBorder(self)
         navigationItem.largeTitleDisplayMode = .never
@@ -29,7 +30,7 @@ class LegalDisclaimerViewController: UIViewController {
     }
 
     @IBAction func didTapAgreeButton(_ sender: Any) {
+        Tracker.trackEvent(.userClaimLegalAgree)
         onAgree?()
     }
-
 }

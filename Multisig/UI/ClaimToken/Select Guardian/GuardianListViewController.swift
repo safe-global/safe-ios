@@ -18,10 +18,6 @@ class GuardianListViewController: LoadableViewController {
 
     private var sections: [Section] = []
 
-    private var stepLabel: UILabel!
-    private var stepNumber: Int = 2
-    private var maxSteps: Int = 4
-
     private var guardians: [Guardian] = []
 
     var onSelected: ((Guardian) -> ())?
@@ -59,12 +55,6 @@ class GuardianListViewController: LoadableViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
 
-        stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
-        stepLabel.textAlignment = .right
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
-        stepLabel.setStyle(.tertiary)
-        stepLabel.text = "\(stepNumber) of \(maxSteps)"
-
         tableView.registerCell(GuardianTableViewCell.self)
         tableView.registerCell(GuardianCountTableViewCell.self)
         tableView.delegate = self
@@ -73,12 +63,15 @@ class GuardianListViewController: LoadableViewController {
         tableView.estimatedRowHeight = 200
         tableView.separatorStyle = .none
 
+        // Empty view is never shown. Instead the list is empty, when no results are found
         emptyView.setText("No delegates were found. Try to search again or use a custom address.")
         emptyView.setImage(UIImage(named: "ico-delegate-placeholder")!)
     }
 
     private func makeSections(items: [Guardian]) -> [Section] {
-        guard !items.isEmpty else { return [] }
+        guard !items.isEmpty else {
+            return []
+        }
 
         var sections = [Section]()
 
@@ -130,6 +123,9 @@ extension GuardianListViewController: UISearchResultsUpdating, UISearchBarDelega
         guard let resultsController = searchController.searchResultsController as? GuardianSearchResultController else {
             return
         }
+        if !searchController.searchBar.text!.isEmpty {
+            Tracker.trackEvent(.userClaimChdelSearch)
+        }
         let terms = searchController.searchBar.text!
             .trimmingCharacters(in: .whitespacesAndNewlines)
             .components(separatedBy: " ") as [String]
@@ -148,12 +144,14 @@ extension GuardianListViewController: UISearchResultsUpdating, UISearchBarDelega
         }
         resultsController.selectedDelegate = selectedDelegate
         resultsController.tableView.reloadData()
+        if !searchController.searchBar.text!.isEmpty && resultsController.filteredGuardians.isEmpty {
+                Tracker.trackEvent(.screenClaimChdelNf)
+        }
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
-
 }
 
 extension GuardianListViewController: UITableViewDelegate, UITableViewDataSource {
