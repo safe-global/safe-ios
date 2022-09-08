@@ -30,6 +30,7 @@ class ClaimSuccessViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        Tracker.trackEvent(.screenClaimSuccess)
 
         ViewControllerFactory.addCloseButton(self)
         ViewControllerFactory.makeTransparentNavigationBar(self)
@@ -79,6 +80,8 @@ class ClaimSuccessViewController: UIViewController {
     }
 
     @IBAction func didTapTweetButton(_ sender: Any) {
+        Tracker.trackEvent(.userClaimSuccessTweet)
+
         let shareString = "https://twitter.com/intent/tweet?text=\(tweetText)"
         let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         let url = URL(string: escapedShareString)
@@ -86,16 +89,17 @@ class ClaimSuccessViewController: UIViewController {
     }
 
     @IBAction func didTapShare(_ sender: Any) {
+        Tracker.trackEvent(.userClaimSuccessShare)
         onShare?()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        //TODO track screen
+    @IBAction func didTapOkButton(_ sender: Any) {
+        Tracker.trackEvent(.userClaimSuccessDone)
+        onOk?()
     }
 
-    @IBAction func didTapOkButton(_ sender: Any) {
-        onOk?()
+    override func closeModal() {
+        Tracker.trackEvent(.userClaimSuccessClose)
+        super.closeModal()
     }
 }
