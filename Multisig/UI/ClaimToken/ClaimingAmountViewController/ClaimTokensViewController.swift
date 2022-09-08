@@ -194,11 +194,14 @@ class ClaimTokensViewController: LoadableViewController {
         onEditDelegate()
     }
 
+    override func didStartRefreshing() {
+        super.didStartRefreshing()
+        Tracker.trackEvent(.userClaimFormReload)
+    }
+
     // pull-to-refresh, initial reload
     override func reloadData() {
         super.reloadData()
-        //TODO Do not track for initial load.
-        Tracker.trackEvent(.userClaimFormReload)
 
         timestamp = Date().timeIntervalSince1970
         keyboardBehavior.hideKeyboard()

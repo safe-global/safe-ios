@@ -141,16 +141,12 @@ extension GuardianListViewController: UISearchResultsUpdating, UISearchBarDelega
         }
         resultsController.selectedDelegate = selectedDelegate
         resultsController.tableView.reloadData()
+        Tracker.trackEvent(.userClaimChdelSearch)
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-
-        // TDOO  Fix: Hits only when Enter is pressed in search bar
-        Tracker.trackEvent(.userClaimChdelSearch)
-
         searchBar.resignFirstResponder()
     }
-
 }
 
 extension GuardianListViewController: UITableViewDelegate, UITableViewDataSource {
