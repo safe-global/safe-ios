@@ -20,12 +20,6 @@ class ClaimTokensViewController: LoadableViewController {
         case selectedDelegate
     }
 
-    // This screen's position in the claiming screen sequence
-    var stepNumber: Int = 3
-
-    // Maximum number of screens in the sequence
-    var maxSteps: Int = 4
-
     // Selected delegate address (guardian or a custom address)
     private (set) var delegateAddress: Address?
     private (set) var guardian: Guardian?
@@ -48,7 +42,6 @@ class ClaimTokensViewController: LoadableViewController {
     var completion: () -> Void = { }
     var onEditDelegate: () -> Void = { }
 
-    private var stepLabel: UILabel!
     private var claimButtonContainer: UIView!
     private var claimButton: UIButton!
     private var claimButtonBottom: NSLayoutConstraint!
@@ -89,13 +82,6 @@ class ClaimTokensViewController: LoadableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 200
         tableView.separatorInset = UIEdgeInsets(top: 0, left: .greatestFiniteMagnitude, bottom: 0, right: 0)
-
-        stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
-        stepLabel.textAlignment = .right
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
-
-        stepLabel.setStyle(.tertiary)
-        stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
         ViewControllerFactory.removeNavigationBarBorder(self)
 
@@ -211,7 +197,7 @@ class ClaimTokensViewController: LoadableViewController {
     // pull-to-refresh, initial reload
     override func reloadData() {
         super.reloadData()
-        //TODO Do not track for initial load. 
+        //TODO Do not track for initial load.
         Tracker.trackEvent(.userClaimFormReload)
 
         timestamp = Date().timeIntervalSince1970
