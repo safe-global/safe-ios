@@ -176,8 +176,6 @@
 		04D1322E25E41E560032FA03 /* RejectionCreatedPiece.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D131D925E416FC0032FA03 /* RejectionCreatedPiece.xib */; };
 		04D1323525E43C560032FA03 /* DetailRejectionInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D1323325E43C550032FA03 /* DetailRejectionInfoCell.swift */; };
 		04D1323625E43C560032FA03 /* DetailRejectionInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1323425E43C550032FA03 /* DetailRejectionInfoCell.xib */; };
-		04D224B428C8B4FF00853E34 /* DetailedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D224B228C8B4FF00853E34 /* DetailedInfoViewController.swift */; };
-		04D224B528C8B4FF00853E34 /* DetailedInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D224B328C8B4FF00853E34 /* DetailedInfoViewController.xib */; };
 		04D224BA28C9304600853E34 /* DetailedInfoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D224B828C9304600853E34 /* DetailedInfoListViewController.swift */; };
 		04D224BB28C9304600853E34 /* DetailedInfoListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D224B928C9304600853E34 /* DetailedInfoListViewController.xib */; };
 		04D224BE28C930A900853E34 /* DetailedInfoListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D224BC28C930A900853E34 /* DetailedInfoListTableViewCell.swift */; };
@@ -1131,8 +1129,6 @@
 		04D131DA25E416FC0032FA03 /* RejectionCreatedPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RejectionCreatedPiece.swift; sourceTree = "<group>"; };
 		04D1323325E43C550032FA03 /* DetailRejectionInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRejectionInfoCell.swift; sourceTree = "<group>"; };
 		04D1323425E43C550032FA03 /* DetailRejectionInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailRejectionInfoCell.xib; sourceTree = "<group>"; };
-		04D224B228C8B4FF00853E34 /* DetailedInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInfoViewController.swift; sourceTree = "<group>"; };
-		04D224B328C8B4FF00853E34 /* DetailedInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailedInfoViewController.xib; sourceTree = "<group>"; };
 		04D224B828C9304600853E34 /* DetailedInfoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInfoListViewController.swift; sourceTree = "<group>"; };
 		04D224B928C9304600853E34 /* DetailedInfoListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailedInfoListViewController.xib; sourceTree = "<group>"; };
 		04D224BC28C930A900853E34 /* DetailedInfoListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInfoListTableViewCell.swift; sourceTree = "<group>"; };
@@ -2119,8 +2115,6 @@
 				045DBCF4289AF40D003C910C /* ReviewClaimSafeTokenTransactionViewController.swift */,
 				0A50DBDA28C898A900C0CEC6 /* ReviewClaimTokensHeaderCell.swift */,
 				0A50DBDB28C898A900C0CEC6 /* ReviewClaimTokensHeaderCell.xib */,
-				04D224B228C8B4FF00853E34 /* DetailedInfoViewController.swift */,
-				04D224B328C8B4FF00853E34 /* DetailedInfoViewController.xib */,
 				04D224B828C9304600853E34 /* DetailedInfoListViewController.swift */,
 				04D224B928C9304600853E34 /* DetailedInfoListViewController.xib */,
 				04D224BC28C930A900853E34 /* DetailedInfoListTableViewCell.swift */,
@@ -4412,7 +4406,6 @@
 				0A9E8E7825B9CA4200256AD3 /* BannerTableViewCell.xib in Resources */,
 				0A045075278DACBD00650F71 /* AmountAndValuePiece.xib in Resources */,
 				0AF1C8AB2541AE0600E28669 /* LoadingView.xib in Resources */,
-				04D224B528C8B4FF00853E34 /* DetailedInfoViewController.xib in Resources */,
 				0422007025EFDF4E00CAC173 /* TagView.xib in Resources */,
 				0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */,
 				6AFD26ED2861B0DE00336FFE /* SafeTokenBanner.xib in Resources */,
@@ -4996,7 +4989,6 @@
 				0ACDBFFD248E4C5D002035A2 /* Configuration.swift in Sources */,
 				0A9A1A38257924C600B44405 /* DetailMultiAccountsCell.swift in Sources */,
 				04C5DF6B26FB451B0072476C /* KeyTypeTableViewCell.swift in Sources */,
-				04D224B428C8B4FF00853E34 /* DetailedInfoViewController.swift in Sources */,
 				0A106289248A892B00C1EE54 /* ERC721Metadata.swift in Sources */,
 				0A5C0C542818204F0061D96F /* EditConfirmationsViewController.swift in Sources */,
 				0A451C00252DDB67001DB7D2 /* ReloadButton.swift in Sources */,
