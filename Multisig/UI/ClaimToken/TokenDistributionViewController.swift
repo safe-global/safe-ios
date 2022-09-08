@@ -33,9 +33,9 @@ class TokenDistributionViewController: UIViewController {
                 (title: "15% — Safe Foundation", description: "8% strategic raise\n7% grants and reserve"),
                 (title: "5% — Ecosystem (Guardians)", description: "1.25% allocation\n1.25% vested allocation\n2.5% future programs"),
                 (title: "5% — User", description: "2.25% allocation\n2.25% vested allocation")]
-            let vc = DetailedInfoListViewController(title: "Distribution details", content: content)
-
-            show(vc, sender: self)
+            let vc = ViewControllerFactory.modal(viewController: DetailedInfoListViewController(title: "Distribution details",
+                                                                                                content: content))
+            present(vc, animated: true)
         }
         titleLabel.setStyle(.Updated.title)
         descriptionLabel.setStyle(.secondary)
