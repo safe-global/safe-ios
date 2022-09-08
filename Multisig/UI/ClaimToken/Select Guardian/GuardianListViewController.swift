@@ -123,6 +123,9 @@ extension GuardianListViewController: UISearchResultsUpdating, UISearchBarDelega
         guard let resultsController = searchController.searchResultsController as? GuardianSearchResultController else {
             return
         }
+        if !searchController.searchBar.text!.isEmpty {
+            Tracker.trackEvent(.userClaimChdelSearch)
+        }
         let terms = searchController.searchBar.text!
             .trimmingCharacters(in: .whitespacesAndNewlines)
             .components(separatedBy: " ") as [String]
@@ -141,7 +144,9 @@ extension GuardianListViewController: UISearchResultsUpdating, UISearchBarDelega
         }
         resultsController.selectedDelegate = selectedDelegate
         resultsController.tableView.reloadData()
-        Tracker.trackEvent(.userClaimChdelSearch)
+        if !searchController.searchBar.text!.isEmpty && resultsController.filteredGuardians.isEmpty {
+                Tracker.trackEvent(.screenClaimChdelNf)
+        }
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
