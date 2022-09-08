@@ -35,7 +35,7 @@ class ClaimSuccessViewController: UIViewController {
         textLabel.attributedText = text.highlightRange(
             originalStyle: .secondary,
             highlightStyle: .primary,
-            textToHightlight: amountString
+            textToHighlight: amountString
         )
 
         tweetBox.setTweet(
@@ -51,8 +51,6 @@ class ClaimSuccessViewController: UIViewController {
         animationView.contentMode = .scaleAspectFit
         animationView.backgroundBehavior = .pauseAndRestore
         animationView.play()
-
-        navigationItem.largeTitleDisplayMode = .never
     }
 
     override func viewDidAppear(_ animated: Bool) {

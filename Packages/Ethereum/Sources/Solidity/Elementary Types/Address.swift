@@ -27,6 +27,11 @@ extension Sol.Address: SolAbiEncodable {
         try self.storage.decode(from: data, offset: &offset)
     }
 
+    public func encodePacked() -> Data {
+        let result = storage.encodePacked()
+        return result
+    }
+
     public var canonicalName: String {
         "address"
     }

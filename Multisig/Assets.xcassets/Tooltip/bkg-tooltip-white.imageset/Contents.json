@@ -2,31 +2,61 @@
   "images" : [
     {
       "alignment-insets" : {
-        "top" : 14,
-        "left" : 14,
         "bottom" : 14,
-        "right" : 14
+        "left" : 14,
+        "right" : 14,
+        "top" : 14
       },
-      "idiom" : "universal",
       "filename" : "White_Tooltip_Background.pdf",
+      "idiom" : "universal",
       "resizing" : {
-        "mode" : "9-part",
-        "center" : {
-          "mode" : "tile",
-          "width" : 1,
-          "height" : 1
-        },
         "cap-insets" : {
           "bottom" : 24,
-          "top" : 24,
+          "left" : 24,
           "right" : 24,
-          "left" : 24
+          "top" : 24
+        },
+        "center" : {
+          "height" : 1,
+          "mode" : "tile",
+          "width" : 1
+        },
+        "mode" : "9-part"
+      }
+    },
+    {
+      "alignment-insets" : {
+        "bottom" : 6,
+        "left" : 9,
+        "right" : 11,
+        "top" : 9
+      },
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
         }
+      ],
+      "filename" : "background-shape.pdf",
+      "idiom" : "universal",
+      "resizing" : {
+        "cap-insets" : {
+          "bottom" : 16,
+          "left" : 25,
+          "right" : 25,
+          "top" : 18
+        },
+        "center" : {
+          "height" : 1,
+          "mode" : "tile",
+          "width" : 1
+        },
+        "mode" : "9-part"
       }
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

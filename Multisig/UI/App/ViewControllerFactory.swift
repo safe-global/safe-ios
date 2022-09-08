@@ -41,6 +41,12 @@ enum ViewControllerFactory {
         return UINavigationController(rootViewController: vc)
     }
 
+    static func detailedInfoViewController(title: String, text: String?, attributedText: NSAttributedString?) -> DetailedInfoViewController {
+        let controller = DetailedInfoViewController(title: title, text: text, attributedText: attributedText)
+
+        return controller
+    }
+
     static func addOwnerViewController(completion: @escaping () -> Void) -> UIViewController {
         let controller = AddOwnerKeyViewController(completion: completion)
         let nav = AddKeyNavigationController(rootViewController: controller)
@@ -85,14 +91,20 @@ enum ViewControllerFactory {
             UIBarButtonItem(barButtonSystemItem: .close, target: vc, action: #selector(CloseModal.closeModal))
     }
 
-    static func makeTransparentNavigationBar(_ vc: UIViewController) {
+    static func removeNavigationBarBorder(_ vc: UIViewController) {
         // remove underline from navigationItem
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithTransparentBackground()
         navigationBarAppearance.backgroundColor = .backgroundSecondary
         navigationBarAppearance.shadowColor = .clear
-        vc.navigationItem.hidesBackButton = true
+
         vc.navigationItem.scrollEdgeAppearance = navigationBarAppearance
+    }
+
+    static func makeTransparentNavigationBar(_ vc: UIViewController) {
+        removeNavigationBarBorder(vc)
+
+        vc.navigationItem.hidesBackButton = true
 
         // disable swipe back
         vc.navigationController?.interactivePopGestureRecognizer?.isEnabled = false

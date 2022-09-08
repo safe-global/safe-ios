@@ -69,6 +69,13 @@ extension SolContractFunction {
 
         try self.parameters.decode(from: data, offset: &offset)
     }
+
+    public func encodePacked() -> Data {
+        // Since packed encoding is not used when calling functions, there is no special support for
+        // prepending a function selector.
+        let result = parameters.encodePacked()
+        return result
+    }
 }
 
 extension SolContractFunction where Self: SolKeyPathTuple {

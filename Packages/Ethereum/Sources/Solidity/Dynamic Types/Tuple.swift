@@ -128,6 +128,11 @@ extension SolEncodableTuple {
             offset = tailEnd
         }
     }
+
+    public func encodePacked() -> Data {
+        let result = elements.map { $0.encodePacked() }.reduce(Data(), +)
+        return result
+    }
 }
 
 // useful for expressing Solidity Tuple as a Swift struct - in that case

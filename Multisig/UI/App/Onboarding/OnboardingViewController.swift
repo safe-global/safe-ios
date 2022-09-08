@@ -120,7 +120,6 @@ class OnboardingViewController: UIViewController {
 
     @IBAction func pageChanged(_ sender: Any) {
         let pc = sender as! UIPageControl
-
         collectionView.scrollToItem(at: IndexPath(item: pc.currentPage, section: 0),
                                         at: .centeredHorizontally, animated: true)
         bindCurrentStep(page: pc.currentPage)

@@ -26,6 +26,7 @@ class MultiSendListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Multisend"
+
         tableView.estimatedRowHeight = 72
         tableView.rowHeight = UITableView.automaticDimension
         tableView.registerCell(MultiSendRowTableViewCell.self)

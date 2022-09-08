@@ -178,7 +178,7 @@ final class HeaderViewController: ContainerViewController {
                 claimableAmountValue = "0"
             }
 
-            safeBarView.set(safeTokenClaimable: false)
+            safeBarView.set(safeTokenClaimable: true)
 
             currentDataTask = clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
                                                                  chainId: safe.chain!.id!) { [weak self] result in

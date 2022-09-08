@@ -19,11 +19,16 @@ class TweetBox: UINibView {
         super.awakeFromNib()
 
         layer.borderWidth = 2
-        layer.borderColor = UIColor.backgroundPrimary.cgColor
         layer.cornerRadius = 8
 
         tweetLabel.setStyle(.secondary.color(.labelPrimary))
         tweetButton.setText("Tweet", .tweet)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // changing here to react to dark/light color change
+        layer.borderColor = UIColor.backgroundPrimary.cgColor
     }
 
     func setTweet(text: String, hashtags: [String]) {
@@ -37,7 +42,7 @@ class TweetBox: UINibView {
         tweetLabel.attributedText = "\(text) \(hashtagsString)".highlightRange(
             originalStyle: .secondary.color(.labelPrimary),
             highlightStyle: .primary.color(.primary),
-            textToHightlight: hashtagsString
+            textToHighlight: hashtagsString
         )
     }
 

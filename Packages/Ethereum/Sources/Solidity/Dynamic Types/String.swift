@@ -15,6 +15,14 @@ extension Sol {
         public init(storage: Swift.String) { self.storage = storage }
 
         public init() { storage = "" }
+
+        public var bytesValue: Sol.Bytes {
+            guard let utf8 = storage.data(using: .utf8) else {
+                return Sol.Bytes(storage: Data())
+            }
+            let bytes = Sol.Bytes(storage: utf8)
+            return bytes
+        }
     }
 }
 
@@ -25,13 +33,10 @@ extension Sol.String: SolAbiEncodable {
     
     public func encode() -> Data {
         /*
-         enc(X) = enc(enc_utf8(X)), i.e. X is UTF-8 encoded and this value is interpreted as of bytes type and encoded further. Note that the length used in this subsequent encoding is the number of bytes of the UTF-8 encoded string, not its number of characters.
+         enc(X) = enc(enc_utf8(X)), i.e. X is UTF-8 encoded and this value is interpreted as of bytes type and encoded further.
+         Note that the length used in this subsequent encoding is the number of bytes of the UTF-8 encoded string, not its number of characters.
          */
-        guard let utf8 = storage.data(using: .utf8) else {
-            return Data()
-        }
-        let bytes = Sol.Bytes(storage: utf8)
-        let result = bytes.encode()
+        let result = bytesValue.encode()
         return result
     }
 
@@ -42,6 +47,11 @@ extension Sol.String: SolAbiEncodable {
             throw SolAbiDecodingError.dataInvalid
         }
         self.storage = storage
+    }
+
+    public func encodePacked() -> Data {
+        let result = bytesValue.encodePacked()
+        return result
     }
 }
 

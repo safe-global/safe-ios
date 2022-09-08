@@ -50,3 +50,13 @@ class RepeatPasscodeViewController: PasscodeViewController {
         }
     }
 }
+
+extension UIViewController {
+    func navigateBack() {
+        if let backItem = navigationItem.backBarButtonItem, let action = backItem.action {
+            UIApplication.shared.sendAction(action, to: backItem.target, from: backItem, for: nil)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
+    }
+}

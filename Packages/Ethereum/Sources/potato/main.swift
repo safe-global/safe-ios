@@ -11,7 +11,7 @@ import Foundation
 import SafeDeployments
 
 func printUsage() {
-    print("Usage: \(URL(fileURLWithPath: CommandLine.arguments[0]).lastPathComponent) safe CONTRACT_ID VERSION | potato abi FILENAME")
+    print("Usage: \(URL(fileURLWithPath: CommandLine.arguments[0]).lastPathComponent) CONTRACT_ID VERSION | potato ABI_FILENAME")
 }
 
 let args = Array(CommandLine.arguments.dropFirst())

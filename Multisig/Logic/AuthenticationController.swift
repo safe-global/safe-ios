@@ -15,6 +15,10 @@ class AuthenticationController {
 
     private let accessService: AccessService
 
+    #if DEBUG
+    var test_override_isBiometrySupported: Bool?
+    #endif
+
     init() {
         accessService = AccessService(
             accessPolicy: AccessPolicy(
@@ -137,6 +141,12 @@ class AuthenticationController {
 
     /// Is device hardware supports the biometry
     var isBiometricsSupported: Bool {
+        #if DEBUG
+        if let testResult = test_override_isBiometrySupported {
+            return testResult
+        }
+        #endif
+
         let context = LAContext()
         switch context.evaluatedBiometryType {
         case .touchID, .faceID:
