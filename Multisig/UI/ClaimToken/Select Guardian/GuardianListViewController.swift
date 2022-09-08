@@ -145,7 +145,7 @@ extension GuardianListViewController: UISearchResultsUpdating, UISearchBarDelega
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 
-        // Hits only when Enter is pressed in search bar
+        // TDOO  Fix: Hits only when Enter is pressed in search bar
         Tracker.trackEvent(.userClaimChdelSearch)
 
         searchBar.resignFirstResponder()

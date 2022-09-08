@@ -371,7 +371,7 @@ enum TrackingEvent: String, Trackable {
     case screenClaimChdel                           = "screen_claim_chdel"
     case userClaimChdelGuard                        = "user_claim_chdel_guard"
     case userClaimChdelAddr                         = "user_claim_chdel_addr"
-    case userClaimChdelSearch                       = "user_claim_chdel_search" // not used
+    case userClaimChdelSearch                       = "user_claim_chdel_search"
     case screenClaimChdelNf                         = "screen_claim_chdel_nf" // not used
 
     // Custom address screen Tracking
