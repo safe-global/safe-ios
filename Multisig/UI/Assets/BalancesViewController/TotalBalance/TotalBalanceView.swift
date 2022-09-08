@@ -15,7 +15,8 @@ class TotalBalanceView: UINibView {
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var receiveButton: UIButton!
-    
+    @IBOutlet weak var tokenBanner: SafeTokenBanner!
+
     var onSendClicked: (() -> Void)?
     var onReceivedClicked: (() -> Void)?
     var amount: String? {

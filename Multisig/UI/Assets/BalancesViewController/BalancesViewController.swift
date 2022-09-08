@@ -12,7 +12,6 @@ import UIKit
 class BalancesViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
 
     private enum Section {
-        case safeTokenBanner
         case importKeyBanner
         case passcodeBanner
         case balances(items: [TokenBalance])
@@ -29,10 +28,8 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     private let tableBackgroundColor: UIColor = .backgroundPrimary
 
-    private var claimTokenFlow: ClaimSafeTokenFlow!
-
     private var shouldShowImportKeyBanner: Bool {
-        importKeyBannerWasShown != true
+        importKeyBannerWasShown != true && !shouldShowSafeTokenBanner
     }
 
     private var importKeyBannerWasShown: Bool? {
@@ -41,7 +38,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     }
 
     private var shouldShowPasscodeBanner: Bool {
-        OwnerKeyController.hasPrivateKey && AppSettings.shouldOfferToSetupPasscode
+        OwnerKeyController.hasPrivateKey && AppSettings.shouldOfferToSetupPasscode && !shouldShowSafeTokenBanner
     }
 
     private var shouldShowSafeTokenBanner: Bool {
@@ -64,7 +61,6 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
         tableView.registerCell(BalanceTableViewCell.self)
         tableView.registerCell(BannerTableViewCell.self)
-        tableView.registerCell(SafeTokenBannerTableViewCell.self)
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
@@ -162,9 +158,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
         var sections = [Section]()
 
-        if shouldShowSafeTokenBanner {
-            sections.append(.safeTokenBanner)
-        } else if shouldShowImportKeyBanner {
+        if shouldShowImportKeyBanner {
             sections.append(.importKeyBanner)
         } else if shouldShowPasscodeBanner {
             sections.append(.passcodeBanner)
@@ -180,15 +174,13 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
-        case .safeTokenBanner, .importKeyBanner, .passcodeBanner: return 1
+        case .importKeyBanner, .passcodeBanner: return 1
         case .balances(items: let items): return items.count
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
-        case .safeTokenBanner:
-            return safeTokenBanner(indexPath: indexPath)
         case .importKeyBanner:
             return importKeyBanner(indexPath: indexPath)
         case .passcodeBanner:
@@ -230,30 +222,6 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         transferFundsVC.tokenBalance = balance
         let ribbon = ViewControllerFactory.ribbonWith(viewController: transferFundsVC)
         present(ViewControllerFactory.modal(viewController: ribbon), animated: true)
-    }
-
-    private func safeTokenBanner(indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(SafeTokenBannerTableViewCell.self, for: indexPath)
-        cell.setupBanner(
-            onClaim: { [unowned self] in
-                guard let safe = try? Safe.getSelected() else {
-                    return
-                }
-
-                safeTokenBannerWasShown = true
-                Tracker.trackEvent(.bannerSafeTokenClaim)
-                claimTokenFlow = ClaimSafeTokenFlow(safe: safe) { [unowned self] _ in
-                    claimTokenFlow = nil
-                }
-                present(flow: claimTokenFlow)
-            },
-            onClose: { [unowned self] in
-                safeTokenBannerWasShown = true
-                recreateSectionsWithCurrentItems()
-                Tracker.trackEvent(.bannerSafeTokenSkip)
-            })
-        cell.selectionStyle = .none
-        return cell
     }
 
     private func importKeyBanner(indexPath: IndexPath) -> UITableViewCell {
