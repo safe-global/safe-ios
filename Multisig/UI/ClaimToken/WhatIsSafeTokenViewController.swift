@@ -31,33 +31,36 @@ class WhatIsSafeTokenViewController: UIViewController {
         ViewControllerFactory.removeNavigationBarBorder(self)
 
         safeProtocolView.set("Safe Protocol") { [unowned self] in
-            let vc = ViewControllerFactory.detailedInfoViewController(title: "Safe Protocol",
-                                                                      text: "Safe Deployments (core smart contract deployments across multiple networks\nCuration of “trusted lists” (Token lists, dApp lists, module lists)",
-                                                                      attributedText: nil)
+            let content: [(title: String?, description: String?)] = [
+                (title: nil, description: "Safe Deployments (core smart contract deployments across multiple networks\nCuration of “trusted lists” (Token lists, dApp lists, module lists)")]
+            let vc = DetailedInfoListViewController(title: "Safe protocol", content: content)
+
             let viewController = ViewControllerFactory.modal(viewController: vc, halfScreen: true)
             present(viewController, animated: true)
         }
 
         interfacesView.set("Interfaces") { [unowned self] in
-            let vc = ViewControllerFactory.detailedInfoViewController(title: "Interfaces",
-                                                                      text: "Decentralized hosting of a Safe frontend using the safe.eth domain\nDecentralized hosting of governance frontends",
-                                                                      attributedText: nil)
+            let content: [(title: String?, description: String?)] = [
+                (title: nil, description: "Decentralized hosting of a Safe frontend using the safe.eth domain\nDecentralized hosting of governance frontends")]
+            let vc = DetailedInfoListViewController(title: "Interfaces", content: content)
+
             let viewController = ViewControllerFactory.modal(viewController: vc, halfScreen: true)
             present(viewController, animated: true)
         }
 
         assetsView.set("On-chain assets") { [unowned self] in
-            let vc = ViewControllerFactory.detailedInfoViewController(title: "On-chain assets",
-                                                                      text: "ENS names\nOutstanding Safe token supply\nOther Safe Treasury assets (NFTs, tokens, etc.)",
-                                                                      attributedText: nil)
+            let content: [(title: String?, description: String?)] = [
+                (title: nil, description: "ENS names\nOutstanding Safe token supply\nOther Safe Treasury assets (NFTs, tokens, etc.)")]
+            let vc = DetailedInfoListViewController(title: "On-chain assets", content: content)
+
             let viewController = ViewControllerFactory.modal(viewController: vc, halfScreen: true)
             present(viewController, animated: true)
         }
 
         tokenomicsView.set("Tokenomics") { [unowned self] in
-            let vc = ViewControllerFactory.detailedInfoViewController(title: "Tokenomics",
-                                                                      text: "Ecosystem reward programs\nUser rewards\nValue capture\nFuture token utility",
-                                                                      attributedText: nil)
+            let content: [(title: String?, description: String?)] = [
+                (title: nil, description: "Ecosystem reward programs\nUser rewards\nValue capture\nFuture token utility")]
+            let vc = DetailedInfoListViewController(title: "Tokenomics", content: content)
 
             let viewController = ViewControllerFactory.modal(viewController: vc, halfScreen: true)
             present(viewController, animated: true)

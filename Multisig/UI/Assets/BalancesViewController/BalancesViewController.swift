@@ -48,11 +48,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         guard let safe = try? Safe.getSelected() else {
             return false
         }
-        return safeTokenBannerWasShown != true &&
-                // claim possible only on mainnet or rinkeby (for testing)
-                (safe.chain?.id == Chain.ChainID.ethereumMainnet || safe.chain?.id == Chain.ChainID.ethereumRinkeby) &&
-                // claim flag has to be enabled in Firebase Remote Config
-                NSString(string: remoteConfig.value(key: .safeClaimEnabled) ?? "false").boolValue
+        return safeTokenBannerWasShown != true && ClaimingAppController.isAvailable(chain: safe.chain!)
     }
 
     private var safeTokenBannerWasShown: Bool? {
@@ -240,12 +236,11 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         let cell = tableView.dequeueCell(SafeTokenBannerTableViewCell.self, for: indexPath)
         cell.setupBanner(
             onClaim: { [unowned self] in
-                //TODO: start safe token claim flow
                 guard let safe = try? Safe.getSelected() else {
                     return
                 }
 
-                //safeTokenBannerWasShown = true
+                safeTokenBannerWasShown = true
                 Tracker.trackEvent(.bannerSafeTokenClaim)
                 claimTokenFlow = ClaimSafeTokenFlow(safe: safe) { [unowned self] _ in
                     claimTokenFlow = nil

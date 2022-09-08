@@ -50,9 +50,10 @@ class WhatIsSafeViewController: UIViewController {
         nextButton.setText("Next", .filled)
 
         totalSafesCreatedLabel.setStyle(.callout)
+        totalSafesCreatedStackView.layer.cornerRadius = 10
+
         totalValueProtected.setStyle(.callout)
         totalValueProtectedStackView.layer.cornerRadius = 10
-        totalSafesCreatedStackView.layer.cornerRadius = 10
     }
 
     @IBAction func nextClicked(_ sender: Any) {
