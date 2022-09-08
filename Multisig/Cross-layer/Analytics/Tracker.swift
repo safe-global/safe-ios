@@ -147,7 +147,6 @@ protocol ScreenTrackingEvent: Trackable {}
 
 extension Tracker {
     static func trackEvent(_ event: TrackingEvent, parameters: [String: Any]? = nil, file: StaticString = #file, line: UInt = #line, function: StaticString = #function) {
-        print("------------> trackEvent(\(event))")
         var parameters = parameters ?? [String: Any]()
         if shouldAddChainIdParam(for: event) && parameters["chain_id"] == nil {
             let chainId = try? Safe.getSelected()?.chain?.id ?? "none"
