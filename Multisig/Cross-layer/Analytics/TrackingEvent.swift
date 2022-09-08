@@ -325,7 +325,6 @@ enum TrackingEvent: String, Trackable {
     case userOwnerFromLinkNoKeyAddIt                = "user_owner_from_link_no_key_add_it"
     case screenOwnerFromLinkNoSafe                  = "screen_owner_from_link_no_safe"
     case userOwnerFromLinkNoSafeSkip                = "user_owner_from_link_no_safe_skip"
-    case screenOwnerFromLinkAddSafeName             = "screen_owner_from_link_add_safe_name" // not used
     case userOwnerFromLinkSafeNameAdded             = "user_owner_from_link_safe_name_added"
 
     // MARK: Safe Token Claim
@@ -372,7 +371,7 @@ enum TrackingEvent: String, Trackable {
     case userClaimChdelGuard                        = "user_claim_chdel_guard"
     case userClaimChdelAddr                         = "user_claim_chdel_addr"
     case userClaimChdelSearch                       = "user_claim_chdel_search"
-    case screenClaimChdelNf                         = "screen_claim_chdel_nf" // not used
+    case screenClaimChdelNf                         = "screen_claim_chdel_nf"
 
     // Custom address screen Tracking
     case screenClaimAddr                            = "screen_claim_addr"
