@@ -33,8 +33,7 @@ class SelectOwnerAddressViewModel {
         return try? PublicKey(hexPublicKey: keyHex, path: "\(HDNode.defaultPath)/\(selectedIndex)")
     }
     
-    private var rootNode: HDNode?
-    private var keyType: KeyType?
+    private var rootNode: HDNode?    
     var maxItemCount = 100
     var pageSize = 20
 

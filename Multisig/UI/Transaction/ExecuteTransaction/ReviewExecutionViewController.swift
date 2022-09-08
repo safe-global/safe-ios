@@ -509,21 +509,22 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
             present(vc, animated: true, completion: nil)
             
         case .keystone:
-            guard
-                let signRequest = KeystoneSignRequest(
-                    signData: controller.preimageForSigning().toHexString(),
-                    chainId: "\(controller.intChainId)",
-                    keyInfo: keyInfo,
-                    signType: .typedTransaction
-                )
-            else {
+            let gsError = GSError.error(description: "Signing failed")
+            
+            guard let signRequest = KeystoneSignRequest(
+                signData: controller.preimageForSigning().toHexString(),
+                chainId: "\(controller.intChainId)",
+                keyInfo: keyInfo,
+                signType: .typedTransaction
+            ) else {
+                App.shared.snackbar.show(error: gsError)
                 return
             }
             
             keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: chain) { [unowned self] success in
                 keystoneSignFlow = nil
                 if !success {
-                    App.shared.snackbar.show(message: "Signing failed")
+                    App.shared.snackbar.show(error: gsError)
                 }
             }
             keystoneSignFlow.signCompletion = { [weak self] signature in

@@ -33,8 +33,7 @@ class KeyPickerController: UITableViewController {
     var publicKey: PublicKey? {
         viewModel.selectedPublicKey
     }
-
-    private var keyType: KeyType?
+    
     private var viewModel: SelectOwnerAddressViewModel!
     private var listState = ListState.collapsed
     private var items: [Item] {

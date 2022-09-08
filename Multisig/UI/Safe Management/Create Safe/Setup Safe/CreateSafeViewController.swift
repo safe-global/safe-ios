@@ -771,22 +771,22 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             present(vc, animated: true, completion: nil)
 
         case .keystone:
-            guard
-                let keyInfo = uiModel.selectedKey,
-                let signRequest = KeystoneSignRequest(
-                    signData: uiModel.transaction.preImageForSigning().toHexString(),
-                    chainId: uiModel.chain.id,
-                    keyInfo: keyInfo,
-                    signType: .typedTransaction
-                )
-            else {
+            let gsError = GSError.error(description: "Signing failed")
+            
+            guard let signRequest = KeystoneSignRequest(
+                signData: uiModel.transaction.preImageForSigning().toHexString(),
+                chainId: uiModel.chain.id,
+                keyInfo: keyInfo,
+                signType: .typedTransaction
+            ) else {
+                App.shared.snackbar.show(error: gsError)
                 return
             }
             
             keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: chain) { [unowned self] success in
                 keystoneSignFlow = nil
                 if !success {
-                    App.shared.snackbar.show(message: "Signing failed")
+                    App.shared.snackbar.show(error: gsError)
                 }
             }
             keystoneSignFlow.signCompletion = { [weak self] signature in
@@ -802,8 +802,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                         s: Sol.UInt256(Data(Array(unmarshaledSignature.s)))
                     )
                 } catch {
-                    let gsError = GSError.error(description: "Signing failed", error: error)
-                    App.shared.snackbar.show(error: gsError)
+                    App.shared.snackbar.show(error: GSError.error(description: "Signing failed", error: error))
                     return
                 }
 

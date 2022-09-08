@@ -386,23 +386,22 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             }
             
         case .keystone:
-            guard
-                let signRequest = KeystoneSignRequest(
-                    signData: transaction.safeTxHash.hash.toHexString(),
-                    chainId: transaction.chainId,
-                    keyInfo: keyInfo,
-                    signType: .personalMessage
-                )
-            else {
-                onError(GSError.error(description: "Failed to confirm transaction"))
+            let gsError = GSError.error(description: "Failed to confirm transaction")
+            
+            guard let signRequest = KeystoneSignRequest(
+                signData: transaction.safeTxHash.hash.toHexString(),
+                chainId: transaction.chainId,
+                keyInfo: keyInfo,
+                signType: .personalMessage
+            ) else {
+                onError(gsError)
                 return
             }
             
             keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: safe.chain) { [unowned self] success in
                 keystoneSignFlow = nil
                 if !success {
-                    App.shared.snackbar.show(message: "Failed to Reject transaction")
-                    onError(GSError.error(description: "Failed to confirm transaction"))
+                    onError(gsError)
                 }
             }
             keystoneSignFlow.signCompletion = { [weak self] signature in

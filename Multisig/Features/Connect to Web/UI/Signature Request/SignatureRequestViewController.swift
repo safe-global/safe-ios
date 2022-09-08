@@ -225,22 +225,22 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
             }
             
         case .keystone:
-            guard
-                let signRequest = KeystoneSignRequest(
-                    signData: request.message.toHexString(),
-                    chainId: chain?.id,
-                    keyInfo: keyInfo,
-                    signType: .personalMessage
-                )
-            else {
-                App.shared.snackbar.show(message: "Failed to sign")
+            let gsError = GSError.error(description: "Failed to sign")
+            
+            guard let signRequest = KeystoneSignRequest(
+                signData: request.message.toHexString(),
+                chainId: chain?.id,
+                keyInfo: keyInfo,
+                signType: .personalMessage
+            ) else {
+                App.shared.snackbar.show(error: gsError)
                 return
             }
             
             keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: chain) { [unowned self] success in
                 keystoneSignFlow = nil
                 if !success {
-                    App.shared.snackbar.show(message: "Failed to sign")
+                    App.shared.snackbar.show(error: gsError)
                 }
             }
             keystoneSignFlow.signCompletion = { [weak self] signature in

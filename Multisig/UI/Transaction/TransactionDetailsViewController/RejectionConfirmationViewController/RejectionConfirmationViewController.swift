@@ -129,15 +129,15 @@ class RejectionConfirmationViewController: UIViewController {
                 self?.endLoading()
             }
         case .keystone:
-            guard
-                let signRequest = KeystoneSignRequest(
-                    signData: rejectionTransaction.safeTxHash.hash.toHexString(),
-                    chainId: rejectionTransaction.chainId,
-                    keyInfo: keyInfo,
-                    signType: .personalMessage
-                )
-            else {
-                App.shared.snackbar.show(message: "Failed to Reject transaction")
+            let gsError = GSError.error(description: "Failed to Reject transaction")
+            
+            guard let signRequest = KeystoneSignRequest(
+                signData: rejectionTransaction.safeTxHash.hash.toHexString(),
+                chainId: rejectionTransaction.chainId,
+                keyInfo: keyInfo,
+                signType: .personalMessage
+            ) else {
+                App.shared.snackbar.show(error: gsError)
                 endLoading()
                 return
             }
@@ -145,7 +145,7 @@ class RejectionConfirmationViewController: UIViewController {
             keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: safe.chain) { [unowned self] success in
                 keystoneSignFlow = nil
                 if !success {
-                    App.shared.snackbar.show(message: "Failed to Reject transaction")
+                    App.shared.snackbar.show(error: gsError)
                     endLoading()
                 }
             }

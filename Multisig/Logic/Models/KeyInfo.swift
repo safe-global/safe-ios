@@ -255,6 +255,8 @@ extension KeyInfo {
     /// - Parameters:
     ///   - publicKey: public key to save
     ///   - name: name of the key
+    ///   - sourceFingerprint: sourceFingerprint of the key
+    /// - Returns: KeyInfo
     @discardableResult
     static func `import`(keystone publicKey: PublicKey, name: String, sourceFingerprint: UInt32) throws -> KeyInfo {
         let context = App.shared.coreDataStack.viewContext
