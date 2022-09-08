@@ -109,9 +109,7 @@ class ClaimSafeTokenFlow: UIFlow {
          completion: @escaping (_ success: Bool) -> Void) {
         self.safe = safe
         self.factory = factory
-        // TODO: switch configuration depending on the safe's chain
-        let configuration: ClaimingAppController.Configuration = .rinkeby
-        controller = ClaimingAppController(configuration: configuration, chain: safe.chain!)
+        controller = ClaimingAppController(chain: safe.chain!)!
         super.init(completion: completion)
     }
 

@@ -32,6 +32,19 @@ class ClaimingAppController {
             delegateRegistry: "0x469788fE6E9E9681C6ebF3bF78e7Fd26Fc015446",
             chainId: "4"
         )
+
+        static let mainnet = Configuration(
+            safeToken: "0x5aFE3855358E112B5647B952709E6165e1c1eEEe",
+
+            // TODO: airdrop contract addresses
+            userAirdrop: "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+            ecosystemAirdrop: "0x82F1267759e9Bea202a46f8FC04704b6A5E2Af77",
+
+            // https://github.com/gnosis/delegate-registry/blob/main/networks.json
+            // https://github.com/gnosis/delegate-registry/blob/feature/fix_deployment/networks.json
+            delegateRegistry: "0x469788fE6E9E9681C6ebF3bF78e7Fd26Fc015446",
+            chainId: "1"
+        )
     }
 
     var configuration: Configuration
@@ -42,8 +55,14 @@ class ClaimingAppController {
         rpcClient.chain
     }
 
-    init(configuration: Configuration = .rinkeby, chain: Chain = .rinkebyChain()) {
-        self.configuration = configuration
+    init?(chain: Chain) {
+        if chain.id == Chain.ChainID.ethereumMainnet {
+            self.configuration = .mainnet
+        } else if chain.id == Chain.ChainID.ethereumRinkeby {
+            self.configuration = .rinkeby
+        } else {
+            return nil
+        }
         self.rpcClient = RpcClient(chain: chain)
         claimingService = App.shared.claimingService
     }
