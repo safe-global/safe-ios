@@ -18,27 +18,17 @@ class GuardianDetailsViewController: UIViewController {
     @IBOutlet weak var contributionTextLabel: UILabel!
     @IBOutlet weak var continueButton: UIButton!
 
-    private var stepLabel: UILabel!
-    private var stepNumber: Int = 2
-    private var maxSteps: Int = 4
-
     var chain: Chain! = Chain.mainnetChain()
     var guardian: Guardian!
     var onSelected: ((Guardian) -> ())?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        Tracker.trackEvent(.screenClaimDeldet)
 
         ViewControllerFactory.removeNavigationBarBorder(self)
-        
         title = "Choose a delegate"
         navigationItem.largeTitleDisplayMode = .never
-
-        stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
-        stepLabel.textAlignment = .right
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
-        stepLabel.setStyle(.tertiary)
-        stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
         identiconInfoView.setGuardian(guardian: guardian)
 
@@ -93,6 +83,7 @@ class GuardianDetailsViewController: UIViewController {
     }
 
     @IBAction func didTapContinueButton(_ sender: Any) {
+        Tracker.trackEvent(.userClaimDeldetSelect)
         onSelected?(guardian)
     }
 }

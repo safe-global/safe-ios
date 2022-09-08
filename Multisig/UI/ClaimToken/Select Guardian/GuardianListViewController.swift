@@ -63,13 +63,13 @@ class GuardianListViewController: LoadableViewController {
         tableView.estimatedRowHeight = 200
         tableView.separatorStyle = .none
 
+        // Empty view is never shown. Instead the list is empty, when no results are found
         emptyView.setText("No delegates were found. Try to search again or use a custom address.")
         emptyView.setImage(UIImage(named: "ico-delegate-placeholder")!)
     }
 
     private func makeSections(items: [Guardian]) -> [Section] {
         guard !items.isEmpty else {
-            Tracker.trackEvent(.screenClaimChdelNf)
             return []
         }
 
@@ -144,6 +144,8 @@ extension GuardianListViewController: UISearchResultsUpdating, UISearchBarDelega
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+
+        // Hits only when Enter is pressed in search bar
         Tracker.trackEvent(.userClaimChdelSearch)
 
         searchBar.resignFirstResponder()

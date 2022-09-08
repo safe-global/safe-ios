@@ -72,6 +72,8 @@ class ClaimTokensViewController: LoadableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        Tracker.trackEvent(.screenClaimForm)
+
         title = "Your SAFE allocation"
         navigationItem.largeTitleDisplayMode = .always
 
@@ -348,6 +350,7 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
             cell.tooltipHostView = view
 
             cell.headerTooltipText = data.unvestedDurationTooltip
+            cell.tapAllocationHeaderButtonTrackingEvent = .userClaimFormFutTp
             cell.valueText = data.unvestedValue
             cell.titleTooltipText = data.unvestedAmountTooltip
             // must be set at the end to update values
