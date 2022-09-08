@@ -8,6 +8,7 @@
 
 import UIKit
 import Version
+import URRegistry
 
 class RejectionConfirmationViewController: UIViewController {
 
@@ -31,7 +32,8 @@ class RejectionConfirmationViewController: UIViewController {
     private var safe: Safe!
     private var keyInfo: KeyInfo?
     private var ledgerController: LedgerController?
-
+    private var keystoneSignFlow: KeystoneSignFlow!
+    
     convenience init(transaction: SCGModels.TransactionDetails) {
         self.init(namedClass: RejectionConfirmationViewController.self)
         self.transaction = transaction
@@ -127,8 +129,37 @@ class RejectionConfirmationViewController: UIViewController {
                 self?.endLoading()
             }
         case .keystone:
-            // To be implemented
-            break
+            guard
+                let signRequest = KeystoneSignRequest(
+                    signData: rejectionTransaction.safeTxHash.hash.toHexString(),
+                    chainId: rejectionTransaction.chainId,
+                    keyInfo: keyInfo,
+                    signType: .personalMessage
+                )
+            else {
+                App.shared.snackbar.show(message: "Failed to Reject transaction")
+                endLoading()
+                return
+            }
+            
+            keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: safe.chain) { [unowned self] success in
+                keystoneSignFlow = nil
+                if !success {
+                    App.shared.snackbar.show(message: "Failed to Reject transaction")
+                    endLoading()
+                }
+            }
+            keystoneSignFlow.signCompletion = { [weak self] signature in
+                guard
+                    let self = self,
+                    let unmarshaledSignature = SECP256K1.unmarshalSignature(signatureData: Data(hex: signature))
+                else { return }
+                
+                let gnosisSafeSignature = unmarshaledSignature.r + unmarshaledSignature.s + Data([unmarshaledSignature.v + 4])
+                
+                self.rejectAndCloseController(signature: gnosisSafeSignature.toHexString())
+            }
+            present(flow: keystoneSignFlow)
         }
     }
 

@@ -9,6 +9,7 @@
 import UIKit
 import BigInt
 import WalletConnectSwift
+import URRegistry
 
 class SignatureRequestViewController: WebConnectionContainerViewController, WebConnectionRequestObserver, PasscodeProtecting {
 
@@ -20,7 +21,8 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
     private var balanceLoadingTask: URLSessionTask?
     private var chain: Chain?
     private var keyInfo: KeyInfo?
-
+    private var keystoneSignFlow: KeystoneSignFlow!
+    
     convenience init() {
         self.init(namedClass: WebConnectionContainerViewController.self)
     }
@@ -223,8 +225,30 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
             }
             
         case .keystone:
-            // To be implemented
-            break
+            guard
+                let signRequest = KeystoneSignRequest(
+                    signData: request.message.toHexString(),
+                    chainId: chain?.id,
+                    keyInfo: keyInfo,
+                    signType: .personalMessage
+                )
+            else {
+                App.shared.snackbar.show(message: "Failed to sign")
+                return
+            }
+            
+            keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: chain) { [unowned self] success in
+                keystoneSignFlow = nil
+                if !success {
+                    App.shared.snackbar.show(message: "Failed to sign")
+                }
+            }
+            keystoneSignFlow.signCompletion = { [weak self] signature in
+                guard let self = self else { return }
+                                
+                self.confirm(signature: Data(hex: signature))
+            }
+            present(flow: keystoneSignFlow)
         }
     }
 

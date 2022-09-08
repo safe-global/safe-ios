@@ -10,6 +10,7 @@ import UIKit
 import SwiftUI
 import WalletConnectSwift
 import Version
+import URRegistry
 
 class TransactionDetailsViewController: LoadableViewController, UITableViewDataSource, UITableViewDelegate {
     var clientGatewayService = App.shared.clientGatewayService
@@ -43,7 +44,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private var txSource: TransactionSource!
 
     private var ledgerKeyInfo: KeyInfo?
-
+    private var keystoneSignFlow: KeystoneSignFlow!
+    
     convenience init(transactionID: String) {
         self.init(namedClass: Self.superclass())
         txSource = .id(transactionID)
@@ -384,8 +386,36 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
             }
             
         case .keystone:
-            // To be implemented
-            break
+            guard
+                let signRequest = KeystoneSignRequest(
+                    signData: transaction.safeTxHash.hash.toHexString(),
+                    chainId: transaction.chainId,
+                    keyInfo: keyInfo,
+                    signType: .personalMessage
+                )
+            else {
+                onError(GSError.error(description: "Failed to confirm transaction"))
+                return
+            }
+            
+            keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: safe.chain) { [unowned self] success in
+                keystoneSignFlow = nil
+                if !success {
+                    App.shared.snackbar.show(message: "Failed to Reject transaction")
+                    onError(GSError.error(description: "Failed to confirm transaction"))
+                }
+            }
+            keystoneSignFlow.signCompletion = { [weak self] signature in
+                guard
+                    let self = self,
+                    let unmarshaledSignature = SECP256K1.unmarshalSignature(signatureData: Data(hex: signature))
+                else { return }
+                
+                let gnosisSafeSignature = unmarshaledSignature.r + unmarshaledSignature.s + Data([unmarshaledSignature.v + 4])
+                
+                self.confirmAndRefresh(safeTxHash: safeTxHash, signature: gnosisSafeSignature.toHexString(), keyInfo: keyInfo)
+            }
+            present(flow: keystoneSignFlow)
         }
     }
 
