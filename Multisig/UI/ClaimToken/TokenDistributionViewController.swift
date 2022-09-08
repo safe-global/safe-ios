@@ -38,6 +38,7 @@ class TokenDistributionViewController: UIViewController {
             let vc = ViewControllerFactory.modal(viewController: DetailedInfoListViewController(title: "Distribution details",
                                                                                                 content: content))
             Tracker.trackEvent(.userClaimDistrDetails)
+            Tracker.trackEvent(.screenClaimDistrDetail)
             present(vc, animated: true)
         }
         titleLabel.setStyle(.Updated.title)
