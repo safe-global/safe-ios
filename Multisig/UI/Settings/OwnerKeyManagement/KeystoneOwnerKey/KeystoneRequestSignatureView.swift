@@ -14,7 +14,7 @@ struct KeystoneRequestSignatureView: View {
     
     @State private var qrValue = URRegistry.shared.nextPartUnsignedUR
     private let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
-    private let qrViewSide: CGFloat = 237
+    private let qrViewSide: CGFloat = 300
     
     var body: some View {
         VStack(spacing: .zero) {
