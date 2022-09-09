@@ -146,8 +146,8 @@ class KeyboardAvoidingBehavior {
             scrollView.contentInset.bottom = 0
             scrollView.scrollIndicatorInsets = scrollView.contentInset
         }
-        DispatchQueue.main.async { [unowned self] in
-            willHideKeyboard(duration.doubleValue)
+        DispatchQueue.main.async { [weak self] in
+            self?.willHideKeyboard(duration.doubleValue)
         }
     }
 
