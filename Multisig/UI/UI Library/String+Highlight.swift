@@ -36,7 +36,7 @@ extension String {
 
     func highlightRange(originalStyle: GNOTextStyle = .secondary,
                         highlightStyle: GNOTextStyle = .primary,
-                        textToHighlight: String? = nil) -> NSAttributedString {
+                        textToHighlight: String? = nil) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString(string: self, attributes: originalStyle.attributes)
 
         if let textToHighlight = textToHighlight {

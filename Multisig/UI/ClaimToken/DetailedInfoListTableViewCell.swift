@@ -21,9 +21,15 @@ class DetailedInfoListTableViewCell: UITableViewCell {
 
     func set(title: String?, description: String?) {
         titleLabel.text = title
-        descriptionLabel.text = description
         titleLabel.isHidden = title == nil
+
         descriptionLabel.isHidden = description == nil
+        if let description = description {
+            let attrString = NSMutableAttributedString(string: description, attributes: GNOTextStyle.secondary.attributes)
+            attrString.lineSpacing()
+            descriptionLabel.attributedText = attrString
+        }
+
         setNeedsLayout()
     }
 }
