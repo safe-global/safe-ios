@@ -43,10 +43,20 @@ class NavigatingDAOViewController: UIViewController {
         checklistTitle.setStyle(.title5)
 
         nextButton.setText("Start claiming", .filled)
+        let discussText = "Discuss SafeDAO improvements - post topics and discuss in our"
+        discussItemLabel.hyperLinkLabel(discussText, prefixStyle: .secondary, linkText: "Forum", linkIcon: nil, underlined: false)
+        let discussTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(discussTap(sender:)))
+        discussItemLabel.addGestureRecognizer(discussTapRecognizer)
+        discussItemLabel.isUserInteractionEnabled = true
 
-        discussItemLabel.setStyle(.secondary)
-        proposeItemLabel.setStyle(.secondary)
+        let proposeText = "Propose improvements - read our governance process and post an SIP."
+        proposeItemLabel.hyperLinkLabel(proposeText, prefixStyle: .secondary, linkText: "process", linkIcon: nil, underlined: false)
+        discussItemLabel.addGestureRecognizer(discussTapRecognizer)
+        discussItemLabel.isUserInteractionEnabled = true
+
+        let governText = ""
         governItemLabel.setStyle(.secondary)
+        let chatText = ""
         chatItemLabel.setStyle(.secondary)
 
         subTitle.setStyle(.headline)
@@ -58,4 +68,11 @@ class NavigatingDAOViewController: UIViewController {
         completion?()
     }
 
+    @objc
+    func discussTap(sender: UITapGestureRecognizer) {
+        guard let url = URL(string: "https://www.ccc.de") else {
+            fatalError("guard failure handling has not been implemented")
+        }
+        openInSafari(url)
+    }
 }

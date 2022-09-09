@@ -68,7 +68,7 @@
                                                         <constraint firstAttribute="height" constant="26" id="x8E-JB-FuI"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Discuss SafeDAO improvements - post topics and discuss in our forum." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0U3-zK-Me5" userLabel="discussItemLabel">
+                                                <label opaque="NO" contentMode="left" verticalHuggingPriority="251" text="Discuss SafeDAO improvements - post topics and discuss in our forum." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0U3-zK-Me5" userLabel="discussItemLabel">
                                                     <rect key="frame" x="38" y="0.0" width="344" height="41"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
