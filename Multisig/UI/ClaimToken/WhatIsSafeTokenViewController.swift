@@ -36,7 +36,7 @@ class WhatIsSafeTokenViewController: UIViewController {
             Tracker.trackEvent(.userClaimGovProto)
 
             let content: [(title: String?, description: String?)] = [
-                (title: nil, description: "Safe Deployments (core smart contract deployments across multiple networks\nCuration of “trusted lists” (Token lists, dApp lists, module lists)")]
+                (title: nil, description: "Safe Deployments (core smart contract deployments across multiple networks)\n\nCuration of “trusted lists” (Token lists, dApp lists, module lists)")]
             let vc = DetailedInfoListViewController(title: "Safe protocol", content: content)
 
             let viewController = ViewControllerFactory.modal(viewController: vc, halfScreen: true)
@@ -47,7 +47,7 @@ class WhatIsSafeTokenViewController: UIViewController {
             Tracker.trackEvent(.userClaimGovInterface)
 
             let content: [(title: String?, description: String?)] = [
-                (title: nil, description: "Decentralized hosting of a Safe frontend using the safe.eth domain\nDecentralized hosting of governance frontends")]
+                (title: nil, description: "Decentralized hosting of a Safe frontend using the safe.eth domain\n\nDecentralized hosting of governance frontends")]
             let vc = DetailedInfoListViewController(title: "Interfaces", content: content)
 
             let viewController = ViewControllerFactory.modal(viewController: vc, halfScreen: true)
@@ -58,7 +58,7 @@ class WhatIsSafeTokenViewController: UIViewController {
             Tracker.trackEvent(.userClaimGovAssets)
 
             let content: [(title: String?, description: String?)] = [
-                (title: nil, description: "ENS names\nOutstanding Safe token supply\nOther Safe Treasury assets (NFTs, tokens, etc.)")]
+                (title: nil, description: "ENS names\nOutstanding Safe token supply\n\nOther Safe Treasury assets (NFTs, tokens, etc.)")]
             let vc = DetailedInfoListViewController(title: "On-chain assets", content: content)
 
             let viewController = ViewControllerFactory.modal(viewController: vc, halfScreen: true)
@@ -69,7 +69,7 @@ class WhatIsSafeTokenViewController: UIViewController {
             Tracker.trackEvent(.userClaimGovToken)
 
             let content: [(title: String?, description: String?)] = [
-                (title: nil, description: "Ecosystem reward programs\nUser rewards\nValue capture\nFuture token utility")]
+                (title: nil, description: "Ecosystem reward programs\n\nUser rewards\n\nValue capture\n\nFuture token utility")]
             let vc = DetailedInfoListViewController(title: "Tokenomics", content: content)
 
             let viewController = ViewControllerFactory.modal(viewController: vc, halfScreen: true)

@@ -31,13 +31,13 @@ class ClaimGetStartedViewController: UIViewController {
 
         instructionsView.setContent(steps: [
             InstructionStepListView.Step(
-                description: "SafeDAO is on a mission to unlock digital ownership for everyone in web3."
+                description: "SafeDAO is on a mission to unlock digital ownership for everyone in Web3."
             ),
             InstructionStepListView.Step(
                 description: "We will do this by establishing a universal standard for custody of digital assets, data and identity with smart contract based accounts."
             ),
             InstructionStepListView.Step(
-                description: "You have been chosen to help govern the SafeDAO, and decide on the future of web3 ownership. Use this power wisely!"
+                description: "You have been chosen to help govern the SafeDAO, and decide on the future of Web3 ownership. Use this power wisely!"
             )
         ])
     }

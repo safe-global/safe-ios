@@ -46,7 +46,7 @@
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6U7-EJ-n04" userLabel="FirstParagraph">
                                             <rect key="frame" x="0.0" y="56.333333333333343" width="358" height="122"/>
-                                            <string key="text">Safe is critical infrastructure for web3.  It is a programmable account standard that enables secure management of digital assets, data and identity.
+                                            <string key="text">Safe is critical infrastructure for Web3.  It is a programmable account standard that enables secure management of digital assets, data and identity.
 With this token launch, Safe is now a community-driven ownership platform.</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -58,7 +58,7 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="f5q-cJ-KMD" userLabel="Stack View (TSC)">
                                                     <rect key="frame" x="0.0" y="0.0" width="169" height="108.66666666666667"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Safes created" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dkp-U5-Fvf" userLabel="Safes created">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Safes Created" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dkp-U5-Fvf" userLabel="Safes created">
                                                             <rect key="frame" x="16" y="16.000000000000004" width="137" height="44.333333333333343"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
@@ -90,7 +90,7 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="e93-Y7-SE8" userLabel="Stack View (TVP)">
                                                     <rect key="frame" x="189" y="0.0" width="169" height="108.66666666666667"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total value protected" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8QZ-hR-C8F" userLabel="TVP">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Value Protected" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8QZ-hR-C8F" userLabel="TVP">
                                                             <rect key="frame" x="16" y="15.999999999999996" width="137" height="40.666666666666657"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -128,7 +128,7 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7c-Xt-UCp">
                                             <rect key="frame" x="0.0" y="383" width="358" height="101.66666666666669"/>
-                                            <string key="text">As critical web3 infrastructure, Safe needs to be a community-owned, censorship resistant project, with a committed ecosystem stewarding its decisions. A governance token is needed to help coordinate this effort.</string>
+                                            <string key="text">As critical Web3 infrastructure, Safe needs to be a community-owned, censorship resistant project, with a committed ecosystem stewarding its decisions. A governance token is needed to help coordinate this effort.</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
