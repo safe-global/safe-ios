@@ -576,19 +576,9 @@ class ClaimingAppController {
             ].map { $0.encodePacked() }
         }.reduce(Data(), +))
 
-        let isSafe1_3_0 = safe.contractVersion != nil && Version(safe.contractVersion!)! >= Version(1, 3, 0)
-
-        let to: Address
-        let data: Data
-
-        // MultiSendCallOnly is available since contract v1.3.0
-        if isSafe1_3_0 {
-            data = MultiSendCallOnly_v1_3_0.multiSend(transactions: packedTransactions).encode()
-            to = try! Address(SafeDeployments.Safe.Deployment.find(contract: .MultiSendCallOnly, version: .v1_3_0)!.address(for: configuration.chainId)!)
-        } else {
-            data = MultiSend_v1_1_1.multiSend(transactions: packedTransactions).encode()
-            to = try! Address(SafeDeployments.Safe.Deployment.find(contract: .MultiSend, version: .v1_1_1)!.address(for: configuration.chainId)!)
-        }
+        // MultisendCallOnly is preferred to use for all contract versions
+        let data = MultiSendCallOnly_v1_3_0.multiSend(transactions: packedTransactions).encode()
+        let to = try! Address(SafeDeployments.Safe.Deployment.find(contract: .MultiSendCallOnly, version: .v1_3_0)!.address(for: configuration.chainId)!)
 
         let result = Transaction(
             safeAddress: safe.addressValue,
