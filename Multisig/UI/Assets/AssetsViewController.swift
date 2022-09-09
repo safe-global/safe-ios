@@ -84,8 +84,6 @@ class AssetsViewController: ContainerViewController {
                 return
             }
 
-            safeTokenBannerWasShown = true
-            totalBalanceView.tokenBanner.isHidden = !shouldShowSafeTokenBanner
             Tracker.trackEvent(.bannerSafeTokenClaim)
             claimTokenFlow = ClaimSafeTokenFlow(safe: safe) { [unowned self] _ in
                 claimTokenFlow = nil
