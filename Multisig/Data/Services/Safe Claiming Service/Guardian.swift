@@ -19,11 +19,11 @@ struct Guardian: Decodable {
         guard let image = image else {
             return nil
         }
-        return URL(string: "https://5afe.github.io/claiming-app-data/resources/data/images/\(image)")
+        return URL(string: "\(App.configuration.services.claimingDataURL)guardians/images/\(image)")
     }
 
     func imageURL(scale: Int) -> URL? {
         guard (1...3).contains(scale) else { return nil }
-        return URL(string: "https://5afe.github.io/claiming-app-data/resources/data/images/\(address.address.checksummed)_\(scale)x.png")
+        return URL(string: "\(App.configuration.services.claimingDataURL)guardians/images/\(address.address.checksummed)_\(scale)x.png")
     }
 }
