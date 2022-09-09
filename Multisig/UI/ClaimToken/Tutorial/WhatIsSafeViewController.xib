@@ -46,7 +46,7 @@
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6U7-EJ-n04" userLabel="FirstParagraph">
                                             <rect key="frame" x="0.0" y="56.333333333333343" width="358" height="122"/>
-                                            <string key="text">Safe is critical infrastructure for web3.  It is a programmable account standard that enables secure management of digital assets, data and identity.
+                                            <string key="text">Safe is critical infrastructure for Web3.  It is a programmable account standard that enables secure management of digital assets, data and identity.
 With this token launch, Safe is now a community-driven ownership platform.</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -128,7 +128,7 @@ With this token launch, Safe is now a community-driven ownership platform.</stri
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7c-Xt-UCp">
                                             <rect key="frame" x="0.0" y="383" width="358" height="101.66666666666669"/>
-                                            <string key="text">As critical web3 infrastructure, Safe needs to be a community-owned, censorship resistant project, with a committed ecosystem stewarding its decisions. A governance token is needed to help coordinate this effort.</string>
+                                            <string key="text">As critical Web3 infrastructure, Safe needs to be a community-owned, censorship resistant project, with a committed ecosystem stewarding its decisions. A governance token is needed to help coordinate this effort.</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
