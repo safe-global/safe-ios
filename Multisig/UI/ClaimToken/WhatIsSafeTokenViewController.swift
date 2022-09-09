@@ -36,7 +36,7 @@ class WhatIsSafeTokenViewController: UIViewController {
             Tracker.trackEvent(.userClaimGovProto)
 
             let content: [(title: String?, description: String?)] = [
-                (title: nil, description: "Safe Deployments (core smart contract deployments across multiple networks\n\nCuration of “trusted lists” (Token lists, dApp lists, module lists)")]
+                (title: nil, description: "Safe Deployments (core smart contract deployments across multiple networks)\n\nCuration of “trusted lists” (Token lists, dApp lists, module lists)")]
             let vc = DetailedInfoListViewController(title: "Safe protocol", content: content)
 
             let viewController = ViewControllerFactory.modal(viewController: vc, halfScreen: true)
