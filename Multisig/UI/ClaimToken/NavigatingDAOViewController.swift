@@ -70,7 +70,7 @@ class NavigatingDAOViewController: UIViewController {
 
     @objc
     func discussTap(sender: UITapGestureRecognizer) {
-        guard let url = URL(string: "https://www.ccc.de") else {
+        guard let url = URL(string: "https://forum.gnosis-safe.io/") else {
             fatalError("guard failure handling has not been implemented")
         }
         openInSafari(url)
