@@ -54,7 +54,8 @@ class GuardianListViewController: LoadableViewController {
         searchController.searchBar.autocapitalizationType = .none
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "Name, address or ENS"
-
+        searchController.hidesNavigationBarDuringPresentation = false
+        
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
