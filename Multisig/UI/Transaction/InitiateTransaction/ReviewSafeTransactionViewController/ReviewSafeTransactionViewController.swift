@@ -76,7 +76,8 @@ class ReviewSafeTransactionViewController: UIViewController {
 
         confirmButtonView.actionTitle = "Submit"
         confirmButtonView.state = .normal
-
+        confirmButtonView.set(rejectionEnabled: false)
+        
         confirmButtonView.onAction = { [weak self] in
             self?.didConfirm()
         }
