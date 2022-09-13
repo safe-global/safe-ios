@@ -44,7 +44,7 @@ class ClaimedAmountInputCell: UITableViewCell {
         descriptionLabel.text = "Select all tokens or custom amount."
         descriptionLabel.setStyle(.secondary)
 
-        amountTextField.setToken(image: UIImage(named: "ico-safe-token-logo"))
+        amountTextField.setToken(image: UIImage(named: "ico-safe-token-logo-circle"))
 
         maxButton = UIButton(type: .custom)
         maxButton.setText("Max", .primary)
