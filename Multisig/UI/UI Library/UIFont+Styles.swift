@@ -227,15 +227,15 @@ extension GNOButtonStyle {
     ])
 
     static let bordered = GNOButtonStyle(appearance: [
-        (.normal, GNOButtonAppearance(backgroundImage: UIImage(named: "border-normal"), textAttributes: [
+        (.normal, GNOButtonAppearance(backgroundImage: UIImage(named: "border-normal")?.withTintColor(.primary), textAttributes: [
             .foregroundColor: UIColor.primary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
-        (.highlighted, GNOButtonAppearance(backgroundImage: UIImage(named: "border-normal"), textAttributes: [
+        (.highlighted, GNOButtonAppearance(backgroundImage: UIImage(named: "border-normal")?.withTintColor(.primary), textAttributes: [
             .foregroundColor: UIColor.primary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
-        (.disabled, GNOButtonAppearance(backgroundImage: UIImage(named: "border-normal"), textAttributes: [
+        (.disabled, GNOButtonAppearance(backgroundImage: UIImage(named: "border-normal")?.withTintColor(.primary), textAttributes: [
             .foregroundColor: UIColor.primary,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ]))

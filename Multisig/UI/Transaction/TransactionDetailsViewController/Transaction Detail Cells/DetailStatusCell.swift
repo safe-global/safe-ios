@@ -52,7 +52,7 @@ class DetailStatusCell: UITableViewCell {
     func statusColor(status: SCGModels.TxStatus) -> UIColor {
         switch status {
         case .awaitingExecution, .awaitingConfirmations, .awaitingYourConfirmation, .pending:
-            return .pending
+            return .warning
         case .failed:
             return .error
         case .cancelled:

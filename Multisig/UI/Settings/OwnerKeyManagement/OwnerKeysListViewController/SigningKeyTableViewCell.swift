@@ -28,7 +28,7 @@ class SigningKeyTableViewCell: UITableViewCell {
         cellDetailLabel.isSkeletonable = true
         cellDetailLabel.skeletonTextLineHeight = .relativeToConstraints
         cellDetailLabel.textAlignment = .right
-        warningView.set(image: UIImage(named: "ico-private-key")?.withTintColor(.pending),
+        warningView.set(image: UIImage(named: "ico-private-key")?.withTintColor(.warning),
                         title: "Not backed up",
                         description: "Don’t forget to back up your key now to not lose access to it later.")
     }

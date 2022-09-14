@@ -9,31 +9,47 @@
 import UIKit
 
 extension UIColor {
+    // Foundation
     static let primary = UIColor(named: "primary")!
     static let primaryPressed = UIColor(named: "primaryPressed")!
     static let primaryDisabled = UIColor(named: "primaryDisabled")!
-    static let cardShadowTooltip = UIColor(named: "cardShadowTooltip")!
-    static let error = UIColor(named: "error")!
-    static let errorPressed = UIColor(named: "errorPressed")!
-    static let rejection = UIColor(named: "errorDisabled")!
-    static let icon = UIColor(named: "icon")!
-    static let pending = UIColor(named: "warning")!
-    static let separator = UIColor(named: "separator")!
+    // Background
     static let backgroundPrimary = UIColor(named: "backgroundPrimary")!
     static let backgroundSecondary = UIColor(named: "backgroundSecondary")!
-    static let backgroundTertiary = UIColor(named: "backgroundTetriary")!
-    static let backgroundQuaternary = UIColor(named: "backgroundQuaternary")!
-    static let backgroundPositive = UIColor(named: "backgroundPositive")!
-    static let backgroundWarning = UIColor(named: "backgroundWarning")!
-    static let backgroundError = UIColor(named: "backgroundError")!
+    static let backgroundLightGreen = UIColor(named: "backgroundLightGreen")!
+    static let backgroundGreen = UIColor(named: "backgroundGreen")
     static let backgroundTweet = UIColor(named: "backgroundTweet")!
-    static let whiteOrBlack = UIColor(named: "backgroundWhiteOrBlack")!
+    static let splashBackground = UIColor(named:"splashBackground")!
+
+    // Components
+    static let icon = UIColor(named: "icon")!
+    static let separator = UIColor(named: "separator")!
+    static let border = UIColor(named: "border")!
+    static let borderSelected = UIColor(named: "borderSelected")!
+    static let borderDisabled = UIColor(named: "borderDisabled")
+    // Label
     static let labelPrimary = UIColor(named: "labelPrimary")!
     static let labelSecondary = UIColor(named: "labelSecondary")!
     static let labelTertiary = UIColor(named: "labelTetriary")!
-    static let border = UIColor(named: "border")!
-    static let splashBackground = UIColor(named:"splashBackground")!
-    static let borderSelected = UIColor(named:"borderSelected")!
+    static let labelDisabled = UIColor(named: "labelDisabled")
+    // Error
+    static let error = UIColor(named: "error")!
+    static let errorPressed = UIColor(named: "errorPressed")!
+    static let errorBackground = UIColor(named: "errorBackground")!
+    // Warning
+    static let warning = UIColor(named: "warning")!
+    static let warningPressed = UIColor(named: "warningPressed")
+    static let warningBackground = UIColor(named: "warningBackground")!
+
+    // Info
+    static let info = UIColor(named: "info")!
+    static let infoPressed = UIColor(named: "infoPressed")!
+    static let infoBackground = UIColor(named: "infoBackground")!
+    static let success = UIColor(named: "success")!
+
+    static let cardShadowTooltip = UIColor(named: "cardShadowTooltip")!
+    static let backgroundTertiary = UIColor(named: "backgroundTetriary")!
+    static let backgroundQuaternary = UIColor(named: "backgroundQuaternary")!
 }
 
 extension UIColor {

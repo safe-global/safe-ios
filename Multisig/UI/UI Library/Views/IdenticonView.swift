@@ -32,8 +32,8 @@ class IdenticonView: UINibView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        badgeFrameView.layer.borderColor = UIColor.whiteOrBlack.cgColor
-        ownerCountFrameView.layer.borderColor = UIColor.whiteOrBlack.cgColor
+        badgeFrameView.layer.borderColor = UIColor.backgroundSecondary.cgColor
+        ownerCountFrameView.layer.borderColor = UIColor.backgroundSecondary.cgColor
     }
 
     func set(address: Address, imageURL: URL? = nil, placeholderImage: String? = nil, badgeName: String? = nil, reqConfirmations: Int? = nil, owners: Int? = nil) {
