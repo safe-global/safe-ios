@@ -112,7 +112,8 @@ extension UILabel {
                         linkText: String = "",
                         linkStyle: GNOTextStyle = .primaryButton,
                         linkIcon: UIImage? = UIImage(named: "icon-external-link")!.withTintColor(.primary),
-                        underlined: Bool = true) {
+                        underlined: Bool = true,
+                        postfixText: String = "") {
         let result = NSMutableAttributedString()
 
         if !prefixText.isEmpty {
@@ -138,6 +139,9 @@ extension UILabel {
             let attachmentString = NSAttributedString(attachment: attachment)
             result.append(attachmentString)
         }
+
+        let attributedWithPostfix = NSMutableAttributedString(string: postfixText, attributes: prefixStyle.attributes)
+        result.append(attributedWithPostfix)
 
         attributedText = result
     }
