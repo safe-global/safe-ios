@@ -87,7 +87,7 @@
                                                         <constraint firstAttribute="width" secondItem="n9l-w0-VpO" secondAttribute="height" id="m1t-m1-pHb"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Propose improvements - read our governance process and post an SIP." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z7G-zp-con" userLabel="proposeItemLabel">
+                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Propose improvements - read our governance process and post an SIP." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z7G-zp-con" userLabel="proposeItemLabel">
                                                     <rect key="frame" x="38" y="0.0" width="344" height="41"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -106,7 +106,7 @@
                                                         <constraint firstAttribute="height" constant="26" id="Y8Y-FK-pSd"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Govern improvements - vote on our Snapshot." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1B-Mu-vEQ" userLabel="governItemLabel">
+                                                <label opaque="NO" contentMode="left" verticalHuggingPriority="251" text="Govern improvements - vote on our Snapshot." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1B-Mu-vEQ" userLabel="governItemLabel">
                                                     <rect key="frame" x="38" y="0.0" width="344" height="41"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -125,7 +125,7 @@
                                                         <constraint firstAttribute="width" secondItem="BLZ-22-2c9" secondAttribute="height" id="pcv-ZC-9Wd"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Chat with the communiity - join our Safe Discord." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61T-uw-BsL" userLabel="chatItemLabel">
+                                                <label opaque="NO" contentMode="left" verticalHuggingPriority="251" text="Chat with the communiity - join our Safe Discord." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61T-uw-BsL" userLabel="chatItemLabel">
                                                     <rect key="frame" x="38" y="0.0" width="344" height="41"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>

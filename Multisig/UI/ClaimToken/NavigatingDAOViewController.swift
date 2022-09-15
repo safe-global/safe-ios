@@ -90,7 +90,6 @@ class NavigatingDAOViewController: UIViewController {
         case .chat:  tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(chatTap(sender:)))
         }
         label.addGestureRecognizer(tapRecognizer)
-        label.isUserInteractionEnabled = true
     }
 
     @objc
