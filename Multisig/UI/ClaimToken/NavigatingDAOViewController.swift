@@ -96,26 +96,17 @@ class NavigatingDAOViewController: UIViewController {
 
     @objc
     func discussTap(sender: UITapGestureRecognizer) {
-        guard let url = URL(string: "https://forum.gnosis-safe.io/") else {
-            return
-        }
-        openInSafari(url)
+        openInSafari(App.configuration.claim.discussURL)
     }
 
     @objc
     func proposeTap(sender: UITapGestureRecognizer) {
-        guard let url = URL(string: "https://docs.google.com/document/d/1t79exFjYZQO80yDc8X2S61d4Sc1_QjBwnzZgTSWqoUo/edit#heading=h.ao7vqnfg6hyh") else {
-            return
-        }
-        openInSafari(url)
+        openInSafari(App.configuration.claim.proposeURL)
     }
 
     @objc
     func chatTap(sender: UITapGestureRecognizer) {
-        guard let url = URL(string: "https://discord.com/invite/AjG7AQD9Qn") else {
-            return
-        }
-        openInSafari(url)
+        openInSafari(App.configuration.claim.chatURL)
     }
 
     enum link {
