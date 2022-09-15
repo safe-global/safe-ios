@@ -38,11 +38,6 @@ class ClaimedAmountInputCell: UITableViewCell {
         fieldDelegate.isUsingMaxValue
     }
 
-    var redeemDeadlineWarning: Bool {
-        get { !redeemWarningLabel.isHidden }
-        set { redeemWarningLabel.isHidden = !newValue }
-    }
-
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.text = "How much do you want to claim?"
@@ -70,6 +65,9 @@ class ClaimedAmountInputCell: UITableViewCell {
         fieldDelegate.setMaxValue()
     }
 
+    func set(redeemDeadlineLabelVisible: Bool) {
+        redeemWarningLabel.isHidden = !redeemDeadlineLabelVisible
+    }
 }
 
 import Solidity

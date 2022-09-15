@@ -365,7 +365,7 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
                 inputAmount = cell.value
                 claimButton.isEnabled = (error == nil) && claimButtonEnabled
             }
-            cell.redeemDeadlineWarning = !data.isRedeemed
+            cell.set(redeemDeadlineLabelVisible: !data.isRedeemed)
             return cell
 
         case .selectedDelegate:
