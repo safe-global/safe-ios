@@ -265,5 +265,11 @@
 	<string>$(WALLETCONNECT_BRIDGE_URL)</string>
 	<key>WALLETCONNECT_REGISTRY_URL</key>
 	<string>$(WALLETCONNECT_REGISTRY_URL)</string>
+	<key>CLAIM_DISCUSS_URL</key>
+	<string>$(CLAIM_DISCUSS_URL)</string>
+	<key>CLAIM_PROPOSE_URL</key>
+	<string>$(CLAIM_PROPOSE_URL)</string>
+	<key>CLAIM_CHAT_URL</key>
+	<string>$(CLAIM_CHAT_URL)</string>
 </dict>
 </plist>
