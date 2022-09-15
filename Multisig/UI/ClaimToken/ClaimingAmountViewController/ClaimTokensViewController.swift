@@ -365,6 +365,7 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
                 inputAmount = cell.value
                 claimButton.isEnabled = (error == nil) && claimButtonEnabled
             }
+            cell.redeemDeadlineWarning = !data.isRedeemed
             return cell
 
         case .selectedDelegate:
@@ -384,6 +385,8 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
 
         var totalValue: String
         var availableRange: Range<Sol.UInt128>
+
+        var isRedeemed: Bool
     }
 
     func displayValues(from claimData: ClaimingAppController.ClaimingData) -> DisplayValues {
@@ -408,6 +411,8 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
                 )
             )
         }
+
+        let isRedeemed = claimData.isRedeemed
 
         // components and total of vested amount
         let userVestedAmount: Sol.UInt128? = claimData.availableAmount(for: userAllocation, at: timestamp)
@@ -486,7 +491,8 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
             unvestedAmountTooltip: unvestedAmountTooltip,
             unvestedStyle: lightBoxStyle,
             totalValue: allocationText,
-            availableRange: availableRange
+            availableRange: availableRange,
+            isRedeemed: isRedeemed
         )
     }
 
