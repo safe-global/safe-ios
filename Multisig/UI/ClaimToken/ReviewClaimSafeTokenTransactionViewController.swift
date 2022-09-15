@@ -98,7 +98,7 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
         let formatter = TokenFormatter()
         let amountDecimal = BigDecimal(Int256(amount.big()), 18)
         let displayAmount = formatter.string(from: amountDecimal, shortFormat: false) + " SAFE"
-        cell.setAmount(text: displayAmount, image: UIImage(named: "ico-safe-token-logo"))
+        cell.setAmount(text: displayAmount, image: UIImage(named: "ico-safe-token-logo-circle"))
 
         cell.showsDelegate = newDelegateAddress != nil
         cell.setDelegate(guardian: selectedGuardian, address: selectedCustomAddress, chain: chain)

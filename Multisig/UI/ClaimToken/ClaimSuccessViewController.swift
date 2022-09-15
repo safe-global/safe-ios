@@ -69,11 +69,11 @@ class ClaimSuccessViewController: UIViewController {
         let text: String
 
         if hasChangedDelegate, let guardian = guardian, let ens = guardian.ens {
-            text = "I've just received my Safe governance tokens and delegated my voting power to \(ens) to help steward the public good that is @Safe 🔰🫡"
+            text = "I've just claimed my Safe governance tokens and delegated my voting power to \(ens) to help steward the public good that is @Safe 🔰🫡"
         } else if hasChangedDelegate, guardian != nil {
-            text = "I've just received my Safe governance tokens and delegated my voting power to help steward the public good that is @Safe 🔰🫡"
+            text = "I've just claimed my Safe governance tokens and delegated my voting power to help steward the public good that is @Safe 🔰🫡"
         } else {
-            text = "I've just received my Safe governance tokens to help steward the public good that is @Safe 🔰🫡"
+            text = "I've just claimed my Safe governance tokens to help steward the public good that is @Safe 🔰🫡"
         }
 
         return text
