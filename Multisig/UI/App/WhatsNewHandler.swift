@@ -11,43 +11,14 @@ class WhatsNewHandler {
     var whatsNewViewController: WhatsNewViewController?
 
     init() {
-        let title: WhatsNew.Title
-        let featureText: WhatsNew.Text
-
-        if #available(iOS 15, *) {
-            var titleString = AttributedString("What's new")
-            titleString.font = .systemFont(ofSize: 26, weight: .regular)
-            titleString.foregroundColor = .labelPrimary
-            title = .init(text: WhatsNew.Text(titleString))
-
-
-            var featureString = AttributedString("$1 has rebranded to $2 following a successful spin-off from the Gnosis DAO.\n\nNow and over the coming versions, you will see a new look and a better user experience for your ever secure Gnosis Safe.")
-            featureString.foregroundColor = .labelSecondary
-
-            var word1 = AttributedString("Gnosis Safe")
-            word1.foregroundColor = .labelPrimary
-            var word2 = AttributedString("Safe")
-            word2.foregroundColor = .labelPrimary
-
-            featureString.replaceSubrange(featureString.range(of: "$1")!, with: word1)
-            featureString.replaceSubrange(featureString.range(of: "$2")!, with: word2)
-
-            featureText = .init(featureString)
-            
-        } else {
-            title = "What's new"
-            featureText = "Gnosis Safe has rebranded to Safe following a successful spin-off from the Gnosis DAO.\n\nNow and over the coming versions, you will see a new look and a better user experience for your ever secure Gnosis Safe."
-        }
-
-
         let whatsNew = WhatsNew(
-            version: "3.16.0",
-            title: title,
+            version: "3.17.0",
+            title: "What's new",
             features: [
                 WhatsNew.Feature(
-                    image: WhatsNew.Feature.Image(name: "ico-whats-new-rebrand", bundle: .main, renderingMode: .original, foregroundColor: nil),
-                    title: "Meet the new Safe!",
-                    subtitle: featureText
+                    image: WhatsNew.Feature.Image(name: "ico-whats-new-airdrop", bundle: .main, renderingMode: .original, foregroundColor: nil),
+                    title: "The SAFE Airdrop!",
+                    subtitle: "Check if your Safe is eligible for the SAFE airdrop and claim the tokens in the app."
                 )
             ],
             primaryAction: WhatsNew.PrimaryAction(

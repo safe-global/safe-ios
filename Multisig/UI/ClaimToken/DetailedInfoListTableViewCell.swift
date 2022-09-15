@@ -26,7 +26,7 @@ class DetailedInfoListTableViewCell: UITableViewCell {
         descriptionLabel.isHidden = description == nil
         if let description = description {
             let attrString = NSMutableAttributedString(string: description, attributes: GNOTextStyle.secondary.attributes)
-            attrString.lineSpacing()
+            attrString.paragraph()
             descriptionLabel.attributedText = attrString
         }
 

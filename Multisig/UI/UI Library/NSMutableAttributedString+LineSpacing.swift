@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 extension NSMutableAttributedString {
-    func lineSpacing(spacing: CGFloat = 22) {
+    func paragraph(spacing: CGFloat = 16) {
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = spacing
+        paragraphStyle.paragraphSpacing = spacing
         addAttribute(.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, length))
     }
 }
