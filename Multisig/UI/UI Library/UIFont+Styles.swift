@@ -122,7 +122,7 @@ extension UILabel {
         }
 
         // text + non-breaking space
-        let attributedLinkText = NSMutableAttributedString(string: "\(linkText)\u{00A0}")
+        let attributedLinkText = NSMutableAttributedString(string: "\(linkText)")
         attributedLinkText.addAttributes(linkStyle.attributes, range: NSRange(location: 0, length: attributedLinkText.length))
         if underlined {
             attributedLinkText.addAttributes([NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue], range: NSRange(location: 0, length: attributedLinkText.length))
@@ -131,6 +131,9 @@ extension UILabel {
         result.append(attributedLinkText)
 
         if let icon = linkIcon {
+            let nbsp = NSMutableAttributedString(string: "\u{00A0}")
+            result.append(nbsp)
+
             let attachment = NSTextAttachment(image: icon.withTintColor(.primary))
             // for some reason the image sticks to the 'top' of the line, so we have to offset it vertically
             let lineHeight = UIFont.gnoFont(forTextStyle: linkStyle).lineHeight

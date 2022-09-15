@@ -48,7 +48,8 @@ class NavigatingDAOViewController: UIViewController {
                 prefixStyle: .secondary,
                 linkText: "Forum",
                 linkIcon: nil,
-                underlined: false
+                underlined: false,
+                postfixText: "."
         )
         openUrlOnTap(link: .discuss, label: discussItemLabel)
 
@@ -67,9 +68,10 @@ class NavigatingDAOViewController: UIViewController {
         chatItemLabel.setStyle(.secondary)
         chatItemLabel.hyperLinkLabel("Chat with the community - join our Safe ",
                 prefixStyle: .secondary,
-                linkText: "Discord.",
+                linkText: "Discord",
                 linkIcon: nil,
-                underlined: false
+                underlined: false,
+                postfixText: "."
         )
         openUrlOnTap(link: .chat, label: chatItemLabel)
 
