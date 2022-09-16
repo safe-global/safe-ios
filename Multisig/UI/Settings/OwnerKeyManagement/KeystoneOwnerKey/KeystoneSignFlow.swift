@@ -81,3 +81,10 @@ extension KeystoneSignFlow: QRCodeScannerViewControllerDelegate {
         stop(success: false)
     }
 }
+
+extension SECP256K1.UnmarshaledSignature {
+    var safeSignature: String {
+        let signature = r + s + Data([v + 4])
+        return signature.toHexString()
+    }
+}

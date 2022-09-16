@@ -279,8 +279,7 @@ class ReviewSafeTransactionViewController: UIViewController {
                 }
             }
             keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
-                let gnosisSafeSignature = unmarshaledSignature.r + unmarshaledSignature.s + Data([unmarshaledSignature.v + 4])
-                self?.proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: gnosisSafeSignature.toHexString())
+                self?.proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: unmarshaledSignature.safeSignature)
             }
             present(flow: keystoneSignFlow)
         }

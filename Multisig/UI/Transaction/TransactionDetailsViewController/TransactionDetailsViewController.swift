@@ -405,8 +405,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 }
             }
             keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
-                let gnosisSafeSignature = unmarshaledSignature.r + unmarshaledSignature.s + Data([unmarshaledSignature.v + 4])
-                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: gnosisSafeSignature.toHexString(), keyInfo: keyInfo)
+                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: unmarshaledSignature.safeSignature, keyInfo: keyInfo)
             }
             present(flow: keystoneSignFlow)
         }

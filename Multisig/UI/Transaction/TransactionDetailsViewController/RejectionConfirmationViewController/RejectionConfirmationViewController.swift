@@ -150,8 +150,7 @@ class RejectionConfirmationViewController: UIViewController {
                 }
             }
             keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
-                let gnosisSafeSignature = unmarshaledSignature.r + unmarshaledSignature.s + Data([unmarshaledSignature.v + 4])
-                self?.rejectAndCloseController(signature: gnosisSafeSignature.toHexString())
+                self?.rejectAndCloseController(signature: unmarshaledSignature.safeSignature)
             }
             present(flow: keystoneSignFlow)
         }
