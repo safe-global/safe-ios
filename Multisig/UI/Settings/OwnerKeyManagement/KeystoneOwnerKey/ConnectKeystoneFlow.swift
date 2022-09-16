@@ -11,7 +11,7 @@ import UIKit
 import URRegistry
 
 final class ConnectKeystoneFlow: AddKeyFlow {
-    var publicKey: PublicKey?
+    var addKeyParameters: AddKeystoneKeyParameters?
     var sourceFingerprint: UInt32?
     
     var flowFactory: ConnectKeystoneFactory {
@@ -23,7 +23,6 @@ final class ConnectKeystoneFlow: AddKeyFlow {
     }
     
     override func didIntro() {
-        super.didIntro()
         scan()
     }
     
@@ -53,24 +52,19 @@ final class ConnectKeystoneFlow: AddKeyFlow {
     
     func pickAccount(_ node: HDNode) {
         let pickerVC = flowFactory.derivedAccountPicker(node: node) { [unowned self] publicKey in
-            didGetKey(publicKey: publicKey)
+            didGetKey(addKeyParameters: publicKey)
         }
         show(pickerVC)
     }
     
-    func didGetKey(publicKey: PublicKey) {
-        self.publicKey = publicKey
+    func didGetKey(addKeyParameters: AddKeystoneKeyParameters) {
+        self.addKeyParameters = addKeyParameters
         enterName()
     }
     
     override func enterName() {
-        guard let publicKey = publicKey else { return }
-        let parameters = AddKeyParameters(
-            address: publicKey.address,
-            keyName: nil,
-            badgeName: badgeImageName
-        )
-        let nameVC = factory.enterName(parameters: parameters) { [unowned self] name in
+        guard let addKeyParameters = addKeyParameters else { return }
+        let nameVC = factory.enterName(parameters: addKeyParameters) { [unowned self] name in
             keyName = name
             importKey()
         }
@@ -78,8 +72,8 @@ final class ConnectKeystoneFlow: AddKeyFlow {
     }
     
     override func importKey() {
-        guard let publicKey = publicKey else { return }
-        let existingKey = try? KeyInfo.firstKey(address: publicKey.address)
+        guard let addKeyParameters = addKeyParameters else { return }
+        let existingKey = try? KeyInfo.firstKey(address: addKeyParameters.address)
         guard existingKey == nil else {
             App.shared.snackbar.show(error: GSError.KeyAlreadyImported())
             stop(success: false)
@@ -88,7 +82,7 @@ final class ConnectKeystoneFlow: AddKeyFlow {
 
         let success = doImport()
 
-        guard success, let key = try? KeyInfo.keys(addresses: [publicKey.address]).first else {
+        guard success, let key = try? KeyInfo.keys(addresses: [addKeyParameters.address]).first else {
             stop(success: false)
             return
         }
@@ -101,10 +95,15 @@ final class ConnectKeystoneFlow: AddKeyFlow {
     }
     
     override func doImport() -> Bool {
-        if let publicKey = publicKey,
+        if let addKeyParameters = addKeyParameters,
            let keyName = keyName,
            let sourceFingerprint = sourceFingerprint {
-            return OwnerKeyController.importKey(keystone: publicKey, name: keyName, sourceFingerprint: sourceFingerprint)
+            return OwnerKeyController.importKey(
+                keystone: addKeyParameters.address,
+                path: addKeyParameters.derivationPath,
+                name: keyName,
+                sourceFingerprint: sourceFingerprint
+            )
         } else {
             return false
         }
@@ -144,6 +143,15 @@ extension ConnectKeystoneFlow: QRCodeScannerViewControllerDelegate {
     }
 }
 
+class AddKeystoneKeyParameters: AddKeyParameters {
+    var derivationPath: String
+
+    init(address: Address, derivationPath: String) {
+        self.derivationPath = derivationPath
+        super.init(address: address, keyName: nil, badgeName: KeyType.keystone.imageName)
+    }
+}
+
 final class ConnectKeystoneFactory: AddKeyFlowFactory {
     override func intro(completion: @escaping () -> Void) -> AddKeyOnboardingViewController {
         let introVC = super.intro(completion: completion)
@@ -164,11 +172,11 @@ final class ConnectKeystoneFactory: AddKeyFlowFactory {
         return introVC
     }
     
-    func derivedAccountPicker(node: HDNode, completion: @escaping (_ publicKey: PublicKey) -> Void) -> KeyPickerController {
+    func derivedAccountPicker(node: HDNode, completion: @escaping (_ addKeyParameters: AddKeystoneKeyParameters) -> Void) -> KeyPickerController {
         let pickDerivedKeyVC = KeyPickerController(node: node)
         pickDerivedKeyVC.completion = { [unowned pickDerivedKeyVC] in
-            if let key = pickDerivedKeyVC.publicKey {
-                completion(key)
+            if let keyParameters = pickDerivedKeyVC.addKeystoneKeyParameters {
+                completion(keyParameters)
             }
         }
         return pickDerivedKeyVC

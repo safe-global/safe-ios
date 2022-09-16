@@ -27,7 +27,7 @@ extension KeystoneSignRequest {
             path: keyMetadata.path,
             xfp: keyMetadata.sourceFingerprint,
             address: "",
-            origin: "gnosis safe ios"
+            origin: "safe ios"
         )
     }
 }

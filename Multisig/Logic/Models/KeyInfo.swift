@@ -258,10 +258,10 @@ extension KeyInfo {
     ///   - sourceFingerprint: sourceFingerprint of the key
     /// - Returns: KeyInfo
     @discardableResult
-    static func `import`(keystone publicKey: PublicKey, name: String, sourceFingerprint: UInt32) throws -> KeyInfo {
+    static func `import`(keystone address: Address, path: String, name: String, sourceFingerprint: UInt32) throws -> KeyInfo {
         let context = App.shared.coreDataStack.viewContext
 
-        let fr = KeyInfo.fetchRequest().by(address: publicKey.address)
+        let fr = KeyInfo.fetchRequest().by(address: address)
         let item: KeyInfo
 
         if (try context.fetch(fr).first) != nil {
@@ -270,11 +270,11 @@ extension KeyInfo {
             item = KeyInfo(context: context)
         }
 
-        item.address = publicKey.address
+        item.address = address
         item.name = name
-        item.keyID = "keystone:\(publicKey.address.checksummed)"
+        item.keyID = "keystone:\(address.checksummed)"
         item.keyType = .keystone
-        item.metadata = KeystoneKeyMetadata(sourceFingerprint: sourceFingerprint, path: publicKey.path).data
+        item.metadata = KeystoneKeyMetadata(sourceFingerprint: sourceFingerprint, path: path).data
         
         item.save()
 

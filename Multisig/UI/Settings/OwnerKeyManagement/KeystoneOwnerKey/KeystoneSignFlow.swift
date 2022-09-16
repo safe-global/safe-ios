@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 import URRegistry
 
-class KeystoneSignFlow: UIFlow {
+final class KeystoneSignFlow: UIFlow {
     private let signRequest: KeystoneSignRequest
     private let chain: Chain?
     

@@ -616,7 +616,6 @@
 		47039CEE28C37EDB00081A7A /* KeystoneRequestSignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47039CED28C37EDB00081A7A /* KeystoneRequestSignatureView.swift */; };
 		47039CF228C579CF00081A7A /* KeystoneSignRequest+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47039CF128C579CF00081A7A /* KeystoneSignRequest+Transaction.swift */; };
 		47368B9B28C0B003008A1D8A /* URRegistry in Frameworks */ = {isa = PBXBuildFile; productRef = 47368B9A28C0B003008A1D8A /* URRegistry */; };
-		473F4B9128BA47F900B6DE4E /* PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473F4B9028BA47F900B6DE4E /* PublicKey.swift */; };
 		47646ED428AA72DD009DC437 /* ConnectKeystoneFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */; };
 		47DAEDE628C77456000940FB /* KeystoneSignFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DAEDE528C77456000940FB /* KeystoneSignFlow.swift */; };
 		5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5503F62B2550625F0046545C /* CollectiblesViewController.swift */; };
@@ -1531,7 +1530,6 @@
 		3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockchainDomainManager.swift; sourceTree = "<group>"; };
 		47039CED28C37EDB00081A7A /* KeystoneRequestSignatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystoneRequestSignatureView.swift; sourceTree = "<group>"; };
 		47039CF128C579CF00081A7A /* KeystoneSignRequest+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeystoneSignRequest+Transaction.swift"; sourceTree = "<group>"; };
-		473F4B9028BA47F900B6DE4E /* PublicKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKey.swift; sourceTree = "<group>"; };
 		47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectKeystoneFlow.swift; sourceTree = "<group>"; };
 		47DAEDE528C77456000940FB /* KeystoneSignFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystoneSignFlow.swift; sourceTree = "<group>"; };
 		5503F62B2550625F0046545C /* CollectiblesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesViewController.swift; sourceTree = "<group>"; };
@@ -3379,7 +3377,6 @@
 		47DF358528B9481700EBEF3E /* Keystone */ = {
 			isa = PBXGroup;
 			children = (
-				473F4B9028BA47F900B6DE4E /* PublicKey.swift */,
 				47039CF128C579CF00081A7A /* KeystoneSignRequest+Transaction.swift */,
 			);
 			path = Keystone;
@@ -4858,7 +4855,6 @@
 				554A16B3266E4D4900807049 /* EIP712Transformer.swift in Sources */,
 				048D72BF268359E20095999C /* ChainManager.swift in Sources */,
 				6AA2724A27DF566B00934B37 /* PendingWalletActionViewController.swift in Sources */,
-				473F4B9128BA47F900B6DE4E /* PublicKey.swift in Sources */,
 				0ADD19C4265EA23200EB0F2B /* SeedPhraseView.swift in Sources */,
 				0AC60C9D2549D63300A63AE2 /* NoSafesViewController.swift in Sources */,
 				6AFD26E62859E8EC00336FFE /* InfoBoxView.swift in Sources */,

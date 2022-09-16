@@ -9,7 +9,6 @@
 import UIKit
 import Version
 import SwiftCryptoTokenFormatter
-import SwiftUI
 import URRegistry
 
 fileprivate protocol SectionItem {}

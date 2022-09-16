@@ -10,5 +10,4 @@ import Foundation
 
 enum KeychainKey {
     static let ownerPrivateKey = "owner.private.key"
-    static let ownerPublicKey = "owner.public.key"
 }

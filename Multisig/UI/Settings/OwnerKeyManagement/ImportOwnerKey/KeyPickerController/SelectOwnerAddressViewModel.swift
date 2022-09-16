@@ -28,9 +28,12 @@ class SelectOwnerAddressViewModel {
         guard let keyData = privateKeyData(selectedIndex) else { return nil }
         return try? PrivateKey(data: keyData)
     }
-    var selectedPublicKey: PublicKey? {
-        guard let keyHex = publicKeyHex(selectedIndex) else { return nil }
-        return try? PublicKey(hexPublicKey: keyHex, path: "\(HDNode.defaultPath)/\(selectedIndex)")
+    var addKeystoneKeyParameters: AddKeystoneKeyParameters? {
+        guard
+            let hexPublicKey = hexPublicKey(selectedIndex),
+            let publicKey = try? EthereumPublicKey(hexPublicKey: hexPublicKey)
+        else { return nil }
+        return AddKeystoneKeyParameters(address: Address(publicKey.address), derivationPath: "\(HDNode.defaultPath)/\(selectedIndex)")
     }
     
     private var rootNode: HDNode?    
@@ -65,10 +68,11 @@ class SelectOwnerAddressViewModel {
     }
 
     private func publicAddressAt(_ index: Int) -> Address? {
-        guard let publicKeyHex = publicKeyHex(index) else { return nil }
+        guard let hexPublicKey = hexPublicKey(index) else { return nil }
         
         do {
-            return try PublicKey(hexPublicKey: publicKeyHex, path: "\(HDNode.defaultPath)/\(index)").address
+            let publicKey = try EthereumPublicKey(hexPublicKey: hexPublicKey)
+            return Address(publicKey.address)
         } catch {
             LogService.shared.error("Could not derive address: \(error)")
             App.shared.snackbar.show(
@@ -84,7 +88,7 @@ class SelectOwnerAddressViewModel {
         return rootNode?.derive(index: UInt32(index), derivePrivateKey: true)?.privateKey
     }
     
-    private func publicKeyHex(_ index: Int) -> String? {
+    private func hexPublicKey(_ index: Int) -> String? {
         if index >= 0,
            let publicKeyData = rootNode?.derive(path: "0/\(index)", derivePrivateKey: false)?.publicKey,
            let uncompressedKey = URRegistry.shared.getUncompressedKey(from: publicKeyData.toHexString()) {

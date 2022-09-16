@@ -30,8 +30,8 @@ class KeyPickerController: UITableViewController {
         viewModel.selectedPrivateKey
     }
 
-    var publicKey: PublicKey? {
-        viewModel.selectedPublicKey
+    var addKeystoneKeyParameters: AddKeystoneKeyParameters? {
+        viewModel.addKeystoneKeyParameters
     }
     
     private var viewModel: SelectOwnerAddressViewModel!
@@ -77,7 +77,7 @@ class KeyPickerController: UITableViewController {
     }
 
     @objc func didTapImport() {
-        guard viewModel.selectedPrivateKey != nil || viewModel.selectedPublicKey != nil else { return }
+        guard viewModel.selectedPrivateKey != nil || viewModel.addKeystoneKeyParameters != nil else { return }
         self.completion()
     }
 
