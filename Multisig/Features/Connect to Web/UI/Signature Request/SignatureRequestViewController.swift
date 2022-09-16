@@ -9,7 +9,6 @@
 import UIKit
 import BigInt
 import WalletConnectSwift
-import URRegistry
 
 class SignatureRequestViewController: WebConnectionContainerViewController, WebConnectionRequestObserver, PasscodeProtecting {
 
@@ -227,22 +226,24 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
         case .keystone:
             let gsError = GSError.error(description: "Failed to sign")
             
-            guard let signRequest = KeystoneSignRequest(
+            let signInfo = KeystoneSignInfo(
                 signData: request.message.toHexString(),
-                chainId: chain?.id,
+                chain: chain,
                 keyInfo: keyInfo,
                 signType: .personalMessage
-            ) else {
-                App.shared.snackbar.show(error: gsError)
-                return
-            }
-            
-            keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: chain) { [unowned self] success in
+            )
+            let signCompletion = { [unowned self] (success: Bool) in
                 keystoneSignFlow = nil
                 if !success {
                     App.shared.snackbar.show(error: gsError)
                 }
             }
+            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
+                App.shared.snackbar.show(error: gsError)
+                return
+            }
+            
+            keystoneSignFlow = signFlow
             keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
                 if let signature = SECP256K1.marshalSignature(v: Data([unmarshaledSignature.v]), r: unmarshaledSignature.r, s: unmarshaledSignature.s) {
                     self?.confirm(signature: signature)

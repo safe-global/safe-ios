@@ -8,7 +8,6 @@
 
 import UIKit
 import Version
-import URRegistry
 
 class RejectionConfirmationViewController: UIViewController {
 
@@ -131,24 +130,26 @@ class RejectionConfirmationViewController: UIViewController {
         case .keystone:
             let gsError = GSError.error(description: "Failed to Reject transaction")
             
-            guard let signRequest = KeystoneSignRequest(
+            let signInfo = KeystoneSignInfo(
                 signData: rejectionTransaction.safeTxHash.hash.toHexString(),
-                chainId: rejectionTransaction.chainId,
+                chain: safe.chain,
                 keyInfo: keyInfo,
                 signType: .personalMessage
-            ) else {
-                App.shared.snackbar.show(error: gsError)
-                endLoading()
-                return
-            }
-            
-            keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: safe.chain) { [unowned self] success in
+            )
+            let signCompletion = { [unowned self] (success: Bool) in
                 keystoneSignFlow = nil
                 if !success {
                     App.shared.snackbar.show(error: gsError)
                     endLoading()
                 }
             }
+            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
+                App.shared.snackbar.show(error: gsError)
+                endLoading()
+                return
+            }
+            
+            keystoneSignFlow = signFlow
             keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
                 self?.rejectAndCloseController(signature: unmarshaledSignature.safeSignature)
             }

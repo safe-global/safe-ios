@@ -11,14 +11,15 @@ import SwiftUI
 import URRegistry
 
 final class KeystoneSignFlow: UIFlow {
-    private let signRequest: KeystoneSignRequest
-    private let chain: Chain?
-    
     var signCompletion: ((_ unmarshaledSignature: SECP256K1.UnmarshaledSignature) -> Void)?
     
-    init(signRequest: KeystoneSignRequest, chain: Chain?, completion: @escaping (Bool) -> Void) {
+    private let signInfo: KeystoneSignInfo
+    private let signRequest: KeystoneSignRequest
+    
+    init?(signInfo: KeystoneSignInfo, completion: @escaping (Bool) -> Void) {
+        guard let signRequest = signInfo.signRequest else { return nil }
+        self.signInfo = signInfo
         self.signRequest = signRequest
-        self.chain = chain
         super.init(completion: completion)
     }
     
@@ -34,7 +35,7 @@ final class KeystoneSignFlow: UIFlow {
         signVC.navigationItem.title = "Request signature"
         
         let ribbon = ViewControllerFactory.ribbonWith(viewController: signVC)
-        ribbon.storedChain = chain
+        ribbon.storedChain = signInfo.chain
         
         show(ribbon)
     }

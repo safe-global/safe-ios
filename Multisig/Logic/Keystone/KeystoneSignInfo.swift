@@ -9,18 +9,31 @@
 import Foundation
 import URRegistry
 
-extension KeystoneSignRequest {
-    init?(signData: HexString, chainId: String?, keyInfo: KeyInfo, signType: SignType) {
+struct KeystoneSignInfo {
+    enum KeystoneSignType: Int {
+        case personalMessage = 3
+        case typedTransaction
+    }
+    
+    var signData: String
+    var chain: Chain?
+    var keyInfo: KeyInfo
+    var signType: KeystoneSignType
+}
+
+extension KeystoneSignInfo {
+    var signRequest: KeystoneSignRequest? {
         guard
             let requestId = UUID().uuidString.data(using: .utf8)?.toHexString(),
-            let chainId = chainId,
+            let chainId = chain?.id,
             let chainIdNumber = UInt32(chainId),
             let metadata = keyInfo.metadata,
             let keyMetadata = KeyInfo.KeystoneKeyMetadata.from(data: metadata),
+            let signType = KeystoneSignRequest.SignType(rawValue: signType.rawValue),
             keyInfo.keyType == .keystone
         else { return nil }
         
-        self.init(
+        return KeystoneSignRequest(
             requestId: requestId,
             signData: signData,
             signType: signType,

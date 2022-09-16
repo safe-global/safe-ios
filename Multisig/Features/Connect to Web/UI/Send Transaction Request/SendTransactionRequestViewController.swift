@@ -10,7 +10,6 @@ import Solidity
 import WalletConnectSwift
 import JsonRpc2
 import Json
-import URRegistry
 
 class SendTransactionRequestViewController: WebConnectionContainerViewController, WebConnectionRequestObserver, PasscodeProtecting {
 
@@ -428,22 +427,24 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
         case .keystone:
             let gsError = GSError.error(description: "Signing failed")
             
-            guard let signRequest = KeystoneSignRequest(
+            let signInfo = KeystoneSignInfo(
                 signData: transaction.preImageForSigning().toHexString(),
-                chainId: chain.id,
+                chain: chain,
                 keyInfo: keyInfo,
                 signType: .typedTransaction
-            ) else {
-                App.shared.snackbar.show(error: gsError)
-                return
-            }
-            
-            keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: chain) { [unowned self] success in
+            )
+            let signCompletion = { [unowned self] (success: Bool) in
                 keystoneSignFlow = nil
                 if !success {
                     App.shared.snackbar.show(error: gsError)
                 }
             }
+            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
+                App.shared.snackbar.show(error: gsError)
+                return
+            }
+            
+            keystoneSignFlow = signFlow
             keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
                 do {
                     try self?.transaction.updateSignature(

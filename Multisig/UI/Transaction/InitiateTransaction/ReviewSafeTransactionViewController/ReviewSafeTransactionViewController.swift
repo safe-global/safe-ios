@@ -9,7 +9,6 @@
 import UIKit
 import Version
 import SwiftCryptoTokenFormatter
-import URRegistry
 
 fileprivate protocol SectionItem {}
 
@@ -260,24 +259,26 @@ class ReviewSafeTransactionViewController: UIViewController {
         case .keystone:
             let gsError = GSError.error(description: "Failed to confirm transaction")
             
-            guard let signRequest = KeystoneSignRequest(
+            let signInfo = KeystoneSignInfo(
                 signData: transaction.safeTxHash.hash.toHexString(),
-                chainId: transaction.chainId,
+                chain: safe.chain,
                 keyInfo: keyInfo,
                 signType: .personalMessage
-            ) else {
-                App.shared.snackbar.show(error: gsError)
-                endConfirm()
-                return
-            }
-            
-            keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: safe.chain) { [unowned self] success in
+            )
+            let signCompletion = { [unowned self] (success: Bool) in
                 keystoneSignFlow = nil
                 if !success {
                     App.shared.snackbar.show(error: gsError)
                     endConfirm()
                 }
             }
+            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
+                App.shared.snackbar.show(error: gsError)
+                endConfirm()
+                return
+            }
+            
+            keystoneSignFlow = signFlow
             keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
                 self?.proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: unmarshaledSignature.safeSignature)
             }

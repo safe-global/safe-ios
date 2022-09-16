@@ -10,7 +10,6 @@ import UIKit
 import SwiftUI
 import WalletConnectSwift
 import Version
-import URRegistry
 
 class TransactionDetailsViewController: LoadableViewController, UITableViewDataSource, UITableViewDelegate {
     var clientGatewayService = App.shared.clientGatewayService
@@ -388,22 +387,24 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         case .keystone:
             let gsError = GSError.error(description: "Failed to confirm transaction")
             
-            guard let signRequest = KeystoneSignRequest(
+            let signInfo = KeystoneSignInfo(
                 signData: transaction.safeTxHash.hash.toHexString(),
-                chainId: transaction.chainId,
+                chain: safe.chain,
                 keyInfo: keyInfo,
                 signType: .personalMessage
-            ) else {
-                onError(gsError)
-                return
-            }
-            
-            keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: safe.chain) { [unowned self] success in
+            )
+            let signCompletion = { [unowned self] (success: Bool) in
                 keystoneSignFlow = nil
                 if !success {
                     onError(gsError)
                 }
             }
+            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
+                onError(gsError)
+                return
+            }
+            
+            keystoneSignFlow = signFlow
             keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
                 self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: unmarshaledSignature.safeSignature, keyInfo: keyInfo)
             }

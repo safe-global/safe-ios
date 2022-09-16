@@ -10,7 +10,6 @@ import UIKit
 import Ethereum
 import Solidity
 import WalletConnectSwift
-import URRegistry
 
 class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CreateSafeFormUIModelDelegate, PasscodeProtecting {
 
@@ -773,22 +772,24 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         case .keystone:
             let gsError = GSError.error(description: "Signing failed")
             
-            guard let signRequest = KeystoneSignRequest(
+            let signInfo = KeystoneSignInfo(
                 signData: uiModel.transaction.preImageForSigning().toHexString(),
-                chainId: uiModel.chain.id,
+                chain: chain,
                 keyInfo: keyInfo,
                 signType: .typedTransaction
-            ) else {
-                App.shared.snackbar.show(error: gsError)
-                return
-            }
-            
-            keystoneSignFlow = KeystoneSignFlow(signRequest: signRequest, chain: chain) { [unowned self] success in
+            )
+            let signCompletion = { [unowned self] (success: Bool) in
                 keystoneSignFlow = nil
                 if !success {
                     App.shared.snackbar.show(error: gsError)
                 }
             }
+            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
+                App.shared.snackbar.show(error: gsError)
+                return
+            }
+            
+            keystoneSignFlow = signFlow
             keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
                 do {
                     try self?.uiModel.transaction.updateSignature(
