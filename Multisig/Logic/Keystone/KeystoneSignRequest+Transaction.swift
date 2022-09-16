@@ -16,7 +16,8 @@ extension KeystoneSignRequest {
             let chainId = chainId,
             let chainIdNumber = UInt32(chainId),
             let metadata = keyInfo.metadata,
-            let keyMetadata = KeyInfo.KeystoneKeyMetadata.from(data: metadata)
+            let keyMetadata = KeyInfo.KeystoneKeyMetadata.from(data: metadata),
+            keyInfo.keyType == .keystone
         else { return nil }
         
         self.init(
