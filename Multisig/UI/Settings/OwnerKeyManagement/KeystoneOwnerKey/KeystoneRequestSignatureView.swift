@@ -13,7 +13,7 @@ struct KeystoneRequestSignatureView: View {
     let onTap: () -> Void
     
     @State private var qrValue = URRegistry.shared.nextPartUnsignedUR
-    private let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
+    private let timer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
     private let qrViewSide: CGFloat = 300
     
     var body: some View {
