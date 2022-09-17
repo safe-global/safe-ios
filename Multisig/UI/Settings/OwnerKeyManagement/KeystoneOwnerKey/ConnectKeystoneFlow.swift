@@ -11,10 +11,12 @@ import UIKit
 import URRegistry
 
 final class ConnectKeystoneFlow: AddKeyFlow {
-    var addKeyParameters: AddKeystoneKeyParameters?
-    var sourceFingerprint: UInt32?
+    private static let urPrefixOfHDKey = "UR:CRYPTO-HDKEY"
+    private static let urPrefixOfAccount = "UR:CRYPTO-ACCOUNT"
+    private var addKeyParameters: AddKeystoneKeyParameters?
+    private var sourceFingerprint: UInt32?
     
-    var flowFactory: ConnectKeystoneFactory {
+    private var flowFactory: ConnectKeystoneFactory {
         factory as! ConnectKeystoneFactory
     }
     
@@ -37,7 +39,7 @@ final class ConnectKeystoneFlow: AddKeyFlow {
         vc.attributedLabel = label
 
         vc.scannedValueValidator = { value in
-            guard value.starts(with: "UR:CRYPTO-HDKEY") || value.starts(with: "UR:CRYPTO-ACCOUNT") else {
+            guard value.starts(with: Self.urPrefixOfHDKey) || value.starts(with: Self.urPrefixOfAccount) else {
                 return .failure(GSError.InvalidWalletConnectQRCode())
             }
             return .success(value)
@@ -50,9 +52,9 @@ final class ConnectKeystoneFlow: AddKeyFlow {
         Tracker.trackEvent(.keystoneQRScanner)
     }
     
-    func pickAccount(_ node: HDNode) {
-        let pickerVC = flowFactory.derivedAccountPicker(node: node) { [unowned self] publicKey in
-            didGetKey(addKeyParameters: publicKey)
+    func pickAccount(_ viewModel: KeystoneSelectAddressViewModel) {
+        let pickerVC = flowFactory.derivedAccountPicker(viewModel: viewModel) { [unowned self] addKeyParameters in
+            didGetKey(addKeyParameters: addKeyParameters)
         }
         show(pickerVC)
     }
@@ -124,16 +126,31 @@ final class ConnectKeystoneFlow: AddKeyFlow {
 
 extension ConnectKeystoneFlow: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
-        navigationController.dismiss(animated: true) { [unowned self] in
-            if let hdKey = URRegistry.shared.getHDKey(from: code) {
-                sourceFingerprint = hdKey.sourceFingerprint
-                
-                let hdNode = HDNode()
-                hdNode.publicKey = Data(hex: hdKey.key)
-                hdNode.chaincode = Data(hex: hdKey.chainCode)
-                pickAccount(hdNode)
-            } else {
-                App.shared.snackbar.show(error: GSError.InvalidWalletConnectQRCode())
+        if code.starts(with: Self.urPrefixOfHDKey) {
+            navigationController.dismiss(animated: true) { [unowned self] in
+                if let hdKey = URRegistry.shared.getSourceHDKey(from: code) {
+                    sourceFingerprint = hdKey.sourceFingerprint
+                    
+                    let viewModel = KeystoneSelectAddressViewModel(hdKey: hdKey)
+                    pickAccount(viewModel)
+                } else {
+                    App.shared.snackbar.show(error: GSError.InvalidWalletConnectQRCode())
+                }
+            }
+        } else if code.starts(with: Self.urPrefixOfAccount) {
+            var hdKeys: [CryptoHDKey]?
+            repeat {
+                hdKeys = URRegistry.shared.getHDKeys(from: code)
+            } while hdKeys == nil
+            
+            navigationController.dismiss(animated: true) { [unowned self] in
+                if let hdKeys = hdKeys {
+                    sourceFingerprint = hdKeys.first?.sourceFingerprint
+                    let viewModel = KeystoneSelectAddressViewModel(hdKeys: hdKeys)
+                    pickAccount(viewModel)
+                } else {
+                    App.shared.snackbar.show(error: GSError.InvalidWalletConnectQRCode())
+                }
             }
         }
     }
@@ -172,8 +189,7 @@ final class ConnectKeystoneFactory: AddKeyFlowFactory {
         return introVC
     }
     
-    func derivedAccountPicker(node: HDNode, completion: @escaping (_ addKeyParameters: AddKeystoneKeyParameters) -> Void) -> KeyPickerController {
-        let viewModel = SelectOwnerAddressViewModel(rootNode: node)
+    func derivedAccountPicker(viewModel: KeystoneSelectAddressViewModel, completion: @escaping (_ addKeyParameters: AddKeystoneKeyParameters) -> Void) -> KeyPickerController {
         let pickDerivedKeyVC = KeyPickerController(viewModel: viewModel)
         pickDerivedKeyVC.completion = { [unowned pickDerivedKeyVC] in
             if let keyParameters = pickDerivedKeyVC.addKeystoneKeyParameters {
