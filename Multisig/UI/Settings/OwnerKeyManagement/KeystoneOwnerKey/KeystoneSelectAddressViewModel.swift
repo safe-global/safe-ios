@@ -22,7 +22,7 @@ final class KeystoneSelectAddressViewModel: SelectOwnerAddressViewModelProtocol 
             let hexPublicKey = hexPublicKey(selectedIndex),
             let publicKey = try? EthereumPublicKey(hexPublicKey: hexPublicKey)
         else { return nil }
-        return AddKeystoneKeyParameters(address: Address(publicKey.address), derivationPath: "\(HDNode.defaultPathPrefix)/\(path(at: selectedIndex))")
+        return AddKeystoneKeyParameters(address: Address(publicKey.address), derivationPath: derivationPath(at: selectedIndex))
     }
     
     var canLoadMoreAddresses: Bool {
@@ -41,11 +41,14 @@ final class KeystoneSelectAddressViewModel: SelectOwnerAddressViewModelProtocol 
     
     init(hdKeys: [CryptoHDKey]) {
         self.hdKeys = hdKeys
+        maxItemCount = hdKeys.count
+        generateNextPage()
+        selectedIndex = items.first?.exists == true ? -1 : 0
     }
     
     func generateNextPage() {
         do {
-            let indexes = (items.count..<items.count + pageSize)
+            let indexes = (items.count..<items.count + min(pageSize, maxItemCount))
             let addresses = indexes.map(publicAddressAt)
             let infoByAddress = try Dictionary(grouping: KeyInfo.keys(addresses: addresses.compactMap { $0 }), by: \.address)
 
@@ -83,17 +86,29 @@ final class KeystoneSelectAddressViewModel: SelectOwnerAddressViewModelProtocol 
     }
     
     private func hexPublicKey(_ index: Int) -> String? {
-        guard let hdKey = hdKey, let chainCode = hdKey.chainCode, index >= 0 else { return nil }
-        
-        let hdNode = HDNode()
-        hdNode.publicKey = Data(hex: hdKey.key)
-        hdNode.chaincode = Data(hex: chainCode)
-        
-        if let publicKeyData = hdNode.derive(path: path(at: index), derivePrivateKey: false)?.publicKey,
-           let uncompressedKey = URRegistry.shared.getUncompressedKey(from: publicKeyData.toHexString()) {
-            return uncompressedKey
+        if let hdKeys = hdKeys, index < hdKeys.count {
+            return URRegistry.shared.getUncompressedKey(from: hdKeys[index].key)
         } else {
-            return nil
+            guard let hdKey = hdKey, let chainCode = hdKey.chainCode, index >= 0 else { return nil }
+            
+            let hdNode = HDNode()
+            hdNode.publicKey = Data(hex: hdKey.key)
+            hdNode.chaincode = Data(hex: chainCode)
+            
+            if let publicKeyData = hdNode.derive(path: path(at: index), derivePrivateKey: false)?.publicKey,
+               let uncompressedKey = URRegistry.shared.getUncompressedKey(from: publicKeyData.toHexString()) {
+                return uncompressedKey
+            } else {
+                return nil
+            }
+        }
+    }
+    
+    private func derivationPath(at index: Int) -> String {
+        if let hdKey = hdKey {
+            return "\(HDNode.defaultPathPrefix)/\(path(at: index))"
+        } else {
+            return "m/44'/60'/\(index)'/0/0"
         }
     }
     
