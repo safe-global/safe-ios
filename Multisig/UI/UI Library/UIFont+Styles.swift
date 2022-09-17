@@ -112,7 +112,8 @@ extension UILabel {
                         linkText: String = "",
                         linkStyle: GNOTextStyle = .primaryButton,
                         linkIcon: UIImage? = UIImage(named: "icon-external-link")!.withTintColor(.primary),
-                        underlined: Bool = true) {
+                        underlined: Bool = true,
+                        postfixText: String = "") {
         let result = NSMutableAttributedString()
 
         if !prefixText.isEmpty {
@@ -121,7 +122,7 @@ extension UILabel {
         }
 
         // text + non-breaking space
-        let attributedLinkText = NSMutableAttributedString(string: "\(linkText)\u{00A0}")
+        let attributedLinkText = NSMutableAttributedString(string: "\(linkText)")
         attributedLinkText.addAttributes(linkStyle.attributes, range: NSRange(location: 0, length: attributedLinkText.length))
         if underlined {
             attributedLinkText.addAttributes([NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue], range: NSRange(location: 0, length: attributedLinkText.length))
@@ -130,6 +131,7 @@ extension UILabel {
         result.append(attributedLinkText)
 
         if let icon = linkIcon {
+            result.append(NSMutableAttributedString(string: "\u{00A0}"))
             let attachment = NSTextAttachment(image: icon.withTintColor(.primary))
             // for some reason the image sticks to the 'top' of the line, so we have to offset it vertically
             let lineHeight = UIFont.gnoFont(forTextStyle: linkStyle).lineHeight
@@ -138,6 +140,9 @@ extension UILabel {
             let attachmentString = NSAttributedString(attachment: attachment)
             result.append(attachmentString)
         }
+
+        let attributedWithPostfix = NSMutableAttributedString(string: postfixText, attributes: prefixStyle.attributes)
+        result.append(attributedWithPostfix)
 
         attributedText = result
     }

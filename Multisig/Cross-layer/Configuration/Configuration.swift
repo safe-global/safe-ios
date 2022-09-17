@@ -144,6 +144,17 @@ struct AppConfiguration {
         // Add feature toggles here
     }
 
+    struct Claim {
+        @ConfigurationKey("CLAIM_DISCUSS_URL")
+        var discussURL: URL
+
+        @ConfigurationKey("CLAIM_PROPOSE_URL")
+        var proposeURL: URL
+
+        @ConfigurationKey("CLAIM_CHAT_URL")
+        var chatURL: URL
+    }
+
     let services = Services()
     let help = Help()
     let legal = Legal()
@@ -151,4 +162,5 @@ struct AppConfiguration {
     let app = App()
     let walletConnect = WalletConnect()
     let toggles = FeatureToggles()
+    let claim = Claim()
 }

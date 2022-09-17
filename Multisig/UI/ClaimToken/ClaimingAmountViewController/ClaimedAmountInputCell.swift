@@ -11,8 +11,10 @@ import UIKit
 class ClaimedAmountInputCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var redeemWarningLabel: UILabel!
     @IBOutlet private weak var amountTextField: TokenAmountField!
     private var maxButton: UIButton!
+
 
     private let fieldDelegate = TokenAmountTextDelegate()
 
@@ -44,7 +46,9 @@ class ClaimedAmountInputCell: UITableViewCell {
         descriptionLabel.text = "Select all tokens or custom amount."
         descriptionLabel.setStyle(.secondary)
 
-        amountTextField.setToken(image: UIImage(named: "ico-safe-token-logo"))
+        redeemWarningLabel.setStyle(.footnote2.color(UIColor(hex: "#B2BBC0")))
+
+        amountTextField.setToken(image: UIImage(named: "ico-safe-token-logo-circle"))
 
         maxButton = UIButton(type: .custom)
         maxButton.setText("Max", .primary)
@@ -61,6 +65,9 @@ class ClaimedAmountInputCell: UITableViewCell {
         fieldDelegate.setMaxValue()
     }
 
+    func set(redeemDeadlineLabelVisible: Bool) {
+        redeemWarningLabel.isHidden = !redeemDeadlineLabelVisible
+    }
 }
 
 import Solidity

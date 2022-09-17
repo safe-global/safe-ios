@@ -50,7 +50,8 @@ class GuardianListViewController: LoadableViewController {
         searchController.searchBar.autocapitalizationType = .none
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "Name, address or ENS"
-
+        searchController.hidesNavigationBarDuringPresentation = false
+        
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
@@ -66,6 +67,7 @@ class GuardianListViewController: LoadableViewController {
         // Empty view is never shown. Instead the list is empty, when no results are found
         emptyView.setText("No delegates were found. Try to search again or use a custom address.")
         emptyView.setImage(UIImage(named: "ico-delegate-placeholder")!)
+        extendedLayoutIncludesOpaqueBars = true
     }
 
     private func makeSections(items: [Guardian]) -> [Section] {
