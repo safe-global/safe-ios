@@ -23,7 +23,7 @@ class KeyPickerController: UITableViewController {
         case collapsed, expanded
     }
 
-    typealias Item = SelectOwnerAddressViewModel.KeyAddressInfo
+    typealias Item = KeyAddressInfo
 
     var completion: () -> Void = { }
     var privateKey: PrivateKey? {
@@ -31,10 +31,10 @@ class KeyPickerController: UITableViewController {
     }
 
     var addKeystoneKeyParameters: AddKeystoneKeyParameters? {
-        viewModel.addKeystoneKeyParameters
+        viewModel.selectedKeystoneKeyParameters
     }
     
-    private var viewModel: SelectOwnerAddressViewModel!
+    private var viewModel: SelectOwnerAddressViewModelProtocol!
     private var listState = ListState.collapsed
     private var items: [Item] {
         switch listState {
@@ -54,9 +54,9 @@ class KeyPickerController: UITableViewController {
         return button
     }()
 
-    convenience init(node: HDNode) {
+    convenience init(viewModel: SelectOwnerAddressViewModelProtocol) {
         self.init()
-        viewModel = SelectOwnerAddressViewModel(rootNode: node)
+        self.viewModel = viewModel
     }
 
     override func viewDidLoad() {
@@ -77,7 +77,7 @@ class KeyPickerController: UITableViewController {
     }
 
     @objc func didTapImport() {
-        guard viewModel.selectedPrivateKey != nil || viewModel.addKeystoneKeyParameters != nil else { return }
+        guard viewModel.selectedPrivateKey != nil || viewModel.selectedKeystoneKeyParameters != nil else { return }
         self.completion()
     }
 

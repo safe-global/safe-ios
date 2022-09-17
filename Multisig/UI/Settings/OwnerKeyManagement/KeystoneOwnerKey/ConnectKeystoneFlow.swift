@@ -37,7 +37,7 @@ final class ConnectKeystoneFlow: AddKeyFlow {
         vc.attributedLabel = label
 
         vc.scannedValueValidator = { value in
-            guard value.starts(with: "UR:CRYPTO-HDKEY") else {
+            guard value.starts(with: "UR:CRYPTO-HDKEY") || value.starts(with: "UR:CRYPTO-ACCOUNT") else {
                 return .failure(GSError.InvalidWalletConnectQRCode())
             }
             return .success(value)
@@ -173,7 +173,8 @@ final class ConnectKeystoneFactory: AddKeyFlowFactory {
     }
     
     func derivedAccountPicker(node: HDNode, completion: @escaping (_ addKeyParameters: AddKeystoneKeyParameters) -> Void) -> KeyPickerController {
-        let pickDerivedKeyVC = KeyPickerController(node: node)
+        let viewModel = SelectOwnerAddressViewModel(rootNode: node)
+        let pickDerivedKeyVC = KeyPickerController(viewModel: viewModel)
         pickDerivedKeyVC.completion = { [unowned pickDerivedKeyVC] in
             if let keyParameters = pickDerivedKeyVC.addKeystoneKeyParameters {
                 completion(keyParameters)

@@ -617,6 +617,7 @@
 		47039CF228C579CF00081A7A /* KeystoneSignInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47039CF128C579CF00081A7A /* KeystoneSignInfo.swift */; };
 		47368B9B28C0B003008A1D8A /* URRegistry in Frameworks */ = {isa = PBXBuildFile; productRef = 47368B9A28C0B003008A1D8A /* URRegistry */; };
 		47646ED428AA72DD009DC437 /* ConnectKeystoneFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */; };
+		47CEAD2B28D57E1000C1264D /* SelectOwnerAddressViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CEAD2A28D57E1000C1264D /* SelectOwnerAddressViewModelProtocol.swift */; };
 		47DAEDE628C77456000940FB /* KeystoneSignFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DAEDE528C77456000940FB /* KeystoneSignFlow.swift */; };
 		5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5503F62B2550625F0046545C /* CollectiblesViewController.swift */; };
 		550A6182268A23A9002C02E1 /* SafeNetworkMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550A6181268A23A9002C02E1 /* SafeNetworkMigrationTests.swift */; };
@@ -1531,6 +1532,7 @@
 		47039CED28C37EDB00081A7A /* KeystoneRequestSignatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystoneRequestSignatureView.swift; sourceTree = "<group>"; };
 		47039CF128C579CF00081A7A /* KeystoneSignInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystoneSignInfo.swift; sourceTree = "<group>"; };
 		47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectKeystoneFlow.swift; sourceTree = "<group>"; };
+		47CEAD2A28D57E1000C1264D /* SelectOwnerAddressViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOwnerAddressViewModelProtocol.swift; sourceTree = "<group>"; };
 		47DAEDE528C77456000940FB /* KeystoneSignFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystoneSignFlow.swift; sourceTree = "<group>"; };
 		5503F62B2550625F0046545C /* CollectiblesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesViewController.swift; sourceTree = "<group>"; };
 		550A6181268A23A9002C02E1 /* SafeNetworkMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeNetworkMigrationTests.swift; sourceTree = "<group>"; };
@@ -2483,6 +2485,7 @@
 				0A478D3A25B863D60038363E /* DerivedKeyTableViewCell.xib */,
 				0A478D1925B860240038363E /* KeyPickerController.swift */,
 				55B64665253051630050BD95 /* SelectOwnerAddressViewModel.swift */,
+				47CEAD2A28D57E1000C1264D /* SelectOwnerAddressViewModelProtocol.swift */,
 			);
 			path = KeyPickerController;
 			sourceTree = "<group>";
@@ -4785,6 +4788,7 @@
 				0AF8D1AC2822DFA20035DCF7 /* CancellableNavigationController.swift in Sources */,
 				93EF2FAF27C551DC0077BE95 /* StepInstructionTableViewCell.swift in Sources */,
 				0ACDC01524925A96002035A2 /* FirebaseConfig.swift in Sources */,
+				47CEAD2B28D57E1000C1264D /* SelectOwnerAddressViewModelProtocol.swift in Sources */,
 				04273E5A26B1474700A14E95 /* LedgerController.swift in Sources */,
 				0472B2C3286A497A0049BA17 /* GuardianTableViewCell.swift in Sources */,
 				0A9BC33524602CE200EB9C5D /* Data+MultisigExtension.swift in Sources */,
