@@ -253,7 +253,8 @@ extension KeyInfo {
 
     /// Will save the key info from Keystone hardware in the persistence store.
     /// - Parameters:
-    ///   - publicKey: public key to save
+    ///   - address: address of the key to save
+    ///   - path: derivation path of the key
     ///   - name: name of the key
     ///   - sourceFingerprint: sourceFingerprint of the key
     /// - Returns: KeyInfo

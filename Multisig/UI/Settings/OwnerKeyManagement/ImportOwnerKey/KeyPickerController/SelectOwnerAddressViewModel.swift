@@ -51,7 +51,7 @@ class SelectOwnerAddressViewModel: SelectOwnerAddressViewModelProtocol {
             return nil
         }
     }
-    
+
     private func privateKeyData(_ index: Int) -> Data? {
         guard index >= 0 else { return nil }
         return rootNode?.derive(index: UInt32(index), derivePrivateKey: true)?.privateKey
