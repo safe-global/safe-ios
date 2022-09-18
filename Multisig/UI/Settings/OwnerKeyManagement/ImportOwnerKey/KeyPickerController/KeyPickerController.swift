@@ -35,7 +35,7 @@ class KeyPickerController: UITableViewController {
     }
     
     private var viewModel: SelectOwnerAddressViewModelProtocol!
-    private var listState = ListState.collapsed
+    private lazy var listState: ListState = viewModel.maxItemCount < viewModel.pageSize ? .expanded: .collapsed
     private var items: [Item] {
         switch listState {
         case .collapsed:

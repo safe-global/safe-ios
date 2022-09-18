@@ -19,6 +19,7 @@ protocol SelectOwnerAddressViewModelProtocol {
     var items: [KeyAddressInfo] { get set }
     var selectedIndex: Int { get set }
     var pageSize: Int { get set }
+    var maxItemCount: Int { get }
     var selectedPrivateKey: PrivateKey? { get }
     var selectedKeystoneKeyParameters: AddKeystoneKeyParameters? { get }
     var canLoadMoreAddresses: Bool { get }

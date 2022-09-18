@@ -13,6 +13,7 @@ import URRegistry
 final class ConnectKeystoneFlow: AddKeyFlow {
     private static let urPrefixOfHDKey = "UR:CRYPTO-HDKEY"
     private static let urPrefixOfAccount = "UR:CRYPTO-ACCOUNT"
+    private var scannerVC: QRCodeScannerViewController!
     private var addKeyParameters: AddKeystoneKeyParameters?
     private var sourceFingerprint: UInt32?
     
@@ -29,25 +30,24 @@ final class ConnectKeystoneFlow: AddKeyFlow {
     }
     
     private func scan() {
-        let vc = QRCodeScannerViewController()
-
+        scannerVC = QRCodeScannerViewController()
         let string = "Scan your Keystone wallet QR code to connect." as NSString
         let textStyle = GNOTextStyle.primary.color(.white)
         let highlightStyle = textStyle.weight(.bold)
         let label = NSMutableAttributedString(string: string as String, attributes: textStyle.attributes)
         label.setAttributes(highlightStyle.attributes, range: string.range(of: "Keystone"))
-        vc.attributedLabel = label
+        scannerVC.attributedLabel = label
 
-        vc.scannedValueValidator = { value in
+        scannerVC.scannedValueValidator = { value in
             guard value.starts(with: Self.urPrefixOfHDKey) || value.starts(with: Self.urPrefixOfAccount) else {
                 return .failure(GSError.InvalidWalletConnectQRCode())
             }
             return .success(value)
         }
-        vc.modalPresentationStyle = .overFullScreen
-        vc.delegate = self
-        vc.setup()
-        navigationController.present(vc, animated: true)
+        scannerVC.modalPresentationStyle = .overFullScreen
+        scannerVC.delegate = self
+        scannerVC.setup()
+        navigationController.present(scannerVC, animated: true)
 
         Tracker.trackEvent(.keystoneQRScanner)
     }
@@ -138,19 +138,17 @@ extension ConnectKeystoneFlow: QRCodeScannerViewControllerDelegate {
                 }
             }
         } else if code.starts(with: Self.urPrefixOfAccount) {
-            var hdKeys: [CryptoHDKey]?
-            repeat {
-                hdKeys = URRegistry.shared.getHDKeys(from: code)
-            } while hdKeys == nil
+            guard let hdKeys = URRegistry.shared.getHDKeys(from: code) else {
+                DispatchQueue.global().async { [unowned self] in
+                    scannerVC.captureSession.startRunning()
+                }
+                return
+            }
             
             navigationController.dismiss(animated: true) { [unowned self] in
-                if let hdKeys = hdKeys {
-                    sourceFingerprint = hdKeys.first?.sourceFingerprint
-                    let viewModel = KeystoneSelectAddressViewModel(hdKeys: hdKeys)
-                    pickAccount(viewModel)
-                } else {
-                    App.shared.snackbar.show(error: GSError.InvalidWalletConnectQRCode())
-                }
+                sourceFingerprint = hdKeys.first?.sourceFingerprint
+                let viewModel = KeystoneSelectAddressViewModel(hdKeys: hdKeys)
+                pickAccount(viewModel)
             }
         }
     }

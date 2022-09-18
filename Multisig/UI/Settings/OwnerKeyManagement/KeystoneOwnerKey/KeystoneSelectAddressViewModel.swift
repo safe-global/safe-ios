@@ -29,7 +29,7 @@ final class KeystoneSelectAddressViewModel: SelectOwnerAddressViewModelProtocol 
         items.count < maxItemCount
     }
     
-    private var maxItemCount = 100
+    var maxItemCount = 100
     private var hdKey: CryptoHDKey?
     private var hdKeys: [CryptoHDKey]?
     
@@ -86,10 +86,12 @@ final class KeystoneSelectAddressViewModel: SelectOwnerAddressViewModelProtocol 
     }
     
     private func hexPublicKey(_ index: Int) -> String? {
+        guard index >= 0 else { return nil }
+        
         if let hdKeys = hdKeys, index < hdKeys.count {
             return URRegistry.shared.getUncompressedKey(from: hdKeys[index].key)
         } else {
-            guard let hdKey = hdKey, let chainCode = hdKey.chainCode, index >= 0 else { return nil }
+            guard let hdKey = hdKey, let chainCode = hdKey.chainCode else { return nil }
             
             let hdNode = HDNode()
             hdNode.publicKey = Data(hex: hdKey.key)
@@ -105,7 +107,7 @@ final class KeystoneSelectAddressViewModel: SelectOwnerAddressViewModelProtocol 
     }
     
     private func derivationPath(at index: Int) -> String {
-        if let hdKey = hdKey {
+        if hdKey != nil  {
             return "\(HDNode.defaultPathPrefix)/\(path(at: index))"
         } else {
             return "m/44'/60'/\(index)'/0/0"
