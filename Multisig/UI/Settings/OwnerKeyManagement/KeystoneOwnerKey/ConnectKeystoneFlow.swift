@@ -26,6 +26,7 @@ final class ConnectKeystoneFlow: AddKeyFlow {
     }
     
     override func didIntro() {
+        URRegistry.shared.resetDecoder()
         scan()
     }
     
