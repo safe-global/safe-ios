@@ -40,7 +40,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 #endif
 
         let darkNavBar = UINavigationBar.appearance(for: .init(userInterfaceStyle: .dark))
-        darkNavBar.barTintColor = .backgroundQuaternary
+        darkNavBar.barTintColor = .backgroundSecondary
         darkNavBar.isTranslucent = false
 
         let lightNavBar = UINavigationBar.appearance(for: .init(userInterfaceStyle: .light))

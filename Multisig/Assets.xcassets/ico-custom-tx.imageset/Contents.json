@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "ico-custom-tx-light.pdf",
+      "filename" : "ico-custom-tx.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ico-custom-tx-dark.pdf",
+      "filename" : "ico-custom-tx-1.pdf",
       "idiom" : "universal"
     }
   ],

@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Group 358.pdf",
+      "filename" : "ico-check-green.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-check-green-dark.pdf",
       "idiom" : "universal"
     }
   ],

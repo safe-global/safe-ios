@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "green.pdf",
+      "filename" : "ico-confirm.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "16PxCircleCheck.pdf",
+      "filename" : "ico-confirm-dark.pdf",
       "idiom" : "universal"
     }
   ],

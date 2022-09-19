@@ -48,8 +48,6 @@ extension UIColor {
     static let success = UIColor(named: "success")!
 
     static let cardShadowTooltip = UIColor(named: "cardShadowTooltip")!
-    static let backgroundTertiary = UIColor(named: "backgroundTetriary")!
-    static let backgroundQuaternary = UIColor(named: "backgroundQuaternary")!
 }
 
 extension UIColor {

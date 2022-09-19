@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "24PxEditGreen.pdf",
+      "filename" : "ico-edit.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "24PxEdit.pdf",
+      "filename" : "ico-edit-dark.pdf",
       "idiom" : "universal"
     }
   ],
