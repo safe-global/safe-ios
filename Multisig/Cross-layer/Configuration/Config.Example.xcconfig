@@ -140,7 +140,7 @@ _APP_STORE_REVIEW_URL_PROD       = https:/$()/apps.apple.com/app/id1515759131?ac
 
 // Claim URLS
 CLAIM_DISCUSS_URL                = https:/$()/forum.gnosis-safe.io/
-CLAIM_PROPOSE_URL                = https:/$()/docs.google.com/document/d/1t79exFjYZQO80yDc8X2S61d4Sc1_QjBwnzZgTSWqoUo/edit#heading=h.ao7vqnfg6hyh
+CLAIM_PROPOSE_URL                = https://forum.gnosis-safe.io/t/how-to-safedao-governance-process/846
 CLAIM_CHAT_URL                   = https:/$()/discord.com/invite/AjG7AQD9Qn
 
 APP_STORE_REVIEW_URL = $(_APP_STORE_REVIEW_URL_$(SERVICE_ENV):default=$(_APP_STORE_REVIEW_URL_PROD))
