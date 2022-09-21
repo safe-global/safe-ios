@@ -17,14 +17,14 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
     var selectedGuardian: Guardian?
     var selectedCustomAddress: Address?
     var controller: ClaimingAppController!
-    var hasSelectedMaxAmount: Bool = false
+    var maxAmountSelected: Bool = false
     
     var onSuccess: ((SCGModels.TransactionDetails) -> ())?
 
     convenience init(
         safe: Safe,
         amount: Sol.UInt128,
-        hasSelectedMaxAmount: Bool = false,
+        maxAmountSelected: Bool = false,
         claimData: ClaimingAppController.ClaimingData,
         timestamp: TimeInterval,
         guardian: Guardian?,
@@ -34,7 +34,7 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
     ) {
         self.init(safe: safe)
         self.amount = amount
-        self.hasSelectedMaxAmount = hasSelectedMaxAmount
+        self.maxAmountSelected = maxAmountSelected
         self.claimData = claimData
         self.timestamp = timestamp
         self.selectedGuardian = guardian
@@ -77,7 +77,7 @@ class ReviewClaimSafeTokenTransactionViewController: ReviewSafeTransactionViewCo
     override func createTransaction() -> Transaction? {
         var result = controller.claimingTransaction(
             safe: self.safe,
-            amount: hasSelectedMaxAmount ? Sol.UInt128.max : amount,
+            amount: maxAmountSelected ? Sol.UInt128.max : amount,
             delegate: newDelegateAddress,
             data: claimData,
             timestamp: timestamp

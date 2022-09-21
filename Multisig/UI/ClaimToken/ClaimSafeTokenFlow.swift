@@ -109,7 +109,7 @@ class ClaimSafeTokenFlow: UIFlow {
     var factory: ClaimSafeTokenFlowFactory!
     var safe: Safe
     var amount: Sol.UInt128?
-    var hasSelectedMaxAmount: Bool = false
+    var maxAmountSelected: Bool = false
     var claimData: ClaimingAppController.ClaimingData?
     var timestamp: TimeInterval?
     var selectedGuardian: Guardian?
@@ -244,7 +244,7 @@ class ClaimSafeTokenFlow: UIFlow {
             amount = claimVC.inputAmount
             claimData = claimVC.claimData
             timestamp = claimVC.timestamp
-            hasSelectedMaxAmount = claimVC.hasSelectedMaxAmount
+            maxAmountSelected = claimVC.hasSelectedMaxAmount
 
             review()
         }
@@ -264,7 +264,7 @@ class ClaimSafeTokenFlow: UIFlow {
         let reviewVC = ReviewClaimSafeTokenTransactionViewController(
             safe: safe,
             amount: amount!,
-            hasSelectedMaxAmount: hasSelectedMaxAmount,
+            maxAmountSelected: maxAmountSelected,
             claimData: claimData!,
             timestamp: timestamp!,
             guardian: selectedGuardian,
