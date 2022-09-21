@@ -35,8 +35,8 @@ class ClaimingAppController {
 
         static let mainnet = Configuration(
             safeToken: "0x5aFE3855358E112B5647B952709E6165e1c1eEEe",
-            userAirdrop: "0x590d38Af0b484e7FB9a54a9669dcfFFB25D2DF35",
-            ecosystemAirdrop: "0x3eCD46C973d815e30F604619B7F3EB9B30c0e963",
+            userAirdrop: "0xA0b937D5c8E32a80E3a8ed4227CD020221544ee6",
+            ecosystemAirdrop: "0x29067F28306419923BCfF96E37F95E0f58ABdBBe",
             // https://github.com/gnosis/delegate-registry/blob/feature/fix_deployment/networks.json
             delegateRegistry: "0x469788fE6E9E9681C6ebF3bF78e7Fd26Fc015446",
             chainId: "1"
