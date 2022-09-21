@@ -203,7 +203,8 @@ class ClaimTokensViewController: LoadableViewController {
     override func reloadData() {
         super.reloadData()
 
-        timestamp = Date().timeIntervalSince1970
+        // This to make sure that the last block time interval is less than the used one
+        timestamp = Date().timeIntervalSince1970 - 30
         keyboardBehavior.hideKeyboard()
 
         claimButton.isEnabled = false
