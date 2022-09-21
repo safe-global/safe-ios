@@ -203,8 +203,7 @@ class ClaimTokensViewController: LoadableViewController {
     override func reloadData() {
         super.reloadData()
 
-        // This to make sure that the last block time interval is less than the used one
-        timestamp = Date().timeIntervalSince1970 - 30
+        timestamp = lastBlockTimestampEstimation()
         keyboardBehavior.hideKeyboard()
 
         claimButton.isEnabled = false
@@ -242,6 +241,11 @@ class ClaimTokensViewController: LoadableViewController {
         let isDelegateCorrect = delegateAddress != nil || guardian != nil
 
         return isAmountCorrect && isDelegateCorrect
+    }
+
+    private func lastBlockTimestampEstimation() -> TimeInterval {
+        // This to make sure that the last block time interval is less than the used one
+        Date().timeIntervalSince1970 - 30
     }
 }
 
