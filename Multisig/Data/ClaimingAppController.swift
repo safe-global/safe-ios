@@ -615,8 +615,13 @@ extension ClaimingAppController.Vesting {
     }
 
     func available(at timestamp: TimeInterval) -> Sol.UInt128 {
-        let result = vestedAmount(at: timestamp) - amountClaimed
-        return result
+        // The used timestamp (CurrentTimestamp - 30) it caused sometimes that vestedAmount is less than claimed
+        let vestedAmount = vestedAmount(at: timestamp)
+        if vestedAmount > amountClaimed {
+            return vestedAmount - amountClaimed
+        }
+
+        return 0
     }
 
     func vestedAmount(at timestamp: TimeInterval) -> Sol.UInt128 {
