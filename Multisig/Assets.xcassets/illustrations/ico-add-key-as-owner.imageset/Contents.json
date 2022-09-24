@@ -3,6 +3,16 @@
     {
       "filename" : "ico-add-key-as-owner.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-add-key-as-owner-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

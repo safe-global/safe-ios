@@ -3,6 +3,16 @@
     {
       "filename" : "ledger-device.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ledger-device-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

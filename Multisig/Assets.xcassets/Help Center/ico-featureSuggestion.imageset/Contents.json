@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "featureSuggestion.pdf",
+      "filename" : "ico-featureSuggestion.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "logoFeatureSuggestion.pdf",
+      "filename" : "ico-featureSuggestion-dark.pdf",
       "idiom" : "universal"
     }
   ],

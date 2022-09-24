@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "helpCenter.pdf",
+      "filename" : "ico-helpCenter.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "logoHelpCenter.pdf",
+      "filename" : "ico-helpCenter-dark.pdf",
       "idiom" : "universal"
     }
   ],

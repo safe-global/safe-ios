@@ -3,6 +3,16 @@
     {
       "filename" : "ico-app-settings-support.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-app-settings-support=dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

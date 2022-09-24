@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "ico-app-settings-message-circle.pdf",
+      "filename" : "ico-app-settings-message-circle-with-badge.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-app-settings-message-circle-with-badge-dark.pdf",
       "idiom" : "universal"
     }
   ],

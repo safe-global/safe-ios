@@ -14,7 +14,7 @@ extension NSNotification.Name {
 
 public final class Tooltip: BaseCustomView {
 
-    static let arrowUp = UIImage(named: "ico-tooltip-arrow-white")!
+    static let arrowUp = UIImage(named: "ico-tooltip-arrow")!
     static let arrowDown = UIImage(cgImage:  arrowUp.cgImage!,
                                     scale:  arrowUp.scale,
                                     orientation: .downMirrored)
@@ -44,7 +44,7 @@ public final class Tooltip: BaseCustomView {
 
     public override func commonInit() {
         
-        background.image = UIImage(named: "bkg-tooltip-white")
+        background.image = UIImage(named: "bkg-tooltip")
         addSubview(background)
         
         label.setStyle(labelStyle)

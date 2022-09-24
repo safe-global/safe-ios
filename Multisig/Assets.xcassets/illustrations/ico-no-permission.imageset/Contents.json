@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Permissions Lock.svg",
+      "filename" : "ico-no-permission.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Permissions Lock-1.svg",
+      "filename" : "ico-no-permission-dark.pdf",
       "idiom" : "universal"
     }
   ],

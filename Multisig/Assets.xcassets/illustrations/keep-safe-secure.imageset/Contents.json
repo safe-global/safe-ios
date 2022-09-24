@@ -3,6 +3,16 @@
     {
       "filename" : "keep-safe-secure.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "keep-safe-secure-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
