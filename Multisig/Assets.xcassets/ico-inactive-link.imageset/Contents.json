@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "ico-inactive-link.pdf",
+      "filename" : "ico-no-transactions.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-no-transactions-dark.pdf",
       "idiom" : "universal"
     }
   ],
@@ -10,6 +20,6 @@
     "version" : 1
   },
   "properties" : {
-    "template-rendering-intent" : "template"
+    "template-rendering-intent" : "original"
   }
 }

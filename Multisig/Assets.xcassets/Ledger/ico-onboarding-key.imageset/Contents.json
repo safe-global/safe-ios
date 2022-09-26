@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "illustrationPrivateKey.pdf",
+      "filename" : "ico-onboarding-import-key-2.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,6 +11,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "ico-onboarding-import-key-2-dark.pdf",
       "idiom" : "universal"
     }
   ],
