@@ -430,7 +430,7 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
 
         // components and total of unvested amount
         let userUnvestedAmount: Sol.UInt128? = claimData.unvestedAmount(for: userAllocation, at: timestamp)
-        let ecoUnvestedAmount: Sol.UInt128? = claimData.unvestedAmount(for: userAllocation, at: timestamp)
+        let ecoUnvestedAmount: Sol.UInt128? = claimData.unvestedAmount(for: ecosystemAllocation, at: timestamp)
         let otherUnvestedAmount: Sol.UInt128 = claimData.totalUnvestedAmount(of: otherAllocations, at: timestamp)
         let unvestedTotal: Sol.UInt128 = claimData.totalUnvestedAmount(of: claimData.allocationsData, at: timestamp)
 
