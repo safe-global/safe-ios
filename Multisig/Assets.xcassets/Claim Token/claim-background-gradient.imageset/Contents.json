@@ -3,16 +3,6 @@
     {
       "filename" : "claim-background-gradient.pdf",
       "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "claim-background-gradient-dark.pdf",
-      "idiom" : "universal"
     }
   ],
   "info" : {

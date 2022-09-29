@@ -3,6 +3,16 @@
     {
       "filename" : "ico-shield-circle-light.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-shield-circle-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

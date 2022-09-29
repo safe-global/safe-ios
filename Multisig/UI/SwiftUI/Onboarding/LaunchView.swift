@@ -48,14 +48,6 @@ struct LaunchView: View {
         GeometryReader { geometryProxy in
 
             ZStack(alignment: .centerAlignment) {
-
-                Image("ico-splash-gradient")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 274, height: 286)
-                    .position(x: geometryProxy.size.width - 137, y: geometryProxy.size.height - 143)
-                    .hidden()
-
                 VStack(alignment: .center, spacing: 0) {
                     // 100 x 153 px, so no additional framing is required
                     Image("launchscreen-logo")

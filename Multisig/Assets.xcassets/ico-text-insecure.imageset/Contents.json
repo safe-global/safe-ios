@@ -3,6 +3,16 @@
     {
       "filename" : "ico-text-insecure.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-text-insecure-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

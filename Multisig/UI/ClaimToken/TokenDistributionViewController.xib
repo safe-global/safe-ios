@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -24,8 +24,11 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="claim-background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="ZSY-P4-Wlr">
+                    <rect key="frame" x="0.0" y="48" width="414" height="700"/>
+                </imageView>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xdE-MG-G0y">
-                    <rect key="frame" x="0.0" y="44" width="414" height="734"/>
+                    <rect key="frame" x="0.0" y="48" width="414" height="730"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="tsi-yH-xOv">
                             <rect key="frame" x="16" y="0.0" width="382" height="389.5"/>
@@ -88,20 +91,24 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="xdE-MG-G0y" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="3KC-Wh-ICg"/>
+                <constraint firstItem="ZSY-P4-Wlr" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="4je-W1-i4i"/>
+                <constraint firstItem="ZSY-P4-Wlr" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="9jo-TX-Ksp"/>
                 <constraint firstItem="xdE-MG-G0y" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="QKm-Kg-PLg"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="xdE-MG-G0y" secondAttribute="trailing" id="TAq-KS-jMz"/>
                 <constraint firstItem="6sp-Ke-1Io" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="TQJ-Am-OQH"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="6sp-Ke-1Io" secondAttribute="bottom" constant="20" id="UFg-JY-hhc"/>
                 <constraint firstItem="6sp-Ke-1Io" firstAttribute="top" secondItem="xdE-MG-G0y" secondAttribute="bottom" constant="8" id="goD-vw-XYq"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="6sp-Ke-1Io" secondAttribute="trailing" constant="16" id="msA-2Z-TGj"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ZSY-P4-Wlr" secondAttribute="trailing" id="rL1-0N-6cv"/>
             </constraints>
             <point key="canvasLocation" x="132" y="128"/>
         </view>
     </objects>
     <resources>
+        <image name="claim-background-gradient" width="375" height="700"/>
         <image name="ico-distribution" width="279" height="200"/>
         <namedColor name="labelPrimary">
-            <color red="0.0" green="0.074509803921568626" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.070588235294117646" green="0.074509803921568626" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
