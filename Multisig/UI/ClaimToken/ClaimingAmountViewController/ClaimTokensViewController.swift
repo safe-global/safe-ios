@@ -203,7 +203,7 @@ class ClaimTokensViewController: LoadableViewController {
     override func reloadData() {
         super.reloadData()
 
-        timestamp = Date().timeIntervalSince1970
+        timestamp = lastBlockTimestampEstimation()
         keyboardBehavior.hideKeyboard()
 
         claimButton.isEnabled = false
@@ -241,6 +241,11 @@ class ClaimTokensViewController: LoadableViewController {
         let isDelegateCorrect = delegateAddress != nil || guardian != nil
 
         return isAmountCorrect && isDelegateCorrect
+    }
+
+    private func lastBlockTimestampEstimation() -> TimeInterval {
+        // This to make sure that the last block time interval is less than the used one
+        Date().timeIntervalSince1970 - 30
     }
 }
 
@@ -425,7 +430,7 @@ extension ClaimTokensViewController: UITableViewDelegate, UITableViewDataSource 
 
         // components and total of unvested amount
         let userUnvestedAmount: Sol.UInt128? = claimData.unvestedAmount(for: userAllocation, at: timestamp)
-        let ecoUnvestedAmount: Sol.UInt128? = claimData.unvestedAmount(for: userAllocation, at: timestamp)
+        let ecoUnvestedAmount: Sol.UInt128? = claimData.unvestedAmount(for: ecosystemAllocation, at: timestamp)
         let otherUnvestedAmount: Sol.UInt128 = claimData.totalUnvestedAmount(of: otherAllocations, at: timestamp)
         let unvestedTotal: Sol.UInt128 = claimData.totalUnvestedAmount(of: claimData.allocationsData, at: timestamp)
 

@@ -75,7 +75,6 @@ _LOG_LEVEL_PROD             = ERROR
 _LOG_LEVEL_DEV              = DEBUG
 
 // Configuration variables for the app
-
 CLIENT_GATEWAY_URL      = $(_CLIENT_GATEWAY_URL_$(SERVICE_ENV):default=$(_CLIENT_GATEWAY_URL_PROD))
 CLAIMING_DATA_URL       = $(_CLAIMING_DATA_URL_$(SERVICE_ENV):default=$(_CLAIMING_DATA_URL_PROD))
 FIREBASE_CONFIG         = $(_FIREBASE_CONFIG_$(SERVICE_ENV):default=$(_FIREBASE_CONFIG_PROD))
@@ -138,12 +137,12 @@ _APP_STORE_REVIEW_URL_DEV        = https:/$()/apps.apple.com/app/id1515758190?ac
 _APP_STORE_REVIEW_URL_STAGING    = https:/$()/apps.apple.com/app/id1518013939?action=write-review
 _APP_STORE_REVIEW_URL_PROD       = https:/$()/apps.apple.com/app/id1515759131?action=write-review
 
+APP_STORE_REVIEW_URL = $(_APP_STORE_REVIEW_URL_$(SERVICE_ENV):default=$(_APP_STORE_REVIEW_URL_PROD))
+
 // Claim URLS
 CLAIM_DISCUSS_URL                = https:/$()/forum.gnosis-safe.io/
-CLAIM_PROPOSE_URL                = https://forum.gnosis-safe.io/t/how-to-safedao-governance-process/846
+CLAIM_PROPOSE_URL                = https:/$()/forum.gnosis-safe.io/t/how-to-safedao-governance-process/846
 CLAIM_CHAT_URL                   = https:/$()/discord.com/invite/AjG7AQD9Qn
-
-APP_STORE_REVIEW_URL = $(_APP_STORE_REVIEW_URL_$(SERVICE_ENV):default=$(_APP_STORE_REVIEW_URL_PROD))
 
 // App name on the home screen (will be used for CFBundleDisplayName)
 DISPLAY_NAME = $(_DISPLAY_NAME_$(SERVICE_ENV):default=$(_DISPLAY_NAME_PROD))
