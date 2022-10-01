@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -26,29 +26,27 @@
                         <action selector="didTapClose:" destination="-1" eventType="touchUpInside" id="rbn-fc-rld"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kUb-sR-bDe">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kUb-sR-bDe" customClass="StyledView" customModule="Multisig" customModuleProvider="target">
                     <rect key="frame" x="16" y="190" width="343" height="372"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card-background" translatesAutoresizingMaskIntoConstraints="NO" id="8cr-F2-dvu">
-                            <rect key="frame" x="-9" y="-8" width="363" height="392"/>
-                            <color key="tintColor" name="backgroundSecondary"/>
-                        </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OBz-fC-0em">
                             <rect key="frame" x="12" y="24" width="319" height="324"/>
                             <color key="backgroundColor" name="backgroundSecondary"/>
                         </view>
                     </subviews>
+                    <color key="backgroundColor" name="backgroundSecondary"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="8cr-F2-dvu" secondAttribute="trailing" id="5wb-mm-HSK"/>
                         <constraint firstItem="OBz-fC-0em" firstAttribute="leading" secondItem="kUb-sR-bDe" secondAttribute="leading" constant="12" id="998-G4-sph"/>
                         <constraint firstAttribute="bottom" secondItem="OBz-fC-0em" secondAttribute="bottom" constant="24" id="A9h-lw-Zns"/>
-                        <constraint firstItem="8cr-F2-dvu" firstAttribute="top" secondItem="kUb-sR-bDe" secondAttribute="top" id="JdC-DI-Yny"/>
-                        <constraint firstAttribute="bottom" secondItem="8cr-F2-dvu" secondAttribute="bottom" id="SCu-86-gnQ"/>
                         <constraint firstItem="OBz-fC-0em" firstAttribute="top" secondItem="kUb-sR-bDe" secondAttribute="top" constant="24" id="TA6-6E-Q3x"/>
-                        <constraint firstItem="8cr-F2-dvu" firstAttribute="leading" secondItem="kUb-sR-bDe" secondAttribute="leading" id="VRj-Nl-Dro"/>
                         <constraint firstAttribute="height" constant="372" placeholder="YES" id="mFT-Rp-o6e"/>
                         <constraint firstAttribute="trailing" secondItem="OBz-fC-0em" secondAttribute="trailing" constant="12" id="mpk-W9-AeB"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -66,7 +64,6 @@
         </view>
     </objects>
     <resources>
-        <image name="card-background" width="37" height="37"/>
         <namedColor name="backgroundSecondary">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
