@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,10 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="519" height="162"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tertiary-card-background" translatesAutoresizingMaskIntoConstraints="NO" id="ZpE-xX-bRz">
-                        <rect key="frame" x="7" y="-2" width="507" height="170"/>
-                    </imageView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uo4-L9-zv1">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uo4-L9-zv1" customClass="StyledView" customModule="Multisig" customModuleProvider="target">
                         <rect key="frame" x="16" y="6" width="487" height="150"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JUO-dL-AL2" customClass="WebImageView" customModule="Multisig" customModuleProvider="target">
@@ -43,7 +40,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="backgroundSecondary"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="JUO-dL-AL2" secondAttribute="bottom" id="0uI-t2-DUh"/>
                             <constraint firstAttribute="trailing" secondItem="0LA-pv-ogc" secondAttribute="trailing" constant="16" id="1HL-c0-BHw"/>
@@ -56,17 +53,18 @@
                             <constraint firstItem="JUO-dL-AL2" firstAttribute="leading" secondItem="Uo4-L9-zv1" secondAttribute="leading" id="tjL-4S-ahh"/>
                             <constraint firstItem="JUO-dL-AL2" firstAttribute="top" secondItem="Uo4-L9-zv1" secondAttribute="top" id="yfm-VL-1yA"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="6"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="ZpE-xX-bRz" secondAttribute="trailing" constant="16" id="0OJ-rt-0cE"/>
-                    <constraint firstItem="ZpE-xX-bRz" firstAttribute="leading" secondItem="p9K-Yx-zCr" secondAttribute="leading" constant="16" id="9AZ-6a-lU4"/>
-                    <constraint firstItem="Uo4-L9-zv1" firstAttribute="top" secondItem="ZpE-xX-bRz" secondAttribute="top" id="F8w-XU-Qe3"/>
-                    <constraint firstItem="Uo4-L9-zv1" firstAttribute="leading" secondItem="ZpE-xX-bRz" secondAttribute="leading" id="FN2-B1-3jX"/>
-                    <constraint firstItem="Uo4-L9-zv1" firstAttribute="bottom" secondItem="ZpE-xX-bRz" secondAttribute="bottom" id="PyD-Fj-vA5"/>
-                    <constraint firstItem="ZpE-xX-bRz" firstAttribute="top" secondItem="p9K-Yx-zCr" secondAttribute="top" constant="6" id="Q4u-rX-GNa"/>
-                    <constraint firstItem="Uo4-L9-zv1" firstAttribute="trailing" secondItem="ZpE-xX-bRz" secondAttribute="trailing" id="xmY-cm-MGB"/>
-                    <constraint firstAttribute="bottom" secondItem="ZpE-xX-bRz" secondAttribute="bottom" constant="6" id="yEz-Me-n51"/>
+                    <constraint firstAttribute="trailing" secondItem="Uo4-L9-zv1" secondAttribute="trailing" constant="16" id="IvV-Ji-suq"/>
+                    <constraint firstItem="Uo4-L9-zv1" firstAttribute="top" secondItem="p9K-Yx-zCr" secondAttribute="top" constant="6" id="Oxx-Dy-i4p"/>
+                    <constraint firstItem="Uo4-L9-zv1" firstAttribute="leading" secondItem="p9K-Yx-zCr" secondAttribute="leading" constant="16" id="Qnv-KD-Y2P"/>
+                    <constraint firstAttribute="bottom" secondItem="Uo4-L9-zv1" secondAttribute="bottom" constant="6" id="nFj-FV-8I1"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" name="backgroundSecondary"/>
@@ -79,7 +77,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="tertiary-card-background" width="37" height="37"/>
         <namedColor name="backgroundSecondary">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
