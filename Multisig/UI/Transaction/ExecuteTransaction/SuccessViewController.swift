@@ -70,6 +70,8 @@ class SuccessViewController: UIViewController {
             secondaryButton.isHidden = true
         }
 
+        animationView.animation = Animation.named(isDarkMode ? "successAnimationDark" : "successAnimation",
+                                                  animationCache: nil)
         animationView.contentMode = .scaleAspectFit
         animationView.backgroundBehavior = .pauseAndRestore
         animationView.play()

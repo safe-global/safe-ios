@@ -18,7 +18,6 @@ struct GNOFilledButtonStyle: ButtonStyle {
             .background(configuration.isPressed ? Color.primaryPressed : .primary)
             .foregroundColor(.backgroundPrimary)
             .cornerRadius(10)
-            .cardShadowTooltip()
     }
 }
 
@@ -32,7 +31,6 @@ struct GNOFilledWhiteButtonStyle: ButtonStyle {
             .background(Color.white)
             .foregroundColor(Color.black)
             .cornerRadius(10)
-            .cardShadowTooltip()
     }
 }
 

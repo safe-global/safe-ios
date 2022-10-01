@@ -12,7 +12,6 @@ extension Color {
     static let primary = Color("primary")
     static let primaryPressed = Color("primaryPressed")
     static let primaryDisabled = Color("primaryDisabled")
-    static let cardShadowTooltip = Color("cardShadowTooltip")
     static let error = Color("error")
     static let errorPressed = Color("errorPressed")
     static let icon = Color("icon")
@@ -27,10 +26,6 @@ extension Color {
 }
 
 extension View {
-    func cardShadowTooltip() -> some View {
-        shadow(color: .cardShadowTooltip, radius: 10, x: 1, y: 2)
-    }
-
     func gnoShadow() -> some View {
         shadow(color: .shadow, radius: 10, x: 1, y: 2)
     }
