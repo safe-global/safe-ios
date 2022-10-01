@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,85 +18,94 @@
                 <rect key="frame" x="0.0" y="0.0" width="358" height="229"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card-background" translatesAutoresizingMaskIntoConstraints="NO" id="2o3-TX-L4Y">
-                        <rect key="frame" x="11" y="4" width="338" height="225"/>
-                        <color key="tintColor" name="backgroundSecondary"/>
-                    </imageView>
-                    <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Kqz-M3-Yx3">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cE8-Lj-lXU" customClass="StyledView" customModule="Multisig" customModuleProvider="target">
                         <rect key="frame" x="20" y="12" width="318" height="205"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="veT-Fi-3Pk">
-                                <rect key="frame" x="16" y="19" width="286" height="110"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Kqz-M3-Yx3">
+                                <rect key="frame" x="0.0" y="0.0" width="318" height="205"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="m8v-zY-Myh">
-                                        <rect key="frame" x="72" y="0.0" width="142.5" height="24"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="veT-Fi-3Pk">
+                                        <rect key="frame" x="16" y="19" width="286" height="110"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Ibj-EK-xPg">
-                                                <rect key="frame" x="0.0" y="-3" width="24" height="30.5"/>
-                                                <color key="tintColor" name="icon"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="24" id="RFc-KO-6I1"/>
-                                                    <constraint firstAttribute="width" constant="24" id="qVB-lr-81v"/>
-                                                </constraints>
-                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="bold"/>
-                                            </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add owner key" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WY7-mu-gbI">
-                                                <rect key="frame" x="30" y="0.0" width="112.5" height="24"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="m8v-zY-Myh">
+                                                <rect key="frame" x="72" y="0.0" width="142.5" height="24"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Ibj-EK-xPg">
+                                                        <rect key="frame" x="0.0" y="-3" width="24" height="30.5"/>
+                                                        <color key="tintColor" name="icon"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="RFc-KO-6I1"/>
+                                                            <constraint firstAttribute="width" constant="24" id="qVB-lr-81v"/>
+                                                        </constraints>
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="bold"/>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add owner key" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WY7-mu-gbI">
+                                                        <rect key="frame" x="30" y="0.0" width="112.5" height="24"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Did you know that you can import your owner key to sign and execute transactions on the go?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xv8-b6-Fyg">
+                                                <rect key="frame" x="7" y="34" width="272.5" height="76"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Did you know that you can import your owner key to sign and execute transactions on the go?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xv8-b6-Fyg">
-                                        <rect key="frame" x="7" y="34" width="272.5" height="76"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h2J-Y8-Www">
+                                        <rect key="frame" x="16" y="139" width="286" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="0Hs-4l-HFy"/>
+                                        </constraints>
+                                        <state key="normal" title="Add owner key now"/>
+                                        <connections>
+                                            <action selector="didTapImport:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="uLG-Qy-Qea"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
+                                <directionalEdgeInsets key="directionalLayoutMargins" top="19" leading="16" bottom="16" trailing="16"/>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h2J-Y8-Www">
-                                <rect key="frame" x="16" y="139" width="286" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="thV-eL-xvY">
+                                <rect key="frame" x="280" y="8" width="30" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="0Hs-4l-HFy"/>
+                                    <constraint firstAttribute="width" constant="30" id="Otn-U9-9Kp"/>
+                                    <constraint firstAttribute="height" constant="30" id="cBQ-Nk-5bJ"/>
                                 </constraints>
-                                <state key="normal" title="Add owner key now"/>
+                                <color key="tintColor" name="icon"/>
+                                <state key="normal" image="xmark" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="semibold"/>
+                                </state>
                                 <connections>
-                                    <action selector="didTapImport:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="uLG-Qy-Qea"/>
+                                    <action selector="didTapClose:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="1kI-mM-gdA"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <directionalEdgeInsets key="directionalLayoutMargins" top="19" leading="16" bottom="16" trailing="16"/>
-                    </stackView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="thV-eL-xvY">
-                        <rect key="frame" x="302" y="20" width="30" height="30"/>
+                        <color key="backgroundColor" name="backgroundSecondary"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="30" id="Otn-U9-9Kp"/>
-                            <constraint firstAttribute="height" constant="30" id="cBQ-Nk-5bJ"/>
+                            <constraint firstItem="Kqz-M3-Yx3" firstAttribute="leading" secondItem="cE8-Lj-lXU" secondAttribute="leading" id="4x7-b2-Qyg"/>
+                            <constraint firstItem="thV-eL-xvY" firstAttribute="top" secondItem="Kqz-M3-Yx3" secondAttribute="top" constant="8" id="Naq-Ty-NSQ"/>
+                            <constraint firstItem="Kqz-M3-Yx3" firstAttribute="top" secondItem="cE8-Lj-lXU" secondAttribute="top" id="WYh-Ba-MYx"/>
+                            <constraint firstAttribute="bottom" secondItem="Kqz-M3-Yx3" secondAttribute="bottom" id="XPM-km-nvL"/>
+                            <constraint firstItem="thV-eL-xvY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WY7-mu-gbI" secondAttribute="trailing" constant="8" id="oy4-jF-bEp"/>
+                            <constraint firstAttribute="trailing" secondItem="Kqz-M3-Yx3" secondAttribute="trailing" id="yHi-WX-hyP"/>
+                            <constraint firstItem="thV-eL-xvY" firstAttribute="trailing" secondItem="Kqz-M3-Yx3" secondAttribute="trailing" constant="-8" id="zhn-QR-aDI"/>
                         </constraints>
-                        <color key="tintColor" name="icon"/>
-                        <state key="normal" image="xmark" catalog="system">
-                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="semibold"/>
-                        </state>
-                        <connections>
-                            <action selector="didTapClose:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="1kI-mM-gdA"/>
-                        </connections>
-                    </button>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="6"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" name="backgroundPrimary"/>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="Kqz-M3-Yx3" secondAttribute="trailing" id="1tk-j1-N2b"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="Kqz-M3-Yx3" secondAttribute="bottom" id="C6l-ri-lL1"/>
-                    <constraint firstItem="2o3-TX-L4Y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="D8F-EO-Hmu"/>
-                    <constraint firstItem="thV-eL-xvY" firstAttribute="trailing" secondItem="Kqz-M3-Yx3" secondAttribute="trailing" constant="-6" id="DFf-dJ-Nk5"/>
-                    <constraint firstItem="2o3-TX-L4Y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="EcD-1K-irf"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="2o3-TX-L4Y" secondAttribute="trailing" id="Q6G-3y-VzL"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="2o3-TX-L4Y" secondAttribute="bottom" id="UgS-Gl-C1d"/>
-                    <constraint firstItem="thV-eL-xvY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WY7-mu-gbI" secondAttribute="trailing" constant="8" id="iaU-9g-ioN"/>
-                    <constraint firstItem="Kqz-M3-Yx3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="slf-XQ-KoK"/>
-                    <constraint firstItem="Kqz-M3-Yx3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="xNs-qc-HMj"/>
-                    <constraint firstItem="thV-eL-xvY" firstAttribute="top" secondItem="Kqz-M3-Yx3" secondAttribute="top" constant="8" id="xWb-Gk-MMM"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="cE8-Lj-lXU" secondAttribute="trailing" id="HCC-D9-BWx"/>
+                    <constraint firstItem="cE8-Lj-lXU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="WPy-p1-vds"/>
+                    <constraint firstItem="cE8-Lj-lXU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="fzv-1G-S0v"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="cE8-Lj-lXU" secondAttribute="bottom" id="ssm-C8-iGQ"/>
                 </constraints>
                 <directionalEdgeInsets key="directionalLayoutMargins" top="12" leading="16" bottom="12" trailing="16"/>
             </tableViewCellContentView>
@@ -110,17 +119,16 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="card-background" width="37" height="37"/>
-        <image name="info.circle" catalog="system" width="128" height="121"/>
+        <image name="info.circle" catalog="system" width="128" height="123"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="backgroundPrimary">
-            <color red="0.96470588235294119" green="0.96862745098039216" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="backgroundSecondary">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="icon">
-            <color red="0.69803921568627447" green="0.73333333333333328" blue="0.75294117647058822" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63137254901960782" green="0.63921568627450975" blue="0.65490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
