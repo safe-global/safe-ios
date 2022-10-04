@@ -32,8 +32,8 @@ INTERCOM_API_KEY = YOUR_INTERCOM_API_KEY
 // Configuration Values
 
 // Safe Client Gateway Service
-_CLIENT_GATEWAY_URL_DEV        = https:/$()/safe-client.staging.gnosisdev.com/
-_CLIENT_GATEWAY_URL_STAGING    = https:/$()/safe-client.staging.gnosisdev.com/
+_CLIENT_GATEWAY_URL_DEV        = https:/$()/safe-client.staging.5afe.dev/
+_CLIENT_GATEWAY_URL_STAGING    = https:/$()/safe-client.staging.5afe.dev/
 _CLIENT_GATEWAY_URL_PROD       = https:/$()/safe-client.gnosis.io/
 
 // Claiming app service
