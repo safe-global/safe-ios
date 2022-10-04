@@ -72,7 +72,7 @@
 		0463F5C326296924009C04FA /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0463F5C226296924009C04FA /* FirebaseCrashlytics */; };
 		0463F5C526296924009C04FA /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0463F5C426296924009C04FA /* FirebaseMessaging */; };
 		0466877628E6388F0004D488 /* UIViewController+Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466877528E6388F0004D488 /* UIViewController+Display.swift */; };
-		0466877A28E63A210004D488 /* successAnimationDark.json in Resources */ = {isa = PBXBuildFile; fileRef = 0466877828E63A210004D488 /* successAnimationDark.json */; };
+		0466877A28E63A210004D488 /* successAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 0466877828E63A210004D488 /* successAnimation.json */; };
 		0468EE9D26148A3B008270BF /* PrivacyProtectionScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */; };
 		0468EE9E26148A3B008270BF /* PrivacyProtectionScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0468EE9C26148A3B008270BF /* PrivacyProtectionScreenViewController.xib */; };
 		0468FB45259106F400541536 /* StyledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468FB44259106F400541536 /* StyledView.swift */; };
@@ -119,7 +119,7 @@
 		0478384028C699BA00459F9B /* WhatIsSafeTokenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0478383E28C699BA00459F9B /* WhatIsSafeTokenViewController.xib */; };
 		047A5B8F28A54FCB00BB8B2A /* SafeClaimingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5B8E28A54FCB00BB8B2A /* SafeClaimingService.swift */; };
 		047A5B9128A5582F00BB8B2A /* GuardiansRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5B9028A5582F00BB8B2A /* GuardiansRequest.swift */; };
-		047C48CB28E86BF7003C2B4A /* successAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 047C48CA28E86BF7003C2B4A /* successAnimation.json */; };
+		047C48CB28E86BF7003C2B4A /* successAnimationDark.json in Resources */ = {isa = PBXBuildFile; fileRef = 047C48CA28E86BF7003C2B4A /* successAnimationDark.json */; };
 		048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */; };
 		048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */; };
 		048AA142260D053400382E24 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048AA141260D053300382E24 /* MainTabBarViewController.swift */; };
@@ -1024,7 +1024,7 @@
 		04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeyDetailsViewController.swift; sourceTree = "<group>"; };
 		0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRemoteConfig.swift; sourceTree = "<group>"; };
 		0466877528E6388F0004D488 /* UIViewController+Display.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Display.swift"; sourceTree = "<group>"; };
-		0466877828E63A210004D488 /* successAnimationDark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = successAnimationDark.json; sourceTree = "<group>"; };
+		0466877828E63A210004D488 /* successAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = successAnimation.json; sourceTree = "<group>"; };
 		0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyProtectionScreenViewController.swift; sourceTree = "<group>"; };
 		0468EE9C26148A3B008270BF /* PrivacyProtectionScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrivacyProtectionScreenViewController.xib; sourceTree = "<group>"; };
 		0468FB44259106F400541536 /* StyledView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledView.swift; sourceTree = "<group>"; };
@@ -1072,7 +1072,7 @@
 		0478383E28C699BA00459F9B /* WhatIsSafeTokenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhatIsSafeTokenViewController.xib; sourceTree = "<group>"; };
 		047A5B8E28A54FCB00BB8B2A /* SafeClaimingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeClaimingService.swift; sourceTree = "<group>"; };
 		047A5B9028A5582F00BB8B2A /* GuardiansRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardiansRequest.swift; sourceTree = "<group>"; };
-		047C48CA28E86BF7003C2B4A /* successAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = successAnimation.json; sourceTree = "<group>"; };
+		047C48CA28E86BF7003C2B4A /* successAnimationDark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = successAnimationDark.json; sourceTree = "<group>"; };
 		048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNotificationTokenRequest.swift; sourceTree = "<group>"; };
 		048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisterNotificationTokenRequest.swift; sourceTree = "<group>"; };
 		048AA141260D053300382E24 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
@@ -1950,8 +1950,8 @@
 		043350AA28086115003725E2 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
-				047C48CA28E86BF7003C2B4A /* successAnimation.json */,
-				0466877828E63A210004D488 /* successAnimationDark.json */,
+				047C48CA28E86BF7003C2B4A /* successAnimationDark.json */,
+				0466877828E63A210004D488 /* successAnimation.json */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -4457,7 +4457,7 @@
 				3E373F762631781A00D8107A /* EnterUnstoppableNameViewController.xib in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
 				0A8CDD4727A5A5C70020066C /* CreateSafeViewController.xib in Resources */,
-				047C48CB28E86BF7003C2B4A /* successAnimation.json in Resources */,
+				047C48CB28E86BF7003C2B4A /* successAnimationDark.json in Resources */,
 				0A5C0C532818204F0061D96F /* EditConfirmationsViewController.xib in Resources */,
 				93EF2FA427C546330077BE95 /* InstructionsViewController.xib in Resources */,
 				0A50DBDD28C898A900C0CEC6 /* ReviewClaimTokensHeaderCell.xib in Resources */,
@@ -4590,7 +4590,7 @@
 				04D224BB28C9304600853E34 /* DetailedInfoListViewController.xib in Resources */,
 				558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
-				0466877A28E63A210004D488 /* successAnimationDark.json in Resources */,
+				0466877A28E63A210004D488 /* successAnimation.json in Resources */,
 				04131FC2285683BA001F60C2 /* ShareAddOwnerLinkViewController.xib in Resources */,
 				0ADA90F8256548C60004DEC0 /* SnackbarViewController.xib in Resources */,
 				0A04507B278DAD4000650F71 /* SecondaryDetailDisclosureCell.xib in Resources */,

@@ -39,7 +39,7 @@ extension GNOTextStyle {
     static let secondary = GNOTextStyle(size: 17, weight: .medium, color: .labelSecondary)
     static let tertiary = GNOTextStyle(size: 17, weight: .medium, color: .tertiaryLabel)
     static let primaryError = GNOTextStyle(size: 17, weight: .medium, color: .error)
-    static let primaryButton = GNOTextStyle(size: 17, weight: .medium, color: .primary)
+    static let primaryButton = GNOTextStyle(size: 17, weight: .medium, color: .success)
 
     static let caption1 = GNOTextStyle(size: 13, weight: .bold, letterSpacing: 2, color: .tertiaryLabel)
     static let caption2 = GNOTextStyle(size: 10, weight: .bold, letterSpacing: 2, color: .tertiaryLabel)
@@ -248,15 +248,15 @@ extension GNOButtonStyle {
 
     static let filledError = GNOButtonStyle(appearance: [
         (.normal, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-error-filled-normal"), textAttributes: [
-            .foregroundColor: UIColor.backgroundPrimary,
+            .foregroundColor: UIColor.error,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.highlighted, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-error-filled-pressed"), textAttributes: [
-            .foregroundColor: UIColor.backgroundPrimary,
+            .foregroundColor: UIColor.error,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ])),
         (.disabled, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-error-filled-inactive"), textAttributes: [
-            .foregroundColor: UIColor.backgroundPrimary,
+            .foregroundColor: UIColor.error,
             .font: UIFont.gnoFont(forTextStyle: .headline2)
         ]))
     ])

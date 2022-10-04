@@ -17,7 +17,7 @@ class TipsView: UINibView {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.setStyle(.primary)
-        backgroundView.backgroundColor = .backgroundPrimary
+        backgroundView.backgroundColor = .infoBackground
         backgroundView.layer.cornerRadius = 8
     }
     

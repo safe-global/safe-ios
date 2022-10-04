@@ -87,13 +87,13 @@ class SigningKeyTableViewCell: UITableViewCell {
             connectionStatusImageView.image = nil
         case .connected:
             connectionStatusImageView.image = UIImage(systemName: "circlebadge.fill")
-            connectionStatusImageView.tintColor = .primary
+            connectionStatusImageView.tintColor = .success
         case .disconnected:
             connectionStatusImageView.image = UIImage(systemName: "circlebadge", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
             connectionStatusImageView.tintColor = .icon
         case .connectionProblem:
             connectionStatusImageView.image = UIImage(systemName: "circlebadge.fill")
-            connectionStatusImageView.tintColor = .primary
+            connectionStatusImageView.tintColor = .success
 
             trailingImageView.image = UIImage(systemName: "exclamationmark.circle", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
             trailingImageView.tintColor = .error

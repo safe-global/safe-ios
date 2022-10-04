@@ -58,6 +58,7 @@ class OnboardingViewController: UIViewController {
         pageControl.numberOfPages = self.steps.count
         actionsContainerView.isHidden = true
         bindCurrentStep(page: 0)
+        overrideUserInterfaceStyle = .dark
     }
 
     @IBAction private func didTapLoadSafe(_ sender: Any) {

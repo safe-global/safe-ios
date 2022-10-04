@@ -332,7 +332,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         switch tx.txInfo {
         case .transfer(let transferInfo):
             let isOutgoing = transferInfo.direction == .outgoing
-            image = isOutgoing ? UIImage(named: "ico-outgoing-tx") : UIImage(named: "ico-incomming-tx")
+            image = isOutgoing ? UIImage(named: "ico-outgoing-tx") : UIImage(named: "ico-incomming-tx")?.withTintColor(.success)
             title = isOutgoing ? "Send" : "Receive"
             info = formattedAmount(transferInfo: transferInfo)
             infoColor = isOutgoing ? .labelPrimary : .primary
