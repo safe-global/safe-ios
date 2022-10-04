@@ -45,7 +45,7 @@ class OnboardingViewController: UIViewController {
         super.viewDidLoad()
 
         completelyNewLabel.setStyle(.secondary)
-        loadSafeButton.setText("Add existing Safe", .bordered)
+        loadSafeButton.setText("Load existing Safe", .bordered)
         createSafeButton.setText("Create new Safe", .filled)
         demoButton.setText("Explore Demo", .primary)
         skipButton.setText("Skip", .primary)

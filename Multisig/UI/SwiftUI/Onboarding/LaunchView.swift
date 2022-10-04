@@ -65,7 +65,7 @@ struct LaunchView: View {
                     // so we can not track on view appear
                     Tracker.trackEvent(.launchTerms)
                 }
-                .buttonStyle(GNOFilledWhiteButtonStyle())
+                .buttonStyle(GNOFilledGreenButtonStyle())
                 .position(x: geometryProxy.size.width / 2 - 16, y: geometryProxy.size.height - 72)
 
             }

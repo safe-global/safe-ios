@@ -52,8 +52,8 @@ struct SafeInfoContentView: View {
             if (AppSettings.prependingChainPrefixToAddresses) {
                 EmptyView().background(Color.icon)
                 Toggle(isOn: $appendPrefix, label: {
-                    Text("QR code with chain prefix").fixedSize().font(.gnoBody).foregroundColor(.labelSecondary)
-                }).padding(.top, 20)
+                    Text("QR code with chain prefix").fixedSize().font(.gnoBody)
+                }).padding(.top, 20).toggleStyle(SwitchToggleStyle(tint: Color.primary))
             }
         }
         .multilineTextAlignment(.center)

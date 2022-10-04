@@ -10,8 +10,6 @@ import UIKit
 import SkeletonView
 
 class TotalBalanceView: UINibView {
-
-    @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var receiveButton: UIButton!
@@ -45,7 +43,6 @@ class TotalBalanceView: UINibView {
         super.awakeFromNib()
         amountLabel.skeletonTextLineHeight = .relativeToConstraints
         amountLabel.setStyle(.title4)
-        totalLabel.setStyle(.footnote2)
         sendButton.setText("Send", .filled)
         //TODO: set this attribute in setStyle(:)
         sendButton.tintColor = UIColor.backgroundPrimary

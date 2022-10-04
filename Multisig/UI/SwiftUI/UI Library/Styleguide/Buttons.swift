@@ -17,20 +17,20 @@ struct GNOFilledButtonStyle: ButtonStyle {
             .font(.gnoHeadline2)
             .background(configuration.isPressed ? Color.primaryPressed : .primary)
             .foregroundColor(.backgroundPrimary)
-            .cornerRadius(10)
+            .cornerRadius(6)
     }
 }
 
-struct GNOFilledWhiteButtonStyle: ButtonStyle {
+struct GNOFilledGreenButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
             .frame(maxWidth: .infinity)
             .font(.gnoHeadline2)
-            .background(Color.white)
+            .background(Color.splashBackgroundPrimary)
             .foregroundColor(Color.black)
-            .cornerRadius(10)
+            .cornerRadius(6)
     }
 }
 

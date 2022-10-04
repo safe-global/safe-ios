@@ -76,7 +76,7 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="6"/>
+                                        <real key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -110,6 +110,11 @@
             <point key="canvasLocation" x="73.913043478260875" y="182.14285714285714"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="Chz-fT-shb">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
+    </designables>
     <resources>
         <image name="checkmark" catalog="system" width="128" height="114"/>
         <namedColor name="backgroundPrimary">
