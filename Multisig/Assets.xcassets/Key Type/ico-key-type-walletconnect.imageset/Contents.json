@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "wc.pdf",
+      "filename" : "ico-add-walletconnect.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-add-walletconnect-dark.pdf",
       "idiom" : "universal"
     }
   ],

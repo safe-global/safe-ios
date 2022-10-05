@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "safe-selector-not-selected-icon.pdf",
+      "filename" : "safe-selector-not-selected-icon-1.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "identiconNoSafeLoaded.pdf",
+      "filename" : "safe-selector-not-selected-icon.pdf",
       "idiom" : "universal"
     }
   ],

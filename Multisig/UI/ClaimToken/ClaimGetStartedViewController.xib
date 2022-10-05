@@ -23,19 +23,19 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="claim-background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="vi0-3n-Akr">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="claim-background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="vi0-3n-Akr">
                     <rect key="frame" x="0.0" y="48" width="414" height="700"/>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="W9F-mH-wp5" userLabel="ScrollableContentAndButton">
-                    <rect key="frame" x="0.0" y="48" width="414" height="790"/>
+                    <rect key="frame" x="0.0" y="48" width="414" height="798"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gIC-9Y-Jhg" userLabel="ScrollView">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="710"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="718"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="UQa-cG-vaL" userLabel="Content">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="380.5"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-claim-token-get-started" translatesAutoresizingMaskIntoConstraints="NO" id="5A7-et-shp">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-logo-grandiant" translatesAutoresizingMaskIntoConstraints="NO" id="5A7-et-shp">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="142"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="142" id="SXr-W4-1V8"/>
@@ -65,7 +65,7 @@
                             <viewLayoutGuide key="frameLayoutGuide" id="RDZ-dd-KpQ"/>
                         </scrollView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5CJ-zJ-OBj" userLabel="Button">
-                            <rect key="frame" x="16" y="734" width="382" height="56"/>
+                            <rect key="frame" x="16" y="742" width="382" height="56"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="56" id="6Lz-do-VRz"/>
                             </constraints>
@@ -92,7 +92,6 @@
             <constraints>
                 <constraint firstItem="W9F-mH-wp5" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Dn4-4I-lhM"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="W9F-mH-wp5" secondAttribute="bottom" constant="16" id="JTX-66-1CH"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="W9F-mH-wp5" secondAttribute="bottom" constant="24" id="Nlv-Q5-xcl"/>
                 <constraint firstItem="vi0-3n-Akr" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="OMM-S5-g3d"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="vi0-3n-Akr" secondAttribute="trailing" id="T0V-G0-y9S"/>
                 <constraint firstItem="vi0-3n-Akr" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="W2o-PU-jcG"/>
@@ -104,10 +103,10 @@
         </view>
     </objects>
     <resources>
-        <image name="claim-background-gradient" width="1024" height="700"/>
-        <image name="ico-claim-token-get-started" width="207" height="142"/>
+        <image name="claim-background-gradient" width="375" height="700"/>
+        <image name="ico-logo-grandiant" width="100" height="88"/>
         <namedColor name="labelPrimary">
-            <color red="0.0" green="0.074509803921568626" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.070588235294117646" green="0.074509803921568626" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

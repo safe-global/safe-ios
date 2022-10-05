@@ -528,7 +528,7 @@ class SettingsUINavigationController: UINavigationController {
         let count = Intercom.unreadConversationCount()
         if count > 0 {
             tabBarItem.badgeValue = ""
-            tabBarItem.badgeColor = UIColor.pending
+            tabBarItem.badgeColor = UIColor.warning
         } else {
             tabBarItem.badgeValue = nil
         }

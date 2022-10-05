@@ -17,10 +17,10 @@ class TagView: UINibView {
         titleLabel.setStyle(.footnote3)
         clipsToBounds = true
         layer.cornerRadius = 4
-        backgroundColor = .backgroundTertiary
+        backgroundColor = .backgroundSecondary
     }
 
-    func set(title: String, style: GNOTextStyle = .footnote3, backgroundColor: UIColor = .backgroundTertiary, textColor: UIColor? = nil) {
+    func set(title: String, style: GNOTextStyle = .footnote3, backgroundColor: UIColor = .backgroundSecondary, textColor: UIColor? = nil) {
         titleLabel.text = title
         titleLabel.setStyle(style)
         if textColor != nil {

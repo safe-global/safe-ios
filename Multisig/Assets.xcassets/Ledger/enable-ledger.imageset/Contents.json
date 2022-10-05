@@ -3,6 +3,16 @@
     {
       "filename" : "enable-ledger.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "enable-ledger-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

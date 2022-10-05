@@ -125,7 +125,7 @@ final class SwitchSafesViewController: UITableViewController {
                 popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
             }
 
-            let addSafe = UIAlertAction(title: "Add existing safe", style: .default) { [weak self] _ in
+            let addSafe = UIAlertAction(title: "Load existing Safe", style: .default) { [weak self] _ in
                 self?.onAddSafe?()
             }
 

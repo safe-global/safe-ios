@@ -31,7 +31,6 @@ class OnboardingStepCollectionViewCell: UICollectionViewCell {
             descriptionLabel.setStyle(.secondary)
         }
         imageView.image = step.image
-        backgroundImageView.image = step.backgroundImage
     }
 
     override class func awakeFromNib() {
@@ -43,6 +42,5 @@ struct OnboardingStep {
     let title: String
     let description: (text: String, highlightedText: String?)
     let image: UIImage
-    let backgroundImage: UIImage?
     let trackingEvent: TrackingEvent?
 }

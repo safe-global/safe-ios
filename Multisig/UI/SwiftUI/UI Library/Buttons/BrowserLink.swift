@@ -29,7 +29,7 @@ struct BrowserLink: View {
                 Spacer()
                 Image(systemName: "chevron.right")
                     .font(Font.footnote.bold())
-                    .foregroundColor(.backgroundTertiary)
+                    .foregroundColor(.backgroundSecondary)
             }
         }
         .frame(height: 44)

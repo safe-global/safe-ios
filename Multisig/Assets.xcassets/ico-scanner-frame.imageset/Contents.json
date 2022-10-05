@@ -1,22 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "qr-code-frame.pdf",
-      "idiom" : "universal",
-      "resizing" : {
-        "cap-insets" : {
-          "bottom" : 41,
-          "left" : 41,
-          "right" : 41,
-          "top" : 41
-        },
-        "center" : {
-          "height" : 1,
-          "mode" : "tile",
-          "width" : 1
-        },
-        "mode" : "9-part"
-      }
+      "filename" : "ico-scanner-frame.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

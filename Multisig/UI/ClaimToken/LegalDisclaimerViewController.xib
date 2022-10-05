@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -22,6 +22,9 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="claim-background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="Cbb-qH-Axe">
+                    <rect key="frame" x="0.0" y="48" width="414" height="700"/>
+                </imageView>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hho-1B-73p">
                     <rect key="frame" x="16" y="16" width="382" height="766"/>
                     <subviews>
@@ -71,9 +74,12 @@ None of the information available on this app, or made otherwise available to yo
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="J2t-Zm-rfc" secondAttribute="trailing" constant="16" id="6d3-cG-0sj"/>
                 <constraint firstItem="Hho-1B-73p" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="7GS-lu-Htp"/>
+                <constraint firstItem="Cbb-qH-Axe" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="8OG-Zz-hem"/>
                 <constraint firstItem="Hho-1B-73p" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="MUp-PZ-bJn"/>
                 <constraint firstItem="Hho-1B-73p" firstAttribute="bottom" secondItem="J2t-Zm-rfc" secondAttribute="top" constant="-8" id="PDF-pS-Eas"/>
+                <constraint firstItem="Cbb-qH-Axe" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="gQB-R4-kZO"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="J2t-Zm-rfc" secondAttribute="bottom" constant="16" id="nDO-I7-fnj"/>
+                <constraint firstItem="Cbb-qH-Axe" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="qIO-gr-KKQ"/>
                 <constraint firstItem="J2t-Zm-rfc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="sha-ya-szz"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Hho-1B-73p" secondAttribute="trailing" constant="16" id="tL7-v5-XaP"/>
             </constraints>
@@ -81,8 +87,9 @@ None of the information available on this app, or made otherwise available to yo
         </view>
     </objects>
     <resources>
+        <image name="claim-background-gradient" width="375" height="700"/>
         <namedColor name="labelPrimary">
-            <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.070588235294117646" green="0.074509803921568626" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

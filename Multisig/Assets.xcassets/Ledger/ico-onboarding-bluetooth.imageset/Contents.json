@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "illustrationBluetooth.pdf",
+      "filename" : "ico-onboarding-bluetooth.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-onboarding-bluetooth-dark.pdf",
       "idiom" : "universal"
     }
   ],

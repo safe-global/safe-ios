@@ -57,9 +57,10 @@ class ClaimSuccessViewController: UIViewController {
         okButton.setText("Done", .filled)
 
         shareButton.setText("Share transaction", .primary)
-        shareButton.setImage(UIImage(named: "ico-share-small"), for: .normal)
+        shareButton.setImage(UIImage(named: "ico-share")?.withTintColor(.primary), for: .normal)
         shareButton.imageEdgeInsets.right = 16
-
+        animationView.animation = Animation.named(isDarkMode ? "successAnimationDark" : "successAnimation",
+                                                  animationCache: nil)
         animationView.contentMode = .scaleAspectFit
         animationView.backgroundBehavior = .pauseAndRestore
         animationView.play()

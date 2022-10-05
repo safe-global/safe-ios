@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "illustrationSeedPhrase.pdf",
+      "filename" : "ico-onboarding-ledger.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-onboarding-ledger-dark.pdf",
       "idiom" : "universal"
     }
   ],

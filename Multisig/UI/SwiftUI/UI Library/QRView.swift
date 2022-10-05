@@ -13,8 +13,8 @@ struct QRView: View {
 
     var value: String!
     
-    var width: CGFloat = 124
-    var height: CGFloat = 124
+    var width: CGFloat = 135
+    var height: CGFloat = 135
     
     var body: some View {
         VStack {
@@ -24,13 +24,13 @@ struct QRView: View {
                     .resizable()
                     .scaledToFit()
             } else {
-                Rectangle().foregroundColor(Color.backgroundTertiary)
+                Rectangle().foregroundColor(Color.border)
             }
         }
         .padding(14)
         .background(
-            RoundedRectangle(cornerRadius: 10)
-            .strokeBorder(Color.backgroundTertiary, lineWidth: 2)
+            RoundedRectangle(cornerRadius: 8)
+            .strokeBorder(Color.border, lineWidth: 2)
         )
         .frame(width: width, height: height)
     }

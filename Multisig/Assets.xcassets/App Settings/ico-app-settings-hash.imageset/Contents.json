@@ -3,6 +3,16 @@
     {
       "filename" : "ico-app-settings-hash.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-app-settings-hash-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

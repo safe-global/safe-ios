@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "ico-text-secure.svg",
+      "filename" : "ico-text-secure.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-text-secure-dark.pdf",
       "idiom" : "universal"
     }
   ],

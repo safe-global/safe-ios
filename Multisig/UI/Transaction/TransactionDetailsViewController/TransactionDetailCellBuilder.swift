@@ -495,7 +495,7 @@ class TransactionDetailCellBuilder {
         case .transfer(let transferTx):
             let isOutgoing = transferTx.direction == .outgoing
             type = isOutgoing ? "Outgoing transfer" : "Incoming transfer"
-            icon = isOutgoing ? UIImage(named: "ico-outgoing-tx") : UIImage(named: "ico-incomming-tx")
+            icon = isOutgoing ? UIImage(named: "ico-outgoing-tx") : UIImage(named: "ico-incomming-tx")?.withTintColor(.success)
         case .settingsChange(_):
             type = "Modify settings"
             icon = UIImage(named: "ico-settings-tx")

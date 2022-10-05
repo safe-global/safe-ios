@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "dots-circle-arrow.svg",
+      "filename" : "ico-replace.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-replace-dark.pdf",
       "idiom" : "universal"
     }
   ],

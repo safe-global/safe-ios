@@ -15,7 +15,7 @@ class InfoBoxView: UINibView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundView.backgroundColor = .backgroundPrimary
+        backgroundView.backgroundColor = .infoBackground
         backgroundView.layer.cornerRadius = 8
         messageLabel.setStyle(.secondary)
     }

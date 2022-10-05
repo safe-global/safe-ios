@@ -28,7 +28,7 @@ class SigningKeyTableViewCell: UITableViewCell {
         cellDetailLabel.isSkeletonable = true
         cellDetailLabel.skeletonTextLineHeight = .relativeToConstraints
         cellDetailLabel.textAlignment = .right
-        warningView.set(image: UIImage(named: "ico-private-key")?.withTintColor(.pending),
+        warningView.set(image: UIImage(named: "ico-private-key")?.withTintColor(.warning),
                         title: "Not backed up",
                         description: "Don’t forget to back up your key now to not lose access to it later.")
     }
@@ -87,13 +87,13 @@ class SigningKeyTableViewCell: UITableViewCell {
             connectionStatusImageView.image = nil
         case .connected:
             connectionStatusImageView.image = UIImage(systemName: "circlebadge.fill")
-            connectionStatusImageView.tintColor = .primary
+            connectionStatusImageView.tintColor = .success
         case .disconnected:
             connectionStatusImageView.image = UIImage(systemName: "circlebadge", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
             connectionStatusImageView.tintColor = .icon
         case .connectionProblem:
             connectionStatusImageView.image = UIImage(systemName: "circlebadge.fill")
-            connectionStatusImageView.tintColor = .primary
+            connectionStatusImageView.tintColor = .success
 
             trailingImageView.image = UIImage(systemName: "exclamationmark.circle", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
             trailingImageView.tintColor = .error
