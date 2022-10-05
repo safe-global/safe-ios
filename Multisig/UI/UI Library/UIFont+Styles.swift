@@ -39,7 +39,7 @@ extension GNOTextStyle {
     static let secondary = GNOTextStyle(size: 17, weight: .medium, color: .labelSecondary)
     static let tertiary = GNOTextStyle(size: 17, weight: .medium, color: .tertiaryLabel)
     static let primaryError = GNOTextStyle(size: 17, weight: .medium, color: .error)
-    static let primaryButton = GNOTextStyle(size: 17, weight: .medium, color: .success)
+    static let primaryButton = GNOTextStyle(size: 17, weight: .medium, color: .primary)
 
     static let caption1 = GNOTextStyle(size: 13, weight: .bold, letterSpacing: 2, color: .tertiaryLabel)
     static let caption2 = GNOTextStyle(size: 10, weight: .bold, letterSpacing: 2, color: .tertiaryLabel)
