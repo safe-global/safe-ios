@@ -32,7 +32,7 @@
                     <rect key="frame" x="0.0" y="48" width="414" height="700"/>
                 </imageView>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lLX-UH-e9f">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="782"/>
+                    <rect key="frame" x="0.0" y="48" width="414" height="734"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="kbH-UY-CZU">
                             <rect key="frame" x="16" y="0.0" width="382" height="458.5"/>
@@ -140,7 +140,7 @@
                 <constraint firstItem="Nrg-FS-Yib" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="gdA-Ea-dWb"/>
                 <constraint firstAttribute="trailing" secondItem="lLX-UH-e9f" secondAttribute="trailing" id="hJs-ru-iiw"/>
                 <constraint firstItem="lLX-UH-e9f" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ktO-BD-XPj"/>
-                <constraint firstItem="lLX-UH-e9f" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="oRl-kd-Lc0"/>
+                <constraint firstItem="lLX-UH-e9f" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="oRl-kd-Lc0"/>
                 <constraint firstItem="omr-Jf-yvd" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="oqg-ek-gav"/>
             </constraints>
             <point key="canvasLocation" x="133" y="87"/>

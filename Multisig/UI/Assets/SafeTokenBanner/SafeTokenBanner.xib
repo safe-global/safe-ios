@@ -78,8 +78,8 @@
                         <constraint firstAttribute="width" constant="30" id="Kgu-yX-eNf"/>
                         <constraint firstAttribute="height" constant="30" id="Nck-h6-c6v"/>
                     </constraints>
-                    <color key="tintColor" name="primaryDisabled"/>
-                    <state key="normal" image="xmark" catalog="system">
+                    <color key="tintColor" name="backgroundOnboarding"/>
+                    <state key="normal" image="ico-close">
                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="semibold"/>
                     </state>
                     <connections>
@@ -106,8 +106,11 @@
     </objects>
     <resources>
         <image name="bkg-claiming-banner" width="343" height="100"/>
+        <image name="ico-close" width="24" height="24"/>
         <image name="ico-logo-dark" width="56" height="50"/>
-        <image name="xmark" catalog="system" width="128" height="113"/>
+        <namedColor name="backgroundOnboarding">
+            <color red="0.071000002324581146" green="0.075000002980232239" blue="0.071000002324581146" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="primaryDisabled">
             <color red="0.93699997663497925" green="0.98000001907348633" blue="0.97299998998641968" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

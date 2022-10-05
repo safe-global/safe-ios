@@ -177,7 +177,7 @@ class AllocationBoxCell: UITableViewCell {
         case .darkGuardian:
             boxBackgroundColor = .primary
             headerStyle = .headline.color(.white)
-            titleStyle = .Updated.border
+            titleStyle = .Updated.border.color(.white)
             valueStyle = .Updated.whiteTitle.color(.white)
             headerButtonHidden = true
             titleButtonImage = .darkCircle
@@ -193,7 +193,7 @@ class AllocationBoxCell: UITableViewCell {
         case .darkUser:
             boxBackgroundColor = .primary
             headerStyle = .headline.color(.white)
-            titleStyle = .Updated.border
+            titleStyle = .Updated.border.color(.white)
             valueStyle = .Updated.whiteTitle
             headerButtonHidden = true
             titleButtonImage = .dark
