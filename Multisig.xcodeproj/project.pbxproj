@@ -5577,7 +5577,6 @@
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				ENABLE_BITCODE = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Multisig/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5604,7 +5603,6 @@
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				ENABLE_BITCODE = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Multisig/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5778,7 +5776,6 @@
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				ENABLE_BITCODE = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Multisig/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5904,7 +5901,6 @@
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				ENABLE_BITCODE = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Multisig/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -6457,7 +6453,6 @@
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				ENABLE_BITCODE = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Multisig/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -6588,7 +6583,6 @@
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
-				ENABLE_BITCODE = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Multisig/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -6731,7 +6725,7 @@
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 8.0.0;
+				minimumVersion = 9.6.0;
 			};
 		};
 		0A0C094A287D7D48000CEB4F /* XCRemoteSwiftPackageReference "WalletConnectSwift" */ = {
