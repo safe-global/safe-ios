@@ -94,7 +94,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
 
     func set(highlight: Bool) {
         highlightBarView.isHidden = !highlight
-        highlightView.backgroundColor = highlight ? .backgroundError : .clear
+        highlightView.backgroundColor = highlight ? .errorBackground : .clear
     }
 
     func set(tag: String) {
@@ -105,7 +105,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
     private func statusColor(status: SCGModels.TxStatus) -> UIColor {
         switch status {
         case .awaitingExecution, .awaitingConfirmations, .awaitingYourConfirmation, .pending:
-            return .pending
+            return .warning
         case .failed:
             return .error
         case .cancelled:
@@ -121,6 +121,6 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
 
     private func confirmationColor(_ confirmationsSubmitted: UInt64 = 0, _ confirmationsRequired: UInt64 = 0) -> UIColor {
         let reminingConfirmations = confirmationsSubmitted > confirmationsRequired ? 0 : confirmationsRequired - confirmationsSubmitted
-        return reminingConfirmations > 0 ? .tertiaryLabel : .primary
+        return reminingConfirmations > 0 ? .tertiaryLabel : .success
     }
 }

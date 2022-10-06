@@ -152,7 +152,7 @@ class AddKeyFlowFactory {
     func enterName(parameters: AddKeyParameters, completion: @escaping (_ name: String) -> Void) -> EnterAddressNameViewController {
         let enterNameVC = EnterAddressNameViewController()
         enterNameVC.actionTitle = "Add"
-        enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with Gnosis or any third parties."
+        enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with us or any third parties."
         enterNameVC.screenTitle = "Enter Key Name"
         enterNameVC.trackingEvent = parameters.keyNameTrackingEvent
         enterNameVC.placeholder = "Enter name"

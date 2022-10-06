@@ -60,6 +60,12 @@ extension Sol.Array: SolAbiEncodable {
 
         elements = fixedArray.elements
     }
+
+    public func encodePacked() -> Data {
+        // The encoding of an array is the concatenation of the encoding of its elements with padding.
+        let result = elements.map { $0.encode() }.reduce(Data(), +)
+        return result
+    }
 }
 
 extension Sol.Array: Hashable, Equatable where Element: Hashable {

@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "WalletConnect Empty State-1.pdf",
+      "filename" : "ico-wallet-placeholder.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "WalletConnect Empty State.pdf",
+      "filename" : "ico-wallet-placeholder-dark.pdf",
       "idiom" : "universal"
     }
   ],

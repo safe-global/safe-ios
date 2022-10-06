@@ -20,43 +20,51 @@
             <rect key="frame" x="0.0" y="0.0" width="341" height="223"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eEi-Ri-bWD">
-                    <rect key="frame" x="24" y="24" width="293" height="121"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="IY1-y2-aFo">
+                    <rect key="frame" x="20" y="16" width="301" height="191"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-tweet" translatesAutoresizingMaskIntoConstraints="NO" id="TJR-gs-i1o">
-                            <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="I just got my Safe token Airdrop. Did you get yours? ;) #staysafe #safedao #safeairdrop" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jz7-2B-kFi">
-                            <rect key="frame" x="0.0" y="32" width="284" height="89"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eEi-Ri-bWD">
+                            <rect key="frame" x="8.5" y="0.0" width="284" height="137"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-tweet" translatesAutoresizingMaskIntoConstraints="NO" id="TJR-gs-i1o">
+                                    <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="I just got my Safe token Airdrop. Did you get yours? ;) #staysafe #safedao #safeairdrop" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jz7-2B-kFi">
+                                    <rect key="frame" x="0.0" y="32" width="284" height="105"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eyN-EN-hu8">
+                            <rect key="frame" x="82.5" y="153" width="136" height="38"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hv-by-v3G">
+                                    <rect key="frame" x="0.0" y="0.0" width="136" height="38"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="136" id="1kC-EC-jEz"/>
+                                        <constraint firstAttribute="height" constant="38" id="UKi-lu-0WW"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Tweet">
+                                        <color key="titleColor" name="labelPrimary"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="didTapTweetButton:" destination="-2" eventType="touchUpInside" id="pFq-uv-O5S"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
                     </subviews>
                 </stackView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hv-by-v3G">
-                    <rect key="frame" x="102.5" y="161" width="136" height="38"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="136" id="1kC-EC-jEz"/>
-                        <constraint firstAttribute="height" constant="38" id="UKi-lu-0WW"/>
-                    </constraints>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="Tweet">
-                        <color key="titleColor" name="labelPrimary"/>
-                    </state>
-                    <connections>
-                        <action selector="didTapTweetButton:" destination="-1" eventType="touchUpInside" id="6u5-Xi-Qbd"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="0hv-by-v3G" secondAttribute="bottom" constant="24" id="72t-Qv-67g"/>
-                <constraint firstItem="0hv-by-v3G" firstAttribute="centerX" secondItem="eEi-Ri-bWD" secondAttribute="centerX" id="DtL-jK-NML"/>
-                <constraint firstAttribute="trailing" secondItem="eEi-Ri-bWD" secondAttribute="trailing" constant="24" id="H9i-uV-Zrs"/>
-                <constraint firstItem="0hv-by-v3G" firstAttribute="top" secondItem="eEi-Ri-bWD" secondAttribute="bottom" constant="16" id="NKV-PC-qzS"/>
-                <constraint firstItem="eEi-Ri-bWD" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="24" id="fLN-Gb-JXY"/>
-                <constraint firstItem="eEi-Ri-bWD" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="veD-AU-OVu"/>
+                <constraint firstAttribute="trailing" secondItem="IY1-y2-aFo" secondAttribute="trailing" constant="20" id="F3k-hP-tE1"/>
+                <constraint firstAttribute="bottom" secondItem="IY1-y2-aFo" secondAttribute="bottom" constant="16" id="FeX-7f-6E3"/>
+                <constraint firstItem="IY1-y2-aFo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="bN6-dj-GP3"/>
+                <constraint firstItem="IY1-y2-aFo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="ca1-GL-vHI"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
@@ -67,7 +75,7 @@
     <resources>
         <image name="ico-tweet" width="24" height="24"/>
         <namedColor name="labelPrimary">
-            <color red="0.0" green="0.078000001609325409" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.074509803921568626" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

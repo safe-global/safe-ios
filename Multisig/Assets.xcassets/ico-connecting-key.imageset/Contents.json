@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "ico-connecting-key.pdf",
+      "filename" : "ico-connecting-key.png",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-connecting-key-dark.png",
       "idiom" : "universal"
     }
   ],

@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Placeholder.pdf",
+      "filename" : "connection-placeholder.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "connection-placeholder-dark.pdf",
       "idiom" : "universal"
     }
   ],

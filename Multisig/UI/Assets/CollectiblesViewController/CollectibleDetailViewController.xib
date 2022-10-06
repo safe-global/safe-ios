@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -39,30 +39,28 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="5XO-9z-vvc">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="491.5"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gd-zm-b1T" userLabel="Image View">
+                                                <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gd-zm-b1T" userLabel="Image View" customClass="StyledView" customModule="Multisig" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="16" width="382" height="382"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card-background" translatesAutoresizingMaskIntoConstraints="NO" id="IoM-Yq-SGD">
-                                                            <rect key="frame" x="-9" y="-8" width="402" height="402"/>
-                                                        </imageView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XIh-OK-2DI" userLabel="SVG View" customClass="WebImageView" customModule="Multisig" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="382" height="382"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="backgroundColor" name="backgroundSecondary"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottomMargin" secondItem="IoM-Yq-SGD" secondAttribute="bottom" id="Ale-d2-5BT"/>
-                                                        <constraint firstItem="IoM-Yq-SGD" firstAttribute="leading" secondItem="3gd-zm-b1T" secondAttribute="leadingMargin" id="Brg-eA-Bo2"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="XIh-OK-2DI" secondAttribute="trailing" id="Dm9-97-E9E"/>
                                                         <constraint firstAttribute="bottomMargin" secondItem="XIh-OK-2DI" secondAttribute="bottom" id="G9K-8y-xfl"/>
-                                                        <constraint firstItem="IoM-Yq-SGD" firstAttribute="top" secondItem="3gd-zm-b1T" secondAttribute="topMargin" id="HcF-Pq-ZO2"/>
                                                         <constraint firstItem="XIh-OK-2DI" firstAttribute="leading" secondItem="3gd-zm-b1T" secondAttribute="leadingMargin" id="QOq-8K-54d"/>
-                                                        <constraint firstAttribute="trailingMargin" secondItem="IoM-Yq-SGD" secondAttribute="trailing" id="Z5C-C6-jMO"/>
                                                         <constraint firstItem="XIh-OK-2DI" firstAttribute="top" secondItem="3gd-zm-b1T" secondAttribute="topMargin" id="cTR-NV-bOd"/>
                                                         <constraint firstAttribute="width" secondItem="3gd-zm-b1T" secondAttribute="height" multiplier="1:1" id="ijb-uz-sVq"/>
                                                     </constraints>
                                                     <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="no1-ty-eR1">
                                                     <rect key="frame" x="16" y="414" width="382" height="77.5"/>
@@ -157,10 +155,17 @@
             <point key="canvasLocation" x="86.956521739130437" y="153.34821428571428"/>
         </view>
     </objects>
+    <designables>
+        <designable name="3gd-zm-b1T">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
+    </designables>
     <resources>
-        <image name="card-background" width="37" height="37"/>
+        <namedColor name="backgroundSecondary">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="separator">
-            <color red="0.96862745098039216" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.86274509803921573" green="0.87058823529411766" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

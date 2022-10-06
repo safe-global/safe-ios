@@ -116,7 +116,9 @@ class MainTabBarViewController: UITabBarController {
 
         onFirstAppear(self)
 
-        WhatsNewHandler().whatsNewViewController?.present(on: self)
+        if let whatsNewVC = WhatsNewHandler().whatsNewViewController {
+            present(whatsNewVC, animated: true)
+        }
 
         WebConnectionController.shared.reconnect()
 
@@ -526,7 +528,7 @@ class SettingsUINavigationController: UINavigationController {
         let count = Intercom.unreadConversationCount()
         if count > 0 {
             tabBarItem.badgeValue = ""
-            tabBarItem.badgeColor = UIColor.pending
+            tabBarItem.badgeColor = UIColor.warning
         } else {
             tabBarItem.badgeValue = nil
         }

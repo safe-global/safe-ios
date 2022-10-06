@@ -46,7 +46,7 @@ struct TermsView: View {
                 }
             }
 
-            Button("Accept") {
+            Button("Get Started") {
                 agreeWithTerms()
                 AppSettings.trackingEnabled = true
             }

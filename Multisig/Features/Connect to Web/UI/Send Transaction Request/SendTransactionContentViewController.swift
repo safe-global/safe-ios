@@ -36,7 +36,7 @@ class SendTransactionContentViewController: UITableViewController {
         builder.key = keyInfo
         builder.balance = balance
         builder.fee = fee
-        builder.to = Address(transaction.to)!
+        builder.to = Address(transaction.to)
         builder.value = transaction.value.big()
         builder.data = transaction.data.storage
         builder.errorMessage = error

@@ -10,7 +10,7 @@ import UIKit
 
 @IBDesignable
 class StyledView: UIButton {
-    @IBInspectable var cornerRadius: CGFloat = 5
+    @IBInspectable var cornerRadius: CGFloat = 8
     @IBInspectable var roundRect: Bool = true
 
     override func draw(_ rect: CGRect) {

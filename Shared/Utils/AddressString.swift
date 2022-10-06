@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct AddressString: Hashable, Codable {
+struct AddressString: Hashable, Codable, Equatable {
     let address: Address
 
     static let zero = AddressString(Address.zero)

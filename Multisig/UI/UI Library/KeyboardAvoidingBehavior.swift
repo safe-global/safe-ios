@@ -32,6 +32,11 @@ class KeyboardAvoidingBehavior {
         }
     }
 
+    var willShowKeyboard: (_ frame: CGRect, _ animationDuration: TimeInterval) -> Void = { _, _ in }
+    var willHideKeyboard: (_ animationDuration: TimeInterval) -> Void = { _ in }
+    var adjustsInsets: Bool = true
+
+
     init(scrollView: UIScrollView, notificationCenter: NotificationCenter = NotificationCenter.default) {
         self.scrollView = scrollView
         self.notificationCenter = notificationCenter
@@ -51,11 +56,15 @@ class KeyboardAvoidingBehavior {
             scrollView.removeGestureRecognizer(touchRecognizer)
         }
         notificationCenter.addObserver(self,
+                                       selector: #selector(didReceiveWillShowKeyboard(_:)),
+                                       name: UIResponder.keyboardWillShowNotification,
+                                       object: nil)
+        notificationCenter.addObserver(self,
                                        selector: #selector(didShowKeyboard(_:)),
                                        name: UIResponder.keyboardDidShowNotification,
                                        object: nil)
         notificationCenter.addObserver(self,
-                                       selector: #selector(didHideKeyboard(_:)),
+                                       selector: #selector(didReceiveWillHideKeyboard(_:)),
                                        name: UIResponder.keyboardWillHideNotification,
                                        object: nil)
 
@@ -76,6 +85,24 @@ class KeyboardAvoidingBehavior {
             deactivate(responder)
         }
         TooltipSource.hideAll()
+        notificationCenter.post(name: .hideAllTooltips, object: nil)
+    }
+
+    @objc func didReceiveWillShowKeyboard(_ notification: NSNotification) {
+        guard let view = scrollView.superview else { return }
+        guard
+            let screenValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue, // NSValue of CGRect
+            let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber  // NSNumber of double
+        else {
+            return
+        }
+        let keyboardScreen = screenValue.cgRectValue
+        let keyboardFrame = view.convert(keyboardScreen, from: UIScreen.main.coordinateSpace)
+        DispatchQueue.main.async { [weak self] in
+            self?.willShowKeyboard(keyboardFrame, duration.doubleValue)
+            TooltipSource.hideAll()
+            self?.notificationCenter.post(name: .hideAllTooltips, object: nil)
+        }
     }
 
     @objc func didShowKeyboard(_ notification: NSNotification) {
@@ -85,8 +112,10 @@ class KeyboardAvoidingBehavior {
         }
         let keyboardScreen = screenValue.cgRectValue
         let keyboardFrame = view.convert(keyboardScreen, from: UIScreen.main.coordinateSpace)
-        scrollView.contentInset.bottom = keyboardFrame.height
-        scrollView.scrollIndicatorInsets = scrollView.contentInset
+        if adjustsInsets {
+            scrollView.contentInset.bottom = keyboardFrame.height
+            scrollView.scrollIndicatorInsets = scrollView.contentInset
+        }
         var rect = view.bounds
         rect.size.height -= keyboardFrame.height
         if let frame = responderFrame(in: view), !rect.contains(frame) {
@@ -107,9 +136,19 @@ class KeyboardAvoidingBehavior {
         return frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0))
     }
 
-    @objc func didHideKeyboard(_ notification: NSNotification) {
-        scrollView.contentInset.bottom = 0
-        scrollView.scrollIndicatorInsets = scrollView.contentInset
+    @objc func didReceiveWillHideKeyboard(_ notification: NSNotification) {
+        guard
+            let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber
+        else {
+            return
+        }
+        if adjustsInsets {
+            scrollView.contentInset.bottom = 0
+            scrollView.scrollIndicatorInsets = scrollView.contentInset
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.willHideKeyboard(duration.doubleValue)
+        }
     }
 
     private func activate(_ responder: UIView) {

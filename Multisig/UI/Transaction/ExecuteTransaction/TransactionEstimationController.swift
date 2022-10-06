@@ -29,7 +29,9 @@ class TransactionEstimationController {
         // optimism
         "10",
         // aurora
-        "1313161554"
+        "1313161554",
+        // Polygon
+        "137"
     ]
 
     let rpcClient: JsonRpc2.Client
@@ -50,6 +52,14 @@ class TransactionEstimationController {
         for case SCGModels.GasPrice.fixed(let fixed) in chain.gasPrice where Sol.UInt256(fixed.weiValue) != nil {
             fixedGasPrice = Sol.UInt256(fixed.weiValue)!
             break
+        }
+
+        var block: EthRpc1.BlockSpecifier = block
+
+        if chain.id == "137" {
+            // Polygon has only "latest" block parameter
+            // see: https://docs.polygon.technology/docs/edge/get-started/json-rpc-commands/#eth_call
+            block = .tag(.latest)
         }
 
         // remove the fee because we want to estimate it.

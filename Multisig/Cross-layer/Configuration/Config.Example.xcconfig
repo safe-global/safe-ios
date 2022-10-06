@@ -36,6 +36,12 @@ _CLIENT_GATEWAY_URL_DEV        = https:/$()/safe-client.staging.gnosisdev.com/
 _CLIENT_GATEWAY_URL_STAGING    = https:/$()/safe-client.staging.gnosisdev.com/
 _CLIENT_GATEWAY_URL_PROD       = https:/$()/safe-client.gnosis.io/
 
+// Claiming app service
+_CLAIMING_DATA_URL_DEV        = https:/$()/safe-claiming-app-data.staging.gnosisdev.com/
+_CLAIMING_DATA_URL_STAGING    = https:/$()/safe-claiming-app-data.staging.gnosisdev.com/
+_CLAIMING_DATA_URL_PROD       = https:/$()/safe-claiming-app-data.gnosis-safe.io/
+
+
 // Apps
 _APP_BUNDLE_ID_PROD     = io.gnosis.multisig.prod.mainnet
 _APP_BUNDLE_ID_STAGING  = io.gnosis.multisig.staging.mainnet
@@ -50,7 +56,7 @@ APP_GROUP_ID            = $(_APP_GROUP_ID_$(SERVICE_ENV):default=$(_APP_GROUP_ID
 
 
 // User-facing name of the app on the Home screen
-_DISPLAY_NAME_PROD     = Safe Multisig
+_DISPLAY_NAME_PROD     = Safe
 _DISPLAY_NAME_STAGING  = Safe Staging
 _DISPLAY_NAME_DEV      = Safe Dev
 
@@ -69,8 +75,8 @@ _LOG_LEVEL_PROD             = ERROR
 _LOG_LEVEL_DEV              = DEBUG
 
 // Configuration variables for the app
-
 CLIENT_GATEWAY_URL      = $(_CLIENT_GATEWAY_URL_$(SERVICE_ENV):default=$(_CLIENT_GATEWAY_URL_PROD))
+CLAIMING_DATA_URL       = $(_CLAIMING_DATA_URL_$(SERVICE_ENV):default=$(_CLAIMING_DATA_URL_PROD))
 FIREBASE_CONFIG         = $(_FIREBASE_CONFIG_$(SERVICE_ENV):default=$(_FIREBASE_CONFIG_PROD))
 LOGGERS                 = $(_LOGGERS_$(SERVICE_ENV):default=$(_LOGGERS_PROD))
 LOG_LEVEL               = $(_LOG_LEVEL_$(SERVICE_ENV):default=$(_LOG_LEVEL_PROD))
@@ -117,7 +123,7 @@ DISCORD_URL             = https:/$()/discord.gg/TaNjuFzS6X
 TWITTER_URL             = https:/$()/twitter.com/gnosisSafe
 HELP_CENTER_URL         = https:/$()/help.gnosis-safe.io/
 FEATURE_SUGGESTION_URL  = https:/$()/safe.cnflx.io/
-CONTACT_EMAIL           = safe@gnosis.io
+CONTACT_EMAIL           = support@safe.global
 FORUM_URL               = https:/$()/forum.gnosis-safe.io/
 //TODO: adjust safe dao url
 SAFE_DAO_URL            = https:/$()/snapshot.org/#/safe.eth
@@ -132,6 +138,11 @@ _APP_STORE_REVIEW_URL_STAGING    = https:/$()/apps.apple.com/app/id1518013939?ac
 _APP_STORE_REVIEW_URL_PROD       = https:/$()/apps.apple.com/app/id1515759131?action=write-review
 
 APP_STORE_REVIEW_URL = $(_APP_STORE_REVIEW_URL_$(SERVICE_ENV):default=$(_APP_STORE_REVIEW_URL_PROD))
+
+// Claim URLS
+CLAIM_DISCUSS_URL                = https:/$()/forum.gnosis-safe.io/
+CLAIM_PROPOSE_URL                = https:/$()/forum.gnosis-safe.io/t/how-to-safedao-governance-process/846
+CLAIM_CHAT_URL                   = https:/$()/discord.com/invite/AjG7AQD9Qn
 
 // App name on the home screen (will be used for CFBundleDisplayName)
 DISPLAY_NAME = $(_DISPLAY_NAME_$(SERVICE_ENV):default=$(_DISPLAY_NAME_PROD))

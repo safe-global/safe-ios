@@ -15,6 +15,10 @@ class AuthenticationController {
 
     private let accessService: AccessService
 
+    #if DEBUG
+    var test_override_isBiometrySupported: Bool?
+    #endif
+
     init() {
         accessService = AccessService(
             accessPolicy: AccessPolicy(
@@ -64,7 +68,9 @@ class AuthenticationController {
     func isPasscodeCorrect(plaintextPasscode: String) throws -> Bool {
         guard let user = user else { return false }
         let password = derivedKey(from: plaintextPasscode)
-        return try accessService.verifyPassword(userID: user.id, password: password)
+        let oldPassword = derivedKey(from: plaintextPasscode, useOldSalt: true)
+        return try accessService.verifyPassword(userID: user.id, password: password) ||
+                    accessService.verifyPassword(userID: user.id , password: oldPassword)
     }
 
     /// Deletes the stored passcode. If passcode not set, this operation
@@ -111,8 +117,8 @@ class AuthenticationController {
         return !user.encryptedPassword.isEmpty
     }
 
-    private func derivedKey(from plaintext: String) -> String {
-        let salt = "Safe Multisig Passcode Salt"
+    private func derivedKey(from plaintext: String, useOldSalt: Bool = false) -> String {
+        let salt = salt(oldSalt: useOldSalt)
         var derivedKey = [UInt8](repeating: 0, count: 256 / 8)
         let result = CCKeyDerivationPBKDF(
             CCPBKDFAlgorithm(kCCPBKDF2),
@@ -131,11 +137,22 @@ class AuthenticationController {
         return Data(derivedKey).toHexString()
     }
 
+    // For backward compatibility we need to use both salts for some cases
+    private func salt(oldSalt: Bool = false) -> String {
+        oldSalt ? "Gnosis Safe Multisig Passcode Salt" : "Safe Multisig Passcode Salt"
+    }
+
 
     // MARK: - Biometry
 
     /// Is device hardware supports the biometry
     var isBiometricsSupported: Bool {
+        #if DEBUG
+        if let testResult = test_override_isBiometrySupported {
+            return testResult
+        }
+        #endif
+
         let context = LAContext()
         switch context.evaluatedBiometryType {
         case .touchID, .faceID:

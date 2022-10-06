@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,12 +21,9 @@
                     <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Gfj-jW-JZ8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Chz-fT-shb">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Chz-fT-shb" customClass="StyledView" customModule="Multisig" customModuleProvider="target">
                                 <rect key="frame" x="16" y="16" width="288" height="110"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card-background" translatesAutoresizingMaskIntoConstraints="NO" id="BXu-a6-ltf">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="110"/>
-                                    </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Jdf-e6-VR1">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="110"/>
                                         <subviews>
@@ -70,17 +67,18 @@
                                         <directionalEdgeInsets key="directionalLayoutMargins" top="16" leading="16" bottom="12" trailing="16"/>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="backgroundSecondary"/>
                                 <constraints>
                                     <constraint firstItem="Jdf-e6-VR1" firstAttribute="top" secondItem="Chz-fT-shb" secondAttribute="top" id="EGZ-cG-i6e"/>
-                                    <constraint firstItem="BXu-a6-ltf" firstAttribute="top" secondItem="Chz-fT-shb" secondAttribute="top" id="GvT-cw-g23"/>
-                                    <constraint firstItem="BXu-a6-ltf" firstAttribute="leading" secondItem="Chz-fT-shb" secondAttribute="leading" id="Jw3-ie-4RL"/>
-                                    <constraint firstAttribute="trailing" secondItem="BXu-a6-ltf" secondAttribute="trailing" id="M6e-MM-lqd"/>
                                     <constraint firstAttribute="bottom" secondItem="Jdf-e6-VR1" secondAttribute="bottom" id="TQ1-t7-nbg"/>
                                     <constraint firstAttribute="trailing" secondItem="Jdf-e6-VR1" secondAttribute="trailing" id="Tdt-PE-DtU"/>
                                     <constraint firstItem="Jdf-e6-VR1" firstAttribute="leading" secondItem="Chz-fT-shb" secondAttribute="leading" id="kfI-rY-35s"/>
-                                    <constraint firstAttribute="bottom" secondItem="BXu-a6-ltf" secondAttribute="bottom" id="qG6-Uc-25Y"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Derived keys are generated from your seed phrase. Select a key you would like to import." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y90-eh-pPm">
                                 <rect key="frame" x="16" y="142" width="288" height="96"/>
@@ -112,11 +110,18 @@
             <point key="canvasLocation" x="73.913043478260875" y="182.14285714285714"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="Chz-fT-shb">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
+    </designables>
     <resources>
-        <image name="card-background" width="37" height="37"/>
         <image name="checkmark" catalog="system" width="128" height="114"/>
         <namedColor name="backgroundPrimary">
-            <color red="0.96470588235294119" green="0.96862745098039216" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="backgroundSecondary">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

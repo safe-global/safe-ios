@@ -8,23 +8,29 @@ public protocol TooltipDelegate: AnyObject {
     func tooltipWillDisappear(_ tooltip: Tooltip)
 }
 
+extension NSNotification.Name {
+    static let hideAllTooltips = NSNotification.Name("io.gnosis.safe.tooltip.hideAll")
+}
+
 public final class Tooltip: BaseCustomView {
-    
+
     static let arrowUp = UIImage(named: "ico-tooltip-arrow")!
-    static let arrowDown = UIImage(cgImage:  UIImage(named: "ico-tooltip-arrow")!.cgImage!,
-                                    scale:  UIImage(named: "ico-tooltip-arrow")!.scale,
+    static let arrowDown = UIImage(cgImage:  arrowUp.cgImage!,
+                                    scale:  arrowUp.scale,
                                     orientation: .downMirrored)
 
     private let label = UILabel()
     private let background = UIImageView()
 
     private let arrow = UIImageView()
-    private let arrowSize = CGSize(width: 16, height: 9)
+    private let arrowSize = CGSize(width: 16, height: 10)
     
     private var isShowingAboveTarget = true
 
     private let labelHorizontalInset: CGFloat = 12
     private let labelVerticalInset: CGFloat = 10
+
+    private let labelStyle = GNOTextStyle.callout.color(.labelPrimary)
 
     private let horizontalEdgeInset: CGFloat = 15
     private let verticalPadding: CGFloat = 12
@@ -41,8 +47,7 @@ public final class Tooltip: BaseCustomView {
         background.image = UIImage(named: "bkg-tooltip")
         addSubview(background)
         
-        label.setStyle(.callout)
-        label.textColor = .white
+        label.setStyle(labelStyle)
         label.numberOfLines = 0
         label.textAlignment = .left
         label.isUserInteractionEnabled = true
@@ -72,6 +77,8 @@ public final class Tooltip: BaseCustomView {
             background.topAnchor.constraint(equalTo: topAnchor),
             background.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+
+        NotificationCenter.default.addObserver(self, selector: #selector(dismissTooltip), name: .hideAllTooltips, object: nil)
     }
 
     @objc func dismissTooltip() {
@@ -102,14 +109,21 @@ public final class Tooltip: BaseCustomView {
     @discardableResult
     public static func show(for view: UIView,
                             in superview: UIView,
-                            message: String,
+                            message: String? = nil,
+                            attributedText: NSAttributedString? = nil,
                             arrowTarget: UIView? = nil,
                             aboveTarget: Bool = true,
                             hideAutomatically: Bool = true,
                             delegate: TooltipDelegate? = nil) -> Tooltip {
         let tooltip = Tooltip()
         tooltip.delegate = delegate
-        tooltip.label.text = message
+
+        if let message = message {
+            tooltip.label.text = message
+        } else if let attributedText = attributedText {
+            tooltip.label.attributedText = attributedText
+        }
+
         tooltip.alpha = 0
         tooltip.isShowingAboveTarget = aboveTarget
         tooltip.arrow.image = aboveTarget ? Tooltip.arrowDown : Tooltip.arrowUp
@@ -180,7 +194,9 @@ public final class Tooltip: BaseCustomView {
 
         guard hideAutomatically else { return tooltip }
 
-        let visibleDurationSeconds = TimeInterval(message.count) / tooltip.userReadingSpeedCharsPerSecond
+        let messageLength = message?.count ?? attributedText?.length ?? 0
+
+        let visibleDurationSeconds = TimeInterval(messageLength) / tooltip.userReadingSpeedCharsPerSecond
         // using asyncAfter instead of UIView.animation with delay because the latter blocks user interaction
         // even if the .allowUserInteraction passed as an option
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Int(visibleDurationSeconds * 1_000))) {

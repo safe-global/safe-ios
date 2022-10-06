@@ -27,6 +27,11 @@ extension Sol.UnsignedFixedPoint: SolAbiEncodable where T: SolAbiEncodable {
         try self.storage.decode(from: data, offset: &offset)
     }
 
+    public func encodePacked() -> Data {
+        let result = storage.encodePacked()
+        return result
+    }
+
     public var canonicalName: String {
         "ufixed\(storage.self.bitWidth)x\(exponent)"
     }
@@ -60,6 +65,11 @@ extension Sol.SignedFixedPoint: SolAbiEncodable where T: SolAbiEncodable {
 
     public mutating func decode(from data: Data, offset: inout Int) throws {
         try self.storage.decode(from: data, offset: &offset)
+    }
+
+    public func encodePacked() -> Data {
+        let result = storage.encodePacked()
+        return result
     }
 
     public var canonicalName: String {

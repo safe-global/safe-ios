@@ -76,8 +76,41 @@ class AssetsViewController: ContainerViewController {
             }
             Tracker.trackEvent(.assetTransferSendClicked)
         }
+
+        totalBalanceView.tokenBanner.isHidden = !shouldShowSafeTokenBanner
+
+        totalBalanceView.tokenBanner.onClaim = { [unowned self] in
+            guard let safe = try? Safe.getSelected() else {
+                return
+            }
+
+            Tracker.trackEvent(.bannerSafeTokenClaim)
+            claimTokenFlow = ClaimSafeTokenFlow(safe: safe) { [unowned self] _ in
+                claimTokenFlow = nil
+            }
+            present(flow: claimTokenFlow)
+        }
+        totalBalanceView.tokenBanner.onClose = { [unowned self] in
+            safeTokenBannerWasShown = true
+            totalBalanceView.tokenBanner.isHidden = !shouldShowSafeTokenBanner
+            Tracker.trackEvent(.bannerSafeTokenSkip)
+        }
     }
-    
+
+    private var claimTokenFlow: ClaimSafeTokenFlow!
+
+    private var shouldShowSafeTokenBanner: Bool {
+        guard let safe = try? Safe.getSelected() else {
+            return false
+        }
+        return safeTokenBannerWasShown != true && ClaimingAppController.isAvailable(chain: safe.chain!)
+    }
+
+    private var safeTokenBannerWasShown: Bool? {
+        get { AppSettings.safeTokenBannerWasShown }
+        set { AppSettings.safeTokenBannerWasShown = newValue }
+    }
+
     private func showSelectAssetsViewController() {
         guard let balances = self.balances else { return }
         let selectAssetVC = SelectAssetViewController(balances: balances)
@@ -99,5 +132,6 @@ class AssetsViewController: ContainerViewController {
     
     @objc private func selectedSafeUpdatedReceived(notification: Notification) {
         self.safe = notification.object as? Safe
+        totalBalanceView.tokenBanner.isHidden = !shouldShowSafeTokenBanner
     }
 }

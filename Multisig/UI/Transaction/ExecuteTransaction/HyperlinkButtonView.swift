@@ -13,6 +13,7 @@ class HyperlinkButtonView: UINibView, ExternalURLSource {
     @IBOutlet weak var button: UIButton!
 
     var url: URL?
+    var trackingEvent: TrackingEvent?
 
     func setText(_ value: String?, underlined: Bool = true) {
         label.text = nil
@@ -25,6 +26,9 @@ class HyperlinkButtonView: UINibView, ExternalURLSource {
     }
 
     @IBAction func didTapButton(_ sender: Any) {
+        if let trackingEvent = trackingEvent {
+            Tracker.trackEvent(trackingEvent)
+        }
         openExternalURL()
     }
 }

@@ -77,27 +77,47 @@ class ReviewSafeTransactionViewController: UIViewController {
 
         confirmButtonView.actionTitle = "Submit"
         confirmButtonView.state = .normal
-
+        confirmButtonView.set(rejectionEnabled: false)
+        
         confirmButtonView.onAction = { [weak self] in
-            guard let `self` = self else { return }
-            let descriptionText = "An owner key will be used to confirm this transaction."
-            let vc = ChooseOwnerKeyViewController(
-                owners: KeyInfo.owners(safe: self.safe),
-                chainID: self.safe.chain!.id,
-                header: .text(description: descriptionText)
-            ) { [weak self] keyInfo in
-                guard let `self` = self else { return }
-                self.dismiss(animated: true) {
-                    if let info = keyInfo {
-                        self.startConfirm()
-                        self.sign(info)
-                    }
+            self?.didConfirm()
+        }
+    }
+
+    func didConfirm() {
+        let keys = KeyInfo.owners(safe: self.safe)
+        if keys.isEmpty {
+            let addOwnerVC = AddOwnerFirstViewController()
+            addOwnerVC.onSuccess = { [weak self] in
+                self?.dismiss(animated: true) {
+                    guard let self = self else { return }
+                    // check if we actually added an owner and not some irrelevant key
+                    guard !KeyInfo.owners(safe: self.safe).isEmpty else { return }
+                    self.didConfirm()
                 }
             }
-
-            let navigationController = UINavigationController(rootViewController: vc)
-            self.presentModal(navigationController)
+            let nav = ViewControllerFactory.modal(viewController: addOwnerVC)
+            presentModal(nav)
+            return
         }
+
+        let descriptionText = "An owner key will be used to confirm this transaction."
+        let vc = ChooseOwnerKeyViewController(
+            owners: keys,
+            chainID: self.safe.chain!.id,
+            header: .text(description: descriptionText)
+        ) { [weak self] keyInfo in
+            guard let `self` = self else { return }
+            self.dismiss(animated: true) {
+                if let info = keyInfo {
+                    self.startConfirm()
+                    self.sign(info)
+                }
+            }
+        }
+
+        let navigationController = UINavigationController(rootViewController: vc)
+        self.presentModal(navigationController)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -150,19 +170,20 @@ class ReviewSafeTransactionViewController: UIViewController {
                     self.safeTxGas = UInt256String(estimatedSafeTxGas)
                 }
 
-                if self.shouldLoadTransactionPreview {
+                if self.shouldLoadTransactionPreview, let transaction = self.createTransaction() {
+                    self.transactionPreview = nil
+
                     self.currentDataTask = App.shared.clientGatewayService.asyncPreviewTransaction(
-                        transaction: tx,
+                        transaction: transaction,
                         sender: AddressString(self.safe.addressValue),
                         chainId: self.safe.chain!.id!
                     ) { result in
-                        switch result {
-                        case .success(let response):
-                            self.transactionPreview = response
-                            self.onSuccess()
-                        case .failure(let error):
-                            DispatchQueue.main.async { [weak self] in
-                                guard let `self` = self else { return }
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .success(let response):
+                                self.transactionPreview = response
+                                self.onSuccess()
+                            case .failure(let error):
                                 if (error as NSError).code == URLError.cancelled.rawValue &&
                                     (error as NSError).domain == NSURLErrorDomain {
                                     return
@@ -172,7 +193,9 @@ class ReviewSafeTransactionViewController: UIViewController {
                         }
                     }
                 } else {
-                    self.onSuccess()
+                    DispatchQueue.main.async {
+                        self.onSuccess()
+                    }
                 }
             }
         }
@@ -366,6 +389,7 @@ class ReviewSafeTransactionViewController: UIViewController {
 
         tableCell.setCells([cell])
         tableCell.onCellTap = { [unowned self] _ in
+            Tracker.trackEvent(.userClaimReviewPar)
             self.showEditParameters()
         }
 

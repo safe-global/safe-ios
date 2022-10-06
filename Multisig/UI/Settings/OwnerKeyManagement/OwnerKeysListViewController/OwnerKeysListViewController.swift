@@ -145,7 +145,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
                 completion(true)
             }
-            wcAction.backgroundColor = isConnected ? .orange : .primary
+            wcAction.backgroundColor = isConnected ? .orange : .success
             actions.append(wcAction)
         }
 

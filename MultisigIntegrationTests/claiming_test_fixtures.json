@@ -1,0 +1,607 @@
+{
+  "testCases": [
+    {
+      "name": "3.1 Partial claiming when eligible only for user airdrop",
+      "amount": "100",
+      "beneficiary": "0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
+      "delegate": "0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
+      "timestamp": 1783152000,
+      "safeTokenPaused": true,
+      "allocations": [
+        {
+          "tag": "user",
+          "account": "0x000543D851CD52a6bFD83a1D168D35DeAE4E3590",
+          "chainId": 4,
+          "contract": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "vestingId": "0x9eb40c52b1c6e36b1f7af3f361f326601aca4831262a28f219d2cd6f79e0e9aa",
+          "durationWeeks": 416,
+          "startDate": 1531555200,
+          "amount": "1000000000000330000000",
+          "curve": 0,
+          "proof": [
+            "0x8effecbcd044908bbccc482418326488b5692c0b2f3dffb918613f672539171c",
+            "0x773a5c3647e7086a1b52dcb8004a0ce268fbe331908c3ce1923252295774c21d",
+            "0x67e85f675b36971bcbf75135284a12246448ebc19d8ade9220247668d16f9b43",
+            "0x6af4f34ceaedd0344b3cc1e0e0237b1158ebff6bcc76c330b5e0fd2126288899",
+            "0x287bd2b030eadd62bfd9f20600243a23ba2e033f6dc8e3b88dc67acf32658aa2",
+            "0x70f11763035e0b6c0a14e92a8d9b024e276aab3413bdc17b8a2fc4276a56e44b",
+            "0xd99fbb1dbbb3fefb91a0358da324edd045d3f00ba38edf71f69da9a3b0c394f4",
+            "0xe334230a9d71a37d1b1c6f03a7182ddaba4eaaf8a6b449fde1bb2c6422c6588e",
+            "0x3189cc25e4217d7bf4f788bd16698a9e8137f74051d5a8c6a608e9888e4e585a",
+            "0x50168d345960483668006659313366324315aff37d2bb0af6de40d67e16ea00b",
+            "0x9a91efd8095f6a828d24f0476ba3aa09864ae8f14a0e6dffae6109d73fb04c51",
+            "0x60a9debe7b1ad678911a5a0c8f9e00a60f2c0e930024f70baa52be7971057f75",
+            "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+            "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+            "0x63af4e18eb6e2998d99d03dada6c02d844efe3a3a449adc76ccfafd12c7aacf2"
+          ]
+        }
+      ],
+      "vestings": [
+        {
+          "account": "0",
+          "curveType": 0,
+          "managed": false,
+          "durationWeeks": 0,
+          "startDate": 0,
+          "amount": "0",
+          "amountClaimed": "0",
+          "pausingDate": 0,
+          "cancelled": false
+        }
+      ],
+      "expectedTransactions": [
+        {
+          "to": "0x469788fE6E9E9681C6ebF3bF78e7Fd26Fc015446",
+          "data": "0x\n// keccak(setDelegate(bytes32,address))[0..<4]\nbd86e508\n// id: bytes32 == safe.eth utf8 bytes padded to bytes32\n736166652e657468000000000000000000000000000000000000000000000000\n// delegate: address (encoded as uint160)\n000000000000000000000000728cafe9fb8cc2218fb12a9a2d9335193caa07e0 \n"
+        },
+        {
+          "to": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "data": "0x\n// keccak(redeem(uint8,uint16,uint64,uint128,bytes32[])[0..<4]\nbf6213e4\n// curveType (uint8) = 0\n0000000000000000000000000000000000000000000000000000000000000000\n// durationWeeks (uint16) = 416 = 0x1A0\n00000000000000000000000000000000000000000000000000000000000001a0\n// startDate (uint64) = 1531555200 = 0x5B49AD80\n000000000000000000000000000000000000000000000000000000005b49ad80\n// amount (uint128) = 1000000000000330000000 = 3635c9adc5f24b6680\n00000000000000000000000000000000000000000000003635c9adc5f24b6680\n// proof (bytes32[]). Offset from the start of data to the location of array a0 = 160 bytes = 5 * 32\n00000000000000000000000000000000000000000000000000000000000000a0\n// size of the bytes32[] array: f = 15\n000000000000000000000000000000000000000000000000000000000000000f\n// element at index 0\n8effecbcd044908bbccc482418326488b5692c0b2f3dffb918613f672539171c\n773a5c3647e7086a1b52dcb8004a0ce268fbe331908c3ce1923252295774c21d\n67e85f675b36971bcbf75135284a12246448ebc19d8ade9220247668d16f9b43\n6af4f34ceaedd0344b3cc1e0e0237b1158ebff6bcc76c330b5e0fd2126288899\n287bd2b030eadd62bfd9f20600243a23ba2e033f6dc8e3b88dc67acf32658aa2\n70f11763035e0b6c0a14e92a8d9b024e276aab3413bdc17b8a2fc4276a56e44b\nd99fbb1dbbb3fefb91a0358da324edd045d3f00ba38edf71f69da9a3b0c394f4\ne334230a9d71a37d1b1c6f03a7182ddaba4eaaf8a6b449fde1bb2c6422c6588e\n3189cc25e4217d7bf4f788bd16698a9e8137f74051d5a8c6a608e9888e4e585a\n50168d345960483668006659313366324315aff37d2bb0af6de40d67e16ea00b\n9a91efd8095f6a828d24f0476ba3aa09864ae8f14a0e6dffae6109d73fb04c51\n60a9debe7b1ad678911a5a0c8f9e00a60f2c0e930024f70baa52be7971057f75\nc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\nc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\n// element at index 14\n63af4e18eb6e2998d99d03dada6c02d844efe3a3a449adc76ccfafd12c7aacf2\n"
+        },
+        {
+          "to": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "data": "0x\n// keccak(claimVestedTokensViaModule(bytes32,address,uint128))[0..<4]\n0087b83f\n// vestingId (bytes32) = 0x9eb40c52b1c6e36b1f7af3f361f326601aca4831262a28f219d2cd6f79e0e9aa\n9eb40c52b1c6e36b1f7af3f361f326601aca4831262a28f219d2cd6f79e0e9aa\n// beneficiary (address) = 0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0\n000000000000000000000000728cafe9fb8cc2218fb12a9a2d9335193caa07e0\n// tokensToClaim (uint128) = 100 = 0x64\n0000000000000000000000000000000000000000000000000000000000000064\n"
+        }
+      ]
+    },
+    {
+      "name": "3.2 Partial claiming when already redeemed before, not changing delegate",
+      "amount": "100",
+      "beneficiary": "0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
+      "delegate": null,
+      "timestamp": 1783152000,
+      "safeTokenPaused": true,
+      "allocations": [
+        {
+          "tag": "user",
+          "account": "0x000543D851CD52a6bFD83a1D168D35DeAE4E3590",
+          "chainId": 4,
+          "contract": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "vestingId": "0x9eb40c52b1c6e36b1f7af3f361f326601aca4831262a28f219d2cd6f79e0e9aa",
+          "durationWeeks": 416,
+          "startDate": 1531555200,
+          "amount": "1000000000000330000000",
+          "curve": 0,
+          "proof": [
+            "0x8effecbcd044908bbccc482418326488b5692c0b2f3dffb918613f672539171c",
+            "0x773a5c3647e7086a1b52dcb8004a0ce268fbe331908c3ce1923252295774c21d",
+            "0x67e85f675b36971bcbf75135284a12246448ebc19d8ade9220247668d16f9b43",
+            "0x6af4f34ceaedd0344b3cc1e0e0237b1158ebff6bcc76c330b5e0fd2126288899",
+            "0x287bd2b030eadd62bfd9f20600243a23ba2e033f6dc8e3b88dc67acf32658aa2",
+            "0x70f11763035e0b6c0a14e92a8d9b024e276aab3413bdc17b8a2fc4276a56e44b",
+            "0xd99fbb1dbbb3fefb91a0358da324edd045d3f00ba38edf71f69da9a3b0c394f4",
+            "0xe334230a9d71a37d1b1c6f03a7182ddaba4eaaf8a6b449fde1bb2c6422c6588e",
+            "0x3189cc25e4217d7bf4f788bd16698a9e8137f74051d5a8c6a608e9888e4e585a",
+            "0x50168d345960483668006659313366324315aff37d2bb0af6de40d67e16ea00b",
+            "0x9a91efd8095f6a828d24f0476ba3aa09864ae8f14a0e6dffae6109d73fb04c51",
+            "0x60a9debe7b1ad678911a5a0c8f9e00a60f2c0e930024f70baa52be7971057f75",
+            "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+            "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+            "0x63af4e18eb6e2998d99d03dada6c02d844efe3a3a449adc76ccfafd12c7aacf2"
+          ]
+        }
+      ],
+      "vestings": [
+        {
+          "account": "0x000543D851CD52a6bFD83a1D168D35DeAE4E3590",
+          "curveType": 0,
+          "managed": false,
+          "durationWeeks": 416,
+          "startDate": 1531555200,
+          "amount": "1000000000000330000000",
+          "amountClaimed": "100",
+          "pausingDate": 0,
+          "cancelled": false
+        }
+      ],
+      "expectedTransactions": [
+        {
+          "to": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "data": "0x\n// keccak(claimVestedTokensViaModule(bytes32,address,uint128))[0..<4]\n0087b83f\n// vestingId (bytes32) = 0x9eb40c52b1c6e36b1f7af3f361f326601aca4831262a28f219d2cd6f79e0e9aa\n9eb40c52b1c6e36b1f7af3f361f326601aca4831262a28f219d2cd6f79e0e9aa\n// beneficiary (address) = 0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0\n000000000000000000000000728cafe9fb8cc2218fb12a9a2d9335193caa07e0\n// tokensToClaim (uint128) = 100 = 0x64\n0000000000000000000000000000000000000000000000000000000000000064\n"
+        }
+      ]
+    },
+    {
+      "name": "3.3 Partial claiming with unpaused token, only user airdrop, redeemed, delegate provided",
+      "amount": "100",
+      "beneficiary": "0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
+      "delegate": "0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
+      "timestamp": 1783152000,
+      "safeTokenPaused": false,
+      "allocations": [
+        {
+          "tag": "user",
+          "account": "0x000543D851CD52a6bFD83a1D168D35DeAE4E3590",
+          "chainId": 4,
+          "contract": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "vestingId": "0x9eb40c52b1c6e36b1f7af3f361f326601aca4831262a28f219d2cd6f79e0e9aa",
+          "durationWeeks": 416,
+          "startDate": 1531555200,
+          "amount": "1000000000000330000000",
+          "curve": 0,
+          "proof": [
+            "0x8effecbcd044908bbccc482418326488b5692c0b2f3dffb918613f672539171c",
+            "0x773a5c3647e7086a1b52dcb8004a0ce268fbe331908c3ce1923252295774c21d",
+            "0x67e85f675b36971bcbf75135284a12246448ebc19d8ade9220247668d16f9b43",
+            "0x6af4f34ceaedd0344b3cc1e0e0237b1158ebff6bcc76c330b5e0fd2126288899",
+            "0x287bd2b030eadd62bfd9f20600243a23ba2e033f6dc8e3b88dc67acf32658aa2",
+            "0x70f11763035e0b6c0a14e92a8d9b024e276aab3413bdc17b8a2fc4276a56e44b",
+            "0xd99fbb1dbbb3fefb91a0358da324edd045d3f00ba38edf71f69da9a3b0c394f4",
+            "0xe334230a9d71a37d1b1c6f03a7182ddaba4eaaf8a6b449fde1bb2c6422c6588e",
+            "0x3189cc25e4217d7bf4f788bd16698a9e8137f74051d5a8c6a608e9888e4e585a",
+            "0x50168d345960483668006659313366324315aff37d2bb0af6de40d67e16ea00b",
+            "0x9a91efd8095f6a828d24f0476ba3aa09864ae8f14a0e6dffae6109d73fb04c51",
+            "0x60a9debe7b1ad678911a5a0c8f9e00a60f2c0e930024f70baa52be7971057f75",
+            "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+            "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+            "0x63af4e18eb6e2998d99d03dada6c02d844efe3a3a449adc76ccfafd12c7aacf2"
+          ]
+        }
+      ],
+      "vestings": [
+        {
+          "account": "0x000543D851CD52a6bFD83a1D168D35DeAE4E3590",
+          "curveType": 0,
+          "managed": false,
+          "durationWeeks": 416,
+          "startDate": 1531555200,
+          "amount": "1000000000000330000000",
+          "amountClaimed": "100",
+          "pausingDate": 0,
+          "cancelled": false
+        }
+      ],
+      "expectedTransactions": [
+        {
+          "to": "0x469788fE6E9E9681C6ebF3bF78e7Fd26Fc015446",
+          "data": "0x\n// keccak(setDelegate(bytes32,address))[0..<4]\nbd86e508\n// id: bytes32 == safe.eth utf8 bytes padded to bytes32\n736166652e657468000000000000000000000000000000000000000000000000\n// delegate: address (encoded as uint160)\n000000000000000000000000728cafe9fb8cc2218fb12a9a2d9335193caa07e0 \n"
+        },
+        {
+          "to": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "data": "0x\n// keccak(claimVestedTokens(bytes32,address,uint128))[0..<4]\n166bbd3b\n// vestingId (bytes32) = 0x9eb40c52b1c6e36b1f7af3f361f326601aca4831262a28f219d2cd6f79e0e9aa\n9eb40c52b1c6e36b1f7af3f361f326601aca4831262a28f219d2cd6f79e0e9aa\n// beneficiary (address) = 0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0\n000000000000000000000000728cafe9fb8cc2218fb12a9a2d9335193caa07e0\n// tokensToClaim (uint128) = 100 = 0x64\n0000000000000000000000000000000000000000000000000000000000000064\n"
+        }
+      ]
+    },
+    {
+      "name": "3.4 Partial claiming with unpaused token, only user airdrop, NOT redeemed, delegate not changed",
+      "amount": "100",
+      "beneficiary": "0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
+      "delegate": null,
+      "timestamp": 1783152000,
+      "safeTokenPaused": false,
+      "allocations": [
+        {
+          "tag": "user",
+          "account": "0x000543D851CD52a6bFD83a1D168D35DeAE4E3590",
+          "chainId": 4,
+          "contract": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "vestingId": "0x9eb40c52b1c6e36b1f7af3f361f326601aca4831262a28f219d2cd6f79e0e9aa",
+          "durationWeeks": 416,
+          "startDate": 1531555200,
+          "amount": "1000000000000330000000",
+          "curve": 0,
+          "proof": [
+            "0x8effecbcd044908bbccc482418326488b5692c0b2f3dffb918613f672539171c",
+            "0x773a5c3647e7086a1b52dcb8004a0ce268fbe331908c3ce1923252295774c21d",
+            "0x67e85f675b36971bcbf75135284a12246448ebc19d8ade9220247668d16f9b43",
+            "0x6af4f34ceaedd0344b3cc1e0e0237b1158ebff6bcc76c330b5e0fd2126288899",
+            "0x287bd2b030eadd62bfd9f20600243a23ba2e033f6dc8e3b88dc67acf32658aa2",
+            "0x70f11763035e0b6c0a14e92a8d9b024e276aab3413bdc17b8a2fc4276a56e44b",
+            "0xd99fbb1dbbb3fefb91a0358da324edd045d3f00ba38edf71f69da9a3b0c394f4",
+            "0xe334230a9d71a37d1b1c6f03a7182ddaba4eaaf8a6b449fde1bb2c6422c6588e",
+            "0x3189cc25e4217d7bf4f788bd16698a9e8137f74051d5a8c6a608e9888e4e585a",
+            "0x50168d345960483668006659313366324315aff37d2bb0af6de40d67e16ea00b",
+            "0x9a91efd8095f6a828d24f0476ba3aa09864ae8f14a0e6dffae6109d73fb04c51",
+            "0x60a9debe7b1ad678911a5a0c8f9e00a60f2c0e930024f70baa52be7971057f75",
+            "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+            "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+            "0x63af4e18eb6e2998d99d03dada6c02d844efe3a3a449adc76ccfafd12c7aacf2"
+          ]
+        }
+      ],
+      "vestings": [
+        {
+          "account": "0",
+          "curveType": 0,
+          "managed": false,
+          "durationWeeks": 0,
+          "startDate": 0,
+          "amount": "0",
+          "amountClaimed": "0",
+          "pausingDate": 0,
+          "cancelled": false
+        }
+      ],
+      "expectedTransactions": [
+        {
+          "to": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "data": "0x\n// keccak(redeem(uint8,uint16,uint64,uint128,bytes32[])[0..<4]\nbf6213e4\n// curveType (uint8) = 0\n0000000000000000000000000000000000000000000000000000000000000000\n// durationWeeks (uint16) = 416 = 0x1A0\n00000000000000000000000000000000000000000000000000000000000001a0\n// startDate (uint64) = 1531555200 = 0x5B49AD80\n000000000000000000000000000000000000000000000000000000005b49ad80\n// amount (uint128) = 1000000000000330000000 = 3635c9adc5f24b6680\n00000000000000000000000000000000000000000000003635c9adc5f24b6680\n// proof (bytes32[]). Offset from the start of data to the location of array a0 = 160 bytes = 5 * 32\n00000000000000000000000000000000000000000000000000000000000000a0\n// size of the bytes32[] array: f = 15\n000000000000000000000000000000000000000000000000000000000000000f\n// element at index 0\n8effecbcd044908bbccc482418326488b5692c0b2f3dffb918613f672539171c\n773a5c3647e7086a1b52dcb8004a0ce268fbe331908c3ce1923252295774c21d\n67e85f675b36971bcbf75135284a12246448ebc19d8ade9220247668d16f9b43\n6af4f34ceaedd0344b3cc1e0e0237b1158ebff6bcc76c330b5e0fd2126288899\n287bd2b030eadd62bfd9f20600243a23ba2e033f6dc8e3b88dc67acf32658aa2\n70f11763035e0b6c0a14e92a8d9b024e276aab3413bdc17b8a2fc4276a56e44b\nd99fbb1dbbb3fefb91a0358da324edd045d3f00ba38edf71f69da9a3b0c394f4\ne334230a9d71a37d1b1c6f03a7182ddaba4eaaf8a6b449fde1bb2c6422c6588e\n3189cc25e4217d7bf4f788bd16698a9e8137f74051d5a8c6a608e9888e4e585a\n50168d345960483668006659313366324315aff37d2bb0af6de40d67e16ea00b\n9a91efd8095f6a828d24f0476ba3aa09864ae8f14a0e6dffae6109d73fb04c51\n60a9debe7b1ad678911a5a0c8f9e00a60f2c0e930024f70baa52be7971057f75\nc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\nc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\n// element at index 14\n63af4e18eb6e2998d99d03dada6c02d844efe3a3a449adc76ccfafd12c7aacf2\n"
+        },
+        {
+          "to": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "data": "0x\n// keccak(claimVestedTokens(bytes32,address,uint128))[0..<4]\n166bbd3b\n// vestingId (bytes32) = 0x9eb40c52b1c6e36b1f7af3f361f326601aca4831262a28f219d2cd6f79e0e9aa\n9eb40c52b1c6e36b1f7af3f361f326601aca4831262a28f219d2cd6f79e0e9aa\n// beneficiary (address) = 0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0\n000000000000000000000000728cafe9fb8cc2218fb12a9a2d9335193caa07e0\n// tokensToClaim (uint128) = 100 = 0x64\n0000000000000000000000000000000000000000000000000000000000000064\n"
+        }
+      ]
+    },
+    {
+      "name": "4.1 Full available user and part of ecosystem, paused token, nothing redeemed, delegate provided",
+      "amount": "1000210000000000000001",
+      "beneficiary": "0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
+      "delegate": "0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
+      "timestamp": 1657353600,
+      "safeTokenPaused": true,
+      "allocations": [
+        {
+          "tag": "user",
+          "account": "0x08f6466dD7891ac9A60C769c7521b0CF2F60c153",
+          "chainId": 4,
+          "contract": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "vestingId": "0x0b50e2692d2443f57822fc725907ab0baf0b9742e31951b888885838e87b44c6",
+          "durationWeeks": 416,
+          "startDate": 1531555200,
+          "amount": "2000420000000000000000",
+          "curve": 0,
+          "proof": [
+            "0xdbb66714cafdf8b770440e2998367a857d7e196de5e32265a1e84a89e87ea7a5",
+            "0xb9eee01128885b6b2ed7c7dcffa19763110ea96ee515e032f3c10ca1365d3fe4",
+            "0x4954c7b1d203137363520fd0966cd4cc8574fdb2255e97d24b54e9af0f250945",
+            "0x165cfb52bde39930e700a3a6dd0ba7bbedfcb75ca7f161a572f125e8f9f8f1c3",
+            "0x55263768053978f42aee8e94934d267ef025f2cf597d55421577157e34a48922",
+            "0x059d29d86a3996b4c73e0344079b590a70a8530664c93e5083cf2e67636f870e",
+            "0x45d6f3830ef108261beccddfc7089ef065980c616d14a21ba21293d1f0db7f83",
+            "0x1ec91817fdaa43076585e4db754498bb4330fb893b6a1519e14be33934841f7a",
+            "0x7ff694df9838ef2b1716c35350f6a6a2efbfaf62174317eeef523f37f0484d12",
+            "0x770470bbdfe861674199175ffbbe7bd23532c09edd075048327bc607b0cc6e65",
+            "0x94734b2a12428bab5bbe9f6ab8a63f076ae1f35be5841a973c0e364849c00537",
+            "0xeb2417f1ecbcb9ff6185810cb36c3d7fa39379a20b9e9082f3510b29d462b4e8",
+            "0xbdb83560b2f30e1068405da69ad45cb97325a50658570108c938d8ad0dce1cf6",
+            "0x791267d6ca356bfcedbaed4ec881eb583c63ae6178ceab43be910f54a6219884",
+            "0x115ecd04abc5dff25699b5fe93195801615071ddbda1e92e0a3591795114ef74"
+          ]
+        },
+        {
+          "tag": "ecosystem",
+          "account": "0x08f6466dD7891ac9A60C769c7521b0CF2F60c153",
+          "chainId": 4,
+          "contract": "0x82F1267759e9Bea202a46f8FC04704b6A5E2Af77",
+          "vestingId": "0x7d5a328f8b25dcdb7326dc2915012a690517458c3437911abc782c6a628c5be5",
+          "durationWeeks": 416,
+          "startDate": 1531555200,
+          "amount": "23023120000000000000000",
+          "curve": 0,
+          "proof": [
+            "0xb0948f41fa550b5166948ccc363ff7af0376d4877a37c60464e18511487e10a6",
+            "0x6b15686b8b6c5e7af25457a5b53cf80dfb9daeda24c6b1b50d0778129a07c4b9",
+            "0xb772c0453d61fca2b40299ffad4dd51cf00025d56e32e823a4e613ef05866373",
+            "0xfa72a713569a177d6ca8ceaf3038f4c462a95c59660a5875a9d1666394d8eabf",
+            "0x3755b0c14b83a4e42b3d58febf9b819d98e438f2ba2154d6bc47fa4ba3c41b30"
+          ]
+        }
+      ],
+      "vestings": [
+        {
+          "account": "0",
+          "curveType": 0,
+          "managed": false,
+          "durationWeeks": 0,
+          "startDate": 0,
+          "amount": "0",
+          "amountClaimed": "0",
+          "pausingDate": 0,
+          "cancelled": false
+        },
+        {
+          "account": "0",
+          "curveType": 0,
+          "managed": false,
+          "durationWeeks": 0,
+          "startDate": 0,
+          "amount": "0",
+          "amountClaimed": "0",
+          "pausingDate": 0,
+          "cancelled": false
+        }
+      ],
+      "expectedTransactions": [
+        {
+          "to": "0x469788fE6E9E9681C6ebF3bF78e7Fd26Fc015446",
+          "data": "0x\n// keccak(setDelegate(bytes32,address))[0..<4]\nbd86e508\n// id: bytes32 == safe.eth utf8 bytes padded to bytes32\n736166652e657468000000000000000000000000000000000000000000000000\n// delegate: address (encoded as uint160)\n000000000000000000000000728cafe9fb8cc2218fb12a9a2d9335193caa07e0 \n"
+        },
+        {
+          "to": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "data": "0x\n// keccak(redeem(uint8,uint16,uint64,uint128,bytes32[])[0..<4]\nbf6213e4\n// curveType (uint8) = 0\n0000000000000000000000000000000000000000000000000000000000000000\n// durationWeeks (uint16) = 416 = 0x1A0\n00000000000000000000000000000000000000000000000000000000000001a0\n// startDate (uint64) = 1531555200 = 0x5B49AD80\n000000000000000000000000000000000000000000000000000000005b49ad80\n// amount (uint128) = 2000420000000000000000 = 6c71677f5212ea0000\n00000000000000000000000000000000000000000000006c71677f5212ea0000\n// proof (bytes32[]). Offset from the start of data to the location of array a0 = 160 bytes = 5 * 32\n00000000000000000000000000000000000000000000000000000000000000a0\n// size of the bytes32[] array: f = 15\n000000000000000000000000000000000000000000000000000000000000000f\n// element at index 0\ndbb66714cafdf8b770440e2998367a857d7e196de5e32265a1e84a89e87ea7a5\nb9eee01128885b6b2ed7c7dcffa19763110ea96ee515e032f3c10ca1365d3fe4\n4954c7b1d203137363520fd0966cd4cc8574fdb2255e97d24b54e9af0f250945\n165cfb52bde39930e700a3a6dd0ba7bbedfcb75ca7f161a572f125e8f9f8f1c3\n55263768053978f42aee8e94934d267ef025f2cf597d55421577157e34a48922\n059d29d86a3996b4c73e0344079b590a70a8530664c93e5083cf2e67636f870e\n45d6f3830ef108261beccddfc7089ef065980c616d14a21ba21293d1f0db7f83\n1ec91817fdaa43076585e4db754498bb4330fb893b6a1519e14be33934841f7a\n7ff694df9838ef2b1716c35350f6a6a2efbfaf62174317eeef523f37f0484d12\n770470bbdfe861674199175ffbbe7bd23532c09edd075048327bc607b0cc6e65\n94734b2a12428bab5bbe9f6ab8a63f076ae1f35be5841a973c0e364849c00537\neb2417f1ecbcb9ff6185810cb36c3d7fa39379a20b9e9082f3510b29d462b4e8\nbdb83560b2f30e1068405da69ad45cb97325a50658570108c938d8ad0dce1cf6\n791267d6ca356bfcedbaed4ec881eb583c63ae6178ceab43be910f54a6219884\n// element at index 14\n115ecd04abc5dff25699b5fe93195801615071ddbda1e92e0a3591795114ef74\n"
+        },
+        {
+          "to": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "data": "0x\n// keccak(claimVestedTokensViaModule(bytes32,address,uint128))[0..<4]\n0087b83f\n// vestingId (bytes32) = 0x0b50e2692d2443f57822fc725907ab0baf0b9742e31951b888885838e87b44c6\n0b50e2692d2443f57822fc725907ab0baf0b9742e31951b888885838e87b44c6\n// beneficiary (address) = 0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0\n000000000000000000000000728cafe9fb8cc2218fb12a9a2d9335193caa07e0\n// tokensToClaim (uint128) = 1000210000000000000000 = 0x3638b3bfa909750000\n00000000000000000000000000000000000000000000003638b3bfa909750000\n"
+        },
+        {
+          "to": "0x82F1267759e9Bea202a46f8FC04704b6A5E2Af77",
+          "data": "0x\n// keccak(redeem(uint8,uint16,uint64,uint128,bytes32[])[0..<4]\nbf6213e4\n// curveType (uint8) = 0\n0000000000000000000000000000000000000000000000000000000000000000\n// durationWeeks (uint16) = 416 = 0x1A0\n00000000000000000000000000000000000000000000000000000000000001a0\n// startDate (uint64) = 1531555200 = 0x5B49AD80\n000000000000000000000000000000000000000000000000000000005b49ad80\n// amount (uint128) = 23023120000000000000000 = 4e015f95a4847680000\n0000000000000000000000000000000000000000000004e015f95a4847680000\n// proof (bytes32[]). Offset from the start of data to the location of array a0 = 160 bytes = 5 * 32\n00000000000000000000000000000000000000000000000000000000000000a0\n// size of the bytes32[] array: 5 = 5\n0000000000000000000000000000000000000000000000000000000000000005\n// element at index 0\nb0948f41fa550b5166948ccc363ff7af0376d4877a37c60464e18511487e10a6\n6b15686b8b6c5e7af25457a5b53cf80dfb9daeda24c6b1b50d0778129a07c4b9\nb772c0453d61fca2b40299ffad4dd51cf00025d56e32e823a4e613ef05866373\nfa72a713569a177d6ca8ceaf3038f4c462a95c59660a5875a9d1666394d8eabf\n3755b0c14b83a4e42b3d58febf9b819d98e438f2ba2154d6bc47fa4ba3c41b30\n"
+        },
+        {
+          "to": "0x82F1267759e9Bea202a46f8FC04704b6A5E2Af77",
+          "data": "0x\n// keccak(claimVestedTokensViaModule(bytes32,address,uint128))[0..<4]\n0087b83f\n// vestingId (bytes32) = 0x7d5a328f8b25dcdb7326dc2915012a690517458c3437911abc782c6a628c5be5\n7d5a328f8b25dcdb7326dc2915012a690517458c3437911abc782c6a628c5be5\n// beneficiary (address) = 0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0\n000000000000000000000000728cafe9fb8cc2218fb12a9a2d9335193caa07e0\n// tokensToClaim (uint128) = 1 = 0x1\n0000000000000000000000000000000000000000000000000000000000000001\n"
+        }
+      ]
+    },
+    {
+      "name": "5.1 Full available user and full available ecosystem, paused token, nothing redeemed, delegate provided",
+      "amount": "12511770000000000000000",
+      "beneficiary": "0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
+      "delegate": "0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
+      "timestamp": 1657353600,
+      "safeTokenPaused": true,
+      "allocations": [
+        {
+          "tag": "user",
+          "account": "0x08f6466dD7891ac9A60C769c7521b0CF2F60c153",
+          "chainId": 4,
+          "contract": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "vestingId": "0x0b50e2692d2443f57822fc725907ab0baf0b9742e31951b888885838e87b44c6",
+          "durationWeeks": 416,
+          "startDate": 1531555200,
+          "amount": "2000420000000000000000",
+          "curve": 0,
+          "proof": [
+            "0xdbb66714cafdf8b770440e2998367a857d7e196de5e32265a1e84a89e87ea7a5",
+            "0xb9eee01128885b6b2ed7c7dcffa19763110ea96ee515e032f3c10ca1365d3fe4",
+            "0x4954c7b1d203137363520fd0966cd4cc8574fdb2255e97d24b54e9af0f250945",
+            "0x165cfb52bde39930e700a3a6dd0ba7bbedfcb75ca7f161a572f125e8f9f8f1c3",
+            "0x55263768053978f42aee8e94934d267ef025f2cf597d55421577157e34a48922",
+            "0x059d29d86a3996b4c73e0344079b590a70a8530664c93e5083cf2e67636f870e",
+            "0x45d6f3830ef108261beccddfc7089ef065980c616d14a21ba21293d1f0db7f83",
+            "0x1ec91817fdaa43076585e4db754498bb4330fb893b6a1519e14be33934841f7a",
+            "0x7ff694df9838ef2b1716c35350f6a6a2efbfaf62174317eeef523f37f0484d12",
+            "0x770470bbdfe861674199175ffbbe7bd23532c09edd075048327bc607b0cc6e65",
+            "0x94734b2a12428bab5bbe9f6ab8a63f076ae1f35be5841a973c0e364849c00537",
+            "0xeb2417f1ecbcb9ff6185810cb36c3d7fa39379a20b9e9082f3510b29d462b4e8",
+            "0xbdb83560b2f30e1068405da69ad45cb97325a50658570108c938d8ad0dce1cf6",
+            "0x791267d6ca356bfcedbaed4ec881eb583c63ae6178ceab43be910f54a6219884",
+            "0x115ecd04abc5dff25699b5fe93195801615071ddbda1e92e0a3591795114ef74"
+          ]
+        },
+        {
+          "tag": "ecosystem",
+          "account": "0x08f6466dD7891ac9A60C769c7521b0CF2F60c153",
+          "chainId": 4,
+          "contract": "0x82F1267759e9Bea202a46f8FC04704b6A5E2Af77",
+          "vestingId": "0x7d5a328f8b25dcdb7326dc2915012a690517458c3437911abc782c6a628c5be5",
+          "durationWeeks": 416,
+          "startDate": 1531555200,
+          "amount": "23023120000000000000000",
+          "curve": 0,
+          "proof": [
+            "0xb0948f41fa550b5166948ccc363ff7af0376d4877a37c60464e18511487e10a6",
+            "0x6b15686b8b6c5e7af25457a5b53cf80dfb9daeda24c6b1b50d0778129a07c4b9",
+            "0xb772c0453d61fca2b40299ffad4dd51cf00025d56e32e823a4e613ef05866373",
+            "0xfa72a713569a177d6ca8ceaf3038f4c462a95c59660a5875a9d1666394d8eabf",
+            "0x3755b0c14b83a4e42b3d58febf9b819d98e438f2ba2154d6bc47fa4ba3c41b30"
+          ]
+        }
+      ],
+      "vestings": [
+        {
+          "account": "0",
+          "curveType": 0,
+          "managed": false,
+          "durationWeeks": 0,
+          "startDate": 0,
+          "amount": "0",
+          "amountClaimed": "0",
+          "pausingDate": 0,
+          "cancelled": false
+        },
+        {
+          "account": "0",
+          "curveType": 0,
+          "managed": false,
+          "durationWeeks": 0,
+          "startDate": 0,
+          "amount": "0",
+          "amountClaimed": "0",
+          "pausingDate": 0,
+          "cancelled": false
+        }
+      ],
+      "expectedTransactions": [
+        {
+          "to": "0x469788fE6E9E9681C6ebF3bF78e7Fd26Fc015446",
+          "data": "0x\n// keccak(setDelegate(bytes32,address))[0..<4]\nbd86e508\n// id: bytes32 == safe.eth utf8 bytes padded to bytes32\n736166652e657468000000000000000000000000000000000000000000000000\n// delegate: address (encoded as uint160)\n000000000000000000000000728cafe9fb8cc2218fb12a9a2d9335193caa07e0 \n"
+        },
+        {
+          "to": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "data": "0x\n// keccak(redeem(uint8,uint16,uint64,uint128,bytes32[])[0..<4]\nbf6213e4\n// curveType (uint8) = 0\n0000000000000000000000000000000000000000000000000000000000000000\n// durationWeeks (uint16) = 416 = 0x1A0\n00000000000000000000000000000000000000000000000000000000000001a0\n// startDate (uint64) = 1531555200 = 0x5B49AD80\n000000000000000000000000000000000000000000000000000000005b49ad80\n// amount (uint128) = 2000420000000000000000 = 6c71677f5212ea0000\n00000000000000000000000000000000000000000000006c71677f5212ea0000\n// proof (bytes32[]). Offset from the start of data to the location of array a0 = 160 bytes = 5 * 32\n00000000000000000000000000000000000000000000000000000000000000a0\n// size of the bytes32[] array: f = 15\n000000000000000000000000000000000000000000000000000000000000000f\n// element at index 0\ndbb66714cafdf8b770440e2998367a857d7e196de5e32265a1e84a89e87ea7a5\nb9eee01128885b6b2ed7c7dcffa19763110ea96ee515e032f3c10ca1365d3fe4\n4954c7b1d203137363520fd0966cd4cc8574fdb2255e97d24b54e9af0f250945\n165cfb52bde39930e700a3a6dd0ba7bbedfcb75ca7f161a572f125e8f9f8f1c3\n55263768053978f42aee8e94934d267ef025f2cf597d55421577157e34a48922\n059d29d86a3996b4c73e0344079b590a70a8530664c93e5083cf2e67636f870e\n45d6f3830ef108261beccddfc7089ef065980c616d14a21ba21293d1f0db7f83\n1ec91817fdaa43076585e4db754498bb4330fb893b6a1519e14be33934841f7a\n7ff694df9838ef2b1716c35350f6a6a2efbfaf62174317eeef523f37f0484d12\n770470bbdfe861674199175ffbbe7bd23532c09edd075048327bc607b0cc6e65\n94734b2a12428bab5bbe9f6ab8a63f076ae1f35be5841a973c0e364849c00537\neb2417f1ecbcb9ff6185810cb36c3d7fa39379a20b9e9082f3510b29d462b4e8\nbdb83560b2f30e1068405da69ad45cb97325a50658570108c938d8ad0dce1cf6\n791267d6ca356bfcedbaed4ec881eb583c63ae6178ceab43be910f54a6219884\n// element at index 14\n115ecd04abc5dff25699b5fe93195801615071ddbda1e92e0a3591795114ef74\n"
+        },
+        {
+          "to": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "data": "0x\n// keccak(claimVestedTokensViaModule(bytes32,address,uint128))[0..<4]\n0087b83f\n// vestingId (bytes32) = 0x0b50e2692d2443f57822fc725907ab0baf0b9742e31951b888885838e87b44c6\n0b50e2692d2443f57822fc725907ab0baf0b9742e31951b888885838e87b44c6\n// beneficiary (address) = 0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0\n000000000000000000000000728cafe9fb8cc2218fb12a9a2d9335193caa07e0\n// tokensToClaim (uint128) = 1000210000000000000000 = 0x3638b3bfa909750000\n00000000000000000000000000000000000000000000003638b3bfa909750000\n"
+        },
+        {
+          "to": "0x82F1267759e9Bea202a46f8FC04704b6A5E2Af77",
+          "data": "0x\n// keccak(redeem(uint8,uint16,uint64,uint128,bytes32[])[0..<4]\nbf6213e4\n// curveType (uint8) = 0\n0000000000000000000000000000000000000000000000000000000000000000\n// durationWeeks (uint16) = 416 = 0x1A0\n00000000000000000000000000000000000000000000000000000000000001a0\n// startDate (uint64) = 1531555200 = 0x5B49AD80\n000000000000000000000000000000000000000000000000000000005b49ad80\n// amount (uint128) = 23023120000000000000000 = 4e015f95a4847680000\n0000000000000000000000000000000000000000000004e015f95a4847680000\n// proof (bytes32[]). Offset from the start of data to the location of array a0 = 160 bytes = 5 * 32\n00000000000000000000000000000000000000000000000000000000000000a0\n// size of the bytes32[] array: 5 = 5\n0000000000000000000000000000000000000000000000000000000000000005\n// element at index 0\nb0948f41fa550b5166948ccc363ff7af0376d4877a37c60464e18511487e10a6\n6b15686b8b6c5e7af25457a5b53cf80dfb9daeda24c6b1b50d0778129a07c4b9\nb772c0453d61fca2b40299ffad4dd51cf00025d56e32e823a4e613ef05866373\nfa72a713569a177d6ca8ceaf3038f4c462a95c59660a5875a9d1666394d8eabf\n3755b0c14b83a4e42b3d58febf9b819d98e438f2ba2154d6bc47fa4ba3c41b30\n"
+        },
+        {
+          "to": "0x82F1267759e9Bea202a46f8FC04704b6A5E2Af77",
+          "data": "0x\n// keccak(claimVestedTokensViaModule(bytes32,address,uint128))[0..<4]\n0087b83f\n// vestingId (bytes32) = 0x7d5a328f8b25dcdb7326dc2915012a690517458c3437911abc782c6a628c5be5\n7d5a328f8b25dcdb7326dc2915012a690517458c3437911abc782c6a628c5be5\n// beneficiary (address) = 0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0\n000000000000000000000000728cafe9fb8cc2218fb12a9a2d9335193caa07e0\n// tokensToClaim (uint128) = 11511560000000000000000 = 2700afcad2423b40000\n0000000000000000000000000000000000000000000002700afcad2423b40000\n"
+        }
+      ]
+    },
+    {
+      "name": "5.2 Full available user and full available ecosystem, unpaused token, all redeemed, delegate NOT provided",
+      "amount": "12511769999999999999700",
+      "beneficiary": "0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
+      "delegate": null,
+      "timestamp": 1657353600,
+      "safeTokenPaused": false,
+      "allocations": [
+        {
+          "tag": "user",
+          "account": "0x08f6466dD7891ac9A60C769c7521b0CF2F60c153",
+          "chainId": 4,
+          "contract": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "vestingId": "0x0b50e2692d2443f57822fc725907ab0baf0b9742e31951b888885838e87b44c6",
+          "durationWeeks": 416,
+          "startDate": 1531555200,
+          "amount": "2000420000000000000000",
+          "curve": 0,
+          "proof": [
+            "0xdbb66714cafdf8b770440e2998367a857d7e196de5e32265a1e84a89e87ea7a5",
+            "0xb9eee01128885b6b2ed7c7dcffa19763110ea96ee515e032f3c10ca1365d3fe4",
+            "0x4954c7b1d203137363520fd0966cd4cc8574fdb2255e97d24b54e9af0f250945",
+            "0x165cfb52bde39930e700a3a6dd0ba7bbedfcb75ca7f161a572f125e8f9f8f1c3",
+            "0x55263768053978f42aee8e94934d267ef025f2cf597d55421577157e34a48922",
+            "0x059d29d86a3996b4c73e0344079b590a70a8530664c93e5083cf2e67636f870e",
+            "0x45d6f3830ef108261beccddfc7089ef065980c616d14a21ba21293d1f0db7f83",
+            "0x1ec91817fdaa43076585e4db754498bb4330fb893b6a1519e14be33934841f7a",
+            "0x7ff694df9838ef2b1716c35350f6a6a2efbfaf62174317eeef523f37f0484d12",
+            "0x770470bbdfe861674199175ffbbe7bd23532c09edd075048327bc607b0cc6e65",
+            "0x94734b2a12428bab5bbe9f6ab8a63f076ae1f35be5841a973c0e364849c00537",
+            "0xeb2417f1ecbcb9ff6185810cb36c3d7fa39379a20b9e9082f3510b29d462b4e8",
+            "0xbdb83560b2f30e1068405da69ad45cb97325a50658570108c938d8ad0dce1cf6",
+            "0x791267d6ca356bfcedbaed4ec881eb583c63ae6178ceab43be910f54a6219884",
+            "0x115ecd04abc5dff25699b5fe93195801615071ddbda1e92e0a3591795114ef74"
+          ]
+        },
+        {
+          "tag": "ecosystem",
+          "account": "0x08f6466dD7891ac9A60C769c7521b0CF2F60c153",
+          "chainId": 4,
+          "contract": "0x82F1267759e9Bea202a46f8FC04704b6A5E2Af77",
+          "vestingId": "0x7d5a328f8b25dcdb7326dc2915012a690517458c3437911abc782c6a628c5be5",
+          "durationWeeks": 416,
+          "startDate": 1531555200,
+          "amount": "23023120000000000000000",
+          "curve": 0,
+          "proof": [
+            "0xb0948f41fa550b5166948ccc363ff7af0376d4877a37c60464e18511487e10a6",
+            "0x6b15686b8b6c5e7af25457a5b53cf80dfb9daeda24c6b1b50d0778129a07c4b9",
+            "0xb772c0453d61fca2b40299ffad4dd51cf00025d56e32e823a4e613ef05866373",
+            "0xfa72a713569a177d6ca8ceaf3038f4c462a95c59660a5875a9d1666394d8eabf",
+            "0x3755b0c14b83a4e42b3d58febf9b819d98e438f2ba2154d6bc47fa4ba3c41b30"
+          ]
+        }
+      ],
+      "vestings": [
+        {
+          "account": "0x08f6466dD7891ac9A60C769c7521b0CF2F60c153",
+          "curveType": 0,
+          "managed": false,
+          "durationWeeks": 416,
+          "startDate": 1531555200,
+          "amount": "2000420000000000000000",
+          "amountClaimed": "100",
+          "pausingDate": 0,
+          "cancelled": false
+        },
+        {
+          "account": "0x08f6466dD7891ac9A60C769c7521b0CF2F60c153",
+          "curveType": 0,
+          "managed": false,
+          "durationWeeks": 416,
+          "startDate": 1531555200,
+          "amount": "23023120000000000000000",
+          "amountClaimed": "200",
+          "pausingDate": 0,
+          "cancelled": false
+        }
+      ],
+      "expectedTransactions": [
+        {
+          "to": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "data": "0x\n// keccak(claimVestedTokens(bytes32,address,uint128))[0..<4]\n166bbd3b\n// vestingId (bytes32) = 0x0b50e2692d2443f57822fc725907ab0baf0b9742e31951b888885838e87b44c6\n0b50e2692d2443f57822fc725907ab0baf0b9742e31951b888885838e87b44c6\n// beneficiary (address) = 0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0\n000000000000000000000000728cafe9fb8cc2218fb12a9a2d9335193caa07e0\n// tokensToClaim (uint128) = 1000209999999999999900 = 0x3638b3bfa90974ff9c\n00000000000000000000000000000000000000000000003638b3bfa90974ff9c\n"
+        },
+        {
+          "to": "0x82F1267759e9Bea202a46f8FC04704b6A5E2Af77",
+          "data": "0x\n// keccak(claimVestedTokens(bytes32,address,uint128))[0..<4]\n166bbd3b\n// vestingId (bytes32) = 0x7d5a328f8b25dcdb7326dc2915012a690517458c3437911abc782c6a628c5be5\n7d5a328f8b25dcdb7326dc2915012a690517458c3437911abc782c6a628c5be5\n// beneficiary (address) = 0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0\n000000000000000000000000728cafe9fb8cc2218fb12a9a2d9335193caa07e0\n// tokensToClaim (uint128) = 11511559999999999999800 = 0x2700afcad2423b3ff38\n0000000000000000000000000000000000000000000002700afcad2423b3ff38\n"
+        }
+      ]
+    },
+    {
+      "name": "6.1 Claiming MAX value for user airdrop, delegate provided, ecosystem airdrop not eligible",
+      "amount": "340282366920938463463374607431768211455",
+      "beneficiary": "0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
+      "delegate": "0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
+      "timestamp": 1615420800,
+      "safeTokenPaused": true,
+      "allocations": [
+        {
+          "tag": "user",
+          "account": "0x000543D851CD52a6bFD83a1D168D35DeAE4E3590",
+          "chainId": 4,
+          "contract": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "vestingId": "0x9eb40c52b1c6e36b1f7af3f361f326601aca4831262a28f219d2cd6f79e0e9aa",
+          "durationWeeks": 416,
+          "startDate": 1531555200,
+          "amount": "1000000000000330000000",
+          "curve": 0,
+          "proof": [
+            "0x8effecbcd044908bbccc482418326488b5692c0b2f3dffb918613f672539171c",
+            "0x773a5c3647e7086a1b52dcb8004a0ce268fbe331908c3ce1923252295774c21d",
+            "0x67e85f675b36971bcbf75135284a12246448ebc19d8ade9220247668d16f9b43",
+            "0x6af4f34ceaedd0344b3cc1e0e0237b1158ebff6bcc76c330b5e0fd2126288899",
+            "0x287bd2b030eadd62bfd9f20600243a23ba2e033f6dc8e3b88dc67acf32658aa2",
+            "0x70f11763035e0b6c0a14e92a8d9b024e276aab3413bdc17b8a2fc4276a56e44b",
+            "0xd99fbb1dbbb3fefb91a0358da324edd045d3f00ba38edf71f69da9a3b0c394f4",
+            "0xe334230a9d71a37d1b1c6f03a7182ddaba4eaaf8a6b449fde1bb2c6422c6588e",
+            "0x3189cc25e4217d7bf4f788bd16698a9e8137f74051d5a8c6a608e9888e4e585a",
+            "0x50168d345960483668006659313366324315aff37d2bb0af6de40d67e16ea00b",
+            "0x9a91efd8095f6a828d24f0476ba3aa09864ae8f14a0e6dffae6109d73fb04c51",
+            "0x60a9debe7b1ad678911a5a0c8f9e00a60f2c0e930024f70baa52be7971057f75",
+            "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+            "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+            "0x63af4e18eb6e2998d99d03dada6c02d844efe3a3a449adc76ccfafd12c7aacf2"
+          ]
+        }
+      ],
+      "vestings": [
+        {
+          "account": "0",
+          "curveType": 0,
+          "managed": false,
+          "durationWeeks": 0,
+          "startDate": 0,
+          "amount": "0",
+          "amountClaimed": "0",
+          "pausingDate": 0,
+          "cancelled": false
+        }
+      ],
+      "expectedTransactions": [
+        {
+          "to": "0x469788fE6E9E9681C6ebF3bF78e7Fd26Fc015446",
+          "data": "0x\n// keccak(setDelegate(bytes32,address))[0..<4]\nbd86e508\n// id: bytes32 == safe.eth utf8 bytes padded to bytes32\n736166652e657468000000000000000000000000000000000000000000000000\n// delegate: address (encoded as uint160)\n000000000000000000000000728cafe9fb8cc2218fb12a9a2d9335193caa07e0 \n"
+        },
+        {
+          "to": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "data": "0x\n// keccak(redeem(uint8,uint16,uint64,uint128,bytes32[])[0..<4]\nbf6213e4\n// curveType (uint8) = 0\n0000000000000000000000000000000000000000000000000000000000000000\n// durationWeeks (uint16) = 416 = 0x1A0\n00000000000000000000000000000000000000000000000000000000000001a0\n// startDate (uint64) = 1531555200 = 0x5B49AD80\n000000000000000000000000000000000000000000000000000000005b49ad80\n// amount (uint128) = 1000000000000330000000 = 3635c9adc5f24b6680\n00000000000000000000000000000000000000000000003635c9adc5f24b6680\n// proof (bytes32[]). Offset from the start of data to the location of array a0 = 160 bytes = 5 * 32\n00000000000000000000000000000000000000000000000000000000000000a0\n// size of the bytes32[] array: f = 15\n000000000000000000000000000000000000000000000000000000000000000f\n// element at index 0\n8effecbcd044908bbccc482418326488b5692c0b2f3dffb918613f672539171c\n773a5c3647e7086a1b52dcb8004a0ce268fbe331908c3ce1923252295774c21d\n67e85f675b36971bcbf75135284a12246448ebc19d8ade9220247668d16f9b43\n6af4f34ceaedd0344b3cc1e0e0237b1158ebff6bcc76c330b5e0fd2126288899\n287bd2b030eadd62bfd9f20600243a23ba2e033f6dc8e3b88dc67acf32658aa2\n70f11763035e0b6c0a14e92a8d9b024e276aab3413bdc17b8a2fc4276a56e44b\nd99fbb1dbbb3fefb91a0358da324edd045d3f00ba38edf71f69da9a3b0c394f4\ne334230a9d71a37d1b1c6f03a7182ddaba4eaaf8a6b449fde1bb2c6422c6588e\n3189cc25e4217d7bf4f788bd16698a9e8137f74051d5a8c6a608e9888e4e585a\n50168d345960483668006659313366324315aff37d2bb0af6de40d67e16ea00b\n9a91efd8095f6a828d24f0476ba3aa09864ae8f14a0e6dffae6109d73fb04c51\n60a9debe7b1ad678911a5a0c8f9e00a60f2c0e930024f70baa52be7971057f75\nc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\nc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470\n// element at index 14\n63af4e18eb6e2998d99d03dada6c02d844efe3a3a449adc76ccfafd12c7aacf2\n"
+        },
+        {
+          "to": "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
+          "data": "0x\n// keccak(claimVestedTokensViaModule(bytes32,address,uint128))[0..<4]\n0087b83f\n// vestingId (bytes32) = 0x9eb40c52b1c6e36b1f7af3f361f326601aca4831262a28f219d2cd6f79e0e9aa\n9eb40c52b1c6e36b1f7af3f361f326601aca4831262a28f219d2cd6f79e0e9aa\n// beneficiary (address) = 0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0\n000000000000000000000000728cafe9fb8cc2218fb12a9a2d9335193caa07e0\n// tokensToClaim (uint128) = 0xffffffffffffffffffffffffffffffff\n00000000000000000000000000000000ffffffffffffffffffffffffffffffff\n"
+        }
+      ]
+    }
+  ]
+}

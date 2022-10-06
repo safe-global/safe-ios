@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "16PxAlertYellow.pdf",
+      "filename" : "ico-warning.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "16PxAlertYellow-1.pdf",
+      "filename" : "ico-warning-dark.pdf",
       "idiom" : "universal"
     }
   ],

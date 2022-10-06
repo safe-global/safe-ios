@@ -10,11 +10,12 @@ import Foundation
 
 struct AllocationsRequest: JSONRequest {
     var account: Address
+    var chainId: String
 
     var httpMethod: String { "GET" }
 
     var urlPath: String {
-        "/claiming-app-data/resources/data/allocations/\(account.hexadecimal).json"
+        "/allocations/\(chainId)/\(account.checksummed).json"
     }
 
     typealias ResponseType = [Allocation]
@@ -25,7 +26,7 @@ struct AllocationsRequest: JSONRequest {
 }
 
 extension SafeClaimingService {
-    func asyncAllocations(account: Address, completion: @escaping (Result<AllocationsRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
-        asyncExecute(request: AllocationsRequest(account: account), completion: completion)
+    func asyncAllocations(account: Address, chainId: String, completion: @escaping (Result<AllocationsRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: AllocationsRequest(account: account, chainId: chainId), completion: completion)
     }
 }

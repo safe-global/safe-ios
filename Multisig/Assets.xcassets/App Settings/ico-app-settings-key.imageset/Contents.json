@@ -3,6 +3,16 @@
     {
       "filename" : "ico-app-settings-key.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-app-settings-key-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

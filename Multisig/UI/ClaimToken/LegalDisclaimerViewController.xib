@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LegalDisclaimerViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="agreeButton" destination="J2t-Zm-rfc" id="Vmd-bU-fEB"/>
+                <outlet property="textLabel" destination="yVq-6N-I8z" id="YzA-ta-JnT"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="claim-background-gradient" translatesAutoresizingMaskIntoConstraints="NO" id="Cbb-qH-Axe">
+                    <rect key="frame" x="0.0" y="48" width="414" height="700"/>
+                </imageView>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hho-1B-73p">
+                    <rect key="frame" x="16" y="16" width="382" height="766"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yVq-6N-I8z">
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="818"/>
+                            <string key="text">This app is for our community to encourage Safe ecosystem contributors and users to unlock SafeDAO governance.
+THIS APP IS PROVIDED “AS IS” AND “AS AVAILABLE,” AT YOUR OWN RISK, AND WITHOUT WARRANTIES OF ANY KIND. 
+We will not be liable for any loss, whether such loss is direct, indirect, special or consequential, suffered by any party as a result of their use of this app.
+By accessing this app, you represent and warrant:
+- that you are of legal age and that you will comply with any laws applicable to you and not engage in any illegal activities;
+- that you are claiming Safe tokens to participate in the SafeDAO governance process and that they do not represent consideration for past or future services;
+- that you, the country you are a resident of and your wallet address is not on any sanctions lists maintained by the United Nations, Switzerland, the EU, UK or the US;
+- that you are responsible for any tax obligations arising out of the interaction with this app.
+
+None of the information available on this app, or made otherwise available to you in relation to its use, constitutes any legal, tax, financial or other advice. Where in doubt as to the action you should take, please consult your own legal, financial, tax or other professional advisors.</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="yVq-6N-I8z" firstAttribute="bottom" secondItem="92Z-Uj-EXN" secondAttribute="bottom" constant="-20" id="2Wb-Hd-iMz"/>
+                        <constraint firstItem="yVq-6N-I8z" firstAttribute="trailing" secondItem="92Z-Uj-EXN" secondAttribute="trailing" id="Qpr-fJ-AzE"/>
+                        <constraint firstItem="yVq-6N-I8z" firstAttribute="leading" secondItem="92Z-Uj-EXN" secondAttribute="leading" id="ahp-Xa-e1P"/>
+                        <constraint firstItem="yVq-6N-I8z" firstAttribute="top" secondItem="92Z-Uj-EXN" secondAttribute="top" constant="20" id="fuv-3a-cFw"/>
+                        <constraint firstItem="yVq-6N-I8z" firstAttribute="width" secondItem="Hho-1B-73p" secondAttribute="width" id="uVW-Ql-q1y"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="92Z-Uj-EXN"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="Kuo-2y-bYJ"/>
+                </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2t-Zm-rfc">
+                    <rect key="frame" x="16" y="790" width="382" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="Ene-12-v1L"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Agree &amp; Continue">
+                        <color key="titleColor" name="labelPrimary"/>
+                    </state>
+                    <connections>
+                        <action selector="didTapAgreeButton:" destination="-1" eventType="touchUpInside" id="wvj-UQ-w0g"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="J2t-Zm-rfc" secondAttribute="trailing" constant="16" id="6d3-cG-0sj"/>
+                <constraint firstItem="Hho-1B-73p" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="7GS-lu-Htp"/>
+                <constraint firstItem="Cbb-qH-Axe" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="8OG-Zz-hem"/>
+                <constraint firstItem="Hho-1B-73p" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="MUp-PZ-bJn"/>
+                <constraint firstItem="Hho-1B-73p" firstAttribute="bottom" secondItem="J2t-Zm-rfc" secondAttribute="top" constant="-8" id="PDF-pS-Eas"/>
+                <constraint firstItem="Cbb-qH-Axe" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="gQB-R4-kZO"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="J2t-Zm-rfc" secondAttribute="bottom" constant="16" id="nDO-I7-fnj"/>
+                <constraint firstItem="Cbb-qH-Axe" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="qIO-gr-KKQ"/>
+                <constraint firstItem="J2t-Zm-rfc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="sha-ya-szz"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Hho-1B-73p" secondAttribute="trailing" constant="16" id="tL7-v5-XaP"/>
+            </constraints>
+            <point key="canvasLocation" x="132" y="132"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="claim-background-gradient" width="375" height="700"/>
+        <namedColor name="labelPrimary">
+            <color red="0.070588235294117646" green="0.074509803921568626" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

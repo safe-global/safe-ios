@@ -65,15 +65,16 @@ class AddOwnerKeyViewController: UITableViewController {
         cell.set(subtitle: keyType.subtitle)
         switch keyTypes[indexPath.row].type {
         case .deviceGenerated:
-            cell.set(iconName: "ico-add-seed")
+            cell.set(iconName: KeyType.deviceGenerated.imageName)
         case .deviceImported:
-            cell.set(iconName: "ico-add-key")
+            cell.set(iconName: KeyType.deviceImported.imageName)
         case .ledgerNanoX:
-            cell.set(iconName: "ico-ledger")
+            cell.set(iconName: KeyType.ledgerNanoX.imageName)
         case .walletConnect:
-            cell.set(iconName: "ico-add-walletconnect")
+            cell.set(iconName: KeyType.walletConnect.imageName)
         case .keystone:
             cell.set(iconName: "ico-add-keystone")
+
         }
         return cell
     }

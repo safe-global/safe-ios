@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "icon-delegate-empty 1.pdf",
+      "filename" : "ico-no-delegate-placeholder.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-no-delegate-placeholder-dark.pdf",
       "idiom" : "universal"
     }
   ],

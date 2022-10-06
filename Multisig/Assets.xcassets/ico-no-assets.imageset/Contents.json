@@ -3,6 +3,16 @@
     {
       "filename" : "ico-no-assets.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-no-assets-1.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

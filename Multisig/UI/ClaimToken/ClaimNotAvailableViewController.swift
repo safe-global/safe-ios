@@ -19,6 +19,7 @@ class ClaimNotAvailableViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        Tracker.trackEvent(.screenClaimNot)
 
         ViewControllerFactory.addCloseButton(self)
         ViewControllerFactory.makeTransparentNavigationBar(self)
@@ -27,16 +28,19 @@ class ClaimNotAvailableViewController: UIViewController {
 
         descriptionLabel.setStyle(.secondary)
 
-        safeDAOLink.setText("Safe DAO")
+        safeDAOLink.setText("Safe DAO", underlined: false)
         safeDAOLink.url = App.configuration.contact.safeDAOURL
+        safeDAOLink.trackingEvent = .userClaimNotDao
 
-        forumLink.setText("Forum")
+        forumLink.setText("Forum", underlined: false)
         forumLink.url = App.configuration.contact.forumURL
+        forumLink.trackingEvent = .userClaimNotForum
 
         okButton.setText("OK, I Understand", .filled)
     }
 
     @IBAction func didTapOkButton(_ sender: Any) {
+        Tracker.trackEvent(.userClaimNotOk)
         dismiss(animated: true, completion: nil)
     }
 }

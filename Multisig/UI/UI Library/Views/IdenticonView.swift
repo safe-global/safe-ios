@@ -21,15 +21,19 @@ class IdenticonView: UINibView {
         super.commonInit()
 
         badgeFrameView.clipsToBounds = true
-        badgeFrameView.layer.borderColor = UIColor.whiteOrBlack.cgColor
         badgeFrameView.backgroundColor = .labelSecondary
 
         ownerCountFrameView.clipsToBounds = true
-        ownerCountFrameView.layer.borderColor = UIColor.whiteOrBlack.cgColor
         ownerCountFrameView.backgroundColor = .primaryDisabled
 
         ownerCountLabel.setStyle(.footnote2)
         ownerCountLabel.textColor = .primary
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        badgeFrameView.layer.borderColor = UIColor.backgroundSecondary.cgColor
+        ownerCountFrameView.layer.borderColor = UIColor.backgroundSecondary.cgColor
     }
 
     func set(address: Address, imageURL: URL? = nil, placeholderImage: String? = nil, badgeName: String? = nil, reqConfirmations: Int? = nil, owners: Int? = nil) {

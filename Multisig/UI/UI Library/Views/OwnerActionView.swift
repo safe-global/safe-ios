@@ -31,11 +31,11 @@ class OwnerActionView: UINibView {
 
         switch action {
         case .addingOwner:
-            actionTag.set(title: "Adding owner", style: .footnote2, backgroundColor: .backgroundPositive, textColor: .primary)
+            actionTag.set(title: "Adding owner", style: .footnote2, backgroundColor: .backgroundLightGreen, textColor: .primary)
         case .replacingOwner:
             actionTag.set(title: "Removing owner", style: .footnote2, backgroundColor: .backgroundPrimary, textColor: .labelSecondary)
         case .removingOwner:
-            actionTag.set(title: "Removing owner", style: .footnote2, backgroundColor: .backgroundError, textColor: .error)
+            actionTag.set(title: "Removing owner", style: .footnote2, backgroundColor: .errorBackground, textColor: .error)
         }
     }
 

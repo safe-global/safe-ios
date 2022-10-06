@@ -1,12 +1,16 @@
 {
   "images" : [
     {
-      "alignment-insets" : {
-        "bottom" : 12,
-        "left" : 9,
-        "right" : 11,
-        "top" : 8
-      },
+      "filename" : "scan-button-dark.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
       "filename" : "scan-button.pdf",
       "idiom" : "universal"
     }

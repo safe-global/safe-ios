@@ -17,4 +17,6 @@ struct Allocation: Codable {
     var startDate: UInt64
     var amount: UInt256String
     var curve: Int
+    var proof: [DataString]?
+    var tag: String
 }

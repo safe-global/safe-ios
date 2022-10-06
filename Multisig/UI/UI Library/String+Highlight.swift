@@ -36,22 +36,14 @@ extension String {
 
     func highlightRange(originalStyle: GNOTextStyle = .secondary,
                         highlightStyle: GNOTextStyle = .primary,
-                        textToHightlight: String? = nil) -> NSAttributedString {
-        let attributedString = NSMutableAttributedString(
-            string: self,
-            attributes: [
-                .font: UIFont.gnoFont(forTextStyle: originalStyle),
-                .foregroundColor: originalStyle.color!,
-                .kern: -0.41
-            ]
-        )
+                        textToHighlight: String? = nil) -> NSMutableAttributedString {
+        let attributedString = NSMutableAttributedString(string: self, attributes: originalStyle.attributes)
 
-        if let textToHightlight = textToHightlight {
-            let rangeToHightlight = (attributedString.string as NSString).range(of: textToHightlight)
-            attributedString.addAttributes([
-                .font: UIFont.gnoFont(forTextStyle: highlightStyle),
-                .foregroundColor: highlightStyle.color ?? .labelPrimary],
-                range: rangeToHightlight)
+        if let textToHighlight = textToHighlight {
+            let rangeToHighlight = (attributedString.string as NSString).range(of: textToHighlight)
+            if rangeToHighlight.location != NSNotFound {
+                attributedString.addAttributes(highlightStyle.attributes, range: rangeToHighlight)
+            }
         }
 
         return attributedString

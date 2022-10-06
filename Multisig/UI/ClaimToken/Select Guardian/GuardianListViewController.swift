@@ -1,5 +1,5 @@
 //
-//  ChooseGuardianViewController.swift
+//  GuardianListViewController.swift
 //  Multisig
 //
 //  Created by Moaaz on 6/27/22.
@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ChooseGuardianViewController: LoadableViewController {
+
+class GuardianListViewController: LoadableViewController {
     private var currentDataTask: URLSessionTask?
     private enum Section {
         case guardiansCount(count: Int)
@@ -17,15 +18,17 @@ class ChooseGuardianViewController: LoadableViewController {
 
     private var sections: [Section] = []
 
-    private var stepLabel: UILabel!
-    private var stepNumber: Int = 2
-    private var maxSteps: Int = 3
-
     private var guardians: [Guardian] = []
-    private var filteredGuardians: [Guardian] = []
 
     var onSelected: ((Guardian) -> ())?
     var onReloaded: (() -> ())?
+
+    private var searchController: UISearchController!
+    private var resultsController: GuardianSearchResultController!
+
+    var controller: ClaimingAppController!
+    var safe: Safe!
+    var selectedDelegate: Address?
 
     convenience init() {
         self.init(namedClass: Self.superclass())
@@ -34,14 +37,24 @@ class ChooseGuardianViewController: LoadableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ViewControllerFactory.makeTransparentNavigationBar(self)
-        navigationItem.hidesBackButton = false
+        ViewControllerFactory.removeNavigationBarBorder(self)
+        title = "Choose a delegate"
 
-        stepLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 21))
-        stepLabel.textAlignment = .right
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
-        stepLabel.setStyle(.tertiary)
-        stepLabel.text = "\(stepNumber) of \(maxSteps)"
+        resultsController = GuardianSearchResultController()
+
+        resultsController.tableView.delegate = self
+
+        searchController = UISearchController(searchResultsController: resultsController)
+        searchController.delegate = self
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.autocapitalizationType = .none
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Name, address or ENS"
+        searchController.hidesNavigationBarDuringPresentation = false
+        
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
 
         tableView.registerCell(GuardianTableViewCell.self)
         tableView.registerCell(GuardianCountTableViewCell.self)
@@ -51,12 +64,16 @@ class ChooseGuardianViewController: LoadableViewController {
         tableView.estimatedRowHeight = 200
         tableView.separatorStyle = .none
 
+        // Empty view is never shown. Instead the list is empty, when no results are found
         emptyView.setText("No delegates were found. Try to search again or use a custom address.")
         emptyView.setImage(UIImage(named: "ico-delegate-placeholder")!)
+        extendedLayoutIncludesOpaqueBars = true
     }
 
     private func makeSections(items: [Guardian]) -> [Section] {
-        guard !items.isEmpty else { return [] }
+        guard !items.isEmpty else {
+            return []
+        }
 
         var sections = [Section]()
 
@@ -66,63 +83,80 @@ class ChooseGuardianViewController: LoadableViewController {
         return sections
     }
 
-    func filterData(searchTerm: String) {
-        let searchTerm = searchTerm.lowercased()
-        if !searchTerm.isEmpty {
-            filteredGuardians = guardians.filter { guardian in
-                return guardian.name?.lowercased().contains(searchTerm) ?? false ||
-                guardian.ens?.lowercased().contains(searchTerm) ?? false ||
-                guardian.address.description.lowercased().contains(searchTerm)
-            }
-
-        } else {
-            filteredGuardians = guardians
-        }
-        sections = makeSections(items: filteredGuardians)
-        if isEmpty {
-            showOnly(view: emptyView)
-        } else {
-            showOnly(view: tableView)
-        }
-        tableView.reloadData()
-    }
-
     override var isEmpty: Bool { sections.isEmpty }
 
     override func reloadData() {
         super.reloadData()
-        currentDataTask?.cancel()
-        currentDataTask = App.shared.claimingService.asyncGuardians() { [weak self] result in
-            guard let `self` = self else { return }
-            switch result {
-            case .failure(let error):
-                DispatchQueue.main.async { [weak self] in
-                    guard let `self` = self else { return }
-                    // ignore cancellation error due to cancelling the
-                    // currently running task. Otherwise user will see
-                    // meaningless message.
-                    if (error as NSError).code == URLError.cancelled.rawValue &&
-                        (error as NSError).domain == NSURLErrorDomain {
-                        return
-                    }
 
-                    self.onError(GSError.error(description: "Failed to load guardians", error: error))
-                    self.onReloaded?()
-                }
-            case .success(let results):
-                DispatchQueue.main.async { [weak self] in
-                    guard let `self` = self else { return }
+        controller.guardians(for: safe.addressValue) { [weak self] result in
+            guard let `self` = self else { return }
+            do {
+                let data = try result.get()
+                self.selectedDelegate = data.delegate
+
+                if let selectedIndex = data.guardians.firstIndex(where: { $0.address.address == data.delegate }) {
+                    var results = data.guardians
+                    let selected = results.remove(at: selectedIndex)
+                    results = results.shuffled()
+                    results.insert(selected, at: 0)
                     self.guardians = results
-                    self.filteredGuardians = results
-                    self.sections = self.makeSections(items: self.filteredGuardians)
-                    self.onSuccess()
+                } else {
+                    self.guardians = data.guardians.shuffled()
                 }
+
+                self.sections = self.makeSections(items: self.guardians)
+                self.onSuccess()
+            } catch {
+                if (error as NSError).code == URLError.cancelled.rawValue &&
+                    (error as NSError).domain == NSURLErrorDomain {
+                    return
+                }
+
+                self.onError(GSError.error(description: "Failed to load guardians", error: error))
+                self.onReloaded?()
             }
         }
     }
 }
 
-extension ChooseGuardianViewController: UITableViewDelegate, UITableViewDataSource {
+extension GuardianListViewController: UISearchResultsUpdating, UISearchBarDelegate, UISearchControllerDelegate {
+
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let resultsController = searchController.searchResultsController as? GuardianSearchResultController else {
+            return
+        }
+        if !searchController.searchBar.text!.isEmpty {
+            Tracker.trackEvent(.userClaimChdelSearch)
+        }
+        let terms = searchController.searchBar.text!
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .components(separatedBy: " ") as [String]
+
+        resultsController.filteredGuardians = guardians.filter { guardian in
+            // all terms AND with each other
+            let allMatch = terms.allSatisfy { term in
+                // - each tearm is OR of 'contains' name, address, ens
+                // - using comparison that is case-insensitive, and diacritic-insensitive
+                guardian.name?.localizedStandardContains(term) == true ||
+                guardian.address.description.localizedStandardContains(term) ||
+                guardian.ens?.localizedStandardContains(term) == true
+            }
+
+            return allMatch
+        }
+        resultsController.selectedDelegate = selectedDelegate
+        resultsController.tableView.reloadData()
+        if !searchController.searchBar.text!.isEmpty && resultsController.filteredGuardians.isEmpty {
+                Tracker.trackEvent(.screenClaimChdelNf)
+        }
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+}
+
+extension GuardianListViewController: UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
        sections.count
@@ -146,27 +180,56 @@ extension ChooseGuardianViewController: UITableViewDelegate, UITableViewDataSour
 
         case .guardians(items: let items):
             let cell = tableView.dequeueCell(GuardianTableViewCell.self)
-            cell.set(guardian: items[indexPath.row])
-            cell.tableView = tableView
+            let item = items[indexPath.row]
+            cell.set(guardian: item, selected: item.address.address == selectedDelegate)
             return cell
         }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let item = self.item(at: indexPath) else { return }
+        let vc = GuardianDetailsViewController()
+        vc.onSelected = onSelected
+        vc.guardian = item
+        show(vc, sender: nil)
+    }
 
+    func item(at indexPath: IndexPath) -> Guardian? {
+        if searchController.isActive && searchController.showsSearchResultsController {
+            return resultsController.filteredGuardians[indexPath.row]
+        }
         switch sections[indexPath.section] {
 
         case .guardians(items: let items):
             let item = items[indexPath.row]
-            let vc = GuardianDetailsViewController()
-            vc.onSelected = onSelected
-            vc.guardian = item
-            show(vc, sender: nil)
-            break
+            return item
 
         default: break
         }
+
+        return nil
     }
 }
 
 
+class GuardianSearchResultController: UITableViewController {
+    var filteredGuardians: [Guardian] = []
+    var selectedDelegate: Address?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.registerCell(GuardianTableViewCell.self)
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        filteredGuardians.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(GuardianTableViewCell.self)
+        let item = filteredGuardians[indexPath.row]
+        cell.set(guardian: item, selected: item.address.address == selectedDelegate)
+        return cell
+    }
+}

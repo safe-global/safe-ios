@@ -5,68 +5,42 @@
 
 import UIKit
 import WhatsNewKit
+import SwiftUI
 
 class WhatsNewHandler {
-    private let whatsNew = WhatsNew(
-            // Show the WhatsNew screen only once for users of this version
-            version: WhatsNew.Version(major: 3, minor: 14, patch: 0),
-            title: "What's new",
-            items: [
-                WhatsNew.Item(
-                        title: "Open Links in App",
-                        subtitle: "Now you can open links to assets or transactions, or transaction details of a safe in the mobile app",
-                        image: UIImage(named: "ico-whats-new-open-links-in-app")
-                ),
-                WhatsNew.Item(
-                        title: "Review Delegate Calls",
-                        subtitle: "Bring attention to potentially dangerous transactions marked with warning of «unexpected delegate calls» in transaction details",
-                        image: UIImage(named: "ico-whats-new-review-delegate-calls")
-                ),
-                WhatsNew.Item(
-                        title: "Edit Safe Owners",
-                        subtitle: "Connect your owner key to the Safe and edit Safe owners and confirmation requirements in the Safe settings",
-                        image: UIImage(named: "ico-whats-new-edit-safe-owners")
-                ),
-                WhatsNew.Item(
-                        title: "Request to join a Safe",
-                        subtitle: "After creating new owner key request to join the selected Safe by sharing a link with one of the owners",
-                        image: UIImage(named: "ico-whats-new-join-safe")
-                )
-            ]
-    )
-
     var whatsNewViewController: WhatsNewViewController?
 
     init() {
-        let whatsNews = [whatsNew]
-        var configuration = WhatsNewViewController.Configuration()
-
-        configuration.backgroundColor = .backgroundQuaternary
-
-        configuration.titleView.titleColor = .labelPrimary
-        configuration.titleView.titleFont = .systemFont(ofSize: 26, weight: .regular)
-
-        configuration.itemsView.titleFont = .systemFont(ofSize: 16, weight: .bold)
-        configuration.itemsView.titleColor = .labelPrimary
-        configuration.itemsView.subtitleColor = .labelSecondary
-
-        configuration.detailButton?.titleColor = .primary
-        configuration.completionButton.backgroundColor = .primary
-        configuration.completionButton.title = "Let's go"
-
-        configuration.itemsView.autoTintImage = false
-
-        let keyValueVersionStore = KeyValueWhatsNewVersionStore(
-                keyValueable: UserDefaults.standard
+        let whatsNew = WhatsNew(
+            version: "3.17.0",
+            title: "What's new",
+            features: [
+                WhatsNew.Feature(
+                    image: WhatsNew.Feature.Image(name: "ico-whats-new-airdrop", bundle: .main, renderingMode: .original, foregroundColor: nil),
+                    title: "The SAFE Airdrop!",
+                    subtitle: "Check if your Safe is eligible for the SAFE airdrop and claim the tokens in the app."
+                )
+            ],
+            primaryAction: WhatsNew.PrimaryAction(
+                title: "Let's go",
+                backgroundColor: .primary,
+                foregroundColor: .backgroundPrimary,
+                hapticFeedback: .notification(.success),
+                onDismiss: nil
+            ),
+            secondaryAction: nil
         )
 
-        let whatsNewForCurrentVersion = whatsNews.get(byVersion: .current())
-        if let whatsNewForCurrentVersion = whatsNewForCurrentVersion {
-            whatsNewViewController = WhatsNewViewController(
-                    whatsNew: whatsNewForCurrentVersion,
-                    configuration: configuration,
-                    versionStore: keyValueVersionStore // use InMemoryWhatsNewVersionStore() for debugging
-            )
-        }
+        // for debugging, use the In-memory store version
+        let versionStore: WhatsNewVersionStore = UserDefaultsWhatsNewVersionStore()
+//         let versionStore: WhatsNewVersionStore = InMemoryWhatsNewVersionStore()
+
+        let layout = WhatsNew.Layout(featureImageWidth: 60, featureHorizontalAlignment: .top)
+
+        whatsNewViewController = WhatsNewViewController(
+            whatsNew: whatsNew,
+            versionStore: versionStore,
+            layout: layout
+        )
     }
 }

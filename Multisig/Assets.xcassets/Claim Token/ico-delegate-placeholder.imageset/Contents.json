@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Empty State.pdf",
+      "filename" : "ico-set-delegate.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-set-delegate-dark.pdf",
       "idiom" : "universal"
     }
   ],

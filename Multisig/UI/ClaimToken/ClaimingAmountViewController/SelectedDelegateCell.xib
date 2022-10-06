@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="174" id="KGk-i7-Jjw" customClass="SelectedDelegateCell" customModule="Multisig" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="174"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="174"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7xL-zD-5xF">
+                        <rect key="frame" x="16" y="8" width="343" height="158"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delegating to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYt-OF-3gX">
+                                <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EBS-KM-hJY" userLabel="AddressContainer">
+                                <rect key="frame" x="0.0" y="28.5" width="343" height="86"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HDb-gb-mX6">
+                                        <rect key="frame" x="16" y="16" width="319" height="54"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZkW-Rg-PEw" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="249" height="54"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K6G-HA-9Gx">
+                                                <rect key="frame" x="249" y="0.0" width="70" height="54"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="70" id="Obs-Bj-pTy"/>
+                                                </constraints>
+                                                <color key="tintColor" name="primary"/>
+                                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
+                                                <state key="normal" title="Edit" image="ico-edit">
+                                                    <color key="titleColor" name="primary"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="editButtonTouched:" destination="-2" eventType="touchUpInside" id="bJf-zG-wCs"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="HDb-gb-mX6" secondAttribute="trailing" constant="8" id="b5W-st-XgA"/>
+                                    <constraint firstItem="HDb-gb-mX6" firstAttribute="leading" secondItem="EBS-KM-hJY" secondAttribute="leading" constant="16" id="hoC-sq-u3W"/>
+                                    <constraint firstAttribute="bottom" secondItem="HDb-gb-mX6" secondAttribute="bottom" constant="16" id="itc-EG-9Zp"/>
+                                    <constraint firstItem="HDb-gb-mX6" firstAttribute="top" secondItem="EBS-KM-hJY" secondAttribute="top" constant="16" id="m5a-Mw-VT6"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You only delegate your voting power and not the ownership over your tokens." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z1a-x0-xJo">
+                                <rect key="frame" x="0.0" y="122.5" width="343" height="35.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="7xL-zD-5xF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Gyn-MX-H2Q"/>
+                    <constraint firstAttribute="bottom" secondItem="7xL-zD-5xF" secondAttribute="bottom" constant="8" id="LGT-eD-3kN"/>
+                    <constraint firstItem="7xL-zD-5xF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="OBE-Ac-pgn"/>
+                    <constraint firstAttribute="trailing" secondItem="7xL-zD-5xF" secondAttribute="trailing" constant="16" id="iFc-az-I3y"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addressContainer" destination="EBS-KM-hJY" id="KZy-9e-8d8"/>
+                <outlet property="addressView" destination="ZkW-Rg-PEw" id="iod-4j-qRO"/>
+                <outlet property="detailLabel" destination="Z1a-x0-xJo" id="ulR-FW-uV5"/>
+                <outlet property="editButton" destination="K6G-HA-9Gx" id="sz0-oI-m6R"/>
+                <outlet property="headerLabel" destination="NYt-OF-3gX" id="0Za-gQ-y4e"/>
+            </connections>
+            <point key="canvasLocation" x="-39.130434782608695" y="32.142857142857139"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ico-edit" width="24" height="24"/>
+        <namedColor name="primary">
+            <color red="0.070588235294117646" green="0.074509803921568626" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

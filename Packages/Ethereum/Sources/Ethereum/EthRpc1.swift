@@ -334,6 +334,9 @@ public enum EthRpc1 {
         /// from address
         public var from: EthRpc1.Data? = nil
 
+        enum CodingKeys: String, CodingKey {
+            case from, to, gas, gasPrice, maxPriorityFeePerGas, maxFeePerGas, value, data
+        }
 
         public init(type: EthRpc1.Quantity<Sol.UInt64>?, nonce: EthRpc1.Quantity<Sol.UInt64>?, to: EthRpc1.Data? = nil, gas: EthRpc1.Quantity<Sol.UInt64>?, gasPrice: EthRpc1.Quantity<Sol.UInt256>?, value: EthRpc1.Quantity<Sol.UInt256>, data: EthRpc1.Data, maxPriorityFeePerGas: EthRpc1.Quantity<Sol.UInt256>?, maxFeePerGas: EthRpc1.Quantity<Sol.UInt256>?, from: EthRpc1.Data? = nil) {
             self.type = type
@@ -1370,7 +1373,13 @@ extension Eth.TransactionEip1559: EthTransaction {
     public mutating func update(gas: Sol.UInt64, transactionCount: Sol.UInt64, baseFee: Sol.UInt256) {
         nonce = transactionCount
         fee.gas = gas
-        fee.maxFeePerGas = (fee.maxPriorityFee ?? 0) + baseFee
+        // Polygon only sets 'priority' fee, the baseFee is 0
+        if self.chainId == 137 {
+            fee.maxPriorityFee = baseFee
+            fee.maxFeePerGas = baseFee
+        } else {
+            fee.maxFeePerGas = (fee.maxPriorityFee ?? 0) + baseFee
+        }
     }
 
     public mutating func updateSignature(v: Sol.UInt256, r: Sol.UInt256, s: Sol.UInt256) {
@@ -1543,7 +1552,7 @@ extension EthRpc1.EstimateGasLegacyTransaction {
             data: EthRpc1.Data(tx.input),
             maxPriorityFeePerGas: tx.fee.maxPriorityFee.map(EthRpc1.Quantity<Sol.UInt256>.init),
             maxFeePerGas: tx.fee.maxFeePerGas.map(EthRpc1.Quantity<Sol.UInt256>.init),
-            from: tx.from.map { EthRpc1.Data($0) }
+            from: tx.from.map(EthRpc1.Data.init)
         )
     }
 }

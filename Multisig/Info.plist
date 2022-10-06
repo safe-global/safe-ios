@@ -23,7 +23,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.17.0</string>
+	<string>3.18.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -41,6 +41,8 @@
 	<string>1</string>
 	<key>CLIENT_GATEWAY_URL</key>
 	<string>$(CLIENT_GATEWAY_URL)</string>
+	<key>CLAIMING_DATA_URL</key>
+	<string>$(CLAIMING_DATA_URL)</string>
 	<key>CONFIRMATIONS_URL</key>
 	<string>$(CONFIRMATIONS_URL)</string>
 	<key>CONFLICT_URL</key>
@@ -263,5 +265,11 @@
 	<string>$(WALLETCONNECT_BRIDGE_URL)</string>
 	<key>WALLETCONNECT_REGISTRY_URL</key>
 	<string>$(WALLETCONNECT_REGISTRY_URL)</string>
+	<key>CLAIM_DISCUSS_URL</key>
+	<string>$(CLAIM_DISCUSS_URL)</string>
+	<key>CLAIM_PROPOSE_URL</key>
+	<string>$(CLAIM_PROPOSE_URL)</string>
+	<key>CLAIM_CHAT_URL</key>
+	<string>$(CLAIM_CHAT_URL)</string>
 </dict>
 </plist>

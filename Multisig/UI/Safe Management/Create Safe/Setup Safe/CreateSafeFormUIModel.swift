@@ -681,13 +681,13 @@ class CreateSafeFormUIModel {
         let params: SafeCreationCall = SafeCreationCall(context: context)
         params.chainId = chain.id
         params.deployerAddress = selectedKey?.address.checksummed
-        params.fallbackHandlerAddress = Address(fallbackHandlerAddress)?.checksummed
+        params.fallbackHandlerAddress = Address(fallbackHandlerAddress).checksummed
         params.name = name
         params.owners = owners.map(\.address.checksummed).joined(separator: ",")
-        params.proxyFactoryAddress = Address(proxyFactoryAddress)?.checksummed
+        params.proxyFactoryAddress = Address(proxyFactoryAddress).checksummed
         params.safeAddress = futureSafeAddress!.checksummed
         params.saltNonce = String(saltNonce)
-        params.singletonAddress = Address(singletonAddress)?.checksummed
+        params.singletonAddress = Address(singletonAddress).checksummed
         params.threshold = String(threshold)
 
         // these two are for debugging purposes

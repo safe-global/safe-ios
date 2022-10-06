@@ -20,18 +20,17 @@ class OnboardingStepCollectionViewCell: UICollectionViewCell {
         titleLabel.text = step.title
         titleLabel.setStyle(.Updated.title)
 
-        if let hightlightedText = step.description.highlightedText {
+        if let highlightedText = step.description.highlightedText {
             descriptionLabel.attributedText = step.description.text.highlightRange(
                 originalStyle: .secondary,
                 highlightStyle: .primary.weight(.semibold),
-                textToHightlight: hightlightedText
+                textToHighlight: highlightedText
             )
         } else {
             descriptionLabel.text = step.description.text
             descriptionLabel.setStyle(.secondary)
         }
         imageView.image = step.image
-        backgroundImageView.image = step.backgroundImage
     }
 
     override class func awakeFromNib() {
@@ -43,6 +42,5 @@ struct OnboardingStep {
     let title: String
     let description: (text: String, highlightedText: String?)
     let image: UIImage
-    let backgroundImage: UIImage?
     let trackingEvent: TrackingEvent?
 }
