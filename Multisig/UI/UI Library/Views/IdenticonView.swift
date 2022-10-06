@@ -61,6 +61,8 @@ extension KeyType {
             return "ico-key-type-walletconnect"
         case .ledgerNanoX:
             return "ico-key-type-ledger"
+        case .keystone:
+            return "ico-key-type-keystone"
         }
     }
 }

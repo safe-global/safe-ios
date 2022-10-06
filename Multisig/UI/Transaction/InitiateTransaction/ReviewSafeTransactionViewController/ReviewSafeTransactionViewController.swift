@@ -25,6 +25,7 @@ class ReviewSafeTransactionViewController: UIViewController {
     @IBOutlet weak var ribbonView: RibbonView!
 
     private var currentDataTask: URLSessionTask?
+    private var keystoneSignFlow: KeystoneSignFlow!
     var trackingEvent: TrackingEvent = .assetsTransferReview
 
     var safe: Safe!
@@ -254,6 +255,34 @@ class ReviewSafeTransactionViewController: UIViewController {
             vc.onClose = { [weak self] in
                 self?.endConfirm()
             }
+            
+        case .keystone:
+            let gsError = GSError.error(description: "Failed to confirm transaction")
+            
+            let signInfo = KeystoneSignInfo(
+                signData: transaction.safeTxHash.hash.toHexString(),
+                chain: safe.chain,
+                keyInfo: keyInfo,
+                signType: .personalMessage
+            )
+            let signCompletion = { [unowned self] (success: Bool) in
+                keystoneSignFlow = nil
+                if !success {
+                    App.shared.snackbar.show(error: gsError)
+                    endConfirm()
+                }
+            }
+            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
+                App.shared.snackbar.show(error: gsError)
+                endConfirm()
+                return
+            }
+            
+            keystoneSignFlow = signFlow
+            keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
+                self?.proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: unmarshaledSignature.safeSignature)
+            }
+            present(flow: keystoneSignFlow)
         }
     }
 

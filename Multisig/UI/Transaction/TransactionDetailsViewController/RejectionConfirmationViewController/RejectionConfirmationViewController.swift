@@ -31,7 +31,8 @@ class RejectionConfirmationViewController: UIViewController {
     private var safe: Safe!
     private var keyInfo: KeyInfo?
     private var ledgerController: LedgerController?
-
+    private var keystoneSignFlow: KeystoneSignFlow!
+    
     convenience init(transaction: SCGModels.TransactionDetails) {
         self.init(namedClass: RejectionConfirmationViewController.self)
         self.transaction = transaction
@@ -126,6 +127,33 @@ class RejectionConfirmationViewController: UIViewController {
             vc.onClose = { [weak self] in
                 self?.endLoading()
             }
+        case .keystone:
+            let gsError = GSError.error(description: "Failed to Reject transaction")
+            
+            let signInfo = KeystoneSignInfo(
+                signData: rejectionTransaction.safeTxHash.hash.toHexString(),
+                chain: safe.chain,
+                keyInfo: keyInfo,
+                signType: .personalMessage
+            )
+            let signCompletion = { [unowned self] (success: Bool) in
+                keystoneSignFlow = nil
+                if !success {
+                    App.shared.snackbar.show(error: gsError)
+                    endLoading()
+                }
+            }
+            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
+                App.shared.snackbar.show(error: gsError)
+                endLoading()
+                return
+            }
+            
+            keystoneSignFlow = signFlow
+            keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
+                self?.rejectAndCloseController(signature: unmarshaledSignature.safeSignature)
+            }
+            present(flow: keystoneSignFlow)
         }
     }
 

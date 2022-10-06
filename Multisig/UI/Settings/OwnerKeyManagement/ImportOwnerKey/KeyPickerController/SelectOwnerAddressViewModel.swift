@@ -9,15 +9,7 @@
 import Foundation
 import Web3
 
-class SelectOwnerAddressViewModel {
-
-    struct KeyAddressInfo {
-        var index: Int
-        var address: Address
-        var name: String?
-        var exists: Bool { name != nil }
-    }
-
+class SelectOwnerAddressViewModel: SelectOwnerAddressViewModelProtocol {
     static let notSelectedIndex = -1
 
     var items = [KeyAddressInfo]()
@@ -27,7 +19,9 @@ class SelectOwnerAddressViewModel {
         guard let keyData = privateKeyData(selectedIndex) else { return nil }
         return try? PrivateKey(data: keyData)
     }
-    private var rootNode: HDNode?
+    var selectedKeystoneKeyParameters: AddKeystoneKeyParameters?
+    
+    private var rootNode: HDNode?    
     var maxItemCount = 100
     var pageSize = 20
 

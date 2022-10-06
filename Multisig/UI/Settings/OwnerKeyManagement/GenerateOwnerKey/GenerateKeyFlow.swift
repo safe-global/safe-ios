@@ -187,8 +187,4 @@ class GenerateKeyFactory: AddKeyFlowFactory {
         introVC.onSkip = skipped
         return introVC
     }
-
-    func details(keyInfo: KeyInfo, completion: @escaping () -> Void) -> OwnerKeyDetailsViewController {
-        OwnerKeyDetailsViewController(keyInfo: keyInfo, completion: completion)
-    }
 }

@@ -15,6 +15,7 @@ enum TrackingUserProperty: String, UserProperty {
     case numKeysGenerated = "num_keys_generated" // string, number of keys generated, "0" on fresh install
     case numKeysWalletConnect = "num_keys_walletconnect" // string, number of WalletConnect keys, "0" on fresh install
     case numKeysLedgerNanoX = "num_keys_ledger_nano_x" // string, number of Ledger Nano X keys, "0" on fresh install
+    case numKeysKeystone = "num_keys_keystone" // string, number of Keystone keys, "0" on fresh install
     case passcodeIsSet = "passcode_is_set" // string, "true" or "false" depending on if app passcode is set
     case walletConnectForDappsEnabled = "wc_for_dapps_enabled" // string, "true" or "false"
     case walletConnectForKeysEnabled = "wc_for_keys_enabled" // string, "true" or "false"
@@ -116,6 +117,7 @@ enum TrackingEvent: String, Trackable {
     case generateOwnerOnboarding                    = "screen_owner_generate_info"
     case connectOwnerOnboarding                     = "screen_owner_walletconnect_info"
     case ledgerOwnerOnboarding                      = "screen_owner_ledger_nano_x_info"
+    case keystoneOwnerOnboarding                    = "screen_owner_keystone_info"
 
     case ownerEnterSeed                             = "screen_owner_enter_seed"
     case ownerConfirmPrivateKey                     = "screen_owner_confirm_private_key"
@@ -174,6 +176,9 @@ enum TrackingEvent: String, Trackable {
     case ledgerSelectDevice                         = "screen_select_ledger_nano_x_device"
     case ledgerSelectKey                            = "screen_select_ledger_nano_x_key"
     case ledgerEnterKeyName                         = "screen_ledger_nano_x_enter_name"
+
+    case keystoneQRScanner                          = "screen_keystone_scan"
+    case keystoneKeyImported                        = "user_keystone_key_imported"
 
     // MARK: Confirm transactions
 
@@ -367,6 +372,8 @@ extension KeyType {
             return "ledger_nano_x"
         case .walletConnect:
             return "connected"
+        case .keystone:
+            return "keystone"
         }
     }
 }

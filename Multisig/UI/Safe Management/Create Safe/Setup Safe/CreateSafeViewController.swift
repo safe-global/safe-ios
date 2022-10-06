@@ -25,6 +25,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     var chain: Chain?
 
     private var cellBuilder: SafeCellBuilder!
+    private var keystoneSignFlow: KeystoneSignFlow!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -767,6 +768,41 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             }
 
             present(vc, animated: true, completion: nil)
+
+        case .keystone:
+            let gsError = GSError.error(description: "Signing failed")
+            
+            let signInfo = KeystoneSignInfo(
+                signData: uiModel.transaction.preImageForSigning().toHexString(),
+                chain: chain,
+                keyInfo: keyInfo,
+                signType: .typedTransaction
+            )
+            let signCompletion = { [unowned self] (success: Bool) in
+                keystoneSignFlow = nil
+                if !success {
+                    App.shared.snackbar.show(error: gsError)
+                }
+            }
+            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
+                App.shared.snackbar.show(error: gsError)
+                return
+            }
+            
+            keystoneSignFlow = signFlow
+            keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
+                do {
+                    try self?.uiModel.transaction.updateSignature(
+                        v: Sol.UInt256(UInt(unmarshaledSignature.v)),
+                        r: Sol.UInt256(Data(Array(unmarshaledSignature.r))),
+                        s: Sol.UInt256(Data(Array(unmarshaledSignature.s)))
+                    )
+                    self?.submit()
+                } catch {
+                    App.shared.snackbar.show(error: GSError.error(description: "Signing failed", error: error))
+                }
+            }
+            present(flow: keystoneSignFlow)
         }
     }
 

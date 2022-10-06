@@ -17,6 +17,7 @@ enum KeyType: Int, CaseIterable {
     case deviceGenerated = 1
     case walletConnect = 2
     case ledgerNanoX = 3
+    case keystone = 4
 }
 
 extension KeyInfo {
@@ -71,6 +72,19 @@ extension KeyInfo {
         }
     }
 
+    struct KeystoneKeyMetadata: Codable {
+        let sourceFingerprint: UInt32
+        let path: String
+        
+        var data: Data {
+            try! JSONEncoder().encode(self)
+        }
+        
+        static func from(data: Data) -> Self? {
+            try? JSONDecoder().decode(Self.self, from: data)
+        }
+    }
+    
     static func name(address: Address) -> String? {
         guard let keyInfo = try? KeyInfo.keys(addresses: [address]).first else { return nil }
         return keyInfo.name
@@ -237,6 +251,36 @@ extension KeyInfo {
         return item
     }
 
+    /// Will save the key info from Keystone hardware in the persistence store.
+    /// - Parameters:
+    ///   - address: address of the key to save
+    ///   - path: derivation path of the key
+    ///   - name: name of the key
+    ///   - sourceFingerprint: sourceFingerprint of the key
+    /// - Returns: KeyInfo
+    @discardableResult
+    static func `import`(keystone address: Address, path: String, name: String, sourceFingerprint: UInt32) throws -> KeyInfo {
+        let context = App.shared.coreDataStack.viewContext
+
+        let fr = KeyInfo.fetchRequest().by(address: address)
+        let item: KeyInfo
+
+        if (try context.fetch(fr).first) != nil {
+            throw GSError.DuplicateKey()
+        } else {
+            item = KeyInfo(context: context)
+        }
+
+        item.address = address
+        item.name = name
+        item.keyID = "keystone:\(address.checksummed)"
+        item.keyType = .keystone
+        item.metadata = KeystoneKeyMetadata(sourceFingerprint: sourceFingerprint, path: path).data
+        
+        item.save()
+
+        return item
+    }
 
     @discardableResult
     static func update(keyInfo: KeyInfo, connection: WebConnection) throws -> KeyInfo? {

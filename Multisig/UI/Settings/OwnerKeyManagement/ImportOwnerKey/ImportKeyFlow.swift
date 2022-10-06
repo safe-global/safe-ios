@@ -100,7 +100,8 @@ class ImportKeyFlowFactory: AddKeyFlowFactory {
     }
 
     func derivedAccountPicker(node: HDNode, completion: @escaping (_ privateKey: PrivateKey) -> Void) -> KeyPickerController {
-        let pickDerivedKeyVC = KeyPickerController(node: node)
+        let viewModel = SelectOwnerAddressViewModel(rootNode: node)
+        let pickDerivedKeyVC = KeyPickerController(viewModel: viewModel)
         pickDerivedKeyVC.completion = { [unowned pickDerivedKeyVC] in
             let key = pickDerivedKeyVC.privateKey!
             completion(key)

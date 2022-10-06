@@ -19,7 +19,7 @@ struct QRView: View {
     var body: some View {
         VStack {
             if value != nil && !value!.isEmpty {
-                Image(uiImage: UIImage.generateQRCode(value: value))
+                Image(uiImage: UIImage.generateQRCode(value: value, size: CGSize(width: width, height: height)))
                     .interpolation(.none)
                     .resizable()
                     .scaledToFit()

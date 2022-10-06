@@ -43,7 +43,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private var txSource: TransactionSource!
 
     private var ledgerKeyInfo: KeyInfo?
-
+    private var keystoneSignFlow: KeystoneSignFlow!
+    
     convenience init(transactionID: String) {
         self.init(namedClass: Self.superclass())
         txSource = .id(transactionID)
@@ -382,6 +383,32 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                     self?.reloadData()
                 }
             }
+            
+        case .keystone:
+            let gsError = GSError.error(description: "Failed to confirm transaction")
+            
+            let signInfo = KeystoneSignInfo(
+                signData: transaction.safeTxHash.hash.toHexString(),
+                chain: safe.chain,
+                keyInfo: keyInfo,
+                signType: .personalMessage
+            )
+            let signCompletion = { [unowned self] (success: Bool) in
+                keystoneSignFlow = nil
+                if !success {
+                    onError(gsError)
+                }
+            }
+            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
+                onError(gsError)
+                return
+            }
+            
+            keystoneSignFlow = signFlow
+            keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
+                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: unmarshaledSignature.safeSignature, keyInfo: keyInfo)
+            }
+            present(flow: keystoneSignFlow)
         }
     }
 

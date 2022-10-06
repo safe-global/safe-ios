@@ -613,6 +613,13 @@
 		3E373F762631781A00D8107A /* EnterUnstoppableNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E373F742631781900D8107A /* EnterUnstoppableNameViewController.xib */; };
 		3E373F772631781A00D8107A /* EnterUnstoppableNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */; };
 		3E373F7D2631784200D8107A /* BlockchainDomainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */; };
+		47039CEE28C37EDB00081A7A /* KeystoneRequestSignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47039CED28C37EDB00081A7A /* KeystoneRequestSignatureView.swift */; };
+		47039CF228C579CF00081A7A /* KeystoneSignInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47039CF128C579CF00081A7A /* KeystoneSignInfo.swift */; };
+		47368B9B28C0B003008A1D8A /* URRegistry in Frameworks */ = {isa = PBXBuildFile; productRef = 47368B9A28C0B003008A1D8A /* URRegistry */; };
+		47646ED428AA72DD009DC437 /* ConnectKeystoneFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */; };
+		47CEAD2B28D57E1000C1264D /* SelectOwnerAddressViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CEAD2A28D57E1000C1264D /* SelectOwnerAddressViewModelProtocol.swift */; };
+		47CEAD2D28D5ECB800C1264D /* KeystoneSelectAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CEAD2C28D5ECB800C1264D /* KeystoneSelectAddressViewModel.swift */; };
+		47DAEDE628C77456000940FB /* KeystoneSignFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DAEDE528C77456000940FB /* KeystoneSignFlow.swift */; };
 		5503F62C2550625F0046545C /* CollectiblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5503F62B2550625F0046545C /* CollectiblesViewController.swift */; };
 		550A6182268A23A9002C02E1 /* SafeNetworkMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550A6181268A23A9002C02E1 /* SafeNetworkMigrationTests.swift */; };
 		550FB19E26691CA300C13D54 /* DappsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550FB19926691CA300C13D54 /* DappsViewController.swift */; };
@@ -1523,6 +1530,12 @@
 		3E373F742631781900D8107A /* EnterUnstoppableNameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnterUnstoppableNameViewController.xib; sourceTree = "<group>"; };
 		3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterUnstoppableNameViewController.swift; sourceTree = "<group>"; };
 		3E373F7C2631784200D8107A /* BlockchainDomainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockchainDomainManager.swift; sourceTree = "<group>"; };
+		47039CED28C37EDB00081A7A /* KeystoneRequestSignatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystoneRequestSignatureView.swift; sourceTree = "<group>"; };
+		47039CF128C579CF00081A7A /* KeystoneSignInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystoneSignInfo.swift; sourceTree = "<group>"; };
+		47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectKeystoneFlow.swift; sourceTree = "<group>"; };
+		47CEAD2A28D57E1000C1264D /* SelectOwnerAddressViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOwnerAddressViewModelProtocol.swift; sourceTree = "<group>"; };
+		47CEAD2C28D5ECB800C1264D /* KeystoneSelectAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystoneSelectAddressViewModel.swift; sourceTree = "<group>"; };
+		47DAEDE528C77456000940FB /* KeystoneSignFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystoneSignFlow.swift; sourceTree = "<group>"; };
 		5503F62B2550625F0046545C /* CollectiblesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesViewController.swift; sourceTree = "<group>"; };
 		550A6181268A23A9002C02E1 /* SafeNetworkMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeNetworkMigrationTests.swift; sourceTree = "<group>"; };
 		550FB19926691CA300C13D54 /* DappsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DappsViewController.swift; sourceTree = "<group>"; };
@@ -1821,6 +1834,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0463F5C126296924009C04FA /* FirebaseRemoteConfig in Frameworks */,
+				47368B9B28C0B003008A1D8A /* URRegistry in Frameworks */,
 				55D3FF65260B2551008ABD2B /* Kingfisher in Frameworks */,
 				0A0C094C287D7D48000CEB4F /* WalletConnectSwift in Frameworks */,
 				55DA0663269C9411006C9AA5 /* Version in Frameworks */,
@@ -2473,6 +2487,7 @@
 				0A478D3A25B863D60038363E /* DerivedKeyTableViewCell.xib */,
 				0A478D1925B860240038363E /* KeyPickerController.swift */,
 				55B64665253051630050BD95 /* SelectOwnerAddressViewModel.swift */,
+				47CEAD2A28D57E1000C1264D /* SelectOwnerAddressViewModelProtocol.swift */,
 			);
 			path = KeyPickerController;
 			sourceTree = "<group>";
@@ -3354,6 +3369,25 @@
 			path = Buttons;
 			sourceTree = "<group>";
 		};
+		47646ED228AA725B009DC437 /* KeystoneOwnerKey */ = {
+			isa = PBXGroup;
+			children = (
+				47646ED328AA72DD009DC437 /* ConnectKeystoneFlow.swift */,
+				47039CED28C37EDB00081A7A /* KeystoneRequestSignatureView.swift */,
+				47DAEDE528C77456000940FB /* KeystoneSignFlow.swift */,
+				47CEAD2C28D5ECB800C1264D /* KeystoneSelectAddressViewModel.swift */,
+			);
+			path = KeystoneOwnerKey;
+			sourceTree = "<group>";
+		};
+		47DF358528B9481700EBEF3E /* Keystone */ = {
+			isa = PBXGroup;
+			children = (
+				47039CF128C579CF00081A7A /* KeystoneSignInfo.swift */,
+			);
+			path = Keystone;
+			sourceTree = "<group>";
+		};
 		5503F62A255062070046545C /* CollectiblesViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3441,6 +3475,7 @@
 		5532D4912448A1960067505A /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				47DF358528B9481700EBEF3E /* Keystone */,
 				55FBC2D626BA9815002C2553 /* Ledger */,
 				0AD6EF1D25CAF5EC00EE5512 /* AppReviewController.swift */,
 				0455A44427282EA9008B772D /* FileManagerWrapper.swift */,
@@ -3792,6 +3827,7 @@
 				5541367A265E566B00796F91 /* GenerateOwnerKey */,
 				55413679265E558A00796F91 /* ImportOwnerKey */,
 				55FBC2D326BA915B002C2553 /* LedgerOwnerKey */,
+				47646ED228AA725B009DC437 /* KeystoneOwnerKey */,
 				04626EB3265E6B8D00CC7FC8 /* OwnerKeyDetailsViewController */,
 				049A9D1425F7C67800CA5723 /* OwnerKeysListViewController */,
 				0ADD19B6265EA23200EB0F2B /* PrivateKeyViewController */,
@@ -4192,6 +4228,7 @@
 				0A0C094B287D7D48000CEB4F /* WalletConnectSwift */,
 				0A259AB4287D83F9006770E7 /* UnstoppableDomainsResolution */,
 				0A259AB6287D85B3006770E7 /* Web3 */,
+				47368B9A28C0B003008A1D8A /* URRegistry */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig_PROD.app */;
@@ -4310,6 +4347,7 @@
 				0A0C094A287D7D48000CEB4F /* XCRemoteSwiftPackageReference "WalletConnectSwift" */,
 				0A259AB2287D83D5006770E7 /* XCRemoteSwiftPackageReference "Web3.swift" */,
 				0A259AB3287D83F9006770E7 /* XCRemoteSwiftPackageReference "resolution-swift" */,
+				47368B9928C0B003008A1D8A /* XCRemoteSwiftPackageReference "ur-registry-ios" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -4703,6 +4741,7 @@
 				0A9E8E7725B9CA4200256AD3 /* BannerTableViewCell.swift in Sources */,
 				0AF8832225A5EC1F00029A43 /* ActionDetailTableViewCell.swift in Sources */,
 				0AADCDB728589DCC00A0139B /* AddOwnerExceptionViewController.swift in Sources */,
+				47039CF228C579CF00081A7A /* KeystoneSignInfo.swift in Sources */,
 				0A3FDAEF26AEB603006A7DC3 /* Chain+Shared.swift in Sources */,
 				0AE0AFF12805CC2B002594CB /* WordView.swift in Sources */,
 				0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */,
@@ -4752,6 +4791,7 @@
 				0AF8D1AC2822DFA20035DCF7 /* CancellableNavigationController.swift in Sources */,
 				93EF2FAF27C551DC0077BE95 /* StepInstructionTableViewCell.swift in Sources */,
 				0ACDC01524925A96002035A2 /* FirebaseConfig.swift in Sources */,
+				47CEAD2B28D57E1000C1264D /* SelectOwnerAddressViewModelProtocol.swift in Sources */,
 				04273E5A26B1474700A14E95 /* LedgerController.swift in Sources */,
 				0472B2C3286A497A0049BA17 /* GuardianTableViewCell.swift in Sources */,
 				0A9BC33524602CE200EB9C5D /* Data+MultisigExtension.swift in Sources */,
@@ -5005,6 +5045,7 @@
 				0463F5AC2628B60C009C04FA /* FirebaseRemoteConfig.swift in Sources */,
 				0439638527077E3D00018F74 /* TransactionEstimationRequest.swift in Sources */,
 				045A17612833DCF30020484B /* AddOwnerFlowFromSettings.swift in Sources */,
+				47CEAD2D28D5ECB800C1264D /* KeystoneSelectAddressViewModel.swift in Sources */,
 				048D72CD2685DC780095999C /* SelectNetworkTableViewCell.swift in Sources */,
 				046FFE192899681B007428D7 /* ClaimableAmountView.swift in Sources */,
 				0A57C5A42577DC5600420303 /* DetailExpandableTextCell.swift in Sources */,
@@ -5135,6 +5176,7 @@
 				0A0391CF27C56616003C871A /* CreateSafeInstructionsViewController.swift in Sources */,
 				B0D614CA17A38979A1ECFCFB /* ActionPanelView.swift in Sources */,
 				B0D61EB5828298B8F501BA41 /* DesktopPairingHeaderView.swift in Sources */,
+				47DAEDE628C77456000940FB /* KeystoneSignFlow.swift in Sources */,
 				B0D61FFF1935AA2484BD940A /* WebConnectionRepository.swift in Sources */,
 				B0D61076463C900689962202 /* WebConnectionController.swift in Sources */,
 				B0D6151108EEDB3F18FA7B6C /* WebConnectionToSessionTransformer.swift in Sources */,
@@ -5143,6 +5185,7 @@
 				B0D618BE28AD77EA68D0551C /* WebConnectionsViewController.swift in Sources */,
 				B0D61BA23BDD098DE8AD3008 /* CDWCRequest.swift in Sources */,
 				6A386C6A281ADAFD003FBCB3 /* ValueChangeTableViewCell.swift in Sources */,
+				47646ED428AA72DD009DC437 /* ConnectKeystoneFlow.swift in Sources */,
 				04AFFBD0282AFC0100429513 /* ReviewRemoveOwnerViewController.swift in Sources */,
 				B0D61252B0B0760008CF6F19 /* WebConnection.swift in Sources */,
 				B0D61AA858C67B86EC281328 /* GnosisSafeWebPeerInfo.swift in Sources */,
@@ -5163,6 +5206,7 @@
 				B0D61167B7886798C36728CC /* WCGetDappsRequest.swift in Sources */,
 				B0D61927EF504F463E943EE9 /* WCGetWalletsRequest.swift in Sources */,
 				B0D61DE33EFF15FAD877F293 /* WCRegistryService.swift in Sources */,
+				47039CEE28C37EDB00081A7A /* KeystoneRequestSignatureView.swift in Sources */,
 				8D7DF1A98F3C869DE4CCB3CC /* CDWCAppRegistryEntry.swift in Sources */,
 				AD303ABF1DBCA951A106ECD5 /* ReviewReplaceOwnerTxViewController.swift in Sources */,
 				AD30333439A0A2388F0749B0 /* ChangeConfirmationsFlow.swift in Sources */,
@@ -6630,6 +6674,14 @@
 				minimumVersion = 1.9.0;
 			};
 		};
+		47368B9928C0B003008A1D8A /* XCRemoteSwiftPackageReference "ur-registry-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/KeystoneHQ/ur-registry-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
 		55888DFD260C4F6200940347 /* XCRemoteSwiftPackageReference "SwiftAccessPolicy" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gnosis/SwiftAccessPolicy.git";
@@ -6768,6 +6820,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0A259AB2287D83D5006770E7 /* XCRemoteSwiftPackageReference "Web3.swift" */;
 			productName = Web3;
+		};
+		47368B9A28C0B003008A1D8A /* URRegistry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 47368B9928C0B003008A1D8A /* XCRemoteSwiftPackageReference "ur-registry-ios" */;
+			productName = URRegistry;
 		};
 		55888DFE260C4F6200940347 /* SwiftAccessPolicy */ = {
 			isa = XCSwiftPackageProductDependency;

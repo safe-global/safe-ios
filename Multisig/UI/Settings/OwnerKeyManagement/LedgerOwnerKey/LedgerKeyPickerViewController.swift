@@ -71,13 +71,6 @@ fileprivate enum LedgerKeyType {
     case ledger
 }
 
-fileprivate struct KeyAddressInfo {
-    var index: Int
-    var address: Address
-    var name: String?
-    var exists: Bool { name != nil }
-}
-
 fileprivate protocol LedgerKeyPickerViewModelDelegate: AnyObject {
     func didChangeLoadingState()
 }

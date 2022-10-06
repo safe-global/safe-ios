@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Tracker.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
         Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
         Tracker.setNumKeys(KeyInfo.count(.ledgerNanoX), type: .ledgerNanoX)
+        Tracker.setNumKeys(KeyInfo.count(.keystone), type: .keystone)
         Tracker.setPasscodeIsSet(to: App.shared.auth.isPasscodeSetAndAvailable)        
         Tracker.setWalletConnectForDappsEnabled(true)
 
