@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -34,7 +34,7 @@
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border-normal" translatesAutoresizingMaskIntoConstraints="NO" id="uNz-N8-72b">
                             <rect key="frame" x="0.0" y="0.0" width="431" height="78"/>
-                            <color key="tintColor" name="labelTetriary"/>
+                            <color key="tintColor" name="border"/>
                         </imageView>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="OQR-P7-ZJD" userLabel="Field Content Stack View">
                             <rect key="frame" x="16" y="16" width="399" height="46"/>
@@ -122,13 +122,13 @@
         </stackView>
     </objects>
     <resources>
-        <image name="border-normal" width="23" height="23"/>
+        <image name="border-normal" width="11" height="11"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
-        <namedColor name="icon">
-            <color red="0.69803921568627447" green="0.73333333333333328" blue="0.75294117647058822" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="border">
+            <color red="0.86274509803921573" green="0.87058823529411766" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="labelTetriary">
-            <color red="0.0" green="0.078431372549019607" blue="0.15686274509803921" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="icon">
+            <color red="0.63137254901960782" green="0.63921568627450975" blue="0.65490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

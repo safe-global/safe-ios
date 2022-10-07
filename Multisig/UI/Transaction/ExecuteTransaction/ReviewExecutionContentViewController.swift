@@ -56,6 +56,7 @@ class ReviewExecutionContentViewController: UITableViewController {
         builder.onTapFee = onTapFee
         builder.onTapAdvanced = onTapAdvanced
 
+        tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48
         pullToRefreshControl = UIRefreshControl()
