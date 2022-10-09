@@ -24,7 +24,7 @@ class ClaimNotAvailableViewController: UIViewController {
         ViewControllerFactory.addCloseButton(self)
         ViewControllerFactory.makeTransparentNavigationBar(self)
 
-        titleLabel.setStyle(.claimTitle)
+        titleLabel.setStyle(.title1)
 
         descriptionLabel.setStyle(.secondary)
 

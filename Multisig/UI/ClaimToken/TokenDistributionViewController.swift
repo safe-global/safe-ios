@@ -42,7 +42,7 @@ class TokenDistributionViewController: UIViewController {
                                                                                                 trackingEvent: .screenClaimDistrDetail))
             present(vc, animated: true)
         }
-        titleLabel.setStyle(.Updated.title)
+        titleLabel.setStyle(.title2)
         descriptionLabel.setStyle(.secondary)
         nextButton.setText("Next", .filled)
     }

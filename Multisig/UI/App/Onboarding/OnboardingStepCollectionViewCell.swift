@@ -18,7 +18,7 @@ class OnboardingStepCollectionViewCell: UICollectionViewCell {
 
     func configure(step: OnboardingStep) {
         titleLabel.text = step.title
-        titleLabel.setStyle(.Updated.title)
+        titleLabel.setStyle(.title1)
 
         if let highlightedText = step.description.highlightedText {
             descriptionLabel.attributedText = step.description.text.highlightRange(

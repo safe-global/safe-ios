@@ -25,7 +25,7 @@ class CreateInviteOwnerIntroViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.setStyle(.title5)
+        titleLabel.setStyle(.title2)
         descriptionLabel.setStyle(.secondary)
         shareButton.setText("Share link", .filled)
         notThisTimeButton.setText("Not this time", .primary)

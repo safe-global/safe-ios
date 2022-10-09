@@ -41,7 +41,7 @@ class SafeDeploymentFinishedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        titleLabel.setStyle(.headline2)
+        titleLabel.setStyle(.title3)
         descriptionLabel.setStyle(.tertiary)
 
         switch mode {

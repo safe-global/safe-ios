@@ -30,7 +30,7 @@ class ReviewClaimTokensHeaderCell: UITableViewCell {
 
     func setAmount(text: String, image: UIImage?) {
         amountView.setImage(image)
-        amountView.setText(text, style: .title4.color(.labelPrimary))
+        amountView.setText(text, style: .headline)
     }
 
     func setDelegate(guardian: Guardian?, address: Address?, chain: Chain) {

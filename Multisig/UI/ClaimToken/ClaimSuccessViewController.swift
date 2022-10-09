@@ -37,7 +37,7 @@ class ClaimSuccessViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
 
         titleLabel.text = "Congrats!"
-        titleLabel.setStyle(.Updated.title)
+        titleLabel.setStyle(.title1)
 
         askLabel.text = "Share your claim on Twitter!"
         askLabel.setStyle(.headline)

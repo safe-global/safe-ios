@@ -63,6 +63,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UINavigationBar.appearance().scrollEdgeAppearance = appearance
         }
 
+        UITableView.appearance().backgroundColor = .backgroundPrimary
+        UITableView.appearance().tableFooterView = UIView()
+
         return true
     }
 

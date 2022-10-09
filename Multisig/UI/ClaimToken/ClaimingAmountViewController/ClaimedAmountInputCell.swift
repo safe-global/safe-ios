@@ -41,7 +41,7 @@ class ClaimedAmountInputCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.text = "How much do you want to claim?"
-        titleLabel.setStyle(GNOTextStyle.title5.weight(.semibold))
+        titleLabel.setStyle(.title3)
 
         descriptionLabel.text = "Select all tokens or custom amount."
         descriptionLabel.setStyle(.secondary)

@@ -22,7 +22,7 @@ class PrivateKeyViewController: UIViewController {
 
         headerLabel.isHidden = !showsHeader
 
-        headerLabel.setStyle(.headline2)
+        headerLabel.setStyle(.title2)
         privateKeyLabel.setStyle(.primary)
 
         privateKeyLabel.text = privateKey

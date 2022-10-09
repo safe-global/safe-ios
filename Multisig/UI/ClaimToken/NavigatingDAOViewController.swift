@@ -36,11 +36,11 @@ class NavigatingDAOViewController: UIViewController {
         ViewControllerFactory.removeNavigationBarBorder(self)
         navigationItem.largeTitleDisplayMode = .never
 
-        screenTitle.setStyle(.claimTitle)
+        screenTitle.setStyle(.title2)
 
         introductionParagraph.setStyle(.secondary)
 
-        checklistTitle.setStyle(.title5)
+        checklistTitle.setStyle(.headline)
 
         nextButton.setText("Start claiming", .filled)
 

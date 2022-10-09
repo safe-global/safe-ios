@@ -26,7 +26,7 @@ class SafeDeployingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.image = UIImage.animatedImageNamed("safe-creating-", duration: 1.3)
-        statusLabel.setStyle(.headline2)
+        statusLabel.setStyle(.title3)
         desciptionLabel.setStyle(.secondary)
         didYouKnowLabel.setStyle(.caption2.color(.primary))
         txButton.setText("View transaction in block explorer", .primary)

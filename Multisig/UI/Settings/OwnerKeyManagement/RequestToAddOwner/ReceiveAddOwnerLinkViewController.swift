@@ -31,7 +31,7 @@ class ReceiveAddOwnerLinkViewController: UIViewController {
         ViewControllerFactory.addCloseButton(self)
         ViewControllerFactory.makeTransparentNavigationBar(self)
 
-        titleLabel.setStyle(.title5)
+        titleLabel.setStyle(.title2)
         messageLabel.setStyle(.secondary)
 
         // if owner is added
