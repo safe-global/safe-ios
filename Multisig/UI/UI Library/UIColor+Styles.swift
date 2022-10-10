@@ -17,7 +17,7 @@ extension UIColor {
     static let backgroundPrimary = UIColor(named: "backgroundPrimary")!
     static let backgroundSecondary = UIColor(named: "backgroundSecondary")!
     static let backgroundLightGreen = UIColor(named: "backgroundLightGreen")!
-    static let backgroundGreen = UIColor(named: "backgroundGreen")
+    static let backgroundGreen = UIColor(named: "backgroundGreen")!
     static let backgroundTweet = UIColor(named: "backgroundTweet")!
     static let splashBackground = UIColor(named:"splashBackground")!
 
