@@ -43,7 +43,7 @@ class RejectionConfirmationViewController: UIViewController {
         rejectionButton.setText("Reject transaction", .filledError)
         navigationItem.title = "Reject Transaction"
 
-        createOnChainRejectionLabel.setStyle(.footnote3)
+        createOnChainRejectionLabel.setStyle(.footnote2)
         collectConfirmationsLabel.setStyle(.footnote2)
         executeOnChainRejectionLabel.setStyle(.footnote2)
         initialTransactionLabel.setStyle(.footnote2)

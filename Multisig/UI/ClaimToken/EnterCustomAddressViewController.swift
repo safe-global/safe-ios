@@ -41,7 +41,7 @@ class EnterCustomAddressViewController: UIViewController {
         continueButton.isEnabled = false
 
         descriptionLabel.setStyle(.secondary)
-        hintLabel.setStyle(.footnote4)
+        hintLabel.setStyle(.callout)
 
         if mainnet {
             chain = SCGModels.Chain.mainnetChain()

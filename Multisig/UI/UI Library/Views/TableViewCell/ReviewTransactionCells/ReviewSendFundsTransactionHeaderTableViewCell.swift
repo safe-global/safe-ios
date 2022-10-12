@@ -35,7 +35,7 @@ class ReviewSendFundsTransactionHeaderTableViewCell: UITableViewCell {
 
     func setToken(amount: String, symbol: String, fiatBalance: String?, image url: URL?) {
         tokenInfoView.setText("\(amount) \(symbol)", style: .headline)
-        tokenInfoView.setDetail(fiatBalance, style: .footnote4)
+        tokenInfoView.setDetail(fiatBalance, style: .subheadline)
         tokenInfoView.setImage(url)
     }
 }

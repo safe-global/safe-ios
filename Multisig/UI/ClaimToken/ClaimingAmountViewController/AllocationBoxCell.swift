@@ -56,8 +56,8 @@ class AllocationBoxCell: UITableViewCell {
     var boxBackgroundColor: UIColor = .primary
 
     var headerStyle: GNOTextStyle = .headline.color(.white)
-    var titleStyle: GNOTextStyle = .Updated.border
-    var valueStyle: GNOTextStyle = .Updated.whiteTitle
+    var titleStyle: GNOTextStyle = .body
+    var valueStyle: GNOTextStyle = .title1
 
     enum TitleImage: String {
         case dark = "ico-shield-dark"
@@ -177,8 +177,8 @@ class AllocationBoxCell: UITableViewCell {
         case .darkGuardian:
             boxBackgroundColor = .primary
             headerStyle = .headline.color(.white)
-            titleStyle = .Updated.border
-            valueStyle = .Updated.whiteTitle.color(.white)
+            titleStyle = .body
+            valueStyle = .title1.color(.white)
             headerButtonHidden = true
             titleButtonImage = .darkCircle
 
@@ -186,15 +186,15 @@ class AllocationBoxCell: UITableViewCell {
             boxBackgroundColor = .backgroundPrimary
             headerStyle = .headline
             titleStyle = .primary.color(.labelSecondary)
-            valueStyle = .Updated.whiteTitle.color(.labelPrimary)
+            valueStyle = .title1.color(.labelPrimary)
             headerButtonHidden = false
             titleButtonImage = .lightCircle
 
         case .darkUser:
             boxBackgroundColor = .primary
             headerStyle = .headline.color(.white)
-            titleStyle = .Updated.border
-            valueStyle = .Updated.whiteTitle
+            titleStyle = .body
+            valueStyle = .title1
             headerButtonHidden = true
             titleButtonImage = .dark
 
@@ -202,7 +202,7 @@ class AllocationBoxCell: UITableViewCell {
             boxBackgroundColor = .backgroundPrimary
             headerStyle = .headline
             titleStyle = .primary.color(.labelSecondary)
-            valueStyle = .Updated.whiteTitle.color(.labelPrimary)
+            valueStyle = .title1.color(.labelPrimary)
             headerButtonHidden = false
             titleButtonImage = .light
         }

@@ -17,7 +17,7 @@ class TransactionsListConflictHeaderTableViewCell: UITableViewCell, ExternalURLS
     override func awakeFromNib() {
         super.awakeFromNib()
         nonceLabel.setStyle(.footnote2)
-        descriptionLabel.setStyle(.footnote3)
+        descriptionLabel.setStyle(.footnote2)
         let buttonFont = UIFont.gnoFont(forTextStyle: .footnote2)
         learnMoreButton.setText("Learn more", GNOButtonStyle.plain.font(buttonFont))
     }

@@ -39,6 +39,6 @@ class NetworkIndicator: UINibView {
         super.commonInit()
         text = nil
         dotColor = .clear
-        textStyle = .footnote3
+        textStyle = .footnote
     }
 }

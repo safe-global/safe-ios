@@ -42,10 +42,6 @@ extension GNOTextStyle {
     static let primaryButton = GNOTextStyle(size: 17, weight: .medium, color: .primary)
 
     static let footnote2 = GNOTextStyle(size: 13, weight: .medium, color: .labelSecondary)
-    static let footnote3 = GNOTextStyle(size: 13, weight: .medium, color: .labelPrimary)
-    static let footnote4 = GNOTextStyle(size: 13, weight: .medium, color: .tertiaryLabel)
-
-    static let subhead = GNOTextStyle(size: 15, weight: .bold)
 
     static let error = GNOTextStyle(size: 16, weight: .regular, color: .error)
 
@@ -70,12 +66,6 @@ extension GNOTextStyle {
     static let caption2 = GNOTextStyle(size: 11, weight: .bold, color: .labelPrimary)
     static let footnote = GNOTextStyle(size: 13, weight: .medium, color: .labelTertiary)
     static let button = GNOTextStyle(size: 17, weight: .regular, color: .labelPrimary)
-
-    enum Updated {
-        static let headline = GNOTextStyle(size: 17, weight: .regular, color: .labelSecondary)
-        static let border = GNOTextStyle(size: 17, weight: .medium, color: .borderSelected)
-        static let whiteTitle = GNOTextStyle(size: 27, weight: .semibold, color: .backgroundSecondary)
-    }
 }
 
 extension GNOTextStyle {
