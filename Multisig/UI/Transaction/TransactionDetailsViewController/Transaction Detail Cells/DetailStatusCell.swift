@@ -19,9 +19,9 @@ class DetailStatusCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.setStyle(.primary)
-        appendixLabel.setStyle(.primary)
-        statusLabel.setStyle(.primary)
+        titleLabel.setStyle(.headline)
+        appendixLabel.setStyle(.headline)
+        statusLabel.setStyle(.headline)
     }
 
     func setTitle(_ title: String) {

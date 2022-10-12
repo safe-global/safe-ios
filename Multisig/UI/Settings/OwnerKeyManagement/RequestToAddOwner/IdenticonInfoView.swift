@@ -17,7 +17,7 @@ class IdenticonInfoView: UINibView {
     override func commonInit() {
         super.commonInit()
 
-        nameLabel.setStyle(.primary)
+        nameLabel.setStyle(.headline)
         addressLabel.setStyle(.tertiary)
     }
 

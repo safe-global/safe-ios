@@ -29,10 +29,10 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.setStyle(.primary)
+        titleLabel.setStyle(.headline)
         nonceLabel.setStyle(.footnote2)
         dateLabel.setStyle(.footnote2)
-        infoLabel.setStyle(.primary)
+        infoLabel.setStyle(.headline)
         appendixLabel.setStyle(.footnote2)
         statusLabel.setStyle(.footnote2)
         confirmationsCountLabel.setStyle(.footnote2)

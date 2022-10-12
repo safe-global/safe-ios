@@ -16,7 +16,7 @@ class CollectibleTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         cellNameLabel.setStyle(.headline)
-        cellDescriptionLabel.setStyle(.primary)
+        cellDescriptionLabel.setStyle(.headline)
         cellImageView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
         cellImageView.layer.cornerRadius = 8
         cellImageView.clipsToBounds = true

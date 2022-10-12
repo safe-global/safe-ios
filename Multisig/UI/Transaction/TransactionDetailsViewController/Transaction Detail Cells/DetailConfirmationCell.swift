@@ -54,7 +54,7 @@ class DetailConfirmationCell: UITableViewCell {
 
         case .cancelled:
             let status = ConfirmationStatusPiece(frame: bounds)
-            status.setText("Cancelled", style: GNOTextStyle.primary.color(.black))
+            status.setText("Cancelled", style: .headline)
             status.setSymbol("xmark.circle", color: .black)
             views.append(status)
 

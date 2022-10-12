@@ -44,7 +44,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         navigationItem.rightBarButtonItems = [nextButton, secureButton]
         nextButton.isEnabled = false
 
-        descriptionLabel.setStyle(.primary)
+        descriptionLabel.setStyle(.body)
 
         errorLabel.setStyle(.error)
         errorLabel.isHidden = true
@@ -55,7 +55,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         textView.layer.borderColor = UIColor.labelTertiary.cgColor
         textView.layer.cornerRadius = 10
         textView.textContainerInset = UIEdgeInsets(top: 16, left: 12, bottom: 16, right: 12)
-        textView.setStyle(.primary)
+        textView.setStyle(.body)
         
         textView.becomeFirstResponder()
 

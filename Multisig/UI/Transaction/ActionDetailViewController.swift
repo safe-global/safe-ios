@@ -272,7 +272,7 @@ class ActionDetailViewController: UITableViewController {
 
     private func hexCell(_ text: String, indentation: CGFloat = 0) -> UITableViewCell {
         let cell = self.tableView.dequeueCell(ActionDetailTextCell.self)
-        cell.setText(text, style: .primary)
+        cell.setText(text, style: .headline)
         cell.onTap = {
             Self.copyValue(text)
         }

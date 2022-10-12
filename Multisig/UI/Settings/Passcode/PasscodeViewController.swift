@@ -43,7 +43,7 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         headlineLabel.setStyle(.headline)
-        promptLabel.setStyle(.primary)
+        promptLabel.setStyle(.headline)
         errorLabel.setStyle(.error)
         detailLabel.setStyle(.secondary)
         button.setText("Skip", .plain)

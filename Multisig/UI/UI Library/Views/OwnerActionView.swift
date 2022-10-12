@@ -19,8 +19,8 @@ class OwnerActionView: UINibView {
 
     override func commonInit() {
         super.commonInit()
-        nameLabel.setStyle(.primary)
-        addressLabel.setStyle(.tertiary)
+        nameLabel.setStyle(.headline)
+        addressLabel.setStyle(.bodyTertiary)
     }
 
     func set(owner: AddressInfo, action: OwnerAction, prefix: String? = nil) {

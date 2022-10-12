@@ -14,7 +14,7 @@ class RejectionCreatedPiece: UINibView {
 
     override func commonInit() {
         super.commonInit()
-        textLabel.setStyle(.primaryError)
+        textLabel.setStyle(.headlineError)
     }
 
 }

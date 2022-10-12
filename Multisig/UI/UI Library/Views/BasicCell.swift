@@ -20,7 +20,7 @@ class BasicCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.setStyle(.primary)
+        titleLabel.setStyle(.headline)
         detailLabel.setStyle(.secondary)
         setDetail(nil)
         setSupplementary(nil)
@@ -33,7 +33,7 @@ class BasicCell: UITableViewCell {
         setDisclosureImage(UIImage(named: "arrow"))
     }
 
-    func setTitle(_ value: String?, style: GNOTextStyle = .primary) {
+    func setTitle(_ value: String?, style: GNOTextStyle = .headline) {
         titleLabel.text = value
         titleLabel.setStyle(style)
     }

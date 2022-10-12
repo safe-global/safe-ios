@@ -60,7 +60,7 @@ class ContractVersionStatusCell: UITableViewCell {
             headerLabel.text = version
             statusView.image = UIImage(systemName: "exclamationmark.circle", withConfiguration: semiboldConfiguration)
             statusView.tintColor = .error
-            statusLabel.setStyle(.primaryError)
+            statusLabel.setStyle(.headlineError)
             statusLabel.text = "Upgrade available"
 
         case .unknown:

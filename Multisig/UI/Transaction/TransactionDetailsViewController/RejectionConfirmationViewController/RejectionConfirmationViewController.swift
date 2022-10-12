@@ -47,7 +47,7 @@ class RejectionConfirmationViewController: UIViewController {
         collectConfirmationsLabel.setStyle(.footnote2)
         executeOnChainRejectionLabel.setStyle(.footnote2)
         initialTransactionLabel.setStyle(.footnote2)
-        descriptionLabel.setStyle(.primary)
+        descriptionLabel.setStyle(.body)
 
         readMoreLabel.hyperLinkLabel("Advanced users can create a non-empty (useful) transaction with the same nonce (in the web interface only). Learn more in this article: ",
                                      linkText: "Why do I need to pay for rejecting a transaction?")

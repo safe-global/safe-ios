@@ -38,7 +38,7 @@ class GSButton: UIButton {
 
 extension GSButton.Style {
     static let primary = GSButton.Style(
-        font: .gnoFont(forTextStyle: .primary),
+        font: .gnoFont(forTextStyle: .button),
         config: [
             StateConfig(state: .normal, titleColor: .primary, backgroundImage: nil),
             StateConfig(state: .highlighted, titleColor: .primaryPressed, backgroundImage: nil),

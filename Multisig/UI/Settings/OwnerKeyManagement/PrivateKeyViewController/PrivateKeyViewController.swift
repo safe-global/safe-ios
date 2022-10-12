@@ -23,7 +23,7 @@ class PrivateKeyViewController: UIViewController {
         headerLabel.isHidden = !showsHeader
 
         headerLabel.setStyle(.title2)
-        privateKeyLabel.setStyle(.primary)
+        privateKeyLabel.setStyle(.headline)
 
         privateKeyLabel.text = privateKey
         qrCodeView.value = privateKey

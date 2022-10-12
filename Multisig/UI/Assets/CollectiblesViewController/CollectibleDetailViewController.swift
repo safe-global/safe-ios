@@ -25,7 +25,7 @@ class CollectibleDetailViewController: UIViewController {
         navigationItem.title = "Collectible Details"
         titleLabel.setStyle(.headline)
         detailLabel.setStyle(.footnote2)
-        descriptionLabel.setStyle(.primary)
+        descriptionLabel.setStyle(.body)
 
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true

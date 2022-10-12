@@ -24,7 +24,7 @@ class CardTableViewCell: UITableViewCell, ExternalURLSource {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.setStyle(.headline)
-        bodyLabel.setStyle(.primary)
+        bodyLabel.setStyle(.body)
         selectionStyle = .none
     }
 

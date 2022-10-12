@@ -13,7 +13,7 @@ class ChooseOwnerBasicHeaderView: UINibView {
 
     override func commonInit() {
         super.commonInit()
-        textLabel.setStyle(.primary)
+        textLabel.setStyle(.headline)
         textLabel.text = ""
     }
 

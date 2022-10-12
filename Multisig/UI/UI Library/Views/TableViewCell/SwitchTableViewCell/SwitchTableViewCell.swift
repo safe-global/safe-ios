@@ -14,7 +14,7 @@ class SwitchTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.setStyle(.primary)
+        titleLabel.setStyle(.headline)
     }
 
     func setText(_ text: String?) {

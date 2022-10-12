@@ -185,7 +185,7 @@ class AllocationBoxCell: UITableViewCell {
         case .lightGuardian:
             boxBackgroundColor = .backgroundPrimary
             headerStyle = .headline
-            titleStyle = .primary.color(.labelSecondary)
+            titleStyle = .body
             valueStyle = .title1.color(.labelPrimary)
             headerButtonHidden = false
             titleButtonImage = .lightCircle
@@ -201,7 +201,7 @@ class AllocationBoxCell: UITableViewCell {
         case .lightUser:
             boxBackgroundColor = .backgroundPrimary
             headerStyle = .headline
-            titleStyle = .primary.color(.labelSecondary)
+            titleStyle = .body
             valueStyle = .title1.color(.labelPrimary)
             headerButtonHidden = false
             titleButtonImage = .light

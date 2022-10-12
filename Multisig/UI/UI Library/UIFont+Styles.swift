@@ -35,10 +35,8 @@ struct GNOTextStyle: Hashable {
 }
 
 extension GNOTextStyle {
-    static let primary = GNOTextStyle(size: 17, weight: .medium, color: .labelPrimary)
     static let secondary = GNOTextStyle(size: 17, weight: .medium, color: .labelSecondary)
     static let tertiary = GNOTextStyle(size: 17, weight: .medium, color: .tertiaryLabel)
-    static let primaryError = GNOTextStyle(size: 17, weight: .medium, color: .error)
     static let primaryButton = GNOTextStyle(size: 17, weight: .medium, color: .primary)
 
     static let footnote2 = GNOTextStyle(size: 13, weight: .medium, color: .labelSecondary)
@@ -51,11 +49,17 @@ extension GNOTextStyle {
     static let title2 = GNOTextStyle(size: 22, weight: .regular, color: .labelPrimary)
     static let title3 = GNOTextStyle(size: 20, weight: .regular, color: .labelPrimary)
     static let headline = GNOTextStyle(size: 17, weight: .semibold, color: .labelPrimary)
+    static let headlineSuccess = GNOTextStyle(size: 17, weight: .semibold, color: .success)
+    static let headlineError = GNOTextStyle(size: 17, weight: .semibold, color: .error)
+    static let headlineSecondary = GNOTextStyle(size: 17, weight: .semibold, color: .labelSecondary)
 
     // Paragraph
     static let body = GNOTextStyle(size: 17, weight: .regular, color: .labelSecondary)
+    static let bodyPrimary = GNOTextStyle(size: 17, weight: .regular, color: .labelPrimary)
+    static let bodyTertiary = GNOTextStyle(size: 17, weight: .regular, color: .tertiaryLabel)
     static let bodyMedium = GNOTextStyle(size: 17, weight: .medium, color: .labelSecondary)
     static let callout = GNOTextStyle(size: 16, weight: .regular, color: .labelSecondary)
+    static let calloutPrimary = GNOTextStyle(size: 16, weight: .regular, color: .labelPrimary)
     static let calloutMedium = GNOTextStyle(size: 16, weight: .medium, color: .labelSecondary)
 
     // Label
@@ -66,6 +70,7 @@ extension GNOTextStyle {
     static let caption2 = GNOTextStyle(size: 11, weight: .bold, color: .labelPrimary)
     static let footnote = GNOTextStyle(size: 13, weight: .medium, color: .labelTertiary)
     static let button = GNOTextStyle(size: 17, weight: .regular, color: .labelPrimary)
+    static let buttonLight = GNOTextStyle(size: 17, weight: .regular, color: .backgroundSecondary)
 }
 
 extension GNOTextStyle {
@@ -104,7 +109,7 @@ extension UILabel {
     }
 
     func hyperLinkLabel(_ prefixText: String = "",
-                        prefixStyle: GNOTextStyle = .primary,
+                        prefixStyle: GNOTextStyle = .button,
                         linkText: String = "",
                         linkStyle: GNOTextStyle = .primaryButton,
                         linkIcon: UIImage? = UIImage(named: "icon-external-link")!.withTintColor(.primary),
@@ -185,15 +190,15 @@ extension GNOButtonStyle {
     static let primary = GNOButtonStyle(appearance: [
         (.normal, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
             .foregroundColor: UIColor.primary,
-            .font: UIFont.gnoFont(forTextStyle: .primary)
+            .font: UIFont.gnoFont(forTextStyle: .buttonLight)
         ])),
         (.highlighted, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
             .foregroundColor: UIColor.primaryPressed,
-            .font: UIFont.gnoFont(forTextStyle: .primary)
+            .font: UIFont.gnoFont(forTextStyle: .buttonLight)
         ])),
         (.disabled, GNOButtonAppearance(backgroundImage: nil, textAttributes: [
             .foregroundColor: UIColor.primary.withAlphaComponent(0.5),
-            .font: UIFont.gnoFont(forTextStyle: .primary)
+            .font: UIFont.gnoFont(forTextStyle: .buttonLight)
         ]))
     ])
 

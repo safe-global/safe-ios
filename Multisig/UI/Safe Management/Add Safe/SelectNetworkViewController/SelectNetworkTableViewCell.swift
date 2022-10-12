@@ -14,7 +14,7 @@ class SelectNetworkTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        nameLabel.setStyle(.primary)
+        nameLabel.setStyle(.headline)
     }
 
     func setText(_ text: String?) {

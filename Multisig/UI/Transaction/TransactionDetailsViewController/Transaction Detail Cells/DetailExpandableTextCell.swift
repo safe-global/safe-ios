@@ -23,7 +23,7 @@ class DetailExpandableTextCell: UITableViewCell {
 
     var titleStyle: GNOTextStyle = .headline
     var expandableTitleStyle: (collapsed: GNOTextStyle, expanded: GNOTextStyle) = (.secondary, .secondary)
-    var contentStyle: (collapsed: GNOTextStyle, expanded: GNOTextStyle) = (.secondary, .primary)
+    var contentStyle: (collapsed: GNOTextStyle, expanded: GNOTextStyle) = (.secondary, .body)
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,7 +40,7 @@ class DetailExpandableTextCell: UITableViewCell {
         isExpanded = false
         titleStyle = .headline
         expandableTitleStyle = (.secondary, .secondary)
-        contentStyle = (.secondary, .primary)
+        contentStyle = (.secondary, .body)
         titleLabel.setStyle(titleStyle)
         contentLabel.setStyle(contentStyle.collapsed)
         expandableTitleLabel.setStyle(expandableTitleStyle.collapsed)

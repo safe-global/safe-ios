@@ -147,7 +147,7 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
 
             cell.setText("Network")
             let content = NetworkIndicator()
-            content.textStyle = .primary
+            content.textStyle = .headline
             content.text = chain.name
             content.dotColor = chain.backgroundColor
             cell.setContent(content)

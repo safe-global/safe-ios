@@ -26,7 +26,7 @@ class EditAdvancedParametersUITableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        titleLabel.setStyle(.primary)
+        titleLabel.setStyle(.headline)
         nonceInfoLabel.setText("Safe nonce",
                                description: "Safe nonce determines an order in which transactions are executed.",
                                style: .secondary)

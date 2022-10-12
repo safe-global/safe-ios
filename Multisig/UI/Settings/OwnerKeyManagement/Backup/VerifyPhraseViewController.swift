@@ -98,8 +98,8 @@ class VerifyPhraseViewController: UIViewController {
 
         pageLabel.setStyle(.tertiary)
         titleLabel.setStyle(.secondary)
-        wordLabel.setStyle(.primary)
-        wordNumberLabel.setStyle(.primary.color(.success))
+        wordLabel.setStyle(.headline)
+        wordNumberLabel.setStyle(.headlineSecondary)
         errorLabel.setStyle(.error)
 
         restartButton.setText("Restart", .filled)

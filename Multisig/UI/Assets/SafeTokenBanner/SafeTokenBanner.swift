@@ -26,7 +26,7 @@ class SafeTokenBanner: UINibView {
         titleLabel.textColor = .primaryDisabled
         messageLabel.setStyle(.callout)
         messageLabel.textColor = .primaryDisabled
-        claimButton.titleLabel?.setStyle(.primary)
+        claimButton.titleLabel?.setStyle(.button)
         claimButton.setTitleColor(.black, for: .normal)
     }
 

@@ -34,12 +34,12 @@ class TweetBox: UINibView {
     }
 
     func setTweet(text: String, highlights: [String]) {
-        let attributedText = NSMutableAttributedString(string: text, attributes: GNOTextStyle.primary.attributes)
+        let attributedText = NSMutableAttributedString(string: text, attributes: GNOTextStyle.body.attributes)
 
         for string in highlights {
             let range = (text as NSString).range(of: string)
             guard range.location != NSNotFound else { continue }
-            attributedText.addAttributes(GNOTextStyle.primary.color(.primary).attributes, range: range)
+            attributedText.addAttributes(GNOTextStyle.bodyPrimary.attributes, range: range)
         }
         
         tweetLabel.attributedText = attributedText

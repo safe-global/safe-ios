@@ -16,7 +16,7 @@ class KeyTypeTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        nameLabel.setStyle(.primary)
+        nameLabel.setStyle(.headline)
     }
 
     override func draw(_ rect: CGRect) {

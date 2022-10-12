@@ -22,7 +22,7 @@ class SigningKeyTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        cellDetailLabel.setStyle(.primary)
+        cellDetailLabel.setStyle(.headline)
         cellDetailImageView.isHidden = true
 
         cellDetailLabel.isSkeletonable = true
