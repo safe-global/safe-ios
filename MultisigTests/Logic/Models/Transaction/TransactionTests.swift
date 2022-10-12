@@ -16,7 +16,7 @@ class TransactionTests: XCTestCase {
     }
 
     func testDecodeDetails() throws {
-        // https://safe-client.staging.gnosisdev.com/v1/chains/4/transactions/multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xcb1c34c70414323afccd4e0645b081518a05f69f09d6d9a6b6e2d7c38e851ad4
+        // https://safe-client.staging.5afe.dev/v1/chains/4/transactions/multisig_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_0xcb1c34c70414323afccd4e0645b081518a05f69f09d6d9a6b6e2d7c38e851ad4
         
         let data = jsonData("TransferTransaction")
         let decoder = JSONDecoder()

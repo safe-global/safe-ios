@@ -74,7 +74,7 @@ extension SCGModels {
     /// "addressInfoIndex": {
     ///   "0x8D29bE29923b68abfDD21e541b9374737B49cdAD": {
     ///     "name": "Gnosis Safe: Multi Send 1.1.1",
-    ///     "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/contracts/logos/0x8D29bE29923b68abfDD21e541b9374737B49cdAD.png"
+    ///     "logoUri": "https://safe-transaction-assets.staging.5afe.dev/contracts/logos/0x8D29bE29923b68abfDD21e541b9374737B49cdAD.png"
     ///   }
     /// }
     ///
