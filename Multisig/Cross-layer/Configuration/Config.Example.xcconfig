@@ -37,8 +37,8 @@ _CLIENT_GATEWAY_URL_STAGING    = https:/$()/safe-client.staging.5afe.dev/
 _CLIENT_GATEWAY_URL_PROD       = https:/$()/safe-client.gnosis.io/
 
 // Claiming app service
-_CLAIMING_DATA_URL_DEV        = https:/$()/safe-claiming-app-data.staging.gnosisdev.com/
-_CLAIMING_DATA_URL_STAGING    = https:/$()/safe-claiming-app-data.staging.gnosisdev.com/
+_CLAIMING_DATA_URL_DEV        = https:/$()/safe-claiming-app-data.staging.5afe.dev/
+_CLAIMING_DATA_URL_STAGING    = https:/$()/safe-claiming-app-data.staging.5afe.dev/
 _CLAIMING_DATA_URL_PROD       = https:/$()/safe-claiming-app-data.gnosis-safe.io/
 
 
@@ -130,7 +130,7 @@ SAFE_DAO_URL            = https:/$()/snapshot.org/#/safe.eth
 
 // Web app url
 GNOSIS_SAFE_WEB_URL_PROD     = https:/$()/gnosis-safe.io/app/
-GNOSIS_SAFE_WEB_URL_STAGING     =  https:/$()/safe-team.staging.gnosisdev.com/app/
+GNOSIS_SAFE_WEB_URL_STAGING     =  https:/$()/safe-team.staging.5afe.dev/app/
 
 // App Review URLs
 _APP_STORE_REVIEW_URL_DEV        = https:/$()/apps.apple.com/app/id1515758190?action=write-review
