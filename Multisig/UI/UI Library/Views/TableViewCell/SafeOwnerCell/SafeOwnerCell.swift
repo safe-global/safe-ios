@@ -24,7 +24,7 @@ class SafeOwnerCell: UITableViewCell {
         super.awakeFromNib()
 
         nameLabel.setStyle(.headline)
-        addressLabel.setStyle(.tertiary)
+        addressLabel.setStyle(.bodyTertiary)
         setIconSize(Self.defaultIconSize)
     }
 
@@ -38,7 +38,7 @@ class SafeOwnerCell: UITableViewCell {
         if let name = name {
             nameLabel.isHidden = false
             nameLabel.text = name
-            addressLabel.setStyle(.tertiary)
+            addressLabel.setStyle(.bodyTertiary)
         } else {
             nameLabel.isHidden = true
         }

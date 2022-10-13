@@ -38,8 +38,8 @@ class SafeBarView: UINibView {
     override func awakeFromNib() {
         super.awakeFromNib()
         textLabel.setStyle(.headline)
-        detailLabel.setStyle(.tertiary)
-        accessoryLabel.setStyle(.tertiary)
+        detailLabel.setStyle(.bodyTertiary)
+        accessoryLabel.setStyle(.bodyTertiary)
     }
 
     func setAddress(_ value: Address, prefix: String?) {
@@ -57,7 +57,7 @@ class SafeBarView: UINibView {
         displayAddress()
     }
 
-    func setDetail(text: String, style: GNOTextStyle = .tertiary) {
+    func setDetail(text: String, style: GNOTextStyle = .bodyTertiary) {
         detailLabel.text = text
         detailLabel.setStyle(style)
     }
@@ -100,7 +100,7 @@ class SafeBarView: UINibView {
 
     @objc func displayAddress() {
         guard let address = address else { return }
-        detailLabel.setStyle(.tertiary)
+        detailLabel.setStyle(.bodyTertiary)
         detailLabel.text = prefixString() + address.ellipsized()
     }
 

@@ -46,7 +46,7 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
         stepLabel.textAlignment = .right
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
 
-        stepLabel.setStyle(.tertiary)
+        stepLabel.setStyle(.calloutTertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
         if promptText.isEmpty {

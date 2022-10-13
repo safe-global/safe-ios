@@ -16,7 +16,7 @@ class GNOTextField: UINibView {
     override func commonInit() {
         super.commonInit()
         setError(nil)
-        errorLabel.setStyle(.error)
+        errorLabel.setStyle(.calloutError)
 
         textField.borderStyle = .none
         textField.setStyle(.body)
@@ -27,7 +27,7 @@ class GNOTextField: UINibView {
             textField.attributedPlaceholder = nil
             return
         }
-        let attributes = GNOTextStyle.tertiary.attributes
+        let attributes = GNOTextStyle.bodyTertiary.attributes
         textField.attributedPlaceholder = NSAttributedString(string: text, attributes: attributes)
     }
 

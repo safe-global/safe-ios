@@ -11,7 +11,7 @@ import UIKit
 
 extension String {
     func highlight(prefix: Int = 6, suffix: Int = 4) -> NSAttributedString {
-        let style = GNOTextStyle.tertiary
+        let style = GNOTextStyle.bodyTertiary
         let attributedString = NSMutableAttributedString(
             string: self,
             attributes: [

@@ -33,7 +33,7 @@ class TokenAmountField: UINibView {
         super.awakeFromNib()
         amountTextField.setStyle(.body)
         amountTextField.placeholder = "Amount"
-        errorLabel.setStyle(.error)
+        errorLabel.setStyle(.calloutError)
         errorLabel.isHidden = true
         errorLabel.text = nil
         updateBorder()

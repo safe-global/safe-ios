@@ -18,7 +18,7 @@ class IdenticonInfoView: UINibView {
         super.commonInit()
 
         nameLabel.setStyle(.headline)
-        addressLabel.setStyle(.tertiary)
+        addressLabel.setStyle(.bodyTertiary)
     }
 
     func set(owner: AddressInfo, badgeName: String? = nil, reqConfirmations: Int? = nil, ownerCount: Int? = nil) {

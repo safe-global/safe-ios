@@ -30,7 +30,7 @@ class ContractVersionStatusCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         headerLabel.setStyle(.headline)
-        detailLabel.setStyle(.tertiary)
+        detailLabel.setStyle(.bodyTertiary)
 
         addTarget(self, action: #selector(didTouchDown(sender:forEvent:)), for: .touchDown)
         addTarget(self, action: #selector(didTouchUp(sender:forEvent:)), for: [.touchUpInside, .touchUpOutside, .touchCancel])
@@ -53,7 +53,7 @@ class ContractVersionStatusCell: UITableViewCell {
             headerLabel.text = version
             statusView.image = UIImage(systemName: "checkmark", withConfiguration: semiboldConfiguration)
             statusView.tintColor = .success
-            statusLabel.setStyle(.primaryButton)
+            statusLabel.setStyle(.headlineSuccess)
             statusLabel.text = "Up to date"
 
         case .upgradeAvailable:

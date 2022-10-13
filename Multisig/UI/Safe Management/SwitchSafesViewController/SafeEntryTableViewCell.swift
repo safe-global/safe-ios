@@ -18,7 +18,7 @@ class SafeEntryTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         mainLabel.setStyle(.headline)
-        detailLabel.setStyle(.tertiary)
+        detailLabel.setStyle(.bodyTertiary)
         setProgress(enabled: false)
     }
 
@@ -34,14 +34,14 @@ class SafeEntryTableViewCell: UITableViewCell {
         progressIndicator.isHidden = !enabled
     }
 
-    func setDetail(text: String, style: GNOTextStyle = .tertiary) {
+    func setDetail(text: String, style: GNOTextStyle = .bodyTertiary) {
         detailLabel.text = text
         detailLabel.setStyle(style)
     }
 
     func setDetail(address: Address, prefix: String?) {
         detailLabel.text = prefixString(prefix: prefix) + address.ellipsized()
-        detailLabel.setStyle(.tertiary)
+        detailLabel.setStyle(.bodyTertiary)
     }
 
     func setName(_ value: String) {

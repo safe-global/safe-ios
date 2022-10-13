@@ -20,7 +20,7 @@ class ChooseOwnerDetailHeaderView: UINibView {
         super.commonInit()
         textLabel.setStyle(.title2)
         textLabel.text = nil
-        detailTextLabel.setStyle(.tertiary)
+        detailTextLabel.setStyle(.body)
         detailTextLabel.text = nil
     }
 

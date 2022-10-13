@@ -35,7 +35,7 @@ class EnterOwnerAddressViewController: UIViewController {
         stepLabel.textAlignment = .right
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
 
-        stepLabel.setStyle(.tertiary)
+        stepLabel.setStyle(.calloutTertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
         addressField.setPlaceholderText("Enter address")

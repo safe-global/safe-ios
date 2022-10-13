@@ -46,7 +46,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
 
         descriptionLabel.setStyle(.body)
 
-        errorLabel.setStyle(.error)
+        errorLabel.setStyle(.calloutError)
         errorLabel.isHidden = true
 
         textView.textContentType = .password
@@ -59,7 +59,7 @@ class EnterKeyOrSeedPhraseViewController: UIViewController {
         
         textView.becomeFirstResponder()
 
-        placeholderLabel.setStyle(.tertiary)
+        placeholderLabel.setStyle(.bodyTertiary)
         placeholderLabel.text = "Enter private key or seed phrase"
     }
 

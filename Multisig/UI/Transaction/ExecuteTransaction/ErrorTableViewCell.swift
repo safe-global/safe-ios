@@ -15,7 +15,7 @@ class ErrorTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        cellLabel.setStyle(.error)
+        cellLabel.setStyle(.calloutError)
     }
 
     func setText(_ text: String?) {

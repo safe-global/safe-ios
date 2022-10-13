@@ -249,7 +249,7 @@ class ActionDetailViewController: UITableViewController {
 
     private func emptyCell(indentation: CGFloat = 0) -> UITableViewCell {
         let cell = tableView.dequeueCell(ActionDetailTextCell.self)
-        cell.setText("empty", style: .tertiary)
+        cell.setText("empty", style: .bodyTertiary)
         cell.selectionStyle = .none
         cell.margins.leading += indentation
         return cell

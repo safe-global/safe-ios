@@ -309,9 +309,9 @@ class SendTransactionCellBuilder {
 
         let cell = tableView.dequeueCell(DetailExpandableTextCell.self)
         cell.tableView = tableView
-        cell.titleStyle = .error.weight(.medium)
-        cell.expandableTitleStyle = (collapsed: .error, expanded: .error)
-        cell.contentStyle = (collapsed: .error, expanded: .secondary)
+        cell.titleStyle = .calloutMediumError
+        cell.expandableTitleStyle = (collapsed: .calloutError, expanded: .calloutError)
+        cell.contentStyle = (collapsed: .bodyError, expanded: .body)
         cell.setTitle(nil)
         cell.setText(errorText)
         cell.setCopyText(errorText)

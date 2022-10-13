@@ -60,7 +60,7 @@ class DetailConfirmationCell: UITableViewCell {
 
         case .failed:
             let status = ConfirmationStatusPiece(frame: bounds)
-            status.setText("Failed", style: .error)
+            status.setText("Failed", style: .headlineError)
             status.setSymbol("xmark.circle", color: .error)
             views.append(status)
 
@@ -79,14 +79,14 @@ class DetailConfirmationCell: UITableViewCell {
                 views.append(success)
             } else {
                 let status = ConfirmationStatusPiece(frame: bounds)
-                status.setText("Executed", style: .primaryButton)
+                status.setText("Executed", style: .headline)
                 status.setSymbol("checkmark.circle", color: .success)
                 views.append(status)
             }
 
         case .pending:
             let status = ConfirmationStatusPiece(frame: bounds)
-            status.setText("Pending", style: .primaryButton)
+            status.setText("Pending", style: .headline)
             status.setSymbol("circle", color: .success)
             views.append(status)
         }
@@ -103,7 +103,7 @@ class DetailConfirmationCell: UITableViewCell {
 
     private func executionPiece(frame: CGRect) -> UIView {
         let status = ConfirmationStatusPiece(frame: bounds)
-        status.setText("Execute", style: .primaryButton)
+        status.setText("Execute", style: .headlineSecondary)
         status.setSymbol("circle", color: .success)
         return status
     }

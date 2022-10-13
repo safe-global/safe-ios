@@ -43,7 +43,7 @@ class SigningKeyTableViewCell: UITableViewCell {
         nameLabel.setStyle(.headline)
 
         addressLabel.text = keyInfo.address.ellipsized()
-        addressLabel.setStyle(.tertiary)
+        addressLabel.setStyle(.bodyTertiary)
 
         identicon.set(address: keyInfo.address, imageURL: nil, badgeName: keyInfo.keyType.imageName)
 

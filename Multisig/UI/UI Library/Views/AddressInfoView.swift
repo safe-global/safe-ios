@@ -37,7 +37,7 @@ class AddressInfoView: UINibView {
         super.commonInit()
         titleLabel.setStyle(.headline)
         textLabel.setStyle(.headline)
-        addressLabel.setStyle(.tertiary)
+        addressLabel.setStyle(.bodyTertiary)
         setTitle(nil)
 
         setIconSize(Self.defaultIconSize)
@@ -86,7 +86,7 @@ class AddressInfoView: UINibView {
         if let label = label {
             textLabel.isHidden = false
             textLabel.text = label
-            addressLabel.setStyle(.tertiary)
+            addressLabel.setStyle(.bodyTertiary)
         } else {
             textLabel.isHidden = true
         }

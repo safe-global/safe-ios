@@ -42,7 +42,7 @@ class SafeDeploymentFinishedViewController: UIViewController {
         super.viewDidLoad()
 
         titleLabel.setStyle(.title3)
-        descriptionLabel.setStyle(.tertiary)
+        descriptionLabel.setStyle(.body)
 
         switch mode {
         case .success:

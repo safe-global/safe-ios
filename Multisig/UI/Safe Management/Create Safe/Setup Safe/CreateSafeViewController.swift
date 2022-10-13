@@ -659,9 +659,9 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = tableView.dequeueCell(DetailExpandableTextCell.self, for: indexPath)
 
         cell.tableView = tableView
-        cell.titleStyle = .error.weight(.medium)
-        cell.expandableTitleStyle = (collapsed: .error, expanded: .error)
-        cell.contentStyle = (collapsed: .error, expanded: .error)
+        cell.titleStyle = .calloutMediumError
+        cell.expandableTitleStyle = (collapsed: .calloutError, expanded: .calloutError)
+        cell.contentStyle = (collapsed: .bodyError, expanded: .body)
 
         let errorText = uiModel.error?.localizedDescription ?? ""
         let title = errorText.count <= 144 ? errorText : nil

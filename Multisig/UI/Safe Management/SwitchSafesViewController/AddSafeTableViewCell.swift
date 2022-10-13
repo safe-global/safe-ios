@@ -13,7 +13,7 @@ class AddSafeTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        button.titleLabel?.setStyle(.primaryButton)
+        button.titleLabel?.setStyle(.button)
     }
     
 }

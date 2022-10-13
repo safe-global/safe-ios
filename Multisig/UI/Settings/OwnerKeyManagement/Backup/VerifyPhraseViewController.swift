@@ -96,11 +96,11 @@ class VerifyPhraseViewController: UIViewController {
         pageLabel.textAlignment = .right
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: pageLabel)
 
-        pageLabel.setStyle(.tertiary)
+        pageLabel.setStyle(.calloutTertiary)
         titleLabel.setStyle(.secondary)
         wordLabel.setStyle(.headline)
         wordNumberLabel.setStyle(.headlineSecondary)
-        errorLabel.setStyle(.error)
+        errorLabel.setStyle(.calloutError)
 
         restartButton.setText("Restart", .filled)
         // we're taking the system icon here
