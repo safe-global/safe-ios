@@ -97,7 +97,7 @@ class VerifyPhraseViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: pageLabel)
 
         pageLabel.setStyle(.calloutTertiary)
-        titleLabel.setStyle(.secondary)
+        titleLabel.setStyle(.body)
         wordLabel.setStyle(.headline)
         wordNumberLabel.setStyle(.headlineSecondary)
         errorLabel.setStyle(.calloutError)

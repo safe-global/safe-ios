@@ -28,7 +28,7 @@ class InactiveLinkViewController: UIViewController {
         titleLabel.setStyle(.title3.weight(.semibold))
         titleLabel.text = titleText
 
-        bodyLabel.setStyle(.secondary)
+        bodyLabel.setStyle(.body)
         bodyLabel.text = bodyText
 
         doneLabel.setText(buttonText, .filled)

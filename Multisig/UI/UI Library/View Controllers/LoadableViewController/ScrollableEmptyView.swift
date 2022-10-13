@@ -20,7 +20,7 @@ class ScrollableEmptyView: UINibView {
     
     override func commonInit() {
         super.commonInit()
-        textLabel.setStyle(.secondary)
+        textLabel.setStyle(.title3)
     }
 
     func setText(_ value: String) {

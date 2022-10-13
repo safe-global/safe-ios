@@ -32,7 +32,7 @@ class ReceiveAddOwnerLinkViewController: UIViewController {
         ViewControllerFactory.makeTransparentNavigationBar(self)
 
         titleLabel.setStyle(.title2)
-        messageLabel.setStyle(.secondary)
+        messageLabel.setStyle(.body)
 
         // if owner is added
         let ownerKeyInfo = try? KeyInfo.firstKey(address: owner)

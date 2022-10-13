@@ -14,7 +14,7 @@ class GuardianCountTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        countLabel.setStyle(.secondary)
+        countLabel.setStyle(.body)
     }
 
     func setCount(_ count: Int) {

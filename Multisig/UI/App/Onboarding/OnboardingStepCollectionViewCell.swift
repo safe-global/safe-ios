@@ -28,7 +28,7 @@ class OnboardingStepCollectionViewCell: UICollectionViewCell {
             )
         } else {
             descriptionLabel.text = step.description.text
-            descriptionLabel.setStyle(.secondary)
+            descriptionLabel.setStyle(.body)
         }
         imageView.image = step.image
     }

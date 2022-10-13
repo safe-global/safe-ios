@@ -51,7 +51,7 @@ class SuccessViewController: UIViewController {
         navigationItem.backButtonTitle = "Back"
 
         titleLabel.setStyle(.headline)
-        bodyLabel.setStyle(.secondary)
+        bodyLabel.setStyle(.body)
 
         titleLabel.text = titleText
         bodyLabel.text = bodyText

@@ -40,7 +40,7 @@ class EnterCustomAddressViewController: UIViewController {
         continueButton.setText("Select & Continue", .filled)
         continueButton.isEnabled = false
 
-        descriptionLabel.setStyle(.secondary)
+        descriptionLabel.setStyle(.body)
         hintLabel.setStyle(.callout)
 
         if mainnet {

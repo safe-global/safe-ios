@@ -35,8 +35,6 @@ struct GNOTextStyle: Hashable {
 }
 
 extension GNOTextStyle {
-    static let secondary = GNOTextStyle(size: 17, weight: .medium, color: .labelSecondary)
-
     static let footnote2 = GNOTextStyle(size: 13, weight: .medium, color: .labelSecondary)
 
     // Heading

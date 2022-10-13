@@ -26,7 +26,7 @@ class ClaimNotAvailableViewController: UIViewController {
 
         titleLabel.setStyle(.title1)
 
-        descriptionLabel.setStyle(.secondary)
+        descriptionLabel.setStyle(.body)
 
         safeDAOLink.setText("Safe DAO", underlined: false)
         safeDAOLink.url = App.configuration.contact.safeDAOURL

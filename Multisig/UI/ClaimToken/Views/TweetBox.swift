@@ -23,7 +23,7 @@ class TweetBox: UINibView {
         layer.borderWidth = 2
         layer.cornerRadius = 8
 
-        tweetLabel.setStyle(.secondary.color(.labelPrimary))
+        tweetLabel.setStyle(.body)
         tweetButton.setText("Tweet", .tweet)
     }
 

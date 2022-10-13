@@ -239,7 +239,7 @@ class ActionDetailViewController: UITableViewController {
 
     private func textCell(_ text: String, indentation: CGFloat = 0) -> UITableViewCell {
         let cell = tableView.dequeueCell(ActionDetailTextCell.self)
-        cell.setText(text, style: .secondary)
+        cell.setText(text, style: .body)
         cell.onTap = {
             Self.copyValue(text)
         }

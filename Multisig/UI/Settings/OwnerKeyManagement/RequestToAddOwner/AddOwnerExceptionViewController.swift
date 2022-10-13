@@ -45,7 +45,7 @@ class AddOwnerExceptionViewController: UIViewController {
         titleLabel.setStyle(.title3.weight(.semibold))
         titleLabel.text = titleText
 
-        bodyLabel.setStyle(.secondary)
+        bodyLabel.setStyle(.body)
         bodyLabel.text = bodyText
 
         let (name, image) = NamingPolicy.name(for: address, chainId: chain.id!)

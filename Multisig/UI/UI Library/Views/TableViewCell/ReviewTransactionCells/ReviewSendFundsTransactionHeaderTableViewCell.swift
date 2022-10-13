@@ -20,9 +20,9 @@ class ReviewSendFundsTransactionHeaderTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        toLabel.setStyle(.secondary)
-        fromLabel.setStyle(.secondary)
-        amountLabel.setStyle(.secondary)
+        toLabel.setStyle(.headlineSecondary)
+        fromLabel.setStyle(.headlineSecondary)
+        amountLabel.setStyle(.headlineSecondary)
     }
 
     func setFromAddress(_ address: Address, label: String?, prefix: String?) {

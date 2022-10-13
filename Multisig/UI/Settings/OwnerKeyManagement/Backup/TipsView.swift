@@ -41,11 +41,11 @@ class TipsView: UINibView {
                                                               attribute: .width,
                                                               multiplier: 1,
                                                               constant: 10))
-            bulletPointLabel.setStyle(.secondary)
+            bulletPointLabel.setStyle(.callout)
             bulletPointLabel.text = "\u{2022}"
 
             let tipLabel = UILabel()
-            tipLabel.setStyle(.secondary)
+            tipLabel.setStyle(.callout)
             tipLabel.numberOfLines = 0
             tipLabel.text = $0
             

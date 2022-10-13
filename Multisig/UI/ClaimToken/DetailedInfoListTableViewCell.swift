@@ -16,7 +16,7 @@ class DetailedInfoListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.setStyle(.headline)
-        descriptionLabel.setStyle(.secondary)
+        descriptionLabel.setStyle(.body)
     }
 
     func set(title: String?, description: String?) {
@@ -25,7 +25,7 @@ class DetailedInfoListTableViewCell: UITableViewCell {
 
         descriptionLabel.isHidden = description == nil
         if let description = description {
-            let attrString = NSMutableAttributedString(string: description, attributes: GNOTextStyle.secondary.attributes)
+            let attrString = NSMutableAttributedString(string: description, attributes: GNOTextStyle.body.attributes)
             attrString.paragraph()
             descriptionLabel.attributedText = attrString
         }

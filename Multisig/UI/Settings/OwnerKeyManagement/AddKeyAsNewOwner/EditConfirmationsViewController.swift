@@ -53,7 +53,7 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
             labelContainer.isHidden = true
 
         } else {
-            promptLabel.setStyle(.secondary)
+            promptLabel.setStyle(.body)
             promptLabel.text = promptText
         }
         button.setText("Continue", .filled)

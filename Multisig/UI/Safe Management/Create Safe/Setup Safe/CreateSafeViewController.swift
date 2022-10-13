@@ -157,7 +157,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 return tableView.basicCell(name: name, indexPath: indexPath)
             } else {
                 let cell = tableView.basicCell(name: "", indexPath: indexPath)
-                cell.setTitle("Enter name", style: .secondary)
+                cell.setTitle("Enter name", style: .body)
                 return cell
             }
         case .network:
@@ -641,7 +641,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     private func textView(_ text: String?) -> UIView {
         let label = UILabel()
         label.textAlignment = .right
-        label.setStyle(.secondary)
+        label.setStyle(.body)
         label.text = text
         return label
     }

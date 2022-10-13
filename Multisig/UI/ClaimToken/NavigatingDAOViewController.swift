@@ -38,14 +38,14 @@ class NavigatingDAOViewController: UIViewController {
 
         screenTitle.setStyle(.title2)
 
-        introductionParagraph.setStyle(.secondary)
+        introductionParagraph.setStyle(.body)
 
         checklistTitle.setStyle(.headline)
 
         nextButton.setText("Start claiming", .filled)
 
         discussItemLabel.hyperLinkLabel("Discuss SafeDAO improvements - post topics and discuss in our",
-                prefixStyle: .secondary,
+                prefixStyle: .body,
                 linkText: "Forum",
                 linkIcon: nil,
                 underlined: false,
@@ -54,7 +54,7 @@ class NavigatingDAOViewController: UIViewController {
         openUrlOnTap(link: .discuss, label: discussItemLabel)
 
         proposeItemLabel.hyperLinkLabel("Propose improvements - read our governance ",
-                prefixStyle: .secondary,
+                prefixStyle: .body,
                 linkText: "process",
                 linkIcon: nil,
                 underlined: false,
@@ -63,11 +63,11 @@ class NavigatingDAOViewController: UIViewController {
         openUrlOnTap(link: .propose, label: proposeItemLabel)
 
         let governText = "Govern improvements - vote on our Snapshot."
-        governItemLabel.setStyle(.secondary)
+        governItemLabel.setStyle(.body)
 
-        chatItemLabel.setStyle(.secondary)
+        chatItemLabel.setStyle(.body)
         chatItemLabel.hyperLinkLabel("Chat with the community - join our Safe ",
-                prefixStyle: .secondary,
+                prefixStyle: .body,
                 linkText: "Discord",
                 linkIcon: nil,
                 underlined: false,

@@ -30,7 +30,7 @@ class ChooseDelegateIntroViewController: UIViewController {
 
         titleLabel.setStyle(.title2)
 
-        descriptionLabel.setStyle(.secondary)
+        descriptionLabel.setStyle(.body)
         descriptionLabel.textAlignment = .left
 
         chooseGuardianButton.setText("Delegate to a Safe Guardian", .filled)

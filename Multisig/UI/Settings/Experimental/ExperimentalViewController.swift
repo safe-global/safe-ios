@@ -78,7 +78,7 @@ class ExperimentalViewController: UITableViewController {
 
     private func descriptionCell(_ text: String, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(UITableViewCell.self, reuseID: "WalletConnectDescription", for: indexPath)
-        cell.textLabel?.setStyle(.secondary)
+        cell.textLabel?.setStyle(.body)
         cell.backgroundColor = .backgroundPrimary
         cell.textLabel?.text = text
         cell.textLabel?.numberOfLines = 0

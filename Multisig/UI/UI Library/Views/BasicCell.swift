@@ -21,7 +21,7 @@ class BasicCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.setStyle(.headline)
-        detailLabel.setStyle(.secondary)
+        detailLabel.setStyle(.body)
         setDetail(nil)
         setSupplementary(nil)
     }

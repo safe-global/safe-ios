@@ -17,7 +17,7 @@ class SelectedDelegateCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        headerLabel.setStyle(.secondary)
+        headerLabel.setStyle(.body)
         detailLabel.setStyle(.footnote)
         editButton.setText("Edit", .primary)
         headerLabel.text = "Delegating to:"

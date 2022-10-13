@@ -43,7 +43,7 @@ class TokenDistributionViewController: UIViewController {
             present(vc, animated: true)
         }
         titleLabel.setStyle(.title2)
-        descriptionLabel.setStyle(.secondary)
+        descriptionLabel.setStyle(.body)
         nextButton.setText("Next", .filled)
     }
 

@@ -16,9 +16,9 @@ class InstructionStepView: UINibView {
 
     override func commonInit() {
         super.commonInit()
-        descriptionLabel.setStyle(.secondary)
+        descriptionLabel.setStyle(.callout)
         bulletPointLabel.text = "\u{2022}"
-        bulletPointLabel.setStyle(.secondary)
+        bulletPointLabel.setStyle(.callout)
     }
 
     func setData(description: String) {

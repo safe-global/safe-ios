@@ -44,7 +44,7 @@ class OnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        completelyNewLabel.setStyle(.secondary)
+        completelyNewLabel.setStyle(.callout)
         loadSafeButton.setText("Load existing Safe", .bordered)
         createSafeButton.setText("Create new Safe", .filled)
         demoButton.setText("Explore Demo", .primary)

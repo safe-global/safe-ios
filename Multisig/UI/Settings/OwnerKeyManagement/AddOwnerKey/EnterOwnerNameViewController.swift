@@ -59,7 +59,7 @@ class EnterOwnerNameViewController: UIViewController {
             textField.textField.text = name
         }
 
-        disclaimerLabel.setStyle(.secondary)
+        disclaimerLabel.setStyle(.body)
 
         continueButton.setText("Continue", .filled)
 

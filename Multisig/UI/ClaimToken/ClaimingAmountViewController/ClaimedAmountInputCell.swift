@@ -44,7 +44,7 @@ class ClaimedAmountInputCell: UITableViewCell {
         titleLabel.setStyle(.title3)
 
         descriptionLabel.text = "Select all tokens or custom amount."
-        descriptionLabel.setStyle(.secondary)
+        descriptionLabel.setStyle(.body)
 
         redeemWarningLabel.setStyle(.footnote2.color(UIColor(hex: "#B2BBC0")))
 

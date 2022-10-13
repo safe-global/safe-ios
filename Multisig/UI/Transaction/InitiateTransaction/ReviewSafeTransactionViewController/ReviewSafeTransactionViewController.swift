@@ -340,7 +340,7 @@ class ReviewSafeTransactionViewController: UIViewController {
                         copyEnabled: false,
                         browseURL: nil,
                         prefix: safe.chain!.shortName,
-                        titleStyle: .secondary)
+                        titleStyle: .headlineSecondary)
         cell.selectionStyle = .none
         return cell
     }

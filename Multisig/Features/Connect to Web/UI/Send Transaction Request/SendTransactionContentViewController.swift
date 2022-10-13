@@ -284,7 +284,7 @@ class SendTransactionCellBuilder {
     func textView(_ text: String?) -> UIView {
         let label = UILabel()
         label.textAlignment = .right
-        label.setStyle(.secondary)
+        label.setStyle(.body)
         label.text = text
         return label
     }

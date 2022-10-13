@@ -17,7 +17,7 @@ class IncommingTransactionRequestTypeTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         nameLabel.setStyle(.headline)
-        descriptionLabel.setStyle(.secondary)
+        descriptionLabel.setStyle(.body)
     }
 
     func set(imageName: String, name: String, description: String? = nil) {

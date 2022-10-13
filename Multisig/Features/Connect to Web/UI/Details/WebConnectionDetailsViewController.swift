@@ -230,7 +230,7 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
     func textView(_ text: String?) -> UILabel {
         let label = UILabel()
         label.textAlignment = .right
-        label.setStyle(.secondary)
+        label.setStyle(.body)
         label.text = text
         label.lineBreakMode = .byTruncatingTail
         return label

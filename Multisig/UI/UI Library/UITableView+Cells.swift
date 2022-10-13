@@ -87,9 +87,9 @@ extension UITableView {
     func helpCell(for indexPath: IndexPath,
                   with text: String,
                   backgroundColor: UIColor = .backgroundPrimary,
-                  textStyle: GNOTextStyle = .secondary) -> UITableViewCell {
+                  textStyle: GNOTextStyle = .footnote) -> UITableViewCell {
         let cell = dequeueCell(UITableViewCell.self, reuseID: "HelpCell", for: indexPath)
-        cell.textLabel?.setStyle(.secondary)
+        cell.textLabel?.setStyle(.footnote)
         cell.backgroundColor = backgroundColor
         cell.textLabel?.text = text
         cell.textLabel?.numberOfLines = 0

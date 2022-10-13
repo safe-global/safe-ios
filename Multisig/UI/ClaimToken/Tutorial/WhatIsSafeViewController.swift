@@ -38,13 +38,13 @@ class WhatIsSafeViewController: UIViewController {
         screenTitle.text = "What is Safe?"
         screenTitle.setStyle(.title2)
 
-        firstParagraph.setStyle(.secondary)
+        firstParagraph.setStyle(.body)
         firstParagraph.text = "Safe is critical infrastructure for Web3.  It is a programmable account standard that enables secure management of digital assets, data and identity.\n\nWith this token launch, Safe is now a community-driven ownership platform."
 
         paragraphTitle.text = "Why are we launching a token?"
         paragraphTitle.setStyle(.headline)
 
-        secondParagraph.setStyle(.secondary)
+        secondParagraph.setStyle(.body)
         secondParagraph.text = "As critical Web3 infrastructure, Safe needs to be a community-owned, censorship resistant project, with a committed ecosystem stewarding its decisions. A governance token is needed to help coordinate this effort."
 
         nextButton.setText("Next", .filled)
