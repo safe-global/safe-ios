@@ -20,7 +20,7 @@ class BalanceTableViewCell: UITableViewCell {
         super.awakeFromNib()
         cellMainLabel.setStyle(.headline)
         cellDetailLabel.setStyle(.headline)
-        cellSubDetailLabel.setStyle(.footnote)
+        cellSubDetailLabel.setStyle(.footnoteSecondary)
 
         for label in [cellMainLabel, cellDetailLabel, cellSubDetailLabel] {
             label?.text = nil
