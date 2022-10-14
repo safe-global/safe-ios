@@ -11,17 +11,9 @@ import UIKit
 struct GNOTextStyle: Hashable {
     var size: CGFloat
     var weight: UIFont.Weight
-    var fontName: String? = "DMSans"
+    var familyName: String? = "DMSans"
     var fullFontName: String? {
-        guard let fontName = fontName else { return nil }
-        var weightName = "Regular"
-        if weight == .medium {
-            weightName = "Medium"
-        } else if weight == .bold {
-            weightName = "Bold"
-        }
-
-        return fontName + "-" + weightName
+        familyName == nil ? nil : [familyName!, weight.name].joined(separator: "-")
     }
 
     var letterSpacing: Double?
@@ -101,10 +93,27 @@ extension GNOTextStyle {
 
 extension UIFont {
     static func gnoFont(forTextStyle style: GNOTextStyle) -> UIFont {
-        if let customFontName = style.fullFontName {
-            return UIFont(name: customFontName, size: style.size)!
+        if let customFontName = style.fullFontName, let font = UIFont(name: customFontName, size: style.size) {
+            return font
         } else {
             return .systemFont(ofSize: style.size, weight: style.weight)
+        }
+    }
+}
+
+extension UIFont.Weight {
+    var name: String {
+        switch self {
+        case .bold: return "Bold"
+        case .medium: return "Medium"
+        case .regular: return "Regular"
+        case .thin: return "Thin"
+        case .light: return "Light"
+        case .semibold: return "Semibold"
+        case .black: return "Black"
+        case .heavy: return "Heavy"
+        case .ultraLight: return "UltraLight"
+        default: return "Regular"
         }
     }
 }
