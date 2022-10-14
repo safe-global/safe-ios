@@ -311,7 +311,7 @@ extension Chain {
             currencyName: "Ether",
             currencySymbl: "ETH",
             currencyDecimals: 18,
-            currencyLogo: URL(string: "https://safe-transaction-assets.staging.gnosisdev.com/chains/4/currency_logo.png")!,
+            currencyLogo: URL(string: "https://safe-transaction-assets.staging.5afe.dev/chains/4/currency_logo.png")!,
             themeTextColor: "#ffffff",
             themeBackgroundColor: "#E8673C")
     }

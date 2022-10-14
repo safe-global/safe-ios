@@ -22,12 +22,10 @@
 		0422007025EFDF4E00CAC173 /* TagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0422006F25EFDF4E00CAC173 /* TagView.xib */; };
 		04248BD9272DF18C00431397 /* NamingPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04248BD8272DF18C00431397 /* NamingPolicy.swift */; };
 		04248BDB272E21C500431397 /* AddressBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04248BDA272E11BB00431397 /* AddressBookTests.swift */; };
-		042626F128F1B5BE000BD2CC /* DMSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 042626EB28F1B5BE000BD2CC /* DMSans-Regular.ttf */; };
-		042626F228F1B5BE000BD2CC /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 042626EC28F1B5BE000BD2CC /* DMSans-Bold.ttf */; };
-		042626F328F1B5BE000BD2CC /* DMSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 042626ED28F1B5BE000BD2CC /* DMSans-Medium.ttf */; };
-		042626F428F1B5BE000BD2CC /* DMSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 042626EE28F1B5BE000BD2CC /* DMSans-BoldItalic.ttf */; };
-		042626F528F1B5BE000BD2CC /* DMSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 042626EF28F1B5BE000BD2CC /* DMSans-MediumItalic.ttf */; };
-		042626F628F1B5BE000BD2CC /* DMSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 042626F028F1B5BE000BD2CC /* DMSans-Italic.ttf */; };
+		042626E128EEE61E000BD2CC /* successAnimationDark.json in Resources */ = {isa = PBXBuildFile; fileRef = 042626E028EEE61E000BD2CC /* successAnimationDark.json */; };
+		042626E328EEE62F000BD2CC /* successAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 042626E228EEE62F000BD2CC /* successAnimation.json */; };
+		042626E728EF61F2000BD2CC /* safeCreationDark.json in Resources */ = {isa = PBXBuildFile; fileRef = 042626E528EF61F2000BD2CC /* safeCreationDark.json */; };
+		042626E828EF61F2000BD2CC /* safeCreation.json in Resources */ = {isa = PBXBuildFile; fileRef = 042626E628EF61F2000BD2CC /* safeCreation.json */; };
 		04273E5826AEE06500A14E95 /* BluetoothController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04273E5726AEE06500A14E95 /* BluetoothController.swift */; };
 		04273E5A26B1474700A14E95 /* LedgerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04273E5926B1474700A14E95 /* LedgerController.swift */; };
 		04273E5C26B41A3700A14E95 /* APDUController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04273E5B26B41A3700A14E95 /* APDUController.swift */; };
@@ -78,7 +76,6 @@
 		0463F5C326296924009C04FA /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0463F5C226296924009C04FA /* FirebaseCrashlytics */; };
 		0463F5C526296924009C04FA /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0463F5C426296924009C04FA /* FirebaseMessaging */; };
 		0466877628E6388F0004D488 /* UIViewController+Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466877528E6388F0004D488 /* UIViewController+Display.swift */; };
-		0466877A28E63A210004D488 /* successAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 0466877828E63A210004D488 /* successAnimation.json */; };
 		0468EE9D26148A3B008270BF /* PrivacyProtectionScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */; };
 		0468EE9E26148A3B008270BF /* PrivacyProtectionScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0468EE9C26148A3B008270BF /* PrivacyProtectionScreenViewController.xib */; };
 		0468FB45259106F400541536 /* StyledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468FB44259106F400541536 /* StyledView.swift */; };
@@ -125,7 +122,6 @@
 		0478384028C699BA00459F9B /* WhatIsSafeTokenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0478383E28C699BA00459F9B /* WhatIsSafeTokenViewController.xib */; };
 		047A5B8F28A54FCB00BB8B2A /* SafeClaimingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5B8E28A54FCB00BB8B2A /* SafeClaimingService.swift */; };
 		047A5B9128A5582F00BB8B2A /* GuardiansRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5B9028A5582F00BB8B2A /* GuardiansRequest.swift */; };
-		047C48CB28E86BF7003C2B4A /* successAnimationDark.json in Resources */ = {isa = PBXBuildFile; fileRef = 047C48CA28E86BF7003C2B4A /* successAnimationDark.json */; };
 		048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */; };
 		048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */; };
 		048AA142260D053400382E24 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048AA141260D053300382E24 /* MainTabBarViewController.swift */; };
@@ -449,6 +445,7 @@
 		0A93DD602445CC8B00688050 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A93DD5F2445CC8B00688050 /* Assets.xcassets */; };
 		0A93DD632445CC8B00688050 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A93DD622445CC8B00688050 /* Preview Assets.xcassets */; };
 		0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A93DD642445CC8B00688050 /* LaunchScreen.storyboard */; };
+		0A93DDAB244604A400688050 /* Averta-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0A93DDAA244604A400688050 /* Averta-Regular.otf */; };
 		0A93DDB32446080000688050 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDB22446080000688050 /* Colors.swift */; };
 		0A93DDB924461C1400688050 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDB824461C1400688050 /* Fonts.swift */; };
 		0A93DDBB24461F4800688050 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDBA24461F4800688050 /* Buttons.swift */; };
@@ -983,12 +980,10 @@
 		0422006F25EFDF4E00CAC173 /* TagView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagView.xib; sourceTree = "<group>"; };
 		04248BD8272DF18C00431397 /* NamingPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamingPolicy.swift; sourceTree = "<group>"; };
 		04248BDA272E11BB00431397 /* AddressBookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookTests.swift; sourceTree = "<group>"; };
-		042626EB28F1B5BE000BD2CC /* DMSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Regular.ttf"; sourceTree = "<group>"; };
-		042626EC28F1B5BE000BD2CC /* DMSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Bold.ttf"; sourceTree = "<group>"; };
-		042626ED28F1B5BE000BD2CC /* DMSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Medium.ttf"; sourceTree = "<group>"; };
-		042626EE28F1B5BE000BD2CC /* DMSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-BoldItalic.ttf"; sourceTree = "<group>"; };
-		042626EF28F1B5BE000BD2CC /* DMSans-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-MediumItalic.ttf"; sourceTree = "<group>"; };
-		042626F028F1B5BE000BD2CC /* DMSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Italic.ttf"; sourceTree = "<group>"; };
+		042626E028EEE61E000BD2CC /* successAnimationDark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = successAnimationDark.json; sourceTree = "<group>"; };
+		042626E228EEE62F000BD2CC /* successAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = successAnimation.json; sourceTree = "<group>"; };
+		042626E528EF61F2000BD2CC /* safeCreationDark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = safeCreationDark.json; sourceTree = "<group>"; };
+		042626E628EF61F2000BD2CC /* safeCreation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = safeCreation.json; sourceTree = "<group>"; };
 		04273E5726AEE06500A14E95 /* BluetoothController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothController.swift; sourceTree = "<group>"; };
 		04273E5926B1474700A14E95 /* LedgerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerController.swift; sourceTree = "<group>"; };
 		04273E5B26B41A3700A14E95 /* APDUController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APDUController.swift; sourceTree = "<group>"; };
@@ -1035,7 +1030,6 @@
 		04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeyDetailsViewController.swift; sourceTree = "<group>"; };
 		0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRemoteConfig.swift; sourceTree = "<group>"; };
 		0466877528E6388F0004D488 /* UIViewController+Display.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Display.swift"; sourceTree = "<group>"; };
-		0466877828E63A210004D488 /* successAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = successAnimation.json; sourceTree = "<group>"; };
 		0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyProtectionScreenViewController.swift; sourceTree = "<group>"; };
 		0468EE9C26148A3B008270BF /* PrivacyProtectionScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrivacyProtectionScreenViewController.xib; sourceTree = "<group>"; };
 		0468FB44259106F400541536 /* StyledView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledView.swift; sourceTree = "<group>"; };
@@ -1083,7 +1077,6 @@
 		0478383E28C699BA00459F9B /* WhatIsSafeTokenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhatIsSafeTokenViewController.xib; sourceTree = "<group>"; };
 		047A5B8E28A54FCB00BB8B2A /* SafeClaimingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeClaimingService.swift; sourceTree = "<group>"; };
 		047A5B9028A5582F00BB8B2A /* GuardiansRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardiansRequest.swift; sourceTree = "<group>"; };
-		047C48CA28E86BF7003C2B4A /* successAnimationDark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = successAnimationDark.json; sourceTree = "<group>"; };
 		048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNotificationTokenRequest.swift; sourceTree = "<group>"; };
 		048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisterNotificationTokenRequest.swift; sourceTree = "<group>"; };
 		048AA141260D053300382E24 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
@@ -1382,6 +1375,7 @@
 		0A93DD672445CC8B00688050 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A93DD6C2445CC8C00688050 /* MultisigTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultisigTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A93DD722445CC8C00688050 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A93DDAA244604A400688050 /* Averta-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Averta-Regular.otf"; sourceTree = "<group>"; };
 		0A93DDB22446080000688050 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0A93DDB824461C1400688050 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		0A93DDBA24461F4800688050 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
@@ -1948,17 +1942,22 @@
 			path = ReviewTransactionCells;
 			sourceTree = "<group>";
 		};
-		042626EA28F1B5AA000BD2CC /* Fonts */ = {
+		042626E428EF61D2000BD2CC /* SafeCreation */ = {
 			isa = PBXGroup;
 			children = (
-				042626EC28F1B5BE000BD2CC /* DMSans-Bold.ttf */,
-				042626EE28F1B5BE000BD2CC /* DMSans-BoldItalic.ttf */,
-				042626F028F1B5BE000BD2CC /* DMSans-Italic.ttf */,
-				042626ED28F1B5BE000BD2CC /* DMSans-Medium.ttf */,
-				042626EF28F1B5BE000BD2CC /* DMSans-MediumItalic.ttf */,
-				042626EB28F1B5BE000BD2CC /* DMSans-Regular.ttf */,
+				042626E528EF61F2000BD2CC /* safeCreationDark.json */,
+				042626E628EF61F2000BD2CC /* safeCreation.json */,
 			);
-			path = Fonts;
+			path = SafeCreation;
+			sourceTree = "<group>";
+		};
+		042626E928EF620E000BD2CC /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				043350AA28086115003725E2 /* Success */,
+				042626E428EF61D2000BD2CC /* SafeCreation */,
+			);
+			path = Animations;
 			sourceTree = "<group>";
 		};
 		0428DA5725CBFBEA002CF4A9 /* HelpLinkUITableViewCell */ = {
@@ -1970,13 +1969,13 @@
 			path = HelpLinkUITableViewCell;
 			sourceTree = "<group>";
 		};
-		043350AA28086115003725E2 /* Animations */ = {
+		043350AA28086115003725E2 /* Success */ = {
 			isa = PBXGroup;
 			children = (
-				047C48CA28E86BF7003C2B4A /* successAnimationDark.json */,
-				0466877828E63A210004D488 /* successAnimation.json */,
+				042626E028EEE61E000BD2CC /* successAnimationDark.json */,
+				042626E228EEE62F000BD2CC /* successAnimation.json */,
 			);
-			path = Animations;
+			path = Success;
 			sourceTree = "<group>";
 		};
 		043350C328175683003725E2 /* AdvancedParametersViewController */ = {
@@ -3381,9 +3380,9 @@
 		0AF432CA244DFAFB00E22E50 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				042626EA28F1B5AA000BD2CC /* Fonts */,
-				043350AA28086115003725E2 /* Animations */,
+				042626E928EF620E000BD2CC /* Animations */,
 				0A93DD5F2445CC8B00688050 /* Assets.xcassets */,
+				0A93DDAA244604A400688050 /* Averta-Regular.otf */,
 				0A93DD642445CC8B00688050 /* LaunchScreen.storyboard */,
 			);
 			name = Resources;
@@ -4480,7 +4479,6 @@
 				3E373F762631781A00D8107A /* EnterUnstoppableNameViewController.xib in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
 				0A8CDD4727A5A5C70020066C /* CreateSafeViewController.xib in Resources */,
-				047C48CB28E86BF7003C2B4A /* successAnimationDark.json in Resources */,
 				0A5C0C532818204F0061D96F /* EditConfirmationsViewController.xib in Resources */,
 				93EF2FA427C546330077BE95 /* InstructionsViewController.xib in Resources */,
 				0A50DBDD28C898A900C0CEC6 /* ReviewClaimTokensHeaderCell.xib in Resources */,
@@ -4498,7 +4496,6 @@
 				0ADD19C6265EA23200EB0F2B /* SeedWordCollectionViewCell.xib in Resources */,
 				0439B29D28048A5F00796F18 /* BackupKeyTableViewCell.xib in Resources */,
 				0478383C28C68E8200459F9B /* BorderedCheveronButton.xib in Resources */,
-				042626F528F1B5BE000BD2CC /* DMSans-MediumItalic.ttf in Resources */,
 				0472B2C4286A497A0049BA17 /* GuardianTableViewCell.xib in Resources */,
 				044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */,
 				0AE8C0A3257947CF00E62B34 /* DetailStatusCell.xib in Resources */,
@@ -4508,6 +4505,7 @@
 				04D093EA284FD348003F38CF /* OnboardingStepCollectionViewCell.xib in Resources */,
 				0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */,
 				550FB1A626691CD800C13D54 /* SigningKeyTableViewCell.xib in Resources */,
+				042626E128EEE61E000BD2CC /* successAnimationDark.json in Resources */,
 				0AF1C88E2541AD4200E28669 /* ScrollableEmptyView.xib in Resources */,
 				0A9366AD278F0175001918A9 /* ContainerTableViewCell.xib in Resources */,
 				0A74EEFE268DF37100EB0EFB /* RibbonViewController.xib in Resources */,
@@ -4518,7 +4516,6 @@
 				0468FB9525912E8300541536 /* TransactionListHeaderTableViewCell.xib in Resources */,
 				0AADCDB828589DCC00A0139B /* AddOwnerExceptionViewController.xib in Resources */,
 				0AF78A3227E0E07B001BAFE0 /* PendingWalletActionViewController.xib in Resources */,
-				042626F228F1B5BE000BD2CC /* DMSans-Bold.ttf in Resources */,
 				55413678265E4A0000796F91 /* AddOwnerKeyCell.xib in Resources */,
 				0A35D6C928C66ADA00D5AB06 /* ClaimSplashViewController.xib in Resources */,
 				6A94721B2891711500807B3B /* GuardianDetailsViewController.xib in Resources */,
@@ -4526,7 +4523,6 @@
 				0A045081278DAD9000650F71 /* DisclosureWithContentCell.xib in Resources */,
 				0A6886932588F87E0045CAB5 /* EnterAddressNameViewController.xib in Resources */,
 				55DA0669269DD573006C9AA5 /* dapps-xdai.json in Resources */,
-				042626F128F1B5BE000BD2CC /* DMSans-Regular.ttf in Resources */,
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				049A9D7125F9303000CA5723 /* ChooseOwnerKeyViewController.xib in Resources */,
 				D88FA81F2770869E0023B77F /* TokenAmountField.xib in Resources */,
@@ -4542,7 +4538,6 @@
 				0ADD19A8265E53C600EB0F2B /* QRCodeView.xib in Resources */,
 				04273E6226D43F1700A14E95 /* IdenticonView.xib in Resources */,
 				0A8AEB1125A4712B002A3FE1 /* ActionDetailTextCell.xib in Resources */,
-				042626F428F1B5BE000BD2CC /* DMSans-BoldItalic.ttf in Resources */,
 				0A478D5925B876AF0038363E /* ButtonTableViewCell.xib in Resources */,
 				0428DA5B25CBFC25002CF4A9 /* HelpLinkTableViewCell.xib in Resources */,
 				0AC60C8F2549C9F300A63AE2 /* SegmentView.xib in Resources */,
@@ -4550,6 +4545,7 @@
 				04D968D5276B872D00CE4A9E /* TransactionViewController.xib in Resources */,
 				5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */,
 				0AF1C7F52540887300E28669 /* HeaderViewController.xib in Resources */,
+				042626E328EEE62F000BD2CC /* successAnimation.json in Resources */,
 				045A176D283675D50020484B /* WarningTableViewCell.xib in Resources */,
 				0AEEBC80258CE25700F3A6F9 /* WebImageView.xib in Resources */,
 				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
@@ -4568,7 +4564,6 @@
 				04C5ED3B27878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.xib in Resources */,
 				550FB1B326691D9500C13D54 /* ExternalLinkHeaderFooterView.xib in Resources */,
 				0A573F6E25877586009EF0C1 /* AddressField.xib in Resources */,
-				042626F628F1B5BE000BD2CC /* DMSans-Italic.ttf in Resources */,
 				6A9A771128041DA700C229FC /* TipsView.xib in Resources */,
 				0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */,
 				5559A91727675DB600237A5D /* dapps-arbitrum.json in Resources */,
@@ -4578,6 +4573,7 @@
 				93C38DC228C74CAA005188EC /* WhatIsSafeViewController.xib in Resources */,
 				6A1CFA5028081A1200B2C340 /* BackupSeedPhraseViewController.xib in Resources */,
 				6A7A48A12823A297003278C8 /* SafeOwnerCell.xib in Resources */,
+				042626E728EF61F2000BD2CC /* safeCreationDark.json in Resources */,
 				0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */,
 				0A06533727B6D1070008C5F1 /* ChooseOwnerDetailHeaderView.xib in Resources */,
 				0472B2D3286BD7C60049BA17 /* ClaimedAmountInputCell.xib in Resources */,
@@ -4604,8 +4600,8 @@
 				0A57C8EA2587AECB00B7C019 /* EnterSafeAddressViewController.xib in Resources */,
 				04FEFE8128C6304B0028A349 /* TokenDistributionViewController.xib in Resources */,
 				550FB1B526691D9500C13D54 /* DetailedCell.xib in Resources */,
+				042626E828EF61F2000BD2CC /* safeCreation.json in Resources */,
 				0472B2BB2869D66A0049BA17 /* ChooseDelegateIntroViewController.xib in Resources */,
-				042626F328F1B5BE000BD2CC /* DMSans-Medium.ttf in Resources */,
 				0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */,
 				550FB1A026691CA300C13D54 /* DappsViewController.xib in Resources */,
 				6A386C6B281ADAFD003FBCB3 /* ValueChangeTableViewCell.xib in Resources */,
@@ -4619,7 +4615,6 @@
 				04D224BB28C9304600853E34 /* DetailedInfoListViewController.xib in Resources */,
 				558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
-				0466877A28E63A210004D488 /* successAnimation.json in Resources */,
 				04131FC2285683BA001F60C2 /* ShareAddOwnerLinkViewController.xib in Resources */,
 				0ADA90F8256548C60004DEC0 /* SnackbarViewController.xib in Resources */,
 				0A04507B278DAD4000650F71 /* SecondaryDetailDisclosureCell.xib in Resources */,
@@ -4650,6 +4645,7 @@
 				0468FB9725912E8300541536 /* TransactionsListConflictHeaderTableViewCell.xib in Resources */,
 				0A93DD602445CC8B00688050 /* Assets.xcassets in Resources */,
 				5534F7382760C7670018E655 /* CreatePasscodeSuggestionViewController.xib in Resources */,
+				0A93DDAB244604A400688050 /* Averta-Regular.otf in Resources */,
 				B0D618DCACA100B230F936DE /* DesktopPairingHeaderView.xib in Resources */,
 				B0D6178FC710D4E943B4F9F5 /* WebConnectionContainerViewController.xib in Resources */,
 				0A0391CB27C565D4003C871A /* IconButtonTableViewCell.xib in Resources */,

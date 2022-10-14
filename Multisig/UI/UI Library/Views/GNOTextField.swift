@@ -47,7 +47,7 @@ class GNOTextField: UINibView {
     func setErrorText(_ value: String?) {
         errorLabel.text = value
         errorLabel.isHidden = value == nil
-        borderView.tintColor = value == nil ? .labelTertiary : .error
+        borderView.tintColor = value == nil ? .border : .error
     }
 
 }

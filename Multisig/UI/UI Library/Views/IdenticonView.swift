@@ -21,7 +21,6 @@ class IdenticonView: UINibView {
         super.commonInit()
 
         badgeFrameView.clipsToBounds = true
-        badgeFrameView.backgroundColor = .labelSecondary
 
         ownerCountFrameView.clipsToBounds = true
         ownerCountFrameView.backgroundColor = .primaryDisabled
