@@ -19,7 +19,7 @@ class GNOTextField: UINibView {
         errorLabel.setStyle(.calloutError)
 
         textField.borderStyle = .none
-        textField.setStyle(.body)
+        textField.setStyle(.bodyPrimary)
     }
 
     func setPlaceholder(_ text: String?) {
