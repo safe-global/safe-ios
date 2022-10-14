@@ -209,11 +209,13 @@
 	<string>$(TWITTER_URL)</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>DMSans-Bold.ttfDMSans-BoldItalic.ttfDMSans-Italic.ttfDMSans-Medium.ttfDMSans-MediumItalic.ttfDMSans-Regular.ttf</string>
-		<string>DMSans-BoldItalic.ttf</string>
-		<string>DMSans-Italic.ttf</string>
+		<string>DMSans-Bold.ttf
+DMSans-BoldItalic.ttf
+DMSans-Italic.ttf
+DMSans-Medium.ttf
+DMSans-MediumItalic.ttf
+DMSans-Regular.ttf</string>
 		<string>DMSans-Medium.ttf</string>
-		<string>DMSans-MediumItalic.ttf</string>
 		<string>DMSans-Regular.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
