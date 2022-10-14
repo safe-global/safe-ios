@@ -61,7 +61,7 @@ class ReviewSafeTransactionViewController: UIViewController {
 
 
         retryButton.setText("Retry", .filled)
-        descriptionLabel.setStyle(.footnote2)
+        descriptionLabel.setStyle(.footnote)
 
         tableView.registerCell(BorderedInnerTableCell.self)
         tableView.registerCell(DetailAccountCell.self)

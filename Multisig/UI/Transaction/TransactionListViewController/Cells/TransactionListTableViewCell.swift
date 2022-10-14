@@ -30,12 +30,12 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.setStyle(.headline)
-        nonceLabel.setStyle(.footnote2)
-        dateLabel.setStyle(.footnote2)
+        nonceLabel.setStyle(.footnoteSecondary)
+        dateLabel.setStyle(.footnoteSecondary)
         infoLabel.setStyle(.headline)
-        appendixLabel.setStyle(.footnote2)
-        statusLabel.setStyle(.footnote2)
-        confirmationsCountLabel.setStyle(.footnote2)
+        appendixLabel.setStyle(.footnote)
+        statusLabel.setStyle(.footnote)
+        confirmationsCountLabel.setStyle(.footnote)
         highlightView.clipsToBounds = true
         highlightView.layer.cornerRadius = 4
     }

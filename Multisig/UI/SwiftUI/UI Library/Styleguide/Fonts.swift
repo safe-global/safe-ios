@@ -10,13 +10,8 @@ import SwiftUI
 
 extension Font {
     // ordered by increasing font size, then weight
-    static let gnoCaption3 =    system(size: 10, weight: .medium)
-    static let gnoCaption2 =    system(size: 10, weight: .bold)
-
     static let gnoFootnote2 =   system(size: 13, weight: .medium)
     static let gnoCaption1 =    system(size: 13, weight: .bold)
-
-    static let gnoSubhead =     system(size: 15, weight: .bold)
 
     static let gnoCallout =     system(size: 16)
 

@@ -62,7 +62,7 @@ class SigningKeyTableViewCell: UITableViewCell {
            let chain = Chain.by(String(connection.chainId)),
            let name = chain.name {
             networkIndicator.isHidden = false
-            networkIndicator.set(title: name, style: .footnote2.color(chain.textColor))
+            networkIndicator.set(title: name, style: .footnote.color(chain.textColor))
             networkIndicator.backgroundColor = chain.backgroundColor
             networkIndicator.setMargins(NSDirectionalEdgeInsets(top: 5, leading: 8, bottom: 5, trailing: 8))
         } else {

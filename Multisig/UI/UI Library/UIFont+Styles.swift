@@ -35,18 +35,16 @@ struct GNOTextStyle: Hashable {
 }
 
 extension GNOTextStyle {
-    static let footnote2 = GNOTextStyle(size: 13, weight: .medium, color: .labelSecondary)
-
     // Heading
-    static let largeTitle = GNOTextStyle(size: 33, weight: .semibold, color: .labelPrimary)
-    static let title1 = GNOTextStyle(size: 28, weight: .regular, color: .labelPrimary)
-    static let title2 = GNOTextStyle(size: 22, weight: .regular, color: .labelPrimary)
-    static let title3 = GNOTextStyle(size: 20, weight: .regular, color: .labelPrimary)
-    static let title3Secondary = GNOTextStyle(size: 20, weight: .regular, color: .labelSecondary)
-    static let headline = GNOTextStyle(size: 17, weight: .semibold, color: .labelPrimary)
-    static let headlineSuccess = GNOTextStyle(size: 17, weight: .semibold, color: .success)
-    static let headlineError = GNOTextStyle(size: 17, weight: .semibold, color: .error)
-    static let headlineSecondary = GNOTextStyle(size: 17, weight: .semibold, color: .labelSecondary)
+    static let largeTitle = GNOTextStyle(size: 33, weight: .bold, color: .labelPrimary)
+    static let title1 = GNOTextStyle(size: 28, weight: .bold, color: .labelPrimary)
+    static let title2 = GNOTextStyle(size: 22, weight: .bold, color: .labelPrimary)
+    static let title3 = GNOTextStyle(size: 20, weight: .medium, color: .labelPrimary)
+    static let title3Secondary = GNOTextStyle(size: 20, weight: .medium, color: .labelSecondary)
+    static let headline = GNOTextStyle(size: 17, weight: .medium, color: .labelPrimary)
+    static let headlineSuccess = GNOTextStyle(size: 17, weight: .medium, color: .success)
+    static let headlineError = GNOTextStyle(size: 17, weight: .medium, color: .error)
+    static let headlineSecondary = GNOTextStyle(size: 17, weight: .medium, color: .labelSecondary)
 
     // Paragraph
     static let body = GNOTextStyle(size: 17, weight: .regular, color: .labelSecondary)
@@ -62,15 +60,17 @@ extension GNOTextStyle {
     static let calloutMediumError = GNOTextStyle(size: 16, weight: .medium, color: .error)
 
     // Label
-    static let subheadline = GNOTextStyle(size: 15, weight: .bold, color: .labelPrimary)
-    static let subheadlineSecondary = GNOTextStyle(size: 15, weight: .bold, color: .labelSecondary)
+    static let subheadline = GNOTextStyle(size: 15, weight: .regular, color: .labelPrimary)
+    static let subheadlineSecondary = GNOTextStyle(size: 15, weight: .regular, color: .labelSecondary)
     static let subheadline1Medium = GNOTextStyle(size: 15, weight: .medium, color: .labelPrimary)
-    static let caption1 = GNOTextStyle(size: 12, weight: .bold, color: .labelSecondary)
+    static let caption1 = GNOTextStyle(size: 12, weight: .regular, color: .labelSecondary)
     static let caption1Medium = GNOTextStyle(size: 12, weight: .medium, color: .labelSecondary)
     static let caption2 = GNOTextStyle(size: 11, weight: .bold, color: .labelPrimary)
     static let footnote = GNOTextStyle(size: 13, weight: .medium, color: .labelTertiary)
-    static let button = GNOTextStyle(size: 17, weight: .regular, color: .labelPrimary)
-    static let buttonLight = GNOTextStyle(size: 17, weight: .regular, color: .backgroundSecondary)
+    static let footnoteSecondary = GNOTextStyle(size: 13, weight: .medium, color: .labelSecondary)
+    static let footnotePrimary = GNOTextStyle(size: 13, weight: .medium, color: .labelPrimary)
+    static let button = GNOTextStyle(size: 17, weight: .medium, color: .labelPrimary)
+    static let buttonLight = GNOTextStyle(size: 17, weight: .medium, color: .backgroundSecondary)
 }
 
 extension GNOTextStyle {

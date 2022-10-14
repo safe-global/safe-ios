@@ -55,7 +55,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         createButton.setText("Create Safe", .filled)
 
-        captionLabel.setStyle(.footnote2.weight(.regular))
+        captionLabel.setStyle(.footnote)
         captionLabel.text = "Creating a Safe may take a few minutes."
 
         uiModel.delegate = self

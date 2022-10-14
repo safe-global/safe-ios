@@ -13,7 +13,7 @@ class HelpTextTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        cellLabel.setStyle(.footnote2.weight(.regular))
+        cellLabel.setStyle(.footnote)
     }
 
     func setText(_ text: String?) {

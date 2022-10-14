@@ -39,7 +39,7 @@ class TokenInfoView: UINibView {
         titleLabel.isHidden = value == nil
     }
 
-    func setDetail(_ text: String?, style: GNOTextStyle = GNOTextStyle.footnote2) {
+    func setDetail(_ text: String?, style: GNOTextStyle = .footnote) {
         detailLabel.text = text
         detailLabel.setStyle(style)
         detailLabel.isHidden = text == nil

@@ -46,7 +46,7 @@ class ClaimedAmountInputCell: UITableViewCell {
         descriptionLabel.text = "Select all tokens or custom amount."
         descriptionLabel.setStyle(.body)
 
-        redeemWarningLabel.setStyle(.footnote2.color(UIColor(hex: "#B2BBC0")))
+        redeemWarningLabel.setStyle(.footnote)
 
         amountTextField.setToken(image: UIImage(named: "ico-safe-token-logo-circle"))
 
