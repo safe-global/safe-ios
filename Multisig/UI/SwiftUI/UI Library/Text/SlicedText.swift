@@ -11,7 +11,7 @@ import SwiftUI
 struct SlicedText: View {
     var string: SlicedString
     var style: Style = .default
-    var font: Font = .gnoBody
+    var font: Font = .body
 
     var truncated: SlicedString {
         string.truncated(in: style.truncate)
@@ -36,7 +36,7 @@ struct SlicedText: View {
         typealias Truncation = SlicedString.Truncation
     }
 
-    func style(_ style: Style, font: Font = .gnoBody) -> Self {
+    func style(_ style: Style, font: Font = .body) -> Self {
         .init(string: string, style: style, font: font)
     }
 

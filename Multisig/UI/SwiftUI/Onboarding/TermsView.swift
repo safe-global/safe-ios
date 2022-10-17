@@ -82,7 +82,7 @@ struct TermsView: View {
         var body: some View {
             HStack(alignment: .top) {
                 Image("ico-bullet-point")
-                    .foregroundColor(.labelTetriary)
+                    .foregroundColor(.labelSecondary)
                     .padding(.top, bulletTopPadding)
                 Text(text)
                     .body(.labelSecondary)

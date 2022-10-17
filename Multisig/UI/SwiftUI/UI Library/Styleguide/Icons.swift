@@ -32,7 +32,7 @@ extension Image {
 
     static var checkmarkCircle: some View {
         Image(systemName: "checkmark.circle")
-            .font(.gnoHeadline2)
+            .font(Font.body.weight(.medium))
             .foregroundColor(Color.primary)
     }
 
@@ -66,8 +66,7 @@ extension Image {
 
     static var bigXMark: some View {
         icon("xmark", size: regularSize)
-            .font(.gnoNormal)
-            .foregroundColor(.labelTetriary)
+            .foregroundColor(.labelTertiary)
     }
 
     static var plusCircle: some View {

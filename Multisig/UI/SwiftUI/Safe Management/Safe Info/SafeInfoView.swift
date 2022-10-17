@@ -52,7 +52,7 @@ struct SafeInfoContentView: View {
             if (AppSettings.prependingChainPrefixToAddresses) {
                 EmptyView().background(Color.icon)
                 Toggle(isOn: $appendPrefix, label: {
-                    Text("QR code with chain prefix").fixedSize().font(.gnoBody)
+                    Text("QR code with chain prefix").fixedSize().font(.headline)
                 }).padding(.top, 20).toggleStyle(SwitchToggleStyle(tint: Color.primary))
             }
         }
@@ -75,7 +75,7 @@ struct SwiftUINetworkIndicator: View {
         HStack(spacing: 9) {
             Image(systemName: "circle.fill").resizable().frame(width: 12, height: 12).foregroundColor(color)
 
-            Text(text).font(.gnoCaption1).foregroundColor(.labelPrimary)
+            Text(text).font(.subheadline).foregroundColor(.labelPrimary)
         }
         // shift left to compensate for the dot and spacing so that the text would be centered in the container
         .padding(.leading, -(9 + 12))
