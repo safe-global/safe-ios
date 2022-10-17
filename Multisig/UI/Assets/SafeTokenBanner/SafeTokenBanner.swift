@@ -22,10 +22,8 @@ class SafeTokenBanner: UINibView {
         super.awakeFromNib()
         clipsToBounds = true
         layer.cornerRadius = 8
-        titleLabel.setStyle(.headline)
-        titleLabel.textColor = .primaryDisabled
-        messageLabel.setStyle(.callout)
-        messageLabel.textColor = .primaryDisabled
+        titleLabel.setStyle(.primary)
+        messageLabel.setStyle(.secondary)
         claimButton.titleLabel?.setStyle(.primary)
         claimButton.setTitleColor(.black, for: .normal)
     }
