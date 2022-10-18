@@ -77,7 +77,8 @@ struct LaunchView: View {
                       isAgreeWithTermsPresented: $showTerms,
                       onStart: onStart)
         })
-        .background(Color.splashBackground)
+        .background(Color.backgroundPrimary)
+        .preferredColorScheme(.dark)
         .edgesIgnoringSafeArea(.all)
         .onAppear {
             Tracker.trackEvent(.launch)

@@ -50,7 +50,7 @@ struct TermsView: View {
                 agreeWithTerms()
                 AppSettings.trackingEnabled = true
             }
-            .buttonStyle(GNOFilledButtonStyle())
+            .buttonStyle(GNOFilledButtonStyle()).preferredColorScheme(.dark)
 
             Button("Accept without sharing data") {
                 agreeWithTerms()

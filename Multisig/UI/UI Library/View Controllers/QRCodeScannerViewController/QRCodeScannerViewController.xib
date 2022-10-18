@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,19 +21,19 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="65d-DM-BCY" userLabel="Top Dim View">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="322"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="324"/>
                     <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e4F-59-sr5" userLabel="Bottom Dim View">
-                    <rect key="frame" x="0.0" y="584" width="414" height="312"/>
+                    <rect key="frame" x="0.0" y="586" width="414" height="310"/>
                     <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZgL-sL-0Xh" userLabel="Leading Dim View">
-                    <rect key="frame" x="0.0" y="322" width="76" height="262"/>
+                    <rect key="frame" x="0.0" y="324" width="76" height="262"/>
                     <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N4N-93-FGR" userLabel="Close Button">
-                    <rect key="frame" x="181" y="790" width="52" height="52"/>
+                    <rect key="frame" x="195" y="818" width="24" height="24"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="N4N-93-FGR" secondAttribute="height" multiplier="1:1" id="gyL-0J-vCj"/>
                     </constraints>
@@ -43,21 +43,21 @@
                         <action selector="closeButtonTouched:" destination="-1" eventType="touchUpInside" id="yPM-5M-9iI"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SR-B8-4pu" userLabel="Header Label">
-                    <rect key="frame" x="16" y="634" width="382" height="0.0"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SR-B8-4pu" userLabel="Footer label">
+                    <rect key="frame" x="16" y="636" width="382" height="0.0"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-scanner-frame" translatesAutoresizingMaskIntoConstraints="NO" id="mnN-Rm-O4v">
-                    <rect key="frame" x="72" y="318" width="270" height="270"/>
+                    <rect key="frame" x="72" y="320" width="270" height="270"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="mnN-Rm-O4v" secondAttribute="height" id="Gex-7P-jSk"/>
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="737-aQ-SsK" userLabel="Trailing View">
-                    <rect key="frame" x="338" y="322" width="76" height="262"/>
+                    <rect key="frame" x="338" y="324" width="76" height="262"/>
                     <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>
@@ -93,7 +93,7 @@
         </view>
     </objects>
     <resources>
-        <image name="ico-close" width="52" height="52"/>
-        <image name="ico-scanner-frame" width="83" height="83"/>
+        <image name="ico-close" width="24" height="24"/>
+        <image name="ico-scanner-frame" width="245" height="240"/>
     </resources>
 </document>
