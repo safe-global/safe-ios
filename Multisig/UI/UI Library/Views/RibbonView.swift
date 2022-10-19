@@ -30,7 +30,7 @@ class RibbonView: UINibView {
     override func commonInit() {
         super.commonInit()
         text = nil
-        label.font = .systemFont(ofSize: 14, weight: .medium)
+        label.font = UIFont.gnoFont(forTextStyle: .footnote)
         heightConstraint = heightAnchor.constraint(equalToConstant: heightWhenHidden)
         heightConstraint.isActive = true
     }

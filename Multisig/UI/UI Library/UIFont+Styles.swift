@@ -70,8 +70,8 @@ extension GNOTextStyle {
     static let subheadline1Medium = GNOTextStyle(size: 15, weight: .medium, color: .labelPrimary)
     static let caption1 = GNOTextStyle(size: 12, weight: .regular, color: .labelSecondary)
     static let caption1Medium = GNOTextStyle(size: 12, weight: .medium, color: .labelSecondary)
-    static let caption2 = GNOTextStyle(size: 11, weight: .bold, color: .labelPrimary)
-    static let caption2Tertiary = GNOTextStyle(size: 11, weight: .bold, color: .labelTertiary)
+    static let caption2 = GNOTextStyle(size: 12, weight: .bold, color: .labelPrimary)
+    static let caption2Tertiary = GNOTextStyle(size: 12, weight: .bold, color: .labelTertiary)
 
     static let footnote = GNOTextStyle(size: 13, weight: .medium, color: .labelTertiary)
     static let footnoteSecondary = GNOTextStyle(size: 13, weight: .medium, color: .labelSecondary)
@@ -79,6 +79,9 @@ extension GNOTextStyle {
     static let button = GNOTextStyle(size: 17, weight: .medium, color: .labelPrimary)
     static let buttonSmall = GNOTextStyle(size: 15, weight: .medium, color: .labelPrimary)
     static let buttonLight = GNOTextStyle(size: 17, weight: .medium, color: .backgroundSecondary)
+
+    // Custom
+    static let tabBarTitle = GNOTextStyle(size: 11, weight: .medium, color: .labelTertiary)
 }
 
 extension GNOTextStyle {
@@ -135,7 +138,7 @@ extension UILabel {
     func hyperLinkLabel(_ prefixText: String = "",
                         prefixStyle: GNOTextStyle = .button,
                         linkText: String = "",
-                        linkStyle: GNOTextStyle = .headline,
+                        linkStyle: GNOTextStyle = .headline.color(.primary),
                         linkIcon: UIImage? = UIImage(named: "icon-external-link")!.withTintColor(.primary),
                         underlined: Bool = true,
                         postfixText: String = "") {

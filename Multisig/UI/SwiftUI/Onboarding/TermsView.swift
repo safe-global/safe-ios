@@ -63,6 +63,8 @@ struct TermsView: View {
         .padding(.bottom, bottomPadding)
         .padding(.horizontal)
         .background(Color.backgroundSecondary)
+        .preferredColorScheme(.light)
+        
     }
 
     private func agreeWithTerms() {
