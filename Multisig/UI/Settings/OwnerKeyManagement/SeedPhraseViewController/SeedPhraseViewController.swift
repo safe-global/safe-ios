@@ -18,7 +18,7 @@ class SeedPhraseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         infoLabel.text = infoText
-        infoLabel.setStyle(.secondary)
+        infoLabel.setStyle(.body)
 
         warningView.set(description: "Safe will never ask for your seed phrase! It is encrypted and stored locally on your device.")
 

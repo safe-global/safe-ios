@@ -43,11 +43,11 @@ class RejectionConfirmationViewController: UIViewController {
         rejectionButton.setText("Reject transaction", .filledError)
         navigationItem.title = "Reject Transaction"
 
-        createOnChainRejectionLabel.setStyle(.footnote3)
-        collectConfirmationsLabel.setStyle(.footnote2)
-        executeOnChainRejectionLabel.setStyle(.footnote2)
-        initialTransactionLabel.setStyle(.footnote2)
-        descriptionLabel.setStyle(.primary)
+        createOnChainRejectionLabel.setStyle(.footnote)
+        collectConfirmationsLabel.setStyle(.footnote)
+        executeOnChainRejectionLabel.setStyle(.footnote)
+        initialTransactionLabel.setStyle(.footnote)
+        descriptionLabel.setStyle(.body)
 
         readMoreLabel.hyperLinkLabel("Advanced users can create a non-empty (useful) transaction with the same nonce (in the web interface only). Learn more in this article: ",
                                      linkText: "Why do I need to pay for rejecting a transaction?")

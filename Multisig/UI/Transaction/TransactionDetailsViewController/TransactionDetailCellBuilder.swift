@@ -409,7 +409,7 @@ class TransactionDetailCellBuilder {
         }
 
 
-        let style: GNOTextStyle = isOutgoing ? .secondary : .primaryButton
+        let style: GNOTextStyle = isOutgoing ? .headline : .headlineSuccess
 
         let iconURL = logoUri.flatMap { URL(string: $0) }
 

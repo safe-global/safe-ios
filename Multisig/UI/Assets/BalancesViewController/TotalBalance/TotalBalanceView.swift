@@ -42,7 +42,7 @@ class TotalBalanceView: UINibView {
     override func awakeFromNib() {
         super.awakeFromNib()
         amountLabel.skeletonTextLineHeight = .relativeToConstraints
-        amountLabel.setStyle(.title4)
+        amountLabel.setStyle(.title1Medium)
         sendButton.setText("Send", .filled)
         //TODO: set this attribute in setStyle(:)
         sendButton.tintColor = UIColor.backgroundPrimary

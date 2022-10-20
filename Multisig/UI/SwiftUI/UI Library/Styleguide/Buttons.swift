@@ -14,7 +14,7 @@ struct GNOFilledButtonStyle: ButtonStyle {
         configuration.label
             .padding()
             .frame(maxWidth: .infinity)
-            .font(.gnoHeadline2)
+            .font(.button)
             .background(configuration.isPressed ? Color.primaryPressed : .primary)
             .foregroundColor(.backgroundPrimary)
             .cornerRadius(6)
@@ -27,9 +27,9 @@ struct GNOFilledGreenButtonStyle: ButtonStyle {
         configuration.label
             .padding()
             .frame(maxWidth: .infinity)
-            .font(.gnoHeadline2)
-            .background(Color.splashBackgroundPrimary)
-            .foregroundColor(Color.black)
+            .font(.button)
+            .background(Color.primary)
+            .foregroundColor(Color.backgroundPrimary)
             .cornerRadius(6)
     }
 }
@@ -38,7 +38,7 @@ struct GNOBorderedButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
-            .font(.gnoHeadline2)
+            .font(.button)
             .foregroundColor(color(configuration))
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
@@ -55,7 +55,7 @@ struct GNOPlainButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding(4)
-            .font(.gnoBody)
+            .font(.button)
             .foregroundColor(
                 configuration.isPressed ? Color.primaryPressed : .primary)
     }
@@ -80,7 +80,7 @@ struct GNOCustomButtonStyle: ButtonStyle {
         var body: some View {
             configuration.label
                 .padding()
-                .font(.gnoBody)
+                .font(.button)
                 .foregroundColor(isEnabled ? normalColor : disabledColor)
                 .opacity(configuration.isPressed ? 0.5 : 1)
         }

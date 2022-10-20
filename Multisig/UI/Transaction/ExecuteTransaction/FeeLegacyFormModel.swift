@@ -81,7 +81,7 @@ class FeeLegacyFormModel: FormModel {
         nonceField.infoLabel.setText(
             "Nonce",
             description: "Transaction count of the execution account",
-            style: .primary
+            style: .headline
         )
         nonceField.gnoTextField.setPlaceholder("Nonce")
         nonceField.gnoTextField.text = nonceText
@@ -93,7 +93,7 @@ class FeeLegacyFormModel: FormModel {
         gasField.infoLabel.setText(
             "Gas limit",
             description: "Maximum gas that this transaction can spend. Unused gas will be refunded",
-            style: .primary
+            style: .headline
         )
         gasField.gnoTextField.setPlaceholder("Gas limit")
         gasField.gnoTextField.text = gasText
@@ -106,7 +106,7 @@ class FeeLegacyFormModel: FormModel {
         gasPriceField.infoLabel.setText(
             "Gas price (GWEI)",
             description: "Price per 1 gas in Gwei price units",
-            style: .primary
+            style: .headline
         )
         gasPriceField.gnoTextField.setPlaceholder("Gas price (GWEI)")
         gasPriceField.gnoTextField.text = gasPriceInGigaweiText

@@ -25,7 +25,7 @@ class IdenticonView: UINibView {
         ownerCountFrameView.clipsToBounds = true
         ownerCountFrameView.backgroundColor = .primaryDisabled
 
-        ownerCountLabel.setStyle(.footnote2)
+        ownerCountLabel.setStyle(.footnotePrimary)
         ownerCountLabel.textColor = .primary
     }
 

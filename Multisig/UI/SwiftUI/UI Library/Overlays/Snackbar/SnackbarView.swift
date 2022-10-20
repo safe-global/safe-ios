@@ -40,7 +40,6 @@ struct SnackbarView<T: View>: View {
             .background(Color.labelPrimary)
             .cornerRadius(SnackbarViewMetrics.cornerRadius)
             .padding(.horizontal, SnackbarViewMetrics.screenPadding.width)
-            .gnoShadow()
             .offset(y: self.isPresented ?
                 -self.bottomSpacing : SnackbarViewMetrics.offscreenOffset)
         }

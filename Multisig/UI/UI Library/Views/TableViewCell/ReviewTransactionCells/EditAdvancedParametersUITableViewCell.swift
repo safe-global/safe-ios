@@ -26,15 +26,15 @@ class EditAdvancedParametersUITableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        titleLabel.setStyle(.primary)
+        titleLabel.setStyle(.headline)
         nonceInfoLabel.setText("Safe nonce",
                                description: "Safe nonce determines an order in which transactions are executed.",
-                               style: .secondary)
+                               style: .headline)
         safeTxGasInfoLabel.setText("SafeTxGas",
                                    description: "SafeTxGas specifies the gas that should be used for the Safe transaction.",
-                                   style: .secondary)
-        nonceLabel.setStyle(.secondary)
-        safeTxGasLabel.setStyle(.secondary)
+                                   style: .headline)
+        nonceLabel.setStyle(.headline)
+        safeTxGasLabel.setStyle(.headline)
         editButton.setText("Edit", .plain)
         updateExpanded()
     }

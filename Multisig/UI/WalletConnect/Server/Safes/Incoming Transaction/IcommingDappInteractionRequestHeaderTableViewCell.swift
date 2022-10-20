@@ -21,8 +21,8 @@ class IcommingDappInteractionRequestHeaderTableViewCell: UITableViewCell {
         super.awakeFromNib()
 
         dappNameLabel.setStyle(.headline)
-        toLabel.setStyle(.secondary)
-        fromLabel.setStyle(.secondary)
+        toLabel.setStyle(.headlineSecondary)
+        fromLabel.setStyle(.headlineSecondary)
     }
 
     func setFromAddress(_ address: Address, label: String?, prefix: String?, title: String? = "From") {

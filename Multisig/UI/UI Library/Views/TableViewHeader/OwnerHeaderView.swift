@@ -27,12 +27,11 @@ class OwnerHeaderView: UITableViewHeaderFooterView {
     }
 
     func setNumber(_ value: Int?) {
-        numberLabel.setAttributedText(value != nil ? String(value!) : "", style: .caption1)
-        numberLabel.textColor = .labelSecondary
+        numberLabel.setAttributedText(value != nil ? String(value!) : "", style: .caption2Tertiary)
     }
 
     func setName(_ value: String) {
-        nameLabel.setAttributedText(value.uppercased(), style: .caption1)
+        nameLabel.setAttributedText(value.uppercased(), style: .caption2Tertiary)
     }
 
     @IBAction func didTapAddButton(_ sender: Any) {

@@ -17,7 +17,7 @@ class SegmentView: UINibView {
 
     override func commonInit() {
         super.commonInit()
-        button.titleLabel?.setStyle(.caption1)
+        button.titleLabel?.setStyle(.caption2)
     }
 
     @IBAction private func didTapButton(_ sender: Any) {

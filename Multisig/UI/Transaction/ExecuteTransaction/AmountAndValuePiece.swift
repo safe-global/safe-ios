@@ -15,8 +15,8 @@ class AmountAndValuePiece: UINibView {
 
     override func commonInit() {
         super.commonInit()
-        amountLabel.setStyle(.primary)
-        fiatAmountLabel.setStyle(.caption1.weight(.regular))
+        amountLabel.setStyle(.headline)
+        fiatAmountLabel.setStyle(.footnote)
         setStackAlignment(.trailing)
         setTextAlignment(.right)
     }

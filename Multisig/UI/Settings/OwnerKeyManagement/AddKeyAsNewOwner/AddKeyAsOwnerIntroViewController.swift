@@ -26,8 +26,8 @@ class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentation
 
         presentationController?.delegate = self
 
-        titleLabel.setStyle(.primary)
-        descriptionLabel.setStyle(.secondary)
+        titleLabel.setStyle(.title2)
+        descriptionLabel.setStyle(.body)
         addButton.setText("Add as owner", .filled)
         skipButton.setText("Skip", .plain)
     }

@@ -35,11 +35,11 @@ class GuardianDetailsViewController: UIViewController {
         viewOnEtherscan.setText("View on Etherscan", underlined: false)
 
         reasonTitleLabel.setStyle(.headline)
-        reasonTextLabel.setStyle(.secondary)
+        reasonTextLabel.setStyle(.body)
         reasonTextLabel.text = guardian.reason
 
         contributionTitleLabel.setStyle(.headline)
-        contributionTextLabel.setStyle(.secondary)
+        contributionTextLabel.setStyle(.body)
         contributionTextLabel.text = guardian.contribution
 
         continueButton.setText("Select & Continue", .filled)

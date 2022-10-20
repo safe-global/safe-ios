@@ -11,7 +11,7 @@ import UIKit
 
 extension String {
     func highlight(prefix: Int = 6, suffix: Int = 4) -> NSAttributedString {
-        let style = GNOTextStyle.tertiary
+        let style = GNOTextStyle.bodyTertiary
         let attributedString = NSMutableAttributedString(
             string: self,
             attributes: [
@@ -34,8 +34,8 @@ extension String {
         return attributedString
     }
 
-    func highlightRange(originalStyle: GNOTextStyle = .secondary,
-                        highlightStyle: GNOTextStyle = .primary,
+    func highlightRange(originalStyle: GNOTextStyle = .body,
+                        highlightStyle: GNOTextStyle = .bodyPrimary,
                         textToHighlight: String? = nil) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString(string: self, attributes: originalStyle.attributes)
 

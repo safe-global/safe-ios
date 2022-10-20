@@ -19,8 +19,8 @@ class DefaultKeyTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         headerLabel.setStyle(.headline)
-        leftLabel.setStyle(.primary)
-        detailLabel.setStyle(.primary)
+        leftLabel.setStyle(.body)
+        detailLabel.setStyle(.body)
         addressView.copyEnabled = false
         iconImageView.tintColor = .primary
     }

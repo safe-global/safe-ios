@@ -136,6 +136,9 @@
 		048D72D026875B1C0095999C /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72CF26875B1C0095999C /* TableHeaderView.swift */; };
 		048D72D226875B2D0095999C /* TableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048D72D126875B2D0095999C /* TableHeaderView.xib */; };
 		048D72D7268DACAF0095999C /* NetworksListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72D6268DACAF0095999C /* NetworksListViewModel.swift */; };
+		0491068028F99247005A4A99 /* DMSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0491067A28F99246005A4A99 /* DMSans-Regular.ttf */; };
+		0491068128F99247005A4A99 /* DMSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0491067B28F99246005A4A99 /* DMSans-Medium.ttf */; };
+		0491068228F99247005A4A99 /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0491067C28F99246005A4A99 /* DMSans-Bold.ttf */; };
 		049257AE273C239C00507C33 /* String+Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049257AD273C239C00507C33 /* String+Highlight.swift */; };
 		0493A28B262979820056EC49 /* UpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0493A28A262979820056EC49 /* UpdateController.swift */; };
 		049A9D0E25F7C66E00CA5723 /* OwnerKeysListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */; };
@@ -445,7 +448,6 @@
 		0A93DD602445CC8B00688050 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A93DD5F2445CC8B00688050 /* Assets.xcassets */; };
 		0A93DD632445CC8B00688050 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A93DD622445CC8B00688050 /* Preview Assets.xcassets */; };
 		0A93DD662445CC8B00688050 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A93DD642445CC8B00688050 /* LaunchScreen.storyboard */; };
-		0A93DDAB244604A400688050 /* Averta-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0A93DDAA244604A400688050 /* Averta-Regular.otf */; };
 		0A93DDB32446080000688050 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDB22446080000688050 /* Colors.swift */; };
 		0A93DDB924461C1400688050 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDB824461C1400688050 /* Fonts.swift */; };
 		0A93DDBB24461F4800688050 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93DDBA24461F4800688050 /* Buttons.swift */; };
@@ -1091,6 +1093,9 @@
 		048D72CF26875B1C0095999C /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		048D72D126875B2D0095999C /* TableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableHeaderView.xib; sourceTree = "<group>"; };
 		048D72D6268DACAF0095999C /* NetworksListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworksListViewModel.swift; sourceTree = "<group>"; };
+		0491067A28F99246005A4A99 /* DMSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Regular.ttf"; sourceTree = "<group>"; };
+		0491067B28F99246005A4A99 /* DMSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Medium.ttf"; sourceTree = "<group>"; };
+		0491067C28F99246005A4A99 /* DMSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Bold.ttf"; sourceTree = "<group>"; };
 		049257AD273C239C00507C33 /* String+Highlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Highlight.swift"; sourceTree = "<group>"; };
 		0493A28A262979820056EC49 /* UpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateController.swift; sourceTree = "<group>"; };
 		049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeysListViewController.swift; sourceTree = "<group>"; };
@@ -1375,7 +1380,6 @@
 		0A93DD672445CC8B00688050 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A93DD6C2445CC8C00688050 /* MultisigTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultisigTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A93DD722445CC8C00688050 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0A93DDAA244604A400688050 /* Averta-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Averta-Regular.otf"; sourceTree = "<group>"; };
 		0A93DDB22446080000688050 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0A93DDB824461C1400688050 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		0A93DDBA24461F4800688050 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
@@ -2269,6 +2273,16 @@
 				048D72D126875B2D0095999C /* TableHeaderView.xib */,
 			);
 			path = TableHeaderView;
+			sourceTree = "<group>";
+		};
+		0491067928F99246005A4A99 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0491067A28F99246005A4A99 /* DMSans-Regular.ttf */,
+				0491067B28F99246005A4A99 /* DMSans-Medium.ttf */,
+				0491067C28F99246005A4A99 /* DMSans-Bold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		049A9D1425F7C67800CA5723 /* OwnerKeysListViewController */ = {
@@ -3380,9 +3394,9 @@
 		0AF432CA244DFAFB00E22E50 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0491067928F99246005A4A99 /* Fonts */,
 				042626E928EF620E000BD2CC /* Animations */,
 				0A93DD5F2445CC8B00688050 /* Assets.xcassets */,
-				0A93DDAA244604A400688050 /* Averta-Regular.otf */,
 				0A93DD642445CC8B00688050 /* LaunchScreen.storyboard */,
 			);
 			name = Resources;
@@ -4426,6 +4440,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0ACCC6E827429A3300EC79B9 /* AccountActionCompletedViewController.xib in Resources */,
+				0491068228F99247005A4A99 /* DMSans-Bold.ttf in Resources */,
 				0A06533527B6D0F90008C5F1 /* ChooseOwnerBasicHeaderView.xib in Resources */,
 				0A9366B5278F1EAC001918A9 /* HyperlinkButtonView.xib in Resources */,
 				0A9E8E7825B9CA4200256AD3 /* BannerTableViewCell.xib in Resources */,
@@ -4601,6 +4616,7 @@
 				04FEFE8128C6304B0028A349 /* TokenDistributionViewController.xib in Resources */,
 				550FB1B526691D9500C13D54 /* DetailedCell.xib in Resources */,
 				042626E828EF61F2000BD2CC /* safeCreation.json in Resources */,
+				0491068128F99247005A4A99 /* DMSans-Medium.ttf in Resources */,
 				0472B2BB2869D66A0049BA17 /* ChooseDelegateIntroViewController.xib in Resources */,
 				0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */,
 				550FB1A026691CA300C13D54 /* DappsViewController.xib in Resources */,
@@ -4608,6 +4624,7 @@
 				045769FE27C7DBBF00881206 /* SafeDeployingViewController.xib in Resources */,
 				0AE8C08925793B8C00E62B34 /* DetailArrowPiece.xib in Resources */,
 				6ADEB02827B559370062ADFE /* WebConnectionOwnerView.xib in Resources */,
+				0491068028F99247005A4A99 /* DMSans-Regular.ttf in Resources */,
 				043350BA2816D522003725E2 /* ReviewSafeTransactionViewController.xib in Resources */,
 				0AF1C80125408A6F00E28669 /* SafeBarView.xib in Resources */,
 				6AD4773028932160004C736D /* GuardianCountTableViewCell.xib in Resources */,
@@ -4645,7 +4662,6 @@
 				0468FB9725912E8300541536 /* TransactionsListConflictHeaderTableViewCell.xib in Resources */,
 				0A93DD602445CC8B00688050 /* Assets.xcassets in Resources */,
 				5534F7382760C7670018E655 /* CreatePasscodeSuggestionViewController.xib in Resources */,
-				0A93DDAB244604A400688050 /* Averta-Regular.otf in Resources */,
 				B0D618DCACA100B230F936DE /* DesktopPairingHeaderView.xib in Resources */,
 				B0D6178FC710D4E943B4F9F5 /* WebConnectionContainerViewController.xib in Resources */,
 				0A0391CB27C565D4003C871A /* IconButtonTableViewCell.xib in Resources */,

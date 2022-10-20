@@ -11,7 +11,7 @@ import UIKit
 class TableHeaderView: UINibView {
     @IBOutlet private weak var titleLabel: UILabel!
 
-    func set(_ title: String, style: GNOTextStyle = .headline2) {
+    func set(_ title: String, style: GNOTextStyle = .body) {
         titleLabel.text = title
         titleLabel.setStyle(style)
     }

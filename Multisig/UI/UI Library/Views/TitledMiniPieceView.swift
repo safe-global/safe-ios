@@ -14,7 +14,7 @@ class TitledMiniPieceView: UINibView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.setStyle(.primary)
+        titleLabel.setStyle(.headline)
     }
 
     func setTitle(_ value: String?) {

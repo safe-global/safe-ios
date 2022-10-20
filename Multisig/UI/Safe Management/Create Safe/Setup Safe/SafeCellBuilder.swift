@@ -31,9 +31,9 @@ class SafeCellBuilder {
         cell.selectionStyle = .none
         cell.cellLabel.hyperLinkLabel(
             text,
-            prefixStyle: .footnote2.weight(.regular),
+            prefixStyle: .footnote,
             linkText: hyperlink,
-            linkStyle: .footnote2.weight(.regular).color(.primary),
+            linkStyle: .footnotePrimary,
             linkIcon: nil)
         return cell
     }

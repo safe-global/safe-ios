@@ -40,8 +40,8 @@ class EnterCustomAddressViewController: UIViewController {
         continueButton.setText("Select & Continue", .filled)
         continueButton.isEnabled = false
 
-        descriptionLabel.setStyle(.secondary)
-        hintLabel.setStyle(.footnote4)
+        descriptionLabel.setStyle(.body)
+        hintLabel.setStyle(.callout)
 
         if mainnet {
             chain = SCGModels.Chain.mainnetChain()

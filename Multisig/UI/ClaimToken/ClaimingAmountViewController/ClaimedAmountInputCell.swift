@@ -41,12 +41,12 @@ class ClaimedAmountInputCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.text = "How much do you want to claim?"
-        titleLabel.setStyle(GNOTextStyle.title5.weight(.semibold))
+        titleLabel.setStyle(.title3)
 
         descriptionLabel.text = "Select all tokens or custom amount."
-        descriptionLabel.setStyle(.secondary)
+        descriptionLabel.setStyle(.body)
 
-        redeemWarningLabel.setStyle(.footnote2.color(UIColor(hex: "#B2BBC0")))
+        redeemWarningLabel.setStyle(.footnote)
 
         amountTextField.setToken(image: UIImage(named: "ico-safe-token-logo-circle"))
 

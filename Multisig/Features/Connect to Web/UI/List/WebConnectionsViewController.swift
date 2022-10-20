@@ -83,10 +83,10 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
 
     private func scan() {
         let vc = QRCodeScannerViewController()
-
+        
         let string = "Go to Safe Web and select Connect wallet." as NSString
-        let textStyle = GNOTextStyle.primary.color(.white)
-        let highlightStyle = textStyle.weight(.bold)
+        let textStyle = GNOTextStyle.calloutMedium.color(.white)
+        let highlightStyle = GNOTextStyle.bodyMedium.color(.white)
         let label = NSMutableAttributedString(string: string as String, attributes: textStyle.attributes)
         label.setAttributes(highlightStyle.attributes, range: string.range(of: "Safe Web"))
         label.setAttributes(highlightStyle.attributes, range: string.range(of: "Connect wallet"))

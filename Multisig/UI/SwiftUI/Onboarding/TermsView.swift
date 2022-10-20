@@ -50,7 +50,7 @@ struct TermsView: View {
                 agreeWithTerms()
                 AppSettings.trackingEnabled = true
             }
-            .buttonStyle(GNOFilledButtonStyle())
+            .buttonStyle(GNOFilledButtonStyle()).preferredColorScheme(.dark)
 
             Button("Accept without sharing data") {
                 agreeWithTerms()
@@ -63,6 +63,8 @@ struct TermsView: View {
         .padding(.bottom, bottomPadding)
         .padding(.horizontal)
         .background(Color.backgroundSecondary)
+        .preferredColorScheme(.light)
+        
     }
 
     private func agreeWithTerms() {
@@ -82,7 +84,7 @@ struct TermsView: View {
         var body: some View {
             HStack(alignment: .top) {
                 Image("ico-bullet-point")
-                    .foregroundColor(.labelTetriary)
+                    .foregroundColor(.labelSecondary)
                     .padding(.top, bulletTopPadding)
                 Text(text)
                     .body(.labelSecondary)

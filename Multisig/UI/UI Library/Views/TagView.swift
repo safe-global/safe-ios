@@ -14,13 +14,13 @@ class TagView: UINibView {
 
     override func commonInit() {
         super.commonInit()
-        titleLabel.setStyle(.footnote3)
+        titleLabel.setStyle(.caption1)
         clipsToBounds = true
-        layer.cornerRadius = 4
-        backgroundColor = .backgroundSecondary
+        layer.cornerRadius = 3
+        backgroundColor = .backgroundPrimary
     }
 
-    func set(title: String, style: GNOTextStyle = .footnote3, backgroundColor: UIColor = .backgroundSecondary, textColor: UIColor? = nil) {
+    func set(title: String, style: GNOTextStyle = .caption1, backgroundColor: UIColor = .backgroundPrimary, textColor: UIColor? = nil) {
         titleLabel.text = title
         titleLabel.setStyle(style)
         if textColor != nil {

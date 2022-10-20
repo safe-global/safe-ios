@@ -57,7 +57,7 @@ class UpdateAppViewController: UIViewController {
         super.viewDidLoad()
 
         descriptionLabel.text = style.description
-        descriptionLabel.setStyle(.primary)
+        descriptionLabel.setStyle(.body)
         updateButton.setText("Update now", .filled)
         skipButton.setText("Skip", .primary)
         skipButton.isHidden = style.unskippable

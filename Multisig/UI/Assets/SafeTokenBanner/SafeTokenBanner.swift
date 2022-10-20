@@ -20,12 +20,12 @@ class SafeTokenBanner: UINibView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        overrideUserInterfaceStyle = .light
         clipsToBounds = true
         layer.cornerRadius = 8
-        titleLabel.setStyle(.primary)
-        messageLabel.setStyle(.secondary)
-        claimButton.titleLabel?.setStyle(.primary)
-        claimButton.setTitleColor(.black, for: .normal)
+        titleLabel.setStyle(.headline)
+        messageLabel.setStyle(.callout)
+        claimButton.titleLabel?.setStyle(.buttonSmall)
     }
 
     @IBAction func didTapClose(_ sender: Any) {

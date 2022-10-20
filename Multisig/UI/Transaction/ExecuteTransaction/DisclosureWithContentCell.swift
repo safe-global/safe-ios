@@ -17,7 +17,7 @@ class DisclosureWithContentCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        cellLabel.setStyle(.primary)
+        cellLabel.setStyle(.headline)
     }
 
     func setText(_ value: String?) {

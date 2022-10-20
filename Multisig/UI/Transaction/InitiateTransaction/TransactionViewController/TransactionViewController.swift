@@ -65,8 +65,8 @@ class TransactionViewController: UIViewController {
 
         enableReviewButtons(false)
 
-        balanceLabel.setStyle(.secondary)
-        totalBalanceLabel.setStyle(.headline)
+        balanceLabel.setStyle(.bodyMedium)
+        totalBalanceLabel.setStyle(.bodyPrimary)
 
         
         totalBalanceLabel.text = tokenBalance.balanceWithSymbol

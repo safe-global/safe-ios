@@ -103,7 +103,7 @@ class Fee1559FormModel: FormModel {
         nonceField.infoLabel.setText(
             "Nonce",
             description: "Transaction count of the execution account",
-            style: .primary
+            style: .headline
         )
         nonceField.gnoTextField.setPlaceholder("Nonce")
         nonceField.gnoTextField.text = nonceText
@@ -115,7 +115,7 @@ class Fee1559FormModel: FormModel {
         gasField.infoLabel.setText(
             "Gas limit",
             description: "Maximum gas that this transaction can spend. Unused gas will be refunded",
-            style: .primary
+            style: .headline
         )
         gasField.gnoTextField.setPlaceholder("Gas limit")
         gasField.gnoTextField.text = gasText
@@ -127,7 +127,7 @@ class Fee1559FormModel: FormModel {
         maxPriorityFeeField.infoLabel.setText(
             "Max priority fee per gas (GWEI)",
             description: "Maximum tip to miner per 1 gas in Gwei price units",
-            style: .primary
+            style: .headline
         )
         maxPriorityFeeField.gnoTextField.setPlaceholder("Max priority fee per gas (GWEI)")
         maxPriorityFeeField.gnoTextField.text = maxPriorityFeePerGasInGigaweiText
@@ -139,7 +139,7 @@ class Fee1559FormModel: FormModel {
         maxFeePerGasField.infoLabel.setText(
             "Max fee per gas (GWEI)",
             description: "Maximum limit paid per 1 gas in Gwei price units",
-            style: .primary
+            style: .headline
         )
         maxFeePerGasField.gnoTextField.setPlaceholder("Max fee per gas (GWEI)")
         maxFeePerGasField.gnoTextField.text = maxFeePerGasInGigaweiText

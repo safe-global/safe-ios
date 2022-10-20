@@ -20,8 +20,8 @@ struct SectionHeader: View {
         HStack {
             Text(text)
                 .tracking(2)
-                .font(.gnoCaption1)
-                .foregroundColor(Color.labelTetriary)
+                .font(.caption2)
+                .foregroundColor(Color.labelTertiary)
                 .padding()
             
             Spacer()

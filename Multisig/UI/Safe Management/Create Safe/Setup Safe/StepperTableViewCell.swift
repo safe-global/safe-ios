@@ -15,7 +15,7 @@ class StepperTableViewCell: UITableViewCell {
 
     var onChange: (Int) -> Void = { _ in }
 
-    func setText(_ text: String?, style: GNOTextStyle = .primary) {
+    func setText(_ text: String?, style: GNOTextStyle = .body) {
         cellLabel.text = text
         cellLabel.setStyle(style)
     }

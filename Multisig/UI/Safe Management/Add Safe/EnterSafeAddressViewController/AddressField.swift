@@ -27,9 +27,9 @@ class AddressField: UINibView {
 
     override func commonInit() {
         super.commonInit()
-        placeholderLabel.setStyle(.tertiary)
-        inputLabel.setStyle(.primary)
-        errorLabel.setStyle(.error)
+        placeholderLabel.setStyle(.bodyTertiary)
+        inputLabel.setStyle(.body)
+        errorLabel.setStyle(.calloutError)
 
         ellipsis.tintColor = .tertiaryLabel
 

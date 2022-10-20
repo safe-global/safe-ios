@@ -25,7 +25,7 @@ class BackupIntroViewController: UIViewController, UIGestureRecognizerDelegate {
         navigationItem.title = "Back up key"
         
         titleLabel.setStyle(.title3)
-        messageLabel.setStyle(.secondary)
+        messageLabel.setStyle(.body)
         tipsView.setContent(
             title: "Security tips",
             tips: [

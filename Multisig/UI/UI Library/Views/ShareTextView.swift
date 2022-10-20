@@ -21,7 +21,7 @@ class ShareTextView: UINibView {
         super.awakeFromNib()
         layer.borderWidth = 2
         layer.cornerRadius = 10
-        textLabel.setStyle(.primary)
+        textLabel.setStyle(.body)
     }
 
     override func layoutSubviews() {

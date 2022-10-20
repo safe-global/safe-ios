@@ -239,7 +239,7 @@ class ActionDetailViewController: UITableViewController {
 
     private func textCell(_ text: String, indentation: CGFloat = 0) -> UITableViewCell {
         let cell = tableView.dequeueCell(ActionDetailTextCell.self)
-        cell.setText(text, style: .secondary)
+        cell.setText(text, style: .body)
         cell.onTap = {
             Self.copyValue(text)
         }
@@ -249,7 +249,7 @@ class ActionDetailViewController: UITableViewController {
 
     private func emptyCell(indentation: CGFloat = 0) -> UITableViewCell {
         let cell = tableView.dequeueCell(ActionDetailTextCell.self)
-        cell.setText("empty", style: .tertiary)
+        cell.setText("empty", style: .bodyTertiary)
         cell.selectionStyle = .none
         cell.margins.leading += indentation
         return cell
@@ -272,7 +272,7 @@ class ActionDetailViewController: UITableViewController {
 
     private func hexCell(_ text: String, indentation: CGFloat = 0) -> UITableViewCell {
         let cell = self.tableView.dequeueCell(ActionDetailTextCell.self)
-        cell.setText(text, style: .primary)
+        cell.setText(text, style: .headline)
         cell.onTap = {
             Self.copyValue(text)
         }

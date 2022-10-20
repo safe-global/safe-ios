@@ -16,7 +16,7 @@ class DetailAccountAndTextCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         textTitleLabel.setStyle(.headline)
-        textDetailsLabel.setStyle(.secondary)
+        textDetailsLabel.setStyle(.body)
     }
 
     func setAccount(address: Address, label: String?, title: String?, imageUri: URL?, browseURL: URL?, prefix: String?) {

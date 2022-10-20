@@ -77,8 +77,8 @@ class WhatIsSafeTokenViewController: UIViewController {
         }
 
         tokenNonTrnasferableLabel.setStyle(.callout.color(.labelSecondary))
-        titleLabel.setStyle(.Updated.title)
-        descriptionLabel.setStyle(.secondary)
+        titleLabel.setStyle(.title2)
+        descriptionLabel.setStyle(.body)
         nextButton.setText("Next", .filled)
     }
 

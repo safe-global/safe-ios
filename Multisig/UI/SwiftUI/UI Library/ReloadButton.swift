@@ -19,11 +19,11 @@ struct ReloadButton: View {
                     Spacer()
                     Image(systemName: "arrow.2.circlepath")
                         .rotationEffect(iconRotation)
-                    Text("Reload").font(.gnoBody)
+                    Text("Reload").font(.button)
                     Spacer()
                 }
             })
-            .buttonStyle(GNOCustomButtonStyle(color: .labelTetriary))
+            .buttonStyle(GNOCustomButtonStyle(color: .labelTertiary))
             .frame(height: height)
     }
 }

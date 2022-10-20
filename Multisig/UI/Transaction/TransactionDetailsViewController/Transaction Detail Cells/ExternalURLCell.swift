@@ -13,7 +13,7 @@ class ExternalURLCell: UITableViewCell, ExternalURLSource {
     private(set) var url: URL?
     override func awakeFromNib() {
         super.awakeFromNib()
-        button.titleLabel?.setStyle(.primaryButton)
+        button.titleLabel?.setStyle(.headline)
     }
 
     func setText(_ text: String, url: URL) {

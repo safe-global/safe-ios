@@ -14,7 +14,7 @@ class LoadingView: UINibView {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.text = nil
-        titleLabel.setStyle(.headline2)
+        titleLabel.setStyle(.body)
         backgroundColor = .backgroundPrimary
     }
 

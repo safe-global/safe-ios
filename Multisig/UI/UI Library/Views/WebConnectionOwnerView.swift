@@ -18,7 +18,7 @@ class WebConnectionOwnerView: UINibView {
         super.commonInit()
         backgroundView.layer.cornerRadius = 4
         backgroundView.clipsToBounds = true
-        keyLabel.setStyle(.footnote2)
+        keyLabel.setStyle(.footnote)
         keyLabel.lineBreakMode = .byTruncatingMiddle
     }
     
