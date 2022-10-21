@@ -25,6 +25,22 @@ extension CDEthTransaction {
             return items.first
         }) ?? []
     }
+
+    static func removeWhere(ethTxHash: String, chainId: String) {
+        dispatchPrecondition(condition: .onQueue(.main))
+        let context = App.shared.coreDataStack.viewContext
+        let fr = CDEthTransaction.fetchRequest().by(ethTxHash: ethTxHash, chainId: chainId)
+        do {
+            let toRemove = try context.fetch(fr)
+            for tx in toRemove {
+                context.delete(tx)
+            }
+        } catch {
+            LogService.shared.error("Failed to save transaction for monitoring: \(error)")
+            return
+        }
+        App.shared.coreDataStack.saveContext()
+    }
 }
 
 
@@ -38,6 +54,12 @@ extension NSFetchRequest where ResultType == CDEthTransaction {
         sortDescriptors = []
         predicate = NSPredicate(format: "safeAddress == %@ AND chainId == %@", safeAddress, chainId)
         fetchLimit = 1
+        return self
+    }
+
+    func by(ethTxHash: String, chainId: String) -> Self {
+        sortDescriptors = []
+        predicate = NSPredicate(format: "ethTxHash == %@ AND chainId == %@ ", ethTxHash, chainId)
         return self
     }
 }

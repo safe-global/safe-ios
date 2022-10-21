@@ -779,6 +779,12 @@ class CreateSafeFormUIModel {
 
         // save the tx information for monitoring purposes
         let context = App.shared.coreDataStack.viewContext
+
+        let ethTxHash = txHash.storage.storage.toHexStringWithPrefix()
+
+        // prevent duplicates
+        CDEthTransaction.removeWhere(ethTxHash: ethTxHash, chainId: chain.id!)
+
         let cdTx = CDEthTransaction(context: context)
         cdTx.ethTxHash = txHash.storage.storage.toHexStringWithPrefix()
         cdTx.safeTxHash = nil
