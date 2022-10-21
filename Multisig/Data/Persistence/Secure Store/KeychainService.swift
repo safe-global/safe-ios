@@ -92,7 +92,7 @@ public final class KeychainService: SecureStore {
     }
 
     private func get(query: [String: Any]) throws -> CFTypeRef? {
-    var item: CFTypeRef?
+        var item: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &item)
         guard status != errSecItemNotFound else { return nil }
         guard status == errSecSuccess else {
