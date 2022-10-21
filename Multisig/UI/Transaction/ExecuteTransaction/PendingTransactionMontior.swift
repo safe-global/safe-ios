@@ -133,8 +133,6 @@ class ChainPendingTransactionMonitor {
         let cdTxByTxHash: [(txHash: String, status: String, updatedAt: Date?, ethTx: CDEthTransaction)] =
             cdEthTransactions.map { ($0.ethTxHash!, $0.status!, $0.dateUpdatedAt, $0) }
 
-
-
         // send the batch request
         self.queryTask?.cancel()
         self.queryTask = client.send(request: batchRequest) { [weak self] batchResponse in
