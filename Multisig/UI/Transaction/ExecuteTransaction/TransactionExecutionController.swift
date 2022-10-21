@@ -607,19 +607,10 @@ class TransactionExecutionController {
         // save the tx information for monitoring purposes
         let context = App.shared.coreDataStack.viewContext
 
-        // prevent duplicates
         let ethTxHash = txHash.storage.storage.toHexStringWithPrefix()
 
-        let fr = CDEthTransaction.fetchRequest().by(ethTxHash: ethTxHash, chainId: chainId)
-        do {
-            let toRemove = try context.fetch(fr)
-            for tx in toRemove {
-                context.delete(tx)
-            }
-        } catch {
-            LogService.shared.error("Failed to save transaction for monitoring: \(error)")
-            return
-        }
+        // prevent duplicates
+        CDEthTransaction.removeWhere(ethTxHash: ethTxHash, chainId: chainId)
 
         let cdTx = CDEthTransaction(context: context)
         cdTx.ethTxHash = ethTxHash

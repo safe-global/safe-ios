@@ -25,6 +25,22 @@ extension CDEthTransaction {
             return items.first
         }) ?? []
     }
+
+    static func removeWhere(ethTxHash: String, chainId: String) {
+        dispatchPrecondition(condition: .onQueue(.main))
+        let context = App.shared.coreDataStack.viewContext
+        let fr = CDEthTransaction.fetchRequest().by(ethTxHash: ethTxHash, chainId: chainId)
+        do {
+            let toRemove = try context.fetch(fr)
+            for tx in toRemove {
+                context.delete(tx)
+            }
+        } catch {
+            LogService.shared.error("Failed to save transaction for monitoring: \(error)")
+            return
+        }
+        App.shared.coreDataStack.saveContext()
+    }
 }
 
 
