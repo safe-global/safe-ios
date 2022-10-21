@@ -40,4 +40,10 @@ extension NSFetchRequest where ResultType == CDEthTransaction {
         fetchLimit = 1
         return self
     }
+
+    func by(ethTxHash: String, chainId: String) -> Self {
+        sortDescriptors = []
+        predicate = NSPredicate(format: "ethTxHash == %@ AND chainId == %@ ", ethTxHash, chainId)
+        return self
+    }
 }
