@@ -28,7 +28,7 @@ class WarningView: UINibView {
 
         actionButton.setTitle("", for: .normal)
         titleLabel.setStyle(.headline)
-        descriptionLabel.setStyle(.callout)
+        descriptionLabel.setStyle(.subheadline)
 
         leftBar.isHidden = true
         contentStackView.spacing = 16
