@@ -45,14 +45,17 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
     }
 
     func set(image: UIImage) {
+        typeImageView.contentMode = .center
         typeImageView.image = image
     }
 
     func set(contractImageUrl: URL? = nil, contractAddress: AddressString) {
+        typeImageView.contentMode = .scaleAspectFit
         typeImageView.setCircleImage(url: contractImageUrl, address: contractAddress.address)
     }
 
     func set(imageUrl: URL? = nil, placeholder: UIImage?) {
+        typeImageView.contentMode = .scaleAspectFit
         typeImageView.setCircleShapeImage(url: imageUrl, placeholder: placeholder)
     }
 

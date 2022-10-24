@@ -2,21 +2,7 @@
   "images" : [
     {
       "filename" : "ico-incoming-tx-dark.pdf",
-      "idiom" : "universal",
-      "resizing" : {
-        "cap-insets" : {
-          "bottom" : 5,
-          "left" : 4,
-          "right" : 4,
-          "top" : 4
-        },
-        "center" : {
-          "height" : 1,
-          "mode" : "tile",
-          "width" : 1
-        },
-        "mode" : "9-part"
-      }
+      "idiom" : "universal"
     }
   ],
   "info" : {

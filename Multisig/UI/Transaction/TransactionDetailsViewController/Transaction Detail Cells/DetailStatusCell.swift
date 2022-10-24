@@ -30,13 +30,17 @@ class DetailStatusCell: UITableViewCell {
 
     func setIcon(_ icon: UIImage?) {
         iconImageView.image = icon
+        iconImageView.contentMode = .center
     }
 
     func set(contractImageUrl: URL? = nil, contractAddress: AddressString) {
+        iconImageView.contentMode = .scaleAspectFit
         iconImageView.setCircleImage(url: contractImageUrl, address: contractAddress.address)
+
     }
 
     func set(imageUrl: URL? = nil, placeholder: UIImage?) {
+        iconImageView.contentMode = .scaleAspectFit
         iconImageView.setCircleShapeImage(url: imageUrl, placeholder: placeholder)
     }
 
