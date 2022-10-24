@@ -47,6 +47,8 @@ extension GNOTextStyle {
     static let title3 = GNOTextStyle(size: 20, weight: .medium, color: .labelPrimary)
     static let title3Secondary = GNOTextStyle(size: 20, weight: .medium, color: .labelSecondary)
     static let headline = GNOTextStyle(size: 17, weight: .medium, color: .labelPrimary)
+    static let headlinePrimary = GNOTextStyle(size: 17, weight: .medium, color: .primary)
+
     static let headlineSuccess = GNOTextStyle(size: 17, weight: .medium, color: .success)
     static let headlineError = GNOTextStyle(size: 17, weight: .medium, color: .error)
     static let headlineSecondary = GNOTextStyle(size: 17, weight: .medium, color: .labelSecondary)

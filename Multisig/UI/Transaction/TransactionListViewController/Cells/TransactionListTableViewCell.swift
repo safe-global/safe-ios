@@ -121,6 +121,6 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
 
     private func confirmationColor(_ confirmationsSubmitted: UInt64 = 0, _ confirmationsRequired: UInt64 = 0) -> UIColor {
         let reminingConfirmations = confirmationsSubmitted > confirmationsRequired ? 0 : confirmationsRequired - confirmationsSubmitted
-        return reminingConfirmations > 0 ? .tertiaryLabel : .success
+        return reminingConfirmations > 0 ? .labelTertiary : .success
     }
 }
