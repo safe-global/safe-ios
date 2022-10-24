@@ -30,7 +30,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" name="labelSecondary"/>
+                        <color key="backgroundColor" name="backgroundGreen"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="x7B-Qc-KdT" secondAttribute="height" multiplier="1:1" id="IFK-cT-YfE"/>
                             <constraint firstItem="Q7v-KK-4rw" firstAttribute="centerY" secondItem="x7B-Qc-KdT" secondAttribute="centerY" id="Qio-4E-d8O"/>
@@ -77,11 +77,11 @@
     </objects>
     <resources>
         <image name="arrow" width="40" height="60"/>
+        <namedColor name="backgroundGreen">
+            <color red="0.69019607843137254" green="1" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="backgroundSecondary">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="labelSecondary">
-            <color red="0.38823529411764707" green="0.40000000000000002" blue="0.41176470588235292" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

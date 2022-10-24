@@ -256,7 +256,7 @@ extension GNOButtonStyle {
             .font: UIFont.gnoFont(forTextStyle: .button)
         ])),
         (.disabled, GNOButtonAppearance(backgroundImage: UIImage(named: "btn-filled-inactive"), textAttributes: [
-            .foregroundColor: UIColor.backgroundPrimary,
+            .foregroundColor: UIColor.labelTertiary,
             .font: UIFont.gnoFont(forTextStyle: .button)
         ]))
     ])
