@@ -350,7 +350,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 self.replace(owner: info.address, prevOwner: prevOwner?.address)
                 completion(true)
             }
-            replaceAction.backgroundColor = .tertiaryLabel
+            replaceAction.backgroundColor = .labelTertiary
 
             actions.append(replaceAction)
             return UISwipeActionsConfiguration(actions: actions)

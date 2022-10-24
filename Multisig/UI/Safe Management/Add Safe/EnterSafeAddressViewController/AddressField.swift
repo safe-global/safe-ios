@@ -31,7 +31,7 @@ class AddressField: UINibView {
         inputLabel.setStyle(.body)
         errorLabel.setStyle(.calloutError)
 
-        ellipsis.tintColor = .tertiaryLabel
+        ellipsis.tintColor = .labelTertiary
 
         setPlaceholderText(nil)
         setInputText(nil)

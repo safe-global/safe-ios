@@ -45,14 +45,17 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
     }
 
     func set(image: UIImage) {
+        typeImageView.contentMode = .center
         typeImageView.image = image
     }
 
     func set(contractImageUrl: URL? = nil, contractAddress: AddressString) {
+        typeImageView.contentMode = .scaleAspectFit
         typeImageView.setCircleImage(url: contractImageUrl, address: contractAddress.address)
     }
 
     func set(imageUrl: URL? = nil, placeholder: UIImage?) {
+        typeImageView.contentMode = .scaleAspectFit
         typeImageView.setCircleShapeImage(url: imageUrl, placeholder: placeholder)
     }
 
@@ -121,6 +124,6 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
 
     private func confirmationColor(_ confirmationsSubmitted: UInt64 = 0, _ confirmationsRequired: UInt64 = 0) -> UIColor {
         let reminingConfirmations = confirmationsSubmitted > confirmationsRequired ? 0 : confirmationsRequired - confirmationsSubmitted
-        return reminingConfirmations > 0 ? .tertiaryLabel : .success
+        return reminingConfirmations > 0 ? .labelTertiary : .success
     }
 }
