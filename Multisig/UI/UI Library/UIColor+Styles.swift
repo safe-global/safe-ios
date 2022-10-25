@@ -46,6 +46,7 @@ extension UIColor {
     static let infoPressed = UIColor(named: "infoPressed")!
     static let infoBackground = UIColor(named: "infoBackground")!
     static let success = UIColor(named: "success")!
+    static let baseSuccess = UIColor(named: "baseSuccess")!
 }
 
 extension UIColor {

@@ -62,7 +62,7 @@ class DetailStatusCell: UITableViewCell {
         case .cancelled:
             return .labelSecondary
         case .success:
-            return .success
+            return .baseSuccess
         }
     }
 

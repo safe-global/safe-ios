@@ -24,7 +24,6 @@ class WarningView: UINibView {
         super.commonInit()
         clipsToBounds = true
         layer.cornerRadius = 8
-        backgroundColor = .warningBackground
 
         actionButton.setTitle("", for: .normal)
         titleLabel.setStyle(.headline)

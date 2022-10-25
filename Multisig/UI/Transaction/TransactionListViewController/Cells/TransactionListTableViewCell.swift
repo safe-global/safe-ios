@@ -114,7 +114,7 @@ class TransactionListTableViewCell: SwiftUITableViewCell {
         case .cancelled:
             return .labelSecondary
         case .success:
-            return .primary
+            return .baseSuccess
         }
     }
 
