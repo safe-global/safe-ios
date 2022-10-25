@@ -12,13 +12,23 @@ class WhatsNewHandler {
 
     init() {
         let whatsNew = WhatsNew(
-            version: "3.17.0",
+            version: "3.18.0",
             title: "What's new",
             features: [
                 WhatsNew.Feature(
-                    image: WhatsNew.Feature.Image(name: "ico-whats-new-airdrop", bundle: .main, renderingMode: .original, foregroundColor: nil),
-                    title: "The SAFE Airdrop!",
-                    subtitle: "Check if your Safe is eligible for the SAFE airdrop and claim the tokens in the app."
+                    image: WhatsNew.Feature.Image(name: "ico-whats-new-rebrand", bundle: .main, renderingMode: .original, foregroundColor: nil),
+                    title: "New look! ✨",
+                    subtitle: "Safe is following up with a new look. We have updated the color palette in the app, including dark mode."
+                ),
+                WhatsNew.Feature(
+                    image: WhatsNew.Feature.Image(name: "ico-whats-new-collectible", bundle: .main, renderingMode: .original, foregroundColor: nil),
+                    title: "Collectibles are back 💥",
+                    subtitle: "Now you can view collectibles in your Safe. Access it from the Assets tab - Collectibles."
+                ),
+                WhatsNew.Feature(
+                    image: WhatsNew.Feature.Image(name: "ico-whats-new-keystone", bundle: .main, renderingMode: .original, foregroundColor: nil),
+                    title: "Keystone support 🗝",
+                    subtitle: "We have partnered with Keystone to support the user-friendly hardware wallet in the app natively. Connect it from Settings - Owner Keys - Add."
                 )
             ],
             primaryAction: WhatsNew.PrimaryAction(
