@@ -9,9 +9,10 @@
 import UIKit
 
 class AllocationBoxCell: UITableViewCell {
-    @IBOutlet private weak var boxView: UIView!
+    @IBOutlet private weak var boxView: StyledView!
     @IBOutlet private weak var contentStack: UIStackView!
 
+    @IBOutlet private weak var backgroundImage: UIImageView!
     @IBOutlet private weak var headerStack: UIStackView!
     @IBOutlet private weak var headerLabel: UILabel!
     @IBOutlet private weak var headerButton: InfoButton!
@@ -176,19 +177,21 @@ class AllocationBoxCell: UITableViewCell {
         switch style {
         case .darkGuardian:
             boxBackgroundColor = .primary
-            headerStyle = .headline.color(.white)
-            titleStyle = .body
-            valueStyle = .title1.color(.white)
+            headerStyle = .headline.color(.claimableAmountLabel)
+            titleStyle = .bodyPrimary.color(.claimableAmountLabel)
+            valueStyle = .title1.color(.claimableAmountLabel)
             headerButtonHidden = true
             titleButtonImage = .darkCircle
+            backgroundImage.isHidden = false
 
         case .lightGuardian:
             boxBackgroundColor = .backgroundPrimary
             headerStyle = .headline
-            titleStyle = .body
-            valueStyle = .title1.color(.labelPrimary)
+            titleStyle = .bodyPrimary
+            valueStyle = .title1
             headerButtonHidden = false
             titleButtonImage = .lightCircle
+            backgroundImage.isHidden = true
 
         case .darkUser:
             boxBackgroundColor = .primary
@@ -197,6 +200,7 @@ class AllocationBoxCell: UITableViewCell {
             valueStyle = .title1
             headerButtonHidden = true
             titleButtonImage = .dark
+            backgroundImage.isHidden = true
 
         case .lightUser:
             boxBackgroundColor = .backgroundPrimary
@@ -205,6 +209,7 @@ class AllocationBoxCell: UITableViewCell {
             valueStyle = .title1.color(.labelPrimary)
             headerButtonHidden = false
             titleButtonImage = .light
+            backgroundImage.isHidden = true
         }
 
         update()
