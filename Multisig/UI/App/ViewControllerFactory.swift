@@ -76,7 +76,7 @@ enum ViewControllerFactory {
         return navController
     }
 
-    static func ribbonWith(viewController: UIViewController) -> UIViewController {
+    static func ribbonWith(viewController: UIViewController) -> RibbonViewController {
         RibbonViewController(rootViewController: viewController)
     }
 

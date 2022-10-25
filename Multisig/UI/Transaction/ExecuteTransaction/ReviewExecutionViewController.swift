@@ -37,6 +37,8 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     private var defaultKeyTask: URLSessionTask?
     private var txEstimationTask: URLSessionTask?
     private var sendingTask: URLSessionTask?
+    
+    private var keystoneSignFlow: KeystoneSignFlow!
 
     convenience init(safe: Safe,
                      chain: Chain,
@@ -504,6 +506,35 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
             }
 
             present(vc, animated: true, completion: nil)
+            
+        case .keystone:
+            let gsError = GSError.error(description: "Signing failed")
+            let isLegacy = controller.isLegacyTx
+            
+            let signInfo = KeystoneSignInfo(
+                signData: controller.preimageForSigning().toHexString(),
+                chain: chain,
+                keyInfo: keyInfo,
+                signType: isLegacy ? .transaction : .typedTransaction
+            )
+            let signCompletion = { [unowned self] (_: Bool) in
+                keystoneSignFlow = nil
+            }
+            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
+                App.shared.snackbar.show(error: gsError)
+                return
+            }
+            
+            keystoneSignFlow = signFlow
+            keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
+                do {
+                    try self?.controller.update(signature: (UInt(unmarshaledSignature.v), Array(unmarshaledSignature.r), Array(unmarshaledSignature.s)))
+                    self?.submit()
+                } catch {
+                    App.shared.snackbar.show(error: GSError.error(description: "Signing failed", error: error))
+                }
+            }
+            present(flow: keystoneSignFlow)
         }
     }
 

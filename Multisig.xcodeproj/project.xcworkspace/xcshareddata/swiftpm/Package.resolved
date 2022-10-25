@@ -123,8 +123,8 @@
         "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
         "state": {
           "branch": null,
-          "revision": "be1a1acb283a702b99b630f586877ba02234b4cb",
-          "version": "7.3.2"
+          "revision": "017f94ccfdacabb1ae7f45b75b4217b24c06e6ac",
+          "version": "7.4.0"
         }
       },
       {
@@ -186,8 +186,8 @@
         "repositoryURL": "https://github.com/Boilertalk/secp256k1.swift.git",
         "state": {
           "branch": null,
-          "revision": "45e458ec3be46cf0a6eb68bc947f797852dc65d8",
-          "version": "0.1.6"
+          "revision": "cd187c632fb812fd93711a9f7e644adb7e5f97f0",
+          "version": "0.1.7"
         }
       },
       {
@@ -195,8 +195,8 @@
         "repositoryURL": "https://github.com/Juanpe/SkeletonView.git",
         "state": {
           "branch": null,
-          "revision": "ca7d2edceee613e47b7857029fc82de633460e6f",
-          "version": "1.30.2"
+          "revision": "cb4d48d603b650808677f2ddb381b05261b94a16",
+          "version": "1.30.3"
         }
       },
       {
@@ -222,17 +222,17 @@
         "repositoryURL": "https://github.com/apple/swift-protobuf.git",
         "state": {
           "branch": null,
-          "revision": "b8230909dedc640294d7324d37f4c91ad3dcf177",
-          "version": "1.20.1"
+          "revision": "88c7d15e1242fdb6ecbafbc7926426a19be1e98a",
+          "version": "1.20.2"
         }
       },
       {
-        "package": "SnapshotTesting",
+        "package": "swift-snapshot-testing",
         "repositoryURL": "https://github.com/pointfreeco/swift-snapshot-testing.git",
         "state": {
           "branch": null,
-          "revision": "f8a9c997c3c1dab4e216a8ec9014e23144cbab37",
-          "version": "1.9.0"
+          "revision": "f29e2014f6230cf7d5138fc899da51c7f513d467",
+          "version": "1.10.0"
         }
       },
       {
@@ -260,6 +260,15 @@
           "branch": null,
           "revision": "3c953558d61fdd9b136d981764e3242bd92b2648",
           "version": "1.7.0"
+        }
+      },
+      {
+        "package": "URRegistry",
+        "repositoryURL": "https://github.com/5afe/ur-registry-ios",
+        "state": {
+          "branch": "main",
+          "revision": "4669ee3cfe179bdfa2c2288629af40f9847239a6",
+          "version": null
         }
       },
       {

@@ -53,7 +53,8 @@ class OnboardingImportOwnerKeyViewController: AddKeyOnboardingViewController {
     }
 
     func showDerivedAddressPicker(_ rootNode: HDNode) {
-        let pickDerivedKeyVC = KeyPickerController(node: rootNode)
+        let viewModel = SelectOwnerAddressViewModel(rootNode: rootNode)
+        let pickDerivedKeyVC = KeyPickerController(viewModel: viewModel)
         pickDerivedKeyVC.completion = { [unowned pickDerivedKeyVC, unowned self] in
             guard let privateKey = pickDerivedKeyVC.privateKey else {
                 return

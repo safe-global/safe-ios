@@ -23,15 +23,19 @@ class KeyPickerController: UITableViewController {
         case collapsed, expanded
     }
 
-    typealias Item = SelectOwnerAddressViewModel.KeyAddressInfo
+    typealias Item = KeyAddressInfo
 
     var completion: () -> Void = { }
     var privateKey: PrivateKey? {
         viewModel.selectedPrivateKey
     }
 
-    private var viewModel: SelectOwnerAddressViewModel!
-    private var listState = ListState.collapsed
+    var addKeystoneKeyParameters: AddKeystoneKeyParameters? {
+        viewModel.selectedKeystoneKeyParameters
+    }
+    
+    private var viewModel: SelectOwnerAddressViewModelProtocol!
+    private lazy var listState: ListState = viewModel.maxItemCount < viewModel.pageSize ? .expanded: .collapsed
     private var items: [Item] {
         switch listState {
         case .collapsed:
@@ -50,9 +54,9 @@ class KeyPickerController: UITableViewController {
         return button
     }()
 
-    convenience init(node: HDNode) {
+    convenience init(viewModel: SelectOwnerAddressViewModelProtocol) {
         self.init()
-        viewModel = SelectOwnerAddressViewModel(rootNode: node)
+        self.viewModel = viewModel
     }
 
     override func viewDidLoad() {
@@ -73,7 +77,7 @@ class KeyPickerController: UITableViewController {
     }
 
     @objc func didTapImport() {
-        guard let _ = viewModel.selectedPrivateKey else { return }
+        guard viewModel.selectedPrivateKey != nil || viewModel.selectedKeystoneKeyParameters != nil else { return }
         self.completion()
     }
 

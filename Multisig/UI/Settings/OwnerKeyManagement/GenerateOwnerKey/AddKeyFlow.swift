@@ -161,6 +161,10 @@ class AddKeyFlowFactory {
         enterNameVC.badgeName = parameters.badgeName
         enterNameVC.completion = completion
         return enterNameVC
+    }    
+    
+    func details(keyInfo: KeyInfo, completion: @escaping () -> Void) -> OwnerKeyDetailsViewController {
+        OwnerKeyDetailsViewController(keyInfo: keyInfo, completion: completion)
     }
 }
 

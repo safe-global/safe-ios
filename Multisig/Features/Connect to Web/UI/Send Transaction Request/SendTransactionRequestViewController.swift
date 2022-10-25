@@ -30,7 +30,8 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
     private var userParameters = UserDefinedTransactionParameters()
     private var chain: Chain!
     private var keyInfo: KeyInfo!
-
+    private var keystoneSignFlow: KeystoneSignFlow!
+    
     convenience init() {
         self.init(namedClass: WebConnectionContainerViewController.self)
     }
@@ -422,6 +423,39 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
             }
 
             present(vc, animated: true, completion: nil)
+            
+        case .keystone:
+            let gsError = GSError.error(description: "Signing failed")
+            let isLegacy = transaction is Eth.TransactionLegacy
+            
+            let signInfo = KeystoneSignInfo(
+                signData: transaction.preImageForSigning().toHexString(),
+                chain: chain,
+                keyInfo: keyInfo,
+                signType: isLegacy ? .transaction : .typedTransaction
+            )
+            let signCompletion = { [unowned self] (_: Bool) in
+                keystoneSignFlow = nil
+            }
+            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
+                App.shared.snackbar.show(error: gsError)
+                return
+            }
+            
+            keystoneSignFlow = signFlow
+            keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
+                do {
+                    try self?.transaction.updateSignature(
+                        v: Sol.UInt256(UInt(unmarshaledSignature.v)),
+                        r: Sol.UInt256(Data(Array(unmarshaledSignature.r))),
+                        s: Sol.UInt256(Data(Array(unmarshaledSignature.s)))
+                    )
+                    self?.submit()
+                } catch {
+                    App.shared.snackbar.show(error: GSError.error(description: "Signing failed", error: error))
+                }
+            }
+            present(flow: keystoneSignFlow)
         }
     }
 

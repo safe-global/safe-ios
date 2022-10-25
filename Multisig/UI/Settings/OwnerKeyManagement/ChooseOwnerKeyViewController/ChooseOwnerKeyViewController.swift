@@ -243,7 +243,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
             case .connectionProblem:
                 App.shared.snackbar.show(error: GSError.KeyConnectionProblem())
             }
-        } else if keyInfo.keyType == .ledgerNanoX {
+        } else if keyInfo.keyType == .ledgerNanoX || keyInfo.keyType == .keystone {
             completionHandler?(keyInfo)
         } else if requestsPassCode {
             authenticate(options: [.useForConfirmation]) { [weak self] success, _ in

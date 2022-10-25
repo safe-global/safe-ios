@@ -20,7 +20,8 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
     private var balanceLoadingTask: URLSessionTask?
     private var chain: Chain?
     private var keyInfo: KeyInfo?
-
+    private var keystoneSignFlow: KeystoneSignFlow!
+    
     convenience init() {
         self.init(namedClass: WebConnectionContainerViewController.self)
     }
@@ -221,6 +222,31 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
                 signature[64] -= 4
                 self?.confirm(signature: signature)
             }
+            
+        case .keystone:
+            let gsError = GSError.error(description: "Failed to sign")
+            
+            let signInfo = KeystoneSignInfo(
+                signData: request.message.toHexString(),
+                chain: chain,
+                keyInfo: keyInfo,
+                signType: .personalMessage
+            )
+            let signCompletion = { [unowned self] (_: Bool) in
+                keystoneSignFlow = nil
+            }
+            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
+                App.shared.snackbar.show(error: gsError)
+                return
+            }
+            
+            keystoneSignFlow = signFlow
+            keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
+                if let signature = SECP256K1.marshalSignature(v: Data([unmarshaledSignature.v]), r: unmarshaledSignature.r, s: unmarshaledSignature.s) {
+                    self?.confirm(signature: signature)
+                }
+            }
+            present(flow: keystoneSignFlow)
         }
     }
 

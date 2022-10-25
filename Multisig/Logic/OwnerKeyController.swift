@@ -111,6 +111,23 @@ class OwnerKeyController {
         }
     }
 
+    static func importKey(keystone address: Address, path: String, name: String, sourceFingerprint: UInt32) -> Bool {
+        do {
+            try KeyInfo.import(keystone: address, path: path, name: name, sourceFingerprint: sourceFingerprint)
+
+            App.shared.notificationHandler.signingKeyUpdated()
+
+            Tracker.setNumKeys(KeyInfo.count(.keystone), type: .keystone)
+            Tracker.trackEvent(.keystoneKeyImported)
+
+            NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
+            return true
+        } catch {
+            App.shared.snackbar.show(error: GSError.error(description: "Failed to add Keystone owner", error: error))
+            return false
+        }
+    }
+    
     static func remove(keyInfo: KeyInfo) {
         do {
             // this should be done before calling keyInfo.delete()
