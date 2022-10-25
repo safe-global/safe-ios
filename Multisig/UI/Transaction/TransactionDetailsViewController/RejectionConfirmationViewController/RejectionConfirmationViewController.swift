@@ -51,6 +51,7 @@ class RejectionConfirmationViewController: UIViewController {
         descriptionLabel.setStyle(.body)
 
         readMoreLabel.hyperLinkLabel("Advanced users can create a non-empty (useful) transaction with the same nonce (in the web interface only). Learn more in this article: ",
+                                     prefixStyle: .body,
                                      linkText: "Why do I need to pay for rejecting a transaction?")
 
         NotificationCenter.default.addObserver(
