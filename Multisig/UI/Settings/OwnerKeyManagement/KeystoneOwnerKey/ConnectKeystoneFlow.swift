@@ -33,7 +33,7 @@ final class ConnectKeystoneFlow: AddKeyFlow {
     private func scan() {
         scannerVC = QRCodeScannerViewController()
         let string = "Scan your Keystone wallet QR code to connect." as NSString
-        let textStyle = GNOTextStyle.primary.color(.white)
+        let textStyle = GNOTextStyle.bodyPrimary.color(.white)
         let highlightStyle = textStyle.weight(.bold)
         let label = NSMutableAttributedString(string: string as String, attributes: textStyle.attributes)
         label.setAttributes(highlightStyle.attributes, range: string.range(of: "Keystone"))

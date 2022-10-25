@@ -44,7 +44,7 @@ final class KeystoneSignFlow: UIFlow {
         let vc = QRCodeScannerViewController()
         
         let string = "Scan the QR code on the Keystone wallet to confirm the transaction." as NSString
-        let textStyle = GNOTextStyle.primary.color(.white)
+        let textStyle = GNOTextStyle.bodyPrimary.color(.white)
         let highlightStyle = textStyle.weight(.bold)
         let label = NSMutableAttributedString(string: string as String, attributes: textStyle.attributes)
         label.setAttributes(highlightStyle.attributes, range: string.range(of: "confirm the transaction"))
