@@ -53,9 +53,9 @@ class NavigatingDAOViewController: UIViewController {
         )
         openUrlOnTap(link: .discuss, label: discussItemLabel)
 
-        proposeItemLabel.hyperLinkLabel("Propose improvements - read our governance ",
+        proposeItemLabel.hyperLinkLabel("Propose improvements - read our ",
                 prefixStyle: .body,
-                linkText: "process",
+                linkText: "governance process",
                 linkIcon: nil,
                 underlined: false,
                 postfixText: " and post an SIP."
@@ -68,7 +68,7 @@ class NavigatingDAOViewController: UIViewController {
         chatItemLabel.setStyle(.body)
         chatItemLabel.hyperLinkLabel("Chat with the community - join our Safe ",
                 prefixStyle: .body,
-                linkText: "Discord",
+                linkText: "Safe Discord",
                 linkIcon: nil,
                 underlined: false,
                 postfixText: "."
