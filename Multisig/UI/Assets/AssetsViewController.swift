@@ -27,7 +27,7 @@ class AssetsViewController: ContainerViewController {
         ]
         segmentVC.viewControllers = [
             BalancesViewController(),
-            CollectiblesUnsupportedViewController(nibName: nil, bundle: nil)
+            CollectiblesViewController()
         ]
         segmentVC.selectedIndex = 0
         
