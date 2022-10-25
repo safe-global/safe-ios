@@ -31,7 +31,6 @@ class WarningView: UINibView {
 
         leftBar.isHidden = true
         contentStackView.spacing = 16
-        //overrideUserInterfaceStyle = .light
     }
 
     func set(image: UIImage? = nil, title: String? = nil, description: String? = nil) {
