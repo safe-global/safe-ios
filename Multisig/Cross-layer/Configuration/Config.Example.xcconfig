@@ -34,7 +34,7 @@ INTERCOM_API_KEY = YOUR_INTERCOM_API_KEY
 // Safe Client Gateway Service
 _CLIENT_GATEWAY_URL_DEV        = https:/$()/safe-client.staging.5afe.dev/
 _CLIENT_GATEWAY_URL_STAGING    = https:/$()/safe-client.staging.5afe.dev/
-_CLIENT_GATEWAY_URL_PROD       = https:/$()/safe-client.gnosis.io/
+_CLIENT_GATEWAY_URL_PROD       = https:/$()/safe-client.safe.global/
 
 // Claiming app service
 _CLAIMING_DATA_URL_DEV        = https:/$()/safe-claiming-app-data.staging.5afe.dev/

@@ -22,7 +22,7 @@ class DelegateWarningCalculatorTests: XCTestCase {
 
     // MultiSend TXs
     func testTopLevelWarning() throws {
-        // https://safe-client.gnosis.io/v1/chains/4/transactions/multisig_0x73a7AA145338587f7aB7f63c06d187C85dF4727e_0xba28109747222d6cfb7f0fb75f03d49957e343674bc116162b038e244dbcc6d6
+        // https://safe-client.safe.global/v1/chains/4/transactions/multisig_0x73a7AA145338587f7aB7f63c06d187C85dF4727e_0xba28109747222d6cfb7f0fb75f03d49957e343674bc116162b038e244dbcc6d6
         let txData = try loadAndParseFile(fileName: "DelegateWarningTopLevel")
 
         let result = DelegateWarningCalculator.isUntrusted(txData: txData)
