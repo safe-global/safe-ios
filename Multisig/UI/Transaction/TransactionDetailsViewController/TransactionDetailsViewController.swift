@@ -393,11 +393,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 keyInfo: keyInfo,
                 signType: .personalMessage
             )
-            let signCompletion = { [unowned self] (success: Bool) in
+            let signCompletion = { [unowned self] (_: Bool) in
                 keystoneSignFlow = nil
-                if !success {
-                    onError(gsError)
-                }
             }
             guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
                 onError(gsError)

@@ -291,7 +291,6 @@ class ReviewSafeTransactionViewController: UIViewController {
             let signCompletion = { [unowned self] (success: Bool) in
                 keystoneSignFlow = nil
                 if !success {
-                    App.shared.snackbar.show(error: gsError)
                     endConfirm()
                 }
             }
