@@ -232,11 +232,8 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
                 keyInfo: keyInfo,
                 signType: .personalMessage
             )
-            let signCompletion = { [unowned self] (success: Bool) in
+            let signCompletion = { [unowned self] (_: Bool) in
                 keystoneSignFlow = nil
-                if !success {
-                    App.shared.snackbar.show(error: gsError)
-                }
             }
             guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
                 App.shared.snackbar.show(error: gsError)

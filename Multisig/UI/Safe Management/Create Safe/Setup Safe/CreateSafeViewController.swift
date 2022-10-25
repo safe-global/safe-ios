@@ -771,18 +771,16 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         case .keystone:
             let gsError = GSError.error(description: "Signing failed")
+            let isLegacy = uiModel.transaction is Eth.TransactionLegacy
             
             let signInfo = KeystoneSignInfo(
                 signData: uiModel.transaction.preImageForSigning().toHexString(),
                 chain: chain,
                 keyInfo: keyInfo,
-                signType: .typedTransaction
+                signType: isLegacy ? .transaction : .typedTransaction
             )
-            let signCompletion = { [unowned self] (success: Bool) in
+            let signCompletion = { [unowned self] (_: Bool) in
                 keystoneSignFlow = nil
-                if !success {
-                    App.shared.snackbar.show(error: gsError)
-                }
             }
             guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
                 App.shared.snackbar.show(error: gsError)

@@ -10,8 +10,9 @@ import Foundation
 import URRegistry
 
 struct KeystoneSignInfo {
-    enum KeystoneSignType: Int {
-        case personalMessage = 3
+    enum KeystoneSignType {
+        case transaction
+        case personalMessage
         case typedTransaction
     }
     
@@ -29,14 +30,21 @@ extension KeystoneSignInfo {
             let chainIdNumber = UInt32(chainId),
             let metadata = keyInfo.metadata,
             let keyMetadata = KeyInfo.KeystoneKeyMetadata.from(data: metadata),
-            let signType = KeystoneSignRequest.SignType(rawValue: signType.rawValue),
             keyInfo.keyType == .keystone
         else { return nil }
+        
+        let signRequestType: KeystoneSignRequest.SignType = {
+            switch signType {
+            case .transaction: return .transaction
+            case .personalMessage: return .personalMessage
+            case .typedTransaction: return .typedTransaction
+            }
+        }()
         
         return KeystoneSignRequest(
             requestId: requestId,
             signData: signData,
-            signType: signType,
+            signType: signRequestType,
             chainId: chainIdNumber,
             path: keyMetadata.path,
             xfp: keyMetadata.sourceFingerprint,
