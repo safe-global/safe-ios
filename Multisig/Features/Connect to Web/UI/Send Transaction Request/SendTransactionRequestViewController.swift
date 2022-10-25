@@ -426,12 +426,13 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
             
         case .keystone:
             let gsError = GSError.error(description: "Signing failed")
+            let isLegacy = transaction is Eth.TransactionLegacy
             
             let signInfo = KeystoneSignInfo(
                 signData: transaction.preImageForSigning().toHexString(),
                 chain: chain,
                 keyInfo: keyInfo,
-                signType: .typedTransaction
+                signType: isLegacy ? .transaction : .typedTransaction
             )
             let signCompletion = { [unowned self] (success: Bool) in
                 keystoneSignFlow = nil

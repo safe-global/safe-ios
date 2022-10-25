@@ -509,12 +509,13 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
             
         case .keystone:
             let gsError = GSError.error(description: "Signing failed")
+            let isLegacy = controller.isLegacyTx
             
             let signInfo = KeystoneSignInfo(
                 signData: controller.preimageForSigning().toHexString(),
                 chain: chain,
                 keyInfo: keyInfo,
-                signType: .typedTransaction
+                signType: isLegacy ? .transaction : .typedTransaction
             )
             let signCompletion = { [unowned self] (success: Bool) in
                 keystoneSignFlow = nil
