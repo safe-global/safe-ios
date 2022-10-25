@@ -187,7 +187,7 @@
 					<string>++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=</string>
 				</array>
 			</dict>
-			<key>gnosisdev.com</key>
+			<key>5afe.dev</key>
 			<dict>
 				<key>TSKDisableDefaultReportUri</key>
 				<true/>
@@ -209,7 +209,14 @@
 	<string>$(TWITTER_URL)</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Averta-Regular.otf</string>
+		<string>DMSans-Bold.ttf
+DMSans-BoldItalic.ttf
+DMSans-Italic.ttf
+DMSans-Medium.ttf
+DMSans-MediumItalic.ttf
+DMSans-Regular.ttf</string>
+		<string>DMSans-Medium.ttf</string>
+		<string>DMSans-Regular.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
@@ -260,6 +267,10 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
 	</array>
 	<key>WALLETCONNECT_BRIDGE_URL</key>
 	<string>$(WALLETCONNECT_BRIDGE_URL)</string>

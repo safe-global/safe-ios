@@ -34,7 +34,7 @@ class ShareAddOwnerLinkViewController: UIViewController {
         assert(safe != nil)
         assert(owner != nil)
 
-        titleLabel.setStyle(.title5)
+        titleLabel.setStyle(.title2)
         doneButton.setText("Done", .filled)
 
         tableView.registerCell(StepInstructionTableViewCell.self)

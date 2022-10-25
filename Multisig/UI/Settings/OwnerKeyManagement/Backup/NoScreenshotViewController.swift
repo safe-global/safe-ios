@@ -25,8 +25,8 @@ class NoScreenshotViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         backgroundView.layer.cornerRadius = 15
-        titleLabel.setStyle(.primary)
-        descriptionLabel.setStyle(.secondary)
+        titleLabel.setStyle(.headline)
+        descriptionLabel.setStyle(.body)
         okButton.setText("OK, I understand", .filled)
     }
     

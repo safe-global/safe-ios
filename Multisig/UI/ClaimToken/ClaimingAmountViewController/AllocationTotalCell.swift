@@ -20,6 +20,6 @@ class AllocationTotalCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        valueLabel.setStyle(.footnote2.color(UIColor(hex: "#B2BBC0")))
+        valueLabel.setStyle(.footnote)
     }
 }

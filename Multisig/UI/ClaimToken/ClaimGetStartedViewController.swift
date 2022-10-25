@@ -27,7 +27,7 @@ class ClaimGetStartedViewController: UIViewController {
 
         startClaimButton.setText("Start your claiming process", .filled)
         screenTitle.text = "Welcome to the next generation of digital ownership!"
-        screenTitle.setStyle(.claimTitle)
+        screenTitle.setStyle(.title1)
 
         instructionsView.setContent(steps: [
             InstructionStepListView.Step(

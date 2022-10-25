@@ -22,7 +22,7 @@ class SigningKeyTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        cellDetailLabel.setStyle(.primary)
+        cellDetailLabel.setStyle(.headline)
         cellDetailImageView.isHidden = true
 
         cellDetailLabel.isSkeletonable = true
@@ -43,7 +43,7 @@ class SigningKeyTableViewCell: UITableViewCell {
         nameLabel.setStyle(.headline)
 
         addressLabel.text = keyInfo.address.ellipsized()
-        addressLabel.setStyle(.tertiary)
+        addressLabel.setStyle(.bodyTertiary)
 
         identicon.set(address: keyInfo.address, imageURL: nil, badgeName: keyInfo.keyType.imageName)
 
@@ -62,7 +62,7 @@ class SigningKeyTableViewCell: UITableViewCell {
            let chain = Chain.by(String(connection.chainId)),
            let name = chain.name {
             networkIndicator.isHidden = false
-            networkIndicator.set(title: name, style: .footnote2.color(chain.textColor))
+            networkIndicator.set(title: name, style: .footnote.color(chain.textColor))
             networkIndicator.backgroundColor = chain.backgroundColor
             networkIndicator.setMargins(NSDirectionalEdgeInsets(top: 5, leading: 8, bottom: 5, trailing: 8))
         } else {

@@ -28,8 +28,8 @@ class BorderedInnerTableCell: UITableViewCell, UITableViewDelegate, UITableViewD
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        tableView.layer.borderWidth = 2
-        tableView.layer.cornerRadius = 10
+        tableView.layer.borderWidth = 1
+        tableView.layer.cornerRadius = 8
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60

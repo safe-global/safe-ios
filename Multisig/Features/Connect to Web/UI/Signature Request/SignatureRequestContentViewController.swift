@@ -16,7 +16,7 @@ class SignatureRequestContentViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.setStyle(.secondary)
-        detailsLabel.setStyle(.primary)
+        titleLabel.setStyle(.headline)
+        detailsLabel.setStyle(.body)
     }
 }

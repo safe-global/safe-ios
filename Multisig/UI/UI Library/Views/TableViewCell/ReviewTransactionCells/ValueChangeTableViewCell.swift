@@ -17,9 +17,9 @@ class ValueChangeTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        actionTitle.setStyle(.secondary)
-        valueBefore.setStyle(.tertiary)
-        valueAfter.setStyle(.primary)
+        actionTitle.setStyle(.headlineSecondary)
+        valueBefore.setStyle(.bodyTertiary)
+        valueAfter.setStyle(.bodyPrimary)
     }
 
     func set(title: String, valueBefore: String, valueAfter: String) {

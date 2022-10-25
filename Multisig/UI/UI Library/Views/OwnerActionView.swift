@@ -19,8 +19,8 @@ class OwnerActionView: UINibView {
 
     override func commonInit() {
         super.commonInit()
-        nameLabel.setStyle(.primary)
-        addressLabel.setStyle(.tertiary)
+        nameLabel.setStyle(.headline)
+        addressLabel.setStyle(.bodyTertiary)
     }
 
     func set(owner: AddressInfo, action: OwnerAction, prefix: String? = nil) {
@@ -31,11 +31,11 @@ class OwnerActionView: UINibView {
 
         switch action {
         case .addingOwner:
-            actionTag.set(title: "Adding owner", style: .footnote2, backgroundColor: .backgroundLightGreen, textColor: .primary)
+            actionTag.set(title: "Adding owner", style: .footnotePrimary, backgroundColor: .backgroundLightGreen, textColor: .primary)
         case .replacingOwner:
-            actionTag.set(title: "Removing owner", style: .footnote2, backgroundColor: .backgroundPrimary, textColor: .labelSecondary)
+            actionTag.set(title: "Removing owner", style: .footnotePrimary, backgroundColor: .backgroundPrimary, textColor: .labelSecondary)
         case .removingOwner:
-            actionTag.set(title: "Removing owner", style: .footnote2, backgroundColor: .errorBackground, textColor: .error)
+            actionTag.set(title: "Removing owner", style: .footnotePrimary, backgroundColor: .errorBackground, textColor: .error)
         }
     }
 

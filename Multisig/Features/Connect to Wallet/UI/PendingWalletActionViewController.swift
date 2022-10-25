@@ -42,7 +42,7 @@ class PendingWalletActionViewController: ContainerViewController, UIAdaptivePres
             placeholder: placeholder,
             failedImage: placeholder
         )
-        titleLabel.setStyle(.primary)
+        titleLabel.setStyle(.title2)
         cancelButton.setText("Cancel", .plain)
     }
 

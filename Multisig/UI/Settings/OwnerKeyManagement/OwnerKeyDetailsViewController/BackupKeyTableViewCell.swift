@@ -19,7 +19,7 @@ class BackupKeyTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         titleLabel.setStyle(.headline)
-        descriptionLabel.setStyle(.secondary)
+        descriptionLabel.setStyle(.body)
         backupButton.setText("Back up now", .filled)
     }
 

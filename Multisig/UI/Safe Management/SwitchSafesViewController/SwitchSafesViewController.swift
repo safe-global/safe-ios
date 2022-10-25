@@ -94,12 +94,12 @@ final class SwitchSafesViewController: UITableViewController {
 
         case .deploying, .indexing:
             cell.setAddress(safe.addressValue, grayscale: true)
-            cell.setDetail(text: "Creating in progress...", style: .tertiary)
+            cell.setDetail(text: "Creating in progress...", style: .bodyTertiary)
             cell.setProgress(enabled: true)
 
         case .deploymentFailed:
             cell.setAddress(safe.addressValue, grayscale: true)
-            cell.setDetail(text: "Failed to create", style: .tertiary.color(.error))
+            cell.setDetail(text: "Failed to create", style: .bodyError)
         }
 
         cell.setSelection(safe.isSelected)

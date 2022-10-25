@@ -38,7 +38,7 @@ class ReviewRemoveOwnerViewController: ReviewSafeTransactionViewController {
         stepLabel.textAlignment = .right
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
 
-        stepLabel.setStyle(.tertiary)
+        stepLabel.setStyle(.calloutTertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
         assert(safe != nil)

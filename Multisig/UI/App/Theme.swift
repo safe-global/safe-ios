@@ -31,6 +31,33 @@ class Theme: ObservableObject {
         // we don't touch the UITableView appearance background color
         // because it messes up the backgrounds when navigating in the app
 
+
+
+        // Fix transparent navigation bar in iOS 15
+        let appearance = UINavigationBarAppearance()
+        let attributes = [NSAttributedString.Key.font: UIFont.gnoFont(forTextStyle: .headline)]
+        appearance.titleTextAttributes = attributes
+        if #available(iOS 15, *) {
+            appearance.configureWithOpaqueBackground()
+        }
+
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+
+        let darkNavBar = UINavigationBar.appearance(for: .init(userInterfaceStyle: .dark))
+        darkNavBar.barTintColor = .backgroundSecondary
+        darkNavBar.isTranslucent = false
+
+        let lightNavBar = UINavigationBar.appearance(for: .init(userInterfaceStyle: .light))
+        lightNavBar.barTintColor = nil
+        lightNavBar.isTranslucent = true
+        
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.gnoFont(forTextStyle: .tabBarTitle)], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.gnoFont(forTextStyle: .body)], for: .normal)
+
+        UITableView.appearance().backgroundColor = .backgroundPrimary
+        UITableView.appearance().tableFooterView = UIView()
+
         setDisplayMode()
     }
 

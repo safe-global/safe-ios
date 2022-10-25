@@ -20,16 +20,22 @@ class OnboardingViewController: UIViewController {
     @IBOutlet private weak var pageControl: UIPageControl!
     @IBOutlet private weak var collectionView: UICollectionView!
 
-    private let steps: [OnboardingStep] = [OnboardingStep(title: "The world of Web3 in your pocket",
-                                                          description: (text: "Use the most popular Ethereum-compatible networks, connect to dApps, get transaction notifications and more.", highlightedText: "connect to dApps"),
+    private let steps: [OnboardingStep] = [OnboardingStep(title: (text: "The world of Web3 in your pocket",
+                                                                  highlightedText: "Web3"),
+                                                          description: (text: "Use the most popular Ethereum-compatible networks, connect to dApps, get transaction notifications and more.",
+                                                                        highlightedText: "connect to dApps"),
                                                           image: UIImage(named: "ico-onboarding-1")!,
                                                           trackingEvent: .screenOnboarding1),
-                                           OnboardingStep(title: "Stay in control of your funds",
-                                                          description: (text: "Define how you manage digital assets and who gets authorized access to your crypto. Use multiple signer keys for better security.", highlightedText: "multiple signer keys"),
+                                           OnboardingStep(title: (text: "Stay in control of your funds",
+                                                                  highlightedText: "in control"),
+                                                          description: (text: "Define how you manage digital assets and who gets authorized access to your crypto. Use multiple signer keys for better security.",
+                                                                        highlightedText: "multiple signer keys"),
                                                           image: UIImage(named: "ico-onboarding-2")!,
                                                           trackingEvent: .screenOnboarding2),
-                                           OnboardingStep(title: "Enjoy stealth security from Multi-signature",
-                                                                  description: (text:"About $107B worth of digital assets are already securely stored by individuals and teams using Safe.", highlightedText: "$107B worth of digital assets"),
+                                           OnboardingStep(title: (text: "Enjoy stealth security from Multi-signature",
+                                                                  highlightedText: "Multi-signature"),
+                                                          description: (text:"About $107B worth of digital assets are already securely stored by individuals and teams using Safe.",
+                                                                        highlightedText: "$107B worth of digital assets"),
                                                           image: UIImage(named: "ico-onboarding-3")!,
                                                           trackingEvent: .screenOnboarding3)
     ]
@@ -44,7 +50,7 @@ class OnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        completelyNewLabel.setStyle(.secondary)
+        completelyNewLabel.setStyle(.callout)
         loadSafeButton.setText("Load existing Safe", .bordered)
         createSafeButton.setText("Create new Safe", .filled)
         demoButton.setText("Explore Demo", .primary)

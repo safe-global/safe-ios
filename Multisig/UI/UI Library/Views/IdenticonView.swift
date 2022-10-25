@@ -21,12 +21,11 @@ class IdenticonView: UINibView {
         super.commonInit()
 
         badgeFrameView.clipsToBounds = true
-        badgeFrameView.backgroundColor = .labelSecondary
 
         ownerCountFrameView.clipsToBounds = true
         ownerCountFrameView.backgroundColor = .primaryDisabled
 
-        ownerCountLabel.setStyle(.footnote2)
+        ownerCountLabel.setStyle(.footnotePrimary)
         ownerCountLabel.textColor = .primary
     }
 

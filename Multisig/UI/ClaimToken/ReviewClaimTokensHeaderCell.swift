@@ -22,15 +22,15 @@ class ReviewClaimTokensHeaderCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        amountView.setTitle("You're claiming:", style: .secondary)
-        delegateView.setTitle("Delegating voting power to:", style: .secondary)
-        fromView.setTitle("From:", style: .secondary)
-        toView.setTitle("Interact with:", style: .secondary)
+        amountView.setTitle("You're claiming:", style: .body)
+        delegateView.setTitle("Delegating voting power to:", style: .body)
+        fromView.setTitle("From:", style: .body)
+        toView.setTitle("Interact with:", style: .body)
     }
 
     func setAmount(text: String, image: UIImage?) {
         amountView.setImage(image)
-        amountView.setText(text, style: .title4.color(.labelPrimary))
+        amountView.setText(text, style: .headline)
     }
 
     func setDelegate(guardian: Guardian?, address: Address?, chain: Chain) {

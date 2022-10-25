@@ -15,7 +15,7 @@ class TransactionListHeaderTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.setStyle(.caption2)
+        titleLabel.setStyle(.caption2Tertiary)
     }
 
     func set(title: String) {

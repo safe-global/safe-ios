@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -24,27 +24,27 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="o39-jf-GLz">
-                    <rect key="frame" x="0.0" y="44" width="414" height="142"/>
+                    <rect key="frame" x="0.0" y="48" width="414" height="138"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M9y-P0-zXN">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="109.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="105.5"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border-normal" translatesAutoresizingMaskIntoConstraints="NO" id="qz7-gY-lyD">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="109.5"/>
-                                    <color key="tintColor" name="labelTetriary"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="105.5"/>
+                                    <color key="tintColor" name="border"/>
                                 </imageView>
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="g5e-am-wi6">
-                                    <rect key="frame" x="17" y="12" width="377" height="85.5"/>
+                                    <rect key="frame" x="17" y="12" width="377" height="81.5"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-token-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="BIQ-ET-AJr" userLabel="icon">
-                                            <rect key="frame" x="0.0" y="27" width="32" height="32"/>
+                                            <rect key="frame" x="0.0" y="25" width="32" height="32"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="32" id="Byo-lc-FUs"/>
                                                 <constraint firstAttribute="height" constant="32" id="DAi-oh-tHf"/>
                                             </constraints>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Def-GE-vRM">
-                                            <rect key="frame" x="46" y="27" width="331" height="32"/>
+                                            <rect key="frame" x="46" y="25" width="331" height="32"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uK1-Ie-3QV" userLabel="amount">
                                                     <rect key="frame" x="0.0" y="0.0" width="331" height="32"/>
@@ -76,7 +76,7 @@
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="error" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ZI-WV-Ple" userLabel="error">
-                            <rect key="frame" x="0.0" y="121.5" width="414" height="20.5"/>
+                            <rect key="frame" x="0.0" y="117.5" width="414" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -98,10 +98,10 @@
         </view>
     </objects>
     <resources>
-        <image name="border-normal" width="23" height="23"/>
+        <image name="border-normal" width="11" height="11"/>
         <image name="ico-token-placeholder" width="28" height="28"/>
-        <namedColor name="labelTetriary">
-            <color red="0.0" green="0.078431372549019607" blue="0.15686274509803921" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="border">
+            <color red="0.86274509803921573" green="0.87058823529411766" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

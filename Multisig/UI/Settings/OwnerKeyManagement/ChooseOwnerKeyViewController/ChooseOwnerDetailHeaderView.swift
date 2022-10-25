@@ -18,9 +18,9 @@ class ChooseOwnerDetailHeaderView: UINibView {
     
     override func commonInit() {
         super.commonInit()
-        textLabel.setStyle(.primary)
+        textLabel.setStyle(.title2)
         textLabel.text = nil
-        detailTextLabel.setStyle(.tertiary)
+        detailTextLabel.setStyle(.body)
         detailTextLabel.text = nil
     }
 

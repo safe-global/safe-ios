@@ -15,14 +15,14 @@ class WordView: UINibView {
     var borderLayer: CAShapeLayer!
 
     // Parameters of the border
-    let borderWidth: CGFloat = 2
+    let borderWidth: CGFloat = 1
     let cornerRadius: CGFloat = 8
 
     var didTap: (() -> Void)?
 
     override func commonInit() {
         super.commonInit()
-        wordLabel.setStyle(.primary)
+        wordLabel.setStyle(.subheadline)
         borderLayer = CAShapeLayer()
         layer.addSublayer(borderLayer)
         style = .normal

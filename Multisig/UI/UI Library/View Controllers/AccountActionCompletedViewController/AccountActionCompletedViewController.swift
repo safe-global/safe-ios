@@ -41,7 +41,7 @@ class AccountActionCompletedViewController: UIViewController {
         navigationItem.title = titleText
 
         headerLabel.setStyle(.headline)
-        descriptionLabel.setStyle(.primary)
+        descriptionLabel.setStyle(.body)
 
         primaryButton.setText(primaryActionName, .filled)
 

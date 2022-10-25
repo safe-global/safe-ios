@@ -14,8 +14,8 @@ class IconButtonTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        cellIcon.tintColor = GNOTextStyle.primaryButton.color
-        cellLabel.setStyle(GNOTextStyle.primaryButton)
+        cellIcon.tintColor = .primary
+        cellLabel.setStyle(.headline)
     }
 
     func setText(_ text: String?) {

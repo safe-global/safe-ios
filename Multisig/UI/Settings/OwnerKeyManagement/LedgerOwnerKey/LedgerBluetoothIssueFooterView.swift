@@ -21,7 +21,7 @@ class LedgerBluetoothIssueFooterView: UITableViewHeaderFooterView, ExternalURLSo
     }
 
     override func awakeFromNib() {
-        descriptionLabel.setStyle(.secondary)
+        descriptionLabel.setStyle(.body)
     }
 
     func set(description: String) {

@@ -20,9 +20,9 @@ class ReviewSendFundsTransactionHeaderTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        toLabel.setStyle(.secondary)
-        fromLabel.setStyle(.secondary)
-        amountLabel.setStyle(.secondary)
+        toLabel.setStyle(.headlineSecondary)
+        fromLabel.setStyle(.headlineSecondary)
+        amountLabel.setStyle(.headlineSecondary)
     }
 
     func setFromAddress(_ address: Address, label: String?, prefix: String?) {
@@ -34,8 +34,8 @@ class ReviewSendFundsTransactionHeaderTableViewCell: UITableViewCell {
     }
 
     func setToken(amount: String, symbol: String, fiatBalance: String?, image url: URL?) {
-        tokenInfoView.setText("\(amount) \(symbol)", style: .title4)
-        tokenInfoView.setDetail(fiatBalance, style: .footnote4)
+        tokenInfoView.setText("\(amount) \(symbol)", style: .headline)
+        tokenInfoView.setDetail(fiatBalance, style: .subheadline)
         tokenInfoView.setImage(url)
     }
 }

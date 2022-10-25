@@ -606,8 +606,14 @@ class TransactionExecutionController {
 
         // save the tx information for monitoring purposes
         let context = App.shared.coreDataStack.viewContext
+
+        let ethTxHash = txHash.storage.storage.toHexStringWithPrefix()
+
+        // prevent duplicates
+        CDEthTransaction.removeWhere(ethTxHash: ethTxHash, chainId: chainId)
+
         let cdTx = CDEthTransaction(context: context)
-        cdTx.ethTxHash = txHash.storage.storage.toHexStringWithPrefix()
+        cdTx.ethTxHash = ethTxHash
         cdTx.safeTxHash = self.transaction.multisigInfo?.safeTxHash.description
         cdTx.status = SCGModels.TxStatus.pending.rawValue
         cdTx.safeAddress = self.safe.address

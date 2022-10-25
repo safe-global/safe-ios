@@ -128,10 +128,10 @@ class ChainPendingTransactionMonitor {
         // the core data objects might change while we're making the network request
         // therefore we need to remember the data that will tell us that we still should udpate the objects
         // after network request is completed.
-        let cdTxByTxHash: [String: (status: String, updatedAt: Date?, ethTx: CDEthTransaction)] = Dictionary(
-            uniqueKeysWithValues: cdEthTransactions.map { ($0.ethTxHash!, ($0.status!, $0.dateUpdatedAt, $0)) }
-        )
-
+        //
+        // patch: using array instead of a dictionary (by tx hash) because of duplicate entries in the database
+        let cdTxByTxHash: [(txHash: String, status: String, updatedAt: Date?, ethTx: CDEthTransaction)] =
+            cdEthTransactions.map { ($0.ethTxHash!, $0.status!, $0.dateUpdatedAt, $0) }
 
         // send the batch request
         self.queryTask?.cancel()
@@ -186,7 +186,7 @@ class ChainPendingTransactionMonitor {
                         }
 
                         // match by receipt tx hash
-                        guard let cdTxData = cdTxByTxHash[receipt.transactionHash] else { continue }
+                        guard let cdTxData = cdTxByTxHash.first(where: { $0.txHash == receipt.transactionHash}) else { continue }
 
                         // check if the transaction status is still unchanged
                         guard cdTxData.status == cdTxData.ethTx.status, cdTxData.updatedAt == cdTxData.updatedAt else {

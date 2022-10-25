@@ -24,7 +24,7 @@ class GuardianTableViewCell: UITableViewCell {
         super.awakeFromNib()
         containerView.layer.borderWidth = 2
         containerView.layer.cornerRadius = 10
-        descriptionLabel.setStyle(.secondary)
+        descriptionLabel.setStyle(.body)
     }
 
     override func layoutSubviews() {

@@ -25,7 +25,7 @@ struct RoundedTextField: View {
                           text: text,
                           onEditingChanged: onEditingChanged,
                           onCommit: onCommit)
-                    .font(.gnoBody)
+                    .font(.body)
 
                 if isValidating.wrappedValue == true {
                     ActivityIndicator(isAnimating: .constant(true), style: .medium)
@@ -50,7 +50,7 @@ struct RoundedTextField: View {
         if isValid.wrappedValue == false {
             return Color.error
         } else {
-            return Color.labelTetriary
+            return Color.border
         }
     }
 

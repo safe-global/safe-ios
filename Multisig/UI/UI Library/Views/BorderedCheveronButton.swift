@@ -14,9 +14,9 @@ class BorderedCheveronButton: UINibView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        textLabel.setStyle(.primary)
-        layer.borderWidth = 2
-        layer.cornerRadius = 10
+        textLabel.setStyle(.headline)
+        layer.borderWidth = 1
+        layer.cornerRadius = 6
     }
 
     override func layoutSubviews() {

@@ -19,7 +19,7 @@ class DetailedCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         headerLabel.setStyle(.headline)
-        descriptionLabel.setStyle(GNOTextStyle.secondary)
+        descriptionLabel.setStyle(.body)
     }
 
     func setImage(url: URL?, placeholder: UIImage?) {

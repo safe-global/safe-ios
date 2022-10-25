@@ -51,7 +51,7 @@ class EnterENSNameViewController: UIViewController {
         textField.textField.becomeFirstResponder()
 
         addressFoundStackView.isHidden = true
-        foundHeaderLabel.setStyle(.primary)
+        foundHeaderLabel.setStyle(.headline)
     }
 
     override func viewDidAppear(_ animated: Bool) {

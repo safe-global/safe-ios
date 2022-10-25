@@ -41,7 +41,7 @@ class ActionDetailExpandableCell: ActionDetailTableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        cellLabel.setStyle(.secondary)
+        cellLabel.setStyle(.body)
         updateUIState()
     }
 

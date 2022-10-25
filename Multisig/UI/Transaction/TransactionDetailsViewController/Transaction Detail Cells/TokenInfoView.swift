@@ -28,18 +28,18 @@ class TokenInfoView: UINibView {
         imageView.setCircleShapeImage(url: url, placeholder: placeholder ?? UIImage(named: "ico-token-placeholder"))
     }
 
-    func setText(_ text: String, style: GNOTextStyle = .primary) {
+    func setText(_ text: String, style: GNOTextStyle = .headline) {
         textLabel.text = text
         textLabel.setStyle(style)
     }
 
-    func setTitle(_ value: String?, style: GNOTextStyle = .primary) {
+    func setTitle(_ value: String?, style: GNOTextStyle = .headlineSecondary) {
         titleLabel.text = value
         titleLabel.setStyle(style)
         titleLabel.isHidden = value == nil
     }
 
-    func setDetail(_ text: String?, style: GNOTextStyle = GNOTextStyle.footnote2) {
+    func setDetail(_ text: String?, style: GNOTextStyle = .footnote) {
         detailLabel.text = text
         detailLabel.setStyle(style)
         detailLabel.isHidden = text == nil

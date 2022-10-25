@@ -21,8 +21,8 @@ class WebConnectionTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         headerLabel.setStyle(.headline)
-        connectionLabel.setStyle(.secondary)
-        statusLabel.setStyle(.secondary)
+        connectionLabel.setStyle(.footnote)
+        statusLabel.setStyle(.footnote)
     }
 
     func setImage(url: URL?, placeholder: UIImage?) {
@@ -54,12 +54,12 @@ class WebConnectionTableViewCell: UITableViewCell {
         headerLabel.setStyle(style)
     }
     
-    func setConnectionInfo(_ text: String?, style: GNOTextStyle = .secondary) {
+    func setConnectionInfo(_ text: String?, style: GNOTextStyle = .footnote) {
         connectionLabel.text = text
         connectionLabel.setStyle(style)
     }
     
-    func setConnectionTimeInfo(_ text: String?, style: GNOTextStyle = .secondary) {
+    func setConnectionTimeInfo(_ text: String?, style: GNOTextStyle = .footnote) {
         guard let text = text else {
             statusIcon.isHidden = true
             statusLabel.isHidden = true

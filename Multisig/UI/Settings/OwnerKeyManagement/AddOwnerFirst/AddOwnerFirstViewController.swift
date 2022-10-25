@@ -35,7 +35,7 @@ class AddOwnerFirstViewController: UIViewController {
         }
 
         titleLabel.setStyle(.headline)
-        messageLabel.setStyle(.secondary)
+        messageLabel.setStyle(.body)
         messageLabel.text = descriptionText
         addOwnerKeyButton.setText("Add owner key", .filled)
     }

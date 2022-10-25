@@ -37,7 +37,7 @@ class ClaimSuccessViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
 
         titleLabel.text = "Congrats!"
-        titleLabel.setStyle(.Updated.title)
+        titleLabel.setStyle(.title1)
 
         askLabel.text = "Share your claim on Twitter!"
         askLabel.setStyle(.headline)
@@ -47,8 +47,8 @@ class ClaimSuccessViewController: UIViewController {
         let text = "You successfully started claiming \(displayAmount) tokens! Once you have collected the necessary confirmations, the Safe tokens will be available in this Safe."
 
         textLabel.attributedText = text.highlightRange(
-            originalStyle: .secondary,
-            highlightStyle: .primary,
+            originalStyle: .body,
+            highlightStyle: .bodyPrimary,
             textToHighlight: displayAmount
         )
 

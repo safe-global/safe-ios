@@ -15,7 +15,7 @@ class DetailDisclosingCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        bodyLabel.setStyle(.primary)
+        bodyLabel.setStyle(.headline)
     }
 
     func setText(_ text: String) {

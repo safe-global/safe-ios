@@ -56,7 +56,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         createButton.setText("Create Safe", .filled)
 
-        captionLabel.setStyle(.footnote2.weight(.regular))
+        captionLabel.setStyle(.footnote)
         captionLabel.text = "Creating a Safe may take a few minutes."
 
         uiModel.delegate = self
@@ -158,7 +158,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 return tableView.basicCell(name: name, indexPath: indexPath)
             } else {
                 let cell = tableView.basicCell(name: "", indexPath: indexPath)
-                cell.setTitle("Enter name", style: .secondary)
+                cell.setTitle("Enter name", style: .body)
                 return cell
             }
         case .network:
@@ -642,7 +642,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     private func textView(_ text: String?) -> UIView {
         let label = UILabel()
         label.textAlignment = .right
-        label.setStyle(.secondary)
+        label.setStyle(.body)
         label.text = text
         return label
     }
@@ -660,9 +660,9 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = tableView.dequeueCell(DetailExpandableTextCell.self, for: indexPath)
 
         cell.tableView = tableView
-        cell.titleStyle = .error.weight(.medium)
-        cell.expandableTitleStyle = (collapsed: .error, expanded: .error)
-        cell.contentStyle = (collapsed: .error, expanded: .error)
+        cell.titleStyle = .calloutMediumError
+        cell.expandableTitleStyle = (collapsed: .calloutError, expanded: .calloutError)
+        cell.contentStyle = (collapsed: .bodyError, expanded: .body)
 
         let errorText = uiModel.error?.localizedDescription ?? ""
         let title = errorText.count <= 144 ? errorText : nil

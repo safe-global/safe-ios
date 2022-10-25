@@ -23,13 +23,13 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="4MR-Ra-DDt">
-                    <rect key="frame" x="16" y="64" width="436" height="104"/>
+                    <rect key="frame" x="16" y="64" width="436" height="236"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="WXe-Za-hql">
-                            <rect key="frame" x="0.0" y="0.0" width="436" height="104"/>
+                            <rect key="frame" x="0.0" y="0.0" width="436" height="236"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0l-py-63V">
-                                    <rect key="frame" x="0.0" y="0.0" width="436" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="436" height="182"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="34" id="bWc-ow-moD"/>
                                     </constraints>
@@ -42,14 +42,15 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="H5X-sT-Xhx">
-                                    <rect key="frame" x="103" y="66" width="230" height="38"/>
+                                    <rect key="frame" x="103" y="198" width="230" height="38"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xvm-We-XBq">
                                             <rect key="frame" x="0.0" y="0.0" width="110" height="38"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="110" id="yAr-7J-ECD"/>
                                             </constraints>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="16" maxY="0.0"/>
+                                            <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
                                             <state key="normal" title="Send" image="ico-send"/>
                                             <connections>
                                                 <action selector="sendButtonClicked:" destination="-1" eventType="touchUpInside" id="obc-mQ-dEe"/>
@@ -57,7 +58,8 @@
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vaz-jF-aeE">
                                             <rect key="frame" x="120" y="0.0" width="110" height="38"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="16" maxY="0.0"/>
+                                            <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
                                             <state key="normal" title="Receive" image="ico-receive"/>
                                             <connections>
                                                 <action selector="receiveButtonClicked:" destination="-1" eventType="touchUpInside" id="Hz8-An-UB5"/>

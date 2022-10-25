@@ -17,7 +17,7 @@ class SegmentView: UINibView {
 
     override func commonInit() {
         super.commonInit()
-        button.titleLabel?.setStyle(.caption1)
+        button.titleLabel?.setStyle(.caption2)
     }
 
     @IBAction private func didTapButton(_ sender: Any) {
@@ -28,7 +28,7 @@ class SegmentView: UINibView {
         didSet {
             selectorView.isHidden = !isSelected
 
-            let color: UIColor = isSelected ? .primary : .tertiaryLabel
+            let color: UIColor = isSelected ? .primary : .labelTertiary
             button.setTitleColor(color, for: .normal)
             button.tintColor = color
         }

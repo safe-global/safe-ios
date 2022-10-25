@@ -30,7 +30,7 @@ public final class Tooltip: BaseCustomView {
     private let labelHorizontalInset: CGFloat = 12
     private let labelVerticalInset: CGFloat = 10
 
-    private let labelStyle = GNOTextStyle.callout.color(.labelPrimary)
+    private let labelStyle = GNOTextStyle.callout.color(.backgroundSecondary)
 
     private let horizontalEdgeInset: CGFloat = 15
     private let verticalPadding: CGFloat = 12

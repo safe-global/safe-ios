@@ -43,9 +43,9 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         headlineLabel.setStyle(.headline)
-        promptLabel.setStyle(.primary)
-        errorLabel.setStyle(.error)
-        detailLabel.setStyle(.secondary)
+        promptLabel.setStyle(.headline)
+        errorLabel.setStyle(.calloutError)
+        detailLabel.setStyle(.callout)
         button.setText("Skip", .plain)
         headlineContainerView.isHidden = hidesHeadline
         keyboardBehavior = KeyboardAvoidingBehavior(scrollView: scrollView)

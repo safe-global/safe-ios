@@ -62,7 +62,7 @@ class ReviewSafeTransactionViewController: UIViewController {
 
 
         retryButton.setText("Retry", .filled)
-        descriptionLabel.setStyle(.footnote2)
+        descriptionLabel.setStyle(.footnote)
 
         tableView.registerCell(BorderedInnerTableCell.self)
         tableView.registerCell(DetailAccountCell.self)
@@ -71,6 +71,7 @@ class ReviewSafeTransactionViewController: UIViewController {
 
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.tableFooterView = UIView()
 
         ribbonView.update(chain: safe.chain)
         loadData()
@@ -368,7 +369,7 @@ class ReviewSafeTransactionViewController: UIViewController {
                         copyEnabled: false,
                         browseURL: nil,
                         prefix: safe.chain!.shortName,
-                        titleStyle: .secondary)
+                        titleStyle: .headlineSecondary)
         cell.selectionStyle = .none
         return cell
     }

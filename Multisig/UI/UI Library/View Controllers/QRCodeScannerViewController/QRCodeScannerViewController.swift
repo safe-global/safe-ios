@@ -41,7 +41,7 @@ class QRCodeScannerViewController: UIViewController {
             footerLabel.attributedText = attributedLabel
         } else {
             footerLabel.text = label
-            footerLabel.setStyle(.primary.color(.white))
+            footerLabel.setStyle(.headline.color(.white))
         }
         view.bringSubviewToFront(cameraFrameView)
 

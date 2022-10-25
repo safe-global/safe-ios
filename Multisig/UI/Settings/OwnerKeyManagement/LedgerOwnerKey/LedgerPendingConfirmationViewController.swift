@@ -110,7 +110,7 @@ class LedgerPendingConfirmationViewController: UIViewController {
 
     var highlightedLedgerHash: NSAttributedString {
         let value = ledgerHash!
-        let style = GNOTextStyle.tertiary
+        let style = GNOTextStyle.bodyTertiary
         let attributedString = NSMutableAttributedString(
             string: value,
             attributes: [

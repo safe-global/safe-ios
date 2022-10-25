@@ -19,9 +19,9 @@ class DetailStatusCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.setStyle(.primary)
-        appendixLabel.setStyle(.primary)
-        statusLabel.setStyle(.primary)
+        titleLabel.setStyle(.headline)
+        appendixLabel.setStyle(.headline)
+        statusLabel.setStyle(.headline)
     }
 
     func setTitle(_ title: String) {
@@ -30,13 +30,17 @@ class DetailStatusCell: UITableViewCell {
 
     func setIcon(_ icon: UIImage?) {
         iconImageView.image = icon
+        iconImageView.contentMode = .center
     }
 
     func set(contractImageUrl: URL? = nil, contractAddress: AddressString) {
+        iconImageView.contentMode = .scaleAspectFit
         iconImageView.setCircleImage(url: contractImageUrl, address: contractAddress.address)
+
     }
 
     func set(imageUrl: URL? = nil, placeholder: UIImage?) {
+        iconImageView.contentMode = .scaleAspectFit
         iconImageView.setCircleShapeImage(url: imageUrl, placeholder: placeholder)
     }
 

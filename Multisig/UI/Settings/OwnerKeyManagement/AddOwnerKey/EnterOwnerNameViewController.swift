@@ -45,7 +45,7 @@ class EnterOwnerNameViewController: UIViewController {
         stepLabel.textAlignment = .right
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stepLabel)
 
-        stepLabel.setStyle(.tertiary)
+        stepLabel.setStyle(.calloutTertiary)
         stepLabel.text = "\(stepNumber) of \(maxSteps)"
 
         identiconView.set(address: address)
@@ -59,7 +59,7 @@ class EnterOwnerNameViewController: UIViewController {
             textField.textField.text = name
         }
 
-        disclaimerLabel.setStyle(.secondary)
+        disclaimerLabel.setStyle(.body)
 
         continueButton.setText("Continue", .filled)
 

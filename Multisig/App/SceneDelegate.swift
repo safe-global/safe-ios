@@ -39,14 +39,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 #endif
 
-        let darkNavBar = UINavigationBar.appearance(for: .init(userInterfaceStyle: .dark))
-        darkNavBar.barTintColor = .backgroundSecondary
-        darkNavBar.isTranslucent = false
-
-        let lightNavBar = UINavigationBar.appearance(for: .init(userInterfaceStyle: .light))
-        lightNavBar.barTintColor = nil
-        lightNavBar.isTranslucent = true
-
         App.shared.notificationHandler.appStarted()
         startedFromNotification = connectionOptions.notificationResponse != nil
 
@@ -128,7 +120,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 #endif
-
         // Save changes in the application's managed object context when the application transitions to the background.
         App.shared.coreDataStack.saveContext()
     }
@@ -202,7 +193,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         window.makeKeyAndVisible()
-        App.shared.theme.setUp()
 
         presentedWindow = window
     }

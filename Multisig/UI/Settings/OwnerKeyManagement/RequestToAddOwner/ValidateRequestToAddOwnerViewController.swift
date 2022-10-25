@@ -26,7 +26,7 @@ class ValidateRequestToAddOwnerViewController: UIViewController {
         ViewControllerFactory.addCloseButton(self)
         ViewControllerFactory.makeTransparentNavigationBar(self)
 
-        descriptionLabel.setStyle(.primary)
+        descriptionLabel.setStyle(.headline)
 
         cancelButton.setText("Cancel", .plain)
 

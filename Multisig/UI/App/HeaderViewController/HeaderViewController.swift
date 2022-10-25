@@ -160,7 +160,7 @@ final class HeaderViewController: ContainerViewController {
 
                 case .deploymentFailed:
                     safeBarView.setAddress(safe.addressValue, grayscale: true)
-                    safeBarView.setDetail(text: "Failed to create", style: .tertiary.color(.error))
+                    safeBarView.setDetail(text: "Failed to create", style: .bodyError)
                 }
             }
         } catch {

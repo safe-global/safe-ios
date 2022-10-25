@@ -19,7 +19,7 @@ class BannerTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         headerLabel.setStyle(.headline)
-        bodyLabel.setStyle(.primary)
+        bodyLabel.setStyle(.callout)
         setButton("")
         for label in [headerLabel, bodyLabel] {
             label?.text = nil

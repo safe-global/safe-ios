@@ -8,7 +8,7 @@
     "to": {
       "value": "0x8D29bE29923b68abfDD21e541b9374737B49cdAD",
       "name": "Gnosis Safe: Multi Send 1.1.1",
-      "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/contracts/logos/0x8D29bE29923b68abfDD21e541b9374737B49cdAD.png"
+      "logoUri": "https://safe-transaction-assets.staging.5afe.dev/contracts/logos/0x8D29bE29923b68abfDD21e541b9374737B49cdAD.png"
     },
     "dataSize": "964",
     "value": "0",
@@ -109,7 +109,7 @@
     "to": {
       "value": "0x8D29bE29923b68abfDD21e541b9374737B49cdAD",
       "name": "Gnosis Safe: Multi Send 1.1.1",
-      "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/contracts/logos/0x8D29bE29923b68abfDD21e541b9374737B49cdAD.png"
+      "logoUri": "https://safe-transaction-assets.staging.5afe.dev/contracts/logos/0x8D29bE29923b68abfDD21e541b9374737B49cdAD.png"
     },
     "value": "0",
     "operation": 1,
@@ -118,12 +118,12 @@
       "0x6810e776880C02933D47DB1b9fc05908e5386b96": {
         "value": "0x6810e776880C02933D47DB1b9fc05908e5386b96",
         "name": "Gnosis",
-        "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/tokens/logos/0x6810e776880C02933D47DB1b9fc05908e5386b96.png"
+        "logoUri": "https://safe-transaction-assets.staging.5afe.dev/tokens/logos/0x6810e776880C02933D47DB1b9fc05908e5386b96.png"
       },
       "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9": {
         "value": "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
         "name": "Aave Token",
-        "logoUri": "https://safe-transaction-assets.staging.gnosisdev.com/tokens/logos/0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9.png"
+        "logoUri": "https://safe-transaction-assets.staging.5afe.dev/tokens/logos/0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9.png"
       }
     }
   },

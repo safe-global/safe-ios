@@ -17,7 +17,7 @@ class InfoBoxView: UINibView {
         super.awakeFromNib()
         backgroundView.backgroundColor = .infoBackground
         backgroundView.layer.cornerRadius = 8
-        messageLabel.setStyle(.secondary)
+        messageLabel.setStyle(.callout)
     }
 
     func setText(_ text: String) {

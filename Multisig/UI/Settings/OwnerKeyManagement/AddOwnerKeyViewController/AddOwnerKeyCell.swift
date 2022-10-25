@@ -16,7 +16,7 @@ class AddOwnerKeyCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.setStyle(.headline)
-        subtitleLabel.setStyle(.tertiary)
+        subtitleLabel.setStyle(.subheadlineSecondary)
     }
 
     func set(title: String) {

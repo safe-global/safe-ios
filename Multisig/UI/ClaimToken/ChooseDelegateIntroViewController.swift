@@ -28,9 +28,9 @@ class ChooseDelegateIntroViewController: UIViewController {
 
         ViewControllerFactory.removeNavigationBarBorder(self)
 
-        titleLabel.setStyle(GNOTextStyle.Updated.title)
+        titleLabel.setStyle(.title2)
 
-        descriptionLabel.setStyle(.secondary)
+        descriptionLabel.setStyle(.body)
         descriptionLabel.textAlignment = .left
 
         chooseGuardianButton.setText("Delegate to a Safe Guardian", .filled)

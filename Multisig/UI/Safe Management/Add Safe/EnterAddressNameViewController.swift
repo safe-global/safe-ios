@@ -41,7 +41,7 @@ class EnterAddressNameViewController: UIViewController {
         identiconView.set(address: address, badgeName: badgeName)
         let prefixString = prefixString()
         addressLabel.attributedText = (prefixString + address.checksummed).highlight(prefix: prefixString.count + 6)
-        descriptionLabel.setStyle(.primary)
+        descriptionLabel.setStyle(.body)
         descriptionLabel.text = descriptionText
 
         textField.setPlaceholder(placeholder)
