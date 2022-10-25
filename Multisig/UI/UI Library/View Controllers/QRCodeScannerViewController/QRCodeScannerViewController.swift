@@ -182,7 +182,9 @@ class QRCodeScannerViewController: UIViewController {
         previewLayer.videoGravity = .resizeAspectFill
         view.layer.insertSublayer(previewLayer, at: 0)
 
-        captureSession.startRunning()
+        DispatchQueue.global().async { [weak self] in
+            self?.captureSession.startRunning()
+        }
     }
 
     private func presentCameraAccessRequiredAlert() {
