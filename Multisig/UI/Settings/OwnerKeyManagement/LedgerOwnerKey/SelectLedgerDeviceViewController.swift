@@ -63,6 +63,9 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
         tableView.rowHeight = BasicCell.rowHeight
         tableView.sectionHeaderHeight = 100
         tableView.backgroundColor = .backgroundPrimary
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        }
 
         loadingView.set(title: "Searching for Ledger Nano X devices")
 

@@ -27,7 +27,7 @@ class EnterSafeAddressViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.title = "Load Safe"
 
-        headerLabel.setStyle(.headline)
+        headerLabel.setStyle(.body)
 
         addressField.setPlaceholderText("Enter Safe address")
         addressField.onTap = { [weak self] in self?.didTapAddressField() }

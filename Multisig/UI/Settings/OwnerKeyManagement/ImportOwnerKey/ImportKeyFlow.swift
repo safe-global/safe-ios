@@ -30,7 +30,7 @@ class ImportKeyFlow: AddKeyFlow {
     }
 
     init(completion: @escaping (Bool) -> Void) {
-        super.init(badge: KeyType.deviceGenerated.imageName, factory: ImportKeyFlowFactory(), completion: completion)
+        super.init(badge: KeyType.deviceImported.imageName, factory: ImportKeyFlowFactory(), completion: completion)
     }
 
     override func didIntro() {

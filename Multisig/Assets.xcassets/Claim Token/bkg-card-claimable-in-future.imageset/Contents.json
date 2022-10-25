@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "ico-shield-circle-light.pdf",
+      "filename" : "bkg_banner_light.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ico-shield-circle-dark (2).pdf",
+      "filename" : "bkg_banner_dark.pdf",
       "idiom" : "universal"
     }
   ],

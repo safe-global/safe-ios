@@ -43,7 +43,7 @@ class SelectWalletViewController: LoadableViewController {
 
         navigationItem.searchController = searchController
         navigationItem.backButtonTitle = "Back"
-
+        navigationItem.hidesSearchBarWhenScrolling = false
 
         emptyView.setImage(UIImage(named: "ico-wallet-placeholder")!)
         emptyView.setText("No wallets found")
@@ -55,6 +55,7 @@ class SelectWalletViewController: LoadableViewController {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search"
+        searchController.hidesNavigationBarDuringPresentation = false
 
         walletsSource.delegate = self
 
