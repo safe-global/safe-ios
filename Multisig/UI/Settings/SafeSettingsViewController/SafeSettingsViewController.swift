@@ -536,8 +536,6 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
         let section = sections[_section].section
         switch section {
-        case Section.name:
-            return 0
         case Section.advanced:
             return advancedSectionHeaderHeight
         default:
