@@ -57,6 +57,7 @@ struct AdvancedAppSettings: View {
                     Text("Share Usage and Crash Data").headline()
                 }
                 .frame(height: 60)
+                .toggleStyle(SwitchToggleStyle(tint: Color.primary))
             }
         }
     }
