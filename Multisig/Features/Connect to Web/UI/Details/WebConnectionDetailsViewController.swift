@@ -38,7 +38,8 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 66
-
+        tableView.backgroundColor = .backgroundSecondary
+        tableView.tableFooterView = UIView()
         WebConnectionController.shared.attach(observer: self, to: connection)
 
         reloadData()
