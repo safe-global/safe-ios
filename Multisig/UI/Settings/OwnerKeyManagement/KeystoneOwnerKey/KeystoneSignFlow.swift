@@ -62,13 +62,28 @@ final class KeystoneSignFlow: UIFlow {
         
         navigationController.present(vc, animated: true)
     }
+    
+    private func getUnmarshalSignature(signature: String) -> SECP256K1.UnmarshaledSignature? {
+        let signatureData = Data(hex: signature)
+        guard signatureData.count >= 65 else { return nil }
+        
+        let r = signatureData[0..<32]
+        let s = signatureData[32..<64]
+        var v = signatureData[64...][0]
+        
+        if signInfo.signType == .transaction {
+            v = v - 35 - (UInt8(signInfo.chain?.id ?? "0") ?? 0) * 2
+        }
+        
+        return SECP256K1.UnmarshaledSignature(v: v, r: r, s: s)
+    }
 }
 
 extension KeystoneSignFlow: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
         guard
             let signature = URRegistry.shared.getSignature(from: code),
-            let unmarshaledSignature = SECP256K1.unmarshalSignature(signatureData: Data(hex: signature))
+            let unmarshaledSignature = getUnmarshalSignature(signature: signature)
         else {
             stop(success: false)
             return
