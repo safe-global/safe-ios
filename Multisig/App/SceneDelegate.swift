@@ -181,7 +181,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func makeWindow(scene: UIWindowScene) -> UIWindow {
         let window = WindowWithViewOnTop(windowScene: scene)
         window.tintColor = .primary
-        App.shared.theme.setUp()
+
         return window
     }
 
@@ -194,7 +194,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         window.makeKeyAndVisible()
-
+        App.shared.theme.setUp()
         presentedWindow = window
     }
 

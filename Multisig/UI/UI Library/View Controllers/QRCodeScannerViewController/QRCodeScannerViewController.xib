@@ -33,12 +33,13 @@
                     <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N4N-93-FGR" userLabel="Close Button">
-                    <rect key="frame" x="195" y="818" width="24" height="24"/>
+                    <rect key="frame" x="187" y="802" width="40" height="40"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="N4N-93-FGR" secondAttribute="height" multiplier="1:1" id="gyL-0J-vCj"/>
+                        <constraint firstAttribute="height" constant="40" id="hVd-oC-AK1"/>
                     </constraints>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <state key="normal" image="ico-close"/>
+                    <state key="normal" image="ico-close-large"/>
                     <connections>
                         <action selector="closeButtonTouched:" destination="-1" eventType="touchUpInside" id="yPM-5M-9iI"/>
                     </connections>
@@ -93,7 +94,7 @@
         </view>
     </objects>
     <resources>
-        <image name="ico-close" width="24" height="24"/>
+        <image name="ico-close-large" width="52" height="52"/>
         <image name="ico-scanner-frame" width="245" height="240"/>
     </resources>
 </document>
