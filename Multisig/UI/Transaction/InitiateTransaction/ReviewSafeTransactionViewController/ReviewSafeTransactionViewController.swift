@@ -281,8 +281,6 @@ class ReviewSafeTransactionViewController: UIViewController {
             }
             
         case .keystone:
-            let gsError = GSError.error(description: "Failed to confirm transaction")
-            
             let signInfo = KeystoneSignInfo(
                 signData: transaction.safeTxHash.hash.toHexString(),
                 chain: safe.chain,
@@ -292,11 +290,12 @@ class ReviewSafeTransactionViewController: UIViewController {
             let signCompletion = { [unowned self] (success: Bool) in
                 keystoneSignFlow = nil
                 if !success {
+                    App.shared.snackbar.show(error: GSError.KeystoneSignFailed())
                     endConfirm()
                 }
             }
             guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
-                App.shared.snackbar.show(error: gsError)
+                App.shared.snackbar.show(error: GSError.KeystoneStartSignFailed())
                 endConfirm()
                 return
             }
