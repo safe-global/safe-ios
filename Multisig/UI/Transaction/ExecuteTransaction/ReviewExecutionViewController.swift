@@ -508,7 +508,6 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
             present(vc, animated: true, completion: nil)
             
         case .keystone:
-            let gsError = GSError.error(description: "Signing failed")
             let isLegacy = controller.isLegacyTx
             
             let signInfo = KeystoneSignInfo(
@@ -517,11 +516,14 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
                 keyInfo: keyInfo,
                 signType: isLegacy ? .transaction : .typedTransaction
             )
-            let signCompletion = { [unowned self] (_: Bool) in
+            let signCompletion = { [unowned self] (success: Bool) in
+                if !success {
+                    App.shared.snackbar.show(error: GSError.KeystoneSignFailed())
+                }
                 keystoneSignFlow = nil
             }
             guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
-                App.shared.snackbar.show(error: gsError)
+                App.shared.snackbar.show(error: GSError.KeystoneStartSignFailed())
                 return
             }
             
