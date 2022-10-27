@@ -63,40 +63,16 @@ final class KeystoneSignFlow: UIFlow {
         
         navigationController.present(vc, animated: true)
     }
-
-    private func getUnmarshalSignature(signature: String) -> SECP256K1.UnmarshaledSignature? {
-        let data = Data(hex: signature)
-        guard data.count >= 65 else { return nil }
-
-        let r = data[0..<32]
-        let s = data[32..<64]
-        let v: UInt8
-
-        // only if v was overflown and is legacy transaction
-        if signInfo.signType == .transaction && data.count > 65 {
-
-            // max 8 bytes to fit into UInt64
-            let vBytes: Bytes = [UInt8](data.suffix(from: 64).prefix(8))
-            let vInt =  UInt64(vBytes)
-            let chainId = UInt64(signInfo.chain?.id ?? "0") ?? 0
-
-            // recover V by deducting (chainId * 2 + 35) according to EIP-155.
-            let vRecovered = vInt - (chainId * 2 + 35)
-            v = try! UInt8(vRecovered % 256)
-        } else {
-            v = data[64]
-        }
-        assert(v == 0 || v == 1)
-
-        return SECP256K1.UnmarshaledSignature(v: v, r: r, s: s)
-    }
 }
 
 extension KeystoneSignFlow: QRCodeScannerViewControllerDelegate {
  func scannerViewControllerDidScan(_ code: String) {
      guard
          let signature = URRegistry.shared.getSignature(from: code),
-         let unmarshaledSignature = getUnmarshalSignature(signature: signature)
+         let unmarshaledSignature = SECP256K1.UnmarshaledSignature(
+            keystoneSignature: signature,
+            isLegacyTx: signInfo.signType == .transaction,
+            chainId: signInfo.chain?.id ?? "0")
         else {
             stop(success: false)
             return
@@ -115,5 +91,32 @@ extension SECP256K1.UnmarshaledSignature {
     var safeSignature: String {
         let signature = r + s + Data([v + 4])
         return signature.toHexString()
+    }
+
+    init?(keystoneSignature signature: String, isLegacyTx: Bool, chainId: String) {
+        let data = Data(hex: signature)
+        guard data.count >= 65 else { return nil }
+
+        let r = data[0..<32]
+        let s = data[32..<64]
+        let v: UInt8
+
+        // only if v was overflown and is legacy transaction
+        if isLegacyTx && data.count > 65 {
+
+            // max 8 bytes to fit into UInt64
+            let vBytes: Bytes = [UInt8](data.suffix(from: 64).prefix(8))
+            let vInt =  UInt64(vBytes)
+            let chainIdInt = UInt64(chainId) ?? 0
+
+            // recover V by deducting (chainId * 2 + 35) according to EIP-155.
+            let vRecovered = vInt - (chainIdInt * 2 + 35)
+            v = try! UInt8(vRecovered % 256)
+        } else {
+            v = data[64]
+        }
+        assert(v == 0 || v == 1)
+
+        self.init(v: v, r: r, s: s)
     }
 }
