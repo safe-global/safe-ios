@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 import URRegistry
+import Web3
 
 final class KeystoneSignFlow: UIFlow {
     var signCompletion: ((_ unmarshaledSignature: SECP256K1.UnmarshaledSignature) -> Void)?
@@ -62,13 +63,40 @@ final class KeystoneSignFlow: UIFlow {
         
         navigationController.present(vc, animated: true)
     }
+
+    private func getUnmarshalSignature(signature: String) -> SECP256K1.UnmarshaledSignature? {
+        let data = Data(hex: signature)
+        guard data.count >= 65 else { return nil }
+
+        let r = data[0..<32]
+        let s = data[32..<64]
+        let v: UInt8
+
+        // only if v was overflown and is legacy transaction
+        if signInfo.signType == .transaction && data.count > 65 {
+
+            // max 8 bytes to fit into UInt64
+            let vBytes: Bytes = [UInt8](data.suffix(from: 64).prefix(8))
+            let vInt =  UInt64(vBytes)
+            let chainId = UInt64(signInfo.chain?.id ?? "0") ?? 0
+
+            // recover V by deducting (chainId * 2 + 35) according to EIP-155.
+            let vRecovered = vInt - (chainId * 2 + 35)
+            v = try! UInt8(vRecovered % 256)
+        } else {
+            v = data[64]
+        }
+        assert(v == 0 || v == 1)
+
+        return SECP256K1.UnmarshaledSignature(v: v, r: r, s: s)
+    }
 }
 
 extension KeystoneSignFlow: QRCodeScannerViewControllerDelegate {
-    func scannerViewControllerDidScan(_ code: String) {
-        guard
-            let signature = URRegistry.shared.getSignature(from: code),
-            let unmarshaledSignature = SECP256K1.unmarshalSignature(signatureData: Data(hex: signature))
+ func scannerViewControllerDidScan(_ code: String) {
+     guard
+         let signature = URRegistry.shared.getSignature(from: code),
+         let unmarshaledSignature = getUnmarshalSignature(signature: signature)
         else {
             stop(success: false)
             return
