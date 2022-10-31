@@ -36,7 +36,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         tableView.sectionHeaderHeight = headerHeight
         tableView.sectionFooterHeight = footerHeight
         tableView.separatorStyle = .none
-
+        tableView.backgroundColor = .clear
         emptyView.setText("Collectibles will appear here")
         emptyView.setImage(UIImage(named: "ico-no-collectibles")!)
     }
@@ -91,7 +91,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(CollectibleTableViewCell.self, for: indexPath)
+        let cell = tableView.dequeueCell(CollectibleTableViewCell.self)
         let collectible = sections[indexPath.section].collectibles[indexPath.row]
         cell.setName(collectible.name)
         cell.setDescription(collectible.description)
@@ -100,6 +100,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     // MARK: - Table view delegate
+
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -117,9 +118,4 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         view.setImage(with: collectibleSection.imageURL, placeholder: UIImage(named: "ico-nft-placeholder")!)
         return view
     }
-
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        tableView.dequeueHeaderFooterView(CollecitbleSectionSeparatorView.self)
-    }
-
 }

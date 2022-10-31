@@ -195,18 +195,18 @@ class AllocationBoxCell: UITableViewCell {
 
         case .darkUser:
             boxBackgroundColor = .primary
-            headerStyle = .headline.color(.white)
-            titleStyle = .body
-            valueStyle = .title1
+            headerStyle = .headline.color(.claimableAmountLabel)
+            titleStyle = .bodyPrimary.color(.claimableAmountLabel)
+            valueStyle = .title1.color(.claimableAmountLabel)
             headerButtonHidden = true
             titleButtonImage = .dark
-            backgroundImage.isHidden = true
+            backgroundImage.isHidden = false
 
         case .lightUser:
             boxBackgroundColor = .backgroundPrimary
             headerStyle = .headline
-            titleStyle = .body
-            valueStyle = .title1.color(.labelPrimary)
+            titleStyle = .bodyPrimary
+            valueStyle = .title1
             headerButtonHidden = false
             titleButtonImage = .light
             backgroundImage.isHidden = true

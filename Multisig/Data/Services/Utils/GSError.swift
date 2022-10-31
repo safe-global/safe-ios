@@ -681,4 +681,25 @@ enum GSError {
         let code = 6364
         let loggable = false
     }
+
+    // MARK: - Keystone Errors
+
+    struct KeystoneSignFailed: DetailedLocalizedError {
+        let description = "Error during signing"
+        let reason = "Can't understand received signature."
+        let howToFix = "Please reach out to the support"
+        let domain = clientErrorDomain
+        let code = 2100
+        let loggable = false
+    }
+
+    struct KeystoneStartSignFailed: DetailedLocalizedError {
+        let description = "Error during signing"
+        let reason = "Can't create signature request."
+        let howToFix = "Please reach out to the support"
+        let domain = clientErrorDomain
+        let code = 2101
+        let loggable = false
+    }
+
 }

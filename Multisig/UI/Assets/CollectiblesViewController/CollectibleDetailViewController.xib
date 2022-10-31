@@ -31,10 +31,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sf6-dn-9uN">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="657.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="655.5"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="nt1-t2-KUC">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="577.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="575.5"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="5XO-9z-vvc">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="491.5"/>
@@ -89,17 +89,17 @@
                                             <directionalEdgeInsets key="directionalLayoutMargins" top="16" leading="16" bottom="0.0" trailing="16"/>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="H0C-nM-qlu">
-                                            <rect key="frame" x="0.0" y="507.5" width="414" height="70"/>
+                                            <rect key="frame" x="0.0" y="507.5" width="414" height="68"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="txq-7P-FPc" userLabel="Separator View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="2"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
                                                     <color key="backgroundColor" name="separator"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="2" id="1nE-H1-m3k"/>
+                                                        <constraint firstAttribute="height" constant="1" id="1nE-H1-m3k"/>
                                                     </constraints>
                                                 </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Fd0-fA-R3V">
-                                                    <rect key="frame" x="0.0" y="2" width="414" height="66"/>
+                                                    <rect key="frame" x="0.0" y="1" width="414" height="66"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kZJ-jE-XWa" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
                                                             <rect key="frame" x="16" y="0.0" width="382" height="66"/>
@@ -112,10 +112,10 @@
                                                     <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="16" bottom="0.0" trailing="16"/>
                                                 </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1rk-kw-Veb" userLabel="Separator View">
-                                                    <rect key="frame" x="0.0" y="68" width="414" height="2"/>
+                                                    <rect key="frame" x="0.0" y="67" width="414" height="1"/>
                                                     <color key="backgroundColor" name="separator"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="2" id="ANv-Zd-4Ze"/>
+                                                        <constraint firstAttribute="height" constant="1" id="ANv-Zd-4Ze"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>

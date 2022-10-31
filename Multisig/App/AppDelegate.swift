@@ -50,7 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AddressBookEntry.updateCachedNames()
 
         App.shared.notificationHandler.setUpMessaging(delegate: self)
-        App.shared.theme.setUp()
         // Reconnect all WalletConnect sessions
         WalletConnectSafesServerController.shared.reconnectAllSessions()
 
