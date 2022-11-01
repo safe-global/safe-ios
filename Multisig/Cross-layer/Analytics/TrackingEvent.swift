@@ -259,7 +259,10 @@ enum TrackingEvent: String, Trackable {
     // MARK: add delegate key
     case addDelegateKeyLedger                       = "screen_delegate_ledger_nano_x"
     case addDelegateKeyWalletConnect                = "screen_delegate_walletconnect"
-
+    case addDelegateKeyImported                     = "screen_delegate_imported"
+    case addDelegateKeyGenerated                    = "screen_delegate_generated"
+    case addDelegateKeyKeystone                     = "screen_delegate_keystone"
+    
     case addDelegateKeyStarted                      = "user_start_add_delegate"
     case addDelegateKeySkipped                      = "user_skip_add_delegate"
     case addDelegateKeySuccess                      = "user_success_add_delegate"

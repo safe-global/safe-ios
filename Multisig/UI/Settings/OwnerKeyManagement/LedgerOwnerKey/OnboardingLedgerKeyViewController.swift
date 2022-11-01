@@ -87,16 +87,17 @@ class OnboardingLedgerKeyViewController: AddKeyOnboardingViewController {
     }
 
     func showAddPushNotifications() {
-        guard let keyParameters = keyParameters as? AddLedgerKeyParameters else {
+        guard let keyParameters = keyParameters as? AddLedgerKeyParameters, let name = keyParameters.keyName else {
             return
         }
 
-        let addPushesVC = LedgerKeyAddedViewController()
-        addPushesVC.accountAddress = keyParameters.address
-        addPushesVC.accountName = keyParameters.keyName
-        addPushesVC.completion = { [unowned self] in
+        let addPushesVC = KeyAddedViewController(address: keyParameters.address,
+                                                 name: name,
+                                                 keyType: .ledgerNanoX) { [unowned self] in
             showSuccessMessage()
+
         }
+
         show(addPushesVC, sender: self)
     }
 }
