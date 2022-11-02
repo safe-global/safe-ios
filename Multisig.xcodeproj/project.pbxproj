@@ -257,6 +257,7 @@
 		0A26FABB28C1F22500B0F519 /* SelectedDelegateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26FAB928C1F22500B0F519 /* SelectedDelegateCell.swift */; };
 		0A26FABC28C1F22500B0F519 /* SelectedDelegateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A26FABA28C1F22500B0F519 /* SelectedDelegateCell.xib */; };
 		0A2853F22912C8ED00D11707 /* CryptoCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2853F12912C8ED00D11707 /* CryptoCenter.swift */; };
+		0A2853F42912D63700D11707 /* KeychainCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2853F32912D63700D11707 /* KeychainCenter.swift */; };
 		0A29B5622666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 0A29B5612666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		0A2A3A6D26AEBA50005FAEB7 /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 0A2A3A6C26AEBA50005FAEB7 /* SwiftCryptoTokenFormatter */; settings = {ATTRIBUTES = (Required, ); }; };
 		0A2AD3BC27ECD6CA00A0A6FD /* QRCodeShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2AD3BA27ECD6CA00A0A6FD /* QRCodeShareViewController.swift */; };
@@ -1217,6 +1218,7 @@
 		0A26FAB928C1F22500B0F519 /* SelectedDelegateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDelegateCell.swift; sourceTree = "<group>"; };
 		0A26FABA28C1F22500B0F519 /* SelectedDelegateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectedDelegateCell.xib; sourceTree = "<group>"; };
 		0A2853F12912C8ED00D11707 /* CryptoCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoCenter.swift; sourceTree = "<group>"; };
+		0A2853F32912D63700D11707 /* KeychainCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainCenter.swift; sourceTree = "<group>"; };
 		0A2AD3BA27ECD6CA00A0A6FD /* QRCodeShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeShareViewController.swift; sourceTree = "<group>"; };
 		0A2AD3BB27ECD6CA00A0A6FD /* QRCodeShareViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QRCodeShareViewController.xib; sourceTree = "<group>"; };
 		0A2F1A6D267A538E00C09F03 /* GSLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSLabel.swift; sourceTree = "<group>"; };
@@ -2498,6 +2500,7 @@
 			isa = PBXGroup;
 			children = (
 				0A2853F12912C8ED00D11707 /* CryptoCenter.swift */,
+				0A2853F32912D63700D11707 /* KeychainCenter.swift */,
 			);
 			path = Security;
 			sourceTree = "<group>";
@@ -4884,6 +4887,7 @@
 				0AB34D5E24B71CF700A43988 /* DateDecodingStrategy+GnosisSafeServices.swift in Sources */,
 				0ABC898F2576B857005D555B /* SCGModels.swift in Sources */,
 				0AF1C9262541E09D00E28669 /* UIView+UINib.swift in Sources */,
+				0A2853F42912D63700D11707 /* KeychainCenter.swift in Sources */,
 				0476915D2464034D00D73D8B /* Safe+CoreDataClass.swift in Sources */,
 				0AC5F5B325DD510600DEF0D7 /* AppUser.swift in Sources */,
 				041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */,
