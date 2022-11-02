@@ -24,18 +24,17 @@ class AddKeyFlow: UIFlow {
     var privateKey: PrivateKey?
     var keyName: String?
     var keyInfo: AddressInfo?
-    var badgeImageName: String
     var createPasscodeFlow: CreatePasscodeFlow!
     var factory: AddKeyFlowFactory
-
+    var keyType: KeyType!
     /// Constructor
     /// - Parameters:
     ///   - badge: image name for a 'type' of the key in the identicons
     ///   - factory: screen factory
     ///   - completion: completion block called when flow ends. Argument is `true` when flow successful.
-    init(badge: String, factory: AddKeyFlowFactory, completion: @escaping (Bool) -> Void) {
+    init(keyType: KeyType, factory: AddKeyFlowFactory, completion: @escaping (Bool) -> Void) {
         self.factory = factory
-        self.badgeImageName = badge
+        self.keyType = keyType
         super.init(completion: completion)
     }
 
@@ -65,7 +64,7 @@ class AddKeyFlow: UIFlow {
         let parameters = AddKeyParameters(
             address: privateKey!.address,
             keyName: nil,
-            badgeName: badgeImageName
+            badgeName: keyType.imageName
         )
         let nameVC = factory.enterName(parameters: parameters) { [unowned self] name in
             keyName = name
@@ -111,13 +110,23 @@ class AddKeyFlow: UIFlow {
     func createPasscode() {
         createPasscodeFlow = CreatePasscodeFlow(completion: { [unowned self] _ in
             createPasscodeFlow = nil
-            didCreatePasscode()
+            keyAdded()
         })
         push(flow: createPasscodeFlow)
     }
 
     func didCreatePasscode() {
         stop(success: true)
+    }
+
+    func keyAdded() {
+        assert(keyInfo != nil)
+        assert(keyName != nil)
+        let vc = factory.keyAdded(address: keyInfo!.address, name: keyName!, keyType: keyType) { [unowned self] in
+            stop(success: true)
+        }
+
+        show(vc)
     }
 
     override func stop(success: Bool) {
@@ -165,6 +174,16 @@ class AddKeyFlowFactory {
     
     func details(keyInfo: KeyInfo, completion: @escaping () -> Void) -> OwnerKeyDetailsViewController {
         OwnerKeyDetailsViewController(keyInfo: keyInfo, completion: completion)
+    }
+
+    func keyAdded(address: Address,
+                  name: String,
+                  keyType: KeyType,
+                  completion: @escaping () -> ()) -> KeyAddedViewController {
+        KeyAddedViewController(address: address,
+                               name: name,
+                               keyType: keyType,
+                               completion: completion)
     }
 }
 

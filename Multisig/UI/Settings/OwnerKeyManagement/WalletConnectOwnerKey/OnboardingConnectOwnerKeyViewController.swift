@@ -76,15 +76,14 @@ class OnboardingConnectOwnerKeyViewController: AddKeyOnboardingViewController {
     }
 
     func showAddPushNotifications() {
-        guard let keyParameters = keyParameters else {
+        guard let keyParameters = keyParameters, let name = keyParameters.keyName else {
             return
         }
-        let addPushesVC = WalletConnectKeyAddedViewController()
-        addPushesVC.completion = { [weak self] in
+        let addPushesVC = KeyAddedViewController(address: keyParameters.address,
+                                                 name: name,
+                                                 keyType: .walletConnect) { [weak self] in
             self?.showSuccessMessage()
         }
-        addPushesVC.accountAddress = keyParameters.address
-        addPushesVC.accountName = keyParameters.keyName
 
         show(addPushesVC, sender: nil)
     }

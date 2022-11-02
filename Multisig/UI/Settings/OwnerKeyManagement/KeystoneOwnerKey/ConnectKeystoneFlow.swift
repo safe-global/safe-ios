@@ -22,7 +22,7 @@ final class ConnectKeystoneFlow: AddKeyFlow {
     }
     
     init(completion: @escaping (Bool) -> Void) {
-        super.init(badge: KeyType.keystone.imageName, factory: ConnectKeystoneFactory(), completion: completion)
+        super.init(keyType: .keystone, factory: ConnectKeystoneFactory(), completion: completion)
     }
     
     override func didIntro() {
