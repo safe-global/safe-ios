@@ -36,7 +36,7 @@ class KeyAddedViewController: AccountActionCompletedViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(keyType.trackingEvent)
+        Tracker.trackEvent(.screen_add_delegate, parameters: ["key_type" : keyType.name])
     }
 
     override func primaryAction(_ sender: Any) {
@@ -66,16 +66,6 @@ fileprivate extension KeyType {
         case .deviceGenerated: return "Generate Owner Key"
         case .keystone: return "Connect Keystone"
         case .walletConnect: return "Connect WalletConnect"
-        }
-    }
-
-    var trackingEvent: TrackingEvent {
-        switch self {
-        case .ledgerNanoX: return .addDelegateKeyLedger
-        case .deviceImported: return .addDelegateKeyImported
-        case .deviceGenerated: return .addDelegateKeyGenerated
-        case .keystone: return .addDelegateKeyKeystone
-        case .walletConnect: return .addDelegateKeyWalletConnect
         }
     }
 }
