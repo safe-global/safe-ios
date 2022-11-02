@@ -256,6 +256,7 @@
 		0A259AB7287D85B3006770E7 /* Web3 in Frameworks */ = {isa = PBXBuildFile; productRef = 0A259AB6287D85B3006770E7 /* Web3 */; };
 		0A26FABB28C1F22500B0F519 /* SelectedDelegateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26FAB928C1F22500B0F519 /* SelectedDelegateCell.swift */; };
 		0A26FABC28C1F22500B0F519 /* SelectedDelegateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A26FABA28C1F22500B0F519 /* SelectedDelegateCell.xib */; };
+		0A2853F22912C8ED00D11707 /* CryptoCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2853F12912C8ED00D11707 /* CryptoCenter.swift */; };
 		0A29B5622666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 0A29B5612666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		0A2A3A6D26AEBA50005FAEB7 /* SwiftCryptoTokenFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 0A2A3A6C26AEBA50005FAEB7 /* SwiftCryptoTokenFormatter */; settings = {ATTRIBUTES = (Required, ); }; };
 		0A2AD3BC27ECD6CA00A0A6FD /* QRCodeShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2AD3BA27ECD6CA00A0A6FD /* QRCodeShareViewController.swift */; };
@@ -1215,6 +1216,7 @@
 		0A22E12625E4FA3200D24DE1 /* SwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwitchTableViewCell.xib; sourceTree = "<group>"; };
 		0A26FAB928C1F22500B0F519 /* SelectedDelegateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDelegateCell.swift; sourceTree = "<group>"; };
 		0A26FABA28C1F22500B0F519 /* SelectedDelegateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectedDelegateCell.xib; sourceTree = "<group>"; };
+		0A2853F12912C8ED00D11707 /* CryptoCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoCenter.swift; sourceTree = "<group>"; };
 		0A2AD3BA27ECD6CA00A0A6FD /* QRCodeShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeShareViewController.swift; sourceTree = "<group>"; };
 		0A2AD3BB27ECD6CA00A0A6FD /* QRCodeShareViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QRCodeShareViewController.xib; sourceTree = "<group>"; };
 		0A2F1A6D267A538E00C09F03 /* GSLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSLabel.swift; sourceTree = "<group>"; };
@@ -2490,6 +2492,14 @@
 				AD3034FC5D96E7DF5D59FBED /* WarnAboutAnyNestedMultisendWithDelegate.json */,
 			);
 			path = Transaction;
+			sourceTree = "<group>";
+		};
+		0A2853E82912C28D00D11707 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				0A2853F12912C8ED00D11707 /* CryptoCenter.swift */,
+			);
+			path = Security;
 			sourceTree = "<group>";
 		};
 		0A29B5602666808A0060F06A /* Frameworks */ = {
@@ -4089,6 +4099,7 @@
 		B0D61012F3C4AC13FA79F697 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				0A2853E82912C28D00D11707 /* Security */,
 				B0D611C5114B87C99128649E /* Connect to Web */,
 				B0D619682738385AF4E973F7 /* Connect to Wallet */,
 			);
@@ -5098,6 +5109,7 @@
 				0A9366AC278F0175001918A9 /* ContainerTableViewCell.swift in Sources */,
 				0A57C5B52577F02E00420303 /* ConfirmationConfirmedPiece.swift in Sources */,
 				6A6A105F2889A32300B852D5 /* InstructionStepListView.swift in Sources */,
+				0A2853F22912C8ED00D11707 /* CryptoCenter.swift in Sources */,
 				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,
 				0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */,
 				043963832704E25800018F74 /* AdvancedTransactionDetailsViewController.swift in Sources */,
