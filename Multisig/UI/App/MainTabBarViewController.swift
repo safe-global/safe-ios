@@ -123,6 +123,38 @@ class MainTabBarViewController: UITabBarController {
         WebConnectionController.shared.reconnect()
 
         presentDelayedControllers()
+
+
+        let cc = CryptoCenter()
+
+        do {
+            try cc.initialSetup(
+                    passcodeEnabled: true,
+                    useBiometry: true,
+                    canChangeBiometry: false,
+                    rememberPasscode: true,
+                    protectAppOpen: true,
+                    protectKeyAccess: true,
+                    passcode: "SuperGeheim"
+            )
+            cc.import(privateKey: "0xF000")
+            
+            try cc.initialSetup(
+                    passcodeEnabled: false,
+                    useBiometry: true,
+                    canChangeBiometry: false,
+                    rememberPasscode: true,
+                    protectAppOpen: true,
+                    protectKeyAccess: true,
+                    passcode: nil
+            )
+            cc.import(privateKey: "0xF000")
+
+        } catch {
+            // log erors
+            App.shared.snackbar.show(message: error.localizedDescription)
+        }
+
     }
 
     private func balancesTabViewController() -> BalancesUINavigationController {
