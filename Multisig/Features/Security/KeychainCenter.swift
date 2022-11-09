@@ -10,6 +10,8 @@ import Foundation
 
 class KeychainCenter {
 
+    private var sensitiveKey: SecKey? = nil
+
     init() {
         passcode = "<empty>"
     }
@@ -34,13 +36,21 @@ class KeychainCenter {
             passcode: String
     ) throws -> SecKey {
 
-        let key = try createSEKey(tag: "safe.sensitive.KEK")
+        let key = try createSEKey(tag: "global.safe.sensitive.KEK")
 
-        return key
+        return key // return tag as well?
     }
 
     func storeSensitiveKey(secKey: SecKey) {
+        let tag = "global.safe.sensitive.key"
         App.shared.snackbar.show(message: "storeSensitiveKey(): secKey: \(secKey)")
+
+        // TODO save encrypted sensitive_key to to keychain
+        // serialize
+        // encrypt with KEK
+        // safe to Keychain (as type password?) using SecItemAdd()
+
+        sensitiveKey = secKey
     }
     private func createSEKey(flags: SecAccessControlCreateFlags = [.userPresence],
                              tag: String
@@ -81,45 +91,17 @@ class KeychainCenter {
     }
 
 
-    // used to create a public-private key pair (asymmetric)
+    // used to create a public-private key pair (asymmetric) NOT in secure enclave
     func createKeyPair() throws -> SecKey {
-
-        let tag = "safe.sensitive.key"
-
-        // create access control flags with params
-        var accessError: Unmanaged<CFError>?
-        guard let access = SecAccessControlCreateWithFlags(
-                kCFAllocatorDefault,
-                kSecAttrAccessibleAlways, // TODO necessary? useful? Alternatives: kSecAttrAccessibleWhenUnlocked, kSecAttrAccessibleAfterFirstUnlock
-                .privateKeyUsage,
-                &accessError
-        )
-        else {
-            LogService.shared.error(" --> AccessError: \(accessError)")
-            throw accessError!.takeRetainedValue() as Error
-        }
-
-        // create attributes dictionary
         let attributes: NSDictionary = [
             kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
             kSecAttrKeySizeInBits: 256,
-            kSecPrivateKeyAttrs: [
-                kSecAttrIsPermanent: true,
-                kSecAttrApplicationTag: tag.data(using: .utf8)!,
-                kSecAttrAccessControl: access
-            ]
         ]
-
-        // create a key pair
         var createError: Unmanaged<CFError>?
         guard let privateKey = SecKeyCreateRandomKey(attributes, &createError) else {
-//            LogService.shared.error("Error: \(error)")
-
-        // TODO: Fails to create key on device with "Key generation failed, error -25293". But works on Simulator :-/
             LogService.shared.error(" --> CreateError: \(createError)")
             throw createError!.takeRetainedValue() as Error
         }
-
         return privateKey
     }
 
