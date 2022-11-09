@@ -55,13 +55,40 @@ class CryptoCenter {
         }
 
         // create sensitive_key
-        let sensitiveKey = try createSensitiveKey() // TODO: fails on iPhone SE but succeeds on simulator :-( :-/
-        keychainCenter.storeSensitiveKey(secKey: sensitiveKey)
+        let sensitiveKey = try keychainCenter.createKeyPair()
+
+        // TODO Store sensitive public key in keychain
+        // copy public part from SecKey
+        let sensitivePublicKey = SecKeyCopyPublicKey(sensitiveKey)
+        // safe it via keychainCenter.storeSensitivePublicKey()
+        if let key = sensitivePublicKey {
+            keychainCenter.storeSensitivePublicKey(publicKey: key)
+        } else {
+            App.shared.snackbar.show(message: "Cannot copy public key")
+            throw GSError.GenericPasscodeError(reason: "Cannot copy public key")
+        }
 
         // create SE key (KEK) with a hard coded tag for example: "sensitive_KEK"
-        // encrypt private part of sensitive_key
-        // store encrypted sensitive key in keychain as blob
+        let sensitiveKEK = try keychainCenter.createSecureEnclaveKey(
+                useBiometry: useBiometry,
+                canChangeBiometry: canChangeBiometry,
+                applicationPassword: derivedPasscode
+        )
 
+        // TODO encrypt private part of sensitive_key
+        // Convert SecKey -> Data SecKeyCopyExternalRepresentation -> CFData -> Data
+        var error: Unmanaged<CFError>?
+        guard let data = SecKeyCopyExternalRepresentation(sensitiveKey, &error) else {
+            throw error!.takeRetainedValue() as Error
+        }
+
+        // encrypt data using: SecKeyCreateEncryptedData using sensitiveKEK
+        let sensitivePublicKek = SecKeyCopyPublicKey(sensitiveKEK)
+        guard let encryptedSensitiveKey = SecKeyCreateEncryptedData(sensitivePublicKek!, .eciesEncryptionStandardX963SHA256AESGCM, data, &error) as? Data else {
+            throw error!.takeRetainedValue() as Error
+        }
+        // store encrypted sensitive private key in keychain as blob
+        keychainCenter.storeSensitiveKey(encryptedSensitiveKey: encryptedSensitiveKey)
     }
 
     private func createRandomPassword() -> String {
@@ -135,10 +162,6 @@ class CryptoCenter {
             return plaintext
         }
         return Data(derivedKey).toHexString()
-    }
-
-    private func createSensitiveKey() throws -> SecKey {
-       try keychainCenter.createKeyPair()
     }
 }
 

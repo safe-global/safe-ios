@@ -130,25 +130,25 @@ class MainTabBarViewController: UITabBarController {
         do {
             try cc.initialSetup(
                     passcodeEnabled: true,
-                    useBiometry: true,
+                    useBiometry: false,
                     canChangeBiometry: false,
                     rememberPasscode: true,
-                    protectAppOpen: true,
-                    protectKeyAccess: true,
+                    protectAppOpen: true, // probably not necessary for key generation
+                    protectKeyAccess: true, // probably not necessary for key generation
                     passcode: "SuperGeheim"
             )
             cc.import(privateKey: "0xF000")
             
-            try cc.initialSetup(
-                    passcodeEnabled: false,
-                    useBiometry: true,
-                    canChangeBiometry: false,
-                    rememberPasscode: true,
-                    protectAppOpen: true,
-                    protectKeyAccess: true,
-                    passcode: nil
-            )
-            cc.import(privateKey: "0xF000")
+//            try cc.initialSetup(
+//                    passcodeEnabled: false,
+//                    useBiometry: true,
+//                    canChangeBiometry: false,
+//                    rememberPasscode: true,
+//                    protectAppOpen: true,
+//                    protectKeyAccess: true,
+//                    passcode: nil
+//            )
+//            cc.import(privateKey: "0xF000")
 
         } catch {
             // log erors

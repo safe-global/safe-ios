@@ -7,10 +7,13 @@
 //
 
 import Foundation
+import CommonCrypto
+import LocalAuthentication
 
 class KeychainCenter {
 
-    private var sensitiveKey: SecKey? = nil
+    private var sensitiveKey: Data? = nil
+    private var sensitivePublicKey: SecKey? = nil
 
     init() {
         passcode = "<empty>"
@@ -21,6 +24,11 @@ class KeychainCenter {
     // store passcode. Either if it random (user didn't give a password) or the user asked us to remember it
     func storePasscode(derivedPasscode: String) {
         App.shared.snackbar.show(message: "storePasscode(): derivedPasscode: \(derivedPasscode)")
+
+        // TODO Persist password
+
+
+
         passcode = derivedPasscode
     }
 
@@ -33,35 +41,60 @@ class KeychainCenter {
     func createSecureEnclaveKey(
             useBiometry: Bool,
             canChangeBiometry: Bool,
-            passcode: String
+            applicationPassword: String
     ) throws -> SecKey {
 
-        let key = try createSEKey(tag: "global.safe.sensitive.KEK")
+        //create flags from booleans
+        var flags: SecAccessControlCreateFlags = []
+        if canChangeBiometry && useBiometry {
+            flags = [.biometryAny, .or, .devicePasscode, .applicationPassword]
+        }
+        if !canChangeBiometry && useBiometry {
+            flags = [.biometryCurrentSet, .or, .devicePasscode, .applicationPassword]
+        }
+        if !useBiometry {
+            flags = [.devicePasscode, .applicationPassword]
+        }
+
+        // TODO pass password in LAContext?
+        let authenticationContext = LAContext()
+        let applicationPassword = applicationPassword.data(using: .utf8)
+        let result = authenticationContext.setCredential(applicationPassword, type: .applicationPassword) // this should set the applicationPassword and not ask user for one. result is tru. But app asks for password anyway.
+        App.shared.snackbar.show(message: "setCredential(): \(result)")
+
+        let key = try createSEKey(flags: flags, tag: "global.safe.sensitive.KEK")
 
         return key // return tag as well?
     }
 
-    func storeSensitiveKey(secKey: SecKey) {
-        let tag = "global.safe.sensitive.key"
-        App.shared.snackbar.show(message: "storeSensitiveKey(): secKey: \(secKey)")
+    func storeSensitiveKey(encryptedSensitiveKey: Data) {
+        let tag = "global.safe.sensitive.private.key.as.encrypted.data"
+        App.shared.snackbar.show(message: "storeSensitiveKey(): secKey: \(encryptedSensitiveKey)")
 
         // TODO save encrypted sensitive_key to to keychain
-        // serialize
-        // encrypt with KEK
         // safe to Keychain (as type password?) using SecItemAdd()
-
-        sensitiveKey = secKey
+        //SecItemAdd()
+        sensitiveKey = encryptedSensitiveKey
     }
-    private func createSEKey(flags: SecAccessControlCreateFlags = [.userPresence],
-                             tag: String
-    ) throws -> SecKey {
+
+    func storeSensitivePublicKey(publicKey: SecKey) {
+        let tag = "global.safe.sensitive.public.key"
+        App.shared.snackbar.show(message: "storeSensitivePublicKey(): publicKey: \(publicKey)")
+
+        // TODO save to keychain
+        //SecItemAdd(<#T##attributes: CFDictionary##CoreFoundation.CFDictionary#>, <#T##result: UnsafeMutablePointer<CFTypeRef?>?##Swift.UnsafeMutablePointer<CoreFoundation.CFTypeRef?>?#>)
+
+        sensitivePublicKey = publicKey
+    }
+
+    private func createSEKey(flags: SecAccessControlCreateFlags, tag: String) throws -> SecKey {
         let protection: CFString = kSecAttrAccessibleWhenUnlocked
 
         // create access control flags with params
         var accessError: Unmanaged<CFError>?
         guard let access = SecAccessControlCreateWithFlags(
                 kCFAllocatorDefault,
-                kSecAttrAccessibleWhenUnlocked, // TODO necessary? useful?
+                kSecAttrAccessibleWhenUnlocked, // TODO necessary? useful? Available: kSecAttrAccessibleWhenPasscodeSet ?
                 .privateKeyUsage.union(flags),
                 &accessError
         )
