@@ -55,7 +55,7 @@ class CryptoCenter {
         }
 
         // create sensitive_key
-        let sensitiveKey = try createSensitiveKey() // TODO: fails :-(
+        let sensitiveKey = try createSensitiveKey() // TODO: fails on iPhone SE but succeeds on simulator :-( :-/
         keychainCenter.storeSensitiveKey(secKey: sensitiveKey)
 
         // create SE key (KEK) with a hard coded tag for example: "sensitive_KEK"

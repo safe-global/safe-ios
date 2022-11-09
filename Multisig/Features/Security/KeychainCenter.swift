@@ -64,7 +64,7 @@ class KeychainCenter {
             kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
             kSecAttrKeySizeInBits: 256,
             kSecAttrTokenID: kSecAttrTokenIDSecureEnclave,
-            kSecPrivateKeyAttrs: [
+            kSecPrivateKeyAttrs: [ 
                 kSecAttrIsPermanent: true,
                 kSecAttrApplicationTag: tag.data(using: .utf8)!,
                 kSecAttrAccessControl: access
@@ -90,11 +90,12 @@ class KeychainCenter {
         var accessError: Unmanaged<CFError>?
         guard let access = SecAccessControlCreateWithFlags(
                 kCFAllocatorDefault,
-                kSecAttrAccessibleWhenUnlocked, // TODO necessary? useful?
+                kSecAttrAccessibleAlways, // TODO necessary? useful? Alternatives: kSecAttrAccessibleWhenUnlocked, kSecAttrAccessibleAfterFirstUnlock
                 .privateKeyUsage,
                 &accessError
         )
         else {
+            LogService.shared.error(" --> AccessError: \(accessError)")
             throw accessError!.takeRetainedValue() as Error
         }
 
@@ -112,6 +113,10 @@ class KeychainCenter {
         // create a key pair
         var createError: Unmanaged<CFError>?
         guard let privateKey = SecKeyCreateRandomKey(attributes, &createError) else {
+//            LogService.shared.error("Error: \(error)")
+
+        // TODO: Fails to create key on device with "Key generation failed, error -25293". But works on Simulator :-/
+            LogService.shared.error(" --> CreateError: \(createError)")
             throw createError!.takeRetainedValue() as Error
         }
 
