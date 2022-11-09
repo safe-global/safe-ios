@@ -59,7 +59,11 @@ class KeychainCenter {
         // TODO pass password in LAContext?
         let authenticationContext = LAContext()
         let applicationPassword = applicationPassword.data(using: .utf8)
-        let result = authenticationContext.setCredential(applicationPassword, type: .applicationPassword) // this should set the applicationPassword and not ask user for one. result is tru. But app asks for password anyway.
+        authenticationContext.interactionNotAllowed = true
+        // this should set the applicationPassword and not ask user for one. result is true. But app asks for password anyway.
+        // Is this context global? Or do I need to pass it into key creation?
+        // is setCredential() the right method to pass an applicationPassword for creating a key. Or does this only work for accessing the key?
+        let result = authenticationContext.setCredential(applicationPassword, type: .applicationPassword)
         App.shared.snackbar.show(message: "setCredential(): \(result)")
 
         let key = try createSEKey(flags: flags, tag: "global.safe.sensitive.KEK")
