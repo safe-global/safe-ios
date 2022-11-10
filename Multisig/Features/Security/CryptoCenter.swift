@@ -20,7 +20,7 @@ class CryptoCenter {
         keychainCenter = KeychainCenter()
     }
 
-    // This is called, when the passcode setup is activated after updating the app.
+    // This is called, when using the new key security is activated after updating the app. Even if the user did not activate it.
     func initialSetup(
             passcodeEnabled: Bool = false,
             useBiometry: Bool = false,
