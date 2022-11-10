@@ -56,17 +56,7 @@ class KeychainCenter {
             flags = [.devicePasscode, .applicationPassword]
         }
 
-        // TODO pass password in LAContext?
-        let authenticationContext = LAContext()
-        let applicationPassword = applicationPassword.data(using: .utf8)
-        authenticationContext.interactionNotAllowed = true
-        // this should set the applicationPassword and not ask user for one. result is true. But app asks for password anyway.
-        // Is this context global? Or do I need to pass it into key creation?
-        // is setCredential() the right method to pass an applicationPassword for creating a key. Or does this only work for accessing the key?
-        let result = authenticationContext.setCredential(applicationPassword, type: .applicationPassword)
-        App.shared.snackbar.show(message: "setCredential(): \(result)")
-
-        let key = try createSEKey(flags: flags, tag: "global.safe.sensitive.KEK")
+        let key = try createSEKey(flags: flags, tag: "global.safe.sensitive.KEK", applicationPassword: applicationPassword)
 
         return key // return tag as well?
     }
@@ -91,9 +81,14 @@ class KeychainCenter {
         sensitivePublicKey = publicKey
     }
 
-    private func createSEKey(flags: SecAccessControlCreateFlags, tag: String) throws -> SecKey {
-        let protection: CFString = kSecAttrAccessibleWhenUnlocked
+    private func createSEKey(flags: SecAccessControlCreateFlags, tag: String, applicationPassword: String) throws -> SecKey {
+        // Passed via kSecUseAuthenticationContext to kSecPrivateKeyAttrs attributes
+        let authenticationContext = LAContext()
+        let applicationPassword = applicationPassword.data(using: .utf8)
+        let result = authenticationContext.setCredential(applicationPassword, type: .applicationPassword)
+        App.shared.snackbar.show(message: "setCredential(): \(result)")
 
+        let protection: CFString = kSecAttrAccessibleWhenUnlocked
         // create access control flags with params
         var accessError: Unmanaged<CFError>?
         guard let access = SecAccessControlCreateWithFlags(
@@ -114,7 +109,8 @@ class KeychainCenter {
             kSecPrivateKeyAttrs: [ 
                 kSecAttrIsPermanent: true,
                 kSecAttrApplicationTag: tag.data(using: .utf8)!,
-                kSecAttrAccessControl: access
+                kSecAttrAccessControl: access,
+                kSecUseAuthenticationContext: authenticationContext
             ]
         ]
 
