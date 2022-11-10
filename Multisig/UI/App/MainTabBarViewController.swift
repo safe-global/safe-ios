@@ -133,7 +133,8 @@ class MainTabBarViewController: UITabBarController {
 
         } catch {
             // log errors
-            App.shared.snackbar.show(message: error.localizedDescription)
+            LogService.shared.error(" --> initialSetup: \(error)")
+            App.shared.snackbar.show(message: "initialSetup() and import. Error: \(error.localizedDescription)")
         }
 
     }

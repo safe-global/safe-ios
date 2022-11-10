@@ -24,14 +24,12 @@ class CryptoCenter {
     func initialSetup(
             passcodeEnabled: Bool = false,
             useBiometry: Bool = false,
-            canChangeBiometry: Bool = true,
+            canChangeBiometry: Bool = true, // TODO can be removed? As it doesn't matter for the initial setup
             rememberPasscode: Bool = true, // that would be the randomly generated passcode
             passcode: String? = nil
     ) throws {
 
         // QUESTION: Should we have access/know about to AppSetting.passcodeOptions here?
-
-        // check if setup has happened already by checking if there is a sensitive key in the keychain?
 
         // precondition:
         // if passcodeEnabled then passcode must not be null
@@ -43,7 +41,7 @@ class CryptoCenter {
         if (!passcodeEnabled) {
             // if !passcodeEnabled -> create random key and store in Keychain
             let randomPasscode = createRandomPassword()
-            App.shared.snackbar.show(message: "randomPasscode: \(randomPasscode)")
+            //App.shared.snackbar.show(message: "randomPasscode: \(randomPasscode)")
             derivedPasscode = derivePasscode(from: randomPasscode)
         } else {
             derivedPasscode = derivePasscode(from: passcode!)
@@ -57,12 +55,11 @@ class CryptoCenter {
         // create sensitive_key
         let sensitiveKey = try keychainCenter.createKeyPair()
 
-        // TODO Store sensitive public key in keychain
         // copy public part from SecKey
         let sensitivePublicKey = SecKeyCopyPublicKey(sensitiveKey)
         // safe it via keychainCenter.storeSensitivePublicKey()
         if let key = sensitivePublicKey {
-            keychainCenter.storeSensitivePublicKey(publicKey: key)
+            try keychainCenter.storeSensitivePublicKey(publicKey: key)
         } else {
             App.shared.snackbar.show(message: "Cannot copy public key")
             throw GSError.GenericPasscodeError(reason: "Cannot copy public key")
@@ -94,7 +91,7 @@ class CryptoCenter {
             throw error!.takeRetainedValue() as Error
         }
         // store encrypted sensitive private key in keychain as blob
-        keychainCenter.storeSensitiveKey(encryptedSensitiveKey: encryptedSensitiveKey)
+        keychainCenter.storeSensitivePrivateKey(encryptedSensitiveKey: encryptedSensitiveKey)
     }
 
     private func createRandomPassword() -> String {

@@ -13,7 +13,7 @@ import LocalAuthentication
 class KeychainCenter {
 
     private var sensitiveKey: Data? = nil
-    private var sensitivePublicKey: SecKey? = nil
+   // private var sensitivePublicKey: SecKey? = nil
 
     init() {
         passcode = "<empty>"
@@ -61,7 +61,7 @@ class KeychainCenter {
         return key // return tag as well?
     }
 
-    func storeSensitiveKey(encryptedSensitiveKey: Data) {
+    func storeSensitivePrivateKey(encryptedSensitiveKey: Data) {
         let tag = "global.safe.sensitive.private.key.as.encrypted.data"
         App.shared.snackbar.show(message: "storeSensitiveKey(): secKey: \(encryptedSensitiveKey)")
 
@@ -71,15 +71,60 @@ class KeychainCenter {
         sensitiveKey = encryptedSensitiveKey
     }
 
-    func storeSensitivePublicKey(publicKey: SecKey) {
+    func storeSensitivePublicKey(publicKey: SecKey) throws {
         let tag = "global.safe.sensitive.public.key"
-        //App.shared.snackbar.show(message: "storeSensitivePublicKey(): publicKey: \(publicKey)")
+        App.shared.snackbar.show(message: "storeSensitivePublicKey(): publicKey: \(publicKey)")
+        var error: Unmanaged<CFError>?
+        guard let data = SecKeyCopyExternalRepresentation(publicKey, &error) as? Data else {
+            throw error!.takeRetainedValue() as Error
+        }
 
-        // TODO save to keychain
-        //SecItemAdd(<#T##attributes: CFDictionary##CoreFoundation.CFDictionary#>, <#T##result: UnsafeMutablePointer<CFTypeRef?>?##Swift.UnsafeMutablePointer<CoreFoundation.CFTypeRef?>?#>)
+        let addQuery: [String: Any] = [kSecClass as String: kSecClassKey,
+                                       kSecAttrApplicationTag as String: tag,
+                                       kSecAttrKeyClass as String: kSecAttrKeyClassPublic,
+                                       kSecValueRef as String: publicKey]
+        let status = SecItemAdd(addQuery as CFDictionary, nil)
+        guard status == errSecSuccess else { throw GSError.GenericPasscodeError(reason: "Cannot store public key") } // Should be a new and more specific error type
+        LogService.shared.error(" --> storeSensitivePublicKey: status: \(status)")
 
-        sensitivePublicKey = publicKey
+        // sensitivePublicKey = publicKey
+
+
+        // decode key for debugging
+        let options: [String: Any] = [kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom,
+                                      kSecAttrKeyClass as String: kSecAttrKeyClassPublic,
+                                      kSecAttrApplicationTag as String: tag]
+        //var error: Unmanaged<CFError>?
+        guard let key = SecKeyCreateWithData(data as CFData,
+                options as CFDictionary,
+                &error) else {
+            throw error!.takeRetainedValue() as Error
+        }
+        LogService.shared.error(" --> storeSensitivePublicKey: decoded key: \(key)")
+
     }
+
+//    func retrieveSensitivePublicKey() throws -> SecKey {
+//        let tag = "global.safe.sensitive.public.key"
+//        //App.shared.snackbar.show(message: "storeSensitivePublicKey(): publicKey: \(publicKey)")
+//        var error: Unmanaged<CFError>?
+//        guard let data = SecKeyCopyExternalRepresentation(publicKey, &error) as? Data else {
+//            throw error!.takeRetainedValue() as Error
+//        }
+//
+//        let addQuery: [String: Any] = [kSecClass as String: kSecClassKey,
+//                                       kSecAttrApplicationTag as String: tag,
+//                                       kSecValueRef as String: publicKey]
+//        let status = SecItemAdd(addQuery as CFDictionary, nil)
+//        guard status == errSecSuccess else { throw GSError.GenericPasscodeError(reason: "Cannot store public key") } // Should be a new and more specific error type
+//        LogService.shared.error(" --> storeSensitivePublicKey: status: \(status)")
+//
+//        // sensitivePublicKey = publicKey
+//
+//
+//
+//
+//    }
 
     private func createSEKey(flags: SecAccessControlCreateFlags, tag: String, applicationPassword: String) throws -> SecKey {
         // Passed via kSecUseAuthenticationContext to kSecPrivateKeyAttrs attributes
@@ -125,7 +170,7 @@ class KeychainCenter {
     }
 
 
-    // used to create a public-private key pair (asymmetric) NOT in secure enclave
+    // used to create a public-private key pair (asymmetric) NOT in secure enclave -> Sensitive Key
     func createKeyPair() throws -> SecKey {
         let attributes: NSDictionary = [
             kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
