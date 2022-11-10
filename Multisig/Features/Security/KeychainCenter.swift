@@ -23,7 +23,7 @@ class KeychainCenter {
 
     // store passcode. Either if it random (user didn't give a password) or the user asked us to remember it
     func storePasscode(derivedPasscode: String) {
-        App.shared.snackbar.show(message: "storePasscode(): derivedPasscode: \(derivedPasscode)")
+        //App.shared.snackbar.show(message: "storePasscode(): derivedPasscode: \(derivedPasscode)")
 
         // TODO Persist password
 
@@ -33,7 +33,7 @@ class KeychainCenter {
     }
 
     func retrievePasscode() -> String {
-        App.shared.snackbar.show(message: "retrievePasscode(): derivedPasscode: \(passcode)")
+        //App.shared.snackbar.show(message: "retrievePasscode(): derivedPasscode: \(passcode)")
         return passcode
     }
 
@@ -53,9 +53,9 @@ class KeychainCenter {
             flags = [.biometryCurrentSet, .or, .devicePasscode, .applicationPassword]
         }
         if !useBiometry {
-            flags = [.devicePasscode, .applicationPassword]
+            flags = [.applicationPassword]
+            App.shared.snackbar.show(message: "flags: .applicationPassword")
         }
-
         let key = try createSEKey(flags: flags, tag: "global.safe.sensitive.KEK", applicationPassword: applicationPassword)
 
         return key // return tag as well?
@@ -73,7 +73,7 @@ class KeychainCenter {
 
     func storeSensitivePublicKey(publicKey: SecKey) {
         let tag = "global.safe.sensitive.public.key"
-        App.shared.snackbar.show(message: "storeSensitivePublicKey(): publicKey: \(publicKey)")
+        //App.shared.snackbar.show(message: "storeSensitivePublicKey(): publicKey: \(publicKey)")
 
         // TODO save to keychain
         //SecItemAdd(<#T##attributes: CFDictionary##CoreFoundation.CFDictionary#>, <#T##result: UnsafeMutablePointer<CFTypeRef?>?##Swift.UnsafeMutablePointer<CoreFoundation.CFTypeRef?>?#>)
@@ -85,6 +85,7 @@ class KeychainCenter {
         // Passed via kSecUseAuthenticationContext to kSecPrivateKeyAttrs attributes
         let authenticationContext = LAContext()
         let applicationPassword = applicationPassword.data(using: .utf8)
+        // setCredential() returns false on the Simulator but at the same time SecureEnclave.isAvaliable is true
         let result = authenticationContext.setCredential(applicationPassword, type: .applicationPassword)
         App.shared.snackbar.show(message: "setCredential(): \(result)")
 
@@ -93,7 +94,7 @@ class KeychainCenter {
         var accessError: Unmanaged<CFError>?
         guard let access = SecAccessControlCreateWithFlags(
                 kCFAllocatorDefault,
-                kSecAttrAccessibleWhenUnlocked, // TODO necessary? useful? Available: kSecAttrAccessibleWhenPasscodeSet ?
+                kSecAttrAccessibleAlways, // TODO necessary? useful? Available: kSecAttrAccessibleWhenPasscodeSet ?
                 .privateKeyUsage.union(flags),
                 &accessError
         )

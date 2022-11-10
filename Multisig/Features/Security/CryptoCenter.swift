@@ -8,6 +8,7 @@
 
 import Foundation
 import CommonCrypto
+import CryptoKit
 
 class CryptoCenter {
 
@@ -19,13 +20,12 @@ class CryptoCenter {
         keychainCenter = KeychainCenter()
     }
 
+    // This is called, when the passcode setup is activated after updating the app.
     func initialSetup(
             passcodeEnabled: Bool = false,
-            useBiometry: Bool,
-            canChangeBiometry: Bool,
-            rememberPasscode: Bool,
-            protectAppOpen: Bool,
-            protectKeyAccess: Bool,
+            useBiometry: Bool = false,
+            canChangeBiometry: Bool = true,
+            rememberPasscode: Bool = true, // that would be the randomly generated passcode
             passcode: String? = nil
     ) throws {
 
@@ -66,6 +66,12 @@ class CryptoCenter {
         } else {
             App.shared.snackbar.show(message: "Cannot copy public key")
             throw GSError.GenericPasscodeError(reason: "Cannot copy public key")
+        }
+
+        if !SecureEnclave.isAvailable {
+            App.shared.snackbar.show(message: "Secure Enclave not available")
+        } else {
+            App.shared.snackbar.show(message: "Secure Enclave is available")
         }
 
         // create SE key (KEK) with a hard coded tag for example: "sensitive_KEK"
