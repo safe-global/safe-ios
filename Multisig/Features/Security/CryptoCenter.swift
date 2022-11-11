@@ -60,6 +60,11 @@ class CryptoCenter {
         // safe it via keychainCenter.storeSensitivePublicKey()
         if let key = sensitivePublicKey {
             try keychainCenter.storeSensitivePublicKey(publicKey: key)
+            LogService.shared.error(" --->    key: \(key)")
+
+            let pubKey = try keychainCenter.retrieveSensitivePublicKey()
+            LogService.shared.error(" ---> pubKey: \(pubKey!)")
+            
         } else {
             App.shared.snackbar.show(message: "Cannot copy public key")
             throw GSError.GenericPasscodeError(reason: "Cannot copy public key")
