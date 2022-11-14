@@ -53,9 +53,13 @@ class CryptoCenterImpl: CryptoCenter {
             try keychainCenter.storeSensitivePublicKey(publicKey: key)
             LogService.shared.error(" --->    key: \(key)")
 
-            // For debugging
-//            let pubKey = try keychainCenter.retrieveSensitivePublicKey()
-//            LogService.shared.error(" ---> pubKey: \(pubKey!)")
+            // For DEBUGGING - TODO should be replaced with a proper test
+            let pubKeyFound = try keychainCenter.retrieveSensitivePublicKey()
+            LogService.shared.info(" ---> pubKey: \(pubKeyFound!)")
+
+            if key == pubKeyFound {
+                LogService.shared.info("| ---> key == pubKeyFound")
+            }
 
         } else {
             App.shared.snackbar.show(message: "Cannot copy public key")
