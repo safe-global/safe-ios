@@ -23,15 +23,16 @@ class KeychainCenter {
         storePasswordData(passwordData: derivedPasscode.data(using: .utf8)!)
     }
 
-    func retrievePasscode() -> String {
+    func retrievePasscode() -> String? {
         // Retrieve password from persistence
-
         do {
-            let passcodeData = try findPasswordData()
-            let passcode = String.init(data: passcodeData!, encoding: .utf8)!
-            return passcode
+            if let passCodeData = try findPasswordData() {
+                return String.init(data: passCodeData, encoding: .utf8)
+            } else {
+                return nil
+            }
         } catch {
-            return "<password_not_found>"
+            return nil
         }
     }
 
@@ -180,7 +181,7 @@ class KeychainCenter {
         }
     }
 
-    private func deleteData(_ account: String) {
+    func deleteData(_ account: String) {
         let query = [
             kSecAttrService: "private_key",
             kSecAttrAccount: account,

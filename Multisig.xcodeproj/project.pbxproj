@@ -878,6 +878,7 @@
 		AD303448E17612A50DFF26DF /* DelegateWarningNotTopLevel.json in Resources */ = {isa = PBXBuildFile; fileRef = AD303C1150C4F4070D76632E /* DelegateWarningNotTopLevel.json */; };
 		AD30357FF0006EB541E85F7D /* DelegateWarningEvenIfMultiSendAddressIsKnown.json in Resources */ = {isa = PBXBuildFile; fileRef = AD30324716BFFE79E830673F /* DelegateWarningEvenIfMultiSendAddressIsKnown.json */; };
 		AD3035B91EE9230361E91E3D /* NoDelegateOperationButDelegateFlag.json in Resources */ = {isa = PBXBuildFile; fileRef = AD3038DD24B2E7744E2EE9A4 /* NoDelegateOperationButDelegateFlag.json */; };
+		AD3035E34B7E49C48D1B6FEE /* KeychainCenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD30392AFE8D95B651C509BA /* KeychainCenterTests.swift */; };
 		AD3035E931C77DDDE6F63872 /* TransferWithDelegateWarning.json in Resources */ = {isa = PBXBuildFile; fileRef = AD3032263454247E99CC6C62 /* TransferWithDelegateWarning.json */; };
 		AD30360125D8B1D8735A8CF4 /* DelegateWarningCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303BF18FC3591AD8AF6FBC /* DelegateWarningCalculatorTests.swift */; };
 		AD30377B2E867EBF8647725B /* DelegateWarningMultiSend.json in Resources */ = {isa = PBXBuildFile; fileRef = AD30320FB98CBA790C56F472 /* DelegateWarningMultiSend.json */; };
@@ -1836,6 +1837,7 @@
 		AD30370F4D8215898B27959A /* TransferNoWarningButDelegateWithName.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransferNoWarningButDelegateWithName.json; sourceTree = "<group>"; };
 		AD303815FA00D7D2A33A3F8C /* ReviewChangeConfirmationsTxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewChangeConfirmationsTxViewController.swift; sourceTree = "<group>"; };
 		AD3038DD24B2E7744E2EE9A4 /* NoDelegateOperationButDelegateFlag.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NoDelegateOperationButDelegateFlag.json; sourceTree = "<group>"; };
+		AD30392AFE8D95B651C509BA /* KeychainCenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainCenterTests.swift; sourceTree = "<group>"; };
 		AD303A2303B63B1408463F64 /* ReviewReplaceOwnerTxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewReplaceOwnerTxViewController.swift; sourceTree = "<group>"; };
 		AD303AD3E32FBAF7FC2B202B /* ChangeConfirmationsFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeConfirmationsFlow.swift; sourceTree = "<group>"; };
 		AD303BF18FC3591AD8AF6FBC /* DelegateWarningCalculatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegateWarningCalculatorTests.swift; sourceTree = "<group>"; };
@@ -4114,6 +4116,7 @@
 			isa = PBXGroup;
 			children = (
 				AD303D96DE5AFAE096D0CB86 /* CryptoCenterTests.swift */,
+				AD30392AFE8D95B651C509BA /* KeychainCenterTests.swift */,
 			);
 			path = Security;
 			sourceTree = "<group>";
@@ -5418,6 +5421,7 @@
 				0A9BC34A246053AD00EB9C5D /* ENSContractsTests.swift in Sources */,
 				AD30360125D8B1D8735A8CF4 /* DelegateWarningCalculatorTests.swift in Sources */,
 				AD303814C19C41AB35176EA7 /* CryptoCenterTests.swift in Sources */,
+				AD3035E34B7E49C48D1B6FEE /* KeychainCenterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
