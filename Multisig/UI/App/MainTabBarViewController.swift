@@ -124,19 +124,6 @@ class MainTabBarViewController: UITabBarController {
 
         presentDelayedControllers()
 
-
-        let cc: CryptoCenter = CryptoCenterImpl()
-
-        do {
-            try cc.initialSetup()
-            cc.import(privateKey: "0xF000")
-
-        } catch {
-            // log errors
-            LogService.shared.error(" --> initialSetup: \(error)")
-            App.shared.snackbar.show(message: "initialSetup() and import. Error: \(error.localizedDescription)")
-        }
-
     }
 
     private func balancesTabViewController() -> BalancesUINavigationController {

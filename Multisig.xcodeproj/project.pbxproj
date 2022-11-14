@@ -881,6 +881,7 @@
 		AD3035E931C77DDDE6F63872 /* TransferWithDelegateWarning.json in Resources */ = {isa = PBXBuildFile; fileRef = AD3032263454247E99CC6C62 /* TransferWithDelegateWarning.json */; };
 		AD30360125D8B1D8735A8CF4 /* DelegateWarningCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303BF18FC3591AD8AF6FBC /* DelegateWarningCalculatorTests.swift */; };
 		AD30377B2E867EBF8647725B /* DelegateWarningMultiSend.json in Resources */ = {isa = PBXBuildFile; fileRef = AD30320FB98CBA790C56F472 /* DelegateWarningMultiSend.json */; };
+		AD303814C19C41AB35176EA7 /* CryptoCenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303D96DE5AFAE096D0CB86 /* CryptoCenterTests.swift */; };
 		AD303ABF1DBCA951A106ECD5 /* ReviewReplaceOwnerTxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303A2303B63B1408463F64 /* ReviewReplaceOwnerTxViewController.swift */; };
 		AD303BDA3B1979B4643DAAB1 /* WarnAboutAnyNestedMultisendWithDelegate.json in Resources */ = {isa = PBXBuildFile; fileRef = AD3034FC5D96E7DF5D59FBED /* WarnAboutAnyNestedMultisendWithDelegate.json */; };
 		AD303BE8223BCB5899176612 /* WarnAboutAnyNestedMultisendWithDelegate.json in Resources */ = {isa = PBXBuildFile; fileRef = AD3034FC5D96E7DF5D59FBED /* WarnAboutAnyNestedMultisendWithDelegate.json */; };
@@ -1839,6 +1840,7 @@
 		AD303AD3E32FBAF7FC2B202B /* ChangeConfirmationsFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeConfirmationsFlow.swift; sourceTree = "<group>"; };
 		AD303BF18FC3591AD8AF6FBC /* DelegateWarningCalculatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegateWarningCalculatorTests.swift; sourceTree = "<group>"; };
 		AD303C1150C4F4070D76632E /* DelegateWarningNotTopLevel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DelegateWarningNotTopLevel.json; sourceTree = "<group>"; };
+		AD303D96DE5AFAE096D0CB86 /* CryptoCenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoCenterTests.swift; sourceTree = "<group>"; };
 		AD303DAF50ACA9AB6A3ED41D /* TransferNoDelegateWarning.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransferNoDelegateWarning.json; sourceTree = "<group>"; };
 		B0D610B9708DF8BFD4A612D2 /* WebConnectionRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionRepositoryTests.swift; sourceTree = "<group>"; };
 		B0D610E20B243B7AEB248725 /* WebConnectionContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebConnectionContainerViewController.xib; sourceTree = "<group>"; };
@@ -3050,6 +3052,7 @@
 				0A6430F6247ECCF6006FD30A /* MultisigTests.xctestplan */,
 				0ADD04D5268CB9BF00C2B44A /* UIColorStylesTests.swift */,
 				0A0EFCA4246EADF800D3D8BF /* Utils */,
+				AD3034214AE5434B20ABC8B5 /* Features */,
 			);
 			path = MultisigTests;
 			sourceTree = "<group>";
@@ -4090,6 +4093,14 @@
 			path = SafeTokenBanner;
 			sourceTree = "<group>";
 		};
+		AD3034214AE5434B20ABC8B5 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				AD3039C484C693A046C926F1 /* Security */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
 		AD30347831BBAF9E3E43EEA3 /* ChangeConfirmations */ = {
 			isa = PBXGroup;
 			children = (
@@ -4097,6 +4108,14 @@
 				AD303815FA00D7D2A33A3F8C /* ReviewChangeConfirmationsTxViewController.swift */,
 			);
 			path = ChangeConfirmations;
+			sourceTree = "<group>";
+		};
+		AD3039C484C693A046C926F1 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				AD303D96DE5AFAE096D0CB86 /* CryptoCenterTests.swift */,
+			);
+			path = Security;
 			sourceTree = "<group>";
 		};
 		B0D61012F3C4AC13FA79F697 /* Features */ = {
@@ -5398,6 +5417,7 @@
 				047300FE24781081004F1200 /* AddressTests.swift in Sources */,
 				0A9BC34A246053AD00EB9C5D /* ENSContractsTests.swift in Sources */,
 				AD30360125D8B1D8735A8CF4 /* DelegateWarningCalculatorTests.swift in Sources */,
+				AD303814C19C41AB35176EA7 /* CryptoCenterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,6 +26,10 @@ class CryptoCenterImpl: CryptoCenter {
 
     let keychainCenter: KeychainCenter
 
+    init(_ keychainCenter: KeychainCenter) {
+        self.keychainCenter = keychainCenter
+    }
+
     init() {
         keychainCenter = KeychainCenter()
     }
@@ -37,34 +41,13 @@ class CryptoCenterImpl: CryptoCenter {
 //        } else {
 //            App.shared.snackbar.show(message: "Secure Enclave is available")
 //        }
-
-        let randomPasscode = createRandomPassword()
-        let derivedPasscode = derivePasscode(from: randomPasscode)
-        keychainCenter.storePasscode(derivedPasscode: derivedPasscode) // TODO check error?
-        let retrievedPasscode = keychainCenter.retrievePasscode()
-        assert(retrievedPasscode == derivedPasscode)
-
-        // create sensitive_key
+        let derivedPasscode = persistRandomPassword()
         let sensitiveKey = try keychainCenter.createKeyPair()
+        try persistSensitivePublicKey(sensitiveKey: sensitiveKey)
+        try persistSensitivePrivateKey(derivedPasscode: derivedPasscode, sensitiveKey: sensitiveKey)
+    }
 
-        // copy public part from SecKey
-        let sensitivePublicKey = SecKeyCopyPublicKey(sensitiveKey)
-        // safe it via keychainCenter.storeSensitivePublicKey()
-        if let key = sensitivePublicKey {
-            try keychainCenter.storeSensitivePublicKey(publicKey: key)
-            LogService.shared.error(" --->    key: \(key)")
-
-            // For DEBUGGING - TODO should be replaced with a proper test
-            let pubKeyFound = try keychainCenter.retrieveSensitivePublicKey()
-            LogService.shared.info(" ---> pubKey: \(pubKeyFound!)")
-
-            assert(key == pubKeyFound)
-
-        } else {
-            App.shared.snackbar.show(message: "Cannot copy public key")
-            throw GSError.GenericPasscodeError(reason: "Cannot copy public key")
-        }
-        // create SE key (KEK) with a hard coded tag for example: "sensitive_KEK"
+    private func persistSensitivePrivateKey(derivedPasscode: String, sensitiveKey: SecKey) throws { // create SE key (KEK) with a hard coded tag for example: "sensitive_KEK"
         let sensitiveKEK = try keychainCenter.createSecureEnclaveKey(
                 useBiometry: false,
                 canChangeBiometry: true,
@@ -108,6 +91,34 @@ class CryptoCenterImpl: CryptoCenter {
         } catch {
             LogService.shared.error(" ---> Error: \(error)")
         }
+    }
+
+    private func persistSensitivePublicKey(sensitiveKey: SecKey) throws { // copy public part from SecKey
+        let sensitivePublicKey = SecKeyCopyPublicKey(sensitiveKey)
+        // safe it via keychainCenter.storeSensitivePublicKey()
+        if let key = sensitivePublicKey {
+            try keychainCenter.storeSensitivePublicKey(publicKey: key)
+            LogService.shared.error(" --->    key: \(key)")
+
+            // For DEBUGGING - TODO should be replaced with a proper test
+            let pubKeyFound = try keychainCenter.retrieveSensitivePublicKey()
+            LogService.shared.info(" ---> pubKey: \(pubKeyFound!)")
+
+            assert(key == pubKeyFound)
+
+        } else {
+            App.shared.snackbar.show(message: "Cannot copy public key")
+            throw GSError.GenericPasscodeError(reason: "Cannot copy public key")
+        }
+    }
+
+    private func persistRandomPassword() -> String {
+        let randomPasscode = createRandomPassword()
+        let derivedPasscode = derivePasscode(from: randomPasscode)
+        keychainCenter.storePasscode(derivedPasscode: derivedPasscode) // TODO check error?
+        let retrievedPasscode = keychainCenter.retrievePasscode()
+        assert(retrievedPasscode == derivedPasscode)
+        return derivedPasscode
     }
 
     private func createRandomPassword() -> String {
