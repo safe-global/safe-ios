@@ -65,24 +65,101 @@ class KeychainCenter {
         App.shared.snackbar.show(message: "storeSensitiveKey(): secKey: \(encryptedSensitiveKey)")
 
         // TODO save encrypted sensitive_key to to keychain
+
         // safe to Keychain (as type password?) using SecItemAdd() and sensitiveEncryptedPrivateKeyTag
-        //SecItemAdd()
-        sensitiveKey = encryptedSensitiveKey
+        deleteData(KeychainCenter.sensitiveEncryptedPrivateKeyTag)
+        // Create query
+        let addEncryptedDataQuery = [
+            kSecValueData: encryptedSensitiveKey,
+            kSecClass: kSecClassGenericPassword, // right class?
+            kSecAttrService: "private_key",
+            kSecAttrAccount: KeychainCenter.sensitiveEncryptedPrivateKeyTag,
+        ] as CFDictionary
+
+        LogService.shared.info(" ---->       encryptedData: \(encryptedSensitiveKey.toHexString())")
+
+
+        let status = SecItemAdd(addEncryptedDataQuery, nil) // TODO consider passing error ref instead of nil
+
+        if status != errSecSuccess {
+            // Print out the error
+            LogService.shared.error(" ---> Error: \(status)")
+            App.shared.snackbar.show(message: " ---> storeSensitivePrivateKey: status: \(status)")
+        } else {
+            LogService.shared.info("---> storeSensitivePrivateKey: status: success")
+            App.shared.snackbar.show(message: "storeSensitivePrivateKey: status: success")
+        }
+
+        // TODO retrieve and decrypt for debugging
+        do {
+            if let encryptedData: Data = try findEncryptedSensitivePrivateKeyData() {
+                LogService.shared.error(" ----> encryptedData found: \(encryptedData.toHexString())")
+            } else {
+                LogService.shared.error(" ---> encryptedData NOT found!")
+            }
+
+        } catch {
+        }
+
+    }
+
+    private func findEncryptedSensitivePrivateKeyData() throws -> Data? {
+
+        let query = [
+            kSecAttrService: "private_key",
+            kSecAttrAccount: KeychainCenter.sensitiveEncryptedPrivateKeyTag,
+            kSecClass: kSecClassGenericPassword,
+            kSecReturnAttributes as String: false,
+            kSecReturnData as String: true
+        ] as CFDictionary
+
+        var item: CFTypeRef?
+        let status = SecItemCopyMatching(query, &item)
+
+        switch status {
+        case errSecSuccess:
+            if let item = item {
+                let key = item as! Data
+                return key
+            } else {
+                return nil
+            }
+
+        case errSecItemNotFound:
+            return nil
+
+        case let status:
+            let message = SecCopyErrorMessageString(status, nil) as? String ?? String(status)
+            let error = NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: [NSLocalizedDescriptionKey: message])
+            throw error
+        }
+
+    }
+
+    private func deleteData(_ account: String) {
+        let query = [
+            kSecAttrService: "private_key",
+            kSecAttrAccount: "\(KeychainCenter.sensitiveEncryptedPrivateKeyTag)",
+            kSecClass: kSecClassGenericPassword,
+        ] as CFDictionary
+
+        // TODO Check for errors. Ignore nothing deleted
+        SecItemDelete(query)
     }
 
     func storeSensitivePublicKey(publicKey: SecKey) throws {
-        App.shared.snackbar.show(message: "storeSensitivePublicKey(): publicKey: \(publicKey)")
+        //App.shared.snackbar.show(message: "storeSensitivePublicKey(): publicKey: \(publicKey)")
         deleteItem(tag: KeychainCenter.sensitivePublicKeyTag)
         var error: Unmanaged<CFError>?
-        guard let data = SecKeyCopyExternalRepresentation(publicKey, &error) as? Data else {
-            throw error!.takeRetainedValue() as Error
-        }
+//        guard let data = SecKeyCopyExternalRepresentation(publicKey, &error) as? Data else {
+//            throw error!.takeRetainedValue() as Error
+//        }
 
-        let addQuery: [String: Any] = [kSecClass as String: kSecClassKey,
-                                       kSecAttrApplicationTag as String: KeychainCenter.sensitivePublicKeyTag,
-                                       kSecAttrKeyClass as String: kSecAttrKeyClassPublic,
-                                       kSecValueRef as String: publicKey]
-        let status = SecItemAdd(addQuery as CFDictionary, nil)
+        let addPublicKeyQuery: [String: Any] = [kSecClass as String: kSecClassKey,
+                                                kSecAttrApplicationTag as String: KeychainCenter.sensitivePublicKeyTag,
+                                                kSecAttrKeyClass as String: kSecAttrKeyClassPublic,
+                                                kSecValueRef as String: publicKey]
+        let status = SecItemAdd(addPublicKeyQuery as CFDictionary, nil)
         guard status == errSecSuccess else {
             throw GSError.GenericPasscodeError(reason: "Cannot store public key")
         } // Should be a new and more specific error type
@@ -116,7 +193,7 @@ class KeychainCenter {
         let applicationPassword = applicationPassword.data(using: .utf8)
         // setCredential() returns false on the Simulator but at the same time SecureEnclave.isAvaliable is true
         let result = authenticationContext.setCredential(applicationPassword, type: .applicationPassword)
-        App.shared.snackbar.show(message: "setCredential(): \(result)")
+        //App.shared.snackbar.show(message: "setCredential(): \(result)")
 
         let protection: CFString = kSecAttrAccessibleWhenUnlocked
         // create access control flags with params

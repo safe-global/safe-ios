@@ -125,7 +125,7 @@ class MainTabBarViewController: UITabBarController {
         presentDelayedControllers()
 
 
-        let cc = CryptoCenter()
+        let cc: CryptoCenter = CryptoCenterImpl()
 
         do {
             try cc.initialSetup()

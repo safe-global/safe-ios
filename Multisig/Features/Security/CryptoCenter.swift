@@ -10,9 +10,19 @@ import Foundation
 import CommonCrypto
 import CryptoKit
 
-class CryptoCenter {
+typealias EthPrivateKey = String
 
-    typealias EthPrivateKey = String
+protocol CryptoCenter {
+    func initialSetup() throws
+    func `import`(privateKey: EthPrivateKey)
+    func delete(address: Address)
+    func sign(data: Data, address: Address, password: String) -> Signature
+    func verify()
+    func changePassword(from oldPassword: String, to newPassword: String)
+    func changeSettings()
+}
+
+class CryptoCenterImpl: CryptoCenter {
 
     let keychainCenter: KeychainCenter
 
@@ -21,36 +31,17 @@ class CryptoCenter {
     }
 
     // This is called, when using the new key security is activated after updating the app. Even if the user did not activate it.
-    func initialSetup(
-            passcodeEnabled: Bool = false,
-            useBiometry: Bool = false,
-            canChangeBiometry: Bool = true, // TODO can be removed? As it doesn't matter for the initial setup
-            rememberPasscode: Bool = true, // that would be the randomly generated passcode
-            passcode: String? = nil
-    ) throws {
-
-        // QUESTION: Should we have access/know about to AppSetting.passcodeOptions here?
-
-        // precondition:
-        // if passcodeEnabled then passcode must not be null
-        if passcodeEnabled && passcode == nil {
-            throw GSError.GenericPasscodeError(reason: "Passcode missing") // Do we need a more specific error here?
-        }
+    func initialSetup() throws {
+        let passcodeEnabled: Bool = false
+        let useBiometry: Bool = false
+        let canChangeBiometry: Bool = true // TODO can be removed? As it doesn't matter for the initial setup
+        let rememberPasscode: Bool = true // that would be the randomly generated passcode
+        let passcode: String? = nil
 
         var derivedPasscode: String = ""
-        if (!passcodeEnabled) {
-            // if !passcodeEnabled -> create random key and store in Keychain
-            let randomPasscode = createRandomPassword()
-            //App.shared.snackbar.show(message: "randomPasscode: \(randomPasscode)")
-            derivedPasscode = derivePasscode(from: randomPasscode)
-        } else {
-            derivedPasscode = derivePasscode(from: passcode!)
-        }
-        // if rememberPasscode -> store passcode in keychain
-        // if !passcodeEnabled -> store passcode in keychain
-        if (rememberPasscode || !passcodeEnabled) {
-            keychainCenter.storePasscode(derivedPasscode: derivedPasscode) // check error?
-        }
+        let randomPasscode = createRandomPassword()
+        derivedPasscode = derivePasscode(from: randomPasscode)
+        keychainCenter.storePasscode(derivedPasscode: derivedPasscode) // check error?
 
         // create sensitive_key
         let sensitiveKey = try keychainCenter.createKeyPair()
@@ -62,19 +53,20 @@ class CryptoCenter {
             try keychainCenter.storeSensitivePublicKey(publicKey: key)
             LogService.shared.error(" --->    key: \(key)")
 
-            let pubKey = try keychainCenter.retrieveSensitivePublicKey()
-            LogService.shared.error(" ---> pubKey: \(pubKey!)")
-            
+            // For debugging
+//            let pubKey = try keychainCenter.retrieveSensitivePublicKey()
+//            LogService.shared.error(" ---> pubKey: \(pubKey!)")
+
         } else {
             App.shared.snackbar.show(message: "Cannot copy public key")
             throw GSError.GenericPasscodeError(reason: "Cannot copy public key")
         }
 
-        if !SecureEnclave.isAvailable {
-            App.shared.snackbar.show(message: "Secure Enclave not available")
-        } else {
-            App.shared.snackbar.show(message: "Secure Enclave is available")
-        }
+//        if !SecureEnclave.isAvailable {
+//            App.shared.snackbar.show(message: "Secure Enclave not available")
+//        } else {
+//            App.shared.snackbar.show(message: "Secure Enclave is available")
+//        }
 
         // create SE key (KEK) with a hard coded tag for example: "sensitive_KEK"
         let sensitiveKEK = try keychainCenter.createSecureEnclaveKey(
@@ -86,16 +78,16 @@ class CryptoCenter {
         // TODO encrypt private part of sensitive_key
         // Convert SecKey -> Data SecKeyCopyExternalRepresentation -> CFData -> Data
         var error: Unmanaged<CFError>?
-        guard let data = SecKeyCopyExternalRepresentation(sensitiveKey, &error) else {
+        guard let sensitiveKeyData = SecKeyCopyExternalRepresentation(sensitiveKey, &error) else {
             throw error!.takeRetainedValue() as Error
         }
-
-        // encrypt data using: SecKeyCreateEncryptedData using sensitiveKEK
+        // Copy public KEK Key )to encrypt sensitive key)
         let sensitivePublicKek = SecKeyCopyPublicKey(sensitiveKEK)
-        guard let encryptedSensitiveKey = SecKeyCreateEncryptedData(sensitivePublicKek!, .eciesEncryptionStandardX963SHA256AESGCM, data, &error) as? Data else {
+        // encrypt data using: SecKeyCreateEncryptedData using sensitiveKEK
+        guard let encryptedSensitiveKey = SecKeyCreateEncryptedData(sensitivePublicKek!, .eciesEncryptionStandardX963SHA256AESGCM, sensitiveKeyData, &error) as? Data else {
             throw error!.takeRetainedValue() as Error
         }
-        // store encrypted sensitive private key in keychain as blob
+        // Store encrypted sensitive private key in keychain as blob
         keychainCenter.storeSensitivePrivateKey(encryptedSensitiveKey: encryptedSensitiveKey)
     }
 
@@ -106,9 +98,9 @@ class CryptoCenter {
 
     func `import`(privateKey: EthPrivateKey) {
         // store encrypted key for the address
-            // find public sensitive key
-            // encrypt private key with public sensitive key
-            // store encrypted blob in the keychain
+        // find public sensitive key
+        // encrypt private key with public sensitive key
+        // store encrypted blob in the keychain
     }
 
     func delete(address: Address) {
@@ -118,18 +110,19 @@ class CryptoCenter {
     func sign(data: Data, address: Address, password: String) -> Signature {
         // find encrypted private key for the address
         // decrypt encrypted private key
-            // find encrypted sensitive key
-            // decrypt encrypted sensitive key
-                // find key encryption key
-                // set password credentials
-                // decrypt sensitive key
-            // decrypt the private key with sensitive key
+        // find encrypted sensitive key
+        // decrypt encrypted sensitive key
+        // find key encryption key
+        // set password credentials
+        // decrypt sensitive key
+        // decrypt the private key with sensitive key
         // sign data with private key
         // return signature
         preconditionFailure()
     }
 
-    func verify() {}
+    func verify() {
+    }
 
     func changePassword(from oldPassword: String, to newPassword: String) {
         // create a new kek
