@@ -32,10 +32,15 @@ class CryptoCenterImpl: CryptoCenter {
 
     // This is called, when using the new key security is activated after updating the app. Even if the user did not activate it.
     func initialSetup() throws {
-        var derivedPasscode: String = ""
+//        if !SecureEnclave.isAvailable {
+//            App.shared.snackbar.show(message: "Secure Enclave not available")
+//        } else {
+//            App.shared.snackbar.show(message: "Secure Enclave is available")
+//        }
+
         let randomPasscode = createRandomPassword()
-        derivedPasscode = derivePasscode(from: randomPasscode)
-        keychainCenter.storePasscode(derivedPasscode: derivedPasscode) // check error?
+        let derivedPasscode = derivePasscode(from: randomPasscode)
+        keychainCenter.storePasscode(derivedPasscode: derivedPasscode) // TODO check error?
         let retrievedPasscode = keychainCenter.retrievePasscode()
         assert(retrievedPasscode == derivedPasscode)
 
@@ -59,13 +64,6 @@ class CryptoCenterImpl: CryptoCenter {
             App.shared.snackbar.show(message: "Cannot copy public key")
             throw GSError.GenericPasscodeError(reason: "Cannot copy public key")
         }
-
-//        if !SecureEnclave.isAvailable {
-//            App.shared.snackbar.show(message: "Secure Enclave not available")
-//        } else {
-//            App.shared.snackbar.show(message: "Secure Enclave is available")
-//        }
-
         // create SE key (KEK) with a hard coded tag for example: "sensitive_KEK"
         let sensitiveKEK = try keychainCenter.createSecureEnclaveKey(
                 useBiometry: false,
@@ -91,12 +89,12 @@ class CryptoCenterImpl: CryptoCenter {
         // Store encrypted sensitive private key in keychain as blob
         keychainCenter.storeSensitivePrivateKey(encryptedSensitiveKey: encryptedSensitiveKey)
 
-        //retrieve encrypted sensitive key for DEBUGGING
+        //retrieve encrypted sensitive key for DEBUGGING - TODO Replace with a proper test
         do {
             if let encryptedData: Data = try keychainCenter.findEncryptedSensitivePrivateKeyData() {
                 LogService.shared.error(" ----> encryptedData found: \(encryptedData.toHexString())")
 
-                // TODO decrypt for debugging
+                // decrypt for debugging
                 guard let decryptedSensitiveKey = SecKeyCreateDecryptedData(sensitiveKEK, .eciesEncryptionStandardX963SHA256AESGCM, encryptedData as CFData, &error) as? Data else {
                     throw error!.takeRetainedValue() as Error
                 }
