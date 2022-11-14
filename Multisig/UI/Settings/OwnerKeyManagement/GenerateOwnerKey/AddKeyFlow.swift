@@ -123,13 +123,13 @@ class AddKeyFlow: UIFlow {
         assert(keyInfo != nil)
         assert(keyName != nil)
         let vc = factory.keyAdded(address: keyInfo!.address, name: keyName!, keyType: keyType) { [unowned self] in
-            didKeyAdded()
+            didDelegateKeySetup()
         }
 
         show(vc)
     }
 
-    func didKeyAdded() {
+    func didDelegateKeySetup() {
         stop(success: true)
     }
 
