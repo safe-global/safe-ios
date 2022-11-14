@@ -12,7 +12,6 @@ import LocalAuthentication
 
 class KeychainCenter {
 
-    private var sensitiveKey: Data? = nil
     static let sensitivePublicKeyTag = "global.safe.sensitive.public.key"
     static let sensitiveEncryptedPrivateKeyTag = "global.safe.sensitive.private.key.as.encrypted.data"
 
@@ -29,11 +28,16 @@ class KeychainCenter {
         // TODO Persist password
 
 
+
         passcode = derivedPasscode
     }
 
     func retrievePasscode() -> String {
         //App.shared.snackbar.show(message: "retrievePasscode(): derivedPasscode: \(passcode)")
+
+        // TODO Retrieve password from persistence
+
+
         return passcode
     }
 
@@ -64,9 +68,7 @@ class KeychainCenter {
     func storeSensitivePrivateKey(encryptedSensitiveKey: Data) {
         App.shared.snackbar.show(message: "storeSensitiveKey(): secKey: \(encryptedSensitiveKey)")
 
-        // TODO save encrypted sensitive_key to to keychain
-
-        // safe to Keychain (as type password?) using SecItemAdd() and sensitiveEncryptedPrivateKeyTag
+        // delete existing sensitive key data
         deleteData(KeychainCenter.sensitiveEncryptedPrivateKeyTag)
         // Create query
         let addEncryptedDataQuery = [
@@ -78,7 +80,7 @@ class KeychainCenter {
 
         LogService.shared.info(" ---->       encryptedData: \(encryptedSensitiveKey.toHexString())")
 
-
+        // safe to Keychain (as type password?) using SecItemAdd() and sensitiveEncryptedPrivateKeyTag
         let status = SecItemAdd(addEncryptedDataQuery, nil) // TODO consider passing error ref instead of nil
 
         if status != errSecSuccess {
@@ -89,21 +91,9 @@ class KeychainCenter {
             LogService.shared.info("---> storeSensitivePrivateKey: status: success")
             App.shared.snackbar.show(message: "storeSensitivePrivateKey: status: success")
         }
-
-        // TODO retrieve and decrypt for debugging
-        do {
-            if let encryptedData: Data = try findEncryptedSensitivePrivateKeyData() {
-                LogService.shared.error(" ----> encryptedData found: \(encryptedData.toHexString())")
-            } else {
-                LogService.shared.error(" ---> encryptedData NOT found!")
-            }
-
-        } catch {
-        }
-
     }
 
-    private func findEncryptedSensitivePrivateKeyData() throws -> Data? {
+    func findEncryptedSensitivePrivateKeyData() throws -> Data? {
 
         let query = [
             kSecAttrService: "private_key",
@@ -119,8 +109,8 @@ class KeychainCenter {
         switch status {
         case errSecSuccess:
             if let item = item {
-                let key = item as! Data
-                return key
+                let encryptedPrivateKeyData = item as! Data
+                return encryptedPrivateKeyData
             } else {
                 return nil
             }
@@ -133,13 +123,12 @@ class KeychainCenter {
             let error = NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: [NSLocalizedDescriptionKey: message])
             throw error
         }
-
     }
 
     private func deleteData(_ account: String) {
         let query = [
             kSecAttrService: "private_key",
-            kSecAttrAccount: "\(KeychainCenter.sensitiveEncryptedPrivateKeyTag)",
+            kSecAttrAccount: KeychainCenter.sensitiveEncryptedPrivateKeyTag,
             kSecClass: kSecClassGenericPassword,
         ] as CFDictionary
 
@@ -164,8 +153,6 @@ class KeychainCenter {
             throw GSError.GenericPasscodeError(reason: "Cannot store public key")
         } // Should be a new and more specific error type
         LogService.shared.error(" --> storeSensitivePublicKey: status: \(status)")
-
-        // sensitivePublicKey = publicKey
 
 //
 //        // decode key for debugging

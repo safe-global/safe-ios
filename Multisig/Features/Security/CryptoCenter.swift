@@ -81,6 +81,8 @@ class CryptoCenterImpl: CryptoCenter {
         guard let sensitiveKeyData = SecKeyCopyExternalRepresentation(sensitiveKey, &error) else {
             throw error!.takeRetainedValue() as Error
         }
+        LogService.shared.info("| ---> sensitiveKeyData: \((sensitiveKeyData as Data).toHexString())")
+
         // Copy public KEK Key )to encrypt sensitive key)
         let sensitivePublicKek = SecKeyCopyPublicKey(sensitiveKEK)
         // encrypt data using: SecKeyCreateEncryptedData using sensitiveKEK
@@ -89,6 +91,28 @@ class CryptoCenterImpl: CryptoCenter {
         }
         // Store encrypted sensitive private key in keychain as blob
         keychainCenter.storeSensitivePrivateKey(encryptedSensitiveKey: encryptedSensitiveKey)
+
+        //retrieve encrypted sensitive key for DEBUGGING
+        do {
+            if let encryptedData: Data = try keychainCenter.findEncryptedSensitivePrivateKeyData() {
+                LogService.shared.error(" ----> encryptedData found: \(encryptedData.toHexString())")
+
+                // TODO decrypt for debugging
+                guard let decryptedSensitiveKey = SecKeyCreateDecryptedData(sensitiveKEK, .eciesEncryptionStandardX963SHA256AESGCM, encryptedData as CFData, &error) as? Data else {
+                    throw error!.takeRetainedValue() as Error
+                }
+
+                LogService.shared.info("| ---> decryptedSensitiveKey: \(decryptedSensitiveKey.toHexString())")
+                if (sensitiveKeyData as Data).toHexString() == decryptedSensitiveKey.toHexString() {
+                    LogService.shared.info("| ---> decryptedSensitiveKey is the same as initial sensitive key")
+                }
+            } else {
+                LogService.shared.error(" ---> encryptedData NOT found!")
+            }
+
+        } catch {
+            LogService.shared.error(" ---> Error: \(error)")
+        }
     }
 
     private func createRandomPassword() -> String {
