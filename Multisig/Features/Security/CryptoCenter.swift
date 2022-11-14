@@ -32,16 +32,12 @@ class CryptoCenterImpl: CryptoCenter {
 
     // This is called, when using the new key security is activated after updating the app. Even if the user did not activate it.
     func initialSetup() throws {
-        let passcodeEnabled: Bool = false
-        let useBiometry: Bool = false
-        let canChangeBiometry: Bool = true // TODO can be removed? As it doesn't matter for the initial setup
-        let rememberPasscode: Bool = true // that would be the randomly generated passcode
-        let passcode: String? = nil
-
         var derivedPasscode: String = ""
         let randomPasscode = createRandomPassword()
         derivedPasscode = derivePasscode(from: randomPasscode)
         keychainCenter.storePasscode(derivedPasscode: derivedPasscode) // check error?
+        let retrievedPasscode = keychainCenter.retrievePasscode()
+        assert(retrievedPasscode == derivedPasscode)
 
         // create sensitive_key
         let sensitiveKey = try keychainCenter.createKeyPair()
@@ -57,9 +53,7 @@ class CryptoCenterImpl: CryptoCenter {
             let pubKeyFound = try keychainCenter.retrieveSensitivePublicKey()
             LogService.shared.info(" ---> pubKey: \(pubKeyFound!)")
 
-            if key == pubKeyFound {
-                LogService.shared.info("| ---> key == pubKeyFound")
-            }
+            assert(key == pubKeyFound)
 
         } else {
             App.shared.snackbar.show(message: "Cannot copy public key")
@@ -74,21 +68,22 @@ class CryptoCenterImpl: CryptoCenter {
 
         // create SE key (KEK) with a hard coded tag for example: "sensitive_KEK"
         let sensitiveKEK = try keychainCenter.createSecureEnclaveKey(
-                useBiometry: useBiometry,
-                canChangeBiometry: canChangeBiometry,
+                useBiometry: false,
+                canChangeBiometry: true,
                 applicationPassword: derivedPasscode
         )
 
-        // TODO encrypt private part of sensitive_key
         // Convert SecKey -> Data SecKeyCopyExternalRepresentation -> CFData -> Data
+        // Copy private part of sensitive key
         var error: Unmanaged<CFError>?
         guard let sensitiveKeyData = SecKeyCopyExternalRepresentation(sensitiveKey, &error) else {
             throw error!.takeRetainedValue() as Error
         }
         LogService.shared.info("| ---> sensitiveKeyData: \((sensitiveKeyData as Data).toHexString())")
 
-        // Copy public KEK Key )to encrypt sensitive key)
+        // Copy public KEK Key to encrypt sensitive key)
         let sensitivePublicKek = SecKeyCopyPublicKey(sensitiveKEK)
+        // encrypt private part of sensitive_key
         // encrypt data using: SecKeyCreateEncryptedData using sensitiveKEK
         guard let encryptedSensitiveKey = SecKeyCreateEncryptedData(sensitivePublicKek!, .eciesEncryptionStandardX963SHA256AESGCM, sensitiveKeyData, &error) as? Data else {
             throw error!.takeRetainedValue() as Error
@@ -107,9 +102,7 @@ class CryptoCenterImpl: CryptoCenter {
                 }
 
                 LogService.shared.info("| ---> decryptedSensitiveKey: \(decryptedSensitiveKey.toHexString())")
-                if (sensitiveKeyData as Data).toHexString() == decryptedSensitiveKey.toHexString() {
-                    LogService.shared.info("| ---> decryptedSensitiveKey is the same as initial sensitive key")
-                }
+                assert((sensitiveKeyData as Data).toHexString() == decryptedSensitiveKey.toHexString())
             } else {
                 LogService.shared.error(" ---> encryptedData NOT found!")
             }

@@ -14,31 +14,84 @@ class KeychainCenter {
 
     static let sensitivePublicKeyTag = "global.safe.sensitive.public.key"
     static let sensitiveEncryptedPrivateKeyTag = "global.safe.sensitive.private.key.as.encrypted.data"
-
-    init() {
-        passcode = "<empty>"
-    }
-
-    var passcode: String
+    static let derivedPasswordTag = "global.safe.password.as.data"
 
     // store passcode. Either if it random (user didn't give a password) or the user asked us to remember it
     func storePasscode(derivedPasscode: String) {
-        //App.shared.snackbar.show(message: "storePasscode(): derivedPasscode: \(derivedPasscode)")
-
-        // TODO Persist password
-
-
-
-        passcode = derivedPasscode
+        // Store encrypted Password data
+        storePasswordData(passwordData: derivedPasscode.data(using: .utf8)!)
     }
 
     func retrievePasscode() -> String {
-        //App.shared.snackbar.show(message: "retrievePasscode(): derivedPasscode: \(passcode)")
+        // Retrieve password from persistence
 
-        // TODO Retrieve password from persistence
+        do {
+            let passcodeData = try findPasswordData()
+            let passcode = String.init(data: passcodeData!, encoding: .utf8)!
+            return passcode
+        } catch {
+            return "<password_not_found>"
+        }
+    }
 
+    func storePasswordData(passwordData: Data) {
+        App.shared.snackbar.show(message: "storePasswordData(): data: \(passwordData)")
 
-        return passcode
+        // delete existing sensitive key data
+        deleteData(KeychainCenter.derivedPasswordTag)
+        // Create query
+        let addPasswordDataQuery = [
+            kSecValueData: passwordData,
+            kSecClass: kSecClassGenericPassword, // right class?
+            kSecAttrService: "private_key",
+            kSecAttrAccount: KeychainCenter.derivedPasswordTag,
+        ] as CFDictionary
+
+        LogService.shared.info(" ----> passwordData: \(String.init(data: passwordData, encoding: .utf8)!)")
+
+        // safe to Keychain (as type password?) using SecItemAdd() and sensitiveEncryptedPrivateKeyTag
+        let status = SecItemAdd(addPasswordDataQuery, nil) // TODO consider passing error ref instead of nil
+
+        if status != errSecSuccess {
+            // Print out the error
+            LogService.shared.error(" ---> Error: \(status)")
+            App.shared.snackbar.show(message: " ---> storePasswordData: status: \(status)")
+        } else {
+            LogService.shared.info("---> storePasswordData: status: success")
+            App.shared.snackbar.show(message: "storePasswordData: status: success")
+        }
+    }
+
+    func findPasswordData() throws -> Data? {
+
+        let query = [
+            kSecAttrService: "private_key",
+            kSecAttrAccount: KeychainCenter.derivedPasswordTag,
+            kSecClass: kSecClassGenericPassword,
+            kSecReturnAttributes as String: false,
+            kSecReturnData as String: true
+        ] as CFDictionary
+
+        var item: CFTypeRef?
+        let status = SecItemCopyMatching(query, &item)
+
+        switch status {
+        case errSecSuccess:
+            if let item = item {
+                let encryptedPrivateKeyData = item as! Data
+                return encryptedPrivateKeyData
+            } else {
+                return nil
+            }
+
+        case errSecItemNotFound:
+            return nil
+
+        case let status:
+            let message = SecCopyErrorMessageString(status, nil) as? String ?? String(status)
+            let error = NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: [NSLocalizedDescriptionKey: message])
+            throw error
+        }
     }
 
     // used to create KEK
@@ -128,7 +181,7 @@ class KeychainCenter {
     private func deleteData(_ account: String) {
         let query = [
             kSecAttrService: "private_key",
-            kSecAttrAccount: KeychainCenter.sensitiveEncryptedPrivateKeyTag,
+            kSecAttrAccount: account,
             kSecClass: kSecClassGenericPassword,
         ] as CFDictionary
 
