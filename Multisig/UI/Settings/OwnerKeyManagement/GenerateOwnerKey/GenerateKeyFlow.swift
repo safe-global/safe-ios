@@ -24,6 +24,7 @@ import UIKit
 /// 7. If user selected 'open tx details' then flow closes.
 /// 7.1. Otherwise, Key Details screen
 class GenerateKeyFlow: AddKeyFlow {
+    var privateKey: PrivateKey?
 
     var flowFactory: GenerateKeyFactory {
         factory as! GenerateKeyFactory
@@ -41,7 +42,8 @@ class GenerateKeyFlow: AddKeyFlow {
 
     override func didIntro() {
         let privateKey = OwnerKeyController.generate()
-        didGetKey(privateKey: privateKey)
+        self.privateKey = privateKey
+        didGet(key: privateKey.address)
     }
 
     override func doImport() -> Bool {
@@ -65,7 +67,7 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func addKeyAsOwner() {
-        assert(keyInfo != nil)
+        assert(keyAddress != nil)
         safe = try? Safe.getSelected()
         guard let safe = safe else {
             didAddKeyAsOwner()
@@ -74,7 +76,7 @@ class GenerateKeyFlow: AddKeyFlow {
 
         if safe.isReadOnly {
             let vc = flowFactory.inviteToAddOwner { [unowned self] in
-                let vc = flowFactory.shareAddKeyAsOwnerLink(owner: keyInfo!, safe: safe) { [unowned self] in
+                let vc = flowFactory.shareAddKeyAsOwnerLink(owner: keyAddress!, safe: safe) { [unowned self] in
                     stop(success: true)
                     return
                 }
@@ -98,7 +100,7 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func addOwner() {
-        addOwnerFlow = AddOwnerFlow(newOwner: keyInfo!.address, safe: safe!) { [unowned self] skippedTxDetails in
+        addOwnerFlow = AddOwnerFlow(newOwner: keyAddress!, safe: safe!) { [unowned self] skippedTxDetails in
             addOwnerFlow = nil
             didAddKeyAsOwner(openKeyDetails: skippedTxDetails)
         }
@@ -106,7 +108,7 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func replaceOwner() {
-        replaceOwnerFlow = ReplaceOwnerFlow(newOwner: keyInfo!.address, safe: safe!) { [unowned self] skippedTxDetails in
+        replaceOwnerFlow = ReplaceOwnerFlow(newOwner: keyAddress!, safe: safe!) { [unowned self] skippedTxDetails in
             replaceOwnerFlow = nil
             didReplaceKeyAsOwner(openKeyDetails: skippedTxDetails)
         }
@@ -130,9 +132,9 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func details() {
-        assert(keyInfo?.address != nil)
+        assert(keyAddress != nil)
         navigationController.setNavigationBarHidden(false, animated: true)
-        let key = try? KeyInfo.firstKey(address: keyInfo!.address)
+        let key = try? KeyInfo.firstKey(address: keyAddress!)
         assert(key != nil)
         let keyVC = flowFactory.details(keyInfo: key!) { [unowned self] in
             stop(success: true)
@@ -168,7 +170,7 @@ class GenerateKeyFactory: AddKeyFlowFactory {
         return introVC
     }
 
-    func shareAddKeyAsOwnerLink(owner: AddressInfo, safe: Safe, onFinish: @escaping () -> Void) -> UIViewController {
+    func shareAddKeyAsOwnerLink(owner: Address, safe: Safe, onFinish: @escaping () -> Void) -> UIViewController {
         let vc = ShareAddOwnerLinkViewController(owner: owner,
                                                  safe: safe,
                                                  onFinish: onFinish)

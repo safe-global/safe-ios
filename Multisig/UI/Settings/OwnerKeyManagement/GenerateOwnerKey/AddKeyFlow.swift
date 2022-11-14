@@ -21,11 +21,10 @@ import UIKit
 /// 7. Create Passcode screen
 /// 8. (optional) override didCreatePasscode()
 class AddKeyFlow: UIFlow {
-    var privateKey: PrivateKey?
-    var keyName: String?
-    var keyInfo: AddressInfo?
     var createPasscodeFlow: CreatePasscodeFlow!
     var factory: AddKeyFlowFactory
+    var keyName: String?
+    var keyAddress: Address?
     var keyType: KeyType!
     /// Constructor
     /// - Parameters:
@@ -54,15 +53,15 @@ class AddKeyFlow: UIFlow {
         // to override
     }
 
-    func didGetKey(privateKey: PrivateKey) {
-        self.privateKey = privateKey
+    func didGet(key: Address) {
+        self.keyAddress = key
         enterName()
     }
 
     func enterName() {
-        assert(privateKey != nil)
+        assert(keyAddress != nil)
         let parameters = AddKeyParameters(
-            address: privateKey!.address,
+            address: keyAddress!,
             keyName: nil,
             badgeName: keyType.imageName
         )
@@ -74,8 +73,8 @@ class AddKeyFlow: UIFlow {
     }
 
     func importKey() {
-        assert(privateKey != nil)
-        let existingKey = try! KeyInfo.firstKey(address: privateKey!.address)
+        assert(keyAddress != nil)
+        let existingKey = try! KeyInfo.firstKey(address: keyAddress!)
         guard existingKey == nil else {
             App.shared.snackbar.show(error: GSError.KeyAlreadyImported())
             stop(success: false)
@@ -83,15 +82,11 @@ class AddKeyFlow: UIFlow {
         }
 
         let success = doImport()
-        let key = try? KeyInfo.keys(addresses: [privateKey!.address]).first
 
-
-        guard success, key != nil else {
+        guard success, let _ = try? KeyInfo.firstKey(address: keyAddress!) else {
             stop(success: false)
             return
         }
-
-        keyInfo = AddressInfo(address: key!.address, name: key!.name)
 
         AppSettings.hasShownImportKeyOnboarding = true
 
@@ -120,9 +115,9 @@ class AddKeyFlow: UIFlow {
     }
 
     func keyAdded() {
-        assert(keyInfo != nil)
+        assert(keyAddress != nil)
         assert(keyName != nil)
-        let vc = factory.keyAdded(address: keyInfo!.address, name: keyName!, keyType: keyType) { [unowned self] in
+        let vc = factory.keyAdded(address: keyAddress!, name: keyName!, keyType: keyType) { [unowned self] in
             stop(success: true)
         }
 

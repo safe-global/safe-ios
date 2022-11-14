@@ -74,29 +74,6 @@ final class ConnectKeystoneFlow: AddKeyFlow {
         show(nameVC)
     }
     
-    override func importKey() {
-        guard let addKeyParameters = addKeyParameters else { return }
-        let existingKey = try? KeyInfo.firstKey(address: addKeyParameters.address)
-        guard existingKey == nil else {
-            App.shared.snackbar.show(error: GSError.KeyAlreadyImported())
-            stop(success: false)
-            return
-        }
-
-        let success = doImport()
-
-        guard success, let key = try? KeyInfo.keys(addresses: [addKeyParameters.address]).first else {
-            stop(success: false)
-            return
-        }
-
-        keyInfo = AddressInfo(address: key.address, name: key.name)
-
-        AppSettings.hasShownImportKeyOnboarding = true
-
-        didImport()
-    }
-    
     override func doImport() -> Bool {
         if let addKeyParameters = addKeyParameters,
            let keyName = keyName,
@@ -113,8 +90,8 @@ final class ConnectKeystoneFlow: AddKeyFlow {
     }
     
     override func didImport() {
-        if let addressInfo = keyInfo,
-           let keyInfo = try? KeyInfo.firstKey(address: addressInfo.address) {
+        if let keyAddress = keyAddress,
+           let keyInfo = try? KeyInfo.firstKey(address: keyAddress) {
             let keyVC = flowFactory.details(keyInfo: keyInfo) { [unowned self] in
                 stop(success: true)
             }

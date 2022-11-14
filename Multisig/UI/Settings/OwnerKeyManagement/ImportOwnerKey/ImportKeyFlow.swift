@@ -19,6 +19,7 @@ import UIKit
 /// 3. Enter Name (in superclass)
 /// 4. Create Passcode (in superclass)
 class ImportKeyFlow: AddKeyFlow {
+    var privateKey: PrivateKey?
     var keySource: KeySource?
     var flowFactory: ImportKeyFlowFactory {
         factory as! ImportKeyFlowFactory
@@ -42,7 +43,8 @@ class ImportKeyFlow: AddKeyFlow {
         privateKey = nil
         let enterVC = flowFactory.enterSecret { [unowned self] privateKey in
             keySource = .privateKey
-            didGetKey(privateKey: privateKey)
+            self.privateKey = privateKey
+            didGet(key: privateKey.address)
         } completionSeed: { [unowned self] seedNode in
             keySource = .seed
             pickAccount(seedNode)
@@ -52,7 +54,8 @@ class ImportKeyFlow: AddKeyFlow {
 
     func pickAccount(_ node: HDNode) {
         let pickerVC = flowFactory.derivedAccountPicker(node: node) { [unowned self] privateKey in
-            didGetKey(privateKey: privateKey)
+            self.privateKey = privateKey
+            didGet(key: privateKey.address)
         }
         show(pickerVC)
     }
