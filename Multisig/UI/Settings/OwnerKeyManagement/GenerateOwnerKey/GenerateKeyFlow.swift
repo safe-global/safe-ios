@@ -139,6 +139,10 @@ class GenerateKeyFlow: AddKeyFlow {
         }
         show(keyVC)
     }
+
+    override func didKeyAdded() {
+        backup()
+    }
 }
 
 class GenerateKeyFactory: AddKeyFlowFactory {

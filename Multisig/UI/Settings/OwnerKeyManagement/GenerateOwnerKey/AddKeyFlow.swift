@@ -123,10 +123,14 @@ class AddKeyFlow: UIFlow {
         assert(keyInfo != nil)
         assert(keyName != nil)
         let vc = factory.keyAdded(address: keyInfo!.address, name: keyName!, keyType: keyType) { [unowned self] in
-            stop(success: true)
+            didKeyAdded()
         }
 
         show(vc)
+    }
+
+    func didKeyAdded() {
+        stop(success: true)
     }
 
     override func stop(success: Bool) {
