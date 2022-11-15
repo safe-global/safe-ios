@@ -15,60 +15,50 @@ class KeychainCenterTests: XCTestCase {
         super.setUp()
         // Given
         keychainCenter = KeychainCenter()
+    }
+
+    public override func tearDown() {
+        super.tearDown()
         // Is it possible to always have a clean/empty keychain?
         keychainCenter.deleteData(KeychainCenter.derivedPasswordTag)
         keychainCenter.deleteData(KeychainCenter.sensitiveEncryptedPrivateKeyTag)
     }
 
-    func testStorePasscode() {
+    func testStoreAndRetrievePasscode() {
+        // Given
+        XCTAssertEqual(keychainCenter.retrievePasscode(), nil, "Keychain not empty")
 
         // When
         keychainCenter.storePasscode(derivedPasscode: "foo")
 
         //Then
         let result = keychainCenter.retrievePasscode()
-        XCTAssert(result == "foo")
-
+        XCTAssertEqual(result, "foo", "Unexpected result: \(result)")
     }
 
-    func testRetrievePasscode() {
-        // Given
-        XCTAssert(keychainCenter.retrievePasscode() == nil)
-
-        // When
-        keychainCenter.storePasscode(derivedPasscode: "foo")
-
-        //Then
-        let result = keychainCenter.retrievePasscode()
-        XCTAssert(result == "foo")
-
-    }
-
-    func testStoreSensitivePrivateKey() throws {
+    func testStoreAndRetrieveSensitivePrivateKey() throws {
 
         // Given
-        XCTAssert(try keychainCenter.retrieveEncryptedSensitivePrivateKeyData() == nil)
+        XCTAssertEqual(try keychainCenter.retrieveEncryptedSensitivePrivateKeyData(), nil, "Keychain not empty!")
 
         // When
         keychainCenter.storeSensitivePrivateKey(encryptedSensitiveKey: "foo".data(using: .utf8)!)
 
         //Then
         let result = try keychainCenter.retrieveEncryptedSensitivePrivateKeyData()
-        XCTAssert(result == "foo".data(using: .utf8)!)
-
+        XCTAssertEqual(result, "foo".data(using: .utf8)!)
     }
 
-    func testFindEncryptedSensitivePrivateKeyData() throws {
-
+    func testDeleteData() throws {
         // Given
-        XCTAssert(try keychainCenter.retrieveEncryptedSensitivePrivateKeyData() == nil)
-
-        // When
+        XCTAssertEqual(try keychainCenter.retrieveEncryptedSensitivePrivateKeyData(), nil, "Keychain not empty!")
         keychainCenter.storeSensitivePrivateKey(encryptedSensitiveKey: "foo".data(using: .utf8)!)
 
+        // When
+        keychainCenter.deleteData(KeychainCenter.sensitiveEncryptedPrivateKeyTag)
+
         //Then
-        let result = try keychainCenter.retrieveEncryptedSensitivePrivateKeyData()
-        XCTAssert(result == "foo".data(using: .utf8)!)
+        XCTAssertEqual(try keychainCenter.retrieveEncryptedSensitivePrivateKeyData(), nil, "Deletion failed")
     }
 
 }
