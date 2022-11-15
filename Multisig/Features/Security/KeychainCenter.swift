@@ -36,9 +36,7 @@ class KeychainCenter {
         }
     }
 
-    func storePasswordData(passwordData: Data) {
-        //App.shared.snackbar.show(message: "storePasswordData(): data: \(passwordData)")
-
+    private func storePasswordData(passwordData: Data) {
         // delete existing sensitive key data
         deleteData(KeychainCenter.derivedPasswordTag)
         // Create query
@@ -49,7 +47,7 @@ class KeychainCenter {
             kSecAttrAccount: KeychainCenter.derivedPasswordTag,
         ] as CFDictionary
 
-        LogService.shared.info(" ----> passwordData: \(String.init(data: passwordData, encoding: .utf8)!)")
+        LogService.shared.debug(" ----> passwordData: \(String.init(data: passwordData, encoding: .utf8)!)")
 
         // safe to Keychain (as type password?) using SecItemAdd() and sensitiveEncryptedPrivateKeyTag
         let status = SecItemAdd(addPasswordDataQuery, nil) // TODO consider passing error ref instead of nil
@@ -57,14 +55,12 @@ class KeychainCenter {
         if status != errSecSuccess {
             // Print out the error
             LogService.shared.error(" ---> Error: \(status)")
-            //App.shared.snackbar.show(message: " ---> storePasswordData: status: \(status)")
         } else {
-            LogService.shared.info("---> storePasswordData: status: success")
-            //App.shared.snackbar.show(message: "storePasswordData: status: success")
+            LogService.shared.debug("---> storePasswordData: status: success")
         }
     }
 
-    func findPasswordData() throws -> Data? {
+    private func findPasswordData() throws -> Data? {
 
         let query = [
             kSecAttrService: "private_key",
@@ -113,8 +109,7 @@ class KeychainCenter {
         }
         if !useBiometry {
             flags = [.applicationPassword]
-            LogService.shared.info(" --> flags: .applicationPassword")
-            //App.shared.snackbar.show(message: "flags: .applicationPassword")
+            LogService.shared.debug(" --> flags: .applicationPassword")
         }
         let key = try createSEKey(flags: flags, tag: KeychainCenter.sensitiveKekTag, applicationPassword: applicationPassword)
 
@@ -122,8 +117,6 @@ class KeychainCenter {
     }
 
     func storeSensitivePrivateKey(encryptedSensitiveKey: Data) {
-        //App.shared.snackbar.show(message: "storeSensitiveKey(): secKey: \(encryptedSensitiveKey)")
-
         // delete existing sensitive key data
         deleteData(KeychainCenter.sensitiveEncryptedPrivateKeyTag)
         // Create query
@@ -134,7 +127,7 @@ class KeychainCenter {
             kSecAttrAccount: KeychainCenter.sensitiveEncryptedPrivateKeyTag,
         ] as CFDictionary
 
-        LogService.shared.info(" ---->       encryptedData: \(encryptedSensitiveKey.toHexString())")
+        LogService.shared.debug(" ---->       encryptedData: \(encryptedSensitiveKey.toHexString())")
 
         // safe to Keychain (as type password?) using SecItemAdd() and sensitiveEncryptedPrivateKeyTag
         let status = SecItemAdd(addEncryptedDataQuery, nil) // TODO consider passing error ref instead of nil
@@ -142,14 +135,12 @@ class KeychainCenter {
         if status != errSecSuccess {
             // Print out the error
             LogService.shared.error(" ---> Error: \(status)")
-            App.shared.snackbar.show(message: " ---> storeSensitivePrivateKey: status: \(status)")
         } else {
-            LogService.shared.info("---> storeSensitivePrivateKey: status: success")
-            App.shared.snackbar.show(message: "storeSensitivePrivateKey: status: success")
+            LogService.shared.debug("---> storeSensitivePrivateKey: status: success")
         }
     }
 
-    func findEncryptedSensitivePrivateKeyData() throws -> Data? {
+    func retrieveEncryptedSensitivePrivateKeyData() throws -> Data? {
 
         let query = [
             kSecAttrService: "private_key",
@@ -193,7 +184,6 @@ class KeychainCenter {
     }
 
     func storeSensitivePublicKey(publicKey: SecKey) throws {
-        //App.shared.snackbar.show(message: "storeSensitivePublicKey(): publicKey: \(publicKey)")
         deleteItem(tag: KeychainCenter.sensitivePublicKeyTag)
         let addPublicKeyQuery: [String: Any] = [kSecClass as String: kSecClassKey,
                                                 kSecAttrApplicationTag as String: KeychainCenter.sensitivePublicKeyTag,
@@ -214,9 +204,9 @@ class KeychainCenter {
         // Passed via kSecUseAuthenticationContext to kSecPrivateKeyAttrs attributes
         let authenticationContext = LAContext()
         let applicationPassword = applicationPassword.data(using: .utf8)
-        // setCredential() returns false on the Simulator but at the same time SecureEnclave.isAvaliable is true
+        // setCredential() returns false on the Simulator but at the same time SecureEnclave.isAvailable is true
         let result = authenticationContext.setCredential(applicationPassword, type: .applicationPassword)
-        App.shared.snackbar.show(message: "setCredential(): \(result)")
+        LogService.shared.debug(" ---> setCredential(): \(result)")
 
         // create access control flags with params
         var accessError: Unmanaged<CFError>?

@@ -47,6 +47,20 @@ class CryptoCenterImpl: CryptoCenter {
         try persistSensitivePrivateKey(derivedPasscode: derivedPasscode, sensitiveKey: sensitiveKey)
     }
 
+    private func persistRandomPassword() -> String {
+        let randomPasscode = createRandomPassword()
+        let derivedPasscode = derivePasscode(from: randomPasscode)
+        keychainCenter.storePasscode(derivedPasscode: derivedPasscode) // TODO check error?
+//        let retrievedPasscode = keychainCenter.retrievePasscode()
+//        assert(retrievedPasscode == derivedPasscode)
+        return derivedPasscode
+    }
+
+    private func createRandomPassword() -> String {
+        // TODO: What do we do if there is not enough randomness available?
+        Data.randomBytes(length: 32)!.toHexString()
+    }
+
     private func persistSensitivePrivateKey(derivedPasscode: String, sensitiveKey: SecKey) throws { // create SE key (KEK) with a hard coded tag for example: "sensitive_KEK"
         let sensitiveKEK = try keychainCenter.createSecureEnclaveKey(
                 useBiometry: false,
@@ -74,7 +88,7 @@ class CryptoCenterImpl: CryptoCenter {
 
         //retrieve encrypted sensitive key for DEBUGGING - TODO Replace with a proper test
         do {
-            if let encryptedData: Data = try keychainCenter.findEncryptedSensitivePrivateKeyData() {
+            if let encryptedData: Data = try keychainCenter.retrieveEncryptedSensitivePrivateKeyData() {
                 LogService.shared.error(" ----> encryptedData found: \(encryptedData.toHexString())")
 
                 // decrypt for debugging
@@ -107,23 +121,8 @@ class CryptoCenterImpl: CryptoCenter {
             assert(key == pubKeyFound)
 
         } else {
-            App.shared.snackbar.show(message: "Cannot copy public key")
             throw GSError.GenericPasscodeError(reason: "Cannot copy public key")
         }
-    }
-
-    private func persistRandomPassword() -> String {
-        let randomPasscode = createRandomPassword()
-        let derivedPasscode = derivePasscode(from: randomPasscode)
-        keychainCenter.storePasscode(derivedPasscode: derivedPasscode) // TODO check error?
-        let retrievedPasscode = keychainCenter.retrievePasscode()
-        assert(retrievedPasscode == derivedPasscode)
-        return derivedPasscode
-    }
-
-    private func createRandomPassword() -> String {
-        // TODO: What do we do if there is not enough randomness available?
-        Data.randomBytes(length: 32)!.toHexString()
     }
 
     func `import`(privateKey: EthPrivateKey) {
