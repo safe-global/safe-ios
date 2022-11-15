@@ -198,7 +198,7 @@ class KeychainStorage {
         var accessError: Unmanaged<CFError>?
         guard let access = SecAccessControlCreateWithFlags(
                 kCFAllocatorDefault,
-                kSecAttrAccessibleAlways, // TODO necessary? useful? Available: kSecAttrAccessibleWhenPasscodeSet ?
+                kSecAttrAccessibleAfterFirstUnlock,
                 .privateKeyUsage.union(flags),
                 &accessError
         )

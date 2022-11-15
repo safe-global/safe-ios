@@ -148,6 +148,7 @@ class KeychainStorageTests: XCTestCase {
 
     // this test prompts for biometry on real devices. And it fails if it is canceled. No timeout. This hangs in the touch id prompt.
     // Would fails on Simulator during Key generation.
+    // Not sure this test is helpful
     func testFindSecureEnclaveKeyWithBiometry() throws {
         // Given
         let randomData = UUID().uuidString.data(using: .utf8)!
@@ -166,8 +167,8 @@ class KeychainStorageTests: XCTestCase {
         XCTAssertEqual(randomData, decryptedRandomData, "Plaintext not equal decrypted data!")
     }
 
-    // Helper function(s)
-    private func validateKeyIsUsable(key: SecKey, randomData: Data) throws -> Data {
+    // Helper functions
+    func validateKeyIsUsable(key: SecKey, randomData: Data) throws -> Data {
         let pubKey = SecKeyCopyPublicKey(key)
         // 2. Encrypt randomData
         var error: Unmanaged<CFError>?
