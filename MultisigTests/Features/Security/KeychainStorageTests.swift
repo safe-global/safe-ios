@@ -23,6 +23,7 @@ class KeychainStorageTests: XCTestCase {
         keychainStorage.deleteData(KeychainStorage.derivedPasswordTag)
         keychainStorage.deleteData(KeychainStorage.sensitiveEncryptedPrivateKeyTag)
         keychainStorage.deleteItem(tag: KeychainStorage.sensitivePublicKeyTag)
+        keychainStorage.deleteItem(tag: KeychainStorage.sensitiveKekTag)
     }
 
     func testDeleteData() throws {
@@ -115,8 +116,55 @@ class KeychainStorageTests: XCTestCase {
         XCTAssertEqual(randomPlainTextData, decryptedRandomData, "Plaintext not equal decrypted data!")
     }
 
-    func testCreateSecureEnclaveKey() {
+    func testCreateSecureEnclaveKey() throws {
+        // Given
+        let randomData = UUID().uuidString.data(using: .utf8)!
+        let randomPassword = UUID().uuidString
 
+        // When
+        let key = try keychainStorage.createSecureEnclaveKey(useBiometry: false, canChangeBiometry: false, applicationPassword: randomPassword)
+
+        // Then
+        // check key is usable
+        // 1. extract pub key for encryption
+        let pubKey = SecKeyCopyPublicKey(key)
+        // 2. Encrypt randomData
+        var error: Unmanaged<CFError>?
+        guard let encryptedRandomData = SecKeyCreateEncryptedData(pubKey!, .eciesEncryptionStandardX963SHA256AESGCM, randomData as CFData, &error) as? Data else {
+            throw error!.takeRetainedValue() as Error
+        }
+        // 3. decrypt randomData
+        guard let decryptedRandomData = SecKeyCreateDecryptedData(key, .eciesEncryptionStandardX963SHA256AESGCM, encryptedRandomData as CFData, &error) as? Data else {
+            throw error!.takeRetainedValue() as Error
+        }
+        // 4. compare
+        XCTAssertEqual(randomData, decryptedRandomData, "Plaintext not equal decrypted data!")
+    }
+
+    func testFindAndUseSEKey() throws {
+        // Given
+        let randomData = UUID().uuidString.data(using: .utf8)!
+        let randomPassword = "foo" // UUID().uuidString
+        try keychainStorage.createSecureEnclaveKey(useBiometry: false, canChangeBiometry: false, applicationPassword: randomPassword)
+
+        // When
+        let key = try keychainStorage.findKey(tag: KeychainStorage.sensitiveKekTag)!
+
+        // Then
+        // check key is usable
+        // 1. extract pub key for encryption
+        let pubKey = SecKeyCopyPublicKey(key)
+        // 2. Encrypt randomData
+        var error: Unmanaged<CFError>?
+        guard let encryptedRandomData = SecKeyCreateEncryptedData(pubKey!, .eciesEncryptionStandardX963SHA256AESGCM, randomData as CFData, &error) as? Data else {
+            throw error!.takeRetainedValue() as Error
+        }
+        // 3. decrypt randomData
+        guard let decryptedRandomData = SecKeyCreateDecryptedData(key, .eciesEncryptionStandardX963SHA256AESGCM, encryptedRandomData as CFData, &error) as? Data else {
+            throw error!.takeRetainedValue() as Error
+        }
+        // 4. compare
+        XCTAssertEqual(randomData, decryptedRandomData, "Plaintext not equal decrypted data!")
     }
 
 }

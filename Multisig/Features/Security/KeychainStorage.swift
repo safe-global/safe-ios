@@ -104,11 +104,8 @@ class KeychainStorage {
         }
         if !useBiometry {
             flags = [.applicationPassword]
-            LogService.shared.debug(" --> flags: .applicationPassword")
         }
-        let key = try createSEKey(flags: flags, tag: KeychainStorage.sensitiveKekTag, applicationPassword: applicationPassword)
-
-        return key // return tag as well?
+        return try createSEKey(flags: flags, tag: KeychainStorage.sensitiveKekTag, applicationPassword: applicationPassword)
     }
 
     func storeSensitivePrivateKey(encryptedSensitiveKey: Data) {
@@ -133,7 +130,6 @@ class KeychainStorage {
     }
 
     func retrieveEncryptedSensitivePrivateKeyData() throws -> Data? {
-
         let query = [
             kSecAttrService: "private_key",
             kSecAttrAccount: KeychainStorage.sensitiveEncryptedPrivateKeyTag,
@@ -193,16 +189,18 @@ class KeychainStorage {
 
     private func createSEKey(flags: SecAccessControlCreateFlags, tag: String, applicationPassword: String) throws -> SecKey {
         // Passed via kSecUseAuthenticationContext to kSecPrivateKeyAttrs attributes
+        deleteItem(tag: tag)
         let authenticationContext = LAContext()
         let applicationPassword = applicationPassword.data(using: .utf8)
-        // setCredential() returns false on the Simulator but at the same time SecureEnclave.isAvailable is true
+        // setCredential() returns false on the Simulator but at the same time SecureEnclave.isAvailable is true.
+        // This mean on the simulator the created SE key is not protected by the application password.
         let result = authenticationContext.setCredential(applicationPassword, type: .applicationPassword)
 
         // create access control flags with params
         var accessError: Unmanaged<CFError>?
         guard let access = SecAccessControlCreateWithFlags(
                 kCFAllocatorDefault,
-                kSecAttrAccessibleAfterFirstUnlock, // TODO necessary? useful? Available: kSecAttrAccessibleWhenPasscodeSet ?
+                kSecAttrAccessibleAlways, // TODO necessary? useful? Available: kSecAttrAccessibleWhenPasscodeSet ?
                 .privateKeyUsage.union(flags),
                 &accessError
         )

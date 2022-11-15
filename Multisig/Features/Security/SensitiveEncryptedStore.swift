@@ -41,6 +41,7 @@ class SensitiveEncryptedStore: EncryptedStore {
 
     private func createRandomPassword() -> String {
         // TODO: What do we do if there is not enough randomness available?
+        // Will this call hang and continue when enough randomness is available?
         Data.randomBytes(length: 32)!.toHexString()
     }
 
