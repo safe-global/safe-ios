@@ -231,8 +231,8 @@ class KeychainStorage {
     private func createLAContextFromPassword(password: String) -> (Bool, LAContext) {
         let authenticationContext = LAContext()
         let passwordData = password.data(using: .utf8)
-        // setCredential() returns false on the Simulator but at the same time SecureEnclave.isAvailable is true.
-        // This mean on the simulator the created SE key is not protected by the application password.
+        // setCredential() returns false on the Simulator.
+        // This means on the simulator the created SE key is not protected by the application password.
         let result = authenticationContext.setCredential(passwordData, type: .applicationPassword)
 
         return (result, authenticationContext)

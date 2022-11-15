@@ -5,6 +5,7 @@
 
 import XCTest
 @testable import Multisig
+import LocalAuthentication
 
 class KeychainStorageTests: XCTestCase {
 
@@ -126,22 +127,11 @@ class KeychainStorageTests: XCTestCase {
 
         // Then
         // check key is usable
-        // 1. extract pub key for encryption
-        let pubKey = SecKeyCopyPublicKey(key)
-        // 2. Encrypt randomData
-        var error: Unmanaged<CFError>?
-        guard let encryptedRandomData = SecKeyCreateEncryptedData(pubKey!, .eciesEncryptionStandardX963SHA256AESGCM, randomData as CFData, &error) as? Data else {
-            throw error!.takeRetainedValue() as Error
-        }
-        // 3. decrypt randomData
-        guard let decryptedRandomData = SecKeyCreateDecryptedData(key, .eciesEncryptionStandardX963SHA256AESGCM, encryptedRandomData as CFData, &error) as? Data else {
-            throw error!.takeRetainedValue() as Error
-        }
-        // 4. compare
+        let decryptedRandomData = try validateKeyIsUsable(key: key, randomData: randomData)
         XCTAssertEqual(randomData, decryptedRandomData, "Plaintext not equal decrypted data!")
     }
 
-    func testFindAndUseSEKey() throws {
+    func testFindSecureEnclaveKey() throws {
         // Given
         let randomData = UUID().uuidString.data(using: .utf8)!
         let randomPassword = UUID().uuidString
@@ -152,7 +142,32 @@ class KeychainStorageTests: XCTestCase {
 
         // Then
         // check key is usable
-        // 1. extract pub key for encryption
+        let decryptedRandomData = try validateKeyIsUsable(key: key, randomData: randomData)
+        XCTAssertEqual(randomData, decryptedRandomData, "Plaintext not equal decrypted data!")
+    }
+
+    // this test prompts for biometry on real devices. And it fails if it is canceled. No timeout. This hangs in the touch id prompt.
+    // Would fails on Simulator during Key generation.
+    func testFindSecureEnclaveKeyWithBiometry() throws {
+        // Given
+        let randomData = UUID().uuidString.data(using: .utf8)!
+        let randomPassword = UUID().uuidString
+        guard simulatorCheck() else {
+            return
+        }
+        try keychainStorage.createSecureEnclaveKey(useBiometry: true, canChangeBiometry: false, applicationPassword: randomPassword)
+
+        // When
+        let key = try keychainStorage.findKey(tag: KeychainStorage.sensitiveKekTag, password: randomPassword)!
+
+        // Then
+        // check key is usable
+        let decryptedRandomData = try validateKeyIsUsable(key: key, randomData: randomData)
+        XCTAssertEqual(randomData, decryptedRandomData, "Plaintext not equal decrypted data!")
+    }
+
+    // Helper function(s)
+    private func validateKeyIsUsable(key: SecKey, randomData: Data) throws -> Data {
         let pubKey = SecKeyCopyPublicKey(key)
         // 2. Encrypt randomData
         var error: Unmanaged<CFError>?
@@ -163,8 +178,11 @@ class KeychainStorageTests: XCTestCase {
         guard let decryptedRandomData = SecKeyCreateDecryptedData(key, .eciesEncryptionStandardX963SHA256AESGCM, encryptedRandomData as CFData, &error) as? Data else {
             throw error!.takeRetainedValue() as Error
         }
-        // 4. compare
-        XCTAssertEqual(randomData, decryptedRandomData, "Plaintext not equal decrypted data!")
+        return decryptedRandomData
     }
 
+    private func simulatorCheck() -> Bool {
+        let authenticationContext = LAContext()
+        return authenticationContext.setCredential("password".data(using: .utf8), type: .applicationPassword)
+    }
 }
