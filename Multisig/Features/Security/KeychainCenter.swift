@@ -193,11 +193,11 @@ class KeychainCenter {
         guard status == errSecSuccess else {
             throw GSError.GenericPasscodeError(reason: "Cannot store public key")
         } // Should be a new and more specific error type
-        LogService.shared.error(" --> storeSensitivePublicKey: status: \(status)")
+        LogService.shared.debug(" --> storeSensitivePublicKey: status: \(status)")
     }
 
     func retrieveSensitivePublicKey() throws -> SecKey? {
-        return try findKey(tag: KeychainCenter.sensitivePublicKeyTag)
+        try findKey(tag: KeychainCenter.sensitivePublicKeyTag)
     }
 
     private func createSEKey(flags: SecAccessControlCreateFlags, tag: String, applicationPassword: String) throws -> SecKey {
@@ -250,11 +250,11 @@ class KeychainCenter {
             kSecAttrKeySizeInBits: 256,
         ]
         var createError: Unmanaged<CFError>?
-        guard let privateKey = SecKeyCreateRandomKey(attributes, &createError) else {
+        guard let keyPair = SecKeyCreateRandomKey(attributes, &createError) else {
             LogService.shared.error(" --> CreateError: \(createError)")
             throw createError!.takeRetainedValue() as Error
         }
-        return privateKey
+        return keyPair
     }
 
     // used to find a KEK or a private key

@@ -22,6 +22,34 @@ class KeychainCenterTests: XCTestCase {
         // Is it possible to always have a clean/empty keychain?
         keychainCenter.deleteData(KeychainCenter.derivedPasswordTag)
         keychainCenter.deleteData(KeychainCenter.sensitiveEncryptedPrivateKeyTag)
+        keychainCenter.deleteItem(tag: KeychainCenter.sensitivePublicKeyTag)
+    }
+
+    func testDeleteData() throws {
+        // Given
+        let randomData = UUID().uuidString.data(using: .utf8)!
+        XCTAssertEqual(try keychainCenter.retrieveEncryptedSensitivePrivateKeyData(), nil, "Precondition failed: Keychain not empty!")
+        keychainCenter.storeSensitivePrivateKey(encryptedSensitiveKey: randomData)
+
+        // When
+        keychainCenter.deleteData(KeychainCenter.sensitiveEncryptedPrivateKeyTag)
+
+        //Then
+        XCTAssertEqual(try keychainCenter.retrieveEncryptedSensitivePrivateKeyData(), nil, "Deletion failed")
+    }
+
+    func testDeleteItem() throws {
+        // Given
+        let randomKey = try keychainCenter.createKeyPair()
+        let randomPublicKey = SecKeyCopyPublicKey(randomKey)!
+        XCTAssertEqual(try keychainCenter.retrieveSensitivePublicKey(), nil, "Precondition failed: Keychain not empty!")
+        try keychainCenter.storeSensitivePublicKey(publicKey: randomPublicKey)
+
+        // When
+        keychainCenter.deleteItem(tag: KeychainCenter.sensitivePublicKeyTag)
+
+        //Then
+        XCTAssertEqual(try keychainCenter.retrieveSensitivePublicKey(), nil, "Delete item failed")
     }
 
     func testStoreAndRetrievePasscode() {
@@ -40,7 +68,7 @@ class KeychainCenterTests: XCTestCase {
     func testStoreAndRetrieveSensitivePrivateKey() throws {
         // Given
         let randomData = UUID().uuidString.data(using: .utf8)!
-        XCTAssertEqual(try keychainCenter.retrieveEncryptedSensitivePrivateKeyData(), nil, "Keychain not empty!")
+        XCTAssertEqual(try keychainCenter.retrieveEncryptedSensitivePrivateKeyData(), nil, "Precondition failed: Keychain not empty!")
 
         // When
         keychainCenter.storeSensitivePrivateKey(encryptedSensitiveKey: randomData)
@@ -50,17 +78,45 @@ class KeychainCenterTests: XCTestCase {
         XCTAssertEqual(result, randomData)
     }
 
-    func testDeleteData() throws {
+    func testStoreAndRetrieveSensitivePublicKey() throws {
         // Given
-        let randomData = UUID().uuidString.data(using: .utf8)!
-        XCTAssertEqual(try keychainCenter.retrieveEncryptedSensitivePrivateKeyData(), nil, "Keychain not empty!")
-        keychainCenter.storeSensitivePrivateKey(encryptedSensitiveKey: randomData)
+        let randomKey = try keychainCenter.createKeyPair()
+        let randomPublicKey = SecKeyCopyPublicKey(randomKey)!
+        XCTAssertEqual(try keychainCenter.retrieveSensitivePublicKey(), nil, "Precondition failed: Keychain not empty!")
 
         // When
-        keychainCenter.deleteData(KeychainCenter.sensitiveEncryptedPrivateKeyTag)
+        try keychainCenter.storeSensitivePublicKey(publicKey: randomPublicKey)
 
         //Then
-        XCTAssertEqual(try keychainCenter.retrieveEncryptedSensitivePrivateKeyData(), nil, "Deletion failed")
+        let result = try keychainCenter.retrieveSensitivePublicKey()
+        XCTAssertEqual(result, randomPublicKey, "Retrieved public key does not match stored public key!")
+    }
+
+    func testCreateKeyPair() throws {
+        // Given
+
+        // When
+        let randomKeyPair = try keychainCenter.createKeyPair()
+
+        // Then
+        //Use public ey to encrypt
+        let randomPlainTextData = UUID().uuidString.data(using: .utf8)!
+        let randomPubKey = SecKeyCopyPublicKey(randomKeyPair)
+        // encrypt private part of sensitive_key
+        // encrypt data using: SecKeyCreateEncryptedData using sensitiveKEK
+        var error: Unmanaged<CFError>?
+        guard let encryptedRandomData = SecKeyCreateEncryptedData(randomPubKey!, .eciesEncryptionStandardX963SHA256AESGCM, randomPlainTextData as CFData, &error) as? Data else {
+            throw error!.takeRetainedValue() as Error
+        }
+        //And secret key to decrypt
+        guard let decryptedRandomData = SecKeyCreateDecryptedData(randomKeyPair, .eciesEncryptionStandardX963SHA256AESGCM, encryptedRandomData as CFData, &error) as? Data else {
+            throw error!.takeRetainedValue() as Error
+        }
+        XCTAssertEqual(randomPlainTextData, decryptedRandomData, "Plaintext not equal decrypted data!")
+    }
+
+    func testCreateSecureEnclaveKey() {
+
     }
 
 }
