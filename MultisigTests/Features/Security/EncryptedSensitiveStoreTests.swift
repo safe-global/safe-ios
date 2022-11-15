@@ -6,7 +6,7 @@
 import XCTest
 @testable import Multisig
 
-public class CryptoCenterTests: XCTestCase {
+public class EncryptedSensitiveStoreTests: XCTestCase {
 
     var encryptedStore: EncryptedStore! = nil
     var keychainStorage: KeychainStorage! = nil
