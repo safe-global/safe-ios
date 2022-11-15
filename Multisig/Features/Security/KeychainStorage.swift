@@ -190,12 +190,10 @@ class KeychainStorage {
     private func createSEKey(flags: SecAccessControlCreateFlags, tag: String, applicationPassword: String) throws -> SecKey {
         // Passed via kSecUseAuthenticationContext to kSecPrivateKeyAttrs attributes
         deleteItem(tag: tag)
-        let authenticationContext = LAContext()
-        let applicationPassword = applicationPassword.data(using: .utf8)
-        // setCredential() returns false on the Simulator but at the same time SecureEnclave.isAvailable is true.
-        // This mean on the simulator the created SE key is not protected by the application password.
-        let result = authenticationContext.setCredential(applicationPassword, type: .applicationPassword)
-
+        let (result, authenticationContext) = createLAContextFromPassword(password: applicationPassword)
+        if !result {
+            LogService.shared.error("createLAContextFromPassword() failed") // Happens on a Simulator
+        }
         // create access control flags with params
         var accessError: Unmanaged<CFError>?
         guard let access = SecAccessControlCreateWithFlags(
@@ -228,6 +226,16 @@ class KeychainStorage {
         }
 
         return privateKey
+    }
+
+    private func createLAContextFromPassword(password: String) -> (Bool, LAContext) {
+        let authenticationContext = LAContext()
+        let passwordData = password.data(using: .utf8)
+        // setCredential() returns false on the Simulator but at the same time SecureEnclave.isAvailable is true.
+        // This mean on the simulator the created SE key is not protected by the application password.
+        let result = authenticationContext.setCredential(passwordData, type: .applicationPassword)
+
+        return (result, authenticationContext)
     }
 
 
@@ -284,13 +292,20 @@ class KeychainStorage {
     }
 
 
-    func findKey(tag: String) throws -> SecKey? {
+    func findKey(tag: String, password: String? = nil) throws -> SecKey? {
+        var authenticationContext = LAContext()
+        var result = false
+        if let password = password {
+            (result, authenticationContext) = createLAContextFromPassword(password: password)
+        }
+
         // create search dictionary
         let getQuery: [String: Any] = [
             kSecClass as String: kSecClassKey,
             kSecAttrApplicationTag as String: tag.data(using: .utf8)!,
             kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom,
-            kSecReturnRef as String: true
+            kSecReturnRef as String: true,
+            kSecUseAuthenticationContext as String: authenticationContext
         ]
 
         // execute the search

@@ -144,11 +144,11 @@ class KeychainStorageTests: XCTestCase {
     func testFindAndUseSEKey() throws {
         // Given
         let randomData = UUID().uuidString.data(using: .utf8)!
-        let randomPassword = "foo" // UUID().uuidString
+        let randomPassword = UUID().uuidString
         try keychainStorage.createSecureEnclaveKey(useBiometry: false, canChangeBiometry: false, applicationPassword: randomPassword)
 
         // When
-        let key = try keychainStorage.findKey(tag: KeychainStorage.sensitiveKekTag)!
+        let key = try keychainStorage.findKey(tag: KeychainStorage.sensitiveKekTag, password: randomPassword)!
 
         // Then
         // check key is usable
