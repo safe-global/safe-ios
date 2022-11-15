@@ -8,22 +8,22 @@ import XCTest
 
 public class CryptoCenterTests: XCTestCase {
 
-    var cryptoCenter: EncryptedStore! = nil
-    var keychainCenter: KeychainStorage! = nil
+    var encryptedStore: EncryptedStore! = nil
+    var keychainStorage: KeychainStorage! = nil
 
     public override func setUp() {
         super.setUp()
         // Given
-        keychainCenter = KeychainStorage()
-        cryptoCenter = SensitiveEncryptedStore(keychainCenter)
+        keychainStorage = KeychainStorage()
+        encryptedStore = SensitiveEncryptedStore(keychainStorage)
     }
 
     func testInitialSetup() {
         print("testing initialSetup()")
         do {
             // When
-            try cryptoCenter.initialSetup()
-            cryptoCenter.import(privateKey: "0xF000")
+            try encryptedStore.initialSetup()
+            encryptedStore.import(privateKey: "0xF000")
 
             // then
             // Check kc
@@ -31,7 +31,7 @@ public class CryptoCenterTests: XCTestCase {
 
         } catch {
             // log errors
-            LogService.shared.error(" --> initialSetup: \(error)")
+            LogService.shared.error("initialSetup: \(error)")
             XCTFail()
         }
 
