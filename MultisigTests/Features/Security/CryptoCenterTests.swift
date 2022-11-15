@@ -8,14 +8,14 @@ import XCTest
 
 public class CryptoCenterTests: XCTestCase {
 
-    var cryptoCenter: CryptoCenter! = nil
-    var keychainCenter: KeychainCenter! = nil
+    var cryptoCenter: EncryptedStore! = nil
+    var keychainCenter: KeychainStorage! = nil
 
     public override func setUp() {
         super.setUp()
         // Given
-        keychainCenter = KeychainCenter()
-        cryptoCenter = CryptoCenterImpl(keychainCenter)
+        keychainCenter = KeychainStorage()
+        cryptoCenter = SensitiveEncryptedStore(keychainCenter)
     }
 
     func testInitialSetup() {

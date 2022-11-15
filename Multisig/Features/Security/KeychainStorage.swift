@@ -10,7 +10,7 @@ import Foundation
 import CommonCrypto
 import LocalAuthentication
 
-class KeychainCenter {
+class KeychainStorage {
 
     static let sensitivePublicKeyTag = "global.safe.sensitive.public.key"
     static let sensitiveEncryptedPrivateKeyTag = "global.safe.sensitive.private.key.as.encrypted.data"
@@ -38,33 +38,28 @@ class KeychainCenter {
 
     private func storePasswordData(passwordData: Data) {
         // delete existing sensitive key data
-        deleteData(KeychainCenter.derivedPasswordTag)
+        deleteData(KeychainStorage.derivedPasswordTag)
         // Create query
         let addPasswordDataQuery = [
             kSecValueData: passwordData,
             kSecClass: kSecClassGenericPassword, // right class?
             kSecAttrService: "private_key",
-            kSecAttrAccount: KeychainCenter.derivedPasswordTag,
+            kSecAttrAccount: KeychainStorage.derivedPasswordTag,
         ] as CFDictionary
-
-        LogService.shared.debug(" ----> passwordData: \(String.init(data: passwordData, encoding: .utf8)!)")
 
         // safe to Keychain (as type password?) using SecItemAdd() and sensitiveEncryptedPrivateKeyTag
         let status = SecItemAdd(addPasswordDataQuery, nil) // TODO consider passing error ref instead of nil
 
         if status != errSecSuccess {
             // Print out the error
-            LogService.shared.error(" ---> Error: \(status)")
-        } else {
-            LogService.shared.debug("---> storePasswordData: status: success")
+            LogService.shared.error("Error: \(status)")
         }
     }
 
     private func findPasswordData() throws -> Data? {
-
         let query = [
             kSecAttrService: "private_key",
-            kSecAttrAccount: KeychainCenter.derivedPasswordTag,
+            kSecAttrAccount: KeychainStorage.derivedPasswordTag,
             kSecClass: kSecClassGenericPassword,
             kSecReturnAttributes as String: false,
             kSecReturnData as String: true
@@ -111,32 +106,29 @@ class KeychainCenter {
             flags = [.applicationPassword]
             LogService.shared.debug(" --> flags: .applicationPassword")
         }
-        let key = try createSEKey(flags: flags, tag: KeychainCenter.sensitiveKekTag, applicationPassword: applicationPassword)
+        let key = try createSEKey(flags: flags, tag: KeychainStorage.sensitiveKekTag, applicationPassword: applicationPassword)
 
         return key // return tag as well?
     }
 
     func storeSensitivePrivateKey(encryptedSensitiveKey: Data) {
         // delete existing sensitive key data
-        deleteData(KeychainCenter.sensitiveEncryptedPrivateKeyTag)
+        deleteData(KeychainStorage.sensitiveEncryptedPrivateKeyTag)
         // Create query
         let addEncryptedDataQuery = [
             kSecValueData: encryptedSensitiveKey,
             kSecClass: kSecClassGenericPassword, // right class?
             kSecAttrService: "private_key",
-            kSecAttrAccount: KeychainCenter.sensitiveEncryptedPrivateKeyTag,
+            kSecAttrAccount: KeychainStorage.sensitiveEncryptedPrivateKeyTag,
         ] as CFDictionary
 
-        LogService.shared.debug(" ---->       encryptedData: \(encryptedSensitiveKey.toHexString())")
 
         // safe to Keychain (as type password?) using SecItemAdd() and sensitiveEncryptedPrivateKeyTag
         let status = SecItemAdd(addEncryptedDataQuery, nil) // TODO consider passing error ref instead of nil
 
         if status != errSecSuccess {
             // Print out the error
-            LogService.shared.error(" ---> Error: \(status)")
-        } else {
-            LogService.shared.debug("---> storeSensitivePrivateKey: status: success")
+            LogService.shared.error("Error: \(status)")
         }
     }
 
@@ -144,7 +136,7 @@ class KeychainCenter {
 
         let query = [
             kSecAttrService: "private_key",
-            kSecAttrAccount: KeychainCenter.sensitiveEncryptedPrivateKeyTag,
+            kSecAttrAccount: KeychainStorage.sensitiveEncryptedPrivateKeyTag,
             kSecClass: kSecClassGenericPassword,
             kSecReturnAttributes as String: false,
             kSecReturnData as String: true
@@ -184,20 +176,19 @@ class KeychainCenter {
     }
 
     func storeSensitivePublicKey(publicKey: SecKey) throws {
-        deleteItem(tag: KeychainCenter.sensitivePublicKeyTag)
+        deleteItem(tag: KeychainStorage.sensitivePublicKeyTag)
         let addPublicKeyQuery: [String: Any] = [kSecClass as String: kSecClassKey,
-                                                kSecAttrApplicationTag as String: KeychainCenter.sensitivePublicKeyTag,
+                                                kSecAttrApplicationTag as String: KeychainStorage.sensitivePublicKeyTag,
                                                 kSecAttrKeyClass as String: kSecAttrKeyClassPublic,
                                                 kSecValueRef as String: publicKey]
         let status = SecItemAdd(addPublicKeyQuery as CFDictionary, nil)
         guard status == errSecSuccess else {
             throw GSError.GenericPasscodeError(reason: "Cannot store public key")
         } // Should be a new and more specific error type
-        LogService.shared.debug(" --> storeSensitivePublicKey: status: \(status)")
     }
 
     func retrieveSensitivePublicKey() throws -> SecKey? {
-        try findKey(tag: KeychainCenter.sensitivePublicKeyTag)
+        try findKey(tag: KeychainStorage.sensitivePublicKeyTag)
     }
 
     private func createSEKey(flags: SecAccessControlCreateFlags, tag: String, applicationPassword: String) throws -> SecKey {
@@ -206,7 +197,6 @@ class KeychainCenter {
         let applicationPassword = applicationPassword.data(using: .utf8)
         // setCredential() returns false on the Simulator but at the same time SecureEnclave.isAvailable is true
         let result = authenticationContext.setCredential(applicationPassword, type: .applicationPassword)
-        LogService.shared.debug(" ---> setCredential(): \(result)")
 
         // create access control flags with params
         var accessError: Unmanaged<CFError>?
@@ -251,7 +241,7 @@ class KeychainCenter {
         ]
         var createError: Unmanaged<CFError>?
         guard let keyPair = SecKeyCreateRandomKey(attributes, &createError) else {
-            LogService.shared.error(" --> CreateError: \(createError)")
+            LogService.shared.error("CreateError: \(createError)")
             throw createError!.takeRetainedValue() as Error
         }
         return keyPair

@@ -1,37 +1,22 @@
 //
-//  CryptoCenter.swift
-//  Multisig
-//
-//  Created by Dmitry Bespalov on 02.11.22.
-//  Copyright © 2022 Gnosis Ltd. All rights reserved.
+// Created by Dirk Jäckel on 15.11.22.
+// Copyright (c) 2022 Gnosis Ltd. All rights reserved.
 //
 
 import Foundation
 import CommonCrypto
 import CryptoKit
 
-typealias EthPrivateKey = String
+class SensitiveEncryptedStore: EncryptedStore {
 
-protocol CryptoCenter {
-    func initialSetup() throws
-    func `import`(privateKey: EthPrivateKey)
-    func delete(address: Address)
-    func sign(data: Data, address: Address, password: String) -> Signature
-    func verify()
-    func changePassword(from oldPassword: String, to newPassword: String)
-    func changeSettings()
-}
+    let keychainStorage: KeychainStorage
 
-class CryptoCenterImpl: CryptoCenter {
-
-    let keychainCenter: KeychainCenter
-
-    init(_ keychainCenter: KeychainCenter) {
-        self.keychainCenter = keychainCenter
+    init(_ keychainStorage: KeychainStorage) {
+        self.keychainStorage = keychainStorage
     }
 
     init() {
-        keychainCenter = KeychainCenter()
+        keychainStorage = KeychainStorage()
     }
 
     // This is called, when using the new key security is activated after updating the app. Even if the user did not activate it.
@@ -42,7 +27,7 @@ class CryptoCenterImpl: CryptoCenter {
 //            App.shared.snackbar.show(message: "Secure Enclave is available")
 //        }
         let derivedPasscode = persistRandomPassword()
-        let sensitiveKey = try keychainCenter.createKeyPair()
+        let sensitiveKey = try keychainStorage.createKeyPair()
         try persistSensitivePublicKey(sensitiveKey: sensitiveKey)
         try persistSensitivePrivateKey(derivedPasscode: derivedPasscode, sensitiveKey: sensitiveKey)
     }
@@ -50,9 +35,7 @@ class CryptoCenterImpl: CryptoCenter {
     private func persistRandomPassword() -> String {
         let randomPasscode = createRandomPassword()
         let derivedPasscode = derivePasscode(from: randomPasscode)
-        keychainCenter.storePasscode(derivedPasscode: derivedPasscode) // TODO check error?
-//        let retrievedPasscode = keychainCenter.retrievePasscode()
-//        assert(retrievedPasscode == derivedPasscode)
+        keychainStorage.storePasscode(derivedPasscode: derivedPasscode) // TODO check error?
         return derivedPasscode
     }
 
@@ -62,7 +45,7 @@ class CryptoCenterImpl: CryptoCenter {
     }
 
     private func persistSensitivePrivateKey(derivedPasscode: String, sensitiveKey: SecKey) throws { // create SE key (KEK) with a hard coded tag for example: "sensitive_KEK"
-        let sensitiveKEK = try keychainCenter.createSecureEnclaveKey(
+        let sensitiveKEK = try keychainStorage.createSecureEnclaveKey(
                 useBiometry: false,
                 canChangeBiometry: true,
                 applicationPassword: derivedPasscode
@@ -84,42 +67,14 @@ class CryptoCenterImpl: CryptoCenter {
             throw error!.takeRetainedValue() as Error
         }
         // Store encrypted sensitive private key in keychain as blob
-        keychainCenter.storeSensitivePrivateKey(encryptedSensitiveKey: encryptedSensitiveKey)
-
-        //retrieve encrypted sensitive key for DEBUGGING - TODO Replace with a proper test
-        do {
-            if let encryptedData: Data = try keychainCenter.retrieveEncryptedSensitivePrivateKeyData() {
-                LogService.shared.error(" ----> encryptedData found: \(encryptedData.toHexString())")
-
-                // decrypt for debugging
-                guard let decryptedSensitiveKey = SecKeyCreateDecryptedData(sensitiveKEK, .eciesEncryptionStandardX963SHA256AESGCM, encryptedData as CFData, &error) as? Data else {
-                    throw error!.takeRetainedValue() as Error
-                }
-
-                LogService.shared.info("| ---> decryptedSensitiveKey: \(decryptedSensitiveKey.toHexString())")
-                assert((sensitiveKeyData as Data).toHexString() == decryptedSensitiveKey.toHexString())
-            } else {
-                LogService.shared.error(" ---> encryptedData NOT found!")
-            }
-
-        } catch {
-            LogService.shared.error(" ---> Error: \(error)")
-        }
+        keychainStorage.storeSensitivePrivateKey(encryptedSensitiveKey: encryptedSensitiveKey)
     }
 
     private func persistSensitivePublicKey(sensitiveKey: SecKey) throws { // copy public part from SecKey
         let sensitivePublicKey = SecKeyCopyPublicKey(sensitiveKey)
-        // safe it via keychainCenter.storeSensitivePublicKey()
+        // safe it via keychainStorage.storeSensitivePublicKey()
         if let key = sensitivePublicKey {
-            try keychainCenter.storeSensitivePublicKey(publicKey: key)
-            LogService.shared.error(" --->    key: \(key)")
-
-            // For DEBUGGING - TODO should be replaced with a proper test
-            let pubKeyFound = try keychainCenter.retrieveSensitivePublicKey()
-            LogService.shared.info(" ---> pubKey: \(pubKeyFound!)")
-
-            assert(key == pubKeyFound)
-
+            try keychainStorage.storeSensitivePublicKey(publicKey: key)
         } else {
             throw GSError.GenericPasscodeError(reason: "Cannot copy public key")
         }
@@ -175,7 +130,7 @@ class CryptoCenterImpl: CryptoCenter {
 
     // Copied from AuthenticationController
     private func derivePasscode(from plaintext: String, useOldSalt: Bool = false) -> String {
-        let salt = "Safe Multisig Passcode Salt"  // TODO Do we need to support the old salt?
+        let salt = "Safe Multisig Passcode Salt"
         var derivedKey = [UInt8](repeating: 0, count: 256 / 8)
         let result = CCKeyDerivationPBKDF(
                 CCPBKDFAlgorithm(kCCPBKDF2),

@@ -8,21 +8,21 @@ import XCTest
 
 class KeychainCenterTests: XCTestCase {
 
-    var keychainCenter: KeychainCenter! = nil
+    var keychainCenter: KeychainStorage! = nil
     let derivedPasscode = "foobar23"
 
     public override func setUp() {
         super.setUp()
         // Given
-        keychainCenter = KeychainCenter()
+        keychainCenter = KeychainStorage()
     }
 
     public override func tearDown() {
         super.tearDown()
         // Is it possible to always have a clean/empty keychain?
-        keychainCenter.deleteData(KeychainCenter.derivedPasswordTag)
-        keychainCenter.deleteData(KeychainCenter.sensitiveEncryptedPrivateKeyTag)
-        keychainCenter.deleteItem(tag: KeychainCenter.sensitivePublicKeyTag)
+        keychainCenter.deleteData(KeychainStorage.derivedPasswordTag)
+        keychainCenter.deleteData(KeychainStorage.sensitiveEncryptedPrivateKeyTag)
+        keychainCenter.deleteItem(tag: KeychainStorage.sensitivePublicKeyTag)
     }
 
     func testDeleteData() throws {
@@ -32,7 +32,7 @@ class KeychainCenterTests: XCTestCase {
         keychainCenter.storeSensitivePrivateKey(encryptedSensitiveKey: randomData)
 
         // When
-        keychainCenter.deleteData(KeychainCenter.sensitiveEncryptedPrivateKeyTag)
+        keychainCenter.deleteData(KeychainStorage.sensitiveEncryptedPrivateKeyTag)
 
         //Then
         XCTAssertEqual(try keychainCenter.retrieveEncryptedSensitivePrivateKeyData(), nil, "Deletion failed")
@@ -46,7 +46,7 @@ class KeychainCenterTests: XCTestCase {
         try keychainCenter.storeSensitivePublicKey(publicKey: randomPublicKey)
 
         // When
-        keychainCenter.deleteItem(tag: KeychainCenter.sensitivePublicKeyTag)
+        keychainCenter.deleteItem(tag: KeychainStorage.sensitivePublicKeyTag)
 
         //Then
         XCTAssertEqual(try keychainCenter.retrieveSensitivePublicKey(), nil, "Delete item failed")
