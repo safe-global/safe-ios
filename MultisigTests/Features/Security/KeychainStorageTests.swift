@@ -182,7 +182,6 @@ class KeychainStorageTests: XCTestCase {
     }
 
     private func simulatorCheck() -> Bool {
-        let authenticationContext = LAContext()
-        return authenticationContext.setCredential("password".data(using: .utf8), type: .applicationPassword)
+        LAContext().setCredential("anyPassword".data(using: .utf8), type: .applicationPassword)
     }
 }
