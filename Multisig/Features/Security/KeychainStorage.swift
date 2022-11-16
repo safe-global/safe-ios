@@ -73,8 +73,7 @@ class KeychainStorage {
         switch status {
         case errSecSuccess:
             if let item = item {
-                let encryptedPrivateKeyData = item as! Data
-                return encryptedPrivateKeyData
+                return item as? Data
             } else {
                 return nil
             }
@@ -111,6 +110,9 @@ class KeychainStorage {
     }
 
     func storeData(valueData: Data, account: String) {
+        LogService.shared.debug("valueData: \(valueData.toHexString())")
+        LogService.shared.debug("  account: \(account)")
+
         // delete existing account data
         deleteData(account)
         // Create query
@@ -130,10 +132,10 @@ class KeychainStorage {
         }
     }
 
-    func retrieveEncryptedSensitivePrivateKeyData() throws -> Data? {
+    func retrieveEncryptedData(account: String) throws -> Data? {
         let query = [
             kSecAttrService: KeychainStorage.defaultService,
-            kSecAttrAccount: KeychainStorage.sensitiveEncryptedPrivateKeyTag,
+            kSecAttrAccount: account,
             kSecClass: kSecClassGenericPassword,
             kSecReturnAttributes as String: false,
             kSecReturnData as String: true
@@ -245,11 +247,12 @@ class KeychainStorage {
         let attributes: NSDictionary = [
             kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
             kSecAttrKeySizeInBits: 256,
+            kSecAttrKeyClass: kSecAttrKeyClassPrivate
         ]
-        var createError: Unmanaged<CFError>?
-        guard let keyPair = SecKeyCreateRandomKey(attributes, &createError) else {
-            LogService.shared.error("CreateError: \(createError)")
-            throw createError!.takeRetainedValue() as Error
+        var error: Unmanaged<CFError>?
+        guard let keyPair = SecKeyCreateRandomKey(attributes, &error) else {
+            LogService.shared.error("Error: \(error!.takeRetainedValue() as Error)")
+            throw error!.takeRetainedValue() as Error
         }
         return keyPair
     }
@@ -276,13 +279,6 @@ class KeychainStorage {
 //            LogService.shared.error(" --> SecItemDelete failed with status: \(status)")
 //
 //        }
-    }
-
-    func saveItem(data: Data, tag: String) {
-    }
-
-    func findItem(tag: String) -> Data? {
-        preconditionFailure()
     }
 
     func encrypt() {
@@ -327,12 +323,29 @@ class KeychainStorage {
         }
     }
 
-    func keyToString(key: SecKey) -> String {
+    func keyToString(key: SecKey) throws -> String {
+        try keyToData(key).toHexString()
+    }
+
+    func keyToData(_ key: SecKey) throws -> Data {
         var error: Unmanaged<CFError>?
         guard let data = SecKeyCopyExternalRepresentation(key, &error) as? Data else {
             LogService.shared.error("Error: \(error!.takeRetainedValue() as Error)")
-            return "<error>"
+            throw error!.takeRetainedValue() as Error
         }
-        return data.toHexString()
+        return data
+    }
+
+    func dataToPrivateSecKey(_ data: Data) throws -> SecKey {
+        let attributes: NSDictionary = [
+            kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
+            kSecAttrKeySizeInBits: 256,
+            kSecAttrKeyClass: kSecAttrKeyClassPrivate
+        ]
+        var error: Unmanaged<CFError>?
+        guard let privateKey: SecKey = SecKeyCreateWithData(data as CFData, attributes, &error) else {
+            throw error!.takeRetainedValue() as Error
+        }
+        return privateKey
     }
 }

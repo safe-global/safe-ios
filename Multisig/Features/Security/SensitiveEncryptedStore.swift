@@ -58,7 +58,7 @@ class SensitiveEncryptedStore: EncryptedStore {
         guard let sensitiveKeyData = SecKeyCopyExternalRepresentation(sensitiveKey, &error) else {
             throw error!.takeRetainedValue() as Error
         }
-        LogService.shared.info("| ---> sensitiveKeyData: \((sensitiveKeyData as Data).toHexString())")
+        LogService.shared.info("sensitiveKeyData: \((sensitiveKeyData as Data).toHexString())")
 
         // Copy public KEK Key to encrypt sensitive key)
         let sensitivePublicKek = SecKeyCopyPublicKey(sensitiveKEK)
@@ -82,9 +82,9 @@ class SensitiveEncryptedStore: EncryptedStore {
     }
 
     func `import`(ethPrivateKey: EthPrivateKey) throws {
-        LogService.shared.info("| ---> import() ethPrivateKey: \(ethPrivateKey)")
+        LogService.shared.info("ethPrivateKey: \(ethPrivateKey)")
         // 0. Converts hexString to Data
-        let privateKeyData: Data =  Data(ethHex: ethPrivateKey)
+        let privateKeyData: Data = Data(ethHex: ethPrivateKey)
         //1. create key from String
         let privateKey = try PrivateKey(data: privateKeyData)
         // 2. find public sensitive key
@@ -96,24 +96,50 @@ class SensitiveEncryptedStore: EncryptedStore {
         }
         // 4. store encrypted blob in the keychain
         let address = privateKey.address
-        keychainStorage.saveItem(data: encryptedSigningKey, tag: address.checksummed)
+        keychainStorage.storeData(valueData: encryptedSigningKey, account: address.checksummed)
     }
 
     func delete(address: Address) {
         // delete encrypted blob by address
     }
 
-    func find(address: Address, password: String) -> EthPrivateKey {
+    /// Find private signer key.
+    /// - parameter address: find ky for this address
+    /// - parameter password: application password. Can be nil, then the sored password is used
+    /// - returns: String with hex encoded bytes of the private key
+    func find(address: Address, password: String? = nil) throws -> EthPrivateKey {
         // find encrypted private key for the address
-        // decrypt encrypted private key
+        let encryptedPrivateKeyData = try keychainStorage.retrieveEncryptedData(account: address.checksummed)!
+
+        // find sensitiveKEK
+        let sensitiveKEK = try keychainStorage.findKey(tag: KeychainStorage.sensitiveKekTag, password: password != nil ? password : keychainStorage.retrievePasscode())!
+
         // find encrypted sensitive key
+        let encryptedSensitiveKeyData = try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)!
+
         // decrypt encrypted sensitive key
-        // find key encryption key
-        // set password credentials
-        // decrypt sensitive key
-        // decrypt the private key with sensitive key
+        var error: Unmanaged<CFError>?
+        guard let decryptedSensitiveKeyData = SecKeyCreateDecryptedData(sensitiveKEK, .eciesEncryptionStandardX963SHA256AESGCM, encryptedSensitiveKeyData as CFData, &error) else {
+            throw error!.takeRetainedValue() as Error
+        }
+        // Data -> key
+        LogService.shared.debug("decryptedSensitiveKeyData: \((decryptedSensitiveKeyData as Data).toHexString())")
+        let attributes: NSDictionary = [
+            kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
+            kSecAttrKeySizeInBits: 256,
+            kSecAttrKeyClass: kSecAttrKeyClassPrivate
+        ]
+        guard let decryptedSensitiveKey: SecKey = SecKeyCreateWithData(decryptedSensitiveKeyData, attributes, &error) else {
+            throw error!.takeRetainedValue() as Error
+        }
+        LogService.shared.debug("decryptedSensitiveKey: \(decryptedSensitiveKey)")
+        // decrypt the eth key with sensitive key
+        let decryptedEthKeyData = SecKeyCreateDecryptedData(decryptedSensitiveKey, .eciesEncryptionStandardX963SHA256AESGCM, encryptedPrivateKeyData as CFData, &error) as? Data
+
+        // Data -> String key
+        let decryptedEthKey = decryptedEthKeyData!.toHexString()
         // return private key
-        preconditionFailure()
+        return decryptedEthKey
     }
 
     func verify() {
