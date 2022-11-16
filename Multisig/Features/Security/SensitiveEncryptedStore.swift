@@ -68,7 +68,7 @@ class SensitiveEncryptedStore: EncryptedStore {
             throw error!.takeRetainedValue() as Error
         }
         // Store encrypted sensitive private key in keychain as blob
-        keychainStorage.storeSensitivePrivateKey(encryptedSensitiveKey: encryptedSensitiveKey)
+        keychainStorage.storeData(valueData: encryptedSensitiveKey, account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
     }
 
     private func persistSensitivePublicKey(sensitiveKey: SecKey) throws { // copy public part from SecKey
@@ -81,18 +81,29 @@ class SensitiveEncryptedStore: EncryptedStore {
         }
     }
 
-    func `import`(privateKey: EthPrivateKey) {
-        // store encrypted key for the address
-        // find public sensitive key
-        // encrypt private key with public sensitive key
-        // store encrypted blob in the keychain
+    func `import`(ethPrivateKey: EthPrivateKey) throws {
+        LogService.shared.info("| ---> import() ethPrivateKey: \(ethPrivateKey)")
+        // 0. Converts hexString to Data
+        let privateKeyData: Data =  Data(ethHex: ethPrivateKey)
+        //1. create key from String
+        let privateKey = try PrivateKey(data: privateKeyData)
+        // 2. find public sensitive key
+        let pubKey = try keychainStorage.retrieveSensitivePublicKey()
+        // 3. encrypt private key with public sensitive key
+        var error: Unmanaged<CFError>?
+        guard let encryptedSigningKey = SecKeyCreateEncryptedData(pubKey!, .eciesEncryptionStandardX963SHA256AESGCM, privateKeyData as CFData, &error) as? Data else {
+            throw error!.takeRetainedValue() as Error
+        }
+        // 4. store encrypted blob in the keychain
+        let address = privateKey.address
+        keychainStorage.saveItem(data: encryptedSigningKey, tag: address.checksummed)
     }
 
     func delete(address: Address) {
         // delete encrypted blob by address
     }
 
-    func sign(data: Data, address: Address, password: String) -> Signature {
+    func find(address: Address, password: String) -> EthPrivateKey {
         // find encrypted private key for the address
         // decrypt encrypted private key
         // find encrypted sensitive key
@@ -101,8 +112,7 @@ class SensitiveEncryptedStore: EncryptedStore {
         // set password credentials
         // decrypt sensitive key
         // decrypt the private key with sensitive key
-        // sign data with private key
-        // return signature
+        // return private key
         preconditionFailure()
     }
 

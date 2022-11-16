@@ -27,4 +27,16 @@ public class EncryptedSensitiveStoreTests: XCTestCase {
             XCTFail() // do not throw
         }
     }
+
+    func testImport() throws {
+        // Given
+        try encryptedStore.initialSetup()
+
+        // When
+        try encryptedStore.import(ethPrivateKey: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322")
+
+        // Then
+
+
+    }
 }

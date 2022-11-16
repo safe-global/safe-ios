@@ -17,6 +17,8 @@ class KeychainStorage {
     static let derivedPasswordTag = "global.safe.password.as.data"
     static let sensitiveKekTag = "global.safe.sensitive.KEK"
 
+    // used to store encrypted data as a password in keychain
+    static let defaultService: String = "encrypted_data"
     // store passcode. Either if it random (user didn't give a password) or the user asked us to remember it
     func storePasscode(derivedPasscode: String) {
         // Store encrypted Password data
@@ -43,7 +45,7 @@ class KeychainStorage {
         let addPasswordDataQuery = [
             kSecValueData: passwordData,
             kSecClass: kSecClassGenericPassword, // right class?
-            kSecAttrService: "private_key",
+            kSecAttrService: KeychainStorage.defaultService,
             kSecAttrAccount: KeychainStorage.derivedPasswordTag,
         ] as CFDictionary
 
@@ -58,7 +60,7 @@ class KeychainStorage {
 
     private func findPasswordData() throws -> Data? {
         let query = [
-            kSecAttrService: "private_key",
+            kSecAttrService: KeychainStorage.defaultService,
             kSecAttrAccount: KeychainStorage.derivedPasswordTag,
             kSecClass: kSecClassGenericPassword,
             kSecReturnAttributes as String: false,
@@ -108,20 +110,19 @@ class KeychainStorage {
         return try createSEKey(flags: flags, tag: KeychainStorage.sensitiveKekTag, applicationPassword: applicationPassword)
     }
 
-    func storeSensitivePrivateKey(encryptedSensitiveKey: Data) {
-        // delete existing sensitive key data
-        deleteData(KeychainStorage.sensitiveEncryptedPrivateKeyTag)
+    func storeData(valueData: Data, account: String) {
+        // delete existing account data
+        deleteData(account)
         // Create query
         let addEncryptedDataQuery = [
-            kSecValueData: encryptedSensitiveKey,
-            kSecClass: kSecClassGenericPassword, // right class?
-            kSecAttrService: "private_key",
-            kSecAttrAccount: KeychainStorage.sensitiveEncryptedPrivateKeyTag,
+            kSecValueData: valueData,
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: KeychainStorage.defaultService,
+            kSecAttrAccount: account,
         ] as CFDictionary
 
-
-        // safe to Keychain (as type password?) using SecItemAdd() and sensitiveEncryptedPrivateKeyTag
-        let status = SecItemAdd(addEncryptedDataQuery, nil) // TODO consider passing error ref instead of nil
+        // safe to Keychain (as type password?) using SecItemAdd()
+        let status = SecItemAdd(addEncryptedDataQuery, nil)
 
         if status != errSecSuccess {
             // Print out the error
@@ -131,7 +132,7 @@ class KeychainStorage {
 
     func retrieveEncryptedSensitivePrivateKeyData() throws -> Data? {
         let query = [
-            kSecAttrService: "private_key",
+            kSecAttrService: KeychainStorage.defaultService,
             kSecAttrAccount: KeychainStorage.sensitiveEncryptedPrivateKeyTag,
             kSecClass: kSecClassGenericPassword,
             kSecReturnAttributes as String: false,
@@ -162,7 +163,7 @@ class KeychainStorage {
 
     func deleteData(_ account: String) {
         let query = [
-            kSecAttrService: "private_key",
+            kSecAttrService: KeychainStorage.defaultService,
             kSecAttrAccount: account,
             kSecClass: kSecClassGenericPassword,
         ] as CFDictionary

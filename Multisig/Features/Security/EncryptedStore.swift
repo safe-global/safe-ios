@@ -14,9 +14,9 @@ typealias EthPrivateKey = String
 
 protocol EncryptedStore {
     func initialSetup() throws
-    func `import`(privateKey: EthPrivateKey)
+    func `import`(ethPrivateKey: EthPrivateKey) throws
     func delete(address: Address)
-    func sign(data: Data, address: Address, password: String) -> Signature
+    func find(address: Address, password: String) throws -> EthPrivateKey
     func verify()
     func changePassword(from oldPassword: String, to newPassword: String)
     func changeSettings()
