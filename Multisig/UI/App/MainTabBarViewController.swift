@@ -123,7 +123,6 @@ class MainTabBarViewController: UITabBarController {
         WebConnectionController.shared.reconnect()
 
         presentDelayedControllers()
-
     }
 
     private func balancesTabViewController() -> BalancesUINavigationController {
