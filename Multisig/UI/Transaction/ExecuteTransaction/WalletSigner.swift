@@ -90,7 +90,118 @@ protocol WCSignReqSource: AnyObject {
 
 }
 
+protocol RejectionTxSource: AnyObject {
+    var rejectionTransaction: Transaction { get set }
+    var safe: Safe! { get }
+    var keyInfo: KeyInfo? { get set }
+    func rejectAndCloseController(signature: String)
+    var presentedViewController: UIViewController? { get }
+    var keystoneSignFlow: KeystoneSignFlow! { get set }
+    func endLoading()
+    func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?)
+    func present(flow: UIFlow, dismissableOnSwipe: Bool)
+}
+
+protocol PushMsgSource: AnyObject {
+    var keyInfo: KeyInfo { get }
+    var keystoneSignFlow: KeystoneSignFlow! { get set }
+    var presenter: UIViewController? { get }
+}
+
 class WalletSigner {
+
+    enum SignError: Error {
+        case privateKeyNotAvailable
+    }
+
+    fileprivate func signTxWithLocalWallet(_ controller: SignSource, _ keyInfo: KeyInfo) {
+        do {
+            let txHash = controller.hashForSigning()
+
+            guard let pk = try keyInfo.privateKey() else {
+                throw SignError.privateKeyNotAvailable
+            }
+
+            let signature = try pk._store.sign(hash: Array(txHash))
+
+            try controller.update(signature: signature)
+
+            controller.submit()
+        } catch SignError.privateKeyNotAvailable {
+            App.shared.snackbar.show(message: "Private key not available")
+        } catch {
+            let gsError = GSError.error(description: "Signing failed", error: error)
+            App.shared.snackbar.show(error: gsError)
+        }
+    }
+
+    fileprivate func signSafeCreationTxWithLocalWallet(_ controller: SafeSignSource, _ keyInfo: KeyInfo) {
+        do {
+            let txHash = controller.uiModel.transaction.hashForSigning().storage.storage
+
+            guard let pk = try keyInfo.privateKey() else {
+                App.shared.snackbar.show(message: "Private key not available")
+                return
+            }
+            let signature = try pk._store.sign(hash: Array(txHash))
+
+            try controller.uiModel.transaction.updateSignature(
+                v: Sol.UInt256(signature.v),
+                r: Sol.UInt256(Data(signature.r)),
+                s: Sol.UInt256(Data(signature.s))
+            )
+        } catch {
+            let gsError = GSError.error(description: "Signing failed", error: error)
+            App.shared.snackbar.show(error: gsError)
+            return
+        }
+        controller.submit()
+    }
+
+
+    fileprivate func signWCSendTxWithLocalWallet(_ controller: WCSignSource) {
+        do {
+            let txHash = controller.transaction.hashForSigning().storage.storage
+
+            guard let pk = try controller.keyInfo.privateKey() else {
+                App.shared.snackbar.show(message: "Private key not available")
+                return
+            }
+            let signature = try pk._store.sign(hash: Array(txHash))
+
+            try controller.transaction.updateSignature(
+                v: Sol.UInt256(signature.v),
+                r: Sol.UInt256(Data(signature.r)),
+                s: Sol.UInt256(Data(signature.s))
+            )
+        } catch {
+            let gsError = GSError.error(description: "Signing failed", error: error)
+            App.shared.snackbar.show(error: gsError)
+            return
+        }
+
+        controller.submit()
+    }
+
+    fileprivate func signMessageWithLocalWallet(_ keyInfo: KeyInfo, _ controller: WCSignReqSource) {
+        do {
+            guard let pk = try keyInfo.privateKey() else {
+                App.shared.snackbar.show(message: "Private key not available")
+                return
+            }
+            let preimage = "\u{19}Ethereum Signed Message:\n\(controller.request.message.count)".data(using: .utf8)! + controller.request.message
+            let signatureParts = try pk._store.sign(message: preimage.bytes)
+            let signature = Data(signatureParts.r) + Data(signatureParts.s) + Data([UInt8(signatureParts.v)])
+            controller.confirm(signature:  signature, trackingParameters: nil)
+        } catch {
+            App.shared.snackbar.show(message: "Failed to sign: \(error.localizedDescription)")
+        }
+    }
+
+    // used directly for delegate key signing; and for remote notif registration
+    func signHash(pk: PrivateKey, hash: Data) throws -> Signature {
+        try pk.sign(hash: hash)
+    }
 
     func signTransaction(controller: SignSource) {
         guard let keyInfo = controller.selectedKey?.key else {
@@ -99,22 +210,7 @@ class WalletSigner {
 
         switch keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
-            do {
-                let txHash = controller.hashForSigning()
-
-                guard let pk = try keyInfo.privateKey() else {
-                    App.shared.snackbar.show(message: "Private key not available")
-                    return
-                }
-                let signature = try pk._store.sign(hash: Array(txHash))
-
-                try controller.update(signature: signature)
-            } catch {
-                let gsError = GSError.error(description: "Signing failed", error: error)
-                App.shared.snackbar.show(error: gsError)
-                return
-            }
-            controller.submit()
+            signTxWithLocalWallet(controller, keyInfo)
 
         case .walletConnect:
             guard let clientTx = controller.walletConnectTransaction() else {
@@ -200,32 +296,12 @@ class WalletSigner {
         }
     }
 
-
     func signSafeCreation(controller: SafeSignSource) {
         guard let keyInfo = controller.uiModel.selectedKey else { return }
 
         switch keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
-            do {
-                let txHash = controller.uiModel.transaction.hashForSigning().storage.storage
-
-                guard let pk = try keyInfo.privateKey() else {
-                    App.shared.snackbar.show(message: "Private key not available")
-                    return
-                }
-                let signature = try pk._store.sign(hash: Array(txHash))
-
-                try controller.uiModel.transaction.updateSignature(
-                    v: Sol.UInt256(signature.v),
-                    r: Sol.UInt256(Data(signature.r)),
-                    s: Sol.UInt256(Data(signature.s))
-                )
-            } catch {
-                let gsError = GSError.error(description: "Signing failed", error: error)
-                App.shared.snackbar.show(error: gsError)
-                return
-            }
-            controller.submit()
+            signSafeCreationTxWithLocalWallet(controller, keyInfo)
 
         case .walletConnect:
             guard let clientTx = controller.walletConnectTransaction() else {
@@ -316,29 +392,11 @@ class WalletSigner {
         }
     }
 
+
     func signWC(controller: WCSignSource) {
         switch controller.keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
-            do {
-                let txHash = controller.transaction.hashForSigning().storage.storage
-
-                guard let pk = try controller.keyInfo.privateKey() else {
-                    App.shared.snackbar.show(message: "Private key not available")
-                    return
-                }
-                let signature = try pk._store.sign(hash: Array(txHash))
-
-                try controller.transaction.updateSignature(
-                    v: Sol.UInt256(signature.v),
-                    r: Sol.UInt256(Data(signature.r)),
-                    s: Sol.UInt256(Data(signature.s))
-                )
-            } catch {
-                let gsError = GSError.error(description: "Signing failed", error: error)
-                App.shared.snackbar.show(error: gsError)
-                return
-            }
-            controller.submit()
+            signWCSendTxWithLocalWallet(controller)
 
         case .walletConnect:
             guard let clientTx = controller.walletConnectTransaction() else {
@@ -434,6 +492,7 @@ class WalletSigner {
 
     // Sign calculates an Ethereum ECDSA signature for:
     // keccack256("\x19Ethereum Signed Message:\n" + len(message) + message))
+
     func signWCSignReq(controller: WCSignReqSource) {
         guard let keyInfo = controller.keyInfo else {
             return
@@ -441,18 +500,7 @@ class WalletSigner {
 
         switch keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
-            do {
-                guard let pk = try keyInfo.privateKey() else {
-                    App.shared.snackbar.show(message: "Private key not available")
-                    return
-                }
-                let preimage = "\u{19}Ethereum Signed Message:\n\(controller.request.message.count)".data(using: .utf8)! + controller.request.message
-                let signatureParts = try pk._store.sign(message: preimage.bytes)
-                let signature = Data(signatureParts.r) + Data(signatureParts.s) + Data([UInt8(signatureParts.v)])
-                controller.confirm(signature:  signature, trackingParameters: nil)
-            } catch {
-                App.shared.snackbar.show(message: "Failed to sign: \(error.localizedDescription)")
-            }
+            signMessageWithLocalWallet(keyInfo, controller)
 
         case .walletConnect:
             let hexMessage = controller.request.message.toHexStringWithPrefix()
@@ -512,4 +560,156 @@ class WalletSigner {
             controller.present(flow: controller.keystoneSignFlow, dismissableOnSwipe: true)
         }
     }
+
+    func rejectTransaction(_ keyInfo: KeyInfo, controller: RejectionTxSource) {
+        controller.keyInfo = keyInfo
+
+        switch keyInfo.keyType {
+        case .deviceImported, .deviceGenerated:
+            do {
+                let signature = try SafeTransactionSigner().sign(controller.rejectionTransaction, keyInfo: keyInfo)
+                controller.rejectAndCloseController(signature: signature.hexadecimal)
+            } catch {
+                App.shared.snackbar.show(message: "Failed to Reject transaction")
+            }
+
+        case .walletConnect:
+            rejectWithWalletConnect(controller.rejectionTransaction, keyInfo: keyInfo, controller: controller)
+
+        case .ledgerNanoX:
+            let request = SignRequest(title: "Reject Transaction",
+                                      tracking: ["action" : "reject"],
+                                      signer: keyInfo,
+                                      hexToSign: controller.rejectionTransaction.safeTxHash.description)
+            let vc = LedgerSignerViewController(request: request)
+            controller.present(vc, animated: true, completion: nil)
+
+            vc.completion = { [weak controller] signature in
+                controller?.rejectAndCloseController(signature: signature)
+            }
+            vc.onClose = { [weak controller] in
+                controller?.endLoading()
+            }
+        case .keystone:
+            let signInfo = KeystoneSignInfo(
+                signData: controller.rejectionTransaction.safeTxHash.hash.toHexString(),
+                chain: controller.safe.chain,
+                keyInfo: keyInfo,
+                signType: .personalMessage
+            )
+            let signCompletion = { [unowned controller] (success: Bool) in
+                controller.keystoneSignFlow = nil
+                if !success {
+                    App.shared.snackbar.show(error: GSError.KeystoneSignFailed())
+                    controller.endLoading()
+                }
+            }
+            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
+                App.shared.snackbar.show(error: GSError.KeystoneStartSignFailed())
+                controller.endLoading()
+                return
+            }
+
+            controller.keystoneSignFlow = signFlow
+            controller.keystoneSignFlow.signCompletion = { [weak controller] unmarshaledSignature in
+                controller?.rejectAndCloseController(signature: unmarshaledSignature.safeSignature)
+            }
+            controller.present(flow: controller.keystoneSignFlow, dismissableOnSwipe: true)
+        }
+    }
+
+    func rejectWithWalletConnect(_ transaction: Transaction, keyInfo: KeyInfo, controller: RejectionTxSource) {
+        guard controller.presentedViewController == nil else { return }
+
+        let signVC = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: controller.safe.chain!)
+        signVC.onSuccess = { [weak controller] signature in
+            DispatchQueue.main.async {
+                controller?.rejectAndCloseController(signature: signature)
+            }
+        }
+        signVC.onCancel = { [weak controller] in
+            controller?.endLoading()
+        }
+        let vc = ViewControllerFactory.pageSheet(viewController: signVC, halfScreen: true)
+        controller.present(vc, animated: true, completion: nil)
+    }
+
+    func signPushMessage(controller: PushMsgSource, message: Data, completion: @escaping (Result<Data, Error>) -> Void) {
+        let title = "Confirm Push Notifications"
+        let hexMessage = message.toHexStringWithPrefix()
+        let chain = try? Safe.getSelected()?.chain ?? Chain.mainnetChain()
+        switch controller.keyInfo.keyType {
+        case .deviceImported, .deviceGenerated:
+            do {
+                let signature = try SafeTransactionSigner().sign(hash: HashString(hex: hexMessage), keyInfo: controller.keyInfo)
+                completion(.success(Data(hex: signature.hexadecimal)))
+            } catch {
+                completion(.failure(GSError.AddDelegateKeyCancelled()))
+            }
+        case .ledgerNanoX:
+            let request = SignRequest(title: title,
+                                      tracking: ["action": "confirm_push"],
+                                      signer: controller.keyInfo,
+                                      hexToSign: hexMessage)
+
+            let vc = LedgerSignerViewController(request: request)
+
+            controller.presenter?.present(vc, animated: true, completion: nil)
+
+            var isSuccess: Bool = false
+
+            vc.completion = { signature in
+                isSuccess = true
+                completion(.success(Data(hex: signature)))
+            }
+
+            vc.onClose = {
+                if !isSuccess {
+                    completion(.failure(GSError.AddDelegateKeyCancelled()))
+                }
+            }
+
+        case .walletConnect:
+            let signVC = SignatureRequestToWalletViewController(hexMessage, keyInfo: controller.keyInfo, chain: chain!)
+            signVC.requiresChainIdMatch = false
+            var isSuccess: Bool = false
+            signVC.onSuccess = { signature in
+                isSuccess = true
+                completion(.success(Data(hex: signature)))
+            }
+            signVC.onCancel = {
+                if !isSuccess {
+                    completion(.failure(GSError.AddDelegateKeyCancelled()))
+                }
+            }
+            let vc = ViewControllerFactory.pageSheet(viewController: signVC, halfScreen: true)
+            controller.presenter?.present(vc, animated: true)
+        case .keystone:
+            let signInfo = KeystoneSignInfo(
+                signData: hexMessage,
+                chain: chain,
+                keyInfo: controller.keyInfo,
+                signType: .personalMessage
+            )
+            let signCompletion = { [unowned controller] (success: Bool) in
+                controller.keystoneSignFlow = nil
+                if !success {
+                    completion(.failure(GSError.AddDelegateKeyCancelled()))
+                }
+            }
+            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion),
+                  let presenter = controller.presenter else {
+                completion(.failure(GSError.AddDelegateTimedOut()))
+                return
+            }
+
+            controller.keystoneSignFlow = signFlow
+            controller.keystoneSignFlow.signCompletion = { unmarshaledSignature in
+                completion(.success(Data(hex: unmarshaledSignature.safeSignature)))
+            }
+
+            presenter.present(flow: controller.keystoneSignFlow, dismissableOnSwipe: true)
+        }
+    }
+
 }

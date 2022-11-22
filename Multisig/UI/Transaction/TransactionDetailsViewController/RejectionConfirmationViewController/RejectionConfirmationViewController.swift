@@ -22,16 +22,16 @@ class RejectionConfirmationViewController: UIViewController {
     @IBOutlet private weak var descriptionLabel: UILabel!
     
     private var transaction: SCGModels.TransactionDetails!
-    private lazy var rejectionTransaction: Transaction = {
+    internal lazy var rejectionTransaction: Transaction = {
         Transaction.rejectionTransaction(safeAddress: safe.addressValue,
                                          nonce: transaction.multisigInfo!.nonce,
                                          safeVersion: Version(safe.contractVersion!)!,
                                          chainId: safe.chain!.id!)
     }()
-    private var safe: Safe!
-    private var keyInfo: KeyInfo?
+    internal var safe: Safe!
+    internal var keyInfo: KeyInfo?
     private var ledgerController: LedgerController?
-    private var keystoneSignFlow: KeystoneSignFlow!
+    internal var keystoneSignFlow: KeystoneSignFlow!
     
     convenience init(transaction: SCGModels.TransactionDetails) {
         self.init(namedClass: RejectionConfirmationViewController.self)
@@ -99,61 +99,10 @@ class RejectionConfirmationViewController: UIViewController {
         openInSafari(App.configuration.help.payForCancellationURL)
     }
 
+    let signer = WalletSigner()
+
     private func rejectTransaction(_ keyInfo: KeyInfo) {
-        self.keyInfo = keyInfo
-
-        switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated:
-            do {
-                let signature = try SafeTransactionSigner().sign(rejectionTransaction, keyInfo: keyInfo)
-                rejectAndCloseController(signature: signature.hexadecimal)
-            } catch {
-                App.shared.snackbar.show(message: "Failed to Reject transaction")
-            }
-
-        case .walletConnect:
-            rejectWithWalletConnect(rejectionTransaction, keyInfo: keyInfo)
-
-        case .ledgerNanoX:
-            let request = SignRequest(title: "Reject Transaction",
-                                      tracking: ["action" : "reject"],
-                                      signer: keyInfo,
-                                      hexToSign: rejectionTransaction.safeTxHash.description)
-            let vc = LedgerSignerViewController(request: request)
-            present(vc, animated: true, completion: nil)
-
-            vc.completion = { [weak self] signature in
-                self?.rejectAndCloseController(signature: signature)
-            }
-            vc.onClose = { [weak self] in
-                self?.endLoading()
-            }
-        case .keystone:
-            let signInfo = KeystoneSignInfo(
-                signData: rejectionTransaction.safeTxHash.hash.toHexString(),
-                chain: safe.chain,
-                keyInfo: keyInfo,
-                signType: .personalMessage
-            )
-            let signCompletion = { [unowned self] (success: Bool) in
-                keystoneSignFlow = nil
-                if !success {
-                    App.shared.snackbar.show(error: GSError.KeystoneSignFailed())
-                    endLoading()
-                }
-            }
-            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
-                App.shared.snackbar.show(error: GSError.KeystoneStartSignFailed())
-                endLoading()
-                return
-            }
-            
-            keystoneSignFlow = signFlow
-            keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
-                self?.rejectAndCloseController(signature: unmarshaledSignature.safeSignature)
-            }
-            present(flow: keystoneSignFlow)
-        }
+        signer.rejectTransaction(keyInfo, controller: self)
     }
 
     private func rejectWithWalletConnect(_ transaction: Transaction, keyInfo: KeyInfo) {
@@ -177,12 +126,12 @@ class RejectionConfirmationViewController: UIViewController {
         self.contentContainerView.isHidden = true
     }
 
-    private func endLoading() {
+    internal func endLoading() {
         loadingView.isHidden = true
         contentContainerView.isHidden = false
     }
 
-    private func rejectAndCloseController(signature: String) {
+    internal func rejectAndCloseController(signature: String) {
         guard let keyInfo = keyInfo else { return }
         startLoading()
         _ = App.shared.clientGatewayService.asyncProposeTransaction(
@@ -223,4 +172,8 @@ class RejectionConfirmationViewController: UIViewController {
                 }
             })
     }
+}
+
+extension RejectionConfirmationViewController: RejectionTxSource {
+
 }

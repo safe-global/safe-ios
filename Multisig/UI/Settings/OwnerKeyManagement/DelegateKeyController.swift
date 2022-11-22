@@ -12,9 +12,9 @@ class DelegateKeyController {
 
     weak var presenter: UIViewController?
     private var clientGatewayService = App.shared.clientGatewayService
-    private var keystoneSignFlow: KeystoneSignFlow!
+    internal var keystoneSignFlow: KeystoneSignFlow!
 
-    private let keyInfo: KeyInfo
+    internal let keyInfo: KeyInfo
     private let completionHandler: () -> Void
 
     init(ownerAddress: Address, completion: @escaping () -> Void) throws {
@@ -109,7 +109,9 @@ class DelegateKeyController {
             let time = String(describing: Int(Date().timeIntervalSince1970) / 3600)
             let messageToSign = delegateKey.address.checksummed + time
             let hashToSign = EthHasher.hash(messageToSign)
-            let signature = try delegateKey.sign(hash: hashToSign)
+
+            let walletSigner = WalletSigner()
+            let signature = try walletSigner.signHash(pk: delegateKey, hash: hashToSign)
 
             self.deleteOnBackEnd(delegateAddress: delegateKey.address,
                                  signature: signature.hexadecimal
@@ -139,83 +141,11 @@ class DelegateKeyController {
         }
     }
 
+    let signer = WalletSigner()
+
     // sign and call back with signature or fail with error (incl. cancelled error)
     private func sign(message: Data, completion: @escaping (Result<Data, Error>) -> Void) {
-        let title = "Confirm Push Notifications"
-        let hexMessage = message.toHexStringWithPrefix()
-        let chain = try? Safe.getSelected()?.chain ?? Chain.mainnetChain()
-        switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated:
-            do {
-                let signature = try SafeTransactionSigner().sign(hash: HashString(hex: hexMessage), keyInfo: keyInfo)
-                completion(.success(Data(hex: signature.hexadecimal)))
-            } catch {
-                completion(.failure(GSError.AddDelegateKeyCancelled()))
-            }
-        case .ledgerNanoX:
-            let request = SignRequest(title: title,
-                                      tracking: ["action": "confirm_push"],
-                                      signer: keyInfo,
-                                      hexToSign: hexMessage)
-
-            let vc = LedgerSignerViewController(request: request)
-
-            presenter?.present(vc, animated: true, completion: nil)
-
-            var isSuccess: Bool = false
-
-            vc.completion = { signature in
-                isSuccess = true
-                completion(.success(Data(hex: signature)))
-            }
-
-            vc.onClose = {
-                if !isSuccess {
-                    completion(.failure(GSError.AddDelegateKeyCancelled()))
-                }
-            }
-
-        case .walletConnect:
-            let signVC = SignatureRequestToWalletViewController(hexMessage, keyInfo: keyInfo, chain: chain!)
-            signVC.requiresChainIdMatch = false
-            var isSuccess: Bool = false
-            signVC.onSuccess = { signature in
-                isSuccess = true
-                completion(.success(Data(hex: signature)))
-            }
-            signVC.onCancel = {
-                if !isSuccess {
-                    completion(.failure(GSError.AddDelegateKeyCancelled()))
-                }
-            }
-            let vc = ViewControllerFactory.pageSheet(viewController: signVC, halfScreen: true)
-            presenter?.present(vc, animated: true)
-        case .keystone:
-            let signInfo = KeystoneSignInfo(
-                signData: hexMessage,
-                chain: chain,
-                keyInfo: keyInfo,
-                signType: .personalMessage
-            )
-            let signCompletion = { [unowned self] (success: Bool) in
-                keystoneSignFlow = nil
-                if !success {
-                    completion(.failure(GSError.AddDelegateKeyCancelled()))
-                }
-            }
-            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion),
-                    let presenter = presenter else {
-                completion(.failure(GSError.AddDelegateTimedOut()))
-                return
-            }
-
-            keystoneSignFlow = signFlow
-            keystoneSignFlow.signCompletion = { unmarshaledSignature in
-                completion(.success(Data(hex: unmarshaledSignature.safeSignature)))
-            }
-
-            presenter.present(flow: keystoneSignFlow)
-        }
+        signer.signPushMessage(controller: self, message: message, completion: completion)
     }
 
     func createOnBackEnd(delegateAddress: Address, signature: Data, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -283,4 +213,8 @@ class DelegateKeyController {
             self?.completionHandler()
         }
     }
+}
+
+extension DelegateKeyController: PushMsgSource {
+
 }

@@ -190,8 +190,9 @@ class RemoteNotificationHandler {
 
         let hash = EthHasher.hash(hashPreimage)
 
+        let signer = WalletSigner()
         let signatures: [String] = try privateKeys.map { key in
-            let sig = try key.sign(hash: hash)
+            let sig = try signer.signHash(pk: key, hash: hash)
             return sig.hexadecimal
         }
         return (hashPreimage, hash.toHexStringWithPrefix(), signatures)

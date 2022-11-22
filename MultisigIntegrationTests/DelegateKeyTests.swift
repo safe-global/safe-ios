@@ -98,7 +98,8 @@ class DelegateKeyTests: XCTestCase {
         print("Hash: \(hash.toHexStringWithPrefix())")
 
         // sign it with DELEGATOR key:
-        let signature = try signer.sign(hash: hash)
+        let walletSigner = WalletSigner()
+        let signature = try walletSigner.signHash(pk: signer, hash: hash)
         print("Signature: \(signature.hexadecimal)")
 
         return Data(hex: signature.hexadecimal)
