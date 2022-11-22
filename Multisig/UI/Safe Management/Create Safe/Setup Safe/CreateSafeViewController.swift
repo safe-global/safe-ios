@@ -694,7 +694,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     let signer = WalletSigner()
 
     func sign() {
-        signer.sign(controller: self)
+        signer.signSafeCreation(controller: self)
     }
 
     func walletConnectTransaction() -> Client.Transaction? {

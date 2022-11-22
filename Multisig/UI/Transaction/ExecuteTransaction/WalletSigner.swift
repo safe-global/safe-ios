@@ -62,6 +62,22 @@ protocol SafeSignSource: AnyObject {
 
 }
 
+protocol WCSignSource: AnyObject {
+    var chain: Chain! { get }
+    var keyInfo: KeyInfo! { get }
+    var keystoneSignFlow: KeystoneSignFlow! { get set }
+    var transaction: EthTransaction! { get set }
+
+    func submit()
+    func walletConnectTransaction() -> Client.Transaction?
+    func didSubmitFailed(_ error: Error?)
+    func didSubmitTransaction(txHash: Eth.Hash)
+    func didSubmitSuccess()
+    func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?)
+    func present(flow: UIFlow, dismissableOnSwipe: Bool)
+
+}
+
 class WalletSigner {
 
     func signTransaction(controller: SignSource) {
@@ -173,7 +189,7 @@ class WalletSigner {
     }
 
 
-    func sign(controller: SafeSignSource) {
+    func signSafeCreation(controller: SafeSignSource) {
         guard let keyInfo = controller.uiModel.selectedKey else { return }
 
         switch keyInfo.keyType {
@@ -285,6 +301,122 @@ class WalletSigner {
                 }
             }
             controller.present(flow: controller.keystoneSignFlow, dismissableOnSwipe: true)
+        }
+    }
+
+    func signWC(controller: WCSignSource) {
+        switch controller.keyInfo.keyType {
+        case .deviceImported, .deviceGenerated:
+            do {
+                let txHash = controller.transaction.hashForSigning().storage.storage
+
+                guard let pk = try controller.keyInfo.privateKey() else {
+                    App.shared.snackbar.show(message: "Private key not available")
+                    return
+                }
+                let signature = try pk._store.sign(hash: Array(txHash))
+
+                try controller.transaction.updateSignature(
+                    v: Sol.UInt256(signature.v),
+                    r: Sol.UInt256(Data(signature.r)),
+                    s: Sol.UInt256(Data(signature.s))
+                )
+            } catch {
+                let gsError = GSError.error(description: "Signing failed", error: error)
+                App.shared.snackbar.show(error: gsError)
+                return
+            }
+            controller.submit()
+
+        case .walletConnect:
+            guard let clientTx = controller.walletConnectTransaction() else {
+                let gsError = GSError.error(description: "Unsupported transaction type")
+                App.shared.snackbar.show(error: gsError)
+                return
+            }
+
+            let sendTxVC = SendTransactionToWalletViewController(
+                transaction: clientTx,
+                keyInfo: controller.keyInfo,
+                chain: controller.chain ?? Chain.mainnetChain()
+            )
+            sendTxVC.onCancel = { [weak controller] in
+                controller?.didSubmitFailed(nil)
+            }
+            sendTxVC.onSuccess = { [weak controller] txHashData in
+                guard let controller = controller else { return }
+                controller.didSubmitTransaction(txHash: Eth.Hash(txHashData))
+                controller.didSubmitSuccess()
+            }
+            let vc = ViewControllerFactory.pageSheet(viewController: sendTxVC, halfScreen: true)
+            controller.present(vc, animated: true, completion: nil)
+
+        case .ledgerNanoX:
+            let rawTransaction = controller.transaction.preImageForSigning()
+            let chainId = Int(controller.chain.id!)!
+            let isLegacy = controller.transaction is Eth.TransactionLegacy
+
+            let request = SignRequest(title: "Sign Transaction",
+                                      tracking: ["action" : "signTx"],
+                                      signer: controller.keyInfo,
+                                      payload: .rawTx(data: rawTransaction, chainId: chainId, isLegacy: isLegacy))
+
+            let vc = LedgerSignerViewController(request: request)
+
+            vc.txCompletion = { [weak controller] signature in
+                guard let controller = controller else { return }
+
+                do {
+                    try controller.transaction.updateSignature(
+                        v: Sol.UInt256(UInt(signature.v)),
+                        r: Sol.UInt256(Data(Array(signature.r))),
+                        s: Sol.UInt256(Data(Array(signature.s)))
+                    )
+                } catch {
+                    let gsError = GSError.error(description: "Signing failed", error: error)
+                    App.shared.snackbar.show(error: gsError)
+                    return
+                }
+
+                controller.submit()
+            }
+
+            controller.present(vc, animated: true, completion: nil)
+
+        case .keystone:
+            let isLegacy = controller.transaction is Eth.TransactionLegacy
+
+            let signInfo = KeystoneSignInfo(
+                signData: controller.transaction.preImageForSigning().toHexString(),
+                chain: controller.chain,
+                keyInfo: controller.keyInfo,
+                signType: isLegacy ? .transaction : .typedTransaction
+            )
+            let signCompletion = { [unowned controller] (success: Bool) in
+                if !success {
+                    App.shared.snackbar.show(error: GSError.KeystoneSignFailed())
+                }
+                controller.keystoneSignFlow = nil
+            }
+            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
+                App.shared.snackbar.show(error: GSError.KeystoneStartSignFailed())
+                return
+            }
+
+            controller.keystoneSignFlow = signFlow
+            controller.keystoneSignFlow.signCompletion = { [weak controller] unmarshaledSignature in
+                do {
+                    try controller?.transaction.updateSignature(
+                        v: Sol.UInt256(UInt(unmarshaledSignature.v)),
+                        r: Sol.UInt256(Data(Array(unmarshaledSignature.r))),
+                        s: Sol.UInt256(Data(Array(unmarshaledSignature.s)))
+                    )
+                    controller?.submit()
+                } catch {
+                    App.shared.snackbar.show(error: GSError.error(description: "Signing failed", error: error))
+                }
+            }
+            controller.present(flow: controller.keystoneSignFlow, dismissableOnSwipe: false)
         }
     }
 

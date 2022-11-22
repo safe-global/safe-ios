@@ -17,7 +17,7 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
     var connection: WebConnection!
     var request: WebConnectionSendTransactionRequest!
 
-    private var transaction: EthTransaction!
+    internal var transaction: EthTransaction!
 
     private var contentVC: SendTransactionContentViewController!
     private var balanceLoader: DefaultAccountBalanceLoader!
@@ -28,9 +28,9 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
     private var error: String?
     private var minNonce: Sol.UInt64 = 0
     private var userParameters = UserDefinedTransactionParameters()
-    private var chain: Chain!
-    private var keyInfo: KeyInfo!
-    private var keystoneSignFlow: KeystoneSignFlow!
+    internal var chain: Chain!
+    internal var keyInfo: KeyInfo!
+    internal var keystoneSignFlow: KeystoneSignFlow!
     
     convenience init() {
         self.init(namedClass: WebConnectionContainerViewController.self)
@@ -345,120 +345,10 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
         }
     }
 
+    let signer = WalletSigner()
+
     func sign() {
-        switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated:
-            do {
-                let txHash = transaction.hashForSigning().storage.storage
-
-                guard let pk = try keyInfo.privateKey() else {
-                    App.shared.snackbar.show(message: "Private key not available")
-                    return
-                }
-                let signature = try pk._store.sign(hash: Array(txHash))
-
-                try transaction.updateSignature(
-                    v: Sol.UInt256(signature.v),
-                    r: Sol.UInt256(Data(signature.r)),
-                    s: Sol.UInt256(Data(signature.s))
-                )
-            } catch {
-                let gsError = GSError.error(description: "Signing failed", error: error)
-                App.shared.snackbar.show(error: gsError)
-                return
-            }
-            submit()
-
-        case .walletConnect:
-            guard let clientTx = walletConnectTransaction() else {
-                let gsError = GSError.error(description: "Unsupported transaction type")
-                App.shared.snackbar.show(error: gsError)
-                return
-            }
-
-            let sendTxVC = SendTransactionToWalletViewController(
-                transaction: clientTx,
-                keyInfo: self.keyInfo,
-                chain: self.chain ?? Chain.mainnetChain()
-            )
-            sendTxVC.onCancel = { [weak self] in
-                self?.didSubmitFailed(nil)
-            }
-            sendTxVC.onSuccess = { [weak self] txHashData in
-                guard let self = self else { return }
-                self.didSubmitTransaction(txHash: Eth.Hash(txHashData))
-                self.didSubmitSuccess()
-            }
-            let vc = ViewControllerFactory.pageSheet(viewController: sendTxVC, halfScreen: true)
-            present(vc, animated: true)
-
-        case .ledgerNanoX:
-            let rawTransaction = transaction.preImageForSigning()
-            let chainId = Int(chain.id!)!
-            let isLegacy = transaction is Eth.TransactionLegacy
-
-            let request = SignRequest(title: "Sign Transaction",
-                                      tracking: ["action" : "signTx"],
-                                      signer: keyInfo,
-                                      payload: .rawTx(data: rawTransaction, chainId: chainId, isLegacy: isLegacy))
-
-            let vc = LedgerSignerViewController(request: request)
-
-            vc.txCompletion = { [weak self] signature in
-                guard let self = self else { return }
-
-                do {
-                    try self.transaction.updateSignature(
-                        v: Sol.UInt256(UInt(signature.v)),
-                        r: Sol.UInt256(Data(Array(signature.r))),
-                        s: Sol.UInt256(Data(Array(signature.s)))
-                    )
-                } catch {
-                    let gsError = GSError.error(description: "Signing failed", error: error)
-                    App.shared.snackbar.show(error: gsError)
-                    return
-                }
-
-                self.submit()
-            }
-
-            present(vc, animated: true, completion: nil)
-            
-        case .keystone:
-            let isLegacy = transaction is Eth.TransactionLegacy
-            
-            let signInfo = KeystoneSignInfo(
-                signData: transaction.preImageForSigning().toHexString(),
-                chain: chain,
-                keyInfo: keyInfo,
-                signType: isLegacy ? .transaction : .typedTransaction
-            )
-            let signCompletion = { [unowned self] (success: Bool) in
-                if !success {
-                    App.shared.snackbar.show(error: GSError.KeystoneSignFailed())
-                }
-                keystoneSignFlow = nil
-            }
-            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
-                App.shared.snackbar.show(error: GSError.KeystoneStartSignFailed())
-                return
-            }
-            
-            keystoneSignFlow = signFlow
-            keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
-                do {
-                    try self?.transaction.updateSignature(
-                        v: Sol.UInt256(UInt(unmarshaledSignature.v)),
-                        r: Sol.UInt256(Data(Array(unmarshaledSignature.r))),
-                        s: Sol.UInt256(Data(Array(unmarshaledSignature.s)))
-                    )
-                    self?.submit()
-                } catch {
-                    App.shared.snackbar.show(error: GSError.error(description: "Signing failed", error: error))
-                }
-            }
-            present(flow: keystoneSignFlow)
-        }
+        signer.signWC(controller: self)
     }
 
     func walletConnectTransaction() -> Client.Transaction? {
@@ -619,5 +509,9 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
         let result = DataString(txHash.storage.storage)
         controller.respond(request: request, with: result)
     }
+
+}
+
+extension SendTransactionRequestViewController: WCSignSource {
 
 }
