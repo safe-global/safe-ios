@@ -68,7 +68,7 @@ class SensitiveEncryptedStore: EncryptedStore {
             throw error!.takeRetainedValue() as Error
         }
         // Store encrypted sensitive private key in keychain as blob
-        keychainStorage.storeData(valueData: encryptedSensitiveKey, account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
+        keychainStorage.storeData(encryptedData: encryptedSensitiveKey, account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
     }
 
     private func persistSensitivePublicKey(sensitiveKey: SecKey) throws { // copy public part from SecKey
@@ -96,7 +96,7 @@ class SensitiveEncryptedStore: EncryptedStore {
         }
         // 4. store encrypted blob in the keychain
         let address = privateKey.address
-        keychainStorage.storeData(valueData: encryptedSigningKey, account: address.checksummed)
+        keychainStorage.storeData(encryptedData: encryptedSigningKey, account: address.checksummed)
     }
 
     func delete(address: Address) {

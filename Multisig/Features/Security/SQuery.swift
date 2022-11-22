@@ -7,15 +7,15 @@ import Foundation
 import LocalAuthentication
 
 enum SQuery {
-    case generic(id: String, service: String = KeychainStorage.defaultService)
+    case generic(id: String, service: String = KeychainStorage.defaultService, encryptedData: Data? = nil)
     case ecPrivateKey(tag: String = KeychainStorage.sensitiveKekTag, password: Data? = nil)
-    case ecPubKey(tag: String = KeychainStorage.sensitivePublicKeyTag)
+    case ecPubKey(tag: String = KeychainStorage.sensitivePublicKeyTag, pubKeyData: SecKey? = nil)
 
-    func searchQuery() -> NSDictionary {
+    func queryData() -> NSDictionary {
         var result: NSMutableDictionary
 
         switch self {
-        case let .generic(id, service):
+        case let .generic(id, service, encryptedData):
             result = [
                 kSecAttrService: service,
                 kSecAttrAccount: id,
@@ -23,6 +23,9 @@ enum SQuery {
                 kSecReturnAttributes: false,
                 kSecReturnData: true,
             ]
+            if let encryptedData = encryptedData {
+                result[kSecValueData] = encryptedData
+            }
 
         case let .ecPrivateKey(tag, password):
             result = [
@@ -36,14 +39,17 @@ enum SQuery {
             if let context = LAContext(password: password) {
                 result[kSecUseAuthenticationContext] = context
             }
-        case let .ecPubKey(tag):
+        case let .ecPubKey(tag, pubKeyData):
             result = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPublic,
                 kSecAttrApplicationTag: tag.data(using: .utf8)!,
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
-                kSecReturnRef: true
+                kSecReturnRef: true,
             ]
+            if let pubKeyData = pubKeyData {
+                result[kSecValueRef] = pubKeyData
+            }
         }
 
         return result

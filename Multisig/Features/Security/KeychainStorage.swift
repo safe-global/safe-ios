@@ -42,8 +42,7 @@ class KeychainStorage {
         // delete existing sensitive key data
         deleteData(KeychainStorage.derivedPasswordTag)
         // Create query
-        let addQuery = SQuery.generic(id: KeychainStorage.derivedPasswordTag).searchQuery()
-        addQuery.setValue(passwordData, forKey: kSecValueData as String)
+        let addQuery = SQuery.generic(id: KeychainStorage.derivedPasswordTag, encryptedData: passwordData).queryData()
         // safe to Keychain (as type password?) using SecItemAdd() and sensitiveEncryptedPrivateKeyTag
         let status = SecItemAdd(addQuery, nil) // TODO consider passing error ref instead of nil
 
@@ -54,7 +53,7 @@ class KeychainStorage {
     }
 
     private func findPasswordData() throws -> Data? {
-        let query = SQuery.generic(id: KeychainStorage.derivedPasswordTag).searchQuery()
+        let query = SQuery.generic(id: KeychainStorage.derivedPasswordTag).queryData()
 
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query, &item)
@@ -98,12 +97,11 @@ class KeychainStorage {
         return try createSEKey(flags: flags, applicationPassword: applicationPassword)
     }
 
-    func storeData(valueData: Data, account: String) {
+    func storeData(encryptedData: Data, account: String) {
         // delete existing account data
         deleteData(account)
         // Create query
-        let addEncryptedDataQuery = SQuery.generic(id: account).searchQuery()
-        addEncryptedDataQuery.setValue(valueData, forKey: kSecValueData as String)
+        let addEncryptedDataQuery = SQuery.generic(id: account, encryptedData: encryptedData).queryData()
 
         // safe to Keychain (as type password?) using SecItemAdd()
         let status = SecItemAdd(addEncryptedDataQuery, nil)
@@ -115,7 +113,7 @@ class KeychainStorage {
     }
 
     func retrieveEncryptedData(account: String) throws -> Data? {
-        let query = SQuery.generic(id: account).searchQuery()
+        let query = SQuery.generic(id: account).queryData()
 
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query, &item)
@@ -140,7 +138,7 @@ class KeychainStorage {
     }
 
     func deleteData(_ account: String) {
-        let query = SQuery.generic(id: account).searchQuery()
+        let query = SQuery.generic(id: account).queryData()
         // TODO Check for errors. Ignore nothing deleted
         SecItemDelete(query)
     }
@@ -148,8 +146,7 @@ class KeychainStorage {
     func storeSensitivePublicKey(publicKey: SecKey) throws {
         deleteItem(.ecPubKey())
 
-        let queryDict = SQuery.ecPubKey().searchQuery()
-        queryDict.setValue(publicKey, forKey: kSecValueRef as String)
+        let queryDict = SQuery.ecPubKey(pubKeyData: publicKey).queryData()
         let status = SecItemAdd(queryDict, nil)
         guard status == errSecSuccess else {
             throw GSError.GenericPasscodeError(reason: "Cannot store public key")
@@ -207,7 +204,7 @@ class KeychainStorage {
 //        let query = SQuery.ecKey(tag: tag).searchQuery()
 //        query.setValue(nil, forKey: "kcls" as String) // apparently this is necessary for deletion to work :-/
 
-        SecItemDelete(query.searchQuery())
+        SecItemDelete(query.queryData())
     }
 
     func encrypt() {
@@ -220,7 +217,7 @@ class KeychainStorage {
 
     func findKey(query: SQuery) throws -> SecKey? {
         var item: CFTypeRef?
-        let status = SecItemCopyMatching(query.searchQuery(), &item)
+        let status = SecItemCopyMatching(query.queryData(), &item)
         switch status {
         case errSecSuccess:
             let key = item as! SecKey

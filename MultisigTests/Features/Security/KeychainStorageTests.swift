@@ -31,7 +31,7 @@ class KeychainStorageTests: XCTestCase {
         // Given
         let randomData = UUID().uuidString.data(using: .utf8)!
         XCTAssertEqual(try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag), nil, "Precondition failed: Keychain not empty!")
-        keychainStorage.storeData(valueData: randomData, account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
+        keychainStorage.storeData(encryptedData: randomData, account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
 
         // When
         keychainStorage.deleteData(KeychainStorage.sensitiveEncryptedPrivateKeyTag)
@@ -73,7 +73,7 @@ class KeychainStorageTests: XCTestCase {
         XCTAssertEqual(try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag), nil, "Precondition failed: Keychain not empty!")
 
         // When
-        keychainStorage.storeData(valueData: randomData, account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
+        keychainStorage.storeData(encryptedData: randomData, account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
 
         //Then
         let result = try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
@@ -173,10 +173,12 @@ class KeychainStorageTests: XCTestCase {
         // 2. Encrypt randomData
         var error: Unmanaged<CFError>?
         guard let encryptedRandomData = SecKeyCreateEncryptedData(pubKey!, .eciesEncryptionStandardX963SHA256AESGCM, randomData as CFData, &error) as? Data else {
+            LogService.shared.error("Could not encrypt random data")
             throw error!.takeRetainedValue() as Error
         }
         // 3. decrypt randomData
         guard let decryptedRandomData = SecKeyCreateDecryptedData(key, .eciesEncryptionStandardX963SHA256AESGCM, encryptedRandomData as CFData, &error) as? Data else {
+            LogService.shared.error("Could not decrypt random data")
             throw error!.takeRetainedValue() as Error
         }
         return decryptedRandomData
