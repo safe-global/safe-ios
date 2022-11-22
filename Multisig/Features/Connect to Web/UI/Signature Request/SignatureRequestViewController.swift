@@ -18,9 +18,9 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
     var request: WebConnectionSignatureRequest!
 
     private var balanceLoadingTask: URLSessionTask?
-    private var chain: Chain?
-    private var keyInfo: KeyInfo?
-    private var keystoneSignFlow: KeystoneSignFlow!
+    internal var chain: Chain?
+    internal var keyInfo: KeyInfo?
+    internal var keystoneSignFlow: KeystoneSignFlow!
     
     convenience init() {
         self.init(namedClass: WebConnectionContainerViewController.self)
@@ -170,88 +170,15 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
         }
     }
 
+    let signer = WalletSigner()
+
     // Sign calculates an Ethereum ECDSA signature for:
     // keccack256("\x19Ethereum Signed Message:\n" + len(message) + message))
     private func sign() {
-        guard let keyInfo = keyInfo else {
-            return
-        }
-
-        switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated:
-            do {
-                guard let pk = try keyInfo.privateKey() else {
-                    App.shared.snackbar.show(message: "Private key not available")
-                    return
-                }
-                let preimage = "\u{19}Ethereum Signed Message:\n\(request.message.count)".data(using: .utf8)! + request.message
-                let signatureParts = try pk._store.sign(message: preimage.bytes)
-                let signature = Data(signatureParts.r) + Data(signatureParts.s) + Data([UInt8(signatureParts.v)])
-                confirm(signature:  signature)
-            } catch {
-                App.shared.snackbar.show(message: "Failed to sign: \(error.localizedDescription)")
-            }
-
-        case .walletConnect:
-            let hexMessage = self.request.message.toHexStringWithPrefix()
-
-            let signVC = SignatureRequestToWalletViewController(hexMessage, keyInfo: keyInfo, chain: self.chain ?? Chain.mainnetChain())
-            signVC.onSuccess = { [weak self] signature in
-                let signatureData = Data(hex: signature)
-                self?.confirm(signature: signatureData)
-            }
-            let vc = ViewControllerFactory.pageSheet(viewController: signVC, halfScreen: true)
-            self.present(vc, animated: true)
-
-        case .ledgerNanoX:
-            let hexToSign = request.message.toHexStringWithPrefix()
-
-            let request = SignRequest(title: "Sign Message",
-                                      tracking: ["action": "signMessage"],
-                                      signer: keyInfo,
-                                      hexToSign: hexToSign)
-
-            let ledgerSignerVC = LedgerSignerViewController(request: request)
-
-            present(ledgerSignerVC, animated: true)
-
-            ledgerSignerVC.completion = { [weak self] hexSignature in
-                // subtracting 4 from the v component of the signature in order to convert it to the ethereum signature
-                var signature = Data(hex: hexSignature)
-                assert(signature.count == 65)
-                signature[64] -= 4
-                self?.confirm(signature: signature)
-            }
-            
-        case .keystone:
-            let signInfo = KeystoneSignInfo(
-                signData: request.message.toHexString(),
-                chain: chain,
-                keyInfo: keyInfo,
-                signType: .personalMessage
-            )
-            let signCompletion = { [unowned self] (success: Bool) in
-                if !success {
-                    App.shared.snackbar.show(error: GSError.KeystoneSignFailed())
-                }
-                keystoneSignFlow = nil
-            }
-            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
-                App.shared.snackbar.show(error: GSError.KeystoneStartSignFailed())
-                return
-            }
-            
-            keystoneSignFlow = signFlow
-            keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
-                if let signature = SECP256K1.marshalSignature(v: Data([unmarshaledSignature.v]), r: unmarshaledSignature.r, s: unmarshaledSignature.s) {
-                    self?.confirm(signature: signature)
-                }
-            }
-            present(flow: keystoneSignFlow)
-        }
+        signer.signWCSignReq(controller: self)
     }
 
-    private func confirm(signature: Data, trackingParameters: [String: Any]? = nil) {
+    internal func confirm(signature: Data, trackingParameters: [String: Any]? = nil) {
         let trackingParameters: [String: Any] = ["source": "ctw"]
         if let keyInfo = keyInfo {
             Tracker.trackEvent(.userTransactionConfirmed,
@@ -264,4 +191,8 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
         Tracker.trackEvent(.webConnectionSignRequestRejected)
         controller.respond(request: request, errorCode: WebConnectionRequest.ErrorCode.requestRejected.rawValue, message: "User rejected the request")
     }
+}
+
+extension SignatureRequestViewController: WCSignReqSource {
+
 }
