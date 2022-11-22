@@ -25,7 +25,7 @@ class ReviewSafeTransactionViewController: UIViewController {
     @IBOutlet weak var ribbonView: RibbonView!
 
     private var currentDataTask: URLSessionTask?
-    private var keystoneSignFlow: KeystoneSignFlow!
+    internal var keystoneSignFlow: KeystoneSignFlow!
     var trackingEvent: TrackingEvent = .assetsTransferReview
 
     var safe: Safe!
@@ -233,79 +233,14 @@ class ReviewSafeTransactionViewController: UIViewController {
         self.confirmButtonView.state = .loading
     }
 
-    private func endConfirm() {
+    internal func endConfirm() {
         self.confirmButtonView.state = .normal
     }
 
+    let signer = WalletSigner()
+
     private func sign(_ keyInfo: KeyInfo) {
-        guard let transaction = createTransaction(),
-              let safeTxHash = transaction.safeTxHash?.description else {
-            preconditionFailure("Unexpected Error")
-        }
-
-        switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated:
-            do {
-                let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
-                proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: signature.hexadecimal)
-            } catch {
-                App.shared.snackbar.show(error: GSError.error(description: "Failed to confirm transaction", error: error))
-            }
-
-        case .walletConnect:
-            let signVC = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: safe.chain!)
-            signVC.onSuccess = { [weak self] signature in
-                self?.proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: signature)
-            }
-            signVC.onCancel = { [weak self] in
-                self?.endConfirm()
-            }
-            let vc = ViewControllerFactory.pageSheet(viewController: signVC, halfScreen: true)
-            presentModal(vc)
-
-        case .ledgerNanoX:
-            let request = SignRequest(title: "Confirm Transaction",
-                                      tracking: ["action" : "confirm"],
-                                      signer: keyInfo,
-                                      hexToSign: safeTxHash)
-            let vc = LedgerSignerViewController(request: request)
-
-            presentModal(vc)
-
-            vc.completion = { [weak self] signature in
-                self?.proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: signature)
-            }
-
-            vc.onClose = { [weak self] in
-                self?.endConfirm()
-            }
-            
-        case .keystone:
-            let signInfo = KeystoneSignInfo(
-                signData: transaction.safeTxHash.hash.toHexString(),
-                chain: safe.chain,
-                keyInfo: keyInfo,
-                signType: .personalMessage
-            )
-            let signCompletion = { [unowned self] (success: Bool) in
-                keystoneSignFlow = nil
-                if !success {
-                    App.shared.snackbar.show(error: GSError.KeystoneSignFailed())
-                    endConfirm()
-                }
-            }
-            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
-                App.shared.snackbar.show(error: GSError.KeystoneStartSignFailed())
-                endConfirm()
-                return
-            }
-            
-            keystoneSignFlow = signFlow
-            keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
-                self?.proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: unmarshaledSignature.safeSignature)
-            }
-            present(flow: keystoneSignFlow)
-        }
+        signer.signConfirmTx(keyInfo, controller: self)
     }
 
     func presentModal(_ vc: UIViewController) {
@@ -318,7 +253,7 @@ class ReviewSafeTransactionViewController: UIViewController {
         nil
     }
 
-    private func proposeTransaction(transaction: Transaction, keyInfo: KeyInfo, signature: String) {
+    internal func proposeTransaction(transaction: Transaction, keyInfo: KeyInfo, signature: String) {
         currentDataTask = App.shared.clientGatewayService.asyncProposeTransaction(transaction: transaction,
                                                                                   sender: AddressString(keyInfo.address),
                                                                                   signature: signature,
@@ -453,4 +388,8 @@ extension ReviewSafeTransactionViewController: UITableViewDataSource {
         default: return UITableViewCell()
         }
     }
+}
+
+extension ReviewSafeTransactionViewController: ConfirmTxSource {
+    
 }
