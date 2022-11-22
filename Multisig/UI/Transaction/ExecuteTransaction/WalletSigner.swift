@@ -118,6 +118,18 @@ protocol ConfirmTxSource: AnyObject {
     func present(flow: UIFlow, dismissableOnSwipe: Bool)
 }
 
+import Version
+protocol ConfirmTxDetailsSource: AnyObject {
+    var tx: SCGModels.TransactionDetails? { get }
+    var safe: Safe! { get }
+    func onError(_ error: DetailedLocalizedError)
+    func confirmAndRefresh(safeTxHash: String, signature: String, keyInfo: KeyInfo)
+    func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?)
+    func reloadData()
+    var keystoneSignFlow: KeystoneSignFlow! { get set }
+    func present(flow: UIFlow, dismissableOnSwipe: Bool)
+}
+
 class WalletSigner {
 
     enum SignError: Error {
@@ -788,6 +800,89 @@ class WalletSigner {
             controller.keystoneSignFlow = signFlow
             controller.keystoneSignFlow.signCompletion = { [weak controller] unmarshaledSignature in
                 controller?.proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: unmarshaledSignature.safeSignature)
+            }
+            controller.present(flow: controller.keystoneSignFlow, dismissableOnSwipe: true)
+        }
+    }
+
+    func signConfirmTxDetails(_ keyInfo: KeyInfo, controller: ConfirmTxDetailsSource) {
+        guard let tx = controller.tx,
+              var transaction = Transaction(tx: tx),
+              let safeAddress = try? Address(from: controller.safe.address!),
+              let chainId = controller.safe.chain?.id,
+              let safeTxHash = transaction.safeTxHash?.description else {
+            preconditionFailure("Unexpected Error")
+        }
+
+        transaction.safe = AddressString(safeAddress)
+        transaction.safeVersion = controller.safe.contractVersion != nil ? Version(controller.safe.contractVersion!) : nil
+        transaction.chainId = chainId
+
+        switch keyInfo.keyType {
+        case .deviceImported, .deviceGenerated:
+            do {
+                let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
+                controller.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature.hexadecimal, keyInfo: keyInfo)
+            } catch {
+                controller.onError(GSError.error(description: "Failed to confirm transaction", error: error))
+            }
+
+        case .walletConnect:
+            let signVC = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: controller.safe.chain!)
+            signVC.onSuccess = { [weak controller] signature in
+                controller?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyInfo: keyInfo)
+            }
+            let vc = ViewControllerFactory.pageSheet(viewController: signVC, halfScreen: true)
+            controller.present(vc, animated: true, completion: nil)
+
+        case .ledgerNanoX:
+            let request = SignRequest(title: "Confirm Transaction",
+                                      tracking: ["action" : "confirm"],
+                                      signer: keyInfo,
+                                      hexToSign: safeTxHash)
+            let vc = LedgerSignerViewController(request: request)
+
+            controller.present(vc, animated: true, completion: {
+                Tracker.trackEvent(.reviewExecutionLedger)
+            })
+
+            // needed to fix 'blinking' issue (screen reloads) when
+            // cancelling ledger signing on the device.
+            // Doing this via this variable 'patch' so that we don't rewrite the ledger implementation just yet.
+            var didSign = false
+
+            vc.completion = { [weak controller] signature in
+                didSign = true
+                controller?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyInfo: keyInfo)
+            }
+
+            vc.onClose = { [weak controller] in
+                if didSign {
+                    controller?.reloadData()
+                }
+            }
+
+        case .keystone:
+            let signInfo = KeystoneSignInfo(
+                signData: transaction.safeTxHash.hash.toHexString(),
+                chain: controller.safe.chain,
+                keyInfo: keyInfo,
+                signType: .personalMessage
+            )
+            let signCompletion = { [unowned controller] (success: Bool) in
+                if !success {
+                    App.shared.snackbar.show(error: GSError.KeystoneSignFailed())
+                }
+                controller.keystoneSignFlow = nil
+            }
+            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
+                controller.onError(GSError.KeystoneStartSignFailed())
+                return
+            }
+
+            controller.keystoneSignFlow = signFlow
+            controller.keystoneSignFlow.signCompletion = { [weak controller] unmarshaledSignature in
+                controller?.confirmAndRefresh(safeTxHash: safeTxHash, signature: unmarshaledSignature.safeSignature, keyInfo: keyInfo)
             }
             controller.present(flow: controller.keystoneSignFlow, dismissableOnSwipe: true)
         }

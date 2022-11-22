@@ -15,7 +15,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     var clientGatewayService = App.shared.clientGatewayService
 
     private var cells: [UITableViewCell] = []
-    private var tx: SCGModels.TransactionDetails?
+    internal var tx: SCGModels.TransactionDetails?
     private var reloadDataTask: URLSessionTask?
     private var confirmDataTask: URLSessionTask?
     private var rejectTask: URLSessionTask?
@@ -26,7 +26,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private var actionsContainerView: UIStackView!
 
     private var pendingExecution = false
-    private var safe: Safe!
+    internal var safe: Safe!
     private var loadSafeInfoDataTask: URLSessionTask?
     private var ledgerController: LedgerController?
     private var shareButton: UIBarButtonItem!
@@ -43,7 +43,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     private var txSource: TransactionSource!
 
     private var ledgerKeyInfo: KeyInfo?
-    private var keystoneSignFlow: KeystoneSignFlow!
+    internal var keystoneSignFlow: KeystoneSignFlow!
     
     convenience init(transactionID: String) {
         self.init(namedClass: Self.superclass())
@@ -327,90 +327,12 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         present(navigationController, animated: true)
     }
 
+    let signer = WalletSigner()
     private func sign(_ keyInfo: KeyInfo) {
-        guard let tx = tx,
-              var transaction = Transaction(tx: tx),
-              let safeAddress = try? Address(from: safe.address!),
-              let chainId = safe.chain?.id,
-              let safeTxHash = transaction.safeTxHash?.description else {
-            preconditionFailure("Unexpected Error")            
-        }
-
-        transaction.safe = AddressString(safeAddress)
-        transaction.safeVersion = safe.contractVersion != nil ? Version(safe.contractVersion!) : nil
-        transaction.chainId = chainId
-
-        switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated:
-            do {
-                let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
-                confirmAndRefresh(safeTxHash: safeTxHash, signature: signature.hexadecimal, keyInfo: keyInfo)
-            } catch {
-                onError(GSError.error(description: "Failed to confirm transaction", error: error))
-            }
-
-        case .walletConnect:
-            let signVC = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: safe.chain!)
-            signVC.onSuccess = { [weak self] signature in
-                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyInfo: keyInfo)
-            }
-            let vc = ViewControllerFactory.pageSheet(viewController: signVC, halfScreen: true)
-            present(vc, animated: true)
-
-        case .ledgerNanoX:
-            let request = SignRequest(title: "Confirm Transaction",
-                                      tracking: ["action" : "confirm"],
-                                      signer: keyInfo,
-                                      hexToSign: safeTxHash)
-            let vc = LedgerSignerViewController(request: request)
-
-            present(vc, animated: true, completion: {
-                Tracker.trackEvent(.reviewExecutionLedger)
-            })
-
-            // needed to fix 'blinking' issue (screen reloads) when
-            // cancelling ledger signing on the device.
-            // Doing this via this variable 'patch' so that we don't rewrite the ledger implementation just yet.
-            var didSign = false
-
-            vc.completion = { [weak self] signature in
-                didSign = true
-                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature, keyInfo: keyInfo)
-            }
-
-            vc.onClose = { [weak self] in
-                if didSign {
-                    self?.reloadData()
-                }
-            }
-            
-        case .keystone:
-            let signInfo = KeystoneSignInfo(
-                signData: transaction.safeTxHash.hash.toHexString(),
-                chain: safe.chain,
-                keyInfo: keyInfo,
-                signType: .personalMessage
-            )
-            let signCompletion = { [unowned self] (success: Bool) in
-                if !success {
-                    App.shared.snackbar.show(error: GSError.KeystoneSignFailed())
-                }
-                keystoneSignFlow = nil
-            }
-            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
-                onError(GSError.KeystoneStartSignFailed())
-                return
-            }
-            
-            keystoneSignFlow = signFlow
-            keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
-                self?.confirmAndRefresh(safeTxHash: safeTxHash, signature: unmarshaledSignature.safeSignature, keyInfo: keyInfo)
-            }
-            present(flow: keystoneSignFlow)
-        }
+        signer.signConfirmTxDetails(keyInfo, controller: self)
     }
 
-    private func confirmAndRefresh(safeTxHash: String, signature: String, keyInfo: KeyInfo) {
+    internal func confirmAndRefresh(safeTxHash: String, signature: String, keyInfo: KeyInfo) {
         super.reloadData()
         confirmDataTask = App.shared.clientGatewayService.asyncConfirm(safeTxHash: safeTxHash,
                                                                        signature: signature,
@@ -651,4 +573,8 @@ extension SCGModels.TxStatus {
     var isAwatingConfiramtions: Bool {
         [.awaitingYourConfirmation, .awaitingConfirmations].contains(self)
     }
+}
+
+extension TransactionDetailsViewController: ConfirmTxDetailsSource {
+
 }
