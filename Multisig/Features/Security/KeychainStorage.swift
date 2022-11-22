@@ -121,8 +121,7 @@ class KeychainStorage {
         switch status {
         case errSecSuccess:
             if let item = item {
-                let encryptedPrivateKeyData = item as! Data
-                return encryptedPrivateKeyData
+                return item as? Data
             } else {
                 return nil
             }
@@ -192,24 +191,9 @@ class KeychainStorage {
         return keyPair
     }
 
-    // used to find a KEK or a private key
-    func findPrivateKey() {
-    }
-
-    func findPublicKey() {
-    }
-
     func deleteItem(_ query: SQuery) {
         SecItemDelete(query.queryData())
     }
-
-    func encrypt() {
-
-    }
-
-    func decrypt() {
-    }
-
 
     func findKey(query: SQuery) throws -> SecKey? {
         var item: CFTypeRef?
@@ -227,31 +211,5 @@ class KeychainStorage {
             let error = NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: [NSLocalizedDescriptionKey: message])
             throw error
         }
-    }
-
-    func keyToString(key: SecKey) throws -> String {
-        try keyToData(key).toHexString()
-    }
-
-    func keyToData(_ key: SecKey) throws -> Data {
-        var error: Unmanaged<CFError>?
-        guard let data = SecKeyCopyExternalRepresentation(key, &error) as? Data else {
-            LogService.shared.error("Error: \(error!.takeRetainedValue() as Error)")
-            throw error!.takeRetainedValue() as Error
-        }
-        return data
-    }
-
-    func dataToPrivateSecKey(_ data: Data) throws -> SecKey {
-        let attributes: NSDictionary = [
-            kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
-            kSecAttrKeySizeInBits: 256,
-            kSecAttrKeyClass: kSecAttrKeyClassPrivate
-        ]
-        var error: Unmanaged<CFError>?
-        guard let privateKey: SecKey = SecKeyCreateWithData(data as CFData, attributes, &error) else {
-            throw error!.takeRetainedValue() as Error
-        }
-        return privateKey
     }
 }
