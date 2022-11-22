@@ -8,7 +8,8 @@ import LocalAuthentication
 
 enum SQuery {
     case generic(id: String, service: String = KeychainStorage.defaultService)
-    case ecKey(tag: String, password: Data? = nil)
+    case ecPrivateKey(tag: String = KeychainStorage.sensitiveKekTag, password: Data? = nil)
+    case ecPubKey(tag: String = KeychainStorage.sensitivePublicKeyTag)
 
     func searchQuery() -> NSDictionary {
         var result: NSMutableDictionary
@@ -20,23 +21,30 @@ enum SQuery {
                 kSecAttrAccount: id,
                 kSecClass: kSecClassGenericPassword,
                 kSecReturnAttributes: false,
-                kSecReturnData: true
+                kSecReturnData: true,
             ]
 
-        case let .ecKey(tag, password):
+        case let .ecPrivateKey(tag, password):
             result = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
                 kSecAttrApplicationTag: tag.data(using: .utf8)!,
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
+                kSecReturnRef: true
             ]
+
             if let context = LAContext(password: password) {
                 result[kSecUseAuthenticationContext] = context
             }
+        case let .ecPubKey(tag):
+            result = [
+                kSecClass: kSecClassKey,
+                kSecAttrKeyClass: kSecAttrKeyClassPublic,
+                kSecAttrApplicationTag: tag.data(using: .utf8)!,
+                kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
+                kSecReturnRef: true
+            ]
         }
-
-        // This breaks the query for .generic passwords, if enabled
-        //  result[kSecReturnRef] = true
 
         return result
     }
@@ -58,7 +66,7 @@ fileprivate extension LAContext {
 
 enum SItem {
     case generic(id: String, service: String, data: Data)
-    case enclaveKey(tag: String)
+    case enclaveKey(tag: String = KeychainStorage.sensitiveKekTag)
     case ecKey(_ tag: String?)
 
     // applies access flags and password to any type of item
@@ -119,4 +127,9 @@ enum SItem {
         }
         return access
     }
+}
+
+enum SQueryError: Error {
+    case invalidPasscode
+    case notFound
 }

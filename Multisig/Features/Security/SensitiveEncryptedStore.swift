@@ -112,7 +112,8 @@ class SensitiveEncryptedStore: EncryptedStore {
         let encryptedPrivateKeyData = try keychainStorage.retrieveEncryptedData(account: address.checksummed)!
 
         // find sensitiveKEK
-        let sensitiveKEK = try keychainStorage.findKey(tag: KeychainStorage.sensitiveKekTag, password: password != nil ? password : keychainStorage.retrievePasscode())!
+        let s = password != nil ? password : keychainStorage.retrievePasscode()
+        let sensitiveKEK = try keychainStorage.findKey(query: SQuery.ecPrivateKey(tag: KeychainStorage.sensitiveKekTag, password: s?.data(using: .utf8)))!
 
         // find encrypted sensitive key
         let encryptedSensitiveKeyData = try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)!

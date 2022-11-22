@@ -23,8 +23,8 @@ class KeychainStorageTests: XCTestCase {
         // Is it possible to always have a clean/empty keychain?
         keychainStorage.deleteData(KeychainStorage.derivedPasswordTag)
         keychainStorage.deleteData(KeychainStorage.sensitiveEncryptedPrivateKeyTag)
-        keychainStorage.deleteItem(tag: KeychainStorage.sensitivePublicKeyTag)
-        keychainStorage.deleteItem(tag: KeychainStorage.sensitiveKekTag)
+        keychainStorage.deleteItem(.ecPubKey())
+        keychainStorage.deleteItem(.ecPrivateKey())
     }
 
     func testDeleteData() throws {
@@ -48,7 +48,7 @@ class KeychainStorageTests: XCTestCase {
         try keychainStorage.storeSensitivePublicKey(publicKey: randomPublicKey)
 
         // When
-        keychainStorage.deleteItem(tag: KeychainStorage.sensitivePublicKeyTag)
+        keychainStorage.deleteItem(.ecPubKey())
 
         //Then
         XCTAssertEqual(try keychainStorage.retrieveSensitivePublicKey(), nil, "Delete item failed")
@@ -138,7 +138,7 @@ class KeychainStorageTests: XCTestCase {
         try keychainStorage.createSecureEnclaveKey(useBiometry: false, canChangeBiometry: false, applicationPassword: randomPassword)
 
         // When
-        let key = try keychainStorage.findKey(tag: KeychainStorage.sensitiveKekTag, password: randomPassword)!
+        let key = try keychainStorage.findKey(query: SQuery.ecPrivateKey(tag: KeychainStorage.sensitiveKekTag, password: randomPassword.data(using: .utf8)))!
 
         // Then
         // check key is usable
@@ -159,7 +159,7 @@ class KeychainStorageTests: XCTestCase {
         try keychainStorage.createSecureEnclaveKey(useBiometry: true, canChangeBiometry: false, applicationPassword: randomPassword)
 
         // When
-        let key = try keychainStorage.findKey(tag: KeychainStorage.sensitiveKekTag, password: randomPassword)!
+        let key = try keychainStorage.findKey(query: .ecPrivateKey(password: randomPassword.data(using: .utf8)))!
 
         // Then
         // check key is usable

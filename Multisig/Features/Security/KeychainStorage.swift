@@ -95,7 +95,7 @@ class KeychainStorage {
         if !useBiometry {
             flags = [.applicationPassword]
         }
-        return try createSEKey(flags: flags, tag: KeychainStorage.sensitiveKekTag, applicationPassword: applicationPassword)
+        return try createSEKey(flags: flags, applicationPassword: applicationPassword)
     }
 
     func storeData(valueData: Data, account: String) {
@@ -146,27 +146,24 @@ class KeychainStorage {
     }
 
     func storeSensitivePublicKey(publicKey: SecKey) throws {
-        deleteItem(tag: KeychainStorage.sensitivePublicKeyTag)
-        let addPublicKeyQuery: NSDictionary = [
-            kSecClass as String: kSecClassKey,
-            kSecAttrApplicationTag as String: KeychainStorage.sensitivePublicKeyTag,
-            kSecAttrKeyClass as String: kSecAttrKeyClassPublic,
-            kSecValueRef as String: publicKey
-        ]
-        let status = SecItemAdd(addPublicKeyQuery as CFDictionary, nil)
+        deleteItem(.ecPubKey())
+
+        let queryDict = SQuery.ecPubKey().searchQuery()
+        queryDict.setValue(publicKey, forKey: kSecValueRef as String)
+        let status = SecItemAdd(queryDict, nil)
         guard status == errSecSuccess else {
             throw GSError.GenericPasscodeError(reason: "Cannot store public key")
         } // Should be a new and more specific error type
     }
 
     func retrieveSensitivePublicKey() throws -> SecKey? {
-        try findKey(tag: KeychainStorage.sensitivePublicKeyTag)
+        try findKey(query: SQuery.ecPubKey())
     }
 
-    private func createSEKey(flags: SecAccessControlCreateFlags, tag: String, applicationPassword: String) throws -> SecKey {
+    private func createSEKey(flags: SecAccessControlCreateFlags, applicationPassword: String) throws -> SecKey {
         // Passed via kSecUseAuthenticationContext to kSecPrivateKeyAttrs attributes
-        deleteItem(tag: tag)
-        let attributes = try SItem.enclaveKey(tag: tag).attributes(access: .applicationPassword, password: applicationPassword.data(using: .utf8))
+        deleteItem(.ecPrivateKey())
+        let attributes = try SItem.enclaveKey().attributes(access: .applicationPassword, password: applicationPassword.data(using: .utf8))
 
         // create a key pair
         var createError: Unmanaged<CFError>?
@@ -206,11 +203,11 @@ class KeychainStorage {
     func findPublicKey() {
     }
 
-    func deleteItem(tag: String) {
-        let query = SQuery.ecKey(tag: tag).searchQuery()
-        query.setValue(nil, forKey: "kcls" as String) // apparently this is necessary for deletion to work :-/
+    func deleteItem(_ query: SQuery) {
+//        let query = SQuery.ecKey(tag: tag).searchQuery()
+//        query.setValue(nil, forKey: "kcls" as String) // apparently this is necessary for deletion to work :-/
 
-        SecItemDelete(query)
+        SecItemDelete(query.searchQuery())
     }
 
     func encrypt() {
@@ -221,25 +218,9 @@ class KeychainStorage {
     }
 
 
-    func findKey(tag: String, password: String? = nil) throws -> SecKey? {
-        var authenticationContext = LAContext()
-        var result = false
-        if let password = password {
-            (result, authenticationContext) = createLAContextFromPassword(password: password)
-        }
-
-        // create search dictionary
-        let getQuery: [String: Any] = [
-            kSecClass as String: kSecClassKey,
-            kSecAttrApplicationTag as String: tag.data(using: .utf8)!,
-            kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom,
-            kSecReturnRef as String: true,
-            kSecUseAuthenticationContext as String: authenticationContext
-        ]
-
-        // execute the search
+    func findKey(query: SQuery) throws -> SecKey? {
         var item: CFTypeRef?
-        let status = SecItemCopyMatching(getQuery as CFDictionary, &item)
+        let status = SecItemCopyMatching(query.searchQuery(), &item)
         switch status {
         case errSecSuccess:
             let key = item as! SecKey
