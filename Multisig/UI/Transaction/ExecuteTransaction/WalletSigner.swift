@@ -130,6 +130,36 @@ protocol ConfirmTxDetailsSource: AnyObject {
     func present(flow: UIFlow, dismissableOnSwipe: Bool)
 }
 
+import Web3
+
+class SafeTransactionSigner {
+    func sign(_ transaction: Transaction, keyInfo: KeyInfo) throws -> Signature {
+        guard let key = try keyInfo.privateKey() else {
+            throw GSError.MissingPrivateKeyError()
+        }
+        return try sign(transaction, key: key)
+    }
+
+    func sign(_ transaction: Transaction, key: PrivateKey) throws -> Signature {
+        let hashToSign = Data(ethHex: transaction.safeTxHash.description)
+        let data = transaction.encodeTransactionData()
+        guard EthHasher.hash(data) == hashToSign else {
+            throw GSError.TransactionSigningError()
+        }
+
+        let hashString = HashString(transaction.safeTxHash.hash)
+        return try key.sign(hash: hashString.hash)
+    }
+
+    func sign(hash: HashString, keyInfo: KeyInfo) throws -> Signature {
+        guard let key = try keyInfo.privateKey() else {
+            throw GSError.MissingPrivateKeyError()
+        }
+
+        return try key.sign(hash: hash.hash)
+    }
+}
+
 class WalletSigner {
 
     enum SignError: Error {
@@ -137,6 +167,7 @@ class WalletSigner {
     }
 
     fileprivate func signTxWithLocalWallet(_ controller: SignSource, _ keyInfo: KeyInfo) {
+        // keyInfo -> pk; controller -> hash; sign(pk, hash) -> signature (v, r, s); error, success
         do {
             let txHash = controller.hashForSigning()
 
@@ -158,6 +189,7 @@ class WalletSigner {
     }
 
     fileprivate func signSafeCreationTxWithLocalWallet(_ controller: SafeSignSource, _ keyInfo: KeyInfo) {
+        // controller -> model -> transaction -> hash; sign(key, hash) -> (v, r, s) -> another v, r, s; error, success
         do {
             let txHash = controller.uiModel.transaction.hashForSigning().storage.storage
 
@@ -172,12 +204,11 @@ class WalletSigner {
                 r: Sol.UInt256(Data(signature.r)),
                 s: Sol.UInt256(Data(signature.s))
             )
+            controller.submit()
         } catch {
             let gsError = GSError.error(description: "Signing failed", error: error)
             App.shared.snackbar.show(error: gsError)
-            return
         }
-        controller.submit()
     }
 
 
@@ -196,16 +227,15 @@ class WalletSigner {
                 r: Sol.UInt256(Data(signature.r)),
                 s: Sol.UInt256(Data(signature.s))
             )
+            controller.submit()
         } catch {
             let gsError = GSError.error(description: "Signing failed", error: error)
             App.shared.snackbar.show(error: gsError)
-            return
         }
-
-        controller.submit()
     }
 
     fileprivate func signMessageWithLocalWallet(_ keyInfo: KeyInfo, _ controller: WCSignReqSource) {
+        // message -> eth preimage -> hashkeccak256(preimage) -> sign(pk, hash) -> (v, r, s) -> serialize in data (r, s, v); success, error
         do {
             guard let pk = try keyInfo.privateKey() else {
                 App.shared.snackbar.show(message: "Private key not available")
@@ -221,6 +251,7 @@ class WalletSigner {
     }
 
     fileprivate func signSafeTxWithLocalWallet(_ transaction: Transaction, _ keyInfo: KeyInfo, _ controller: ConfirmTxDetailsSource, _ safeTxHash: String) {
+        // tx -> hash -> sign(pk, hash) -> (v, r, s) -> serialize in data -> hex string (r, s, v)
         do {
             let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
             controller.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature.hexadecimal, keyInfo: keyInfo)
@@ -230,6 +261,7 @@ class WalletSigner {
     }
 
     fileprivate func signConfirmTxWithLocalWallet(_ transaction: Transaction, _ keyInfo: KeyInfo, _ controller: ConfirmTxSource) {
+        // tx -> hash -> sign(pk, hash) -> (v, r, s) -> serialize in data -> hex string (r, s, v)
         do {
             let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
             controller.proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: signature.hexadecimal)
@@ -239,6 +271,7 @@ class WalletSigner {
     }
 
     fileprivate func signRejectionTxWithLocalWallet(_ controller: RejectionTxSource, _ keyInfo: KeyInfo) {
+        // tx -> hash -> sign(pk, hash) -> (v, r, s) -> serialize in data -> hex string (r, s, v)
         do {
             let signature = try SafeTransactionSigner().sign(controller.rejectionTransaction, keyInfo: keyInfo)
             controller.rejectAndCloseController(signature: signature.hexadecimal)
@@ -248,6 +281,7 @@ class WalletSigner {
     }
 
     fileprivate func signPushMessageWithLocalWallet(_ hexMessage: String, _ controller: PushMsgSource, _ completion: (Result<Data, Error>) -> Void) {
+        // hex string -> data -> pk(sign, data) -> signature -> serialize in hex -> serialize in data (r, s, v)
         do {
             let signature = try SafeTransactionSigner().sign(hash: HashString(hex: hexMessage), keyInfo: controller.keyInfo)
             completion(.success(Data(hex: signature.hexadecimal)))
@@ -258,6 +292,7 @@ class WalletSigner {
 
     // used directly for delegate key signing; and for remote notif registration
     func signHash(pk: PrivateKey, hash: Data) throws -> Signature {
+        // sign(hash) -> eip-155 (+27) signature + address of signer
         try pk.sign(hash: hash)
     }
 
