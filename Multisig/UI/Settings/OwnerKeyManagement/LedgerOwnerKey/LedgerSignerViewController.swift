@@ -47,115 +47,107 @@ class LedgerSignerViewController: UINavigationController {
                                                   showsCloseButton: true)
         self.init(rootViewController: vc)
         self.request = request
-        vc.delegate = self
-    }
-}
+        vc.completion = { [unowned self, unowned vc] deviceId, bluetoothController in
+            guard let data = request.signer.metadata,
+                  let metadata = KeyInfo.LedgerKeyMetadata.from(data: data) else { return }
 
-extension LedgerSignerViewController: SelectLedgerDeviceDelegate {
-    func selectLedgerDeviceViewController(
-        _ controller: SelectLedgerDeviceViewController,
-        didSelectDevice deviceId: UUID,
-        bluetoothController: BaseBluetoothController
-    ) {
-        guard let data = request.signer.metadata,
-              let metadata = KeyInfo.LedgerKeyMetadata.from(data: data) else { return }
+            let confirmVC = LedgerPendingConfirmationViewController(
+                headerText: request.title,
+                bluetoothController: bluetoothController,
+                signRequest: request,
+                deviceId: deviceId,
+                derivationPath: metadata.path)
 
-        let confirmVC = LedgerPendingConfirmationViewController(
-            headerText: request.title,
-            bluetoothController: bluetoothController,
-            signRequest: request,
-            deviceId: deviceId,
-            derivationPath: metadata.path)
+            confirmVC.modalPresentationStyle = .popover
+            confirmVC.modalTransitionStyle = .crossDissolve
 
-        confirmVC.modalPresentationStyle = .popover
-        confirmVC.modalTransitionStyle = .crossDissolve
+            present(confirmVC, animated: true)
 
-        present(confirmVC, animated: true)
+            confirmVC.onClose = { [unowned vc] in
+                vc.reloadData()
+                vc.onClose?()
+            }
 
-        confirmVC.onClose = { [unowned controller] in
-            controller.reloadData()
-            controller.onClose?()
-        }
+            confirmVC.onTxSign = { [weak self, unowned vc] result in
+                guard let self = self else { return }
 
-        confirmVC.onTxSign = { [weak self, unowned controller] result in
-            guard let self = self else { return }
+                // dismiss Ledger Pending Confirmation overlay
+                self.dismiss(animated: true, completion: nil)
 
-            // dismiss Ledger Pending Confirmation overlay
-            self.dismiss(animated: true, completion: nil)
+                switch result {
+                case .failure(let error):
+                    let gsError = GSError.error(description: "The operation failed.", error: error)
+                    App.shared.snackbar.show(error: gsError)
 
-            switch result {
-            case .failure(let error):
-                let gsError = GSError.error(description: "The operation failed.", error: error)
-                App.shared.snackbar.show(error: gsError)
+                    vc.reloadData()
 
-                controller.reloadData()
+                case .success(let signature):
+                    // got signature, dismiss the first SelectDevice screen.
+                    self.dismiss(animated: true, completion: nil)
 
-            case .success(let signature):
+                    self.txCompletion?(signature)
+                }
+            }
+
+            confirmVC.onSign = { [weak self, unowned vc] signature, errorMessage in
+                guard let self = self else { return }
+
+                // dismiss Ledger Pending Confirmation overlay
+                self.dismiss(animated: true, completion: nil)
+
+                guard let signature = signature else {
+                    // Possible reasons:
+                    //  - bluetooth pairing failure
+                    //  - ethereum app on the ledger device is not open
+                    //  - cancelled on ledger device
+                    // In these situations it is more convenient to keep the bluetooth discover open
+                    // so we just show the error and reload data
+                    let message = errorMessage ?? "The operation was canceled on the Ledger device."
+                    App.shared.snackbar.show(message: message)
+
+                    // reload the devices in case we lost connection
+                    vc.reloadData()
+                    return
+                }
+
+                // layout is <r: 35 bytes><s: 35 bytes><v: 1 byte>; v = (0 | 1) + 27 + 4
+                let signatureData = Data(hex: signature)
+                assert(signatureData.count >= 65)
+                let r = Data(Array(signatureData[0..<32]))
+                let s = Data(Array(signatureData[32..<64]))
+                let v = signatureData[64]
+
+                // original message signed by Ledger has Ethereum prefix according to eth_sign
+                guard case let SignRequest.Payload.hash(hexToSign) = self.request!.payload else {
+                    preconditionFailure("Unexpected payload: \(self.request!.payload)")
+                }
+                let originalHash = Data(hex: hexToSign)
+                let prefix = "\u{19}Ethereum Signed Message:\n\(originalHash.count)"
+                let prefixedMessage = prefix.data(using: .utf8)! + originalHash
+
+                // recover the public key
+                let pubKey = try? EthereumPublicKey.init(message: prefixedMessage.makeBytes(),
+                                                         v: EthereumQuantity(quantity: BigUInt(v - 27 - 4)),
+                                                         r: EthereumQuantity(r.makeBytes()),
+                                                         s: EthereumQuantity(s.makeBytes()))
+
+                // Since it's possible to sign with a key different from the one user selected in app UI in the previous
+                // step, we'll check that the actual signer is the same as the selected owner.
+
+                guard let signedOwner = pubKey?.address,
+                        Address(signedOwner) == self.request.signer.address else {
+                    App.shared.snackbar.show(error: GSError.SignerMismatch())
+
+                    // reload the devices in case we lost connection
+                    vc.reloadData()
+                    return
+                }
+
                 // got signature, dismiss the first SelectDevice screen.
                 self.dismiss(animated: true, completion: nil)
 
-                self.txCompletion?(signature)
+                self.completion(signature)
             }
-        }
-
-        confirmVC.onSign = { [weak self, unowned controller] signature, errorMessage in
-            guard let self = self else { return }
-
-            // dismiss Ledger Pending Confirmation overlay
-            self.dismiss(animated: true, completion: nil)
-
-            guard let signature = signature else {
-                // Possible reasons:
-                //  - bluetooth pairing failure
-                //  - ethereum app on the ledger device is not open
-                //  - cancelled on ledger device
-                // In these situations it is more convenient to keep the bluetooth discover open
-                // so we just show the error and reload data
-                let message = errorMessage ?? "The operation was canceled on the Ledger device."
-                App.shared.snackbar.show(message: message)
-
-                // reload the devices in case we lost connection
-                controller.reloadData()
-                return
-            }
-
-            // layout is <r: 35 bytes><s: 35 bytes><v: 1 byte>; v = (0 | 1) + 27 + 4
-            let signatureData = Data(hex: signature)
-            assert(signatureData.count >= 65)
-            let r = Data(Array(signatureData[0..<32]))
-            let s = Data(Array(signatureData[32..<64]))
-            let v = signatureData[64]
-
-            // original message signed by Ledger has Ethereum prefix according to eth_sign
-            guard case let SignRequest.Payload.hash(hexToSign) = self.request!.payload else {
-                preconditionFailure("Unexpected payload: \(self.request!.payload)")
-            }
-            let originalHash = Data(hex: hexToSign)
-            let prefix = "\u{19}Ethereum Signed Message:\n\(originalHash.count)"
-            let prefixedMessage = prefix.data(using: .utf8)! + originalHash
-
-            // recover the public key
-            let pubKey = try? EthereumPublicKey.init(message: prefixedMessage.makeBytes(),
-                                                     v: EthereumQuantity(quantity: BigUInt(v - 27 - 4)),
-                                                     r: EthereumQuantity(r.makeBytes()),
-                                                     s: EthereumQuantity(s.makeBytes()))
-
-            // Since it's possible to sign with a key different from the one user selected in app UI in the previous
-            // step, we'll check that the actual signer is the same as the selected owner.
-            
-            guard let signedOwner = pubKey?.address,
-                    Address(signedOwner) == self.request.signer.address else {
-                App.shared.snackbar.show(error: GSError.SignerMismatch())
-
-                // reload the devices in case we lost connection
-                controller.reloadData()
-                return
-            }
-
-            // got signature, dismiss the first SelectDevice screen.
-            self.dismiss(animated: true, completion: nil)
-
-            self.completion(signature)
         }
     }
 }

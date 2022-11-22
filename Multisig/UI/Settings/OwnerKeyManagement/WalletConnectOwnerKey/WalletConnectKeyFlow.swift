@@ -9,16 +9,16 @@
 import UIKit
 
 class WalletConnectKeyFlow: AddKeyFlow {
-    private var connection: WebConnection!
-    private var wallet: WCAppRegistryEntry?
-    private var address: Address!
-
     var flowFactory: WalletConnectKeyFlowFactory {
         factory as! WalletConnectKeyFlowFactory
     }
 
+    var parameters: AddWalletConnectKeyParameters? {
+        keyParameters as? AddWalletConnectKeyParameters
+    }
+
     init(completion: @escaping (Bool) -> Void) {
-        super.init(keyType: .walletConnect, factory: WalletConnectKeyFlowFactory(), completion: completion)
+        super.init(factory: WalletConnectKeyFlowFactory(), completion: completion)
     }
 
     override func didIntro() {
@@ -32,21 +32,24 @@ class WalletConnectKeyFlow: AddKeyFlow {
                 return
             }
 
-            self.connection = connection
-            self.wallet = wallet
-            didGet(key: address)
+            keyParameters = AddWalletConnectKeyParameters(address: address,
+                                                          name: nil,
+                                                          connection: connection,
+                                                          wallet: wallet)
+            didGetKey()
         }
 
         show(vc)
     }
 
     override func doImport() -> Bool {
-        assert(connection != nil)
-        assert(wallet != nil)
-        assert(keyName != nil)
-        assert(keyAddress != nil)
-        guard OwnerKeyController.importKey(connection: connection, wallet: wallet, name: keyName!) else {
-            WebConnectionController.shared.userDidDisconnect(connection)
+        assert(parameters?.connection != nil)
+        assert(parameters?.wallet != nil)
+        assert(parameters?.name != nil)
+        guard OwnerKeyController.importKey(connection: parameters!.connection,
+                                           wallet: parameters!.wallet,
+                                           name: parameters!.name!) else {
+            WebConnectionController.shared.userDidDisconnect(parameters!.connection)
             return false
         }
 
@@ -81,5 +84,16 @@ class WalletConnectKeyFlowFactory: AddKeyFlowFactory {
         })
 
         return controller
+    }
+}
+
+class AddWalletConnectKeyParameters: AddKeyParameters {
+    var connection: WebConnection!
+    var wallet: WCAppRegistryEntry?
+
+    init(address: Address, name: String?, connection: WebConnection, wallet: WCAppRegistryEntry?) {
+        self.connection = connection
+        self.wallet = wallet
+        super.init(address: address, name: name, type: KeyType.walletConnect)
     }
 }

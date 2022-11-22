@@ -9,27 +9,28 @@
 import UIKit
 
 class LedgerKeyFlow: AddKeyFlow {
-    private var deviceUUID: UUID?
     private var bluetoothController: BaseBluetoothController?
-    var keyParameters: AddKeyParameters?
 
     var flowFactory: LedgerKeyFlowFactory {
         factory as! LedgerKeyFlowFactory
     }
 
+    var parameters: AddLedgerKeyParameters? {
+        keyParameters as? AddLedgerKeyParameters
+    }
+
     init(completion: @escaping (Bool) -> Void) {
-        super.init(keyType: .ledgerNanoX, factory: LedgerKeyFlowFactory(), completion: completion)
+        super.init(factory: LedgerKeyFlowFactory(), completion: completion)
     }
 
     override func didIntro() {
-        selectWallet()
+        selectDevice()
     }
 
-    func selectWallet() {
+    func selectDevice() {
         let vc = flowFactory.selectDevice { [unowned self] deviceId, controller  in
-            deviceUUID = deviceId
             bluetoothController = controller
-            addressPicker()
+            addressPicker(deviceUUID: deviceId)
         } onClose: {
 
         }
@@ -37,25 +38,26 @@ class LedgerKeyFlow: AddKeyFlow {
         show(vc)
     }
 
-    func addressPicker() {
-        assert(deviceUUID != nil)
+    func addressPicker(deviceUUID: UUID) {
+        assert(parameters?.deviceUUID != nil)
         assert(bluetoothController != nil)
-        let vc = factory.addressPicker(deviceUUID: deviceUUID!, bluetoothController: bluetoothController!) { [unowned self] info in
-            keyParameters = info
-            didGet(key: info.address)
+        let vc = flowFactory.addressPicker(deviceUUID: deviceUUID,
+                                           bluetoothController: bluetoothController!) { [unowned self] key, name, path in
+            keyParameters = AddLedgerKeyParameters(address: key.address, keyName: name, index: key.index, derivationPath: path, deviceUUID: deviceUUID)
+            didGetKey()
         }
+
+        show(vc)
     }
 
     override func doImport() -> Bool {
-        guard let keyParameters = keyParameters as? AddLedgerKeyParameters, let deviceId = deviceUUID else {
-            return false
-        }
-        
+        assert(parameters?.deviceUUID != nil)
+        assert(parameters?.name != nil)
         return OwnerKeyController.importKey(
-                ledgerDeviceUUID: deviceId,
-                path: keyParameters.derivationPath,
-                address: keyParameters.address,
-                name: keyParameters.keyName!
+            ledgerDeviceUUID: parameters!.deviceUUID,
+                path: parameters!.derivationPath,
+                address: parameters!.address,
+                name: parameters!.name!
         )
     }
 }
@@ -93,12 +95,25 @@ class LedgerKeyFlowFactory: AddKeyFlowFactory {
 
     func addressPicker(deviceUUID: UUID,
                        bluetoothController: BaseBluetoothController,
-                       completion: @escaping ((AddLedgerKeyParameters) -> Void)) -> LedgerKeyPickerViewController {
+                       completion: @escaping ((KeyAddressInfo, String?, String) -> Void)) -> LedgerKeyPickerViewController {
         let addressPickerVC = LedgerKeyPickerViewController(
             deviceId: deviceUUID,
             bluetoothController: bluetoothController)
         addressPickerVC.completion = completion
 
         return addressPickerVC
+    }
+}
+
+class AddLedgerKeyParameters: AddKeyParameters {
+    var index: Int
+    var derivationPath: String
+    var deviceUUID: UUID
+
+    init(address: Address, keyName: String?, index: Int, derivationPath: String, deviceUUID: UUID) {
+        self.index = index
+        self.derivationPath = derivationPath
+        self.deviceUUID = deviceUUID
+        super.init(address: address, name: keyName, type: KeyType.ledgerNanoX, keyNameTrackingEvent: .ledgerEnterKeyName)
     }
 }

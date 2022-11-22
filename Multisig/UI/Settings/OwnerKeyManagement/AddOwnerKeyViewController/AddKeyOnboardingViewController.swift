@@ -90,11 +90,11 @@ class AddKeyOnboardingViewController: UITableViewController {
         enterNameVC.screenTitle = "Enter Key Name"
         enterNameVC.trackingEvent = keyParameters.keyNameTrackingEvent
         enterNameVC.placeholder = "Enter name"
-        enterNameVC.name = keyParameters.keyName
+        enterNameVC.name = keyParameters.name
         enterNameVC.address = keyParameters.address
-        enterNameVC.badgeName = keyParameters.badgeName
+        enterNameVC.badgeName = keyParameters.type.imageName
         enterNameVC.completion = { [unowned self] name in
-            keyParameters.keyName = name
+            keyParameters.name = name
             importKey()
         }
         show(enterNameVC, sender: self)

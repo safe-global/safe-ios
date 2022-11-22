@@ -24,8 +24,6 @@ import UIKit
 /// 7. If user selected 'open tx details' then flow closes.
 /// 7.1. Otherwise, Key Details screen
 class GenerateKeyFlow: AddKeyFlow {
-    var privateKey: PrivateKey?
-
     var flowFactory: GenerateKeyFactory {
         factory as! GenerateKeyFactory
     }
@@ -36,20 +34,26 @@ class GenerateKeyFlow: AddKeyFlow {
     var addOwnerFlow: AddOwnerFlow!
     var replaceOwnerFlow: ReplaceOwnerFlow!
 
+    var parameters: GenerateKeyParameters? {
+        keyParameters as? GenerateKeyParameters
+    }
+
     init(completion: @escaping (Bool) -> Void) {
-        super.init(keyType: .deviceGenerated, factory: GenerateKeyFactory(), completion: completion)
+        super.init(factory: GenerateKeyFactory(), completion: completion)
     }
 
     override func didIntro() {
         let privateKey = OwnerKeyController.generate()
-        self.privateKey = privateKey
-        didGet(key: privateKey.address)
+        keyParameters = GenerateKeyParameters(address: privateKey.address, keyName: nil, privateKey: privateKey)
+        didGetKey()
     }
 
     override func doImport() -> Bool {
-        assert(privateKey != nil)
-        assert(keyName != nil)
-        let success = OwnerKeyController.importKey(privateKey!, name: keyName!, isDrivedFromSeedPhrase: true)
+        assert(parameters?.name != nil)
+        assert(parameters?.privateKey != nil)
+        let success = OwnerKeyController.importKey(parameters!.privateKey!,
+                                                   name: parameters!.name!,
+                                                   isDrivedFromSeedPhrase: true)
         return success
     }
 
@@ -58,8 +62,8 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func backup() {
-        assert(privateKey?.mnemonic != nil)
-        backupFlow = BackupFlow(mnemonic: privateKey!.mnemonic!) { [unowned self] _ in
+        assert(parameters?.privateKey?.mnemonic != nil)
+        backupFlow = BackupFlow(mnemonic: parameters!.privateKey!.mnemonic!) { [unowned self] _ in
             backupFlow = nil
             addKeyAsOwner()
         }
@@ -67,7 +71,7 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func addKeyAsOwner() {
-        assert(keyAddress != nil)
+        assert(parameters?.address != nil)
         safe = try? Safe.getSelected()
         guard let safe = safe else {
             didAddKeyAsOwner()
@@ -76,7 +80,7 @@ class GenerateKeyFlow: AddKeyFlow {
 
         if safe.isReadOnly {
             let vc = flowFactory.inviteToAddOwner { [unowned self] in
-                let vc = flowFactory.shareAddKeyAsOwnerLink(owner: keyAddress!, safe: safe) { [unowned self] in
+                let vc = flowFactory.shareAddKeyAsOwnerLink(owner: parameters!.address, safe: safe) { [unowned self] in
                     stop(success: true)
                     return
                 }
@@ -100,7 +104,8 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func addOwner() {
-        addOwnerFlow = AddOwnerFlow(newOwner: keyAddress!, safe: safe!) { [unowned self] skippedTxDetails in
+        assert(parameters != nil)
+        addOwnerFlow = AddOwnerFlow(newOwner: parameters!.address, safe: safe!) { [unowned self] skippedTxDetails in
             addOwnerFlow = nil
             didAddKeyAsOwner(openKeyDetails: skippedTxDetails)
         }
@@ -108,7 +113,7 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func replaceOwner() {
-        replaceOwnerFlow = ReplaceOwnerFlow(newOwner: keyAddress!, safe: safe!) { [unowned self] skippedTxDetails in
+        replaceOwnerFlow = ReplaceOwnerFlow(newOwner: parameters!.address, safe: safe!) { [unowned self] skippedTxDetails in
             replaceOwnerFlow = nil
             didReplaceKeyAsOwner(openKeyDetails: skippedTxDetails)
         }
@@ -132,9 +137,9 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func details() {
-        assert(keyAddress != nil)
+        assert(parameters != nil)
         navigationController.setNavigationBarHidden(false, animated: true)
-        let key = try? KeyInfo.firstKey(address: keyAddress!)
+        let key = try? KeyInfo.firstKey(address: parameters!.address)
         assert(key != nil)
         let keyVC = flowFactory.details(keyInfo: key!) { [unowned self] in
             stop(success: true)
@@ -188,5 +193,14 @@ class GenerateKeyFactory: AddKeyFlowFactory {
         introVC.onReplace = replaced
         introVC.onSkip = skipped
         return introVC
+    }
+}
+
+class GenerateKeyParameters: AddKeyParameters {
+    var privateKey: PrivateKey?
+
+    init(address: Address, keyName: String?, privateKey: PrivateKey?) {
+        self.privateKey = privateKey
+        super.init(address: address, name: keyName, type: KeyType.deviceGenerated)
     }
 }

@@ -9,18 +9,18 @@
 import Foundation
 class KeyAddedViewController: AccountActionCompletedViewController {
     private var addKeyController: DelegateKeyController!
-    private var keyType: KeyType!
+    private var type: KeyType!
 
-    convenience init(address: Address, name: String, keyType: KeyType, completion: @escaping () -> Void) {
+    convenience init(address: Address, name: String, type: KeyType, completion: @escaping () -> Void) {
         self.init(namedClass: AccountActionCompletedViewController.self)
-        self.keyType = keyType
+        self.type = type
         self.accountAddress = address
         self.accountName = name
         self.completion = completion
     }
 
     override func viewDidLoad() {
-        titleText = keyType.titleText
+        titleText = type.titleText
         headerText = "Owner Key added"
 
         assert(accountName != nil)
@@ -36,7 +36,7 @@ class KeyAddedViewController: AccountActionCompletedViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.screen_add_delegate, parameters: ["key_type" : keyType.name])
+        Tracker.trackEvent(.screen_add_delegate, parameters: ["key_type" : type.name])
     }
 
     override func primaryAction(_ sender: Any) {

@@ -14,15 +14,17 @@ final class ConnectKeystoneFlow: AddKeyFlow {
     private static let urPrefixOfHDKey = "UR:CRYPTO-HDKEY"
     private static let urPrefixOfAccount = "UR:CRYPTO-ACCOUNT"
     private var scannerVC: QRCodeScannerViewController!
-    private var addKeyParameters: AddKeystoneKeyParameters?
-    private var sourceFingerprint: UInt32?
     
     private var flowFactory: ConnectKeystoneFactory {
         factory as! ConnectKeystoneFactory
     }
+
+    var parameters: AddKeystoneKeyParameters? {
+        keyParameters as? AddKeystoneKeyParameters
+    }
     
     init(completion: @escaping (Bool) -> Void) {
-        super.init(keyType: .keystone, factory: ConnectKeystoneFactory(), completion: completion)
+        super.init(factory: ConnectKeystoneFactory(), completion: completion)
     }
     
     override func didIntro() {
@@ -55,50 +57,22 @@ final class ConnectKeystoneFlow: AddKeyFlow {
     
     func pickAccount(_ viewModel: KeystoneSelectAddressViewModel) {
         let pickerVC = flowFactory.derivedAccountPicker(viewModel: viewModel) { [unowned self] addKeyParameters in
-            didGetKey(addKeyParameters: addKeyParameters)
+            self.keyParameters = addKeyParameters
+            didGetKey()
         }
         show(pickerVC)
     }
     
-    func didGetKey(addKeyParameters: AddKeystoneKeyParameters) {
-        self.addKeyParameters = addKeyParameters
-        enterName()
-    }
-    
-    override func enterName() {
-        guard let addKeyParameters = addKeyParameters else { return }
-        let nameVC = factory.enterName(parameters: addKeyParameters) { [unowned self] name in
-            keyName = name
-            importKey()
-        }
-        show(nameVC)
-    }
-    
     override func doImport() -> Bool {
-        if let addKeyParameters = addKeyParameters,
-           let keyName = keyName,
-           let sourceFingerprint = sourceFingerprint {
-            return OwnerKeyController.importKey(
-                keystone: addKeyParameters.address,
-                path: addKeyParameters.derivationPath,
-                name: keyName,
-                sourceFingerprint: sourceFingerprint
-            )
-        } else {
-            return false
-        }
-    }
-    
-    override func didImport() {
-        if let keyAddress = keyAddress,
-           let keyInfo = try? KeyInfo.firstKey(address: keyAddress) {
-            let keyVC = flowFactory.details(keyInfo: keyInfo) { [unowned self] in
-                stop(success: true)
-            }
-            show(keyVC)
-        } else {
-            stop(success: true)
-        }
+        assert(parameters?.name != nil)
+        assert(parameters?.sourceFingerprint != nil)
+
+        return OwnerKeyController.importKey(
+            keystone: parameters!.address,
+            path: parameters!.derivationPath,
+            name: parameters!.name!,
+            sourceFingerprint: parameters!.sourceFingerprint!
+        )
     }
 }
 
@@ -107,7 +81,7 @@ extension ConnectKeystoneFlow: QRCodeScannerViewControllerDelegate {
         if code.starts(with: Self.urPrefixOfHDKey) {
             navigationController.dismiss(animated: true) { [unowned self] in
                 if let hdKey = URRegistry.shared.getSourceHDKey(from: code) {
-                    sourceFingerprint = hdKey.sourceFingerprint
+                    parameters?.sourceFingerprint = hdKey.sourceFingerprint
                     
                     let viewModel = KeystoneSelectAddressViewModel(hdKey: hdKey)
                     pickAccount(viewModel)
@@ -124,7 +98,7 @@ extension ConnectKeystoneFlow: QRCodeScannerViewControllerDelegate {
             }
             
             navigationController.dismiss(animated: true) { [unowned self] in
-                sourceFingerprint = hdKeys.first?.sourceFingerprint
+                parameters?.sourceFingerprint = hdKeys.first?.sourceFingerprint
                 let viewModel = KeystoneSelectAddressViewModel(hdKeys: hdKeys)
                 pickAccount(viewModel)
             }
@@ -138,10 +112,11 @@ extension ConnectKeystoneFlow: QRCodeScannerViewControllerDelegate {
 
 class AddKeystoneKeyParameters: AddKeyParameters {
     var derivationPath: String
+    var sourceFingerprint: UInt32?
 
     init(address: Address, derivationPath: String) {
         self.derivationPath = derivationPath
-        super.init(address: address, keyName: nil, badgeName: KeyType.keystone.imageName)
+        super.init(address: address, name: nil, type: KeyType.keystone)
     }
 }
 
