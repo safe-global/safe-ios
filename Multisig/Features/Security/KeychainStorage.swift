@@ -181,7 +181,6 @@ class KeychainStorage {
         return (result, authenticationContext)
     }
 
-
     // used to create a public-private key pair (asymmetric) NOT in secure enclave -> Sensitive Key
     func createKeyPair() throws -> SecKey {
         let attributes = try SItem.ecKey(nil).attributes()
@@ -201,9 +200,6 @@ class KeychainStorage {
     }
 
     func deleteItem(_ query: SQuery) {
-//        let query = SQuery.ecKey(tag: tag).searchQuery()
-//        query.setValue(nil, forKey: "kcls" as String) // apparently this is necessary for deletion to work :-/
-
         SecItemDelete(query.queryData())
     }
 

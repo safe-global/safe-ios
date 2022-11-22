@@ -107,9 +107,11 @@ class SensitiveEncryptedStore: EncryptedStore {
     /// - parameter address: find ky for this address
     /// - parameter password: application password. Can be nil, then the sored password is used
     /// - returns: String with hex encoded bytes of the private key
-    func find(address: Address, password: String? = nil) throws -> EthPrivateKey {
+    func find(address: Address, password: String? = nil) throws -> EthPrivateKey? {
         // find encrypted private key for the address
-        let encryptedPrivateKeyData = try keychainStorage.retrieveEncryptedData(account: address.checksummed)!
+        guard let encryptedPrivateKeyData = try? keychainStorage.retrieveEncryptedData(account: address.checksummed) else {
+            return nil
+        }
 
         // find sensitiveKEK
         let s = password != nil ? password : keychainStorage.retrievePasscode()
@@ -131,6 +133,7 @@ class SensitiveEncryptedStore: EncryptedStore {
             kSecAttrKeyClass: kSecAttrKeyClassPrivate
         ]
         guard let decryptedSensitiveKey: SecKey = SecKeyCreateWithData(decryptedSensitiveKeyData, attributes, &error) else {
+            // will fail here if password was wrong
             throw error!.takeRetainedValue() as Error
         }
         LogService.shared.debug("decryptedSensitiveKey: \(decryptedSensitiveKey)")
