@@ -17,7 +17,7 @@ import SafariServices
 class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting {
 
     private var safe: Safe!
-    private var chain: Chain!
+    internal var chain: Chain!
     private var transaction: SCGModels.TransactionDetails!
 
     private var controller: TransactionExecutionController!
@@ -38,7 +38,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     private var txEstimationTask: URLSessionTask?
     private var sendingTask: URLSessionTask?
     
-    private var keystoneSignFlow: KeystoneSignFlow!
+    internal var keystoneSignFlow: KeystoneSignFlow!
 
     convenience init(safe: Safe,
                      chain: Chain,
@@ -433,111 +433,10 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         submitButton.isEnabled = controller.isValid
     }
 
+    let signer = WalletSigner()
+
     func sign() {
-        guard let keyInfo = controller.selectedKey?.key else {
-            return
-        }
-
-        switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated:
-            do {
-                let txHash = controller.hashForSigning()
-
-                guard let pk = try keyInfo.privateKey() else {
-                    App.shared.snackbar.show(message: "Private key not available")
-                    return
-                }
-                let signature = try pk._store.sign(hash: Array(txHash))
-
-                try controller.update(signature: signature)
-            } catch {
-                let gsError = GSError.error(description: "Signing failed", error: error)
-                App.shared.snackbar.show(error: gsError)
-                return
-            }
-            submit()
-
-        case .walletConnect:
-            guard let clientTx = controller.walletConnectTransaction() else {
-                let gsError = GSError.error(description: "Unsupported transaction type")
-                App.shared.snackbar.show(error: gsError)
-                return
-            }
-
-            let sendTxVC = SendTransactionToWalletViewController(
-                transaction: clientTx,
-                keyInfo: keyInfo,
-                chain: chain
-            )
-
-            sendTxVC.onSuccess = { [weak self, weak sendTxVC] txHashData in
-                guard let self = self else { return }
-                self.controller.didSubmitTransaction(txHash: Eth.Hash(txHashData))
-                self.didSubmitSuccess()
-            }
-
-            let vc = ViewControllerFactory.pageSheet(viewController: sendTxVC, halfScreen: true)
-            present(vc, animated: true)
-
-        case .ledgerNanoX:
-            let rawTransaction = controller.preimageForSigning()
-            let chainId = controller.intChainId
-            let isLegacy = controller.isLegacyTx
-
-            let request = SignRequest(title: "Sign Transaction",
-                                      tracking: ["action" : "signTx"],
-                                      signer: keyInfo,
-                                      payload: .rawTx(data: rawTransaction, chainId: chainId, isLegacy: isLegacy))
-
-            let vc = LedgerSignerViewController(request: request)
-
-            vc.txCompletion = { [weak self] signature in
-                guard let self = self else { return }
-
-                do {
-                    try self.controller.update(signature: (UInt(signature.v), Array(signature.r), Array(signature.s)))
-                } catch {
-                    let gsError = GSError.error(description: "Signing failed", error: error)
-                    App.shared.snackbar.show(error: gsError)
-                    return
-                }
-
-                self.submit()
-            }
-
-            present(vc, animated: true, completion: nil)
-            
-        case .keystone:
-            let isLegacy = controller.isLegacyTx
-            
-            let signInfo = KeystoneSignInfo(
-                signData: controller.preimageForSigning().toHexString(),
-                chain: chain,
-                keyInfo: keyInfo,
-                signType: isLegacy ? .transaction : .typedTransaction
-            )
-            let signCompletion = { [unowned self] (success: Bool) in
-                if !success {
-                    App.shared.snackbar.show(error: GSError.KeystoneSignFailed())
-                }
-                keystoneSignFlow = nil
-            }
-            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion) else {
-                App.shared.snackbar.show(error: GSError.KeystoneStartSignFailed())
-                return
-            }
-            
-            keystoneSignFlow = signFlow
-            keystoneSignFlow.signCompletion = { [weak self] unmarshaledSignature in
-                do {
-                    try self?.controller.update(signature: (UInt(unmarshaledSignature.v), Array(unmarshaledSignature.r), Array(unmarshaledSignature.s)))
-                    self?.submit()
-                } catch {
-                    App.shared.snackbar.show(error: GSError.error(description: "Signing failed", error: error))
-                }
-            }
-            present(flow: keystoneSignFlow)
-        }
+        signer.signTransaction(controller: self)
     }
 
     func submit() {
@@ -591,5 +490,39 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         }
 
         self.show(successVC, sender: self)
+    }
+}
+
+extension ReviewExecutionViewController: SignSource {
+    var selectedKey: (key: KeyInfo, balance: AccountBalanceUIModel)? {
+        controller.selectedKey
+    }
+
+    func hashForSigning() -> Data {
+        controller.hashForSigning()
+    }
+
+    func update(signature: (v: UInt, r: [UInt8], s: [UInt8])) throws {
+        try controller.update(signature: signature)
+    }
+
+    func walletConnectTransaction() -> WalletConnectSwift.Client.Transaction? {
+        controller.walletConnectTransaction()
+    }
+
+    func didSubmitTransaction(txHash: Ethereum.Eth.Hash) {
+        controller.didSubmitTransaction(txHash: txHash)
+    }
+
+    func preimageForSigning() -> Data {
+        controller.preimageForSigning()
+    }
+
+    var intChainId: Int {
+        controller.intChainId
+    }
+
+    var isLegacyTx: Bool {
+        controller.isLegacyTx
     }
 }

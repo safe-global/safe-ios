@@ -589,6 +589,7 @@
 		0AE8C08F25793B9400E62B34 /* DetailArrowPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8C08E25793B9400E62B34 /* DetailArrowPiece.swift */; };
 		0AE8C0A2257947CF00E62B34 /* DetailStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8C0A0257947CF00E62B34 /* DetailStatusCell.swift */; };
 		0AE8C0A3257947CF00E62B34 /* DetailStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE8C0A1257947CF00E62B34 /* DetailStatusCell.xib */; };
+		0AE8F9D6292CB53500A8FA44 /* WalletSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8F9D5292CB53500A8FA44 /* WalletSigner.swift */; };
 		0AEDCE0B2472946600A1EC80 /* BarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEDCE0A2472946600A1EC80 /* BarButton.swift */; };
 		0AEE149F2540233C00046EE7 /* UINibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEE149E2540233C00046EE7 /* UINibView.swift */; };
 		0AEEBC73258CDF9400F3A6F9 /* CollectibleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEEBC71258CDF9400F3A6F9 /* CollectibleDetailViewController.swift */; };
@@ -1523,6 +1524,7 @@
 		0AE8C08E25793B9400E62B34 /* DetailArrowPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailArrowPiece.swift; sourceTree = "<group>"; };
 		0AE8C0A0257947CF00E62B34 /* DetailStatusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailStatusCell.swift; sourceTree = "<group>"; };
 		0AE8C0A1257947CF00E62B34 /* DetailStatusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailStatusCell.xib; sourceTree = "<group>"; };
+		0AE8F9D5292CB53500A8FA44 /* WalletSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSigner.swift; sourceTree = "<group>"; };
 		0AEDCE0A2472946600A1EC80 /* BarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButton.swift; sourceTree = "<group>"; };
 		0AEE149E2540233C00046EE7 /* UINibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINibView.swift; sourceTree = "<group>"; };
 		0AEEBC71258CDF9400F3A6F9 /* CollectibleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleDetailViewController.swift; sourceTree = "<group>"; };
@@ -4277,6 +4279,7 @@
 				0ABE698727920294003338AF /* ErrorTableViewCell.xib */,
 				0A04506C278D973C00650F71 /* ReviewExecutionContentViewController.swift */,
 				0A045068278D800700650F71 /* ReviewExecutionViewController.swift */,
+				0AE8F9D5292CB53500A8FA44 /* WalletSigner.swift */,
 				0A045069278D800700650F71 /* ReviewExecutionViewController.xib */,
 				0A045078278DAD4000650F71 /* SecondaryDetailDisclosureCell.swift */,
 				0A045079278DAD4000650F71 /* SecondaryDetailDisclosureCell.xib */,
@@ -4953,6 +4956,7 @@
 				045A17632833E04B0020484B /* ReplaceOwnerFromSettingsFlow.swift in Sources */,
 				6AAE34DE282A2F0400CCFC95 /* OwnerHeaderView.swift in Sources */,
 				0468FB9925912E8300541536 /* TransactionListHeaderTableViewCell.swift in Sources */,
+				0AE8F9D6292CB53500A8FA44 /* WalletSigner.swift in Sources */,
 				04CE3F9624B6115200826AEE /* Collectible.swift in Sources */,
 				04CE3FA024B7191E00826AEE /* CollectibleViewModel.swift in Sources */,
 				558836702565385F0014E8C7 /* RemoveCell.swift in Sources */,
