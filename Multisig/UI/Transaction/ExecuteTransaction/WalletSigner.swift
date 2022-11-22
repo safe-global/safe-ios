@@ -220,6 +220,42 @@ class WalletSigner {
         }
     }
 
+    fileprivate func signSafeTxWithLocalWallet(_ transaction: Transaction, _ keyInfo: KeyInfo, _ controller: ConfirmTxDetailsSource, _ safeTxHash: String) {
+        do {
+            let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
+            controller.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature.hexadecimal, keyInfo: keyInfo)
+        } catch {
+            controller.onError(GSError.error(description: "Failed to confirm transaction", error: error))
+        }
+    }
+
+    fileprivate func signConfirmTxWithLocalWallet(_ transaction: Transaction, _ keyInfo: KeyInfo, _ controller: ConfirmTxSource) {
+        do {
+            let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
+            controller.proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: signature.hexadecimal)
+        } catch {
+            App.shared.snackbar.show(error: GSError.error(description: "Failed to confirm transaction", error: error))
+        }
+    }
+
+    fileprivate func signRejectionTxWithLocalWallet(_ controller: RejectionTxSource, _ keyInfo: KeyInfo) {
+        do {
+            let signature = try SafeTransactionSigner().sign(controller.rejectionTransaction, keyInfo: keyInfo)
+            controller.rejectAndCloseController(signature: signature.hexadecimal)
+        } catch {
+            App.shared.snackbar.show(message: "Failed to Reject transaction")
+        }
+    }
+
+    fileprivate func signPushMessageWithLocalWallet(_ hexMessage: String, _ controller: PushMsgSource, _ completion: (Result<Data, Error>) -> Void) {
+        do {
+            let signature = try SafeTransactionSigner().sign(hash: HashString(hex: hexMessage), keyInfo: controller.keyInfo)
+            completion(.success(Data(hex: signature.hexadecimal)))
+        } catch {
+            completion(.failure(GSError.AddDelegateKeyCancelled()))
+        }
+    }
+
     // used directly for delegate key signing; and for remote notif registration
     func signHash(pk: PrivateKey, hash: Data) throws -> Signature {
         try pk.sign(hash: hash)
@@ -588,12 +624,7 @@ class WalletSigner {
 
         switch keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
-            do {
-                let signature = try SafeTransactionSigner().sign(controller.rejectionTransaction, keyInfo: keyInfo)
-                controller.rejectAndCloseController(signature: signature.hexadecimal)
-            } catch {
-                App.shared.snackbar.show(message: "Failed to Reject transaction")
-            }
+            signRejectionTxWithLocalWallet(controller, keyInfo)
 
         case .walletConnect:
             rejectWithWalletConnect(controller.rejectionTransaction, keyInfo: keyInfo, controller: controller)
@@ -662,12 +693,7 @@ class WalletSigner {
         let chain = try? Safe.getSelected()?.chain ?? Chain.mainnetChain()
         switch controller.keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
-            do {
-                let signature = try SafeTransactionSigner().sign(hash: HashString(hex: hexMessage), keyInfo: controller.keyInfo)
-                completion(.success(Data(hex: signature.hexadecimal)))
-            } catch {
-                completion(.failure(GSError.AddDelegateKeyCancelled()))
-            }
+            signPushMessageWithLocalWallet(hexMessage, controller, completion)
         case .ledgerNanoX:
             let request = SignRequest(title: title,
                                       tracking: ["action": "confirm_push"],
@@ -742,12 +768,7 @@ class WalletSigner {
 
         switch keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
-            do {
-                let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
-                controller.proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: signature.hexadecimal)
-            } catch {
-                App.shared.snackbar.show(error: GSError.error(description: "Failed to confirm transaction", error: error))
-            }
+            signConfirmTxWithLocalWallet(transaction, keyInfo, controller)
 
         case .walletConnect:
             let signVC = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: controller.safe.chain!)
@@ -820,12 +841,7 @@ class WalletSigner {
 
         switch keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
-            do {
-                let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
-                controller.confirmAndRefresh(safeTxHash: safeTxHash, signature: signature.hexadecimal, keyInfo: keyInfo)
-            } catch {
-                controller.onError(GSError.error(description: "Failed to confirm transaction", error: error))
-            }
+            signSafeTxWithLocalWallet(transaction, keyInfo, controller, safeTxHash)
 
         case .walletConnect:
             let signVC = SignatureRequestToWalletViewController(transaction, keyInfo: keyInfo, chain: controller.safe.chain!)
