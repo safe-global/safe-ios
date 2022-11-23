@@ -27,7 +27,6 @@ class AddKeyFlow: UIFlow {
     var factory: AddKeyFlowFactory
     /// Constructor
     /// - Parameters:
-    ///   - badge: image name for a 'type' of the key in the identicons
     ///   - factory: screen factory
     ///   - completion: completion block called when flow ends. Argument is `true` when flow successful.
     init(factory: AddKeyFlowFactory, completion: @escaping (Bool) -> Void) {
