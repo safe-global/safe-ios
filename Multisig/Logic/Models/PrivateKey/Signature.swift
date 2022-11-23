@@ -8,6 +8,8 @@
 
 import Foundation
 
+// Cryptographic Elliptic Curve secp256k1 digital signature algorithm context
+
 // ecdsa secp256k1 signature
 struct ECSecp256k1Signature {
     var r: UInt256
@@ -40,6 +42,8 @@ struct EthereumLegacySignature {
 // eip-155 ethereum signature (replay protected signature) for signing transactions with eip-155 hashing process
 // https://eips.ethereum.org/EIPS/eip-155
 // encodes secp256k1 signature
+//
+// TODO: question is whether a signature with overflown byte is accepted by the network if its chain_id is > 109? signature length will be bigger than 65 bytes!
 struct EthereumProtectedSignature {
     var r: UInt256
     var s: UInt256
@@ -54,4 +58,73 @@ struct EthereumProtectedSignature {
     //
     // still, supports the legacy scheme with adding 27 or 28
     var v: Int64
+}
+
+// Signature Algorithms
+// - ecdsa secp256k1 - crypto
+// eth signature algorithms
+// - eth_sign
+// - personal_sign ??
+// - signTypedData_vX (1, 2, 3, 4) ??
+// safe signature algorithms
+// - pre-validated: approveHash() executed before OR message sender is an owner
+// - safe contract signature encoding
+
+// Verification Algorithms
+// - ecrecover (ecdsa signature, hash) -> public key -> address
+// - eth_sign verification
+// - personal_sign verification
+// - signTypedData_vX verification
+// - eip 1271 contract signature validation
+// - approveHash | message sedner is owner verification
+
+// Hashing algorithms
+// - sha3 keccak 256
+
+// ETHEREUM - SAFE BOUNDARY
+
+struct SafeRawSignature {
+    var head: Data // 64 bytes
+    var type: UInt8 // 1 byte
+    var tail: Data // >= 0 bytes
+}
+
+struct SafeECDSASignature {
+    // recovers to address, who must be owner of the multisig
+    var r: UInt256
+    var s: UInt256
+    // v == type
+    var v: UInt8
+    // type: (27...30)
+    var type: UInt8
+}
+
+struct SafeEthSignSignature {
+    // recovers to address, who must be owner of the multisig
+    var r: UInt256
+    var s: UInt256
+    // v = type - 4
+    var v: UInt256
+    // type: (31..); type = v + 4
+    var type: UInt256
+}
+
+struct SafeEIP1271ContractSignature {
+    // contract signature verifier, must be owner of the multisig
+    var verifier: Address
+    // offset from beginning of safe signature data to contract signature
+    var offset: UInt256
+    // type = 0
+    let type: UInt8 = 0
+    var length: UInt256
+    var signature: Data
+}
+
+struct SafePreValidatedSignature {
+    // account that pre-validated a hash, must be owner of the multisig
+    var validator: Address
+    // not used
+    var reserved: Data
+    // type = 1
+    let type: UInt8 = 1
 }
