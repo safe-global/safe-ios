@@ -39,7 +39,6 @@ class LedgerKeyFlow: AddKeyFlow {
     }
 
     func addressPicker(deviceUUID: UUID) {
-        assert(parameters?.deviceUUID != nil)
         assert(bluetoothController != nil)
         let vc = flowFactory.addressPicker(deviceUUID: deviceUUID,
                                            bluetoothController: bluetoothController!) { [unowned self] key, name, path in
