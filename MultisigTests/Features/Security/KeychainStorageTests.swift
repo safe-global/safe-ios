@@ -31,7 +31,7 @@ class KeychainStorageTests: XCTestCase {
         // Given
         let randomData = UUID().uuidString.data(using: .utf8)!
         XCTAssertEqual(try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag), nil, "Precondition failed: Keychain not empty!")
-        keychainStorage.storeData(encryptedData: randomData, account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
+        try keychainStorage.storeData(encryptedData: randomData, account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
 
         // When
         keychainStorage.deleteData(KeychainStorage.sensitiveEncryptedPrivateKeyTag)
@@ -54,13 +54,13 @@ class KeychainStorageTests: XCTestCase {
         XCTAssertEqual(try keychainStorage.retrieveSensitivePublicKey(), nil, "Delete item failed")
     }
 
-    func testStoreAndRetrievePasscode() {
+    func testStoreAndRetrievePasscode() throws {
         // Given
         let randomString = UUID().uuidString
         XCTAssertEqual(keychainStorage.retrievePasscode(), nil, "Keychain not empty")
 
         // When
-        keychainStorage.storePasscode(derivedPasscode: randomString)
+        try keychainStorage.storePasscode(derivedPasscode: randomString)
 
         //Then
         let result = keychainStorage.retrievePasscode()
@@ -73,7 +73,7 @@ class KeychainStorageTests: XCTestCase {
         XCTAssertEqual(try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag), nil, "Precondition failed: Keychain not empty!")
 
         // When
-        keychainStorage.storeData(encryptedData: randomData, account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
+        try keychainStorage.storeData(encryptedData: randomData, account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
 
         //Then
         let result = try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)

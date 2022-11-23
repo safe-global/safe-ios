@@ -21,27 +21,20 @@ class SensitiveEncryptedStore: EncryptedStore {
 
     // This is called, when using the new key security is activated after updating the app. Even if the user did not activate it.
     func initialSetup() throws {
-//        if !SecureEnclave.isAvailable {
-//            App.shared.snackbar.show(message: "Secure Enclave not available")
-//        } else {
-//            App.shared.snackbar.show(message: "Secure Enclave is available")
-//        }
-        let derivedPasscode = persistRandomPassword()
+        let derivedPasscode = try persistRandomPassword()
         let sensitiveKey = try keychainStorage.createKeyPair()
         try persistSensitivePublicKey(sensitiveKey: sensitiveKey)
         try persistSensitivePrivateKey(derivedPasscode: derivedPasscode, sensitiveKey: sensitiveKey)
     }
 
-    private func persistRandomPassword() -> String {
+    private func persistRandomPassword() throws -> String {
         let randomPasscode = createRandomPassword()
         let derivedPasscode = derivePasscode(from: randomPasscode)
-        keychainStorage.storePasscode(derivedPasscode: derivedPasscode) // TODO check error?
+        try keychainStorage.storePasscode(derivedPasscode: derivedPasscode) // TODO check error?
         return derivedPasscode
     }
 
     private func createRandomPassword() -> String {
-        // TODO: What do we do if there is not enough randomness available?
-        // Will this call hang and continue when enough randomness is available?
         Data.randomBytes(length: 32)!.toHexString()
     }
 
@@ -68,7 +61,7 @@ class SensitiveEncryptedStore: EncryptedStore {
             throw error!.takeRetainedValue() as Error
         }
         // Store encrypted sensitive private key in keychain as blob
-        keychainStorage.storeData(encryptedData: encryptedSensitiveKey, account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
+        try keychainStorage.storeData(encryptedData: encryptedSensitiveKey, account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
     }
 
     private func persistSensitivePublicKey(sensitiveKey: SecKey) throws { // copy public part from SecKey
@@ -96,11 +89,7 @@ class SensitiveEncryptedStore: EncryptedStore {
         }
         // 4. store encrypted blob in the keychain
         let address = privateKey.address
-        keychainStorage.storeData(encryptedData: encryptedSigningKey, account: address.checksummed)
-    }
-
-    func delete(address: Address) {
-        // delete encrypted blob by address
+        try keychainStorage.storeData(encryptedData: encryptedSigningKey, account: address.checksummed)
     }
 
     /// Find private signer key.
@@ -146,9 +135,6 @@ class SensitiveEncryptedStore: EncryptedStore {
         return decryptedEthKey
     }
 
-    func verify() {
-    }
-
     func changePassword(from oldPassword: String, to newPassword: String) {
         // create a new kek
         // decrypt private senstivie key with kek
@@ -167,6 +153,10 @@ class SensitiveEncryptedStore: EncryptedStore {
         //  use biometry
         //  use password in addition to face id when signing
 
+    }
+
+    func delete(address: Address) {
+        // delete encrypted blob by address
     }
 
     // Copied from AuthenticationController

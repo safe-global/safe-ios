@@ -19,10 +19,11 @@ class KeychainStorage {
 
     // used to store encrypted data as a password in keychain
     static let defaultService: String = "encrypted_data"
+
     // store passcode. Either if it random (user didn't give a password) or the user asked us to remember it
-    func storePasscode(derivedPasscode: String) {
+    func storePasscode(derivedPasscode: String) throws {
         // Store encrypted Password data
-        storePasswordData(passwordData: derivedPasscode.data(using: .utf8)!)
+        try storePasswordData(passwordData: derivedPasscode.data(using: .utf8)!)
     }
 
     func retrievePasscode() -> String? {
@@ -38,7 +39,7 @@ class KeychainStorage {
         }
     }
 
-    private func storePasswordData(passwordData: Data) {
+    private func storePasswordData(passwordData: Data) throws {
         // delete existing sensitive key data
         deleteData(KeychainStorage.derivedPasswordTag)
         // Create query
@@ -46,10 +47,17 @@ class KeychainStorage {
         // safe to Keychain (as type password?) using SecItemAdd() and sensitiveEncryptedPrivateKeyTag
         let status = SecItemAdd(addQuery, nil) // TODO consider passing error ref instead of nil
 
-        if status != errSecSuccess {
-            // Print out the error
-            LogService.shared.error("Error: \(status)")
+        switch status {
+        case errSecSuccess:
+            return
+        case let status:
+            throw convertStatusToError(status: status)
         }
+    }
+
+    private func convertStatusToError(status: OSStatus) -> Error {
+        let message = SecCopyErrorMessageString(status, nil) as? String ?? String(status)
+        return NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: [NSLocalizedDescriptionKey: message])
     }
 
     private func findPasswordData() throws -> Data? {
@@ -70,9 +78,7 @@ class KeychainStorage {
             return nil
 
         case let status:
-            let message = SecCopyErrorMessageString(status, nil) as? String ?? String(status)
-            let error = NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: [NSLocalizedDescriptionKey: message])
-            throw error
+            throw convertStatusToError(status: status)
         }
     }
 
@@ -97,7 +103,7 @@ class KeychainStorage {
         return try createSEKey(flags: flags, applicationPassword: applicationPassword)
     }
 
-    func storeData(encryptedData: Data, account: String) {
+    func storeData(encryptedData: Data, account: String) throws {
         // delete existing account data
         deleteData(account)
         // Create query
@@ -106,9 +112,11 @@ class KeychainStorage {
         // safe to Keychain (as type password?) using SecItemAdd()
         let status = SecItemAdd(addEncryptedDataQuery, nil)
 
-        if status != errSecSuccess {
-            // Print out the error
-            LogService.shared.error("Error: \(status)")
+        switch status {
+        case errSecSuccess:
+            return
+        case let status:
+            throw convertStatusToError(status: status)
         }
     }
 
@@ -130,9 +138,7 @@ class KeychainStorage {
             return nil
 
         case let status:
-            let message = SecCopyErrorMessageString(status, nil) as? String ?? String(status)
-            let error = NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: [NSLocalizedDescriptionKey: message])
-            throw error
+            throw convertStatusToError(status: status)
         }
     }
 
@@ -207,9 +213,7 @@ class KeychainStorage {
             return nil
 
         case let status:
-            let message = SecCopyErrorMessageString(status, nil) as? String ?? String(status)
-            let error = NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: [NSLocalizedDescriptionKey: message])
-            throw error
+            throw convertStatusToError(status: status)
         }
     }
 }
