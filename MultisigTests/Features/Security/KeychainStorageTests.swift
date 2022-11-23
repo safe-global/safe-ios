@@ -56,8 +56,6 @@ class KeychainStorageTests: XCTestCase {
 
     func testDeleteItemIgnoreNotFound() throws {
         // Given
-        let randomKey = try keychainStorage.createKeyPair()
-        let randomPublicKey = SecKeyCopyPublicKey(randomKey)!
         XCTAssertEqual(try keychainStorage.retrieveSensitivePublicKey(), nil, "Precondition failed: Keychain not empty!")
 
         // When
