@@ -34,19 +34,12 @@ class SensitiveEncryptedStore: EncryptedStore {
     }
 
     private func createRandomPassword() -> String? {
-        var data = Data(repeating: 0, count: 32)
-        let result = data.withUnsafeMutableBytes { (body: UnsafeMutableRawBufferPointer) -> Int32? in
-            if let bodyAddress = body.baseAddress, body.count > 0 {
-                let pointer = bodyAddress.assumingMemoryBound(to: UInt8.self)
-                return SecRandomCopyBytes(kSecRandomDefault, 32, pointer)
-            } else {
-                return nil
-            }
+        var bytes: [UInt8] = .init(repeating: 0, count: 32)
+        let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
+        guard result == errSecSuccess else {
+            return nil
         }
-        if let notNilResult = result, notNilResult == errSecSuccess {
-            return data.toHexString()
-        }
-        return nil
+        return bytes.toHexString()
     }
 
     private func persistSensitivePrivateKey(derivedPasscode: String, sensitiveKey: SecKey) throws { // create SE key (KEK) with a hard coded tag for example: "sensitive_KEK"
