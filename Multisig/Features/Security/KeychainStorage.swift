@@ -41,7 +41,7 @@ class KeychainStorage {
 
     private func storePasswordData(passwordData: Data) throws {
         // delete existing sensitive key data
-        deleteData(KeychainStorage.derivedPasswordTag)
+        try deleteData(KeychainStorage.derivedPasswordTag)
         // Create query
         let addQuery = SQuery.generic(id: KeychainStorage.derivedPasswordTag, encryptedData: passwordData).queryData()
         // safe to Keychain (as type password?) using SecItemAdd() and sensitiveEncryptedPrivateKeyTag
@@ -105,7 +105,8 @@ class KeychainStorage {
 
     func storeData(encryptedData: Data, account: String) throws {
         // delete existing account data
-        deleteData(account)
+        try deleteData(account)
+
         // Create query
         let addEncryptedDataQuery = SQuery.generic(id: account, encryptedData: encryptedData).queryData()
 
@@ -142,14 +143,23 @@ class KeychainStorage {
         }
     }
 
-    func deleteData(_ account: String) {
+    func deleteData(_ account: String) throws {
         let query = SQuery.generic(id: account).queryData()
-        // TODO Check for errors. Ignore nothing deleted
-        SecItemDelete(query)
+
+        let status = SecItemDelete(query)
+        switch status {
+        case errSecSuccess:
+            return
+        case errSecItemNotFound:
+            return
+
+        case let status:
+            throw convertStatusToError(status: status)
+        }
     }
 
     func storeSensitivePublicKey(publicKey: SecKey) throws {
-        deleteItem(.ecPubKey())
+        try deleteItem(.ecPubKey())
 
         let queryDict = SQuery.ecPubKey(pubKeyData: publicKey).queryData()
         let status = SecItemAdd(queryDict, nil)
@@ -164,7 +174,7 @@ class KeychainStorage {
 
     private func createSEKey(flags: SecAccessControlCreateFlags, applicationPassword: String) throws -> SecKey {
         // Passed via kSecUseAuthenticationContext to kSecPrivateKeyAttrs attributes
-        deleteItem(.ecPrivateKey())
+        try deleteItem(.ecPrivateKey())
         let attributes = try SItem.enclaveKey().attributes(access: .applicationPassword, password: applicationPassword.data(using: .utf8))
 
         // create a key pair
@@ -197,8 +207,19 @@ class KeychainStorage {
         return keyPair
     }
 
-    func deleteItem(_ query: SQuery) {
-        SecItemDelete(query.queryData())
+    func deleteItem(_ query: SQuery) throws {
+        let status = SecItemDelete(query.queryData())
+
+        switch status {
+        case errSecSuccess:
+            return
+
+        case errSecItemNotFound:
+            return
+
+        case let status:
+            throw convertStatusToError(status: status)
+        }
     }
 
     func findKey(query: SQuery) throws -> SecKey? {

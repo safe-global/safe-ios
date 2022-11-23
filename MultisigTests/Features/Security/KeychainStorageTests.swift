@@ -21,10 +21,10 @@ class KeychainStorageTests: XCTestCase {
     public override func tearDown() {
         super.tearDown()
         // Is it possible to always have a clean/empty keychain?
-        keychainStorage.deleteData(KeychainStorage.derivedPasswordTag)
-        keychainStorage.deleteData(KeychainStorage.sensitiveEncryptedPrivateKeyTag)
-        keychainStorage.deleteItem(.ecPubKey())
-        keychainStorage.deleteItem(.ecPrivateKey())
+        try! keychainStorage.deleteData(KeychainStorage.derivedPasswordTag)
+        try! keychainStorage.deleteData(KeychainStorage.sensitiveEncryptedPrivateKeyTag)
+        try! keychainStorage.deleteItem(.ecPubKey())
+        try! keychainStorage.deleteItem(.ecPrivateKey())
     }
 
     func testDeleteData() throws {
@@ -34,7 +34,7 @@ class KeychainStorageTests: XCTestCase {
         try keychainStorage.storeData(encryptedData: randomData, account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
 
         // When
-        keychainStorage.deleteData(KeychainStorage.sensitiveEncryptedPrivateKeyTag)
+        try keychainStorage.deleteData(KeychainStorage.sensitiveEncryptedPrivateKeyTag)
 
         //Then
         XCTAssertEqual(try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag), nil, "Deletion failed")
@@ -48,7 +48,20 @@ class KeychainStorageTests: XCTestCase {
         try keychainStorage.storeSensitivePublicKey(publicKey: randomPublicKey)
 
         // When
-        keychainStorage.deleteItem(.ecPubKey())
+        try keychainStorage.deleteItem(.ecPubKey())
+
+        //Then
+        XCTAssertEqual(try keychainStorage.retrieveSensitivePublicKey(), nil, "Delete item failed")
+    }
+
+    func testDeleteItemIgnoreNotFound() throws {
+        // Given
+        let randomKey = try keychainStorage.createKeyPair()
+        let randomPublicKey = SecKeyCopyPublicKey(randomKey)!
+        XCTAssertEqual(try keychainStorage.retrieveSensitivePublicKey(), nil, "Precondition failed: Keychain not empty!")
+
+        // When
+        try keychainStorage.deleteItem(.ecPubKey())
 
         //Then
         XCTAssertEqual(try keychainStorage.retrieveSensitivePublicKey(), nil, "Delete item failed")
