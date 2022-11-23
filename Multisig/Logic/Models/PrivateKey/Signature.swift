@@ -58,6 +58,8 @@ struct EthereumProtectedSignature {
     //
     // still, supports the legacy scheme with adding 27 or 28
     var v: Int64
+
+    var chainId: Int64
 }
 
 // Signature Algorithms
@@ -80,6 +82,144 @@ struct EthereumProtectedSignature {
 
 // Hashing algorithms
 // - sha3 keccak 256
+
+/*
+ How to implement?
+ Problem space of computation, solution space of objects(types) or functions
+ Ultimately, an algorithm will map to a procedure.
+ Object (type) holds some data and has algorithms attached to itself.
+
+ a) mapping to objects:
+    EcdsaSecp256k1
+        sign(message, key) -> signature
+        verify(message, signature, public key) -> valid or invalid
+            recover(message, signature) -> public key
+
+    EthLegacy
+        sign(message, key) -> signature
+            hash: sha3 keccak 256 (message) -> EcdsaSecp256k1. sign -> signature
+            signature.v + 27
+        verify(message, signature, address) -> valid or invalid
+            hash: sha3-keccak-256(message)
+            signature.v - 27 (convert to underlying crypto)
+            EcdsaSecp256k1.recover()
+
+    EthProtected
+        sign()
+            hash: hasher of a message. But also, hasher of a transaction! Well, message is binary.
+                so, the transaction to raw data happens outside of signing, but is coupled with the way
+                how transaction is represented. I.e. legacy is hashing 6 values
+                eip-155 is hashing 9 values. Eip-155 is the default now.
+            signature with chain id!
+
+    EthSign
+        sign(message, key) -> signature
+            transform message to modified message to hash
+            sign with EthLegacy? or with protected? both could be requested. Protected is the default.
+
+        verify(message, signature, address)
+            transform message to hash
+            verify using eth legacy or with protected?
+
+    In all those ^^^, the signing and verification is a computation, a function, that doesn't require
+    state and mutability. Can be expressed as a function.
+
+    However, accessing a key is something that will require user interaction in the application.
+    This can be moved outside of the scope of these functions, which will receive the private key.
+
+    But the access to private key will require asynchronous operation.
+    So, the functional call-return design breaks here, too.
+
+    But this breaks with contract signatures, because they are state-based and require
+    user and backend interaction.
+
+
+    What about eip-1271 signing?
+        let's hold off this for a moment
+
+    What about pre-validated (on-chain) signing?
+    SafeOnChainSign
+        sign(message, account address) -> SafePre-ValidatedSignature
+            here, call & return breaks.
+
+            need to make an approveHash() etherum transaction, sign it with account's private key
+                which will require user interaction
+                will require backend communication for gas estimation
+                then, eventually, using the EthProtected to sign() the transaction.
+
+            Then only the pre-validated signature is created as a record in the contract
+            and can be returned or saved, so that this signature can be put into
+            execTransaction(... signatures), so that multisig threshold passes.
+
+            Ok, so functional solution-space breaks: otherwise we have to introduce call-backs.
+
+            Ok, so then those have to be objects that pass & receive messages.
+
+ b) mapping to functions
+
+    ecdsa_secp256k1_sign(key, message256) -> signature
+    ecdsa_secp256k1_recover(signature, message256) -> public key
+
+    sha3_keccak256(message) -> hash256
+
+    ethereum_hash_tx_legacy(tx) -> hash256
+        rlp_encode(tx{6}) -> binary
+        sha3_keccak256(binary) -> hash256
+
+    ethereum_sign_legacy(key, message256) -> signature
+        ecdsa_secp256k1_sign(key, message256) -> signature
+        signature.v += 27
+
+    ethereum_hash_tx(tx) -> hash256
+        rlp_encode(tx{9}) -> binary
+        sha3_keccak256(binary) -> hash256
+
+    ethereum_sign(key, message256, chain_id) -> signature
+        ecdsa_secp256k1_sign(key, message256) -> signature
+        signature.v = signature.v + 2 * chain_id + 35
+
+    ethereum_verify(signature, message256, chain_id, address) -> valid/invalid
+        signature.v = signature.v - 2 * chain_id - 35
+        public_key = ecdsa_secp256k1_verify(signature, message256)
+        recovered_address = ethereum_address(public_key)
+        address == recovered_address
+
+    ethereum_hash_eth_sign_message(message) -> hash256
+        binary = ... + message
+        sha3_keccak256(binary) -> hash256
+
+    safe_sign_approval(key, hash256, chain_id(?)) -> safe_prevalidated_signature
+        eth_tx.data = safe.approveHash(hash256)
+        async: estimate transaction fees
+        tx_hash = ethereum_hash_tx(eth_tx)
+        async? (user interaction) tx_signature = ethereum_sign(key, tx_hash, chain_id(?))
+        raw_tx = rlp_encode(tx+signature)
+        async: eth_sendRawTransaction -> eth_tx_hash
+        successfully executed
+        prevalidated_signature = {ethereum_address(public_key(key)), 0, 1}
+
+        ^^^ all is not needed if the key will be sending executeTransaction, then it's validated by the blockchain
+        via the signature of the transaction
+
+        also, we need to share the prevalidated signature for the message with an owner that
+        will be executing the transaction.
+            that owner will collect all signatures for executing a transaction.
+
+    safe_execute_transaction -> wallet_execute_transaction OR can be relay_execute_transaction
+
+
+    In the pseudo-code, mapping to functions seems more compact and
+    straightforward than mapping to objects.
+
+    However, we have to deal with asynchronicity. If we break the function flow of signing
+    and approval, then we split that algorithm and have to come back to it when
+    the state changed, i.e. when response message arrives.
+    Until that point we can't proceed with the process.
+
+    async-await supposed to make it better, but then we complicate stuff with
+    network error handling, etc. Message-passing seems to me a better mechanism.
+
+ */
 
 // ETHEREUM - SAFE BOUNDARY
 
@@ -121,7 +261,7 @@ struct SafeEIP1271ContractSignature {
 }
 
 struct SafePreValidatedSignature {
-    // account that pre-validated a hash, must be owner of the multisig
+    // account that pre-validated a hash using approveHash() or a message sender, must be owner of the multisig
     var validator: Address
     // not used
     var reserved: Data
