@@ -101,7 +101,7 @@ class KeychainStorageTests: XCTestCase {
         let randomKeyPair = try keychainStorage.createKeyPair()
 
         // Then
-        //Use public ey to encrypt
+        // Use public key to encrypt
         let randomPlainTextData = UUID().uuidString.data(using: .utf8)!
         let randomPubKey = SecKeyCopyPublicKey(randomKeyPair)
         // encrypt private part of sensitive_key
@@ -110,7 +110,7 @@ class KeychainStorageTests: XCTestCase {
         guard let encryptedRandomData = SecKeyCreateEncryptedData(randomPubKey!, .eciesEncryptionStandardX963SHA256AESGCM, randomPlainTextData as CFData, &error) as? Data else {
             throw error!.takeRetainedValue() as Error
         }
-        //And secret key to decrypt
+        // And secret key to decrypt
         guard let decryptedRandomData = SecKeyCreateDecryptedData(randomKeyPair, .eciesEncryptionStandardX963SHA256AESGCM, encryptedRandomData as CFData, &error) as? Data else {
             throw error!.takeRetainedValue() as Error
         }
@@ -170,13 +170,13 @@ class KeychainStorageTests: XCTestCase {
     // Helper functions
     func validateKeyIsUsable(key: SecKey, randomData: Data) throws -> Data {
         let pubKey = SecKeyCopyPublicKey(key)
-        // 2. Encrypt randomData
+        // Encrypt randomData
         var error: Unmanaged<CFError>?
         guard let encryptedRandomData = SecKeyCreateEncryptedData(pubKey!, .eciesEncryptionStandardX963SHA256AESGCM, randomData as CFData, &error) as? Data else {
             LogService.shared.error("Could not encrypt random data")
             throw error!.takeRetainedValue() as Error
         }
-        // 3. decrypt randomData
+        // Decrypt encrypted randomData
         guard let decryptedRandomData = SecKeyCreateDecryptedData(key, .eciesEncryptionStandardX963SHA256AESGCM, encryptedRandomData as CFData, &error) as? Data else {
             LogService.shared.error("Could not decrypt random data")
             throw error!.takeRetainedValue() as Error
