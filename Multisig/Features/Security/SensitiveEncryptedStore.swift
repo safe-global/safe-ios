@@ -20,7 +20,7 @@ class SensitiveEncryptedStore: EncryptedStore {
     }
 
     // This is called, when using the new key security is activated after updating the app. Even if the user did not activate it.
-    func initialSetup() throws {
+    func initializeKeyStore() throws {
         let derivedPasscode = try persistRandomPassword()
         let sensitiveKey = try keychainStorage.createKeyPair()
         try persistSensitivePublicKey(sensitiveKey: sensitiveKey)
@@ -28,14 +28,25 @@ class SensitiveEncryptedStore: EncryptedStore {
     }
 
     private func persistRandomPassword() throws -> String {
-        let randomPasscode = createRandomPassword()
-        let derivedPasscode = derivePasscode(from: randomPasscode)
-        try keychainStorage.storePasscode(derivedPasscode: derivedPasscode) // TODO check error?
-        return derivedPasscode
+        let randomPasscode = createRandomPassword()!
+        try keychainStorage.storePasscode(derivedPasscode: randomPasscode)
+        return randomPasscode
     }
 
-    private func createRandomPassword() -> String {
-        Data.randomBytes(length: 32)!.toHexString()
+    private func createRandomPassword() -> String? {
+        var data = Data(repeating: 0, count: 32)
+        let result = data.withUnsafeMutableBytes { (body: UnsafeMutableRawBufferPointer) -> Int32? in
+            if let bodyAddress = body.baseAddress, body.count > 0 {
+                let pointer = bodyAddress.assumingMemoryBound(to: UInt8.self)
+                return SecRandomCopyBytes(kSecRandomDefault, 32, pointer)
+            } else {
+                return nil
+            }
+        }
+        if let notNilResult = result, notNilResult == errSecSuccess {
+            return data.toHexString()
+        }
+        return nil
     }
 
     private func persistSensitivePrivateKey(derivedPasscode: String, sensitiveKey: SecKey) throws { // create SE key (KEK) with a hard coded tag for example: "sensitive_KEK"

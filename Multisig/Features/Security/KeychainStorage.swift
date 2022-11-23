@@ -18,7 +18,7 @@ class KeychainStorage {
     static let sensitiveKekTag = "global.safe.sensitive.KEK"
 
     // used to store encrypted data as a password in keychain
-    static let defaultService: String = "encrypted_data"
+    static let defaultService: String = "global.safe.sensitive.keys.encrypted.data"
 
     // store passcode. Either if it random (user didn't give a password) or the user asked us to remember it
     func storePasscode(derivedPasscode: String) throws {
@@ -44,8 +44,8 @@ class KeychainStorage {
         try deleteData(KeychainStorage.derivedPasswordTag)
         // Create query
         let addQuery = SQuery.generic(id: KeychainStorage.derivedPasswordTag, encryptedData: passwordData).queryData()
-        // safe to Keychain (as type password?) using SecItemAdd() and sensitiveEncryptedPrivateKeyTag
-        let status = SecItemAdd(addQuery, nil) // TODO consider passing error ref instead of nil
+        // save to Keychain using SecItemAdd() and sensitiveEncryptedPrivateKeyTag
+        let status = SecItemAdd(addQuery, nil)
 
         switch status {
         case errSecSuccess:

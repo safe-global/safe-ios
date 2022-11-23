@@ -19,7 +19,7 @@ public class EncryptedSensitiveStoreTests: XCTestCase {
 
     func testInitialSetup() {
         do {
-            try encryptedStore.initialSetup()
+            try encryptedStore.initializeKeyStore()
         } catch {
             XCTFail() // do not throw
         }
@@ -27,7 +27,7 @@ public class EncryptedSensitiveStoreTests: XCTestCase {
 
     func testImport() throws {
         let randomKey = "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322"
-        try encryptedStore.initialSetup()
+        try encryptedStore.initializeKeyStore()
 
         try encryptedStore.import(ethPrivateKey: randomKey)
 
@@ -36,7 +36,7 @@ public class EncryptedSensitiveStoreTests: XCTestCase {
     }
 
     func testEthereumKeyNotFound() throws {
-        try encryptedStore.initialSetup()
+        try encryptedStore.initializeKeyStore()
 
         let ethPrivateKey = try encryptedStore.find(address: "0xfb1ca734579C3F2dC6DC8cD64A4f5D91891387C6", password: nil)
         XCTAssertEqual(ethPrivateKey, nil)
