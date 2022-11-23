@@ -149,7 +149,7 @@ class KeychainStorageTests: XCTestCase {
         try keychainStorage.createSecureEnclaveKey(useBiometry: false, canChangeBiometry: false, applicationPassword: randomPassword)
 
         // When
-        let key = try keychainStorage.findKey(query: SQuery.ecPrivateKey(tag: KeychainStorage.sensitiveKekTag, password: randomPassword.data(using: .utf8)))!
+        let key = try keychainStorage.findKey(query: SecKeyQuery.ecPrivateKey(tag: KeychainStorage.sensitiveKekTag, password: randomPassword.data(using: .utf8)))!
 
         // Then
         // check key is usable

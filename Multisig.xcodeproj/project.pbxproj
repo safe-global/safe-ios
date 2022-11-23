@@ -883,7 +883,7 @@
 		AD30360125D8B1D8735A8CF4 /* DelegateWarningCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303BF18FC3591AD8AF6FBC /* DelegateWarningCalculatorTests.swift */; };
 		AD30377B2E867EBF8647725B /* DelegateWarningMultiSend.json in Resources */ = {isa = PBXBuildFile; fileRef = AD30320FB98CBA790C56F472 /* DelegateWarningMultiSend.json */; };
 		AD303814C19C41AB35176EA7 /* EncryptedSensitiveStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303D96DE5AFAE096D0CB86 /* EncryptedSensitiveStoreTests.swift */; };
-		AD3038375970A643B6CB80B9 /* SQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303BAB464F66AA4AE3FF4C /* SQuery.swift */; };
+		AD3038375970A643B6CB80B9 /* SecKeyQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303BAB464F66AA4AE3FF4C /* SecKeyQuery.swift */; };
 		AD303ABF1DBCA951A106ECD5 /* ReviewReplaceOwnerTxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303A2303B63B1408463F64 /* ReviewReplaceOwnerTxViewController.swift */; };
 		AD303BDA3B1979B4643DAAB1 /* WarnAboutAnyNestedMultisendWithDelegate.json in Resources */ = {isa = PBXBuildFile; fileRef = AD3034FC5D96E7DF5D59FBED /* WarnAboutAnyNestedMultisendWithDelegate.json */; };
 		AD303BE8223BCB5899176612 /* WarnAboutAnyNestedMultisendWithDelegate.json in Resources */ = {isa = PBXBuildFile; fileRef = AD3034FC5D96E7DF5D59FBED /* WarnAboutAnyNestedMultisendWithDelegate.json */; };
@@ -1843,7 +1843,7 @@
 		AD30392AFE8D95B651C509BA /* KeychainStorageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainStorageTests.swift; sourceTree = "<group>"; };
 		AD303A2303B63B1408463F64 /* ReviewReplaceOwnerTxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewReplaceOwnerTxViewController.swift; sourceTree = "<group>"; };
 		AD303AD3E32FBAF7FC2B202B /* ChangeConfirmationsFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeConfirmationsFlow.swift; sourceTree = "<group>"; };
-		AD303BAB464F66AA4AE3FF4C /* SQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQuery.swift; sourceTree = "<group>"; };
+		AD303BAB464F66AA4AE3FF4C /* SecKeyQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecKeyQuery.swift; sourceTree = "<group>"; };
 		AD303BF18FC3591AD8AF6FBC /* DelegateWarningCalculatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegateWarningCalculatorTests.swift; sourceTree = "<group>"; };
 		AD303C1150C4F4070D76632E /* DelegateWarningNotTopLevel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DelegateWarningNotTopLevel.json; sourceTree = "<group>"; };
 		AD303D96DE5AFAE096D0CB86 /* EncryptedSensitiveStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptedSensitiveStoreTests.swift; sourceTree = "<group>"; };
@@ -2510,7 +2510,7 @@
 				0A2853F12912C8ED00D11707 /* EncryptedStore.swift */,
 				0A2853F32912D63700D11707 /* KeychainStorage.swift */,
 				AD30342C26609543FC424D67 /* SensitiveEncryptedStore.swift */,
-				AD303BAB464F66AA4AE3FF4C /* SQuery.swift */,
+				AD303BAB464F66AA4AE3FF4C /* SecKeyQuery.swift */,
 			);
 			path = Security;
 			sourceTree = "<group>";
@@ -5393,7 +5393,7 @@
 				AD303399362FE10A1FB79BB6 /* ReviewChangeConfirmationsTxViewController.swift in Sources */,
 				AD303F546D6DDF8E749E77BE /* DelegateWarningCalculator.swift in Sources */,
 				AD303F9BEEFEF8527F91DB7B /* SensitiveEncryptedStore.swift in Sources */,
-				AD3038375970A643B6CB80B9 /* SQuery.swift in Sources */,
+				AD3038375970A643B6CB80B9 /* SecKeyQuery.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

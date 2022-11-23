@@ -6,8 +6,10 @@
 import Foundation
 import LocalAuthentication
 
-enum SQuery {
-    case generic(id: String, service: String = KeychainStorage.defaultService, encryptedData: Data? = nil)
+enum SecKeyQuery {
+    // use this whenever searching for  a key or password
+
+    case generic(id: String, service: String = KeychainStorage.defaultService)
     case ecPrivateKey(tag: String = KeychainStorage.sensitiveKekTag, password: Data? = nil)
     case ecPubKey(tag: String = KeychainStorage.sensitivePublicKeyTag, pubKeyData: SecKey? = nil)
 
@@ -15,7 +17,7 @@ enum SQuery {
         var result: NSMutableDictionary
 
         switch self {
-        case let .generic(id, service, encryptedData):
+        case let .generic(id, service):
             result = [
                 kSecAttrService: service,
                 kSecAttrAccount: id,
@@ -23,9 +25,6 @@ enum SQuery {
                 kSecReturnAttributes: false,
                 kSecReturnData: true,
             ]
-            if let encryptedData = encryptedData {
-                result[kSecValueData] = encryptedData
-            }
 
         case let .ecPrivateKey(tag, password):
             result = [
@@ -70,8 +69,9 @@ fileprivate extension LAContext {
     }
 }
 
-enum SItem {
-    case generic(id: String, service: String, data: Data)
+enum SecKeyItem {
+    // use this whenever creating a key or adding it to the keychain
+    case generic(id: String, service: String = KeychainStorage.defaultService, data: Data)
     case enclaveKey(tag: String = KeychainStorage.sensitiveKekTag)
     case ecKey(_ tag: String?)
 
@@ -80,7 +80,14 @@ enum SItem {
         var result: NSMutableDictionary = [:]
         switch self {
         case let .generic(id, service, data):
-            break
+            result = [
+                kSecAttrService: service,
+                kSecAttrAccount: id,
+                kSecClass: kSecClassGenericPassword,
+                kSecReturnAttributes: false,
+                kSecReturnData: true,
+                kSecValueData: data
+            ]
 
         case let .enclaveKey(tag):
             let accessControl = try accessControl(flags: .privateKeyUsage.union(access!))

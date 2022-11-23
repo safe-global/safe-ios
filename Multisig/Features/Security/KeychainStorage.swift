@@ -18,7 +18,7 @@ class KeychainStorage {
     static let sensitiveKekTag = "global.safe.sensitive.KEK"
 
     // used to store encrypted data as a password in keychain
-    static let defaultService: String = "global.safe.sensitive.keys.encrypted.data"
+    static let defaultService: String = "global.safe.sensitive.encrypted.data"
 
     // store passcode. Either if it random (user didn't give a password) or the user asked us to remember it
     func storePasscode(derivedPasscode: String) throws {
@@ -43,9 +43,9 @@ class KeychainStorage {
         // delete existing sensitive key data
         try deleteData(KeychainStorage.derivedPasswordTag)
         // Create query
-        let addQuery = SQuery.generic(id: KeychainStorage.derivedPasswordTag, encryptedData: passwordData).queryData()
-        // save to Keychain using SecItemAdd() and sensitiveEncryptedPrivateKeyTag
-        let status = SecItemAdd(addQuery, nil)
+        let addItem = try SecKeyItem.generic(id: KeychainStorage.derivedPasswordTag, data: passwordData).attributes()
+
+        let status = SecItemAdd(addItem, nil)
 
         switch status {
         case errSecSuccess:
@@ -61,7 +61,9 @@ class KeychainStorage {
     }
 
     private func findPasswordData() throws -> Data? {
-        let query = SQuery.generic(id: KeychainStorage.derivedPasswordTag).queryData()
+        let query = SecKeyQuery.generic(id: KeychainStorage.derivedPasswordTag).queryData()
+
+        LogService.shared.debug("query: \(query)")
 
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query, &item)
@@ -75,6 +77,7 @@ class KeychainStorage {
             }
 
         case errSecItemNotFound:
+            LogService.shared.debug("status: errSecItemNotFound: \(KeychainStorage.derivedPasswordTag)")
             return nil
 
         case let status:
@@ -108,10 +111,10 @@ class KeychainStorage {
         try deleteData(account)
 
         // Create query
-        let addEncryptedDataQuery = SQuery.generic(id: account, encryptedData: encryptedData).queryData()
+        let addEncryptedDataItem = try SecKeyItem.generic(id: account, data: encryptedData).attributes()
 
-        // safe to Keychain (as type password?) using SecItemAdd()
-        let status = SecItemAdd(addEncryptedDataQuery, nil)
+        // safe to Keychain using SecItemAdd()
+        let status = SecItemAdd(addEncryptedDataItem, nil)
 
         switch status {
         case errSecSuccess:
@@ -122,7 +125,7 @@ class KeychainStorage {
     }
 
     func retrieveEncryptedData(account: String) throws -> Data? {
-        let query = SQuery.generic(id: account).queryData()
+        let query = SecKeyQuery.generic(id: account).queryData()
 
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query, &item)
@@ -144,13 +147,14 @@ class KeychainStorage {
     }
 
     func deleteData(_ account: String) throws {
-        let query = SQuery.generic(id: account).queryData()
+        let query = SecKeyQuery.generic(id: account).queryData()
 
         let status = SecItemDelete(query)
         switch status {
         case errSecSuccess:
             return
         case errSecItemNotFound:
+            LogService.shared.debug("status: errSecItemNotFound: \(account)")
             return
 
         case let status:
@@ -161,7 +165,7 @@ class KeychainStorage {
     func storeSensitivePublicKey(publicKey: SecKey) throws {
         try deleteItem(.ecPubKey())
 
-        let queryDict = SQuery.ecPubKey(pubKeyData: publicKey).queryData()
+        let queryDict = SecKeyQuery.ecPubKey(pubKeyData: publicKey).queryData()
         let status = SecItemAdd(queryDict, nil)
         guard status == errSecSuccess else {
             throw GSError.GenericPasscodeError(reason: "Cannot store public key")
@@ -169,13 +173,13 @@ class KeychainStorage {
     }
 
     func retrieveSensitivePublicKey() throws -> SecKey? {
-        try findKey(query: SQuery.ecPubKey())
+        try findKey(query: SecKeyQuery.ecPubKey())
     }
 
     private func createSEKey(flags: SecAccessControlCreateFlags, applicationPassword: String) throws -> SecKey {
         // Passed via kSecUseAuthenticationContext to kSecPrivateKeyAttrs attributes
         try deleteItem(.ecPrivateKey())
-        let attributes = try SItem.enclaveKey().attributes(access: .applicationPassword, password: applicationPassword.data(using: .utf8))
+        let attributes = try SecKeyItem.enclaveKey().attributes(access: .applicationPassword, password: applicationPassword.data(using: .utf8))
 
         // create a key pair
         var createError: Unmanaged<CFError>?
@@ -198,7 +202,7 @@ class KeychainStorage {
 
     // used to create a public-private key pair (asymmetric) NOT in secure enclave -> Sensitive Key
     func createKeyPair() throws -> SecKey {
-        let attributes = try SItem.ecKey(nil).attributes()
+        let attributes = try SecKeyItem.ecKey(nil).attributes()
         var error: Unmanaged<CFError>?
         guard let keyPair = SecKeyCreateRandomKey(attributes, &error) else {
             LogService.shared.error("Error: \(error!.takeRetainedValue() as Error)")
@@ -207,7 +211,7 @@ class KeychainStorage {
         return keyPair
     }
 
-    func deleteItem(_ query: SQuery) throws {
+    func deleteItem(_ query: SecKeyQuery) throws {
         let status = SecItemDelete(query.queryData())
 
         switch status {
@@ -222,7 +226,7 @@ class KeychainStorage {
         }
     }
 
-    func findKey(query: SQuery) throws -> SecKey? {
+    func findKey(query: SecKeyQuery) throws -> SecKey? {
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query.queryData(), &item)
         switch status {
