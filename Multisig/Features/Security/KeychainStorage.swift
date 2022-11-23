@@ -163,13 +163,18 @@ class KeychainStorage {
     }
 
     func storeSensitivePublicKey(publicKey: SecKey) throws {
-        try deleteItem(.ecPubKey())
 
-        let queryDict = SecKeyQuery.ecPubKey(pubKeyData: publicKey).queryData()
-        let status = SecItemAdd(queryDict, nil)
+        LogService.shared.debug("publicKey: \(publicKey)")
+        try deleteItem(SecKeyQuery.ecPubKey())
+
+        let addItem = try SecKeyItem.ecPubKey(tag: KeychainStorage.sensitivePublicKeyTag, pubKey: publicKey).attributes()
+
+        LogService.shared.debug("addItem: \(addItem)")
+
+        let status = SecItemAdd(addItem, nil)
         guard status == errSecSuccess else {
             throw GSError.GenericPasscodeError(reason: "Cannot store public key")
-        } // Should be a new and more specific error type
+        }
     }
 
     func retrieveSensitivePublicKey() throws -> SecKey? {
@@ -202,7 +207,7 @@ class KeychainStorage {
 
     // used to create a public-private key pair (asymmetric) NOT in secure enclave -> Sensitive Key
     func createKeyPair() throws -> SecKey {
-        let attributes = try SecKeyItem.ecKey(nil).attributes()
+        let attributes = try SecKeyItem.ecKeyPair("").attributes()
         var error: Unmanaged<CFError>?
         guard let keyPair = SecKeyCreateRandomKey(attributes, &error) else {
             LogService.shared.error("Error: \(error!.takeRetainedValue() as Error)")

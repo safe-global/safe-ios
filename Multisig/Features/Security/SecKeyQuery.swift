@@ -11,7 +11,7 @@ enum SecKeyQuery {
 
     case generic(id: String, service: String = KeychainStorage.defaultService)
     case ecPrivateKey(tag: String = KeychainStorage.sensitiveKekTag, password: Data? = nil)
-    case ecPubKey(tag: String = KeychainStorage.sensitivePublicKeyTag, pubKeyData: SecKey? = nil)
+    case ecPubKey(tag: String = KeychainStorage.sensitivePublicKeyTag)
 
     func queryData() -> NSDictionary {
         var result: NSMutableDictionary
@@ -38,7 +38,7 @@ enum SecKeyQuery {
             if let context = LAContext(password: password) {
                 result[kSecUseAuthenticationContext] = context
             }
-        case let .ecPubKey(tag, pubKeyData):
+        case let .ecPubKey(tag):
             result = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPublic,
@@ -46,9 +46,9 @@ enum SecKeyQuery {
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
                 kSecReturnRef: true,
             ]
-            if let pubKeyData = pubKeyData {
-                result[kSecValueRef] = pubKeyData
-            }
+//            if let pubKeyData = pubKeyData {
+//                result[kSecValueRef] = pubKeyData
+//            }
         }
 
         return result
@@ -56,24 +56,14 @@ enum SecKeyQuery {
 
 }
 
-fileprivate extension LAContext {
-    convenience init?(password: Data?) {
-        guard let appPassword = password else {
-            return nil
-        }
-        self.init()
-        let success = setCredential(appPassword, type: .applicationPassword)
-        guard success else {
-            return nil
-        }
-    }
-}
 
 enum SecKeyItem {
     // use this whenever creating a key or adding it to the keychain
     case generic(id: String, service: String = KeychainStorage.defaultService, data: Data)
     case enclaveKey(tag: String = KeychainStorage.sensitiveKekTag)
-    case ecKey(_ tag: String?)
+    case ecKeyPair(_ tag: String)
+    case ecPrivateKey(tag: String, password: String)
+    case ecPubKey(tag: String, pubKey: SecKey)
 
     // applies access flags and password to any type of item
     func attributes(access: SecAccessControlCreateFlags? = nil, password: Data? = nil) throws -> NSDictionary {
@@ -112,13 +102,37 @@ enum SecKeyItem {
 
                 // During creation of the keypair, the tag is not known. And there is actually two tags.
                 // One for the public key and one for the private key.
-        case let .ecKey(tag):
+        case let .ecKeyPair(tag):
             result = [
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
                 kSecAttrKeySizeInBits: 256,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate
             ]
-            break
+
+        case let .ecPubKey(tag, pubKey):
+            result = [
+                kSecClass: kSecClassKey,
+                kSecAttrKeyClass: kSecAttrKeyClassPublic,
+                kSecAttrApplicationTag: tag.data(using: .utf8)!,
+                kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
+                kSecReturnRef: true,
+//                kSecValueRef: pubKey
+            ]
+
+            result[kSecValueRef] = pubKey
+
+        case let .ecPrivateKey(tag, password):
+            result = [
+                kSecClass: kSecClassKey,
+                kSecAttrKeyClass: kSecAttrKeyClassPrivate,
+                kSecAttrApplicationTag: tag.data(using: .utf8)!,
+                kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
+                kSecReturnRef: true
+            ]
+
+            if let context = LAContext(password: password.data(using: .utf8)) {
+                result[kSecUseAuthenticationContext] = context
+            }
         }
 
         return result
@@ -139,6 +153,19 @@ enum SecKeyItem {
             throw accessError!.takeRetainedValue() as Error
         }
         return access
+    }
+}
+
+fileprivate extension LAContext {
+    convenience init?(password: Data?) {
+        guard let appPassword = password else {
+            return nil
+        }
+        self.init()
+        let success = setCredential(appPassword, type: .applicationPassword)
+        guard success else {
+            return nil
+        }
     }
 }
 
