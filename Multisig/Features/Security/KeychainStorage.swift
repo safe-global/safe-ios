@@ -62,9 +62,6 @@ class KeychainStorage {
 
     private func findPasswordData() throws -> Data? {
         let query = SecKeyQuery.generic(id: KeychainStorage.derivedPasswordTag).queryData()
-
-        LogService.shared.debug("query: \(query)")
-
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query, &item)
 
@@ -77,7 +74,6 @@ class KeychainStorage {
             }
 
         case errSecItemNotFound:
-            LogService.shared.debug("status: errSecItemNotFound: \(KeychainStorage.derivedPasswordTag)")
             return nil
 
         case let status:
@@ -104,24 +100,6 @@ class KeychainStorage {
             flags = [.applicationPassword]
         }
         return try createSEKey(flags: flags, applicationPassword: applicationPassword)
-    }
-
-    func storeData(encryptedData: Data, account: String) throws {
-        // delete existing account data
-        try deleteData(account)
-
-        // Create query
-        let addEncryptedDataItem = try SecKeyItem.generic(id: account, data: encryptedData).attributes()
-
-        // safe to Keychain using SecItemAdd()
-        let status = SecItemAdd(addEncryptedDataItem, nil)
-
-        switch status {
-        case errSecSuccess:
-            return
-        case let status:
-            throw convertStatusToError(status: status)
-        }
     }
 
     func retrieveEncryptedData(account: String) throws -> Data? {
@@ -154,7 +132,6 @@ class KeychainStorage {
         case errSecSuccess:
             return
         case errSecItemNotFound:
-            LogService.shared.debug("status: errSecItemNotFound: \(account)")
             return
 
         case let status:
@@ -162,16 +139,12 @@ class KeychainStorage {
         }
     }
 
-    func storeSensitivePublicKey(publicKey: SecKey) throws {
+    func storeItem(item: SecKeyItem) throws {
 
-        LogService.shared.debug("publicKey: \(publicKey)")
-        try deleteItem(SecKeyQuery.ecPubKey())
+        // Cannot delete here because we would need to get the quesry from the item
+        //try deleteItem(SecKeyQuery.ecPubKey())
 
-        let addItem = try SecKeyItem.ecPubKey(tag: KeychainStorage.sensitivePublicKeyTag, pubKey: publicKey).attributes()
-
-        LogService.shared.debug("addItem: \(addItem)")
-
-        let status = SecItemAdd(addItem, nil)
+        let status = SecItemAdd(try item.attributes(), nil)
         guard status == errSecSuccess else {
             throw GSError.GenericPasscodeError(reason: "Cannot store public key")
         }

@@ -53,13 +53,12 @@ enum SecKeyQuery {
 
 }
 
-
 enum SecKeyItem {
     // use this whenever creating a key or adding it to the keychain
     case generic(id: String, service: String = KeychainStorage.defaultService, data: Data)
     case enclaveKey(tag: String = KeychainStorage.sensitiveKekTag)
     case ecKeyPair
-    case ecPubKey(tag: String, pubKey: SecKey)
+    case ecPubKey(tag: String = KeychainStorage.sensitivePublicKeyTag, pubKey: SecKey)
 
     // applies access flags and password to any type of item
     func attributes(access: SecAccessControlCreateFlags? = nil, password: Data? = nil) throws -> NSDictionary {
