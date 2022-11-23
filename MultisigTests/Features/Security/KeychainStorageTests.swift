@@ -24,7 +24,7 @@ class KeychainStorageTests: XCTestCase {
         try! keychainStorage.deleteData(KeychainStorage.derivedPasswordTag)
         try! keychainStorage.deleteData(KeychainStorage.sensitiveEncryptedPrivateKeyTag)
         try! keychainStorage.deleteItem(.ecPubKey())
-        try! keychainStorage.deleteItem(.ecPrivateKey())
+        try! keychainStorage.deleteItem(.enclaveKey())
     }
 
     func testDeleteData() throws {
@@ -149,7 +149,7 @@ class KeychainStorageTests: XCTestCase {
         try keychainStorage.createSecureEnclaveKey(useBiometry: false, canChangeBiometry: false, applicationPassword: randomPassword)
 
         // When
-        let key = try keychainStorage.findKey(query: SecKeyQuery.ecPrivateKey(tag: KeychainStorage.sensitiveKekTag, password: randomPassword.data(using: .utf8)))!
+        let key = try keychainStorage.findKey(query: SecKeyQuery.enclaveKey(password: randomPassword.data(using: .utf8)))!
 
         // Then
         // check key is usable
@@ -170,7 +170,7 @@ class KeychainStorageTests: XCTestCase {
         try keychainStorage.createSecureEnclaveKey(useBiometry: true, canChangeBiometry: false, applicationPassword: randomPassword)
 
         // When
-        let key = try keychainStorage.findKey(query: .ecPrivateKey(password: randomPassword.data(using: .utf8)))!
+        let key = try keychainStorage.findKey(query: .enclaveKey(password: randomPassword.data(using: .utf8)))!
 
         // Then
         // check key is usable

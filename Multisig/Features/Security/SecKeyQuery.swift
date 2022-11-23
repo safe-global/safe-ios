@@ -10,7 +10,7 @@ enum SecKeyQuery {
     // use this whenever searching for  a key or password
 
     case generic(id: String, service: String = KeychainStorage.defaultService)
-    case ecPrivateKey(tag: String = KeychainStorage.sensitiveKekTag, password: Data? = nil)
+    case enclaveKey(tag: String = KeychainStorage.sensitiveKekTag, password: Data? = nil)
     case ecPubKey(tag: String = KeychainStorage.sensitivePublicKeyTag)
 
     func queryData() -> NSDictionary {
@@ -26,7 +26,7 @@ enum SecKeyQuery {
                 kSecReturnData: true,
             ]
 
-        case let .ecPrivateKey(tag, password):
+        case let .enclaveKey(tag, password):
             result = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
@@ -46,9 +46,6 @@ enum SecKeyQuery {
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
                 kSecReturnRef: true,
             ]
-//            if let pubKeyData = pubKeyData {
-//                result[kSecValueRef] = pubKeyData
-//            }
         }
 
         return result
@@ -61,8 +58,7 @@ enum SecKeyItem {
     // use this whenever creating a key or adding it to the keychain
     case generic(id: String, service: String = KeychainStorage.defaultService, data: Data)
     case enclaveKey(tag: String = KeychainStorage.sensitiveKekTag)
-    case ecKeyPair(_ tag: String)
-    case ecPrivateKey(tag: String, password: String)
+    case ecKeyPair
     case ecPubKey(tag: String, pubKey: SecKey)
 
     // applies access flags and password to any type of item
@@ -83,7 +79,7 @@ enum SecKeyItem {
             let accessControl = try accessControl(flags: .privateKeyUsage.union(access!))
 
             // create private key attributes
-            var privateKeyAttrs: NSMutableDictionary = [
+            let privateKeyAttrs: NSMutableDictionary = [
                 kSecAttrIsPermanent: true,
                 kSecAttrApplicationTag: tag.data(using: .utf8)!,
                 kSecAttrAccessControl: accessControl
@@ -102,7 +98,7 @@ enum SecKeyItem {
 
                 // During creation of the keypair, the tag is not known. And there is actually two tags.
                 // One for the public key and one for the private key.
-        case let .ecKeyPair(tag):
+        case let .ecKeyPair:
             result = [
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
                 kSecAttrKeySizeInBits: 256,
@@ -116,23 +112,8 @@ enum SecKeyItem {
                 kSecAttrApplicationTag: tag.data(using: .utf8)!,
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
                 kSecReturnRef: true,
-//                kSecValueRef: pubKey
+                kSecValueRef: pubKey
             ]
-
-            result[kSecValueRef] = pubKey
-
-        case let .ecPrivateKey(tag, password):
-            result = [
-                kSecClass: kSecClassKey,
-                kSecAttrKeyClass: kSecAttrKeyClassPrivate,
-                kSecAttrApplicationTag: tag.data(using: .utf8)!,
-                kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
-                kSecReturnRef: true
-            ]
-
-            if let context = LAContext(password: password.data(using: .utf8)) {
-                result[kSecUseAuthenticationContext] = context
-            }
         }
 
         return result

@@ -183,7 +183,7 @@ class KeychainStorage {
 
     private func createSEKey(flags: SecAccessControlCreateFlags, applicationPassword: String) throws -> SecKey {
         // Passed via kSecUseAuthenticationContext to kSecPrivateKeyAttrs attributes
-        try deleteItem(.ecPrivateKey())
+        try deleteItem(.enclaveKey())
         let attributes = try SecKeyItem.enclaveKey().attributes(access: .applicationPassword, password: applicationPassword.data(using: .utf8))
 
         // create a key pair
@@ -207,7 +207,7 @@ class KeychainStorage {
 
     // used to create a public-private key pair (asymmetric) NOT in secure enclave -> Sensitive Key
     func createKeyPair() throws -> SecKey {
-        let attributes = try SecKeyItem.ecKeyPair("").attributes()
+        let attributes = try SecKeyItem.ecKeyPair.attributes()
         var error: Unmanaged<CFError>?
         guard let keyPair = SecKeyCreateRandomKey(attributes, &error) else {
             LogService.shared.error("Error: \(error!.takeRetainedValue() as Error)")

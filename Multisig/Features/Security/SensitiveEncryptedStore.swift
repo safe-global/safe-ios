@@ -107,8 +107,8 @@ class SensitiveEncryptedStore: EncryptedStore {
         }
 
         // find sensitiveKEK
-        let s = password != nil ? password : keychainStorage.retrievePasscode()
-        let sensitiveKEK = try keychainStorage.findKey(query: SecKeyQuery.ecPrivateKey(tag: KeychainStorage.sensitiveKekTag, password: s?.data(using: .utf8)))!
+        let password = password != nil ? password : keychainStorage.retrievePasscode()
+        let sensitiveKEK = try keychainStorage.findKey(query: SecKeyQuery.enclaveKey(password: password?.data(using: .utf8)))!
 
         // find encrypted sensitive key
         let encryptedSensitiveKeyData = try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)!
