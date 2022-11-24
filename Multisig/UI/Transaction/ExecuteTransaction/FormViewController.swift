@@ -65,7 +65,7 @@ class FormViewController: UITableViewController {
         assert(model != nil)
 
         tableView.registerCell(ContainerTableViewCell.self)
-
+        tableView.backgroundColor = .backgroundPrimary
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44
         tableView.separatorStyle = .none

@@ -12,6 +12,7 @@ class DelegateKeyController {
 
     weak var presenter: UIViewController?
     private var clientGatewayService = App.shared.clientGatewayService
+    private var keystoneSignFlow: KeystoneSignFlow!
 
     private let keyInfo: KeyInfo
     private let completionHandler: () -> Void
@@ -142,7 +143,15 @@ class DelegateKeyController {
     private func sign(message: Data, completion: @escaping (Result<Data, Error>) -> Void) {
         let title = "Confirm Push Notifications"
         let hexMessage = message.toHexStringWithPrefix()
+        let chain = try? Safe.getSelected()?.chain ?? Chain.mainnetChain()
         switch keyInfo.keyType {
+        case .deviceImported, .deviceGenerated:
+            do {
+                let signature = try SafeTransactionSigner().sign(hash: HashString(hex: hexMessage), keyInfo: keyInfo)
+                completion(.success(Data(hex: signature.hexadecimal)))
+            } catch {
+                completion(.failure(GSError.AddDelegateKeyCancelled()))
+            }
         case .ledgerNanoX:
             let request = SignRequest(title: title,
                                       tracking: ["action": "confirm_push"],
@@ -167,7 +176,6 @@ class DelegateKeyController {
             }
 
         case .walletConnect:
-            let chain = try? Safe.getSelected()?.chain ?? Chain.mainnetChain()
             let signVC = SignatureRequestToWalletViewController(hexMessage, keyInfo: keyInfo, chain: chain!)
             signVC.requiresChainIdMatch = false
             var isSuccess: Bool = false
@@ -182,9 +190,31 @@ class DelegateKeyController {
             }
             let vc = ViewControllerFactory.pageSheet(viewController: signVC, halfScreen: true)
             presenter?.present(vc, animated: true)
+        case .keystone:
+            let signInfo = KeystoneSignInfo(
+                signData: hexMessage,
+                chain: chain,
+                keyInfo: keyInfo,
+                signType: .personalMessage
+            )
+            let signCompletion = { [unowned self] (success: Bool) in
+                keystoneSignFlow = nil
+                if !success {
+                    completion(.failure(GSError.AddDelegateKeyCancelled()))
+                }
+            }
+            guard let signFlow = KeystoneSignFlow(signInfo: signInfo, completion: signCompletion),
+                    let presenter = presenter else {
+                completion(.failure(GSError.AddDelegateTimedOut()))
+                return
+            }
 
-        default:
-            completion(.failure(GSError.UnrecognizedKeyTypeForDelegate()))
+            keystoneSignFlow = signFlow
+            keystoneSignFlow.signCompletion = { unmarshaledSignature in
+                completion(.success(Data(hex: unmarshaledSignature.safeSignature)))
+            }
+
+            presenter.present(flow: keystoneSignFlow)
         }
     }
 

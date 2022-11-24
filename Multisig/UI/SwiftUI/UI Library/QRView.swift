@@ -28,11 +28,16 @@ struct QRView: View {
             }
         }
         .padding(14)
-        .background(
-            RoundedRectangle(cornerRadius: 8)
-            .strokeBorder(Color.border, lineWidth: 2)
-        )
         .frame(width: width, height: height)
+        .background(
+            ZStack {
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color.white)
+
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.border, lineWidth: 2)
+            }
+        )
     }
 }
 
