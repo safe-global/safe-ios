@@ -199,13 +199,11 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
             self.sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
         }
 
-        if [.walletConnect, .ledgerNanoX].contains(keyInfo.keyType) {
-            self.sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
-                    items: [Section.PushNotificationConfiguration.enabled]))
-            if self.keyInfo.delegateAddress != nil {
-                self.sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
-                        items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
-            }
+        self.sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
+                items: [Section.PushNotificationConfiguration.enabled]))
+        if self.keyInfo.delegateAddress != nil {
+            self.sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
+                    items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
         }
 
         self.sections.append((section: .advanced, items: [Section.Advanced.remove]))
@@ -315,20 +313,25 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                 self.connect(keyInfo: keyInfo)
             }
         case Section.PushNotificationConfiguration.enabled:
-            do {
-                addKeyController = try DelegateKeyController(ownerAddress: keyInfo.address) {
-                    self.dismiss(animated: true, completion: nil)
+            authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
+                guard let self = self else { return }
+
+                if success {
+                    do {
+                        self.addKeyController = try DelegateKeyController(ownerAddress: self.keyInfo.address) {
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                        self.addKeyController.presenter = self
+                        if self.keyInfo.delegateAddress == nil {
+                            self.addKeyController.createDelegate()
+                        } else {
+                            self.addKeyController.deleteDelegate()
+                        }
+                    } catch {
+                        App.shared.snackbar.show(message: error.localizedDescription)
+                    }
                 }
-                addKeyController.presenter = self
-                if keyInfo.delegateAddress == nil {
-                    addKeyController.createDelegate()
-                } else {
-                    addKeyController.deleteDelegate()
-                }
-            } catch {
-                App.shared.snackbar.show(message: error.localizedDescription)
             }
-            return
         case Section.OwnerKeyType.type:
             if keyInfo.keyType == .walletConnect && keyInfo.connectedAsDapp {
                 let detailsVC = WebConnectionDetailsViewController()

@@ -36,7 +36,7 @@ class GenerateKeyFlow: AddKeyFlow {
     var replaceOwnerFlow: ReplaceOwnerFlow!
 
     init(completion: @escaping (Bool) -> Void) {
-        super.init(badge: KeyType.deviceGenerated.imageName, factory: GenerateKeyFactory(), completion: completion)
+        super.init(keyType: .deviceGenerated, factory: GenerateKeyFactory(), completion: completion)
     }
 
     override func didIntro() {
@@ -74,7 +74,7 @@ class GenerateKeyFlow: AddKeyFlow {
 
         if safe.isReadOnly {
             let vc = flowFactory.inviteToAddOwner { [unowned self] in
-                let vc = flowFactory.shareAddKeyAsOwnerLink(owner: keyInfo!, safe: safe) {
+                let vc = flowFactory.shareAddKeyAsOwnerLink(owner: keyInfo!, safe: safe) { [unowned self] in
                     stop(success: true)
                     return
                 }
@@ -138,6 +138,10 @@ class GenerateKeyFlow: AddKeyFlow {
             stop(success: true)
         }
         show(keyVC)
+    }
+
+    override func didDelegateKeySetup() {
+        backup()
     }
 }
 

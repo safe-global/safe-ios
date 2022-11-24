@@ -1,22 +1,26 @@
 //
-//  WalletConnectKeyAdded.swift
+//  KeyAddedViewController.swift
 //  Multisig
 //
-//  Created by Moaaz on 11/22/21.
-//  Copyright © 2021 Gnosis Ltd. All rights reserved.
+//  Created by Mouaz on 11/1/22.
+//  Copyright © 2022 Gnosis Ltd. All rights reserved.
 //
 
 import Foundation
-
-class WalletConnectKeyAddedViewController: AccountActionCompletedViewController {
+class KeyAddedViewController: AccountActionCompletedViewController {
     private var addKeyController: DelegateKeyController!
+    private var keyType: KeyType!
 
-    convenience init() {
+    convenience init(address: Address, name: String, keyType: KeyType, completion: @escaping () -> Void) {
         self.init(namedClass: AccountActionCompletedViewController.self)
+        self.keyType = keyType
+        self.accountAddress = address
+        self.accountName = name
+        self.completion = completion
     }
 
     override func viewDidLoad() {
-        titleText = "Connect WalletConnect"
+        titleText = keyType.titleText
         headerText = "Owner Key added"
 
         assert(accountName != nil)
@@ -32,7 +36,7 @@ class WalletConnectKeyAddedViewController: AccountActionCompletedViewController 
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Tracker.trackEvent(.addDelegateKeyWalletConnect)
+        Tracker.trackEvent(.screen_add_delegate, parameters: ["key_type" : keyType.name])
     }
 
     override func primaryAction(_ sender: Any) {
@@ -51,5 +55,17 @@ class WalletConnectKeyAddedViewController: AccountActionCompletedViewController 
         // doing nothing because user skipped
         Tracker.trackEvent(.addDelegateKeySkipped)
         completion()
+    }
+}
+
+fileprivate extension KeyType {
+    var titleText: String {
+        switch self {
+        case .ledgerNanoX: return "Connect Ledger Nano X"
+        case .deviceImported: return "Import Owner Key"
+        case .deviceGenerated: return "Generate Owner Key"
+        case .keystone: return "Connect Keystone"
+        case .walletConnect: return "Connect WalletConnect"
+        }
     }
 }

@@ -257,9 +257,8 @@ enum TrackingEvent: String, Trackable {
     case webConnectionSendRequestRejected           = "user_ctw_eth_send_tx_rejected"
 
     // MARK: add delegate key
-    case addDelegateKeyLedger                       = "screen_delegate_ledger_nano_x"
-    case addDelegateKeyWalletConnect                = "screen_delegate_walletconnect"
-
+    case screen_add_delegate                        = "screen_add_delegate"
+    
     case addDelegateKeyStarted                      = "user_start_add_delegate"
     case addDelegateKeySkipped                      = "user_skip_add_delegate"
     case addDelegateKeySuccess                      = "user_success_add_delegate"

@@ -22,6 +22,8 @@ class SendTransactionContentViewController: UITableViewController {
         super.viewDidLoad()
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48
+        tableView.backgroundColor = .backgroundSecondary
+        tableView.tableFooterView = UIView()
         builder.register(tableView: tableView)
     }
 
