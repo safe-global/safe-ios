@@ -65,14 +65,6 @@ class SensitiveEncryptedStore: EncryptedStore {
         try keychainStorage.storeItem(item: ItemSearchQuery.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, data: encryptedSensitiveKey))
     }
 
-    private func encrypt(publicKey: SecKey?, plainText: Data) throws -> Data {
-        var error: Unmanaged<CFError>?
-        guard let encryptedSensitiveKey = SecKeyCreateEncryptedData(publicKey!, .eciesEncryptionStandardX963SHA256AESGCM, plainText as CFData, &error) as? Data else {
-            throw error!.takeRetainedValue() as Error
-        }
-        return encryptedSensitiveKey
-    }
-
     private func persistSensitivePublicKey(sensitiveKey: SecKey) throws { // copy public part from SecKey
         let sensitivePublicKey = SecKeyCopyPublicKey(sensitiveKey)
         // safe it via keychainStorage.storeSensitivePublicKey()
@@ -119,20 +111,18 @@ class SensitiveEncryptedStore: EncryptedStore {
 
         // decrypt encrypted sensitive key
         var error: Unmanaged<CFError>?
-        guard let decryptedSensitiveKeyData = SecKeyCreateDecryptedData(sensitiveKEK, .eciesEncryptionStandardX963SHA256AESGCM, encryptedSensitiveKeyData as CFData, &error) else {
-            throw error!.takeRetainedValue() as Error
-        }
+        let decryptedSensitiveKeyData = try decrypt(privateKey: sensitiveKEK, encryptedData: encryptedSensitiveKeyData)
         // Data -> key
-        guard let decryptedSensitiveKey: SecKey = SecKeyCreateWithData(decryptedSensitiveKeyData, try ItemSearchQuery.ecKeyPair.createAttributesForItem(), &error) else {
+        guard let decryptedSensitiveKey: SecKey = SecKeyCreateWithData(decryptedSensitiveKeyData as CFData, try ItemSearchQuery.ecKeyPair.createAttributesForItem(), &error) else {
             // will fail here if password was wrong
             throw error!.takeRetainedValue() as Error
         }
         LogService.shared.debug("decryptedSensitiveKey: \(decryptedSensitiveKey)")
         // decrypt the eth key with sensitive key
-        let decryptedEthKeyData = SecKeyCreateDecryptedData(decryptedSensitiveKey, .eciesEncryptionStandardX963SHA256AESGCM, encryptedPrivateKeyData as CFData, &error) as? Data
+        let decryptedEthKeyData = try decrypt(privateKey: decryptedSensitiveKey, encryptedData: encryptedPrivateKeyData)
 
         // Data -> String key
-        let decryptedEthKey = decryptedEthKeyData!.toHexString()
+        let decryptedEthKey = decryptedEthKeyData.toHexString()
         // return private key
         return decryptedEthKey
     }
@@ -180,6 +170,22 @@ class SensitiveEncryptedStore: EncryptedStore {
             return plaintext
         }
         return Data(derivedKey).toHexString()
+    }
+
+    private func encrypt(publicKey: SecKey?, plainText: Data) throws -> Data {
+        var error: Unmanaged<CFError>?
+        guard let encryptedSensitiveKey = SecKeyCreateEncryptedData(publicKey!, .eciesEncryptionStandardX963SHA256AESGCM, plainText as CFData, &error) as? Data else {
+            throw error!.takeRetainedValue() as Error
+        }
+        return encryptedSensitiveKey
+    }
+
+    private func decrypt(privateKey: SecKey, encryptedData: Data) throws -> Data {
+        var error: Unmanaged<CFError>?
+        guard let decryptedSensitiveKeyData = SecKeyCreateDecryptedData(privateKey, .eciesEncryptionStandardX963SHA256AESGCM, encryptedData as CFData, &error) else {
+            throw error!.takeRetainedValue() as Error
+        }
+        return decryptedSensitiveKeyData as Data
     }
 }
 
