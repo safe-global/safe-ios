@@ -53,23 +53,24 @@ class SensitiveEncryptedStore: EncryptedStore {
         // Convert SecKey -> Data SecKeyCopyExternalRepresentation -> CFData -> Data
         // Copy private part of sensitive key
         var error: Unmanaged<CFError>?
-        guard let sensitiveKeyData = SecKeyCopyExternalRepresentation(sensitiveKey, &error) else {
+        guard let sensitiveKeyData = SecKeyCopyExternalRepresentation(sensitiveKey, &error) as Data? else {
             throw error!.takeRetainedValue() as Error
         }
-        LogService.shared.info("sensitiveKeyData: \((sensitiveKeyData as Data).toHexString())")
-
         // Copy public KEK Key to encrypt sensitive key)
         let sensitivePublicKek = SecKeyCopyPublicKey(sensitiveKEK)
         // encrypt private part of sensitive_key
-        // encrypt data using: SecKeyCreateEncryptedData using sensitiveKEK
-        guard let encryptedSensitiveKey = SecKeyCreateEncryptedData(sensitivePublicKek!, .eciesEncryptionStandardX963SHA256AESGCM, sensitiveKeyData, &error) as? Data else {
+        // encrypt data using sensitiveKEK
+        let encryptedSensitiveKey = try encrypt(publicKey: sensitivePublicKek, plainText: sensitiveKeyData)
+        // Store encrypted sensitive private key in keychain as blob
+        try keychainStorage.storeItem(item: ItemSearchQuery.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, data: encryptedSensitiveKey))
+    }
+
+    private func encrypt(publicKey: SecKey?, plainText: Data) throws -> Data {
+        var error: Unmanaged<CFError>?
+        guard let encryptedSensitiveKey = SecKeyCreateEncryptedData(publicKey!, .eciesEncryptionStandardX963SHA256AESGCM, plainText as CFData, &error) as? Data else {
             throw error!.takeRetainedValue() as Error
         }
-        // Store encrypted sensitive private key in keychain as blob
-//        try keychainStorage.storeData(encryptedData: encryptedSensitiveKey, account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
-
-        //try keychainStorage.deleteItem(ItemSearchQuery.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag))
-        try keychainStorage.storeItem(item: ItemSearchQuery.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, data: encryptedSensitiveKey))
+        return encryptedSensitiveKey
     }
 
     private func persistSensitivePublicKey(sensitiveKey: SecKey) throws { // copy public part from SecKey
@@ -92,9 +93,8 @@ class SensitiveEncryptedStore: EncryptedStore {
         let pubKey = try keychainStorage.retrieveSensitivePublicKey()
         // 3. encrypt private key with public sensitive key
         var error: Unmanaged<CFError>?
-        guard let encryptedSigningKey = SecKeyCreateEncryptedData(pubKey!, .eciesEncryptionStandardX963SHA256AESGCM, privateKeyData as CFData, &error) as? Data else {
-            throw error!.takeRetainedValue() as Error
-        }
+
+        let encryptedSigningKey = try encrypt(publicKey: pubKey!, plainText: privateKeyData)
         // 4. store encrypted blob in the keychain
         let address = privateKey.address
         try keychainStorage.storeItem(item: ItemSearchQuery.generic(id: address.checksummed, data: encryptedSigningKey))
