@@ -107,21 +107,6 @@ class KeychainStorage {
         }
     }
 
-    func deleteData(_ account: String) throws {
-        let query = ItemSearchQuery.generic(id: account).createSearchQuery()
-
-        let status = SecItemDelete(query)
-        switch status {
-        case errSecSuccess:
-            return
-        case errSecItemNotFound:
-            return
-
-        case let status:
-            throw convertStatusToError(status: status)
-        }
-    }
-
     func storeItem(item: ItemSearchQuery) throws {
         try deleteItem(item)
 
@@ -173,14 +158,7 @@ class KeychainStorage {
     func deleteItem(_ query: ItemSearchQuery) throws {
         let status = SecItemDelete(query.createSearchQuery())
 
-        switch status {
-        case errSecSuccess:
-            return
-
-        case errSecItemNotFound:
-            return
-
-        case let status:
+        guard status == errSecSuccess || status == errSecItemNotFound else {
             throw convertStatusToError(status: status)
         }
     }

@@ -21,23 +21,10 @@ class KeychainStorageTests: XCTestCase {
     public override func tearDown() {
         super.tearDown()
         // Is it possible to always have a clean/empty keychain?
-        try! keychainStorage.deleteData(KeychainStorage.derivedPasswordTag)
-        try! keychainStorage.deleteData(KeychainStorage.sensitiveEncryptedPrivateKeyTag)
+        try! keychainStorage.deleteItem(.generic(id: KeychainStorage.derivedPasswordTag))
+        try! keychainStorage.deleteItem(.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag))
         try! keychainStorage.deleteItem(.ecPubKey())
         try! keychainStorage.deleteItem(.enclaveKey())
-    }
-
-    func testDeleteData() throws {
-        // Given
-        let randomData = UUID().uuidString.data(using: .utf8)!
-        XCTAssertEqual(try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag), nil, "Precondition failed: Keychain not empty!")
-        try keychainStorage.storeItem(item: ItemSearchQuery.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, data: randomData))
-
-        // When
-        try keychainStorage.deleteData(KeychainStorage.sensitiveEncryptedPrivateKeyTag)
-
-        //Then
-        XCTAssertEqual(try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag), nil, "Deletion failed")
     }
 
     func testDeleteItem() throws {
