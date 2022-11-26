@@ -7,11 +7,13 @@ import Foundation
 import LocalAuthentication
 
 enum ItemSearchQuery {
-    // use this whenever searching for  a key or password
-
+    // Encrypted blob. Can be a password or a cec secret key
     case generic(id: String, service: String = KeychainStorage.defaultService, data: Data? = nil)
+    // Key stays in the Secure Enclave
     case enclaveKey(tag: String = KeychainStorage.sensitiveKekTag, password: Data? = nil)
+    // Elliptic Curve Public Key
     case ecPubKey(tag: String = KeychainStorage.sensitivePublicKeyTag, publicKey: SecKey? = nil)
+    // Elliptic Curve Key pair
     case ecKeyPair
 
     func createSearchQuery() -> NSDictionary {
