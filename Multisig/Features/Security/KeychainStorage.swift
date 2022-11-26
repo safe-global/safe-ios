@@ -43,7 +43,7 @@ class KeychainStorage {
         // delete existing sensitive key data
         try deleteData(KeychainStorage.derivedPasswordTag)
         // Create query
-        let addItem = try SecKeyItem.generic(id: KeychainStorage.derivedPasswordTag, data: passwordData).attributes()
+        let addItem = try ItemSearchQuery.generic(id: KeychainStorage.derivedPasswordTag, data: passwordData).attributes()
 
         let status = SecItemAdd(addItem, nil)
 
@@ -139,10 +139,8 @@ class KeychainStorage {
         }
     }
 
-    func storeItem(item: SecKeyItem) throws {
-
-        // Cannot delete here because we would need to get the quesry from the item
-        //try deleteItem(SecKeyQuery.ecPubKey())
+    func storeItem(item: ItemSearchQuery) throws {
+        try deleteItem(item)
 
         let status = SecItemAdd(try item.attributes(), nil)
         guard status == errSecSuccess else {
@@ -157,7 +155,7 @@ class KeychainStorage {
     private func createSEKey(flags: SecAccessControlCreateFlags, applicationPassword: String) throws -> SecKey {
         // Passed via kSecUseAuthenticationContext to kSecPrivateKeyAttrs attributes
         try deleteItem(.enclaveKey())
-        let attributes = try SecKeyItem.enclaveKey().attributes(access: .applicationPassword, password: applicationPassword.data(using: .utf8))
+        let attributes = try ItemSearchQuery.enclaveKey().attributes(access: .applicationPassword, password: applicationPassword.data(using: .utf8))
 
         // create a key pair
         var createError: Unmanaged<CFError>?
@@ -180,7 +178,7 @@ class KeychainStorage {
 
     // used to create a public-private key pair (asymmetric) NOT in secure enclave -> Sensitive Key
     func createKeyPair() throws -> SecKey {
-        let attributes = try SecKeyItem.ecKeyPair.attributes()
+        let attributes = try ItemSearchQuery.ecKeyPair.attributes()
         var error: Unmanaged<CFError>?
         guard let keyPair = SecKeyCreateRandomKey(attributes, &error) else {
             LogService.shared.error("Error: \(error!.takeRetainedValue() as Error)")
@@ -190,13 +188,16 @@ class KeychainStorage {
     }
 
     func deleteItem(_ query: ItemSearchQuery) throws {
+        LogService.shared.debug("deleteItem: \(query)")
         let status = SecItemDelete(query.queryData())
 
         switch status {
         case errSecSuccess:
+            LogService.shared.debug("Delete: errSecSuccess")
             return
 
         case errSecItemNotFound:
+            LogService.shared.debug("Delete: errSecItemNotFound (ignored)")
             return
 
         case let status:

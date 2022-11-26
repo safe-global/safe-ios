@@ -31,8 +31,7 @@ class KeychainStorageTests: XCTestCase {
         // Given
         let randomData = UUID().uuidString.data(using: .utf8)!
         XCTAssertEqual(try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag), nil, "Precondition failed: Keychain not empty!")
-        try keychainStorage.deleteItem(ItemSearchQuery.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag))
-        try keychainStorage.storeItem(item: SecKeyItem.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, data: randomData))
+        try keychainStorage.storeItem(item: ItemSearchQuery.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, data: randomData))
 
         // When
         try keychainStorage.deleteData(KeychainStorage.sensitiveEncryptedPrivateKeyTag)
@@ -46,8 +45,7 @@ class KeychainStorageTests: XCTestCase {
         let randomKey = try keychainStorage.createKeyPair()
         let randomPublicKey = SecKeyCopyPublicKey(randomKey)!
         XCTAssertEqual(try keychainStorage.retrieveSensitivePublicKey(), nil, "Precondition failed: Keychain not empty!")
-        try keychainStorage.deleteItem(ItemSearchQuery.ecPubKey())
-        try keychainStorage.storeItem(item: SecKeyItem.ecPubKey(pubKey: randomPublicKey))
+        try keychainStorage.storeItem(item: ItemSearchQuery.ecPubKey(publicKey: randomPublicKey))
 
         // When
         try keychainStorage.deleteItem(.ecPubKey())
@@ -86,8 +84,7 @@ class KeychainStorageTests: XCTestCase {
         XCTAssertEqual(try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag), nil, "Precondition failed: Keychain not empty!")
 
         // When
-        try keychainStorage.deleteItem(ItemSearchQuery.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag))
-        try keychainStorage.storeItem(item: SecKeyItem.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, data: randomData))
+        try keychainStorage.storeItem(item: ItemSearchQuery.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, data: randomData))
 
         //Then
         let result = try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
@@ -101,12 +98,25 @@ class KeychainStorageTests: XCTestCase {
         XCTAssertEqual(try keychainStorage.retrieveSensitivePublicKey(), nil, "Precondition failed: Keychain not empty!")
 
         // When
-        try keychainStorage.deleteItem(ItemSearchQuery.ecPubKey())
-        try keychainStorage.storeItem(item: SecKeyItem.ecPubKey(pubKey: randomPublicKey))
+        try keychainStorage.storeItem(item: ItemSearchQuery.ecPubKey(publicKey: randomPublicKey))
 
         //Then
         let result = try keychainStorage.retrieveSensitivePublicKey()
         XCTAssertEqual(result, randomPublicKey, "Retrieved public key does not match stored public key!")
+    }
+
+    func testStoreDeletesFirst() throws {
+        // Given
+        let randomKey = try keychainStorage.createKeyPair()
+        let randomPublicKey = SecKeyCopyPublicKey(randomKey)!
+        XCTAssertEqual(try keychainStorage.retrieveSensitivePublicKey(), nil, "Precondition failed: Keychain not empty!")
+
+        // When
+        try keychainStorage.storeItem(item: ItemSearchQuery.ecPubKey(publicKey: randomPublicKey))
+        try keychainStorage.storeItem(item: ItemSearchQuery.ecPubKey(publicKey: randomPublicKey))
+
+        //Then
+        // This throws an error if storeItem doesn't try to delete the item first
     }
 
     func testCreateKeyPair() throws {

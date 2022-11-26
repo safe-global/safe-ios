@@ -67,16 +67,15 @@ class SensitiveEncryptedStore: EncryptedStore {
         // Store encrypted sensitive private key in keychain as blob
 //        try keychainStorage.storeData(encryptedData: encryptedSensitiveKey, account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
 
-        try keychainStorage.deleteItem(ItemSearchQuery.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag))
-        try keychainStorage.storeItem(item: SecKeyItem.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, data: encryptedSensitiveKey))
+        //try keychainStorage.deleteItem(ItemSearchQuery.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag))
+        try keychainStorage.storeItem(item: ItemSearchQuery.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, data: encryptedSensitiveKey))
     }
 
     private func persistSensitivePublicKey(sensitiveKey: SecKey) throws { // copy public part from SecKey
         let sensitivePublicKey = SecKeyCopyPublicKey(sensitiveKey)
         // safe it via keychainStorage.storeSensitivePublicKey()
         if let key = sensitivePublicKey {
-            try keychainStorage.deleteItem(ItemSearchQuery.ecPubKey())
-            try keychainStorage.storeItem(item: SecKeyItem.ecPubKey(pubKey: key))
+            try keychainStorage.storeItem(item: ItemSearchQuery.ecPubKey(publicKey: key))
         } else {
             throw GSError.GenericPasscodeError(reason: "Cannot copy public key")
         }
@@ -97,8 +96,7 @@ class SensitiveEncryptedStore: EncryptedStore {
         }
         // 4. store encrypted blob in the keychain
         let address = privateKey.address
-        try keychainStorage.deleteItem(ItemSearchQuery.generic(id: address.checksummed))
-        try keychainStorage.storeItem(item: SecKeyItem.generic(id: address.checksummed, data: encryptedSigningKey))
+        try keychainStorage.storeItem(item: ItemSearchQuery.generic(id: address.checksummed, data: encryptedSigningKey))
     }
 
     /// Find private signer key.
