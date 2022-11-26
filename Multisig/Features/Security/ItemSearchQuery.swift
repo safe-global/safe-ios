@@ -10,7 +10,7 @@ enum ItemSearchQuery {
     // Encrypted blob. Can be a password or a cec secret key
     case generic(id: String, service: String = KeychainStorage.defaultService, data: Data? = nil)
     // Key stays in the Secure Enclave
-    case enclaveKey(tag: String = KeychainStorage.sensitiveKekTag, password: Data? = nil)
+    case enclaveKey(tag: String = KeychainStorage.sensitiveKekTag, password: Data? = nil, access: SecAccessControlCreateFlags? = nil)
     // Elliptic Curve Public Key
     case ecPubKey(tag: String = KeychainStorage.sensitivePublicKeyTag, publicKey: SecKey? = nil)
     // Elliptic Curve Key pair
@@ -29,7 +29,7 @@ enum ItemSearchQuery {
                 kSecReturnData: true,
             ]
 
-        case let .enclaveKey(tag, password):
+        case let .enclaveKey(tag, password, _):
             result = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
@@ -56,7 +56,7 @@ enum ItemSearchQuery {
         return result
     }
 
-    func createAttributesForItem(access: SecAccessControlCreateFlags? = nil, password: Data? = nil) throws -> NSDictionary {
+    func createAttributesForItem() throws -> NSDictionary {
         var result: NSMutableDictionary = [:]
         switch self {
         case let .generic(id, service, data):
@@ -71,7 +71,7 @@ enum ItemSearchQuery {
                 result[kSecValueData] = data
             }
 
-        case let .enclaveKey(tag, password):
+        case let .enclaveKey(tag, password, access):
             let accessControl = try accessControl(flags: .privateKeyUsage.union(access!))
 
             let privateKeyAttrs: NSMutableDictionary = [
@@ -126,6 +126,17 @@ enum ItemSearchQuery {
         return access
     }
 
+}
+
+func ==(left: ItemSearchQuery, right: ItemSearchQuery) -> Bool {
+    switch (left, right) {
+    case (.ecKeyPair, .ecKeyPair): return true
+    default: return false
+    }
+}
+
+func !=(left: ItemSearchQuery, right: ItemSearchQuery) -> Bool {
+    !(left == right)
 }
 
 fileprivate extension LAContext {

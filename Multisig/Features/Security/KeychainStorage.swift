@@ -82,7 +82,7 @@ class KeychainStorage {
         if !useBiometry {
             flags = [.applicationPassword]
         }
-        return try createSEKey(flags: flags, applicationPassword: applicationPassword)
+        return try createKeyPair(ItemSearchQuery.enclaveKey(password: applicationPassword.data(using: .utf8), access: flags))
     }
 
     func retrieveEncryptedData(account: String) throws -> Data? {
@@ -120,10 +120,12 @@ class KeychainStorage {
         try findKey(query: ItemSearchQuery.ecPubKey())
     }
 
-    private func createSEKey(flags: SecAccessControlCreateFlags, applicationPassword: String) throws -> SecKey {
-        // Passed via kSecUseAuthenticationContext to kSecPrivateKeyAttrs attributes
-        try deleteItem(.enclaveKey())
-        let attributes = try ItemSearchQuery.enclaveKey().createAttributesForItem(access: .applicationPassword, password: applicationPassword.data(using: .utf8))
+    func createKeyPair(_ item: ItemSearchQuery = ItemSearchQuery.ecKeyPair) throws -> SecKey {
+        // .ecKeyPair keys are not stored automatically. So we do not need to delete them here
+        if item != ItemSearchQuery.ecKeyPair  {
+            try deleteItem(item)
+        }
+        let attributes = try item.createAttributesForItem()
 
         // create a key pair
         var createError: Unmanaged<CFError>?
@@ -142,17 +144,6 @@ class KeychainStorage {
         let result = authenticationContext.setCredential(passwordData, type: .applicationPassword)
 
         return (result, authenticationContext)
-    }
-
-    // used to create a public-private key pair (asymmetric) NOT in secure enclave -> Sensitive Key
-    func createKeyPair() throws -> SecKey {
-        let attributes = try ItemSearchQuery.ecKeyPair.createAttributesForItem()
-        var error: Unmanaged<CFError>?
-        guard let keyPair = SecKeyCreateRandomKey(attributes, &error) else {
-            LogService.shared.error("Error: \(error!.takeRetainedValue() as Error)")
-            throw error!.takeRetainedValue() as Error
-        }
-        return keyPair
     }
 
     func deleteItem(_ query: ItemSearchQuery) throws {
