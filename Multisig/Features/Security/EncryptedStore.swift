@@ -13,6 +13,7 @@ import CryptoKit
 typealias EthPrivateKey = Data
 
 protocol EncryptedStore {
+    func isInitialized() -> Bool
     func initializeKeyStore() throws
     func `import`(ethPrivateKey: EthPrivateKey) throws
     func delete(address: Address)

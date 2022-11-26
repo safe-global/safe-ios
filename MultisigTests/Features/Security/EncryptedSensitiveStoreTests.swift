@@ -17,12 +17,23 @@ public class EncryptedSensitiveStoreTests: XCTestCase {
         encryptedStore = SensitiveEncryptedStore(keychainStorage)
     }
 
+    public override func tearDown() {
+        super.tearDown()
+        // Is it possible to always have a clean/empty keychain?
+        try! keychainStorage.deleteItem(.generic(id: KeychainStorage.derivedPasswordTag))
+        try! keychainStorage.deleteItem(.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag))
+        try! keychainStorage.deleteItem(.ecPubKey())
+        try! keychainStorage.deleteItem(.enclaveKey())
+    }
+
     func testInitialSetup() {
+        XCTAssertEqual(encryptedStore.isInitialized(), false)
         do {
             try encryptedStore.initializeKeyStore()
         } catch {
             XCTFail() // do not throw
         }
+        XCTAssertEqual(encryptedStore.isInitialized(), true)
     }
 
     func testImport() throws {

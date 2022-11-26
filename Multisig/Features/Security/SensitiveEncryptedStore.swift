@@ -19,6 +19,14 @@ class SensitiveEncryptedStore: EncryptedStore {
         keychainStorage = KeychainStorage()
     }
 
+    func isInitialized() -> Bool {
+        do {
+            return try keychainStorage.findKey(query: ItemSearchQuery.ecPubKey()) != nil
+        } catch {
+            return false
+        }
+    }
+
     // This is called, when using the new key security is activated after updating the app. Even if the user did not activate it.
     func initializeKeyStore() throws {
         let passcode = try persistRandomPassword()
