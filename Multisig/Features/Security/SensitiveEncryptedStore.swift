@@ -154,27 +154,6 @@ class SensitiveEncryptedStore: EncryptedStore {
         // delete encrypted blob by address
     }
 
-    // Copied from AuthenticationController
-    private func derivePasscode(from plaintext: String, useOldSalt: Bool = false) -> String {
-        let salt = "Safe Multisig Passcode Salt"
-        var derivedKey = [UInt8](repeating: 0, count: 256 / 8)
-        let result = CCKeyDerivationPBKDF(
-                CCPBKDFAlgorithm(kCCPBKDF2),
-                plaintext,
-                plaintext.lengthOfBytes(using: .utf8),
-                salt,
-                salt.lengthOfBytes(using: .utf8),
-                CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA256),
-                500_000,
-                &derivedKey,
-                derivedKey.count)
-        guard result == kCCSuccess else {
-            LogService.shared.error("Failed to derive key", error: "Failed to derive a key: \(result)")
-            return plaintext
-        }
-        return Data(derivedKey).toHexString()
-    }
-
     private func encrypt(publicKey: SecKey?, plainText: Data) throws -> Data {
         var error: Unmanaged<CFError>?
         guard let encryptedSensitiveKey = SecKeyCreateEncryptedData(publicKey!, .eciesEncryptionStandardX963SHA256AESGCM, plainText as CFData, &error) as? Data else {
