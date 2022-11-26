@@ -14,7 +14,7 @@ enum ItemSearchQuery {
     case ecPubKey(tag: String = KeychainStorage.sensitivePublicKeyTag, publicKey: SecKey? = nil)
     case ecKeyPair
 
-    func queryData() -> NSDictionary {
+    func createSearchQuery() -> NSDictionary {
         var result: NSMutableDictionary
 
         switch self {
@@ -54,7 +54,7 @@ enum ItemSearchQuery {
         return result
     }
 
-    func attributes(access: SecAccessControlCreateFlags? = nil, password: Data? = nil) throws -> NSDictionary {
+    func createAttributesForItem(access: SecAccessControlCreateFlags? = nil, password: Data? = nil) throws -> NSDictionary {
         var result: NSMutableDictionary = [:]
         switch self {
         case let .generic(id, service, data):
@@ -72,17 +72,14 @@ enum ItemSearchQuery {
         case let .enclaveKey(tag, password):
             let accessControl = try accessControl(flags: .privateKeyUsage.union(access!))
 
-            // create private key attributes
             let privateKeyAttrs: NSMutableDictionary = [
                 kSecAttrIsPermanent: true,
                 kSecAttrApplicationTag: tag.data(using: .utf8)!,
                 kSecAttrAccessControl: accessControl
             ]
-
             if let context = LAContext(password: password) {
                 privateKeyAttrs[kSecUseAuthenticationContext] = context
             }
-
             result = [
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
                 kSecAttrKeySizeInBits: 256,
@@ -95,7 +92,6 @@ enum ItemSearchQuery {
                 kSecAttrKeySizeInBits: 256,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate
             ]
-
         case let .ecPubKey(tag, pubKey):
             result = [
                 kSecClass: kSecClassKey,
@@ -108,7 +104,6 @@ enum ItemSearchQuery {
                 result[kSecValueRef] = pubKey
             }
         }
-
         return result
     }
 
@@ -142,9 +137,4 @@ fileprivate extension LAContext {
             return nil
         }
     }
-}
-
-enum SQueryError: Error {
-    case invalidPasscode
-    case notFound
 }
