@@ -21,10 +21,15 @@ class SensitiveEncryptedStore: EncryptedStore {
 
     // This is called, when using the new key security is activated after updating the app. Even if the user did not activate it.
     func initializeKeyStore() throws {
-        let derivedPasscode = try persistRandomPassword()
+        let passcode = try persistRandomPassword()
         let sensitiveKey = try keychainStorage.createKeyPair()
         try persistSensitivePublicKey(sensitiveKey: sensitiveKey)
-        try persistSensitivePrivateKey(derivedPasscode: derivedPasscode, sensitiveKey: sensitiveKey)
+        let sensitiveKEK = try keychainStorage.createSecureEnclaveKey(
+                useBiometry: false,
+                canChangeBiometry: true,
+                applicationPassword: passcode
+        )
+        try persistSensitivePrivateKey(passcode: passcode, sensitiveKey: sensitiveKey, sensitiveKEK: sensitiveKEK)
     }
 
     private func persistRandomPassword() throws -> String {
@@ -42,12 +47,8 @@ class SensitiveEncryptedStore: EncryptedStore {
         return bytes.toHexString()
     }
 
-    private func persistSensitivePrivateKey(derivedPasscode: String, sensitiveKey: SecKey) throws { // create SE key (KEK) with a hard coded tag for example: "sensitive_KEK"
-        let sensitiveKEK = try keychainStorage.createSecureEnclaveKey(
-                useBiometry: false,
-                canChangeBiometry: true,
-                applicationPassword: derivedPasscode
-        )
+    private func persistSensitivePrivateKey(passcode: String, sensitiveKey: SecKey, sensitiveKEK: SecKey) throws { // create SE key (KEK) with a hard coded tag for example: "sensitive_KEK"
+
 
         // Convert SecKey -> Data SecKeyCopyExternalRepresentation -> CFData -> Data
         // Copy private part of sensitive key
