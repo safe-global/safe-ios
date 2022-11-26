@@ -13,6 +13,7 @@ import LocalAuthentication
 class KeychainStorage {
 
     static let sensitivePublicKeyTag = "global.safe.sensitive.public.key"
+    static let sensitivePublicKekTag = "global.safe.sensitive.public.kek"
     static let sensitiveEncryptedPrivateKeyTag = "global.safe.sensitive.private.key.as.encrypted.data"
     static let derivedPasswordTag = "global.safe.password.as.data"
     static let sensitiveKekTag = "global.safe.sensitive.KEK"

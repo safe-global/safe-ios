@@ -48,8 +48,6 @@ class SensitiveEncryptedStore: EncryptedStore {
     }
 
     private func persistSensitivePrivateKey(passcode: String, sensitiveKey: SecKey, sensitiveKEK: SecKey) throws { // create SE key (KEK) with a hard coded tag for example: "sensitive_KEK"
-
-
         // Convert SecKey -> Data SecKeyCopyExternalRepresentation -> CFData -> Data
         // Copy private part of sensitive key
         var error: Unmanaged<CFError>?
@@ -58,6 +56,7 @@ class SensitiveEncryptedStore: EncryptedStore {
         }
         // Copy public KEK Key to encrypt sensitive key)
         let sensitivePublicKek = SecKeyCopyPublicKey(sensitiveKEK)
+        try keychainStorage.storeItem(item: ItemSearchQuery.ecPubKey(tag: KeychainStorage.sensitivePublicKekTag, publicKey: sensitivePublicKek))
         // encrypt private part of sensitive_key
         // encrypt data using sensitiveKEK
         let encryptedSensitiveKey = try encrypt(publicKey: sensitivePublicKek, plainText: sensitiveKeyData)
