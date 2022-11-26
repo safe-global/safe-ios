@@ -188,16 +188,13 @@ class KeychainStorage {
     }
 
     func deleteItem(_ query: ItemSearchQuery) throws {
-        LogService.shared.debug("deleteItem: \(query)")
         let status = SecItemDelete(query.queryData())
 
         switch status {
         case errSecSuccess:
-            LogService.shared.debug("Delete: errSecSuccess")
             return
 
         case errSecItemNotFound:
-            LogService.shared.debug("Delete: errSecItemNotFound (ignored)")
             return
 
         case let status:
