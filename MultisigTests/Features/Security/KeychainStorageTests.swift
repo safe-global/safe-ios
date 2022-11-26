@@ -71,7 +71,7 @@ class KeychainStorageTests: XCTestCase {
         XCTAssertEqual(keychainStorage.retrievePasscode(), nil, "Keychain not empty")
 
         // When
-        try keychainStorage.storePasscode(derivedPasscode: randomString)
+        try keychainStorage.storePasscode(passcode: randomString)
 
         //Then
         let result = keychainStorage.retrievePasscode()

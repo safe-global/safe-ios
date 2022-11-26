@@ -21,15 +21,14 @@ class KeychainStorage {
     static let defaultService: String = "global.safe.sensitive.encrypted.data"
 
     // store passcode. Either if it random (user didn't give a password) or the user asked us to remember it
-    func storePasscode(derivedPasscode: String) throws {
-        // Store encrypted Password data
-        try storePasswordData(passwordData: derivedPasscode.data(using: .utf8)!)
+    func storePasscode(passcode: String) throws {
+        try storeItem(item: ItemSearchQuery.generic(id: KeychainStorage.derivedPasswordTag, data: passcode.data(using: .utf8)))
     }
 
     func retrievePasscode() -> String? {
         // Retrieve password from persistence
         do {
-            if let passCodeData = try findPasswordData() {
+            if let passCodeData = try findItem(item: ItemSearchQuery.generic(id: KeychainStorage.derivedPasswordTag)) {
                 return String.init(data: passCodeData, encoding: .utf8)
             } else {
                 return nil
@@ -39,29 +38,13 @@ class KeychainStorage {
         }
     }
 
-    private func storePasswordData(passwordData: Data) throws {
-        // delete existing sensitive key data
-        try deleteData(KeychainStorage.derivedPasswordTag)
-        // Create query
-        let addItem = try ItemSearchQuery.generic(id: KeychainStorage.derivedPasswordTag, data: passwordData).createAttributesForItem()
-
-        let status = SecItemAdd(addItem, nil)
-
-        switch status {
-        case errSecSuccess:
-            return
-        case let status:
-            throw convertStatusToError(status: status)
-        }
-    }
-
     private func convertStatusToError(status: OSStatus) -> Error {
         let message = SecCopyErrorMessageString(status, nil) as? String ?? String(status)
         return NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: [NSLocalizedDescriptionKey: message])
     }
 
-    private func findPasswordData() throws -> Data? {
-        let query = ItemSearchQuery.generic(id: KeychainStorage.derivedPasswordTag).createSearchQuery()
+    private func findItem(item: ItemSearchQuery) throws -> Data? {
+        let query = item.createSearchQuery()
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query, &item)
 

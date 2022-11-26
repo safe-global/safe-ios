@@ -29,7 +29,7 @@ class SensitiveEncryptedStore: EncryptedStore {
 
     private func persistRandomPassword() throws -> String {
         let randomPasscode = createRandomPassword()!
-        try keychainStorage.storePasscode(derivedPasscode: randomPasscode)
+        try keychainStorage.storePasscode(passcode: randomPasscode)
         return randomPasscode
     }
 
