@@ -61,7 +61,7 @@ class KeychainStorage {
     }
 
     private func findPasswordData() throws -> Data? {
-        let query = SecKeyQuery.generic(id: KeychainStorage.derivedPasswordTag).queryData()
+        let query = ItemSearchQuery.generic(id: KeychainStorage.derivedPasswordTag).queryData()
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query, &item)
 
@@ -103,7 +103,7 @@ class KeychainStorage {
     }
 
     func retrieveEncryptedData(account: String) throws -> Data? {
-        let query = SecKeyQuery.generic(id: account).queryData()
+        let query = ItemSearchQuery.generic(id: account).queryData()
 
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query, &item)
@@ -125,7 +125,7 @@ class KeychainStorage {
     }
 
     func deleteData(_ account: String) throws {
-        let query = SecKeyQuery.generic(id: account).queryData()
+        let query = ItemSearchQuery.generic(id: account).queryData()
 
         let status = SecItemDelete(query)
         switch status {
@@ -151,7 +151,7 @@ class KeychainStorage {
     }
 
     func retrieveSensitivePublicKey() throws -> SecKey? {
-        try findKey(query: SecKeyQuery.ecPubKey())
+        try findKey(query: ItemSearchQuery.ecPubKey())
     }
 
     private func createSEKey(flags: SecAccessControlCreateFlags, applicationPassword: String) throws -> SecKey {
@@ -189,7 +189,7 @@ class KeychainStorage {
         return keyPair
     }
 
-    func deleteItem(_ query: SecKeyQuery) throws {
+    func deleteItem(_ query: ItemSearchQuery) throws {
         let status = SecItemDelete(query.queryData())
 
         switch status {
@@ -204,7 +204,7 @@ class KeychainStorage {
         }
     }
 
-    func findKey(query: SecKeyQuery) throws -> SecKey? {
+    func findKey(query: ItemSearchQuery) throws -> SecKey? {
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query.queryData(), &item)
         switch status {

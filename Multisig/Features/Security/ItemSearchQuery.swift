@@ -6,7 +6,7 @@
 import Foundation
 import LocalAuthentication
 
-enum SecKeyQuery {
+enum ItemSearchQuery {
     // use this whenever searching for  a key or password
 
     case generic(id: String, service: String = KeychainStorage.defaultService)

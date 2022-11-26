@@ -67,7 +67,7 @@ class SensitiveEncryptedStore: EncryptedStore {
         // Store encrypted sensitive private key in keychain as blob
 //        try keychainStorage.storeData(encryptedData: encryptedSensitiveKey, account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
 
-        try keychainStorage.deleteItem(SecKeyQuery.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag))
+        try keychainStorage.deleteItem(ItemSearchQuery.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag))
         try keychainStorage.storeItem(item: SecKeyItem.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, data: encryptedSensitiveKey))
     }
 
@@ -75,7 +75,7 @@ class SensitiveEncryptedStore: EncryptedStore {
         let sensitivePublicKey = SecKeyCopyPublicKey(sensitiveKey)
         // safe it via keychainStorage.storeSensitivePublicKey()
         if let key = sensitivePublicKey {
-            try keychainStorage.deleteItem(SecKeyQuery.ecPubKey())
+            try keychainStorage.deleteItem(ItemSearchQuery.ecPubKey())
             try keychainStorage.storeItem(item: SecKeyItem.ecPubKey(pubKey: key))
         } else {
             throw GSError.GenericPasscodeError(reason: "Cannot copy public key")
@@ -97,7 +97,7 @@ class SensitiveEncryptedStore: EncryptedStore {
         }
         // 4. store encrypted blob in the keychain
         let address = privateKey.address
-        try keychainStorage.deleteItem(SecKeyQuery.generic(id: address.checksummed))
+        try keychainStorage.deleteItem(ItemSearchQuery.generic(id: address.checksummed))
         try keychainStorage.storeItem(item: SecKeyItem.generic(id: address.checksummed, data: encryptedSigningKey))
     }
 
@@ -113,7 +113,7 @@ class SensitiveEncryptedStore: EncryptedStore {
 
         // find sensitiveKEK
         let password = password != nil ? password : keychainStorage.retrievePasscode()
-        let sensitiveKEK = try keychainStorage.findKey(query: SecKeyQuery.enclaveKey(password: password?.data(using: .utf8)))!
+        let sensitiveKEK = try keychainStorage.findKey(query: ItemSearchQuery.enclaveKey(password: password?.data(using: .utf8)))!
 
         // find encrypted sensitive key
         let encryptedSensitiveKeyData = try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)!
