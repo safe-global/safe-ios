@@ -76,29 +76,35 @@ class SensitiveEncryptedStore: EncryptedStore {
     }
 
     func `import`(ethPrivateKey: EthPrivateKey) throws {
-        LogService.shared.info("ethPrivateKey: \(ethPrivateKey)")
-        // 0. Converts hexString to Data
-        let privateKeyData: Data = Data(ethHex: ethPrivateKey)
-        //1. create key from String
-        let privateKey = try PrivateKey(data: privateKeyData)
+        LogService.shared.info("ethPrivateKey: \(ethPrivateKey.toHexString())")
+        //1. create key from Data
+        let privateKey = try PrivateKey(data: ethPrivateKey)
+        LogService.shared.info("privateKey: \(privateKey)")
+
         // 2. find public sensitive key
         let pubKey = try keychainStorage.retrieveSensitivePublicKey()
+        LogService.shared.info("pubKey: \(pubKey)")
+
         // 3. encrypt private key with public sensitive key
         var error: Unmanaged<CFError>?
 
-        let encryptedSigningKey = try encrypt(publicKey: pubKey!, plainText: privateKeyData)
+        let encryptedSigningKey = try encrypt(publicKey: pubKey!, plainText: ethPrivateKey)
+        LogService.shared.info("encryptedSigningKey: \(encryptedSigningKey)")
+
         // 4. store encrypted blob in the keychain
         let address = privateKey.address
         try keychainStorage.storeItem(item: ItemSearchQuery.generic(id: address.checksummed, data: encryptedSigningKey))
+        LogService.shared.info("done.")
+
     }
 
     /// Find private signer key.
     /// - parameter address: find ky for this address
     /// - parameter password: application password. Can be nil, then the sored password is used
     /// - returns: String with hex encoded bytes of the private key
-    func find(address: Address, password: String? = nil) throws -> EthPrivateKey? {
+    func find(id: Address, password: String? = nil) throws -> EthPrivateKey? {
         // find encrypted private key for the address
-        guard let encryptedPrivateKeyData = try? keychainStorage.retrieveEncryptedData(account: address.checksummed) else {
+        guard let encryptedPrivateKeyData = try? keychainStorage.retrieveEncryptedData(account: id.checksummed) else {
             return nil
         }
 
@@ -121,10 +127,8 @@ class SensitiveEncryptedStore: EncryptedStore {
         // decrypt the eth key with sensitive key
         let decryptedEthKeyData = try decrypt(privateKey: decryptedSensitiveKey, encryptedData: encryptedPrivateKeyData)
 
-        // Data -> String key
-        let decryptedEthKey = decryptedEthKeyData.toHexString()
         // return private key
-        return decryptedEthKey
+        return decryptedEthKeyData
     }
 
     func changePassword(from oldPassword: String, to newPassword: String) {
