@@ -109,7 +109,7 @@ class KeychainStorage {
 
     func storeItem(item: ItemSearchQuery) throws {
         try deleteItem(item)
-
+        // We pass nil here because we do not need to return a copy of the stored item
         let status = SecItemAdd(try item.createAttributesForItem(), nil)
         guard status == errSecSuccess else {
             throw GSError.GenericPasscodeError(reason: "Cannot store public key")
