@@ -123,13 +123,7 @@ class SensitiveEncryptedStore: EncryptedStore {
             throw error!.takeRetainedValue() as Error
         }
         // Data -> key
-        LogService.shared.debug("decryptedSensitiveKeyData: \((decryptedSensitiveKeyData as Data).toHexString())")
-        let attributes: NSDictionary = [
-            kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
-            kSecAttrKeySizeInBits: 256,
-            kSecAttrKeyClass: kSecAttrKeyClassPrivate
-        ]
-        guard let decryptedSensitiveKey: SecKey = SecKeyCreateWithData(decryptedSensitiveKeyData, attributes, &error) else {
+        guard let decryptedSensitiveKey: SecKey = SecKeyCreateWithData(decryptedSensitiveKeyData, try ItemSearchQuery.ecKeyPair.createAttributesForItem(), &error) else {
             // will fail here if password was wrong
             throw error!.takeRetainedValue() as Error
         }
