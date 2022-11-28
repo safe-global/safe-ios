@@ -69,7 +69,7 @@ class SensitiveEncryptedStore: EncryptedStore {
         // encrypt data using sensitiveKEK
         let encryptedSensitiveKey = try encrypt(publicKey: sensitivePublicKek, plainText: sensitiveKeyData)
         // Store encrypted sensitive private key in keychain as blob
-        try keychainStorage.storeItem(item: ItemSearchQuery.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, data: encryptedSensitiveKey))
+        try keychainStorage.storeItem(item: ItemSearchQuery.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service(),data: encryptedSensitiveKey))
     }
 
     private func persistSensitivePublicKey(sensitiveKey: SecKey) throws { // copy public part from SecKey
@@ -82,7 +82,7 @@ class SensitiveEncryptedStore: EncryptedStore {
         }
     }
 
-    func `import`(ethPrivateKey: EthPrivateKey) throws {
+    func `import`(id: DataID, ethPrivateKey: EthPrivateKey) throws {
         LogService.shared.info("ethPrivateKey: \(ethPrivateKey.toHexString())")
         //1. create key from Data
         let privateKey = try PrivateKey(data: ethPrivateKey)
@@ -100,7 +100,7 @@ class SensitiveEncryptedStore: EncryptedStore {
 
         // 4. store encrypted blob in the keychain
         let address = privateKey.address
-        try keychainStorage.storeItem(item: ItemSearchQuery.generic(id: address.checksummed, data: encryptedSigningKey))
+        try keychainStorage.storeItem(item: ItemSearchQuery.generic(id: id.id, service: id.protectionClass.service(), data: encryptedSigningKey))
         LogService.shared.info("done.")
 
     }
@@ -109,9 +109,9 @@ class SensitiveEncryptedStore: EncryptedStore {
     /// - parameter address: find ky for this address
     /// - parameter password: application password. Can be nil, then the sored password is used
     /// - returns: String with hex encoded bytes of the private key
-    func find(id: Address, password: String? = nil) throws -> EthPrivateKey? {
+    func find(dataID: DataID, password: String? = nil) throws -> EthPrivateKey? {
         // find encrypted private key for the address
-        guard let encryptedPrivateKeyData = try? keychainStorage.retrieveEncryptedData(account: id.checksummed) else {
+        guard let encryptedPrivateKeyData = try? keychainStorage.retrieveEncryptedData(dataID: dataID) else {
             return nil
         }
 
@@ -120,7 +120,7 @@ class SensitiveEncryptedStore: EncryptedStore {
         let sensitiveKEK = try keychainStorage.findKey(query: ItemSearchQuery.enclaveKey(password: password?.data(using: .utf8)))!
 
         // find encrypted sensitive key
-        let encryptedSensitiveKeyData = try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)!
+        let encryptedSensitiveKeyData = try keychainStorage.retrieveEncryptedData(dataID: DataID(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, protectionClass: .sensitive))!
 
         // decrypt encrypted sensitive key
         var error: Unmanaged<CFError>?

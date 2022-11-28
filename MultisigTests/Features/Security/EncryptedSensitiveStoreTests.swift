@@ -20,8 +20,8 @@ public class EncryptedSensitiveStoreTests: XCTestCase {
     public override func tearDown() {
         super.tearDown()
         // Is it possible to always have a clean/empty keychain?
-        try! keychainStorage.deleteItem(.generic(id: KeychainStorage.derivedPasswordTag))
-        try! keychainStorage.deleteItem(.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag))
+        try! keychainStorage.deleteItem(.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service()))
+        try! keychainStorage.deleteItem(.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service()))
         try! keychainStorage.deleteItem(.ecPubKey())
         try! keychainStorage.deleteItem(.enclaveKey())
     }
@@ -40,16 +40,16 @@ public class EncryptedSensitiveStoreTests: XCTestCase {
         let randomKey = Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322") as EthPrivateKey
         try encryptedStore.initializeKeyStore()
 
-        try encryptedStore.import(ethPrivateKey: randomKey)
+        try encryptedStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364", protectionClass: .sensitive), ethPrivateKey: randomKey)
 
-        let ethPrivateKey = try encryptedStore.find(id: "0xE86935943315293154c7AD63296b4e1adAc76364", password: nil)
+        let ethPrivateKey = try encryptedStore.find(dataID: DataID(id: "0xE86935943315293154c7AD63296b4e1adAc76364", protectionClass: .sensitive), password: nil)
         XCTAssertEqual(ethPrivateKey, randomKey)
     }
 
     func testEthereumKeyNotFound() throws {
         try encryptedStore.initializeKeyStore()
 
-        let ethPrivateKey = try encryptedStore.find(id: "0xfb1ca734579C3F2dC6DC8cD64A4f5D91891387C6", password: nil)
+        let ethPrivateKey = try encryptedStore.find(dataID: DataID(id: "0xfb1ca734579C3F2dC6DC8cD64A4f5D91891387C6", protectionClass: .sensitive), password: nil)
         XCTAssertEqual(ethPrivateKey, nil)
     }
 }

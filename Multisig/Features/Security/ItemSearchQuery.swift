@@ -8,7 +8,7 @@ import LocalAuthentication
 
 enum ItemSearchQuery {
     // Encrypted blob. Can be a password or a cec secret key
-    case generic(id: String, service: String = KeychainStorage.defaultService, data: Data? = nil)
+    case generic(id: String, service: String, data: Data? = nil)
     // Key stays in the Secure Enclave
     case enclaveKey(tag: String = KeychainStorage.sensitiveKekTag, password: Data? = nil, access: SecAccessControlCreateFlags? = nil)
     // Elliptic Curve Public Key

@@ -21,8 +21,8 @@ class KeychainStorageTests: XCTestCase {
     public override func tearDown() {
         super.tearDown()
         // Is it possible to always have a clean/empty keychain?
-        try! keychainStorage.deleteItem(.generic(id: KeychainStorage.derivedPasswordTag))
-        try! keychainStorage.deleteItem(.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag))
+        try! keychainStorage.deleteItem(.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service()))
+        try! keychainStorage.deleteItem(.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service()))
         try! keychainStorage.deleteItem(.ecPubKey())
         try! keychainStorage.deleteItem(.enclaveKey())
     }
@@ -68,13 +68,13 @@ class KeychainStorageTests: XCTestCase {
     func testStoreAndRetrieveSensitivePrivateKey() throws {
         // Given
         let randomData = UUID().uuidString.data(using: .utf8)!
-        XCTAssertEqual(try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag), nil, "Precondition failed: Keychain not empty!")
+        XCTAssertEqual(try keychainStorage.retrieveEncryptedData(dataID: DataID(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, protectionClass: .sensitive)), nil, "Precondition failed: Keychain not empty!")
 
         // When
-        try keychainStorage.storeItem(item: ItemSearchQuery.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, data: randomData))
+        try keychainStorage.storeItem(item: ItemSearchQuery.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service(), data: randomData))
 
         //Then
-        let result = try keychainStorage.retrieveEncryptedData(account: KeychainStorage.sensitiveEncryptedPrivateKeyTag)
+        let result = try keychainStorage.retrieveEncryptedData(dataID: DataID(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, protectionClass: ProtectionClass.sensitive))
         XCTAssertEqual(result, randomData)
     }
 

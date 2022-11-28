@@ -23,13 +23,13 @@ class KeychainStorage {
 
     // store passcode. Either if it random (user didn't give a password) or the user asked us to remember it
     func storePasscode(passcode: String) throws {
-        try storeItem(item: ItemSearchQuery.generic(id: KeychainStorage.derivedPasswordTag, data: passcode.data(using: .utf8)))
+        try storeItem(item: ItemSearchQuery.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service(), data: passcode.data(using: .utf8)))
     }
 
     func retrievePasscode() -> String? {
         // Retrieve password from persistence
         do {
-            if let passCodeData = try findItem(item: ItemSearchQuery.generic(id: KeychainStorage.derivedPasswordTag)) {
+            if let passCodeData = try findItem(item: ItemSearchQuery.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service())) {
                 return String.init(data: passCodeData, encoding: .utf8)
             } else {
                 return nil
@@ -86,8 +86,8 @@ class KeychainStorage {
         return try createKeyPair(ItemSearchQuery.enclaveKey(password: applicationPassword.data(using: .utf8), access: flags))
     }
 
-    func retrieveEncryptedData(account: String) throws -> Data? {
-        let query = ItemSearchQuery.generic(id: account).createSearchQuery()
+    func retrieveEncryptedData(dataID: DataID) throws -> Data? {
+        let query = ItemSearchQuery.generic(id: dataID.id, service: dataID.protectionClass.service()).createSearchQuery()
 
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query, &item)

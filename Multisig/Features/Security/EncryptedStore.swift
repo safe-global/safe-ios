@@ -15,14 +15,37 @@ typealias EthPrivateKey = Data
 protocol EncryptedStore {
     func isInitialized() -> Bool
     func initializeKeyStore() throws
-    func `import`(ethPrivateKey: EthPrivateKey) throws
+    func `import`(id: DataID, ethPrivateKey: EthPrivateKey) throws
     func delete(address: Address)
 
     /// Find private signer key.
     /// - parameter address: find key for this address
     /// - parameter password: application password. Can be nil, then the stored password is used
     /// - returns: String with hex encoded bytes of the private key or nil if key not found
-    func find(id: Address, password: String?) throws -> EthPrivateKey?
+    func find(dataID: DataID, password: String?) throws -> EthPrivateKey?
     func changePassword(from oldPassword: String, to newPassword: String)
     func changeSettings()
+}
+
+class DataID {
+    let id: String
+    let protectionClass: ProtectionClass
+
+    public init(id: String, protectionClass: ProtectionClass = .sensitive) {
+        self.id = id
+        self.protectionClass = protectionClass
+    }
+}
+
+enum ProtectionClass {
+    case sensitive
+    // for future use
+    case data
+
+    func service() -> String {
+        switch self {
+        case .data: return "global.safe.data.encrypted.data"
+        case .sensitive: return "global.safe.sensitive.encrypted.data"
+        }
+    }
 }
