@@ -43,7 +43,7 @@ struct EthereumLegacySignature {
 // https://eips.ethereum.org/EIPS/eip-155
 // encodes secp256k1 signature
 //
-// TODO: question is whether a signature with overflown byte is accepted by the network if its chain_id is > 109? signature length will be bigger than 65 bytes!
+// TODO: question is whether a signature with overflown byte is accepted by the network if its chain_id is > 109? signature length will be bigger than 65 bytes! Or we just cut it off?
 struct EthereumProtectedSignature {
     var r: UInt256
     var s: UInt256
@@ -223,6 +223,9 @@ struct EthereumProtectedSignature {
 
 // ETHEREUM - SAFE BOUNDARY
 
+// how to handle different contract versions? They define potentially different signature schemes.
+// previous versions might still be out there. Supported or not supported - question.
+
 struct SafeRawSignature {
     var head: Data // 64 bytes
     var type: UInt8 // 1 byte
@@ -268,3 +271,15 @@ struct SafePreValidatedSignature {
     // type = 1
     let type: UInt8 = 1
 }
+
+// when execTransaction(...) called, it needs signatures data - seralized signatures of owners.
+// raw[] -> bytes (concat)
+
+class ECSecp256k1Signer {
+    func sign(message: Data, key: PrivateKey) throws -> ECSecp256k1ExtendedSignature {
+        let sig = try key._store.sign(hash: Array<UInt8>(message))
+        let result = ECSecp256k1ExtendedSignature(r: UInt256(sig.r), s: UInt256(sig.s), v: UInt8(sig.v))
+        return result
+    }
+}
+
