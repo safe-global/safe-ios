@@ -431,8 +431,6 @@
 		0A8CDD5027A682CF0020066C /* StepperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */; };
 		0A8CDD5127A682CF0020066C /* StepperTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */; };
 		0A8CDD5327A85C0D0020066C /* TransactionExecutionLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8CDD5227A85C0D0020066C /* TransactionExecutionLookup.swift */; };
-		0A9275C525ADDEE700755881 /* CollecitbleSectionSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9275C425ADDEE700755881 /* CollecitbleSectionSeparatorView.swift */; };
-		0A9275D525ADDF1500755881 /* CollecitbleSectionSeparatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A9275D425ADDF1500755881 /* CollecitbleSectionSeparatorView.xib */; };
 		0A930F4D27CD4BC600866074 /* SelectAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A930F4C27CD4BC600866074 /* SelectAddressViewController.swift */; };
 		0A9366A5278EE8FE001918A9 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9366A4278EE8FE001918A9 /* FormViewController.swift */; };
 		0A9366AC278F0175001918A9 /* ContainerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9366AA278F0175001918A9 /* ContainerTableViewCell.swift */; };
@@ -1364,8 +1362,6 @@
 		0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperTableViewCell.swift; sourceTree = "<group>"; };
 		0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepperTableViewCell.xib; sourceTree = "<group>"; };
 		0A8CDD5227A85C0D0020066C /* TransactionExecutionLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionExecutionLookup.swift; sourceTree = "<group>"; };
-		0A9275C425ADDEE700755881 /* CollecitbleSectionSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollecitbleSectionSeparatorView.swift; sourceTree = "<group>"; };
-		0A9275D425ADDF1500755881 /* CollecitbleSectionSeparatorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollecitbleSectionSeparatorView.xib; sourceTree = "<group>"; };
 		0A930F4C27CD4BC600866074 /* SelectAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAddressViewController.swift; sourceTree = "<group>"; };
 		0A9366A4278EE8FE001918A9 /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
 		0A9366AA278F0175001918A9 /* ContainerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerTableViewCell.swift; sourceTree = "<group>"; };
@@ -3506,8 +3502,6 @@
 				5596C0472550813B00EF23A5 /* CollectiblesHeaderView.swift */,
 				5596C058255081AE00EF23A5 /* CollectiblesHeaderView.xib */,
 				5503F62B2550625F0046545C /* CollectiblesViewController.swift */,
-				0A9275C425ADDEE700755881 /* CollecitbleSectionSeparatorView.swift */,
-				0A9275D425ADDF1500755881 /* CollecitbleSectionSeparatorView.xib */,
 				5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */,
 				5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */,
 				0AEEBC79258CE24A00F3A6F9 /* WebImageView.swift */,
@@ -4491,7 +4485,6 @@
 				557D80B9270B32F80036D6D0 /* SignatureRequestContentViewController.xib in Resources */,
 				0A045077278DACC400650F71 /* MiniAccountAndBalancePiece.xib in Resources */,
 				931AB80328808EBC00264AAA /* MultiSendApproveMultihopBatchSwapExactIn.json in Resources */,
-				0A9275D525ADDF1500755881 /* CollecitbleSectionSeparatorView.xib in Resources */,
 				938D327128C8808D00198B7E /* NavigatingDAOViewController.xib in Resources */,
 				6A252CF928185148001F0887 /* OwnerActionView.xib in Resources */,
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
@@ -5151,7 +5144,6 @@
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
 				0AC0948527948BD900FA1B83 /* TransactionDataTransformer.swift in Sources */,
 				0A451C0C252DDBE5001DB7D2 /* CollectibleListSection.swift in Sources */,
-				0A9275C525ADDEE700755881 /* CollecitbleSectionSeparatorView.swift in Sources */,
 				55BCFC2A2551C9C200020CE7 /* UITableView+Reusable.swift in Sources */,
 				04C5ED3A27878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift in Sources */,
 				0A451BEA252DDB39001DB7D2 /* FullScreenLoadingView.swift in Sources */,
