@@ -199,11 +199,17 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        let collectible = sections[indexPath.section].collectibles[indexPath.row]
-//        let root = CollectibleDetailViewController(nibName: nil, bundle: nil)
-//        root.collectible = collectible
-//        let vc = RibbonViewController(rootViewController: root)
-//        show(vc, sender: self)
+        let item = model.items[indexPath.row]
+        switch item {
+        case .collectible(let collectibleItem):
+            let collectible = collectibleItem.collectible
+            let root = CollectibleDetailViewController(nibName: nil, bundle: nil)
+            root.collectible = CollectibleViewModel(collectible: collectible)
+            let vc = RibbonViewController(rootViewController: root)
+            show(vc, sender: self)
+        case .header(let collectibleItem):
+            break
+        }
     }
 
     func cell(table: UITableView, indexPath: IndexPath) -> UITableViewCell {
@@ -221,7 +227,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
             let cell = tableView.dequeueCell(CollectibleTableViewCell.self, for: indexPath)
             cell.setName(collectibleItem.collectible.name ?? "Unknown")
             cell.setDescription(collectibleItem.collectible.description ?? "")
-            cell.setImage(with: collectibleItem.collectible.logoUri.flatMap { URL(string: $0) }, placeholder: UIImage(named: "ico-collectible-placeholder")!)
+            cell.setImage(with: URL(string: collectibleItem.collectible.imageUri ?? ""), placeholder: UIImage(named: "ico-collectible-placeholder")!)
             return cell
         }
     }
