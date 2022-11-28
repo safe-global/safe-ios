@@ -36,18 +36,13 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         tableView.delegate = self
         tableView.dataSource = self
 
-        //tableView.backgroundColor = .background
-
         tableView.registerCell(CollectibleTableViewCell.self)
         tableView.registerCell(CollectiblesHeaderView.self)
-        //tableView.registerHeaderFooterView(CollectiblesHeaderView.self)
-        //tableView.registerHeaderFooterView(CollecitbleSectionSeparatorView.self)
 
         tableView.registerHeaderFooterView(IdleFooterView.self)
         tableView.registerHeaderFooterView(LoadingFooterView.self)
         tableView.registerHeaderFooterView(RetryFooterView.self)
 
-        //tableView.rowHeight = rowHeight
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48
         tableView.sectionHeaderHeight = headerHeight
