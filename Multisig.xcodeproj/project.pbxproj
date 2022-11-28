@@ -819,6 +819,7 @@
 		6A9A770D2804182700C229FC /* BackupIntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A9A770B2804182700C229FC /* BackupIntroViewController.xib */; };
 		6A9A770F28041D8100C229FC /* TipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9A770E28041D8100C229FC /* TipsView.swift */; };
 		6A9A771128041DA700C229FC /* TipsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A9A771028041DA700C229FC /* TipsView.xib */; };
+		6A9B012B2934995D007A6434 /* FlatCollectiblesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9B012A2934995D007A6434 /* FlatCollectiblesListViewModel.swift */; };
 		6AA2724A27DF566B00934B37 /* PendingWalletActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA2724827DF566B00934B37 /* PendingWalletActionViewController.swift */; };
 		6AAE34DE282A2F0400CCFC95 /* OwnerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE34DD282A2F0400CCFC95 /* OwnerHeaderView.swift */; };
 		6AAE34E0282A2F1600CCFC95 /* OwnerHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AAE34DF282A2F1600CCFC95 /* OwnerHeaderView.xib */; };
@@ -1770,6 +1771,7 @@
 		6A9A770B2804182700C229FC /* BackupIntroViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BackupIntroViewController.xib; sourceTree = "<group>"; };
 		6A9A770E28041D8100C229FC /* TipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsView.swift; sourceTree = "<group>"; };
 		6A9A771028041DA700C229FC /* TipsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TipsView.xib; sourceTree = "<group>"; };
+		6A9B012A2934995D007A6434 /* FlatCollectiblesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatCollectiblesListViewModel.swift; sourceTree = "<group>"; };
 		6AA2724827DF566B00934B37 /* PendingWalletActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingWalletActionViewController.swift; sourceTree = "<group>"; };
 		6AAE34DD282A2F0400CCFC95 /* OwnerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerHeaderView.swift; sourceTree = "<group>"; };
 		6AAE34DF282A2F1600CCFC95 /* OwnerHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OwnerHeaderView.xib; sourceTree = "<group>"; };
@@ -2786,8 +2788,8 @@
 		0A6886AA2588FB190045CAB5 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				6AFD26E92861B0B300336FFE /* SafeTokenBanner */,
 				0AB9F4C3254C64680044395F /* BalancesViewController */,
+				6AFD26E92861B0B300336FFE /* SafeTokenBanner */,
 				5503F62A255062070046545C /* CollectiblesViewController */,
 				D80B5A082769F95000D6E024 /* AssetsViewController.swift */,
 				D80B5A092769F95000D6E024 /* AssetsViewController.xib */,
@@ -3512,6 +3514,7 @@
 				0AEEBC7F258CE25700F3A6F9 /* WebImageView.xib */,
 				0AC2A3C526FB6802002CB26A /* CollectiblesUnsupportedViewController.swift */,
 				0AC2A3C626FB6802002CB26A /* CollectiblesUnsupportedViewController.xib */,
+				6A9B012A2934995D007A6434 /* FlatCollectiblesListViewModel.swift */,
 			);
 			path = CollectiblesViewController;
 			sourceTree = "<group>";
@@ -5343,6 +5346,7 @@
 				AD303ABF1DBCA951A106ECD5 /* ReviewReplaceOwnerTxViewController.swift in Sources */,
 				AD30333439A0A2388F0749B0 /* ChangeConfirmationsFlow.swift in Sources */,
 				AD303399362FE10A1FB79BB6 /* ReviewChangeConfirmationsTxViewController.swift in Sources */,
+				6A9B012B2934995D007A6434 /* FlatCollectiblesListViewModel.swift in Sources */,
 				AD303F546D6DDF8E749E77BE /* DelegateWarningCalculator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

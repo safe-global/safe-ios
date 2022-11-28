@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CollectiblesHeaderView: UITableViewHeaderFooterView {
+class CollectiblesHeaderView: UITableViewCell { //UITableViewHeaderFooterView {
     @IBOutlet private weak var headerImageView: UIImageView!
     @IBOutlet private weak var headerNameLabel: UILabel!
 
