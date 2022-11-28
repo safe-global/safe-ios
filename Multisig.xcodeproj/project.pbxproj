@@ -589,7 +589,6 @@
 		0AE8C0A2257947CF00E62B34 /* DetailStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8C0A0257947CF00E62B34 /* DetailStatusCell.swift */; };
 		0AE8C0A3257947CF00E62B34 /* DetailStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE8C0A1257947CF00E62B34 /* DetailStatusCell.xib */; };
 		0AE8F9D6292CB53500A8FA44 /* WalletSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8F9D5292CB53500A8FA44 /* WalletSigner.swift */; };
-		0AE8F9D8292D0E1A00A8FA44 /* Signature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8F9D7292D0E1A00A8FA44 /* Signature.swift */; };
 		0AEDCE0B2472946600A1EC80 /* BarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEDCE0A2472946600A1EC80 /* BarButton.swift */; };
 		0AEE149F2540233C00046EE7 /* UINibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEE149E2540233C00046EE7 /* UINibView.swift */; };
 		0AEEBC73258CDF9400F3A6F9 /* CollectibleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEEBC71258CDF9400F3A6F9 /* CollectibleDetailViewController.swift */; };
@@ -1524,7 +1523,6 @@
 		0AE8C0A0257947CF00E62B34 /* DetailStatusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailStatusCell.swift; sourceTree = "<group>"; };
 		0AE8C0A1257947CF00E62B34 /* DetailStatusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailStatusCell.xib; sourceTree = "<group>"; };
 		0AE8F9D5292CB53500A8FA44 /* WalletSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSigner.swift; sourceTree = "<group>"; };
-		0AE8F9D7292D0E1A00A8FA44 /* Signature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signature.swift; sourceTree = "<group>"; };
 		0AEDCE0A2472946600A1EC80 /* BarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButton.swift; sourceTree = "<group>"; };
 		0AEE149E2540233C00046EE7 /* UINibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINibView.swift; sourceTree = "<group>"; };
 		0AEEBC71258CDF9400F3A6F9 /* CollectibleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleDetailViewController.swift; sourceTree = "<group>"; };
@@ -3847,7 +3845,6 @@
 			isa = PBXGroup;
 			children = (
 				55A58533250140B1005E778B /* PrivateKey.swift */,
-				0AE8F9D7292D0E1A00A8FA44 /* Signature.swift */,
 				55A5854425015013005E778B /* web3swift */,
 			);
 			path = PrivateKey;
@@ -4808,7 +4805,6 @@
 				5532D4BE2449A17D0067505A /* CrashlyticsLogger.swift in Sources */,
 				0A9366B9279073E3001918A9 /* TextValidator.swift in Sources */,
 				D80B5A0A2769F95000D6E024 /* AssetsViewController.swift in Sources */,
-				0AE8F9D8292D0E1A00A8FA44 /* Signature.swift in Sources */,
 				0A22E11C25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift in Sources */,
 				55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */,
 				6A1CFA4F28081A1200B2C340 /* BackupSeedPhraseViewController.swift in Sources */,
