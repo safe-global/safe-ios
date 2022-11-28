@@ -18,9 +18,6 @@ class KeychainStorage {
     static let derivedPasswordTag = "global.safe.password.as.data"
     static let sensitiveKekTag = "global.safe.sensitive.KEK"
 
-    // used to store encrypted data as a password in keychain
-    static let defaultService: String = "global.safe.sensitive.encrypted.data"
-
     // store passcode. Either if it random (user didn't give a password) or the user asked us to remember it
     func storePasscode(passcode: String) throws {
         try storeItem(item: ItemSearchQuery.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service(), data: passcode.data(using: .utf8)))
