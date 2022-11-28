@@ -13,9 +13,9 @@ struct CollectiblesRequest: JSONRequest {
     let chainId: String
     
     var httpMethod: String { "GET" }
-    var urlPath: String { "/v1/chains/\(chainId)/safes/\(safeAddress)/collectibles/" }
+    var urlPath: String { "/v2/chains/\(chainId)/safes/\(safeAddress)/collectibles/" }
 
-    typealias ResponseType = [Collectible]
+    typealias ResponseType = Page<Collectible>
 }
 
 extension CollectiblesRequest {
@@ -26,9 +26,17 @@ extension CollectiblesRequest {
 }
 
 extension SafeClientGatewayService {
-    func asyncCollectibles(safeAddress: Address,
+    func asyncCollectiblesList(safeAddress: Address,
                            chainId: String,
-                           completion: @escaping (Result<[Collectible], Error>) -> Void) -> URLSessionTask? {
+                           completion: @escaping (Result<CollectiblesRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
+
         asyncExecute(request: CollectiblesRequest(safeAddress, chainId: chainId), completion: completion)
+    }
+
+    func asyncCollectiblesList(
+        pageUri: String,
+        completion: @escaping (Result<CollectiblesRequest.ResponseType, Error>) -> Void) throws -> URLSessionTask? {
+
+        asyncExecute(request: try PagedRequest<Collectible>(pageUri), completion: completion)
     }
 }
