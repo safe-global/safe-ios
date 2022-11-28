@@ -16,10 +16,13 @@ import UIKit
 /// 2. Override didIntro() to implement actual key input
 /// 3. Call didGetKey() at some point to continue
 /// 4. Enter Name screen
-/// 5. Override doImport() to save key and entered name
-/// 6. (optional) override didImport()
-/// 7. Create Passcode screen
-/// 8. (optional) override didCreatePasscode()
+/// 5. importKey checks if the key already exist or continue
+/// 6. Override doImport() to save key and entered name
+/// 7. (optional) override didImport() to do any further action with the added key
+/// 8. Create Passcode flow
+/// 9. Key added screen and based on user choice we show create delegate key flow
+/// 10. didDelegateKeySetup to end the flow
+///
 class AddKeyFlow: UIFlow {
     var createPasscodeFlow: CreatePasscodeFlow!
     var keyParameters: AddKeyParameters!
@@ -100,14 +103,12 @@ class AddKeyFlow: UIFlow {
         push(flow: createPasscodeFlow)
     }
 
-    func didCreatePasscode() {
-        stop(success: true)
-    }
-
     func keyAdded() {
         assert(keyParameters != nil)
         assert(keyParameters.name != nil)
-        let vc = factory.keyAdded(address: keyParameters.address, name: keyParameters.name!, type: keyParameters.type) { [unowned self] in
+        let vc = factory.keyAdded(address: keyParameters.address,
+                                  name: keyParameters.name!,
+                                  type: keyParameters.type) { [unowned self] in
             didDelegateKeySetup()
         }
 
@@ -130,13 +131,14 @@ class AddKeyParameters {
     var address: Address
     var name: String?
     var type: KeyType!
-    var keyNameTrackingEvent: TrackingEvent
+    var badgeName: String {
+        type.imageName
+    }
 
-    init(address: Address, name: String?, type: KeyType, keyNameTrackingEvent: TrackingEvent = .enterKeyName) {
+    init(address: Address, name: String?, type: KeyType) {
         self.address = address
         self.name = name
         self.type = type
-        self.keyNameTrackingEvent = keyNameTrackingEvent
     }
 }
 
@@ -152,11 +154,11 @@ class AddKeyFlowFactory {
         enterNameVC.actionTitle = "Add"
         enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with us or any third parties."
         enterNameVC.screenTitle = "Enter Key Name"
-        enterNameVC.trackingEvent = parameters.keyNameTrackingEvent
+        enterNameVC.trackingEvent = .enterKeyName
         enterNameVC.placeholder = "Enter name"
         enterNameVC.name = parameters.name
         enterNameVC.address = parameters.address
-        enterNameVC.badgeName = parameters.type.imageName
+        enterNameVC.badgeName = parameters.badgeName
         enterNameVC.completion = completion
         return enterNameVC
     }    

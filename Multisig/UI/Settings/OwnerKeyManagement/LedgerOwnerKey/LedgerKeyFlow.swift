@@ -31,8 +31,6 @@ class LedgerKeyFlow: AddKeyFlow {
         let vc = flowFactory.selectDevice { [unowned self] deviceId, controller  in
             bluetoothController = controller
             addressPicker(deviceUUID: deviceId)
-        } onClose: {
-
         }
 
         show(vc)
@@ -82,11 +80,10 @@ class LedgerKeyFlowFactory: AddKeyFlowFactory {
         return introVC
     }
 
-    func selectDevice(completion: @escaping (UUID, BaseBluetoothController) -> Void, onClose: (() -> Void)?) -> SelectLedgerDeviceViewController {
+    func selectDevice(completion: @escaping (UUID, BaseBluetoothController) -> Void) -> SelectLedgerDeviceViewController {
         let vc = SelectLedgerDeviceViewController(trackingParameters: ["action" : "import"],
                                                   title: "Connect Ledger Nano X",
                                                   showsCloseButton: false)
-        vc.onClose = onClose
         vc.completion = completion
         
         return vc
@@ -113,6 +110,6 @@ class AddLedgerKeyParameters: AddKeyParameters {
         self.index = index
         self.derivationPath = derivationPath
         self.deviceUUID = deviceUUID
-        super.init(address: address, name: keyName, type: KeyType.ledgerNanoX, keyNameTrackingEvent: .ledgerEnterKeyName)
+        super.init(address: address, name: keyName, type: KeyType.ledgerNanoX)
     }
 }

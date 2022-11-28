@@ -26,7 +26,7 @@ class WalletConnectKeyFlow: AddKeyFlow {
     }
 
     func selectWallet() {
-        let vc = flowFactory.selectWallet { [unowned self] connection, wallet in
+        let vc = SelectWalletViewController(completion: { [unowned self] wallet, connection in
             guard let address = connection.accounts.first else {
                 App.shared.snackbar.show(error: GSError.WCConnectedKeyMissingAddress())
                 return
@@ -37,7 +37,7 @@ class WalletConnectKeyFlow: AddKeyFlow {
                                                           connection: connection,
                                                           wallet: wallet)
             didGetKey()
-        }
+        })
 
         show(vc)
     }
@@ -76,14 +76,6 @@ class WalletConnectKeyFlowFactory: AddKeyFlowFactory {
         introVC.viewTrackingEvent = .connectOwnerOnboarding
         introVC.navigationItem.title = "Connect Owner Key"
         return introVC
-    }
-
-    func selectWallet(completion: @escaping (_ connection: WebConnection, _ wallet: WCAppRegistryEntry?) -> Void) -> SelectWalletViewController {
-        let controller = SelectWalletViewController(completion: { wallet, connection in
-            completion(connection, wallet)
-        })
-
-        return controller
     }
 }
 
