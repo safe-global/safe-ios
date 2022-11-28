@@ -57,10 +57,6 @@ class GenerateKeyFlow: AddKeyFlow {
         return success
     }
 
-    override func didCreatePasscode() {
-        backup()
-    }
-
     func backup() {
         assert(parameters?.privateKey?.mnemonic != nil)
         backupFlow = BackupFlow(mnemonic: parameters!.privateKey!.mnemonic!) { [unowned self] _ in

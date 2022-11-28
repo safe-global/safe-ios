@@ -21,7 +21,7 @@ import UIKit
 /// 7. (optional) override didImport() to do any further action with the added key
 /// 8. Create Passcode flow
 /// 9. Key added screen and based on user choice we show create delegate key flow
-/// 10. didDelegateKeySetup to end the flow
+/// 10. didDelegateKeySetup to end the flow or override to add additional steps
 ///
 class AddKeyFlow: UIFlow {
     var createPasscodeFlow: CreatePasscodeFlow!

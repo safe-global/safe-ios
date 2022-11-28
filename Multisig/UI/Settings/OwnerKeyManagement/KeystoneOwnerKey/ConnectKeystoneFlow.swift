@@ -81,8 +81,6 @@ extension ConnectKeystoneFlow: QRCodeScannerViewControllerDelegate {
         if code.starts(with: Self.urPrefixOfHDKey) {
             navigationController.dismiss(animated: true) { [unowned self] in
                 if let hdKey = URRegistry.shared.getSourceHDKey(from: code) {
-                    parameters?.sourceFingerprint = hdKey.sourceFingerprint
-                    
                     let viewModel = KeystoneSelectAddressViewModel(hdKey: hdKey)
                     pickAccount(viewModel)
                 } else {
@@ -98,7 +96,6 @@ extension ConnectKeystoneFlow: QRCodeScannerViewControllerDelegate {
             }
             
             navigationController.dismiss(animated: true) { [unowned self] in
-                parameters?.sourceFingerprint = hdKeys.first?.sourceFingerprint
                 let viewModel = KeystoneSelectAddressViewModel(hdKeys: hdKeys)
                 pickAccount(viewModel)
             }
@@ -114,8 +111,9 @@ class AddKeystoneKeyParameters: AddKeyParameters {
     var derivationPath: String
     var sourceFingerprint: UInt32?
 
-    init(address: Address, derivationPath: String) {
+    init(address: Address, derivationPath: String, sourceFingerprint: UInt32?) {
         self.derivationPath = derivationPath
+        self.sourceFingerprint = sourceFingerprint
         super.init(address: address, name: nil, type: KeyType.keystone)
     }
 }
