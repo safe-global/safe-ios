@@ -58,8 +58,12 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func backup() {
-        assert(parameters?.privateKey?.mnemonic != nil)
-        backupFlow = BackupFlow(mnemonic: parameters!.privateKey!.mnemonic!) { [unowned self] _ in
+        guard let mnemonic = parameters?.privateKey?.mnemonic else {
+            assertionFailure("No mnemonic found")
+            return
+        }
+
+        backupFlow = BackupFlow(mnemonic: mnemonic) { [unowned self] _ in
             backupFlow = nil
             addKeyAsOwner()
         }
