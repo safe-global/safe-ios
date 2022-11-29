@@ -16,28 +16,26 @@ import UIKit
 /// 2. Override didIntro() to implement actual key input
 /// 3. Call didGetKey() at some point to continue
 /// 4. Enter Name screen
-/// 5. Override doImport() to save key and entered name
-/// 6. (optional) override didImport()
-/// 7. Create Passcode screen
-/// 8. (optional) override didCreatePasscode()
+/// 5. importKey checks if the key already exist or continue
+/// 6. Override doImport() to save key and entered name
+/// 7. (optional) override didImport() to do any further action with the added key
+/// 8. Create Passcode flow
+/// 9. Key added screen and based on user choice we show create delegate key flow
+/// 10. didDelegateKeySetup to end the flow or override to add additional steps
+///
 class AddKeyFlow: UIFlow {
-    var privateKey: PrivateKey?
-    var keyName: String?
-    var keyInfo: AddressInfo?
     var createPasscodeFlow: CreatePasscodeFlow!
+    var keyParameters: AddKeyParameters!
+
     var factory: AddKeyFlowFactory
-    var keyType: KeyType!
     /// Constructor
     /// - Parameters:
-    ///   - badge: image name for a 'type' of the key in the identicons
     ///   - factory: screen factory
     ///   - completion: completion block called when flow ends. Argument is `true` when flow successful.
-    init(keyType: KeyType, factory: AddKeyFlowFactory, completion: @escaping (Bool) -> Void) {
+    init(factory: AddKeyFlowFactory, completion: @escaping (Bool) -> Void) {
         self.factory = factory
-        self.keyType = keyType
         super.init(completion: completion)
     }
-
 
     override func start() {
         intro()
@@ -54,28 +52,26 @@ class AddKeyFlow: UIFlow {
         // to override
     }
 
-    func didGetKey(privateKey: PrivateKey) {
-        self.privateKey = privateKey
+    func didGetKey() {
         enterName()
     }
 
     func enterName() {
-        assert(privateKey != nil)
-        let parameters = AddKeyParameters(
-            address: privateKey!.address,
-            keyName: nil,
-            badgeName: keyType.imageName
-        )
-        let nameVC = factory.enterName(parameters: parameters) { [unowned self] name in
-            keyName = name
+        assert(keyParameters != nil)
+        let nameVC = factory.enterName(parameters: keyParameters!) { [unowned self] name in
+            keyParameters.name = name
             importKey()
         }
         show(nameVC)
     }
 
     func importKey() {
-        assert(privateKey != nil)
-        let existingKey = try! KeyInfo.firstKey(address: privateKey!.address)
+        guard let keyParameters = keyParameters else {
+            assertionFailure("Missing key arguments")
+            return
+        }
+
+        let existingKey = try! KeyInfo.firstKey(address: keyParameters.address)
         guard existingKey == nil else {
             App.shared.snackbar.show(error: GSError.KeyAlreadyImported())
             stop(success: false)
@@ -83,15 +79,11 @@ class AddKeyFlow: UIFlow {
         }
 
         let success = doImport()
-        let key = try? KeyInfo.keys(addresses: [privateKey!.address]).first
 
-
-        guard success, key != nil else {
+        guard success, let _ = try? KeyInfo.firstKey(address: keyParameters.address) else {
             stop(success: false)
             return
         }
-
-        keyInfo = AddressInfo(address: key!.address, name: key!.name)
 
         AppSettings.hasShownImportKeyOnboarding = true
 
@@ -115,14 +107,15 @@ class AddKeyFlow: UIFlow {
         push(flow: createPasscodeFlow)
     }
 
-    func didCreatePasscode() {
-        stop(success: true)
-    }
-
     func keyAdded() {
-        assert(keyInfo != nil)
-        assert(keyName != nil)
-        let vc = factory.keyAdded(address: keyInfo!.address, name: keyName!, keyType: keyType) { [unowned self] in
+        guard let address = keyParameters?.address,
+                let type = keyParameters?.type,
+                let name = keyParameters?.name else {
+            assertionFailure("Missing key arguments")
+            return
+        }
+
+        let vc = factory.keyAdded(address: address, name: name, type: type) { [unowned self] in
             didDelegateKeySetup()
         }
 
@@ -143,15 +136,16 @@ class AddKeyFlow: UIFlow {
 
 class AddKeyParameters {
     var address: Address
-    var keyName: String?
-    var badgeName: String
-    var keyNameTrackingEvent: TrackingEvent
+    var name: String?
+    var type: KeyType!
+    var badgeName: String {
+        type.imageName
+    }
 
-    init(address: Address, keyName: String?, badgeName: String, keyNameTrackingEvent: TrackingEvent = .enterKeyName) {
+    init(address: Address, name: String?, type: KeyType) {
         self.address = address
-        self.keyName = keyName
-        self.badgeName = badgeName
-        self.keyNameTrackingEvent = keyNameTrackingEvent
+        self.name = name
+        self.type = type
     }
 }
 
@@ -167,9 +161,9 @@ class AddKeyFlowFactory {
         enterNameVC.actionTitle = "Add"
         enterNameVC.descriptionText = "Choose a name for the owner key. The name is only stored locally and will not be shared with us or any third parties."
         enterNameVC.screenTitle = "Enter Key Name"
-        enterNameVC.trackingEvent = parameters.keyNameTrackingEvent
+        enterNameVC.trackingEvent = .enterKeyName
         enterNameVC.placeholder = "Enter name"
-        enterNameVC.name = parameters.keyName
+        enterNameVC.name = parameters.name
         enterNameVC.address = parameters.address
         enterNameVC.badgeName = parameters.badgeName
         enterNameVC.completion = completion
@@ -182,11 +176,11 @@ class AddKeyFlowFactory {
 
     func keyAdded(address: Address,
                   name: String,
-                  keyType: KeyType,
+                  type: KeyType,
                   completion: @escaping () -> ()) -> KeyAddedViewController {
         KeyAddedViewController(address: address,
                                name: name,
-                               keyType: keyType,
+                               type: type,
                                completion: completion)
     }
 }

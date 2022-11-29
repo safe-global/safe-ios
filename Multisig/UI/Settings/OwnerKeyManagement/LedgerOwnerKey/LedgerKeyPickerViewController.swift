@@ -11,7 +11,7 @@ import UIKit
 fileprivate let ledgerSerialQueue = DispatchQueue(label: "io.gnosis.safe.ledger.serial.queue")
 
 class LedgerKeyPickerViewController: SegmentViewController {
-    var completion: ((AddLedgerKeyParameters) -> Void)?
+    var completion: ((KeyAddressInfo, String?, String) -> Void)?
 
     private lazy var importButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "Import", style: .done, target: self, action: #selector(didTapImport))
@@ -57,12 +57,7 @@ class LedgerKeyPickerViewController: SegmentViewController {
         }
         let defaultName = "\(namePrefix)\(key.index + 1)"
         let derivationPath = contentVC.basePath.replacingOccurrences(of: "{index}", with: "\(key.index)")
-        let result = AddLedgerKeyParameters(
-            address: key.address,
-            keyName: defaultName,
-            index: key.index,
-            derivationPath: derivationPath)
-        self.completion?(result)
+        self.completion?(key, defaultName, derivationPath)
     }
 }
 

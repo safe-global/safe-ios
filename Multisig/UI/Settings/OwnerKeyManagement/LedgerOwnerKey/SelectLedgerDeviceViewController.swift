@@ -8,12 +8,6 @@
 
 import UIKit
 
-protocol SelectLedgerDeviceDelegate: AnyObject {
-    func selectLedgerDeviceViewController(_ controller: SelectLedgerDeviceViewController,
-                                          didSelectDevice deviceId: UUID,
-                                          bluetoothController: BaseBluetoothController)
-}
-
 class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
 
 #if targetEnvironment(simulator)
@@ -31,8 +25,7 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
 
     override var isEmpty: Bool { bluetoothController.devices.isEmpty }
 
-    weak var delegate: SelectLedgerDeviceDelegate?
-
+    var completion: (UUID, BaseBluetoothController) -> Void = { _, _ in }
     var onClose: (() -> Void)?
 
     convenience init(trackingParameters: [String: Any],
@@ -115,8 +108,7 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let device = bluetoothController.devices[indexPath.row]
-        delegate?.selectLedgerDeviceViewController(
-            self, didSelectDevice: device.identifier, bluetoothController: bluetoothController)
+        completion(device.identifier, bluetoothController)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

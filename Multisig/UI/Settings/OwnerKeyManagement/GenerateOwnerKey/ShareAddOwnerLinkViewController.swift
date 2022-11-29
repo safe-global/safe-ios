@@ -16,13 +16,13 @@ class ShareAddOwnerLinkViewController: UIViewController {
     @IBOutlet private weak var doneButton: UIButton!
     @IBOutlet private weak var addOwnerView: AddOwnerView!
 
-    var owner: AddressInfo!
+    var owner: Address!
     var safe: Safe!
     var onFinish: (() -> ())!
 
     var steps: [Step] = []
 
-    convenience init(owner: AddressInfo, safe: Safe, onFinish: @escaping () -> ()) {
+    convenience init(owner: Address, safe: Safe, onFinish: @escaping () -> ()) {
         self.init(namedClass: ShareAddOwnerLinkViewController.self)
         self.owner = owner
         self.safe = safe
@@ -45,7 +45,7 @@ class ShareAddOwnerLinkViewController: UIViewController {
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
-        shareLinkView.set(text: App.configuration.services.webAppURL.appendingPathComponent("\(safe.chain!.shortName!):\(safe.displayAddress)/addOwner?address=\(owner.address.checksummed)").absoluteString)
+        shareLinkView.set(text: App.configuration.services.webAppURL.appendingPathComponent("\(safe.chain!.shortName!):\(safe.displayAddress)/addOwner?address=\(owner.checksummed)").absoluteString)
         shareLinkView.onShare = { [weak self] text in
             let vc = UIActivityViewController(activityItems: [text], applicationActivities: nil)
             vc.completionWithItemsHandler = { _, success, _, _ in
@@ -57,7 +57,7 @@ class ShareAddOwnerLinkViewController: UIViewController {
             self?.present(vc, animated: true, completion: nil)
         }
 
-        if let ownerKeyInfo = try? KeyInfo.firstKey(address: owner.address) {
+        if let ownerKeyInfo = try? KeyInfo.firstKey(address: owner) {
             addOwnerView.set(owner: AddressInfo(address: ownerKeyInfo.address,
                                                 name: ownerKeyInfo.name),
                              badgeName: ownerKeyInfo.keyType.imageName,
@@ -66,10 +66,10 @@ class ShareAddOwnerLinkViewController: UIViewController {
                              ownerCount: safe.ownersInfo?.count ?? 0)
 
         } else {
-            let (ownerName, _) = NamingPolicy.name(for: owner.address,
+            let (ownerName, _) = NamingPolicy.name(for: owner,
                                                     info: nil,
                                                     chainId: safe.chain!.id!)
-            addOwnerView.set(owner: AddressInfo(address: owner.address,
+            addOwnerView.set(owner: AddressInfo(address: owner,
                                                 name: ownerName),
                              safe: safe,
                              reqConfirmations: Int(safe.threshold!),

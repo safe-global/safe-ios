@@ -82,6 +82,8 @@ class AddOwnerKeyViewController: UITableViewController {
     var importKeyFlow: ImportKeyFlow!
     var generateKeyFlow: GenerateKeyFlow!
     var connectKeystoneFlow: ConnectKeystoneFlow!
+    var walletConnectKeyFlow: WalletConnectKeyFlow!
+    var ledgerKeyFlow: LedgerKeyFlow!
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let controller: UIViewController
@@ -104,10 +106,20 @@ class AddOwnerKeyViewController: UITableViewController {
             return
 
         case .walletConnect:
-            controller = OnboardingConnectOwnerKeyViewController(completion: completion)
+            walletConnectKeyFlow = WalletConnectKeyFlow { [unowned self] _ in
+                walletConnectKeyFlow = nil
+                completion()
+            }
+            push(flow: walletConnectKeyFlow)
+            return
 
         case .ledgerNanoX:
-            controller = OnboardingLedgerKeyViewController(completion: completion)
+            ledgerKeyFlow = LedgerKeyFlow { [unowned self] _ in
+                ledgerKeyFlow = nil
+                completion()
+            }
+            push(flow: ledgerKeyFlow)
+            return
             
         case .keystone:
             connectKeystoneFlow = ConnectKeystoneFlow { [unowned self] _ in
