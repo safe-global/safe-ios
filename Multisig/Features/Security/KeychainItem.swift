@@ -128,17 +128,6 @@ enum KeychainItem {
 
 }
 
-func ==(left: KeychainItem, right: KeychainItem) -> Bool {
-    switch (left, right) {
-    case (.ecKeyPair, .ecKeyPair): return true
-    default: return false
-    }
-}
-
-func !=(left: KeychainItem, right: KeychainItem) -> Bool {
-    !(left == right)
-}
-
 fileprivate extension LAContext {
     convenience init?(password: Data?) {
         guard let appPassword = password else {

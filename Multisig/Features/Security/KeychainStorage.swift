@@ -120,8 +120,9 @@ class KeychainStorage {
 
     func createKeyPair(_ item: KeychainItem = KeychainItem.ecKeyPair) throws -> SecKey {
         // .ecKeyPair keys are not stored automatically. So we do not need to delete them here
-        if item != KeychainItem.ecKeyPair  {
-            try deleteItem(item)
+        switch item {
+        case .ecKeyPair: break
+        default: try deleteItem(item)
         }
         let attributes = try item.creationAttributes()
 
