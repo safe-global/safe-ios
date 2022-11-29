@@ -21,7 +21,7 @@ class SensitiveEncryptedStore: EncryptedStore {
 
     func isInitialized() -> Bool {
         do {
-            return try keychainStorage.findKey(query: KeychainStoreItem.ecPubKey()) != nil
+            return try keychainStorage.findKey(query: KeychainItem.ecPubKey()) != nil
         } catch {
             return false
         }
@@ -64,19 +64,19 @@ class SensitiveEncryptedStore: EncryptedStore {
         }
         // Copy public KEK Key to encrypt sensitive key)
         let sensitivePublicKek = SecKeyCopyPublicKey(sensitiveKEK)
-        try keychainStorage.storeItem(item: KeychainStoreItem.ecPubKey(tag: KeychainStorage.sensitivePublicKekTag, publicKey: sensitivePublicKek))
+        try keychainStorage.storeItem(item: KeychainItem.ecPubKey(tag: KeychainStorage.sensitivePublicKekTag, publicKey: sensitivePublicKek))
         // encrypt private part of sensitive_key
         // encrypt data using sensitiveKEK
         let encryptedSensitiveKey = try encrypt(publicKey: sensitivePublicKek, plainText: sensitiveKeyData)
         // Store encrypted sensitive private key in keychain as blob
-        try keychainStorage.storeItem(item: KeychainStoreItem.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service(),data: encryptedSensitiveKey))
+        try keychainStorage.storeItem(item: KeychainItem.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service(),data: encryptedSensitiveKey))
     }
 
     private func persistSensitivePublicKey(sensitiveKey: SecKey) throws { // copy public part from SecKey
         let sensitivePublicKey = SecKeyCopyPublicKey(sensitiveKey)
         // safe it via keychainStorage.storeSensitivePublicKey()
         if let key = sensitivePublicKey {
-            try keychainStorage.storeItem(item: KeychainStoreItem.ecPubKey(publicKey: key))
+            try keychainStorage.storeItem(item: KeychainItem.ecPubKey(publicKey: key))
         } else {
             throw GSError.GenericPasscodeError(reason: "Cannot copy public key")
         }
@@ -100,7 +100,7 @@ class SensitiveEncryptedStore: EncryptedStore {
 
         // 4. store encrypted blob in the keychain
         let address = privateKey.address
-        try keychainStorage.storeItem(item: KeychainStoreItem.generic(id: id.id, service: id.protectionClass.service(), data: encryptedSigningKey))
+        try keychainStorage.storeItem(item: KeychainItem.generic(id: id.id, service: id.protectionClass.service(), data: encryptedSigningKey))
         LogService.shared.info("done.")
 
     }
@@ -117,7 +117,7 @@ class SensitiveEncryptedStore: EncryptedStore {
 
         // find sensitiveKEK
         let password = password != nil ? password : keychainStorage.retrievePasscode()
-        let sensitiveKEK = try keychainStorage.findKey(query: KeychainStoreItem.enclaveKey(password: password?.data(using: .utf8)))!
+        let sensitiveKEK = try keychainStorage.findKey(query: KeychainItem.enclaveKey(password: password?.data(using: .utf8)))!
 
         // find encrypted sensitive key
         let encryptedSensitiveKeyData = try keychainStorage.retrieveEncryptedData(dataID: DataID(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, protectionClass: .sensitive))!
@@ -126,7 +126,7 @@ class SensitiveEncryptedStore: EncryptedStore {
         var error: Unmanaged<CFError>?
         let decryptedSensitiveKeyData = try decrypt(privateKey: sensitiveKEK, encryptedData: encryptedSensitiveKeyData)
         // Data -> key
-        guard let decryptedSensitiveKey: SecKey = SecKeyCreateWithData(decryptedSensitiveKeyData as CFData, try KeychainStoreItem.ecKeyPair.createAttributesForItem(), &error) else {
+        guard let decryptedSensitiveKey: SecKey = SecKeyCreateWithData(decryptedSensitiveKeyData as CFData, try KeychainItem.ecKeyPair.creationAttributes(), &error) else {
             // will fail here if password was wrong
             throw error!.takeRetainedValue() as Error
         }

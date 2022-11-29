@@ -6,20 +6,32 @@
 import Foundation
 import LocalAuthentication
 
+<<<<<<<< HEAD:Multisig/Features/Security/KeychainStoreItem.swift
 enum KeychainStoreItem {
+|||||||| b64bd38aa:Multisig/Features/Security/ItemSearchQuery.swift
+enum ItemSearchQuery {
+========
+enum KeychainItem {
+>>>>>>>> dc8a62db2741d8c1a21db5410b135a4ed53d4274:Multisig/Features/Security/KeychainItem.swift
     // Encrypted blob. Can be a password or a cec secret key
     case generic(id: String, service: String, data: Data? = nil)
 
     // Key stays in the Secure Enclave
+<<<<<<<< HEAD:Multisig/Features/Security/KeychainStoreItem.swift
     case enclaveKey(tag: String = KeychainStorage.sensitiveKekTag, password: Data? = nil, access: SecAccessControlCreateFlags? = nil)
 
+|||||||| b64bd38aa:Multisig/Features/Security/ItemSearchQuery.swift
+    case enclaveKey(tag: String = KeychainStorage.sensitiveKekTag, password: Data? = nil, access: SecAccessControlCreateFlags? = nil)
+========
+    case enclaveKey(tag: String = KeychainStorage.sensitivePrivateKekTag, password: Data? = nil, access: SecAccessControlCreateFlags? = nil)
+>>>>>>>> dc8a62db2741d8c1a21db5410b135a4ed53d4274:Multisig/Features/Security/KeychainItem.swift
     // Elliptic Curve Public Key
     case ecPubKey(tag: String = KeychainStorage.sensitivePublicKeyTag, publicKey: SecKey? = nil)
 
     // Elliptic Curve Key pair
     case ecKeyPair
 
-    func createSearchQuery() -> NSDictionary {
+    func searchQuery() -> NSDictionary {
         var result: NSMutableDictionary
 
         switch self {
@@ -59,7 +71,7 @@ enum KeychainStoreItem {
         return result
     }
 
-    func createAttributesForItem() throws -> NSDictionary {
+    func creationAttributes() throws -> NSDictionary {
         var result: NSMutableDictionary = [:]
         switch self {
         case let .generic(id, service, data):
@@ -133,6 +145,7 @@ enum KeychainStoreItem {
 
 }
 
+<<<<<<<< HEAD:Multisig/Features/Security/KeychainStoreItem.swift
 func ==(left: KeychainStoreItem, right: KeychainStoreItem) -> Bool {
     switch (left, right) {
     case (.ecKeyPair, .ecKeyPair): return true
@@ -144,6 +157,20 @@ func !=(left: KeychainStoreItem, right: KeychainStoreItem) -> Bool {
     !(left == right)
 }
 
+|||||||| b64bd38aa:Multisig/Features/Security/ItemSearchQuery.swift
+func ==(left: ItemSearchQuery, right: ItemSearchQuery) -> Bool {
+    switch (left, right) {
+    case (.ecKeyPair, .ecKeyPair): return true
+    default: return false
+    }
+}
+
+func !=(left: ItemSearchQuery, right: ItemSearchQuery) -> Bool {
+    !(left == right)
+}
+
+========
+>>>>>>>> dc8a62db2741d8c1a21db5410b135a4ed53d4274:Multisig/Features/Security/KeychainItem.swift
 fileprivate extension LAContext {
     convenience init?(password: Data?) {
         guard let appPassword = password else {
