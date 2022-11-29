@@ -6,13 +6,16 @@
 import Foundation
 import LocalAuthentication
 
-enum ItemSearchQuery {
+enum KeychainStoreItem {
     // Encrypted blob. Can be a password or a cec secret key
     case generic(id: String, service: String, data: Data? = nil)
+
     // Key stays in the Secure Enclave
     case enclaveKey(tag: String = KeychainStorage.sensitiveKekTag, password: Data? = nil, access: SecAccessControlCreateFlags? = nil)
+
     // Elliptic Curve Public Key
     case ecPubKey(tag: String = KeychainStorage.sensitivePublicKeyTag, publicKey: SecKey? = nil)
+
     // Elliptic Curve Key pair
     case ecKeyPair
 
@@ -87,12 +90,14 @@ enum ItemSearchQuery {
                 kSecAttrKeySizeInBits: 256,
                 kSecAttrTokenID: kSecAttrTokenIDSecureEnclave,
                 kSecPrivateKeyAttrs: privateKeyAttrs
+                // why not kSecReturnRef: true?
             ]
         case .ecKeyPair:
             result = [
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
                 kSecAttrKeySizeInBits: 256,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate
+                // why not kSecReturnRef: true?
             ]
         case let .ecPubKey(tag, pubKey):
             result = [
@@ -128,14 +133,14 @@ enum ItemSearchQuery {
 
 }
 
-func ==(left: ItemSearchQuery, right: ItemSearchQuery) -> Bool {
+func ==(left: KeychainStoreItem, right: KeychainStoreItem) -> Bool {
     switch (left, right) {
     case (.ecKeyPair, .ecKeyPair): return true
     default: return false
     }
 }
 
-func !=(left: ItemSearchQuery, right: ItemSearchQuery) -> Bool {
+func !=(left: KeychainStoreItem, right: KeychainStoreItem) -> Bool {
     !(left == right)
 }
 

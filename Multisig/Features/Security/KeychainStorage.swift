@@ -20,13 +20,13 @@ class KeychainStorage {
 
     // store passcode. Either if it random (user didn't give a password) or the user asked us to remember it
     func storePasscode(passcode: String) throws {
-        try storeItem(item: ItemSearchQuery.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service(), data: passcode.data(using: .utf8)))
+        try storeItem(item: KeychainStoreItem.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service(), data: passcode.data(using: .utf8)))
     }
 
     func retrievePasscode() -> String? {
         // Retrieve password from persistence
         do {
-            if let passCodeData = try findItem(item: ItemSearchQuery.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service())) {
+            if let passCodeData = try findItem(item: KeychainStoreItem.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service())) {
                 return String.init(data: passCodeData, encoding: .utf8)
             } else {
                 return nil
@@ -41,7 +41,7 @@ class KeychainStorage {
         return NSError(domain: NSOSStatusErrorDomain, code: Int(status), userInfo: [NSLocalizedDescriptionKey: message])
     }
 
-    private func findItem(item: ItemSearchQuery) throws -> Data? {
+    private func findItem(item: KeychainStoreItem) throws -> Data? {
         let query = item.createSearchQuery()
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query, &item)
@@ -80,11 +80,11 @@ class KeychainStorage {
         if !useBiometry {
             flags = [.applicationPassword]
         }
-        return try createKeyPair(ItemSearchQuery.enclaveKey(password: applicationPassword.data(using: .utf8), access: flags))
+        return try createKeyPair(KeychainStoreItem.enclaveKey(password: applicationPassword.data(using: .utf8), access: flags))
     }
 
     func retrieveEncryptedData(dataID: DataID) throws -> Data? {
-        let query = ItemSearchQuery.generic(id: dataID.id, service: dataID.protectionClass.service()).createSearchQuery()
+        let query = KeychainStoreItem.generic(id: dataID.id, service: dataID.protectionClass.service()).createSearchQuery()
 
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query, &item)
@@ -105,7 +105,7 @@ class KeychainStorage {
         }
     }
 
-    func storeItem(item: ItemSearchQuery) throws {
+    func storeItem(item: KeychainStoreItem) throws {
         try deleteItem(item)
         // We pass nil here because we do not need to return a copy of the stored item
         let status = SecItemAdd(try item.createAttributesForItem(), nil)
@@ -115,12 +115,12 @@ class KeychainStorage {
     }
 
     func retrieveSensitivePublicKey() throws -> SecKey? {
-        try findKey(query: ItemSearchQuery.ecPubKey())
+        try findKey(query: KeychainStoreItem.ecPubKey())
     }
 
-    func createKeyPair(_ item: ItemSearchQuery = ItemSearchQuery.ecKeyPair) throws -> SecKey {
+    func createKeyPair(_ item: KeychainStoreItem = KeychainStoreItem.ecKeyPair) throws -> SecKey {
         // .ecKeyPair keys are not stored automatically. So we do not need to delete them here
-        if item != ItemSearchQuery.ecKeyPair  {
+        if item != KeychainStoreItem.ecKeyPair  {
             try deleteItem(item)
         }
         let attributes = try item.createAttributesForItem()
@@ -144,7 +144,7 @@ class KeychainStorage {
         return (result, authenticationContext)
     }
 
-    func deleteItem(_ query: ItemSearchQuery) throws {
+    func deleteItem(_ query: KeychainStoreItem) throws {
         let status = SecItemDelete(query.createSearchQuery())
 
         guard status == errSecSuccess || status == errSecItemNotFound else {
@@ -152,7 +152,7 @@ class KeychainStorage {
         }
     }
 
-    func findKey(query: ItemSearchQuery) throws -> SecKey? {
+    func findKey(query: KeychainStoreItem) throws -> SecKey? {
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query.createSearchQuery(), &item)
         switch status {
