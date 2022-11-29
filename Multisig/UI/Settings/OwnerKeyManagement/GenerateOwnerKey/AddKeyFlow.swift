@@ -66,7 +66,11 @@ class AddKeyFlow: UIFlow {
     }
 
     func importKey() {
-        assert(keyParameters != nil)
+        guard let keyParameters = keyParameters else {
+            assertionFailure("Missing key arguments")
+            return
+        }
+
         let existingKey = try! KeyInfo.firstKey(address: keyParameters.address)
         guard existingKey == nil else {
             App.shared.snackbar.show(error: GSError.KeyAlreadyImported())
@@ -104,11 +108,14 @@ class AddKeyFlow: UIFlow {
     }
 
     func keyAdded() {
-        assert(keyParameters != nil)
-        assert(keyParameters.name != nil)
-        let vc = factory.keyAdded(address: keyParameters.address,
-                                  name: keyParameters.name!,
-                                  type: keyParameters.type) { [unowned self] in
+        guard let address = keyParameters?.address,
+                let type = keyParameters?.type,
+                let name = keyParameters?.name else {
+            assertionFailure("Missing key arguments")
+            return
+        }
+
+        let vc = factory.keyAdded(address: address, name: name, type: type) { [unowned self] in
             didDelegateKeySetup()
         }
 

@@ -72,7 +72,11 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func addKeyAsOwner() {
-        assert(parameters?.address != nil)
+        guard let address = parameters?.address else {
+            assertionFailure("Missing key arguments")
+            return
+        }
+
         safe = try? Safe.getSelected()
         guard let safe = safe else {
             didAddKeyAsOwner()
@@ -81,7 +85,7 @@ class GenerateKeyFlow: AddKeyFlow {
 
         if safe.isReadOnly {
             let vc = flowFactory.inviteToAddOwner { [unowned self] in
-                let vc = flowFactory.shareAddKeyAsOwnerLink(owner: parameters!.address, safe: safe) { [unowned self] in
+                let vc = flowFactory.shareAddKeyAsOwnerLink(owner: address, safe: safe) { [unowned self] in
                     stop(success: true)
                     return
                 }
@@ -105,8 +109,11 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func addOwner() {
-        assert(parameters != nil)
-        addOwnerFlow = AddOwnerFlow(newOwner: parameters!.address, safe: safe!) { [unowned self] skippedTxDetails in
+        guard let address = parameters?.address else {
+            assertionFailure("Missing key arguments")
+            return
+        }
+        addOwnerFlow = AddOwnerFlow(newOwner: address, safe: safe!) { [unowned self] skippedTxDetails in
             addOwnerFlow = nil
             didAddKeyAsOwner(openKeyDetails: skippedTxDetails)
         }
@@ -138,9 +145,13 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func details() {
-        assert(parameters != nil)
+        guard let address = parameters?.address else {
+            assertionFailure("Missing key arguments")
+            return
+        }
+
         navigationController.setNavigationBarHidden(false, animated: true)
-        let key = try? KeyInfo.firstKey(address: parameters!.address)
+        let key = try? KeyInfo.firstKey(address: address)
         assert(key != nil)
         let keyVC = flowFactory.details(keyInfo: key!) { [unowned self] in
             stop(success: true)
