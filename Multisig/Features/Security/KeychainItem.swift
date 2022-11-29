@@ -6,17 +6,17 @@
 import Foundation
 import LocalAuthentication
 
-enum ItemSearchQuery {
+enum KeychainItem {
     // Encrypted blob. Can be a password or a cec secret key
     case generic(id: String, service: String, data: Data? = nil)
     // Key stays in the Secure Enclave
-    case enclaveKey(tag: String = KeychainStorage.sensitiveKekTag, password: Data? = nil, access: SecAccessControlCreateFlags? = nil)
+    case enclaveKey(tag: String = KeychainStorage.sensitivePrivateKekTag, password: Data? = nil, access: SecAccessControlCreateFlags? = nil)
     // Elliptic Curve Public Key
     case ecPubKey(tag: String = KeychainStorage.sensitivePublicKeyTag, publicKey: SecKey? = nil)
     // Elliptic Curve Key pair
     case ecKeyPair
 
-    func createSearchQuery() -> NSDictionary {
+    func searchQuery() -> NSDictionary {
         var result: NSMutableDictionary
 
         switch self {
@@ -56,7 +56,7 @@ enum ItemSearchQuery {
         return result
     }
 
-    func createAttributesForItem() throws -> NSDictionary {
+    func creationAttributes() throws -> NSDictionary {
         var result: NSMutableDictionary = [:]
         switch self {
         case let .generic(id, service, data):
@@ -128,14 +128,14 @@ enum ItemSearchQuery {
 
 }
 
-func ==(left: ItemSearchQuery, right: ItemSearchQuery) -> Bool {
+func ==(left: KeychainItem, right: KeychainItem) -> Bool {
     switch (left, right) {
     case (.ecKeyPair, .ecKeyPair): return true
     default: return false
     }
 }
 
-func !=(left: ItemSearchQuery, right: ItemSearchQuery) -> Bool {
+func !=(left: KeychainItem, right: KeychainItem) -> Bool {
     !(left == right)
 }
 
