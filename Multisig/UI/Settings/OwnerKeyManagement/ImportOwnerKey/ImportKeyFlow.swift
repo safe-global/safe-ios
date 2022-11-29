@@ -60,8 +60,14 @@ class ImportKeyFlow: AddKeyFlow {
     }
 
     override func doImport() -> Bool {
-        assert(parameters?.name != nil)
-        return OwnerKeyController.importKey(parameters!.privateKey!, name: parameters!.name!, isDrivedFromSeedPhrase: parameters!.source == .seed)
+        guard let privateKey = parameters?.privateKey,
+              let name = parameters?.name,
+              let source = parameters?.source else {
+            assertionFailure("Missing key arguments")
+            return false
+        }
+        
+        return OwnerKeyController.importKey(privateKey, name: name, isDrivedFromSeedPhrase: source == .seed)
     }
 }
 

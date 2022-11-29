@@ -48,13 +48,19 @@ class LedgerKeyFlow: AddKeyFlow {
     }
 
     override func doImport() -> Bool {
-        assert(parameters?.deviceUUID != nil)
-        assert(parameters?.name != nil)
+        guard let address = parameters?.address,
+              let deviceUUID = parameters?.deviceUUID,
+              let name = parameters?.name,
+              let path = parameters?.derivationPath else {
+            assertionFailure("Missing key arguments")
+            return false
+        }
+        
         return OwnerKeyController.importKey(
-            ledgerDeviceUUID: parameters!.deviceUUID,
-                path: parameters!.derivationPath,
-                address: parameters!.address,
-                name: parameters!.name!
+            ledgerDeviceUUID: deviceUUID,
+                path: path,
+                address: address,
+                name: name
         )
     }
 }

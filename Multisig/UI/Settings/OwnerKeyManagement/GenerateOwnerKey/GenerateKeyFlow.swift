@@ -49,12 +49,13 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     override func doImport() -> Bool {
-        assert(parameters?.name != nil)
-        assert(parameters?.privateKey != nil)
-        let success = OwnerKeyController.importKey(parameters!.privateKey!,
-                                                   name: parameters!.name!,
-                                                   isDrivedFromSeedPhrase: true)
-        return success
+        guard let privateKey = parameters?.privateKey,
+              let name = parameters?.name else {
+            assertionFailure("Missing key arguments")
+            return false
+        }
+
+        return OwnerKeyController.importKey(privateKey, name: name, isDrivedFromSeedPhrase: true)
     }
 
     func backup() {

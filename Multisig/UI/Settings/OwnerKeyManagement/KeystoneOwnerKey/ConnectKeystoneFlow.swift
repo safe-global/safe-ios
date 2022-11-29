@@ -64,14 +64,19 @@ final class ConnectKeystoneFlow: AddKeyFlow {
     }
     
     override func doImport() -> Bool {
-        assert(parameters?.name != nil)
-        assert(parameters?.sourceFingerprint != nil)
+        guard let address = parameters?.address,
+              let path = parameters?.derivationPath,
+              let name = parameters?.name,
+              let sourceFingerprint = parameters?.sourceFingerprint else {
+            assertionFailure("Missing key arguments")
+            return false
+        }
 
         return OwnerKeyController.importKey(
-            keystone: parameters!.address,
-            path: parameters!.derivationPath,
-            name: parameters!.name!,
-            sourceFingerprint: parameters!.sourceFingerprint!
+            keystone: address,
+            path: path,
+            name: name,
+            sourceFingerprint: sourceFingerprint
         )
     }
 }
