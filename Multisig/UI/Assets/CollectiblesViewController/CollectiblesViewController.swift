@@ -39,7 +39,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         tableView.backgroundColor = UIColor(named: "backgroundContent")
 
         tableView.registerCell(CollectibleTableViewCell.self)
-        tableView.registerCell(CollectiblesHeaderView.self)
+        tableView.registerCell(CollectibleHeaderTableViewCell.self)
 
         tableView.registerHeaderFooterView(IdleFooterView.self)
         tableView.registerHeaderFooterView(LoadingFooterView.self)
@@ -214,7 +214,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
 
         switch item {
         case .header(let collectibleHeader):
-            let cell = tableView.dequeueCell(CollectiblesHeaderView.self, for: indexPath)
+            let cell = tableView.dequeueCell(CollectibleHeaderTableViewCell.self, for: indexPath)
             cell.setName(collectibleHeader.name)
             cell.setImage(with: collectibleHeader.logoURL, placeholder: UIImage(named: "ico-nft-placeholder")!)
             //cell.separatorInset = UIEdgeInsets(top: 0, left: view.frame.size.width, bottom: 0, right: 0)

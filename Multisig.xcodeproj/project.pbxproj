@@ -729,8 +729,6 @@
 		5596710D256E935F0097D3A2 /* MockSecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596710C256E935F0097D3A2 /* MockSecureStore.swift */; };
 		5596C03825507EAE00EF23A5 /* CollectibleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */; };
 		5596C03E25507F3C00EF23A5 /* CollectibleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */; };
-		5596C0482550813B00EF23A5 /* CollectiblesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5596C0472550813B00EF23A5 /* CollectiblesHeaderView.swift */; };
-		5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5596C058255081AE00EF23A5 /* CollectiblesHeaderView.xib */; };
 		55A58534250140B1005E778B /* PrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A58533250140B1005E778B /* PrivateKey.swift */; };
 		55A5853D2501479C005E778B /* BIP39.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5853C2501479C005E778B /* BIP39.swift */; };
 		55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A5853E25014AD7005E778B /* BIP39+WordLists.swift */; };
@@ -836,6 +834,8 @@
 		6ADEB01C2795AB410062ADFE /* InfoLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB01A2795AB410062ADFE /* InfoLabel.xib */; };
 		6ADEB02727B559370062ADFE /* WebConnectionOwnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */; };
 		6ADEB02827B559370062ADFE /* WebConnectionOwnerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */; };
+		6AF685392937629900E63289 /* CollectibleHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF685372937629800E63289 /* CollectibleHeaderTableViewCell.swift */; };
+		6AF6853A2937629900E63289 /* CollectibleHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AF685382937629800E63289 /* CollectibleHeaderTableViewCell.xib */; };
 		6AFD26DB285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFD26D9285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift */; };
 		6AFD26DC285764A200336FFE /* ReceiveAddOwnerLinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AFD26DA285764A200336FFE /* ReceiveAddOwnerLinkViewController.xib */; };
 		6AFD26DE28578F1200336FFE /* IdenticonInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFD26DD28578F1200336FFE /* IdenticonInfoView.swift */; };
@@ -1675,8 +1675,6 @@
 		55967118256EB2120097D3A2 /* RegisterNotificationTokenRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNotificationTokenRequestTests.swift; sourceTree = "<group>"; };
 		5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectibleTableViewCell.xib; sourceTree = "<group>"; };
 		5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleTableViewCell.swift; sourceTree = "<group>"; };
-		5596C0472550813B00EF23A5 /* CollectiblesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectiblesHeaderView.swift; sourceTree = "<group>"; };
-		5596C058255081AE00EF23A5 /* CollectiblesHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectiblesHeaderView.xib; sourceTree = "<group>"; };
 		55A58533250140B1005E778B /* PrivateKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKey.swift; sourceTree = "<group>"; };
 		55A5853C2501479C005E778B /* BIP39.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIP39.swift; sourceTree = "<group>"; };
 		55A5853E25014AD7005E778B /* BIP39+WordLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BIP39+WordLists.swift"; sourceTree = "<group>"; };
@@ -1786,6 +1784,8 @@
 		6ADEB01A2795AB410062ADFE /* InfoLabel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoLabel.xib; sourceTree = "<group>"; };
 		6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnectionOwnerView.swift; sourceTree = "<group>"; };
 		6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebConnectionOwnerView.xib; sourceTree = "<group>"; };
+		6AF685372937629800E63289 /* CollectibleHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		6AF685382937629800E63289 /* CollectibleHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectibleHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		6AFD26D9285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddOwnerLinkViewController.swift; sourceTree = "<group>"; };
 		6AFD26DA285764A200336FFE /* ReceiveAddOwnerLinkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceiveAddOwnerLinkViewController.xib; sourceTree = "<group>"; };
 		6AFD26DD28578F1200336FFE /* IdenticonInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdenticonInfoView.swift; sourceTree = "<group>"; };
@@ -3499,8 +3499,6 @@
 				04CE3F9E24B7191E00826AEE /* CollectibleViewModel.swift */,
 				0AEEBC71258CDF9400F3A6F9 /* CollectibleDetailViewController.swift */,
 				0AEEBC72258CDF9400F3A6F9 /* CollectibleDetailViewController.xib */,
-				5596C0472550813B00EF23A5 /* CollectiblesHeaderView.swift */,
-				5596C058255081AE00EF23A5 /* CollectiblesHeaderView.xib */,
 				5503F62B2550625F0046545C /* CollectiblesViewController.swift */,
 				5596C03D25507F3C00EF23A5 /* CollectibleTableViewCell.swift */,
 				5596C03725507EAE00EF23A5 /* CollectibleTableViewCell.xib */,
@@ -3509,6 +3507,8 @@
 				0AC2A3C526FB6802002CB26A /* CollectiblesUnsupportedViewController.swift */,
 				0AC2A3C626FB6802002CB26A /* CollectiblesUnsupportedViewController.xib */,
 				6A9B012A2934995D007A6434 /* FlatCollectiblesListViewModel.swift */,
+				6AF685372937629800E63289 /* CollectibleHeaderTableViewCell.swift */,
+				6AF685382937629800E63289 /* CollectibleHeaderTableViewCell.xib */,
 			);
 			path = CollectiblesViewController;
 			sourceTree = "<group>";
@@ -4591,7 +4591,6 @@
 				042626E328EEE62F000BD2CC /* successAnimation.json in Resources */,
 				045A176D283675D50020484B /* WarningTableViewCell.xib in Resources */,
 				0AEEBC80258CE25700F3A6F9 /* WebImageView.xib in Resources */,
-				5596C059255081AE00EF23A5 /* CollectiblesHeaderView.xib in Resources */,
 				550FB1A226691CA300C13D54 /* dapps-mainnet.json in Resources */,
 				0A86EE7525CC2BC30059876E /* LoadingFooterView.xib in Resources */,
 				0AF1C81325408EA000E28669 /* SegmentViewController.xib in Resources */,
@@ -4611,6 +4610,7 @@
 				0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */,
 				5559A91727675DB600237A5D /* dapps-arbitrum.json in Resources */,
 				0AE8C05D2579354C00E62B34 /* TokenInfoView.xib in Resources */,
+				6AF6853A2937629900E63289 /* CollectibleHeaderTableViewCell.xib in Resources */,
 				0A8AEB1925A4726E002A3FE1 /* ActionDetailExpandableCell.xib in Resources */,
 				04C5DF6C26FB451B0072476C /* KeyTypeTableViewCell.xib in Resources */,
 				93C38DC228C74CAA005188EC /* WhatIsSafeViewController.xib in Resources */,
@@ -4809,7 +4809,6 @@
 				0A791D9F24D309CE00D70DA9 /* ScreenMetrics.swift in Sources */,
 				0A9366AF278F0A9F001918A9 /* LabeledTextField.swift in Sources */,
 				0ADDB34E24518F8F0056B284 /* ActivityIndicator.swift in Sources */,
-				5596C0482550813B00EF23A5 /* CollectiblesHeaderView.swift in Sources */,
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
 				0A9BC32F246022BD00EB9C5D /* ENS.swift in Sources */,
 				0A86EE6325CC2B350059876E /* LoadingFooterView.swift in Sources */,
@@ -5040,6 +5039,7 @@
 				047691592464026400D73D8B /* SectionHeader.swift in Sources */,
 				0AF5C66D27BAA74300BFEA52 /* WebConnectionTableViewCell.swift in Sources */,
 				0AADCDBE2858CD3800A0139B /* AddOwnerRequestUrlValidator.swift in Sources */,
+				6AF685392937629900E63289 /* CollectibleHeaderTableViewCell.swift in Sources */,
 				0455A44527282EAA008B772D /* FileManagerWrapper.swift in Sources */,
 				04273E6026D43F0400A14E95 /* IdenticonView.swift in Sources */,
 				555312EF2506641D0008206B /* RIPEMD160.swift in Sources */,
