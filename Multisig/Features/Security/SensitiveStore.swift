@@ -82,7 +82,7 @@ class SensitiveStore: EncryptedStore {
         let privateKeyItem = KeychainItem.ecKeyPair // is it a pair though? also, why no tag? because it is not stored directly.
         let sensitiveKey: SecKey = try store.create(privateKeyItem) as! SecKey
 
-        let encryptedPK = try encrypt(publicKey: keyEncryptionKey.publicKey(), plainText: Data(privateKey: sensitiveKey))
+        let encryptedPK = try encrypt(publicKey: keyEncryptionKey.publicKey(), plainText: Data(secKey: sensitiveKey))
 
         // store key pair
         // store encrypted private key
@@ -99,13 +99,6 @@ class SensitiveStore: EncryptedStore {
         )
         try store.create(pubKeyItem)
     }
-
-//    private func encrypt(plainText: Data, publicKey: SecKey) throws -> Data {
-//
-//        // Implement encryption using
-//        return plainText
-//    }
-
 
     private func createRandomBytes(_ amount: Int) -> Data? {
         var bytes: [UInt8] = .init(repeating: 0, count: amount)
@@ -135,10 +128,14 @@ class SensitiveStore: EncryptedStore {
 }
 
 extension Data {
-    init(privateKey: SecKey) {
+    init(secKey: SecKey) throws {
         self.init()
-        // convert to data with SecKeyCopyExternalRepresentation
+        var error: Unmanaged<CFError>?
+        guard let sensitiveKeyData = SecKeyCopyExternalRepresentation(secKey, &error) as Data? else {
+            throw error!.takeRetainedValue() as Error
+        }
 
+        self = sensitiveKeyData
     }
 }
 

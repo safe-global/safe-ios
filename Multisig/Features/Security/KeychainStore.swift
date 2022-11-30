@@ -43,16 +43,26 @@ class KeychainStore {
     // must have kSecReturnData or kSecReturnRef (true) in attributes
     func create(_ attributes: NSDictionary) throws -> Any {
         let itemClass = attributes[kSecClass] as! CFString
-
-        switch itemClass {
-        case kSecClassKey:
+        var keyType: CFString? = nil
+        if attributes[kSecAttrKeyClass] != nil {
+            keyType = attributes[kSecAttrKeyClass] as! CFString
+        }
+        switch (itemClass, keyType) {
+        case (kSecClassKey, kSecAttrKeyClassPrivate):
             var error: Unmanaged<CFError>?
             guard let privateKey = SecKeyCreateRandomKey(attributes, &error) else {
                 throw error!.takeRetainedValue() as Error
             }
             return privateKey
 
-        case kSecClassGenericPassword:
+        case (kSecClassKey, kSecAttrKeyClassPublic):
+            let status = SecItemAdd(attributes, nil)
+            guard status == errSecSuccess else {
+                throw GSError.GenericPasscodeError(reason: "Cannot store public key")
+            }
+            return attributes[kSecValueRef] as! CFData
+
+        case (kSecClassGenericPassword, _):
             var item: CFTypeRef?
             let status = SecItemAdd(attributes, &item)
             guard status == errSecSuccess else {
