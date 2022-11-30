@@ -17,7 +17,7 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBf-m5-tVc">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
-                    <color key="backgroundColor" name="backgroundPrimary"/>
+                    <color key="backgroundColor" name="backgroundContent"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="30" id="DVk-Cm-wu7"/>
                     </constraints>
@@ -35,8 +35,8 @@
         </view>
     </objects>
     <resources>
-        <namedColor name="backgroundPrimary">
-            <color red="0.96470588235294119" green="0.96862745098039216" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="backgroundContent">
+            <color red="0.96862745098039216" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

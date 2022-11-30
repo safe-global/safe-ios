@@ -45,8 +45,6 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         tableView.registerHeaderFooterView(LoadingFooterView.self)
         tableView.registerHeaderFooterView(RetryFooterView.self)
 
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 48
         tableView.sectionHeaderHeight = headerHeight
         tableView.sectionFooterHeight = footerHeight
         tableView.separatorStyle = .none
@@ -176,6 +174,18 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model.items.count
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        var height:CGFloat = CGFloat()
+        let item = model.items[indexPath.row]
+        switch item {
+        case .header:
+            height = 50
+        case .collectible:
+            height = 150
+        }
+        return height
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
