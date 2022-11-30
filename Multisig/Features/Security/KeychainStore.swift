@@ -38,7 +38,7 @@ class KeychainItemStore {
 // wrapper around Security/Keychain APIs
 class KeychainStore {
 
-    // atributes must contain the kSecClass
+    // attributes must contain the kSecClass
     // the value must be either key or generic password
     // must have kSecReturnData or kSecReturnRef (true) in attributes
     func create(_ attributes: NSDictionary) throws -> Any {
