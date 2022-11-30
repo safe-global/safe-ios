@@ -19,19 +19,19 @@ class KeychainItemStore {
 
     private let store: KeychainStore
 
-    func create(_ item: KeychainStoreItem) throws -> Any {
+    func create(_ item: KeychainItem) throws -> Any {
         // delete if exists
-        try store.delete(item.createSearchQuery())
+        try store.delete(item.searchQuery())
         // create a new
-        return try store.create(item.createAttributesForItem())
+        return try store.create(item.creationAttributes())
     }
 
-    func find(_ item: KeychainStoreItem) throws -> Any? {
-        return try store.find(item.createSearchQuery())
+    func find(_ item: KeychainItem) throws -> Any? {
+        return try store.find(item.searchQuery())
     }
 
-    func delete(_ item: KeychainStoreItem) throws {
-        try store.delete(item.createSearchQuery())
+    func delete(_ item: KeychainItem) throws {
+        try store.delete(item.searchQuery())
     }
 }
 
