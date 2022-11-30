@@ -36,6 +36,8 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         tableView.delegate = self
         tableView.dataSource = self
 
+        tableView.backgroundColor = UIColor(named: "backgroundContent")
+
         tableView.registerCell(CollectibleTableViewCell.self)
         tableView.registerCell(CollectiblesHeaderView.self)
 

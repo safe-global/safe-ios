@@ -48,7 +48,6 @@ enum CollectibleListItem: Decodable {
     case collectible(CollectibleItem)
 }
 
-
 struct CollectibleHeader: Decodable {
     let name: String
     let logoURL: URL?
