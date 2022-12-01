@@ -35,7 +35,17 @@ struct FlatCollectiblesListViewModel {
     }
 
     mutating func add(_ models: [CollectibleListItem] = []) {
-        self.items.append(contentsOf: models)
+        guard case let .collectible(collectibleItem) = items.last, let previousPageLastNft = collectibleItem.collectible.address else {
+            return
+        }
+        guard case let .collectible(collectibleItem) = models[1], let currentPageFirstNft = collectibleItem.collectible.address else {
+            return
+        }
+        if previousPageLastNft == currentPageFirstNft {
+            self.items.append(contentsOf: models.dropFirst(1))
+        } else {
+            self.items.append(contentsOf: models)
+        }
     }
 
     var lastTransaction: CollectibleListItem? {
