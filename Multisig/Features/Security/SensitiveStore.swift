@@ -45,11 +45,17 @@ class SensitiveStore: EncryptedStore {
 
     private let store: KeychainItemStore
 
-    private let passwordID = "passwordID"
+    private let passwordID = "global.safe.password.as.data"
     private let serviceID = "serviceID"
     private let privateKEKID = "privateKEKID"
     private let privateKeyID = "privateKeyID"
-    private let publicKeyID = "publicKeyID"
+    private let publicKeyID = "global.safe.sensitivePublicKeyTag"
+
+    static let sensitivePublicKeyTag = "global.safe.sensitivePublicKeyTag"
+    static let sensitivePublicKekTag = "global.safe.sensitivePublicKEKTag"
+    static let sensitivePrivateKekTag = "global.safe.sensitivePrivateKEKTag"
+    static let sensitiveEncryptedPrivateKeyTag = "global.safe.sensitive.private.key.as.encrypted.data"
+    static let derivedPasswordTag = "global.safe.password.as.data"
 
     init(_ store: KeychainItemStore) {
         self.store = store
@@ -82,7 +88,7 @@ class SensitiveStore: EncryptedStore {
         let privateKeyItem = KeychainItem.ecKeyPair // is it a pair though? also, why no tag? because it is not stored directly.
         let sensitiveKey: SecKey = try store.create(privateKeyItem) as! SecKey
 
-        let encryptedPK = try encrypt(publicKey: keyEncryptionKey.publicKey(), plainText: Data(secKey: sensitiveKey))
+        let encryptedPK = try Data(secKey: sensitiveKey).encrypt(publicKey: keyEncryptionKey.publicKey())
 
         // store key pair
         // store encrypted private key
@@ -109,22 +115,6 @@ class SensitiveStore: EncryptedStore {
         return Data(bytes)
     }
 
-    private func encrypt(publicKey: SecKey?, plainText: Data) throws -> Data {
-        var error: Unmanaged<CFError>?
-        guard let encryptedSensitiveKey = SecKeyCreateEncryptedData(publicKey!, .eciesEncryptionStandardX963SHA256AESGCM, plainText as CFData, &error) as? Data else {
-            throw error!.takeRetainedValue() as Error
-        }
-        return encryptedSensitiveKey
-    }
-
-    private func decrypt(privateKey: SecKey, encryptedData: Data) throws -> Data {
-        var error: Unmanaged<CFError>?
-        guard let decryptedSensitiveKeyData = SecKeyCreateDecryptedData(privateKey, .eciesEncryptionStandardX963SHA256AESGCM, encryptedData as CFData, &error) else {
-            throw error!.takeRetainedValue() as Error
-        }
-        return decryptedSensitiveKeyData as Data
-    }
-
 }
 
 extension Data {
@@ -136,6 +126,22 @@ extension Data {
         }
 
         self = sensitiveKeyData
+    }
+
+     func encrypt(publicKey: SecKey?) throws -> Data {
+        var error: Unmanaged<CFError>?
+        guard let encryptedSensitiveKey = SecKeyCreateEncryptedData(publicKey!, .eciesEncryptionStandardX963SHA256AESGCM, self as CFData, &error) as? Data else {
+            throw error!.takeRetainedValue() as Error
+        }
+        return encryptedSensitiveKey
+    }
+
+     func decrypt(privateKey: SecKey) throws -> Data {
+        var error: Unmanaged<CFError>?
+        guard let decryptedSensitiveKeyData = SecKeyCreateDecryptedData(privateKey, .eciesEncryptionStandardX963SHA256AESGCM, self as CFData, &error) else {
+            throw error!.takeRetainedValue() as Error
+        }
+        return decryptedSensitiveKeyData as Data
     }
 }
 
