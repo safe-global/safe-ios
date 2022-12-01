@@ -22,6 +22,7 @@ class EnterCustomAddressViewController: UIViewController {
     private var chain: SCGModels.Chain!
     private var trackingParameters: [String: Any]?
 
+    var safeAddress: Address!
     var address: Address?
     var mainnet: Bool = true
     var onContinue: ((_ address: Address) -> ())?
@@ -144,6 +145,11 @@ class EnterCustomAddressViewController: UIViewController {
 
             guard (address.prefix ?? chain.shortName) == chain.shortName else {
                 addressField.setError(GSError.AddressMismatchNetwork())
+                return
+            }
+
+            guard address.checksummed != safeAddress.checksummed else {
+                addressField.setError(GSError.DelagateToSameSafe())
                 return
             }
 
