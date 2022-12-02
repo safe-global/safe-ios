@@ -214,7 +214,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
             root.collectible = CollectibleViewModel(collectible: collectible)
             let vc = RibbonViewController(rootViewController: root)
             show(vc, sender: self)
-        case .header(let collectibleItem):
+        case .header(_):
             break
         }
     }
@@ -227,7 +227,6 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
             let cell = tableView.dequeueCell(CollectibleHeaderTableViewCell.self, for: indexPath)
             cell.setName(collectibleHeader.name)
             cell.setImage(with: collectibleHeader.logoURL, placeholder: UIImage(named: "ico-nft-placeholder")!)
-            //cell.separatorInset = UIEdgeInsets(top: 0, left: view.frame.size.width, bottom: 0, right: 0)
             cell.selectionStyle = .none
             return cell
         case .collectible(let collectibleItem):
