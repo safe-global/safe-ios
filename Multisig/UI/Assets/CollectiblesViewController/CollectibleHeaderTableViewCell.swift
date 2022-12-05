@@ -1,14 +1,15 @@
 //
-//  CollectiblesHeaderView.swift
+//  CollectibleHeaderTableViewCell.swift
 //  Multisig
 //
-//  Created by Andrey Scherbovich on 02.11.20.
-//  Copyright © 2020 Gnosis Ltd. All rights reserved.
+//  Created by Vitaly on 30.11.22.
+//  Copyright © 2022 Gnosis Ltd. All rights reserved.
 //
 
 import UIKit
 
-class CollectiblesHeaderView: UITableViewHeaderFooterView {
+class CollectibleHeaderTableViewCell: UITableViewCell {
+
     @IBOutlet private weak var headerImageView: UIImageView!
     @IBOutlet private weak var headerNameLabel: UILabel!
 
