@@ -38,7 +38,7 @@ struct FlatCollectiblesListViewModel {
         guard case let .collectible(collectibleItem) = items.last, let previousPageLastNft = collectibleItem.collectible.address else {
             return
         }
-        // models[0] always contains header item
+        // models[0] always contains a header because it is a very first section on the page, and the header was added manually before.
         guard case let .collectible(collectibleItem) = models[1], let currentPageFirstNft = collectibleItem.collectible.address else {
             return
         }
