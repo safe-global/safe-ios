@@ -42,7 +42,9 @@ struct FlatCollectiblesListViewModel {
         guard case let .collectible(collectibleItem) = models[1], let currentPageFirstNft = collectibleItem.collectible.address else {
             return
         }
-        // drop first header if page starts with collectibles that are from the same group as last collectibles of the previous page
+        // The 'header separator' items are inserted manually after downloading the collectibles.
+        // This results in duplicated headers if the same section is split between different pages of response.
+        // We have to remove such headers.
         if previousPageLastNft == currentPageFirstNft {
             self.items.append(contentsOf: models.dropFirst(1))
         } else {
