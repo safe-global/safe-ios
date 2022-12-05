@@ -112,10 +112,11 @@ extension SECP256K1.UnmarshaledSignature {
             // recover V by deducting (chainId * 2 + 35) according to EIP-155.
             let vRecovered = vInt - (chainIdInt * 2 + 35)
             v = try! UInt8(vRecovered % 256)
+
+            assert(v == 0 || v == 1)
         } else {
             v = data[64]
         }
-        assert(v == 0 || v == 1)
 
         self.init(v: v, r: r, s: s)
     }
