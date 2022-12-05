@@ -38,6 +38,7 @@ struct FlatCollectiblesListViewModel {
         guard case let .collectible(collectibleItem) = items.last, let previousPageLastNft = collectibleItem.collectible.address else {
             return
         }
+        // models[0] always contains header item
         guard case let .collectible(collectibleItem) = models[1], let currentPageFirstNft = collectibleItem.collectible.address else {
             return
         }
