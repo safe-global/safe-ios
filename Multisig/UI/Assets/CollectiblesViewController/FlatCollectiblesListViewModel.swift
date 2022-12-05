@@ -41,6 +41,7 @@ struct FlatCollectiblesListViewModel {
         guard case let .collectible(collectibleItem) = models[1], let currentPageFirstNft = collectibleItem.collectible.address else {
             return
         }
+        // drop first header if page starts with collectibles that are from the same group as last collectibles of the previous page
         if previousPageLastNft == currentPageFirstNft {
             self.items.append(contentsOf: models.dropFirst(1))
         } else {
