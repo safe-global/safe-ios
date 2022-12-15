@@ -10,7 +10,7 @@
 	</array>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.io.gnosis.multisig.dev.mainnet</string>
+		<string>group.global.safe.multisig.dev</string>
 	</array>
 </dict>
 </plist>

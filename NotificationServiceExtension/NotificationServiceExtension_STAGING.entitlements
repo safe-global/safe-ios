@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.io.gnosis.multisig.staging.mainnet</string>
+		<string>group.global.safe.multisig.staging</string>
 	</array>
 </dict>
 </plist>

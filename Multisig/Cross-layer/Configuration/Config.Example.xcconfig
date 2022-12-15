@@ -44,13 +44,13 @@ _CLAIMING_DATA_URL_PROD       = https:/$()/safe-claiming-app-data.gnosis-safe.io
 
 // Apps
 _APP_BUNDLE_ID_PROD     = io.gnosis.multisig.prod.mainnet
-_APP_BUNDLE_ID_STAGING  = io.gnosis.multisig.staging.mainnet
-_APP_BUNDLE_ID_DEV      = io.gnosis.multisig.dev.mainnet
+_APP_BUNDLE_ID_STAGING  = global.safe.multisig.staging
+_APP_BUNDLE_ID_DEV      = global.safe.multisig.dev
 
 // App Groups
-_APP_GROUP_ID_PROD     = group.io.gnosis.multisig.prod.mainnet
-_APP_GROUP_ID_STAGING  = group.io.gnosis.multisig.staging.mainnet
-_APP_GROUP_ID_DEV      = group.io.gnosis.multisig.dev.mainnet
+_APP_GROUP_ID_PROD     = group.global.safe.multisig.prod
+_APP_GROUP_ID_STAGING  = group.global.safe.multisig.staging
+_APP_GROUP_ID_DEV      = group.global.safe.multisig.dev
 
 APP_GROUP_ID            = $(_APP_GROUP_ID_$(SERVICE_ENV):default=$(_APP_GROUP_ID_PROD))
 
