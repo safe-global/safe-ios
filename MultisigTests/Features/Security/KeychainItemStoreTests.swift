@@ -7,7 +7,7 @@ import XCTest
 @testable import Multisig
 import LocalAuthentication
 
-class KeychainStorageTests: XCTestCase {
+class KeychainItemStoreTests: XCTestCase {
 
     var kciStore: KeychainItemStore! = nil
     let derivedPasscode = "foobar23"
