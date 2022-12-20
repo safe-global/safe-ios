@@ -57,26 +57,27 @@ class KeychainStorageTests: XCTestCase {
     func testStoreAndRetrievePasscode() throws {
         // Given
         let randomString = UUID().uuidString
-        XCTAssertEqual(keychainStorage.retrievePasscode(), nil, "Keychain not empty")
+        let passCodeData = try kciStore.find(KeychainItem.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service())) as! Data?
+        XCTAssertEqual(passCodeData, nil, "Keychain not empty")
 
         // When
         try kciStore.create(KeychainItem.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service(), data: randomString.data(using: .utf8)))
 
         //Then
-        let result = keychainStorage.retrievePasscode()
-        XCTAssertEqual(result, randomString, "Unexpected result: \(result)")
+        let result = try kciStore.find(KeychainItem.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service())) as! Data?
+        XCTAssertEqual(result, randomString.data(using: .utf8), "Unexpected result: \(result)")
     }
 
     func testStoreAndRetrieveSensitivePrivateKey() throws {
         // Given
         let randomData = UUID().uuidString.data(using: .utf8)!
-        XCTAssertEqual(try keychainStorage.retrieveEncryptedData(dataID: DataID(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, protectionClass: .sensitive)), nil, "Precondition failed: Keychain not empty!")
+        XCTAssertEqual(try kciStore.find(.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service())) as! Data?, nil, "Precondition failed: Keychain not empty!")
 
         // When
         try kciStore.create(.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service(), data: randomData))
 
         //Then
-        let result = try keychainStorage.retrieveEncryptedData(dataID: DataID(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, protectionClass: ProtectionClass.sensitive))
+        let result = try kciStore.find(.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service())) as! Data?
         XCTAssertEqual(result, randomData)
     }
 
@@ -97,9 +98,9 @@ class KeychainStorageTests: XCTestCase {
 
     func testStoreDeletesFirst() throws {
         // Given
-        let randomKey = try keychainStorage.createKeyPair()
+        let randomKey = try kciStore.create(KeychainItem.ecKeyPair) as! SecKey
         let randomPublicKey = SecKeyCopyPublicKey(randomKey)!
-        XCTAssertEqual(try keychainStorage.retrieveSensitivePublicKey(), nil, "Precondition failed: Keychain not empty!")
+        XCTAssertEqual(try kciStore.find(KeychainItem.ecPubKey()) as! SecKey?, nil, "Precondition failed: Keychain not empty!")
 
         // When
         try kciStore.create(.ecPubKey(publicKey: randomPublicKey))
@@ -113,7 +114,7 @@ class KeychainStorageTests: XCTestCase {
         // Given
 
         // When
-        let randomKeyPair = try keychainStorage.createKeyPair()
+        let randomKeyPair = try kciStore.create(KeychainItem.ecKeyPair) as! SecKey
 
         // Then
         // Use public key to encrypt
@@ -153,7 +154,7 @@ class KeychainStorageTests: XCTestCase {
         try keychainStorage.createSecureEnclaveKey(useBiometry: false, canChangeBiometry: false, applicationPassword: randomPassword)
 
         // When
-        let key = try keychainStorage.findKey(query: KeychainItem.enclaveKey(password: randomPassword.data(using: .utf8)))!
+        let key = try kciStore.find(KeychainItem.enclaveKey(password: randomPassword.data(using: .utf8))) as! SecKey
 
         // Then
         // check key is usable
@@ -174,7 +175,7 @@ class KeychainStorageTests: XCTestCase {
         try keychainStorage.createSecureEnclaveKey(useBiometry: true, canChangeBiometry: false, applicationPassword: randomPassword)
 
         // When
-        let key = try keychainStorage.findKey(query: .enclaveKey(password: randomPassword.data(using: .utf8)))!
+        let key = try kciStore.find(.enclaveKey(password: randomPassword.data(using: .utf8))) as! SecKey
 
         // Then
         // check key is usable
