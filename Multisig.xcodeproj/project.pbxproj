@@ -886,7 +886,6 @@
 		AD303ABF1DBCA951A106ECD5 /* ReviewReplaceOwnerTxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303A2303B63B1408463F64 /* ReviewReplaceOwnerTxViewController.swift */; };
 		AD303BDA3B1979B4643DAAB1 /* WarnAboutAnyNestedMultisendWithDelegate.json in Resources */ = {isa = PBXBuildFile; fileRef = AD3034FC5D96E7DF5D59FBED /* WarnAboutAnyNestedMultisendWithDelegate.json */; };
 		AD303BE8223BCB5899176612 /* WarnAboutAnyNestedMultisendWithDelegate.json in Resources */ = {isa = PBXBuildFile; fileRef = AD3034FC5D96E7DF5D59FBED /* WarnAboutAnyNestedMultisendWithDelegate.json */; };
-		AD303C28D706C084851543B1 /* CryptUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD30345F3CC308C0D0AD0514 /* CryptUtils.swift */; };
 		AD303C6514DB164B8DE3BC73 /* DelegateWarningTopLevel.json in Resources */ = {isa = PBXBuildFile; fileRef = AD30357FB6EC8DC8DA51ADE4 /* DelegateWarningTopLevel.json */; };
 		AD303E80E0AC44F56C729462 /* NoDelegateWarningBecauseNoDelegateOperation.json in Resources */ = {isa = PBXBuildFile; fileRef = AD303139191A822F493B9A87 /* NoDelegateWarningBecauseNoDelegateOperation.json */; };
 		AD303F546D6DDF8E749E77BE /* DelegateWarningCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD30344347AAE28AEE159D2A /* DelegateWarningCalculator.swift */; };
@@ -1832,7 +1831,6 @@
 		AD3032263454247E99CC6C62 /* TransferWithDelegateWarning.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransferWithDelegateWarning.json; sourceTree = "<group>"; };
 		AD30324716BFFE79E830673F /* DelegateWarningEvenIfMultiSendAddressIsKnown.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DelegateWarningEvenIfMultiSendAddressIsKnown.json; sourceTree = "<group>"; };
 		AD30344347AAE28AEE159D2A /* DelegateWarningCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegateWarningCalculator.swift; sourceTree = "<group>"; };
-		AD30345F3CC308C0D0AD0514 /* CryptUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptUtils.swift; sourceTree = "<group>"; };
 		AD3034FC5D96E7DF5D59FBED /* WarnAboutAnyNestedMultisendWithDelegate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WarnAboutAnyNestedMultisendWithDelegate.json; sourceTree = "<group>"; };
 		AD30357FB6EC8DC8DA51ADE4 /* DelegateWarningTopLevel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DelegateWarningTopLevel.json; sourceTree = "<group>"; };
 		AD3035EE31CD4171C56B475B /* WhatsNewHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsNewHandler.swift; sourceTree = "<group>"; };
@@ -2510,7 +2508,6 @@
 				AD303BAB464F66AA4AE3FF4C /* KeychainItem.swift */,
 				0AC3FBF12936156F0003255F /* KeychainStore.swift */,
 				930F293D2937BA910040C48B /* SensitiveStore.swift */,
-				AD30345F3CC308C0D0AD0514 /* CryptUtils.swift */,
 			);
 			path = Security;
 			sourceTree = "<group>";
@@ -5391,7 +5388,6 @@
 				6A9B012B2934995D007A6434 /* FlatCollectiblesListViewModel.swift in Sources */,
 				AD303F546D6DDF8E749E77BE /* DelegateWarningCalculator.swift in Sources */,
 				AD3038375970A643B6CB80B9 /* KeychainItem.swift in Sources */,
-				AD303C28D706C084851543B1 /* CryptUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
