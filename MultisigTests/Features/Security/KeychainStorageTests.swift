@@ -10,48 +10,48 @@ import LocalAuthentication
 class KeychainStorageTests: XCTestCase {
 
     var kciStore: KeychainItemStore! = nil
-    var keychainStorage: KeychainStorage! = nil
+    var keychainStorage: KeychainStorage! = nil // should be replaced by KeychainItemStore?
     let derivedPasscode = "foobar23"
 
     public override func setUp() {
         super.setUp()
         // Given
-        keychainStorage = KeychainStorage()
-        kciStore = KeychainItemStore(store: KeychainStore())
+        keychainStorage = KeychainStorage() // should be replaced by KeychainItemStore?
+        kciStore = KeychainItemStore(KeychainStore())
     }
 
     public override func tearDown() {
         super.tearDown()
         // Is it possible to always have a clean/empty keychain?
         try! kciStore.delete(.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service()))
-        try! kciStore.delete(.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service()))
+        try! kciStore.delete(.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service()))
         try! kciStore.delete(.ecPubKey())
         try! kciStore.delete(.enclaveKey())
     }
 
     func testDeleteItem() throws {
         // Given
-        let randomKey = try keychainStorage.createKeyPair()
+        let randomKey = try kciStore.create(KeychainItem.ecKeyPair) as! SecKey
         let randomPublicKey = SecKeyCopyPublicKey(randomKey)!
-        XCTAssertEqual(try keychainStorage.retrieveSensitivePublicKey(), nil, "Precondition failed: Keychain not empty!")
+        XCTAssertTrue(try kciStore.find(KeychainItem.ecPubKey()) == nil, "Precondition failed: Keychain not empty!!")
         try kciStore.create(.ecPubKey(publicKey: randomPublicKey))
 
         // When
         try kciStore.delete(.ecPubKey())
 
         //Then
-        XCTAssertEqual(try keychainStorage.retrieveSensitivePublicKey(), nil, "Delete item failed")
+        XCTAssertTrue(try kciStore.find(KeychainItem.ecPubKey()) == nil, "Delete item failed")
     }
 
     func testDeleteItemIgnoreNotFound() throws {
         // Given
-        XCTAssertEqual(try keychainStorage.retrieveSensitivePublicKey(), nil, "Precondition failed: Keychain not empty!")
+        XCTAssertTrue(try kciStore.find(KeychainItem.ecPubKey()) == nil, "Precondition failed: Keychain not empty!!")
 
         // When
         try kciStore.delete(.ecPubKey())
 
         //Then
-        XCTAssertEqual(try keychainStorage.retrieveSensitivePublicKey(), nil, "Delete item failed")
+        XCTAssertTrue(try kciStore.find(KeychainItem.ecPubKey()) == nil, "Delete item failed")
     }
 
     func testStoreAndRetrievePasscode() throws {
@@ -70,28 +70,29 @@ class KeychainStorageTests: XCTestCase {
     func testStoreAndRetrieveSensitivePrivateKey() throws {
         // Given
         let randomData = UUID().uuidString.data(using: .utf8)!
-        XCTAssertEqual(try keychainStorage.retrieveEncryptedData(dataID: DataID(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, protectionClass: .sensitive)), nil, "Precondition failed: Keychain not empty!")
+        XCTAssertEqual(try keychainStorage.retrieveEncryptedData(dataID: DataID(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, protectionClass: .sensitive)), nil, "Precondition failed: Keychain not empty!")
 
         // When
-        try kciStore.create(.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service(), data: randomData))
+        try kciStore.create(.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service(), data: randomData))
 
         //Then
-        let result = try keychainStorage.retrieveEncryptedData(dataID: DataID(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, protectionClass: ProtectionClass.sensitive))
+        let result = try keychainStorage.retrieveEncryptedData(dataID: DataID(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, protectionClass: ProtectionClass.sensitive))
         XCTAssertEqual(result, randomData)
     }
 
     func testStoreAndRetrieveSensitivePublicKey() throws {
         // Given
-        let randomKey = try keychainStorage.createKeyPair()
+        let randomKey = try kciStore.create(KeychainItem.ecKeyPair) as! SecKey
+
         let randomPublicKey = SecKeyCopyPublicKey(randomKey)!
-        XCTAssertEqual(try keychainStorage.retrieveSensitivePublicKey(), nil, "Precondition failed: Keychain not empty!")
+        XCTAssertTrue(try kciStore.find(KeychainItem.ecPubKey()) == nil, "Precondition failed: Keychain not empty!")
 
         // When
         try kciStore.create(KeychainItem.ecPubKey(publicKey: randomPublicKey))
 
         //Then
-        let result = try keychainStorage.retrieveSensitivePublicKey()
-        XCTAssertEqual(result, randomPublicKey, "Retrieved public key does not match stored public key!")
+        let result = try kciStore.find(KeychainItem.ecPubKey()) as! SecKey?
+        XCTAssertTrue(result == randomPublicKey, "Retrieved public key does not match stored public key!")
     }
 
     func testStoreDeletesFirst() throws {

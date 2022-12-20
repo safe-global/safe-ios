@@ -7,6 +7,7 @@ import Foundation
 import CommonCrypto
 import CryptoKit
 
+// @Deprecated
 class SensitiveEncryptedStore: EncryptedStore {
 
     let keychainStorage: KeychainStorage
@@ -64,12 +65,12 @@ class SensitiveEncryptedStore: EncryptedStore {
         }
         // Copy public KEK Key to encrypt sensitive key)
         let sensitivePublicKek = SecKeyCopyPublicKey(sensitiveKEK)
-        try keychainStorage.storeItem(item: KeychainItem.ecPubKey(tag: KeychainStorage.sensitivePublicKekTag, publicKey: sensitivePublicKek))
+        try keychainStorage.storeItem(item: KeychainItem.ecPubKey(tag: SensitiveStore.sensitivePublicKekTag, publicKey: sensitivePublicKek))
         // encrypt private part of sensitive_key
         // encrypt data using sensitiveKEK
         let encryptedSensitiveKey = try encrypt(publicKey: sensitivePublicKek, plainText: sensitiveKeyData)
         // Store encrypted sensitive private key in keychain as blob
-        try keychainStorage.storeItem(item: KeychainItem.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service(),data: encryptedSensitiveKey))
+        try keychainStorage.storeItem(item: KeychainItem.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service(),data: encryptedSensitiveKey))
     }
 
     private func persistSensitivePublicKey(sensitiveKey: SecKey) throws { // copy public part from SecKey
@@ -120,7 +121,7 @@ class SensitiveEncryptedStore: EncryptedStore {
         let sensitiveKEK = try keychainStorage.findKey(query: KeychainItem.enclaveKey(password: password?.data(using: .utf8)))!
 
         // find encrypted sensitive key
-        let encryptedSensitiveKeyData = try keychainStorage.retrieveEncryptedData(dataID: DataID(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, protectionClass: .sensitive))!
+        let encryptedSensitiveKeyData = try keychainStorage.retrieveEncryptedData(dataID: DataID(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, protectionClass: .sensitive))!
 
         // decrypt encrypted sensitive key
         var error: Unmanaged<CFError>?
@@ -158,7 +159,7 @@ class SensitiveEncryptedStore: EncryptedStore {
 
     }
 
-    func delete(address: Address) {
+    func delete(address: Address) throws {
         // delete encrypted blob by address
     }
 

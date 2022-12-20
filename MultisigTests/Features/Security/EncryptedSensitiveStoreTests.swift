@@ -9,21 +9,21 @@ import XCTest
 public class EncryptedSensitiveStoreTests: XCTestCase {
 
     var encryptedStore: EncryptedStore! = nil
-    var keychainStorage: KeychainStorage! = nil
+    var keychainItemStore: KeychainItemStore! = nil
 
     public override func setUp() {
         super.setUp()
-        keychainStorage = KeychainStorage()
-        encryptedStore = SensitiveEncryptedStore(keychainStorage)
+        keychainItemStore = KeychainItemStore(KeychainStore())
+        encryptedStore = SensitiveStore(keychainItemStore)
     }
 
     public override func tearDown() {
         super.tearDown()
         // Is it possible to always have a clean/empty keychain?
-        try! keychainStorage.deleteItem(.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service()))
-        try! keychainStorage.deleteItem(.generic(id: KeychainStorage.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service()))
-        try! keychainStorage.deleteItem(.ecPubKey())
-        try! keychainStorage.deleteItem(.enclaveKey())
+        try! keychainItemStore.delete(.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service()))
+        try! keychainItemStore.delete(.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service()))
+        try! keychainItemStore.delete(.ecPubKey())
+        try! keychainItemStore.delete(.enclaveKey())
     }
 
     func testInitialSetup() {

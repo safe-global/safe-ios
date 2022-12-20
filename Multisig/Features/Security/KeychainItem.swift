@@ -11,9 +11,9 @@ enum KeychainItem {
     // Encrypted blob. Can be a password or a cec secret key
     case generic(id: String, service: String, data: Data? = nil)
     // Key stays in the Secure Enclave
-    case enclaveKey(tag: String = KeychainStorage.sensitivePrivateKekTag, password: Data? = nil, access: SecAccessControlCreateFlags? = nil)
+    case enclaveKey(tag: String = SensitiveStore.sensitivePrivateKekTag, password: Data? = nil, access: SecAccessControlCreateFlags? = nil)
     // Elliptic Curve Public Key
-    case ecPubKey(tag: String = KeychainStorage.sensitivePublicKeyTag, publicKey: SecKey? = nil)
+    case ecPubKey(tag: String = SensitiveStore.sensitivePublicKeyTag, publicKey: SecKey? = nil)
 
     // Elliptic Curve Key pair
     case ecKeyPair
@@ -93,10 +93,10 @@ enum KeychainItem {
             ]
         case .ecKeyPair:
             result = [
+                kSecClass: kSecClassKey,
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
                 kSecAttrKeySizeInBits: 256,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate
-                // why not kSecReturnRef: true?
             ]
         case let .ecPubKey(tag, pubKey):
             result = [

@@ -10,12 +10,9 @@ import Foundation
 import CommonCrypto
 import LocalAuthentication
 
+// @Deprecated -> KeychainItemStore + SensitiveStore
 class KeychainStorage {
 
-    static let sensitivePublicKeyTag = "global.safe.sensitivePublicKeyTag"
-    static let sensitivePublicKekTag = "global.safe.sensitivePublicKEKTag"
-    static let sensitivePrivateKekTag = "global.safe.sensitivePrivateKEKTag"
-    static let sensitiveEncryptedPrivateKeyTag = "global.safe.sensitive.private.key.as.encrypted.data"
     static let derivedPasswordTag = "global.safe.password.as.data"
 
     // store passcode. Either if it random (user didn't give a password) or the user asked us to remember it

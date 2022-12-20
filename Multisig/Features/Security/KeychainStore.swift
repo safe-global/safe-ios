@@ -13,21 +13,26 @@ import LocalAuthentication
 
 // Thin wrapper around Keychain store
 class KeychainItemStore {
-    internal init(store: KeychainStore) {
+    internal init(_ store: KeychainStore) {
         self.store = store
     }
 
     private let store: KeychainStore
 
     func create(_ item: KeychainItem) throws -> Any {
-        // delete if exists
-        try store.delete(item.searchQuery())
+        switch item {
+        case .ecKeyPair: break
+        default:
+            // delete if exists
+            try store.delete(item.searchQuery())
+        }
+
         // create a new
         return try store.create(item.creationAttributes())
     }
 
     func find(_ item: KeychainItem) throws -> Any? {
-        return try store.find(item.searchQuery())
+        try store.find(item.searchQuery())
     }
 
     func delete(_ item: KeychainItem) throws {
@@ -37,7 +42,6 @@ class KeychainItemStore {
 
 // wrapper around Security/Keychain APIs
 class KeychainStore {
-
     // attributes must contain the kSecClass
     // the value must be either key or generic password
     // must have kSecReturnData or kSecReturnRef (true) in attributes
@@ -54,7 +58,6 @@ class KeychainStore {
                 throw error!.takeRetainedValue() as Error
             }
             return privateKey
-
         case (kSecClassKey, kSecAttrKeyClassPublic):
             let status = SecItemAdd(attributes, nil)
             guard status == errSecSuccess else {
