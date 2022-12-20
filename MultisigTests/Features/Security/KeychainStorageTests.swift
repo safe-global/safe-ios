@@ -10,20 +10,18 @@ import LocalAuthentication
 class KeychainStorageTests: XCTestCase {
 
     var kciStore: KeychainItemStore! = nil
-    var keychainStorage: KeychainStorage! = nil // should be replaced by KeychainItemStore?
     let derivedPasscode = "foobar23"
 
     public override func setUp() {
         super.setUp()
         // Given
-        keychainStorage = KeychainStorage() // should be replaced by KeychainItemStore?
         kciStore = KeychainItemStore(KeychainStore())
     }
 
     public override func tearDown() {
         super.tearDown()
         // Is it possible to always have a clean/empty keychain?
-        try! kciStore.delete(.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service()))
+        try! kciStore.delete(.generic(id: SensitiveStore.derivedPasswordTag, service: ProtectionClass.sensitive.service()))
         try! kciStore.delete(.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service()))
         try! kciStore.delete(.ecPubKey())
         try! kciStore.delete(.enclaveKey())
@@ -57,14 +55,14 @@ class KeychainStorageTests: XCTestCase {
     func testStoreAndRetrievePasscode() throws {
         // Given
         let randomString = UUID().uuidString
-        let passCodeData = try kciStore.find(KeychainItem.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service())) as! Data?
+        let passCodeData = try kciStore.find(KeychainItem.generic(id: SensitiveStore.derivedPasswordTag, service: ProtectionClass.sensitive.service())) as! Data?
         XCTAssertEqual(passCodeData, nil, "Keychain not empty")
 
         // When
-        try kciStore.create(KeychainItem.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service(), data: randomString.data(using: .utf8)))
+        try kciStore.create(KeychainItem.generic(id: SensitiveStore.derivedPasswordTag, service: ProtectionClass.sensitive.service(), data: randomString.data(using: .utf8)))
 
         //Then
-        let result = try kciStore.find(KeychainItem.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service())) as! Data?
+        let result = try kciStore.find(KeychainItem.generic(id: SensitiveStore.derivedPasswordTag, service: ProtectionClass.sensitive.service())) as! Data?
         XCTAssertEqual(result, randomString.data(using: .utf8), "Unexpected result: \(result)")
     }
 
@@ -139,7 +137,7 @@ class KeychainStorageTests: XCTestCase {
         let randomPassword = UUID().uuidString
 
         // When
-        let key = try keychainStorage.createSecureEnclaveKey(useBiometry: false, canChangeBiometry: false, applicationPassword: randomPassword)
+        let key = try kciStore.createSecureEnclaveKey(useBiometry: false, canChangeBiometry: false, applicationPassword: randomPassword)
 
         // Then
         // check key is usable
@@ -151,7 +149,7 @@ class KeychainStorageTests: XCTestCase {
         // Given
         let randomData = UUID().uuidString.data(using: .utf8)!
         let randomPassword = UUID().uuidString
-        try keychainStorage.createSecureEnclaveKey(useBiometry: false, canChangeBiometry: false, applicationPassword: randomPassword)
+        try kciStore.createSecureEnclaveKey(useBiometry: false, canChangeBiometry: false, applicationPassword: randomPassword)
 
         // When
         let key = try kciStore.find(KeychainItem.enclaveKey(password: randomPassword.data(using: .utf8))) as! SecKey
@@ -172,7 +170,7 @@ class KeychainStorageTests: XCTestCase {
         guard simulatorCheck() else {
             return
         }
-        try keychainStorage.createSecureEnclaveKey(useBiometry: true, canChangeBiometry: false, applicationPassword: randomPassword)
+        try kciStore.createSecureEnclaveKey(useBiometry: true, canChangeBiometry: false, applicationPassword: randomPassword)
 
         // When
         let key = try kciStore.find(.enclaveKey(password: randomPassword.data(using: .utf8))) as! SecKey

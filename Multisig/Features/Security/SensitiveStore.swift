@@ -27,6 +27,7 @@ class SensitiveStore: EncryptedStore {
     static let sensitivePublicKekTag = "global.safe.sensitivePublicKEKTag"
     static let sensitivePrivateKekTag = "global.safe.sensitivePrivateKEKTag"
     static let sensitiveEncryptedPrivateKeyTag = "global.safe.sensitive.private.key.as.encrypted.data"
+    static let derivedPasswordTag = "global.safe.password.as.data"
 
     init(_ store: KeychainItemStore) {
         self.store = store

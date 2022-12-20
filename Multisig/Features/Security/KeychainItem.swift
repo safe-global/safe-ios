@@ -85,10 +85,12 @@ enum KeychainItem {
                 privateKeyAttrs[kSecUseAuthenticationContext] = context
             }
             result = [
+                kSecClass: kSecClassKey,
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
                 kSecAttrKeySizeInBits: 256,
                 kSecAttrTokenID: kSecAttrTokenIDSecureEnclave,
-                kSecPrivateKeyAttrs: privateKeyAttrs
+                kSecPrivateKeyAttrs: privateKeyAttrs,
+                kSecAttrKeyClass: kSecAttrKeyClassPrivate
                 // why not kSecReturnRef: true?
             ]
         case .ecKeyPair:

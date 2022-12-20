@@ -20,7 +20,7 @@ public class EncryptedSensitiveStoreTests: XCTestCase {
     public override func tearDown() {
         super.tearDown()
         // Is it possible to always have a clean/empty keychain?
-        try! keychainItemStore.delete(.generic(id: KeychainStorage.derivedPasswordTag, service: ProtectionClass.sensitive.service()))
+        try! keychainItemStore.delete(.generic(id: SensitiveStore.derivedPasswordTag, service: ProtectionClass.sensitive.service()))
         try! keychainItemStore.delete(.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service()))
         try! keychainItemStore.delete(.ecPubKey())
         try! keychainItemStore.delete(.enclaveKey())
