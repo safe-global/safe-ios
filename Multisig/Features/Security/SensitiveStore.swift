@@ -52,21 +52,29 @@ class SensitiveStore: EncryptedStore {
     }
 
     func find(dataID: DataID, password: String?) throws -> EthPrivateKey? {
+        // Get encrypted signing key
         guard let encryptedSigningKey = try store.find(KeychainItem.generic(id: dataID.id, service: dataID.protectionClass.service())) as? Data else {
             return nil
         }
+        // If no password given retrieve the password from store
         let storedPassword = try store.find(KeychainItem.generic(id: SensitiveStore.derivedPasswordTag, service: ProtectionClass.sensitive.service())) as! Data?
         let password = password != nil ? password?.data(using: .utf8) : storedPassword
+
+        // Get access to secure enclave key
         let sensitiveKEK = try store.find(KeychainItem.enclaveKey(password: password)) as! SecKey
+
+        // Get access to encrypted sensitive key
         let encryptedSensitiveKey = try store.find(KeychainItem.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service())) as? Data
-        // decrypt sensitiveKey
+        // Decrypt sensitiveKey
         let decryptedSensitiveKeyData = try encryptedSensitiveKey?.decrypt(privateKey: sensitiveKEK)
+
+        // Restore sensitive key from Data
         var error: Unmanaged<CFError>?
         guard let decryptedSensitiveKey: SecKey = SecKeyCreateWithData(decryptedSensitiveKeyData! as CFData, try KeychainItem.ecKeyPair.creationAttributes(), &error) else {
             // will fail here if password was wrong
             throw error!.takeRetainedValue() as Error
         }
-        // Decrypt signer key
+        // Decrypt signer key with sensitive key
         return try encryptedSigningKey.decrypt(privateKey: decryptedSensitiveKey)
     }
 

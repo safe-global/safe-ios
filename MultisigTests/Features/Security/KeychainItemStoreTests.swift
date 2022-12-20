@@ -102,10 +102,11 @@ class KeychainItemStoreTests: XCTestCase {
 
         // When
         try kciStore.create(.ecPubKey(publicKey: randomPublicKey))
+
+        // This throws an error if storeItem doesn't try to delete the item first
         try kciStore.create(.ecPubKey(publicKey: randomPublicKey))
 
         //Then
-        // This throws an error if storeItem doesn't try to delete the item first
     }
 
     func testCreateKeyPair() throws {
@@ -137,7 +138,6 @@ class KeychainItemStoreTests: XCTestCase {
         let randomPassword = UUID().uuidString
 
         // When
-//        let key = try kciStore.createSecureEnclaveKey(useBiometry: false, canChangeBiometry: false, applicationPassword: randomPassword)
         let key = try kciStore.create(KeychainItem.enclaveKey(
                 password: randomPassword.data(using: .utf8),
                 access: [.applicationPassword])
@@ -177,7 +177,10 @@ class KeychainItemStoreTests: XCTestCase {
         guard simulatorCheck() else {
             return
         }
-        try kciStore.create(KeychainItem.enclaveKey(password: randomPassword.data(using: .utf8), access: [.applicationPassword, .userPresence])) as! SecKey
+        try kciStore.create(KeychainItem.enclaveKey(
+                password: randomPassword.data(using: .utf8),
+                access: [.applicationPassword, .userPresence])
+        ) as! SecKey
 
         // When
         let key = try kciStore.find(.enclaveKey(password: randomPassword.data(using: .utf8))) as! SecKey
