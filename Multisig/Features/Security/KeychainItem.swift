@@ -11,7 +11,7 @@ enum KeychainItem {
     // Encrypted blob. Can be a password or a cec secret key
     case generic(id: String, service: String, data: Data? = nil)
     // Key stays in the Secure Enclave
-    case enclaveKey(tag: String = SensitiveStore.sensitivePrivateKekTag, password: Data? = nil, access: SecAccessControlCreateFlags? = nil)
+    case enclaveKey(tag: String = SensitiveStore.sensitivePrivateKEKTag, password: Data? = nil, access: SecAccessControlCreateFlags? = nil)
     // Elliptic Curve Public Key
     case ecPubKey(tag: String = SensitiveStore.sensitivePublicKeyTag, publicKey: SecKey? = nil)
 

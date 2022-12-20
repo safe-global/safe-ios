@@ -42,8 +42,8 @@ public class SensitiveStoreTests: XCTestCase {
 
         try encryptedStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364", protectionClass: .sensitive), ethPrivateKey: randomKey)
 
-        let ethPrivateKey = try encryptedStore.find(dataID: DataID(id: "0xE86935943315293154c7AD63296b4e1adAc76364", protectionClass: .sensitive), password: nil)
-        XCTAssertEqual(ethPrivateKey, randomKey)
+        let result = try encryptedStore.find(dataID: DataID(id: "0xE86935943315293154c7AD63296b4e1adAc76364", protectionClass: .sensitive), password: nil)
+        XCTAssertEqual(result?.toHexString(), randomKey.toHexString())
     }
 
     func testEthereumKeyNotFound() throws {
