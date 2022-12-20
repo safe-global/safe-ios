@@ -16,10 +16,16 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
     let footerHeight: CGFloat = 13
     let tableBackgroundColor: UIColor = .backgroundPrimary
 
-    var currentDataTask: URLSessionTask?
+    private var loadFirstPageDataTask: URLSessionTask?
+    private var loadNextPageDataTask: URLSessionTask?
+
+    private var model = FlatCollectiblesListViewModel()
+
+    internal var safe: Safe!
+
     var sections = [CollectibleListSection]()
 
-    override var isEmpty: Bool { sections.isEmpty }
+    override var isEmpty: Bool { model.isEmpty }
 
     convenience init() {
         self.init(namedClass: Self.superclass())
@@ -29,14 +35,19 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+
+        tableView.backgroundColor = UIColor(named: "backgroundContent")
+
         tableView.registerCell(CollectibleTableViewCell.self)
-        tableView.registerHeaderFooterView(CollectiblesHeaderView.self)
-        tableView.registerHeaderFooterView(CollecitbleSectionSeparatorView.self)
-        tableView.rowHeight = rowHeight
+        tableView.registerCell(CollectibleHeaderTableViewCell.self)
+
+        tableView.registerHeaderFooterView(IdleFooterView.self)
+        tableView.registerHeaderFooterView(LoadingFooterView.self)
+        tableView.registerHeaderFooterView(RetryFooterView.self)
+
         tableView.sectionHeaderHeight = headerHeight
         tableView.sectionFooterHeight = footerHeight
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .clear
         emptyView.setText("Collectibles will appear here")
         emptyView.setImage(UIImage(named: "ico-no-collectibles")!)
     }
@@ -49,11 +60,11 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
     override func reloadData() {
         super.reloadData()
 
-        currentDataTask?.cancel()
+        loadFirstPageDataTask?.cancel()
+        loadNextPageDataTask?.cancel()
+        pageLoadingState = .idle
 
-        let safe = try! Safe.getSelected()!
-
-        currentDataTask = clientGatewayService.asyncCollectibles(safeAddress: safe.addressValue, chainId: safe.chain!.id!) { [weak self] result in
+        loadFirstPageDataTask = asyncCollectiblesList { [weak self] result in
             guard let `self` = self else { return }
             switch result {
             case .failure(let error):
@@ -68,54 +79,162 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
                     }
                     self.onError(GSError.error(description: "Failed to load collectibles", error: error))
                 }
-            case .success(let collectibles):
-                let sections = CollectibleListSection.create(collectibles)
+            case .success(let page):
+                var model = FlatCollectiblesListViewModel(page.results)
+                model.next = page.next
 
                 DispatchQueue.main.async { [weak self] in
                     guard let `self` = self else { return }
-                    self.sections = sections
+
+                    self.model = model
                     self.onSuccess()
                 }
             }
         }
     }
 
-    // MARK: - Table view data source
+    private func loadNextPage() {
+        // re-entrancy: if loading already, do not cancel and restart
+        guard let nextPageUri = model.next, loadNextPageDataTask == nil else { return }
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        pageLoadingState = .loading
+        do {
+            loadNextPageDataTask = try asyncCollectiblesList(pageUri: nextPageUri) { [weak self] result in
+                guard let `self` = self else { return }
+                switch result {
+                case .failure(let error):
+                    DispatchQueue.main.async { [weak self] in
+                        guard let `self` = self else { return }
+                        // ignore cancellation error due to cancelling the
+                        // currently running task. Otherwise user will see
+                        // meaningless message.
+                        if (error as NSError).code == URLError.cancelled.rawValue &&
+                            (error as NSError).domain == NSURLErrorDomain {
+                            self.pageLoadingState = .idle
+                            return
+                        }
+                        self.onError(GSError.error(description: "Failed to load more collectibles", error: error))
+                        self.pageLoadingState = .retry
+                    }
+                case .success(let page):
+                    var model = FlatCollectiblesListViewModel(page.results)
+                    model.next = page.next
+
+                    DispatchQueue.main.async { [weak self] in
+                        guard let `self` = self else { return }
+
+                        self.model.append(from: model)
+                        self.onSuccess()
+                        self.pageLoadingState = .idle
+                    }
+                }
+                self.loadNextPageDataTask = nil
+            }
+        } catch {
+            onError(GSError.error(description: "Failed to load more collectibles", error: error))
+            pageLoadingState = .retry
+        }
     }
 
+    enum LoadingState {
+        case idle, loading, retry
+    }
+
+    var pageLoadingState = LoadingState.idle {
+        didSet {
+            switch pageLoadingState {
+            case .idle:
+                tableView.tableFooterView = tableView.dequeueHeaderFooterView(IdleFooterView.self)
+            case .loading:
+                tableView.tableFooterView = tableView.dequeueHeaderFooterView(LoadingFooterView.self)
+            case .retry:
+                let view = tableView.dequeueHeaderFooterView(RetryFooterView.self)
+                view.onRetry = { [unowned self] in
+                    self.loadNextPage()
+                }
+                tableView.tableFooterView = view
+                tableView.scrollRectToVisible(view.frame, animated: true)
+            }
+        }
+    }
+
+    func asyncCollectiblesList(
+        completion: @escaping (Result<Page<Collectible>, Error>) -> Void) -> URLSessionTask? {
+        safe = try! Safe.getSelected()!
+        return clientGatewayService.asyncCollectiblesList(safeAddress: safe.addressValue,
+                                                                        chainId: safe.chain!.id!,
+                                                                        completion: completion)
+    }
+
+    func asyncCollectiblesList(pageUri: String, completion: @escaping (Result<Page<Collectible>, Error>) -> Void) throws -> URLSessionTask? {
+        clientGatewayService.asyncExecute(request: try PagedRequest<Collectible>(pageUri), completion: completion)
+    }
+
+    // MARK: - Table view data source
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].collectibles.count
+        return model.items.count
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        var height:CGFloat = CGFloat()
+        let item = model.items[indexPath.row]
+        switch item {
+        case .header:
+            height = 50
+        case .collectible:
+            height = 150
+        }
+        return height
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(CollectibleTableViewCell.self)
-        let collectible = sections[indexPath.section].collectibles[indexPath.row]
-        cell.setName(collectible.name)
-        cell.setDescription(collectible.description)
-        cell.setImage(with: collectible.imageURL, placeholder: UIImage(named: "ico-collectible-placeholder")!)
-        return cell
+        cell(table: tableView, indexPath: indexPath)
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if isLast(path: indexPath) {
+            loadNextPage()
+        }
+    }
+
+    private func isLast(path: IndexPath) -> Bool {
+        path.row == model.items.count - 1
     }
 
     // MARK: - Table view delegate
 
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let collectible = sections[indexPath.section].collectibles[indexPath.row]
-        let root = CollectibleDetailViewController(nibName: nil, bundle: nil)
-        root.collectible = collectible
-        let vc = RibbonViewController(rootViewController: root)
-        show(vc, sender: self)
+        let item = model.items[indexPath.row]
+        switch item {
+        case .collectible(let collectibleItem):
+            let collectible = collectibleItem.collectible
+            let root = CollectibleDetailViewController(nibName: nil, bundle: nil)
+            root.collectible = CollectibleViewModel(collectible: collectible)
+            let vc = RibbonViewController(rootViewController: root)
+            show(vc, sender: self)
+        case .header(_):
+            break
+        }
     }
 
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = tableView.dequeueHeaderFooterView(CollectiblesHeaderView.self)
-        let collectibleSection = sections[section]
-        view.setName(collectibleSection.name)
-        view.setImage(with: collectibleSection.imageURL, placeholder: UIImage(named: "ico-nft-placeholder")!)
-        return view
+    func cell(table: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        let item = model.items[indexPath.row]
+
+        switch item {
+        case .header(let collectibleHeader):
+            let cell = tableView.dequeueCell(CollectibleHeaderTableViewCell.self, for: indexPath)
+            cell.setName(collectibleHeader.name)
+            cell.setImage(with: collectibleHeader.logoURL, placeholder: UIImage(named: "ico-nft-placeholder")!)
+            cell.selectionStyle = .none
+            return cell
+        case .collectible(let collectibleItem):
+            let cell = tableView.dequeueCell(CollectibleTableViewCell.self, for: indexPath)
+            cell.setName(collectibleItem.collectible.name ?? "Unknown")
+            cell.setDescription(collectibleItem.collectible.description ?? "")
+            cell.setImage(with: URL(string: collectibleItem.collectible.imageUri ?? ""), placeholder: UIImage(named: "ico-collectible-placeholder")!)
+            return cell
+        }
     }
 }

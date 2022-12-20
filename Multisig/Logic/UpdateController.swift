@@ -38,7 +38,7 @@ class UpdateController {
     }
 
     private func check(value: String, in range: String) -> Bool {
-        guard range.isEmpty, let version = Version(value) else { return false }
+        guard !range.isEmpty, let version = Version(value) else { return false }
         let ranges = range.split(separator: ",")
         for range in ranges {
             let rangeBound = range.components(separatedBy: "...")

@@ -22,7 +22,9 @@ final class KeystoneSelectAddressViewModel: SelectOwnerAddressViewModelProtocol 
             let hexPublicKey = hexPublicKey(selectedIndex),
             let publicKey = try? EthereumPublicKey(hexPublicKey: hexPublicKey)
         else { return nil }
-        return AddKeystoneKeyParameters(address: Address(publicKey.address), derivationPath: derivationPath(at: selectedIndex))
+        return AddKeystoneKeyParameters(address: Address(publicKey.address),
+                                        derivationPath: derivationPath(at: selectedIndex),
+                                        sourceFingerprint: hdKey?.sourceFingerprint ?? hdKeys?.first?.sourceFingerprint)
     }
     
     var canLoadMoreAddresses: Bool {

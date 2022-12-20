@@ -19,18 +19,16 @@ import UIKit
 /// 3. Enter Name (in superclass)
 /// 4. Create Passcode (in superclass)
 class ImportKeyFlow: AddKeyFlow {
-    var keySource: KeySource?
     var flowFactory: ImportKeyFlowFactory {
         factory as! ImportKeyFlowFactory
     }
 
-    enum KeySource {
-        case privateKey
-        case seed
+    var parameters: ImportKeyParameters? {
+        keyParameters as? ImportKeyParameters
     }
 
     init(completion: @escaping (Bool) -> Void) {
-        super.init(keyType: .deviceImported, factory: ImportKeyFlowFactory(), completion: completion)
+        super.init(factory: ImportKeyFlowFactory(), completion: completion)
     }
 
     override func didIntro() {
@@ -38,13 +36,13 @@ class ImportKeyFlow: AddKeyFlow {
     }
 
     func enterSecret() {
-        keySource = nil
-        privateKey = nil
         let enterVC = flowFactory.enterSecret { [unowned self] privateKey in
-            keySource = .privateKey
-            didGetKey(privateKey: privateKey)
+            keyParameters = ImportKeyParameters(address: privateKey.address,
+                                                name: nil,
+                                                source: .privateKey,
+                                                privateKey: privateKey)
+            didGetKey()
         } completionSeed: { [unowned self] seedNode in
-            keySource = .seed
             pickAccount(seedNode)
         }
         show(enterVC)
@@ -52,16 +50,24 @@ class ImportKeyFlow: AddKeyFlow {
 
     func pickAccount(_ node: HDNode) {
         let pickerVC = flowFactory.derivedAccountPicker(node: node) { [unowned self] privateKey in
-            didGetKey(privateKey: privateKey)
+            keyParameters = ImportKeyParameters(address: privateKey.address,
+                                                name: nil,
+                                                source: .seed,
+                                                privateKey: privateKey)
+            didGetKey()
         }
         show(pickerVC)
     }
 
     override func doImport() -> Bool {
-        assert(privateKey != nil)
-        assert(keyName != nil)
-        let success = OwnerKeyController.importKey(privateKey!, name: keyName!, isDrivedFromSeedPhrase: keySource == .seed)
-        return success
+        guard let privateKey = parameters?.privateKey,
+              let name = parameters?.name,
+              let source = parameters?.source else {
+            assertionFailure("Missing key arguments")
+            return false
+        }
+        
+        return OwnerKeyController.importKey(privateKey, name: name, isDrivedFromSeedPhrase: source == .seed)
     }
 }
 
@@ -109,3 +115,20 @@ class ImportKeyFlowFactory: AddKeyFlowFactory {
         return pickDerivedKeyVC
     }
 }
+
+class ImportKeyParameters: AddKeyParameters {
+    var privateKey: PrivateKey?
+    var source: KeySource?
+
+    init(address: Address, name: String?, source: KeySource?, privateKey: PrivateKey?) {
+        self.source = source
+        self.privateKey = privateKey
+        super.init(address: address, name: name, type: KeyType.keystone)
+    }
+
+    enum KeySource {
+        case privateKey
+        case seed
+    }
+}
+

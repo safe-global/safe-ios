@@ -353,6 +353,15 @@ enum GSError {
         let code = 1112
         let loggable = false
     }
+
+    struct DelagateToSameSafe: DetailedLocalizedError {
+        let description = "The Safe address can't be a delegate of itself"
+        let reason = "Please choose another address or select a guardian"
+        let howToFix = "Your Safe always has the full voting power even after delegating to another address"
+        let domain = clientErrorDomain
+        let code = 1113
+        let loggable = false
+    }
     
 
     // MARK: - WalletConnect experimental feature errors
