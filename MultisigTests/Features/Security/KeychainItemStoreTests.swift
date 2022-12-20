@@ -137,7 +137,11 @@ class KeychainItemStoreTests: XCTestCase {
         let randomPassword = UUID().uuidString
 
         // When
-        let key = try kciStore.createSecureEnclaveKey(useBiometry: false, canChangeBiometry: false, applicationPassword: randomPassword)
+//        let key = try kciStore.createSecureEnclaveKey(useBiometry: false, canChangeBiometry: false, applicationPassword: randomPassword)
+        let key = try kciStore.create(KeychainItem.enclaveKey(
+                password: randomPassword.data(using: .utf8),
+                access: [.applicationPassword])
+        ) as! SecKey
 
         // Then
         // check key is usable
@@ -149,7 +153,10 @@ class KeychainItemStoreTests: XCTestCase {
         // Given
         let randomData = UUID().uuidString.data(using: .utf8)!
         let randomPassword = UUID().uuidString
-        try kciStore.createSecureEnclaveKey(useBiometry: false, canChangeBiometry: false, applicationPassword: randomPassword)
+        try kciStore.create(KeychainItem.enclaveKey(
+                password: randomPassword.data(using: .utf8),
+                access: [.applicationPassword])
+        ) as! SecKey
 
         // When
         let key = try kciStore.find(KeychainItem.enclaveKey(password: randomPassword.data(using: .utf8))) as! SecKey
@@ -170,7 +177,7 @@ class KeychainItemStoreTests: XCTestCase {
         guard simulatorCheck() else {
             return
         }
-        try kciStore.createSecureEnclaveKey(useBiometry: true, canChangeBiometry: false, applicationPassword: randomPassword)
+        try kciStore.create(KeychainItem.enclaveKey(password: randomPassword.data(using: .utf8), access: [.applicationPassword, .userPresence])) as! SecKey
 
         // When
         let key = try kciStore.find(.enclaveKey(password: randomPassword.data(using: .utf8))) as! SecKey

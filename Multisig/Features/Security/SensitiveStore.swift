@@ -81,7 +81,6 @@ class SensitiveStore: EncryptedStore {
     func initialize() throws {
         // 1. create password
         let passwordData = createRandomBytes(32)
-
         // store password
         let passItem = KeychainItem.generic(
                 id: SensitiveStore.derivedPasswordTag,
@@ -98,7 +97,8 @@ class SensitiveStore: EncryptedStore {
         let kekItem = KeychainItem.enclaveKey(
                 tag: SensitiveStore.sensitivePrivateKEKTag,
                 password: passwordData,
-                access: [.applicationPassword, .userPresence])
+                access: [.applicationPassword]
+        )
         let keyEncryptionKey: SecKey = try store.create(kekItem) as! SecKey
 
         // 3. create key pair

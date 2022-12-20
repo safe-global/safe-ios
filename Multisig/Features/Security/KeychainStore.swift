@@ -38,26 +38,6 @@ class KeychainItemStore {
     func delete(_ item: KeychainItem) throws {
         try store.delete(item.searchQuery())
     }
-
-    func createSecureEnclaveKey(
-            useBiometry: Bool,
-            canChangeBiometry: Bool,
-            applicationPassword: String
-    ) throws -> SecKey {
-
-        //create flags from booleans
-        var flags: SecAccessControlCreateFlags = []
-        if canChangeBiometry && useBiometry {
-            flags = [.biometryAny, .or, .devicePasscode, .applicationPassword]
-        }
-        if !canChangeBiometry && useBiometry {
-            flags = [.biometryCurrentSet, .or, .devicePasscode, .applicationPassword]
-        }
-        if !useBiometry {
-            flags = [.applicationPassword]
-        }
-        return try store.create(KeychainItem.enclaveKey(password: applicationPassword.data(using: .utf8), access: flags).creationAttributes()) as! SecKey
-    }
 }
 
 // wrapper around Security/Keychain APIs
