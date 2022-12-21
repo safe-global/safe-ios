@@ -93,6 +93,27 @@ class KeychainItemStoreTests: XCTestCase {
         XCTAssertTrue(result == randomPublicKey, "Retrieved public key does not match stored public key!")
     }
 
+    func testUpdateSensitivePublicKey() throws {
+        // Given
+        let randomKey1 = try kciStore.create(KeychainItem.ecKeyPair) as! SecKey
+        let randomPublicKey1 = SecKeyCopyPublicKey(randomKey1)!
+        XCTAssertTrue(try kciStore.find(KeychainItem.ecPubKey()) == nil, "Precondition failed: Keychain not empty!")
+
+        // When
+        try kciStore.create(KeychainItem.ecPubKey(publicKey: randomPublicKey1))
+        let result1 = try kciStore.find(KeychainItem.ecPubKey()) as! SecKey?
+        XCTAssertTrue(result1 == randomPublicKey1, "Retrieved public key does not match stored public key!")
+
+        let randomKey2 = try kciStore.create(KeychainItem.ecKeyPair) as! SecKey
+        let randomPublicKey2 = SecKeyCopyPublicKey(randomKey2)!
+        XCTAssertTrue(try kciStore.find(KeychainItem.ecPubKey()) != nil, "Precondition failed: Key not found empty!")
+        try kciStore.create(KeychainItem.ecPubKey(publicKey: randomPublicKey2))
+
+        //Then
+        let result2 = try kciStore.find(KeychainItem.ecPubKey()) as! SecKey?
+        XCTAssertTrue(result2 == randomPublicKey2, "Retrieved public key does not match stored public key!")
+    }
+
     func testStoreDeletesFirst() throws {
         // Given
         let randomKey = try kciStore.create(KeychainItem.ecKeyPair) as! SecKey
