@@ -13,15 +13,15 @@
 SERVICE_ENV = STAGING
 
 // Bundle Identifier
-_APP_BUNDLE_ID_PROD     = io.gnosis.multisig.prod.mainnet.NotificationServiceExtension
-_APP_BUNDLE_ID_STAGING  = io.gnosis.multisig.staging.mainnet.NotificationServiceExtension
-_APP_BUNDLE_ID_DEV      = io.gnosis.multisig.dev.mainnet.NotificationServiceExtension
+_APP_BUNDLE_ID_PROD     = io.gnosis.multisig.prod.mainnet.NotificationServiceExt
+_APP_BUNDLE_ID_STAGING  = global.safe.multisig.staging.NotificationServiceExt
+_APP_BUNDLE_ID_DEV      = global.safe.multisig.dev.NotificationServiceExt
 
 // Xcode Build Settings
 PRODUCT_BUNDLE_IDENTIFIER           = $(_APP_BUNDLE_ID_$(SERVICE_ENV):default=$(_APP_BUNDLE_ID_PROD))
 
 // App Groups
-_APP_GROUP_ID_PROD     = group.global.safe.multisig.prod
+_APP_GROUP_ID_PROD     = group.io.gnosis.multisig.prod
 _APP_GROUP_ID_STAGING  = group.global.safe.multisig.staging
 _APP_GROUP_ID_DEV      = group.global.multisig.dev
 
