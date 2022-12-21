@@ -27,7 +27,7 @@ class SensitiveStore: EncryptedStore {
 
     func isInitialized() -> Bool {
         do {
-            return try store.find(.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service())) != nil
+            return try store.find(.ecPubKey(tag: SensitiveStore.sensitivePublicKeyTag)) != nil
         } catch {
             LogService.shared.error("SensitiveStore is not initialized", error: error)
             return false
