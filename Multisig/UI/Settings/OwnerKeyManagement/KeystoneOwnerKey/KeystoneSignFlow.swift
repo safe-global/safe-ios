@@ -119,8 +119,8 @@ extension SECP256K1.UnmarshaledSignature {
                 // Legacy ethereum (pre-eip-155) adds 27 to v
                 v = vInt - 27
             } else {
-                // v still can be chainId * 2 + 35 for non-legacy transactions
-                if vInt >= 37 {
+                // v still can be chainId * 2 + 35 for non-legacy transactions (chaiId >=0)
+                if vInt >= 35 {
                     let vRecovered = UInt64(vBytes) - (chainIdInt * 2 + 35)
                     v = try! UInt8(vRecovered % 256)
                 } else {
