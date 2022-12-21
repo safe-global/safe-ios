@@ -9,8 +9,8 @@
 import Foundation
 
 class SensitiveStore: EncryptedStore {
-    var initialized = false
     private let store: KeychainItemStore
+
     static let sensitivePublicKeyTag = "global.safe.sensitivePublicKeyTag"
     static let sensitivePublicKEKTag = "global.safe.sensitivePublicKEKTag"
     static let sensitivePrivateKEKTag = "global.safe.sensitivePrivateKEKTag"
@@ -21,13 +21,17 @@ class SensitiveStore: EncryptedStore {
         self.store = store
     }
 
-    func isInitialized() -> Bool {
-        initialized
-    }
-
     func initializeKeyStore() throws {
         try initialize()
-        initialized = true
+    }
+
+    func isInitialized() -> Bool {
+        do {
+            return try store.find(.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service())) != nil
+        } catch {
+            LogService.shared.error("SensitiveStore is not initialized", error: error)
+            return false
+        }
     }
 
     func `import`(id: DataID, ethPrivateKey: EthPrivateKey) throws {
