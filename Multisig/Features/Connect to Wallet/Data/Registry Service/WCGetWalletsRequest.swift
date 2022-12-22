@@ -7,7 +7,7 @@ import Foundation
 
 struct WCGetWalletsRequest: JSONRequest {
     var httpMethod: String { "GET" }
-    var urlPath: String { "/safe-ios-mvp-hosting/data/wallets.json" }
+    var urlPath: String { "/safe-ios-wc-registry/data/wallets.json" }
 
     typealias ResponseType = JsonAppRegistry
 }
