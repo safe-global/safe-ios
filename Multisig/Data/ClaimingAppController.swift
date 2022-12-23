@@ -25,9 +25,9 @@ class ClaimingAppController {
         var chainId: String
 
         static let goerli = Configuration(
-            safeToken: "0xCFf1b0FdE85C102552D1D96084AF148f478F964A",
-            userAirdrop: "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
-            ecosystemAirdrop: "0x82F1267759e9Bea202a46f8FC04704b6A5E2Af77",
+            safeToken: "0x61fD3b6d656F39395e32f46E2050953376c3f5Ff",
+            userAirdrop: "0x07dA2049Fa8127eF6280631BCbc56881d764C8Ee",
+            ecosystemAirdrop: "0xEc6449091Ae23A92f856702F9452011E31E66C63",
             // https://github.com/gnosis/delegate-registry/blob/main/networks.json
             delegateRegistry: "0x469788fE6E9E9681C6ebF3bF78e7Fd26Fc015446",
             chainId: "5"
