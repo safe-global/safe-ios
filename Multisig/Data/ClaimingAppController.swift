@@ -24,13 +24,13 @@ class ClaimingAppController {
         var delegateId: Sol.Bytes32 = Sol.Bytes32(storage: "safe.eth".data(using: .utf8)!.rightPadded(to: 32))
         var chainId: String
 
-        static let rinkeby = Configuration(
-            safeToken: "0xCFf1b0FdE85C102552D1D96084AF148f478F964A",
-            userAirdrop: "0x6C6ea0B60873255bb670F838b03db9d9a8f045c4",
-            ecosystemAirdrop: "0x82F1267759e9Bea202a46f8FC04704b6A5E2Af77",
+        static let goerli = Configuration(
+            safeToken: "0x61fD3b6d656F39395e32f46E2050953376c3f5Ff",
+            userAirdrop: "0x07dA2049Fa8127eF6280631BCbc56881d764C8Ee",
+            ecosystemAirdrop: "0xEc6449091Ae23A92f856702F9452011E31E66C63",
             // https://github.com/gnosis/delegate-registry/blob/main/networks.json
             delegateRegistry: "0x469788fE6E9E9681C6ebF3bF78e7Fd26Fc015446",
-            chainId: "4"
+            chainId: "5"
         )
 
         static let mainnet = Configuration(
@@ -54,8 +54,8 @@ class ClaimingAppController {
     init?(chain: Chain) {
         if chain.id == Chain.ChainID.ethereumMainnet {
             self.configuration = .mainnet
-        } else if chain.id == Chain.ChainID.ethereumRinkeby {
-            self.configuration = .rinkeby
+        } else if chain.id == Chain.ChainID.goerli {
+            self.configuration = .goerli
         } else {
             return nil
         }
@@ -64,7 +64,7 @@ class ClaimingAppController {
     }
 
     static func isAvailable(chain: Chain) -> Bool {
-        let isChainSupported = chain.id == Chain.ChainID.ethereumRinkeby || chain.id == Chain.ChainID.ethereumMainnet
+        let isChainSupported = chain.id == Chain.ChainID.goerli || chain.id == Chain.ChainID.ethereumMainnet
         let isEnabledInConfig = NSString(string: FirebaseRemoteConfig.shared.value(key: .safeClaimEnabled) ?? "false").boolValue
         return isChainSupported && isEnabledInConfig
     }
