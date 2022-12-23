@@ -54,7 +54,7 @@ class ClaimingAppController {
     init?(chain: Chain) {
         if chain.id == Chain.ChainID.ethereumMainnet {
             self.configuration = .mainnet
-        } else if chain.id == Chain.ChainID.ethereumRinkeby {
+        } else if chain.id == Chain.ChainID.goerli {
             self.configuration = .rinkeby
         } else {
             return nil
@@ -64,7 +64,7 @@ class ClaimingAppController {
     }
 
     static func isAvailable(chain: Chain) -> Bool {
-        let isChainSupported = chain.id == Chain.ChainID.ethereumRinkeby || chain.id == Chain.ChainID.ethereumMainnet
+        let isChainSupported = chain.id == Chain.ChainID.goerli || chain.id == Chain.ChainID.ethereumMainnet
         let isEnabledInConfig = NSString(string: FirebaseRemoteConfig.shared.value(key: .safeClaimEnabled) ?? "false").boolValue
         return isChainSupported && isEnabledInConfig
     }
