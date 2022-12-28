@@ -128,8 +128,9 @@ extension SECP256K1.UnmarshaledSignature {
                 }
             }
         }
-        
-        assert(v == 0 || v == 1 || v == 27 || v == 28)
+
+        // see https://github.com/Boilertalk/secp256k1/blob/d5407179912e8c1f825a212a474aaa86b10f1352/src/ecdsa_impl.h
+        assert(v == 0 || v == 1 || v == 2 || v == 3 ||  v == 27 || v == 28 || v == 29 || v == 30)
 
         self.init(v: v, r: r, s: s)
     }
