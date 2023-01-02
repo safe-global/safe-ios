@@ -23,7 +23,7 @@ protocol EncryptedStore {
     /// - parameter password: application password. Can be nil, then the stored password is used
     /// - returns: String with hex encoded bytes of the private key or nil if key not found
     func find(dataID: DataID, password: String?) throws -> EthPrivateKey?
-    func changePassword(from oldPassword: String, to newPassword: String)
+    func changePassword(from oldPassword: String, to newPassword: String) throws
     func changeSettings()
 }
 

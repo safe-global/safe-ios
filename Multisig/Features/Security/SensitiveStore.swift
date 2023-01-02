@@ -129,7 +129,7 @@ class SensitiveStore: EncryptedStore {
         try store.create(pubKeyItem)
     }
 
-    func changeSettings() throws {
+    func changeSettings() {
         // options:
         //          useBiometry -> true/false
         //          userCreatedAppPasscode -> true/false
