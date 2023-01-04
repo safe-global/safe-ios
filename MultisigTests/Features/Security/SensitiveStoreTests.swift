@@ -5,6 +5,7 @@
 
 import XCTest
 @testable import Multisig
+import LocalAuthentication
 
 public class SensitiveStoreTests: XCTestCase {
 
@@ -67,6 +68,9 @@ public class SensitiveStoreTests: XCTestCase {
     }
 
     func testChangePasswordGivenWrongPasswordShouldFail() throws {
+        guard simulatorCheck() else {
+            return
+        }
         XCTAssertEqual(encryptedStore.isInitialized(), false)
         do {
             try encryptedStore.initializeKeyStore()
@@ -81,5 +85,9 @@ public class SensitiveStoreTests: XCTestCase {
         } catch {
             // check for correct exception?
         }
+    }
+
+    private func simulatorCheck() -> Bool {
+        LAContext().setCredential("anyPassword".data(using: .utf8), type: .applicationPassword)
     }
 }
