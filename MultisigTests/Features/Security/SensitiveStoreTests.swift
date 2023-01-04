@@ -51,4 +51,19 @@ public class SensitiveStoreTests: XCTestCase {
         let ethPrivateKey = try encryptedStore.find(dataID: DataID(id: "0xfb1ca734579C3F2dC6DC8cD64A4f5D91891387C6", protectionClass: .sensitive), password: nil)
         XCTAssertEqual(ethPrivateKey, nil)
     }
+
+    func testChangePassword() {
+        XCTAssertEqual(encryptedStore.isInitialized(), false)
+        do {
+            try encryptedStore.initializeKeyStore()
+
+            try encryptedStore.changePassword(from: nil, to: "test123")
+            try encryptedStore.changePassword(from: "test123", to: "random")
+            try encryptedStore.changePassword(from: "random", to: nil)
+
+        } catch {
+            XCTFail() // do not throw
+        }
+        XCTAssertEqual(encryptedStore.isInitialized(), true)
+    }
 }

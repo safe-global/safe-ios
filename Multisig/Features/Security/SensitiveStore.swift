@@ -61,8 +61,7 @@ class SensitiveStore: EncryptedStore {
             return nil
         }
         // If no password given retrieve the password from store
-        let storedPassword = try store.find(KeychainItem.generic(id: SensitiveStore.derivedPasswordTag, service: ProtectionClass.sensitive.service())) as! Data?
-        let password = password != nil ? password?.data(using: .utf8) : storedPassword
+        let password = password != nil ? password?.data(using: .utf8) : try store.find(KeychainItem.generic(id: SensitiveStore.derivedPasswordTag, service: ProtectionClass.sensitive.service())) as! Data?
 
         // Get access to secure enclave key
         let sensitiveKEK = try store.find(KeychainItem.enclaveKey(password: password)) as! SecKey
@@ -82,11 +81,13 @@ class SensitiveStore: EncryptedStore {
         return try encryptedSigningKey.decrypt(privateKey: decryptedSensitiveKey)
     }
 
-    func changePassword(from oldPassword: String, to newPassword: String) throws {
+    func changePassword(from oldPassword: String?, to newPassword: String?) throws {
         // find sensitive key
         let encryptedSensitiveKey = try store.find(KeychainItem.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service())) as? Data
+        // if no old password given, retrieve stored password
+        let passwordData = oldPassword != nil ? oldPassword?.data(using: .utf8) : try store.find(KeychainItem.generic(id: SensitiveStore.derivedPasswordTag, service: ProtectionClass.sensitive.service())) as! Data?
         // find KEK
-        let sensitiveKEK = try store.find(KeychainItem.enclaveKey(password: oldPassword.data(using: .utf8))) as! SecKey
+        let sensitiveKEK = try store.find(KeychainItem.enclaveKey(password: passwordData)) as! SecKey
 
         // decrypt sensitive key
         let decryptedSensitiveKeyData = try encryptedSensitiveKey?.decrypt(privateKey: sensitiveKEK)
@@ -97,10 +98,23 @@ class SensitiveStore: EncryptedStore {
             throw error!.takeRetainedValue() as Error
         }
 
+        // if no newPassword given, create a random password an store it
+        var newPasswordData = newPassword?.data(using: .utf8)
+        if newPasswordData == nil {
+            let passwordData = createRandomBytes(32)
+            let passItem = KeychainItem.generic(
+                    id: SensitiveStore.derivedPasswordTag,
+                    service: ProtectionClass.sensitive.service(),
+                    data: passwordData
+            )
+            try store.create(passItem)
+            newPasswordData = passwordData
+        }
+
         // create new KEK with new app password
         let kekItem = KeychainItem.enclaveKey(
                 tag: SensitiveStore.sensitivePrivateKEKTag,
-                password: newPassword.data(using: .utf8),
+                password: newPasswordData,
                 access: [.applicationPassword]
         )
 
