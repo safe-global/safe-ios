@@ -69,7 +69,7 @@ public class SensitiveStoreTests: XCTestCase {
 
     func testChangePasswordGivenWrongPasswordShouldFail() throws {
         guard simulatorCheck() else {
-            return
+            throw XCTSkip("Test not supported on simulator")
         }
         XCTAssertEqual(encryptedStore.isInitialized(), false)
         do {
