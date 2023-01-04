@@ -62,8 +62,24 @@ public class SensitiveStoreTests: XCTestCase {
             try encryptedStore.changePassword(from: "random", to: nil)
 
         } catch {
-            XCTFail() // do not throw
+            XCTFail() // should not throw
         }
-        XCTAssertEqual(encryptedStore.isInitialized(), true)
+    }
+
+    func testChangePasswordGivenWrongPasswordShouldFail() throws {
+        XCTAssertEqual(encryptedStore.isInitialized(), false)
+        do {
+            try encryptedStore.initializeKeyStore()
+            try encryptedStore.changePassword(from: nil, to: "test123")
+        } catch {
+            XCTFail() // should not throw
+        }
+
+        do {
+            try encryptedStore.changePassword(from: "wrong", to: "random")
+            XCTFail() // should've thrown
+        } catch {
+            // check for correct exception?
+        }
     }
 }
