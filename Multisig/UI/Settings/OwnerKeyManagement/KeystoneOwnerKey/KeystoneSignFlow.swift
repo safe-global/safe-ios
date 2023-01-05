@@ -101,21 +101,36 @@ extension SECP256K1.UnmarshaledSignature {
         let s = data[32..<64]
         let v: UInt8
 
-        // only if v was overflown and is legacy transaction
-        if isLegacyTx && data.count > 65 {
+        let chainIdInt = UInt64(chainId) ?? 0
+        let vBytes: Bytes
 
+        // if v was overflown (e.g. chain_id > 109 according to EIP-155)
+        if data.count > 65 {
             // max 8 bytes to fit into UInt64
-            let vBytes: Bytes = [UInt8](data.suffix(from: 64).prefix(8))
+            let vBytes = [UInt8](data.suffix(from: 64).prefix(8))
             let vInt =  UInt64(vBytes)
-            let chainIdInt = UInt64(chainId) ?? 0
-
-            // recover V by deducting (chainId * 2 + 35) according to EIP-155.
+            // recover V by deducting (chainId * 2 + 35) according to EIP-155
             let vRecovered = vInt - (chainIdInt * 2 + 35)
             v = try! UInt8(vRecovered % 256)
         } else {
-            v = data[64]
+            vBytes = [UInt8]([data[64]])
+            let vInt = UInt8(vBytes)
+            if isLegacyTx {
+                // Legacy ethereum (pre-eip-155) adds 27 to v
+                v = vInt - 27
+            } else {
+                // v still can be chainId * 2 + 35 for non-legacy transactions (chaiId >=0)
+                if vInt >= 35 {
+                    let vRecovered = UInt64(vBytes) - (chainIdInt * 2 + 35)
+                    v = try! UInt8(vRecovered % 256)
+                } else {
+                    v = vInt
+                }
+            }
         }
-        assert(v == 0 || v == 1)
+
+        // see https://github.com/Boilertalk/secp256k1/blob/d5407179912e8c1f825a212a474aaa86b10f1352/src/ecdsa_impl.h
+        assert(v == 0 || v == 1 || v == 2 || v == 3 ||  v == 27 || v == 28 || v == 29 || v == 30)
 
         self.init(v: v, r: r, s: s)
     }
