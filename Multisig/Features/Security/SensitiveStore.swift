@@ -81,7 +81,7 @@ class SensitiveStore: EncryptedStore {
         return try encryptedSigningKey.decrypt(privateKey: decryptedSensitiveKey)
     }
 
-    func changePassword(from oldPassword: String?, to newPassword: String?) throws {
+    func changePassword(from oldPassword: String?, to newPassword: String?, useBiometry: Bool = false) throws {
         // find sensitive key
         let encryptedSensitiveKey = try store.find(KeychainItem.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service())) as? Data
         // if no old password given, retrieve stored password
@@ -111,11 +111,16 @@ class SensitiveStore: EncryptedStore {
             newPasswordData = passwordData
         }
 
+        var accessFlags: SecAccessControlCreateFlags = [.applicationPassword]
+        if useBiometry {
+            accessFlags = [.applicationPassword, .userPresence]
+        }
+
         // create new KEK with new app password
         let kekItem = KeychainItem.enclaveKey(
                 tag: SensitiveStore.sensitivePrivateKEKTag,
                 password: newPasswordData,
-                access: [.applicationPassword]
+                access: accessFlags
         )
 
         let keyEncryptionKey: SecKey = try store.create(kekItem) as! SecKey

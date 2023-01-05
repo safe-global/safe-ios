@@ -58,9 +58,9 @@ public class SensitiveStoreTests: XCTestCase {
         do {
             try encryptedStore.initializeKeyStore()
 
-            try encryptedStore.changePassword(from: nil, to: "test123")
-            try encryptedStore.changePassword(from: "test123", to: "random")
-            try encryptedStore.changePassword(from: "random", to: nil)
+            try encryptedStore.changePassword(from: nil, to: "test123", useBiometry: false)
+            try encryptedStore.changePassword(from: "test123", to: "random", useBiometry: false)
+            try encryptedStore.changePassword(from: "random", to: nil, useBiometry: false)
 
         } catch {
             XCTFail() // should not throw
@@ -74,19 +74,38 @@ public class SensitiveStoreTests: XCTestCase {
         XCTAssertEqual(encryptedStore.isInitialized(), false)
         do {
             try encryptedStore.initializeKeyStore()
-            try encryptedStore.changePassword(from: nil, to: "test123")
+            try encryptedStore.changePassword(from: nil, to: "test123", useBiometry: false)
         } catch {
             XCTFail() // should not throw
         }
 
         do {
-            try encryptedStore.changePassword(from: "wrong", to: "random")
+            try encryptedStore.changePassword(from: "wrong", to: "random", useBiometry: false)
             XCTFail() // should've thrown
         } catch {
             // check for correct exception?
         }
     }
 
+    func testBiometryOnly() throws {
+        guard simulatorCheck() else {
+            throw XCTSkip("Test not supported on simulator")
+        }
+        XCTAssertEqual(encryptedStore.isInitialized(), false)
+        do {
+            try encryptedStore.initializeKeyStore()
+
+            try encryptedStore.changePassword(from: nil, to: nil, useBiometry: true)
+
+            // check ?
+            try encryptedStore.changePassword(from: nil, to: "test123", useBiometry: false)
+            try encryptedStore.changePassword(from: "test123", to: "random", useBiometry: false)
+            try encryptedStore.changePassword(from: "random", to: nil, useBiometry: false)
+
+        } catch {
+            XCTFail() // should not throw
+        }
+    }
     private func simulatorCheck() -> Bool {
         LAContext().setCredential("anyPassword".data(using: .utf8), type: .applicationPassword)
     }
