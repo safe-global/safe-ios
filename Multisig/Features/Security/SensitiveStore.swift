@@ -81,6 +81,12 @@ class SensitiveStore: EncryptedStore {
         return try encryptedSigningKey.decrypt(privateKey: decryptedSensitiveKey)
     }
 
+    // Options:
+    //          userCreatedAppPasscode -> true/false
+    //                     -> oldPassword == nil  and/or newPassword == nil
+    //                        oldPassword == nil -> use stored password to access current KEK
+    //                        newPassword == nil -> use stored password to access KEK
+    //          useBiometry -> true/false
     func changePassword(from oldPassword: String?, to newPassword: String?, useBiometry: Bool = false) throws {
         // find sensitive key
         let encryptedSensitiveKey = try store.find(KeychainItem.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service())) as? Data
@@ -146,15 +152,6 @@ class SensitiveStore: EncryptedStore {
                 publicKey: sensitiveKey.publicKey()
         )
         try store.create(pubKeyItem)
-    }
-
-    func changeSettings() {
-        // options:
-        //          useBiometry -> true/false
-        //          userCreatedAppPasscode -> true/false
-        //                     -> oldPassword = nil  and/or newPassword = nil
-        //                        oldPassword == nil -> use stored password to access current KEK
-        //                        newPassword == nil -> use stored password to access KEK
     }
 
     func initialize() throws {

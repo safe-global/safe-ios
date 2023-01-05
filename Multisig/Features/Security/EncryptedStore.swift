@@ -24,7 +24,6 @@ protocol EncryptedStore {
     /// - returns: String with hex encoded bytes of the private key or nil if key not found
     func find(dataID: DataID, password: String?) throws -> EthPrivateKey?
     func changePassword(from oldPassword: String?, to newPassword: String?, useBiometry: Bool) throws
-    func changeSettings()
 }
 
 class DataID {
