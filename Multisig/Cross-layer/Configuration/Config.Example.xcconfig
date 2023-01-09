@@ -114,9 +114,9 @@ CREATE_SAFE_URL = https:/$()/help.gnosis-safe.io/en/articles/3876461-create-a-sa
 CONFIRMATIONS_URL = https:/$()/help.gnosis-safe.io/en/articles/3952319-signature-policies
 
 // Legal URLs
-TERMS_URL       = https:/$()/gnosis-safe.io/terms/
-PRIVACY_URL     = https:/$()/gnosis-safe.io/privacy/
-LICENSES_URL    = https:/$()/gnosis-safe.io/licenses/
+TERMS_URL       = https:/$()/safe.global/terms/
+PRIVACY_URL     = https:/$()/safe.global/privacy/
+LICENSES_URL    = https:/$()/safe.global/licenses/
 
 // Contact Information
 DISCORD_URL             = https:/$()/discord.gg/TaNjuFzS6X
