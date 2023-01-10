@@ -195,7 +195,7 @@ class KeychainItemStoreTests: XCTestCase {
         let randomData = UUID().uuidString.data(using: .utf8)!
         let randomPassword = UUID().uuidString
         guard simulatorCheck() else {
-            return
+            throw XCTSkip("Test not supported on simulator")
         }
         try kciStore.create(KeychainItem.enclaveKey(
                 password: randomPassword.data(using: .utf8),
