@@ -132,7 +132,7 @@ class SensitiveStore: EncryptedStore {
         let keyEncryptionKey: SecKey = try store.create(kekItem) as! SecKey
 
         // create key pair
-        let privateKeyItem = KeychainItem.ecKeyPair // is it a pair though? also, why no tag? because it is not stored directly.
+        let privateKeyItem = KeychainItem.ecKeyPair
         let sensitiveKey: SecKey = try store.create(privateKeyItem) as! SecKey
 
         let encryptedPK = try Data(secKey: sensitiveKey).encrypt(publicKey: keyEncryptionKey.publicKey())
@@ -178,7 +178,7 @@ class SensitiveStore: EncryptedStore {
         let keyEncryptionKey: SecKey = try store.create(kekItem) as! SecKey
 
         // 3. create key pair
-        let privateKeyItem = KeychainItem.ecKeyPair // is it a pair though? also, why no tag? because it is not stored directly.
+        let privateKeyItem = KeychainItem.ecKeyPair
         let sensitiveKey: SecKey = try store.create(privateKeyItem) as! SecKey
 
         let encryptedPK = try Data(secKey: sensitiveKey).encrypt(publicKey: keyEncryptionKey.publicKey())
