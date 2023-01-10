@@ -9,16 +9,18 @@
 import Foundation
 
 class SensitiveStore: EncryptedStore {
+    private let protectionClass: ProtectionClass
     private let store: KeychainItemStore
 
-    static let sensitivePublicKeyTag = "global.safe.sensitivePublicKeyTag"
-    static let sensitivePublicKEKTag = "global.safe.sensitivePublicKEKTag"
-    static let sensitivePrivateKEKTag = "global.safe.sensitivePrivateKEKTag"
-    static let sensitiveEncryptedPrivateKeyTag = "global.safe.sensitive.private.key.as.encrypted.data"
+    static let publicKeyTag = "global.safe.publicKeyTag"
+    static let publicKEKTag = "global.safe.publicKEKTag"
+    static let privateKEKTag = "global.safe.privateKEKTag"
+    static let encryptedPrivateKeyTag = "global.safe.private.key.as.encrypted.data"
     static let derivedPasswordTag = "global.safe.password.as.data"
 
-    init(_ store: KeychainItemStore) {
+    init(protectionClass: ProtectionClass, _ store: KeychainItemStore) {
         self.store = store
+        self.protectionClass = protectionClass
     }
 
     func initializeKeyStore() throws {
@@ -27,7 +29,7 @@ class SensitiveStore: EncryptedStore {
 
     func isInitialized() -> Bool {
         do {
-            return try store.find(.ecPubKey(tag: SensitiveStore.sensitivePublicKeyTag)) != nil
+            return try store.find(.ecPubKey(tag: SensitiveStore.publicKeyTag, service: protectionClass.service())) != nil
         } catch {
             LogService.shared.error("SensitiveStore is not initialized", error: error)
             return false
@@ -39,7 +41,7 @@ class SensitiveStore: EncryptedStore {
         let privateKey = try PrivateKey(data: ethPrivateKey)
 
         // 2. find public sensitive key
-        let pubKey = try store.find(.ecPubKey()) as! SecKey
+        let pubKey = try store.find(.ecPubKey(tag: SensitiveStore.publicKeyTag, service: protectionClass.service())) as! SecKey
 
         // 3. encrypt private key with public sensitive key
         var error: Unmanaged<CFError>?
@@ -48,26 +50,26 @@ class SensitiveStore: EncryptedStore {
 
         // 4. store encrypted blob in the keychain
         let address = privateKey.address
-        try store.create(KeychainItem.generic(id: id.id, service: id.protectionClass.service(), data: encryptedSigningKey))
+        try store.create(KeychainItem.generic(id: id.id, service: protectionClass.service(), data: encryptedSigningKey))
     }
 
     func delete(address: Address) throws {
-        try store.delete(KeychainItem.generic(id: address.checksummed, service: ProtectionClass.sensitive.service()))
+        try store.delete(KeychainItem.generic(id: address.checksummed, service: protectionClass.service()))
     }
 
     func find(dataID: DataID, password: String?) throws -> EthPrivateKey? {
         // Get encrypted signing key
-        guard let encryptedSigningKey = try store.find(KeychainItem.generic(id: dataID.id, service: dataID.protectionClass.service())) as? Data else {
+        guard let encryptedSigningKey = try store.find(KeychainItem.generic(id: dataID.id, service: protectionClass.service())) as? Data else {
             return nil
         }
         // If no password given retrieve the password from store
-        let password = password != nil ? password?.data(using: .utf8) : try store.find(KeychainItem.generic(id: SensitiveStore.derivedPasswordTag, service: ProtectionClass.sensitive.service())) as! Data?
+        let password = password != nil ? password?.data(using: .utf8) : try store.find(KeychainItem.generic(id: SensitiveStore.derivedPasswordTag, service: protectionClass.service())) as! Data?
 
         // Get access to secure enclave key
-        let sensitiveKEK = try store.find(KeychainItem.enclaveKey(password: password)) as! SecKey
+        let sensitiveKEK = try store.find(KeychainItem.enclaveKey(tag: SensitiveStore.privateKEKTag, service: protectionClass.service() ,password: password)) as! SecKey
 
         // Get access to encrypted sensitive key
-        let encryptedSensitiveKey = try store.find(KeychainItem.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service())) as? Data
+        let encryptedSensitiveKey = try store.find(KeychainItem.generic(id: SensitiveStore.encryptedPrivateKeyTag, service: protectionClass.service())) as? Data
         // Decrypt sensitiveKey
         let decryptedSensitiveKeyData = try encryptedSensitiveKey?.decrypt(privateKey: sensitiveKEK)
 
@@ -89,11 +91,11 @@ class SensitiveStore: EncryptedStore {
     //          useBiometry -> true/false
     func changePassword(from oldPassword: String?, to newPassword: String?, useBiometry: Bool = false) throws {
         // find sensitive key
-        let encryptedSensitiveKey = try store.find(KeychainItem.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service())) as? Data
+        let encryptedSensitiveKey = try store.find(KeychainItem.generic(id: SensitiveStore.encryptedPrivateKeyTag, service: protectionClass.service())) as? Data
         // if no old password given, retrieve stored password
-        let passwordData = oldPassword != nil ? oldPassword?.data(using: .utf8) : try store.find(KeychainItem.generic(id: SensitiveStore.derivedPasswordTag, service: ProtectionClass.sensitive.service())) as! Data?
+        let passwordData = oldPassword != nil ? oldPassword?.data(using: .utf8) : try store.find(KeychainItem.generic(id: SensitiveStore.derivedPasswordTag, service: protectionClass.service())) as! Data?
         // find KEK
-        let sensitiveKEK = try store.find(KeychainItem.enclaveKey(password: passwordData)) as! SecKey
+        let sensitiveKEK = try store.find(KeychainItem.enclaveKey(tag: SensitiveStore.privateKEKTag, service: protectionClass.service(), password: passwordData)) as! SecKey
 
         // decrypt sensitive key
         let decryptedSensitiveKeyData = try encryptedSensitiveKey?.decrypt(privateKey: sensitiveKEK)
@@ -110,7 +112,7 @@ class SensitiveStore: EncryptedStore {
             let passwordData = createRandomBytes(32)
             let passItem = KeychainItem.generic(
                     id: SensitiveStore.derivedPasswordTag,
-                    service: ProtectionClass.sensitive.service(),
+                    service: protectionClass.service(),
                     data: passwordData
             )
             try store.create(passItem)
@@ -124,7 +126,8 @@ class SensitiveStore: EncryptedStore {
 
         // create new KEK with new app password
         let kekItem = KeychainItem.enclaveKey(
-                tag: SensitiveStore.sensitivePrivateKEKTag,
+                tag: SensitiveStore.privateKEKTag,
+                service: protectionClass.service(),
                 password: newPasswordData,
                 access: accessFlags
         )
@@ -141,14 +144,15 @@ class SensitiveStore: EncryptedStore {
         // store sensitive key
         // store encrypted private key
         let encryptedPrivateKeyItem = KeychainItem.generic(
-                id: SensitiveStore.sensitiveEncryptedPrivateKeyTag,
-                service: ProtectionClass.sensitive.service(),
+                id: SensitiveStore.encryptedPrivateKeyTag,
+                service: protectionClass.service(),
                 data: encryptedPK)
         try store.create(encryptedPrivateKeyItem)
 
         // store public key
         let pubKeyItem = KeychainItem.ecPubKey(
-                tag: SensitiveStore.sensitivePublicKeyTag,
+                tag: SensitiveStore.publicKeyTag,
+                service: protectionClass.service(),
                 publicKey: sensitiveKey.publicKey()
         )
         try store.create(pubKeyItem)
@@ -160,7 +164,7 @@ class SensitiveStore: EncryptedStore {
         // store password
         let passItem = KeychainItem.generic(
                 id: SensitiveStore.derivedPasswordTag,
-                service: ProtectionClass.sensitive.service(),
+                service: protectionClass.service(),
                 data: passwordData
         )
         try store.create(passItem)
@@ -171,7 +175,8 @@ class SensitiveStore: EncryptedStore {
         // and on the defaults
         // that is application/module-specific
         let kekItem = KeychainItem.enclaveKey(
-                tag: SensitiveStore.sensitivePrivateKEKTag,
+                tag: SensitiveStore.privateKEKTag,
+                service: protectionClass.service(),
                 password: passwordData,
                 access: [.applicationPassword]
         )
@@ -186,14 +191,15 @@ class SensitiveStore: EncryptedStore {
         // store key pair
         // store encrypted private key
         let encryptedPrivateKeyItem = KeychainItem.generic(
-                id: SensitiveStore.sensitiveEncryptedPrivateKeyTag,
-                service: ProtectionClass.sensitive.service(),
+                id: SensitiveStore.encryptedPrivateKeyTag,
+                service: protectionClass.service(),
                 data: encryptedPK)
         try store.create(encryptedPrivateKeyItem)
 
         // store public key
         let pubKeyItem = KeychainItem.ecPubKey(
-                tag: SensitiveStore.sensitivePublicKeyTag,
+                tag: SensitiveStore.publicKeyTag,
+                service: protectionClass.service(),
                 publicKey: sensitiveKey.publicKey()
         )
         try store.create(pubKeyItem)
@@ -208,6 +214,12 @@ class SensitiveStore: EncryptedStore {
         return Data(bytes)
     }
 
+    func deleteAllKeys() throws {
+        try! store.delete(.generic(id: SensitiveStore.derivedPasswordTag, service: protectionClass.service()))
+        try! store.delete(.generic(id: SensitiveStore.encryptedPrivateKeyTag, service: protectionClass.service()))
+        try! store.delete(.ecPubKey(tag: SensitiveStore.publicKeyTag, service: protectionClass.service()))
+        try! store.delete(.enclaveKey(tag: SensitiveStore.privateKEKTag, service: protectionClass.service()))
+    }
 }
 
 extension Data {
