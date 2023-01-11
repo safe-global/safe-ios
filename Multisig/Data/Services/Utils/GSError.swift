@@ -637,8 +637,8 @@ enum GSError {
 
     struct RequiredPasscode: DetailedLocalizedError {
         let description = "Faild to get passcode"
-        let reason: String
-        let howToFix = "Your passcode is required to perfom this operation"
+        let reason = "Your passcode is required to perfom this operation"
+        let howToFix = "Enter correct passcode and try again"
         let domain = iOSErrorDomain
         let code = 1325
         let loggable = false

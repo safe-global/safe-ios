@@ -13,21 +13,21 @@ class SecurityCenter {
 
     private let sensitiveStore = SensitiveStore.shared
     private var isRequirePasscodeEnabled: Bool {
-        // TODO: Get settings 
+        // TODO: Get settings
         true
     }
 
     private init() { }
 
     func `import`(id: DataID, ethPrivateKey: EthPrivateKey, completion: @escaping (Result<Bool?, Error>) -> ()) {
-        perfomSecuredAccess { result in
+        perfomSecuredAccess { [unowned self] result in
             switch result {
-            case .success(let passcode):
+            case .success(let _):
                 do {
                     try sensitiveStore.import(id: id, ethPrivateKey: ethPrivateKey)
                     completion(.success(true))
-                } catch {
-                    completion(.failure(GSError.KeychainError()))
+                } catch let error {
+                    completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
                 }
             case .failure(let error):
                 completion(.failure(error))
@@ -36,14 +36,14 @@ class SecurityCenter {
     }
 
     func remove(id: DataID, completion: @escaping (Result<Bool?, Error>) -> ()) {
-        perfomSecuredAccess { result in
+        perfomSecuredAccess { [unowned self] result in
             switch result {
-            case .success(let passcode):
+            case .success(let _):
                 do {
                     try sensitiveStore.delete(id: id)
-                    completion(.success())
-                } catch {
-                    completion(.failure(GSError.KeychainError()))
+                    completion(.success(true))
+                } catch let error {
+                    completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
                 }
             case .failure(let error):
                 completion(.failure(error))
@@ -52,14 +52,14 @@ class SecurityCenter {
     }
 
     func find(dataID: DataID, completion: @escaping (Result<EthPrivateKey?, Error>) -> ()) {
-        perfomSecuredAccess { result in
+        perfomSecuredAccess { [unowned self] result in
             switch result {
             case .success(let passcode):
                 do {
                     let key = try sensitiveStore.find(dataID: dataID, password: passcode)
                     completion(.success(key))
-                } catch {
-                    completion(.failure(GSError.KeychainError()))
+                } catch let error {
+                    completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
                 }
             case .failure(let error):
                 completion(.failure(error))
