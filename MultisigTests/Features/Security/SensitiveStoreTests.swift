@@ -134,6 +134,24 @@ public class SensitiveStoreTests: XCTestCase {
 
     }
 
+    func testChangePasswordDataAndSensitiveStore() {
+        XCTAssertEqual(sensitiveKeyStore.isInitialized(), false)
+        do {
+            try sensitiveKeyStore.initializeKeyStore()
+            try dataKeyStore.initializeKeyStore()
+
+            try sensitiveKeyStore.changePassword(from: nil, to: "test123", useBiometry: false)
+            try dataKeyStore.changePassword(from: nil, to: "test123", useBiometry: false)
+            try sensitiveKeyStore.changePassword(from: "test123", to: "random", useBiometry: false)
+            try dataKeyStore.changePassword(from: "test123", to: "random", useBiometry: false)
+            try sensitiveKeyStore.changePassword(from: "random", to: nil, useBiometry: false)
+            try dataKeyStore.changePassword(from: "random", to: nil, useBiometry: false)
+
+        } catch {
+            XCTFail() // should not throw
+        }
+    }
+
     private func simulatorCheck() -> Bool {
         LAContext().setCredential("anyPassword".data(using: .utf8), type: .applicationPassword)
     }
