@@ -108,7 +108,7 @@ class PasscodeFlowFactory {
         }
         let passcodeVC = EnterPasscodeViewController()
         passcodeVC.usesBiometry = biometry
-        passcodeVC.passcodeCompletion = { isSuccess, isReset in
+        passcodeVC.passcodeCompletion = { isSuccess, isReset, _ in
             if isReset {
                 reset()
             } else {

@@ -55,7 +55,8 @@ extension NSNotification.Name {
 
     static let passcodeCreated = NSNotification.Name("io.gnosis.safe.passcodeCreated")
     static let passcodeDeleted = NSNotification.Name("io.gnosis.safe.passcodeDeleted")
-    
+    static let passcodeRequired = NSNotification.Name("global.safe.passcodeRequired")
+
     // MARK: - Networking
 
     static let networkHostReachable = NSNotification.Name("io.gnosis.safe.networkHostReachable")

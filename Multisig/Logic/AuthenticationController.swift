@@ -65,7 +65,7 @@ class AuthenticationController {
     /// Checks if the passcode correct. In case passcode is not set, returns false.
     /// - Parameter plaintextPasscode: unsecured "as-is" passcode
     /// - Returns: true if passcode correct, false otherwise
-    func isPasscodeCorrect(plaintextPasscode: String) throws -> Bool {
+    func  isPasscodeCorrect(plaintextPasscode: String) throws -> Bool {
         guard let user = user else { return false }
         let password = derivedKey(from: plaintextPasscode)
         let oldPassword = derivedKey(from: plaintextPasscode, useOldSalt: true)

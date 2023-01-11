@@ -64,41 +64,47 @@ class MainTabBarViewController: UITabBarController {
         updateTabs()
         tabBar.barTintColor = .backgroundSecondary
 
-        NotificationCenter.default.addObserver(
+        let notificationCenter = NotificationCenter.default
+
+        notificationCenter.addObserver(
             self,
             selector: #selector(showHistoryTransactions),
             name: .incommingTxNotificationReceived,
             object: nil)
 
-        NotificationCenter.default.addObserver(
+        notificationCenter.addObserver(
             self,
             selector: #selector(showQueuedTransactions),
             name: .queuedTxNotificationReceived,
             object: nil)
 
-        NotificationCenter.default.addObserver(
+        notificationCenter.addObserver(
             self,
             selector: #selector(handleConfirmTransactionNotificationReceived),
             name: .confirmationTxNotificationReceived,
             object: nil)
         
-        NotificationCenter.default.addObserver(
+        notificationCenter.addObserver(
             self,
             selector: #selector(handleInitiateTransactionNotificationReceived),
             name: .initiateTxNotificationReceived,
             object: nil)
 
-        NotificationCenter.default.addObserver(
+        notificationCenter.addObserver(
             self,
             selector: #selector(handleSafeCreated),
             name: .safeCreationUpdate,
             object: nil)
 
-        NotificationCenter.default.addObserver(
+        notificationCenter.addObserver(
             self,
             selector: #selector(handleDataRemoved),
             name: .passcodeDeleted,
             object: nil)
+
+        notificationCenter.addObserver(self, selector: #selector(handlePasscodeRequired),
+                                       name: .passcodeRequired,
+                                       object: nil)
 
         WebConnectionController.shared.attach(observer: self)
     }
@@ -308,6 +314,25 @@ class MainTabBarViewController: UITabBarController {
     @objc private func handleDataRemoved(_ notification: Notification) {
         if presentedViewController != nil {
             dismiss(animated: true)
+        }
+    }
+
+    @objc private func handlePasscodeRequired(_ notification: Notification) {
+        let completion = notification.userInfo?["completion"] as? ((Bool, Bool, String?) -> ())
+        if App.shared.auth.isPasscodeSetAndAvailable {
+            let passcodeVC = EnterPasscodeViewController()
+            passcodeVC.usesBiometry = false
+            passcodeVC.passcodeCompletion = { [weak self] success, reset, passcode in
+                self?.dismiss(animated: true) {
+                    completion?(success, reset, passcode)
+                }
+            }
+
+            let nav = UINavigationController(rootViewController: passcodeVC)
+            nav.modalPresentationStyle = .fullScreen
+            present(nav, animated: true)
+        } else {
+            completion?(true, false, nil)
         }
     }
 

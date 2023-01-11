@@ -635,6 +635,15 @@ enum GSError {
         let loggable: Bool = false
     }
 
+    struct RequiredPasscode: DetailedLocalizedError {
+        let description = "Faild to get passcode"
+        let reason: String
+        let howToFix = "Your passcode is required to perfom this operation"
+        let domain = iOSErrorDomain
+        let code = 1325
+        let loggable = false
+    }
+
     // - MARK: - Unstoppable domain errors
 
     struct UDUnsuportedName: DetailedLocalizedError {

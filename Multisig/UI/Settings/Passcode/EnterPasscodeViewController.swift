@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class EnterPasscodeViewController: PasscodeViewController {
-    var passcodeCompletion: (_ success: Bool, _ reset: Bool) -> Void = { _, _ in }
+    var passcodeCompletion: (_ success: Bool, _ reset: Bool, _ passcode: String?) -> Void = { _, _, _ in }
     var navigationItemTitle = "Enter Passcode"
     var screenTrackingEvent = TrackingEvent.enterPasscode
     var showsCloseButton: Bool = true
@@ -64,7 +64,7 @@ class EnterPasscodeViewController: PasscodeViewController {
             }
 
             if isCorrect {
-                passcodeCompletion(true, false)
+                passcodeCompletion(true, false, text)
             } else {
                 wrongAttemptsCount += 1
                 if wrongAttemptsCount >= warnAfterWrongAttemptCount {
@@ -77,7 +77,7 @@ class EnterPasscodeViewController: PasscodeViewController {
     }
 
     @objc func didTapCloseButton() {
-        passcodeCompletion(false, false)
+        passcodeCompletion(false, false, nil)
     }
 
     override func didTapButton(_ sender: Any) {
@@ -94,7 +94,7 @@ class EnterPasscodeViewController: PasscodeViewController {
             }
             do {
                 // should be before deleting all data
-                self.passcodeCompletion(false, true)
+                self.passcodeCompletion(false, true, nil)
                 try App.shared.auth.deleteAllData()
             } catch {
                 showGenericError(description: "Failed to remove passcode", error: error)
@@ -118,7 +118,7 @@ class EnterPasscodeViewController: PasscodeViewController {
             guard let `self` = self else { return }
             switch result {
             case .success:
-                self.passcodeCompletion(true, false)
+                self.passcodeCompletion(true, false, nil)
 
             case .failure(_):
                 self.biometryButton.isHidden = !self.canUseBiometry
