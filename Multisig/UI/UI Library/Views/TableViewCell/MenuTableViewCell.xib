@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <device id="retina6_12" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -19,35 +19,39 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xqo-fM-f2t">
-                        <rect key="frame" x="16" y="15" width="288" height="31"/>
+                        <rect key="frame" x="16" y="15" width="264" height="31"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" text="Main text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GM8-g3-j3P">
-                                <rect key="frame" x="0.0" y="0.0" width="194" height="31"/>
+                                <rect key="frame" x="0.0" y="0.0" width="210" height="31"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i7m-qA-X8G">
-                                <rect key="frame" x="194" y="0.0" width="54" height="31"/>
+                                <rect key="frame" x="210" y="0.0" width="54" height="31"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Button">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="cMu-MP-FZr">
-                                <rect key="frame" x="248" y="0.0" width="40" height="31"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="MFq-pY-UuN"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                     </stackView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="cMu-MP-FZr">
+                        <rect key="frame" x="280" y="0.0" width="40" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="MFq-pY-UuN"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="p6Y-L5-NtQ"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="cMu-MP-FZr" secondAttribute="bottom" id="5NR-8i-WkR"/>
                     <constraint firstItem="Xqo-fM-f2t" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="7Uz-u9-5rl"/>
-                    <constraint firstAttribute="trailing" secondItem="Xqo-fM-f2t" secondAttribute="trailing" constant="16" id="JVH-ss-77S"/>
+                    <constraint firstItem="cMu-MP-FZr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="FSd-pB-hlb"/>
                     <constraint firstItem="Xqo-fM-f2t" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="RC8-GX-rfp"/>
                     <constraint firstAttribute="bottom" secondItem="Xqo-fM-f2t" secondAttribute="bottom" constant="14" id="atD-ke-u2J"/>
+                    <constraint firstItem="cMu-MP-FZr" firstAttribute="leading" secondItem="Xqo-fM-f2t" secondAttribute="trailing" id="bd3-hB-rvS"/>
+                    <constraint firstAttribute="trailing" secondItem="cMu-MP-FZr" secondAttribute="trailing" id="py3-9w-gN2"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

@@ -488,6 +488,19 @@ class PasscodeSettingsViewController: UITableViewController {
         }
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch data[indexPath.section].rows[indexPath.row] {
+        case .changePasscode:
+            return 60
+        default:
+            return UITableView.automaticDimension
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+
     private func makeHeader(with text: String) -> BasicHeaderView {
         let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
         view.setName(text)

@@ -2034,8 +2034,6 @@
 			children = (
 				0A22E12525E4FA3200D24DE1 /* SwitchTableViewCell.swift */,
 				0A22E12625E4FA3200D24DE1 /* SwitchTableViewCell.xib */,
-				0A0C7E4B296F04E800DC1C3B /* SwitchDetailedTableViewCell.swift */,
-				0A0C7E4C296F04E800DC1C3B /* SwitchDetailedTableViewCell.xib */,
 			);
 			path = SwitchTableViewCell;
 			sourceTree = "<group>";
@@ -2362,6 +2360,10 @@
 		04B4B6F325B9E09C00CFE24B /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				0A0C7E4B296F04E800DC1C3B /* SwitchDetailedTableViewCell.swift */,
+				0A0C7E4C296F04E800DC1C3B /* SwitchDetailedTableViewCell.xib */,
+				0A0C7E4F296F1C4100DC1C3B /* MenuTableViewCell.swift */,
+				0A0C7E50296F1C4100DC1C3B /* MenuTableViewCell.xib */,
 				045A1769283675D50020484B /* WarningTableViewCell */,
 				6A7A489D2823A261003278C8 /* SafeOwnerCell */,
 				04077B40278E22C300AF6376 /* ReviewTransactionCells */,
@@ -2777,8 +2779,6 @@
 				0A5B15862808645E003AD853 /* Change Passcode */,
 				0A5B157B280863DF003AD853 /* EnterPasscodeViewController.swift */,
 				0A22E11B25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift */,
-				0A0C7E4F296F1C4100DC1C3B /* MenuTableViewCell.swift */,
-				0A0C7E50296F1C4100DC1C3B /* MenuTableViewCell.xib */,
 				0A5C0C5528191F400061D96F /* PasscodeProtecting.swift */,
 			);
 			path = Passcode;
