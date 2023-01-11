@@ -22,6 +22,7 @@ class PasscodeSettingsViewController: UITableViewController {
         case usePasscode
         case changePasscode
         case loginWithBiometrics
+        case lockMethod
         case requireToOpenApp
         case requireForConfirmations
         case oneOptionSelectedText
@@ -106,6 +107,8 @@ class PasscodeSettingsViewController: UITableViewController {
                 lockRows.append(.loginWithBiometrics)
             }
 
+            lockRows.append(.lockMethod)
+
             data = [
                 (section: .lockMethod, rows: lockRows),
                 (section: .passcode, rows: [.changePasscode]),
@@ -165,6 +168,27 @@ class PasscodeSettingsViewController: UITableViewController {
             } else {
                 finish()
             }
+        }
+    }
+
+    class CustomDelegate: NSObject, UIPopoverPresentationControllerDelegate {
+        func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+            .none
+        }
+    }
+
+    let popoverDelegate = CustomDelegate()
+
+    private func changeLockMethod(from cell: BasicCell) {
+        let vc = ChangePasscodeEnterNewViewController()
+        vc.modalPresentationStyle = .popover
+
+        if let popoverVC = vc.popoverPresentationController {
+            popoverVC.permittedArrowDirections = .up
+            popoverVC.sourceView = cell
+            popoverVC.sourceRect = (cell.detailLabel?.frame ?? .zero).offsetBy(dx: 0, dy: 21)
+            popoverVC.delegate = popoverDelegate
+            present(vc, animated: true)
         }
     }
 
@@ -357,6 +381,9 @@ class PasscodeSettingsViewController: UITableViewController {
                                         with: "Login with biometrics",
                                         isOn: AppSettings.passcodeOptions.contains(.useBiometry))
 
+        case .lockMethod:
+            return tableView.basicCell(name: "Lock method", detail: detail, indexPath: indexPath)
+
         case .requireToOpenApp:
             return switchDetailCell(for: indexPath,
                                     with: "Unlocking the app",
@@ -380,6 +407,16 @@ class PasscodeSettingsViewController: UITableViewController {
 
     func detailText(for row: Row, lock: LockMethod, biometry: BiometryType) -> String? {
         switch row {
+        case .lockMethod:
+            switch lock {
+            case .passcode:
+                return "Passcode"
+            case .userPresence:
+                return biometry.name
+            case .passcodeAndUserPresence:
+                return "Passcode & \(biometry.name)"
+            }
+            
         case .usePasscode:
             let text = biometry == .passcode ? "" : "or \(biometry.name) "
             return "Require passcode \(text)for unlocking the app, making transactions and using signer accounts"
@@ -428,6 +465,9 @@ class PasscodeSettingsViewController: UITableViewController {
 
         case .changePasscode:
             changePasscode()
+
+        case .lockMethod:
+            changeLockMethod(from: tableView.cellForRow(at: indexPath) as! BasicCell)
 
         case .loginWithBiometrics:
             toggleBiometrics()

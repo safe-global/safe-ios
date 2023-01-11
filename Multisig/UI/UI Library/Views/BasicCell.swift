@@ -12,7 +12,7 @@ import Kingfisher
 class BasicCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet weak var iconImage: UIImageView!
-    @IBOutlet private weak var detailLabel: UILabel!
+    @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet private weak var disclosureImageView: UIImageView!
     @IBOutlet private weak var supplementaryImageView: UIImageView!
 
