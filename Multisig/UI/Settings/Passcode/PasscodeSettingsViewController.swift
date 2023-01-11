@@ -27,6 +27,31 @@ class PasscodeSettingsViewController: UITableViewController {
         case oneOptionSelectedText
     }
 
+    enum LockMethod {
+        case passcode
+        case userPresence
+        case passcodeAndUserPresence
+
+    }
+
+    enum BiometryType {
+        case faceID
+        case touchID
+        case passcode
+
+        var name: String {
+            switch self {
+            case .faceID: return "Face ID"
+            case .touchID: return "Touch ID"
+            case .passcode: return "Device Passcode"
+            }
+        }
+    }
+
+    // TODO: sync the values with the SecurityCenter
+    private var lock: LockMethod = .passcode
+    private var biometryType: BiometryType = .passcode
+
     private var data: [(section: Section, rows: [Row])] = []
     private var createPasscodeFlow: CreatePasscodeFlow!
 
@@ -61,6 +86,9 @@ class PasscodeSettingsViewController: UITableViewController {
             self, selector: #selector(reloadData), name: .passcodeDeleted, object: nil)
 
         reloadData()
+
+        // uncomment to cycle through the detail texts
+        // _cycleThroughLockMethodAndBiometryTexts()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -280,12 +308,38 @@ class PasscodeSettingsViewController: UITableViewController {
         data[section].rows.count
     }
 
+    // Helper function to test effects of all combinations of the lock method and biometry settings on the UI
+    func _cycleThroughLockMethodAndBiometryTexts() {
+        DispatchQueue.global().async {
+            for cycleCounter in (0..<99) {
+                let locks: [LockMethod] = [.passcode, .userPresence, .passcodeAndUserPresence]
+                let biometries: [BiometryType] = [.passcode, .touchID, .faceID]
+
+                // Display each combination for 5 seconds
+                for lock in locks {
+                    for biometry in biometries {
+
+                        // update the UI with new simulated parameters
+                        DispatchQueue.main.async { [unowned self] in
+                            print("Cycle", cycleCounter, "Lock", lock, "Biometry", biometry)
+
+
+                            self.lock = lock
+                            self.biometryType = biometry
+                            self.reloadData()
+                        }
+
+                        Thread.sleep(forTimeInterval: 5)
+                    }
+                }
+            }
+        }
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // TODO: get selected lock method from the security center
-        let lock = LockMethod.passcodeAndUserPresence
-        let biometry = BiometryType.faceID
         let row = data[indexPath.section].rows[indexPath.row]
-        let detail = detailText(for: row, lock: lock, biometry: biometry)
+        let detail = detailText(for: row, lock: lock, biometry: biometryType)
 
         switch row {
         case .usePasscode:
@@ -323,26 +377,6 @@ class PasscodeSettingsViewController: UITableViewController {
         }
     }
 
-    enum LockMethod {
-        case passcode
-        case userPresence
-        case passcodeAndUserPresence
-
-    }
-
-    enum BiometryType {
-        case faceID
-        case touchID
-        case passcode
-
-        var name: String {
-            switch self {
-            case .faceID: return "Face ID"
-            case .touchID: return "Touch ID"
-            case .passcode: return "Device Passcode"
-            }
-        }
-    }
 
     func detailText(for row: Row, lock: LockMethod, biometry: BiometryType) -> String? {
         switch row {
