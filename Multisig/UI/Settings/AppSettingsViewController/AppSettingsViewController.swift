@@ -90,7 +90,7 @@ class AppSettingsViewController: UITableViewController {
                 Section.App.desktopPairing("Connect to Web"),
                 Section.App.ownerKeys("Owner keys", !KeyInfo.keysWithoutBackup().isEmpty, "\(KeyInfo.count())"),
                 Section.App.addressBook("Address Book"),
-                Section.App.passcode("Passcode"),
+                Section.App.passcode("Security"),
                 Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),
                 Section.App.chainPrefix("Chain prefix"),
                 Section.App.appearance("Appearance"),
