@@ -281,12 +281,18 @@ class PasscodeSettingsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch data[indexPath.section].rows[indexPath.row] {
+        // TODO: get selected lock method from the security center
+        let lock = LockMethod.passcodeAndUserPresence
+        let biometry = BiometryType.faceID
+        let row = data[indexPath.section].rows[indexPath.row]
+        let detail = detailText(for: row, lock: lock, biometry: biometry)
+
+        switch row {
         case .usePasscode:
             return switchDetailCell(
                 for: indexPath,
                 with: "Enable security lock",
-                detail: "Require passcode or Face ID for unlocking the app, making transactions and using signer accounts",
+                detail: detail,
                 isOn: isPasscodeSet)
 
         case .changePasscode:
@@ -300,13 +306,13 @@ class PasscodeSettingsViewController: UITableViewController {
         case .requireToOpenApp:
             return switchDetailCell(for: indexPath,
                                     with: "Unlocking the app",
-                                    detail: "Only Face ID will be required to unlock the app.",
+                                    detail: detail,
                                     isOn: AppSettings.passcodeOptions.contains(.useForLogin))
 
         case .requireForConfirmations:
             return switchDetailCell(for: indexPath,
                                     with: "Making transactions",
-                                    detail: "Both Passcode & Face ID will be used for making tranasctions.",
+                                    detail: detail,
                                     isOn: AppSettings.passcodeOptions.contains(.useForConfirmation))
 
         case .oneOptionSelectedText:
@@ -314,6 +320,56 @@ class PasscodeSettingsViewController: UITableViewController {
                 for: indexPath,
                 with: "At least one setting must be enabled.",
                 hasSeparator: false)
+        }
+    }
+
+    enum LockMethod {
+        case passcode
+        case userPresence
+        case passcodeAndUserPresence
+
+    }
+
+    enum BiometryType {
+        case faceID
+        case touchID
+        case passcode
+
+        var name: String {
+            switch self {
+            case .faceID: return "Face ID"
+            case .touchID: return "Touch ID"
+            case .passcode: return "Device Passcode"
+            }
+        }
+    }
+
+    func detailText(for row: Row, lock: LockMethod, biometry: BiometryType) -> String? {
+        switch row {
+        case .usePasscode:
+            let text = biometry == .passcode ? "" : "or \(biometry.name) "
+            return "Require passcode \(text)for unlocking the app, making transactions and using signer accounts"
+
+        case .requireToOpenApp:
+            let text: String
+            switch lock {
+            case .passcode: text = "Passcode"
+            case .userPresence: text = biometry.name
+            case .passcodeAndUserPresence: text = biometry.name
+            }
+            return "Only \(text) will be required to unlock the app."
+
+        case .requireForConfirmations:
+            let text: String
+            switch lock {
+            case .passcode: text = "Passcode"
+            case .userPresence: text = biometry.name
+            case .passcodeAndUserPresence: text = "Both Passcode & \(biometry.name)"
+            }
+            return "\(text) will be used for making transactions."
+
+        default:
+            return nil
         }
     }
 
