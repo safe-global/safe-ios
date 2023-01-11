@@ -238,6 +238,8 @@
 		0A0C75B227E8AB620083AE01 /* SendTransactionToWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0C75B127E8AB620083AE01 /* SendTransactionToWalletViewController.swift */; };
 		0A0C7E4D296F04E800DC1C3B /* SwitchDetailedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0C7E4B296F04E800DC1C3B /* SwitchDetailedTableViewCell.swift */; };
 		0A0C7E4E296F04E800DC1C3B /* SwitchDetailedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A0C7E4C296F04E800DC1C3B /* SwitchDetailedTableViewCell.xib */; };
+		0A0C7E51296F1C4100DC1C3B /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0C7E4F296F1C4100DC1C3B /* MenuTableViewCell.swift */; };
+		0A0C7E52296F1C4100DC1C3B /* MenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A0C7E50296F1C4100DC1C3B /* MenuTableViewCell.xib */; };
 		0A0EFC9D246EA6E100D3D8BF /* AdvancedAppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */; };
 		0A0EFC9F246EADC200D3D8BF /* DisplayURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFC9E246EADC200D3D8BF /* DisplayURLTests.swift */; };
 		0A0EFCA6246EAF3700D3D8BF /* DisplayURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0EFCA5246EAF3700D3D8BF /* DisplayURL.swift */; };
@@ -1205,6 +1207,8 @@
 		0A0C75B127E8AB620083AE01 /* SendTransactionToWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendTransactionToWalletViewController.swift; sourceTree = "<group>"; };
 		0A0C7E4B296F04E800DC1C3B /* SwitchDetailedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchDetailedTableViewCell.swift; sourceTree = "<group>"; };
 		0A0C7E4C296F04E800DC1C3B /* SwitchDetailedTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwitchDetailedTableViewCell.xib; sourceTree = "<group>"; };
+		0A0C7E4F296F1C4100DC1C3B /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
+		0A0C7E50296F1C4100DC1C3B /* MenuTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuTableViewCell.xib; sourceTree = "<group>"; };
 		0A0EFC9C246EA6E100D3D8BF /* AdvancedAppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedAppSettings.swift; sourceTree = "<group>"; };
 		0A0EFC9E246EADC200D3D8BF /* DisplayURLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayURLTests.swift; sourceTree = "<group>"; };
 		0A0EFCA5246EAF3700D3D8BF /* DisplayURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayURL.swift; sourceTree = "<group>"; };
@@ -2773,6 +2777,8 @@
 				0A5B15862808645E003AD853 /* Change Passcode */,
 				0A5B157B280863DF003AD853 /* EnterPasscodeViewController.swift */,
 				0A22E11B25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift */,
+				0A0C7E4F296F1C4100DC1C3B /* MenuTableViewCell.swift */,
+				0A0C7E50296F1C4100DC1C3B /* MenuTableViewCell.xib */,
 				0A5C0C5528191F400061D96F /* PasscodeProtecting.swift */,
 			);
 			path = Passcode;
@@ -4680,6 +4686,7 @@
 				0A2AD3BD27ECD6CA00A0A6FD /* QRCodeShareViewController.xib in Resources */,
 				0468EE9E26148A3B008270BF /* PrivacyProtectionScreenViewController.xib in Resources */,
 				049A9DB225FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib in Resources */,
+				0A0C7E52296F1C4100DC1C3B /* MenuTableViewCell.xib in Resources */,
 				6A7A489C28201697003278C8 /* SafeOwnerPickerViewController.xib in Resources */,
 				0ABE698927920294003338AF /* ErrorTableViewCell.xib in Resources */,
 				6A6A105A2889496100B852D5 /* ClaimGetStartedViewController.xib in Resources */,
@@ -5113,6 +5120,7 @@
 				0A9A1A38257924C600B44405 /* DetailMultiAccountsCell.swift in Sources */,
 				04C5DF6B26FB451B0072476C /* KeyTypeTableViewCell.swift in Sources */,
 				0A106289248A892B00C1EE54 /* ERC721Metadata.swift in Sources */,
+				0A0C7E51296F1C4100DC1C3B /* MenuTableViewCell.swift in Sources */,
 				0A5C0C542818204F0061D96F /* EditConfirmationsViewController.swift in Sources */,
 				0A451C00252DDB67001DB7D2 /* ReloadButton.swift in Sources */,
 				046FFE07287C8433007428D7 /* IcommingDappInteractionRequestHeaderTableViewCell.swift in Sources */,

@@ -68,6 +68,7 @@ class PasscodeSettingsViewController: UITableViewController {
 
         tableView.registerCell(SwitchTableViewCell.self)
         tableView.registerCell(SwitchDetailedTableViewCell.self)
+        tableView.registerCell(MenuTableViewCell.self)
         tableView.registerCell(BasicCell.self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "HelpCell")
         tableView.registerHeaderFooterView(BasicHeaderView.self)
@@ -101,16 +102,8 @@ class PasscodeSettingsViewController: UITableViewController {
 
     @objc private func reloadData() {
         if isPasscodeSet {
-            var lockRows: [Row] = [.usePasscode]
-
-            if App.shared.auth.isBiometricsSupported {
-                lockRows.append(.loginWithBiometrics)
-            }
-
-            lockRows.append(.lockMethod)
-
             data = [
-                (section: .lockMethod, rows: lockRows),
+                (section: .lockMethod, rows: [.usePasscode, .lockMethod]),
                 (section: .passcode, rows: [.changePasscode]),
                 (section: .usePasscodeFor, rows: [.requireToOpenApp, .requireForConfirmations, .oneOptionSelectedText])
             ]
@@ -168,27 +161,6 @@ class PasscodeSettingsViewController: UITableViewController {
             } else {
                 finish()
             }
-        }
-    }
-
-    class CustomDelegate: NSObject, UIPopoverPresentationControllerDelegate {
-        func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-            .none
-        }
-    }
-
-    let popoverDelegate = CustomDelegate()
-
-    private func changeLockMethod(from cell: BasicCell) {
-        let vc = ChangePasscodeEnterNewViewController()
-        vc.modalPresentationStyle = .popover
-
-        if let popoverVC = vc.popoverPresentationController {
-            popoverVC.permittedArrowDirections = .up
-            popoverVC.sourceView = cell
-            popoverVC.sourceRect = (cell.detailLabel?.frame ?? .zero).offsetBy(dx: 0, dy: 21)
-            popoverVC.delegate = popoverDelegate
-            present(vc, animated: true)
         }
     }
 
@@ -382,7 +354,27 @@ class PasscodeSettingsViewController: UITableViewController {
                                         isOn: AppSettings.passcodeOptions.contains(.useBiometry))
 
         case .lockMethod:
-            return tableView.basicCell(name: "Lock method", detail: detail, indexPath: indexPath)
+            let cell = tableView.dequeueCell(MenuTableViewCell.self, for: indexPath)
+            cell.titleLabel.setStyle(.headline)
+            cell.titleLabel.text = "Lock method"
+            cell.button.setText(detail!, .plain)
+
+            cell.button.setTitle(detail, for: .normal)
+            cell.button.showsMenuAsPrimaryAction = true
+            let menu = UIMenu(title: "", children: [
+                UIAction(title: detailText(for: .lockMethod, lock: .passcode, biometry: biometryType)!) { action in
+                    // TODO: change to passcode
+                },
+                UIAction(title: detailText(for: .lockMethod, lock: .userPresence, biometry: biometryType)!) { action in
+                    // TODO: change to biometry
+                },
+                UIAction(title: detailText(for: .lockMethod, lock: .passcodeAndUserPresence, biometry: biometryType)!) { action in
+                    // TODO: change to passcode & user presence
+                }
+            ])
+            cell.button.isContextMenuInteractionEnabled
+            cell.button.menu = menu
+            return cell
 
         case .requireToOpenApp:
             return switchDetailCell(for: indexPath,
@@ -465,9 +457,6 @@ class PasscodeSettingsViewController: UITableViewController {
 
         case .changePasscode:
             changePasscode()
-
-        case .lockMethod:
-            changeLockMethod(from: tableView.cellForRow(at: indexPath) as! BasicCell)
 
         case .loginWithBiometrics:
             toggleBiometrics()
