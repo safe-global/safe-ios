@@ -21,8 +21,8 @@ class KeychainItemStoreTests: XCTestCase {
 
     public override func tearDown() {
         super.tearDown()
-        try! kciStore.delete(kciFactory.generic(dataId: DataID(id: SensitiveStore.derivedPasswordTag)))
-        try! kciStore.delete(kciFactory.generic(dataId: DataID(id: SensitiveStore.encryptedPrivateKeyTag)))
+        try! kciStore.delete(kciFactory.generic(dataId: DataID(id: ProtectedKeyStore.derivedPasswordTag)))
+        try! kciStore.delete(kciFactory.generic(dataId: DataID(id: ProtectedKeyStore.encryptedPrivateKeyTag)))
         try! kciStore.delete(kciFactory.ecPubKey())
         try! kciStore.delete(kciFactory.enclaveKey())
     }
@@ -55,27 +55,27 @@ class KeychainItemStoreTests: XCTestCase {
     func testStoreAndRetrievePasscode() throws {
         // Given
         let randomString = UUID().uuidString
-        let passCodeData = try kciStore.find(KeychainItem.generic(id: SensitiveStore.derivedPasswordTag, service: ProtectionClass.sensitive.service())) as! Data?
+        let passCodeData = try kciStore.find(KeychainItem.generic(id: ProtectedKeyStore.derivedPasswordTag, service: ProtectionClass.sensitive.service())) as! Data?
         XCTAssertEqual(passCodeData, nil, "Keychain not empty")
 
         // When
-        try kciStore.create(KeychainItem.generic(id: SensitiveStore.derivedPasswordTag, service: ProtectionClass.sensitive.service(), data: randomString.data(using: .utf8)))
+        try kciStore.create(KeychainItem.generic(id: ProtectedKeyStore.derivedPasswordTag, service: ProtectionClass.sensitive.service(), data: randomString.data(using: .utf8)))
 
         //Then
-        let result = try kciStore.find(KeychainItem.generic(id: SensitiveStore.derivedPasswordTag, service: ProtectionClass.sensitive.service())) as! Data?
+        let result = try kciStore.find(KeychainItem.generic(id: ProtectedKeyStore.derivedPasswordTag, service: ProtectionClass.sensitive.service())) as! Data?
         XCTAssertEqual(result, randomString.data(using: .utf8), "Unexpected result: \(result)")
     }
 
     func testStoreAndRetrieveSensitivePrivateKey() throws {
         // Given
         let randomData = UUID().uuidString.data(using: .utf8)!
-        XCTAssertEqual(try kciStore.find(.generic(id: SensitiveStore.encryptedPrivateKeyTag, service: ProtectionClass.sensitive.service())) as! Data?, nil, "Precondition failed: Keychain not empty!")
+        XCTAssertEqual(try kciStore.find(.generic(id: ProtectedKeyStore.encryptedPrivateKeyTag, service: ProtectionClass.sensitive.service())) as! Data?, nil, "Precondition failed: Keychain not empty!")
 
         // When
-        try kciStore.create(.generic(id: SensitiveStore.encryptedPrivateKeyTag, service: ProtectionClass.sensitive.service(), data: randomData))
+        try kciStore.create(.generic(id: ProtectedKeyStore.encryptedPrivateKeyTag, service: ProtectionClass.sensitive.service(), data: randomData))
 
         //Then
-        let result = try kciStore.find(.generic(id: SensitiveStore.encryptedPrivateKeyTag, service: ProtectionClass.sensitive.service())) as! Data?
+        let result = try kciStore.find(.generic(id: ProtectedKeyStore.encryptedPrivateKeyTag, service: ProtectionClass.sensitive.service())) as! Data?
         XCTAssertEqual(result, randomData)
     }
 

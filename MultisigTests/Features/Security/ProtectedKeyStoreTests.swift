@@ -7,7 +7,7 @@ import XCTest
 @testable import Multisig
 import LocalAuthentication
 
-public class SensitiveStoreTests: XCTestCase {
+public class ProtectedKeyStoreTests: XCTestCase {
 
     var sensitiveKeyStore: EncryptedStore! = nil
     var dataKeyStore: EncryptedStore! = nil
@@ -16,8 +16,8 @@ public class SensitiveStoreTests: XCTestCase {
     public override func setUp() {
         super.setUp()
         keychainItemStore = KeychainItemStore(KeychainStore())
-        sensitiveKeyStore = SensitiveStore(protectionClass: .sensitive, keychainItemStore)
-        dataKeyStore = SensitiveStore(protectionClass: .data, keychainItemStore)
+        sensitiveKeyStore = ProtectedKeyStore(protectionClass: .sensitive, keychainItemStore)
+        dataKeyStore = ProtectedKeyStore(protectionClass: .data, keychainItemStore)
     }
 
     public override func tearDown() {

@@ -15,7 +15,7 @@ class KeychainItemFactory {
     }
 
     func ecPubKey(publicKey: SecKey? = nil) -> KeychainItem {
-        KeychainItem.ecPubKey(tag: SensitiveStore.publicKeyTag, service: protectionClass.service(), publicKey: publicKey)
+        KeychainItem.ecPubKey(tag: ProtectedKeyStore.publicKeyTag, service: protectionClass.service(), publicKey: publicKey)
     }
 
     func generic(dataId: DataID, data: Data? = nil) -> KeychainItem {
@@ -23,7 +23,7 @@ class KeychainItemFactory {
     }
 
     func enclaveKey(password: Data? = nil, access: SecAccessControlCreateFlags? = nil) -> KeychainItem {
-        KeychainItem.enclaveKey(tag: SensitiveStore.privateKEKTag, service: protectionClass.service(), password: password, access: access)
+        KeychainItem.enclaveKey(tag: ProtectedKeyStore.privateKEKTag, service: protectionClass.service(), password: password, access: access)
     }
 
     func ecKeyPair() -> KeychainItem {
