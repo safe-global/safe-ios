@@ -35,6 +35,6 @@ class MenuTableViewCell: UITableViewCell {
 
     var detailText: String? {
         get { button.title(for: .normal) }
-        set { button.setText(newValue, buttonStyle)}
+        set { button.setText(newValue, buttonStyle) }
     }
 }
