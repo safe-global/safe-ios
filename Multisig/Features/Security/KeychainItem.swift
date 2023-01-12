@@ -18,8 +18,8 @@ class KeychainItemFactory {
         KeychainItem.ecPubKey(tag: ProtectedKeyStore.publicKeyTag, service: protectionClass.service(), publicKey: publicKey)
     }
 
-    func generic(dataId: DataID, data: Data? = nil) -> KeychainItem {
-        KeychainItem.generic(id: dataId.id, service: protectionClass.service(), data: data)
+    func generic(account: String, data: Data? = nil) -> KeychainItem {
+        KeychainItem.generic(account: account, service: protectionClass.service(), data: data)
     }
 
     func enclaveKey(password: Data? = nil, access: SecAccessControlCreateFlags? = nil) -> KeychainItem {
@@ -35,7 +35,7 @@ private let TAG_SERVICE_DELIMITER = ":"
 
 enum KeychainItem {
     // Encrypted blob. Can be a password or a cec secret key
-    case generic(id: String, service: String, data: Data? = nil)
+    case generic(account: String, service: String, data: Data? = nil)
     // Key stays in the Secure Enclave
     case enclaveKey(tag: String, service: String, password: Data? = nil, access: SecAccessControlCreateFlags? = nil)
     // Elliptic Curve Public Key

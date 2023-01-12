@@ -50,26 +50,26 @@ class ProtectedKeyStore: EncryptedStore {
 
         // 4. store encrypted blob in the keychain
         let address = privateKey.address
-        try store.create(KeychainItem.generic(id: id.id, service: protectionClass.service(), data: encryptedSigningKey))
+        try store.create(KeychainItem.generic(account: id.id, service: protectionClass.service(), data: encryptedSigningKey))
     }
 
     func delete(address: Address) throws {
-        try store.delete(KeychainItem.generic(id: address.checksummed, service: protectionClass.service()))
+        try store.delete(KeychainItem.generic(account: address.checksummed, service: protectionClass.service()))
     }
 
     func find(dataID: DataID, password: String?) throws -> EthPrivateKey? {
         // Get encrypted signing key
-        guard let encryptedSigningKey = try store.find(KeychainItem.generic(id: dataID.id, service: protectionClass.service())) as? Data else {
+        guard let encryptedSigningKey = try store.find(KeychainItem.generic(account: dataID.id, service: protectionClass.service())) as? Data else {
             return nil
         }
         // If no password given retrieve the password from store
-        let password = password != nil ? password?.data(using: .utf8) : try store.find(KeychainItem.generic(id: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service())) as! Data?
+        let password = password != nil ? password?.data(using: .utf8) : try store.find(KeychainItem.generic(account: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service())) as! Data?
 
         // Get access to secure enclave key
         let sensitiveKEK = try store.find(KeychainItem.enclaveKey(tag: ProtectedKeyStore.privateKEKTag, service: protectionClass.service() ,password: password)) as! SecKey
 
         // Get access to encrypted sensitive key
-        let encryptedSensitiveKey = try store.find(KeychainItem.generic(id: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service())) as? Data
+        let encryptedSensitiveKey = try store.find(KeychainItem.generic(account: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service())) as? Data
         // Decrypt sensitiveKey
         let decryptedSensitiveKeyData = try encryptedSensitiveKey?.decrypt(privateKey: sensitiveKEK)
 
@@ -91,9 +91,9 @@ class ProtectedKeyStore: EncryptedStore {
     //          useBiometry -> true/false
     func changePassword(from oldPassword: String?, to newPassword: String?, useBiometry: Bool = false) throws {
         // find sensitive key
-        let encryptedSensitiveKey = try store.find(KeychainItem.generic(id: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service())) as? Data
+        let encryptedSensitiveKey = try store.find(KeychainItem.generic(account: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service())) as? Data
         // if no old password given, retrieve stored password
-        let passwordData = oldPassword != nil ? oldPassword?.data(using: .utf8) : try store.find(KeychainItem.generic(id: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service())) as! Data?
+        let passwordData = oldPassword != nil ? oldPassword?.data(using: .utf8) : try store.find(KeychainItem.generic(account: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service())) as! Data?
         // find KEK
         let sensitiveKEK = try store.find(KeychainItem.enclaveKey(tag: ProtectedKeyStore.privateKEKTag, service: protectionClass.service(), password: passwordData)) as! SecKey
 
@@ -111,7 +111,7 @@ class ProtectedKeyStore: EncryptedStore {
         if newPasswordData == nil {
             let passwordData = createRandomBytes(32)
             let passItem = KeychainItem.generic(
-                    id: ProtectedKeyStore.derivedPasswordTag,
+                    account: ProtectedKeyStore.derivedPasswordTag,
                     service: protectionClass.service(),
                     data: passwordData
             )
@@ -144,7 +144,7 @@ class ProtectedKeyStore: EncryptedStore {
         // store sensitive key
         // store encrypted private key
         let encryptedPrivateKeyItem = KeychainItem.generic(
-                id: ProtectedKeyStore.encryptedPrivateKeyTag,
+                account: ProtectedKeyStore.encryptedPrivateKeyTag,
                 service: protectionClass.service(),
                 data: encryptedPK)
         try store.create(encryptedPrivateKeyItem)
@@ -163,7 +163,7 @@ class ProtectedKeyStore: EncryptedStore {
         let passwordData = createRandomBytes(32)
         // store password
         let passItem = KeychainItem.generic(
-                id: ProtectedKeyStore.derivedPasswordTag,
+                account: ProtectedKeyStore.derivedPasswordTag,
                 service: protectionClass.service(),
                 data: passwordData
         )
@@ -191,7 +191,7 @@ class ProtectedKeyStore: EncryptedStore {
         // store key pair
         // store encrypted private key
         let encryptedPrivateKeyItem = KeychainItem.generic(
-                id: ProtectedKeyStore.encryptedPrivateKeyTag,
+                account: ProtectedKeyStore.encryptedPrivateKeyTag,
                 service: protectionClass.service(),
                 data: encryptedPK)
         try store.create(encryptedPrivateKeyItem)
@@ -215,8 +215,8 @@ class ProtectedKeyStore: EncryptedStore {
     }
 
     func deleteAllKeys() throws {
-        try! store.delete(.generic(id: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service()))
-        try! store.delete(.generic(id: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service()))
+        try! store.delete(.generic(account: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service()))
+        try! store.delete(.generic(account: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service()))
         try! store.delete(.ecPubKey(tag: ProtectedKeyStore.publicKeyTag, service: protectionClass.service()))
         try! store.delete(.enclaveKey(tag: ProtectedKeyStore.privateKEKTag, service: protectionClass.service()))
     }
