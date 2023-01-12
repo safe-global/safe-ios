@@ -31,6 +31,8 @@ class KeychainItemFactory {
     }
 }
 
+private let TAG_SERVICE_DELIMITER = ":"
+
 enum KeychainItem {
     // Encrypted blob. Can be a password or a cec secret key
     case generic(id: String, service: String, data: Data? = nil)
@@ -56,10 +58,11 @@ enum KeychainItem {
             ]
 
         case let .enclaveKey(tag, service, password, _):
+
             result = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
-                kSecAttrApplicationTag: (tag + ":" + service).data(using: .utf8)!,
+                kSecAttrApplicationTag: tagWithService(tag, service).data(using: .utf8)!,
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
                 kSecReturnRef: true
             ]
@@ -71,7 +74,7 @@ enum KeychainItem {
             result = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPublic,
-                kSecAttrApplicationTag: (tag + ":" + service).data(using: .utf8)!,
+                kSecAttrApplicationTag: tagWithService(tag, service).data(using: .utf8)!,
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
                 kSecReturnRef: true,
             ]
@@ -102,7 +105,7 @@ enum KeychainItem {
 
             let privateKeyAttrs: NSMutableDictionary = [
                 kSecAttrIsPermanent: true,
-                kSecAttrApplicationTag: (tag + ":" + service).data(using: .utf8)!,
+                kSecAttrApplicationTag: tagWithService(tag, service).data(using: .utf8)!,
                 kSecAttrAccessControl: accessControl
             ]
             if let context = LAContext(password: password) {
@@ -128,7 +131,7 @@ enum KeychainItem {
             result = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPublic,
-                kSecAttrApplicationTag: (tag + ":" + service).data(using: .utf8)!,
+                kSecAttrApplicationTag: tagWithService(tag, service).data(using: .utf8)!,
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
                 kSecReturnRef: true
             ]
@@ -156,6 +159,9 @@ enum KeychainItem {
         return access
     }
 
+    private func tagWithService(_ tag: String, _ service: String) -> String {
+        tag + TAG_SERVICE_DELIMITER + service
+    }
 }
 
 fileprivate extension LAContext {
