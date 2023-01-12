@@ -53,7 +53,7 @@ struct SafeInfoContentView: View {
                 EmptyView().background(Color.icon)
                 Toggle(isOn: $appendPrefix, label: {
                     Text("QR code with chain prefix").fixedSize().font(.headline)
-                }).padding(.top, 20).toggleStyle(SwitchToggleStyle(tint: Color.primary))
+                }).padding(.top, 20).toggleStyle(SwitchToggleStyle(tint: Color.success))
             }
         }
         .multilineTextAlignment(.center)

@@ -10,11 +10,11 @@ import UIKit
 import Kingfisher
 
 class BasicCell: UITableViewCell {
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet weak var iconImage: UIImageView!
-    @IBOutlet private weak var detailLabel: UILabel!
-    @IBOutlet private weak var disclosureImageView: UIImageView!
-    @IBOutlet private weak var supplementaryImageView: UIImageView!
+    @IBOutlet private(set) weak var titleLabel: UILabel!
+    @IBOutlet private(set) weak var iconImage: UIImageView!
+    @IBOutlet private(set) weak var detailLabel: UILabel!
+    @IBOutlet private(set) weak var disclosureImageView: UIImageView!
+    @IBOutlet private(set) weak var supplementaryImageView: UIImageView!
 
     static let rowHeight: CGFloat = 60
 

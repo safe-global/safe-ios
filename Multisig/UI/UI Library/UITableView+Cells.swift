@@ -87,14 +87,27 @@ extension UITableView {
     func helpCell(for indexPath: IndexPath,
                   with text: String,
                   backgroundColor: UIColor = .backgroundPrimary,
-                  textStyle: GNOTextStyle = .footnote) -> UITableViewCell {
+                  textStyle: GNOTextStyle = .footnote,
+                  hasSeparator: Bool = true) -> UITableViewCell {
         let cell = dequeueCell(UITableViewCell.self, reuseID: "HelpCell", for: indexPath)
-        cell.textLabel?.setStyle(.footnote)
-        cell.backgroundColor = backgroundColor
-        cell.textLabel?.text = text
-        cell.textLabel?.numberOfLines = 0
+
+        var config = cell.defaultContentConfiguration()
+        config.attributedText = NSAttributedString(string: text, attributes: textStyle.attributes)
+        config.textProperties.numberOfLines = 0
+
+        var bgConfig = UIBackgroundConfiguration.clear()
+        bgConfig.backgroundColor = backgroundColor
+
+        cell.contentConfiguration = config
+        cell.backgroundConfiguration = bgConfig
+
         cell.selectionStyle = .none
-        
+
+        if !hasSeparator {
+            cell.separatorInset = UIEdgeInsets(top: 0, left: .greatestFiniteMagnitude, bottom: 0, right: 0)
+        } else {
+            cell.separatorInset = .zero
+        }
         return cell
     }
 

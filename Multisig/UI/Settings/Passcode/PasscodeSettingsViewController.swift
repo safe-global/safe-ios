@@ -14,18 +14,44 @@ class PasscodeSettingsViewController: UITableViewController {
     enum Section: Int, CaseIterable {
         case single
         case lockMethod
+        case passcode
         case usePasscodeFor
     }
 
     enum Row: Int, CaseIterable {
         case usePasscode
         case changePasscode
-        case helpText
         case loginWithBiometrics
+        case lockMethod
         case requireToOpenApp
         case requireForConfirmations
         case oneOptionSelectedText
     }
+
+    enum LockMethod {
+        case passcode
+        case userPresence
+        case passcodeAndUserPresence
+
+    }
+
+    enum BiometryType {
+        case faceID
+        case touchID
+        case passcode
+
+        var name: String {
+            switch self {
+            case .faceID: return "Face ID"
+            case .touchID: return "Touch ID"
+            case .passcode: return "Device Passcode"
+            }
+        }
+    }
+
+    // TODO: sync the values with the SecurityCenter
+    private var lock: LockMethod = .passcode
+    private var biometryType: BiometryType = .passcode
 
     private var data: [(section: Section, rows: [Row])] = []
     private var createPasscodeFlow: CreatePasscodeFlow!
@@ -38,14 +64,16 @@ class PasscodeSettingsViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Passcode"
+        navigationItem.title = "Security"
 
         tableView.registerCell(SwitchTableViewCell.self)
+        tableView.registerCell(SwitchDetailedTableViewCell.self)
+        tableView.registerCell(MenuTableViewCell.self)
         tableView.registerCell(BasicCell.self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "HelpCell")
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
-        tableView.backgroundColor = .backgroundSecondary
+        tableView.backgroundColor = .backgroundPrimary
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
         if #available(iOS 15.0, *) {
@@ -60,6 +88,9 @@ class PasscodeSettingsViewController: UITableViewController {
             self, selector: #selector(reloadData), name: .passcodeDeleted, object: nil)
 
         reloadData()
+
+        // uncomment to cycle through the detail texts
+        // _cycleThroughLockMethodAndBiometryTexts()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -71,14 +102,9 @@ class PasscodeSettingsViewController: UITableViewController {
 
     @objc private func reloadData() {
         if isPasscodeSet {
-            var lockRows: [Row] = [.usePasscode, .changePasscode]
-
-            if App.shared.auth.isBiometricsSupported {
-                lockRows.append(.loginWithBiometrics)
-            }
-
             data = [
-                (section: .lockMethod, rows: lockRows),
+                (section: .lockMethod, rows: [.usePasscode, .lockMethod]),
+                (section: .passcode, rows: [.changePasscode]),
                 (section: .usePasscodeFor, rows: [.requireToOpenApp, .requireForConfirmations, .oneOptionSelectedText])
             ]
 
@@ -90,7 +116,7 @@ class PasscodeSettingsViewController: UITableViewController {
             }
         } else {
             data = [
-                (section: .single, rows: [.usePasscode, .helpText])
+                (section: .single, rows: [.usePasscode])
             ]
         }
         tableView.reloadData()
@@ -278,35 +304,138 @@ class PasscodeSettingsViewController: UITableViewController {
         data[section].rows.count
     }
 
+    // Helper function to test effects of all combinations of the lock method and biometry settings on the UI
+    func _cycleThroughLockMethodAndBiometryTexts() {
+        DispatchQueue.global().async {
+            for cycleCounter in (0..<99) {
+                let locks: [LockMethod] = [.passcode, .userPresence, .passcodeAndUserPresence]
+                let biometries: [BiometryType] = [.passcode, .touchID, .faceID]
+
+                // Display each combination for 5 seconds
+                for lock in locks {
+                    for biometry in biometries {
+
+                        // update the UI with new simulated parameters
+                        DispatchQueue.main.async { [unowned self] in
+                            print("Cycle", cycleCounter, "Lock", lock, "Biometry", biometry)
+
+
+                            self.lock = lock
+                            self.biometryType = biometry
+                            self.reloadData()
+                        }
+
+                        Thread.sleep(forTimeInterval: 5)
+                    }
+                }
+            }
+        }
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch data[indexPath.section].rows[indexPath.row] {
+        // TODO: get selected lock method from the security center
+        let row = data[indexPath.section].rows[indexPath.row]
+        let detail = detailText(for: row, lock: lock, biometry: biometryType)
+
+        switch row {
         case .usePasscode:
-            return tableView.switchCell(for: indexPath, with: "Use passcode", isOn: isPasscodeSet)
+            return switchDetailCell(
+                for: indexPath,
+                with: "Enable security lock",
+                detail: detail,
+                isOn: isPasscodeSet)
 
         case .changePasscode:
             return tableView.basicCell(name: "Change passcode", indexPath: indexPath)
-
-        case .helpText:
-            return tableView.helpCell(for: indexPath, with: "The passcode is needed to sign transactions.")
 
         case .loginWithBiometrics:
             return tableView.switchCell(for: indexPath,
                                         with: "Login with biometrics",
                                         isOn: AppSettings.passcodeOptions.contains(.useBiometry))
 
+        case .lockMethod:
+            let cell = tableView.dequeueCell(MenuTableViewCell.self, for: indexPath)
+            cell.text = "Lock method"
+            cell.detailText = detail
+            cell.menu = UIMenu(title: "", children: [
+                UIAction(title: detailText(for: .lockMethod, lock: .passcode, biometry: biometryType)!) { action in
+                    // TODO: change to passcode
+                },
+                UIAction(title: detailText(for: .lockMethod, lock: .userPresence, biometry: biometryType)!) { action in
+                    // TODO: change to biometry
+                },
+                UIAction(title: detailText(for: .lockMethod, lock: .passcodeAndUserPresence, biometry: biometryType)!) { action in
+                    // TODO: change to passcode & user presence
+                }
+            ])
+            return cell
+
         case .requireToOpenApp:
-            return tableView.switchCell(for: indexPath,
-                                        with: "Require to open app",
-                                        isOn: AppSettings.passcodeOptions.contains(.useForLogin))
+            return switchDetailCell(for: indexPath,
+                                    with: "Unlocking the app",
+                                    detail: detail,
+                                    isOn: AppSettings.passcodeOptions.contains(.useForLogin))
 
         case .requireForConfirmations:
-            return tableView.switchCell(for: indexPath,
-                                        with: "Require for confirmations",
-                                        isOn: AppSettings.passcodeOptions.contains(.useForConfirmation))
+            return switchDetailCell(for: indexPath,
+                                    with: "Making transactions",
+                                    detail: detail,
+                                    isOn: AppSettings.passcodeOptions.contains(.useForConfirmation))
 
         case .oneOptionSelectedText:
-            return tableView.helpCell(for: indexPath, with: "At least one option must be selected")
+            return tableView.helpCell(
+                for: indexPath,
+                with: "At least one setting must be enabled.",
+                hasSeparator: false)
         }
+    }
+
+
+    func detailText(for row: Row, lock: LockMethod, biometry: BiometryType) -> String? {
+        switch row {
+        case .lockMethod:
+            switch lock {
+            case .passcode:
+                return "Passcode"
+            case .userPresence:
+                return biometry.name
+            case .passcodeAndUserPresence:
+                return "Passcode & \(biometry.name)"
+            }
+            
+        case .usePasscode:
+            let text = biometry == .passcode ? "" : "or \(biometry.name) "
+            return "Require passcode \(text)for unlocking the app, making transactions and using signer accounts"
+
+        case .requireToOpenApp:
+            let text: String
+            switch lock {
+            case .passcode: text = "Passcode"
+            case .userPresence: text = biometry.name
+            case .passcodeAndUserPresence: text = biometry.name
+            }
+            return "Only \(text) will be required to unlock the app."
+
+        case .requireForConfirmations:
+            let text: String
+            switch lock {
+            case .passcode: text = "Passcode"
+            case .userPresence: text = biometry.name
+            case .passcodeAndUserPresence: text = "Both Passcode & \(biometry.name)"
+            }
+            return "\(text) will be used for making transactions."
+
+        default:
+            return nil
+        }
+    }
+
+    func switchDetailCell(for indexPath: IndexPath, with text: String, detail: String? = nil, isOn: Bool) -> SwitchDetailedTableViewCell {
+        let cell = tableView.dequeueCell(SwitchDetailedTableViewCell.self, for: indexPath)
+        cell.text = text
+        cell.detailText = detail
+        cell.setOn(isOn, animated: false)
+        return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -341,7 +470,8 @@ class PasscodeSettingsViewController: UITableViewController {
         switch data[section].section {
         case .single: return nil
         case .lockMethod: return makeHeader(with: "LOCK METHOD")
-        case .usePasscodeFor: return makeHeader(with: "USE PASSCODE FOR")
+        case .passcode: return makeHeader(with: "PASSCODE")
+        case .usePasscodeFor: return makeHeader(with: "REQUIRE LOCK METHOD FOR...")
         }
     }
 
@@ -350,6 +480,19 @@ class PasscodeSettingsViewController: UITableViewController {
         case .single: return 0
         default: return BasicHeaderView.headerHeight
         }
+    }
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch data[indexPath.section].rows[indexPath.row] {
+        case .changePasscode:
+            return 60
+        default:
+            return UITableView.automaticDimension
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
 
     private func makeHeader(with text: String) -> BasicHeaderView {
