@@ -18,6 +18,7 @@ class ProtectedKeyStore: EncryptedStore {
     static let encryptedPrivateKeyTag = "global.safe.private.key.as.encrypted.data"
     static let derivedPasswordTag = "global.safe.password.as.data"
 
+
     init(protectionClass: ProtectionClass, _ store: KeychainItemStore) {
         self.store = store
         self.protectionClass = protectionClass
