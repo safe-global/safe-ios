@@ -10,7 +10,10 @@ import LocalAuthentication
 class KeychainItemStoreTests: XCTestCase {
 
     var kciStore: KeychainItemStore! = nil
+    var kciFactory: KeychainItemFactory = KeychainItemFactory(protectionClass: ProtectionClass.sensitive)
     let derivedPasscode = "foobar23"
+    let passwordTag = "random.tag"
+    let encryptedPrivateKeyTag = "random.private.key.tag"
 
     public override func setUp() {
         super.setUp()
@@ -20,61 +23,61 @@ class KeychainItemStoreTests: XCTestCase {
 
     public override func tearDown() {
         super.tearDown()
-        try! kciStore.delete(.generic(id: SensitiveStore.derivedPasswordTag, service: ProtectionClass.sensitive.service()))
-        try! kciStore.delete(.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service()))
-        try! kciStore.delete(.ecPubKey())
-        try! kciStore.delete(.enclaveKey())
+        try! kciStore.delete(kciFactory.generic(account: passwordTag))
+        try! kciStore.delete(kciFactory.generic(account: encryptedPrivateKeyTag))
+        try! kciStore.delete(kciFactory.ecPubKey())
+        try! kciStore.delete(kciFactory.enclaveKey())
     }
 
     func testDeleteItem() throws {
         // Given
-        let randomKey = try kciStore.create(KeychainItem.ecKeyPair) as! SecKey
+        let randomKey = try kciStore.create(kciFactory.ecKeyPair()) as! SecKey
         let randomPublicKey = SecKeyCopyPublicKey(randomKey)!
-        XCTAssertTrue(try kciStore.find(KeychainItem.ecPubKey()) == nil, "Precondition failed: Keychain not empty!!")
-        try kciStore.create(.ecPubKey(publicKey: randomPublicKey))
+        XCTAssertTrue(try kciStore.find(kciFactory.ecPubKey()) == nil, "Precondition failed: Keychain not empty!!")
+        try kciStore.create(kciFactory.ecPubKey(publicKey: randomPublicKey))
 
         // When
-        try kciStore.delete(.ecPubKey())
+        try kciStore.delete(kciFactory.ecPubKey())
 
         //Then
-        XCTAssertTrue(try kciStore.find(KeychainItem.ecPubKey()) == nil, "Delete item failed")
+        XCTAssertTrue(try kciStore.find(kciFactory.ecPubKey()) == nil, "Delete item failed")
     }
 
     func testDeleteItemIgnoreNotFound() throws {
         // Given
-        XCTAssertTrue(try kciStore.find(KeychainItem.ecPubKey()) == nil, "Precondition failed: Keychain not empty!!")
+        XCTAssertTrue(try kciStore.find(kciFactory.ecPubKey()) == nil, "Precondition failed: Keychain not empty!!")
 
         // When
-        try kciStore.delete(.ecPubKey())
+        try kciStore.delete(kciFactory.ecPubKey())
 
         //Then
-        XCTAssertTrue(try kciStore.find(KeychainItem.ecPubKey()) == nil, "Delete item failed")
+        XCTAssertTrue(try kciStore.find(kciFactory.ecPubKey()) == nil, "Delete item failed")
     }
 
     func testStoreAndRetrievePasscode() throws {
         // Given
         let randomString = UUID().uuidString
-        let passCodeData = try kciStore.find(KeychainItem.generic(id: SensitiveStore.derivedPasswordTag, service: ProtectionClass.sensitive.service())) as! Data?
+        let passCodeData = try kciStore.find(kciFactory.generic(account: passwordTag)) as! Data?
         XCTAssertEqual(passCodeData, nil, "Keychain not empty")
 
         // When
-        try kciStore.create(KeychainItem.generic(id: SensitiveStore.derivedPasswordTag, service: ProtectionClass.sensitive.service(), data: randomString.data(using: .utf8)))
+        try kciStore.create(kciFactory.generic(account: passwordTag, data: randomString.data(using: .utf8)))
 
         //Then
-        let result = try kciStore.find(KeychainItem.generic(id: SensitiveStore.derivedPasswordTag, service: ProtectionClass.sensitive.service())) as! Data?
+        let result = try kciStore.find(kciFactory.generic(account: passwordTag)) as! Data?
         XCTAssertEqual(result, randomString.data(using: .utf8), "Unexpected result: \(result)")
     }
 
     func testStoreAndRetrieveSensitivePrivateKey() throws {
         // Given
         let randomData = UUID().uuidString.data(using: .utf8)!
-        XCTAssertEqual(try kciStore.find(.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service())) as! Data?, nil, "Precondition failed: Keychain not empty!")
+        XCTAssertEqual(try kciStore.find(kciFactory.generic(account: encryptedPrivateKeyTag)) as! Data?, nil, "Precondition failed: Keychain not empty!")
 
         // When
-        try kciStore.create(.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service(), data: randomData))
+        try kciStore.create(kciFactory.generic(account: encryptedPrivateKeyTag, data: randomData))
 
         //Then
-        let result = try kciStore.find(.generic(id: SensitiveStore.sensitiveEncryptedPrivateKeyTag, service: ProtectionClass.sensitive.service())) as! Data?
+        let result = try kciStore.find(kciFactory.generic(account: encryptedPrivateKeyTag)) as! Data?
         XCTAssertEqual(result, randomData)
     }
 
@@ -83,13 +86,13 @@ class KeychainItemStoreTests: XCTestCase {
         let randomKey = try kciStore.create(KeychainItem.ecKeyPair) as! SecKey
 
         let randomPublicKey = SecKeyCopyPublicKey(randomKey)!
-        XCTAssertTrue(try kciStore.find(KeychainItem.ecPubKey()) == nil, "Precondition failed: Keychain not empty!")
+        XCTAssertTrue(try kciStore.find(kciFactory.ecPubKey()) == nil, "Precondition failed: Keychain not empty!")
 
         // When
-        try kciStore.create(KeychainItem.ecPubKey(publicKey: randomPublicKey))
+        try kciStore.create(kciFactory.ecPubKey(publicKey: randomPublicKey))
 
         //Then
-        let result = try kciStore.find(KeychainItem.ecPubKey()) as! SecKey?
+        let result = try kciStore.find(kciFactory.ecPubKey()) as! SecKey?
         XCTAssertTrue(result == randomPublicKey, "Retrieved public key does not match stored public key!")
     }
 
@@ -97,20 +100,20 @@ class KeychainItemStoreTests: XCTestCase {
         // Given
         let randomKey1 = try kciStore.create(KeychainItem.ecKeyPair) as! SecKey
         let randomPublicKey1 = SecKeyCopyPublicKey(randomKey1)!
-        XCTAssertTrue(try kciStore.find(KeychainItem.ecPubKey()) == nil, "Precondition failed: Keychain not empty!")
+        XCTAssertTrue(try kciStore.find(kciFactory.ecPubKey()) == nil, "Precondition failed: Keychain not empty!")
 
         // When
-        try kciStore.create(KeychainItem.ecPubKey(publicKey: randomPublicKey1))
-        let result1 = try kciStore.find(KeychainItem.ecPubKey()) as! SecKey?
+        try kciStore.create(kciFactory.ecPubKey(publicKey: randomPublicKey1))
+        let result1 = try kciStore.find(kciFactory.ecPubKey()) as! SecKey?
         XCTAssertTrue(result1 == randomPublicKey1, "Retrieved public key does not match stored public key!")
 
         let randomKey2 = try kciStore.create(KeychainItem.ecKeyPair) as! SecKey
         let randomPublicKey2 = SecKeyCopyPublicKey(randomKey2)!
-        XCTAssertTrue(try kciStore.find(KeychainItem.ecPubKey()) != nil, "Precondition failed: Key not found empty!")
-        try kciStore.create(KeychainItem.ecPubKey(publicKey: randomPublicKey2))
+        XCTAssertTrue(try kciStore.find(kciFactory.ecPubKey()) != nil, "Precondition failed: Key not found empty!")
+        try kciStore.create(kciFactory.ecPubKey(publicKey: randomPublicKey2))
 
         //Then
-        let result2 = try kciStore.find(KeychainItem.ecPubKey()) as! SecKey?
+        let result2 = try kciStore.find(kciFactory.ecPubKey()) as! SecKey?
         XCTAssertTrue(result2 == randomPublicKey2, "Retrieved public key does not match stored public key!")
     }
 
@@ -118,13 +121,13 @@ class KeychainItemStoreTests: XCTestCase {
         // Given
         let randomKey = try kciStore.create(KeychainItem.ecKeyPair) as! SecKey
         let randomPublicKey = SecKeyCopyPublicKey(randomKey)!
-        XCTAssertEqual(try kciStore.find(KeychainItem.ecPubKey()) as! SecKey?, nil, "Precondition failed: Keychain not empty!")
+        XCTAssertEqual(try kciStore.find(kciFactory.ecPubKey()) as! SecKey?, nil, "Precondition failed: Keychain not empty!")
 
         // When
-        try kciStore.create(.ecPubKey(publicKey: randomPublicKey))
+        try kciStore.create(kciFactory.ecPubKey(publicKey: randomPublicKey))
 
         // This throws an error if storeItem doesn't try to delete the item first
-        try kciStore.create(.ecPubKey(publicKey: randomPublicKey))
+        try kciStore.create(kciFactory.ecPubKey(publicKey: randomPublicKey))
 
         //Then
     }
@@ -158,7 +161,7 @@ class KeychainItemStoreTests: XCTestCase {
         let randomPassword = UUID().uuidString
 
         // When
-        let key = try kciStore.create(KeychainItem.enclaveKey(
+        let key = try kciStore.create(kciFactory.enclaveKey(
                 password: randomPassword.data(using: .utf8),
                 access: [.applicationPassword])
         ) as! SecKey
@@ -173,13 +176,13 @@ class KeychainItemStoreTests: XCTestCase {
         // Given
         let randomData = UUID().uuidString.data(using: .utf8)!
         let randomPassword = UUID().uuidString
-        try kciStore.create(KeychainItem.enclaveKey(
+        try kciStore.create(kciFactory.enclaveKey(
                 password: randomPassword.data(using: .utf8),
                 access: [.applicationPassword])
         ) as! SecKey
 
         // When
-        let key = try kciStore.find(KeychainItem.enclaveKey(password: randomPassword.data(using: .utf8))) as! SecKey
+        let key = try kciStore.find(kciFactory.enclaveKey(password: randomPassword.data(using: .utf8))) as! SecKey
 
         // Then
         // check key is usable
@@ -197,13 +200,13 @@ class KeychainItemStoreTests: XCTestCase {
         guard simulatorCheck() else {
             throw XCTSkip("Test not supported on simulator")
         }
-        try kciStore.create(KeychainItem.enclaveKey(
+        try kciStore.create(kciFactory.enclaveKey(
                 password: randomPassword.data(using: .utf8),
                 access: [.applicationPassword, .userPresence])
         ) as! SecKey
 
         // When
-        let key = try kciStore.find(.enclaveKey(password: randomPassword.data(using: .utf8))) as! SecKey
+        let key = try kciStore.find(kciFactory.enclaveKey(password: randomPassword.data(using: .utf8))) as! SecKey
 
         // Then
         // check key is usable

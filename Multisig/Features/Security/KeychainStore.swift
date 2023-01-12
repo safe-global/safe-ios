@@ -26,7 +26,6 @@ class KeychainItemStore {
             // delete if exists
             try store.delete(item.searchQuery())
         }
-
         // create a new
         return try store.create(item.creationAttributes())
     }
