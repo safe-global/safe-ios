@@ -1475,7 +1475,6 @@
 		0AC2A3C926FB6B84002CB26A /* WebAppURLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAppURLBuilder.swift; sourceTree = "<group>"; };
 		0AC2BAE628B8F9B500AB66EB /* ActivateBiometryAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivateBiometryAlertController.swift; sourceTree = "<group>"; };
 		0AC3FBF12936156F0003255F /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
-		0AC3FBF329361C150003255F /* SensitiveStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensitiveStore.swift; sourceTree = "<group>"; };
 		0AC5F56A25DD4A4B00DEF0D7 /* AuthenticationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationController.swift; sourceTree = "<group>"; };
 		0AC5F5B225DD510600DEF0D7 /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
 		0AC60C502549AF2200A63AE2 /* NoSafeBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSafeBarView.swift; sourceTree = "<group>"; };
@@ -2524,7 +2523,6 @@
 				AD303BAB464F66AA4AE3FF4C /* KeychainItem.swift */,
 				0AC3FBF12936156F0003255F /* KeychainStore.swift */,
 				930F293D2937BA910040C48B /* ProtectedKeyStore.swift */,
-				930F293D2937BA910040C48B /* SensitiveStore.swift */,
 				04B1F43D2966070B009D13AA /* SecurityCenter.swift */,
 				04B1F43F296EC10C009D13AA /* Wallet.swift */,
 			);
@@ -3496,14 +3494,6 @@
 				04576A0327C933D700881206 /* SafeCreationCall.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		0AF5C66327BA9E8F00BFEA52 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				0AC3FBF329361C150003255F /* SensitiveStore.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		0AFA72A324BF39D900A370EE /* Buttons */ = {
