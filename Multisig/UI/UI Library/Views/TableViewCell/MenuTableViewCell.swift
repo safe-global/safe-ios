@@ -14,15 +14,27 @@ class MenuTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var button: UIButton!
 
+    let buttonStyle: GNOButtonStyle = .plain
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        titleLabel.setStyle(.headline)
+        button.setText("", buttonStyle)
+        button.showsMenuAsPrimaryAction = true
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    var menu: UIMenu? {
+        get { button.menu }
+        set { button.menu = newValue }
     }
-    
+
+    var text: String? {
+        get { titleLabel.text }
+        set { titleLabel.text = newValue }
+    }
+
+    var detailText: String? {
+        get { button.title(for: .normal) }
+        set { button.setText(newValue, buttonStyle)}
+    }
 }

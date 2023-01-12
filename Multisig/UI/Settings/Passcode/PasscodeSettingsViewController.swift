@@ -355,13 +355,9 @@ class PasscodeSettingsViewController: UITableViewController {
 
         case .lockMethod:
             let cell = tableView.dequeueCell(MenuTableViewCell.self, for: indexPath)
-            cell.titleLabel.setStyle(.headline)
-            cell.titleLabel.text = "Lock method"
-            cell.button.setText(detail!, .plain)
-
-            cell.button.setTitle(detail, for: .normal)
-            cell.button.showsMenuAsPrimaryAction = true
-            let menu = UIMenu(title: "", children: [
+            cell.text = "Lock method"
+            cell.detailText = detail
+            cell.menu = UIMenu(title: "", children: [
                 UIAction(title: detailText(for: .lockMethod, lock: .passcode, biometry: biometryType)!) { action in
                     // TODO: change to passcode
                 },
@@ -372,8 +368,6 @@ class PasscodeSettingsViewController: UITableViewController {
                     // TODO: change to passcode & user presence
                 }
             ])
-            cell.button.isContextMenuInteractionEnabled
-            cell.button.menu = menu
             return cell
 
         case .requireToOpenApp:

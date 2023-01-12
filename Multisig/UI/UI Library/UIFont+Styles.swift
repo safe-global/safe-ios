@@ -305,9 +305,9 @@ extension GNOButtonStyle {
 }
 
 extension UIButton {
-    func setText(_ text: String, _ style: GNOButtonStyle) {
+    func setText(_ text: String?, _ style: GNOButtonStyle) {
         for (state, appearance) in style.appearance {
-            setAttributedTitle(appearance.attributedString(text), for: state)
+            setAttributedTitle(text.map { appearance.attributedString($0) }, for: state)
             setBackgroundImage(appearance.backgroundImage, for: state)
         }
     }
