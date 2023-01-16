@@ -46,7 +46,7 @@ class SecurityCenter {
     }
 
     func `import`(id: DataID, ethPrivateKey: EthPrivateKey, completion: @escaping (Result<Bool?, Error>) -> ()) {
-        perfomSecuredAccess { [unowned self] result in
+        performSecuredAccess { [unowned self] result in
             switch result {
             case .success:
                 do {
@@ -62,7 +62,7 @@ class SecurityCenter {
     }
 
     func remove(address: Address, completion: @escaping (Result<Bool?, Error>) -> ()) {
-        perfomSecuredAccess { [unowned self] result in
+        performSecuredAccess { [unowned self] result in
             switch result {
             case .success:
                 do {
@@ -78,7 +78,7 @@ class SecurityCenter {
     }
 
     func find(dataID: DataID, completion: @escaping (Result<EthPrivateKey?, Error>) -> ()) {
-        perfomSecuredAccess { [unowned self] result in
+        performSecuredAccess { [unowned self] result in
             switch result {
             case .success(let passcode):
                 do {
@@ -93,7 +93,7 @@ class SecurityCenter {
         }
     }
 
-    private func perfomSecuredAccess(completion: @escaping (Result<String?, Error>) -> ()) {
+    private func performSecuredAccess(completion: @escaping (Result<String?, Error>) -> ()) {
         guard isRequirePasscodeEnabled else {
             completion(.success(nil))
             return
