@@ -254,6 +254,7 @@
 		0A109E2B2689D17400226708 /* NetworkIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A109E2A2689D17300226708 /* NetworkIndicator.swift */; };
 		0A109E2D2689D17B00226708 /* NetworkIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A109E2C2689D17B00226708 /* NetworkIndicator.xib */; };
 		0A109E2F268A240F00226708 /* ChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A109E2E268A240F00226708 /* ChainTests.swift */; };
+		0A13BD7729756CE700322C66 /* URRegistry in Frameworks */ = {isa = PBXBuildFile; productRef = 0A13BD7629756CE700322C66 /* URRegistry */; };
 		0A19D43B249A5BA500A316B6 /* TransferTransaction.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A19D43A249A5BA500A316B6 /* TransferTransaction.json */; };
 		0A21692B24A35A4E00BD1C1E /* SnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A21692A24A35A4E00BD1C1E /* SnackbarView.swift */; };
 		0A22E11C25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A22E11B25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift */; };
@@ -395,7 +396,6 @@
 		0A6C131425407B5100EA67E3 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C131325407B5100EA67E3 /* ContainerViewController.swift */; };
 		0A6C85B2245071510026139E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B1245071510026139E /* Address.swift */; };
 		0A6C85B4245080620026139E /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6C85B3245080620026139E /* App.swift */; };
-		0A6EB0A528EEF9B500B413CA /* URRegistry in Frameworks */ = {isa = PBXBuildFile; productRef = 0A6EB0A428EEF9B500B413CA /* URRegistry */; };
 		0A72AC622453169700840641 /* LinkText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72AC612453169700840641 /* LinkText.swift */; };
 		0A747198269F1122008E9F2D /* BalancesViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A747197269F1122008E9F2D /* BalancesViewControllerSnapshotTests.swift */; };
 		0A74719A269F152D008E9F2D /* chains_4_safes_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_balances_usd.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A747199269F152D008E9F2D /* chains_4_safes_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_balances_usd.json */; };
@@ -1917,7 +1917,7 @@
 				55D3FF90260B2B21008ABD2B /* TrustKit in Frameworks */,
 				55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
 				5591CEEE260C725C0067DFDF /* BlockiesSwift in Frameworks */,
-				0A6EB0A528EEF9B500B413CA /* URRegistry in Frameworks */,
+				0A13BD7729756CE700322C66 /* URRegistry in Frameworks */,
 				0A7FBE2528BE684100B5FFCF /* WhatsNewKit in Frameworks */,
 				0A3DAD9426270F4D00743E38 /* unistring.xcframework in Frameworks */,
 				0A259AB7287D85B3006770E7 /* Web3 in Frameworks */,
@@ -4383,7 +4383,7 @@
 				0A259AB4287D83F9006770E7 /* UnstoppableDomainsResolution */,
 				0A259AB6287D85B3006770E7 /* Web3 */,
 				0A7FBE2428BE684100B5FFCF /* WhatsNewKit */,
-				0A6EB0A428EEF9B500B413CA /* URRegistry */,
+				0A13BD7629756CE700322C66 /* URRegistry */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig_PROD.app */;
@@ -4502,7 +4502,7 @@
 				0A259AB2287D83D5006770E7 /* XCRemoteSwiftPackageReference "Web3.swift" */,
 				0A259AB3287D83F9006770E7 /* XCRemoteSwiftPackageReference "resolution-swift" */,
 				0A7FBE2328BE682C00B5FFCF /* XCRemoteSwiftPackageReference "WhatsNewKit" */,
-				0A6EB0A328EEF9B500B413CA /* XCRemoteSwiftPackageReference "ur-registry-ios" */,
+				0A13BD7529756CE700322C66 /* XCRemoteSwiftPackageReference "ur-registry-ios" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -5669,7 +5669,7 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Multisig/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5695,7 +5695,7 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Multisig/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5717,14 +5717,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = global.safe.MultisigTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5739,14 +5739,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = global.safe.MultisigTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5760,14 +5760,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = global.safe.MultisigIntegrationTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5781,14 +5781,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = global.safe.MultisigIntegrationTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5868,7 +5868,7 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Multisig/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5891,14 +5891,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = global.safe.MultisigTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5912,14 +5912,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = global.safe.MultisigIntegrationTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5993,7 +5993,7 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Multisig/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -6015,14 +6015,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = global.safe.MultisigTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -6036,14 +6036,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = global.safe.MultisigIntegrationTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -6089,7 +6089,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -6116,7 +6116,6 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -6164,7 +6163,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -6191,7 +6190,6 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -6239,7 +6237,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -6266,7 +6264,6 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -6314,7 +6311,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -6334,7 +6331,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -6383,7 +6379,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -6403,7 +6399,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -6452,7 +6447,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -6472,7 +6467,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -6551,7 +6545,7 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Multisig/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -6573,14 +6567,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = global.safe.MultisigTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -6594,14 +6588,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = global.safe.MultisigIntegrationTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -6681,7 +6675,7 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Multisig/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -6704,14 +6698,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = global.safe.MultisigTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -6725,14 +6719,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MXRS32BBL4;
+				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				INFOPLIST_FILE = MultisigIntegrationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = global.safe.MultisigIntegrationTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.gnosis.MultisigIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -6835,6 +6829,14 @@
 				minimumVersion = 1.7.0;
 			};
 		};
+		0A13BD7529756CE700322C66 /* XCRemoteSwiftPackageReference "ur-registry-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/KeystoneHQ/ur-registry-ios";
+			requirement = {
+				kind = exactVersion;
+				version = 1.0.0;
+			};
+		};
 		0A259AB2287D83D5006770E7 /* XCRemoteSwiftPackageReference "Web3.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gnosis/Web3.swift.git";
@@ -6865,14 +6867,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.9.0;
-			};
-		};
-		0A6EB0A328EEF9B500B413CA /* XCRemoteSwiftPackageReference "ur-registry-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/5afe/ur-registry-ios";
-			requirement = {
-				branch = main;
-				kind = branch;
 			};
 		};
 		0A7FBE2328BE682C00B5FFCF /* XCRemoteSwiftPackageReference "WhatsNewKit" */ = {
@@ -6975,6 +6969,11 @@
 			package = 0A0C094A287D7D48000CEB4F /* XCRemoteSwiftPackageReference "WalletConnectSwift" */;
 			productName = WalletConnectSwift;
 		};
+		0A13BD7629756CE700322C66 /* URRegistry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A13BD7529756CE700322C66 /* XCRemoteSwiftPackageReference "ur-registry-ios" */;
+			productName = URRegistry;
+		};
 		0A259AB4287D83F9006770E7 /* UnstoppableDomainsResolution */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0A259AB3287D83F9006770E7 /* XCRemoteSwiftPackageReference "resolution-swift" */;
@@ -7008,11 +7007,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0A61E83A2670DE68009D68A4 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
 			productName = SnapshotTesting;
-		};
-		0A6EB0A428EEF9B500B413CA /* URRegistry */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0A6EB0A328EEF9B500B413CA /* XCRemoteSwiftPackageReference "ur-registry-ios" */;
-			productName = URRegistry;
 		};
 		0A7FBE2428BE684100B5FFCF /* WhatsNewKit */ = {
 			isa = XCSwiftPackageProductDependency;
