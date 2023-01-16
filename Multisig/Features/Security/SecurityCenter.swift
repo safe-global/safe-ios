@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import LocalAuthentication
 
 class SecurityCenter {
 
@@ -43,6 +44,125 @@ class SecurityCenter {
 
     private static func migrateFromKeychainStorageToSecurityEnclave() {
         //TODO:
+    }
+
+    var isEnabled: Bool {
+        get {
+            SecuritySettings.current().isEnabled
+        }
+        set {
+            let s = SecuritySettings.current()
+            s.isEnabled = newValue
+            s.save()
+        }
+    }
+
+    var lockMethod: LockMethod {
+        get {
+            SecuritySettings.current().lockMethod
+        }
+        set {
+            let s = SecuritySettings.current()
+            s.lockMethod = newValue
+            s.save()
+        }
+    }
+
+    var requiresForOpenApp: Bool {
+        get {
+            SecuritySettings.current().requiresForOpenApp
+        }
+        set {
+            let s = SecuritySettings.current()
+            s.requiresForOpenApp = newValue
+            s.save()
+        }
+    }
+
+    var requiresForUsingKeys: Bool {
+        get {
+            SecuritySettings.current().requiresForUsingKeys
+        }
+        set {
+            let s = SecuritySettings.current()
+            s.requiresForUsingKeys = newValue
+            s.save()
+        }
+    }
+
+    func enable(plaintextPasscode: String) {
+        let s = SecuritySettings.current()
+        s.isEnabled = true
+        s.requiresForOpenApp = true
+        s.requiresForUsingKeys = true
+        s.save()
+
+        // TODO: store derived passcode
+
+        AppSettings.passcodeWasSetAtLeastOnce = true
+        NotificationCenter.default.post(name: .passcodeCreated, object: nil)
+    }
+
+    func disable() {
+        isEnabled = false
+        Tracker.trackEvent(.userPasscodeDisabled)
+        Tracker.setPasscodeIsSet(to: false)
+        NotificationCenter.default.post(name: .passcodeDeleted, object: nil)
+    }
+
+    var biometryType: LABiometryType {
+        let biometry = Biometry()
+        return (try? biometry.type()) ?? .none
+    }
+
+    var isBiometrySupported: Bool {
+        let biometry = Biometry()
+        do {
+            let result = try biometry.isSupported()
+            return result
+        } catch {
+            // ignore error
+            LogService.shared.debug("Failed to get biometry: \(error)")
+            return false
+        }
+    }
+
+    func activateBiometry(completion: @escaping (Result<Void, Error>) -> Void) {
+        let biometry = Biometry()
+
+        biometry.showsFallbackButton = false
+
+        let onFailure = { (e: Error) in
+            let error = GSError.BiometryActivationError(underlyingError: e)
+            App.shared.snackbar.show(error: error)
+            completion(.failure(error))
+        }
+
+        do {
+            _ = try biometry.canEvaluate(policy: .deviceOwnerAuthenticationWithBiometrics)
+        } catch {
+            onFailure(error)
+            return
+        }
+
+        biometry.evaluate(policy: .deviceOwnerAuthenticationWithBiometrics, reason: "Enable login with biometrics") { [unowned self] result in
+
+            switch result {
+            case .success:
+                self.lockMethod = .userPresence
+                NotificationCenter.default.post(name: .biometricsActivated, object: nil)
+                completion(result)
+
+            case .failure(let error):
+                onFailure(error)
+            }
+
+        }
+    }
+
+    func deactivateBiometry() {
+        lockMethod = .passcode
+        App.shared.snackbar.show(message: "Biometrics disabled.")
     }
 
     func `import`(id: DataID, ethPrivateKey: EthPrivateKey, completion: @escaping (Result<Bool?, Error>) -> ()) {
@@ -112,3 +232,4 @@ class SecurityCenter {
                                         userInfo: ["completion": getPasscodeCompletion])
     }
 }
+

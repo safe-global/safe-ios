@@ -32,8 +32,7 @@ class ActivateBiometryAlertController: UIAlertController {
     func enable() {
         // workaround the case when alert was dismissed but we still want to call copmletion
         let completionBlock = completion
-        App.shared.auth.activateBiometrics { _ in
-            // in any resulting case, finish.
+        SecurityCenter.shared.activateBiometry { result in
             completionBlock()
         }
     }

@@ -46,8 +46,6 @@ class ProtectedKeyStore: EncryptedStore {
         let pubKey = try store.find(.ecPubKey(tag: ProtectedKeyStore.publicKeyTag, service: protectionClass.service())) as! SecKey
 
         // 3. encrypt private key with public sensitive key
-        var error: Unmanaged<CFError>?
-
         let encryptedSigningKey = try ethPrivateKey.encrypt(publicKey: pubKey)
 
         // 4. store encrypted blob in the keychain
@@ -103,7 +101,9 @@ class ProtectedKeyStore: EncryptedStore {
         let decryptedSensitiveKeyData = try encryptedSensitiveKey?.decrypt(privateKey: sensitiveKEK)
         // Restore sensitive key from Data
         var error: Unmanaged<CFError>?
-        guard let decryptedSensitiveKey: SecKey = SecKeyCreateWithData(decryptedSensitiveKeyData! as CFData, try KeychainItem.ecKeyPair.creationAttributes(), &error) else {
+
+        let decryptedSensitiveKey: SecKey? = SecKeyCreateWithData(decryptedSensitiveKeyData! as CFData, try KeychainItem.ecKeyPair.creationAttributes(), &error)
+        guard decryptedSensitiveKey != nil else {
             // will fail here if password was wrong
             throw error!.takeRetainedValue() as Error
         }

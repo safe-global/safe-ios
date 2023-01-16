@@ -255,6 +255,8 @@
 		0A109E2D2689D17B00226708 /* NetworkIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A109E2C2689D17B00226708 /* NetworkIndicator.xib */; };
 		0A109E2F268A240F00226708 /* ChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A109E2E268A240F00226708 /* ChainTests.swift */; };
 		0A13BD7729756CE700322C66 /* URRegistry in Frameworks */ = {isa = PBXBuildFile; productRef = 0A13BD7629756CE700322C66 /* URRegistry */; };
+		0A13BD7929759B8D00322C66 /* SecuritySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A13BD7829759B8D00322C66 /* SecuritySettings.swift */; };
+		0A13BD7D29759EB700322C66 /* Biometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A13BD7C29759EB700322C66 /* Biometry.swift */; };
 		0A19D43B249A5BA500A316B6 /* TransferTransaction.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A19D43A249A5BA500A316B6 /* TransferTransaction.json */; };
 		0A21692B24A35A4E00BD1C1E /* SnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A21692A24A35A4E00BD1C1E /* SnackbarView.swift */; };
 		0A22E11C25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A22E11B25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift */; };
@@ -1225,6 +1227,8 @@
 		0A109E2A2689D17300226708 /* NetworkIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkIndicator.swift; sourceTree = "<group>"; };
 		0A109E2C2689D17B00226708 /* NetworkIndicator.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NetworkIndicator.xib; sourceTree = "<group>"; };
 		0A109E2E268A240F00226708 /* ChainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainTests.swift; sourceTree = "<group>"; };
+		0A13BD7829759B8D00322C66 /* SecuritySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuritySettings.swift; sourceTree = "<group>"; };
+		0A13BD7C29759EB700322C66 /* Biometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Biometry.swift; sourceTree = "<group>"; };
 		0A19D43A249A5BA500A316B6 /* TransferTransaction.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TransferTransaction.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		0A21692A24A35A4E00BD1C1E /* SnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarView.swift; sourceTree = "<group>"; };
 		0A22E11B25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeSettingsViewController.swift; sourceTree = "<group>"; };
@@ -2524,6 +2528,8 @@
 				0AC3FBF12936156F0003255F /* KeychainStore.swift */,
 				930F293D2937BA910040C48B /* ProtectedKeyStore.swift */,
 				04B1F43D2966070B009D13AA /* SecurityCenter.swift */,
+				0A13BD7C29759EB700322C66 /* Biometry.swift */,
+				0A13BD7829759B8D00322C66 /* SecuritySettings.swift */,
 				04B1F43F296EC10C009D13AA /* Wallet.swift */,
 			);
 			path = Security;
@@ -3020,7 +3026,6 @@
 				0AF2731424DAABDC007E4012 /* NotificationServiceExtension */,
 				0A93DD542445CC8A00688050 /* Products */,
 				0A29B5602666808A0060F06A /* Frameworks */,
-				0AF5C66327BA9E8F00BFEA52 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -4876,6 +4881,7 @@
 				55D3654325078560004D5047 /* TextView.swift in Sources */,
 				0A451C18252DDCDE001DB7D2 /* ProgressIndicatorCell.swift in Sources */,
 				0ABE6983279177A4003338AF /* TransactionEstimationController.swift in Sources */,
+				0A13BD7929759B8D00322C66 /* SecuritySettings.swift in Sources */,
 				048D72D026875B1C0095999C /* TableHeaderView.swift in Sources */,
 				5532D4C32449A17D0067505A /* HTTPClient.swift in Sources */,
 				04576A0027C7DBCF00881206 /* SafeCreationMonitor.swift in Sources */,
@@ -5166,6 +5172,7 @@
 				0A6430E2247EC2C7006FD30A /* ConfigurationKey.swift in Sources */,
 				0A109E2B2689D17400226708 /* NetworkIndicator.swift in Sources */,
 				0A5307162543110300E8A270 /* ConfirmTransactionRequest.swift in Sources */,
+				0A13BD7D29759EB700322C66 /* Biometry.swift in Sources */,
 				0455A42E27204181008B772D /* AddressBookListTableViewController.swift in Sources */,
 				0A93DDB32446080000688050 /* Colors.swift in Sources */,
 				557D80B5270B32F80036D6D0 /* WCSendTransactionRequest.swift in Sources */,

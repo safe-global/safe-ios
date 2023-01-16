@@ -19,6 +19,7 @@ class KeychainItemStore {
 
     private let store: KeychainStore
 
+    @discardableResult
     func create(_ item: KeychainItem) throws -> Any {
         switch item {
         case .ecKeyPair: break
@@ -48,7 +49,7 @@ class KeychainStore {
         let itemClass = attributes[kSecClass] as! CFString
         var keyType: CFString? = nil
         if attributes[kSecAttrKeyClass] != nil {
-            keyType = attributes[kSecAttrKeyClass] as! CFString
+            keyType = attributes[kSecAttrKeyClass] as! CFString?
         }
         switch (itemClass, keyType) {
         case (kSecClassKey, kSecAttrKeyClassPrivate):

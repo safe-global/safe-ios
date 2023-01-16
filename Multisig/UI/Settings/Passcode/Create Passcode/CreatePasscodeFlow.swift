@@ -17,6 +17,7 @@ import UIKit
 /// 1.1. Nothing, if the passcode already created.
 class CreatePasscodeFlow: UIFlow {
     var factory: PasscodeFlowFactory
+    private var userPasscode: String?
 
     init(factory: PasscodeFlowFactory = PasscodeFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
@@ -28,7 +29,7 @@ class CreatePasscodeFlow: UIFlow {
     }
 
     func createPasscode() {
-        guard !App.shared.auth.isPasscodeSetAndAvailable else {
+        guard !SecurityCenter.shared.isEnabled else {
             stop(success: false)
             return
         }
@@ -38,6 +39,7 @@ class CreatePasscodeFlow: UIFlow {
                 stop(success: false)
                 return
             }
+            userPasscode = passcode
             // reset to remove from memory
             createVC.passcode = nil
             repeatPasscode(passcode: passcode)
@@ -66,7 +68,7 @@ class CreatePasscodeFlow: UIFlow {
 
     func setupBiometry(presenter: UIViewController) {
         // if device does not support biometrics, finish right away
-        guard App.shared.auth.isBiometricsSupported else {
+        guard SecurityCenter.shared.isBiometrySupported else {
             stop(success: true)
             return
         }
@@ -82,6 +84,8 @@ class CreatePasscodeFlow: UIFlow {
     override func stop(success: Bool) {
         super.stop(success: success)
         if success {
+            SecurityCenter.shared.enable(plaintextPasscode: userPasscode!)
+            userPasscode = nil
             App.shared.snackbar.show(message: "Passcode created")
         }
     }

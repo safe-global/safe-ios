@@ -27,36 +27,14 @@ class PasscodeSettingsViewController: UITableViewController {
         case oneOptionSelectedText
     }
 
-    enum LockMethod {
-        case passcode
-        case userPresence
-        case passcodeAndUserPresence
-
-    }
-
-    enum BiometryType {
-        case faceID
-        case touchID
-        case passcode
-
-        var name: String {
-            switch self {
-            case .faceID: return "Face ID"
-            case .touchID: return "Touch ID"
-            case .passcode: return "Device Passcode"
-            }
-        }
-    }
-
-    // TODO: sync the values with the SecurityCenter
     private var lock: LockMethod = .passcode
-    private var biometryType: BiometryType = .passcode
+    private var biometryType: LABiometryType = .none
 
     private var data: [(section: Section, rows: [Row])] = []
     private var createPasscodeFlow: CreatePasscodeFlow!
 
     private var isPasscodeSet: Bool {
-        App.shared.auth.isPasscodeSetAndAvailable
+        SecurityCenter.shared.isEnabled
     }
 
     // MARK: - View lifecycle
@@ -107,9 +85,9 @@ class PasscodeSettingsViewController: UITableViewController {
             // if user disables biometry, we can't keep it enabled in app settings.
             // Having this on reloadData() works because when biometry settings changed on the device
             // the system kills the app process and the app will have to restart.
-            if !App.shared.auth.isBiometryActivationPossible {
-                AppSettings.passcodeOptions.remove(.useBiometry)
-            }
+//                if !App.shared.auth.isBiometryActivationPossible {
+//                    AppSettings.passcodeOptions.remove(.useBiometry)
+//                }
         } else {
             data = [
                 (section: .single, rows: [.usePasscode])
@@ -120,17 +98,8 @@ class PasscodeSettingsViewController: UITableViewController {
     }
 
     func updateLockValues() {
-        if AppSettings.passcodeOptions.contains(.useBiometry) {
-            lock = .userPresence
-        } else {
-            lock = .passcode
-        }
-
-        if App.shared.auth.isBiometricsSupported {
-            biometryType = App.shared.auth.isFaceID ? .faceID : .touchID
-        } else {
-            biometryType = .passcode
-        }
+        lock = SecurityCenter.shared.lockMethod
+        biometryType = SecurityCenter.shared.biometryType
     }
 
     private func createPasscode() {
@@ -152,7 +121,8 @@ class PasscodeSettingsViewController: UITableViewController {
 
     private func disablePasscode() {
         do {
-            try App.shared.auth.deletePasscode()
+//            try App.shared.auth.deletePasscode()
+            SecurityCenter.shared.disable()
             App.shared.snackbar.show(message: "Passcode disabled")
         } catch {
             let uiError = GSError.error(
@@ -193,26 +163,33 @@ class PasscodeSettingsViewController: UITableViewController {
     }
 
     private func toggleBiometrics() {
-        withPasscodeAuthentication(for: "Login with biometrics") { [unowned self] success, nav, finish in
+        withPasscodeAuthentication(for: "Login with biometrics") { [unowned self] isAuthSuccess, nav, finish in
             let completion = { [unowned self] in
                 finish()
                 reloadData()
             }
 
-            if success && AppSettings.passcodeOptions.contains(.useBiometry) {
-                AppSettings.passcodeOptions.remove(.useBiometry)
-                App.shared.snackbar.show(message: "Biometrics disabled.")
+            guard isAuthSuccess else {
                 completion()
-            } else if success {
-                App.shared.auth.activateBiometrics { result in
-                    if hasFailedBecauseBiometryNotEnabled(result) {
-                        showBiometrySettings(presenter: nav!, completion: completion)
-                    } else {
-                        completion()
-                    }
-                }
+                return
+            }
+
+            if SecurityCenter.shared.lockMethod == .userPresence {
+
+                SecurityCenter.shared.deactivateBiometry()
+                completion()
+
             } else {
-                completion()
+
+                SecurityCenter.shared.activateBiometry { [unowned self] activationResult in
+
+                    guard !hasFailedBecauseBiometryNotEnabled(activationResult) else {
+                        showBiometrySettings(presenter: nav!, completion: completion)
+                        return
+                    }
+
+                    completion()
+                }
             }
         }
     }
@@ -288,21 +265,23 @@ class PasscodeSettingsViewController: UITableViewController {
         tracking: TrackingEvent? = nil,
         authenticated: @escaping (_ success: Bool, _ nav: UINavigationController?, _ finish: @escaping () -> Void) -> Void
     ) {
-        let vc = EnterPasscodeViewController()
-        vc.usesBiometry = false
-        vc.navigationItemTitle = reason
-        if let event = tracking {
-            vc.screenTrackingEvent = event
-        }
-        let nav = UINavigationController(rootViewController: vc)
+        authenticated(true, nil, {})
+        
+//        let vc = EnterPasscodeViewController()
+//        vc.usesBiometry = false
+//        vc.navigationItemTitle = reason
+//        if let event = tracking {
+//            vc.screenTrackingEvent = event
+//        }
+//        let nav = UINavigationController(rootViewController: vc)
 
-        vc.passcodeCompletion = { [weak nav] success, _, _ in
-            authenticated(success, nav) {
-                nav?.dismiss(animated: true, completion: nil)
-            }
-        }
+//        vc.passcodeCompletion = { [weak nav] success, _, _ in
+//            authenticated(success, nav) {
+//                nav?.dismiss(animated: true, completion: nil)
+//            }
+//        }
 
-        present(nav, animated: true, completion: nil)
+//        present(nav, animated: true, completion: nil)
     }
 
     // MARK: - Table view delegate and data source
@@ -361,13 +340,13 @@ class PasscodeSettingsViewController: UITableViewController {
             return switchDetailCell(for: indexPath,
                                     with: "Unlocking the app",
                                     detail: detail,
-                                    isOn: AppSettings.passcodeOptions.contains(.useForLogin))
+                                    isOn: SecurityCenter.shared.requiresForOpenApp)
 
         case .requireForConfirmations:
             return switchDetailCell(for: indexPath,
                                     with: "Making transactions",
                                     detail: detail,
-                                    isOn: AppSettings.passcodeOptions.contains(.useForConfirmation))
+                                    isOn: SecurityCenter.shared.requiresForUsingKeys)
 
         case .oneOptionSelectedText:
             return tableView.helpCell(
@@ -377,29 +356,41 @@ class PasscodeSettingsViewController: UITableViewController {
         }
     }
 
+    func name(of biometry: LABiometryType) -> String {
+        switch biometry {
+        case .touchID:
+            return "Touch ID"
+        case .faceID:
+            return "Face ID"
+        case .none:
+            fallthrough
+        @unknown default:
+            return "Device Passcode"
+        }
+    }
 
-    func detailText(for row: Row, lock: LockMethod, biometry: BiometryType) -> String? {
+    func detailText(for row: Row, lock: LockMethod, biometry: LABiometryType) -> String? {
         switch row {
         case .lockMethod:
             switch lock {
             case .passcode:
                 return "Passcode"
             case .userPresence:
-                return biometry.name
+                return name(of: biometry)
             case .passcodeAndUserPresence:
-                return "Passcode & \(biometry.name)"
+                return "Passcode & \(name(of: biometry))"
             }
             
         case .usePasscode:
-            let text = biometry == .passcode ? "" : "or \(biometry.name) "
+            let text = biometry == .none ? "" : "or \(name(of: biometry)) "
             return "Require passcode \(text)for unlocking the app, making transactions and using signer accounts"
 
         case .requireToOpenApp:
             let text: String
             switch lock {
             case .passcode: text = "Passcode"
-            case .userPresence: text = biometry.name
-            case .passcodeAndUserPresence: text = biometry.name
+            case .userPresence: text = name(of: biometry)
+            case .passcodeAndUserPresence: text = name(of: biometry)
             }
             return "Only \(text) will be required to unlock the app."
 
@@ -407,8 +398,8 @@ class PasscodeSettingsViewController: UITableViewController {
             let text: String
             switch lock {
             case .passcode: text = "Passcode"
-            case .userPresence: text = biometry.name
-            case .passcodeAndUserPresence: text = "Both Passcode & \(biometry.name)"
+            case .userPresence: text = name(of: biometry)
+            case .passcodeAndUserPresence: text = "Both Passcode & \(name(of: biometry))"
             }
             return "\(text) will be used for making transactions."
 

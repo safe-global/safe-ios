@@ -11,6 +11,7 @@ import SwiftAccessPolicy
 import CommonCrypto
 import LocalAuthentication
 
+@available(iOS, deprecated: 14, message: "Replace with SecurityCenter")
 class AuthenticationController {
 
     private let accessService: AccessService

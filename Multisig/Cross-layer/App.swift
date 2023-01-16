@@ -22,6 +22,8 @@ class App {
     // MARK: - Business Logic Layer
 
     let gnosisSafe = GnosisSafe()
+
+    @available(iOS, deprecated: 14, message: "Replace with SecurityCenter")
     let auth = AuthenticationController()
 
     // MARK: - Data Layer
