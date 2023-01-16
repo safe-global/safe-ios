@@ -7,11 +7,10 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:gnosis-safe.io</string>
-		<string>applinks:safe.global</string>
 	</array>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.io.gnosis.multisig.prod</string>
+		<string>group.global.safe.multisig.prod</string>
 	</array>
 </dict>
 </plist>
