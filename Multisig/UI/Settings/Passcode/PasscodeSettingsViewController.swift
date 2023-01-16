@@ -21,7 +21,6 @@ class PasscodeSettingsViewController: UITableViewController {
     enum Row: Int, CaseIterable {
         case usePasscode
         case changePasscode
-        case loginWithBiometrics
         case lockMethod
         case requireToOpenApp
         case requireForConfirmations
@@ -88,9 +87,6 @@ class PasscodeSettingsViewController: UITableViewController {
             self, selector: #selector(reloadData), name: .passcodeDeleted, object: nil)
 
         reloadData()
-
-        // uncomment to cycle through the detail texts
-        // _cycleThroughLockMethodAndBiometryTexts()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -119,7 +115,22 @@ class PasscodeSettingsViewController: UITableViewController {
                 (section: .single, rows: [.usePasscode])
             ]
         }
+        updateLockValues()
         tableView.reloadData()
+    }
+
+    func updateLockValues() {
+        if AppSettings.passcodeOptions.contains(.useBiometry) {
+            lock = .userPresence
+        } else {
+            lock = .passcode
+        }
+
+        if App.shared.auth.isBiometricsSupported {
+            biometryType = App.shared.auth.isFaceID ? .faceID : .touchID
+        } else {
+            biometryType = .passcode
+        }
     }
 
     private func createPasscode() {
@@ -304,34 +315,6 @@ class PasscodeSettingsViewController: UITableViewController {
         data[section].rows.count
     }
 
-    // Helper function to test effects of all combinations of the lock method and biometry settings on the UI
-    func _cycleThroughLockMethodAndBiometryTexts() {
-        DispatchQueue.global().async {
-            for cycleCounter in (0..<99) {
-                let locks: [LockMethod] = [.passcode, .userPresence, .passcodeAndUserPresence]
-                let biometries: [BiometryType] = [.passcode, .touchID, .faceID]
-
-                // Display each combination for 5 seconds
-                for lock in locks {
-                    for biometry in biometries {
-
-                        // update the UI with new simulated parameters
-                        DispatchQueue.main.async { [unowned self] in
-                            print("Cycle", cycleCounter, "Lock", lock, "Biometry", biometry)
-
-
-                            self.lock = lock
-                            self.biometryType = biometry
-                            self.reloadData()
-                        }
-
-                        Thread.sleep(forTimeInterval: 5)
-                    }
-                }
-            }
-        }
-    }
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // TODO: get selected lock method from the security center
         let row = data[indexPath.section].rows[indexPath.row]
@@ -348,25 +331,29 @@ class PasscodeSettingsViewController: UITableViewController {
         case .changePasscode:
             return tableView.basicCell(name: "Change passcode", indexPath: indexPath)
 
-        case .loginWithBiometrics:
-            return tableView.switchCell(for: indexPath,
-                                        with: "Login with biometrics",
-                                        isOn: AppSettings.passcodeOptions.contains(.useBiometry))
-
         case .lockMethod:
             let cell = tableView.dequeueCell(MenuTableViewCell.self, for: indexPath)
             cell.text = "Lock method"
-            cell.detailText = detail
             cell.menu = UIMenu(title: "", children: [
-                UIAction(title: detailText(for: .lockMethod, lock: .passcode, biometry: biometryType)!) { action in
-                    // TODO: change to passcode
+                UIAction(
+                    title: detailText(for: .lockMethod, lock: .passcode, biometry: biometryType)!,
+                    state: lock == .passcode ? .on : .off
+                ) { [unowned self] action in
+                    if lock != .passcode {
+                        toggleBiometrics()
+                    }
                 },
-                UIAction(title: detailText(for: .lockMethod, lock: .userPresence, biometry: biometryType)!) { action in
-                    // TODO: change to biometry
-                },
-                UIAction(title: detailText(for: .lockMethod, lock: .passcodeAndUserPresence, biometry: biometryType)!) { action in
-                    // TODO: change to passcode & user presence
+                UIAction(
+                    title: detailText(for: .lockMethod, lock: .userPresence, biometry: biometryType)!,
+                    state: lock == .userPresence ? .on : .off
+                ) { [unowned self] action in
+                    if lock != .userPresence {
+                        toggleBiometrics()
+                    }
                 }
+                // TODO: implement
+//                ,UIAction(title: detailText(for: .lockMethod, lock: .passcodeAndUserPresence, biometry: biometryType)!) { action in
+//                }
             ])
             return cell
 
@@ -451,9 +438,6 @@ class PasscodeSettingsViewController: UITableViewController {
 
         case .changePasscode:
             changePasscode()
-
-        case .loginWithBiometrics:
-            toggleBiometrics()
 
         case .requireToOpenApp:
             toggleUsage(option: .useForLogin, reason: "Require to open app")
