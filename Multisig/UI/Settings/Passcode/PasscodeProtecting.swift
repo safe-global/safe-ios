@@ -18,7 +18,7 @@ extension PasscodeProtecting where Self: UIViewController {
         if App.shared.auth.isPasscodeSetAndAvailable && (options.isEmpty || !AppSettings.passcodeOptions.intersection(options).isEmpty) {
             let passcodeVC = EnterPasscodeViewController()
             passcodeVC.usesBiometry = biometry
-            passcodeVC.passcodeCompletion = { [weak self] success, reset in
+            passcodeVC.passcodeCompletion = { [weak self] success, reset, _ in
                 self?.dismiss(animated: true) {
                     completion(success, reset)
                 }

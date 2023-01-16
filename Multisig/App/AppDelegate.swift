@@ -55,6 +55,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         WCAppRegistryMigration.shared.run()
 
+        SecurityCenter.migrateIfNeeded()
+
         return true
     }
 

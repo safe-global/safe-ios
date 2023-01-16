@@ -29,6 +29,8 @@ class App {
     var coreDataStack: CoreDataProtocol = CoreDataStack()
     var keychainService: SecureStore = KeychainService(identifier: App.configuration.app.bundleIdentifier)
 
+    let securityCenter: SecurityCenter = SecurityCenter.shared
+
     // MARK: - Services
 
     // It should be lazy as it uses Firebase and coreDataStack that are not yet properly initialized
@@ -58,5 +60,5 @@ class App {
 
     let intercomConfig = IntercomConfig()
 
-    private init() { }
+    private init() {}
 }

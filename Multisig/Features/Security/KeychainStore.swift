@@ -13,7 +13,7 @@ import LocalAuthentication
 
 // Thin wrapper around Keychain store
 class KeychainItemStore {
-    internal init(_ store: KeychainStore) {
+    internal init(_ store: KeychainStore = KeychainStore()) {
         self.store = store
     }
 
