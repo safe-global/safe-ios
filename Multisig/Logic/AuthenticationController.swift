@@ -14,6 +14,7 @@ import LocalAuthentication
 class AuthenticationController {
 
     private let accessService: AccessService
+    private let dataKeyStore = ProtectedKeyStore(protectionClass: .data, KeychainItemStore(KeychainStore()))
 
     #if DEBUG
     var test_override_isBiometrySupported: Bool?
@@ -32,6 +33,12 @@ class AuthenticationController {
                 faceIDAuth: "Unlock using Face ID",
                 unrecognizedBiometryType: "Unrecognized Biometry type"))
         accessService.userRepository = AuthUserRepository()
+
+        if !dataKeyStore.isInitialized() {
+            //TODO This should be done somewhere else. That is outside the scope of this ticket.
+            LogService.shared.debug("----> try! dataKeyStore.initialize()")
+            try! dataKeyStore.initialize()
+        }
     }
 
     /// This method will derive a key from the passcode, hash it, and store
@@ -43,6 +50,9 @@ class AuthenticationController {
             accessService.userRepository.delete(userID: user.id)
         }
         let password = derivedKey(from: plaintextPasscode)
+        LogService.shared.debug("----> try dataKeyStore.changePassword(from: nil, to \(password)")
+        try dataKeyStore.changePassword(from: nil, to: password, useBiometry: false) // TODO: Where do we know whether to use biometry or not?
+
         try accessService.registerUser(password: password)
         AppSettings.passcodeWasSetAtLeastOnce = true
 
@@ -57,18 +67,33 @@ class AuthenticationController {
     /// Changes the passcode to a new value.
     /// - Parameter newPasscodeInPlaintext: unsecured "as-is" passcode
     func changePasscode(newPasscodeInPlaintext: String) throws {
+
+
+        //TODO: change passcode in dataKeyStore
+
         guard let user = user else { return }
-        let password = derivedKey(from: newPasscodeInPlaintext)
-        try accessService.updateUserPassword(userID: user.id, password: password)
+        let newPassword = derivedKey(from: newPasscodeInPlaintext)
+        let oldPasscode = derivedKey(from: "111111")
+        LogService.shared.debug("----> try dataKeyStore.changePassword(from: \(oldPasscode), to: \(newPassword)")
+        try dataKeyStore.changePassword(from: oldPasscode, to: newPassword, useBiometry: false) // TODO: Where do we know whether to use biometry or not?
+
+        try accessService.updateUserPassword(userID: user.id, password: newPassword)
     }
 
     /// Checks if the passcode correct. In case passcode is not set, returns false.
     /// - Parameter plaintextPasscode: unsecured "as-is" passcode
     /// - Returns: true if passcode correct, false otherwise
-    func  isPasscodeCorrect(plaintextPasscode: String) throws -> Bool {
+    func isPasscodeCorrect(plaintextPasscode: String) throws -> Bool {
+
+        //TODO: Check against challenge
+        // "I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but water kills me. What am I?"
+
         guard let user = user else { return false }
         let password = derivedKey(from: plaintextPasscode)
         let oldPassword = derivedKey(from: plaintextPasscode, useOldSalt: true)
+
+        
+
         return try accessService.verifyPassword(userID: user.id, password: password) ||
                     accessService.verifyPassword(userID: user.id , password: oldPassword)
     }

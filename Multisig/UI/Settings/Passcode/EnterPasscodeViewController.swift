@@ -41,16 +41,20 @@ class EnterPasscodeViewController: PasscodeViewController {
     }
 
     private var canUseBiometry: Bool {
-        usesBiometry && App.shared.auth.isBiometryAuthenticationPossible && AppSettings.passcodeOptions.contains(.useBiometry)
+        let result = usesBiometry && App.shared.auth.isBiometryAuthenticationPossible && AppSettings.passcodeOptions.contains(.useBiometry)
+        LogService.shared.debug("---> canUseBiometry() -> \(result)")
+        return result
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        LogService.shared.debug("---> viewDidAppear()")
         super.viewDidAppear(animated)
         Tracker.trackEvent(screenTrackingEvent)
         authenticateWithBiometry()
     }
 
     override func willChangeText(_ text: String) {
+        LogService.shared.debug("---> text: -> \(text)")
         super.willChangeText(text)
         errorLabel.isHidden = true
         if text.count == passcodeLength {
