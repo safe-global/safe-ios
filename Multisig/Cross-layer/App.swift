@@ -29,6 +29,10 @@ class App {
     var coreDataStack: CoreDataProtocol = CoreDataStack()
     var keychainService: SecureStore = KeychainService(identifier: App.configuration.app.bundleIdentifier)
 
+    var keychainItemStore = KeychainItemStore(KeychainStore())
+
+    let securityCenter: SecurityCenter
+
     // MARK: - Services
 
     // It should be lazy as it uses Firebase and coreDataStack that are not yet properly initialized
@@ -58,5 +62,7 @@ class App {
 
     let intercomConfig = IntercomConfig()
 
-    private init() { }
+    private init() {
+        securityCenter = SecurityCenter.getInstance(keystore: ProtectedKeyStore(protectionClass: .sensitive, keychainItemStore))
+    }
 }

@@ -9,6 +9,7 @@
 import Foundation
 
 class ProtectedKeyStore: EncryptedStore {
+
     private let protectionClass: ProtectionClass
     private let store: KeychainItemStore
 
