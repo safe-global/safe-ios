@@ -19,7 +19,6 @@ class MenuTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.setStyle(.headline)
-        detailText = nil
         button.showsMenuAsPrimaryAction = true
     }
 
@@ -33,8 +32,4 @@ class MenuTableViewCell: UITableViewCell {
         set { titleLabel.text = newValue }
     }
 
-    var detailText: String? {
-        get { button.title(for: .normal) }
-        set { button.setTitle(newValue, for: .normal) }
-    }
 }
