@@ -29,9 +29,7 @@ class App {
     var coreDataStack: CoreDataProtocol = CoreDataStack()
     var keychainService: SecureStore = KeychainService(identifier: App.configuration.app.bundleIdentifier)
 
-    var keychainItemStore = KeychainItemStore(KeychainStore())
-
-    let securityCenter: SecurityCenter
+    let securityCenter: SecurityCenter = SecurityCenter.shared
 
     // MARK: - Services
 
@@ -62,7 +60,5 @@ class App {
 
     let intercomConfig = IntercomConfig()
 
-    private init() {
-        securityCenter = SecurityCenter.getInstance(keystore: ProtectedKeyStore(protectionClass: .sensitive, keychainItemStore))
-    }
+    private init() {}
 }

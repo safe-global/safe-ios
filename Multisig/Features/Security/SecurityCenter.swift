@@ -10,30 +10,45 @@ import Foundation
 
 class SecurityCenter {
 
-    private static var shared: SecurityCenter? = nil
+    static let shared = SecurityCenter()
 
-    private var sensitiveStore: ProtectedKeyStore
+    private let sensitiveStore: ProtectedKeyStore
+    private let dataStore: ProtectedKeyStore
+
+    private static let version: Int32 = 1
     
     private var isRequirePasscodeEnabled: Bool {
         // TODO: Get settings
         true
     }
 
-    static func getInstance(keystore: ProtectedKeyStore) -> SecurityCenter {
-        if shared == nil {
-            return SecurityCenter(keystore: keystore)
-        }
-        return shared!
+    init(sensitiveStore: ProtectedKeyStore, dataStore: ProtectedKeyStore) {
+        self.sensitiveStore = sensitiveStore
+        self.dataStore = dataStore
     }
 
-    private init(keystore: ProtectedKeyStore) {
-        sensitiveStore = keystore
+    private convenience init() {
+        self.init(sensitiveStore: ProtectedKeyStore(protectionClass: .sensitive, KeychainItemStore()), dataStore: ProtectedKeyStore(protectionClass: .data, KeychainItemStore()))
+    }
+
+    static func migrateIfNeeded() {
+        //TODO: check version and perform migration
+        if AppSettings.securityCenterVersion == 0 {
+            migrateFromKeychainStorageToSecurityEnclave()
+        } else if AppSettings.securityCenterVersion < version {
+            // perform migration if needed
+        }
+        AppSettings.securityCenterVersion = version
+    }
+
+    private static func migrateFromKeychainStorageToSecurityEnclave() {
+        //TODO:
     }
 
     func `import`(id: DataID, ethPrivateKey: EthPrivateKey, completion: @escaping (Result<Bool?, Error>) -> ()) {
         perfomSecuredAccess { [unowned self] result in
             switch result {
-            case .success(let _):
+            case .success:
                 do {
                     try sensitiveStore.import(id: id, ethPrivateKey: ethPrivateKey)
                     completion(.success(true))
@@ -49,7 +64,7 @@ class SecurityCenter {
     func remove(address: Address, completion: @escaping (Result<Bool?, Error>) -> ()) {
         perfomSecuredAccess { [unowned self] result in
             switch result {
-            case .success(let _):
+            case .success:
                 do {
                     try sensitiveStore.delete(address: address)
                     completion(.success(true))

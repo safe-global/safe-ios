@@ -81,6 +81,9 @@ extension AppSettings {
     @AppSetting(\.lastBuildVersion)
     static var lastBuildVersion: String?
 
+    @AppSetting(\.securityCenterVersion)
+    static var securityCenterVersion: Int32
+
     static var isFreshInstall: Bool {
         // NOTE: historically, we didn't record the currently run
         // app version anywhere, but the termsAccepted exists since
