@@ -264,11 +264,11 @@
       },
       {
         "package": "URRegistry",
-        "repositoryURL": "https://github.com/5afe/ur-registry-ios",
+        "repositoryURL": "https://github.com/KeystoneHQ/ur-registry-ios",
         "state": {
-          "branch": "main",
-          "revision": "4669ee3cfe179bdfa2c2288629af40f9847239a6",
-          "version": null
+          "branch": null,
+          "revision": "10511be95146e8dfa2063e3ea21cceb9e6536fa1",
+          "version": "1.0.0"
         }
       },
       {
