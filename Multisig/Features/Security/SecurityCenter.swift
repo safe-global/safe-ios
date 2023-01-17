@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreText
 
 class SecurityCenter {
 
@@ -18,8 +19,7 @@ class SecurityCenter {
     private static let version: Int32 = 1
     
     private var isRequirePasscodeEnabled: Bool {
-        // TODO: Get settings
-        true
+        App.shared.auth.isPasscodeSetAndAvailable
     }
 
     init(sensitiveStore: ProtectedKeyStore, dataStore: ProtectedKeyStore) {
@@ -31,7 +31,12 @@ class SecurityCenter {
         self.init(sensitiveStore: ProtectedKeyStore(protectionClass: .sensitive, KeychainItemStore()), dataStore: ProtectedKeyStore(protectionClass: .data, KeychainItemStore()))
     }
 
-    static func migrateIfNeeded() {
+    static func setUp() {
+        do {
+            try shared.initKeystores()
+        } catch {
+            LogService.shared.error("Failed to initialize keystores!", error: error)
+        }
         //TODO: check version and perform migration
         if AppSettings.securityCenterVersion == 0 {
             migrateFromKeychainStorageToSecurityEnclave()
@@ -45,6 +50,16 @@ class SecurityCenter {
         //TODO:
     }
 
+    private func initKeystores() throws {
+        if !sensitiveStore.isInitialized() {
+            try sensitiveStore.initialize()
+        }
+        if !dataStore.isInitialized() {
+            try dataStore.initialize()
+        }
+    }
+
+    // import data potentially overriding existing value
     func `import`(id: DataID, ethPrivateKey: EthPrivateKey, completion: @escaping (Result<Bool?, Error>) -> ()) {
         perfomSecuredAccess { [unowned self] result in
             switch result {
@@ -99,7 +114,7 @@ class SecurityCenter {
             return
         }
 
-        let getPasscodeCompletion: (Bool, Bool, String?) -> () = { success, reset, passcode in
+        let getPasscodeCompletion: (_ success: Bool, _ reset: Bool, _ passcode: String?) -> () = { success, reset, passcode in
             if success, let passcode = passcode {
                 completion(.success(passcode))
             } else {
