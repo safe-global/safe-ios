@@ -336,6 +336,14 @@ extension KeyInfo {
         return try PrivateKey.key(id: keyID)
     }
 
+    func privateKey(completion: @escaping (Result<PrivateKey?, Error>) -> ()) {
+        guard let keyID = keyID else {
+            completion(.success(nil))
+            return
+        }
+        PrivateKey.key(id: keyID, completion: completion)
+    }
+
     func delegatePrivateKey() throws -> PrivateKey? {
         guard let addressString = delegateAddressString, let address = Address(addressString) else { return nil }
         return try PrivateKey.key(address: address)

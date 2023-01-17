@@ -21,6 +21,7 @@ class OwnerKeyController {
 
     static func importKey(_ privateKey: PrivateKey, name: String, isDrivedFromSeedPhrase: Bool) -> Bool {
         do {
+
             try KeyInfo.import(address: privateKey.address, name: name, privateKey: privateKey)
 
             App.shared.notificationHandler.signingKeyUpdated()

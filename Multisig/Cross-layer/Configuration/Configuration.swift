@@ -142,6 +142,7 @@ struct AppConfiguration {
     
     struct FeatureToggles {
         // Add feature toggles here
+        var securityCenter: Bool = false
     }
 
     struct Claim {
