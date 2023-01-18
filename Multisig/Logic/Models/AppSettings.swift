@@ -62,12 +62,6 @@ extension AppSettings {
         get { fiatCode ?? "USD" }
         set { fiatCode = newValue }
     }
-    
-    @AppSetting(\.passcodeBannerDismissed)
-    static var passcodeBannerDismissed: Bool
-
-    @AppSetting(\.passcodeWasSetAtLeastOnce)
-    static var passcodeWasSetAtLeastOnce: Bool
 
     @UserDefault(key: "io.gnosis.multisig.importKeyBannerWasShown")
     static var importKeyBannerWasShown: Bool?
@@ -93,6 +87,23 @@ extension AppSettings {
         !termsAccepted
     }
 
+    // MARK: - Security & Passcode
+
+    @AppSetting(\.passcodeBannerDismissed)
+    static var passcodeBannerDismissed: Bool
+
+    @AppSetting(\.passcodeWasSetAtLeastOnce)
+    static var passcodeWasSetAtLeastOnce: Bool
+
+    static var shouldOfferToSetupPasscode: Bool {
+        get {
+            !(passcodeBannerDismissed || passcodeWasSetAtLeastOnce)
+        }
+    }
+
+    @AppSetting(\.securityLockEnabled)
+    static var securityLockEnabled: Bool
+
     static var passcodeOptions: PasscodeOptions {
         get { PasscodeOptions(rawValue: rawPasscodeOptions) }
         set { rawPasscodeOptions = newValue.rawValue }
@@ -101,14 +112,18 @@ extension AppSettings {
     @AppSetting(\.passcodeOptions)
     private static var rawPasscodeOptions: Int64
 
+    static var securityLockMethod: LockMethod {
+        get { LockMethod(rawValue: rawLockMethod)! }
+        set { rawLockMethod = newValue.rawValue }
+    }
+
+
+    @AppSetting(\.securityLockMethod)
+    private static var rawLockMethod: Int16
+
+
     @AppSetting(\.lastIgnoredUpdateVersion)
     static var lastIgnoredUpdateVersion: String?
-
-    static var shouldOfferToSetupPasscode: Bool {
-        get {
-            !(passcodeBannerDismissed || passcodeWasSetAtLeastOnce)
-        }
-    }
 
     @AppSetting(\.walletAppRegistryMigrationCompleted)
     static var walletAppRegistryMigrationCompleted: Bool
@@ -154,9 +169,24 @@ struct AppSetting<T> {
 struct PasscodeOptions: OptionSet {
     let rawValue: Int64
 
+    // If user wants to enable biometry
+    @available(iOS, deprecated: 14, message: "This option is deprecated. Please use `lockMethod` instead.")
     static let useBiometry = PasscodeOptions(rawValue: 1 << 0)
+
+    // if user wants to authenticate on app opening
     static let useForLogin = PasscodeOptions(rawValue: 1 << 1)
+
+    // if user wants to authenticate when using the private keys
     static let useForConfirmation = PasscodeOptions(rawValue: 1 << 2)
 
     static let all: PasscodeOptions = [.useBiometry, .useForLogin, .useForConfirmation]
+}
+
+enum LockMethod: Int16 {
+    // authenticate with user-provided passcode
+    case passcode = 0
+    // authenticate with user's biometry (or device passcode, as a fallback)
+    case userPresence = 1
+    // authenticate with user-proivded passcode and with user's biometry (or device passcode, as a fallback
+    case passcodeAndUserPresence = 2
 }

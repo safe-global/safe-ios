@@ -59,6 +59,11 @@ class SecurityCenter {
         }
     }
 
+    func createPasscode(_ passcode: String, useBiometry: Bool) throws {
+        try sensitiveStore.changePassword(from: nil, to: passcode, useBiometry: useBiometry)
+        try dataStore.changePassword(from: nil, to: passcode, useBiometry: useBiometry)
+    }
+
     // import data potentially overriding existing value
     func `import`(id: DataID, ethPrivateKey: EthPrivateKey, completion: @escaping (Result<Bool?, Error>) -> ()) {
         perfomSecuredAccess { [unowned self] result in

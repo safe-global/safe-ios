@@ -39,12 +39,7 @@ class RepeatPasscodeViewController: PasscodeViewController {
         super.willChangeText(text)
         errorLabel.isHidden = true
         if text == passcode {
-            do {
-                try App.shared.auth.createPasscode(plaintextPasscode: text)
-                completion()
-            } catch {
-                showGenericError(description: "Failed to create passcode", error: error)
-            }
+            completion()
         } else if text.count == passcodeLength {
             showError("Passcodes don't match")
         }
