@@ -19,7 +19,7 @@ class SecurityCenter {
     private static let version: Int32 = 1
     
     private var isRequirePasscodeEnabled: Bool {
-        App.shared.auth.isPasscodeSetAndAvailable
+        AppSettings.securityLockEnabled
     }
 
     init(sensitiveStore: ProtectedKeyStore, dataStore: ProtectedKeyStore) {
@@ -132,7 +132,7 @@ class SecurityCenter {
             // TODO: handle data reset
             // TODO: handle incorrect passcode
             if success {
-                completion(.success(passcode))
+                completion(.success(passcode.map { App.shared.auth.derivedKey(from: $0) }))
             } else {
                 completion(.failure(GSError.RequiredPasscode()))
             }

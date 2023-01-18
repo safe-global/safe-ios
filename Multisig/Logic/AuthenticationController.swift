@@ -161,7 +161,7 @@ class AuthenticationController {
         }
     }
 
-    private func derivedKey(from plaintext: String, useOldSalt: Bool = false) -> String {
+    func derivedKey(from plaintext: String, useOldSalt: Bool = false) -> String {
         let salt = salt(oldSalt: useOldSalt)
         var derivedKey = [UInt8](repeating: 0, count: 256 / 8)
         let result = CCKeyDerivationPBKDF(
