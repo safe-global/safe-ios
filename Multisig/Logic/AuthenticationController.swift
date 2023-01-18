@@ -41,8 +41,7 @@ class AuthenticationController {
     func createPasscode(plaintextPasscode: String) throws {
         if AppConfiguration.FeatureToggles.securityCenter {
             let password = derivedKey(from: plaintextPasscode)
-            let biometryEnabled = AppSettings.securityLockMethod != .passcode
-            SecurityCenter.shared.changePasscode(new: password, useBiometry: biometryEnabled) { error in
+            SecurityCenter.shared.changePasscode(new: password, useBiometry: AppSettings.securityLockMethod != .passcode) { error in
                 if let error = error {
                     LogService.shared.error("Error creating password: \(error)")
                 } else {
@@ -85,6 +84,10 @@ class AuthenticationController {
     /// - Parameter plaintextPasscode: unsecured "as-is" passcode
     /// - Returns: true if passcode correct, false otherwise
     func  isPasscodeCorrect(plaintextPasscode: String) throws -> Bool {
+        // TODO: Implement with new security center
+        if AppConfiguration.FeatureToggles.securityCenter {
+            return true
+        }
         guard let user = user else { return false }
         let password = derivedKey(from: plaintextPasscode)
         let oldPassword = derivedKey(from: plaintextPasscode, useOldSalt: true)
@@ -97,7 +100,7 @@ class AuthenticationController {
     func deletePasscode(trackingEvent: TrackingEvent = .userPasscodeDisabled) throws {
         if AppConfiguration.FeatureToggles.securityCenter {
 
-            SecurityCenter.shared.changePasscode(new: nil, useBiometry: false) { error in
+            SecurityCenter.shared.changePasscode(new: nil, useBiometry: AppSettings.securityLockMethod != .passcode) { error in
                 if let error = error {
                     LogService.shared.error("Failed to delete passcode: \(error)")
                 } else {
