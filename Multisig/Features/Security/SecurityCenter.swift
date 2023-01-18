@@ -59,9 +59,18 @@ class SecurityCenter {
         }
     }
 
-    func createPasscode(_ passcode: String, useBiometry: Bool) throws {
-        try sensitiveStore.changePassword(from: nil, to: passcode, useBiometry: useBiometry)
-        try dataStore.changePassword(from: nil, to: passcode, useBiometry: useBiometry)
+    func changePasscode(new: String?, useBiometry: Bool, completion: @escaping (Error?) -> Void) {
+        perfomSecuredAccess { [unowned self] result in
+            let SUCCESS: Error? = nil
+            do {
+                let old = try result.get()
+                try sensitiveStore.changePassword(from: old, to: new, useBiometry: useBiometry)
+                try dataStore.changePassword(from: old, to: new, useBiometry: useBiometry)
+                completion(SUCCESS)
+            } catch {
+                completion(error)
+            }
+        }
     }
 
     // import data potentially overriding existing value
@@ -120,7 +129,9 @@ class SecurityCenter {
         }
 
         let getPasscodeCompletion: (_ success: Bool, _ reset: Bool, _ passcode: String?) -> () = { success, reset, passcode in
-            if success, let passcode = passcode {
+            // TODO: handle data reset
+            // TODO: handle incorrect passcode
+            if success {
                 completion(.success(passcode))
             } else {
                 completion(.failure(GSError.RequiredPasscode()))

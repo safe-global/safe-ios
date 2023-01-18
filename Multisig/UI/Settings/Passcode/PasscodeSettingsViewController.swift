@@ -146,11 +146,15 @@ class PasscodeSettingsViewController: UITableViewController {
     }
 
     private func deletePasscode() {
-        withPasscodeAuthentication(for: "Enter Passcode") { [unowned self] success, _, finish in
-            if success {
-                disablePasscode()
+        if App.configuration.toggles.securityCenter {
+            try! App.shared.auth.deletePasscode()
+        } else {
+            withPasscodeAuthentication(for: "Enter Passcode") { [unowned self] success, _, finish in
+                if success {
+                    disablePasscode()
+                }
+                finish()
             }
-            finish()
         }
     }
 

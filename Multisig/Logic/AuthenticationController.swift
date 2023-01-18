@@ -41,18 +41,21 @@ class AuthenticationController {
     func createPasscode(plaintextPasscode: String) throws {
         if App.configuration.toggles.securityCenter {
             let password = derivedKey(from: plaintextPasscode)
-
             let biometryEnabled = AppSettings.securityLockMethod != .passcode
-            try SecurityCenter.shared.createPasscode(password, useBiometry: biometryEnabled)
+            SecurityCenter.shared.changePasscode(new: password, useBiometry: biometryEnabled) { error in
+                if let error = error {
+                    LogService.shared.error("Error creating password: \(error)")
+                } else {
+                    AppSettings.securityLockEnabled = true
+                    AppSettings.passcodeWasSetAtLeastOnce = true
+                    AppSettings.passcodeOptions = [.useForLogin, .useForConfirmation]
 
-            AppSettings.securityLockEnabled = true
-            AppSettings.passcodeWasSetAtLeastOnce = true
-            AppSettings.passcodeOptions = [.useForLogin, .useForConfirmation]
+                    NotificationCenter.default.post(name: .passcodeCreated, object: nil)
 
-            NotificationCenter.default.post(name: .passcodeCreated, object: nil)
-
-            Tracker.setPasscodeIsSet(to: true)
-            Tracker.trackEvent(.userPasscodeEnabled)
+                    Tracker.setPasscodeIsSet(to: true)
+                    Tracker.trackEvent(.userPasscodeEnabled)
+                }
+            }
         } else {
             for user in accessService.userRepository.users() {
                 accessService.userRepository.delete(userID: user.id)
@@ -92,13 +95,31 @@ class AuthenticationController {
     /// Deletes the stored passcode. If passcode not set, this operation
     /// does not have any effect.
     func deletePasscode(trackingEvent: TrackingEvent = .userPasscodeDisabled) throws {
-        guard let user = user else { return }
-        try accessService.deleteUser(userID: user.id)
+        if App.configuration.toggles.securityCenter {
 
-        NotificationCenter.default.post(name: .passcodeDeleted, object: nil)
+            SecurityCenter.shared.changePasscode(new: nil, useBiometry: false) { error in
+                if let error = error {
+                    LogService.shared.error("Failed to delete passcode: \(error)")
+                } else {
+                    AppSettings.securityLockEnabled = false
 
-        Tracker.setPasscodeIsSet(to: false)
-        Tracker.trackEvent(trackingEvent)
+                    NotificationCenter.default.post(name: .passcodeDeleted, object: nil)
+
+                    Tracker.setPasscodeIsSet(to: false)
+                    Tracker.trackEvent(trackingEvent)
+
+                    App.shared.snackbar.show(message: "Passcode disabled")
+                }
+            }
+        } else {
+            guard let user = user else { return }
+            try accessService.deleteUser(userID: user.id)
+
+            NotificationCenter.default.post(name: .passcodeDeleted, object: nil)
+
+            Tracker.setPasscodeIsSet(to: false)
+            Tracker.trackEvent(trackingEvent)
+        }
     }
 
     func deleteAllData() throws {
