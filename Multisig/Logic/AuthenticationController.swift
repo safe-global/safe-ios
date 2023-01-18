@@ -36,7 +36,7 @@ class AuthenticationController {
 
         if !dataKeyStore.isInitialized() {
             //TODO This should be done somewhere else. That is outside the scope of this ticket.
-            LogService.shared.debug("----> try! dataKeyStore.initialize()")
+            LogService.shared.debug("Unlock | ----> try! dataKeyStore.initialize()")
             try! dataKeyStore.initialize()
         }
     }
@@ -50,7 +50,7 @@ class AuthenticationController {
             accessService.userRepository.delete(userID: user.id)
         }
         let password = derivedKey(from: plaintextPasscode)
-        LogService.shared.debug("----> try dataKeyStore.changePassword(from: nil, to \(password)")
+        LogService.shared.debug("Unlock | try dataKeyStore.changePassword(from: nil, to \(password)")
         try dataKeyStore.changePassword(from: nil, to: password, useBiometry: false) // TODO: Where do we know whether to use biometry or not?
 
         try accessService.registerUser(password: password)
@@ -74,7 +74,7 @@ class AuthenticationController {
         guard let user = user else { return }
         let newPassword = derivedKey(from: newPasscodeInPlaintext)
         let oldPasscode = derivedKey(from: "111111")
-        LogService.shared.debug("----> try dataKeyStore.changePassword(from: \(oldPasscode), to: \(newPassword)")
+        LogService.shared.debug("Unlock | try dataKeyStore.changePassword(from: \(oldPasscode), to: \(newPassword)")
         try dataKeyStore.changePassword(from: oldPasscode, to: newPassword, useBiometry: false) // TODO: Where do we know whether to use biometry or not?
 
         try accessService.updateUserPassword(userID: user.id, password: newPassword)
@@ -90,12 +90,29 @@ class AuthenticationController {
 
         guard let user = user else { return false }
         let password = derivedKey(from: plaintextPasscode)
-        let oldPassword = derivedKey(from: plaintextPasscode, useOldSalt: true)
+        let oldSaltPassword = derivedKey(from: plaintextPasscode, useOldSalt: true)
 
-        
+        var response: Bool? = nil
+        SecurityCenter.shared.appUnlock { result in
+            LogService.shared.debug("Unlock | SecurityCenter.shared.appUnlock")
 
-        return try accessService.verifyPassword(userID: user.id, password: password) ||
-                    accessService.verifyPassword(userID: user.id , password: oldPassword)
+            switch result {
+            case .success(let res):
+                LogService.shared.debug("Unlock | success: \(res)")
+                response = true
+            case .failure(let error):
+                LogService.shared.error("Unlock | failure(): \(error) ")
+                response = false
+            default:
+                LogService.shared.error("Unlock | default")
+                response = false
+            }
+
+        }
+
+        return response!
+//        return try accessService.verifyPassword(userID: user.id, password: password) ||
+//                    accessService.verifyPassword(userID: user.id , password: oldSaltPassword)
     }
 
     /// Deletes the stored passcode. If passcode not set, this operation

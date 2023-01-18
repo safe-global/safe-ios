@@ -24,7 +24,18 @@ class SecurityCenter {
 
     init(sensitiveStore: ProtectedKeyStore, dataStore: ProtectedKeyStore) {
         self.sensitiveStore = sensitiveStore
+        if !self.sensitiveStore.isInitialized() {
+            try! self.sensitiveStore.initialize()
+        }
         self.dataStore = dataStore
+        if !self.dataStore.isInitialized() {
+            try! self.dataStore.initialize()
+        }
+        try! dataStore.import(id: DataID(id: "app.unlock"), ethPrivateKey: Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322"))
+
+//        let key = try! (dataStore.find(dataID: DataID(id: "app.unlock"), password: nil) ?? "unlock.failed".data(using: .utf8)) as Data?
+//        LogService.shared.debug("Unlock | AppUnlock: import done: key: \(key?.toHexString())")
+
     }
 
     private convenience init() {
@@ -93,9 +104,31 @@ class SecurityCenter {
         }
     }
 
+    func appUnlock(completion: @escaping (Result<Bool, Error>) -> ()) {
+        performSecuredAccess { [unowned self] result in
+            switch result {
+            case .success(let passcode):
+                LogService.shared.debug("Unlock | App -> appUnlock: passcode \(passcode)")
+                do {
+                    let key = try (dataStore.find(dataID: DataID(id: "app.unlock"), password: passcode) ?? "unlock.failed".data(using: .utf8)) as Data?
+                    let stringValue = String(decoding: key!, as: UTF8.self)
+                    if stringValue == "unlock.failed" {
+                        completion(.failure(GSError.KeychainError(reason: "Unlock | Wrong sentinel value")))
+                    } else {
+                        completion(.success(true))
+                    }
+                } catch let error {
+                    completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
     private func performSecuredAccess(completion: @escaping (Result<String?, Error>) -> ()) {
         guard isRequirePasscodeEnabled else {
-            completion(.success(nil))
+            completion(.success("nil"))
             return
         }
 
