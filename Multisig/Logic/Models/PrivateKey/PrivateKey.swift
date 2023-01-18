@@ -113,12 +113,26 @@ extension PrivateKey {
         }
     }
 
-    static func remove(id: KeyID) throws {
-        do {
-            try App.shared.keychainService.removeData(forKey: id)
-        } catch {
-            throw GSError.KeychainError(reason: error.localizedDescription)
+    //@Deprecated: legacy code
+    //TODO: extract legacy code
+    static func remove(id: KeyID, address: Address) throws {
+        if App.configuration.toggles.securityCenter {
+            //TODO: rewrite as App.securityCenter
+            //TODO: make invocation async
+            App.shared.securityCenter.remove(address: address) { result in
+                try! result.get()
+            }
+        } else {
+            do {
+                try App.shared.keychainService.removeData(forKey: id)
+            } catch {
+                throw GSError.KeychainError(reason: error.localizedDescription)
+            }
         }
+    }
+
+    static func remove(address: Address, completion: @escaping (Result<Bool?, Error>) -> ()) {
+        App.shared.securityCenter.remove(address: address, completion: completion)
     }
 
     static func deleteAll() throws {
@@ -153,7 +167,7 @@ extension PrivateKey {
     }
 
     func remove() throws {
-        try Self.remove(id: id)
+        try Self.remove(id: id, address: address)
     }
 
     func sign(hash: Data) throws -> Signature {
