@@ -136,7 +136,7 @@ extension PrivateKey {
     //@Deprecated: legacy code
     //TODO: extract legacy code; move access through security center to a separate function (preferrably outside of PrivateKey)
     func save() throws {
-        if App.configuration.toggles.securityCenter {
+        if AppConfiguration.FeatureToggles.securityCenter {
             //TODO: rewrite as App.securityCenter
             //TODO: make invocation async
             App.shared.securityCenter.import(id: DataID(id: id), ethPrivateKey: keychainData) { result in

@@ -114,7 +114,7 @@ class PasscodeSettingsViewController: UITableViewController {
     }
 
     func updateLockValues() {
-        if App.configuration.toggles.securityCenter {
+        if AppConfiguration.FeatureToggles.securityCenter {
             lock = AppSettings.securityLockMethod
 
             if App.shared.auth.isBiometricsSupported {
@@ -146,7 +146,7 @@ class PasscodeSettingsViewController: UITableViewController {
     }
 
     private func deletePasscode() {
-        if App.configuration.toggles.securityCenter {
+        if AppConfiguration.FeatureToggles.securityCenter {
             try! App.shared.auth.deletePasscode()
         } else {
             withPasscodeAuthentication(for: "Enter Passcode") { [unowned self] success, _, finish in

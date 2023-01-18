@@ -149,7 +149,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
     @objc private func didTapExportButton() {
         let exportViewController = ExportViewController()
 
-        if App.configuration.toggles.securityCenter {
+        if AppConfiguration.FeatureToggles.securityCenter {
 
             keyInfo.privateKey { [unowned self] result in
 

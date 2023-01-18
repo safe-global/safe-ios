@@ -39,7 +39,7 @@ class AuthenticationController {
     ///
     /// - Parameter plaintextPasscode: unsecured, "as-is" passcode
     func createPasscode(plaintextPasscode: String) throws {
-        if App.configuration.toggles.securityCenter {
+        if AppConfiguration.FeatureToggles.securityCenter {
             let password = derivedKey(from: plaintextPasscode)
             let biometryEnabled = AppSettings.securityLockMethod != .passcode
             SecurityCenter.shared.changePasscode(new: password, useBiometry: biometryEnabled) { error in
@@ -95,7 +95,7 @@ class AuthenticationController {
     /// Deletes the stored passcode. If passcode not set, this operation
     /// does not have any effect.
     func deletePasscode(trackingEvent: TrackingEvent = .userPasscodeDisabled) throws {
-        if App.configuration.toggles.securityCenter {
+        if AppConfiguration.FeatureToggles.securityCenter {
 
             SecurityCenter.shared.changePasscode(new: nil, useBiometry: false) { error in
                 if let error = error {
@@ -147,7 +147,7 @@ class AuthenticationController {
     }
 
     var isPasscodeSetAndAvailable: Bool {
-        if App.configuration.toggles.securityCenter {
+        if AppConfiguration.FeatureToggles.securityCenter {
             return AppSettings.securityLockEnabled
         } else {
             guard let user = (try? fetchUser()) else {
@@ -226,7 +226,7 @@ class AuthenticationController {
 
             switch result {
             case .success:
-                if App.configuration.toggles.securityCenter {
+                if AppConfiguration.FeatureToggles.securityCenter {
                     AppSettings.securityLockMethod = .userPresence
                 }
 
