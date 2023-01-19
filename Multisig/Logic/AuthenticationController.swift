@@ -39,19 +39,37 @@ class AuthenticationController {
     ///
     /// - Parameter plaintextPasscode: unsecured, "as-is" passcode
     func createPasscode(plaintextPasscode: String) throws {
-        for user in accessService.userRepository.users() {
-            accessService.userRepository.delete(userID: user.id)
+        if AppConfiguration.FeatureToggles.securityCenter {
+            let password = derivedKey(from: plaintextPasscode)
+            SecurityCenter.shared.changePasscode(new: password, useBiometry: AppSettings.securityLockMethod != .passcode) { error in
+                if let error = error {
+                    LogService.shared.error("Error creating password: \(error)")
+                } else {
+                    AppSettings.securityLockEnabled = true
+                    AppSettings.passcodeWasSetAtLeastOnce = true
+                    AppSettings.passcodeOptions = [.useForLogin, .useForConfirmation]
+
+                    NotificationCenter.default.post(name: .passcodeCreated, object: nil)
+
+                    Tracker.setPasscodeIsSet(to: true)
+                    Tracker.trackEvent(.userPasscodeEnabled)
+                }
+            }
+        } else {
+            for user in accessService.userRepository.users() {
+                accessService.userRepository.delete(userID: user.id)
+            }
+            let password = derivedKey(from: plaintextPasscode)
+            try accessService.registerUser(password: password)
+            AppSettings.passcodeWasSetAtLeastOnce = true
+
+            AppSettings.passcodeOptions = [.useForLogin, .useForConfirmation]
+
+            NotificationCenter.default.post(name: .passcodeCreated, object: nil)
+
+            Tracker.setPasscodeIsSet(to: true)
+            Tracker.trackEvent(.userPasscodeEnabled)
         }
-        let password = derivedKey(from: plaintextPasscode)
-        try accessService.registerUser(password: password)
-        AppSettings.passcodeWasSetAtLeastOnce = true
-
-        AppSettings.passcodeOptions = [.useForLogin, .useForConfirmation]
-
-        NotificationCenter.default.post(name: .passcodeCreated, object: nil)
-
-        Tracker.setPasscodeIsSet(to: true)
-        Tracker.trackEvent(.userPasscodeEnabled)
     }
 
     /// Changes the passcode to a new value.
@@ -66,6 +84,10 @@ class AuthenticationController {
     /// - Parameter plaintextPasscode: unsecured "as-is" passcode
     /// - Returns: true if passcode correct, false otherwise
     func  isPasscodeCorrect(plaintextPasscode: String) throws -> Bool {
+        // TODO: Implement with new security center
+        if AppConfiguration.FeatureToggles.securityCenter {
+            return true
+        }
         guard let user = user else { return false }
         let password = derivedKey(from: plaintextPasscode)
         let oldPassword = derivedKey(from: plaintextPasscode, useOldSalt: true)
@@ -76,13 +98,31 @@ class AuthenticationController {
     /// Deletes the stored passcode. If passcode not set, this operation
     /// does not have any effect.
     func deletePasscode(trackingEvent: TrackingEvent = .userPasscodeDisabled) throws {
-        guard let user = user else { return }
-        try accessService.deleteUser(userID: user.id)
+        if AppConfiguration.FeatureToggles.securityCenter {
 
-        NotificationCenter.default.post(name: .passcodeDeleted, object: nil)
+            SecurityCenter.shared.changePasscode(new: nil, useBiometry: AppSettings.securityLockMethod != .passcode) { error in
+                if let error = error {
+                    LogService.shared.error("Failed to delete passcode: \(error)")
+                } else {
+                    AppSettings.securityLockEnabled = false
 
-        Tracker.setPasscodeIsSet(to: false)
-        Tracker.trackEvent(trackingEvent)
+                    NotificationCenter.default.post(name: .passcodeDeleted, object: nil)
+
+                    Tracker.setPasscodeIsSet(to: false)
+                    Tracker.trackEvent(trackingEvent)
+
+                    App.shared.snackbar.show(message: "Passcode disabled")
+                }
+            }
+        } else {
+            guard let user = user else { return }
+            try accessService.deleteUser(userID: user.id)
+
+            NotificationCenter.default.post(name: .passcodeDeleted, object: nil)
+
+            Tracker.setPasscodeIsSet(to: false)
+            Tracker.trackEvent(trackingEvent)
+        }
     }
 
     func deleteAllData() throws {
@@ -110,14 +150,18 @@ class AuthenticationController {
     }
 
     var isPasscodeSetAndAvailable: Bool {
-        guard let user = (try? fetchUser()) else {
-            // passcode not available
-            return false
+        if AppConfiguration.FeatureToggles.securityCenter {
+            return AppSettings.securityLockEnabled
+        } else {
+            guard let user = (try? fetchUser()) else {
+                // passcode not available
+                return false
+            }
+            return !user.encryptedPassword.isEmpty
         }
-        return !user.encryptedPassword.isEmpty
     }
 
-    private func derivedKey(from plaintext: String, useOldSalt: Bool = false) -> String {
+    func derivedKey(from plaintext: String, useOldSalt: Bool = false) -> String {
         let salt = salt(oldSalt: useOldSalt)
         var derivedKey = [UInt8](repeating: 0, count: 256 / 8)
         let result = CCKeyDerivationPBKDF(
@@ -185,6 +229,10 @@ class AuthenticationController {
 
             switch result {
             case .success:
+                if AppConfiguration.FeatureToggles.securityCenter {
+                    AppSettings.securityLockMethod = .userPresence
+                }
+
                 AppSettings.passcodeOptions.insert(.useBiometry)
                 NotificationCenter.default.post(name: .biometricsActivated, object: nil)
                 App.shared.snackbar.show(message: "Biometrics activated.")

@@ -19,7 +19,7 @@ class SecurityCenter {
     private static let version: Int32 = 1
     
     private var isRequirePasscodeEnabled: Bool {
-        App.shared.auth.isPasscodeSetAndAvailable
+        AppSettings.securityLockEnabled
     }
 
     init(sensitiveStore: ProtectedKeyStore, dataStore: ProtectedKeyStore) {
@@ -56,6 +56,20 @@ class SecurityCenter {
         }
         if !dataStore.isInitialized() {
             try dataStore.initialize()
+        }
+    }
+
+    func changePasscode(new: String?, useBiometry: Bool, completion: @escaping (Error?) -> Void) {
+        perfomSecuredAccess { [unowned self] result in
+            let SUCCESS: Error? = nil
+            do {
+                let old = try result.get()
+                try sensitiveStore.changePassword(from: old, to: new, useBiometry: useBiometry)
+                try dataStore.changePassword(from: old, to: new, useBiometry: useBiometry)
+                completion(SUCCESS)
+            } catch {
+                completion(error)
+            }
         }
     }
 
@@ -115,8 +129,10 @@ class SecurityCenter {
         }
 
         let getPasscodeCompletion: (_ success: Bool, _ reset: Bool, _ passcode: String?) -> () = { success, reset, passcode in
-            if success, let passcode = passcode {
-                completion(.success(passcode))
+            // TODO: handle data reset
+            // TODO: handle incorrect passcode
+            if success {
+                completion(.success(passcode.map { App.shared.auth.derivedKey(from: $0) }))
             } else {
                 completion(.failure(GSError.RequiredPasscode()))
             }

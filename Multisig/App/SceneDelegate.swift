@@ -275,7 +275,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func onAppUpdateCompletion() {
         if !AppSettings.termsAccepted {
             showWindow(makeTermsWindow())
-        } else if shouldShowPasscode {
+        // TODO: Enable when implemented new security center 
+        } else if shouldShowPasscode && !AppConfiguration.FeatureToggles.securityCenter {
             showWindow(makeEnterPasscodeWindow())
         } else if !AppSettings.onboardingCompleted {
             showOnboardingWindow()

@@ -141,8 +141,8 @@ struct AppConfiguration {
     }
     
     struct FeatureToggles {
-        // Add feature toggles here
-        var securityCenter: Bool = false
+        @AppSetting(\.toggle_securityCenter)
+        static var securityCenter: Bool
     }
 
     struct Claim {
@@ -162,6 +162,5 @@ struct AppConfiguration {
     let contact = Contact()
     let app = App()
     let walletConnect = WalletConnect()
-    let toggles = FeatureToggles()
     let claim = Claim()
 }
