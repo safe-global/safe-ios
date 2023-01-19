@@ -16,6 +16,7 @@ protocol EncryptedStore {
     func isInitialized() -> Bool
     func initializeKeyStore() throws
     func `import`(id: DataID, ethPrivateKey: EthPrivateKey) throws
+    func `import`(id: DataID, plainText: Data)  throws
     func delete(address: Address) throws
 
     /// Find private signer key.

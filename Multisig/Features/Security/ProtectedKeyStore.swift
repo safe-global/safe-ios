@@ -55,6 +55,18 @@ class ProtectedKeyStore: EncryptedStore {
         try store.create(KeychainItem.generic(account: id.id, service: protectionClass.service(), data: encryptedSigningKey))
     }
 
+    func `import`(id: DataID, plainText: Data) throws {
+        // 1. find public sensitive key
+        let pubKey = try store.find(.ecPubKey(tag: ProtectedKeyStore.publicKeyTag, service: protectionClass.service())) as! SecKey
+
+        // 2. encrypt data with public sensitive key
+        var error: Unmanaged<CFError>?
+        let encryptedData = try plainText.encrypt(publicKey: pubKey)
+
+        // 3. store encrypted blob in the keychain
+        try store.create(KeychainItem.generic(account: id.id, service: protectionClass.service(), data: encryptedData))
+    }
+
     func delete(address: Address) throws {
         try store.delete(KeychainItem.generic(account: address.checksummed, service: protectionClass.service()))
     }
