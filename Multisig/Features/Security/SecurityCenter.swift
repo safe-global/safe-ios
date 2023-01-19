@@ -106,6 +106,22 @@ class SecurityCenter {
         }
     }
 
+    func remove(dataID: DataID, completion: @escaping (Result<Bool?, Error>) -> ()) {
+        perfomSecuredAccess { [unowned self] result in
+            switch result {
+            case .success:
+                do {
+                    try sensitiveStore.delete(id: dataID)
+                    completion(.success(true))
+                } catch let error {
+                    completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
     func find(dataID: DataID, completion: @escaping (Result<EthPrivateKey?, Error>) -> ()) {
         perfomSecuredAccess { [unowned self] result in
             switch result {

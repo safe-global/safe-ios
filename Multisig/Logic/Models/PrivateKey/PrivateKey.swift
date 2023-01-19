@@ -115,11 +115,11 @@ extension PrivateKey {
 
     //@Deprecated: legacy code
     //TODO: extract legacy code
-    static func remove(id: KeyID, address: Address) throws {
+    static func remove(id: KeyID) throws {
         if AppConfiguration.FeatureToggles.securityCenter {
             //TODO: rewrite as App.securityCenter
             //TODO: make invocation async
-            App.shared.securityCenter.remove(address: address) { result in
+            App.shared.securityCenter.remove(dataID: DataID(id: id)) { result in
                 try! result.get()
             }
         } else {
@@ -167,7 +167,7 @@ extension PrivateKey {
     }
 
     func remove() throws {
-        try Self.remove(id: id, address: address)
+        try Self.remove(id: id)
     }
 
     func sign(hash: Data) throws -> Signature {
