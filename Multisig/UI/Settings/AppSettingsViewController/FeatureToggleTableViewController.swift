@@ -30,21 +30,14 @@ class FeatureToggleTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 60
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
-        } else {
-            // Fallback on earlier versions
         }
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rows.count
     }
-
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let rowID = rows[indexPath.row]
