@@ -96,14 +96,25 @@ extension PrivateKey {
 
     //TODO: move access through security center to a separate function (preferrably outside of PrivateKey)
     static func key(id: KeyID, completion: @escaping (Result<PrivateKey?, Error>) -> ()) {
-        App.shared.securityCenter.find(dataID: DataID(id: id)) { result in
-            do {
-                let pkDataOrNil = try result.get()
-                guard let pkData = pkDataOrNil else {
-                    completion(.success(nil))
-                    return
+        if AppConfiguration.FeatureToggles.securityCenter {
+            App.shared.securityCenter.find(dataID: DataID(id: id)) { result in
+                do {
+                    let pkDataOrNil = try result.get()
+                    guard let pkData = pkDataOrNil else {
+                        completion(.success(nil))
+                        return
+                    }
+                    let privateKey = try PrivateKey(data: pkData, id: id)
+                    completion(.success(privateKey))
+                } catch let error as GSError.KeychainError {
+                    completion(.failure(error))
+                } catch {
+                    completion(.failure(GSError.ThirdPartyError(reason: error.localizedDescription)))
                 }
-                let privateKey = try PrivateKey(data: pkData, id: id)
+            }
+        } else {
+            do {
+                let privateKey = try key(id: id)
                 completion(.success(privateKey))
             } catch let error as GSError.KeychainError {
                 completion(.failure(error))

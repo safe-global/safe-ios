@@ -86,13 +86,6 @@ class BackupFlow: UIFlow {
 /// 4. Success (in superclass)
 class ModalBackupFlow: BackupFlow {
 
-    convenience init?(keyInfo: KeyInfo, completion: @escaping (_ success: Bool) -> Void) {
-        guard let mnemonic = try? keyInfo.privateKey()?.mnemonic else {
-            return nil
-        }
-        self.init(mnemonic: mnemonic, completion: completion)
-    }
-
     override func start() {
         passcode()
     }
