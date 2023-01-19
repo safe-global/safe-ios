@@ -116,7 +116,7 @@ extension PrivateKey {
     //@Deprecated: legacy code
     //TODO: extract legacy code
     static func remove(id: KeyID, address: Address) throws {
-        if App.configuration.toggles.securityCenter {
+        if AppConfiguration.FeatureToggles.securityCenter {
             //TODO: rewrite as App.securityCenter
             //TODO: make invocation async
             App.shared.securityCenter.remove(address: address) { result in
