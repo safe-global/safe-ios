@@ -71,6 +71,10 @@ class ProtectedKeyStore: EncryptedStore {
         try store.delete(KeychainItem.generic(account: address.checksummed, service: protectionClass.service()))
     }
 
+    func delete(id: DataID) throws {
+        try store.delete(KeychainItem.generic(account: id.id, service: protectionClass.service()))
+    }
+
     func find(dataID: DataID, password: String?) throws -> EthPrivateKey? {
         // Get encrypted signing key
         guard let encryptedSigningKey = try store.find(KeychainItem.generic(account: dataID.id, service: protectionClass.service())) as? Data else {
