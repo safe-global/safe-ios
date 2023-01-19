@@ -63,7 +63,7 @@ class EnterPasscodeViewController: PasscodeViewController {
             var isCorrect = false
             do {
                 if AppConfiguration.FeatureToggles.securityCenter {
-                    isCorrect = try SecurityCenter.shared.appUnlock(derivedPasscode: text)
+                    isCorrect = try SecurityCenter.shared.isPasscodeCorrect(derivedPasscode: text)
                 } else {
                     isCorrect = try App.shared.auth.isPasscodeCorrect(plaintextPasscode: text)
                 }

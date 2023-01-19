@@ -62,17 +62,30 @@ class SecurityCenter {
     }
 
     func changePasscode(new: String?, useBiometry: Bool, completion: @escaping (Error?) -> Void) {
-        performSecuredAccess { [unowned self] result in
-            let SUCCESS: Error? = nil
+        //TODO: Check if passcode is nil -> stored within ProtectedKeyStore
+        if sensitiveStore.useStoredPassword() && dataStore.useStoredPassword() {
             do {
-                let old = try result.get()
-                try sensitiveStore.changePassword(from: old, to: new, useBiometry: useBiometry)
-                try dataStore.changePassword(from: old, to: new, useBiometry: useBiometry)
-                completion(SUCCESS)
+                try sensitiveStore.changePassword(from: nil, to: new, useBiometry: useBiometry)
+                try dataStore.changePassword(from: nil, to: new, useBiometry: useBiometry)
             } catch {
                 completion(error)
             }
+        } else {
+            performSecuredAccess { [unowned self] result in
+                let SUCCESS: Error? = nil
+                do {
+                    let old = try result.get()
+                    try sensitiveStore.changePassword(from: old, to: new, useBiometry: useBiometry)
+                    try dataStore.changePassword(from: old, to: new, useBiometry: useBiometry)
+                    completion(SUCCESS)
+                } catch {
+                    completion(error)
+                }
+            }
         }
+
+
+
     }
 
     // import data potentially overriding existing value
@@ -124,10 +137,8 @@ class SecurityCenter {
         }
     }
 
-    func appUnlock(derivedPasscode: String?) throws -> Bool {
-
-        let foo = try dataStore.find(dataID: DataID(id: "app.unlock"), password: nil)
-        return foo != nil
+    func isPasscodeCorrect(derivedPasscode: String?) throws -> Bool {
+        return try dataStore.find(dataID: DataID(id: "app.unlock"), password: derivedPasscode) != nil
     }
 
     private func performSecuredAccess(completion: @escaping (Result<String?, Error>) -> ()) {

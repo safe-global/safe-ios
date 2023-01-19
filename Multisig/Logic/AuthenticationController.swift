@@ -101,7 +101,7 @@ class AuthenticationController {
     func  isPasscodeCorrect(plaintextPasscode: String) throws -> Bool {
         let derivedPassword = derivedKey(from: plaintextPasscode)
         if AppConfiguration.FeatureToggles.securityCenter {
-            return try SecurityCenter.shared.appUnlock(derivedPasscode: derivedPassword)
+            return try SecurityCenter.shared.isPasscodeCorrect(derivedPasscode: derivedPassword)
         } else {
             guard let user = user else { return false }
             let oldSaltPassword = derivedKey(from: plaintextPasscode, useOldSalt: true)

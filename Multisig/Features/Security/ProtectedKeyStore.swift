@@ -118,7 +118,10 @@ class ProtectedKeyStore: EncryptedStore {
                     data: passwordData
             )
             try store.create(passItem)
+
             newPasswordData = passwordData
+        } else {
+            try! store.delete(.generic(account: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service()))
         }
 
         var accessFlags: SecAccessControlCreateFlags = [.applicationPassword]
@@ -221,6 +224,14 @@ class ProtectedKeyStore: EncryptedStore {
         try! store.delete(.generic(account: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service()))
         try! store.delete(.ecPubKey(tag: ProtectedKeyStore.publicKeyTag, service: protectionClass.service()))
         try! store.delete(.enclaveKey(tag: ProtectedKeyStore.privateKEKTag, service: protectionClass.service()))
+    }
+
+    func useStoredPassword() -> Bool {
+        do {
+            return try store.find(KeychainItem.generic(account: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service())) != nil
+        } catch {
+            return false
+        }
     }
 }
 
