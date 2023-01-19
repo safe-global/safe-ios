@@ -26,7 +26,7 @@ class SafeTransactionControllerIntegrationTests: CoreDataTestCase {
 
         let exp = expectation(description: "proposing") //?
         let tx = SafeTransactionController.shared.addOwnerWithThresholdTransaction(safe: defaultSafe, safeTxGas: nil, nonce: "1", owner: newOwner, threshold: threshold)!
-        let signature = try SafeTransactionSigner().sign(tx, key: privateKey)
+        let signature = try Wallet.shared.sign(tx, key: privateKey)
         let transactionSignature = signature.hexadecimal
 
         proposeTransaction(
@@ -55,7 +55,7 @@ class SafeTransactionControllerIntegrationTests: CoreDataTestCase {
 
         let exp = expectation(description: "proposing") //?
         let tx = SafeTransactionController.shared.changeThreshold(safe: defaultSafe, safeTxGas: nil, nonce: "1", threshold: threshold)!
-        let signature = try SafeTransactionSigner().sign(tx, key: privateKey)
+        let signature = try Wallet.shared.sign(tx, key: privateKey)
         let transactionSignature = signature.hexadecimal
 
         proposeTransaction(
@@ -105,7 +105,7 @@ class SafeTransactionControllerIntegrationTests: CoreDataTestCase {
 
         let exp = expectation(description: "proposing")
         let tx = SafeTransactionController.shared.replaceOwner(safe: defaultSafe, prevOwner: nil, oldOwner: oldOwner, newOwner: newOwner, safeTxGas: nil, nonce: "1")!
-        let signature = try SafeTransactionSigner().sign(tx, key: privateKey)
+        let signature = try Wallet.shared.sign(tx, key: privateKey)
         let transactionSignature = signature.hexadecimal
 
         proposeTransaction(
@@ -135,7 +135,7 @@ class SafeTransactionControllerIntegrationTests: CoreDataTestCase {
 
         let exp = expectation(description: "proposing")
         let tx = SafeTransactionController.shared.removeOwner(safe: defaultSafe, safeTxGas: nil, prevOwner: nil, oldOwner: oldOwner, nonce: "1", threshold: threshold)!
-        let signature = try SafeTransactionSigner().sign(tx, key: privateKey)
+        let signature = try Wallet.shared.sign(tx, key: privateKey)
         let transactionSignature = signature.hexadecimal
 
         proposeTransaction(

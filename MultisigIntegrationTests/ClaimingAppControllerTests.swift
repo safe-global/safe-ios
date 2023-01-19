@@ -8,7 +8,7 @@
 
 import XCTest
 import Solidity
-@testable import Multisig
+import Multisig
 
 class ClaimingAppControllerTests: XCTestCase {
     var controller: ClaimingAppController!
@@ -241,7 +241,7 @@ class ClaimingAppControllerTests: XCTestCase {
         transaction.updateSafeTxHash()
 
         // sign transaction
-        let signature = try SafeTransactionSigner().sign(transaction, key: safeOwnerKey)
+        let signature = try Wallet.shared.sign(transaction, key: safeOwnerKey)
 
         print(signature.hexadecimal)
 

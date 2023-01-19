@@ -25,6 +25,18 @@ class Wallet {
         sign(hash: hashString, keyInfo: keyInfo, completion: completion)
     }
 
+    // This method is used to simplify the testing 
+    func sign(_ transaction: Transaction, key: PrivateKey) throws -> Signature {
+        let hashToSign = Data(ethHex: transaction.safeTxHash.description)
+        let data = transaction.encodeTransactionData()
+        guard EthHasher.hash(data) == hashToSign else {
+            throw GSError.TransactionSigningError()
+        }
+
+        let hashString = HashString(transaction.safeTxHash.hash)
+        return try key.sign(hash: hashString.hash)
+    }
+
     func sign(hash: HashString, keyInfo: KeyInfo, completion: @escaping (Result<Signature, Error>) -> ()) {
         keyInfo.privateKey { result in
             do {
