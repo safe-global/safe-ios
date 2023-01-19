@@ -245,11 +245,15 @@ class ReviewSafeTransactionViewController: UIViewController {
 
         switch keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
-            do {
-                let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
-                proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: signature.hexadecimal)
-            } catch {
-                App.shared.snackbar.show(error: GSError.error(description: "Failed to confirm transaction", error: error))
+            Wallet.shared.sign(transaction, keyInfo: keyInfo) { [unowned self] result in
+                do {
+                    let signature = try result.get()
+                    proposeTransaction(transaction: transaction, keyInfo: keyInfo, signature: signature.hexadecimal)
+
+                } catch {
+                    App.shared.snackbar.show(error: GSError.error(description: "Failed to confirm transaction",
+                                                                  error: error))
+                }
             }
 
         case .walletConnect:

@@ -146,12 +146,20 @@ class DelegateKeyController {
         let chain = try? Safe.getSelected()?.chain ?? Chain.mainnetChain()
         switch keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
-            do {
-                let signature = try SafeTransactionSigner().sign(hash: HashString(hex: hexMessage), keyInfo: keyInfo)
-                completion(.success(Data(hex: signature.hexadecimal)))
-            } catch {
+            guard let message = try? HashString(hex: hexMessage) else {
                 completion(.failure(GSError.AddDelegateKeyCancelled()))
+                return
             }
+            Wallet.shared.sign(hash: message, keyInfo: keyInfo) { [unowned self] result in
+                do {
+                    let signature = try result.get()
+                    completion(.success(Data(hex: signature.hexadecimal)))
+
+                } catch {
+                    completion(.failure(GSError.AddDelegateKeyCancelled()))
+                }
+            }
+
         case .ledgerNanoX:
             let request = SignRequest(title: title,
                                       tracking: ["action": "confirm_push"],
