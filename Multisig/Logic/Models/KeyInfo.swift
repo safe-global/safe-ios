@@ -325,7 +325,7 @@ extension KeyInfo {
     /// - Throws: in case of underlying error
     func delete() throws {
         if let keyID = keyID, keyType == .deviceImported || keyType == .deviceGenerated {
-            try PrivateKey.remove(id: keyID, address: address)
+            try PrivateKey.remove(id: keyID)
         }
         App.shared.coreDataStack.viewContext.delete(self)
         save()

@@ -96,14 +96,25 @@ extension PrivateKey {
 
     //TODO: move access through security center to a separate function (preferrably outside of PrivateKey)
     static func key(id: KeyID, completion: @escaping (Result<PrivateKey?, Error>) -> ()) {
-        App.shared.securityCenter.find(dataID: DataID(id: id)) { result in
-            do {
-                let pkDataOrNil = try result.get()
-                guard let pkData = pkDataOrNil else {
-                    completion(.success(nil))
-                    return
+        if AppConfiguration.FeatureToggles.securityCenter {
+            App.shared.securityCenter.find(dataID: DataID(id: id)) { result in
+                do {
+                    let pkDataOrNil = try result.get()
+                    guard let pkData = pkDataOrNil else {
+                        completion(.success(nil))
+                        return
+                    }
+                    let privateKey = try PrivateKey(data: pkData, id: id)
+                    completion(.success(privateKey))
+                } catch let error as GSError.KeychainError {
+                    completion(.failure(error))
+                } catch {
+                    completion(.failure(GSError.ThirdPartyError(reason: error.localizedDescription)))
                 }
-                let privateKey = try PrivateKey(data: pkData, id: id)
+            }
+        } else {
+            do {
+                let privateKey = try key(id: id)
                 completion(.success(privateKey))
             } catch let error as GSError.KeychainError {
                 completion(.failure(error))
@@ -115,11 +126,11 @@ extension PrivateKey {
 
     //@Deprecated: legacy code
     //TODO: extract legacy code
-    static func remove(id: KeyID, address: Address) throws {
-        if App.configuration.toggles.securityCenter {
+    static func remove(id: KeyID) throws {
+        if AppConfiguration.FeatureToggles.securityCenter {
             //TODO: rewrite as App.securityCenter
             //TODO: make invocation async
-            App.shared.securityCenter.remove(address: address) { result in
+            App.shared.securityCenter.remove(dataID: DataID(id: id)) { result in
                 try! result.get()
             }
         } else {
@@ -167,7 +178,7 @@ extension PrivateKey {
     }
 
     func remove() throws {
-        try Self.remove(id: id, address: address)
+        try Self.remove(id: id)
     }
 
     func sign(hash: Data) throws -> Signature {

@@ -98,10 +98,16 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
     private func startBackup(keyInfo: KeyInfo) {
         Tracker.trackEvent(.backupFromKeysList)
-        backupFlow = ModalBackupFlow(keyInfo: keyInfo) { [unowned self] success in
-            self.backupFlow = nil
+
+        keyInfo.privateKey { [unowned self] result in
+            guard let mnemonic = try? result.get()?.mnemonic else {
+                return
+            }
+            backupFlow = ModalBackupFlow(mnemonic: mnemonic) { [unowned self] success in
+                self.backupFlow = nil
+            }
+            backupFlow?.modal(from: self)
         }
-        backupFlow?.modal(from: self)
     }
 
     // MARK: - Table view delegate
