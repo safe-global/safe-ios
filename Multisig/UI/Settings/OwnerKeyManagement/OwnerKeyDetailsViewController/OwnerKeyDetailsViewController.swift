@@ -149,22 +149,44 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
     @objc private func didTapExportButton() {
         let exportViewController = ExportViewController()
 
-        do {
-            if let privateKey = try keyInfo.privateKey() {
-                exportViewController.privateKey = privateKey.keyData.toHexStringWithPrefix()
-                exportViewController.seedPhrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) }
-            } else {
-                App.shared.snackbar.show(error: GSError.PrivateKeyDataNotFound(reason: "Key data does not exist"))
+        if AppConfiguration.FeatureToggles.securityCenter {
+
+            keyInfo.privateKey { [unowned self] result in
+
+                do {
+                    if let privateKey = try result.get() {
+                        exportViewController.privateKey = privateKey.keyData.toHexStringWithPrefix()
+                        exportViewController.seedPhrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) }
+                        self.show(exportViewController, sender: self)
+                    } else {
+                        App.shared.snackbar.show(error: GSError.PrivateKeyDataNotFound(reason: "Key data does not exist"))
+                        return
+                    }
+                } catch {
+                    App.shared.snackbar.show(error: GSError.PrivateKeyFetchError(reason: error.localizedDescription))
+                    return
+                }
+            }
+
+        } else {
+
+            do {
+                if let privateKey = try keyInfo.privateKey() {
+                    exportViewController.privateKey = privateKey.keyData.toHexStringWithPrefix()
+                    exportViewController.seedPhrase = privateKey.mnemonic.map { $0.split(separator: " ").map(String.init) }
+                } else {
+                    App.shared.snackbar.show(error: GSError.PrivateKeyDataNotFound(reason: "Key data does not exist"))
+                    return
+                }
+            } catch {
+                App.shared.snackbar.show(error: GSError.PrivateKeyFetchError(reason: error.localizedDescription))
                 return
             }
-        } catch {
-            App.shared.snackbar.show(error: GSError.PrivateKeyFetchError(reason: error.localizedDescription))
-            return
-        }
 
-        authenticate(biometry: false) { [unowned self] success, _ in
-            if success {
-                show(exportViewController, sender: self)
+            authenticate(biometry: false) { [unowned self] success, _ in
+                if success {
+                    show(exportViewController, sender: self)
+                }
             }
         }
     }

@@ -79,6 +79,8 @@ extension PrivateKey {
         try key(id: identifier(address))
     }
 
+    //@Deprecated: legacy code
+    //TODO: extract legacy code
     static func key(id: KeyID) throws -> PrivateKey? {
         do {
             let pkDataOrNil = try App.shared.keychainService.data(forKey: id)
@@ -88,6 +90,26 @@ extension PrivateKey {
             throw  error
         } catch {
             throw GSError.ThirdPartyError(reason: error.localizedDescription)
+        }
+
+    }
+
+    //TODO: move access through security center to a separate function (preferrably outside of PrivateKey)
+    static func key(id: KeyID, completion: @escaping (Result<PrivateKey?, Error>) -> ()) {
+        App.shared.securityCenter.find(dataID: DataID(id: id)) { result in
+            do {
+                let pkDataOrNil = try result.get()
+                guard let pkData = pkDataOrNil else {
+                    completion(.success(nil))
+                    return
+                }
+                let privateKey = try PrivateKey(data: pkData, id: id)
+                completion(.success(privateKey))
+            } catch let error as GSError.KeychainError {
+                completion(.failure(error))
+            } catch {
+                completion(.failure(GSError.ThirdPartyError(reason: error.localizedDescription)))
+            }
         }
     }
 
@@ -111,12 +133,22 @@ extension PrivateKey {
         }
     }
 
+    //@Deprecated: legacy code
+    //TODO: extract legacy code; move access through security center to a separate function (preferrably outside of PrivateKey)
     func save() throws {
-        do {
-            try App.shared.keychainService.removeData(forKey: id)
-            try App.shared.keychainService.save(data: keychainData, forKey: id)
-        } catch {
-            throw GSError.KeychainError(reason: error.localizedDescription)
+        if AppConfiguration.FeatureToggles.securityCenter {
+            //TODO: rewrite as App.securityCenter
+            //TODO: make invocation async
+            App.shared.securityCenter.import(id: DataID(id: id), ethPrivateKey: keychainData) { result in
+                try! result.get()
+            }
+        } else {
+            do {
+                try App.shared.keychainService.removeData(forKey: id)
+                try App.shared.keychainService.save(data: keychainData, forKey: id)
+            } catch {
+                throw GSError.KeychainError(reason: error.localizedDescription)
+            }
         }
     }
 

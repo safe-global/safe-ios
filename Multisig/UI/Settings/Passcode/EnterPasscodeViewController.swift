@@ -62,7 +62,11 @@ class EnterPasscodeViewController: PasscodeViewController {
 
             var isCorrect = false
             do {
-                isCorrect = try App.shared.auth.isPasscodeCorrect(plaintextPasscode: text)
+                if AppConfiguration.FeatureToggles.securityCenter {
+                    isCorrect = try SecurityCenter.shared.appUnlock(derivedPasscode: text)
+                } else {
+                    isCorrect = try App.shared.auth.isPasscodeCorrect(plaintextPasscode: text)
+                }
             } catch {
                 showGenericError(description: "Failed to check passcode", error: error)
                 return

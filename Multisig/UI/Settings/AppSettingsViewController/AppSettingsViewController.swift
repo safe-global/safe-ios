@@ -47,6 +47,7 @@ class AppSettingsViewController: UITableViewController {
         
         enum Advanced: SectionItem {
             case advanced(String)
+            case toggles(String)
         }
 
         enum About: SectionItem {
@@ -85,29 +86,40 @@ class AppSettingsViewController: UITableViewController {
 
     private func buildSections() {
         sections = []
+        let appSection: (section: AppSettingsViewController.Section, items: [SectionItem]) = (section: .app, items: [
+            Section.App.desktopPairing("Connect to Web"),
+            Section.App.ownerKeys("Owner keys", !KeyInfo.keysWithoutBackup().isEmpty, "\(KeyInfo.count())"),
+            Section.App.addressBook("Address Book"),
+            Section.App.passcode("Security"),
+            Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),
+            Section.App.chainPrefix("Chain prefix"),
+            Section.App.appearance("Appearance"),
+            // we do not have experimental features at the moment
+            //Section.App.experimental("Experimental")
+        ])
+        let supportSection: (section: AppSettingsViewController.Section, items: [SectionItem]) = (section: .support("Support & Feedback"), items: [
+            Section.Support.chatWithUs("Chat with us"),
+            Section.Support.getSupport("Help Center")
+        ])
+        var advancedSection: (section: AppSettingsViewController.Section, items: [SectionItem]) = (section: .advanced("Advanced"), items: [
+            Section.Advanced.advanced("Advanced")
+        ])
+        
+        if App.configuration.services.environment != .production {
+            advancedSection.items.append(
+                Section.Advanced.toggles("Feature Toggles")
+            )
+        }
+
+        let aboutSection: (section: AppSettingsViewController.Section, items: [SectionItem]) = (section: .about("About"), items: [
+            Section.About.aboutGnosisSafe("About Safe"),
+            Section.About.appVersion("App version", "\(app.marketingVersion) (\(app.buildVersion))"),
+        ])
         sections += [
-            (section: .app, items: [
-                Section.App.desktopPairing("Connect to Web"),
-                Section.App.ownerKeys("Owner keys", !KeyInfo.keysWithoutBackup().isEmpty, "\(KeyInfo.count())"),
-                Section.App.addressBook("Address Book"),
-                Section.App.passcode("Security"),
-                Section.App.fiat("Fiat currency", AppSettings.selectedFiatCode),
-                Section.App.chainPrefix("Chain prefix"),
-                Section.App.appearance("Appearance"),
-                // we do not have experimental features at the moment
-                //Section.App.experimental("Experimental")
-            ]),
-            (section: .support("Support & Feedback"), items: [
-                Section.Support.chatWithUs("Chat with us"),
-                Section.Support.getSupport("Help Center")
-            ]),
-            (section: .advanced("Advanced"), items: [
-                Section.Advanced.advanced("Advanced")
-            ]),
-            (section: .about("About"), items: [
-                Section.About.aboutGnosisSafe("About Safe"),
-                Section.About.appVersion("App version", "\(app.marketingVersion) (\(app.buildVersion))"),
-            ])
+            appSection,
+            supportSection,
+            advancedSection,
+            aboutSection
         ]
     }
 
@@ -226,6 +238,9 @@ class AppSettingsViewController: UITableViewController {
         case Section.Advanced.advanced(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
 
+        case Section.Advanced.toggles(let name):
+            return tableView.basicCell(name: name, indexPath: indexPath)
+
         case Section.About.aboutGnosisSafe(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
             
@@ -284,6 +299,10 @@ class AppSettingsViewController: UITableViewController {
             let advancedVC = AdvancedAppSettings()
             let hostingController = UIHostingController(rootView: advancedVC)
             show(hostingController, sender: self)
+
+        case Section.Advanced.toggles:
+            let togglesVC = FeatureToggleTableViewController()
+            show(togglesVC, sender: self)
             
         case Section.About.aboutGnosisSafe:
             show(AboutGnosisSafeTableViewController(), sender: self)

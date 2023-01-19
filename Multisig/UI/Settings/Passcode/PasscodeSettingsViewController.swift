@@ -9,6 +9,7 @@
 import UIKit
 import LocalAuthentication
 
+
 class PasscodeSettingsViewController: UITableViewController {
 
     enum Section: Int, CaseIterable {
@@ -25,13 +26,6 @@ class PasscodeSettingsViewController: UITableViewController {
         case requireToOpenApp
         case requireForConfirmations
         case oneOptionSelectedText
-    }
-
-    enum LockMethod {
-        case passcode
-        case userPresence
-        case passcodeAndUserPresence
-
     }
 
     enum BiometryType {
@@ -120,16 +114,26 @@ class PasscodeSettingsViewController: UITableViewController {
     }
 
     func updateLockValues() {
-        if AppSettings.passcodeOptions.contains(.useBiometry) {
-            lock = .userPresence
-        } else {
-            lock = .passcode
-        }
+        if AppConfiguration.FeatureToggles.securityCenter {
+            lock = AppSettings.securityLockMethod
 
-        if App.shared.auth.isBiometricsSupported {
-            biometryType = App.shared.auth.isFaceID ? .faceID : .touchID
+            if App.shared.auth.isBiometricsSupported {
+                biometryType = App.shared.auth.isFaceID ? .faceID : .touchID
+            } else {
+                biometryType = .passcode
+            }
         } else {
-            biometryType = .passcode
+            if AppSettings.passcodeOptions.contains(.useBiometry) {
+                lock = .userPresence
+            } else {
+                lock = .passcode
+            }
+
+            if App.shared.auth.isBiometricsSupported {
+                biometryType = App.shared.auth.isFaceID ? .faceID : .touchID
+            } else {
+                biometryType = .passcode
+            }
         }
     }
 
@@ -142,11 +146,15 @@ class PasscodeSettingsViewController: UITableViewController {
     }
 
     private func deletePasscode() {
-        withPasscodeAuthentication(for: "Enter Passcode") { [unowned self] success, _, finish in
-            if success {
-                disablePasscode()
+        if AppConfiguration.FeatureToggles.securityCenter {
+            try! App.shared.auth.deletePasscode()
+        } else {
+            withPasscodeAuthentication(for: "Enter Passcode") { [unowned self] success, _, finish in
+                if success {
+                    disablePasscode()
+                }
+                finish()
             }
-            finish()
         }
     }
 

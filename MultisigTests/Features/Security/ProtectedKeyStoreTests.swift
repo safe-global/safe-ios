@@ -45,6 +45,20 @@ public class ProtectedKeyStoreTests: XCTestCase {
         XCTAssertEqual(result?.toHexString(), randomKey.toHexString())
     }
 
+    func testImportOverride() throws {
+        let randomKey1 = Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322") as EthPrivateKey
+        let randomKey2 = Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c323") as EthPrivateKey
+        try sensitiveKeyStore.initializeKeyStore()
+
+        try sensitiveKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), ethPrivateKey: randomKey1)
+        var result = try sensitiveKeyStore.find(dataID: DataID(id: "0xE86935943315293154c7AD63296b4e1adAc76364"), password: nil)
+        XCTAssertEqual(result?.toHexString(), randomKey1.toHexString())
+
+        try sensitiveKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), ethPrivateKey: randomKey2)
+        result = try sensitiveKeyStore.find(dataID: DataID(id: "0xE86935943315293154c7AD63296b4e1adAc76364"), password: nil)
+        XCTAssertEqual(result?.toHexString(), randomKey2.toHexString())
+    }
+
     func testEthereumKeyNotFound() throws {
         try sensitiveKeyStore.initializeKeyStore()
 

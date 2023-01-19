@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreText
 
 class SecurityCenter {
 
@@ -18,35 +19,25 @@ class SecurityCenter {
     private static let version: Int32 = 1
     
     private var isRequirePasscodeEnabled: Bool {
-        // TODO: Get settings
-        true
+        AppSettings.securityLockEnabled
     }
 
     init(sensitiveStore: ProtectedKeyStore, dataStore: ProtectedKeyStore) {
         self.sensitiveStore = sensitiveStore
-
-        // TODO: remove
-        if !self.sensitiveStore.isInitialized() {
-            try! self.sensitiveStore.initialize()
-        }
         self.dataStore = dataStore
-        if !self.dataStore.isInitialized() {
-            try! self.dataStore.initialize()
-        }
-
-        // TODO Do this in new initialize method in Security center:
         try! dataStore.import(id: DataID(id: "app.unlock"), ethPrivateKey: Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322"))
-
-//        let key = try! (dataStore.find(dataID: DataID(id: "app.unlock"), password: nil) ?? "unlock.failed".data(using: .utf8)) as Data?
-//        LogService.shared.debug("Unlock | AppUnlock: import done: key: \(key?.toHexString())")
-
     }
 
     private convenience init() {
         self.init(sensitiveStore: ProtectedKeyStore(protectionClass: .sensitive, KeychainItemStore()), dataStore: ProtectedKeyStore(protectionClass: .data, KeychainItemStore()))
     }
 
-    static func migrateIfNeeded() {
+    static func setUp() {
+        do {
+            try shared.initKeystores()
+        } catch {
+            LogService.shared.error("Failed to initialize keystores!", error: error)
+        }
         //TODO: check version and perform migration
         if AppSettings.securityCenterVersion == 0 {
             migrateFromKeychainStorageToSecurityEnclave()
@@ -60,6 +51,31 @@ class SecurityCenter {
         //TODO:
     }
 
+    private func initKeystores() throws {
+        if !sensitiveStore.isInitialized() {
+            try sensitiveStore.initialize()
+        }
+        if !dataStore.isInitialized() {
+            try dataStore.initialize()
+            try! dataStore.import(id: DataID(id: "app.unlock"), ethPrivateKey: Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322"))
+        }
+    }
+
+    func changePasscode(new: String?, useBiometry: Bool, completion: @escaping (Error?) -> Void) {
+        performSecuredAccess { [unowned self] result in
+            let SUCCESS: Error? = nil
+            do {
+                let old = try result.get()
+                try sensitiveStore.changePassword(from: old, to: new, useBiometry: useBiometry)
+                try dataStore.changePassword(from: old, to: new, useBiometry: useBiometry)
+                completion(SUCCESS)
+            } catch {
+                completion(error)
+            }
+        }
+    }
+
+    // import data potentially overriding existing value
     func `import`(id: DataID, ethPrivateKey: EthPrivateKey, completion: @escaping (Result<Bool?, Error>) -> ()) {
         performSecuredAccess { [unowned self] result in
             switch result {
@@ -108,31 +124,10 @@ class SecurityCenter {
         }
     }
 
-    func appUnlock(completion: @escaping (Result<Bool, Error>) -> ()) {
-        performSecuredAccess { [unowned self] result in
-            switch result {
-            case .success(let passcode):
-                LogService.shared.debug("Unlock | App -> appUnlock: passcode \(passcode)")
-                do {
+    func appUnlock(derivedPasscode: String?) throws -> Bool {
 
-                    // Only check for nil with guard, otherwise throw
-                    let key = try (dataStore.find(dataID: DataID(id: "app.unlock"), password: passcode) ?? "unlock.failed".data(using: .utf8)) as Data?
-                    let stringValue = String(decoding: key!, as: UTF8.self)
-                    if stringValue == "unlock.failed" {
-                        // setup
-                        completion(.failure(GSError.KeychainError(reason: "Unlock | Wrong sentinel value")))
-                    } else {
-                        completion(.success(true))
-                    }
-                } catch let error {
-
-                    // Wrong password
-                    completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+        let foo = try dataStore.find(dataID: DataID(id: "app.unlock"), password: nil)
+        return foo != nil
     }
 
     private func performSecuredAccess(completion: @escaping (Result<String?, Error>) -> ()) {
@@ -141,9 +136,11 @@ class SecurityCenter {
             return
         }
 
-        let getPasscodeCompletion: (Bool, Bool, String?) -> () = { success, reset, passcode in
-            if success, let passcode = passcode {
-                completion(.success(passcode))
+        let getPasscodeCompletion: (_ success: Bool, _ reset: Bool, _ passcode: String?) -> () = { success, reset, passcode in
+            // TODO: handle data reset
+            // TODO: handle incorrect passcode
+            if success {
+                completion(.success(passcode.map { App.shared.auth.derivedKey(from: $0) }))
             } else {
                 completion(.failure(GSError.RequiredPasscode()))
             }
