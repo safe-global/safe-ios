@@ -51,7 +51,7 @@ class ProtectedKeyStore: EncryptedStore {
         let encryptedSigningKey = try ethPrivateKey.encrypt(publicKey: pubKey)
 
         // 4. store encrypted blob in the keychain
-        let address = privateKey.address
+//        let address = privateKey.address
         try store.create(KeychainItem.generic(account: id.id, service: protectionClass.service(), data: encryptedSigningKey))
     }
 

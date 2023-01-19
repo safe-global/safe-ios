@@ -83,6 +83,9 @@ class AuthenticationController {
     /// Checks if the passcode correct. In case passcode is not set, returns false.
     /// - Parameter plaintextPasscode: unsecured "as-is" passcode
     /// - Returns: true if passcode correct, false otherwise
+    ///
+    /// TODO: Add completion block and make this async
+    /// Use the old method based on feature toggle
     func isPasscodeCorrect(plaintextPasscode: String) throws -> Bool {
 
         //TODO: Check against challenge
@@ -92,7 +95,11 @@ class AuthenticationController {
         let password = derivedKey(from: plaintextPasscode)
         let oldSaltPassword = derivedKey(from: plaintextPasscode, useOldSalt: true)
 
-        var response: Bool? = nil
+
+        // if AppConfiguration.FeatureToggles.securityCenter  -> new behaviour
+
+        var response: Bool? = false
+
         SecurityCenter.shared.appUnlock { result in
             LogService.shared.debug("Unlock | SecurityCenter.shared.appUnlock")
 
@@ -110,6 +117,8 @@ class AuthenticationController {
 
         }
 
+
+        //TODO Need to wait here until appUnlock returned
         return response!
 //        return try accessService.verifyPassword(userID: user.id, password: password) ||
 //                    accessService.verifyPassword(userID: user.id , password: oldSaltPassword)
@@ -152,6 +161,9 @@ class AuthenticationController {
     }
 
     var isPasscodeSetAndAvailable: Bool {
+
+        // TODO: Override this by checking if passcode is enabled in the new system
+
         guard let user = (try? fetchUser()) else {
             // passcode not available
             return false

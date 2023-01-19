@@ -24,6 +24,8 @@ class SecurityCenter {
 
     init(sensitiveStore: ProtectedKeyStore, dataStore: ProtectedKeyStore) {
         self.sensitiveStore = sensitiveStore
+
+        // TODO: remove
         if !self.sensitiveStore.isInitialized() {
             try! self.sensitiveStore.initialize()
         }
@@ -31,6 +33,8 @@ class SecurityCenter {
         if !self.dataStore.isInitialized() {
             try! self.dataStore.initialize()
         }
+
+        // TODO Do this in new initialize method in Security center:
         try! dataStore.import(id: DataID(id: "app.unlock"), ethPrivateKey: Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322"))
 
 //        let key = try! (dataStore.find(dataID: DataID(id: "app.unlock"), password: nil) ?? "unlock.failed".data(using: .utf8)) as Data?
@@ -110,14 +114,19 @@ class SecurityCenter {
             case .success(let passcode):
                 LogService.shared.debug("Unlock | App -> appUnlock: passcode \(passcode)")
                 do {
+
+                    // Only check for nil with guard, otherwise throw
                     let key = try (dataStore.find(dataID: DataID(id: "app.unlock"), password: passcode) ?? "unlock.failed".data(using: .utf8)) as Data?
                     let stringValue = String(decoding: key!, as: UTF8.self)
                     if stringValue == "unlock.failed" {
+                        // setup
                         completion(.failure(GSError.KeychainError(reason: "Unlock | Wrong sentinel value")))
                     } else {
                         completion(.success(true))
                     }
                 } catch let error {
+
+                    // Wrong password
                     completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
                 }
             case .failure(let error):

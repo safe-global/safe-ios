@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 class EnterPasscodeViewController: PasscodeViewController {
+
     var passcodeCompletion: (_ success: Bool, _ reset: Bool, _ passcode: String?) -> Void = { _, _, _ in }
     var navigationItemTitle = "Enter Passcode"
     var screenTrackingEvent = TrackingEvent.enterPasscode
@@ -42,19 +43,19 @@ class EnterPasscodeViewController: PasscodeViewController {
 
     private var canUseBiometry: Bool {
         let result = usesBiometry && App.shared.auth.isBiometryAuthenticationPossible && AppSettings.passcodeOptions.contains(.useBiometry)
-        LogService.shared.debug("---> canUseBiometry() -> \(result)")
+        LogService.shared.debug("Unlock | ---> canUseBiometry() -> \(result)")
         return result
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        LogService.shared.debug("---> viewDidAppear()")
+        LogService.shared.debug("Unlock | ---> viewDidAppear()")
         super.viewDidAppear(animated)
         Tracker.trackEvent(screenTrackingEvent)
         authenticateWithBiometry()
     }
 
     override func willChangeText(_ text: String) {
-        LogService.shared.debug("---> text: -> \(text)")
+        LogService.shared.debug("Unlock | ---> text: -> \(text)")
         super.willChangeText(text)
         errorLabel.isHidden = true
         if text.count == passcodeLength {
