@@ -154,12 +154,10 @@ class DelegateKeyController {
                 do {
                     let signature = try result.get()
                     completion(.success(Data(hex: signature.hexadecimal)))
-
                 } catch {
                     completion(.failure(GSError.AddDelegateKeyCancelled()))
                 }
             }
-
         case .ledgerNanoX:
             let request = SignRequest(title: title,
                                       tracking: ["action": "confirm_push"],
@@ -182,7 +180,6 @@ class DelegateKeyController {
                     completion(.failure(GSError.AddDelegateKeyCancelled()))
                 }
             }
-
         case .walletConnect:
             let signVC = SignatureRequestToWalletViewController(hexMessage, keyInfo: keyInfo, chain: chain!)
             signVC.requiresChainIdMatch = false
