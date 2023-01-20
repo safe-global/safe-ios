@@ -165,9 +165,9 @@
   },
   "225affb176778569276e484e1b92637ad061b01e13a048b35a9d280c3b58970f": {
     "id": "225affb176778569276e484e1b92637ad061b01e13a048b35a9d280c3b58970f",
-    "name": "Gnosis Safe Multisig",
+    "name": "Safe",
     "description": "",
-    "homepage": "https://gnosis-safe.io/",
+    "homepage": "https://safe.global/",
     "chains": [
       "eip155:1"
     ],
@@ -181,7 +181,7 @@
       "lg": "https://imagedelivery.net/_aTEfDRm7z3tKgu9JhfeKA/0b7e0f05-0a5b-4f3c-315d-59c1c4c22c00/lg"
     },
     "app": {
-      "browser": "https://gnosis-safe.io/app/",
+      "browser": "https://app.safe.global/",
       "ios": "https://apps.apple.com/app/id1515759131",
       "android": "https://play.google.com/store/apps/details?id=io.gnosis.safe",
       "mac": "",
@@ -190,14 +190,14 @@
     },
     "mobile": {
       "native": "gnosissafe:",
-      "universal": "https://gnosis-safe.io/"
+      "universal": "https://safe.global/"
     },
     "desktop": {
       "native": "",
       "universal": ""
     },
     "metadata": {
-      "shortName": "Gnosis Safe",
+      "shortName": "Safe",
       "colors": {
         "primary": "#091828",
         "secondary": "#fff"

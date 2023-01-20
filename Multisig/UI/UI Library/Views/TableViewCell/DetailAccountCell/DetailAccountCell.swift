@@ -36,7 +36,7 @@ class DetailAccountCell: UITableViewCell {
         warningView.set(title: "Unexpected DelegateCall")
         warningView.showLeftBar(true)
         warningView.onClick = {
-            let url = URL(string: "https://help.gnosis-safe.io/en/articles/6302452-unexpected-delegate-calls")!
+            let url = URL(string: "https://help.safe.global/en/articles/6302452-unexpected-delegate-calls")!
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
 

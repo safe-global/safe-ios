@@ -175,7 +175,7 @@ class GenerateKeyFactory: AddKeyFlowFactory {
                 .init(image: UIImage(named: "ico-onboarding-import-key-2"),
                       title: "How secure is that?",
                       body: "The owner key and the seed phrase are stored in the device's secure store - iOS Keychain.",
-                      link: .init(title: "How is a private key stored on mobile?", url: URL(string: "https://help.gnosis-safe.io/en/articles/4866738-how-are-private-keys-stored-on-gnosis-safe-mobile")!)),
+                      link: .init(title: "How is a private key stored on mobile?", url: URL(string: "https://help.safe.global/en/articles/4866738-how-are-private-keys-stored-on-gnosis-safe-mobile")!)),
 
                 .init(image: UIImage(named: "ico-onboarding-import-key-3"),
                       title: "How to export?",
