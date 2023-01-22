@@ -337,11 +337,20 @@ extension KeyInfo {
     }
 
     func privateKey(completion: @escaping (Result<PrivateKey?, Error>) -> ()) {
-        guard let keyID = keyID else {
-            completion(.success(nil))
-            return
+        if App.configuration.toggles.securityCenter {
+            guard let keyID = keyID else {
+                completion(.success(nil))
+                return
+            }
+            PrivateKey.key(id: keyID, completion: completion)
+        } else {
+            do {
+                let privateKey = try privateKey()
+                completion(.success(privateKey))
+            } catch {
+                completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
+            }
         }
-        PrivateKey.key(id: keyID, completion: completion)
     }
 
     func delegatePrivateKey() throws -> PrivateKey? {

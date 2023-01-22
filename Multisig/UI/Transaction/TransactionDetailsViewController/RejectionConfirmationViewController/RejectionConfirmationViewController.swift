@@ -104,11 +104,14 @@ class RejectionConfirmationViewController: UIViewController {
 
         switch keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
-            do {
-                let signature = try SafeTransactionSigner().sign(rejectionTransaction, keyInfo: keyInfo)
-                rejectAndCloseController(signature: signature.hexadecimal)
-            } catch {
-                App.shared.snackbar.show(message: "Failed to Reject transaction")
+            Wallet.shared.sign(rejectionTransaction, keyInfo: keyInfo) { [unowned self] result in
+                do {
+                    let signature = try result.get()
+                    rejectAndCloseController(signature: signature.hexadecimal)
+
+                } catch {
+                    App.shared.snackbar.show(message: "Failed to Reject transaction")
+                }
             }
 
         case .walletConnect:

@@ -342,11 +342,14 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
 
         switch keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
-            do {
-                let signature = try SafeTransactionSigner().sign(transaction, keyInfo: keyInfo)
-                confirmAndRefresh(safeTxHash: safeTxHash, signature: signature.hexadecimal, keyInfo: keyInfo)
-            } catch {
-                onError(GSError.error(description: "Failed to confirm transaction", error: error))
+            Wallet.shared.sign(transaction, keyInfo: keyInfo) { [unowned self] result in
+                do {
+                    let signature = try result.get()
+                    confirmAndRefresh(safeTxHash: safeTxHash, signature: signature.hexadecimal, keyInfo: keyInfo)
+
+                } catch {
+                    onError(GSError.error(description: "Failed to confirm transaction", error: error))
+                }
             }
 
         case .walletConnect:
