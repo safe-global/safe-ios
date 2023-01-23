@@ -41,6 +41,11 @@ _APP_BUNDLE_ID_PROD     = io.gnosis.multisig.prod.mainnet
 _APP_BUNDLE_ID_STAGING  = io.gnosis.multisig.staging.mainnet
 _APP_BUNDLE_ID_DEV      = io.gnosis.multisig.dev.mainnet
 
+// Claiming app service
+_CLAIMING_DATA_URL_DEV        = https:/$()/safe-claiming-app-data.staging.5afe.dev/
+_CLAIMING_DATA_URL_STAGING    = https:/$()/safe-claiming-app-data.staging.5afe.dev/
+_CLAIMING_DATA_URL_PROD       = https:/$()/safe-claiming-app-data.gnosis-safe.io/
+
 // App Groups
 _APP_GROUP_ID_PROD     = group.io.gnosis.multisig.prod.mainnet
 _APP_GROUP_ID_STAGING  = group.io.gnosis.multisig.staging.mainnet
