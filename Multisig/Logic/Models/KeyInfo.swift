@@ -337,7 +337,7 @@ extension KeyInfo {
     }
 
     func privateKey(completion: @escaping (Result<PrivateKey?, Error>) -> ()) {
-        if App.configuration.toggles.securityCenter {
+        if AppConfiguration.FeatureToggles.securityCenter {
             guard let keyID = keyID else {
                 completion(.success(nil))
                 return
