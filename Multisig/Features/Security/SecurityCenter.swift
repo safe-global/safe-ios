@@ -170,7 +170,7 @@ class SecurityCenter {
             }
         case .data:
             do {
-                let key = try dataStore.find(dataID: dataID, password: passcode)
+                let key = try dataStore.find(dataID: dataID, password: nil)
                 completion(.success(key))
             } catch let error {
                 completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
