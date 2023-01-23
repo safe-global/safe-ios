@@ -101,41 +101,43 @@ class DelegateKeyController {
     }
 
     func deleteDelegate() {
-        do {
-            guard let delegateKey = try keyInfo.delegatePrivateKey() else {
-                throw GSError.PrivateKeyFetchError(reason: "Delegate key not found")
-            }
-
-            let time = String(describing: Int(Date().timeIntervalSince1970) / 3600)
-            let messageToSign = delegateKey.address.checksummed + time
-            let hashToSign = EthHasher.hash(messageToSign)
-            let signature = try delegateKey.sign(hash: hashToSign)
-
-            self.deleteOnBackEnd(delegateAddress: delegateKey.address,
-                                 signature: signature.hexadecimal
-            ) { [weak self] sendResult in
-                guard let self = self else { return }
-                switch sendResult {
-                case .success:
-                    do {
-                        self.keyInfo.delegateAddressString = nil
-                        try delegateKey.save()
-                        self.keyInfo.save()
-                        NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
-                        App.shared.notificationHandler.signingKeyUpdated()
-
-                        Tracker.trackEvent(.deleteDelegateKeySuccess)
-                    } catch {
-                        self.keyInfo.rollback()
-                    }
-
-                    self.completionHandler()
-                case .failure(let error):
-                    self.abortProcess(error: error, trackingEvent: .deleteDelegateKeyFailed)
+        keyInfo.delegatePrivateKey() { [unowned self] result in
+            do {
+                guard let delegateKey = try result.get() else {
+                    throw GSError.PrivateKeyFetchError(reason: "Delegate key not found")
                 }
+
+                let time = String(describing: Int(Date().timeIntervalSince1970) / 3600)
+                let messageToSign = delegateKey.address.checksummed + time
+                let hashToSign = EthHasher.hash(messageToSign)
+                let signature = try delegateKey.sign(hash: hashToSign)
+
+                self.deleteOnBackEnd(delegateAddress: delegateKey.address,
+                                     signature: signature.hexadecimal
+                ) { [weak self] sendResult in
+                    guard let self = self else { return }
+                    switch sendResult {
+                    case .success:
+                        do {
+                            self.keyInfo.delegateAddressString = nil
+                            try delegateKey.save()
+                            self.keyInfo.save()
+                            NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
+                            App.shared.notificationHandler.signingKeyUpdated()
+
+                            Tracker.trackEvent(.deleteDelegateKeySuccess)
+                        } catch {
+                            self.keyInfo.rollback()
+                        }
+
+                        self.completionHandler()
+                    case .failure(let error):
+                        self.abortProcess(error: error, trackingEvent: .deleteDelegateKeyFailed)
+                    }
+                }
+            } catch {
+                self.abortProcess(error: error, trackingEvent: .deleteDelegateKeyFailed)
             }
-        } catch {
-            abortProcess(error: error, trackingEvent: .deleteDelegateKeyFailed)
         }
     }
 

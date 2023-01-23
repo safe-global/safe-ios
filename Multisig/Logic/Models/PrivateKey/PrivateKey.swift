@@ -75,6 +75,7 @@ extension PrivateKey {
         KeychainKey.ownerPrivateKey + address.checksummed
     }
 
+    //@Deprecated: legacy code
     static func key(address: Address) throws -> PrivateKey? {
         try key(id: identifier(address))
     }
@@ -92,6 +93,10 @@ extension PrivateKey {
             throw GSError.ThirdPartyError(reason: error.localizedDescription)
         }
 
+    }
+
+    static func key(address: Address, completion: @escaping (Result<PrivateKey?, Error>) -> ()) {
+        try key(id: identifier(address), completion: completion)
     }
 
     //TODO: move access through security center to a separate function (preferrably outside of PrivateKey)
