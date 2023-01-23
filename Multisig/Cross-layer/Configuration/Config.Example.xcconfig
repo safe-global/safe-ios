@@ -36,12 +36,6 @@ _CLIENT_GATEWAY_URL_DEV        = https:/$()/safe-client.staging.5afe.dev/
 _CLIENT_GATEWAY_URL_STAGING    = https:/$()/safe-client.staging.5afe.dev/
 _CLIENT_GATEWAY_URL_PROD       = https:/$()/safe-client.safe.global/
 
-// Claiming app service
-_CLAIMING_DATA_URL_DEV        = https:/$()/safe-claiming-app-data.staging.5afe.dev/
-_CLAIMING_DATA_URL_STAGING    = https:/$()/safe-claiming-app-data.staging.5afe.dev/
-_CLAIMING_DATA_URL_PROD       = https:/$()/safe-claiming-app-data.gnosis-safe.io/
-
-
 // Apps
 _APP_BUNDLE_ID_PROD     = io.gnosis.multisig.prod.mainnet
 _APP_BUNDLE_ID_STAGING  = io.gnosis.multisig.staging.mainnet
@@ -101,17 +95,17 @@ WALLETCONNECT_BRIDGE_URL = https:/$()/safe-walletconnect.safe.global/
 WALLETCONNECT_REGISTRY_URL = https:/$()/5afe.github.io/
 
 // Help URLs
-CONFLICT_URL = https:/$()/help.gnosis-safe.io/en/articles/4730252-why-are-transactions-with-the-same-nonce-conflicting-with-each-other
-FALLBACKHANDLER_URL = https:/$()/help.gnosis-safe.io/en/articles/4738352-what-is-a-fallback-handler-and-how-does-it-relate-to-the-gnosis-safe
-DELEGATE_KEY_URL = https:/$()/help.gnosis-safe.io/en/articles/5809867-what-is-a-delegate-key
-GUARD_URL = https:/$()/help.gnosis-safe.io/en/articles/5324092-what-is-a-transaction-guard
-PAY_FOR_CANCELLATION_URL = https:/$()/help.gnosis-safe.io/en/articles/4738501-why-do-i-need-to-pay-for-cancelling-a-transaction
-CONNECT_DAPP_ON_MOBILE_URL = https:/$()/help.gnosis-safe.io/en/articles/5307197-how-to-connect-a-dapp-via-walletconnect-on-gnosis-safe-mobile
-DESKTOP_PAIRING_URL = https:/$()/help.gnosis-safe.io/en/articles/5584901-desktop-pairing
-ADVANCED_TX_PARAMS_URL = https:/$()/help.gnosis-safe.io/en/articles/4738445-advanced-transaction-parameters
+CONFLICT_URL = https:/$()/help.safe.global/en/articles/4730252-why-are-transactions-with-the-same-nonce-conflicting-with-each-other
+FALLBACKHANDLER_URL = https:/$()/help.safe.global/en/articles/4738352-what-is-a-fallback-handler-and-how-does-it-relate-to-the-gnosis-safe
+DELEGATE_KEY_URL = https:/$()/help.safe.global/en/articles/5809867-what-is-a-delegate-key
+GUARD_URL = https:/$()/help.safe.global/en/articles/5324092-what-is-a-transaction-guard
+PAY_FOR_CANCELLATION_URL = https:/$()/help.safe.global/en/articles/4738501-why-do-i-need-to-pay-for-cancelling-a-transaction
+CONNECT_DAPP_ON_MOBILE_URL = https:/$()/help.safe.global/en/articles/5307197-how-to-connect-a-dapp-via-walletconnect-on-gnosis-safe-mobile
+DESKTOP_PAIRING_URL = https:/$()/help.safe.global/en/articles/5584901-desktop-pairing
+ADVANCED_TX_PARAMS_URL = https:/$()/help.safe.global/en/articles/4738445-advanced-transaction-parameters
 LEDGER_PAIRING_URL = https:/$()/support.ledger.com/hc/en-us/articles/360019138694-Set-up-Bluetooth-connection
-CREATE_SAFE_URL = https:/$()/help.gnosis-safe.io/en/articles/3876461-create-a-safe
-CONFIRMATIONS_URL = https:/$()/help.gnosis-safe.io/en/articles/3952319-signature-policies
+CREATE_SAFE_URL = https:/$()/help.safe.global/en/articles/3876461-create-a-safe
+CONFIRMATIONS_URL = https:/$()/help.safe.global/en/articles/3952319-signature-policies
 
 // Legal URLs
 TERMS_URL       = https:/$()/safe.global/terms/
@@ -121,15 +115,15 @@ LICENSES_URL    = https:/$()/safe.global/licenses/
 // Contact Information
 DISCORD_URL             = https:/$()/chat.safe.global/
 TWITTER_URL             = https:/$()/twitter.com/gnosisSafe
-HELP_CENTER_URL         = https:/$()/help.gnosis-safe.io/
+HELP_CENTER_URL         = https:/$()/help.safe.global/
 FEATURE_SUGGESTION_URL  = https:/$()/safe.cnflx.io/
 CONTACT_EMAIL           = support@safe.global
-FORUM_URL               = https:/$()/forum.gnosis-safe.io/
+FORUM_URL               = https:/$()/forum.safe.global/
 //TODO: adjust safe dao url
 SAFE_DAO_URL            = https:/$()/snapshot.org/#/safe.eth
 
 // Web app url
-GNOSIS_SAFE_WEB_URL_PROD     = https:/$()/gnosis-safe.io/app/
+GNOSIS_SAFE_WEB_URL_PROD     = https:/$()/app.safe.global/
 GNOSIS_SAFE_WEB_URL_STAGING     =  https:/$()/safe-team.staging.5afe.dev/app/
 
 // App Review URLs
@@ -140,8 +134,8 @@ _APP_STORE_REVIEW_URL_PROD       = https:/$()/apps.apple.com/app/id1515759131?ac
 APP_STORE_REVIEW_URL = $(_APP_STORE_REVIEW_URL_$(SERVICE_ENV):default=$(_APP_STORE_REVIEW_URL_PROD))
 
 // Claim URLS
-CLAIM_DISCUSS_URL                = https:/$()/forum.gnosis-safe.io/
-CLAIM_PROPOSE_URL                = https:/$()/forum.gnosis-safe.io/t/how-to-safedao-governance-process/846
+CLAIM_DISCUSS_URL                = https:/$()/forum.safe.global/
+CLAIM_PROPOSE_URL                = https:/$()/forum.safe.global/t/how-to-safedao-governance-process/846
 CLAIM_CHAT_URL                   = https:/$()/discord.com/invite/AjG7AQD9Qn
 
 // App name on the home screen (will be used for CFBundleDisplayName)
