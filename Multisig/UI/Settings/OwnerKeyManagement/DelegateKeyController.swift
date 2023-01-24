@@ -64,7 +64,7 @@ class DelegateKeyController {
                         // store the delegate key in keychain
                         do {
                             // create or update the key in the keychain
-                            try delegatePrivateKey.save()
+                            try delegatePrivateKey.save(protectionClass: .data)
 
                             // save the database modifications
                             self.keyInfo.save()
@@ -120,7 +120,7 @@ class DelegateKeyController {
                     case .success:
                         do {
                             self.keyInfo.delegateAddressString = nil
-                            try delegateKey.save()
+                            try delegateKey.remove(protectionClass: .data)
                             self.keyInfo.save()
                             NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
                             App.shared.notificationHandler.signingKeyUpdated()

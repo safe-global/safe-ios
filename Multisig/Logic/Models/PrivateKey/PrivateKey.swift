@@ -131,11 +131,11 @@ extension PrivateKey {
 
     //@Deprecated: legacy code
     //TODO: extract legacy code
-    static func remove(id: KeyID) throws {
+    static func remove(id: KeyID, protectionClass: ProtectionClass = .sensitive) throws {
         if AppConfiguration.FeatureToggles.securityCenter {
             //TODO: rewrite as App.securityCenter
             //TODO: make invocation async
-            App.shared.securityCenter.remove(dataID: DataID(id: id)) { result in
+            App.shared.securityCenter.remove(dataID: DataID(id: id), protectionClass: protectionClass) { result in
                 try! result.get()
             }
         } else {
@@ -147,7 +147,11 @@ extension PrivateKey {
         }
     }
 
-    static func remove(address: Address, completion: @escaping (Result<Bool?, Error>) -> ()) {
+    static func remove(id: KeyID, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool?, Error>) -> ()) {
+        try Self.remove(id: id, protectionClass: protectionClass, completion: completion)
+    }
+
+    static func remove(address: Address, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool?, Error>) -> ()) {
         App.shared.securityCenter.remove(address: address, completion: completion)
     }
 
@@ -165,11 +169,11 @@ extension PrivateKey {
 
     //@Deprecated: legacy code
     //TODO: extract legacy code; move access through security center to a separate function (preferrably outside of PrivateKey)
-    func save() throws {
+    func save(protectionClass: ProtectionClass = .sensitive) throws {
         if AppConfiguration.FeatureToggles.securityCenter {
             //TODO: rewrite as App.securityCenter
             //TODO: make invocation async
-            App.shared.securityCenter.import(id: DataID(id: id), ethPrivateKey: keychainData) { result in
+            App.shared.securityCenter.import(id: DataID(id: id), ethPrivateKey: keychainData, protectionClass: protectionClass) { result in
                 try! result.get()
             }
         } else {
@@ -182,8 +186,8 @@ extension PrivateKey {
         }
     }
 
-    func remove() throws {
-        try Self.remove(id: id)
+    func remove(protectionClass: ProtectionClass = .sensitive) throws {
+        try Self.remove(id: id, protectionClass: protectionClass)
     }
 
     func sign(hash: Data) throws -> Signature {
