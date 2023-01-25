@@ -110,14 +110,11 @@ class ProtectedKeyStore: EncryptedStore {
     func changePassword(from oldPassword: String?, to newPassword: String?, useBiometry: Bool = false) throws {
         // find sensitive key
         let encryptedSensitiveKey = try store.find(KeychainItem.generic(account: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service())) as? Data
-        // if no old password given, retrieve stored password
         let passwordData = oldPassword != nil ? oldPassword?.data(using: .utf8) : try store.find(KeychainItem.generic(account: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service())) as! Data?
-        // find KEK
         let sensitiveKEK = try store.find(KeychainItem.enclaveKey(tag: ProtectedKeyStore.privateKEKTag, service: protectionClass.service(), password: passwordData)) as! SecKey
 
-        // decrypt sensitive key
+        // Decrypt sensitive key
         let decryptedSensitiveKeyData = try encryptedSensitiveKey?.decrypt(privateKey: sensitiveKEK)
-        // Restore sensitive key from Data
         var error: Unmanaged<CFError>?
         guard let decryptedSensitiveKey: SecKey = SecKeyCreateWithData(decryptedSensitiveKeyData! as CFData, try KeychainItem.ecKeyPair.creationAttributes(), &error) else {
             // will fail here if password was wrong
@@ -233,10 +230,10 @@ class ProtectedKeyStore: EncryptedStore {
     }
 
     func deleteAllKeys() throws {
-        try! store.delete(.generic(account: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service()))
-        try! store.delete(.generic(account: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service()))
-        try! store.delete(.ecPubKey(tag: ProtectedKeyStore.publicKeyTag, service: protectionClass.service()))
-        try! store.delete(.enclaveKey(tag: ProtectedKeyStore.privateKEKTag, service: protectionClass.service()))
+        try store.delete(.generic(account: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service()))
+        try store.delete(.generic(account: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service()))
+        try store.delete(.ecPubKey(tag: ProtectedKeyStore.publicKeyTag, service: protectionClass.service()))
+        try store.delete(.enclaveKey(tag: ProtectedKeyStore.privateKEKTag, service: protectionClass.service()))
     }
 }
 

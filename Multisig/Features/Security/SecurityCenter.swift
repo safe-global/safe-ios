@@ -31,12 +31,32 @@ class SecurityCenter {
         self.init(sensitiveStore: ProtectedKeyStore(protectionClass: .sensitive, KeychainItemStore()), dataStore: ProtectedKeyStore(protectionClass: .data, KeychainItemStore()))
     }
 
-    static func setUp() {
+    static func setUp()  {
+        // clean up the left overs from the previous installation
+        if AppSettings.isFreshInstall {
+            /// This is needed because the Keychain doesn't get cleared when
+            /// an app is removed from the phone. On the next installation
+            /// all of the Keychain data will be present.
+            ///
+            /// The case when there are KeyInfo data (CoreData) are present but
+            /// the Keychain data doesn't exist happens when users restore phones
+            /// from the iCloud backup, which restores the application data but
+            /// does not restore Keychain. It would not happen if a user would
+            /// restore from encrypted backup, which restores Keychain data as well.
+            do {
+                try shared.sensitiveStore.deleteAllKeys()
+                try shared.dataStore.deleteAllKeys()
+            } catch {
+                LogService.shared.error("Failed to delete previously installed keys", error: error)
+            }
+        }
+
         do {
             try shared.initKeystores()
         } catch {
             LogService.shared.error("Failed to initialize keystores!", error: error)
         }
+
         //TODO: check version and perform migration
         if AppSettings.securityCenterVersion == 0 {
             migrateFromKeychainStorageToSecurityEnclave()

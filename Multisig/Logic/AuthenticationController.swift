@@ -42,7 +42,9 @@ class AuthenticationController {
         if AppConfiguration.FeatureToggles.securityCenter {
             let password = derivedKey(from: plaintextPasscode)
             SecurityCenter.shared.changePasscode(new: password, useBiometry: AppSettings.securityLockMethod != .passcode) { error in
+                // TODO: transition to the async password creation on the feature toggle
                 if let error = error {
+                    // TODO: notify that password creation failed
                     LogService.shared.error("Error creating password: \(error)")
                 } else {
                     AppSettings.securityLockEnabled = true
