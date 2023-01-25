@@ -17,7 +17,8 @@ class SecurityCenter {
     private let dataStore: ProtectedKeyStore
 
     private static let version: Int32 = 1
-    
+    private static let appUnlockChallengeID = "global.safe.AppUnlockChallenge"
+
     private var isRequirePasscodeEnabled: Bool {
         AppSettings.securityLockEnabled
     }
@@ -30,6 +31,8 @@ class SecurityCenter {
     private convenience init() {
         self.init(sensitiveStore: ProtectedKeyStore(protectionClass: .sensitive, KeychainItemStore()), dataStore: ProtectedKeyStore(protectionClass: .data, KeychainItemStore()))
     }
+
+    // MARK: - Business Logic Operations
 
     static func setUp()  {
         // clean up the left overs from the previous installation
@@ -93,15 +96,24 @@ class SecurityCenter {
         }
     }
 
+    func installUnlockChallenge() {
+        let challenge = "I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but water kills me. What am I?".data(using: .utf8)!
+        self.import(id: DataID(id: Self.appUnlockChallengeID), data: challenge, protectionClass: .data) { result in
+
+        }
+    }
+
+    // MARK: - Operations on Protected Data
+
     // import data potentially overriding existing value
-    func `import`(id: DataID, ethPrivateKey: EthPrivateKey, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
+    func `import`(id: DataID, data: Data, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
         switch(protectionClass) {
         case .sensitive:
             perfomSecuredAccess { [unowned self] result in
                 switch result {
                 case .success:
                     do {
-                        try sensitiveStore.import(id: id, ethPrivateKey: ethPrivateKey)
+                        try sensitiveStore.import(id: id, data: data)
                         completion(.success(true))
                     } catch let error {
                         completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
@@ -112,29 +124,7 @@ class SecurityCenter {
             }
         case .data:
             do {
-                try dataStore.import(id: id, ethPrivateKey: ethPrivateKey)
-                completion(.success(true))
-            } catch let error {
-                completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
-            }
-        }
-    }
-
-    func remove(address: Address, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
-        switch(protectionClass) {
-        case .sensitive:
-            perfomSecuredAccess { [unowned self] result in
-                do {
-                    _ = try result.get()
-                    try sensitiveStore.delete(address: address)
-                    completion(.success(true))
-                } catch {
-                    completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
-                }
-            }
-        case .data:
-            do {
-                try dataStore.delete(address: address)
+                try dataStore.import(id: id, data: data)
                 completion(.success(true))
             } catch let error {
                 completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
@@ -168,7 +158,7 @@ class SecurityCenter {
         }
     }
 
-    func find(dataID: DataID, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<EthPrivateKey?, Error>) -> ()) {
+    func find(dataID: DataID, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Data?, Error>) -> ()) {
         switch(protectionClass) {
         case .sensitive:
             perfomSecuredAccess { [unowned self] result in

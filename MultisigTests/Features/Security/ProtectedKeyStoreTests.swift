@@ -36,7 +36,7 @@ public class ProtectedKeyStoreTests: XCTestCase {
     }
 
     func testImport() throws {
-        let randomKey = Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322") as EthPrivateKey
+        let randomKey = Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322") as Data
         try sensitiveKeyStore.initializeKeyStore()
 
         try sensitiveKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), ethPrivateKey: randomKey)
@@ -46,8 +46,8 @@ public class ProtectedKeyStoreTests: XCTestCase {
     }
 
     func testImportOverride() throws {
-        let randomKey1 = Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322") as EthPrivateKey
-        let randomKey2 = Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c323") as EthPrivateKey
+        let randomKey1 = Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322") as Data
+        let randomKey2 = Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c323") as Data
         try sensitiveKeyStore.initializeKeyStore()
 
         try sensitiveKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), ethPrivateKey: randomKey1)
@@ -121,7 +121,7 @@ public class ProtectedKeyStoreTests: XCTestCase {
     }
 
     func testImportDataKey() throws {
-        let randomKey = Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322") as EthPrivateKey
+        let randomKey = Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322") as Data
         try dataKeyStore.initializeKeyStore()
 
         try dataKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), ethPrivateKey: randomKey)
@@ -131,10 +131,10 @@ public class ProtectedKeyStoreTests: XCTestCase {
     }
 
     func testImportDataAndSensitiveKeyStore() throws {
-        let randomSensitiveKey = Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322") as EthPrivateKey
+        let randomSensitiveKey = Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322") as Data
         try sensitiveKeyStore.initializeKeyStore()
 
-        let randomDataKey = Data(ethHex: "cb18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c321") as EthPrivateKey
+        let randomDataKey = Data(ethHex: "cb18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c321") as Data
         try dataKeyStore.initializeKeyStore()
 
         try sensitiveKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), ethPrivateKey: randomSensitiveKey)

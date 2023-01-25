@@ -19,6 +19,7 @@ class KeychainItemStore {
 
     private let store: KeychainStore
 
+    @discardableResult
     func create(_ item: KeychainItem) throws -> Any {
         switch item {
         case .ecKeyPair: break

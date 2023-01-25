@@ -10,21 +10,17 @@ import Foundation
 import CommonCrypto
 import CryptoKit
 
-typealias EthPrivateKey = Data
-
 protocol EncryptedStore {
     func isInitialized() -> Bool
     func initializeKeyStore() throws
-    func `import`(id: DataID, ethPrivateKey: EthPrivateKey) throws
-    func `import`(id: DataID, plainText: Data)  throws
-    func delete(address: Address) throws
+    func `import`(id: DataID, data: Data) throws
     func delete(id: DataID) throws
 
     /// Find private signer key.
     /// - parameter address: find key for this address
     /// - parameter password: application password. Can be nil, then the stored password is used
     /// - returns: String with hex encoded bytes of the private key or nil if key not found
-    func find(dataID: DataID, password: String?) throws -> EthPrivateKey?
+    func find(dataID: DataID, password: String?) throws -> Data?
     func changePassword(from oldPassword: String?, to newPassword: String?, useBiometry: Bool) throws
 
     func deleteAllKeys() throws
