@@ -104,16 +104,12 @@ class SecurityCenter {
         switch(protectionClass) {
         case .sensitive:
             perfomSecuredAccess { [unowned self] result in
-                switch result {
-                case .success:
-                    do {
-                        try sensitiveStore.delete(address: address)
-                        completion(.success(true))
-                    } catch let error {
-                        completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
-                    }
-                case .failure(let error):
-                    completion(.failure(error))
+                do {
+                    _ = try result.get()
+                    try sensitiveStore.delete(address: address)
+                    completion(.success(true))
+                } catch {
+                    completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
                 }
             }
         case .data:
