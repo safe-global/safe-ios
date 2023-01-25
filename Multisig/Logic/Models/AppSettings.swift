@@ -190,3 +190,17 @@ enum LockMethod: Int16 {
     // authenticate with user-proivded passcode and with user's biometry (or device passcode, as a fallback
     case passcodeAndUserPresence = 2
 }
+
+enum BiometryType {
+    case faceID
+    case touchID
+    case passcode
+
+    var name: String {
+        switch self {
+        case .faceID: return "Face ID"
+        case .touchID: return "Touch ID"
+        case .passcode: return "Device Passcode"
+        }
+    }
+}

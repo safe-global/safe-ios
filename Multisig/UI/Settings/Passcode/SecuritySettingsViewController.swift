@@ -10,7 +10,7 @@ import UIKit
 import LocalAuthentication
 
 
-class PasscodeSettingsViewController: UITableViewController {
+class SecuritySettingsViewController: UITableViewController {
 
     enum Section: Int, CaseIterable {
         case single
@@ -20,26 +20,12 @@ class PasscodeSettingsViewController: UITableViewController {
     }
 
     enum Row: Int, CaseIterable {
-        case usePasscode
+        case enableSecurityLock
         case changePasscode
         case lockMethod
         case requireToOpenApp
         case requireForConfirmations
         case oneOptionSelectedText
-    }
-
-    enum BiometryType {
-        case faceID
-        case touchID
-        case passcode
-
-        var name: String {
-            switch self {
-            case .faceID: return "Face ID"
-            case .touchID: return "Touch ID"
-            case .passcode: return "Device Passcode"
-            }
-        }
     }
 
     // TODO: sync the values with the SecurityCenter
@@ -69,11 +55,7 @@ class PasscodeSettingsViewController: UITableViewController {
         tableView.backgroundColor = .backgroundPrimary
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
-        if #available(iOS 15.0, *) {
-            tableView.sectionHeaderTopPadding = 0
-        } else {
-            // Fallback on earlier versions
-        }
+        if #available(iOS 15.0, *) { tableView.sectionHeaderTopPadding = 0 }
 
         NotificationCenter.default.addObserver(
             self, selector: #selector(reloadData), name: .biometricsActivated, object: nil)
@@ -93,7 +75,7 @@ class PasscodeSettingsViewController: UITableViewController {
     @objc private func reloadData() {
         if isPasscodeSet {
             data = [
-                (section: .lockMethod, rows: [.usePasscode, .lockMethod]),
+                (section: .lockMethod, rows: [.enableSecurityLock, .lockMethod]),
                 (section: .passcode, rows: [.changePasscode]),
                 (section: .usePasscodeFor, rows: [.requireToOpenApp, .requireForConfirmations, .oneOptionSelectedText])
             ]
@@ -106,7 +88,7 @@ class PasscodeSettingsViewController: UITableViewController {
             }
         } else {
             data = [
-                (section: .single, rows: [.usePasscode])
+                (section: .single, rows: [.enableSecurityLock])
             ]
         }
         updateLockValues()
@@ -115,25 +97,19 @@ class PasscodeSettingsViewController: UITableViewController {
 
     func updateLockValues() {
         if AppConfiguration.FeatureToggles.securityCenter {
-            lock = AppSettings.securityLockMethod
-
-            if App.shared.auth.isBiometricsSupported {
-                biometryType = App.shared.auth.isFaceID ? .faceID : .touchID
-            } else {
-                biometryType = .passcode
-            }
+            lock = App.shared.securityCenter.lockMethod
         } else {
             if AppSettings.passcodeOptions.contains(.useBiometry) {
                 lock = .userPresence
             } else {
                 lock = .passcode
             }
+        }
 
-            if App.shared.auth.isBiometricsSupported {
-                biometryType = App.shared.auth.isFaceID ? .faceID : .touchID
-            } else {
-                biometryType = .passcode
-            }
+        if App.shared.auth.isBiometricsSupported {
+            biometryType = App.shared.auth.isFaceID ? .faceID : .touchID
+        } else {
+            biometryType = .passcode
         }
     }
 
@@ -200,7 +176,15 @@ class PasscodeSettingsViewController: UITableViewController {
         }
     }
 
-    private func toggleBiometrics() {
+    private func toggleBiometrics(_ lockMethod: LockMethod) {
+        if AppConfiguration.FeatureToggles.securityCenter {
+            toggleBiometricsSecurityLock(newLockMethod: lockMethod)
+        } else {
+            toggleBiometricsKeychainStorage()
+        }
+    }
+
+    private func toggleBiometricsKeychainStorage() {
         withPasscodeAuthentication(for: "Login with biometrics") { [unowned self] success, nav, finish in
             let completion = { [unowned self] in
                 finish()
@@ -208,16 +192,44 @@ class PasscodeSettingsViewController: UITableViewController {
             }
 
             if success && AppSettings.passcodeOptions.contains(.useBiometry) {
+
                 AppSettings.passcodeOptions.remove(.useBiometry)
                 App.shared.snackbar.show(message: "Biometrics disabled.")
                 completion()
             } else if success {
-                App.shared.auth.activateBiometrics { result in
+                App.shared.auth.activateBiometrics { [unowned self] result in
                     if hasFailedBecauseBiometryNotEnabled(result) {
                         showBiometrySettings(presenter: nav!, completion: completion)
                     } else {
                         completion()
                     }
+                }
+            } else {
+                completion()
+            }
+        }
+    }
+
+    // Handle new secirtiy method
+    // Change lock method
+    // Update security center storing protection
+    // activate biometrics with new lock method
+
+    private func toggleBiometricsSecurityLock(newLockMethod: LockMethod) {
+        guard newLockMethod != App.shared.securityCenter.lockMethod else { return }
+        withPasscodeAuthentication(for: "Login with biometrics") { [unowned self] success, nav, finish in
+            let completion = { [unowned self] in
+                finish()
+                reloadData()
+            }
+
+            if success {
+                App.shared.securityCenter.changeSecuritySettings(passcode: nil, lockMethod: newLockMethod) { error in
+                    if let error = error {
+                        LogService.shared.error("Failed to update lock method", error: error)
+                    }
+
+                    completion()
                 }
             } else {
                 completion()
@@ -293,11 +305,12 @@ class PasscodeSettingsViewController: UITableViewController {
     ///   - finish: the closure that closes the presented passcode entry controller. You must call this closure when the flow is completed.
     private func withPasscodeAuthentication(
         for reason: String,
+        usesBiometry: Bool = false,
         tracking: TrackingEvent? = nil,
         authenticated: @escaping (_ success: Bool, _ nav: UINavigationController?, _ finish: @escaping () -> Void) -> Void
     ) {
         let vc = EnterPasscodeViewController()
-        vc.usesBiometry = false
+        vc.usesBiometry = usesBiometry
         vc.navigationItemTitle = reason
         if let event = tracking {
             vc.screenTrackingEvent = event
@@ -329,7 +342,7 @@ class PasscodeSettingsViewController: UITableViewController {
         let detail = detailText(for: row, lock: lock, biometry: biometryType)
 
         switch row {
-        case .usePasscode:
+        case .enableSecurityLock:
             return switchDetailCell(
                 for: indexPath,
                 with: "Enable security lock",
@@ -342,13 +355,13 @@ class PasscodeSettingsViewController: UITableViewController {
         case .lockMethod:
             let cell = tableView.dequeueCell(MenuTableViewCell.self, for: indexPath)
             cell.text = "Lock method"
-            cell.menu = UIMenu(title: "", children: [
+            var children = [
                 UIAction(
                     title: detailText(for: .lockMethod, lock: .passcode, biometry: biometryType)!,
                     state: lock == .passcode ? .on : .off
                 ) { [unowned self] action in
                     if lock != .passcode {
-                        toggleBiometrics()
+                        toggleBiometrics(.passcode)
                     }
                 },
                 UIAction(
@@ -356,13 +369,18 @@ class PasscodeSettingsViewController: UITableViewController {
                     state: lock == .userPresence ? .on : .off
                 ) { [unowned self] action in
                     if lock != .userPresence {
-                        toggleBiometrics()
+                        toggleBiometrics(.userPresence)
                     }
-                }
-                // TODO: implement
-//                ,UIAction(title: detailText(for: .lockMethod, lock: .passcodeAndUserPresence, biometry: biometryType)!) { action in
-//                }
-            ])
+                }]
+            if AppConfiguration.FeatureToggles.securityCenter {
+                children.append(UIAction(title: detailText(for: .lockMethod, lock: .passcodeAndUserPresence, biometry: biometryType)!,
+                                         state: lock == .passcodeAndUserPresence ? .on : .off
+                                        ) { [unowned self] action in
+                    toggleBiometrics(.passcodeAndUserPresence)
+                })
+            }
+
+            cell.menu = UIMenu(title: "", children: children)
             return cell
 
         case .requireToOpenApp:
@@ -398,7 +416,7 @@ class PasscodeSettingsViewController: UITableViewController {
                 return "Passcode & \(biometry.name)"
             }
             
-        case .usePasscode:
+        case .enableSecurityLock:
             let text = biometry == .passcode ? "" : "or \(biometry.name) "
             return "Require passcode \(text)for unlocking the app, making transactions and using signer accounts"
 
@@ -437,7 +455,7 @@ class PasscodeSettingsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
 
         switch data[indexPath.section].rows[indexPath.row] {
-        case .usePasscode:
+        case .enableSecurityLock:
             if isPasscodeSet {
                 deletePasscode()
             } else {
@@ -481,10 +499,6 @@ class PasscodeSettingsViewController: UITableViewController {
         default:
             return UITableView.automaticDimension
         }
-    }
-
-    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
     }
 
     private func makeHeader(with text: String) -> BasicHeaderView {

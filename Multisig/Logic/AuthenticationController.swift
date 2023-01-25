@@ -8,7 +8,7 @@
 
 import Foundation
 import SwiftAccessPolicy
-import CommonCrypto
+
 import LocalAuthentication
 
 class AuthenticationController {
@@ -40,8 +40,7 @@ class AuthenticationController {
     /// - Parameter plaintextPasscode: unsecured, "as-is" passcode
     func createPasscode(plaintextPasscode: String) throws {
         if AppConfiguration.FeatureToggles.securityCenter {
-            let password = derivedKey(from: plaintextPasscode)
-            SecurityCenter.shared.changePasscode(new: password, useBiometry: AppSettings.securityLockMethod != .passcode) { error in
+            App.shared.securityCenter.changeSecuritySettings(passcode: plaintextPasscode) { error in
                 if let error = error {
                     LogService.shared.error("Error creating password: \(error)")
                 } else {
@@ -59,7 +58,7 @@ class AuthenticationController {
             for user in accessService.userRepository.users() {
                 accessService.userRepository.delete(userID: user.id)
             }
-            let password = derivedKey(from: plaintextPasscode)
+            let password = App.shared.securityCenter.derivedKey(from: plaintextPasscode)
             try accessService.registerUser(password: password)
             AppSettings.passcodeWasSetAtLeastOnce = true
 
@@ -76,7 +75,7 @@ class AuthenticationController {
     /// - Parameter newPasscodeInPlaintext: unsecured "as-is" passcode
     func changePasscode(newPasscodeInPlaintext: String) throws {
         guard let user = user else { return }
-        let password = derivedKey(from: newPasscodeInPlaintext)
+        let password = App.shared.securityCenter.derivedKey(from: newPasscodeInPlaintext)
         try accessService.updateUserPassword(userID: user.id, password: password)
     }
 
@@ -89,8 +88,8 @@ class AuthenticationController {
             return true
         }
         guard let user = user else { return false }
-        let password = derivedKey(from: plaintextPasscode)
-        let oldPassword = derivedKey(from: plaintextPasscode, useOldSalt: true)
+        let password = App.shared.securityCenter.derivedKey(from: plaintextPasscode)
+        let oldPassword = App.shared.securityCenter.derivedKey(from: plaintextPasscode, useOldSalt: true)
         return try accessService.verifyPassword(userID: user.id, password: password) ||
                     accessService.verifyPassword(userID: user.id , password: oldPassword)
     }
@@ -100,7 +99,7 @@ class AuthenticationController {
     func deletePasscode(trackingEvent: TrackingEvent = .userPasscodeDisabled) throws {
         if AppConfiguration.FeatureToggles.securityCenter {
 
-            SecurityCenter.shared.changePasscode(new: nil, useBiometry: AppSettings.securityLockMethod != .passcode) { error in
+            App.shared.securityCenter.changeSecuritySettings(passcode: nil) { error in
                 if let error = error {
                     LogService.shared.error("Failed to delete passcode: \(error)")
                 } else {
@@ -151,7 +150,7 @@ class AuthenticationController {
 
     var isPasscodeSetAndAvailable: Bool {
         if AppConfiguration.FeatureToggles.securityCenter {
-            return AppSettings.securityLockEnabled
+            return App.shared.securityCenter.securityLockEnabled
         } else {
             guard let user = (try? fetchUser()) else {
                 // passcode not available
@@ -159,31 +158,6 @@ class AuthenticationController {
             }
             return !user.encryptedPassword.isEmpty
         }
-    }
-
-    func derivedKey(from plaintext: String, useOldSalt: Bool = false) -> String {
-        let salt = salt(oldSalt: useOldSalt)
-        var derivedKey = [UInt8](repeating: 0, count: 256 / 8)
-        let result = CCKeyDerivationPBKDF(
-            CCPBKDFAlgorithm(kCCPBKDF2),
-            plaintext,
-            plaintext.lengthOfBytes(using: .utf8),
-            salt,
-            salt.lengthOfBytes(using: .utf8),
-            CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA256),
-            100_000,
-            &derivedKey,
-            derivedKey.count)
-        guard result == kCCSuccess else {
-            LogService.shared.error("Failed to derive key", error: "Failed to derive a key: \(result)")
-            return plaintext
-        }
-        return Data(derivedKey).toHexString()
-    }
-
-    // For backward compatibility we need to use both salts for some cases
-    private func salt(oldSalt: Bool = false) -> String {
-        oldSalt ? "Gnosis Safe Multisig Passcode Salt" : "Safe Multisig Passcode Salt"
     }
 
 
@@ -221,7 +195,7 @@ class AuthenticationController {
         return context.evaluatedBiometryType == .faceID
     }
 
-    func activateBiometrics(completion: @escaping (Result<Void, Error>) -> Void) {
+    func activateBiometrics(lockMethod: LockMethod? = nil, completion: @escaping (Result<Void, Error>) -> Void) {
         evaluate(policy: .deviceOwnerAuthenticationWithBiometrics,
                  reason: "Enable login with biometrics",
                  showsFallback: false,
@@ -230,10 +204,11 @@ class AuthenticationController {
             switch result {
             case .success:
                 if AppConfiguration.FeatureToggles.securityCenter {
-                    AppSettings.securityLockMethod = .userPresence
+                    AppSettings.securityLockMethod = lockMethod == nil ? .userPresence : lockMethod!
+                } else {
+                    AppSettings.passcodeOptions.insert(.useBiometry)
                 }
 
-                AppSettings.passcodeOptions.insert(.useBiometry)
                 NotificationCenter.default.post(name: .biometricsActivated, object: nil)
                 App.shared.snackbar.show(message: "Biometrics activated.")
                 completion(.success(()))
