@@ -73,7 +73,12 @@ class SecurityCenter {
         }
     }
 
-    // import data potentially overriding existing value
+    /// Import data potentially overriding existing value
+    ///
+    /// - Parameters:
+    ///   - id: key data id
+    ///   - ethPrivateKey: private key data
+    ///   - completion: callback returns success(true) if import successfull, success(false) if operation was canceled by user, or failure otherwise.
     func `import`(id: DataID, ethPrivateKey: EthPrivateKey, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
         switch(protectionClass) {
         case .sensitive:
@@ -100,6 +105,12 @@ class SecurityCenter {
         }
     }
 
+    /// Remove key from keystore
+    ///
+    /// - Parameters:
+    ///   - address: address of the key
+    ///   - protectionClass: which keystore to use for removal: sensitive or data
+    ///   - completion: callback returns success(true) if import successfull, success(false) if operation was canceled by user, or failure otherwise.
     func remove(address: Address, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
         switch(protectionClass) {
         case .sensitive:
@@ -122,6 +133,12 @@ class SecurityCenter {
         }
     }
 
+    /// Remove key from keystore
+    ///
+    /// - Parameters:
+    ///   - dataID: key data id
+    ///   - protectionClass: which keystore to use for removal: sensitive or data
+    ///   - completion: callback returns success(true) if import successfull, success(false) if operation was canceled by user, or failure otherwise.
     func remove(dataID: DataID, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
         switch(protectionClass) {
         case .sensitive:
