@@ -96,17 +96,13 @@ class SecurityCenter {
         }
     }
 
-    func installUnlockChallenge() {
-        let challenge = "I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but water kills me. What am I?".data(using: .utf8)!
-        self.import(id: DataID(id: Self.appUnlockChallengeID), data: challenge, protectionClass: .data) { result in
-
-        }
-    }
-
-    // MARK: - Operations on Protected Data
-
-    // import data potentially overriding existing value
-    func `import`(id: DataID, data: Data, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
+    /// Import data potentially overriding existing value
+    ///
+    /// - Parameters:
+    ///   - id: key data id
+    ///   - ethPrivateKey: private key data
+    ///   - completion: callback returns success(true) if import successfull, success(false) if operation was canceled by user, or failure otherwise.
+    func `import`(id: DataID, ethPrivateKey: EthPrivateKey, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
         switch(protectionClass) {
         case .sensitive:
             perfomSecuredAccess { [unowned self] result in
@@ -132,6 +128,12 @@ class SecurityCenter {
         }
     }
 
+    /// Remove key from keystore
+    ///
+    /// - Parameters:
+    ///   - dataID: key data id
+    ///   - protectionClass: which keystore to use for removal: sensitive or data
+    ///   - completion: callback returns success(true) if import successfull, success(false) if operation was canceled by user, or failure otherwise.
     func remove(dataID: DataID, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
         switch(protectionClass) {
         case .sensitive:
