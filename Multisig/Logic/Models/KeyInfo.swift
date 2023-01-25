@@ -353,6 +353,29 @@ extension KeyInfo {
         }
     }
 
+    func delegatePrivateKey(completion: @escaping (Result<PrivateKey?, Error>) -> ()) {
+        guard let addressString = delegateAddressString, let address = Address(addressString) else {
+            completion(.success(nil))
+            return
+        }
+        PrivateKey.key(address: address) { result in
+            do {
+                let pkDataOrNil = try result.get()
+                guard let pkData = pkDataOrNil else {
+                    completion(.success(nil))
+                    return
+                }
+                let privateKey = try PrivateKey(data: pkData.keychainData, id: pkData.id)
+                completion(.success(privateKey))
+            } catch let error as GSError.KeychainError {
+                completion(.failure(error))
+            } catch {
+                completion(.failure(GSError.ThirdPartyError(reason: error.localizedDescription)))
+            }
+        }
+    }
+
+    //@Deprecated
     func delegatePrivateKey() throws -> PrivateKey? {
         guard let addressString = delegateAddressString, let address = Address(addressString) else { return nil }
         return try PrivateKey.key(address: address)
