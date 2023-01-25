@@ -74,7 +74,7 @@ class SecurityCenter {
     }
 
     // import data potentially overriding existing value
-    func `import`(id: DataID, ethPrivateKey: EthPrivateKey, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool?, Error>) -> ()) {
+    func `import`(id: DataID, ethPrivateKey: EthPrivateKey, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
         switch(protectionClass) {
         case .sensitive:
             perfomSecuredAccess { [unowned self] result in
