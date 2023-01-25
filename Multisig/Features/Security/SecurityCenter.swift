@@ -8,18 +8,22 @@
 
 import Foundation
 import CoreText
+import CommonCrypto
 
 class SecurityCenter {
-
     static let shared = SecurityCenter()
 
     private let sensitiveStore: ProtectedKeyStore
     private let dataStore: ProtectedKeyStore
-
     private static let version: Int32 = 1
     
-    private var isRequirePasscodeEnabled: Bool {
+    var securityLockEnabled: Bool {
         AppSettings.securityLockEnabled
+    }
+
+    var lockMethod: LockMethod {
+        get { AppSettings.securityLockMethod }
+        set { AppSettings.securityLockMethod = newValue }
     }
 
     init(sensitiveStore: ProtectedKeyStore, dataStore: ProtectedKeyStore) {
@@ -79,13 +83,15 @@ class SecurityCenter {
         }
     }
 
-    func changePasscode(new: String?, useBiometry: Bool, completion: @escaping (Error?) -> Void) {
+    func changeSecuritySettings(passcode: String?, lockMethod: LockMethod? = nil,  completion: @escaping (Error?) -> Void) {
+        let password: String? = passcode == nil ? nil : derivedKey(from: passcode!)
+        let newLockMethod = lockMethod == nil ? self.lockMethod : lockMethod!
         perfomSecuredAccess { [unowned self] result in
             let SUCCESS: Error? = nil
             do {
                 let old = try result.get()
-                try sensitiveStore.changePassword(from: old, to: new, useBiometry: useBiometry)
-                try dataStore.changePassword(from: old, to: new, useBiometry: useBiometry)
+                try sensitiveStore.changePassword(from: old, to: password, useBiometry: newLockMethod != .passcode)
+                try dataStore.changePassword(from: old, to: password, useBiometry: newLockMethod != .passcode)
                 completion(SUCCESS)
             } catch {
                 completion(error)
@@ -212,7 +218,7 @@ class SecurityCenter {
     }
 
     private func perfomSecuredAccess(completion: @escaping (Result<String?, Error>) -> ()) {
-        guard isRequirePasscodeEnabled else {
+        guard securityLockEnabled else {
             completion(.success(nil))
             return
         }
@@ -221,7 +227,7 @@ class SecurityCenter {
             // TODO: handle data reset
             // TODO: handle incorrect passcode
             if success {
-                completion(.success(passcode.map { App.shared.auth.derivedKey(from: $0) }))
+                completion(.success(passcode.map { App.shared.securityCenter.derivedKey(from: $0) }))
             } else {
                 completion(.failure(GSError.RequiredPasscode()))
             }
@@ -230,5 +236,30 @@ class SecurityCenter {
         NotificationCenter.default.post(name: .passcodeRequired,
                                         object: self,
                                         userInfo: ["completion": getPasscodeCompletion])
+    }
+
+    func derivedKey(from plaintext: String, useOldSalt: Bool = false) -> String {
+        let salt = salt(oldSalt: useOldSalt)
+        var derivedKey = [UInt8](repeating: 0, count: 256 / 8)
+        let result = CCKeyDerivationPBKDF(
+            CCPBKDFAlgorithm(kCCPBKDF2),
+            plaintext,
+            plaintext.lengthOfBytes(using: .utf8),
+            salt,
+            salt.lengthOfBytes(using: .utf8),
+            CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA256),
+            100_000,
+            &derivedKey,
+            derivedKey.count)
+        guard result == kCCSuccess else {
+            LogService.shared.error("Failed to derive key", error: "Failed to derive a key: \(result)")
+            return plaintext
+        }
+        return Data(derivedKey).toHexString()
+    }
+
+    // For backward compatibility we need to use both salts for some cases
+    private func salt(oldSalt: Bool = false) -> String {
+        oldSalt ? "Gnosis Safe Multisig Passcode Salt" : "Safe Multisig Passcode Salt"
     }
 }

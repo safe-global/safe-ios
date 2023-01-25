@@ -259,7 +259,7 @@
 		0A13BD812978342100322C66 /* FeatureToggleTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A13BD7F2978342100322C66 /* FeatureToggleTableViewController.xib */; };
 		0A19D43B249A5BA500A316B6 /* TransferTransaction.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A19D43A249A5BA500A316B6 /* TransferTransaction.json */; };
 		0A21692B24A35A4E00BD1C1E /* SnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A21692A24A35A4E00BD1C1E /* SnackbarView.swift */; };
-		0A22E11C25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A22E11B25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift */; };
+		0A22E11C25E4FA2000D24DE1 /* SecuritySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A22E11B25E4FA2000D24DE1 /* SecuritySettingsViewController.swift */; };
 		0A22E12725E4FA3200D24DE1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A22E12525E4FA3200D24DE1 /* SwitchTableViewCell.swift */; };
 		0A22E12825E4FA3200D24DE1 /* SwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A22E12625E4FA3200D24DE1 /* SwitchTableViewCell.xib */; };
 		0A259AB5287D83F9006770E7 /* UnstoppableDomainsResolution in Frameworks */ = {isa = PBXBuildFile; productRef = 0A259AB4287D83F9006770E7 /* UnstoppableDomainsResolution */; };
@@ -1230,7 +1230,7 @@
 		0A13BD7F2978342100322C66 /* FeatureToggleTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeatureToggleTableViewController.xib; sourceTree = "<group>"; };
 		0A19D43A249A5BA500A316B6 /* TransferTransaction.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TransferTransaction.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		0A21692A24A35A4E00BD1C1E /* SnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarView.swift; sourceTree = "<group>"; };
-		0A22E11B25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeSettingsViewController.swift; sourceTree = "<group>"; };
+		0A22E11B25E4FA2000D24DE1 /* SecuritySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuritySettingsViewController.swift; sourceTree = "<group>"; };
 		0A22E12525E4FA3200D24DE1 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		0A22E12625E4FA3200D24DE1 /* SwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwitchTableViewCell.xib; sourceTree = "<group>"; };
 		0A26FAB928C1F22500B0F519 /* SelectedDelegateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDelegateCell.swift; sourceTree = "<group>"; };
@@ -2785,7 +2785,7 @@
 				0A5B158528086454003AD853 /* Create Passcode */,
 				0A5B15862808645E003AD853 /* Change Passcode */,
 				0A5B157B280863DF003AD853 /* EnterPasscodeViewController.swift */,
-				0A22E11B25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift */,
+				0A22E11B25E4FA2000D24DE1 /* SecuritySettingsViewController.swift */,
 				0A5C0C5528191F400061D96F /* PasscodeProtecting.swift */,
 			);
 			path = Passcode;
@@ -4858,7 +4858,7 @@
 				D80B5A0A2769F95000D6E024 /* AssetsViewController.swift in Sources */,
 				0A13BD802978342100322C66 /* FeatureToggleTableViewController.swift in Sources */,
 				930F293E2937BA910040C48B /* ProtectedKeyStore.swift in Sources */,
-				0A22E11C25E4FA2000D24DE1 /* PasscodeSettingsViewController.swift in Sources */,
+				0A22E11C25E4FA2000D24DE1 /* SecuritySettingsViewController.swift in Sources */,
 				55AC9E562487B0CB00B0BC24 /* CoreDataProtocol.swift in Sources */,
 				6A1CFA4F28081A1200B2C340 /* BackupSeedPhraseViewController.swift in Sources */,
 				5588363C2562904E0014E8C7 /* ContractVersionStatusCell.swift in Sources */,

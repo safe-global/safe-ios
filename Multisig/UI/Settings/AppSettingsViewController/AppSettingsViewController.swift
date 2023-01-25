@@ -179,7 +179,7 @@ class AppSettingsViewController: UITableViewController {
     }
 
     private func openPasscode() {
-        let vc = PasscodeSettingsViewController()
+        let vc = SecuritySettingsViewController()
         show(vc, sender: self)
     }
 
