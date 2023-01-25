@@ -222,7 +222,6 @@ class SecuritySettingsViewController: UITableViewController {
                 LogService.shared.error("Failed to update lock method", error: error)
             }
 
-            finish()
             reloadData()
         }
     }
