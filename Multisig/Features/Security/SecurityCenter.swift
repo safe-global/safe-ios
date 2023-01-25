@@ -100,7 +100,7 @@ class SecurityCenter {
         }
     }
 
-    func remove(address: Address, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool?, Error>) -> ()) {
+    func remove(address: Address, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
         switch(protectionClass) {
         case .sensitive:
             perfomSecuredAccess { [unowned self] result in
@@ -122,7 +122,7 @@ class SecurityCenter {
         }
     }
 
-    func remove(dataID: DataID, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool?, Error>) -> ()) {
+    func remove(dataID: DataID, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
         switch(protectionClass) {
         case .sensitive:
             perfomSecuredAccess { [unowned self] result in

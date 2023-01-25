@@ -147,11 +147,11 @@ extension PrivateKey {
         }
     }
 
-    static func remove(id: KeyID, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool?, Error>) -> ()) {
+    static func remove(id: KeyID, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
         try Self.remove(id: id, protectionClass: protectionClass, completion: completion)
     }
 
-    static func remove(address: Address, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool?, Error>) -> ()) {
+    static func remove(address: Address, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
         App.shared.securityCenter.remove(address: address, completion: completion)
     }
 
