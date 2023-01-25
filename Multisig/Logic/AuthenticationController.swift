@@ -41,7 +41,9 @@ class AuthenticationController {
     func createPasscode(plaintextPasscode: String) throws {
         if AppConfiguration.FeatureToggles.securityCenter {
             App.shared.securityCenter.changeSecuritySettings(passcode: plaintextPasscode) { error in
+                // TODO: transition to the async password creation on the feature toggle
                 if let error = error {
+                    // TODO: notify that password creation failed
                     LogService.shared.error("Error creating password: \(error)")
                 } else {
                     AppSettings.securityLockEnabled = true
