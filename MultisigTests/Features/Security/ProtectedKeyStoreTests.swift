@@ -39,7 +39,7 @@ public class ProtectedKeyStoreTests: XCTestCase {
         let randomKey = Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322") as Data
         try sensitiveKeyStore.initializeKeyStore()
 
-        try sensitiveKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), ethPrivateKey: randomKey)
+        try sensitiveKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), data: randomKey)
 
         let result = try sensitiveKeyStore.find(dataID: DataID(id: "0xE86935943315293154c7AD63296b4e1adAc76364"), password: nil)
         XCTAssertEqual(result?.toHexString(), randomKey.toHexString())
@@ -50,11 +50,11 @@ public class ProtectedKeyStoreTests: XCTestCase {
         let randomKey2 = Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c323") as Data
         try sensitiveKeyStore.initializeKeyStore()
 
-        try sensitiveKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), ethPrivateKey: randomKey1)
+        try sensitiveKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), data: randomKey1)
         var result = try sensitiveKeyStore.find(dataID: DataID(id: "0xE86935943315293154c7AD63296b4e1adAc76364"), password: nil)
         XCTAssertEqual(result?.toHexString(), randomKey1.toHexString())
 
-        try sensitiveKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), ethPrivateKey: randomKey2)
+        try sensitiveKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), data: randomKey2)
         result = try sensitiveKeyStore.find(dataID: DataID(id: "0xE86935943315293154c7AD63296b4e1adAc76364"), password: nil)
         XCTAssertEqual(result?.toHexString(), randomKey2.toHexString())
     }
@@ -124,7 +124,7 @@ public class ProtectedKeyStoreTests: XCTestCase {
         let randomKey = Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322") as Data
         try dataKeyStore.initializeKeyStore()
 
-        try dataKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), ethPrivateKey: randomKey)
+        try dataKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), data: randomKey)
 
         let result = try dataKeyStore.find(dataID: DataID(id: "0xE86935943315293154c7AD63296b4e1adAc76364"), password: nil)
         XCTAssertEqual(result?.toHexString(), randomKey.toHexString())
@@ -137,8 +137,8 @@ public class ProtectedKeyStoreTests: XCTestCase {
         let randomDataKey = Data(ethHex: "cb18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c321") as Data
         try dataKeyStore.initializeKeyStore()
 
-        try sensitiveKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), ethPrivateKey: randomSensitiveKey)
-        try dataKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), ethPrivateKey: randomDataKey)
+        try sensitiveKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), data: randomSensitiveKey)
+        try dataKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), data: randomDataKey)
 
         let result = try sensitiveKeyStore.find(dataID: DataID(id: "0xE86935943315293154c7AD63296b4e1adAc76364"), password: nil)
         XCTAssertEqual(result?.toHexString(), randomSensitiveKey.toHexString())

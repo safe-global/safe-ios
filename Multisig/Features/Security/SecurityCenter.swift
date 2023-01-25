@@ -18,6 +18,7 @@ class SecurityCenter {
 
     private static let version: Int32 = 1
     private static let appUnlockChallengeID = "global.safe.AppUnlockChallenge"
+    private static let challenge = "I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but water kills me. What am I?"
 
     private var isRequirePasscodeEnabled: Bool {
         AppSettings.securityLockEnabled
@@ -79,6 +80,7 @@ class SecurityCenter {
         }
         if !dataStore.isInitialized() {
             try dataStore.initialize()
+            try dataStore.import(id: DataID(id: Self.appUnlockChallengeID), data: Self.challenge.data(using: .utf8)!)
         }
     }
 
@@ -99,10 +101,10 @@ class SecurityCenter {
     /// Import data potentially overriding existing value
     ///
     /// - Parameters:
-    ///   - id: key data id
-    ///   - ethPrivateKey: private key data
+    ///   - id:  data id
+    ///   - data: data to protect
     ///   - completion: callback returns success(true) if import successfull, success(false) if operation was canceled by user, or failure otherwise.
-    func `import`(id: DataID, ethPrivateKey: EthPrivateKey, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
+    func `import`(id: DataID, data: Data, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
         switch(protectionClass) {
         case .sensitive:
             perfomSecuredAccess { [unowned self] result in
@@ -128,10 +130,10 @@ class SecurityCenter {
         }
     }
 
-    /// Remove key from keystore
+    /// Remove data from keystore
     ///
     /// - Parameters:
-    ///   - dataID: key data id
+    ///   - dataID: data id
     ///   - protectionClass: which keystore to use for removal: sensitive or data
     ///   - completion: callback returns success(true) if import successfull, success(false) if operation was canceled by user, or failure otherwise.
     func remove(dataID: DataID, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
