@@ -39,38 +39,19 @@ class AuthenticationController {
     ///
     /// - Parameter plaintextPasscode: unsecured, "as-is" passcode
     func createPasscode(plaintextPasscode: String) throws {
-        if AppConfiguration.FeatureToggles.securityCenter {
-            App.shared.securityCenter.changeSecuritySettings(passcode: plaintextPasscode) { error in
-                // TODO: transition to the async password creation on the feature toggle
-                if let error = error {
-                    // TODO: notify that password creation failed
-                    LogService.shared.error("Error creating password: \(error)")
-                } else {
-                    AppSettings.securityLockEnabled = true
-                    AppSettings.passcodeWasSetAtLeastOnce = true
-                    AppSettings.passcodeOptions = [.useForLogin, .useForConfirmation]
-
-                    NotificationCenter.default.post(name: .passcodeCreated, object: nil)
-
-                    Tracker.setPasscodeIsSet(to: true)
-                    Tracker.trackEvent(.userPasscodeEnabled)
-                }
-            }
-        } else {
-            for user in accessService.userRepository.users() {
-                accessService.userRepository.delete(userID: user.id)
-            }
-            let password = App.shared.securityCenter.derivedKey(from: plaintextPasscode)
-            try accessService.registerUser(password: password)
-            AppSettings.passcodeWasSetAtLeastOnce = true
-
-            AppSettings.passcodeOptions = [.useForLogin, .useForConfirmation]
-
-            NotificationCenter.default.post(name: .passcodeCreated, object: nil)
-
-            Tracker.setPasscodeIsSet(to: true)
-            Tracker.trackEvent(.userPasscodeEnabled)
+        for user in accessService.userRepository.users() {
+            accessService.userRepository.delete(userID: user.id)
         }
+        let password = App.shared.securityCenter.derivedKey(from: plaintextPasscode)
+        try accessService.registerUser(password: password)
+        AppSettings.passcodeWasSetAtLeastOnce = true
+
+        AppSettings.passcodeOptions = [.useForLogin, .useForConfirmation]
+
+        NotificationCenter.default.post(name: .passcodeCreated, object: nil)
+
+        Tracker.setPasscodeIsSet(to: true)
+        Tracker.trackEvent(.userPasscodeEnabled)
     }
 
     /// Changes the passcode to a new value.
@@ -101,7 +82,7 @@ class AuthenticationController {
     func deletePasscode(trackingEvent: TrackingEvent = .userPasscodeDisabled) throws {
         if AppConfiguration.FeatureToggles.securityCenter {
 
-            App.shared.securityCenter.changeSecuritySettings(passcode: nil) { error in
+            App.shared.securityCenter.disableSecurityLock { error in
                 if let error = error {
                     LogService.shared.error("Failed to delete passcode: \(error)")
                 } else {

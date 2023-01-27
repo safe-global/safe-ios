@@ -38,67 +38,45 @@ class ProtectedKeyStore: EncryptedStore {
         }
     }
 
-    func `import`(id: DataID, ethPrivateKey: EthPrivateKey) throws {
-        //1. create key from Data
-        let privateKey = try PrivateKey(data: ethPrivateKey)
-
-        // 2. find public sensitive key
+    func `import`(id: DataID, data: Data) throws {
         let pubKey = try store.find(.ecPubKey(tag: ProtectedKeyStore.publicKeyTag, service: protectionClass.service())) as! SecKey
-
-        // 3. encrypt private key with public sensitive key
-        var error: Unmanaged<CFError>?
-
-        let encryptedSigningKey = try ethPrivateKey.encrypt(publicKey: pubKey)
-
-        // 4. store encrypted blob in the keychain
-        let address = privateKey.address
-        try store.create(KeychainItem.generic(account: id.id, service: protectionClass.service(), data: encryptedSigningKey))
-    }
-
-    func `import`(id: DataID, plainText: Data) throws {
-        // 1. find public sensitive key
-        let pubKey = try store.find(.ecPubKey(tag: ProtectedKeyStore.publicKeyTag, service: protectionClass.service())) as! SecKey
-
-        // 2. encrypt data with public sensitive key
-        var error: Unmanaged<CFError>?
-        let encryptedData = try plainText.encrypt(publicKey: pubKey)
-
-        // 3. store encrypted blob in the keychain
-        try store.create(KeychainItem.generic(account: id.id, service: protectionClass.service(), data: encryptedData))
-    }
-
-    func delete(address: Address) throws {
-        try store.delete(KeychainItem.generic(account: address.checksummed, service: protectionClass.service()))
+        let encryptedSigningKey = try data.encrypt(publicKey: pubKey)
+        let item = KeychainItem.generic(account: id.id, service: protectionClass.service(), data: encryptedSigningKey)
+        try store.create(item)
     }
 
     func delete(id: DataID) throws {
-        try store.delete(KeychainItem.generic(account: id.id, service: protectionClass.service()))
+        let item = KeychainItem.generic(account: id.id, service: protectionClass.service())
+        try store.delete(item)
     }
 
-    func find(dataID: DataID, password: String?) throws -> EthPrivateKey? {
-        // Get encrypted signing key
-        guard let encryptedSigningKey = try store.find(KeychainItem.generic(account: dataID.id, service: protectionClass.service())) as? Data else {
+    func find(dataID: DataID, password userPassword: String?) throws -> Data? {
+        guard let encryptedData = try store.find(KeychainItem.generic(account: dataID.id, service: protectionClass.service())) as? Data else {
             return nil
         }
-        // If no password given retrieve the password from store
-        let password = password != nil ? password?.data(using: .utf8) : try store.find(KeychainItem.generic(account: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service())) as! Data?
+
+        let rawPassword: Data?
+        if let password = userPassword {
+            rawPassword = password.data(using: .utf8)
+        } else {
+            let derivedPasswordItem = KeychainItem.generic(account: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service())
+            rawPassword = try store.find(derivedPasswordItem) as! Data?
+        }
 
         // Get access to secure enclave key
-        let sensitiveKEK = try store.find(KeychainItem.enclaveKey(tag: ProtectedKeyStore.privateKEKTag, service: protectionClass.service() ,password: password)) as! SecKey
+        let sensitiveKEK = try store.find(KeychainItem.enclaveKey(tag: ProtectedKeyStore.privateKEKTag, service: protectionClass.service(), password: rawPassword)) as! SecKey
 
         // Get access to encrypted sensitive key
         let encryptedSensitiveKey = try store.find(KeychainItem.generic(account: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service())) as? Data
-        // Decrypt sensitiveKey
         let decryptedSensitiveKeyData = try encryptedSensitiveKey?.decrypt(privateKey: sensitiveKEK)
-
-        // Restore sensitive key from Data
         var error: Unmanaged<CFError>?
         guard let decryptedSensitiveKey: SecKey = SecKeyCreateWithData(decryptedSensitiveKeyData! as CFData, try KeychainItem.ecKeyPair.creationAttributes(), &error) else {
             // will fail here if password was wrong
             throw error!.takeRetainedValue() as Error
         }
-        // Decrypt signer key with sensitive key
-        return try encryptedSigningKey.decrypt(privateKey: decryptedSensitiveKey)
+
+        let result = try encryptedData.decrypt(privateKey: decryptedSensitiveKey)
+        return result
     }
 
     // Options:

@@ -89,6 +89,8 @@ extension AppSettings {
 
     // MARK: - Security & Passcode
 
+    // TODO: make a group for security
+
     @AppSetting(\.passcodeBannerDismissed)
     static var passcodeBannerDismissed: Bool
 
