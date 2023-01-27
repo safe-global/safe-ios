@@ -11,6 +11,10 @@ import UIKit
 
 class EnterPasscodeViewController: PasscodeViewController {
     var passcodeCompletion: (_ success: Bool, _ reset: Bool, _ passcode: String?) -> Void = { _, _, _ in }
+
+    var onPasscodeEnter: (_ password: String?) throws -> Void = { _ in }
+    var onError: (_ error: Error) -> Void = { _ in }
+
     var navigationItemTitle = "Enter Passcode"
     var screenTrackingEvent = TrackingEvent.enterPasscode
     var showsCloseButton: Bool = true
@@ -50,34 +54,60 @@ class EnterPasscodeViewController: PasscodeViewController {
         authenticateWithBiometry()
     }
 
+    fileprivate func didEnterEnoughSymbols(_ text: String) {
+        var isCorrect = false
+        do {
+            isCorrect = try App.shared.auth.isPasscodeCorrect(plaintextPasscode: text)
+        } catch {
+            showGenericError(description: "Failed to check passcode", error: error)
+            return
+        }
+
+        if isCorrect {
+            passcodeCompletion(true, false, text)
+        } else {
+            wrongAttemptsCount += 1
+            if wrongAttemptsCount >= warnAfterWrongAttemptCount {
+                showError("\(wrongAttemptsCount) failed password attempts. You can reset password via \"Forgot passcode?\" button below.")
+            } else {
+                showError("Wrong passcode")
+            }
+        }
+    }
+
+    fileprivate func didEnterEnoughSymbolsV2(_ text: String) {
+        do {
+            try onPasscodeEnter(text)
+        } catch {
+            wrongAttemptsCount += 1
+            if wrongAttemptsCount >= warnAfterWrongAttemptCount {
+                showError("\(wrongAttemptsCount) failed password attempts. You can reset password via \"Forgot passcode?\" button below.")
+            } else {
+                // TODO: decode error  to make sure that it's password incorrect. Try other errors?
+                showError("Access denied: \(error)")
+            }
+        }
+    }
+
     override func willChangeText(_ text: String) {
         super.willChangeText(text)
         errorLabel.isHidden = true
         if text.count == passcodeLength {
-
-            var isCorrect = false
-            do {
-                isCorrect = try App.shared.auth.isPasscodeCorrect(plaintextPasscode: text)
-            } catch {
-                showGenericError(description: "Failed to check passcode", error: error)
-                return
-            }
-
-            if isCorrect {
-                passcodeCompletion(true, false, text)
+            if AppSettings.securityLockEnabled {
+                didEnterEnoughSymbolsV2(text)
             } else {
-                wrongAttemptsCount += 1
-                if wrongAttemptsCount >= warnAfterWrongAttemptCount {
-                    showError("\(wrongAttemptsCount) failed password attempts. You can reset password via \"Forgot passcode?\" button below.")
-                } else {
-                    showError("Wrong passcode")
-                }
+                didEnterEnoughSymbols(text)
             }
         }
     }
 
     @objc func didTapCloseButton() {
-        passcodeCompletion(false, false, nil)
+        if AppSettings.securityLockEnabled {
+            // TODO: make a better error?
+            onError("Cancelled")
+        } else {
+            passcodeCompletion(false, false, nil)
+        }
     }
 
     override func didTapButton(_ sender: Any) {

@@ -87,7 +87,11 @@ class BackupFlow: UIFlow {
 class ModalBackupFlow: BackupFlow {
 
     override func start() {
-        passcode()
+        if AppSettings.securityLockEnabled {
+            seed()
+        } else {
+            passcode()
+        }
     }
 
     func passcode() {

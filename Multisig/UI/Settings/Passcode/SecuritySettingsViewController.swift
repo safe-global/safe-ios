@@ -217,14 +217,15 @@ class SecuritySettingsViewController: UITableViewController {
 
     private func toggleBiometricsSecurityLock(newLockMethod: LockMethod) {
         guard newLockMethod != App.shared.securityCenter.lockMethod else { return }
-        App.shared.securityCenter.changeSecuritySettings(passcode: nil,
-                                                         lockMethod: newLockMethod) { [unowned self] error in
-            if let error = error {
-                LogService.shared.error("Failed to update lock method", error: error)
-            }
-
-            reloadData()
-        }
+        // TODO: biometrics changed!
+//        App.shared.securityCenter.changeSecuritySettings(newPlaintextPasscode: nil,
+//                                                         lockMethod: newLockMethod) { [unowned self] error in
+//            if let error = error {
+//                LogService.shared.error("Failed to update lock method", error: error)
+//            }
+//
+//            reloadData()
+//        }
     }
 
     private func hasFailedBecauseBiometryNotEnabled(_ result: Result<Void, Error>) -> Bool {
