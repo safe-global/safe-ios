@@ -158,10 +158,9 @@ class SecurityCenter {
             // sensitive store can ask passcode and biometrics to access the items, depending on the lock method.
             // data store only asks for passcode if that's the lock method. Otherwise, it uses biometric authentication.
             let lockMethodsWithPassword: [LockMethod] = store === sensitiveStore ? [.passcode, .passcodeAndUserPresence] : [.passcode]
-            let lockMethodsWithBiometry: [LockMethod] = [.userPresence, .passcodeAndUserPresence]
-
+            
             newStorePassword = lockMethodsWithPassword.contains(AppSettings.securityLockMethod) ? newDerivedPassword! : nil
-            biometryUsed = lockMethodsWithBiometry.contains(AppSettings.securityLockMethod)
+            biometryUsed = AppSettings.securityLockMethod.isUserPresenceRequired()
         } else {
             newStorePassword = nil
             biometryUsed = false
