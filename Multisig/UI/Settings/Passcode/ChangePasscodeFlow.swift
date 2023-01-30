@@ -28,9 +28,12 @@ class ChangePasscodeFlow: UIFlow {
 
     func enterOldPasscode() {
         let vc = factory.enterOldPasscode { [unowned self] password in
-            oldPasscode = password
-            enterNewPasscode()
+                oldPasscode = password
+                enterNewPasscode()
+        } onError: { [unowned self] error in
+            stop(success: false)
         }
+
         show(vc)
     }
 
@@ -54,43 +57,33 @@ class ChangePasscodeFlow: UIFlow {
     }
 
     override func stop(success: Bool) {
-        defer {
-            oldPasscode = nil
-            newPasscode = nil
-        }
         if success {
             precondition(oldPasscode != nil, "Old passcode should be set before")
             precondition(newPasscode != nil, "New passcode should be set before")
-            if AppConfiguration.FeatureToggles.securityCenter {
-                do {
+            do {
+                if AppConfiguration.FeatureToggles.securityCenter {
                     try App.shared.securityCenter.changePasscode(oldPasscode: oldPasscode!, newPasscode: newPasscode!)
                     App.shared.snackbar.show(message: "Passcode changed")
-                    super.stop(success: true)
-                } catch {
-                    App.shared.snackbar.show(message: "Failed to change passcode")
-                    super.stop(success: false)
-                }
-            } else {
-                do {
+                } else {
                     try App.shared.auth.changePasscode(newPasscodeInPlaintext: newPasscode!)
                     App.shared.snackbar.show(message: "Passcode changed")
-                    super.stop(success: true)
-                    return
-                } catch {
-                    App.shared.snackbar.show(message: "Failed to change passcode")
                 }
+            } catch {
+                App.shared.snackbar.show(error: GSError.FailedToChangePasscode(reason: error.localizedDescription))
             }
-        } else {
-            super.stop(success: false)
         }
+
+        oldPasscode = nil
+        newPasscode = nil
+        super.stop(success: success)
     }
 }
 
 class ChangePasscodeFlowFactory {
-    func enterOldPasscode(completion: @escaping ( _ password: String?) throws -> Void) -> EnterPasscodeViewController {
+    func enterOldPasscode(completion: @escaping ( _ password: String?) throws -> Void, onError: @escaping (Error) -> ()) -> EnterPasscodeViewController {
         let vc = EnterPasscodeViewController()
         vc.onPasscodeEnter = completion
-
+        vc.onError = onError
         return vc
     }
 

@@ -644,6 +644,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct FailedToChangePasscode: DetailedLocalizedError {
+        let description = "Failed to change passcode"
+        let reason: String
+        let howToFix = "Enter correct passcode and try again"
+        let domain = iOSErrorDomain
+        let code = 1326
+        let loggable = false
+    }
+
     // - MARK: - Unstoppable domain errors
 
     struct UDUnsuportedName: DetailedLocalizedError {
