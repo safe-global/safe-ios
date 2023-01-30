@@ -57,12 +57,9 @@ class AuthenticationController {
     /// Changes the passcode to a new value.
     /// - Parameter newPasscodeInPlaintext: unsecured "as-is" passcode
     func changePasscode(newPasscodeInPlaintext: String) throws {
-        if AppConfiguration.FeatureToggles.securityCenter {
-        } else {
-            guard let user = user else { return }
-            let password = App.shared.securityCenter.derivedKey(from: newPasscodeInPlaintext)
-            try accessService.updateUserPassword(userID: user.id, password: password)
-        }
+        guard let user = user else { return }
+        let password = App.shared.securityCenter.derivedKey(from: newPasscodeInPlaintext)
+        try accessService.updateUserPassword(userID: user.id, password: password)
     }
 
     /// Checks if the passcode correct. In case passcode is not set, returns false.
