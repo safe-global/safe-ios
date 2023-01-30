@@ -35,6 +35,7 @@ class SecuritySettingsViewController: UITableViewController {
     private var data: [(section: Section, rows: [Row])] = []
     private var createPasscodeFlow: CreatePasscodeFlow!
     private var changePasscodeFlow: ChangePasscodeFlow!
+    private var changeLockMethodFlow: ChangeLockMethodFlow!
 
     private var isPasscodeSet: Bool {
         App.shared.auth.isPasscodeSetAndAvailable
@@ -62,6 +63,8 @@ class SecuritySettingsViewController: UITableViewController {
             self, selector: #selector(reloadData), name: .biometricsActivated, object: nil)
         NotificationCenter.default.addObserver(
             self, selector: #selector(reloadData), name: .passcodeDeleted, object: nil)
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(reloadData), name: .securitySettingsChanged, object: nil)
 
         reloadData()
     }
@@ -215,15 +218,13 @@ class SecuritySettingsViewController: UITableViewController {
 
     private func toggleBiometricsSecurityLock(newLockMethod: LockMethod) {
         guard newLockMethod != App.shared.securityCenter.lockMethod else { return }
-        // TODO: biometrics changed!
-//        App.shared.securityCenter.changeSecuritySettings(newPlaintextPasscode: nil,
-//                                                         lockMethod: newLockMethod) { [unowned self] error in
-//            if let error = error {
-//                LogService.shared.error("Failed to update lock method", error: error)
-//            }
-//
-//            reloadData()
-//        }
+
+        changeLockMethodFlow = ChangeLockMethodFlow(newLockMethod: newLockMethod, completion: { [unowned self] success in
+            changePasscodeFlow = nil
+            reloadData()
+        })
+
+        present(flow: changeLockMethodFlow)
     }
 
     private func hasFailedBecauseBiometryNotEnabled(_ result: Result<Void, Error>) -> Bool {

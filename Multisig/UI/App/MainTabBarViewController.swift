@@ -327,8 +327,16 @@ class MainTabBarViewController: UITabBarController {
 
         let passcodeVC = EnterPasscodeViewController()
         passcodeVC.usesBiometry = false
-        passcodeVC.onPasscodeEnter = task
-        passcodeVC.onError = onFailure
+        passcodeVC.onPasscodeEnter = { [weak self] pwd in
+            try task(pwd)
+            self?.dismiss(animated: true)
+        }
+        passcodeVC.onError = { [weak self] error in
+            if let str = error as? String, str == "Cancelled" {
+                self?.dismiss(animated: true)
+            }
+            onFailure(error)
+        }
         let nav = UINavigationController(rootViewController: passcodeVC)
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true)
