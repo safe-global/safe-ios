@@ -55,6 +55,7 @@
 		044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544D2448E5CF009CBB80 /* Localizable.strings */; };
 		044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544F2448E5F7009CBB80 /* InfoPlist.strings */; };
 		044BEE002987DDD000F533B0 /* ChangePasscodeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044BEDFF2987DDD000F533B0 /* ChangePasscodeFlow.swift */; };
+		044BEE022988076D00F533B0 /* ChangeLockMethodFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044BEE012988076D00F533B0 /* ChangeLockMethodFlow.swift */; };
 		0455A42B271F73B7008B772D /* AddressBookEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42A271F73B7008B772D /* AddressBookEntry.swift */; };
 		0455A42E27204181008B772D /* AddressBookListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42D27204181008B772D /* AddressBookListTableViewController.swift */; };
 		0455A43127204A5B008B772D /* CreateAddressBookEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42F27204A5B008B772D /* CreateAddressBookEntryViewController.swift */; };
@@ -1032,6 +1033,7 @@
 		044A544D2448E5CF009CBB80 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		044A544F2448E5F7009CBB80 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		044BEDFF2987DDD000F533B0 /* ChangePasscodeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasscodeFlow.swift; sourceTree = "<group>"; };
+		044BEE012988076D00F533B0 /* ChangeLockMethodFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLockMethodFlow.swift; sourceTree = "<group>"; };
 		0455A42A271F73B7008B772D /* AddressBookEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookEntry.swift; sourceTree = "<group>"; };
 		0455A42D27204181008B772D /* AddressBookListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookListTableViewController.swift; sourceTree = "<group>"; };
 		0455A42F27204A5B008B772D /* CreateAddressBookEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAddressBookEntryViewController.swift; sourceTree = "<group>"; };
@@ -3779,6 +3781,7 @@
 				0428DB1125CF239A002CF4A9 /* ChangeDisplayModeTableViewController.swift */,
 				04B964402734427D00A21EE9 /* ChainSettingsTableViewController.swift */,
 				D86517722760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift */,
+				044BEE012988076D00F533B0 /* ChangeLockMethodFlow.swift */,
 			);
 			path = AppSettingsViewController;
 			sourceTree = "<group>";
@@ -5264,6 +5267,7 @@
 				04E4CD65277752A500B558F4 /* TokenAmountInfoView.swift in Sources */,
 				0ADD19C5265EA23200EB0F2B /* SeedWordCollectionViewCell.swift in Sources */,
 				D865178127687E0B000B4C04 /* SuccessViewController.swift in Sources */,
+				044BEE022988076D00F533B0 /* ChangeLockMethodFlow.swift in Sources */,
 				0A478D3325B861D50038363E /* DefaultKeyTableViewCell.swift in Sources */,
 				0472B2B22869D3510049BA17 /* ClaimSafeTokenFlow.swift in Sources */,
 				6AFD26DE28578F1200336FFE /* IdenticonInfoView.swift in Sources */,

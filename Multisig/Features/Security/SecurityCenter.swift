@@ -135,6 +135,29 @@ class SecurityCenter {
         }
     }
 
+    // Requires:
+    //  - if newMethod does not require passcode, then `newPasscode` must be nil.
+    func changeLockMethod(oldMethod: LockMethod, newMethod: LockMethod, newPasscode: String?, completion: @escaping (Error?) -> Void) {
+        requestPasswordV2(for: [.sensitive, .data]) { [unowned self] oldPasscode in
+
+            var changedPasscode = newPasscode
+
+            if oldMethod.isPasscodeRequired() {
+                changedPasscode = oldPasscode
+            }
+
+            AppSettings.securityLockMethod = newMethod
+
+            try changeStoreSettings(currentPlaintextPassword: oldPasscode, newPlaintextPassword: changedPasscode, store: sensitiveStore)
+            try changeStoreSettings(currentPlaintextPassword: oldPasscode, newPlaintextPassword: changedPasscode, store: dataStore)
+            NotificationCenter.default.post(name: .securitySettingsChanged, object: self)
+            completion(nil)
+        } onFailure: { error in
+            AppSettings.securityLockMethod = oldMethod
+            completion(error)
+        }
+    }
+
     func changePasscode(oldPasscode: String, newPasscode: String) throws {
         try changeStoreSettings(currentPlaintextPassword: oldPasscode, newPlaintextPassword: newPasscode, store: sensitiveStore)
         try changeStoreSettings(currentPlaintextPassword: oldPasscode, newPlaintextPassword: newPasscode, store: dataStore)
