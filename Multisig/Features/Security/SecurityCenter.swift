@@ -135,6 +135,11 @@ class SecurityCenter {
         }
     }
 
+    func changePasscode(oldPasscode: String, newPasscode: String) throws {
+        try changeStoreSettings(currentPlaintextPassword: oldPasscode, newPlaintextPassword: newPasscode, store: sensitiveStore)
+        try changeStoreSettings(currentPlaintextPassword: oldPasscode, newPlaintextPassword: newPasscode, store: dataStore)
+    }
+
     // TODO: we need to keep the dataStore unlocked when the app is in foreground, i.e. to unlock it once:
         // when the lock is enabled -> app becomes unlocked
         // when the app enters foreground and unlocks -> then it's OK.
@@ -153,10 +158,9 @@ class SecurityCenter {
             // sensitive store can ask passcode and biometrics to access the items, depending on the lock method.
             // data store only asks for passcode if that's the lock method. Otherwise, it uses biometric authentication.
             let lockMethodsWithPassword: [LockMethod] = store === sensitiveStore ? [.passcode, .passcodeAndUserPresence] : [.passcode]
-            let lockMethodsWithBiometry: [LockMethod] = [.userPresence, .passcodeAndUserPresence]
-
+            
             newStorePassword = lockMethodsWithPassword.contains(AppSettings.securityLockMethod) ? newDerivedPassword! : nil
-            biometryUsed = lockMethodsWithBiometry.contains(AppSettings.securityLockMethod)
+            biometryUsed = AppSettings.securityLockMethod.isUserPresenceRequired()
         } else {
             newStorePassword = nil
             biometryUsed = false

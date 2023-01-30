@@ -34,15 +34,7 @@ class RepeatChangedPasscodeViewController: PasscodeViewController {
         super.willChangeText(text)
         errorLabel.isHidden = true
         if text == passcode {
-            do {
-                try App.shared.auth.changePasscode(newPasscodeInPlaintext: text)
-                App.shared.snackbar.show(message: "Passcode changed")
-                navigationController?.dismiss(animated: true) { [unowned self] in
-                    self.completion()
-                }
-            } catch {
-                showGenericError(description: "Failed to change passcode", error: error)
-            }
+            completion()
         } else if text.count == passcodeLength {
             showError("Passcodes don't match")
         }

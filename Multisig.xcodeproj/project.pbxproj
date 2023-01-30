@@ -54,6 +54,7 @@
 		044A54492448D0B6009CBB80 /* QRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */; };
 		044A544E2448E5CF009CBB80 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544D2448E5CF009CBB80 /* Localizable.strings */; };
 		044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544F2448E5F7009CBB80 /* InfoPlist.strings */; };
+		044BEE002987DDD000F533B0 /* ChangePasscodeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044BEDFF2987DDD000F533B0 /* ChangePasscodeFlow.swift */; };
 		0455A42B271F73B7008B772D /* AddressBookEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42A271F73B7008B772D /* AddressBookEntry.swift */; };
 		0455A42E27204181008B772D /* AddressBookListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42D27204181008B772D /* AddressBookListTableViewController.swift */; };
 		0455A43127204A5B008B772D /* CreateAddressBookEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42F27204A5B008B772D /* CreateAddressBookEntryViewController.swift */; };
@@ -1030,6 +1031,7 @@
 		044A54462448D0B6009CBB80 /* QRCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScannerViewController.swift; sourceTree = "<group>"; };
 		044A544D2448E5CF009CBB80 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		044A544F2448E5F7009CBB80 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		044BEDFF2987DDD000F533B0 /* ChangePasscodeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasscodeFlow.swift; sourceTree = "<group>"; };
 		0455A42A271F73B7008B772D /* AddressBookEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookEntry.swift; sourceTree = "<group>"; };
 		0455A42D27204181008B772D /* AddressBookListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookListTableViewController.swift; sourceTree = "<group>"; };
 		0455A42F27204A5B008B772D /* CreateAddressBookEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAddressBookEntryViewController.swift; sourceTree = "<group>"; };
@@ -2787,6 +2789,7 @@
 				0A5B157B280863DF003AD853 /* EnterPasscodeViewController.swift */,
 				0A22E11B25E4FA2000D24DE1 /* SecuritySettingsViewController.swift */,
 				0A5C0C5528191F400061D96F /* PasscodeProtecting.swift */,
+				044BEDFF2987DDD000F533B0 /* ChangePasscodeFlow.swift */,
 			);
 			path = Passcode;
 			sourceTree = "<group>";
@@ -4986,6 +4989,7 @@
 				0A8CDD5327A85C0D0020066C /* TransactionExecutionLookup.swift in Sources */,
 				0A5B15842808643B003AD853 /* CreatePasscodeViewController.swift in Sources */,
 				0A04506D278D973C00650F71 /* ReviewExecutionContentViewController.swift in Sources */,
+				044BEE002987DDD000F533B0 /* ChangePasscodeFlow.swift in Sources */,
 				D86517732760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift in Sources */,
 				6AAE34E8282A833D00CCFC95 /* EnterOwnerNameViewController.swift in Sources */,
 				0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */,

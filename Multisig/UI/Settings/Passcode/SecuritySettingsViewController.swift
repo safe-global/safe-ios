@@ -34,6 +34,7 @@ class SecuritySettingsViewController: UITableViewController {
 
     private var data: [(section: Section, rows: [Row])] = []
     private var createPasscodeFlow: CreatePasscodeFlow!
+    private var changePasscodeFlow: ChangePasscodeFlow!
 
     private var isPasscodeSet: Bool {
         App.shared.auth.isPasscodeSetAndAvailable
@@ -74,11 +75,13 @@ class SecuritySettingsViewController: UITableViewController {
 
     @objc private func reloadData() {
         if isPasscodeSet {
-            data = [
-                (section: .lockMethod, rows: [.enableSecurityLock, .lockMethod]),
-                (section: .passcode, rows: [.changePasscode]),
-                (section: .usePasscodeFor, rows: [.requireToOpenApp, .requireForConfirmations, .oneOptionSelectedText])
-            ]
+            data = [(section: .lockMethod, rows: [.enableSecurityLock, .lockMethod])]
+
+            if lock.isPasscodeRequired() {
+                data.append((section: .passcode, rows: [.changePasscode]))
+            }
+
+            data.append((section: .usePasscodeFor, rows: [.requireToOpenApp, .requireForConfirmations, .oneOptionSelectedText]))
 
             // if user disables biometry, we can't keep it enabled in app settings.
             // Having this on reloadData() works because when biometry settings changed on the device
@@ -123,7 +126,7 @@ class SecuritySettingsViewController: UITableViewController {
 
     private func deletePasscode() {
         if AppConfiguration.FeatureToggles.securityCenter {
-            try! App.shared.auth.deletePasscode()
+            disablePasscode()
         } else {
             withPasscodeAuthentication(for: "Enter Passcode") { [unowned self] success, _, finish in
                 if success {
@@ -147,16 +150,11 @@ class SecuritySettingsViewController: UITableViewController {
     }
 
     private func changePasscode() {
-        withPasscodeAuthentication(for: "Change Passcode", tracking: .changePasscode) { success, nav, finish in
-            if success {
-                let changeVC = ChangePasscodeEnterNewViewController {
-                    finish()
-                }
-                nav?.pushViewController(changeVC, animated: true)
-            } else {
-                finish()
-            }
-        }
+        changePasscodeFlow = ChangePasscodeFlow(completion: { [unowned self] _ in
+            changePasscodeFlow = nil
+            reloadData()
+        })
+        present(flow: changePasscodeFlow)
     }
 
     private func toggleUsage(option: PasscodeOptions, reason: String) {
