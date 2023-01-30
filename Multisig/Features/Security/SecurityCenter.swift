@@ -135,6 +135,11 @@ class SecurityCenter {
         }
     }
 
+    func changePasscode(oldPasscode: String, newPasscode: String) throws {
+        try changeStoreSettings(currentPlaintextPassword: oldPasscode, newPlaintextPassword: newPasscode, store: sensitiveStore)
+        try changeStoreSettings(currentPlaintextPassword: oldPasscode, newPlaintextPassword: newPasscode, store: dataStore)
+    }
+
     // TODO: we need to keep the dataStore unlocked when the app is in foreground, i.e. to unlock it once:
         // when the lock is enabled -> app becomes unlocked
         // when the app enters foreground and unlocks -> then it's OK.
