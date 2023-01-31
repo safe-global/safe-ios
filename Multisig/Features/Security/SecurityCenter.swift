@@ -303,6 +303,22 @@ class SecurityCenter {
         }
     }
 
+    func shouldShowPasscode(for accessScope: [ProtectionClass] = [.data, .sensitive]) -> Bool {
+        return AppSettings.securityLockEnabled &&
+        (
+            accessScope.contains(.sensitive) && AppSettings.passcodeOptions.contains(.useForConfirmation) && [LockMethod.passcode, .passcodeAndUserPresence].contains(AppSettings.securityLockMethod) ||
+            accessScope.contains(.data) && AppSettings.passcodeOptions.contains(.useForLogin) && [LockMethod.passcode].contains(AppSettings.securityLockMethod)
+        )
+    }
+
+    func shouldShowFaceID(for accessScope: [ProtectionClass] = [.data, .sensitive]) -> Bool {
+        return AppSettings.securityLockEnabled &&
+        (
+            accessScope.contains(.sensitive) && AppSettings.passcodeOptions.contains(.useForConfirmation) && [LockMethod.userPresence].contains(AppSettings.securityLockMethod) ||
+            accessScope.contains(.data) && AppSettings.passcodeOptions.contains(.useForLogin) && [LockMethod.userPresence].contains(AppSettings.securityLockMethod)
+        )
+    }
+
     private func requestPasswordV2(for accessScope: [ProtectionClass], task: @escaping (_ plaintextPasscode: String?) throws -> Void, onFailure: @escaping (_ error: Error) -> Void) {
         let needsUserPasscode =
             AppSettings.securityLockEnabled &&
