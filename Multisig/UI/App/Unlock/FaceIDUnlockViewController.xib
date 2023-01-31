@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FaceIDUnlockViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="Zii-G0-Pfq" id="neu-Bg-20J"/>
+                <outlet property="unlockButton" destination="D58-Xa-mTf" id="B3C-F1-5Fs"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zii-G0-Pfq">
+                    <rect key="frame" x="0.0" y="44" width="414" height="746"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D58-Xa-mTf">
+                    <rect key="frame" x="16" y="790" width="382" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="btc-eh-KPX"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Button">
+                        <color key="titleColor" name="labelPrimary"/>
+                    </state>
+                    <connections>
+                        <action selector="didTapUnlock:" destination="-1" eventType="touchUpInside" id="Cit-pa-41Z"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" name="backgroundPrimary"/>
+            <constraints>
+                <constraint firstItem="Zii-G0-Pfq" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="6xS-i6-s3N"/>
+                <constraint firstItem="Zii-G0-Pfq" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="9rH-PN-TM7"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="D58-Xa-mTf" secondAttribute="bottom" constant="16" id="LDY-bt-Po3"/>
+                <constraint firstItem="D58-Xa-mTf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="cFO-hV-V39"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="D58-Xa-mTf" secondAttribute="trailing" constant="16" id="foV-Yq-SlG"/>
+                <constraint firstItem="D58-Xa-mTf" firstAttribute="top" secondItem="Zii-G0-Pfq" secondAttribute="bottom" id="gND-OU-XWW"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Zii-G0-Pfq" secondAttribute="trailing" id="jzb-30-Eha"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="70"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="backgroundPrimary">
+            <color red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="labelPrimary">
+            <color red="0.070588235294117646" green="0.074509803921568626" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
