@@ -163,6 +163,49 @@ class SecurityCenter {
         try changeStoreSettings(currentPlaintextPassword: oldPasscode, newPlaintextPassword: newPasscode, store: dataStore)
     }
 
+    func toggleUsage(passcodeOption: PasscodeOptions, completion: @escaping (Error?) -> Void) {
+        let enabledOptions = AppSettings.passcodeOptions
+
+        let isBothTogglesWillBeOff = AppSettings.passcodeOptions.contains(passcodeOption) &&
+            AppSettings.passcodeOptions
+                .subtracting(passcodeOption)
+                .isDisjoint(with: [.useForLogin, .useForConfirmation])
+
+        if isBothTogglesWillBeOff {
+            disableSecurityLock(completion: completion)
+            return
+        }
+
+        let protectionClass: ProtectionClass = passcodeOption == .useForLogin ? .data : .sensitive
+        let protectedKeyStore: ProtectedKeyStore = passcodeOption == .useForLogin ? dataStore : sensitiveStore
+
+        let isToggleWillBeOff: Bool = enabledOptions.contains(passcodeOption)
+        if isToggleWillBeOff {
+            requestPasswordV2(for: [protectionClass]) { [unowned self] plaintextPasscode in
+                AppSettings.passcodeOptions.remove(passcodeOption)
+                try changeStoreSettings(currentPlaintextPassword: plaintextPasscode,
+                                        newPlaintextPassword: nil,
+                                        store: protectedKeyStore)
+            } onFailure: { error in
+                AppSettings.passcodeOptions.insert(passcodeOption)
+                completion(error)
+            }
+        } else {
+            let otherProtectionClass: ProtectionClass = protectionClass == .sensitive ? .data : .sensitive
+
+            requestPasswordV2(for: [otherProtectionClass]) { [unowned self] plaintextPasscode in
+                AppSettings.passcodeOptions.insert(passcodeOption)
+                try changeStoreSettings(currentPlaintextPassword: nil,
+                                        newPlaintextPassword: plaintextPasscode,
+                                        store: protectedKeyStore)
+                completion(nil)
+            } onFailure: { error in
+                AppSettings.passcodeOptions.remove(passcodeOption)
+                completion(error)
+            }
+        }
+    }
+
     // TODO: we need to keep the dataStore unlocked when the app is in foreground, i.e. to unlock it once:
         // when the lock is enabled -> app becomes unlocked
         // when the app enters foreground and unlocks -> then it's OK.
