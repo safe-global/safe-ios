@@ -186,15 +186,20 @@ class SecurityCenter {
                 try changeStoreSettings(currentPlaintextPassword: plaintextPasscode,
                                         newPlaintextPassword: nil,
                                         store: protectedKeyStore)
+                completion(nil)
             } onFailure: { error in
                 AppSettings.passcodeOptions.insert(passcodeOption)
                 completion(error)
             }
         } else {
             let otherProtectionClass: ProtectionClass = protectionClass == .sensitive ? .data : .sensitive
+            let otherProtectedKeyStore: ProtectedKeyStore = otherProtectionClass == .data ? dataStore : sensitiveStore
 
             requestPasswordV2(for: [otherProtectionClass]) { [unowned self] plaintextPasscode in
+                let currentDerivedPassword = plaintextPasscode.map { derivedKey(from: $0) }
+                try otherProtectedKeyStore.authenticate(password: currentDerivedPassword)
                 AppSettings.passcodeOptions.insert(passcodeOption)
+
                 try changeStoreSettings(currentPlaintextPassword: nil,
                                         newPlaintextPassword: plaintextPasscode,
                                         store: protectedKeyStore)
@@ -251,6 +256,7 @@ class SecurityCenter {
 
             try changeStoreSettings(currentPlaintextPassword: plaintextPasscode, newPlaintextPassword: nil, store: sensitiveStore)
             try changeStoreSettings(currentPlaintextPassword: plaintextPasscode, newPlaintextPassword: nil, store: dataStore)
+            AppSettings.securityLockEnabled = false
             completion(nil)
         } onFailure: { error in
             AppSettings.passcodeOptions = oldOptions
