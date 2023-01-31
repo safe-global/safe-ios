@@ -179,8 +179,8 @@ class SecurityCenter {
         let protectionClass: ProtectionClass = passcodeOption == .useForLogin ? .data : .sensitive
         let protectedKeyStore: ProtectedKeyStore = passcodeOption == .useForLogin ? dataStore : sensitiveStore
 
-        let isToggleWillBeOff: Bool = enabledOptions.contains(passcodeOption)
-        if isToggleWillBeOff {
+        let toggleWillBeOff: Bool = enabledOptions.contains(passcodeOption)
+        if toggleWillBeOff {
             requestPasswordV2(for: [protectionClass]) { [unowned self] plaintextPasscode in
                 AppSettings.passcodeOptions.remove(passcodeOption)
                 try changeStoreSettings(currentPlaintextPassword: plaintextPasscode,
