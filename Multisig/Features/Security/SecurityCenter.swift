@@ -182,7 +182,6 @@ class SecurityCenter {
         let toggleWillBeOff: Bool = enabledOptions.contains(passcodeOption)
         if toggleWillBeOff {
             requestPasswordV2(for: [protectionClass]) { [unowned self] plaintextPasscode in
-                let currentDerivedPassword = plaintextPasscode.map { derivedKey(from: $0) }
                 AppSettings.passcodeOptions.remove(passcodeOption)
                 try changeStoreSettings(currentPlaintextPassword: plaintextPasscode,
                                         newPlaintextPassword: nil,
