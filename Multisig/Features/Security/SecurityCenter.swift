@@ -20,6 +20,8 @@ class SecurityCenter {
     private static let appUnlockChallengeID = "global.safe.AppUnlockChallenge"
     private static let challenge = "I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but water kills me. What am I?"
 
+    private var dataStoreKey: SecKey? = nil
+
     var securityLockEnabled: Bool {
         AppSettings.securityLockEnabled
     }
@@ -36,6 +38,14 @@ class SecurityCenter {
 
     private convenience init() {
         self.init(sensitiveStore: ProtectedKeyStore(protectionClass: .sensitive, KeychainItemStore()), dataStore: ProtectedKeyStore(protectionClass: .data, KeychainItemStore()))
+    }
+
+    func unlockDataStore() throws {
+        try dataStore.unlock()
+    }
+
+    func lockDataStore() {
+        dataStore.lock()
     }
 
     // MARK: - Business Logic Operations
