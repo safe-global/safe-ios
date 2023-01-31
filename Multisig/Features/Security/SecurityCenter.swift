@@ -166,12 +166,12 @@ class SecurityCenter {
     func toggleUsage(passcodeOption: PasscodeOptions, completion: @escaping (Error?) -> Void) {
         let enabledOptions = AppSettings.passcodeOptions
 
-        let isBothTogglesWillBeOff = AppSettings.passcodeOptions.contains(passcodeOption) &&
+        let bothTogglesWillBeOff = AppSettings.passcodeOptions.contains(passcodeOption) &&
             AppSettings.passcodeOptions
                 .subtracting(passcodeOption)
                 .isDisjoint(with: [.useForLogin, .useForConfirmation])
 
-        if isBothTogglesWillBeOff {
+        if bothTogglesWillBeOff {
             disableSecurityLock(completion: completion)
             return
         }
