@@ -161,19 +161,29 @@ class SecuritySettingsViewController: UITableViewController {
     }
 
     private func toggleUsage(option: PasscodeOptions, reason: String) {
-        withPasscodeAuthentication(for: reason) { [unowned self] success, _, finish in
-            if success && AppSettings.passcodeOptions.contains(option) {
-                AppSettings.passcodeOptions.remove(option)
-            } else if success {
-                AppSettings.passcodeOptions.insert(option)
+        if AppConfiguration.FeatureToggles.securityCenter {
+            App.shared.securityCenter.toggleUsage(passcodeOption: option) { [unowned self] error in
+                if let error {
+                    App.shared.snackbar.show(message: "Failed to toggle usage \(error)")
+                } else {
+                    reloadData()
+                }
             }
+        } else {
+            withPasscodeAuthentication(for: reason) { [unowned self] success, _, finish in
+                if success && AppSettings.passcodeOptions.contains(option) {
+                    AppSettings.passcodeOptions.remove(option)
+                } else if success {
+                    AppSettings.passcodeOptions.insert(option)
+                }
 
-            if AppSettings.passcodeOptions.isDisjoint(with: [.useForConfirmation, .useForLogin]) {
-                disablePasscode()
+                if AppSettings.passcodeOptions.isDisjoint(with: [.useForConfirmation, .useForLogin]) {
+                    disablePasscode()
+                }
+
+                finish()
+                reloadData()
             }
-
-            finish()
-            reloadData()
         }
     }
 
