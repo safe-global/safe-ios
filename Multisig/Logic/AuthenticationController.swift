@@ -86,8 +86,6 @@ class AuthenticationController {
                 if let error = error {
                     LogService.shared.error("Failed to delete passcode: \(error)")
                 } else {
-                    AppSettings.securityLockEnabled = false
-
                     NotificationCenter.default.post(name: .passcodeDeleted, object: nil)
 
                     Tracker.setPasscodeIsSet(to: false)

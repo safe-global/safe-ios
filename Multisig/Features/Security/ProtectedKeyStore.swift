@@ -50,6 +50,20 @@ class ProtectedKeyStore: EncryptedStore {
         try store.delete(item)
     }
 
+    func authenticate(password userPassword: String? = nil) throws {
+        let encryptedSensitiveKey = try store.find(KeychainItem.generic(account: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service())) as? Data
+        let passwordData = userPassword != nil ? userPassword?.data(using: .utf8) : try store.find(KeychainItem.generic(account: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service())) as! Data?
+        let sensitiveKEK = try store.find(KeychainItem.enclaveKey(tag: ProtectedKeyStore.privateKEKTag, service: protectionClass.service(), password: passwordData)) as! SecKey
+
+        // Decrypt sensitive key
+        let decryptedSensitiveKeyData = try encryptedSensitiveKey?.decrypt(privateKey: sensitiveKEK)
+        var error: Unmanaged<CFError>?
+        guard let _ = SecKeyCreateWithData(decryptedSensitiveKeyData! as CFData, try KeychainItem.ecKeyPair.creationAttributes(), &error) else {
+            // will fail here if password was wrong
+            throw error!.takeRetainedValue() as Error
+        }
+    }
+
     func find(dataID: DataID, password userPassword: String?) throws -> Data? {
         guard let encryptedData = try store.find(KeychainItem.generic(account: dataID.id, service: protectionClass.service())) as? Data else {
             return nil
