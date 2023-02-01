@@ -110,6 +110,9 @@ enum KeychainItem {
             ]
             if let context = LAContext(password: password) {
                 privateKeyAttrs[kSecUseAuthenticationContext] = context
+            } else {
+                // In case password is worng
+                return [:]
             }
             result = [
                 kSecClass: kSecClassKey,
