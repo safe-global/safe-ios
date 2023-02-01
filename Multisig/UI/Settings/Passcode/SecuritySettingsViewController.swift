@@ -63,8 +63,6 @@ class SecuritySettingsViewController: UITableViewController {
             self, selector: #selector(reloadData), name: .biometricsActivated, object: nil)
         NotificationCenter.default.addObserver(
             self, selector: #selector(reloadData), name: .passcodeDeleted, object: nil)
-        NotificationCenter.default.addObserver(
-            self, selector: #selector(reloadData), name: .securitySettingsChanged, object: nil)
 
         reloadData()
     }
@@ -129,28 +127,17 @@ class SecuritySettingsViewController: UITableViewController {
 
     private func deletePasscode() {
         if AppConfiguration.FeatureToggles.securityCenter {
-            disablePasscode()
+            App.shared.auth.deletePasscode()
         } else {
-            withPasscodeAuthentication(for: "Enter Passcode") { [unowned self] success, _, finish in
+            withPasscodeAuthentication(for: "Enter Passcode") { success, _, finish in
                 if success {
-                    disablePasscode()
+                    App.shared.auth.deletePasscode()
                 }
                 finish()
             }
         }
     }
 
-    private func disablePasscode() {
-        do {
-            try App.shared.auth.deletePasscode()
-            App.shared.snackbar.show(message: "Passcode disabled")
-        } catch {
-            let uiError = GSError.error(
-                description: "Failed to delete passcode",
-                error: GSError.GenericPasscodeError(reason: error.localizedDescription))
-            App.shared.snackbar.show(error: uiError)
-        }
-    }
 
     private func changePasscode() {
         changePasscodeFlow = ChangePasscodeFlow(completion: { [unowned self] _ in
@@ -178,7 +165,7 @@ class SecuritySettingsViewController: UITableViewController {
                 }
 
                 if AppSettings.passcodeOptions.isDisjoint(with: [.useForConfirmation, .useForLogin]) {
-                    disablePasscode()
+                    App.shared.auth.deletePasscode()
                 }
 
                 finish()
