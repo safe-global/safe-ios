@@ -8,21 +8,17 @@
 
 import UIKit
 
-class FaceIDUnlockViewController: ContainerViewController {
+class FaceIDUnlockViewController: UIViewController {
 
-    @IBOutlet private weak var contentView: UIView!
+    @IBOutlet private weak var label: UILabel!
 
     @IBOutlet private weak var unlockButton: UIButton!
 
-    private var contentController: PrivacyProtectionScreenViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        contentController = PrivacyProtectionScreenViewController()
-        viewControllers = [contentController]
-        displayChild(at: 0, in: contentView)
-
+        label.setStyle(.body)
         unlockButton.setText("Unlock", .filled)
     }
 
