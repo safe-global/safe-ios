@@ -149,7 +149,7 @@ class SecurityCenter {
             AppSettings.securityLockMethod = newMethod
 
             // Change settings should be done only for the enabled store
-            // Change settings for disabled store will through an exception
+            // Change settings for disabled store will throw an exception
             if AppSettings.passcodeOptions.contains(.useForConfirmation) {
                 try changeStoreSettings(currentPlaintextPassword: oldPasscode,
                                         newPlaintextPassword: changedPasscode,

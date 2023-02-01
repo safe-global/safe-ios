@@ -58,7 +58,6 @@ enum KeychainItem {
             ]
 
         case let .enclaveKey(tag, service, password, _):
-
             result = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,
@@ -69,6 +68,9 @@ enum KeychainItem {
 
             if let context = LAContext(password: password) {
                 result[kSecUseAuthenticationContext] = context
+            }  else {
+                // Without this line, keychain item can be accessible with worng passcode if it has been initated without passcode
+                return [:]
             }
         case let .ecPubKey(tag, service, _):
             result = [
@@ -110,9 +112,6 @@ enum KeychainItem {
             ]
             if let context = LAContext(password: password) {
                 privateKeyAttrs[kSecUseAuthenticationContext] = context
-            } else {
-                // In case password is worng
-                return [:]
             }
             result = [
                 kSecClass: kSecClassKey,
