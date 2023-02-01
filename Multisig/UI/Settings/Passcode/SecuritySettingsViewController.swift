@@ -150,7 +150,7 @@ class SecuritySettingsViewController: UITableViewController {
     private func toggleUsage(option: PasscodeOptions, reason: String) {
         if AppConfiguration.FeatureToggles.securityCenter {
             App.shared.securityCenter.toggleUsage(passcodeOption: option) { [unowned self] error in
-                if let error {
+                if let error = error {
                     App.shared.snackbar.show(message: "Failed to toggle usage \(error)")
                 } else {
                     reloadData()

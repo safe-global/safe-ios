@@ -20,7 +20,6 @@ class SecurityCenter {
     private static let appUnlockChallengeID = "global.safe.AppUnlockChallenge"
     private static let challenge = "I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but water kills me. What am I?"
 
-    private var dataStoreKey: SecKey? = nil
 
     var securityLockEnabled: Bool {
         AppSettings.securityLockEnabled
