@@ -68,9 +68,6 @@ enum KeychainItem {
 
             if let context = LAContext(password: password) {
                 result[kSecUseAuthenticationContext] = context
-            }  else {
-                // Without this line, keychain item can be accessible with worng passcode if it has been initated without passcode
-                return [:]
             }
         case let .ecPubKey(tag, service, _):
             result = [
