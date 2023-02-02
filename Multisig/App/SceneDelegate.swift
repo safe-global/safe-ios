@@ -122,6 +122,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 #endif
         // Save changes in the application's managed object context when the application transitions to the background.
         App.shared.coreDataStack.saveContext()
+
+        App.shared.securityCenter.lockDataStore()
     }
 
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
@@ -228,6 +230,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return tabBarWindow
     }
 
+    func makeFaceIUnlockDWindow() -> UIWindow {
+        let faceIDUnlockWindow = makeWindow(scene: scene!)
+        faceIDUnlockWindow.rootViewController = ViewControllerFactory.faceIDUnlockViewController { [unowned self] in
+            onEnterPasscodeCompletion()
+        }
+        return faceIDUnlockWindow
+    }
+
     func makeEnterPasscodeWindow() -> UIWindow {
         let enterPasscodeWindow = makeWindow(scene: scene!)
         enterPasscodeWindow.rootViewController = ViewControllerFactory.enterPasscodeViewController { [unowned self] in
@@ -275,10 +285,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func onAppUpdateCompletion() {
         if !AppSettings.termsAccepted {
             showWindow(makeTermsWindow())
-        // TODO: Enable when implemented new security center 
+        // TODO: Enable when implemented new security center
         } else if shouldShowPasscode && !AppConfiguration.FeatureToggles.securityCenter {
             showWindow(makeEnterPasscodeWindow())
-        } else if !AppSettings.onboardingCompleted {
+        }
+        else if App.shared.securityCenter.shouldShowFaceID() {
+            showWindow(makeFaceIUnlockDWindow())
+        } else if App.shared.securityCenter.shouldShowPasscode() {
+            showWindow(makeEnterPasscodeWindow())
+        }
+
+        else if !AppSettings.onboardingCompleted {
             showOnboardingWindow()
         } else {
             showMainContentWindow()
@@ -286,8 +303,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func showMainContentWindow() {
-        showWindow(tabBarWindow)
-        App.shared.intercomConfig.appDidShowMainContent()
+        do {
+            if AppConfiguration.FeatureToggles.securityCenter {
+                try App.shared.securityCenter.unlockDataStore()
+            }
+            showWindow(tabBarWindow)
+            App.shared.intercomConfig.appDidShowMainContent()
+        } catch {
+            LogService.shared.error("Failed to unlock", error: error)
+        }
     }
 
     func onTermsCompletion() {

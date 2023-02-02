@@ -29,6 +29,14 @@ enum ViewControllerFactory {
         return tabBarVC
     }
 
+    static func faceIDUnlockViewController(completion: @escaping () -> Void) -> UIViewController {
+        let vc = FaceIDUnlockViewController()
+        vc.completion = { _, _ in
+            completion()
+        }
+        return UINavigationController(rootViewController: vc)
+    }
+
     static func enterPasscodeViewController(completion: @escaping () -> Void) -> UIViewController {
         let vc = EnterPasscodeViewController()
         vc.showsCloseButton = false
