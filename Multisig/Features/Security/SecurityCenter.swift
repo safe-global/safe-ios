@@ -148,9 +148,20 @@ class SecurityCenter {
 
             AppSettings.securityLockMethod = newMethod
 
-            try changeStoreSettings(currentPlaintextPassword: oldPasscode, newPlaintextPassword: changedPasscode, store: sensitiveStore)
-            try changeStoreSettings(currentPlaintextPassword: oldPasscode, newPlaintextPassword: changedPasscode, store: dataStore)
-            NotificationCenter.default.post(name: .securitySettingsChanged, object: self)
+            // Change settings should be done only for the enabled store
+            // Change settings for disabled store will throw an exception
+            if AppSettings.passcodeOptions.contains(.useForConfirmation) {
+                try changeStoreSettings(currentPlaintextPassword: oldPasscode,
+                                        newPlaintextPassword: changedPasscode,
+                                        store: sensitiveStore)
+            }
+
+            if AppSettings.passcodeOptions.contains(.useForLogin) {
+                try changeStoreSettings(currentPlaintextPassword: oldPasscode,
+                                        newPlaintextPassword: changedPasscode,
+                                        store: dataStore)
+            }
+
             completion(nil)
         } onFailure: { error in
             AppSettings.securityLockMethod = oldMethod
@@ -159,8 +170,17 @@ class SecurityCenter {
     }
 
     func changePasscode(oldPasscode: String, newPasscode: String) throws {
-        try changeStoreSettings(currentPlaintextPassword: oldPasscode, newPlaintextPassword: newPasscode, store: sensitiveStore)
-        try changeStoreSettings(currentPlaintextPassword: oldPasscode, newPlaintextPassword: newPasscode, store: dataStore)
+        if AppSettings.passcodeOptions.contains(.useForConfirmation) {
+            try changeStoreSettings(currentPlaintextPassword: oldPasscode,
+                                    newPlaintextPassword: newPasscode,
+                                    store: sensitiveStore)
+        }
+
+        if AppSettings.passcodeOptions.contains(.useForLogin) {
+            try changeStoreSettings(currentPlaintextPassword: oldPasscode,
+                                    newPlaintextPassword: newPasscode,
+                                    store: dataStore)
+        }
     }
 
     func toggleUsage(passcodeOption: PasscodeOptions, completion: @escaping (Error?) -> Void) {
@@ -251,11 +271,20 @@ class SecurityCenter {
         let oldOptions = AppSettings.passcodeOptions
 
         requestPasswordV2(for: [.sensitive, .data]) { [unowned self] plaintextPasscode in
-            // disable all locks
-            AppSettings.passcodeOptions = []
+            if AppSettings.passcodeOptions.contains(.useForConfirmation) {
+                AppSettings.passcodeOptions.remove(.useForConfirmation)
+                try changeStoreSettings(currentPlaintextPassword: plaintextPasscode,
+                                        newPlaintextPassword: nil,
+                                        store: sensitiveStore)
+            }
 
-            try changeStoreSettings(currentPlaintextPassword: plaintextPasscode, newPlaintextPassword: nil, store: sensitiveStore)
-            try changeStoreSettings(currentPlaintextPassword: plaintextPasscode, newPlaintextPassword: nil, store: dataStore)
+            if AppSettings.passcodeOptions.contains(.useForLogin) {
+                AppSettings.passcodeOptions.remove(.useForLogin)
+                try changeStoreSettings(currentPlaintextPassword: plaintextPasscode,
+                                        newPlaintextPassword: nil,
+                                        store: dataStore)
+            }
+
             AppSettings.securityLockEnabled = false
             completion(nil)
         } onFailure: { error in

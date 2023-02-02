@@ -58,7 +58,6 @@ enum KeychainItem {
             ]
 
         case let .enclaveKey(tag, service, password, _):
-
             result = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPrivate,

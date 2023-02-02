@@ -79,9 +79,8 @@ class AuthenticationController {
 
     /// Deletes the stored passcode. If passcode not set, this operation
     /// does not have any effect.
-    func deletePasscode(trackingEvent: TrackingEvent = .userPasscodeDisabled) throws {
+    func deletePasscode(trackingEvent: TrackingEvent = .userPasscodeDisabled) {
         if AppConfiguration.FeatureToggles.securityCenter {
-
             App.shared.securityCenter.disableSecurityLock { error in
                 if let error = error {
                     LogService.shared.error("Failed to delete passcode: \(error)")
@@ -95,13 +94,22 @@ class AuthenticationController {
                 }
             }
         } else {
-            guard let user = user else { return }
-            try accessService.deleteUser(userID: user.id)
+            do {
+                guard let user = user else { return }
+                try accessService.deleteUser(userID: user.id)
 
-            NotificationCenter.default.post(name: .passcodeDeleted, object: nil)
+                NotificationCenter.default.post(name: .passcodeDeleted, object: nil)
 
-            Tracker.setPasscodeIsSet(to: false)
-            Tracker.trackEvent(trackingEvent)
+                Tracker.setPasscodeIsSet(to: false)
+                Tracker.trackEvent(trackingEvent)
+
+                App.shared.snackbar.show(message: "Passcode disabled")
+            } catch {
+                let uiError = GSError.error(
+                    description: "Failed to delete passcode",
+                    error: GSError.GenericPasscodeError(reason: error.localizedDescription))
+                App.shared.snackbar.show(error: uiError)
+            }
         }
     }
 
