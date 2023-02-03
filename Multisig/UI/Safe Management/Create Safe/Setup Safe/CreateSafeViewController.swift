@@ -680,13 +680,16 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func userDidSubmit() {
         // request passcode if needed and sign
-
-        authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
-            guard let self = self else { return }
-            if success {
-                self.sign()
-            } else if reset {
-                self.dismiss(animated: false, completion: nil)
+        if AppConfiguration.FeatureToggles.securityCenter {
+            self.sign()
+        } else {
+            authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
+                guard let self = self else { return }
+                if success {
+                    self.sign()
+                } else if reset {
+                    self.dismiss(animated: false, completion: nil)
+                }
             }
         }
     }

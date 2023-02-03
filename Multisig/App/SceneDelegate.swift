@@ -52,6 +52,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let userActivity = connectionOptions.userActivities.first {
             handleUserActivity(userActivity)
         }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePasscodeRequired),
+                                       name: .passcodeRequired,
+                                       object: nil)
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
@@ -228,11 +232,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return tabBarWindow
     }
 
-    func makeEnterPasscodeWindow() -> UIWindow {
+    func makeEnterPasscodeWindow(showsCloseButton: Bool = false,
+                                 onPasscodeEnter: ((String?) throws -> Void)? = nil,
+                                 onError: ((Error) -> Void)? = nil) -> UIWindow {
         let enterPasscodeWindow = makeWindow(scene: scene!)
-        enterPasscodeWindow.rootViewController = ViewControllerFactory.enterPasscodeViewController { [unowned self] in
+
+        let vc = ViewControllerFactory.enterPasscodeViewController (showsCloseButton: showsCloseButton,
+                                                                    completion: { [unowned self] in
             onEnterPasscodeCompletion()
-        }
+        }, onPasscodeEnter: onPasscodeEnter, onError: onError)
+
+        enterPasscodeWindow.rootViewController = vc
         return enterPasscodeWindow
     }
 
@@ -315,6 +325,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             App.shared.appReview.pullAppReviewTrigger()
         }
+    }
+
+    @objc private func handlePasscodeRequired(_ notification: Notification) {
+        guard
+            let task = notification.userInfo?["accessTask"] as? (_ password: String?) throws -> Void,
+            let onFailure = notification.userInfo?["onFailure"] as? (_ error: Error) -> Void
+        else {
+            return
+        }
+
+        showWindow(makeEnterPasscodeWindow(showsCloseButton: true,
+                                           onPasscodeEnter: { [weak self] pwd in
+            try task(pwd)
+            self?.showMainContentWindow()
+        }, onError: { [weak self] error in
+            if let str = error as? String, str == "Cancelled" {
+                self?.showMainContentWindow()
+            }
+            onFailure(error)
+        }))
     }
 }
 

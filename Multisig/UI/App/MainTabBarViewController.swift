@@ -102,10 +102,6 @@ class MainTabBarViewController: UITabBarController {
             name: .passcodeDeleted,
             object: nil)
 
-        notificationCenter.addObserver(self, selector: #selector(handlePasscodeRequired),
-                                       name: .passcodeRequired,
-                                       object: nil)
-
         WebConnectionController.shared.attach(observer: self)
     }
 
@@ -315,48 +311,6 @@ class MainTabBarViewController: UITabBarController {
         if presentedViewController != nil {
             dismiss(animated: true)
         }
-    }
-
-    @objc private func handlePasscodeRequired(_ notification: Notification) {
-        guard
-            let task = notification.userInfo?["accessTask"] as? (_ password: String?) throws -> Void,
-            let onFailure = notification.userInfo?["onFailure"] as? (_ error: Error) -> Void
-        else {
-            return
-        }
-
-        let passcodeVC = EnterPasscodeViewController()
-        passcodeVC.usesBiometry = false
-        passcodeVC.onPasscodeEnter = { [weak self] pwd in
-            try task(pwd)
-            self?.dismiss(animated: true)
-        }
-        passcodeVC.onError = { [weak self] error in
-            if let str = error as? String, str == "Cancelled" {
-                self?.dismiss(animated: true)
-            }
-            onFailure(error)
-        }
-        let nav = UINavigationController(rootViewController: passcodeVC)
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: true)
-
-//        let completion = notification.userInfo?["completion"] as? ((Bool, Bool, String?) -> ())
-//        if App.shared.auth.isPasscodeSetAndAvailable {
-//            let passcodeVC = EnterPasscodeViewController()
-//            passcodeVC.usesBiometry = false
-//            passcodeVC.passcodeCompletion = { [weak self] success, reset, passcode in
-//                self?.dismiss(animated: true) {
-//                    completion?(success, reset, passcode)
-//                }
-//            }
-//
-//            let nav = UINavigationController(rootViewController: passcodeVC)
-//            nav.modalPresentationStyle = .fullScreen
-//            present(nav, animated: true)
-//        } else {
-//            completion?(true, false, nil)
-//        }
     }
 
     private func presentSuccessDeployment(safe: Safe) {
