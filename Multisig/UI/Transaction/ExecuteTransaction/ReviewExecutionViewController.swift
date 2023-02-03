@@ -316,13 +316,18 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     @IBAction func didTapSubmit(_ sender: Any) {
         self.submitButton.isEnabled = false
 
-        authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
-            guard let self = self else { return }
-            if success {
-                self.sign()
-            }
-
+        if AppConfiguration.FeatureToggles.securityCenter {
+            self.sign()
             self.submitButton.isEnabled = true
+        } else {
+            authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
+                guard let self = self else { return }
+                if success {
+                    self.sign()
+                }
+
+                self.submitButton.isEnabled = true
+            }
         }
     }
 

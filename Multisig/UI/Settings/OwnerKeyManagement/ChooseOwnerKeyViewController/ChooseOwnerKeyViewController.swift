@@ -246,8 +246,12 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
         } else if keyInfo.keyType == .ledgerNanoX || keyInfo.keyType == .keystone {
             completionHandler?(keyInfo)
         } else if requestsPassCode {
-            authenticate(options: [.useForConfirmation]) { [weak self] success, _ in
-                self?.completionHandler?(success ? keyInfo : nil)
+            if AppConfiguration.FeatureToggles.securityCenter {
+                completionHandler?(keyInfo)
+            } else {
+                authenticate(options: [.useForConfirmation]) { [weak self] success, _ in
+                    self?.completionHandler?(success ? keyInfo : nil)
+                }
             }
         } else {
             completionHandler?(keyInfo)
