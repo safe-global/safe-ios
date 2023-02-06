@@ -323,12 +323,20 @@ extension KeyInfo {
 
     /// Will delete the key info and the stored private key
     /// - Throws: in case of underlying error
-    func delete() throws {
+    func delete(completion: ((Result<Bool, Error>) -> ())? = nil) {
         if let keyID = keyID, keyType == .deviceImported || keyType == .deviceGenerated {
-            try PrivateKey.remove(id: keyID)
+            PrivateKey.remove(id: keyID) { [unowned self] result in
+                if (try? result.get()) == true {
+                    App.shared.coreDataStack.viewContext.delete(self)
+                    save()
+                }
+                completion?(result)
+            }
+        } else {
+            App.shared.coreDataStack.viewContext.delete(self)
+            save()
+            completion?(.success(true))
         }
-        App.shared.coreDataStack.viewContext.delete(self)
-        save()
     }
 
     func privateKey() throws -> PrivateKey? {

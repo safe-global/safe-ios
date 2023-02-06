@@ -130,19 +130,25 @@ class OwnerKeyController {
     }
     
     static func remove(keyInfo: KeyInfo) {
-        do {
-            // this should be done before calling keyInfo.delete()
-            WebConnectionController.shared.userDidDelete(account: keyInfo.address)
-            try keyInfo.delete()
-            App.shared.notificationHandler.signingKeyUpdated()
-            App.shared.snackbar.show(message: "Owner key removed from this app")
-            Tracker.trackEvent(.ownerKeyRemoved)
-            Tracker.setNumKeys(KeyInfo.count(keyInfo.keyType), type: keyInfo.keyType)
-            NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
-        } catch {
-            App.shared.snackbar.show(
-                error: GSError.error(description: "Failed to remove imported key", error: error))
-        }
+        // this should be done before calling keyInfo.delete()
+        WebConnectionController.shared.userDidDelete(account: keyInfo.address)
+        keyInfo.delete(completion: { result in
+            do {
+                let result = try result.get()
+                if result {
+                    App.shared.notificationHandler.signingKeyUpdated()
+                    App.shared.snackbar.show(message: "Owner key removed from this app")
+                    Tracker.trackEvent(.ownerKeyRemoved)
+                    Tracker.setNumKeys(KeyInfo.count(keyInfo.keyType), type: keyInfo.keyType)
+                    NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
+                } else {
+                    App.shared.snackbar.show(error: GSError.error(description: "Failed to remove imported key"))
+                }
+            } catch {
+                App.shared.snackbar.show(error: GSError.error(description: "Failed to remove imported key",
+                                                              error: error))
+            }
+        })
     }
 
     static func edit(keyInfo: KeyInfo, name: String) {

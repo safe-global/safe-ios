@@ -339,10 +339,12 @@ class SecurityCenter {
     ///   - completion: callback returns success(true) if import successfull, success(false) if operation was canceled by user, or failure otherwise.
     func remove(dataID: DataID, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
         let store: ProtectedKeyStore = protectionClass == .sensitive ? sensitiveStore : dataStore
-        do {
+        requestPassword(for: [protectionClass]) { [unowned self] plaintextPassword in
+            let password = plaintextPassword.map { derivedKey(from: $0) }
+            try store.authenticate(password: password)
             try store.delete(id: dataID)
             completion(.success(true))
-        } catch let error {
+        } onFailure: { error in
             completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
         }
     }
