@@ -37,15 +37,22 @@ enum ViewControllerFactory {
         return UINavigationController(rootViewController: vc)
     }
 
-    static func enterPasscodeViewController(completion: @escaping () -> Void) -> UIViewController {
+    static func enterPasscodeViewController(showsCloseButton: Bool,
+                                            completion: @escaping () -> Void,
+                                            onPasscodeEnter: ((String?) throws -> Void)? = nil,
+                                            onError: ((Error) -> Void)? = nil) -> UIViewController {
         let vc = EnterPasscodeViewController()
-        vc.showsCloseButton = false
+        vc.showsCloseButton = showsCloseButton
+        // TODO: EnterPasscodeViewController to use the correct handlers
+
         // because close button is hidden, this will complete only
         // if passcode is correct or if the data is deleted.
         // in both cases, we want to trigger completion closure
         vc.passcodeCompletion = { _, _, _ in
             completion()
         }
+        vc.onPasscodeEnter = onPasscodeEnter ?? { _ in }
+        vc.onError = onError ?? { _ in }
         return UINavigationController(rootViewController: vc)
     }
 

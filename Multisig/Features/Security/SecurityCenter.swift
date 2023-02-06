@@ -147,7 +147,7 @@ class SecurityCenter {
     // Requires:
     //  - if newMethod does not require passcode, then `newPasscode` must be nil.
     func changeLockMethod(oldMethod: LockMethod, newMethod: LockMethod, newPasscode: String?, completion: @escaping (Error?) -> Void) {
-        requestPasswordV2(for: [.sensitive, .data]) { [unowned self] oldPasscode in
+        requestPassword(for: [.sensitive, .data]) { [unowned self] oldPasscode in
 
             var changedPasscode = newPasscode
 
@@ -210,7 +210,7 @@ class SecurityCenter {
 
         let toggleWillBeOff: Bool = enabledOptions.contains(passcodeOption)
         if toggleWillBeOff {
-            requestPasswordV2(for: [protectionClass]) { [unowned self] plaintextPasscode in
+            requestPassword(for: [protectionClass]) { [unowned self] plaintextPasscode in
                 AppSettings.passcodeOptions.remove(passcodeOption)
                 try changeStoreSettings(currentPlaintextPassword: plaintextPasscode,
                                         newPlaintextPassword: nil,
@@ -224,7 +224,7 @@ class SecurityCenter {
             let otherProtectionClass: ProtectionClass = protectionClass == .sensitive ? .data : .sensitive
             let otherProtectedKeyStore: ProtectedKeyStore = otherProtectionClass == .data ? dataStore : sensitiveStore
 
-            requestPasswordV2(for: [otherProtectionClass]) { [unowned self] plaintextPasscode in
+            requestPassword(for: [otherProtectionClass]) { [unowned self] plaintextPasscode in
                 let currentDerivedPassword = plaintextPasscode.map { derivedKey(from: $0) }
                 try otherProtectedKeyStore.authenticate(password: currentDerivedPassword)
                 AppSettings.passcodeOptions.insert(passcodeOption)
@@ -279,7 +279,7 @@ class SecurityCenter {
     func disableSecurityLock(completion: @escaping (Error?) -> ()) {
         let oldOptions = AppSettings.passcodeOptions
 
-        requestPasswordV2(for: [.sensitive, .data]) { [unowned self] plaintextPasscode in
+        requestPassword(for: [.sensitive, .data]) { [unowned self] plaintextPasscode in
             if AppSettings.passcodeOptions.contains(.useForConfirmation) {
                 AppSettings.passcodeOptions.remove(.useForConfirmation)
                 try changeStoreSettings(currentPlaintextPassword: plaintextPasscode,
@@ -318,7 +318,8 @@ class SecurityCenter {
         )
     }
 
-    private func requestPasswordV2(for accessScope: [ProtectionClass], task: @escaping (_ plaintextPasscode: String?) throws -> Void, onFailure: @escaping (_ error: Error) -> Void) {
+    private func requestPassword(for accessScope: [ProtectionClass], task: @escaping (_ plaintextPasscode: String?) throws -> Void, onFailure: @escaping (_ error: Error) -> Void) {
+
         let needsUserPasscode =
             AppSettings.securityLockEnabled &&
             (
@@ -338,7 +339,6 @@ class SecurityCenter {
             }
         }
     }
-
 
     /// Import data potentially overriding existing value
     ///
@@ -374,7 +374,8 @@ class SecurityCenter {
 
     func find(dataID id: DataID, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Data?, Error>) -> ()) {
         let store: ProtectedKeyStore = protectionClass == .sensitive ? sensitiveStore : dataStore
-        requestPassword(scope: [protectionClass]) { [unowned self] plaintextPassword in
+
+        requestPassword(for: [protectionClass]) { [unowned self] plaintextPassword in
             let password = plaintextPassword.map { derivedKey(from: $0) }
             let data = try store.find(dataID: id, password: password)
             completion(.success(data))
@@ -382,26 +383,6 @@ class SecurityCenter {
             completion(.failure(error))
         }
 
-    }
-
-    // TODO: handle data reset
-    private func requestPassword(scope: Set<ProtectionClass>, task: @escaping (_ password: String?) throws -> Void, onFailure: @escaping (_ error: Error) -> Void) {
-        if
-            securityLockEnabled &&
-            (lockMethod == .passcode || lockMethod == .passcodeAndUserPresence) &&
-                (scope.contains(.sensitive) && AppSettings.passcodeOptions.contains(.useForConfirmation) ||
-                 scope.contains(.data) && AppSettings.passcodeOptions.contains(.useForLogin))
-        {
-            NotificationCenter.default.post(name: .passcodeRequired,
-                                            object: self,
-                                            userInfo: ["accessTask": task, "onFailure": onFailure])
-        } else {
-            do {
-                try task(nil)
-            } catch {
-                onFailure(error)
-            }
-        }
     }
 
     func derivedKey(from plaintext: String, useOldSalt: Bool = false) -> String {
