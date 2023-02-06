@@ -253,6 +253,7 @@ class ReviewSafeTransactionViewController: UIViewController {
                 } catch {
                     App.shared.snackbar.show(error: GSError.error(description: "Failed to confirm transaction",
                                                                   error: error))
+                    endConfirm()
                 }
             }
 
