@@ -44,7 +44,7 @@ class ProtectedKeyStore: EncryptedStore {
         }
     }
 
-    func unlock(password userPassword: String? = nil) throws {
+    func unlockV1(password userPassword: String? = nil) throws {
         let rawPassword: Data?
         if let password = userPassword {
             rawPassword = password.data(using: .utf8)
@@ -68,6 +68,23 @@ class ProtectedKeyStore: EncryptedStore {
 
         sensitiveKey = decryptedSensitiveKey
     }
+    func unlock(derivedPassword: String? = nil) throws {
+        // Get access to secure enclave key
+        let sensitiveKEK = try store.find(KeychainItem.enclaveKey(tag: ProtectedKeyStore.privateKEKTag, service: protectionClass.service(), password: derivedPassword?.data(using: .utf8))) as! SecKey
+
+        // Get access to encrypted sensitive key
+        let encryptedSensitiveKey = try store.find(KeychainItem.generic(account: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service())) as? Data
+        let decryptedSensitiveKeyData = try encryptedSensitiveKey?.decrypt(privateKey: sensitiveKEK)
+
+        var error: Unmanaged<CFError>?
+        guard let decryptedSensitiveKey: SecKey = SecKeyCreateWithData(decryptedSensitiveKeyData! as CFData, try KeychainItem.ecKeyPair.creationAttributes(), &error) else {
+            // will fail here if password was wrong
+            throw error!.takeRetainedValue() as Error
+        }
+
+        sensitiveKey = decryptedSensitiveKey
+    }
+
 
     func lock() {
         sensitiveKey = nil
@@ -106,9 +123,9 @@ class ProtectedKeyStore: EncryptedStore {
 
         let locked = !unlocked
 
-        if locked {
-            try unlock(password: userPassword)
-        }
+        //if locked {
+            try unlock(derivedPassword: userPassword)
+        //}
 
         let result = try encryptedData.decrypt(privateKey: sensitiveKey!)
 
@@ -130,7 +147,7 @@ class ProtectedKeyStore: EncryptedStore {
         let locked = !unlocked
 
         if locked {
-            try unlock(password: oldPassword)
+            try unlock(derivedPassword: oldPassword)
         }
 
         // if no newPassword given, create a random password an store it

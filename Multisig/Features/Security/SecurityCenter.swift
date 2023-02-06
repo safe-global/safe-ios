@@ -178,6 +178,14 @@ class SecurityCenter {
         }
     }
 
+    /// Checks if the passcode correct. In case passcode is not set, returns false.
+    /// - Parameter plaintextPasscode: unsecured "as-is" passcode
+    /// - Returns: true if passcode correct, false otherwise
+    func isPasscodeCorrect(plaintextPasscode: String) throws -> Bool {
+        let derivedPasscode = App.shared.securityCenter.derivedKey(from: plaintextPasscode)
+        return try dataStore.find(dataID: DataID(id: Self.appUnlockChallengeID), password: derivedPasscode) != nil
+    }
+
     func changePasscode(oldPasscode: String, newPasscode: String) throws {
         if AppSettings.passcodeOptions.contains(.useForConfirmation) {
             try changeStoreSettings(currentPlaintextPassword: oldPasscode,

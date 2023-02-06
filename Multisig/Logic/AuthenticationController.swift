@@ -66,10 +66,6 @@ class AuthenticationController {
     /// - Parameter plaintextPasscode: unsecured "as-is" passcode
     /// - Returns: true if passcode correct, false otherwise
     func  isPasscodeCorrect(plaintextPasscode: String) throws -> Bool {
-        // TODO: Implement with new security center
-        if AppConfiguration.FeatureToggles.securityCenter {
-            return true
-        }
         guard let user = user else { return false }
         let password = App.shared.securityCenter.derivedKey(from: plaintextPasscode)
         let oldPassword = App.shared.securityCenter.derivedKey(from: plaintextPasscode, useOldSalt: true)
