@@ -131,24 +131,23 @@ extension PrivateKey {
 
     //@Deprecated: legacy code
     //TODO: extract legacy code
-    static func remove(id: KeyID, protectionClass: ProtectionClass = .sensitive) throws {
+    static func remove(id: KeyID,
+                       protectionClass: ProtectionClass = .sensitive,
+                       completion: ((Result<Bool, Error>) -> ())? = nil) {
         if AppConfiguration.FeatureToggles.securityCenter {
             //TODO: rewrite as App.securityCenter
             //TODO: make invocation async
             App.shared.securityCenter.remove(dataID: DataID(id: id), protectionClass: protectionClass) { result in
-                try! result.get()
+                completion?(result)
             }
         } else {
             do {
                 try App.shared.keychainService.removeData(forKey: id)
+                completion?(.success(true))
             } catch {
-                throw GSError.KeychainError(reason: error.localizedDescription)
+                completion?(.failure(GSError.KeychainError(reason: error.localizedDescription)))
             }
         }
-    }
-
-    static func remove(id: KeyID, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
-        Self.remove(id: id, protectionClass: protectionClass, completion: completion)
     }
 
     static func deleteAll() throws {
@@ -182,8 +181,9 @@ extension PrivateKey {
         }
     }
 
-    func remove(protectionClass: ProtectionClass = .sensitive) throws {
-        try Self.remove(id: id, protectionClass: protectionClass)
+    func remove(protectionClass: ProtectionClass = .sensitive,
+                completion: ((Result<Bool, Error>) -> ())? = nil) {
+        Self.remove(id: id, protectionClass: protectionClass, completion: completion)
     }
 
     func sign(hash: Data) throws -> Signature {
