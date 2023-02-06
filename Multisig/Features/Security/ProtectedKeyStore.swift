@@ -44,30 +44,6 @@ class ProtectedKeyStore: EncryptedStore {
         }
     }
 
-    func unlockV1(password userPassword: String? = nil) throws {
-        let rawPassword: Data?
-        if let password = userPassword {
-            rawPassword = password.data(using: .utf8)
-        } else {
-            let derivedPasswordItem = KeychainItem.generic(account: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service())
-            rawPassword = try store.find(derivedPasswordItem) as! Data?
-        }
-
-        // Get access to secure enclave key
-        let sensitiveKEK = try store.find(KeychainItem.enclaveKey(tag: ProtectedKeyStore.privateKEKTag, service: protectionClass.service(), password: rawPassword)) as! SecKey
-
-        // Get access to encrypted sensitive key
-        let encryptedSensitiveKey = try store.find(KeychainItem.generic(account: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service())) as? Data
-        let decryptedSensitiveKeyData = try encryptedSensitiveKey?.decrypt(privateKey: sensitiveKEK)
-
-        var error: Unmanaged<CFError>?
-        guard let decryptedSensitiveKey: SecKey = SecKeyCreateWithData(decryptedSensitiveKeyData! as CFData, try KeychainItem.ecKeyPair.creationAttributes(), &error) else {
-            // will fail here if password was wrong
-            throw error!.takeRetainedValue() as Error
-        }
-
-        sensitiveKey = decryptedSensitiveKey
-    }
     func unlock(derivedPassword: String? = nil) throws {
 
         let rawPassword: Data?
