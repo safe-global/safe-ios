@@ -69,8 +69,17 @@ class ProtectedKeyStore: EncryptedStore {
         sensitiveKey = decryptedSensitiveKey
     }
     func unlock(derivedPassword: String? = nil) throws {
+
+        let rawPassword: Data?
+        if let password = derivedPassword {
+            rawPassword = password.data(using: .utf8)
+        } else {
+            let derivedPasswordItem = KeychainItem.generic(account: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service())
+            rawPassword = try store.find(derivedPasswordItem) as! Data?
+        }
+
         // Get access to secure enclave key
-        let sensitiveKEK = try store.find(KeychainItem.enclaveKey(tag: ProtectedKeyStore.privateKEKTag, service: protectionClass.service(), password: derivedPassword?.data(using: .utf8))) as! SecKey
+        let sensitiveKEK = try store.find(KeychainItem.enclaveKey(tag: ProtectedKeyStore.privateKEKTag, service: protectionClass.service(), password: rawPassword)) as! SecKey
 
         // Get access to encrypted sensitive key
         let encryptedSensitiveKey = try store.find(KeychainItem.generic(account: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service())) as? Data
