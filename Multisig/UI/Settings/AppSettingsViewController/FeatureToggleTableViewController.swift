@@ -44,7 +44,7 @@ class FeatureToggleTableViewController: UITableViewController {
         switch rowID {
         case .securityCenter:
             let cell = tableView.dequeueCell(SwitchDetailedTableViewCell.self, for: indexPath)
-            cell.text = "Security v1"
+            cell.text = "Security v2"
             cell.detailText = "This will switch passcode functionality to use the new key security infrastructure."
             cell.setOn(AppConfiguration.FeatureToggles.securityCenter, animated: false)
 
