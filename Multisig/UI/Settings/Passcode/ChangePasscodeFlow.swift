@@ -82,7 +82,13 @@ class ChangePasscodeFlow: UIFlow {
 class ChangePasscodeFlowFactory {
     func enterOldPasscode(completion: @escaping ( _ password: String?) throws -> Void, onError: @escaping (Error) -> ()) -> EnterPasscodeViewController {
         let vc = EnterPasscodeViewController()
-        vc.onPasscodeEnter = completion
+        vc.passcodeCompletion = { _, _, passcode in
+            do {
+                try completion(passcode)
+            } catch {
+                //FIXME: error handling
+            }
+        }
         vc.onError = onError
         return vc
     }

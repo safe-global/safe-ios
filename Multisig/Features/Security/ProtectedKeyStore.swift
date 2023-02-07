@@ -99,15 +99,15 @@ class ProtectedKeyStore: EncryptedStore {
         }
     }
 
-    func find(dataID: DataID, password userPassword: String?) throws -> Data? {
+    func find(dataID: DataID, password derivedPassword: String?, forceUnlock: Bool = false) throws -> Data? {
         guard let encryptedData = try store.find(KeychainItem.generic(account: dataID.id, service: protectionClass.service())) as? Data else {
             return nil
         }
 
         let locked = !unlocked
 
-        if locked {
-            try unlock(derivedPassword: userPassword)
+        if locked || forceUnlock {
+            try unlock(derivedPassword: derivedPassword)
         }
 
         let result = try encryptedData.decrypt(privateKey: sensitiveKey!)

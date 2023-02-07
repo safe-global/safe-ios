@@ -184,7 +184,7 @@ class SecurityCenter {
     /// - Returns: true if passcode correct, false otherwise
     func isPasscodeCorrect(plaintextPasscode: String) throws -> Bool {
         let derivedPasscode = App.shared.securityCenter.derivedKey(from: plaintextPasscode)
-        return try dataStore.find(dataID: DataID(id: Self.appUnlockChallengeID), password: derivedPasscode) != nil
+        return try dataStore.find(dataID: DataID(id: Self.appUnlockChallengeID), password: derivedPasscode, forceUnlock: true) != nil
     }
 
     func changePasscode(oldPasscode: String, newPasscode: String) throws {
