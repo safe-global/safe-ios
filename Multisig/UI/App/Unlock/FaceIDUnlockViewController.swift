@@ -24,15 +24,11 @@ class FaceIDUnlockViewController: UIViewController {
     }
 
     @IBAction func didTapUnlock(_ sender: Any) {
-        App.shared.auth.authenticateWithBiometrics { [weak self] result in
-            guard let `self` = self else { return }
-            switch result {
-            case .success:
-                self.completion(true, false)
-
-            case .failure(_):
-                break
-            }
+        do {
+            try App.shared.securityCenter.unlockDataStore()
+            self.completion(true, false)
+        } catch {
+            //TODO: error handling
         }
     }
 }

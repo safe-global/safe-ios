@@ -313,17 +313,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
 
-    // userPassword can be nil if passcode is disabled
-    func showMainContentWindow(userPassword: String? = nil) {
-        do {
-            if AppConfiguration.FeatureToggles.securityCenter {
-                try App.shared.securityCenter.unlockDataStore(userPassword: userPassword)
-            }
-            showWindow(tabBarWindow)
-            App.shared.intercomConfig.appDidShowMainContent()
-        } catch {
-            LogService.shared.error("Failed to unlock", error: error)
-        }
+    func showMainContentWindow() {
+        showWindow(tabBarWindow)
+        App.shared.intercomConfig.appDidShowMainContent()
+
     }
 
     func onTermsCompletion() {
@@ -334,8 +327,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         showMainContentWindow()
     }
 
+    // userPassword can be nil if passcode is disabled
     func onEnterPasscodeCompletion(userPassword: String? = nil) {
-        showMainContentWindow(userPassword: userPassword)
+        do {
+            if AppConfiguration.FeatureToggles.securityCenter {
+                // data store could be already unlocked via FaceID check
+                if !App.shared.securityCenter.isDataStoreUnlocked() {
+                    try App.shared.securityCenter.unlockDataStore(userPassword: userPassword)
+                }
+            }
+            showMainContentWindow()
+        } catch {
+            LogService.shared.error("Failed to unlock", error: error)
+        }
     }
 
     func onTabBarAppearance(of tabBar: MainTabBarViewController) {
