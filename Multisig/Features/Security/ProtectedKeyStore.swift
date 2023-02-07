@@ -106,9 +106,9 @@ class ProtectedKeyStore: EncryptedStore {
 
         let locked = !unlocked
 
-        //if locked {
+        if locked {
             try unlock(derivedPassword: userPassword)
-        //}
+        }
 
         let result = try encryptedData.decrypt(privateKey: sensitiveKey!)
 
