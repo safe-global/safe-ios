@@ -237,7 +237,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func makeFaceIDUnlockWindow() -> UIWindow {
         let faceIDUnlockWindow = makeWindow(scene: scene!)
         faceIDUnlockWindow.rootViewController = ViewControllerFactory.faceIDUnlockViewController { [unowned self] in
-            onEnterPasscodeCompletion()
+            onFaceIDCheckCompletion()
         }
         return faceIDUnlockWindow
     }
@@ -331,15 +331,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func onEnterPasscodeCompletion(userPassword: String? = nil) {
         do {
             if AppConfiguration.FeatureToggles.securityCenter {
-                // data store could be already unlocked via FaceID check
-                if !App.shared.securityCenter.isDataStoreUnlocked() {
-                    try App.shared.securityCenter.unlockDataStore(userPassword: userPassword)
-                }
+                try App.shared.securityCenter.unlockDataStore(userPassword: userPassword)
             }
             showMainContentWindow()
         } catch {
             LogService.shared.error("Failed to unlock", error: error)
         }
+    }
+
+    func onFaceIDCheckCompletion() {
+        showMainContentWindow()
     }
 
     func onTabBarAppearance(of tabBar: MainTabBarViewController) {
