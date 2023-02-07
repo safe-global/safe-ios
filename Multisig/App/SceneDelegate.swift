@@ -303,9 +303,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         else if App.shared.securityCenter.shouldShowFaceID() {
             showWindow(makeFaceIDUnlockWindow())
         }
-//        else if App.shared.securityCenter.shouldShowPasscode() {
-//            showWindow(makeEnterPasscodeWindow())
-//        }
+         else if App.shared.securityCenter.shouldShowPasscode() {
+             showWindow(makeEnterPasscodeWindow())
+         }
         else if !AppSettings.onboardingCompleted {
             showOnboardingWindow()
         } else {
