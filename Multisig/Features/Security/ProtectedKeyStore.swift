@@ -60,13 +60,11 @@ class ProtectedKeyStore: EncryptedStore {
         // Get access to encrypted sensitive key
         let encryptedSensitiveKey = try store.find(KeychainItem.generic(account: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service())) as? Data
         let decryptedSensitiveKeyData = try encryptedSensitiveKey?.decrypt(privateKey: sensitiveKEK)
-
         var error: Unmanaged<CFError>?
         guard let decryptedSensitiveKey: SecKey = SecKeyCreateWithData(decryptedSensitiveKeyData! as CFData, try KeychainItem.ecKeyPair.creationAttributes(), &error) else {
             // will fail here if password was wrong
             throw error!.takeRetainedValue() as Error
         }
-
         sensitiveKey = decryptedSensitiveKey
     }
 
@@ -162,12 +160,7 @@ class ProtectedKeyStore: EncryptedStore {
         )
 
         let keyEncryptionKey: SecKey = try store.create(kekItem) as! SecKey
-
-        // create key pair
-        let privateKeyItem = KeychainItem.ecKeyPair
-        let sensitiveKey: SecKey = try store.create(privateKeyItem) as! SecKey
-
-        let encryptedPK = try Data(secKey: sensitiveKey).encrypt(publicKey: keyEncryptionKey.publicKey())
+        let encryptedPK = try Data(secKey: sensitiveKey!).encrypt(publicKey: keyEncryptionKey.publicKey())
 
         // store key pair
         // store sensitive key
@@ -182,7 +175,7 @@ class ProtectedKeyStore: EncryptedStore {
         let pubKeyItem = KeychainItem.ecPubKey(
                 tag: ProtectedKeyStore.publicKeyTag,
                 service: protectionClass.service(),
-                publicKey: sensitiveKey.publicKey()
+                publicKey: sensitiveKey!.publicKey()
         )
         try store.create(pubKeyItem)
 
@@ -220,7 +213,6 @@ class ProtectedKeyStore: EncryptedStore {
         let sensitiveKey: SecKey = try store.create(privateKeyItem) as! SecKey
 
         let encryptedPK = try Data(secKey: sensitiveKey).encrypt(publicKey: keyEncryptionKey.publicKey())
-
         // store key pair
         // store encrypted private key
         let encryptedPrivateKeyItem = KeychainItem.generic(
