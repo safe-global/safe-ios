@@ -39,8 +39,9 @@ class SecurityCenter {
         self.init(sensitiveStore: ProtectedKeyStore(protectionClass: .sensitive, KeychainItemStore()), dataStore: ProtectedKeyStore(protectionClass: .data, KeychainItemStore()))
     }
 
-    func unlockDataStore() throws {
-        try dataStore.unlock()
+    func unlockDataStore(userPassword: String? = nil) throws {
+        let derivedPasscode = userPassword != nil ? App.shared.securityCenter.derivedKey(from: userPassword!) : nil
+        try dataStore.unlock(derivedPassword: derivedPasscode)
     }
 
     func lockDataStore() {

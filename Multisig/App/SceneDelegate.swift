@@ -249,8 +249,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let enterPasscodeWindow = makeWindow(scene: scene!)
 
         let vc = ViewControllerFactory.enterPasscodeViewController (showsCloseButton: showsCloseButton,
-                                                                    completion: { [unowned self] in
-            onEnterPasscodeCompletion()
+                                                                    completion: { [unowned self] passcode in
+            onEnterPasscodeCompletion(userPassword: passcode)
         }, onPasscodeEnter: onPasscodeEnter, onError: onError)
 
         enterPasscodeWindow.rootViewController = vc
@@ -312,11 +312,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             showMainContentWindow()
         }
     }
-    
-    func showMainContentWindow() {
+
+    // userPassword can be nil if passcode is disabled
+    func showMainContentWindow(userPassword: String? = nil) {
         do {
             if AppConfiguration.FeatureToggles.securityCenter {
-                try App.shared.securityCenter.unlockDataStore()
+                try App.shared.securityCenter.unlockDataStore(userPassword: userPassword)
             }
             showWindow(tabBarWindow)
             App.shared.intercomConfig.appDidShowMainContent()
@@ -333,8 +334,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         showMainContentWindow()
     }
 
-    func onEnterPasscodeCompletion() {
-        showMainContentWindow()
+    func onEnterPasscodeCompletion(userPassword: String? = nil) {
+        showMainContentWindow(userPassword: userPassword)
     }
 
     func onTabBarAppearance(of tabBar: MainTabBarViewController) {
