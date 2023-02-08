@@ -164,7 +164,7 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
 
     private func authorizeAndSign() {
         if AppConfiguration.FeatureToggles.securityCenter {
-            self?.sign()
+            self.sign()
         } else {
             authenticate(options: [.useForConfirmation]) { [weak self] success, _ in
                 if success {
