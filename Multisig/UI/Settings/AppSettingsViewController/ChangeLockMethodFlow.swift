@@ -79,14 +79,17 @@ class ChangeLockMethodFlow: UIFlow {
 
     func finish(success: Bool) {
         if success {
-            App.shared.securityCenter.changeLockMethod(oldMethod: currentLockMethod, newMethod: newLockMethod!, newPasscode: userPasscode) { error in
+            App.shared.securityCenter.changeLockMethod(oldMethod: currentLockMethod,
+                                                       newMethod: newLockMethod!,
+                                                       newPasscode: userPasscode) { [unowned self] error in
                 if let error = error {
                     App.shared.snackbar.show(message: "Failed to change lock method: \(error)")
+                    stop(success: false)
                 } else {
                     App.shared.snackbar.show(message: "Lock method changed")
+                    stop(success: true)
                 }
             }
-            stop(success: true)
         } else {
             stop(success: false)
         }
