@@ -95,14 +95,14 @@ extension PrivateKey {
 
     }
 
-    static func key(address: Address, completion: @escaping (Result<PrivateKey?, Error>) -> ()) {
-        try key(id: identifier(address), completion: completion)
+    static func key(address: Address, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<PrivateKey?, Error>) -> ()) {
+        try key(id: identifier(address), protectionClass: protectionClass, completion: completion)
     }
 
     //TODO: move access through security center to a separate function (preferrably outside of PrivateKey)
-    static func key(id: KeyID, completion: @escaping (Result<PrivateKey?, Error>) -> ()) {
+    static func key(id: KeyID, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<PrivateKey?, Error>) -> ()) {
         if AppConfiguration.FeatureToggles.securityCenter {
-            App.shared.securityCenter.find(dataID: DataID(id: id)) { result in
+            App.shared.securityCenter.find(dataID: DataID(id: id), protectionClass: protectionClass) { result in
                 do {
                     let pkDataOrNil = try result.get()
                     guard let pkData = pkDataOrNil else {
