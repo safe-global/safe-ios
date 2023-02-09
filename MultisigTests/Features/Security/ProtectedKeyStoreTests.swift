@@ -9,8 +9,8 @@ import LocalAuthentication
 
 public class ProtectedKeyStoreTests: XCTestCase {
 
-    var sensitiveKeyStore: EncryptedStore! = nil
-    var dataKeyStore: EncryptedStore! = nil
+    var sensitiveKeyStore: ProtectedKeyStore! = nil
+    var dataKeyStore: ProtectedKeyStore! = nil
     var keychainItemStore: KeychainItemStore! = nil
 
     public override func setUp() {
