@@ -21,14 +21,19 @@ class FaceIDUnlockViewController: UIViewController {
 
         label.setStyle(.body)
         unlockButton.setText("Unlock", .filled)
+        unlockDataStore()
     }
 
-    @IBAction func didTapUnlock(_ sender: Any) {
+    fileprivate func unlockDataStore() {
         do {
             try App.shared.securityCenter.unlockDataStore()
             self.completion(true, false)
         } catch {
             //TODO: error handling
         }
+    }
+
+    @IBAction func didTapUnlock(_ sender: Any) {
+        unlockDataStore()
     }
 }
