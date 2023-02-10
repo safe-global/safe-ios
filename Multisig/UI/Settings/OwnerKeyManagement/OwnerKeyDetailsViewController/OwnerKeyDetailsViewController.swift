@@ -341,22 +341,38 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                 self.connect(keyInfo: keyInfo)
             }
         case Section.PushNotificationConfiguration.enabled:
-            authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
-                guard let self = self else { return }
+            if AppConfiguration.FeatureToggles.securityCenter {
+                do {
+                    self.addKeyController = try DelegateKeyController(ownerAddress: self.keyInfo.address) {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                    self.addKeyController.presenter = self
+                    if self.keyInfo.delegateAddress == nil {
+                        self.addKeyController.createDelegate()
+                    } else {
+                        self.addKeyController.deleteDelegate()
+                    }
+                } catch {
+                    App.shared.snackbar.show(message: error.localizedDescription)
+                }
+            } else {
+                authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
+                    guard let self = self else { return }
 
-                if success {
-                    do {
-                        self.addKeyController = try DelegateKeyController(ownerAddress: self.keyInfo.address) {
-                            self.dismiss(animated: true, completion: nil)
+                    if success {
+                        do {
+                            self.addKeyController = try DelegateKeyController(ownerAddress: self.keyInfo.address) {
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                            self.addKeyController.presenter = self
+                            if self.keyInfo.delegateAddress == nil {
+                                self.addKeyController.createDelegate()
+                            } else {
+                                self.addKeyController.deleteDelegate()
+                            }
+                        } catch {
+                            App.shared.snackbar.show(message: error.localizedDescription)
                         }
-                        self.addKeyController.presenter = self
-                        if self.keyInfo.delegateAddress == nil {
-                            self.addKeyController.createDelegate()
-                        } else {
-                            self.addKeyController.deleteDelegate()
-                        }
-                    } catch {
-                        App.shared.snackbar.show(message: error.localizedDescription)
                     }
                 }
             }

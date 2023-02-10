@@ -334,13 +334,19 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
         // request passcode if needed and sign
         self.actionPanelView.setConfirmEnabled(false)
 
-        authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
-            guard let self = self else { return }
-            
+        if AppConfiguration.FeatureToggles.securityCenter {
             self.actionPanelView.setConfirmEnabled(true)
 
-            if success {
-                self.sign()
+            self.sign()
+        } else {
+            authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
+                guard let self = self else { return }
+
+                self.actionPanelView.setConfirmEnabled(true)
+
+                if success {
+                    self.sign()
+                }
             }
         }
     }

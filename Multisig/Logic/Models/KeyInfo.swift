@@ -366,7 +366,7 @@ extension KeyInfo {
             completion(.success(nil))
             return
         }
-        PrivateKey.key(address: address) { result in
+        PrivateKey.key(address: address, protectionClass: .data) { result in
             do {
                 let pkDataOrNil = try result.get()
                 guard let pkData = pkDataOrNil else {
