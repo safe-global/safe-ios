@@ -199,7 +199,7 @@ class DelegateKeyController {
             presenter?.present(vc, animated: true)
         case .keystone:
             let signInfo = KeystoneSignInfo(
-                signData: hexMessage,
+                signData: message.toHexString(),
                 chain: chain,
                 keyInfo: keyInfo,
                 signType: .personalMessage
