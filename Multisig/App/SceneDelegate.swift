@@ -126,6 +126,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 #endif
         // Save changes in the application's managed object context when the application transitions to the background.
         App.shared.coreDataStack.saveContext()
+
+        App.shared.securityCenter.lockDataStore()
     }
 
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
@@ -232,14 +234,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return tabBarWindow
     }
 
+    func makeFaceIDUnlockWindow() -> UIWindow {
+        let faceIDUnlockWindow = makeWindow(scene: scene!)
+        faceIDUnlockWindow.rootViewController = ViewControllerFactory.faceIDUnlockViewController { [unowned self] in
+            onFaceIDCheckCompletion()
+        }
+        return faceIDUnlockWindow
+    }
+
+
     func makeEnterPasscodeWindow(showsCloseButton: Bool = false,
                                  onPasscodeEnter: ((String?) throws -> Void)? = nil,
                                  onError: ((Error) -> Void)? = nil) -> UIWindow {
         let enterPasscodeWindow = makeWindow(scene: scene!)
 
         let vc = ViewControllerFactory.enterPasscodeViewController (showsCloseButton: showsCloseButton,
-                                                                    completion: { [unowned self] in
-            onEnterPasscodeCompletion()
+                                                                    completion: { [unowned self] passcode in
+            onEnterPasscodeCompletion(userPassword: passcode)
         }, onPasscodeEnter: onPasscodeEnter, onError: onError)
 
         enterPasscodeWindow.rootViewController = vc
@@ -285,19 +296,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func onAppUpdateCompletion() {
         if !AppSettings.termsAccepted {
             showWindow(makeTermsWindow())
-        // TODO: Enable when implemented new security center 
+        // TODO: Enable when implemented new security center
         } else if shouldShowPasscode && !AppConfiguration.FeatureToggles.securityCenter {
             showWindow(makeEnterPasscodeWindow())
-        } else if !AppSettings.onboardingCompleted {
+        }
+        else if App.shared.securityCenter.shouldShowFaceID() {
+            showWindow(makeFaceIDUnlockWindow())
+        }
+         else if App.shared.securityCenter.shouldShowPasscode() {
+             showWindow(makeEnterPasscodeWindow())
+         }
+        else if !AppSettings.onboardingCompleted {
             showOnboardingWindow()
         } else {
             showMainContentWindow()
         }
     }
-    
+
     func showMainContentWindow() {
         showWindow(tabBarWindow)
         App.shared.intercomConfig.appDidShowMainContent()
+
     }
 
     func onTermsCompletion() {
@@ -308,7 +327,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         showMainContentWindow()
     }
 
-    func onEnterPasscodeCompletion() {
+    // userPassword can be nil if passcode is disabled
+    func onEnterPasscodeCompletion(userPassword: String? = nil) {
+        do {
+            if AppConfiguration.FeatureToggles.securityCenter {
+                try App.shared.securityCenter.unlockDataStore(userPassword: userPassword)
+            }
+            showMainContentWindow()
+        } catch {
+            LogService.shared.error("Failed to unlock", error: error)
+        }
+    }
+
+    func onFaceIDCheckCompletion() {
         showMainContentWindow()
     }
 

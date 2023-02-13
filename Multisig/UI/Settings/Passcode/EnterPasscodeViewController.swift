@@ -57,7 +57,11 @@ class EnterPasscodeViewController: PasscodeViewController {
     fileprivate func didEnterEnoughSymbols(_ text: String) {
         var isCorrect = false
         do {
-            isCorrect = try App.shared.auth.isPasscodeCorrect(plaintextPasscode: text)
+            if AppConfiguration.FeatureToggles.securityCenter {
+                isCorrect = try App.shared.securityCenter.isPasscodeCorrect(plaintextPasscode: text)
+            } else {
+                isCorrect = try App.shared.auth.isPasscodeCorrect(plaintextPasscode: text)
+            }
         } catch {
             showGenericError(description: "Failed to check passcode", error: error)
             return
@@ -75,29 +79,11 @@ class EnterPasscodeViewController: PasscodeViewController {
         }
     }
 
-    fileprivate func didEnterEnoughSymbolsV2(_ text: String) {
-        do {
-            try onPasscodeEnter(text)
-        } catch {
-            wrongAttemptsCount += 1
-            if wrongAttemptsCount >= warnAfterWrongAttemptCount {
-                showError("\(wrongAttemptsCount) failed password attempts. You can reset password via \"Forgot passcode?\" button below.")
-            } else {
-                // TODO: decode error  to make sure that it's password incorrect. Try other errors?
-                showError("Access denied: \(error)")
-            }
-        }
-    }
-
     override func willChangeText(_ text: String) {
         super.willChangeText(text)
         errorLabel.isHidden = true
         if text.count == passcodeLength {
-            if AppSettings.securityLockEnabled {
-                didEnterEnoughSymbolsV2(text)
-            } else {
-                didEnterEnoughSymbols(text)
-            }
+            didEnterEnoughSymbols(text)
         }
     }
 

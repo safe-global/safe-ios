@@ -189,7 +189,7 @@ enum LockMethod: Int16 {
     case passcode = 0
     // authenticate with user's biometry (or device passcode, as a fallback)
     case userPresence = 1
-    // authenticate with user-proivded passcode and with user's biometry (or device passcode, as a fallback
+    // authenticate with user-provided passcode and with user's biometry (or device passcode, as a fallback
     case passcodeAndUserPresence = 2
 
     func isPasscodeRequired() -> Bool {

@@ -20,6 +20,7 @@ class SecurityCenter {
     private static let appUnlockChallengeID = "global.safe.AppUnlockChallenge"
     private static let challenge = "I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but water kills me. What am I?"
 
+
     var securityLockEnabled: Bool {
         AppSettings.securityLockEnabled
     }
@@ -36,6 +37,19 @@ class SecurityCenter {
 
     private convenience init() {
         self.init(sensitiveStore: ProtectedKeyStore(protectionClass: .sensitive, KeychainItemStore()), dataStore: ProtectedKeyStore(protectionClass: .data, KeychainItemStore()))
+    }
+
+    func isDataStoreUnlocked() -> Bool {
+        return dataStore.unlocked
+    }
+
+    func unlockDataStore(userPassword: String? = nil) throws {
+        let derivedPasscode = userPassword != nil ? App.shared.securityCenter.derivedKey(from: userPassword!) : nil
+        try dataStore.unlock(derivedPassword: derivedPasscode)
+    }
+
+    func lockDataStore() {
+        dataStore.lock()
     }
 
     // MARK: - Business Logic Operations
@@ -169,6 +183,14 @@ class SecurityCenter {
         }
     }
 
+    /// Checks if the passcode correct. In case passcode is not set, returns false.
+    /// - Parameter plaintextPasscode: unsecured "as-is" passcode
+    /// - Returns: true if passcode correct, false otherwise
+    func isPasscodeCorrect(plaintextPasscode: String) throws -> Bool {
+        let derivedPasscode = App.shared.securityCenter.derivedKey(from: plaintextPasscode)
+        return try dataStore.find(dataID: DataID(id: Self.appUnlockChallengeID), password: derivedPasscode, forceUnlock: true) != nil
+    }
+
     func changePasscode(oldPasscode: String, newPasscode: String) throws {
         if AppSettings.passcodeOptions.contains(.useForConfirmation) {
             try changeStoreSettings(currentPlaintextPassword: oldPasscode,
@@ -293,7 +315,24 @@ class SecurityCenter {
         }
     }
 
+    func shouldShowPasscode(for accessScope: [ProtectionClass] = [.data, .sensitive]) -> Bool {
+        return AppSettings.securityLockEnabled &&
+        (
+            accessScope.contains(.sensitive) && AppSettings.passcodeOptions.contains(.useForConfirmation) && [LockMethod.passcode, .passcodeAndUserPresence].contains(AppSettings.securityLockMethod) ||
+            accessScope.contains(.data) && AppSettings.passcodeOptions.contains(.useForLogin) && [LockMethod.passcode].contains(AppSettings.securityLockMethod)
+        )
+    }
+
+    func shouldShowFaceID(for accessScope: [ProtectionClass] = [.data, .sensitive]) -> Bool {
+        return AppSettings.securityLockEnabled &&
+        (
+            accessScope.contains(.sensitive) && AppSettings.passcodeOptions.contains(.useForConfirmation) && [LockMethod.userPresence].contains(AppSettings.securityLockMethod) ||
+            accessScope.contains(.data) && AppSettings.passcodeOptions.contains(.useForLogin) && [LockMethod.userPresence].contains(AppSettings.securityLockMethod)
+        )
+    }
+
     private func requestPassword(for accessScope: [ProtectionClass], task: @escaping (_ plaintextPasscode: String?) throws -> Void, onFailure: @escaping (_ error: Error) -> Void) {
+
         let needsUserPasscode =
             AppSettings.securityLockEnabled &&
             (
@@ -313,7 +352,6 @@ class SecurityCenter {
             }
         }
     }
-
 
     /// Import data potentially overriding existing value
     ///

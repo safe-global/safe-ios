@@ -19,6 +19,12 @@ class ProtectedKeyStore: EncryptedStore {
     static let encryptedPrivateKeyTag = "global.safe.private.key.as.encrypted.data"
     static let derivedPasswordTag = "global.safe.password.as.data"
 
+    private var sensitiveKey: SecKey? = nil
+
+    var unlocked: Bool {
+        return sensitiveKey != nil
+    }
+
 
     init(protectionClass: ProtectionClass, _ store: KeychainItemStore) {
         self.store = store
@@ -36,6 +42,35 @@ class ProtectedKeyStore: EncryptedStore {
             LogService.shared.error("SensitiveStore is not initialized", error: error)
             return false
         }
+    }
+
+    func unlock(derivedPassword: String? = nil) throws {
+
+        let rawPassword: Data?
+        if let password = derivedPassword {
+            rawPassword = password.data(using: .utf8)
+        } else {
+            let derivedPasswordItem = KeychainItem.generic(account: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service())
+            rawPassword = try store.find(derivedPasswordItem) as! Data?
+        }
+
+        // Get access to secure enclave key
+        let sensitiveKEK = try store.find(KeychainItem.enclaveKey(tag: ProtectedKeyStore.privateKEKTag, service: protectionClass.service(), password: rawPassword)) as! SecKey
+
+        // Get access to encrypted sensitive key
+        let encryptedSensitiveKey = try store.find(KeychainItem.generic(account: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service())) as? Data
+        let decryptedSensitiveKeyData = try encryptedSensitiveKey?.decrypt(privateKey: sensitiveKEK)
+        var error: Unmanaged<CFError>?
+        guard let decryptedSensitiveKey: SecKey = SecKeyCreateWithData(decryptedSensitiveKeyData! as CFData, try KeychainItem.ecKeyPair.creationAttributes(), &error) else {
+            // will fail here if password was wrong
+            throw error!.takeRetainedValue() as Error
+        }
+        sensitiveKey = decryptedSensitiveKey
+    }
+
+
+    func lock() {
+        sensitiveKey = nil
     }
 
     func `import`(id: DataID, data: Data) throws {
@@ -64,32 +99,23 @@ class ProtectedKeyStore: EncryptedStore {
         }
     }
 
-    func find(dataID: DataID, password userPassword: String?) throws -> Data? {
+    func find(dataID: DataID, password derivedPassword: String?, forceUnlock: Bool = false) throws -> Data? {
         guard let encryptedData = try store.find(KeychainItem.generic(account: dataID.id, service: protectionClass.service())) as? Data else {
             return nil
         }
 
-        let rawPassword: Data?
-        if let password = userPassword {
-            rawPassword = password.data(using: .utf8)
-        } else {
-            let derivedPasswordItem = KeychainItem.generic(account: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service())
-            rawPassword = try store.find(derivedPasswordItem) as! Data?
+        let locked = !unlocked
+
+        if locked || forceUnlock {
+            try unlock(derivedPassword: derivedPassword)
         }
 
-        // Get access to secure enclave key
-        let sensitiveKEK = try store.find(KeychainItem.enclaveKey(tag: ProtectedKeyStore.privateKEKTag, service: protectionClass.service(), password: rawPassword)) as! SecKey
+        let result = try encryptedData.decrypt(privateKey: sensitiveKey!)
 
-        // Get access to encrypted sensitive key
-        let encryptedSensitiveKey = try store.find(KeychainItem.generic(account: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service())) as? Data
-        let decryptedSensitiveKeyData = try encryptedSensitiveKey?.decrypt(privateKey: sensitiveKEK)
-        var error: Unmanaged<CFError>?
-        guard let decryptedSensitiveKey: SecKey = SecKeyCreateWithData(decryptedSensitiveKeyData! as CFData, try KeychainItem.ecKeyPair.creationAttributes(), &error) else {
-            // will fail here if password was wrong
-            throw error!.takeRetainedValue() as Error
+        if locked {
+            lock()
         }
 
-        let result = try encryptedData.decrypt(privateKey: decryptedSensitiveKey)
         return result
     }
 
@@ -100,17 +126,11 @@ class ProtectedKeyStore: EncryptedStore {
     //                        newPassword == nil -> use stored password to access KEK
     //          useBiometry -> true/false
     func changePassword(from oldPassword: String?, to newPassword: String?, useBiometry: Bool = false) throws {
-        // find sensitive key
-        let encryptedSensitiveKey = try store.find(KeychainItem.generic(account: ProtectedKeyStore.encryptedPrivateKeyTag, service: protectionClass.service())) as? Data
-        let passwordData = oldPassword != nil ? oldPassword?.data(using: .utf8) : try store.find(KeychainItem.generic(account: ProtectedKeyStore.derivedPasswordTag, service: protectionClass.service())) as! Data?
-        let sensitiveKEK = try store.find(KeychainItem.enclaveKey(tag: ProtectedKeyStore.privateKEKTag, service: protectionClass.service(), password: passwordData)) as! SecKey
 
-        // Decrypt sensitive key
-        let decryptedSensitiveKeyData = try encryptedSensitiveKey?.decrypt(privateKey: sensitiveKEK)
-        var error: Unmanaged<CFError>?
-        guard let decryptedSensitiveKey: SecKey = SecKeyCreateWithData(decryptedSensitiveKeyData! as CFData, try KeychainItem.ecKeyPair.creationAttributes(), &error) else {
-            // will fail here if password was wrong
-            throw error!.takeRetainedValue() as Error
+        let locked = !unlocked
+
+        if locked {
+            try unlock(derivedPassword: oldPassword)
         }
 
         // if no newPassword given, create a random password an store it
@@ -140,12 +160,7 @@ class ProtectedKeyStore: EncryptedStore {
         )
 
         let keyEncryptionKey: SecKey = try store.create(kekItem) as! SecKey
-
-        // create key pair
-        let privateKeyItem = KeychainItem.ecKeyPair
-        let sensitiveKey: SecKey = try store.create(privateKeyItem) as! SecKey
-
-        let encryptedPK = try Data(secKey: sensitiveKey).encrypt(publicKey: keyEncryptionKey.publicKey())
+        let encryptedPK = try Data(secKey: sensitiveKey!).encrypt(publicKey: keyEncryptionKey.publicKey())
 
         // store key pair
         // store sensitive key
@@ -160,9 +175,13 @@ class ProtectedKeyStore: EncryptedStore {
         let pubKeyItem = KeychainItem.ecPubKey(
                 tag: ProtectedKeyStore.publicKeyTag,
                 service: protectionClass.service(),
-                publicKey: sensitiveKey.publicKey()
+                publicKey: sensitiveKey!.publicKey()
         )
         try store.create(pubKeyItem)
+
+        if locked {
+            lock()
+        }
     }
 
     func initialize() throws {
@@ -194,7 +213,6 @@ class ProtectedKeyStore: EncryptedStore {
         let sensitiveKey: SecKey = try store.create(privateKeyItem) as! SecKey
 
         let encryptedPK = try Data(secKey: sensitiveKey).encrypt(publicKey: keyEncryptionKey.publicKey())
-
         // store key pair
         // store encrypted private key
         let encryptedPrivateKeyItem = KeychainItem.generic(

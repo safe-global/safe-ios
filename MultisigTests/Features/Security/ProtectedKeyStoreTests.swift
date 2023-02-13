@@ -9,8 +9,8 @@ import LocalAuthentication
 
 public class ProtectedKeyStoreTests: XCTestCase {
 
-    var sensitiveKeyStore: EncryptedStore! = nil
-    var dataKeyStore: EncryptedStore! = nil
+    var sensitiveKeyStore: ProtectedKeyStore! = nil
+    var dataKeyStore: ProtectedKeyStore! = nil
     var keychainItemStore: KeychainItemStore! = nil
 
     public override func setUp() {
@@ -22,7 +22,12 @@ public class ProtectedKeyStoreTests: XCTestCase {
 
     public override func tearDown() {
         super.tearDown()
-        try! sensitiveKeyStore.deleteAllKeys()
+        do {
+            try sensitiveKeyStore.deleteAllKeys()
+        } catch {}
+        do {
+            try! dataKeyStore.deleteAllKeys()
+        } catch {}
     }
 
     func testInitialSetup() {
@@ -77,6 +82,29 @@ public class ProtectedKeyStoreTests: XCTestCase {
 
         } catch {
             XCTFail() // should not throw
+        }
+    }
+
+    func testAfterChangePasswordKeysAreStillAvailable() {
+        XCTAssertEqual(dataKeyStore.isInitialized(), false)
+        let randomKey = Data(ethHex: "da18066dda40499e6ef67a392eda0fd90acf804448a765db9fa9b6e7dd15c322") as Data
+        do {
+            try dataKeyStore.initializeKeyStore()
+            // Store something
+            try dataKeyStore.import(id: DataID(id:"0xE86935943315293154c7AD63296b4e1adAc76364"), data: randomKey)
+
+            // Change password
+            try dataKeyStore.changePassword(from: nil, to: "test123", useBiometry: false)
+
+        } catch {
+            XCTFail()
+        }
+        do {
+            // Check imported key can be decrypted
+            let result = try dataKeyStore.find(dataID: DataID(id: "0xE86935943315293154c7AD63296b4e1adAc76364"), password: "test123")
+            XCTAssertEqual(result?.toHexString(), randomKey.toHexString())
+        } catch {
+            XCTFail("Imported data could not be found/decrypted")
         }
     }
 
