@@ -69,6 +69,11 @@ class EnterPasscodeViewController: PasscodeViewController {
 
         if isCorrect {
             passcodeCompletion(true, false, text)
+            do {
+                try onPasscodeEnter(text)
+            } catch {
+                LogService.shared.error(error.localizedDescription)
+            }
         } else {
             wrongAttemptsCount += 1
             if wrongAttemptsCount >= warnAfterWrongAttemptCount {
