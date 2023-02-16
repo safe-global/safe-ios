@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 class EnterPasscodeViewController: PasscodeViewController {
+
+    // Deprecated with the new security center
     var passcodeCompletion: (_ success: Bool, _ reset: Bool, _ passcode: String?) -> Void = { _, _, _ in }
 
     var onPasscodeEnter: (_ password: String?) throws -> Void = { _ in }
@@ -72,7 +74,7 @@ class EnterPasscodeViewController: PasscodeViewController {
             do {
                 try onPasscodeEnter(text)
             } catch {
-                LogService.shared.error(error.localizedDescription)
+                onError(error)
             }
         } else {
             wrongAttemptsCount += 1
