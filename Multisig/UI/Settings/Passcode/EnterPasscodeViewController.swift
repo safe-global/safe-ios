@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 class EnterPasscodeViewController: PasscodeViewController {
+
+    // Deprecated with the new security center
     var passcodeCompletion: (_ success: Bool, _ reset: Bool, _ passcode: String?) -> Void = { _, _, _ in }
 
     var onPasscodeEnter: (_ password: String?) throws -> Void = { _ in }
@@ -69,6 +71,11 @@ class EnterPasscodeViewController: PasscodeViewController {
 
         if isCorrect {
             passcodeCompletion(true, false, text)
+            do {
+                try onPasscodeEnter(text)
+            } catch {
+                onError(error)
+            }
         } else {
             wrongAttemptsCount += 1
             if wrongAttemptsCount >= warnAfterWrongAttemptCount {
