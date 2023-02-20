@@ -101,7 +101,12 @@ class ProtectedKeyStore: EncryptedStore {
 
     func find(dataID: DataID, password derivedPassword: String?, forceUnlock: Bool = false) throws -> Data? {
         guard let encryptedData = try store.find(KeychainItem.generic(account: dataID.id, service: protectionClass.service())) as? Data else {
-            return nil
+
+            // We cannot find/access the encrypted data
+            // This could mean, that the user disabled the device passcode. and reenabled it
+
+            throw GSError.UnknownAppError(description: "Expected data could not be found", reason: "Data is missing", howToFix: "Reset keychain and app data")
+//            return nil
         }
 
         let locked = !unlocked
@@ -268,10 +273,10 @@ extension Data {
 
     func decrypt(privateKey: SecKey) throws -> Data {
         var error: Unmanaged<CFError>?
-        guard let decryptedSensitiveKeyData = SecKeyCreateDecryptedData(privateKey, .eciesEncryptionStandardX963SHA256AESGCM, self as CFData, &error) else {
+        guard let decryptedData = SecKeyCreateDecryptedData(privateKey, .eciesEncryptionStandardX963SHA256AESGCM, self as CFData, &error) else {
             throw error!.takeRetainedValue() as Error
         }
-        return decryptedSensitiveKeyData as Data
+        return decryptedData as Data
     }
 }
 

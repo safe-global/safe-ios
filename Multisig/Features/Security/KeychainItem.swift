@@ -88,19 +88,25 @@ enum KeychainItem {
         var result: NSMutableDictionary = [:]
         switch self {
         case let .generic(id, service, data):
+            var protectionAttribubte = kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly
+            if service == ProtectionClass.data.service() {
+                protectionAttribubte = kSecAttrAccessibleAfterFirstUnlock
+            }
+            let accessControl = try accessControl(flags: SecAccessControlCreateFlags(), protection: protectionAttribubte)
             result = [
                 kSecAttrService: service,
                 kSecAttrAccount: id,
                 kSecClass: kSecClassGenericPassword,
                 kSecReturnAttributes: false,
                 kSecReturnData: true,
+                kSecAttrAccessControl: accessControl
             ]
             if let data = data {
                 result[kSecValueData] = data
             }
 
         case let .enclaveKey(tag, service, password, access):
-            let accessControl = try accessControl(flags: .privateKeyUsage.union(access!))
+            let accessControl = try accessControl(flags: .privateKeyUsage.union(access!), protection: kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly)
 
             let privateKeyAttrs: NSMutableDictionary = [
                 kSecAttrIsPermanent: true,
@@ -120,19 +126,23 @@ enum KeychainItem {
                 // why not kSecReturnRef: true?
             ]
         case .ecKeyPair:
+            let accessControl = try accessControl(flags: SecAccessControlCreateFlags(), protection: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly)
             result = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
                 kSecAttrKeySizeInBits: 256,
-                kSecAttrKeyClass: kSecAttrKeyClassPrivate
+                kSecAttrKeyClass: kSecAttrKeyClassPrivate,
+                kSecAttrAccessControl: accessControl
             ]
         case let .ecPubKey(tag, service, pubKey):
+            let accessControl = try accessControl(flags: SecAccessControlCreateFlags(), protection: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly)
             result = [
                 kSecClass: kSecClassKey,
                 kSecAttrKeyClass: kSecAttrKeyClassPublic,
                 kSecAttrApplicationTag: tagWithService(tag, service).data(using: .utf8)!,
                 kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
-                kSecReturnRef: true
+                kSecReturnRef: true,
+                kSecAttrAccessControl: accessControl
             ]
             if let pubKey = pubKey {
                 result[kSecValueRef] = pubKey
@@ -142,13 +152,13 @@ enum KeychainItem {
     }
 
     // create access control flags with params
-    fileprivate func accessControl(flags: SecAccessControlCreateFlags) throws -> SecAccessControl {
+    fileprivate func accessControl(flags: SecAccessControlCreateFlags, protection: CFTypeRef) throws -> SecAccessControl {
         // SWIFT: can't extend SecAccessControl (compiler error that extensions of CF classes are not supported).
 
         var accessError: Unmanaged<CFError>?
         guard let access = SecAccessControlCreateWithFlags(
                 kCFAllocatorDefault,
-                kSecAttrAccessibleAfterFirstUnlock,
+                protection,
                 flags,
                 &accessError
         )

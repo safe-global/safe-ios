@@ -186,7 +186,8 @@ class CreatePasscodeFlow: UIFlow {
                     App.shared.snackbar.show(message: "Passcode created")
                     super.stop(success: true)
                 } catch {
-                    App.shared.snackbar.show(message: "Failed to create passcode")
+
+                    App.shared.snackbar.show(message: "Failed to create passcode [](\(error.localizedDescription))")
                     super.stop(success: false)
                 }
             } else {
@@ -200,7 +201,7 @@ class CreatePasscodeFlow: UIFlow {
                     super.stop(success: true)
                     return
                 } catch {
-                    App.shared.snackbar.show(message: "Failed to create passcode")
+                    App.shared.snackbar.show(message: "Failed to create passcode (\(error.localizedDescription))")
                 }
             }
             super.stop(success: false)
