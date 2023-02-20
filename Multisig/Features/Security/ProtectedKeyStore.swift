@@ -101,12 +101,7 @@ class ProtectedKeyStore: EncryptedStore {
 
     func find(dataID: DataID, password derivedPassword: String?, forceUnlock: Bool = false) throws -> Data? {
         guard let encryptedData = try store.find(KeychainItem.generic(account: dataID.id, service: protectionClass.service())) as? Data else {
-
-            // We cannot find/access the encrypted data
-            // This could mean, that the user disabled the device passcode. and reenabled it
-
-            throw GSError.UnknownAppError(description: "Expected data could not be found", reason: "Data is missing", howToFix: "Reset keychain and app data")
-//            return nil
+            return nil
         }
 
         let locked = !unlocked
