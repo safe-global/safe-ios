@@ -11,6 +11,7 @@ class KeychainItemStoreTests: XCTestCase {
 
     var kciStore: KeychainItemStore! = nil
     var kciFactory: KeychainItemFactory = KeychainItemFactory(protectionClass: ProtectionClass.sensitive)
+    var dataKeyFactory: KeychainItemFactory = KeychainItemFactory(protectionClass: ProtectionClass.data)
     let derivedPasscode = "foobar23"
     let passwordTag = "random.tag"
     let encryptedPrivateKeyTag = "random.private.key.tag"
@@ -24,6 +25,7 @@ class KeychainItemStoreTests: XCTestCase {
     public override func tearDown() {
         super.tearDown()
         try! kciStore.delete(kciFactory.generic(account: passwordTag))
+        try! kciStore.delete(dataKeyFactory.generic(account: passwordTag))
         try! kciStore.delete(kciFactory.generic(account: encryptedPrivateKeyTag))
         try! kciStore.delete(kciFactory.ecPubKey())
         try! kciStore.delete(kciFactory.enclaveKey())
@@ -65,6 +67,20 @@ class KeychainItemStoreTests: XCTestCase {
 
         //Then
         let result = try kciStore.find(kciFactory.generic(account: passwordTag)) as! Data?
+        XCTAssertEqual(result, randomString.data(using: .utf8), "Unexpected result: \(result)")
+    }
+
+    func testStoreAndRetrievePasscodeProtectionClassData() throws {
+        // Given
+        let randomString = UUID().uuidString
+        let passCodeData = try kciStore.find(dataKeyFactory.generic(account: passwordTag)) as! Data?
+        XCTAssertEqual(passCodeData, nil, "Keychain not empty")
+
+        // When
+        try kciStore.create(dataKeyFactory.generic(account: passwordTag, data: randomString.data(using: .utf8)))
+
+        //Then
+        let result = try kciStore.find(dataKeyFactory.generic(account: passwordTag)) as! Data?
         XCTAssertEqual(result, randomString.data(using: .utf8), "Unexpected result: \(result)")
     }
 

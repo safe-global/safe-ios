@@ -268,10 +268,10 @@ extension Data {
 
     func decrypt(privateKey: SecKey) throws -> Data {
         var error: Unmanaged<CFError>?
-        guard let decryptedSensitiveKeyData = SecKeyCreateDecryptedData(privateKey, .eciesEncryptionStandardX963SHA256AESGCM, self as CFData, &error) else {
+        guard let decryptedData = SecKeyCreateDecryptedData(privateKey, .eciesEncryptionStandardX963SHA256AESGCM, self as CFData, &error) else {
             throw error!.takeRetainedValue() as Error
         }
-        return decryptedSensitiveKeyData as Data
+        return decryptedData as Data
     }
 }
 
