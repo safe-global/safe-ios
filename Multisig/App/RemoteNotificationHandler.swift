@@ -54,7 +54,9 @@ class RemoteNotificationHandler {
         logDebug("Push token updated")
         self.token = token
         if authorizationStatus != nil {
-            registerAll()
+            Task {
+                await registerAll()
+            }
         }
     }
 
@@ -63,7 +65,9 @@ class RemoteNotificationHandler {
         if authorizationStatus == nil {
             requestUserPermissionAndRegister()
         } else {
-            registerAll()
+            Task {
+                await registerAll()
+            }
         }
     }
 
@@ -74,7 +78,9 @@ class RemoteNotificationHandler {
     /// For add / remove signing key
     func signingKeyUpdated() {
         logDebug("Signing key updated")
-        registerAll()
+        Task {
+            await registerAll()
+        }
     }
 
     func received(notification userInfo: [AnyHashable: Any]) {
@@ -105,7 +111,9 @@ class RemoteNotificationHandler {
                     self.setStatus(settings.authorizationStatus)
 
                     if settings.authorizationStatus.hasPermission {
-                        self.registerAll()
+                        Task {
+                            await self.registerAll()
+                        }
                     }
                 }
             }
@@ -138,7 +146,9 @@ class RemoteNotificationHandler {
 
                 // At the time when permission granted, the token will be
                 // already set, so we need to register all stored safes
-                self.registerAll()
+                Task {
+                    await self.registerAll()
+                }
             }
             self.updateAuthorizationStatus()
         }
@@ -163,6 +173,34 @@ class RemoteNotificationHandler {
         Tracker.setPushInfo(status.trackingStatus.rawValue)
     }
 
+
+    static func signAsync(safes: [String], deviceID: String, token: String, timestamp: String) async throws -> (preimage: String, hash: String, signatures: [String]) {
+
+        // get keys for signing
+        var privateKeys: [PrivateKey] = []
+        let keyInfos = try KeyInfo.all()
+        for keyInfo in keyInfos {
+            let privateKey = try await keyInfo.pushNotificationSigningKey()!
+            privateKeys.append(privateKey)
+        }
+
+        let hashPreimage = [
+            "gnosis-safe",
+            timestamp,
+            deviceID,
+            token,
+            safes.joined()
+        ].joined()
+
+        let hash = EthHasher.hash(hashPreimage)
+
+        let signatures: [String] = try privateKeys.map { key in
+            let sig = try key.sign(hash: hash)
+            return sig.hexadecimal
+        }
+        return (hashPreimage, hash.toHexStringWithPrefix(), signatures)
+    }
+
     /// Constructs the hash for the registration request and signs with all available
     /// private keys stored.
     ///
@@ -174,6 +212,7 @@ class RemoteNotificationHandler {
     /// - Throws: Error in case of database failures, or private key signing errors
     /// - Returns: If there are any keys, then returns preimage of the hash, the hash that was signed, timestamp used, and array of signatures corresponding to the signing keys.
     static func sign(safes: [String], deviceID: String, token: String, timestamp: String) throws -> (preimage: String, hash: String, signatures: [String]) {
+        
         // get keys for signing
         let privateKeys = try KeyInfo.all()
             .compactMap { keyInfo -> PrivateKey? in
@@ -203,7 +242,7 @@ class RemoteNotificationHandler {
                                                    chainId: chainId)
     }
 
-    private func registerAll() {
+    private func registerAll() async {
         guard let pushToken = token else { return }
         guard let deviceID = storedDeviceID?.lowercased() else {
             assertionFailure("Programmer error: missing device ID")
@@ -225,13 +264,24 @@ class RemoteNotificationHandler {
                 // The signing might fail in case the underlying key store is not available. In this case
                 // we abort the whole process. The registration will be attempted again on the next
                 // app coming to foreground event.
-                let signResult = try Self.sign(safes: safes,
-                                               deviceID: deviceID,
-                                               token: pushToken,
-                                               timestamp: timestamp)
-                
-                safeRegistration.append(SafeRegistration(chainId: chainSafes.chain.id!, safes: safes,
-                                                         signatures: signResult.signatures))
+
+                if AppConfiguration.FeatureToggles.securityCenter {
+                    let signResult = try await Self.signAsync(safes: safes,
+                                                   deviceID: deviceID,
+                                                   token: pushToken,
+                                                   timestamp: timestamp)
+
+                    safeRegistration.append(SafeRegistration(chainId: chainSafes.chain.id!, safes: safes,
+                                                             signatures: signResult.signatures))
+                } else {
+                    let signResult = try Self.sign(safes: safes,
+                                                   deviceID: deviceID,
+                                                   token: pushToken,
+                                                   timestamp: timestamp)
+
+                    safeRegistration.append(SafeRegistration(chainId: chainSafes.chain.id!, safes: safes,
+                                                             signatures: signResult.signatures))
+                }
             }
 
             App.shared.clientGatewayService.registerNotification(uuid: deviceID,
