@@ -200,6 +200,15 @@
         }
       },
       {
+        "package": "Starscream",
+        "repositoryURL": "https://github.com/daltoniam/Starscream.git",
+        "state": {
+          "branch": null,
+          "revision": "a063fda2b8145a231953c20e7a646be254365396",
+          "version": "3.1.2"
+        }
+      },
+      {
         "package": "swift-algorithms",
         "repositoryURL": "https://github.com/apple/swift-algorithms.git",
         "state": {
@@ -282,11 +291,20 @@
       },
       {
         "package": "WalletConnectSwift",
-        "repositoryURL": "https://github.com/WalletConnect/WalletConnectSwift",
+        "repositoryURL": "https://github.com/WalletConnect/WalletConnectSwift.git",
         "state": {
           "branch": null,
           "revision": "e0bbfd16d5c54a7aa7e316956d765399c6332fa2",
           "version": "1.7.0"
+        }
+      },
+      {
+        "package": "WalletConnect",
+        "repositoryURL": "https://github.com/WalletConnect/WalletConnectSwiftV2",
+        "state": {
+          "branch": "main",
+          "revision": "a11d26ce67b422f05505f38584445f16c3510985",
+          "version": null
         }
       },
       {

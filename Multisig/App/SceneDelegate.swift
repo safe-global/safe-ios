@@ -159,11 +159,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // handle wallet connect
         if let wcURL = components.queryItems?.first?.value,
-           WalletConnectSafesServerController.shared.canConnect(url: wcURL),
            (try? Safe.getSelected()) != nil {
-            try? WalletConnectSafesServerController.shared.connect(url: wcURL)
-            WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithUniversalLink
-            return
+            if WalletConnectManager.shared.canConnect(url: wcURL) {
+                WalletConnectManager.shared.pairClient(url: wcURL)
+            } else if WalletConnectSafesServerController.shared.canConnect(url: wcURL) {
+                try? WalletConnectSafesServerController.shared.connect(url: wcURL)
+                WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithUniversalLink
+                return
+            }
         }
 
         // handle request to add owner

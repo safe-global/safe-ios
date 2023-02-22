@@ -264,12 +264,16 @@ extension DappsViewController: QRCodeScannerViewControllerDelegate {
                 }
             }
         } else {
-            do {
-                try WalletConnectSafesServerController.shared.connect(url: url)
-                WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithScanButton
-                dismiss(animated: true, completion: nil)
-            } catch {
-                App.shared.snackbar.show(message: error.localizedDescription)
+            if WalletConnectManager.shared.canConnect(url: url) {
+                WalletConnectManager.shared.pairClient(url: url)
+            } else {
+                do {
+                    try WalletConnectSafesServerController.shared.connect(url: url)
+                    WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithScanButton
+                    dismiss(animated: true, completion: nil)
+                } catch {
+                    App.shared.snackbar.show(message: error.localizedDescription)
+                }
             }
         }
     }

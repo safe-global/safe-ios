@@ -138,6 +138,9 @@ struct AppConfiguration {
 
         @ConfigurationKey("WALLETCONNECT_REGISTRY_URL")
         var registryURL: URL
+
+        @ConfigurationKey("WALLETCONNECT_PROJECT_ID")
+        var walletConnectProjectId: String
     }
     
     struct FeatureToggles {

@@ -56,7 +56,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         WCAppRegistryMigration.shared.run()
 
         SecurityCenter.setUp()
-
+        WalletConnectManager.shared.config()
+        
         return true
     }
 
