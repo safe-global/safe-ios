@@ -180,8 +180,10 @@ class RemoteNotificationHandler {
         var privateKeys: [PrivateKey] = []
         let keyInfos = try KeyInfo.all()
         for keyInfo in keyInfos {
-            let privateKey = try await keyInfo.pushNotificationSigningKey()!
-            privateKeys.append(privateKey)
+            let privateKey = try await keyInfo.pushNotificationSigningKey()
+            if let privateKey = privateKey {
+                privateKeys.append(privateKey)
+            }
         }
 
         let hashPreimage = [

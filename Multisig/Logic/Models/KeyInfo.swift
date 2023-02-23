@@ -394,24 +394,9 @@ extension KeyInfo {
         return try? delegatePrivateKey()
     }
 
-    func pushNotificationSigningKey(completion: @escaping (Result<PrivateKey?, Error>) -> ()) {
-        privateKey { [unowned self] result in
-            switch result {
-            case .success(let privateKey):
-                if privateKey == nil {
-                    delegatePrivateKey(completion: completion)
-                } else {
-                    completion(.success(privateKey))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-
     func pushNotificationSigningKey() async throws -> PrivateKey? {
         return try await withCheckedThrowingContinuation { continuation in
-            pushNotificationSigningKey { result in
+            delegatePrivateKey { result in
                 switch result {
                 case .success(let privateKey):
                     continuation.resume(returning: privateKey)
