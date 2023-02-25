@@ -11,19 +11,29 @@ import WalletConnectNetworking
 import WalletConnectPairing
 import Combine
 import WalletConnectSign
-
+import WalletConnectUtils
+import WalletConnectRouter
+import Web3
 class WalletConnectManager {
     static let shared = WalletConnectManager()
     
     private var publishers = [AnyCancellable]()
     
-    private init() {
-        setUpAuthSubscribing()
-    }
+    private init() { }
 
     func config() {
         Networking.configure(projectId: App.configuration.walletConnect.walletConnectProjectId,
                              socketFactory: SocketFactory())
+
+        let metadata = AppMetadata(
+            name: Bundle.main.displayName,
+            description: "The most trusted platform to manage digital assets on Ethereum",
+            url: App.configuration.services.webAppURL.absoluteString,
+            icons: ["https://app.safe.global/favicons/mstile-150x150.png",
+                     "https://app.safe.global/favicons/logo_120x120.png"])
+
+        Pair.configure(metadata: metadata)
+        setUpAuthSubscribing()
     }
 
     func canConnect(url: String) -> Bool {
@@ -40,6 +50,7 @@ class WalletConnectManager {
             do {
                 try await Pair.instance.pair(uri: uri)
             } catch {
+                print(error)
                 LogService.shared.error("DAPP: Failed to register to remote notifications \(error)")
             }
         }
@@ -102,7 +113,7 @@ class WalletConnectManager {
         Sign.instance.sessionProposalPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] sessionProposal in
-                // TODO: present poposal approve/reject screen 
+                self?.approveSession(proposal: sessionProposal)
             }.store(in: &publishers)
 
         Sign.instance.sessionRequestPublisher
@@ -120,8 +131,28 @@ class WalletConnectManager {
         Sign.instance.sessionsPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] sessions in
-                // TODO: Refresh sessions if needed
+                // TODO: Handle session 
             }.store(in: &publishers)
+    }
+
+    func approveSession(proposal: Session.Proposal) {
+        guard let safe = try? Safe.getSelected() else { return }
+        var sessionNamespaces = [String: SessionNamespace]()
+        proposal.requiredNamespaces.forEach {
+            let caip2Namespace = $0.key
+            let proposalNamespace = $0.value
+            let accounts = Set(proposalNamespace.chains.compactMap { Account($0.absoluteString + ":\(safe.addressValue)") })
+
+            let sessionNamespace = SessionNamespace(accounts: accounts, methods: proposalNamespace.methods, events: proposalNamespace.events)
+            sessionNamespaces[caip2Namespace] = sessionNamespace
+        }
+        approve(proposalId: proposal.id, namespaces: sessionNamespaces)
+    }
+}
+
+extension Bundle {
+    var displayName: String {
+        return object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? "Safe Multisig"
     }
 }
 

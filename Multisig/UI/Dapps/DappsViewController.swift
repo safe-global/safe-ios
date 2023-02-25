@@ -266,6 +266,7 @@ extension DappsViewController: QRCodeScannerViewControllerDelegate {
         } else {
             if WalletConnectManager.shared.canConnect(url: url) {
                 WalletConnectManager.shared.pairClient(url: url)
+                dismiss(animated: true, completion: nil)
             } else {
                 do {
                     try WalletConnectSafesServerController.shared.connect(url: url)
