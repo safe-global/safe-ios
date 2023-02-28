@@ -20,6 +20,7 @@ class WalletConnectManager {
     static let shared = WalletConnectManager()
     
     private var publishers = [AnyCancellable]()
+    private var dappConnectedTrackingEvent: TrackingEvent?
 
     private let metadata = AppMetadata(
         name: Bundle.main.displayName,
@@ -72,14 +73,15 @@ class WalletConnectManager {
                             }
                         }
                     }
+
+                    if let dappConnectedTrackingEvent = dappConnectedTrackingEvent {
+                        // parameter names should not exceed 100 chars
+                        let dappName = session.peer.name.prefix(100)
+                        Tracker.trackEvent(dappConnectedTrackingEvent, parameters: ["dapp_name" : dappName])
+                    }
                 }
-                if let dappConnectedTrackingEvent = dappConnectedTrackingEvent {
-                    // parameter names should not exceed 100 chars
-                    let dappName = session.peer.name.prefix(100)
-                    Tracker.trackEvent(dappConnectedTrackingEvent, parameters: ["dapp_name" : dappName])
-                    self.dappConnectedTrackingEvent = nil
-                }
-                
+
+                dappConnectedTrackingEvent = nil
                 NotificationCenter.default.post(name: .wcDidConnectSafeServer, object: self)
             }.store(in: &publishers)
 
@@ -95,8 +97,9 @@ class WalletConnectManager {
         WalletConnectURI(string: url) != nil
     }
 
-    func pairClient(url: String,trackingEvent: TrackingEvent?) {
+    func pairClient(url: String, trackingEvent: TrackingEvent?) {
         guard let uri = WalletConnectURI(string: url) else { return }
+        dappConnectedTrackingEvent = trackingEvent
         pairClient(uri: uri)
     }
 
