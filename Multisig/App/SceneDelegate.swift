@@ -161,7 +161,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let wcURL = components.queryItems?.first?.value,
            (try? Safe.getSelected()) != nil {
             if WalletConnectManager.shared.canConnect(url: wcURL) {
-                WalletConnectManager.shared.pairClient(url: wcURL)
+                WalletConnectManager.shared.pairClient(url: wcURL, trackingEvent: .dappConnectedWithUniversalLink)
             } else if WalletConnectSafesServerController.shared.canConnect(url: wcURL) {
                 try? WalletConnectSafesServerController.shared.connect(url: wcURL)
                 WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithUniversalLink

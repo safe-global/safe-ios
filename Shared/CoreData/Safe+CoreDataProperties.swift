@@ -21,6 +21,7 @@ extension Safe {
     @NSManaged public var address: String?
     @NSManaged public var contractVersion: String?
     @NSManaged public var name: String?
+    @NSManaged public var sessionTopics: String?
     @NSManaged public var status: Int16
     @NSManaged public var chain: Chain?
     @NSManaged public var selection: Selection?
