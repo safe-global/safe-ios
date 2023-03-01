@@ -42,6 +42,11 @@ extension Safe {
         }
     }
 
+    var walletConnectSessiontopics: [String] {
+        guard let topics = sessionTopics else { return [] }
+        return topics.components(separatedBy: " ")
+    }
+
     // Demo address
     static let demoAddress = "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7"
 
@@ -180,6 +185,26 @@ extension Safe {
         NotificationCenter.default.post(name: .selectedSafeUpdated, object: self)
 
         Safe.updateCachedNames()
+    }
+
+    func addSession(topic: String) {
+        dispatchPrecondition(condition: .onQueue(.main))
+        var topics = walletConnectSessiontopics
+        if topics.contains(topic) { return }
+        topics.append(topic)
+        sessionTopics = topics.joined(separator: " ")
+        App.shared.coreDataStack.saveContext()
+    }
+
+    static func removeSession(topic: String) {
+        Safe.all.forEach{
+            var topics = $0.walletConnectSessiontopics
+            if topics.contains(topic) {
+                $0.sessionTopics = topics.filter { $0 != topic }.joined(separator: " ")
+            }
+        }
+
+        App.shared.coreDataStack.saveContext()
     }
 
     static func select(address: String, chainId: String) {

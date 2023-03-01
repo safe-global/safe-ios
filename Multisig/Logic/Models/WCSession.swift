@@ -9,6 +9,8 @@
 import Foundation
 import CoreData
 import WalletConnectSwift
+import WalletConnectUtils
+import WalletConnectSign
 
 extension WCSession {
     var status: SessionStatus {
@@ -56,7 +58,27 @@ extension WCSession {
         App.shared.coreDataStack.saveContext()
     }
 
-    static func update(session: Session, status: SessionStatus) {
+    static func create(uri: WalletConnectURI) {
+        dispatchPrecondition(condition: .onQueue(.main))
+        guard let safe = try? Safe.getSelected() else { return }
+
+        let wcSession: WCSession
+        if let existing = get(topic: uri.topic) {
+            wcSession = existing
+        } else {
+            let context = App.shared.coreDataStack.viewContext
+            wcSession = WCSession(context: context)
+        }
+
+        wcSession.status = .connecting
+        wcSession.created = Date()
+        wcSession.topic = uri.topic
+        wcSession.safe = safe
+
+        App.shared.coreDataStack.saveContext()
+    }
+    
+    static func update(session: WalletConnectSwift.Session, status: SessionStatus) {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
         let fr = WCSession.fetchRequest().by(topic: session.url.topic)
@@ -88,7 +110,7 @@ extension NSFetchRequest where ResultType == WCSession {
     }
 }
 
-extension Session {
+extension WalletConnectSwift.Session {
     static func from(_ wcSession: WCSession) throws -> Self {        
         let decoder = JSONDecoder()
         return try decoder.decode(Session.self, from: wcSession.session!)

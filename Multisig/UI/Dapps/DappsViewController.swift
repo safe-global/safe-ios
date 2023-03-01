@@ -8,6 +8,7 @@
 
 import UIKit
 import WalletConnectSwift
+import WalletConnectSign
 
 fileprivate protocol SectionItem {}
 
@@ -26,7 +27,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
         case dapp(String)
 
         enum WalletConnect: SectionItem {
-            case activeSession(WCSession)
+            case activeSession(Any)
             case noSessions(String)
         }
 
@@ -79,17 +80,26 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     @objc private func update() {
         DispatchQueue.main.async { [unowned self] in
-            var wcSessionItems: [SectionItem]
+            var wcSessionItems: [SectionItem] = []
             do {
-                wcSessionItems = try WCSession.getAll().compactMap {
-                    guard $0.session != nil,
-                          let session = try? Session.from($0),
-                          let selectedSafe = try? Safe.getSelected(),
-                          session.walletInfo!.accounts.contains(selectedSafe.address!) else {
-                        return nil
+                if let selectedSafe = try? Safe.getSelected() {
+                    wcSessionItems = try WCSession.getAll().compactMap {
+                        guard $0.session != nil,
+                              let session = try? Session.from($0),
+                              session.walletInfo!.accounts.contains(selectedSafe.address!) else {
+                            return nil
+                        }
+
+                        return Section.WalletConnect.activeSession($0)
                     }
-                    return Section.WalletConnect.activeSession($0)
+
+                    let walletConnectV2Sessions = WalletConnectManager.shared.getSessions(topics: selectedSafe.walletConnectSessiontopics)
+
+                    wcSessionItems.append(contentsOf: walletConnectV2Sessions.compactMap {
+                        return Section.WalletConnect.activeSession($0)
+                    })
                 }
+
                 if wcSessionItems.isEmpty {
                     wcSessionItems.append(Section.WalletConnect.noSessions("No active sessions"))
                 }
@@ -154,26 +164,37 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
                 name: name, indexPath: indexPath, disclosureImage: nil, canSelect: false)
 
         case Section.WalletConnect.activeSession(let wcSession):
-            switch wcSession.status {
-            case .connecting:
+            if let v1Session = wcSession as? WCSession {
+                switch v1Session.status {
+                case .connecting:
+                    return tableView.detailedCell(
+                        imageUrl: nil,
+                        header: "Connecting...",
+                        description: nil,
+                        indexPath: indexPath,
+                        canSelect: false,
+                        placeholderImage: UIImage(named: "ico-empty-circle"))
+                case .connected:
+                    let session = try! Session.from(v1Session)
+                    return tableView.detailedCell(
+                        imageUrl: session.dAppInfo.peerMeta.icons.isEmpty ? nil : session.dAppInfo.peerMeta.icons[0],
+                        header: session.dAppInfo.peerMeta.name,
+                        description: session.dAppInfo.peerMeta.description,
+                        indexPath: indexPath,
+                        canSelect: false,
+                        placeholderImage: #imageLiteral(resourceName: "ico-empty-circle"))
+                }
+            } else if let v2Session = wcSession as? WalletConnectSign.Session {
                 return tableView.detailedCell(
-                    imageUrl: nil,
-                    header: "Connecting...",
-                    description: nil,
-                    indexPath: indexPath,
-                    canSelect: false,
-                    placeholderImage: UIImage(named: "ico-empty-circle"))
-            case .connected:
-                let session = try! Session.from(wcSession)
-                return tableView.detailedCell(
-                    imageUrl: session.dAppInfo.peerMeta.icons.isEmpty ? nil : session.dAppInfo.peerMeta.icons[0],
-                    header: session.dAppInfo.peerMeta.name,
-                    description: session.dAppInfo.peerMeta.description,
+                    imageUrl: v2Session.peer.icons.isEmpty ? nil : URL(string: v2Session.peer.icons[0]),
+                    header: v2Session.peer.name,
+                    description: v2Session.peer.description,
                     indexPath: indexPath,
                     canSelect: false,
                     placeholderImage: #imageLiteral(resourceName: "ico-empty-circle"))
+            } else {
+                return UITableViewCell()
             }
-
         case Section.Dapp.dapp(let dapp):
             return tableView.detailedCell(
                 imageUrl: dapp.logo,
@@ -199,7 +220,11 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
         let item = sections[indexPath.section].items[indexPath.row]
 
         if case Section.WalletConnect.activeSession(let session) = item {
-            WalletConnectSafesServerController.shared.disconnect(topic: session.topic!)
+            if let v1Session = session as? WCSession {
+                WalletConnectSafesServerController.shared.disconnect(topic: v1Session.topic!)
+            } else if let v2Session = session as? WalletConnectSign.Session {
+                WalletConnectManager.shared.disconnect(session: v2Session)
+            }
         }
     }
 
@@ -264,12 +289,17 @@ extension DappsViewController: QRCodeScannerViewControllerDelegate {
                 }
             }
         } else {
-            do {
-                try WalletConnectSafesServerController.shared.connect(url: url)
-                WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithScanButton
+            if WalletConnectManager.shared.canConnect(url: url) {
+                WalletConnectManager.shared.pairClient(url: url, trackingEvent: .dappConnectedWithScanButton)
                 dismiss(animated: true, completion: nil)
-            } catch {
-                App.shared.snackbar.show(message: error.localizedDescription)
+            } else {
+                do {
+                    try WalletConnectSafesServerController.shared.connect(url: url)
+                    WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithScanButton
+                    dismiss(animated: true, completion: nil)
+                } catch {
+                    App.shared.snackbar.show(message: error.localizedDescription)
+                }
             }
         }
     }
