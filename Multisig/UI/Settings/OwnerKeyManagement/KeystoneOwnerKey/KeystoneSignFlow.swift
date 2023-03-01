@@ -68,9 +68,9 @@ final class KeystoneSignFlow: UIFlow {
 extension KeystoneSignFlow: QRCodeScannerViewControllerDelegate {
  func scannerViewControllerDidScan(_ code: String) {
      guard
-         let signature = URRegistry.shared.getSignature(from: code),
-         let unmarshaledSignature = SECP256K1.UnmarshaledSignature(
-            keystoneSignature: signature.signature,
+        let signature = URRegistry.shared.getSignature(from: code)?.signature,
+        let unmarshaledSignature = SECP256K1.UnmarshaledSignature(
+            keystoneSignature: signature,
             isLegacyTx: signInfo.signType == .transaction,
             chainId: signInfo.chain?.id ?? "0")
         else {
