@@ -70,7 +70,7 @@ extension KeystoneSignFlow: QRCodeScannerViewControllerDelegate {
      guard
          let signature = URRegistry.shared.getSignature(from: code),
          let unmarshaledSignature = SECP256K1.UnmarshaledSignature(
-            keystoneSignature: signature,
+            keystoneSignature: signature.signature,
             isLegacyTx: signInfo.signType == .transaction,
             chainId: signInfo.chain?.id ?? "0")
         else {
