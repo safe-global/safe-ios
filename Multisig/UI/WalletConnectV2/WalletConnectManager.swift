@@ -15,6 +15,7 @@ import WalletConnectUtils
 import WalletConnectRouter
 import Web3
 import Web3Wallet
+import UIKit
 
 class WalletConnectManager {
     static let shared = WalletConnectManager()
@@ -57,9 +58,10 @@ class WalletConnectManager {
             }.store(in: &publishers)
 
         Sign.instance.sessionRequestPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [unowned self] sessionRequest in
+            .receive(on: DispatchQueue.global(qos: .background))
+            .sink { [unowned self] request in
                 // TODO: Handle incomming request
+                handle(request: request)
             }.store(in: &publishers)
 
         Sign.instance.sessionsPublisher
@@ -74,8 +76,7 @@ class WalletConnectManager {
                         }
                     }
 
-                    if let dappConnectedTrackingEvent = dappConnectedTrackingEvent {
-                        // parameter names should not exceed 100 chars
+                    if let dappConnectedTrackingEvent = dappConnectedTrackingEvent, !session.peer.name.isEmpty {
                         let dappName = session.peer.name.prefix(100)
                         Tracker.trackEvent(dappConnectedTrackingEvent, parameters: ["dapp_name" : dappName])
                     }
@@ -145,9 +146,13 @@ class WalletConnectManager {
             proposal.requiredNamespaces.forEach {
                 let caip2Namespace = $0.key
                 let proposalNamespace = $0.value
-                let accounts = Set(proposalNamespace.chains.compactMap { Account($0.absoluteString + ":\(safe.addressValue)") })
+                guard let chains = proposalNamespace.chains else { return }
 
-                let sessionNamespace = SessionNamespace(accounts: accounts, methods: proposalNamespace.methods, events: proposalNamespace.events)
+                let accounts = Set(chains.compactMap { Account($0.absoluteString + ":\(safe.addressValue)") })
+
+                let sessionNamespace = SessionNamespace(accounts: accounts,
+                                                        methods: proposalNamespace.methods,
+                                                        events: proposalNamespace.events)
                 sessionNamespaces[caip2Namespace] = sessionNamespace
             }
             do {
@@ -187,6 +192,87 @@ class WalletConnectManager {
     func getSessions(topics: [String]) -> [Session] {
         Sign.instance.getSessions().filter({topics.contains($0.topic)})
     }
+
+    private func handle(request: Request) {
+        dispatchPrecondition(condition: .notOnQueue(.main))
+
+        guard let session = getSessions(topics: [request.topic]).first else {
+            reject(request: request)
+            return
+        }
+
+        DispatchQueue.main.async { [unowned self] in
+            guard let safe = Safe.by(topic: request.topic) else {
+                reject(request: request)
+                return
+            }
+            
+            if request.method == "eth_sendTransaction" {
+
+                // make transformation of incoming request into internal data types
+                // and fetch information about safe from the request
+
+                guard let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(
+                    safeAddress: safe.addressValue, chainId: safe.chain!.id!) else {
+                    reject(request: request)
+                    return
+                }
+
+                safe.update(from: safeInfo)
+
+                guard let ethereumTransaction = try? request.params.get([EthereumTransaction].self).first,
+                      let transaction = Transaction(transaction: ethereumTransaction, safe: safe) else {
+                    reject(request: request)
+                    return
+                }
+
+                guard !safe.isReadOnly else {
+                    DispatchQueue.main.async {
+                        App.shared.snackbar.show(message: "Please import Safe Owner Key to initiate WalletConnect transactions")
+                    }
+                    reject(request: request)
+                    return
+                }
+
+                // present confirmation controller
+
+
+                let confirmationController = WCIncomingTransactionRequestViewController(
+                    transaction: transaction,
+                    safe: safe,
+                    dAppName: session.peer.name,
+                    dAppIconURL: URL(string: session.peer.icons.first ?? ""))
+
+                confirmationController.onReject = { [unowned self] in
+
+                    reject(request: request)
+                }
+
+                confirmationController.onSubmit = { nonce, safeTxHash in
+                    sign(request: request, response: AnyCodable(any: safeTxHash))
+                }
+
+                let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
+                sceneDelegate.present(ViewControllerFactory.modal(viewController: confirmationController))
+            } else {
+                DispatchQueue.global(qos: .background).async {
+                    do {
+                        let rpcURL = safe.chain!.authenticatedRpcUrl
+                        let result = try AnyCodable(any: App.shared.nodeService.rawCall(payload: request.asJSONEncodedString(),
+                                                                                        rpcURL: rpcURL))
+                        //let response = try Response(url: request.url, jsonString: result)
+                        sign(request: request, response: result)
+                    } catch {
+                        DispatchQueue.main.async {
+                            App.shared.snackbar.show(
+                                error: GSError.error(description: "Could not handle WalletConnect request", error: error)
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 extension Bundle {
@@ -194,4 +280,3 @@ extension Bundle {
         return object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? "Safe Multisig"
     }
 }
-

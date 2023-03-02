@@ -85,6 +85,33 @@ extension Transaction {
         updateSafeTxHash()
     }
 
+    init?(transaction: EthereumTransaction, safe: Safe) {
+        guard let chainId = safe.chain?.id else { return nil }
+
+        self.safe = AddressString(transaction.from != nil ? Address(transaction.from!) : Address.zero)
+        self.chainId = chainId
+        self.safeVersion = Version(safe.contractVersion!)
+
+        self.to = AddressString(transaction.to != nil ? Address(transaction.to!) : Address.zero)
+        self.value = UInt256String(transaction.value?.quantity ?? 0)
+        self.data = DataString(hex: transaction.data.hex())
+        self.operation = .call
+        self.safeTxGas = UInt256String(transaction.gas?.quantity ?? 0)
+        self.nonce = UInt256String(safe.nonce ?? 0)
+
+        // For contracts starting 1.3.0 we setup safeTxGas to zero
+        if self.safeVersion! >= Version(1, 3, 0) {
+            self.safeTxGas = UInt256String(0)
+        }
+
+        baseGas = "0"
+        gasPrice = "0"
+        gasToken = AddressString.zero
+        refundReceiver = AddressString.zero
+
+        updateSafeTxHash()
+    }
+
     init?(safe: Safe,
           toAddress: Address,
           tokenAddress: Address,

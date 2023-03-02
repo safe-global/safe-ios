@@ -19,15 +19,19 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
     var onSubmit: ((_ nonce: UInt256String, _ safeTxHash: HashString) -> Void)?
 
     private var session: Session!
+    private var dAppName: String!
+    private var dAppIconURL: URL?
     private var transaction: Transaction!
     private lazy var trackingParameters: [String: Any] = { ["chain_id": safe.chain!.id!] }()
 
     convenience init(transaction: Transaction,
                      safe: Safe,
-                     topic: String) {
+                     dAppName: String,
+                     dAppIconURL: URL?) {
         self.init(safe: safe)
         self.transaction = transaction
-        self.session = try! Session.from(WCSession.get(topic: topic)!)
+        self.dAppName = dAppName
+        self.dAppIconURL = dAppIconURL
         shouldLoadTransactionPreview = true
     }
 
@@ -83,7 +87,7 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
             addressInfo = transactionPreview?.txData?.to
         }
 
-        cell.setDapp(imageURL: session.dAppInfo.peerMeta.icons.first, name: session.dAppInfo.peerMeta.name)
+        cell.setDapp(imageURL: dAppIconURL, name: dAppName)
         let (addressName, imageURL) = NamingPolicy.name(for: transaction.to.address,
                                                         info: addressInfo?.addressInfo,
                                                         chainId: safe.chain!.id!)
