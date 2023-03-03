@@ -11,6 +11,8 @@ class WhatsNewHandler {
     var whatsNewViewController: WhatsNewViewController?
 
     init() {
+        // TODO: Remove this after release 3.18.2
+        return
         let whatsNew = WhatsNew(
             version: "3.18.0",
             title: "What's new",
