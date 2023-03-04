@@ -46,13 +46,10 @@
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="H5X-sT-Xhx">
-                                    <rect key="frame" x="103" y="198" width="230" height="38"/>
+                                    <rect key="frame" x="0.0" y="198" width="436" height="38"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xvm-We-XBq">
-                                            <rect key="frame" x="0.0" y="0.0" width="110" height="38"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="110" id="yAr-7J-ECD"/>
-                                            </constraints>
+                                            <rect key="frame" x="0.0" y="0.0" width="213" height="38"/>
                                             <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
                                             <state key="normal" title="Send" image="ico-send"/>
@@ -61,7 +58,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vaz-jF-aeE">
-                                            <rect key="frame" x="120" y="0.0" width="110" height="38"/>
+                                            <rect key="frame" x="223" y="0.0" width="213" height="38"/>
                                             <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
                                             <state key="normal" title="Receive" image="ico-receive"/>
@@ -78,6 +75,8 @@
                             <constraints>
                                 <constraint firstItem="7Tc-43-uPc" firstAttribute="leading" secondItem="WXe-Za-hql" secondAttribute="leading" id="4Kg-ia-ewU"/>
                                 <constraint firstAttribute="trailing" secondItem="7Tc-43-uPc" secondAttribute="trailing" id="dbb-RH-5GD"/>
+                                <constraint firstItem="H5X-sT-Xhx" firstAttribute="leading" secondItem="WXe-Za-hql" secondAttribute="leading" id="gW0-YG-ZkA"/>
+                                <constraint firstAttribute="trailing" secondItem="H5X-sT-Xhx" secondAttribute="trailing" id="hMP-BI-NXe"/>
                             </constraints>
                         </stackView>
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GI4-h0-5aY" customClass="SafeTokenBanner" customModule="Multisig" customModuleProvider="target">

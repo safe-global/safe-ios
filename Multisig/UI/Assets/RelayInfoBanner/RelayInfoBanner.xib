@@ -27,19 +27,23 @@
                     <rect key="frame" x="16" y="16" width="397" height="79"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-relayer" translatesAutoresizingMaskIntoConstraints="NO" id="SMQ-hg-tRf">
-                            <rect key="frame" x="0.0" y="0.0" width="107.66666666666667" height="79"/>
+                            <rect key="frame" x="0.0" y="0.0" width="45" height="79"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="45" id="7EG-ww-lpW"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="58" id="mWu-d8-aRT"/>
+                            </constraints>
                         </imageView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Et2-ua-lwH">
-                            <rect key="frame" x="139.66666666666666" y="0.0" width="257.33333333333337" height="79"/>
+                            <rect key="frame" x="77" y="0.0" width="320" height="79"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Introducing Relayer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eW2-IY-db5">
-                                    <rect key="frame" x="0.0" y="0.0" width="257.33333333333331" height="34.333333333333336"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="34.333333333333336"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Benefit from gaseless experience powered by Gelato" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vt4-lZ-nze">
-                                    <rect key="frame" x="0.0" y="38.333333333333343" width="257.33333333333331" height="40.666666666666657"/>
+                                    <rect key="frame" x="0.0" y="38.333333333333343" width="320" height="40.666666666666657"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -65,12 +69,12 @@
             <constraints>
                 <constraint firstItem="zjf-jW-TM6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="6GQ-2D-6si"/>
                 <constraint firstAttribute="trailing" secondItem="EIs-6m-8yT" secondAttribute="trailing" constant="16" id="6WX-Cz-N1i"/>
+                <constraint firstAttribute="bottom" secondItem="Jy3-6B-dCe" secondAttribute="bottom" constant="16" id="KqV-Uh-roo"/>
                 <constraint firstAttribute="trailing" secondItem="zjf-jW-TM6" secondAttribute="trailing" id="MVC-gi-l0n"/>
                 <constraint firstItem="EIs-6m-8yT" firstAttribute="leading" secondItem="Et2-ua-lwH" secondAttribute="trailing" constant="16" id="OvU-7n-mxa"/>
                 <constraint firstItem="zjf-jW-TM6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="cTI-mz-QTG"/>
                 <constraint firstItem="Jy3-6B-dCe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="cac-u1-H47"/>
                 <constraint firstItem="Jy3-6B-dCe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="eNa-Ua-cD4"/>
-                <constraint firstAttribute="bottom" secondItem="Jy3-6B-dCe" secondAttribute="bottom" constant="16" id="gGr-sK-O4w"/>
                 <constraint firstAttribute="bottom" secondItem="zjf-jW-TM6" secondAttribute="bottom" id="riv-0O-6cZ"/>
                 <constraint firstItem="EIs-6m-8yT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="vKQ-yC-Z5H"/>
             </constraints>
