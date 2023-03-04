@@ -146,6 +146,8 @@ struct AppConfiguration {
     struct FeatureToggles {
         @AppSetting(\.toggle_securityCenter)
         static var securityCenter: Bool
+
+        static var relay: Bool = true
     }
 
     struct Claim {
