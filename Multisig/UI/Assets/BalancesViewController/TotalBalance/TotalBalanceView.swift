@@ -14,6 +14,7 @@ class TotalBalanceView: UINibView {
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var receiveButton: UIButton!
     @IBOutlet weak var tokenBanner: SafeTokenBanner!
+    @IBOutlet weak var relayInfoBanner: RelayInfoBanner!
 
     var onSendClicked: (() -> Void)?
     var onReceivedClicked: (() -> Void)?
@@ -47,6 +48,9 @@ class TotalBalanceView: UINibView {
         //TODO: set this attribute in setStyle(:)
         sendButton.tintColor = UIColor.backgroundPrimary
         receiveButton.setText("Receive", .bordered)
+
+        
+        relayInfoBanner.isHidden = !AppConfiguration.FeatureToggles.relay
     }
     
     @IBAction func sendButtonClicked(_ sender: Any) {

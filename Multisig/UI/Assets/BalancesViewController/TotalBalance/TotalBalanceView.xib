@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="amountLabel" destination="U0l-py-63V" id="0mq-wM-2Lb"/>
                 <outlet property="receiveButton" destination="vaz-jF-aeE" id="UhY-PC-GAm"/>
+                <outlet property="relayInfoBanner" destination="7Tc-43-uPc" id="Yoc-wh-3B0"/>
                 <outlet property="sendButton" destination="Xvm-We-XBq" id="Ov6-zm-MGr"/>
                 <outlet property="tokenBanner" destination="GI4-h0-5aY" id="yMz-uk-2bY"/>
             </connections>
