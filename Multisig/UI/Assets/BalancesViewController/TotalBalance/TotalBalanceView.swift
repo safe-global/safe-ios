@@ -10,6 +10,7 @@ import UIKit
 import SkeletonView
 
 class TotalBalanceView: UINibView {
+    @IBOutlet weak var totalBalanceLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var receiveButton: UIButton!
@@ -42,6 +43,7 @@ class TotalBalanceView: UINibView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        totalBalanceLabel.setStyle(.bodyTertiary)
         amountLabel.skeletonTextLineHeight = .relativeToConstraints
         amountLabel.setStyle(.title1Medium)
         sendButton.setText("Send", .filled)

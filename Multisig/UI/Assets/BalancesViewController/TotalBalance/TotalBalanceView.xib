@@ -16,6 +16,7 @@
                 <outlet property="relayInfoBanner" destination="7Tc-43-uPc" id="Yoc-wh-3B0"/>
                 <outlet property="sendButton" destination="Xvm-We-XBq" id="Ov6-zm-MGr"/>
                 <outlet property="tokenBanner" destination="GI4-h0-5aY" id="yMz-uk-2bY"/>
+                <outlet property="totalBalanceLabel" destination="SnK-Sf-pdr" id="Taz-qN-cCa"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -29,23 +30,39 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="WXe-Za-hql">
                             <rect key="frame" x="0.0" y="0.0" width="436" height="236"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0l-py-63V">
-                                    <rect key="frame" x="0.0" y="0.0" width="436" height="34"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="34" id="bWc-ow-moD"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHiddenWhenSkeletonIsActive" value="NO"/>
-                                    </userDefinedRuntimeAttributes>
-                                </label>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Tc-43-uPc" customClass="RelayInfoBanner" customModule="Multisig" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="50" width="436" height="132"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                </view>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="oRb-jq-DOk">
+                                    <rect key="frame" x="0.0" y="0.0" width="436" height="182"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eap-t5-4sj">
+                                            <rect key="frame" x="0.0" y="0.0" width="436" height="54.5"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total balance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SnK-Sf-pdr">
+                                                    <rect key="frame" x="0.0" y="0.0" width="436" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0l-py-63V">
+                                                    <rect key="frame" x="0.0" y="20.5" width="436" height="34"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="34" id="bWc-ow-moD"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHiddenWhenSkeletonIsActive" value="NO"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Tc-43-uPc" customClass="RelayInfoBanner" customModule="Multisig" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="62.5" width="436" height="119.5"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        </view>
+                                    </subviews>
+                                </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="H5X-sT-Xhx">
                                     <rect key="frame" x="0.0" y="198" width="436" height="38"/>
                                     <subviews>
@@ -74,8 +91,8 @@
                                 </stackView>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="7Tc-43-uPc" firstAttribute="leading" secondItem="WXe-Za-hql" secondAttribute="leading" id="4Kg-ia-ewU"/>
-                                <constraint firstAttribute="trailing" secondItem="7Tc-43-uPc" secondAttribute="trailing" id="dbb-RH-5GD"/>
+                                <constraint firstAttribute="trailing" secondItem="oRb-jq-DOk" secondAttribute="trailing" id="GyV-8z-Jln"/>
+                                <constraint firstItem="oRb-jq-DOk" firstAttribute="leading" secondItem="WXe-Za-hql" secondAttribute="leading" id="b2u-X8-RKy"/>
                                 <constraint firstItem="H5X-sT-Xhx" firstAttribute="leading" secondItem="WXe-Za-hql" secondAttribute="leading" id="gW0-YG-ZkA"/>
                                 <constraint firstAttribute="trailing" secondItem="H5X-sT-Xhx" secondAttribute="trailing" id="hMP-BI-NXe"/>
                             </constraints>
@@ -88,6 +105,10 @@
                             </constraints>
                         </view>
                     </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="WXe-Za-hql" secondAttribute="trailing" id="JUC-UE-TzH"/>
+                        <constraint firstItem="WXe-Za-hql" firstAttribute="leading" secondItem="4MR-Ra-DDt" secondAttribute="leading" id="gVu-qQ-zSI"/>
+                    </constraints>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="QMn-jv-Tki"/>
