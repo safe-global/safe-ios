@@ -69,6 +69,9 @@ extension AppSettings {
     @UserDefault(key: "io.gnosis.multisig.safeTokenBannerWasShown")
     static var safeTokenBannerWasShown: Bool?
 
+    @UserDefault(key: "io.gnosis.multisig.relayBannerWasShown")
+    static var relayBannerWasShown: Bool?
+
     @AppSetting(\.lastMarketingVersion)
     static var lastMarketingVersion: String?
 

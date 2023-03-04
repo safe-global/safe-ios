@@ -50,9 +50,6 @@ class TotalBalanceView: UINibView {
         //TODO: set this attribute in setStyle(:)
         sendButton.tintColor = UIColor.backgroundPrimary
         receiveButton.setText("Receive", .bordered)
-
-        
-        relayInfoBanner.isHidden = !AppConfiguration.FeatureToggles.relay
     }
     
     @IBAction func sendButtonClicked(_ sender: Any) {
