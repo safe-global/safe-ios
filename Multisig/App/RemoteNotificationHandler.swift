@@ -54,9 +54,7 @@ class RemoteNotificationHandler {
         logDebug("Push token updated")
         self.token = token
         if authorizationStatus != nil {
-            Task {
-                await registerAll()
-            }
+            registerAll()
         }
     }
 
@@ -65,9 +63,7 @@ class RemoteNotificationHandler {
         if authorizationStatus == nil {
             requestUserPermissionAndRegister()
         } else {
-            Task {
-                await registerAll()
-            }
+            registerAll()
         }
     }
 
@@ -78,9 +74,7 @@ class RemoteNotificationHandler {
     /// For add / remove signing key
     func signingKeyUpdated() {
         logDebug("Signing key updated")
-        Task {
-            await registerAll()
-        }
+        registerAll()
     }
 
     func received(notification userInfo: [AnyHashable: Any]) {
@@ -111,9 +105,7 @@ class RemoteNotificationHandler {
                     self.setStatus(settings.authorizationStatus)
 
                     if settings.authorizationStatus.hasPermission {
-                        Task {
-                            await self.registerAll()
-                        }
+                        self.registerAll()
                     }
                 }
             }
@@ -146,9 +138,7 @@ class RemoteNotificationHandler {
 
                 // At the time when permission granted, the token will be
                 // already set, so we need to register all stored safes
-                Task {
-                    await self.registerAll()
-                }
+                self.registerAll()
             }
             self.updateAuthorizationStatus()
         }
@@ -244,7 +234,15 @@ class RemoteNotificationHandler {
                                                    chainId: chainId)
     }
 
-    private func registerAll() async {
+    actor SafeRegistrationActor {
+        var registrations: [SafeRegistration] = []
+
+        func addRegistration(registration: SafeRegistration) {
+            registrations.append(registration)
+        }
+    }
+
+    private func registerAll() {
         guard let pushToken = token else { return }
         guard let deviceID = storedDeviceID?.lowercased() else {
             assertionFailure("Programmer error: missing device ID")
@@ -255,7 +253,7 @@ class RemoteNotificationHandler {
             let appConfig = App.configuration.app
             let timestamp = String(format: "%.0f", Date().timeIntervalSince1970)
 
-            var safeRegistration: [SafeRegistration] = []
+            let safeRegistrationActor = SafeRegistrationActor()
             for chainSafes in Chain.chainSafes() {
                 let safes = chainSafes.safes
                     .compactMap { $0.address }
@@ -266,33 +264,46 @@ class RemoteNotificationHandler {
                 // The signing might fail in case the underlying key store is not available. In this case
                 // we abort the whole process. The registration will be attempted again on the next
                 // app coming to foreground event.
+                Task {
+                    if AppConfiguration.FeatureToggles.securityCenter {
 
-                if AppConfiguration.FeatureToggles.securityCenter {
-                    let signResult = try await Self.signAsync(safes: safes,
-                                                   deviceID: deviceID,
-                                                   token: pushToken,
-                                                   timestamp: timestamp)
+                        let signResult = try await Self.signAsync(safes: safes,
+                                                                  deviceID: deviceID,
+                                                                  token: pushToken,
+                                                                  timestamp: timestamp)
 
-                    safeRegistration.append(SafeRegistration(chainId: chainSafes.chain.id!, safes: safes,
-                                                             signatures: signResult.signatures))
-                } else {
-                    let signResult = try Self.sign(safes: safes,
-                                                   deviceID: deviceID,
-                                                   token: pushToken,
-                                                   timestamp: timestamp)
+                        await safeRegistrationActor.addRegistration(
+                            registration: SafeRegistration(chainId: chainSafes.chain.id!,
+                                                           safes: safes,
+                                                           signatures: signResult.signatures)
+                        )
 
-                    safeRegistration.append(SafeRegistration(chainId: chainSafes.chain.id!, safes: safes,
-                                                             signatures: signResult.signatures))
+                    } else {
+                        let signResult = try Self.sign(safes: safes,
+                                                       deviceID: deviceID,
+                                                       token: pushToken,
+                                                       timestamp: timestamp)
+
+
+                        await safeRegistrationActor.addRegistration(
+                            registration: SafeRegistration(chainId: chainSafes.chain.id!,
+                                                           safes: safes,
+                                                           signatures: signResult.signatures)
+                        )
+                    }
                 }
             }
 
-            App.shared.clientGatewayService.registerNotification(uuid: deviceID,
-                                                                 cloudMessagingToken: pushToken,
-                                                                 buildNumber: appConfig.buildVersion,
-                                                                 bundle: appConfig.bundleIdentifier,
-                                                                 version: appConfig.marketingVersion,
-                                                                 timestamp: timestamp,
-                                                                 safeRegistrations: safeRegistration) { _ in }
+            Task {
+                let registrations = await safeRegistrationActor.registrations
+                App.shared.clientGatewayService.registerNotification(uuid: deviceID,
+                                                                     cloudMessagingToken: pushToken,
+                                                                     buildNumber: appConfig.buildVersion,
+                                                                     bundle: appConfig.bundleIdentifier,
+                                                                     version: appConfig.marketingVersion,
+                                                                     timestamp: timestamp,
+                                                                     safeRegistrations: registrations) { _ in }
+            }
         } catch {
             logDebug("Failed to register the device: \(error)")
         }
@@ -303,9 +314,9 @@ class RemoteNotificationHandler {
         let payload = NotificationPayload(userInfo: userInfo)
         
         guard let rawAddress = payload.address,
-            let safeAddress = Address(rawAddress),
-            let chainId = payload.chainId,
-            let chain = Chain.by(chainId) else { return }
+              let safeAddress = Address(rawAddress),
+              let chainId = payload.chainId,
+              let chain = Chain.by(chainId) else { return }
 
         guard Safe.exists(safeAddress.checksummed, chainId: chain.id!) else {
             unregister(address: safeAddress, chainId: chain.id!)
@@ -327,7 +338,7 @@ class RemoteNotificationHandler {
             NotificationCenter.default.post(name: .queuedTxNotificationReceived, object: nil)
         }
     }
- }
+}
 
 fileprivate func logDebug(_ msg: String, file: StaticString = #file, line: UInt = #line, function: StaticString = #function) {
     LogService.shared.debug("PUSH: " + msg, file: file, line: line, function: function)
