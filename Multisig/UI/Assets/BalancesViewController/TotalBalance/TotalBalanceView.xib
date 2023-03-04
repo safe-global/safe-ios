@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,7 +29,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="436" height="236"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0l-py-63V">
-                                    <rect key="frame" x="0.0" y="0.0" width="436" height="182"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="436" height="34"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="34" id="bWc-ow-moD"/>
                                     </constraints>
@@ -41,6 +41,10 @@
                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHiddenWhenSkeletonIsActive" value="NO"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Tc-43-uPc" customClass="RelayInfoBanner" customModule="Multisig" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="50" width="436" height="132"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </view>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="H5X-sT-Xhx">
                                     <rect key="frame" x="103" y="198" width="230" height="38"/>
                                     <subviews>
@@ -71,6 +75,10 @@
                                     </constraints>
                                 </stackView>
                             </subviews>
+                            <constraints>
+                                <constraint firstItem="7Tc-43-uPc" firstAttribute="leading" secondItem="WXe-Za-hql" secondAttribute="leading" id="4Kg-ia-ewU"/>
+                                <constraint firstAttribute="trailing" secondItem="7Tc-43-uPc" secondAttribute="trailing" id="dbb-RH-5GD"/>
+                            </constraints>
                         </stackView>
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GI4-h0-5aY" customClass="SafeTokenBanner" customModule="Multisig" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="436" height="110"/>
