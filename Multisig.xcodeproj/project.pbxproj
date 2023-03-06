@@ -833,6 +833,8 @@
 		6A7A489C28201697003278C8 /* SafeOwnerPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A7A489A28201697003278C8 /* SafeOwnerPickerViewController.xib */; };
 		6A7A48A02823A297003278C8 /* SafeOwnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7A489E2823A297003278C8 /* SafeOwnerCell.swift */; };
 		6A7A48A12823A297003278C8 /* SafeOwnerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A7A489F2823A297003278C8 /* SafeOwnerCell.xib */; };
+		6A7D476629B36EB100D690BE /* RelayInfoBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D476529B36EB100D690BE /* RelayInfoBanner.swift */; };
+		6A7D476829B36EBF00D690BE /* RelayInfoBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A7D476729B36EBF00D690BE /* RelayInfoBanner.xib */; };
 		6A91EFD727DA0604009E63E9 /* WCRegistryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A91EFD627DA0604009E63E9 /* WCRegistryController.swift */; };
 		6A91EFDA27DA2C8D009E63E9 /* wc_registry_wallets.json in Resources */ = {isa = PBXBuildFile; fileRef = 6A91EFD927DA2C8D009E63E9 /* wc_registry_wallets.json */; };
 		6A91EFDC27DA2CF9009E63E9 /* WCAppRegistryRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A91EFDB27DA2CF9009E63E9 /* WCAppRegistryRepositoryTests.swift */; };
@@ -1804,6 +1806,8 @@
 		6A7A489A28201697003278C8 /* SafeOwnerPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeOwnerPickerViewController.xib; sourceTree = "<group>"; };
 		6A7A489E2823A297003278C8 /* SafeOwnerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeOwnerCell.swift; sourceTree = "<group>"; };
 		6A7A489F2823A297003278C8 /* SafeOwnerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeOwnerCell.xib; sourceTree = "<group>"; };
+		6A7D476529B36EB100D690BE /* RelayInfoBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayInfoBanner.swift; sourceTree = "<group>"; };
+		6A7D476729B36EBF00D690BE /* RelayInfoBanner.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RelayInfoBanner.xib; sourceTree = "<group>"; };
 		6A91EFD627DA0604009E63E9 /* WCRegistryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCRegistryController.swift; sourceTree = "<group>"; };
 		6A91EFD927DA2C8D009E63E9 /* wc_registry_wallets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = wc_registry_wallets.json; sourceTree = "<group>"; };
 		6A91EFDB27DA2CF9009E63E9 /* WCAppRegistryRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCAppRegistryRepositoryTests.swift; sourceTree = "<group>"; };
@@ -2879,6 +2883,7 @@
 		0A6886AA2588FB190045CAB5 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				6A7D476029B3682400D690BE /* RelayInfoBanner */,
 				0AB9F4C3254C64680044395F /* BalancesViewController */,
 				6AFD26E92861B0B300336FFE /* SafeTokenBanner */,
 				5503F62A255062070046545C /* CollectiblesViewController */,
@@ -4135,6 +4140,15 @@
 			path = SafeOwnerCell;
 			sourceTree = "<group>";
 		};
+		6A7D476029B3682400D690BE /* RelayInfoBanner */ = {
+			isa = PBXGroup;
+			children = (
+				6A7D476529B36EB100D690BE /* RelayInfoBanner.swift */,
+				6A7D476729B36EBF00D690BE /* RelayInfoBanner.xib */,
+			);
+			path = RelayInfoBanner;
+			sourceTree = "<group>";
+		};
 		6A91EFD827DA2C45009E63E9 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -4640,6 +4654,7 @@
 				0AE0AFED2805C6B9002594CB /* VerifyPhraseViewController.xib in Resources */,
 				6AFD26DC285764A200336FFE /* ReceiveAddOwnerLinkViewController.xib in Resources */,
 				558836712565385F0014E8C7 /* RemoveCell.xib in Resources */,
+				6A7D476829B36EBF00D690BE /* RelayInfoBanner.xib in Resources */,
 				6AFD26E0285797DD00336FFE /* IdenticonInfoView.xib in Resources */,
 				6AAE34E0282A2F1600CCFC95 /* OwnerHeaderView.xib in Resources */,
 				6AAE34E9282A833D00CCFC95 /* EnterOwnerNameViewController.xib in Resources */,
@@ -5056,6 +5071,7 @@
 				0A9BC33524602CE200EB9C5D /* Data+MultisigExtension.swift in Sources */,
 				55CEFC0E24939079003B2B19 /* FirebaseTrackingHandler.swift in Sources */,
 				0A802B9224E5843B0001790F /* PagedRequest.swift in Sources */,
+				6A7D476629B36EB100D690BE /* RelayInfoBanner.swift in Sources */,
 				0AF1C7FB25408A4D00E28669 /* SafeBarView.swift in Sources */,
 				550FB1C826691E4A00C13D54 /* ExperimentalViewController.swift in Sources */,
 				0ADD19BF265EA23200EB0F2B /* ExportViewController.swift in Sources */,
