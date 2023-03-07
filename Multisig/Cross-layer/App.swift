@@ -41,6 +41,10 @@ class App {
         url: App.configuration.services.claimingDataURL,
         logger: LogService.shared
     )
+    lazy var relayService = SafeGelatoRelayService(
+        url: App.configuration.services.relayURL,
+        logger: LogService.shared
+    )
     
     var nodeService = EthereumNodeService()
 

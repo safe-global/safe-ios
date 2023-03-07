@@ -835,6 +835,9 @@
 		6A7A48A12823A297003278C8 /* SafeOwnerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A7A489F2823A297003278C8 /* SafeOwnerCell.xib */; };
 		6A7D476629B36EB100D690BE /* RelayInfoBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D476529B36EB100D690BE /* RelayInfoBanner.swift */; };
 		6A7D476829B36EBF00D690BE /* RelayInfoBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A7D476729B36EBF00D690BE /* RelayInfoBanner.xib */; };
+		6A7D476B29B492BC00D690BE /* SafeGelatoRelayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D476A29B492BC00D690BE /* SafeGelatoRelayService.swift */; };
+		6A7D476D29B4951B00D690BE /* RelayRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D476C29B4951B00D690BE /* RelayRequest.swift */; };
+		6A7D476F29B49BC500D690BE /* RelaysRemainingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D476E29B49BC500D690BE /* RelaysRemainingRequest.swift */; };
 		6A91EFD727DA0604009E63E9 /* WCRegistryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A91EFD627DA0604009E63E9 /* WCRegistryController.swift */; };
 		6A91EFDA27DA2C8D009E63E9 /* wc_registry_wallets.json in Resources */ = {isa = PBXBuildFile; fileRef = 6A91EFD927DA2C8D009E63E9 /* wc_registry_wallets.json */; };
 		6A91EFDC27DA2CF9009E63E9 /* WCAppRegistryRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A91EFDB27DA2CF9009E63E9 /* WCAppRegistryRepositoryTests.swift */; };
@@ -1808,6 +1811,9 @@
 		6A7A489F2823A297003278C8 /* SafeOwnerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeOwnerCell.xib; sourceTree = "<group>"; };
 		6A7D476529B36EB100D690BE /* RelayInfoBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayInfoBanner.swift; sourceTree = "<group>"; };
 		6A7D476729B36EBF00D690BE /* RelayInfoBanner.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RelayInfoBanner.xib; sourceTree = "<group>"; };
+		6A7D476A29B492BC00D690BE /* SafeGelatoRelayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeGelatoRelayService.swift; sourceTree = "<group>"; };
+		6A7D476C29B4951B00D690BE /* RelayRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayRequest.swift; sourceTree = "<group>"; };
+		6A7D476E29B49BC500D690BE /* RelaysRemainingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelaysRemainingRequest.swift; sourceTree = "<group>"; };
 		6A91EFD627DA0604009E63E9 /* WCRegistryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCRegistryController.swift; sourceTree = "<group>"; };
 		6A91EFD927DA2C8D009E63E9 /* wc_registry_wallets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = wc_registry_wallets.json; sourceTree = "<group>"; };
 		6A91EFDB27DA2CF9009E63E9 /* WCAppRegistryRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCAppRegistryRepositoryTests.swift; sourceTree = "<group>"; };
@@ -3731,6 +3737,7 @@
 		5532D4DF2449A4C00067505A /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				6A7D476929B4928C00D690BE /* Safe Relay Service */,
 				047A5B8D28A54FAC00BB8B2A /* Safe Claiming Service */,
 				5532D4B72449A17D0067505A /* Utils */,
 				0A9BC33824602E9500EB9C5D /* EthereumNodeService.swift */,
@@ -4147,6 +4154,16 @@
 				6A7D476729B36EBF00D690BE /* RelayInfoBanner.xib */,
 			);
 			path = RelayInfoBanner;
+			sourceTree = "<group>";
+		};
+		6A7D476929B4928C00D690BE /* Safe Relay Service */ = {
+			isa = PBXGroup;
+			children = (
+				6A7D476A29B492BC00D690BE /* SafeGelatoRelayService.swift */,
+				6A7D476C29B4951B00D690BE /* RelayRequest.swift */,
+				6A7D476E29B49BC500D690BE /* RelaysRemainingRequest.swift */,
+			);
+			path = "Safe Relay Service";
 			sourceTree = "<group>";
 		};
 		6A91EFD827DA2C45009E63E9 /* Data */ = {
@@ -5028,6 +5045,7 @@
 				0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */,
 				0A22E12725E4FA3200D24DE1 /* SwitchTableViewCell.swift in Sources */,
 				0AF1C8A52541ADFF00E28669 /* LoadingView.swift in Sources */,
+				6A7D476B29B492BC00D690BE /* SafeGelatoRelayService.swift in Sources */,
 				0468FB9625912E8300541536 /* TransactionListTableViewCell.swift in Sources */,
 				048AA142260D053400382E24 /* MainTabBarViewController.swift in Sources */,
 				0ACB4CD5256BC2B000845BF4 /* TransactionDetailsViewController.swift in Sources */,
@@ -5380,6 +5398,7 @@
 				0AC2BAE728B8F9B500AB66EB /* ActivateBiometryAlertController.swift in Sources */,
 				0A04506F278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift in Sources */,
 				0A478D1B25B860240038363E /* KeyPickerController.swift in Sources */,
+				6A7D476F29B49BC500D690BE /* RelaysRemainingRequest.swift in Sources */,
 				0AF2737724DD48AD007E4012 /* NotificationPayload.swift in Sources */,
 				55B6465B253050200050BD95 /* SignatureString.swift in Sources */,
 				04131FBD2851571E001F60C2 /* CreateInviteOwnerIntroViewController.swift in Sources */,
@@ -5436,6 +5455,7 @@
 				0AC60C512549AF2200A63AE2 /* NoSafeBarView.swift in Sources */,
 				04131FC1285683BA001F60C2 /* ShareAddOwnerLinkViewController.swift in Sources */,
 				0A007124254B255C00A57CAF /* UIFont+Styles.swift in Sources */,
+				6A7D476D29B4951B00D690BE /* RelayRequest.swift in Sources */,
 				0ACC302227BFB5C300586795 /* Address+Solidity.swift in Sources */,
 				0AF1C8302540923C00E28669 /* LoadableViewController.swift in Sources */,
 				04D1309E25E2BB830032FA03 /* RejectionConfirmationViewController.swift in Sources */,
