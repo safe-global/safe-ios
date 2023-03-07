@@ -11,7 +11,6 @@ import CoreData
 
 extension AppSettings {
     static func current() -> AppSettings {
-        dispatchPrecondition(condition: .onQueue(.main))
         do {
             let fr = AppSettings.fetchRequest().all()
             let result = try App.shared.coreDataStack.viewContext.fetch(fr)
@@ -68,6 +67,9 @@ extension AppSettings {
 
     @UserDefault(key: "io.gnosis.multisig.safeTokenBannerWasShown")
     static var safeTokenBannerWasShown: Bool?
+
+    @UserDefault(key: "io.gnosis.multisig.relayBannerWasShown")
+    static var relayBannerWasShown: Bool?
 
     @AppSetting(\.lastMarketingVersion)
     static var lastMarketingVersion: String?
@@ -155,7 +157,6 @@ struct AppSetting<T> {
 
     var wrappedValue: T {
         get {
-            dispatchPrecondition(condition: .onQueue(.main))
             let object = AppSettings.current()
             return object[keyPath: path]
         }

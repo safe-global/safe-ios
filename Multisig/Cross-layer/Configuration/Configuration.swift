@@ -20,6 +20,9 @@ struct AppConfiguration {
         @ConfigurationKey("CLAIMING_DATA_URL")
         var claimingDataURL: URL
 
+        @ConfigurationKey("RELAY_URL")
+        var relayURL: URL
+
         @ConfigurationKey("INFURA_API_KEY")
         var infuraKey: String
 
@@ -146,6 +149,8 @@ struct AppConfiguration {
     struct FeatureToggles {
         @AppSetting(\.toggle_securityCenter)
         static var securityCenter: Bool
+
+        static var relay: Bool = true
     }
 
     struct Claim {

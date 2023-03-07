@@ -95,6 +95,23 @@ class AssetsViewController: ContainerViewController {
             totalBalanceView.tokenBanner.isHidden = !shouldShowSafeTokenBanner
             Tracker.trackEvent(.bannerSafeTokenSkip)
         }
+
+        totalBalanceView.relayInfoBanner.isHidden = !shouldShowRelayBanner
+
+        totalBalanceView.relayInfoBanner.onClose = { [unowned self] in
+            relayBannerWasShown = true
+            totalBalanceView.relayInfoBanner.isHidden = !shouldShowRelayBanner
+            Tracker.trackEvent(.bannerRelaySkip)
+        }
+    }
+
+    private var shouldShowRelayBanner: Bool {
+        return relayBannerWasShown != true && AppConfiguration.FeatureToggles.relay
+    }
+
+    private var relayBannerWasShown: Bool? {
+        get { AppSettings.relayBannerWasShown }
+        set { AppSettings.relayBannerWasShown = newValue }
     }
 
     private var claimTokenFlow: ClaimSafeTokenFlow!

@@ -163,6 +163,36 @@ class RemoteNotificationHandler {
         Tracker.setPushInfo(status.trackingStatus.rawValue)
     }
 
+
+    static func signAsync(safes: [String], deviceID: String, token: String, timestamp: String) async throws -> (preimage: String, hash: String, signatures: [String]) {
+
+        // get keys for signing
+        var privateKeys: [PrivateKey] = []
+        let keyInfos = try KeyInfo.all()
+        for keyInfo in keyInfos {
+            let privateKey = try await keyInfo.pushNotificationSigningKey()
+            if let privateKey = privateKey {
+                privateKeys.append(privateKey)
+            }
+        }
+
+        let hashPreimage = [
+            "gnosis-safe",
+            timestamp,
+            deviceID,
+            token,
+            safes.joined()
+        ].joined()
+
+        let hash = EthHasher.hash(hashPreimage)
+
+        let signatures: [String] = try privateKeys.map { key in
+            let sig = try key.sign(hash: hash)
+            return sig.hexadecimal
+        }
+        return (hashPreimage, hash.toHexStringWithPrefix(), signatures)
+    }
+
     /// Constructs the hash for the registration request and signs with all available
     /// private keys stored.
     ///
@@ -174,6 +204,7 @@ class RemoteNotificationHandler {
     /// - Throws: Error in case of database failures, or private key signing errors
     /// - Returns: If there are any keys, then returns preimage of the hash, the hash that was signed, timestamp used, and array of signatures corresponding to the signing keys.
     static func sign(safes: [String], deviceID: String, token: String, timestamp: String) throws -> (preimage: String, hash: String, signatures: [String]) {
+        
         // get keys for signing
         let privateKeys = try KeyInfo.all()
             .compactMap { keyInfo -> PrivateKey? in
@@ -203,6 +234,14 @@ class RemoteNotificationHandler {
                                                    chainId: chainId)
     }
 
+    actor SafeRegistrationActor {
+        var registrations: [SafeRegistration] = []
+
+        func addRegistration(registration: SafeRegistration) {
+            registrations.append(registration)
+        }
+    }
+
     private func registerAll() {
         guard let pushToken = token else { return }
         guard let deviceID = storedDeviceID?.lowercased() else {
@@ -214,7 +253,7 @@ class RemoteNotificationHandler {
             let appConfig = App.configuration.app
             let timestamp = String(format: "%.0f", Date().timeIntervalSince1970)
 
-            var safeRegistration: [SafeRegistration] = []
+            let safeRegistrationActor = SafeRegistrationActor()
             for chainSafes in Chain.chainSafes() {
                 let safes = chainSafes.safes
                     .compactMap { $0.address }
@@ -225,22 +264,46 @@ class RemoteNotificationHandler {
                 // The signing might fail in case the underlying key store is not available. In this case
                 // we abort the whole process. The registration will be attempted again on the next
                 // app coming to foreground event.
-                let signResult = try Self.sign(safes: safes,
-                                               deviceID: deviceID,
-                                               token: pushToken,
-                                               timestamp: timestamp)
-                
-                safeRegistration.append(SafeRegistration(chainId: chainSafes.chain.id!, safes: safes,
-                                                         signatures: signResult.signatures))
+                Task {
+                    if AppConfiguration.FeatureToggles.securityCenter {
+
+                        let signResult = try await Self.signAsync(safes: safes,
+                                                                  deviceID: deviceID,
+                                                                  token: pushToken,
+                                                                  timestamp: timestamp)
+
+                        await safeRegistrationActor.addRegistration(
+                            registration: SafeRegistration(chainId: chainSafes.chain.id!,
+                                                           safes: safes,
+                                                           signatures: signResult.signatures)
+                        )
+
+                    } else {
+                        let signResult = try Self.sign(safes: safes,
+                                                       deviceID: deviceID,
+                                                       token: pushToken,
+                                                       timestamp: timestamp)
+
+
+                        await safeRegistrationActor.addRegistration(
+                            registration: SafeRegistration(chainId: chainSafes.chain.id!,
+                                                           safes: safes,
+                                                           signatures: signResult.signatures)
+                        )
+                    }
+                }
             }
 
-            App.shared.clientGatewayService.registerNotification(uuid: deviceID,
-                                                                 cloudMessagingToken: pushToken,
-                                                                 buildNumber: appConfig.buildVersion,
-                                                                 bundle: appConfig.bundleIdentifier,
-                                                                 version: appConfig.marketingVersion,
-                                                                 timestamp: timestamp,
-                                                                 safeRegistrations: safeRegistration) { _ in }
+            Task {
+                let registrations = await safeRegistrationActor.registrations
+                App.shared.clientGatewayService.registerNotification(uuid: deviceID,
+                                                                     cloudMessagingToken: pushToken,
+                                                                     buildNumber: appConfig.buildVersion,
+                                                                     bundle: appConfig.bundleIdentifier,
+                                                                     version: appConfig.marketingVersion,
+                                                                     timestamp: timestamp,
+                                                                     safeRegistrations: registrations) { _ in }
+            }
         } catch {
             logDebug("Failed to register the device: \(error)")
         }
@@ -251,9 +314,9 @@ class RemoteNotificationHandler {
         let payload = NotificationPayload(userInfo: userInfo)
         
         guard let rawAddress = payload.address,
-            let safeAddress = Address(rawAddress),
-            let chainId = payload.chainId,
-            let chain = Chain.by(chainId) else { return }
+              let safeAddress = Address(rawAddress),
+              let chainId = payload.chainId,
+              let chain = Chain.by(chainId) else { return }
 
         guard Safe.exists(safeAddress.checksummed, chainId: chain.id!) else {
             unregister(address: safeAddress, chainId: chain.id!)
@@ -275,7 +338,7 @@ class RemoteNotificationHandler {
             NotificationCenter.default.post(name: .queuedTxNotificationReceived, object: nil)
         }
     }
- }
+}
 
 fileprivate func logDebug(_ msg: String, file: StaticString = #file, line: UInt = #line, function: StaticString = #function) {
     LogService.shared.debug("PUSH: " + msg, file: file, line: line, function: function)
