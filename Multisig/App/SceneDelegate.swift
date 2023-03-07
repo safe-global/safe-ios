@@ -369,16 +369,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        showWindow(makeEnterPasscodeWindow(showsCloseButton: true,
-                                           onPasscodeEnter: { [weak self] pwd in
-            try task(pwd)
-            self?.showMainContentWindow()
-        }, onError: { [weak self] error in
-            if let str = error as? String, str == "Cancelled" {
+        Task { @MainActor in
+            showWindow(makeEnterPasscodeWindow(showsCloseButton: true,
+                                               onPasscodeEnter: { [weak self] pwd in
+                try task(pwd)
                 self?.showMainContentWindow()
-            }
-            onFailure(error)
-        }))
+            }, onError: { [weak self] error in
+                if let str = error as? String, str == "Cancelled" {
+                    self?.showMainContentWindow()
+                }
+                onFailure(error)
+            }))
+        }
     }
 }
 
