@@ -146,7 +146,7 @@ class WalletConnectManager {
             proposal.requiredNamespaces.forEach {
                 let caip2Namespace = $0.key
                 let proposalNamespace = $0.value
-                guard let chains = proposalNamespace.chains else { return }
+                let chains = proposalNamespace.chains
 
                 let accounts = Set(chains.compactMap { Account($0.absoluteString + ":\(safe.addressValue)") })
 
