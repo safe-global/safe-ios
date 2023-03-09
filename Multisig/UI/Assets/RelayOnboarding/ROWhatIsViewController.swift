@@ -19,12 +19,13 @@ class ROWhatIsViewController: UIViewController {
     @IBOutlet private weak var paragraph4Label: UILabel!
     @IBOutlet private weak var nextButton: UIButton!
 
+    var completion: () -> Void = { }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         ViewControllerFactory.addCloseButton(self)
         ViewControllerFactory.removeNavigationBarBorder(self)
-        //navigationItem.largeTitleDisplayMode = .never
 
         titleLabel.setStyle(.title1)
         paragraph1Label.setStyle(.subheadlineSecondary)
@@ -43,5 +44,6 @@ class ROWhatIsViewController: UIViewController {
     }
 
     @IBAction func didTapNext(_ sender: Any) {
+        completion()
     }
 }

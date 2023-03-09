@@ -870,6 +870,7 @@
 		6ADEB02827B559370062ADFE /* WebConnectionOwnerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */; };
 		6AF6295B29B9C966004C034A /* ROWhatIsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF6295929B9C966004C034A /* ROWhatIsViewController.swift */; };
 		6AF6295C29B9C966004C034A /* ROWhatIsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AF6295A29B9C966004C034A /* ROWhatIsViewController.xib */; };
+		6AF6295E29BA1B85004C034A /* RelayOnboardingFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF6295D29BA1B85004C034A /* RelayOnboardingFlow.swift */; };
 		6AF685392937629900E63289 /* CollectibleHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF685372937629800E63289 /* CollectibleHeaderTableViewCell.swift */; };
 		6AF6853A2937629900E63289 /* CollectibleHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AF685382937629800E63289 /* CollectibleHeaderTableViewCell.xib */; };
 		6AFD26DB285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFD26D9285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift */; };
@@ -1849,6 +1850,7 @@
 		6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebConnectionOwnerView.xib; sourceTree = "<group>"; };
 		6AF6295929B9C966004C034A /* ROWhatIsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ROWhatIsViewController.swift; sourceTree = "<group>"; };
 		6AF6295A29B9C966004C034A /* ROWhatIsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ROWhatIsViewController.xib; sourceTree = "<group>"; };
+		6AF6295D29BA1B85004C034A /* RelayOnboardingFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayOnboardingFlow.swift; sourceTree = "<group>"; };
 		6AF685372937629800E63289 /* CollectibleHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		6AF685382937629800E63289 /* CollectibleHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectibleHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		6AFD26D9285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddOwnerLinkViewController.swift; sourceTree = "<group>"; };
@@ -4207,6 +4209,7 @@
 			children = (
 				6AF6295929B9C966004C034A /* ROWhatIsViewController.swift */,
 				6AF6295A29B9C966004C034A /* ROWhatIsViewController.xib */,
+				6AF6295D29BA1B85004C034A /* RelayOnboardingFlow.swift */,
 			);
 			path = RelayOnboarding;
 			sourceTree = "<group>";
@@ -5277,6 +5280,7 @@
 				04D968D4276B872D00CE4A9E /* TransactionViewController.swift in Sources */,
 				6A6A10592889496100B852D5 /* ClaimGetStartedViewController.swift in Sources */,
 				0ADA911225656FEC0004DEC0 /* TransactionListViewController.swift in Sources */,
+				6AF6295E29BA1B85004C034A /* RelayOnboardingFlow.swift in Sources */,
 				3E373F7D2631784200D8107A /* BlockchainDomainManager.swift in Sources */,
 				0471D13224728C2C00B22A70 /* EmailLink.swift in Sources */,
 				0A5B158228086424003AD853 /* RepeatPasscodeViewController.swift in Sources */,
