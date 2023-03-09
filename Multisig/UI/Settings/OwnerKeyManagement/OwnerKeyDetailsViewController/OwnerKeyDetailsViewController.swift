@@ -222,10 +222,10 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         }
 
         self.sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
-                items: [Section.PushNotificationConfiguration.enabled]))
+                              items: [Section.PushNotificationConfiguration.enabled]))
         if self.keyInfo.delegateAddress != nil {
             self.sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
-                    items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
+                                  items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
         }
 
         self.sections.append((section: .advanced, items: [Section.Advanced.remove]))
