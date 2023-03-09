@@ -75,7 +75,6 @@ class WalletConnectManager {
                             $0.value.accounts.forEach {
                                 if let safe = Safe.by(address: $0.address, chainId: $0.reference) {
                                     safe.addSession(topic: session.topic)
-                                    LogService.shared.debug("---> Adding Session: \(session.topic)")
                                 }
                             }
                         }
