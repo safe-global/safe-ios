@@ -63,9 +63,6 @@ class WalletConnectManager {
         Sign.instance.sessionRequestPublisher
                 .receive(on: DispatchQueue.global(qos: .background))
                 .sink { [unowned self] request in
-                    // TODO: Handle incoming request
-                    LogService.shared.debug("---> Handling request: \(request)")
-                    LogService.shared.debug("--->           Method: \(request.method)")
                     handle(request: request)
                 }
                 .store(in: &publishers)
@@ -129,7 +126,6 @@ class WalletConnectManager {
     private func sign(request: Request, response: AnyCodable) {
         Task {
             do {
-                LogService.shared.debug("---> Sign.instance.respond(topic: \(request.topic), requestId: \(request.id), response: \(response)")
                 try await Sign.instance.respond(topic: request.topic, requestId: request.id, response: .response(response))
             } catch {
                 print("DAPP: Respond Error: \(error.localizedDescription)")
