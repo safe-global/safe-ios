@@ -28,11 +28,20 @@ class ROWhatIsViewController: UIViewController {
         ViewControllerFactory.removeNavigationBarBorder(self)
 
         titleLabel.setStyle(.title1)
+
         paragraph1Label.setStyle(.subheadlineSecondary)
+
         paragraph2TitleLabel.setStyle(.headline)
         paragraph2Label.setStyle(.subheadlineSecondary)
+
         paragraph3TitleLabel.setStyle(.headline)
-        paragraph3Label.setStyle(.subheadlineSecondary)
+        let paragraph3String = "Our partner Gnosis Chain will temporarily sponsor your transactions via as the first test version. When the full version will be released, it will become a paid service. User can execute any type of transaction.".highlightRange(
+            originalStyle: .subheadlineSecondary,
+            highlightStyle: .subheadlineSecondary.color(.labelPrimary),
+            textToHighlight: "Gnosis Chain")
+        paragraph3String.paragraph()
+        paragraph3Label.attributedText = paragraph3String
+
         paragraph4Label.setStyle(.subheadlineSecondary)
 
         nextButton.setText("Next", .filled)
