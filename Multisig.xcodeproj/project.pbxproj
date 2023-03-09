@@ -868,6 +868,8 @@
 		6ADEB01C2795AB410062ADFE /* InfoLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB01A2795AB410062ADFE /* InfoLabel.xib */; };
 		6ADEB02727B559370062ADFE /* WebConnectionOwnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */; };
 		6ADEB02827B559370062ADFE /* WebConnectionOwnerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */; };
+		6AF6295B29B9C966004C034A /* ROWhatIsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF6295929B9C966004C034A /* ROWhatIsViewController.swift */; };
+		6AF6295C29B9C966004C034A /* ROWhatIsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AF6295A29B9C966004C034A /* ROWhatIsViewController.xib */; };
 		6AF685392937629900E63289 /* CollectibleHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF685372937629800E63289 /* CollectibleHeaderTableViewCell.swift */; };
 		6AF6853A2937629900E63289 /* CollectibleHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AF685382937629800E63289 /* CollectibleHeaderTableViewCell.xib */; };
 		6AFD26DB285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFD26D9285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift */; };
@@ -1845,6 +1847,8 @@
 		6ADEB01A2795AB410062ADFE /* InfoLabel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoLabel.xib; sourceTree = "<group>"; };
 		6ADEB02527B559370062ADFE /* WebConnectionOwnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebConnectionOwnerView.swift; sourceTree = "<group>"; };
 		6ADEB02627B559370062ADFE /* WebConnectionOwnerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebConnectionOwnerView.xib; sourceTree = "<group>"; };
+		6AF6295929B9C966004C034A /* ROWhatIsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ROWhatIsViewController.swift; sourceTree = "<group>"; };
+		6AF6295A29B9C966004C034A /* ROWhatIsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ROWhatIsViewController.xib; sourceTree = "<group>"; };
 		6AF685372937629800E63289 /* CollectibleHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		6AF685382937629800E63289 /* CollectibleHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectibleHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		6AFD26D9285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddOwnerLinkViewController.swift; sourceTree = "<group>"; };
@@ -2892,6 +2896,7 @@
 		0A6886AA2588FB190045CAB5 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				6AF6295829B9BFBC004C034A /* RelayOnboarding */,
 				6A7D476029B3682400D690BE /* RelayInfoBanner */,
 				0AB9F4C3254C64680044395F /* BalancesViewController */,
 				6AFD26E92861B0B300336FFE /* SafeTokenBanner */,
@@ -4197,6 +4202,15 @@
 			path = AddOwnerKey;
 			sourceTree = "<group>";
 		};
+		6AF6295829B9BFBC004C034A /* RelayOnboarding */ = {
+			isa = PBXGroup;
+			children = (
+				6AF6295929B9C966004C034A /* ROWhatIsViewController.swift */,
+				6AF6295A29B9C966004C034A /* ROWhatIsViewController.xib */,
+			);
+			path = RelayOnboarding;
+			sourceTree = "<group>";
+		};
 		6AFD26E92861B0B300336FFE /* SafeTokenBanner */ = {
 			isa = PBXGroup;
 			children = (
@@ -4684,6 +4698,7 @@
 				04077B3F278CB85F00AF6376 /* ActivityButtonView.xib in Resources */,
 				55DA0665269DD52E006C9AA5 /* dapps-polygon.json in Resources */,
 				5580BF1B276B213000CA288F /* dapps-avalanche.json in Resources */,
+				6AF6295C29B9C966004C034A /* ROWhatIsViewController.xib in Resources */,
 				0AEEBC74258CDF9400F3A6F9 /* CollectibleDetailViewController.xib in Resources */,
 				0ADD19C2265EA23200EB0F2B /* SeedPhraseViewController.xib in Resources */,
 				0A109E272689CB9A00226708 /* RibbonView.xib in Resources */,
@@ -5107,6 +5122,7 @@
 				D86517732760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift in Sources */,
 				6AAE34E8282A833D00CCFC95 /* EnterOwnerNameViewController.swift in Sources */,
 				0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */,
+				6AF6295B29B9C966004C034A /* ROWhatIsViewController.swift in Sources */,
 				0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */,
 				93EF2FA327C546330077BE95 /* InstructionsViewController.swift in Sources */,
 				04FA1A2E2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift in Sources */,

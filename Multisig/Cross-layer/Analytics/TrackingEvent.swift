@@ -331,7 +331,7 @@ enum TrackingEvent: String, Trackable {
     case userOwnerFromLinkSafeNameAdded             = "user_owner_from_link_safe_name_added"
 
     // MARK: Gelato Relay
-    case bannerRelaySkip                        = "user_banner_relay_skip"
+    case bannerRelaySkip                            = "user_banner_relay_skip"
 
     // MARK: Safe Token Claim
     // See: https://docs.google.com/spreadsheets/d/1mj9iQIhpM-Pak7lQMb1dmxhQn1QdJoJyhbc730dZNzA/edit#gid=1949479240&range=A244:E244
