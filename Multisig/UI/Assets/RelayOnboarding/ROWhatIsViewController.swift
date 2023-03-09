@@ -40,7 +40,7 @@ class ROWhatIsViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //Tracker.trackEvent()
+        Tracker.trackEvent(.relayOnboarding1)
     }
 
     @IBAction func didTapNext(_ sender: Any) {

@@ -333,6 +333,8 @@ enum TrackingEvent: String, Trackable {
     // MARK: Gelato Relay
     case bannerRelaySkip                            = "user_banner_relay_skip"
     case bannerRelayOpen                            = "user_banner_relay_open"
+    case relayOnboarding1                           = "screen_onboarding_relay_1"
+    
     // MARK: Safe Token Claim
     // See: https://docs.google.com/spreadsheets/d/1mj9iQIhpM-Pak7lQMb1dmxhQn1QdJoJyhbc730dZNzA/edit#gid=1949479240&range=A244:E244
     // Banner Tracking
