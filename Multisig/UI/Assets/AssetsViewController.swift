@@ -97,7 +97,12 @@ class AssetsViewController: ContainerViewController {
         }
 
         totalBalanceView.relayInfoBanner.isHidden = !shouldShowRelayBanner
+        totalBalanceView.relayInfoBanner.onOpen = { [unowned self] in
+            let relayOnboardingFlow = RelayOnboardingFlow { [unowned self] _ in
 
+            }
+            present(flow: relayOnboardingFlow)
+        }
         totalBalanceView.relayInfoBanner.onClose = { [unowned self] in
             relayBannerWasShown = true
             totalBalanceView.relayInfoBanner.isHidden = !shouldShowRelayBanner
