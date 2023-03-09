@@ -102,6 +102,7 @@ class AssetsViewController: ContainerViewController {
 
             }
             present(flow: relayOnboardingFlow)
+            Tracker.trackEvent(.bannerRelayOpen)
         }
         totalBalanceView.relayInfoBanner.onClose = { [unowned self] in
             relayBannerWasShown = true
