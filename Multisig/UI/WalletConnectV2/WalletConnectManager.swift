@@ -129,6 +129,7 @@ class WalletConnectManager {
     private func sign(request: Request, response: AnyCodable) {
         Task {
             do {
+                LogService.shared.debug("---> Sign.instance.respond(topic: \(request.topic), requestId: \(request.id), response: \(response)")
                 try await Sign.instance.respond(topic: request.topic, requestId: request.id, response: .response(response))
             } catch {
                 print("DAPP: Respond Error: \(error.localizedDescription)")
@@ -266,7 +267,7 @@ class WalletConnectManager {
                 }
 
                 confirmationController.onSubmit = { nonce, safeTxHash in
-                    self.sign(request: request, response: AnyCodable(any: safeTxHash))
+                    self.sign(request: request, response: AnyCodable(safeTxHash))
                 }
 
                 let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
@@ -288,10 +289,7 @@ class WalletConnectManager {
                     }
                 }
             }
-        } // end else eth_sendTransaction
-
-
-        // } // DispatchQueue.main.async { [unowned self] in
+        }
     }
 
 }
