@@ -14,6 +14,7 @@ class ROWhatIsViewController: UIViewController {
     @IBOutlet private weak var paragraph1Label: UILabel!
     @IBOutlet private weak var paragraph2TitleLabel: UILabel!
     @IBOutlet private weak var paragraph2Label: UILabel!
+    @IBOutlet private weak var moreComingSoonButton: UIButton!
     @IBOutlet private weak var paragraph3TitleLabel: UILabel!
     @IBOutlet private weak var paragraph3Label: UILabel!
     @IBOutlet private weak var paragraph4Label: UILabel!
@@ -30,6 +31,13 @@ class ROWhatIsViewController: UIViewController {
         titleLabel.setStyle(.title1)
 
         paragraph1Label.setStyle(.subheadlineSecondary)
+        let relayerSymbol = NSTextAttachment()
+        relayerSymbol.image = UIImage(named: "ico-relayer-symbol")
+        let relayerSymbolString = NSMutableAttributedString(attachment: relayerSymbol)
+        relayerSymbolString.append(NSAttributedString(string: "\u{00a0}Relayer", attributes: [NSAttributedString.Key.foregroundColor: UIColor.labelPrimary]))
+        let paragraph1String = NSMutableAttributedString(string: "No more funding of owner addresses or even distributing native assets among signer accounts because of zero balance, no more handling of gas limits and other cumbersome issues - meet")
+        paragraph1String.append(relayerSymbolString)
+        paragraph1Label.attributedText = paragraph1String
 
         paragraph2TitleLabel.setStyle(.headline)
         paragraph2Label.setStyle(.subheadlineSecondary)
