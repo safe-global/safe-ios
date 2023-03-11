@@ -26,8 +26,6 @@ public class NativeSocket: NSObject, WebSocketConnecting, URLSessionWebSocketDel
         //self.socket?.delegate = self // requires iOS 15
     }
 
-
-
     // MARK: - WebSocketConnecting
 
     public var isConnected: Bool
@@ -62,8 +60,6 @@ public class NativeSocket: NSObject, WebSocketConnecting, URLSessionWebSocketDel
         }
     }
 
-
-
     // MARK: - URLSessionWebSocketDelegate
 
     public func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
@@ -92,32 +88,32 @@ public class NativeSocket: NSObject, WebSocketConnecting, URLSessionWebSocketDel
         socket?.receive(completionHandler: { [weak self] result in
 
             switch result {
-                case .failure(let error):
+            case .failure(let error):
                 LogService.shared.debug("<=== NativeSocket Error receiving: \(error)")
 
-                    // If its failing because the conneciton closed by itself, try to reconnect
-                    let error = error as NSError
-                    if error.code == 57 && error.domain == "NSPOSIXErrorDomain" {
-                        self?.disconnect()
+                // If its failing because the conneciton closed by itself, try to reconnect
+                let error = error as NSError
+                if error.code == 57 && error.domain == "NSPOSIXErrorDomain" {
+                    self?.disconnect()
+                }
+
+            case .success(let message):
+                switch message {
+                case .string(let messageString):
+                    LogService.shared.debug("<=== message: \(messageString)")
+                    if let onText = self?.onText {
+                        onText(messageString)
                     }
 
-                case .success(let message):
-                    switch message {
-                        case .string(let messageString):
-                        LogService.shared.debug("<=== message: \(messageString)")
-                            if let onText = self?.onText {
-                                onText(messageString)
-                            }
-
-                        case .data(let data):
-                        LogService.shared.debug("<=== data: \(data.description)")
-                            if let onText = self?.onText {
-                                onText(data.description)
-                            }
-
-                        default:
-                        LogService.shared.debug("<=== NativeSocket received unknown data")
+                case .data(let data):
+                    LogService.shared.debug("<=== data: \(data.description)")
+                    if let onText = self?.onText {
+                        onText(data.description)
                     }
+
+                default:
+                    LogService.shared.debug("<=== NativeSocket received unknown data")
+                }
             }
 
             if self?.isConnected == true {
