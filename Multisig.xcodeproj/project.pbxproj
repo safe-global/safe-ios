@@ -886,6 +886,7 @@
 		931AB80328808EBC00264AAA /* MultiSendApproveMultihopBatchSwapExactIn.json in Resources */ = {isa = PBXBuildFile; fileRef = 931AB80128808EBC00264AAA /* MultiSendApproveMultihopBatchSwapExactIn.json */; };
 		931AB80428808EBC00264AAA /* MockJSONHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931AB80228808EBC00264AAA /* MockJSONHttpClient.swift */; };
 		931AB80628808F3600264AAA /* TransactionPreviewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931AB80528808F3600264AAA /* TransactionPreviewRequest.swift */; };
+		931B211529BD2CB7009C53B5 /* NativeSocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931B211429BD2CB7009C53B5 /* NativeSocketFactory.swift */; };
 		935DCA4C27BD14C600F09EE4 /* WebConnectionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */; };
 		9388B98227C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */; };
 		938D327028C8808D00198B7E /* NavigatingDAOViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D326E28C8808D00198B7E /* NavigatingDAOViewController.swift */; };
@@ -1862,6 +1863,7 @@
 		931AB80128808EBC00264AAA /* MultiSendApproveMultihopBatchSwapExactIn.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MultiSendApproveMultihopBatchSwapExactIn.json; sourceTree = "<group>"; };
 		931AB80228808EBC00264AAA /* MockJSONHttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockJSONHttpClient.swift; sourceTree = "<group>"; };
 		931AB80528808F3600264AAA /* TransactionPreviewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionPreviewRequest.swift; sourceTree = "<group>"; };
+		931B211429BD2CB7009C53B5 /* NativeSocketFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeSocketFactory.swift; sourceTree = "<group>"; };
 		935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionDetailsViewController.swift; sourceTree = "<group>"; };
 		9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentNotificationController.swift; sourceTree = "<group>"; };
 		938D326E28C8808D00198B7E /* NavigatingDAOViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigatingDAOViewController.swift; sourceTree = "<group>"; };
@@ -2376,6 +2378,7 @@
 				0497B2A429A632DB007109ED /* SocketFactory.swift */,
 				0497B2A929A63BE8007109ED /* WalletConnectManager.swift */,
 				04F8041229A68386007CFF40 /* Proposal.swift */,
+				931B211429BD2CB7009C53B5 /* NativeSocketFactory.swift */,
 			);
 			path = WalletConnectV2;
 			sourceTree = "<group>";
@@ -5429,6 +5432,7 @@
 				04CF31BF27B6B9D2001BEEED /* TitledMiniPieceView.swift in Sources */,
 				0AD6EF1E25CAF5EC00EE5512 /* AppReviewController.swift in Sources */,
 				0ABC0024282313B300F42D29 /* AddKeyFlow.swift in Sources */,
+				931B211529BD2CB7009C53B5 /* NativeSocketFactory.swift in Sources */,
 				04077B37278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.swift in Sources */,
 				0ADD0FB327C148880099DF7D /* DatePickerViewController.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
@@ -5774,7 +5778,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -5973,7 +5977,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -6098,7 +6102,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -6649,7 +6653,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -6780,7 +6784,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;

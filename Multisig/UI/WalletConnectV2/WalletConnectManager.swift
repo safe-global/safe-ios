@@ -35,7 +35,7 @@ class WalletConnectManager {
 
     func config() {
         Networking.configure(projectId: App.configuration.walletConnect.walletConnectProjectId,
-                socketFactory: SocketFactory())
+                socketFactory: NativeSocketFactory())
 
         Pair.configure(metadata: metadata)
         setUpAuthSubscribing()
