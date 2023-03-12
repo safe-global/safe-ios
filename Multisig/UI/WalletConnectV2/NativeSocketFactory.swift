@@ -13,17 +13,18 @@ public enum NativeSocketError: Error {
     case errorWithCode(URLSessionWebSocketTask.CloseCode)
 }
 
-public class NativeSocket: NSObject, WebSocketConnecting, URLSessionWebSocketDelegate {
+public class NativeSocket: NSObject, WebSocketConnecting {
 
     private var socket: URLSessionWebSocketTask? = nil
 
     init(withURL url: URL) {
-        self.socket = URLSession.shared.webSocketTask(with: url)
         self.isConnected = false
         self.request = URLRequest(url: url)
+
         super.init()
 
-        //self.socket?.delegate = self // requires iOS 15
+        let session = URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue())
+        self.socket = session.webSocketTask(with: url)
     }
 
     // MARK: - WebSocketConnecting
@@ -57,30 +58,6 @@ public class NativeSocket: NSObject, WebSocketConnecting, URLSessionWebSocketDel
             if let completion = completion {
                 completion()
             }
-        }
-    }
-
-    // MARK: - URLSessionWebSocketDelegate
-
-    public func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
-        isConnected = true
-
-        if let onConnect = onConnect {
-            onConnect()
-        }
-
-        receiveMessage()
-    }
-
-    public func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
-        isConnected = false
-
-        if let onDisconnect = onDisconnect {
-            if closeCode != URLSessionWebSocketTask.CloseCode.normalClosure {
-                onDisconnect(NativeSocketError.errorWithCode(closeCode))
-            }
-
-            onDisconnect(nil)
         }
     }
 
@@ -120,6 +97,30 @@ public class NativeSocket: NSObject, WebSocketConnecting, URLSessionWebSocketDel
                 self?.receiveMessage()
             }
         })
+    }
+}
+
+extension NativeSocket: URLSessionWebSocketDelegate {
+    public func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
+        isConnected = true
+
+        if let onConnect = onConnect {
+            onConnect()
+        }
+
+        receiveMessage()
+    }
+
+    public func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
+        isConnected = false
+
+        if let onDisconnect = onDisconnect {
+            if closeCode != URLSessionWebSocketTask.CloseCode.normalClosure {
+                onDisconnect(NativeSocketError.errorWithCode(closeCode))
+            }
+
+            onDisconnect(nil)
+        }
     }
 }
 
