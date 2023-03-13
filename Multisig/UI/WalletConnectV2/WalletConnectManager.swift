@@ -215,12 +215,10 @@ class WalletConnectManager {
 
                 DispatchQueue.global(qos: .background).async {
                     guard let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(
-                        safeAddress: safe.addressValue, chainId: safe.chain!.id!)
-                    else {
+                        safeAddress: safe.addressValue, chainId: safe.chain!.id!) else {
                         reject(request: request)
                         return
                     }
-
                     safe.update(from: safeInfo)
                 }
                 guard let ethereumTransaction = try? request.params.get([EthereumTransaction].self).first,
@@ -248,7 +246,6 @@ class WalletConnectManager {
                         dAppIconURL: URL(string: session.peer.icons.first ?? ""))
 
                     confirmationController.onReject = { [unowned self] in
-
                         reject(request: request)
                     }
 
