@@ -35,7 +35,6 @@ class WalletConnectManager {
     func config() {
         Networking.configure(projectId: App.configuration.walletConnect.walletConnectProjectId,
                              socketFactory: NativeSocketFactory())
-
         Pair.configure(metadata: metadata)
         setUpAuthSubscribing()
     }
@@ -209,10 +208,8 @@ class WalletConnectManager {
             }
 
             if request.method == "eth_sendTransaction" {
-
                 // make transformation of incoming request into internal data types
                 // and fetch information about safe from the request
-
                 DispatchQueue.global(qos: .background).async {
                     guard let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(
                         safeAddress: safe.addressValue, chainId: safe.chain!.id!) else {
@@ -238,7 +235,6 @@ class WalletConnectManager {
 
                 DispatchQueue.main.async { [unowned self] in
                     // present confirmation controller
-
                     let confirmationController = WCIncomingTransactionRequestViewController(
                         transaction: transaction,
                         safe: safe,
