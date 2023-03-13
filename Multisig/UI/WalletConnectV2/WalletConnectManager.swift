@@ -213,15 +213,16 @@ class WalletConnectManager {
                 // make transformation of incoming request into internal data types
                 // and fetch information about safe from the request
 
-                guard let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(
-                    safeAddress: safe.addressValue, chainId: safe.chain!.id!)
-                else {
-                    reject(request: request)
-                    return
+                DispatchQueue.global(qos: .background).async {
+                    guard let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(
+                        safeAddress: safe.addressValue, chainId: safe.chain!.id!)
+                    else {
+                        reject(request: request)
+                        return
+                    }
+
+                    safe.update(from: safeInfo)
                 }
-
-                safe.update(from: safeInfo)
-
                 guard let ethereumTransaction = try? request.params.get([EthereumTransaction].self).first,
                       let transaction = Transaction(transaction: ethereumTransaction, safe: safe)
                 else {
