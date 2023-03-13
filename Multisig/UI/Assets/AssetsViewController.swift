@@ -123,10 +123,8 @@ class AssetsViewController: ContainerViewController {
     private var claimTokenFlow: ClaimSafeTokenFlow!
 
     private var shouldShowSafeTokenBanner: Bool {
-        guard let safe = try? Safe.getSelected() else {
-            return false
-        }
-        return safeTokenBannerWasShown != true && ClaimingAppController.isAvailable(chain: safe.chain!)
+        // claim period has ended -> no need to show the banner
+        return false
     }
 
     private var safeTokenBannerWasShown: Bool? {
