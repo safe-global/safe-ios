@@ -202,74 +202,76 @@ class WalletConnectManager {
             return
         }
 
-        guard let safe = Safe.by(topic: request.topic) else {
-            reject(request: request)
-            return
-        }
-
-        if request.method == "eth_sendTransaction" {
-
-            // make transformation of incoming request into internal data types
-            // and fetch information about safe from the request
-
-            guard let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(
-                safeAddress: safe.addressValue, chainId: safe.chain!.id!)
-            else {
+        DispatchQueue.main.async { [unowned self] in
+            guard let safe = Safe.by(topic: request.topic) else {
                 reject(request: request)
                 return
             }
 
-            safe.update(from: safeInfo)
+            if request.method == "eth_sendTransaction" {
 
-            guard let ethereumTransaction = try? request.params.get([EthereumTransaction].self).first,
-                  let transaction = Transaction(transaction: ethereumTransaction, safe: safe)
-            else {
-                reject(request: request)
-                return
-            }
+                // make transformation of incoming request into internal data types
+                // and fetch information about safe from the request
 
-            guard !safe.isReadOnly else {
-                DispatchQueue.main.async {
-                    App.shared.snackbar.show(message: "Please import Safe Owner Key to initiate WalletConnect transactions")
-                }
-                reject(request: request)
-                return
-            }
-
-            DispatchQueue.main.async { [unowned self] in
-                // present confirmation controller
-
-                let confirmationController = WCIncomingTransactionRequestViewController(
-                    transaction: transaction,
-                    safe: safe,
-                    dAppName: session.peer.name,
-                    dAppIconURL: URL(string: session.peer.icons.first ?? ""))
-
-                confirmationController.onReject = { [unowned self] in
-
+                guard let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(
+                    safeAddress: safe.addressValue, chainId: safe.chain!.id!)
+                else {
                     reject(request: request)
+                    return
                 }
 
-                confirmationController.onSubmit = { nonce, safeTxHash in
-                    self.sign(request: request, response: AnyCodable(safeTxHash))
+                safe.update(from: safeInfo)
+
+                guard let ethereumTransaction = try? request.params.get([EthereumTransaction].self).first,
+                      let transaction = Transaction(transaction: ethereumTransaction, safe: safe)
+                else {
+                    reject(request: request)
+                    return
                 }
 
-                let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
-                sceneDelegate.present(ViewControllerFactory.modal(viewController: confirmationController))
-            }
-        } else {
-            DispatchQueue.global(qos: .background).async {
-                do {
-                    let rpcURL = safe.chain!.authenticatedRpcUrl
-                    let result = try AnyCodable(any: App.shared.nodeService.rawCall(payload: request.asJSONEncodedString(),
-                                                                                    rpcURL: rpcURL))
-                    //let response = try Response(url: request.url, jsonString: result)
-                    self.sign(request: request, response: result)
-                } catch {
+                guard !safe.isReadOnly else {
                     DispatchQueue.main.async {
-                        App.shared.snackbar.show(
-                            error: GSError.error(description: "Could not handle WalletConnect request", error: error)
-                        )
+                        App.shared.snackbar.show(message: "Please import Safe Owner Key to initiate WalletConnect transactions")
+                    }
+                    reject(request: request)
+                    return
+                }
+
+                DispatchQueue.main.async { [unowned self] in
+                    // present confirmation controller
+
+                    let confirmationController = WCIncomingTransactionRequestViewController(
+                        transaction: transaction,
+                        safe: safe,
+                        dAppName: session.peer.name,
+                        dAppIconURL: URL(string: session.peer.icons.first ?? ""))
+
+                    confirmationController.onReject = { [unowned self] in
+
+                        reject(request: request)
+                    }
+
+                    confirmationController.onSubmit = { nonce, safeTxHash in
+                        self.sign(request: request, response: AnyCodable(safeTxHash))
+                    }
+
+                    let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
+                    sceneDelegate.present(ViewControllerFactory.modal(viewController: confirmationController))
+                }
+            } else {
+                DispatchQueue.global(qos: .background).async {
+                    do {
+                        let rpcURL = safe.chain!.authenticatedRpcUrl
+                        let result = try AnyCodable(any: App.shared.nodeService.rawCall(payload: request.asJSONEncodedString(),
+                                                                                        rpcURL: rpcURL))
+                        //let response = try Response(url: request.url, jsonString: result)
+                        self.sign(request: request, response: result)
+                    } catch {
+                        DispatchQueue.main.async {
+                            App.shared.snackbar.show(
+                                error: GSError.error(description: "Could not handle WalletConnect request", error: error)
+                            )
+                        }
                     }
                 }
             }
