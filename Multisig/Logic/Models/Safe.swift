@@ -93,7 +93,8 @@ extension Safe {
     }
 
     static func by(topic: String) -> Safe? {
-        Safe.all.first {$0.walletConnectSessiontopics.contains(topic)}
+        dispatchPrecondition(condition: .onQueue(.main))
+        return Safe.all.first {$0.walletConnectSessiontopics.contains(topic)}
     }
 
     static func updateCachedNames() {

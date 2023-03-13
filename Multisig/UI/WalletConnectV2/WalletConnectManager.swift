@@ -202,7 +202,6 @@ class WalletConnectManager {
             return
         }
 
-
         guard let safe = Safe.by(topic: request.topic) else {
             reject(request: request)
             return
@@ -276,7 +275,6 @@ class WalletConnectManager {
             }
         }
     }
-
 }
 
 extension Bundle {
