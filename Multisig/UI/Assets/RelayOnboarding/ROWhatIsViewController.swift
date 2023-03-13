@@ -11,13 +11,14 @@ import UIKit
 class ROWhatIsViewController: UIViewController {
 
     @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var paragraph1Label: UILabel!
-    @IBOutlet private weak var paragraph2TitleLabel: UILabel!
-    @IBOutlet private weak var paragraph2Label: UILabel!
+    @IBOutlet private weak var sec1Par1Label: UILabel!
+    @IBOutlet private weak var sec1Par2Label: UILabel!
+    @IBOutlet private weak var sec2TitleLabel: UILabel!
+    @IBOutlet private weak var sec2Par1Label: UILabel!
     @IBOutlet private weak var moreComingSoonButton: UIButton!
-    @IBOutlet private weak var paragraph3TitleLabel: UILabel!
-    @IBOutlet private weak var paragraph3Label: UILabel!
-    @IBOutlet private weak var paragraph4Label: UILabel!
+    @IBOutlet private weak var sec3TitleLabel: UILabel!
+    @IBOutlet private weak var sec3Par1Label: UILabel!
+    @IBOutlet private weak var sec3Par2Label: UILabel!
     @IBOutlet private weak var nextButton: UIButton!
 
     var completion: () -> Void = { }
@@ -30,27 +31,30 @@ class ROWhatIsViewController: UIViewController {
 
         titleLabel.setStyle(.title1)
 
-        paragraph1Label.setStyle(.subheadlineSecondary)
+        sec1Par1Label.setStyle(.subheadlineSecondary)
         let relayerSymbol = NSTextAttachment()
         relayerSymbol.image = UIImage(named: "ico-relayer-symbol")
         let relayerSymbolString = NSMutableAttributedString(attachment: relayerSymbol)
-        relayerSymbolString.append(NSAttributedString(string: "\u{00a0}Relayer", attributes: [NSAttributedString.Key.foregroundColor: UIColor.labelPrimary]))
-        let paragraph1String = NSMutableAttributedString(string: "No more funding of owner addresses or even distributing native assets among signer accounts because of zero balance, no more handling of gas limits and other cumbersome issues - meet")
-        paragraph1String.append(relayerSymbolString)
-        paragraph1Label.attributedText = paragraph1String
+        relayerSymbolString.append(NSAttributedString(string: "\u{00a0}Relayer\u{00a0}V1", attributes: [NSAttributedString.Key.foregroundColor: UIColor.labelPrimary]))
+        let sec1Par1String = NSMutableAttributedString(string: "Tired of handling gas limits? We’ve heard you! Pay for your gasless transactions with our ")
+        sec1Par1String.append(relayerSymbolString)
+        sec1Par1String.append(NSAttributedString(string: " service with your Safe balance."))
+        sec1Par1Label.attributedText = sec1Par1String
 
-        paragraph2TitleLabel.setStyle(.headline)
-        paragraph2Label.setStyle(.subheadlineSecondary)
+        sec1Par2Label.setStyle(.subheadlineSecondary)
 
-        paragraph3TitleLabel.setStyle(.headline)
-        let paragraph3String = "Our partner Gnosis Chain will temporarily sponsor your transactions via as the first test version. When the full version will be released, it will become a paid service. User can execute any type of transaction.".highlightRange(
+        sec2TitleLabel.setStyle(.headline)
+        sec2Par1Label.setStyle(.subheadlineSecondary)
+
+        sec3TitleLabel.setStyle(.headline)
+        let sec3Par1String = "Our partner Gnosis Chain will temporarily sponsor your transactions via as the first test version. When the full version will be released, it will become a paid service. User can execute any type of transaction.".highlightRange(
             originalStyle: .subheadlineSecondary,
             highlightStyle: .subheadlineSecondary.color(.labelPrimary),
             textToHighlight: "Gnosis Chain")
-        paragraph3String.paragraph()
-        paragraph3Label.attributedText = paragraph3String
+        sec3Par1String.paragraph()
+        sec3Par1Label.attributedText = sec3Par1String
 
-        paragraph4Label.setStyle(.subheadlineSecondary)
+        sec3Par2Label.setStyle(.subheadlineSecondary)
 
         nextButton.setText("Next", .filled)
     }
