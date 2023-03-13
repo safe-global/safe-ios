@@ -24,18 +24,18 @@ class WalletConnectManager {
     private var dappConnectedTrackingEvent: TrackingEvent?
 
     private let metadata = AppMetadata(
-            name: Bundle.main.displayName,
-            description: "The most trusted platform to manage digital assets on Ethereum",
-            url: App.configuration.services.webAppURL.absoluteString,
-            icons: ["https://app.safe.global/favicons/mstile-150x150.png",
-                    "https://app.safe.global/favicons/logo_120x120.png"])
+        name: Bundle.main.displayName,
+        description: "The most trusted platform to manage digital assets on Ethereum",
+        url: App.configuration.services.webAppURL.absoluteString,
+        icons: ["https://app.safe.global/favicons/mstile-150x150.png",
+                "https://app.safe.global/favicons/logo_120x120.png"])
 
     private init() {
     }
 
     func config() {
         Networking.configure(projectId: App.configuration.walletConnect.walletConnectProjectId,
-                socketFactory: NativeSocketFactory())
+                             socketFactory: NativeSocketFactory())
 
         Pair.configure(metadata: metadata)
         setUpAuthSubscribing()
@@ -43,60 +43,60 @@ class WalletConnectManager {
 
     func setUpAuthSubscribing() {
         Sign.instance.socketConnectionStatusPublisher
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] status in
-                    if status == .connected {
-                        NotificationCenter.default.post(name: .wcDidConnectSafeServer, object: self)
-                    } else {
-                        NotificationCenter.default.post(name: .wcDidDisconnectSafeServer, object: self)
-                    }
-                }
-                .store(in: &publishers)
-
-        Sign.instance.sessionProposalPublisher
-                .receive(on: DispatchQueue.main)
-                .sink { [unowned self] proposal in
-                    approveSession(proposal: proposal)
-                }
-                .store(in: &publishers)
-
-        Sign.instance.sessionRequestPublisher
-                .receive(on: DispatchQueue.global(qos: .background))
-                .sink { [unowned self] request in
-                    handle(request: request)
-                }
-                .store(in: &publishers)
-
-        Sign.instance.sessionsPublisher
-                .receive(on: DispatchQueue.main)
-                .sink { [unowned self] sessions in
-                    sessions.forEach { session in
-                        session.namespaces.forEach {
-                            $0.value.accounts.forEach {
-                                if let safe = Safe.by(address: $0.address, chainId: $0.reference) {
-                                    safe.addSession(topic: session.topic)
-                                }
-                            }
-                        }
-
-                        if let dappConnectedTrackingEvent = dappConnectedTrackingEvent, !session.peer.name.isEmpty {
-                            let dappName = session.peer.name.prefix(100)
-                            Tracker.trackEvent(dappConnectedTrackingEvent, parameters: ["dapp_name": dappName])
-                        }
-                    }
-
-                    dappConnectedTrackingEvent = nil
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                if status == .connected {
                     NotificationCenter.default.post(name: .wcDidConnectSafeServer, object: self)
-                }
-                .store(in: &publishers)
-
-        Sign.instance.sessionDeletePublisher
-                .receive(on: DispatchQueue.main)
-                .sink { [unowned self] response in
-                    deleteStoredSession(topic: response.0)
+                } else {
                     NotificationCenter.default.post(name: .wcDidDisconnectSafeServer, object: self)
                 }
-                .store(in: &publishers)
+            }
+            .store(in: &publishers)
+
+        Sign.instance.sessionProposalPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] proposal in
+                approveSession(proposal: proposal)
+            }
+            .store(in: &publishers)
+
+        Sign.instance.sessionRequestPublisher
+            .receive(on: DispatchQueue.global(qos: .background))
+            .sink { [unowned self] request in
+                handle(request: request)
+            }
+            .store(in: &publishers)
+
+        Sign.instance.sessionsPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] sessions in
+                sessions.forEach { session in
+                    session.namespaces.forEach {
+                        $0.value.accounts.forEach {
+                            if let safe = Safe.by(address: $0.address, chainId: $0.reference) {
+                                safe.addSession(topic: session.topic)
+                            }
+                        }
+                    }
+
+                    if let dappConnectedTrackingEvent = dappConnectedTrackingEvent, !session.peer.name.isEmpty {
+                        let dappName = session.peer.name.prefix(100)
+                        Tracker.trackEvent(dappConnectedTrackingEvent, parameters: ["dapp_name": dappName])
+                    }
+                }
+
+                dappConnectedTrackingEvent = nil
+                NotificationCenter.default.post(name: .wcDidConnectSafeServer, object: self)
+            }
+            .store(in: &publishers)
+
+        Sign.instance.sessionDeletePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] response in
+                deleteStoredSession(topic: response.0)
+                NotificationCenter.default.post(name: .wcDidDisconnectSafeServer, object: self)
+            }
+            .store(in: &publishers)
     }
 
     func canConnect(url: String) -> Bool {
@@ -104,9 +104,7 @@ class WalletConnectManager {
     }
 
     func pairClient(url: String, trackingEvent: TrackingEvent?) {
-        guard let uri = WalletConnectURI(string: url) else {
-            return
-        }
+        guard let uri = WalletConnectURI(string: url) else { return }
         dappConnectedTrackingEvent = trackingEvent
         pairClient(uri: uri)
     }
@@ -136,9 +134,9 @@ class WalletConnectManager {
         Task {
             do {
                 try await Sign.instance.respond(
-                        topic: request.topic,
-                        requestId: request.id,
-                        response: .error(.init(code: 0, message: ""))
+                    topic: request.topic,
+                    requestId: request.id,
+                    response: .error(.init(code: 0, message: ""))
                 )
             } catch {
                 print("DAPP: Respond Error: \(error.localizedDescription)")
@@ -148,9 +146,7 @@ class WalletConnectManager {
 
     func approveSession(proposal: Session.Proposal) {
         Task {
-            guard let safe = try? Safe.getSelected() else {
-                return
-            }
+            guard let safe = try? Safe.getSelected() else { return }
             var sessionNamespaces = [String: SessionNamespace]()
             proposal.requiredNamespaces.forEach {
                 let caip2Namespace = $0.key
@@ -162,8 +158,8 @@ class WalletConnectManager {
                 })
 
                 let sessionNamespace = SessionNamespace(accounts: accounts,
-                        methods: proposalNamespace.methods,
-                        events: proposalNamespace.events)
+                                                        methods: proposalNamespace.methods,
+                                                        events: proposalNamespace.events)
                 sessionNamespaces[caip2Namespace] = sessionNamespace
             }
             do {
@@ -224,7 +220,7 @@ class WalletConnectManager {
             // and fetch information about safe from the request
 
             guard let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(
-                    safeAddress: safe.addressValue, chainId: safe.chain!.id!)
+                safeAddress: safe.addressValue, chainId: safe.chain!.id!)
             else {
                 reject(request: request)
                 return
@@ -251,10 +247,10 @@ class WalletConnectManager {
                 // present confirmation controller
 
                 let confirmationController = WCIncomingTransactionRequestViewController(
-                        transaction: transaction,
-                        safe: safe,
-                        dAppName: session.peer.name,
-                        dAppIconURL: URL(string: session.peer.icons.first ?? ""))
+                    transaction: transaction,
+                    safe: safe,
+                    dAppName: session.peer.name,
+                    dAppIconURL: URL(string: session.peer.icons.first ?? ""))
 
                 confirmationController.onReject = { [unowned self] in
 
@@ -273,13 +269,13 @@ class WalletConnectManager {
                 do {
                     let rpcURL = safe.chain!.authenticatedRpcUrl
                     let result = try AnyCodable(any: App.shared.nodeService.rawCall(payload: request.asJSONEncodedString(),
-                            rpcURL: rpcURL))
+                                                                                    rpcURL: rpcURL))
                     //let response = try Response(url: request.url, jsonString: result)
                     self.sign(request: request, response: result)
                 } catch {
                     DispatchQueue.main.async {
                         App.shared.snackbar.show(
-                                error: GSError.error(description: "Could not handle WalletConnect request", error: error)
+                            error: GSError.error(description: "Could not handle WalletConnect request", error: error)
                         )
                     }
                 }
