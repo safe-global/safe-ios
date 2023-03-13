@@ -30,8 +30,7 @@ class WalletConnectManager {
         icons: ["https://app.safe.global/favicons/mstile-150x150.png",
                 "https://app.safe.global/favicons/logo_120x120.png"])
 
-    private init() {
-    }
+    private init() { }
 
     func config() {
         Networking.configure(projectId: App.configuration.walletConnect.walletConnectProjectId,
@@ -50,22 +49,19 @@ class WalletConnectManager {
                 } else {
                     NotificationCenter.default.post(name: .wcDidDisconnectSafeServer, object: self)
                 }
-            }
-            .store(in: &publishers)
+            }.store(in: &publishers)
 
         Sign.instance.sessionProposalPublisher
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] proposal in
                 approveSession(proposal: proposal)
-            }
-            .store(in: &publishers)
+            }.store(in: &publishers)
 
         Sign.instance.sessionRequestPublisher
             .receive(on: DispatchQueue.global(qos: .background))
             .sink { [unowned self] request in
                 handle(request: request)
-            }
-            .store(in: &publishers)
+            }.store(in: &publishers)
 
         Sign.instance.sessionsPublisher
             .receive(on: DispatchQueue.main)
@@ -87,16 +83,14 @@ class WalletConnectManager {
 
                 dappConnectedTrackingEvent = nil
                 NotificationCenter.default.post(name: .wcDidConnectSafeServer, object: self)
-            }
-            .store(in: &publishers)
+            }.store(in: &publishers)
 
         Sign.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] response in
                 deleteStoredSession(topic: response.0)
                 NotificationCenter.default.post(name: .wcDidDisconnectSafeServer, object: self)
-            }
-            .store(in: &publishers)
+            }.store(in: &publishers)
     }
 
     func canConnect(url: String) -> Bool {
