@@ -34,7 +34,7 @@ class WalletConnectManager {
 
     func config() {
         Networking.configure(projectId: App.configuration.walletConnect.walletConnectProjectId,
-                             socketFactory: NativeSocketFactory())
+                             socketFactory: SocketFactory())
         Pair.configure(metadata: metadata)
         setUpAuthSubscribing()
     }
@@ -262,7 +262,6 @@ class WalletConnectManager {
                         let rpcURL = safe.chain!.authenticatedRpcUrl
                         let result = try AnyCodable(any: App.shared.nodeService.rawCall(payload: request.asJSONEncodedString(),
                                                                                         rpcURL: rpcURL))
-                        //let response = try Response(url: request.url, jsonString: result)
                         self.sign(request: request, response: result)
                     } catch {
                         DispatchQueue.main.async {
