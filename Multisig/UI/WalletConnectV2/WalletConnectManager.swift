@@ -24,7 +24,7 @@ class WalletConnectManager {
     private var dappConnectedTrackingEvent: TrackingEvent?
 
     private let metadata = AppMetadata(
-        name: Bundle.main.displayName,
+        name: Bundle.main.displayName + " (iOS) " + Date().description,
         description: "The most trusted platform to manage digital assets on Ethereum",
         url: App.configuration.services.webAppURL.absoluteString,
         icons: ["https://app.safe.global/favicons/mstile-150x150.png",
@@ -140,6 +140,8 @@ class WalletConnectManager {
     func approveSession(proposal: Session.Proposal) {
         Task {
             guard let safe = try? Safe.getSelected() else { return }
+            LogService.shared.debug("---> requiredNamespaces: \(proposal.requiredNamespaces)")
+            dump(proposal.requiredNamespaces)
             var sessionNamespaces = [String: SessionNamespace]()
             proposal.requiredNamespaces.forEach {
                 let caip2Namespace = $0.key
@@ -156,6 +158,8 @@ class WalletConnectManager {
                 sessionNamespaces[caip2Namespace] = sessionNamespace
             }
             do {
+                LogService.shared.debug("---> sessionNamesapces: \(sessionNamespaces)")
+                dump(sessionNamespaces)
                 try await Sign.instance.approve(proposalId: proposal.id, namespaces: sessionNamespaces)
             } catch {
                 print("DAPP: Approve Session error: \(error)")
