@@ -19,39 +19,35 @@
             <rect key="frame" x="0.0" y="0.0" width="587" height="79"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="P3W-UT-AJO">
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="P3W-UT-AJO">
                     <rect key="frame" x="0.0" y="0.0" width="587" height="79"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vvv-32-0a4">
                             <rect key="frame" x="0.0" y="0.0" width="24" height="79"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="c48-2v-7rd">
-                                    <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="24" id="B1I-iW-dFI"/>
-                                        <constraint firstAttribute="width" constant="24" id="EIA-xY-va0"/>
-                                    </constraints>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-benefit" translatesAutoresizingMaskIntoConstraints="NO" id="c48-2v-7rd">
+                                    <rect key="frame" x="2" y="2" width="22" height="15"/>
                                 </imageView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstItem="c48-2v-7rd" firstAttribute="leading" secondItem="Vvv-32-0a4" secondAttribute="leading" id="Yeb-W5-4kS"/>
+                                <constraint firstItem="c48-2v-7rd" firstAttribute="leading" secondItem="Vvv-32-0a4" secondAttribute="leading" constant="2" id="Yeb-W5-4kS"/>
                                 <constraint firstAttribute="width" constant="24" id="lx2-eN-vgd"/>
-                                <constraint firstItem="c48-2v-7rd" firstAttribute="top" secondItem="Vvv-32-0a4" secondAttribute="top" id="lxo-z4-YUm"/>
+                                <constraint firstItem="c48-2v-7rd" firstAttribute="top" secondItem="Vvv-32-0a4" secondAttribute="top" constant="2" id="lxo-z4-YUm"/>
                                 <constraint firstAttribute="trailing" secondItem="c48-2v-7rd" secondAttribute="trailing" id="s60-tt-2HI"/>
                             </constraints>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="KVv-T1-Zev">
-                            <rect key="frame" x="40" y="0.0" width="547" height="79"/>
+                            <rect key="frame" x="32" y="0.0" width="555" height="79"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Free 5 transactions per hour" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NgW-Fe-bzn">
-                                    <rect key="frame" x="0.0" y="0.0" width="547" height="20.333333333333332"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="555" height="20.333333333333332"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="We pay for your Safe transactions for up to five transactions per hour on Gnosis chain" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIy-qy-f5g">
-                                    <rect key="frame" x="0.0" y="24.333333333333332" width="547" height="54.666666666666671"/>
+                                    <rect key="frame" x="0.0" y="24.333333333333332" width="555" height="54.666666666666671"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -75,7 +71,7 @@
         </view>
     </objects>
     <resources>
-        <image name="ico-checkmark" width="18" height="14"/>
+        <image name="ico-benefit" width="21" height="15"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
