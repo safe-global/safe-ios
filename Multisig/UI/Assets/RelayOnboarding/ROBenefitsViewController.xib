@@ -74,7 +74,7 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="3If-0K-gpw" secondAttribute="bottom" constant="16" id="Nl6-0x-abp"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="3If-0K-gpw" secondAttribute="trailing" constant="16" id="Uha-rm-urv"/>
                 <constraint firstItem="3If-0K-gpw" firstAttribute="top" secondItem="6OS-Dy-btA" secondAttribute="bottom" constant="16" id="ZVB-7A-smM"/>
-                <constraint firstItem="6OS-Dy-btA" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="dKd-S2-U5o"/>
+                <constraint firstItem="6OS-Dy-btA" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="dKd-S2-U5o"/>
                 <constraint firstItem="6OS-Dy-btA" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="qpb-25-CJQ"/>
             </constraints>
             <point key="canvasLocation" x="131" y="-11"/>

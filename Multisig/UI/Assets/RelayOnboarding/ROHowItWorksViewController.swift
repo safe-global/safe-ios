@@ -53,7 +53,6 @@ class ROHowItWorksViewController: UIViewController {
         Tracker.trackEvent(.relayOnboarding3)
     }
 
-
     @IBAction func didTapNext(_ sender: Any) {
         completion()
     }

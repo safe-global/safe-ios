@@ -38,9 +38,16 @@ class RelayOnboardingFlow: UIFlow {
 
     func howItWorks() {
         let howItWorksVC = factory.howItWorks { [unowned self] in
-
+            uncoverThePower()
         }
         show(howItWorksVC)
+    }
+
+    func uncoverThePower() {
+        let uncoverThePowerVC = factory.uncoverThePower { [unowned self] in
+
+        }
+        show(uncoverThePowerVC)
     }
 }
 
@@ -62,5 +69,11 @@ class RelayOnboardingFactory {
         let howItWorksVC = ROHowItWorksViewController()
         howItWorksVC.completion = completion
         return howItWorksVC
+    }
+
+    func uncoverThePower(completion: @escaping () -> Void) -> ROUncoverViewController {
+        let uncoverThePowerVC = ROUncoverViewController()
+        uncoverThePowerVC.completion = completion
+        return uncoverThePowerVC
     }
 }
