@@ -31,9 +31,16 @@ class RelayOnboardingFlow: UIFlow {
 
     func benefits() {
         let benefitsVC = factory.benefits { [unowned self] in
-
+            howItWorks()
         }
         show(benefitsVC)
+    }
+
+    func howItWorks() {
+        let howItWorksVC = factory.howItWorks { [unowned self] in
+
+        }
+        show(howItWorksVC)
     }
 }
 
@@ -49,5 +56,11 @@ class RelayOnboardingFactory {
         let benefitsVC = ROBenefitsViewController()
         benefitsVC.completion = completion
         return benefitsVC
+    }
+
+    func howItWorks(completion: @escaping () -> Void) -> ROHowItWorksViewController {
+        let howItWorksVC = ROHowItWorksViewController()
+        howItWorksVC.completion = completion
+        return howItWorksVC
     }
 }

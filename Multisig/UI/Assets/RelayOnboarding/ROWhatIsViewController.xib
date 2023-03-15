@@ -12,15 +12,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ROWhatIsViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
-                <outlet property="moreComingSoonButton" destination="JaB-NW-zPu" id="aae-8w-g2r"/>
                 <outlet property="nextButton" destination="V4C-OT-78g" id="e3u-AX-YbF"/>
-                <outlet property="sec1Par1Label" destination="rM7-BT-uCT" id="xMh-KK-W7E"/>
-                <outlet property="sec1Par2Label" destination="pQt-w2-Go9" id="LjX-KF-NHF"/>
-                <outlet property="sec2Par1Label" destination="REl-Sv-DFZ" id="YCa-Q8-zjr"/>
-                <outlet property="sec2TitleLabel" destination="0Vz-kD-2CQ" id="eZu-94-kbR"/>
-                <outlet property="sec3Par1Label" destination="T2t-vK-0Sd" id="Xqk-qz-03x"/>
-                <outlet property="sec3Par2Label" destination="htk-xs-p75" id="nR5-vr-u2y"/>
-                <outlet property="sec3TitleLabel" destination="boE-Hr-4OV" id="ZHW-j7-0t8"/>
+                <outlet property="par1Label" destination="rM7-BT-uCT" id="xMh-KK-W7E"/>
+                <outlet property="par2Label" destination="pQt-w2-Go9" id="LjX-KF-NHF"/>
+                <outlet property="par3Label" destination="sh5-sf-hX4" id="pwa-iz-PHB"/>
+                <outlet property="par4Label" destination="nA2-dG-QS2" id="dA3-5w-0sh"/>
                 <outlet property="titleLabel" destination="0DR-qw-SxD" id="Wje-nk-S6x"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -34,7 +30,7 @@
                     <rect key="frame" x="16" y="59" width="361" height="671"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="uYn-f8-DNl">
-                            <rect key="frame" x="0.0" y="0.0" width="361" height="696"/>
+                            <rect key="frame" x="0.0" y="0.0" width="361" height="595.66666666666663"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-relaying" translatesAutoresizingMaskIntoConstraints="NO" id="Occ-i6-um6">
                                     <rect key="frame" x="74.666666666666686" y="0.0" width="212" height="178"/>
@@ -49,10 +45,10 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="mZ2-v2-v2Q">
-                                    <rect key="frame" x="0.0" y="246.33333333333329" width="361" height="449.66666666666674"/>
+                                    <rect key="frame" x="0.0" y="246.33333333333334" width="361" height="349.33333333333314"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qa8-Qf-PMf">
-                                            <rect key="frame" x="0.0" y="0.0" width="361" height="150.33333333333334"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="349.33333333333331"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rM7-BT-uCT">
                                                     <rect key="frame" x="0.0" y="0.0" width="361" height="61"/>
@@ -63,91 +59,25 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pQt-w2-Go9">
                                                     <rect key="frame" x="0.0" y="69" width="361" height="81.333333333333314"/>
-                                                    <string key="text">We are routing your transaction via our Safe internal Relay service to the Gelato API. From here Gelato's internal systems are responsible to process your transaction.</string>
+                                                    <string key="text">We are processing your transactions via our Safe internal system to a Gelato API. From here Gelato's internal systems are responsible to process your transaction.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                            </subviews>
-                                        </stackView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="i5u-80-ATh">
-                                            <rect key="frame" x="0.0" y="174.33333333333337" width="361" height="52.333333333333343"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Which networks are supported?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Vz-kD-2CQ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="361" height="20.333333333333332"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sh5-sf-hX4">
+                                                    <rect key="frame" x="0.0" y="158.33333333333337" width="361" height="81.333333333333314"/>
+                                                    <string key="text">For you as a Safe user relaying means we sponsor your network fees on Gnosis chain and after you executed your transaction it is processed by our relaying partner Gelato.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="DGx-kZ-28N">
-                                                    <rect key="frame" x="0.0" y="28.333333333333314" width="361" height="24"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Gnosis Chain" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REl-Sv-DFZ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="20.333333333333332"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JaB-NW-zPu">
-                                                            <rect key="frame" x="104" y="1" width="114.66666666666669" height="22"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="22" id="vHb-WN-Xwq"/>
-                                                            </constraints>
-                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                            <state key="normal" title="More comming soon">
-                                                                <color key="titleColor" name="primary"/>
-                                                            </state>
-                                                            <buttonConfiguration key="configuration" style="filled" buttonSize="medium">
-                                                                <attributedString key="attributedTitle">
-                                                                    <fragment content="More coming soon">
-                                                                        <attributes>
-                                                                            <font key="NSFont" size="11" name="Helvetica"/>
-                                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                        </attributes>
-                                                                    </fragment>
-                                                                </attributedString>
-                                                                <color key="baseForegroundColor" name="grey8"/>
-                                                                <color key="baseBackgroundColor" name="backgroundGreen"/>
-                                                            </buttonConfiguration>
-                                                        </button>
-                                                        <view contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="RRu-9L-cY2">
-                                                            <rect key="frame" x="222.66666666666663" y="0.0" width="138.33333333333337" height="24"/>
-                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="24" id="EgP-pc-ven"/>
-                                                            </constraints>
-                                                        </view>
-                                                    </subviews>
-                                                </stackView>
-                                            </subviews>
-                                        </stackView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hpw-WV-Yl8">
-                                            <rect key="frame" x="0.0" y="250.66666666666669" width="361" height="199"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Should I pay for the service?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boE-Hr-4OV">
-                                                    <rect key="frame" x="0.0" y="0.0" width="361" height="20.333333333333332"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nA2-dG-QS2">
+                                                    <rect key="frame" x="0.0" y="247.66666666666666" width="361" height="101.66666666666666"/>
+                                                    <string key="text">No more funding of owner addresses or even distributing native assets among signer accounts because of zero balance, no more handling of gas limits and other cumbersome issues.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pLA-ra-77h">
-                                                    <rect key="frame" x="0.0" y="28.333333333333371" width="361" height="170.66666666666666"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T2t-vK-0Sd">
-                                                            <rect key="frame" x="0.0" y="0.0" width="361" height="101.66666666666667"/>
-                                                            <string key="text">Our partner Gnosis Chain will temporarily sponsor your transactions via as the first test version. When the full version will be released, it will become a paid service. User can execute any type of transaction.</string>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can still choose to execute with your connected wallet/owner keys if you don’t want to use the relaying service." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htk-xs-p75">
-                                                            <rect key="frame" x="0.0" y="109.66666666666663" width="361" height="61"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                </stackView>
                                             </subviews>
                                         </stackView>
                                     </subviews>
@@ -195,12 +125,6 @@
     </objects>
     <resources>
         <image name="ico-relaying" width="212" height="178"/>
-        <namedColor name="backgroundGreen">
-            <color red="0.69019607843137254" green="1" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="grey8">
-            <color red="0.078431372549019607" green="0.078431372549019607" blue="0.078431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="primary">
             <color red="0.070588235294117646" green="0.074509803921568626" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
