@@ -41,7 +41,9 @@ class WCRequestsHandler: RequestHandler {
     func handle(request: Request) {
         dispatchPrecondition(condition: .notOnQueue(.main))
 
-        guard let wcSession = WCSession.get(topic: request.url.topic), let safe = wcSession.safe else {
+        guard let wcSession = WCSession.get(topic: request.url.topic),
+              let safe = wcSession.safe,
+              let session = try? Session.from(wcSession) else {
             server.send(try! Response(request: request, error: .requestRejected))
             return
         }
@@ -80,7 +82,8 @@ class WCRequestsHandler: RequestHandler {
                 let confirmationController = WCIncomingTransactionRequestViewController(
                     transaction: transaction,
                     safe: safe,
-                    topic: request.url.topic)
+                    dAppName: session.dAppInfo.peerMeta.name,
+                    dAppIconURL: session.dAppInfo.peerMeta.icons.first)
 
                 confirmationController.onReject = { [unowned self] in
                     self.server.send(try! Response(request: request, error: .requestRejected))

@@ -92,6 +92,11 @@ extension Safe {
         return try? context.fetch(fr).first
     }
 
+    static func by(topic: String) -> Safe? {
+        dispatchPrecondition(condition: .onQueue(.main))
+        return Safe.all.first {$0.walletConnectSessiontopics.contains(topic)}
+    }
+
     static func updateCachedNames() {
         guard let safes = try? Safe.getAll() else { return }
 

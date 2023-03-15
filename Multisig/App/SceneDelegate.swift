@@ -54,8 +54,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         NotificationCenter.default.addObserver(self, selector: #selector(handlePasscodeRequired),
-                                       name: .passcodeRequired,
-                                       object: nil)
+                                               name: .passcodeRequired,
+                                               object: nil)
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
@@ -299,17 +299,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func onAppUpdateCompletion() {
         if !AppSettings.termsAccepted {
             showWindow(makeTermsWindow())
-        // TODO: Enable when implemented new security center
+            // TODO: Enable when implemented new security center
         } else if shouldShowPasscode && !AppConfiguration.FeatureToggles.securityCenter {
             showWindow(makeEnterPasscodeWindow())
-        }
-        else if App.shared.securityCenter.shouldShowFaceID() {
+        } else if App.shared.securityCenter.shouldShowFaceID() {
             showWindow(makeFaceIDUnlockWindow())
-        }
-         else if App.shared.securityCenter.shouldShowPasscode() {
-             showWindow(makeEnterPasscodeWindow())
-         }
-        else if !AppSettings.onboardingCompleted {
+        } else if App.shared.securityCenter.shouldShowPasscode() {
+            showWindow(makeEnterPasscodeWindow())
+        } else if !AppSettings.onboardingCompleted {
             showOnboardingWindow()
         } else {
             showMainContentWindow()
