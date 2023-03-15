@@ -18,6 +18,8 @@ class AssetsViewController: ContainerViewController {
     private var safe: Safe?
     let segmentVC = SegmentViewController(namedClass: nil)
 
+    private var relayOnboardingFlow: RelayOnboardingFlow? = nil
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -98,10 +100,10 @@ class AssetsViewController: ContainerViewController {
 
         totalBalanceView.relayInfoBanner.isHidden = !shouldShowRelayBanner
         totalBalanceView.relayInfoBanner.onOpen = { [unowned self] in
-            let relayOnboardingFlow = RelayOnboardingFlow { [unowned self] _ in
+            relayOnboardingFlow = RelayOnboardingFlow { [unowned self] _ in
 
             }
-            present(flow: relayOnboardingFlow)
+            present(flow: relayOnboardingFlow!)
             Tracker.trackEvent(.bannerRelayOpen)
         }
         totalBalanceView.relayInfoBanner.onClose = { [unowned self] in

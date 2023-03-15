@@ -871,6 +871,11 @@
 		6AF6295B29B9C966004C034A /* ROWhatIsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF6295929B9C966004C034A /* ROWhatIsViewController.swift */; };
 		6AF6295C29B9C966004C034A /* ROWhatIsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AF6295A29B9C966004C034A /* ROWhatIsViewController.xib */; };
 		6AF6295E29BA1B85004C034A /* RelayOnboardingFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF6295D29BA1B85004C034A /* RelayOnboardingFlow.swift */; };
+		6AF6296129C0C5C7004C034A /* ROBenefitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF6295F29C0C5C7004C034A /* ROBenefitsViewController.swift */; };
+		6AF6296229C0C5C7004C034A /* ROBenefitsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AF6296029C0C5C7004C034A /* ROBenefitsViewController.xib */; };
+		6AF6296429C1117D004C034A /* BenefitsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF6296329C1117D004C034A /* BenefitsListView.swift */; };
+		6AF6296629C11216004C034A /* BenefitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF6296529C11216004C034A /* BenefitView.swift */; };
+		6AF6296829C1125B004C034A /* BenefitView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AF6296729C1125B004C034A /* BenefitView.xib */; };
 		6AF685392937629900E63289 /* CollectibleHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF685372937629800E63289 /* CollectibleHeaderTableViewCell.swift */; };
 		6AF6853A2937629900E63289 /* CollectibleHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AF685382937629800E63289 /* CollectibleHeaderTableViewCell.xib */; };
 		6AFD26DB285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFD26D9285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift */; };
@@ -1851,6 +1856,11 @@
 		6AF6295929B9C966004C034A /* ROWhatIsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ROWhatIsViewController.swift; sourceTree = "<group>"; };
 		6AF6295A29B9C966004C034A /* ROWhatIsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ROWhatIsViewController.xib; sourceTree = "<group>"; };
 		6AF6295D29BA1B85004C034A /* RelayOnboardingFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayOnboardingFlow.swift; sourceTree = "<group>"; };
+		6AF6295F29C0C5C7004C034A /* ROBenefitsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ROBenefitsViewController.swift; sourceTree = "<group>"; };
+		6AF6296029C0C5C7004C034A /* ROBenefitsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ROBenefitsViewController.xib; sourceTree = "<group>"; };
+		6AF6296329C1117D004C034A /* BenefitsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitsListView.swift; sourceTree = "<group>"; };
+		6AF6296529C11216004C034A /* BenefitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitView.swift; sourceTree = "<group>"; };
+		6AF6296729C1125B004C034A /* BenefitView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BenefitView.xib; sourceTree = "<group>"; };
 		6AF685372937629800E63289 /* CollectibleHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		6AF685382937629800E63289 /* CollectibleHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectibleHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		6AFD26D9285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddOwnerLinkViewController.swift; sourceTree = "<group>"; };
@@ -4210,6 +4220,11 @@
 				6AF6295929B9C966004C034A /* ROWhatIsViewController.swift */,
 				6AF6295A29B9C966004C034A /* ROWhatIsViewController.xib */,
 				6AF6295D29BA1B85004C034A /* RelayOnboardingFlow.swift */,
+				6AF6295F29C0C5C7004C034A /* ROBenefitsViewController.swift */,
+				6AF6296029C0C5C7004C034A /* ROBenefitsViewController.xib */,
+				6AF6296329C1117D004C034A /* BenefitsListView.swift */,
+				6AF6296529C11216004C034A /* BenefitView.swift */,
+				6AF6296729C1125B004C034A /* BenefitView.xib */,
 			);
 			path = RelayOnboarding;
 			sourceTree = "<group>";
@@ -4745,6 +4760,7 @@
 				0468FB9525912E8300541536 /* TransactionListHeaderTableViewCell.xib in Resources */,
 				0AADCDB828589DCC00A0139B /* AddOwnerExceptionViewController.xib in Resources */,
 				0AF78A3227E0E07B001BAFE0 /* PendingWalletActionViewController.xib in Resources */,
+				6AF6296229C0C5C7004C034A /* ROBenefitsViewController.xib in Resources */,
 				55413678265E4A0000796F91 /* AddOwnerKeyCell.xib in Resources */,
 				0A35D6C928C66ADA00D5AB06 /* ClaimSplashViewController.xib in Resources */,
 				6A94721B2891711500807B3B /* GuardianDetailsViewController.xib in Resources */,
@@ -4848,6 +4864,7 @@
 				0A22E12825E4FA3200D24DE1 /* SwitchTableViewCell.xib in Resources */,
 				04D224BB28C9304600853E34 /* DetailedInfoListViewController.xib in Resources */,
 				558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */,
+				6AF6296829C1125B004C034A /* BenefitView.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
 				04131FC2285683BA001F60C2 /* ShareAddOwnerLinkViewController.xib in Resources */,
 				0ADA90F8256548C60004DEC0 /* SnackbarViewController.xib in Resources */,
@@ -5134,6 +5151,7 @@
 				6A91EFD727DA0604009E63E9 /* WCRegistryController.swift in Sources */,
 				0A045071278DAC9100650F71 /* MiniAccountAndBalancePiece.swift in Sources */,
 				0ACC4C4C24752BB000ADF201 /* GnosisSafe.swift in Sources */,
+				6AF6296629C11216004C034A /* BenefitView.swift in Sources */,
 				D80B5A072769D05D00D6E024 /* BaseCustomView.swift in Sources */,
 				0A802B8124E413450001790F /* HTTPClientError.swift in Sources */,
 				0A6886D12588FC180045CAB5 /* EnterAddressNameViewController.swift in Sources */,
@@ -5330,6 +5348,7 @@
 				0A0EFCAA246EB28600D3D8BF /* Pasteboard.swift in Sources */,
 				0AADCDCB2859CAAC00A0139B /* SafeInfoLoader.swift in Sources */,
 				550FB19E26691CA300C13D54 /* DappsViewController.swift in Sources */,
+				6AF6296429C1117D004C034A /* BenefitsListView.swift in Sources */,
 				0AB5DF8F270DD185005BFB43 /* CreateDelegateRequest.swift in Sources */,
 				55CA3EB9250A234F0080DF7F /* SecureStore.swift in Sources */,
 				0A451C06252DDB93001DB7D2 /* NetworkContentView.swift in Sources */,
@@ -5482,6 +5501,7 @@
 				6A7D476D29B4951B00D690BE /* RelayRequest.swift in Sources */,
 				0ACC302227BFB5C300586795 /* Address+Solidity.swift in Sources */,
 				0AF1C8302540923C00E28669 /* LoadableViewController.swift in Sources */,
+				6AF6296129C0C5C7004C034A /* ROBenefitsViewController.swift in Sources */,
 				04D1309E25E2BB830032FA03 /* RejectionConfirmationViewController.swift in Sources */,
 				0AA9F25724991988005BD60F /* TokenBalance.swift in Sources */,
 				555312ED250663420008206B /* SECP256K1.swift in Sources */,
