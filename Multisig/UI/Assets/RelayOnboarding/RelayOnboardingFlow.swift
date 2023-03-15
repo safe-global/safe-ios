@@ -45,7 +45,7 @@ class RelayOnboardingFlow: UIFlow {
 
     func uncoverThePower() {
         let uncoverThePowerVC = factory.uncoverThePower { [unowned self] in
-
+            stop(success: true)
         }
         show(uncoverThePowerVC)
     }
