@@ -31,7 +31,15 @@ class ROWhatIsViewController: UIViewController {
         let relayerSymbol = NSTextAttachment()
         relayerSymbol.image = UIImage(named: "ico-relayer-symbol")
         let relayerSymbolString = NSMutableAttributedString(attachment: relayerSymbol)
-        relayerSymbolString.append(NSAttributedString(string: "\u{00a0}Relayer\u{00a0}V1", attributes: [NSAttributedString.Key.foregroundColor: UIColor.labelPrimary]))
+        relayerSymbolString.append(
+            NSAttributedString(
+                string: "\u{00a0}Relayer\u{00a0}V1",
+                attributes: [
+                    NSAttributedString.Key.foregroundColor: UIColor.labelPrimary,
+                    NSAttributedString.Key.font: UIFont.gnoFont(forTextStyle: GNOTextStyle.headlinePrimary)
+                ]
+            )
+        )
         let sec1Par1String = NSMutableAttributedString(string: "Tired of handling gas limits? We’ve heard you! Pay for your gasless transactions with our ")
         sec1Par1String.append(relayerSymbolString)
         sec1Par1String.append(NSAttributedString(string: " service with your Safe balance."))
