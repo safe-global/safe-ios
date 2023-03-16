@@ -22,7 +22,6 @@ class WalletConnectManager {
 
     private var publishers = [AnyCancellable]()
     private var dappConnectedTrackingEvent: TrackingEvent?
-
     private let metadata = AppMetadata(
         name: Bundle.main.displayName + " (iOS) " + Date().description,
         description: "The most trusted platform to manage digital assets on Ethereum",
@@ -36,6 +35,7 @@ class WalletConnectManager {
         Networking.configure(projectId: App.configuration.walletConnect.walletConnectProjectId,
                              socketFactory: SocketFactory())
         Pair.configure(metadata: metadata)
+        Web3Wallet.configure(metadata: metadata, signerFactory: DefaultSignerFactory())
         setUpAuthSubscribing()
     }
 
@@ -50,19 +50,19 @@ class WalletConnectManager {
                 }
             }.store(in: &publishers)
 
-        Sign.instance.sessionProposalPublisher
+        Web3Wallet.instance.sessionProposalPublisher
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] proposal in
                 approveSession(proposal: proposal)
             }.store(in: &publishers)
 
-        Sign.instance.sessionRequestPublisher
+        Web3Wallet.instance.sessionRequestPublisher
             .receive(on: DispatchQueue.global(qos: .background))
             .sink { [unowned self] request in
                 handle(request: request)
             }.store(in: &publishers)
 
-        Sign.instance.sessionsPublisher
+        Web3Wallet.instance.sessionsPublisher
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] sessions in
                 sessions.forEach { session in
@@ -105,7 +105,7 @@ class WalletConnectManager {
     func pairClient(uri: WalletConnectURI) {
         Task {
             do {
-                try await Sign.instance.pair(uri: uri)
+                try await Web3Wallet.instance.pair(uri: uri)
                 NotificationCenter.default.post(name: .wcConnectingSafeServer, object: self)
             } catch {
                 LogService.shared.error("DAPP: Failed to register to remote notifications \(error)")
@@ -116,7 +116,7 @@ class WalletConnectManager {
     private func sign(request: Request, response: AnyCodable) {
         Task {
             do {
-                try await Sign.instance.respond(topic: request.topic, requestId: request.id, response: .response(response))
+                try await Web3Wallet.instance.respond(topic: request.topic, requestId: request.id, response: .response(response))
             } catch {
                 print("DAPP: Respond Error: \(error.localizedDescription)")
             }
@@ -126,7 +126,7 @@ class WalletConnectManager {
     func reject(request: Request) {
         Task {
             do {
-                try await Sign.instance.respond(
+                try await Web3Wallet.instance.respond(
                     topic: request.topic,
                     requestId: request.id,
                     response: .error(.init(code: 0, message: ""))
@@ -181,7 +181,7 @@ class WalletConnectManager {
         Task {
             do {
                 NotificationCenter.default.post(name: .wcDidDisconnectSafeServer, object: self)
-                try await Sign.instance.disconnect(topic: session.topic)
+                try await Web3Wallet.instance.disconnect(topic: session.topic)
             } catch {
                 print("DAPP: disconnectting Session error: \(error)")
             }
@@ -194,7 +194,7 @@ class WalletConnectManager {
     }
 
     func getSessions(topics: [String]) -> [Session] {
-        Sign.instance.getSessions().filter({ topics.contains($0.topic) })
+        Web3Wallet.instance.getSessions().filter({ topics.contains($0.topic) })
     }
 
     private func handle(request: Request) {
