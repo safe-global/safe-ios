@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ROWhatIsViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="nextButton" destination="V4C-OT-78g" id="e3u-AX-YbF"/>
+                <outlet property="par1Label" destination="rM7-BT-uCT" id="xMh-KK-W7E"/>
+                <outlet property="par2Label" destination="pQt-w2-Go9" id="LjX-KF-NHF"/>
+                <outlet property="par3Label" destination="sh5-sf-hX4" id="pwa-iz-PHB"/>
+                <outlet property="par4Label" destination="nA2-dG-QS2" id="dA3-5w-0sh"/>
+                <outlet property="titleLabel" destination="0DR-qw-SxD" id="Wje-nk-S6x"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aAZ-ym-QYF">
+                    <rect key="frame" x="16" y="59" width="361" height="671"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="uYn-f8-DNl">
+                            <rect key="frame" x="0.0" y="0.0" width="361" height="595.66666666666663"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-relaying" translatesAutoresizingMaskIntoConstraints="NO" id="Occ-i6-um6">
+                                    <rect key="frame" x="74.666666666666686" y="0.0" width="212" height="178"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="178" id="4tH-eT-bZ9"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is relaying?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0DR-qw-SxD">
+                                    <rect key="frame" x="116.00000000000001" y="202" width="129.33333333333337" height="20.333333333333343"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="mZ2-v2-v2Q">
+                                    <rect key="frame" x="0.0" y="246.33333333333334" width="361" height="349.33333333333326"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qa8-Qf-PMf">
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="349.33333333333331"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rM7-BT-uCT">
+                                                    <rect key="frame" x="0.0" y="0.0" width="361" height="61"/>
+                                                    <string key="text">Tired of handling gas limits? We’ve heard you! Pay for your gasless transactions with our Relayer V1 service with your Safe balance.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pQt-w2-Go9">
+                                                    <rect key="frame" x="0.0" y="69" width="361" height="81.333333333333314"/>
+                                                    <string key="text">We are processing your transactions via our Safe internal system to a Gelato API. From here Gelato's internal systems are responsible to process your transaction.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sh5-sf-hX4">
+                                                    <rect key="frame" x="0.0" y="158.33333333333337" width="361" height="81.333333333333314"/>
+                                                    <string key="text">For you as a Safe user relaying means we sponsor your network fees on Gnosis chain and after you executed your transaction it is processed by our relaying partner Gelato.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nA2-dG-QS2">
+                                                    <rect key="frame" x="0.0" y="247.66666666666666" width="361" height="101.66666666666666"/>
+                                                    <string key="text">No more funding of owner addresses or even distributing native assets among signer accounts because of zero balance, no more handling of gas limits and other cumbersome issues.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="uYn-f8-DNl" firstAttribute="leading" secondItem="ka6-5K-02A" secondAttribute="leading" id="GX2-3M-QDs"/>
+                        <constraint firstItem="ka6-5K-02A" firstAttribute="bottom" secondItem="uYn-f8-DNl" secondAttribute="bottom" id="RMR-xJ-vMc"/>
+                        <constraint firstItem="uYn-f8-DNl" firstAttribute="top" secondItem="ka6-5K-02A" secondAttribute="top" id="RbN-5A-B5g"/>
+                        <constraint firstItem="uYn-f8-DNl" firstAttribute="width" secondItem="xjE-2X-ma0" secondAttribute="width" id="pVe-w1-HHi"/>
+                        <constraint firstItem="ka6-5K-02A" firstAttribute="trailing" secondItem="uYn-f8-DNl" secondAttribute="trailing" id="pe8-Vz-ORg"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="ka6-5K-02A"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="xjE-2X-ma0"/>
+                </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V4C-OT-78g">
+                    <rect key="frame" x="16" y="746" width="361" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="irv-Bb-hh2"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Next">
+                        <color key="titleColor" name="primary"/>
+                    </state>
+                    <connections>
+                        <action selector="didTapNext:" destination="-1" eventType="touchUpInside" id="74u-wU-HeL"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="V4C-OT-78g" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="HY7-cd-g45"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="V4C-OT-78g" secondAttribute="trailing" constant="16" id="QYr-Vp-Xrr"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="aAZ-ym-QYF" secondAttribute="trailing" constant="16" id="XH1-fD-6yc"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="V4C-OT-78g" secondAttribute="bottom" constant="16" id="d8a-0O-uWn"/>
+                <constraint firstItem="aAZ-ym-QYF" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="m97-nh-kgS"/>
+                <constraint firstItem="V4C-OT-78g" firstAttribute="top" secondItem="aAZ-ym-QYF" secondAttribute="bottom" constant="16" id="sGQ-UT-LIw"/>
+                <constraint firstItem="aAZ-ym-QYF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="v8e-Uq-6Ek"/>
+            </constraints>
+            <point key="canvasLocation" x="126" y="-11"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ico-relaying" width="212" height="178"/>
+        <namedColor name="primary">
+            <color red="0.070588235294117646" green="0.074509803921568626" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

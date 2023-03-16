@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RelayInfoBanner" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="bannerButton" destination="jK4-zS-tbP" id="Nq7-og-T5I"/>
                 <outlet property="closeButton" destination="EIs-6m-8yT" id="Ahc-Ud-Tcq"/>
                 <outlet property="messageLabel" destination="Vt4-lZ-nze" id="Up2-fa-nik"/>
                 <outlet property="titleLabel" destination="eW2-IY-db5" id="3Wa-d1-qAd"/>
@@ -52,6 +53,13 @@
                         </stackView>
                     </subviews>
                 </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jK4-zS-tbP" userLabel="Banner Button">
+                    <rect key="frame" x="0.0" y="0.0" width="475" height="111"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <connections>
+                        <action selector="didTapBanner:" destination="-1" eventType="touchUpInside" id="hAp-Ub-eX2"/>
+                    </connections>
+                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EIs-6m-8yT">
                     <rect key="frame" x="429" y="16" width="30" height="30"/>
                     <constraints>
@@ -69,9 +77,13 @@
             <constraints>
                 <constraint firstItem="zjf-jW-TM6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="6GQ-2D-6si"/>
                 <constraint firstAttribute="trailing" secondItem="EIs-6m-8yT" secondAttribute="trailing" constant="16" id="6WX-Cz-N1i"/>
+                <constraint firstItem="jK4-zS-tbP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="JB6-GF-mcN"/>
                 <constraint firstAttribute="bottom" secondItem="Jy3-6B-dCe" secondAttribute="bottom" constant="16" id="KqV-Uh-roo"/>
                 <constraint firstAttribute="trailing" secondItem="zjf-jW-TM6" secondAttribute="trailing" id="MVC-gi-l0n"/>
                 <constraint firstItem="EIs-6m-8yT" firstAttribute="leading" secondItem="Et2-ua-lwH" secondAttribute="trailing" constant="16" id="OvU-7n-mxa"/>
+                <constraint firstAttribute="bottom" secondItem="jK4-zS-tbP" secondAttribute="bottom" id="Rvt-Ie-R47"/>
+                <constraint firstItem="jK4-zS-tbP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="YZg-Wu-eX7"/>
+                <constraint firstAttribute="trailing" secondItem="jK4-zS-tbP" secondAttribute="trailing" id="bSf-Oy-q1T"/>
                 <constraint firstItem="zjf-jW-TM6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="cTI-mz-QTG"/>
                 <constraint firstItem="Jy3-6B-dCe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="cac-u1-H47"/>
                 <constraint firstItem="Jy3-6B-dCe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="eNa-Ua-cD4"/>

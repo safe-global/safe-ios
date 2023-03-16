@@ -18,6 +18,8 @@ class AssetsViewController: ContainerViewController {
     private var safe: Safe?
     let segmentVC = SegmentViewController(namedClass: nil)
 
+    private var relayOnboardingFlow: RelayOnboardingFlow? = nil
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -97,7 +99,13 @@ class AssetsViewController: ContainerViewController {
         }
 
         totalBalanceView.relayInfoBanner.isHidden = !shouldShowRelayBanner
+        totalBalanceView.relayInfoBanner.onOpen = { [unowned self] in
+            relayOnboardingFlow = RelayOnboardingFlow { [unowned self] _ in
 
+            }
+            present(flow: relayOnboardingFlow!)
+            Tracker.trackEvent(.bannerRelayOpen)
+        }
         totalBalanceView.relayInfoBanner.onClose = { [unowned self] in
             relayBannerWasShown = true
             totalBalanceView.relayInfoBanner.isHidden = !shouldShowRelayBanner
@@ -117,10 +125,8 @@ class AssetsViewController: ContainerViewController {
     private var claimTokenFlow: ClaimSafeTokenFlow!
 
     private var shouldShowSafeTokenBanner: Bool {
-        guard let safe = try? Safe.getSelected() else {
-            return false
-        }
-        return safeTokenBannerWasShown != true && ClaimingAppController.isAvailable(chain: safe.chain!)
+        // claim period has ended -> no need to show the banner
+        return false
     }
 
     private var safeTokenBannerWasShown: Bool? {
