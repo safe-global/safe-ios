@@ -40,7 +40,7 @@ class WalletConnectManager {
     }
 
     func setUpAuthSubscribing() {
-        Sign.instance.socketConnectionStatusPublisher
+        Web3Wallet.instance.socketConnectionStatusPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 if status == .connected {
@@ -84,12 +84,17 @@ class WalletConnectManager {
                 NotificationCenter.default.post(name: .wcDidConnectSafeServer, object: self)
             }.store(in: &publishers)
 
-        Sign.instance.sessionDeletePublisher
+        Web3Wallet.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] response in
                 deleteStoredSession(topic: response.0)
                 NotificationCenter.default.post(name: .wcDidDisconnectSafeServer, object: self)
+
+
             }.store(in: &publishers)
+
+
+        //Web3Wallet.instance.getPairings()
     }
 
     func canConnect(url: String) -> Bool {
@@ -140,13 +145,15 @@ class WalletConnectManager {
     func approveSession(proposal: Session.Proposal) {
         Task {
             guard let safe = try? Safe.getSelected() else { return }
+
             LogService.shared.debug("---> requiredNamespaces: \(proposal.requiredNamespaces)")
             dump(proposal.requiredNamespaces)
+
             var sessionNamespaces = [String: SessionNamespace]()
             proposal.requiredNamespaces.forEach {
                 let caip2Namespace = $0.key
                 let proposalNamespace = $0.value
-                let chains = proposalNamespace.chains
+                guard let chains = proposalNamespace.chains else { return }
 
                 let accounts = Set(chains.compactMap {
                     Account($0.absoluteString + ":\(safe.addressValue)")
@@ -160,7 +167,8 @@ class WalletConnectManager {
             do {
                 LogService.shared.debug("---> sessionNamesapces: \(sessionNamespaces)")
                 dump(sessionNamespaces)
-                try await Sign.instance.approve(proposalId: proposal.id, namespaces: sessionNamespaces)
+
+                try await Web3Wallet.instance.approve(proposalId: proposal.id, namespaces: sessionNamespaces)
             } catch {
                 print("DAPP: Approve Session error: \(error)")
             }
@@ -182,8 +190,11 @@ class WalletConnectManager {
             do {
                 NotificationCenter.default.post(name: .wcDidDisconnectSafeServer, object: self)
                 try await Web3Wallet.instance.disconnect(topic: session.topic)
+                // User wants to delete session
+                // TODO delete pairing
+
             } catch {
-                print("DAPP: disconnectting Session error: \(error)")
+                print("DAPP: disconnecting Session error: \(error)")
             }
         }
     }
@@ -191,6 +202,12 @@ class WalletConnectManager {
     func deleteStoredSession(topic: String) {
         precondition(Thread.isMainThread)
         Safe.removeSession(topic: topic)
+
+        // Remote deleted session
+
+        //TODO delete pairing
+
+
     }
 
     func getSessions(topics: [String]) -> [Session] {
