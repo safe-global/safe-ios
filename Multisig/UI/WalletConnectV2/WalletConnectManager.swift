@@ -146,16 +146,17 @@ class WalletConnectManager {
         Task {
             guard let safe = try? Safe.getSelected() else { return }
 
-            LogService.shared.debug("---> requiredNamespaces: \(proposal.requiredNamespaces)")
-            dump(proposal.requiredNamespaces)
-
             var sessionNamespaces = [String: SessionNamespace]()
             proposal.requiredNamespaces.forEach {
                 let caip2Namespace = $0.key
                 let proposalNamespace = $0.value
                 guard let chains = proposalNamespace.chains else { return }
 
-                let accounts = Set(chains.compactMap {
+                let selectedSafeChain = chains.filter { chain in
+                    chain.namespace == "eip155" && chain.reference == safe.chain?.id
+                }
+
+                let accounts = Set(selectedSafeChain.compactMap {
                     Account($0.absoluteString + ":\(safe.addressValue)")
                 })
 
