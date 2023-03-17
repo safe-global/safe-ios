@@ -165,12 +165,16 @@ class WalletConnectManager {
                 sessionNamespaces[caip2Namespace] = sessionNamespace
             }
             do {
-                LogService.shared.debug("---> sessionNamesapces: \(sessionNamespaces)")
-                dump(sessionNamespaces)
+//                LogService.shared.debug("---> sessionNamesapces: \(sessionNamespaces)")
+//                dump(sessionNamespaces)
 
                 try await Web3Wallet.instance.approve(proposalId: proposal.id, namespaces: sessionNamespaces)
             } catch {
                 print("DAPP: Approve Session error: \(error)")
+                Task { @MainActor in
+                    App.shared.snackbar.show(message: "\(error)")
+                }
+
             }
         }
     }
