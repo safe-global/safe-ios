@@ -124,6 +124,9 @@ class WalletConnectManager {
                 try await Web3Wallet.instance.respond(topic: request.topic, requestId: request.id, response: .response(response))
             } catch {
                 print("DAPP: Respond Error: \(error.localizedDescription)")
+                Task { @MainActor in
+                    App.shared.snackbar.show(message: error.localizedDescription)
+                }
             }
         }
     }
@@ -138,6 +141,9 @@ class WalletConnectManager {
                 )
             } catch {
                 print("DAPP: Respond Error: \(error.localizedDescription)")
+                Task { @MainActor in
+                    App.shared.snackbar.show(message: error.localizedDescription)
+                }
             }
         }
     }
@@ -186,6 +192,9 @@ class WalletConnectManager {
         do {
             try await Web3Wallet.instance.extend(topic: session.topic)
         } catch {
+            Task { @MainActor in
+                App.shared.snackbar.show(message: error.localizedDescription)
+            }
             print("DAPP: extending Session error: \(error)")
         }
     }
