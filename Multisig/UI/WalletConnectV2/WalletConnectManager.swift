@@ -33,10 +33,16 @@ class WalletConnectManager {
 
     func config() {
         Networking.configure(projectId: App.configuration.walletConnect.walletConnectProjectId,
-                             socketFactory: SocketFactory())
+                             socketFactory: NativeSocketFactory())
         Pair.configure(metadata: metadata)
         Web3Wallet.configure(metadata: metadata, signerFactory: DefaultSignerFactory())
         setUpAuthSubscribing()
+
+//        LogService.shared.debug(" ---> Pairings on config(): \(Web3Wallet.instance.getPairings().count)")
+//        dump(Web3Wallet.instance.getPairings())
+//
+//        LogService.shared.debug(" ---> Sessions on config(): \(Web3Wallet.instance.getSessions().count)")
+//        dump(Web3Wallet.instance.getSessions())
     }
 
     func setUpAuthSubscribing() {
@@ -86,15 +92,10 @@ class WalletConnectManager {
 
         Web3Wallet.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
-            .sink { [unowned self] response in
-                deleteStoredSession(topic: response.0)
+            .sink { [unowned self] (topic, reason) in
+                deleteStoredSession(topic: topic)
                 NotificationCenter.default.post(name: .wcDidDisconnectSafeServer, object: self)
-
-
             }.store(in: &publishers)
-
-
-        //Web3Wallet.instance.getPairings()
     }
 
     func canConnect(url: String) -> Bool {
@@ -110,10 +111,19 @@ class WalletConnectManager {
     func pairClient(uri: WalletConnectURI) {
         Task {
             do {
+                try Pair.instance.cleanup()
                 try await Web3Wallet.instance.pair(uri: uri)
                 NotificationCenter.default.post(name: .wcConnectingSafeServer, object: self)
             } catch {
                 LogService.shared.error("DAPP: Failed to register to remote notifications \(error)")
+                Task { @MainActor in
+                    App.shared.snackbar.show(message: "DAPP: Failed to register to remote notifications: \(error)")
+                }
+                // What if error is pairingAlreadyExist? Why did we even try to pair if it already esists? Just reuse the pairing?
+                // How to proceed?
+
+                //NotificationCenter.default.post(name: .wcConnectingSafeServer, object: self)
+                //try Pair.instance.cleanup()
             }
         }
     }
@@ -125,7 +135,7 @@ class WalletConnectManager {
             } catch {
                 print("DAPP: Respond Error: \(error.localizedDescription)")
                 Task { @MainActor in
-                    App.shared.snackbar.show(message: error.localizedDescription)
+                    App.shared.snackbar.show(message: "DAPP: Respond Error: \(error)")
                 }
             }
         }
@@ -142,7 +152,7 @@ class WalletConnectManager {
             } catch {
                 print("DAPP: Respond Error: \(error.localizedDescription)")
                 Task { @MainActor in
-                    App.shared.snackbar.show(message: error.localizedDescription)
+                    App.shared.snackbar.show(message: "DAPP: Respond Error: \(error.localizedDescription)")
                 }
             }
         }
@@ -172,14 +182,11 @@ class WalletConnectManager {
                 sessionNamespaces[caip2Namespace] = sessionNamespace
             }
             do {
-//                LogService.shared.debug("---> sessionNamesapces: \(sessionNamespaces)")
-//                dump(sessionNamespaces)
-
                 try await Web3Wallet.instance.approve(proposalId: proposal.id, namespaces: sessionNamespaces)
             } catch {
                 print("DAPP: Approve Session error: \(error)")
                 Task { @MainActor in
-                    App.shared.snackbar.show(message: "\(error)")
+                    App.shared.snackbar.show(message: "DAPP: Approve Session error: \(error)")
                 }
 
             }
@@ -204,24 +211,50 @@ class WalletConnectManager {
             do {
                 NotificationCenter.default.post(name: .wcDidDisconnectSafeServer, object: self)
                 try await Web3Wallet.instance.disconnect(topic: session.topic)
-                // User wants to delete session
-                // TODO delete pairing
-
             } catch {
                 print("DAPP: disconnecting Session error: \(error)")
+                Task { @MainActor in
+                    App.shared.snackbar.show(message: "DAPP: disconnecting Session error: \(error)")
+                }
             }
+            disconnectUnusedPairings(topic: session.topic)
         }
     }
 
     func deleteStoredSession(topic: String) {
         precondition(Thread.isMainThread)
         Safe.removeSession(topic: topic)
+        disconnectUnusedPairings(topic: topic)
+    }
 
-        // Remote deleted session
+    private func disconnectUnusedPairings(topic: String) {
+        // Find pairings without sessions and return them:
+        // 1. get list of pairings
+        let pairings = Web3Wallet.instance.getPairings()
 
-        //TODO delete pairing
+        // 2. get list of sessions
+        let sessions = Web3Wallet.instance.getSessions()
 
-
+        // 3. loop over sessions
+        sessions.forEach { session in
+            // 4.     remove session.pairing from list
+            pairings.drop { pairing in
+                if session.pairingTopic == pairing.topic {
+                    LogService.shared.debug("---> Dropping: session.topic: \(session.topic)")
+                    return true
+                } else {
+                    LogService.shared.debug("---> Keeping: session.topic: \(session.topic), pairing.topic: \(session.pairingTopic)")
+                    return false
+                }
+            }
+        }
+        // 5. delete remaining pairings, because they don't have a session
+        pairings.forEach { pairing in
+            LogService.shared.debug("---> Deleting pairing: pairing.topic: \(pairing.topic)")
+            Task { @MainActor in
+                try await Web3Wallet.instance.disconnectPairing(topic: pairing.topic)
+            }
+        }
     }
 
     func getSessions(topics: [String]) -> [Session] {
