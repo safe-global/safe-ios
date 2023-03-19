@@ -23,7 +23,7 @@ class WalletConnectManager {
     private var publishers = [AnyCancellable]()
     private var dappConnectedTrackingEvent: TrackingEvent?
     private let metadata = AppMetadata(
-        name: Bundle.main.displayName + " (iOS) " + Date().description,
+        name: Bundle.main.displayName + " (iOS) ",
         description: "The most trusted platform to manage digital assets on Ethereum",
         url: App.configuration.services.webAppURL.absoluteString,
         icons: ["https://app.safe.global/favicons/mstile-150x150.png",
@@ -106,7 +106,7 @@ class WalletConnectManager {
         Task {
             do {
                 // Clean up pairings to prevent pairingAlreadyExist error
-                //disconnectUnusedPairings()
+                disconnectUnusedPairings()
                 try await Web3Wallet.instance.pair(uri: uri)
                 NotificationCenter.default.post(name: .wcConnectingSafeServer, object: self)
             } catch {
