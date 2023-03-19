@@ -114,9 +114,6 @@ class WalletConnectManager {
                 Task { @MainActor in
                     App.shared.snackbar.show(message: "DAPP: Failed to register to remote notifications: \(error)")
                 }
-                // TODO: What if error is pairingAlreadyExist? or webSocketNotConnected?
-                // Why did we even try to pair if it already esists? Just reuse the pairing?
-                // How to proceed?
             }
         }
     }
@@ -226,20 +223,11 @@ class WalletConnectManager {
 
         sessions.forEach { session in
             pairings = pairings.filter { pairing in
-                if session.pairingTopic == pairing.topic {
-                    LogService.shared.debug("---> Drop: topic: \(session.topic) pairingTopic: \(session.pairingTopic) from list")
-                    return false
-                } else {
-                    LogService.shared.debug("---> Keep: topic: \(session.topic) pairingTopic: \(session.pairingTopic) in list")
-                    return true
-                }
+                session.pairingTopic != pairing.topic
             }
-            dump(pairings, name: "+++> Delete pairings (ongoing)")
         }
-        dump(pairings, name: "+++> Delete pairings (final)")
         pairings.forEach { pairing in
             Task {
-                LogService.shared.debug("---> Deleting pairing: pairing.topic: \(pairing.topic)")
                 try await Web3Wallet.instance.disconnectPairing(topic: pairing.topic)
             }
         }
