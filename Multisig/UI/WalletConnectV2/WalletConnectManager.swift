@@ -19,7 +19,7 @@ import UIKit
 
 class WalletConnectManager {
     static let shared = WalletConnectManager()
-
+    
     private var publishers = [AnyCancellable]()
     private var dappConnectedTrackingEvent: TrackingEvent?
     private let metadata = AppMetadata(
@@ -28,23 +28,17 @@ class WalletConnectManager {
         url: App.configuration.services.webAppURL.absoluteString,
         icons: ["https://app.safe.global/favicons/mstile-150x150.png",
                 "https://app.safe.global/favicons/logo_120x120.png"])
-
+    
     private init() { }
-
+    
     func config() {
         Networking.configure(projectId: App.configuration.walletConnect.walletConnectProjectId,
-                             socketFactory: NativeSocketFactory())
+                             socketFactory: SocketFactory())
         Pair.configure(metadata: metadata)
         Web3Wallet.configure(metadata: metadata, signerFactory: DefaultSignerFactory())
         setUpAuthSubscribing()
-
-//        LogService.shared.debug(" ---> Pairings on config(): \(Web3Wallet.instance.getPairings().count)")
-//        dump(Web3Wallet.instance.getPairings())
-//
-//        LogService.shared.debug(" ---> Sessions on config(): \(Web3Wallet.instance.getSessions().count)")
-//        dump(Web3Wallet.instance.getSessions())
     }
-
+    
     func setUpAuthSubscribing() {
         Web3Wallet.instance.socketConnectionStatusPublisher
             .receive(on: DispatchQueue.main)
@@ -55,19 +49,19 @@ class WalletConnectManager {
                     NotificationCenter.default.post(name: .wcDidDisconnectSafeServer, object: self)
                 }
             }.store(in: &publishers)
-
+        
         Web3Wallet.instance.sessionProposalPublisher
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] proposal in
                 approveSession(proposal: proposal)
             }.store(in: &publishers)
-
+        
         Web3Wallet.instance.sessionRequestPublisher
             .receive(on: DispatchQueue.global(qos: .background))
             .sink { [unowned self] request in
                 handle(request: request)
             }.store(in: &publishers)
-
+        
         Web3Wallet.instance.sessionsPublisher
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] sessions in
@@ -79,17 +73,17 @@ class WalletConnectManager {
                             }
                         }
                     }
-
+                    
                     if let dappConnectedTrackingEvent = dappConnectedTrackingEvent, !session.peer.name.isEmpty {
                         let dappName = session.peer.name.prefix(100)
                         Tracker.trackEvent(dappConnectedTrackingEvent, parameters: ["dapp_name": dappName])
                     }
                 }
-
+                
                 dappConnectedTrackingEvent = nil
                 NotificationCenter.default.post(name: .wcDidConnectSafeServer, object: self)
             }.store(in: &publishers)
-
+        
         Web3Wallet.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] (topic, reason) in
@@ -97,21 +91,22 @@ class WalletConnectManager {
                 NotificationCenter.default.post(name: .wcDidDisconnectSafeServer, object: self)
             }.store(in: &publishers)
     }
-
+    
     func canConnect(url: String) -> Bool {
         WalletConnectURI(string: url) != nil
     }
-
+    
     func pairClient(url: String, trackingEvent: TrackingEvent?) {
         guard let uri = WalletConnectURI(string: url) else { return }
         dappConnectedTrackingEvent = trackingEvent
         pairClient(uri: uri)
     }
-
+    
     func pairClient(uri: WalletConnectURI) {
         Task {
             do {
-                try Pair.instance.cleanup()
+                // Clean up pairings to prevent pairingAlreadyExist error
+                //disconnectUnusedPairings()
                 try await Web3Wallet.instance.pair(uri: uri)
                 NotificationCenter.default.post(name: .wcConnectingSafeServer, object: self)
             } catch {
@@ -119,15 +114,13 @@ class WalletConnectManager {
                 Task { @MainActor in
                     App.shared.snackbar.show(message: "DAPP: Failed to register to remote notifications: \(error)")
                 }
-                // What if error is pairingAlreadyExist? Why did we even try to pair if it already esists? Just reuse the pairing?
+                // TODO: What if error is pairingAlreadyExist? or webSocketNotConnected?
+                // Why did we even try to pair if it already esists? Just reuse the pairing?
                 // How to proceed?
-
-                //NotificationCenter.default.post(name: .wcConnectingSafeServer, object: self)
-                //try Pair.instance.cleanup()
             }
         }
     }
-
+    
     private func sign(request: Request, response: AnyCodable) {
         Task {
             do {
@@ -140,7 +133,7 @@ class WalletConnectManager {
             }
         }
     }
-
+    
     func reject(request: Request) {
         Task {
             do {
@@ -157,25 +150,25 @@ class WalletConnectManager {
             }
         }
     }
-
+    
     func approveSession(proposal: Session.Proposal) {
         Task {
             guard let safe = try? Safe.getSelected() else { return }
-
+            
             var sessionNamespaces = [String: SessionNamespace]()
             proposal.requiredNamespaces.forEach {
                 let caip2Namespace = $0.key
                 let proposalNamespace = $0.value
                 guard let chains = proposalNamespace.chains else { return }
-
+                
                 let selectedSafeChain = chains.filter { chain in
                     chain.namespace == "eip155" && chain.reference == safe.chain?.id
                 }
-
+                
                 let accounts = Set(selectedSafeChain.compactMap {
                     Account($0.absoluteString + ":\(safe.addressValue)")
                 })
-
+                
                 let sessionNamespace = SessionNamespace(accounts: accounts,
                                                         methods: proposalNamespace.methods,
                                                         events: proposalNamespace.events)
@@ -188,11 +181,10 @@ class WalletConnectManager {
                 Task { @MainActor in
                     App.shared.snackbar.show(message: "DAPP: Approve Session error: \(error)")
                 }
-
             }
         }
     }
-
+    
     /// By default, session lifetime is set for 7 days and after that time user's session will expire.
     /// This method will extend the session for 7 days
     func extend(session: Session) async {
@@ -205,7 +197,7 @@ class WalletConnectManager {
             print("DAPP: extending Session error: \(error)")
         }
     }
-
+    
     func disconnect(session: Session) {
         Task {
             do {
@@ -217,64 +209,60 @@ class WalletConnectManager {
                     App.shared.snackbar.show(message: "DAPP: disconnecting Session error: \(error)")
                 }
             }
-            disconnectUnusedPairings(topic: session.topic)
+            disconnectUnusedPairings()
         }
     }
-
+    
     func deleteStoredSession(topic: String) {
         precondition(Thread.isMainThread)
         Safe.removeSession(topic: topic)
-        disconnectUnusedPairings(topic: topic)
+        disconnectUnusedPairings()
     }
-
-    private func disconnectUnusedPairings(topic: String) {
-        // Find pairings without sessions and return them:
-        // 1. get list of pairings
-        let pairings = Web3Wallet.instance.getPairings()
-
-        // 2. get list of sessions
+    
+    private func disconnectUnusedPairings() {
+        // Find pairings without sessions and disconnect them:
+        var pairings = Web3Wallet.instance.getPairings()
         let sessions = Web3Wallet.instance.getSessions()
 
-        // 3. loop over sessions
         sessions.forEach { session in
-            // 4.     remove session.pairing from list
-            pairings.drop { pairing in
+            pairings = pairings.filter { pairing in
                 if session.pairingTopic == pairing.topic {
-                    LogService.shared.debug("---> Dropping: session.topic: \(session.topic)")
-                    return true
-                } else {
-                    LogService.shared.debug("---> Keeping: session.topic: \(session.topic), pairing.topic: \(session.pairingTopic)")
+                    LogService.shared.debug("---> Drop: topic: \(session.topic) pairingTopic: \(session.pairingTopic) from list")
                     return false
+                } else {
+                    LogService.shared.debug("---> Keep: topic: \(session.topic) pairingTopic: \(session.pairingTopic) in list")
+                    return true
                 }
             }
+            dump(pairings, name: "+++> Delete pairings (ongoing)")
         }
-        // 5. delete remaining pairings, because they don't have a session
+        dump(pairings, name: "+++> Delete pairings (final)")
         pairings.forEach { pairing in
-            LogService.shared.debug("---> Deleting pairing: pairing.topic: \(pairing.topic)")
-            Task { @MainActor in
+            Task {
+                LogService.shared.debug("---> Deleting pairing: pairing.topic: \(pairing.topic)")
                 try await Web3Wallet.instance.disconnectPairing(topic: pairing.topic)
             }
         }
     }
-
+    
     func getSessions(topics: [String]) -> [Session] {
         Web3Wallet.instance.getSessions().filter({ topics.contains($0.topic) })
     }
-
+    
     private func handle(request: Request) {
         dispatchPrecondition(condition: .notOnQueue(.main))
-
+        
         guard let session = getSessions(topics: [request.topic]).first else {
             reject(request: request)
             return
         }
-
+        
         DispatchQueue.main.async { [unowned self] in
             guard let safe = Safe.by(topic: request.topic) else {
                 reject(request: request)
                 return
             }
-
+            
             if request.method == "eth_sendTransaction" {
                 // make transformation of incoming request into internal data types
                 // and fetch information about safe from the request
@@ -292,7 +280,7 @@ class WalletConnectManager {
                     reject(request: request)
                     return
                 }
-
+                
                 guard !safe.isReadOnly else {
                     DispatchQueue.main.async {
                         App.shared.snackbar.show(message: "Please import Safe Owner Key to initiate WalletConnect transactions")
@@ -300,7 +288,7 @@ class WalletConnectManager {
                     reject(request: request)
                     return
                 }
-
+                
                 DispatchQueue.main.async { [unowned self] in
                     // present confirmation controller
                     let confirmationController = WCIncomingTransactionRequestViewController(
@@ -308,15 +296,15 @@ class WalletConnectManager {
                         safe: safe,
                         dAppName: session.peer.name,
                         dAppIconURL: URL(string: session.peer.icons.first ?? ""))
-
+                    
                     confirmationController.onReject = { [unowned self] in
                         reject(request: request)
                     }
-
+                    
                     confirmationController.onSubmit = { nonce, safeTxHash in
                         self.sign(request: request, response: AnyCodable(safeTxHash))
                     }
-
+                    
                     let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as! SceneDelegate
                     sceneDelegate.present(ViewControllerFactory.modal(viewController: confirmationController))
                 }
