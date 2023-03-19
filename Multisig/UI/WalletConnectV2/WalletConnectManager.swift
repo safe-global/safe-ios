@@ -18,6 +18,7 @@ import Web3Wallet
 import UIKit
 
 class WalletConnectManager {
+    let EVM_COMPATIBLE_NETWORK = "eip155"
     static let shared = WalletConnectManager()
     
     private var publishers = [AnyCancellable]()
@@ -112,7 +113,7 @@ class WalletConnectManager {
             } catch {
                 LogService.shared.error("DAPP: Failed to register to remote notifications \(error)")
                 Task { @MainActor in
-                    App.shared.snackbar.show(message: "DAPP: Failed to register to remote notifications: \(error)")
+                    App.shared.snackbar.show(error: GSError.error(description: "Failed to register to remote notifications: ", error: error))
                 }
             }
         }
@@ -125,7 +126,7 @@ class WalletConnectManager {
             } catch {
                 print("DAPP: Respond Error: \(error.localizedDescription)")
                 Task { @MainActor in
-                    App.shared.snackbar.show(message: "DAPP: Respond Error: \(error)")
+                    App.shared.snackbar.show(error: GSError.error(description: "Respond Error: ", error: error))
                 }
             }
         }
@@ -142,7 +143,7 @@ class WalletConnectManager {
             } catch {
                 print("DAPP: Respond Error: \(error.localizedDescription)")
                 Task { @MainActor in
-                    App.shared.snackbar.show(message: "DAPP: Respond Error: \(error.localizedDescription)")
+                    App.shared.snackbar.show(error: GSError.error(description: "Respond Error: ", error: error))
                 }
             }
         }
@@ -159,7 +160,7 @@ class WalletConnectManager {
                 guard let chains = proposalNamespace.chains else { return }
                 
                 let selectedSafeChain = chains.filter { chain in
-                    chain.namespace == "eip155" && chain.reference == safe.chain?.id
+                    chain.namespace == EVM_COMPATIBLE_NETWORK && chain.reference == safe.chain?.id
                 }
                 
                 let accounts = Set(selectedSafeChain.compactMap {
@@ -176,7 +177,7 @@ class WalletConnectManager {
             } catch {
                 print("DAPP: Approve Session error: \(error)")
                 Task { @MainActor in
-                    App.shared.snackbar.show(message: "DAPP: Approve Session error: \(error)")
+                    App.shared.snackbar.show(error: GSError.error(description: "Approve Session error: ", error: error))
                 }
             }
         }
@@ -189,7 +190,7 @@ class WalletConnectManager {
             try await Web3Wallet.instance.extend(topic: session.topic)
         } catch {
             Task { @MainActor in
-                App.shared.snackbar.show(message: error.localizedDescription)
+                App.shared.snackbar.show(error: GSError.error(description: error.localizedDescription, error: error))
             }
             print("DAPP: extending Session error: \(error)")
         }
@@ -203,8 +204,10 @@ class WalletConnectManager {
             } catch {
                 print("DAPP: disconnecting Session error: \(error)")
                 Task { @MainActor in
-                    App.shared.snackbar.show(message: "DAPP: disconnecting Session error: \(error)")
+                    App.shared.snackbar.show(error: GSError.error(description: "Disconnecting Session error", error: error))
                 }
+
+
             }
             disconnectUnusedPairings()
         }
