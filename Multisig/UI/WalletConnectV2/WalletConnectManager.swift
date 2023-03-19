@@ -86,7 +86,7 @@ class WalletConnectManager {
         
         Web3Wallet.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
-            .sink { [unowned self] (topic, reason) in
+            .sink { [unowned self] (topic, _) in
                 deleteStoredSession(topic: topic)
                 NotificationCenter.default.post(name: .wcDidDisconnectSafeServer, object: self)
             }.store(in: &publishers)
