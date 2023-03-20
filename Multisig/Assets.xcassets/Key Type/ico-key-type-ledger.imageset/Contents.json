@@ -1,17 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "ico-key-type-ledger.pdf",
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "ico-key-type-ledger-dark.pdf",
+      "filename" : "Ledger.pdf",
       "idiom" : "universal"
     }
   ],

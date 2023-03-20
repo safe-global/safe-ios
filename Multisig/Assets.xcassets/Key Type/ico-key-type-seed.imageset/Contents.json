@@ -1,17 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "ico-add-seed.pdf",
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "ico-add-seed-dark.pdf",
+      "filename" : "Generated.pdf",
       "idiom" : "universal"
     }
   ],
