@@ -23,8 +23,6 @@
 		04248BDB272E21C500431397 /* AddressBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04248BDA272E11BB00431397 /* AddressBookTests.swift */; };
 		042626E128EEE61E000BD2CC /* successAnimationDark.json in Resources */ = {isa = PBXBuildFile; fileRef = 042626E028EEE61E000BD2CC /* successAnimationDark.json */; };
 		042626E328EEE62F000BD2CC /* successAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 042626E228EEE62F000BD2CC /* successAnimation.json */; };
-		042626E728EF61F2000BD2CC /* safeCreationDark.json in Resources */ = {isa = PBXBuildFile; fileRef = 042626E528EF61F2000BD2CC /* safeCreationDark.json */; };
-		042626E828EF61F2000BD2CC /* safeCreation.json in Resources */ = {isa = PBXBuildFile; fileRef = 042626E628EF61F2000BD2CC /* safeCreation.json */; };
 		04273663291191980033FEF5 /* KeyAddedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04273662291191980033FEF5 /* KeyAddedViewController.swift */; };
 		04273E5826AEE06500A14E95 /* BluetoothController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04273E5726AEE06500A14E95 /* BluetoothController.swift */; };
 		04273E5A26B1474700A14E95 /* LedgerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04273E5926B1474700A14E95 /* LedgerController.swift */; };
@@ -174,6 +172,8 @@
 		04AFFBD2282BBE1900429513 /* RemoveOwnerFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AFFBD1282BBE1900429513 /* RemoveOwnerFlow.swift */; };
 		04B1F43E2966070B009D13AA /* SecurityCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B1F43D2966070B009D13AA /* SecurityCenter.swift */; };
 		04B1F440296EC10C009D13AA /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B1F43F296EC10C009D13AA /* Wallet.swift */; };
+		04B28F5329C8C0A90072B188 /* safeCreationDark.json in Resources */ = {isa = PBXBuildFile; fileRef = 04B28F5129C8C0A90072B188 /* safeCreationDark.json */; };
+		04B28F5429C8C0A90072B188 /* safeCreation.json in Resources */ = {isa = PBXBuildFile; fileRef = 04B28F5229C8C0A90072B188 /* safeCreation.json */; };
 		04B4B5F725B754D600CFE24B /* AccountActionCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B5F525B754D600CFE24B /* AccountActionCompletedViewController.swift */; };
 		04B4B60225B84D6900CFE24B /* AccountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4B60125B84D6900CFE24B /* AccountInfoView.swift */; };
 		04B4B68F25B8857F00CFE24B /* AccountInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B68E25B8857F00CFE24B /* AccountInfoView.xib */; };
@@ -1038,8 +1038,6 @@
 		04248BDA272E11BB00431397 /* AddressBookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookTests.swift; sourceTree = "<group>"; };
 		042626E028EEE61E000BD2CC /* successAnimationDark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = successAnimationDark.json; sourceTree = "<group>"; };
 		042626E228EEE62F000BD2CC /* successAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = successAnimation.json; sourceTree = "<group>"; };
-		042626E528EF61F2000BD2CC /* safeCreationDark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = safeCreationDark.json; sourceTree = "<group>"; };
-		042626E628EF61F2000BD2CC /* safeCreation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = safeCreation.json; sourceTree = "<group>"; };
 		04273662291191980033FEF5 /* KeyAddedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAddedViewController.swift; sourceTree = "<group>"; };
 		04273E5726AEE06500A14E95 /* BluetoothController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothController.swift; sourceTree = "<group>"; };
 		04273E5926B1474700A14E95 /* LedgerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerController.swift; sourceTree = "<group>"; };
@@ -1174,6 +1172,8 @@
 		04AFFBD1282BBE1900429513 /* RemoveOwnerFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveOwnerFlow.swift; sourceTree = "<group>"; };
 		04B1F43D2966070B009D13AA /* SecurityCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCenter.swift; sourceTree = "<group>"; };
 		04B1F43F296EC10C009D13AA /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
+		04B28F5129C8C0A90072B188 /* safeCreationDark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = safeCreationDark.json; sourceTree = "<group>"; };
+		04B28F5229C8C0A90072B188 /* safeCreation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = safeCreation.json; sourceTree = "<group>"; };
 		04B4B5F525B754D600CFE24B /* AccountActionCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountActionCompletedViewController.swift; sourceTree = "<group>"; };
 		04B4B5F625B754D600CFE24B /* AccountActionCompletedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountActionCompletedViewController.xib; sourceTree = "<group>"; };
 		04B4B60125B84D6900CFE24B /* AccountInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoView.swift; sourceTree = "<group>"; };
@@ -2059,8 +2059,8 @@
 		042626E428EF61D2000BD2CC /* SafeCreation */ = {
 			isa = PBXGroup;
 			children = (
-				042626E528EF61F2000BD2CC /* safeCreationDark.json */,
-				042626E628EF61F2000BD2CC /* safeCreation.json */,
+				04B28F5129C8C0A90072B188 /* safeCreationDark.json */,
+				04B28F5229C8C0A90072B188 /* safeCreation.json */,
 			);
 			path = SafeCreation;
 			sourceTree = "<group>";
@@ -4826,6 +4826,7 @@
 				0A573F6E25877586009EF0C1 /* AddressField.xib in Resources */,
 				6A9A771128041DA700C229FC /* TipsView.xib in Resources */,
 				0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */,
+				04B28F5429C8C0A90072B188 /* safeCreation.json in Resources */,
 				5559A91727675DB600237A5D /* dapps-arbitrum.json in Resources */,
 				0AE8C05D2579354C00E62B34 /* TokenInfoView.xib in Resources */,
 				6AF6853A2937629900E63289 /* CollectibleHeaderTableViewCell.xib in Resources */,
@@ -4834,7 +4835,6 @@
 				93C38DC228C74CAA005188EC /* WhatIsSafeViewController.xib in Resources */,
 				6A1CFA5028081A1200B2C340 /* BackupSeedPhraseViewController.xib in Resources */,
 				6A7A48A12823A297003278C8 /* SafeOwnerCell.xib in Resources */,
-				042626E728EF61F2000BD2CC /* safeCreationDark.json in Resources */,
 				0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */,
 				0A06533727B6D1070008C5F1 /* ChooseOwnerDetailHeaderView.xib in Resources */,
 				0472B2D3286BD7C60049BA17 /* ClaimedAmountInputCell.xib in Resources */,
@@ -4849,6 +4849,7 @@
 				049A9DB225FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib in Resources */,
 				0A0C7E52296F1C4100DC1C3B /* MenuTableViewCell.xib in Resources */,
 				6A7A489C28201697003278C8 /* SafeOwnerPickerViewController.xib in Resources */,
+				04B28F5329C8C0A90072B188 /* safeCreationDark.json in Resources */,
 				0ABE698927920294003338AF /* ErrorTableViewCell.xib in Resources */,
 				6A6A105A2889496100B852D5 /* ClaimGetStartedViewController.xib in Resources */,
 				04077B38278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.xib in Resources */,
@@ -4862,7 +4863,6 @@
 				0A57C8EA2587AECB00B7C019 /* EnterSafeAddressViewController.xib in Resources */,
 				04FEFE8128C6304B0028A349 /* TokenDistributionViewController.xib in Resources */,
 				550FB1B526691D9500C13D54 /* DetailedCell.xib in Resources */,
-				042626E828EF61F2000BD2CC /* safeCreation.json in Resources */,
 				0491068128F99247005A4A99 /* DMSans-Medium.ttf in Resources */,
 				0472B2BB2869D66A0049BA17 /* ChooseDelegateIntroViewController.xib in Resources */,
 				0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */,

@@ -11,7 +11,7 @@ import Lottie
 
 class SuccessViewController: UIViewController {
 
-    @IBOutlet weak var animationView: AnimationView!
+    @IBOutlet weak var animationView: LottieAnimationView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var bodyLabel: UILabel!
     @IBOutlet weak var primaryButton: UIButton!
@@ -70,7 +70,7 @@ class SuccessViewController: UIViewController {
             secondaryButton.isHidden = true
         }
 
-        animationView.animation = Animation.named(isDarkMode ? "successAnimationDark" : "successAnimation",
+        animationView.animation = LottieAnimation.named(isDarkMode ? "successAnimationDark" : "successAnimation",
                                                   animationCache: nil)
         animationView.contentMode = .scaleAspectFit
         animationView.backgroundBehavior = .pauseAndRestore

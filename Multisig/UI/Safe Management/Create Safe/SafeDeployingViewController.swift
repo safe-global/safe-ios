@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 
 class SafeDeployingViewController: UIViewController {
 
@@ -15,7 +16,7 @@ class SafeDeployingViewController: UIViewController {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var txButton: UIButton!
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var animationView: LottieAnimationView!
 
     var safe: Safe?
     var containerViewYConstraint: NSLayoutConstraint?
@@ -25,7 +26,6 @@ class SafeDeployingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.image = UIImage.animatedImageNamed("safe-creating-", duration: 1.3)
         statusLabel.setStyle(.title3)
         desciptionLabel.setStyle(.body)
         didYouKnowLabel.setStyle(.caption2.color(.primary))
@@ -35,9 +35,14 @@ class SafeDeployingViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .selectedSafeChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .selectedSafeUpdated, object: nil)
 
+        animationView.animation = LottieAnimation.named(isDarkMode ? "safeCreation" : "safeCreationDark", animationCache: nil)
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .loop
+        animationView.play()
+
         reloadData()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(updateStatus), userInfo: nil, repeats: true)
@@ -69,7 +74,7 @@ class SafeDeployingViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        animationView.play()
         if let safe = safe, safe.safeStatus == .deploymentFailed {
             DefaultNavigationRouter.shared.navigateAfterDelay(to: NavigationRoute.deploymentFailed(safe: safe))
         }
