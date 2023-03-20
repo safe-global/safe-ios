@@ -50,6 +50,9 @@
                                             </constraints>
                                         </view>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="175" id="G6b-Xv-tIs"/>
+                                    </constraints>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="b4b-r9-s0F">
                                     <rect key="frame" x="2" y="183" width="346" height="97.5"/>
