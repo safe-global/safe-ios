@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SafeDeploymentFinishedViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="actionButton" destination="txJ-9T-WhM" id="NFu-d9-Xcm"/>
+                <outlet property="animationView" destination="tlW-tm-1fp" id="L2X-XA-t4h"/>
                 <outlet property="descriptionLabel" destination="7JV-gm-BsD" id="qba-RA-eLx"/>
                 <outlet property="labelContainer" destination="b4b-r9-s0F" id="b0g-K0-aOB"/>
                 <outlet property="linkButton" destination="1qj-e5-GC2" id="CG2-7u-O3U"/>
@@ -27,16 +28,31 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c9s-YX-ZGR">
-                    <rect key="frame" x="32" y="44" width="350" height="642"/>
+                    <rect key="frame" x="32" y="48" width="350" height="638"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="RhK-O3-72c">
-                            <rect key="frame" x="0.0" y="163" width="350" height="316.5"/>
+                            <rect key="frame" x="0.0" y="179" width="350" height="280.5"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="safe-created-animation-1" translatesAutoresizingMaskIntoConstraints="NO" id="cy8-H4-ttj">
-                                    <rect key="frame" x="69.5" y="0.0" width="211" height="211"/>
-                                </imageView>
+                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EZU-Sv-Vmb">
+                                    <rect key="frame" x="0.0" y="0.0" width="350" height="175"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="safe-created-animation-1" translatesAutoresizingMaskIntoConstraints="NO" id="cy8-H4-ttj">
+                                            <rect key="frame" x="0.0" y="0.0" width="175" height="175"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="cy8-H4-ttj" secondAttribute="height" id="5PK-Yq-S02"/>
+                                            </constraints>
+                                        </imageView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tlW-tm-1fp" customClass="LottieAnimationView" customModule="Lottie">
+                                            <rect key="frame" x="175" y="0.0" width="175" height="175"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="tlW-tm-1fp" secondAttribute="height" id="Kot-eV-6dL"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="b4b-r9-s0F">
-                                    <rect key="frame" x="2" y="219" width="346" height="97.5"/>
+                                    <rect key="frame" x="2" y="183" width="346" height="97.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops, Safe wasn’t created" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtE-Y1-Z5q">
                                             <rect key="frame" x="73" y="0.0" width="200.5" height="20.5"/>
@@ -115,7 +131,7 @@
         <image name="icon-external-link" width="16" height="16"/>
         <image name="safe-created-animation-1" width="211" height="211"/>
         <namedColor name="primary">
-            <color red="0.0" green="0.54509803921568623" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.070588235294117646" green="0.074509803921568626" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="primaryLabel">
             <color red="0.0" green="0.074509803921568626" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

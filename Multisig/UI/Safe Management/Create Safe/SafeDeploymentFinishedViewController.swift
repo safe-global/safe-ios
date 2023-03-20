@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 
 class SafeDeploymentFinishedViewController: UIViewController {
 
@@ -15,6 +16,7 @@ class SafeDeploymentFinishedViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var actionButton: UIButton!
     @IBOutlet weak var linkButton: UIButton!
+    @IBOutlet weak var animationView: LottieAnimationView!
     @IBOutlet weak var labelContainer: UIStackView!
 
     enum Mode {
@@ -46,13 +48,22 @@ class SafeDeploymentFinishedViewController: UIViewController {
 
         switch mode {
         case .success:
-            statusImage.image = UIImage.animatedImageNamed("safe-created-animation-", duration: 1.5)
+            statusImage.isHidden = true
+            animationView.isHidden = false
+            animationView.animation = LottieAnimation.named(isDarkMode ? "successAnimationDark" : "successAnimation",
+                                                      animationCache: nil)
+            animationView.contentMode = .scaleAspectFit
+            animationView.backgroundBehavior = .pauseAndRestore
+            animationView.play()
+
             titleLabel.text = "Your Safe is ready!"
             descriptionLabel.text = "That’s it! Start using your most secure wallet on Ethereum."
             actionButton.setText("Start using Safe", .filled)
             linkButton.isHidden = true
 
         case .failure:
+            statusImage.isHidden = false
+            animationView.isHidden = true
             statusImage.image = UIImage(named: "ico-safe-deployment-failure")
             titleLabel.text = "Oops, Safe wasn’t created"
             descriptionLabel.text = "Safe couldn’t have been created. This might happen due to the mining error or spiked gas fees."
