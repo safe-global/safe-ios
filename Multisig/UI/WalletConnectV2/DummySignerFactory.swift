@@ -11,7 +11,7 @@ import CryptoSwift
 import Web3
 import Auth
 
-public struct DefaultSignerFactory: SignerFactory {
+public struct DummySignerFactory: SignerFactory {
 
     public func createEthereumSigner() -> EthereumSigner {
         return Web3Signer()

@@ -36,7 +36,7 @@ class WalletConnectManager {
         Networking.configure(projectId: App.configuration.walletConnect.walletConnectProjectId,
                              socketFactory: SocketFactory())
         Pair.configure(metadata: metadata)
-        Web3Wallet.configure(metadata: metadata, signerFactory: DefaultSignerFactory())
+        Web3Wallet.configure(metadata: metadata, signerFactory: DummySignerFactory())
         setUpAuthSubscribing()
     }
     
@@ -106,14 +106,18 @@ class WalletConnectManager {
     func pairClient(uri: WalletConnectURI) {
         Task {
             do {
-                // Clean up pairings to prevent pairingAlreadyExist error
                 disconnectUnusedPairings()
                 try await Web3Wallet.instance.pair(uri: uri)
                 NotificationCenter.default.post(name: .wcConnectingSafeServer, object: self)
             } catch {
-                LogService.shared.error("DAPP: Failed to register to remote notifications \(error)")
+                LogService.shared.error("DAPP: Pairing failed: \(error)")
                 Task { @MainActor in
-                    App.shared.snackbar.show(error: GSError.error(description: "Failed to register to remote notifications: ", error: error))
+                    if "\(error)" == "pairingAlreadyExist" {
+                        App.shared.snackbar.show(error: GSError.WC2PairingAlreadyExists())
+                    } else {
+                        App.shared.snackbar.show(error: GSError.WC2PairingFailed())
+                    }
+
                 }
             }
         }
@@ -152,21 +156,26 @@ class WalletConnectManager {
     func approveSession(proposal: Session.Proposal) {
         Task {
             guard let safe = try? Safe.getSelected() else { return }
-            
+            var chainDropped = false
             var sessionNamespaces = [String: SessionNamespace]()
             proposal.requiredNamespaces.forEach {
                 let caip2Namespace = $0.key
                 let proposalNamespace = $0.value
                 guard let chains = proposalNamespace.chains else { return }
-                
+
                 let selectedSafeChain = chains.filter { chain in
-                    chain.namespace == EVM_COMPATIBLE_NETWORK && chain.reference == safe.chain?.id
+                    if chain.namespace == EVM_COMPATIBLE_NETWORK && chain.reference == safe.chain?.id {
+                        return true
+                    } else {
+                        chainDropped = true
+                        return false
+                    }
                 }
-                
+
                 let accounts = Set(selectedSafeChain.compactMap {
                     Account($0.absoluteString + ":\(safe.addressValue)")
                 })
-                
+
                 let sessionNamespace = SessionNamespace(accounts: accounts,
                                                         methods: proposalNamespace.methods,
                                                         events: proposalNamespace.events)
@@ -176,13 +185,19 @@ class WalletConnectManager {
                 try await Web3Wallet.instance.approve(proposalId: proposal.id, namespaces: sessionNamespaces)
             } catch {
                 print("DAPP: Approve Session error: \(error)")
+                let err: DetailedLocalizedError
+                if chainDropped {
+                    err = GSError.WC2SessionApprovalFailedWrongChain()
+                } else {
+                    err = GSError.WC2SessionApprovalFailed()
+                }
                 Task { @MainActor in
-                    App.shared.snackbar.show(error: GSError.error(description: "Approve Session error: ", error: error))
+                    App.shared.snackbar.show(error: err)
                 }
             }
         }
     }
-    
+
     /// By default, session lifetime is set for 7 days and after that time user's session will expire.
     /// This method will extend the session for 7 days
     func extend(session: Session) async {
@@ -195,7 +210,7 @@ class WalletConnectManager {
             print("DAPP: extending Session error: \(error)")
         }
     }
-    
+
     func disconnect(session: Session) {
         Task {
             do {
@@ -212,15 +227,15 @@ class WalletConnectManager {
             disconnectUnusedPairings()
         }
     }
-    
+
     func deleteStoredSession(topic: String) {
         precondition(Thread.isMainThread)
         Safe.removeSession(topic: topic)
         disconnectUnusedPairings()
     }
-    
+
+    // After deleting a session we do this to find and disconnect all unused pairings
     private func disconnectUnusedPairings() {
-        // Find pairings without sessions and disconnect them:
         var pairings = Web3Wallet.instance.getPairings()
         let sessions = Web3Wallet.instance.getSessions()
 

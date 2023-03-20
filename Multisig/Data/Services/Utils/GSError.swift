@@ -447,6 +447,44 @@ enum GSError {
         let loggable = false
     }
 
+    // MARK: - WalletConnect V2
+
+    struct WC2PairingFailed: DetailedLocalizedError {
+        let description: String = "Pairing failed"
+        let reason = "Unknown"
+        let howToFix = "Please try again later"
+        let domain = clientErrorDomain
+        let code = 9920
+        let loggable = false
+    }
+
+    struct WC2PairingAlreadyExists: DetailedLocalizedError {
+        let description: String = "Pairing failed"
+        let reason = "Pairing already exists"
+        let howToFix = "Please try again with a differrent WalletConnect URL"
+        let domain = clientErrorDomain
+        let code = 9921
+        let loggable = false
+    }
+
+    struct WC2SessionApprovalFailed: DetailedLocalizedError {
+        let description: String = "Session not approved"
+        let reason = "Unknown"
+        let howToFix = "Please try again later"
+        let domain = clientErrorDomain
+        let code = 9930
+        let loggable = false
+    }
+
+    struct WC2SessionApprovalFailedWrongChain: DetailedLocalizedError {
+        let description: String = "Session not approved"
+        let reason = "Wrong chain"
+        let howToFix = "Please use selected Safes' chain"
+        let domain = clientErrorDomain
+        let code = 9931
+        let loggable = false
+    }
+
 	// MARK: Address Book
 
     struct AddressBookEntryAlreadyExists: DetailedLocalizedError {
