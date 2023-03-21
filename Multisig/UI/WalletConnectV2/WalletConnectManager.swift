@@ -9,6 +9,7 @@
 import Foundation
 import WalletConnectNetworking
 import WalletConnectPairing
+import WalletPairService
 import Combine
 import WalletConnectSign
 import WalletConnectUtils
