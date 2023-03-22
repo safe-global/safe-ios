@@ -24,6 +24,9 @@ pipeline {
         INTERCOM_PROD_APP_ID = credentials('INTERCOM_PROD_APP_ID')
         ENCRYPTION_KEY = credentials('ENCRYPTION_KEY')
         CODECOV_TOKEN = credentials('CODECOV_TOKEN')
+        WALLETCONNECT_PROJECT_ID_DEV = credentials('WALLETCONNECT_PROJECT_ID_DEV')
+        WALLETCONNECT_PROJECT_ID_STAGING = credentials('WALLETCONNECT_PROJECT_ID_STAGING')
+        WALLETCONNECT_PROJECT_ID_PROD = credentials('WALLETCONNECT_PROJECT_ID_PROD')
     }
     parameters {
         string(name: 'SSL_ENFORCE_PINNING', defaultValue: '1', description: 'Enforce SSL Pinning? (0 = NO/1 = YES)')
