@@ -9,7 +9,6 @@
 import Foundation
 import WalletConnectNetworking
 import WalletConnectPairing
-import WalletPairService
 import Combine
 import WalletConnectSign
 import WalletConnectUtils
@@ -113,7 +112,7 @@ class WalletConnectManager {
             } catch {
                 LogService.shared.error("DAPP: Pairing failed: \(error)")
                 Task { @MainActor in
-                    if error == WalletPairService.Errors.pairingAlreadyExist {
+                    if "\(error)" == "pairingAlreadyExist" {
                         App.shared.snackbar.show(error: GSError.WC2PairingAlreadyExists())
                     } else {
                         App.shared.snackbar.show(error: GSError.WC2PairingFailed())
