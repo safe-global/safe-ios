@@ -77,7 +77,7 @@ pipeline {
 
                     // new param for uikit enabled
                     sh 'INFURA_KEY=\"${INFURA_PROD_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" WALLETCONNECT_PROJECT_ID=\"${WALLETCONNECT_PROJECT_ID_PROD}\" INTERCOM_APP_ID=\"${INTERCOM_PROD_APP_ID}\" INTERCOM_API_KEY=\"${INTERCOM_PROD_API_KEY}\" bin/archive.sh \"Multisig - Production\"'
-                    sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" WALLETCONNECT_PROJECT_ID=\"${WALLETCONNECT_PROJECT_ID_STAGING}\" INTERCOM_APP_ID=\"${INTERCOM_STAGING_APP_ID}\" INTERCOM_API_KEY=\"${INTERCOM_STAGING_API_KEY}\" bin/archive.sh \"Multisig - Staging\"'
+                    sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" WALLETCONNECT_PROJECT_ID =\"${WALLETCONNECT_PROJECT_ID_STAGING}\" INTERCOM_APP_ID=\"${INTERCOM_STAGING_APP_ID}\" INTERCOM_API_KEY=\"${INTERCOM_STAGING_API_KEY}\" bin/archive.sh \"Multisig - Staging\"'
                     archiveArtifacts 'Build/*/xcodebuild-*.log'
                 }
             }
