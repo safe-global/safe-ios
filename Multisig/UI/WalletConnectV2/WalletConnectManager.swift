@@ -156,19 +156,15 @@ class WalletConnectManager {
     func approveSession(proposal: Session.Proposal) {
         Task {
             guard let safe = try? Safe.getSelected() else { return }
-            var approveSession = false
+            var containsSelectedSafeChainId = false
             var sessionNamespaces = [String: SessionNamespace]()
-
-            dump(proposal.requiredNamespaces, name: "---> Required Namespaces: ")
-
-
             proposal.requiredNamespaces.forEach {
 
                 let caip2Namespace = $0.key
                 let proposalNamespace = $0.value
                 guard let chains = proposalNamespace.chains else { return }
 
-                approveSession = chains.contains { chain in
+                containsSelectedSafeChainId = chains.contains { chain in
                     chain.namespace == EVM_COMPATIBLE_NETWORK && chain.reference == safe.chain?.id
                 }
 
@@ -182,7 +178,7 @@ class WalletConnectManager {
                 sessionNamespaces[caip2Namespace] = sessionNamespace
             }
             do {
-                if approveSession {
+                if containsSelectedSafeChainId {
                     try await Web3Wallet.instance.approve(proposalId: proposal.id, namespaces: sessionNamespaces)
                 } else {
                     try await Web3Wallet.instance.approve(proposalId: proposal.id, namespaces: [:])
@@ -190,7 +186,7 @@ class WalletConnectManager {
             } catch {
                 print("DAPP: Approve Session error: \(error)")
                 let err: DetailedLocalizedError
-                if !approveSession {
+                if !containsSelectedSafeChainId {
                     err = GSError.WC2SessionApprovalFailedWrongChain()
                 } else {
                     err = GSError.WC2SessionApprovalFailed()
