@@ -158,12 +158,18 @@ class WalletConnectManager {
             guard let safe = try? Safe.getSelected() else { return }
             var chainDropped = false
             var sessionNamespaces = [String: SessionNamespace]()
+            var selectedSafeChain: [] 
+
             proposal.requiredNamespaces.forEach {
                 let caip2Namespace = $0.key
                 let proposalNamespace = $0.value
                 guard let chains = proposalNamespace.chains else { return }
 
-                let selectedSafeChain = chains.filter { chain in
+                let approve = chains.contains { chain in
+                    chain.namespace == EVM_COMPATIBLE_NETWORK && chain.reference == safe.chain?.id
+                }
+
+                selectedSafeChain = chains.filter { chain in
                     if chain.namespace == EVM_COMPATIBLE_NETWORK && chain.reference == safe.chain?.id {
                         return true
                     } else {
@@ -172,7 +178,7 @@ class WalletConnectManager {
                     }
                 }
 
-                let accounts = Set(selectedSafeChain.compactMap {
+                let accounts = Set(chains.compactMap {
                     Account($0.absoluteString + ":\(safe.addressValue)")
                 })
 
@@ -182,6 +188,10 @@ class WalletConnectManager {
                 sessionNamespaces[caip2Namespace] = sessionNamespace
             }
             do {
+                if selectedSafeChain.size <= 1 {
+                    try await Web3Wallet.instance.approve(proposalId: proposal.id, namespaces: [])
+                }
+
                 try await Web3Wallet.instance.approve(proposalId: proposal.id, namespaces: sessionNamespaces)
             } catch {
                 print("DAPP: Approve Session error: \(error)")
