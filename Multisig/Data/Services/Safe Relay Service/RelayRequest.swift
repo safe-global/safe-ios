@@ -10,7 +10,7 @@ import Foundation
 
 struct RelayRequest: JSONRequest {
     let chainId: String
-    let target: String      // Safe address
+    let to: String          // Safe address
     let data: String        // Transaction data
     let gasLimit: String?   // Desired gas limit
 
@@ -27,18 +27,20 @@ struct RelayTask: Decodable {
 }
 
 extension SafeGelatoRelayService {
-
+    
     @discardableResult
     func asyncRelayTransaction(
-        transaction: Transaction,
+        chainId: String,
+        to: Address,
+        txData: String,
         gasLimit: String? = nil,
         completion: @escaping (Result<RelayRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
 
             return asyncExecute(
                 request: RelayRequest(
-                    chainId: transaction.chainId!,
-                    target: transaction.safe!.address.checksummed,
-                    data: transaction.data!.description,
+                    chainId: chainId,
+                    to: to.checksummed,
+                    data: txData,
                     gasLimit: gasLimit
                 ),
                 completion: completion
@@ -47,13 +49,15 @@ extension SafeGelatoRelayService {
 
     @discardableResult
     func relayTransaction(
-        transaction: Transaction,
+        chainId: String,
+        to: Address,
+        txData: String,
         gasLimit: String? = nil) throws  -> RelayTask? {
 
             let request = RelayRequest(
-                chainId: transaction.chainId!,
-                target: transaction.safe!.address.checksummed,
-                data: transaction.data!.description,
+                chainId: chainId,
+                to: to.checksummed,
+                data: txData,
                 gasLimit: gasLimit
             )
 

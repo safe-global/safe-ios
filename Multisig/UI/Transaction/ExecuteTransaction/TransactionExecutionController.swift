@@ -623,6 +623,47 @@ class TransactionExecutionController {
         return task
     }
 
+    func relay(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
+
+        guard
+            let execInfo = transaction.detailedExecutionInfo,
+            case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigDetails) = execInfo,
+            let txData = transaction.txData
+        else {
+            return nil
+        }
+
+        let input = try! GnosisSafe_v1_3_0.execTransaction(
+            to:  Sol.Address(txData.to.value.data32),
+            value: Sol.UInt256(txData.value.data32),
+            data: Sol.Bytes(storage: txData.hexData?.data ?? Data()),
+            operation: Sol.UInt8(txData.operation.rawValue),
+            safeTxGas: Sol.UInt256(multisigDetails.safeTxGas.data32),
+            baseGas: Sol.UInt256(multisigDetails.baseGas.data32),
+            gasPrice: Sol.UInt256(multisigDetails.gasPrice.data32),
+            gasToken: Sol.Address(multisigDetails.gasToken.data32),
+            refundReceiver: Sol.Address(multisigDetails.refundReceiver.value.data32),
+            signatures: Sol.Bytes()
+        ).encode()
+
+
+        let task = relayerService.asyncRelayTransaction(chainId: safe.chain!.id!, to: safe.addressValue, txData: input.toHexStringWithPrefix()) { [weak self] response in
+            guard let self = self else { return }
+
+            switch(response) {
+            case .success(let result):
+                //TODO: get task id
+                DispatchQueue.main.async {
+                    //self.didRelayTransaction(taskId: <#T##String#>)
+                    completion(.success(()))
+                }
+            case .failure(let error):
+                dispatchOnMainThread(completion(.failure(error)))
+            }
+        }
+        return task
+    }
+
     func didSubmitTransaction(txHash: Eth.Hash) {
         self.ethTransaction?.hash = txHash
 
@@ -645,6 +686,10 @@ class TransactionExecutionController {
 
         // Notify the observers about tx changes
         NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
+    }
+
+    func didRelayTransaction(taskId: String) {
+
     }
 }
 

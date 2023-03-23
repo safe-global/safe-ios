@@ -37,6 +37,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     private var defaultKeyTask: URLSessionTask?
     private var txEstimationTask: URLSessionTask?
     private var sendingTask: URLSessionTask?
+    private var relayingTask: URLSessionTask?
     private var remainingRelaysTask: URLSessionTask?
     
     private var keystoneSignFlow: KeystoneSignFlow!
@@ -333,7 +334,12 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
             authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
                 guard let self = self else { return }
                 if success {
-                    self.sign()
+                    // No need to sign when relaying
+                    if self.controller.remainingRelays >= 0 {
+                        self.submit()
+                    } else {
+                        self.sign()
+                    }
                 }
 
                 self.submitButton.isEnabled = true
@@ -579,18 +585,35 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         self.submitButton.isEnabled = false
 
         sendingTask?.cancel()
-        sendingTask = controller.send(completion: { [weak self] result in
-            guard let self = self else { return }
+        relayingTask?.cancel()
 
-            switch result {
-            case .failure(let error):
-                self.submitButton.isEnabled = true
-                self.didSubmitFailed(error)
+        if controller.remainingRelays >= 0 {
+            relayingTask = controller.relay(completion: { [weak self] result in
+                guard let self = self else { return }
 
-            case .success:
-                self.didSubmitSuccess()
-            }
-        })
+                switch result {
+                case .failure(let error):
+                    self.submitButton.isEnabled = true
+                    self.didSubmitFailed(error)
+
+                case .success:
+                    self.didSubmitSuccess()
+                }
+            })
+        } else {
+            sendingTask = controller.send(completion: { [weak self] result in
+                guard let self = self else { return }
+
+                switch result {
+                case .failure(let error):
+                    self.submitButton.isEnabled = true
+                    self.didSubmitFailed(error)
+
+                case .success:
+                    self.didSubmitSuccess()
+                }
+            })
+        }
     }
 
     func didSubmitFailed(_ error: Error?) {
