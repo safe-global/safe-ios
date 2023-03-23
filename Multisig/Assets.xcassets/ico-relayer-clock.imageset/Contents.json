@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ico-relayer-clock.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
