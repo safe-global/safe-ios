@@ -143,7 +143,7 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
             address: keyInfo.address,
             label: uiInfo.name,
             imageUri: uiInfo.imageUri,
-            badge: keyInfo.keyType.imageName,
+            badge: keyInfo.keyType.badgeName,
             balance: balance.displayAmount
         )
 

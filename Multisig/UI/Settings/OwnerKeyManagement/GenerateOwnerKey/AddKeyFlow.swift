@@ -139,7 +139,7 @@ class AddKeyParameters {
     var name: String?
     var type: KeyType!
     var badgeName: String {
-        type.imageName
+        type.badgeName
     }
 
     init(address: Address, name: String?, type: KeyType) {

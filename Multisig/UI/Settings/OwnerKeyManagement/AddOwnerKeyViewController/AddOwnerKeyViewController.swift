@@ -73,8 +73,7 @@ class AddOwnerKeyViewController: UITableViewController {
         case .walletConnect:
             cell.set(iconName: KeyType.walletConnect.imageName)
         case .keystone:
-            cell.set(iconName: "ico-add-keystone")
-
+            cell.set(iconName: KeyType.keystone.imageName)
         }
         return cell
     }

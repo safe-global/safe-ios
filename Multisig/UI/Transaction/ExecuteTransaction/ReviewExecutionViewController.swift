@@ -379,7 +379,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
                 address: selection.key.address,
                 label: selection.key.name,
                 imageUri: nil,
-                badge: selection.key.keyType.imageName,
+                badge: selection.key.keyType.badgeName,
                 balance: selection.balance.displayAmount
             )
             self.contentVC.model?.executionOptions.accountState = .filled(model)

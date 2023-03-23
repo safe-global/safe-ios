@@ -132,7 +132,7 @@ class SendTransactionCellBuilder {
                 address: key.address,
                 label: keyNamePolicy.name,
                 imageUri: keyNamePolicy.imageUri,
-                badge: key.keyType.imageName,
+                badge: key.keyType.badgeName,
                 balance: formatAmount(chain: chain, balance: balance)
             )
             accountState = ExecuteWithAccountCellState.filled(accountInfo)

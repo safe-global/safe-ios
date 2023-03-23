@@ -29,7 +29,7 @@ class DetailConfirmationCell: UITableViewCell {
             let (name, _) = NamingPolicy.name(for: address, info: nil, chainId: chain.id!)
             v.setAddress(address,
                          label: name,
-                         badgeName: keyInfo?.keyType.imageName,
+                         badgeName: keyInfo?.keyType.badgeName,
                          browseURL: chain.browserURL(address: address.checksummed),
                          prefix: chain.shortName)
             return v
@@ -73,7 +73,7 @@ class DetailConfirmationCell: UITableViewCell {
                 let (name, _) = NamingPolicy.name(for: address, info: nil, chainId: chain.id!)
                 success.setAddress(address,
                                    label: name,
-                                   badgeName: keyInfo?.keyType.imageName,
+                                   badgeName: keyInfo?.keyType.badgeName,
                                    browseURL: chain.browserURL(address: address.checksummed),
                                    prefix: chain.shortName)
                 views.append(success)

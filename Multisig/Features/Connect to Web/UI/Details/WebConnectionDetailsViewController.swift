@@ -127,7 +127,7 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
                     address: key.address,
                     label: info.name,
                     imageUri: info.imageUri,
-                    badge: key.keyType.imageName,
+                    badge: key.keyType.badgeName,
                     balance: shortAddress
                 )
                 content.setModel(model)

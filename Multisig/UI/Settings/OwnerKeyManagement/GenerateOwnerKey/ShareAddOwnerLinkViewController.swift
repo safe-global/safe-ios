@@ -60,7 +60,7 @@ class ShareAddOwnerLinkViewController: UIViewController {
         if let ownerKeyInfo = try? KeyInfo.firstKey(address: owner) {
             addOwnerView.set(owner: AddressInfo(address: ownerKeyInfo.address,
                                                 name: ownerKeyInfo.name),
-                             badgeName: ownerKeyInfo.keyType.imageName,
+                             badgeName: ownerKeyInfo.keyType.badgeName,
                              safe: safe,
                              reqConfirmations: Int(safe.threshold!),
                              ownerCount: safe.ownersInfo?.count ?? 0)

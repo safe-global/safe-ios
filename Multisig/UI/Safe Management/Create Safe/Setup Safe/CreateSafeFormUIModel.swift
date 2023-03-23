@@ -209,7 +209,7 @@ class CreateSafeFormUIModel {
                 browseUri: url,
                 keyInfo: keyInfo,
                 privateKey: nil,
-                badgeName: keyInfo?.keyType.imageName)
+                badgeName: keyInfo?.keyType.badgeName)
         return owner
     }
 
@@ -568,7 +568,7 @@ class CreateSafeFormUIModel {
             address: key.address,
             label: resolvedName,
             imageUri: imageUri,
-            badge: key.keyType.imageName,
+            badge: key.keyType.badgeName,
             balance: formattedBalance
         )
         return result

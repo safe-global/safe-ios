@@ -44,7 +44,7 @@ class ReceiveAddOwnerLinkViewController: UIViewController {
         var ownerInfo: AddressInfo!
         if let ownerKeyInfo = ownerKeyInfo {
             ownerInfo = AddressInfo(address: ownerKeyInfo.address, name: ownerKeyInfo.name)
-            addOwnerView.set(owner: ownerInfo, badgeName: ownerKeyInfo.keyType.imageName, safe: safe, reqConfirmations: Int(safe.threshold!), ownerCount: safe.ownersInfo?.count ?? 0)
+            addOwnerView.set(owner: ownerInfo, badgeName: ownerKeyInfo.keyType.badgeName, safe: safe, reqConfirmations: Int(safe.threshold!), ownerCount: safe.ownersInfo?.count ?? 0)
 
         } else {
             ownerInfo = AddressInfo(address: owner, name: ownerName)
