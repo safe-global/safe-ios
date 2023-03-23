@@ -64,9 +64,12 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         paymentMethodGroupCell.tableView.registerCell(DisclosureWithContentCell.self)
 
         let paymentMethod = buildPaymentMethod(model, tableView: paymentMethodGroupCell.tableView)
-        let executeWith = buildExecutedWithAccount(model.accountState, tableView: paymentMethodGroupCell.tableView)
-
-        paymentMethodGroupCell.setCells([paymentMethod, executeWith])
+        if case let .filled(relayerInfo) = model.relayerState {
+            paymentMethodGroupCell.setCells([paymentMethod])
+        } else {
+            let executeWith = buildExecutedWithAccount(model.accountState, tableView: paymentMethodGroupCell.tableView)
+            paymentMethodGroupCell.setCells([paymentMethod, executeWith])
+        }
 
         // handle cell taps
         let (paymentMethodIndex, executeWithIndex) = (0, 1)
@@ -115,7 +118,11 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
 
     func buildPaymentMethod(_ model: ExecutionOptionsUIModel, tableView: UITableView) -> UITableViewCell{
         let cell = tableView.dequeueCell(PaymentMethodCell.self)
-        cell.setSignerAccount()
+        if case let .filled(relayerInfo) = model.relayerState {
+            cell.setRelaying(relayerInfo.remainingRelays, 5)
+        } else {
+            cell.setSignerAccount()
+        }
         return cell
     }
 

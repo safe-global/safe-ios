@@ -34,6 +34,8 @@ class TransactionExecutionController {
 
     let estimationController: TransactionEstimationController
 
+    let relayerService: SafeGelatoRelayService
+
     var ethTransaction: EthTransaction?
     var minNonce: Sol.UInt64 = 0
     
@@ -50,11 +52,12 @@ class TransactionExecutionController {
         chain.id!
     }
 
-    init(safe: Safe, chain: Chain, transaction: SCGModels.TransactionDetails) {
+    init(safe: Safe, chain: Chain, transaction: SCGModels.TransactionDetails, relayerService: SafeGelatoRelayService) {
         self.safe = safe
         self.chain = chain
         self.transaction = transaction
         self.estimationController = TransactionEstimationController(rpcUri: chain.authenticatedRpcUrl.absoluteString, chain: chain)
+        self.relayerService = relayerService
     }
 
     // returns the execution keys valid for executing this transaction
@@ -158,6 +161,19 @@ class TransactionExecutionController {
         } else {
             self.selectedKey = nil
         }
+    }
+
+    func getRemainingRelays(completion: @escaping (Int) -> Void) -> URLSessionTask? {
+        let task = relayerService.asyncRelaysRemaining(chainId: chain.id!, safeAddress: safe.addressValue) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                dispatchOnMainThread(completion(response.remaining))
+            case .failure:
+                dispatchOnMainThread(completion(-1))
+            }
+        }
+        return task
     }
 
     func estimate(completion: @escaping () -> Void) -> URLSessionTask? {

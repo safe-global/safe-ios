@@ -37,6 +37,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     private var defaultKeyTask: URLSessionTask?
     private var txEstimationTask: URLSessionTask?
     private var sendingTask: URLSessionTask?
+    private var remainingRelaysTask: URLSessionTask?
     
     private var keystoneSignFlow: KeystoneSignFlow!
 
@@ -52,7 +53,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         self.transaction = transaction
         self.onClose = onClose
         self.onSuccess = onSuccess
-        self.controller = TransactionExecutionController(safe: safe, chain: chain, transaction: transaction)
+        self.controller = TransactionExecutionController(safe: safe, chain: chain, transaction: transaction, relayerService: App.shared.relayService)
     }
 
     override func viewDidLoad() {
@@ -69,12 +70,14 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
             safe: safe,
             chain: chain,
             transaction: transaction)
+        contentVC.onTapPaymentMethod = action(#selector(didTapPaymentMethod(_:)))
         contentVC.onTapAccount = action(#selector(didTapAccount(_:)))
         contentVC.onTapFee = action(#selector(didTapFee(_:)))
         contentVC.onTapAdvanced = action(#selector(didTapAdvanced(_:)))
         contentVC.model = ExecutionReviewUIModel(
             transaction: transaction,
             executionOptions: ExecutionOptionsUIModel(
+                relayerState: .none,
                 accountState: .loading,
                 feeState: .loading
             )
@@ -99,7 +102,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
 
         navigationItem.leftBarButtonItem = closeButton
 
-        estimateTransaction()
+        getRemainingRelays()
     }
 
     func action(_ selector: Selector) -> () -> Void {
@@ -119,6 +122,10 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
 
     @IBAction func didTapClose(_ sender: Any) {
         self.onClose()
+    }
+
+    @IBAction func didTapPaymentMethod(_ sender: Any) {
+        //TODO: open payment method selection
     }
 
     @IBAction func didTapAccount(_ sender: Any) {
@@ -349,6 +356,18 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         }
 
         txEstimationTask = task
+    }
+
+    func getRemainingRelays() {
+        let task = controller.getRemainingRelays { [weak self] remaining in
+            guard let self = self else { return }
+            if remaining >= 0 {
+                self.contentVC.model?.executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: remaining))
+            }
+            self.estimateTransaction()
+        }
+
+        remainingRelaysTask = task
     }
 
     var didSearchDefaultKey: Bool = false

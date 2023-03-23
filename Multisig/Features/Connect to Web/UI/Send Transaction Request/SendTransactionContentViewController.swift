@@ -244,6 +244,11 @@ class SendTransactionCellBuilder {
         let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
         cell.setText("Execute with")
         switch model {
+
+        case .none:
+            //TODO: throw
+            break
+
         case .loading:
             let content = loadingView()
             cell.setContent(content)
