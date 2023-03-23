@@ -96,6 +96,8 @@ class TransactionExecutionController {
         }
     }
 
+    var remainingRelays: Int = 0
+
     var requiredBalance: Sol.UInt256? {
         ethTransaction?.requiredBalance
     }
@@ -168,8 +170,10 @@ class TransactionExecutionController {
             guard let self = self else { return }
             switch result {
             case .success(let response):
-                dispatchOnMainThread(completion(response.remaining))
+                self.remainingRelays = response.remaining
+                dispatchOnMainThread(completion(self.remainingRelays))
             case .failure:
+                self.remainingRelays = 0
                 dispatchOnMainThread(completion(-1))
             }
         }
@@ -390,17 +394,19 @@ class TransactionExecutionController {
             return
         }
 
-        guard let key = selectedKey, let keyBalance = key.balance.amount else {
-            return
-        }
+        if remainingRelays <= 0 {
+            guard let key = selectedKey, let keyBalance = key.balance.amount else {
+                return
+            }
 
-        guard let requiredBalance = requiredBalance else {
-            return
-        }
+            guard let requiredBalance = requiredBalance else {
+                return
+            }
 
-        guard keyBalance >= requiredBalance else {
-            errorMessage = "Insufficient balance for network fees"
-            return
+            guard keyBalance >= requiredBalance else {
+                errorMessage = "Insufficient balance for network fees"
+                return
+            }
         }
 
         isValid = true

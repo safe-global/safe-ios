@@ -102,7 +102,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
 
         navigationItem.leftBarButtonItem = closeButton
 
-        getRemainingRelays()
+        estimateTransaction()
     }
 
     func action(_ selector: Selector) -> () -> Void {
@@ -347,12 +347,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         let task = controller.estimate { [weak self] in
             guard let self = self else { return }
             self.didChangeEstimation()
-            self.contentVC.didEndReloading()
-
-            // if we haven't search default
-            if !self.didSearchDefaultKey && self.controller.selectedKey == nil {
-                self.findDefaultKey()
-            }
+            self.getRemainingRelays()
         }
 
         txEstimationTask = task
@@ -363,8 +358,14 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
             guard let self = self else { return }
             if remaining >= 0 {
                 self.contentVC.model?.executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: remaining))
+            } else {
+                // if we haven't search default
+                if !self.didSearchDefaultKey && self.controller.selectedKey == nil {
+                    self.findDefaultKey()
+                }
             }
-            self.estimateTransaction()
+            self.validate()
+            self.contentVC.didEndReloading()
         }
 
         remainingRelaysTask = task
@@ -442,8 +443,6 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         } else {
             contentVC.model?.executionOptions.feeState = .empty
         }
-
-        validate()
     }
 
     func resetErrors() {
