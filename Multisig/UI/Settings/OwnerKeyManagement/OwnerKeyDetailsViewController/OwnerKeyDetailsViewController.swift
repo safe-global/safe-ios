@@ -314,7 +314,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
 
     private func keyTypeCell(type: KeyType, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(KeyTypeTableViewCell.self, for: indexPath)
-        cell.set(name: type.name, iconName: type.imageName)
+        cell.set(name: type.name, iconName: type.badgeName)
         if !(type == .walletConnect && keyInfo.connectedAsDapp) {
             cell.setDisclosureImage(nil)
         } else {

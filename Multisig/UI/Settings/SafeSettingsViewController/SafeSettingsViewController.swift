@@ -272,7 +272,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             return addressDetailsCell(address: info.address,
                                       name: name,
                                       indexPath: indexPath,
-                                      badgeName: keyInfo?.keyType.imageName,
+                                      badgeName: keyInfo?.keyType.badgeName,
                                       browseURL: safe.chain!.browserURL(address: info.address.checksummed),
                                       prefix: safe.chain!.shortName)
 

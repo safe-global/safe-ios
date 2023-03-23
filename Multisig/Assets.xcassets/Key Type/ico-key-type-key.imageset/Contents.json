@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Imported Key.pdf",
+      "filename" : "ico-add-key.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-add-key-dark.pdf",
       "idiom" : "universal"
     }
   ],

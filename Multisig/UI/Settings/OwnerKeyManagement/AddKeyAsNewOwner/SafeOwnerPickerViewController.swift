@@ -169,7 +169,7 @@ class ChooseSafeOwnerViewController: LoadableViewController, UITableViewDelegate
             selected: selectedOwner == indexPath.row,
             name: name,
             imageUri: nil,
-            badgeName:  keyInfo?.keyType.imageName,
+            badgeName:  keyInfo?.keyType.badgeName,
             prefix: safe.chain!.shortName)
         cell.selectionStyle = .none
 

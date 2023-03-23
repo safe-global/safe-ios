@@ -68,4 +68,19 @@ extension KeyType {
             return "ico-key-type-keystone"
         }
     }
+
+    var badgeName: String {
+        switch self {
+        case .deviceImported:
+            return "bdg-key-type-key"
+        case .deviceGenerated:
+            return "bdg-key-type-seed"
+        case .walletConnect:
+            return "bdg-key-type-walletconnect"
+        case .ledgerNanoX:
+            return "bdg-key-type-ledger"
+        case .keystone:
+            return "bdg-key-type-keystone"
+        }
+    }
 }
