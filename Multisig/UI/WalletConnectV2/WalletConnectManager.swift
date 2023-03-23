@@ -117,7 +117,7 @@ class WalletConnectManager {
                     } else {
                         App.shared.snackbar.show(error: GSError.WC2PairingFailed())
                     }
-
+                    
                 }
             }
         }
@@ -152,55 +152,55 @@ class WalletConnectManager {
             }
         }
     }
-
+    
     func approveSession(proposal: Session.Proposal) {
         Task {
-          guard let safe = try? Safe.getSelected() else { return }
-          guard isValidProposal(proposal: proposal, safe: safe) else {
-            Task { @MainActor in
-              App.shared.snackbar.show(error: GSError.WC2SessionApprovalFailedWrongChain())
+            guard let safe = try? Safe.getSelected() else { return }
+            guard isValidProposal(proposal: proposal, safe: safe) else {
+                Task { @MainActor in
+                    App.shared.snackbar.show(error: GSError.WC2SessionApprovalFailedWrongChain())
+                }
+                return
             }
-            return
-          }
-          var sessionNamespaces = [String: SessionNamespace]()
-          proposal.requiredNamespaces.forEach {
+            var sessionNamespaces = [String: SessionNamespace]()
+            proposal.requiredNamespaces.forEach {
+                let caip2Namespace = $0.key
+                let proposalNamespace = $0.value
+                guard let chains = proposalNamespace.chains else { return }
+                let accounts = Set(chains.compactMap {
+                    Account($0.absoluteString + ":\(safe.addressValue)")
+                })
+                let sessionNamespace = SessionNamespace(accounts: accounts,
+                                                        methods: proposalNamespace.methods,
+                                                        events: proposalNamespace.events)
+                sessionNamespaces[caip2Namespace] = sessionNamespace
+            }
+            do {
+                try await Web3Wallet.instance.approve(proposalId: proposal.id, namespaces: sessionNamespaces)
+            } catch {
+                Task { @MainActor in
+                    App.shared.snackbar.show(error: GSError.WC2SessionApprovalFailed())
+                }
+            }
+        }
+    }
+    
+    private func isValidProposal(proposal: Session.Proposal, safe: Safe) -> Bool {
+        var isValid = false
+        proposal.requiredNamespaces.forEach {
             let caip2Namespace = $0.key
             let proposalNamespace = $0.value
             guard let chains = proposalNamespace.chains else { return }
-            let accounts = Set(chains.compactMap {
-              Account($0.absoluteString + ":\(safe.addressValue)")
-            })
-            let sessionNamespace = SessionNamespace(accounts: accounts,
-                                methods: proposalNamespace.methods,
-                                events: proposalNamespace.events)
-            sessionNamespaces[caip2Namespace] = sessionNamespace
-          }
-          do {
-            try await Web3Wallet.instance.approve(proposalId: proposal.id, namespaces: sessionNamespaces)
-          } catch {
-            Task { @MainActor in
-              App.shared.snackbar.show(error: GSError.WC2SessionApprovalFailed())
+            let selectedSafeChain = chains.filter { chain in
+                if chain.namespace == EVM_COMPATIBLE_NETWORK && chain.reference == safe.chain?.id {
+                    isValid = true
+                }
+                return false
             }
-          }
-        }
-      }
-
-      private func isValidProposal(proposal: Session.Proposal, safe: Safe) -> Bool {
-        var isValid = false
-        proposal.requiredNamespaces.forEach {
-          let caip2Namespace = $0.key
-          let proposalNamespace = $0.value
-          guard let chains = proposalNamespace.chains else { return }
-          let selectedSafeChain = chains.filter { chain in
-            if chain.namespace == EVM_COMPATIBLE_NETWORK && chain.reference == safe.chain?.id {
-              isValid = true
-            }
-            return false
-          }
         }
         return isValid
-      }
-
+    }
+    
     /// By default, session lifetime is set for 7 days and after that time user's session will expire.
     /// This method will extend the session for 7 days
     func extend(session: Session) async {
@@ -213,7 +213,7 @@ class WalletConnectManager {
             print("DAPP: extending Session error: \(error)")
         }
     }
-
+    
     func disconnect(session: Session) {
         Task {
             do {
@@ -224,24 +224,24 @@ class WalletConnectManager {
                 Task { @MainActor in
                     App.shared.snackbar.show(error: GSError.error(description: "Disconnecting Session error", error: error))
                 }
-
-
+                
+                
             }
             disconnectUnusedPairings()
         }
     }
-
+    
     func deleteStoredSession(topic: String) {
         precondition(Thread.isMainThread)
         Safe.removeSession(topic: topic)
         disconnectUnusedPairings()
     }
-
+    
     // After deleting a session we do this to find and disconnect all unused pairings
     private func disconnectUnusedPairings() {
         var pairings = Web3Wallet.instance.getPairings()
         let sessions = Web3Wallet.instance.getSessions()
-
+        
         sessions.forEach { session in
             pairings = pairings.filter { pairing in
                 session.pairingTopic != pairing.topic
