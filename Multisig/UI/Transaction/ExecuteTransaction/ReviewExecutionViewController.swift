@@ -77,7 +77,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         contentVC.model = ExecutionReviewUIModel(
             transaction: transaction,
             executionOptions: ExecutionOptionsUIModel(
-                relayerState: .none,
+                relayerState: .loading,
                 accountState: .loading,
                 feeState: .loading
             )
@@ -354,21 +354,30 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     }
 
     func getRemainingRelays() {
-        let task = controller.getRemainingRelays { [weak self] remaining in
-            guard let self = self else { return }
-            if remaining >= 0 {
-                self.contentVC.model?.executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: remaining))
-            } else {
-                // if we haven't search default
-                if !self.didSearchDefaultKey && self.controller.selectedKey == nil {
-                    self.findDefaultKey()
-                }
+        switch(contentVC.model?.executionOptions.relayerState) {
+        case .loading, .filled:
+            let task = controller.getRemainingRelays { [weak self] remaining in
+                guard let self = self else { return }
+                self.didLoadPaymentData()
             }
-            self.validate()
-            self.contentVC.didEndReloading()
+            remainingRelaysTask = task
+        default:
+            controller.remainingRelays = -1
+            didLoadPaymentData()
         }
+    }
 
-        remainingRelaysTask = task
+    func didLoadPaymentData() {
+        if controller.remainingRelays >= 0 {
+            contentVC.model?.executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: controller.remainingRelays))
+        } else {
+            // if we haven't search default
+            if !didSearchDefaultKey && controller.selectedKey == nil {
+                findDefaultKey()
+            }
+        }
+        validate()
+        contentVC.didEndReloading()
     }
 
     var didSearchDefaultKey: Bool = false
