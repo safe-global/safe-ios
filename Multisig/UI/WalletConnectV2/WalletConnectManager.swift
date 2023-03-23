@@ -158,7 +158,6 @@ class WalletConnectManager {
           guard let safe = try? Safe.getSelected() else { return }
           guard isValidProposal(proposal: proposal, safe: safe) else {
             Task { @MainActor in
-              GSError.WC2SessionApprovalFailedWrongChain()
               App.shared.snackbar.show(error: GSError.WC2SessionApprovalFailedWrongChain())
             }
             return
