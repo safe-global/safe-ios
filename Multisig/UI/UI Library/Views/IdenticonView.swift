@@ -55,32 +55,25 @@ class IdenticonView: UINibView {
 
 extension KeyType {
     var imageName: String {
-        switch self {
-        case .deviceImported:
-            return "ico-key-type-key"
-        case .deviceGenerated:
-            return "ico-key-type-seed"
-        case .walletConnect:
-            return "ico-key-type-walletconnect"
-        case .ledgerNanoX:
-            return "ico-key-type-ledger"
-        case .keystone:
-            return "ico-key-type-keystone"
-        }
+        "ico-" + imageSuffix
     }
 
     var badgeName: String {
+        "bdg-" + imageSuffix
+    }
+
+    private var imageSuffix: String {
         switch self {
         case .deviceImported:
-            return "bdg-key-type-key"
+            return "key-type-key"
         case .deviceGenerated:
-            return "bdg-key-type-seed"
+            return "key-type-seed"
         case .walletConnect:
-            return "bdg-key-type-walletconnect"
+            return "key-type-walletconnect"
         case .ledgerNanoX:
-            return "bdg-key-type-ledger"
+            return "key-type-ledger"
         case .keystone:
-            return "bdg-key-type-keystone"
+            return "key-type-keystone"
         }
     }
 }
