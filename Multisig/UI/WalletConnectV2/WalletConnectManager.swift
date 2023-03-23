@@ -152,51 +152,55 @@ class WalletConnectManager {
             }
         }
     }
-    
+
     func approveSession(proposal: Session.Proposal) {
         Task {
-            guard let safe = try? Safe.getSelected() else { return }
-            var containsSelectedSafeChainId = false
-            var sessionNamespaces = [String: SessionNamespace]()
-            proposal.requiredNamespaces.forEach {
-
-                let caip2Namespace = $0.key
-                let proposalNamespace = $0.value
-                guard let chains = proposalNamespace.chains else { return }
-
-                containsSelectedSafeChainId = chains.contains { chain in
-                    chain.namespace == EVM_COMPATIBLE_NETWORK && chain.reference == safe.chain?.id
-                }
-
-                let accounts = Set(chains.compactMap {
-                    Account($0.absoluteString + ":\(safe.addressValue)")
-                })
-
-                let sessionNamespace = SessionNamespace(accounts: accounts,
-                                                        methods: proposalNamespace.methods,
-                                                        events: proposalNamespace.events)
-                sessionNamespaces[caip2Namespace] = sessionNamespace
+          guard let safe = try? Safe.getSelected() else { return }
+          guard isValidProposal(proposal: proposal, safe: safe) else {
+            Task { @MainActor in
+              GSError.WC2SessionApprovalFailedWrongChain()
+              App.shared.snackbar.show(error: GSError.WC2SessionApprovalFailedWrongChain())
             }
-            do {
-                if containsSelectedSafeChainId {
-                    try await Web3Wallet.instance.approve(proposalId: proposal.id, namespaces: sessionNamespaces)
-                } else {
-                    try await Web3Wallet.instance.approve(proposalId: proposal.id, namespaces: [:])
-                }
-            } catch {
-                print("DAPP: Approve Session error: \(error)")
-                let err: DetailedLocalizedError
-                if !containsSelectedSafeChainId {
-                    err = GSError.WC2SessionApprovalFailedWrongChain()
-                } else {
-                    err = GSError.WC2SessionApprovalFailed()
-                }
-                Task { @MainActor in
-                    App.shared.snackbar.show(error: err)
-                }
+            return
+          }
+          var sessionNamespaces = [String: SessionNamespace]()
+          proposal.requiredNamespaces.forEach {
+            let caip2Namespace = $0.key
+            let proposalNamespace = $0.value
+            guard let chains = proposalNamespace.chains else { return }
+            let accounts = Set(chains.compactMap {
+              Account($0.absoluteString + ":\(safe.addressValue)")
+            })
+            let sessionNamespace = SessionNamespace(accounts: accounts,
+                                methods: proposalNamespace.methods,
+                                events: proposalNamespace.events)
+            sessionNamespaces[caip2Namespace] = sessionNamespace
+          }
+          do {
+            try await Web3Wallet.instance.approve(proposalId: proposal.id, namespaces: sessionNamespaces)
+          } catch {
+            Task { @MainActor in
+              App.shared.snackbar.show(error: GSError.WC2SessionApprovalFailed())
             }
+          }
         }
-    }
+      }
+
+      private func isValidProposal(proposal: Session.Proposal, safe: Safe) -> Bool {
+        var isValid = false
+        proposal.requiredNamespaces.forEach {
+          let caip2Namespace = $0.key
+          let proposalNamespace = $0.value
+          guard let chains = proposalNamespace.chains else { return }
+          let selectedSafeChain = chains.filter { chain in
+            if chain.namespace == EVM_COMPATIBLE_NETWORK && chain.reference == safe.chain?.id {
+              isValid = true
+            }
+            return false
+          }
+        }
+        return isValid
+      }
 
     /// By default, session lifetime is set for 7 days and after that time user's session will expire.
     /// This method will extend the session for 7 days
