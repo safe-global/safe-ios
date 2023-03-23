@@ -125,7 +125,10 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     }
 
     @IBAction func didTapPaymentMethod(_ sender: Any) {
-        //TODO: open payment method selection
+        // open payment method selection
+        let choosePaymentVC = ChoosePaymentViewController()
+        let vc = ViewControllerFactory.pageSheet(viewController: choosePaymentVC, halfScreen: true)
+        presentModal(vc)
     }
 
     @IBAction func didTapAccount(_ sender: Any) {
@@ -623,5 +626,11 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         }
 
         self.show(successVC, sender: self)
+    }
+
+    func presentModal(_ vc: UIViewController) {
+        present(vc, animated: true) {
+            TooltipSource.hideAll()
+        }
     }
 }
