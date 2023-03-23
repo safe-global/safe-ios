@@ -30,8 +30,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ChainManager.migrateOldSafes()
         ChainManager.updateChainsInfo()
 
-        OwnerKeyController.cleanUpKeys()
-        OwnerKeyController.migrateLegacySigningKey()
+        //TODO: adjust cleanUpKeys for security v2
+        if !AppConfiguration.FeatureToggles.securityCenter {
+            OwnerKeyController.cleanUpKeys()
+            // after security v2 migration this line won't be needed
+            OwnerKeyController.migrateLegacySigningKey()
+        }
 
         App.shared.auth.migrateFromPasscodeV1()
 
