@@ -13,12 +13,14 @@ import Version
 
 class TransactionDetailsViewController: LoadableViewController, UITableViewDataSource, UITableViewDelegate {
     var clientGatewayService = App.shared.clientGatewayService
+    var relayService = App.shared.relayService
 
     private var cells: [UITableViewCell] = []
     private var tx: SCGModels.TransactionDetails?
     private var reloadDataTask: URLSessionTask?
     private var confirmDataTask: URLSessionTask?
     private var rejectTask: URLSessionTask?
+    private var remainingRelaysTask: URLSessionTask?
     private var builder: TransactionDetailCellBuilder!
     private var confirmButton: UIButton!
     private var rejectButton: UIButton!
@@ -118,8 +120,26 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         present(vc, animated: true, completion: nil)
     }
 
+    private func updateRemainingRelays() {
+        //TODO: check chain id (Goerli or Gnosis Chain)
+        guard let safe = safe else { return }
+        // Goerli or Gnosis Chain
+        if safe.chain!.id == "5" || safe.chain!.id == "100" {
+            remainingRelaysTask = relayService.asyncRelaysRemaining(chainId: safe.chain!.id!, safeAddress: safe.addressValue) { result in
+                DispatchQueue.main.async { [weak self] in
+                    switch result {
+                    case .success(let response):
+                        break
+                    case .failure(_):
+                        break
+                    }
+                }
+            }
+        }
+    }
+
     private func updateSafeInfo() {
-        loadSafeInfoDataTask = App.shared.clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
+        loadSafeInfoDataTask = clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
                                                                              chainId: safe.chain!.id!) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
@@ -568,6 +588,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     // returns true if the app has means to execute the transaction and the transaction has all required confirmations
+    //TODO: check remaining relays
     func needsYourExecution(tx: SCGModels.TransactionDetails) -> Bool {
         if tx.txStatus == .awaitingExecution,
            let multisigInfo = tx.multisigInfo,

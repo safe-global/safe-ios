@@ -633,6 +633,7 @@ class TransactionExecutionController {
             return nil
         }
 
+        //TODO: pass signatures
         let input = try! GnosisSafe_v1_3_0.execTransaction(
             to:  Sol.Address(txData.to.value.data32),
             value: Sol.UInt256(txData.value.data32),
