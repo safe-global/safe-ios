@@ -16,7 +16,6 @@ class SecondaryDetailDisclosureCell: UITableViewCell {
         super.awakeFromNib()
         cellLabel.setStyle(.headline)
         self.backgroundView = UIView()
-        setBackgroundColor(.separator)
     }
 
     func setText(_ value: String?) {

@@ -43,4 +43,7 @@ class DisclosureWithContentCell: UITableViewCell {
         ])
     }
 
+    func setBackgroundColor(_ color: UIColor?) {
+        self.backgroundColor = color
+    }
 }

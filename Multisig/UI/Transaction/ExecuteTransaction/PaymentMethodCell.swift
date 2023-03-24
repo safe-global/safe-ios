@@ -22,6 +22,8 @@ class PaymentMethodCell: UITableViewCell {
         paymentMethodLabel.setStyle(.headlinePrimary)
         descriptionLabel.setStyle(.subheadlineSecondary)
         remainingRelaysLabel.setStyle(.subheadlineSecondary.color(.primary))
+
+        self.backgroundView = UIView()
     }
 
     func setRelaying(_ remaining: Int, _ total: Int) {
@@ -81,5 +83,9 @@ class PaymentMethodCell: UITableViewCell {
         descriptionLabel.text = "Select one of the added keys to interact with the transaction"
         descriptionLabel.numberOfLines = 0
         remainingRelaysLabel.isHidden = true
+    }
+
+    func setBackgroundColor(_ color: UIColor?) {
+        backgroundView?.backgroundColor = color
     }
 }

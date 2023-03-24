@@ -56,27 +56,31 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
 
     func buildExecutionOptions(_ model: ExecutionOptionsUIModel) {
 
-        buildLabel(text: "Choose how to pay")
+        let paymentGroupCell = newCell(BorderedInnerTableCell.self)
 
-        let paymentMethodGroupCell = newCell(BorderedInnerTableCell.self)
+        paymentGroupCell.tableView.registerCell(DisclosureWithContentCell.self)
+        paymentGroupCell.tableView.registerCell(SecondaryDetailDisclosureCell.self)
+        paymentGroupCell.tableView.registerCell(PaymentMethodCell.self)
 
-        paymentMethodGroupCell.tableView.registerCell(PaymentMethodCell.self)
-        paymentMethodGroupCell.tableView.registerCell(DisclosureWithContentCell.self)
+        let estimatedFeeCell = buildEstimatedGasFee(model.feeState, tableView: paymentGroupCell.tableView)
 
-        let paymentMethod = buildPaymentMethod(model, tableView: paymentMethodGroupCell.tableView)
         if case let .filled(relayerInfo) = model.relayerState {
-            paymentMethodGroupCell.setCells([paymentMethod])
+            let paymentMethod = buildRelayerPayment(model, tableView: paymentGroupCell.tableView)
+            paymentGroupCell.setCells([estimatedFeeCell, paymentMethod])
         } else {
-            let executeWith = buildExecutedWithAccount(model.accountState, tableView: paymentMethodGroupCell.tableView)
-            paymentMethodGroupCell.setCells([paymentMethod, executeWith])
+            let accountPayment = buildAccountPayment(tableView: paymentGroupCell.tableView)
+            let executeWith = buildExecutedWithAccount(model.accountState, tableView: paymentGroupCell.tableView)
+            paymentGroupCell.setCells([estimatedFeeCell, accountPayment, executeWith])
         }
 
         // handle cell taps
-        let (paymentMethodIndex, executeWithIndex) = (0, 1)
-        paymentMethodGroupCell.onCellTap = { [weak self] index in
+        let (feeIndex, paymentIndex, executeWithIndex) = (0, 1, 2)
+        paymentGroupCell.onCellTap = { [weak self] index in
             guard let self = self else { return }
             switch index {
-            case paymentMethodIndex:
+            case feeIndex:
+                self.onTapFee()
+            case paymentIndex:
                 self.onTapPaymentMethod()
             case executeWithIndex:
                 self.onTapAccount()
@@ -85,27 +89,22 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
             }
         }
 
-        result.append(paymentMethodGroupCell)
+        result.append(paymentGroupCell)
 
         buildSpacing()
 
-        let feeGroupCell = newCell(BorderedInnerTableCell.self)
+        let advancedParamCell = newCell(BorderedInnerTableCell.self)
+        advancedParamCell.tableView.registerCell(SecondaryDetailDisclosureCell.self)
 
-        feeGroupCell.tableView.registerCell(DisclosureWithContentCell.self)
-        feeGroupCell.tableView.registerCell(SecondaryDetailDisclosureCell.self)
+        let advancedCell = buildAdvancedParameters(tableView: advancedParamCell.tableView)
 
-        let estimatedFeeCell = buildEstimatedGasFee(model.feeState, tableView: feeGroupCell.tableView)
-        let advancedCell = buildAdvancedParameters(tableView: feeGroupCell.tableView)
-
-        feeGroupCell.setCells([estimatedFeeCell, advancedCell])
+        advancedParamCell.setCells([advancedCell])
 
         // handle cell taps
-        let (feeIndex, advancedIndex) = (0, 1)
-        feeGroupCell.onCellTap = { [weak self] index in
+        let (advancedIndex) = (0)
+        advancedParamCell.onCellTap = { [weak self] index in
             guard let self = self else { return }
             switch index {
-            case feeIndex:
-                self.onTapFee()
             case advancedIndex:
                 self.onTapAdvanced()
             default:
@@ -113,22 +112,29 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
             }
         }
 
-        result.append(feeGroupCell)
+        result.append(advancedParamCell)
     }
 
-    func buildPaymentMethod(_ model: ExecutionOptionsUIModel, tableView: UITableView) -> UITableViewCell{
+    func buildRelayerPayment(_ model: ExecutionOptionsUIModel, tableView: UITableView) -> UITableViewCell{
         let cell = tableView.dequeueCell(PaymentMethodCell.self)
         if case let .filled(relayerInfo) = model.relayerState {
             cell.setRelaying(relayerInfo.remainingRelays, 5)
-        } else {
-            cell.setSignerAccount()
         }
+        cell.setBackgroundColor(.separator)
+        return cell
+    }
+
+    func buildAccountPayment(tableView: UITableView) -> UITableViewCell {
+        let cell = tableView.dequeueCell(SecondaryDetailDisclosureCell.self)
+        cell.setText("With an owner key")
+        cell.setBackgroundColor(.separator)
         return cell
     }
 
     func buildExecutedWithAccount(_ model: ExecuteWithAccountCellState, tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
-        cell.setText("Execute with")
+        cell.setText("Select key")
+        cell.setBackgroundColor(.separator)
         switch model {
         case .none:
             //TODO: throw
@@ -152,6 +158,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
     func buildEstimatedGasFee(_ model: EstimatedFeeCellState, tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
         cell.setText("Estimated gas fee")
+        cell.setBackgroundColor(.backgroundSecondary)
 
         switch model {
         case .loading:
@@ -192,6 +199,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
     func buildAdvancedParameters(tableView: UITableView) -> UITableViewCell {
         let advancedCell = tableView.dequeueCell(SecondaryDetailDisclosureCell.self)
         advancedCell.setText("Advanced parameters")
+        advancedCell.setBackgroundColor(.backgroundSecondary)
         return advancedCell
     }
 
