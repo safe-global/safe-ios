@@ -64,7 +64,8 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
 
         let estimatedFeeCell = buildEstimatedGasFee(model.feeState, tableView: paymentGroupCell.tableView)
 
-        if case let .filled(relayerInfo) = model.relayerState {
+        if case let .filled(relayerInfo) = model.relayerState,
+           relayerInfo.remainingRelays > 0 {
             let paymentMethod = buildRelayerPayment(model, tableView: paymentGroupCell.tableView)
             paymentGroupCell.setCells([estimatedFeeCell, paymentMethod])
         } else {
