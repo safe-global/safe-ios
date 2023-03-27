@@ -460,8 +460,8 @@ enum GSError {
 
     struct WC2PairingAlreadyExists: DetailedLocalizedError {
         let description: String = "Pairing failed"
-        let reason = "Pairing already exists"
-        let howToFix = "Please try again with a different QR-Code or WalletConnect URL"
+        let reason = "You cannot use the same QR code twice."
+        let howToFix = "Please try again with a different QR code or WalletConnect URL"
         let domain = clientErrorDomain
         let code = 9921
         let loggable = false
