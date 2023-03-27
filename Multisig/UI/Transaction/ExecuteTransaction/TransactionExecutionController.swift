@@ -644,13 +644,13 @@ class TransactionExecutionController {
             gasPrice: Sol.UInt256(multisigDetails.gasPrice.data32),
             gasToken: Sol.Address(multisigDetails.gasToken.data32),
             refundReceiver: Sol.Address(multisigDetails.refundReceiver.value.data32),
-            signatures: Sol.Bytes()
+            signatures: Sol.Bytes(storage: multisigDetails.confirmations[0].signature.data) //TODO: Add all signatures
         ).encode()
 
 
         let task = relayerService.asyncRelayTransaction(chainId: safe.chain!.id!, to: safe.addressValue, txData: input.toHexStringWithPrefix()) { [weak self] response in
             guard let self = self else { return }
-
+            LogService.shared.debug("---> response: \(response)")
             switch(response) {
             case .success(let result):
                 //TODO: get task id
