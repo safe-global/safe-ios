@@ -633,7 +633,12 @@ class TransactionExecutionController {
             return nil
         }
 
-        //TODO: pass signatures
+        let signatures = multisigDetails.confirmations.sorted { lhs, rhs in
+            lhs.signer.value.address.hexadecimal < rhs.signer.value.address.hexadecimal
+        }.map { confirmation in
+            confirmation.signature.data
+        }.joined()
+
         let input = try! GnosisSafe_v1_3_0.execTransaction(
             to:  Sol.Address(txData.to.value.data32),
             value: Sol.UInt256(txData.value.data32),
@@ -644,16 +649,15 @@ class TransactionExecutionController {
             gasPrice: Sol.UInt256(multisigDetails.gasPrice.data32),
             gasToken: Sol.Address(multisigDetails.gasToken.data32),
             refundReceiver: Sol.Address(multisigDetails.refundReceiver.value.data32),
-            signatures: Sol.Bytes(storage: multisigDetails.confirmations[0].signature.data) //TODO: Add all signatures
+            signatures: Sol.Bytes(storage: Data(signatures))
         ).encode()
 
 
         let task = relayerService.asyncRelayTransaction(chainId: safe.chain!.id!, to: safe.addressValue, txData: input.toHexStringWithPrefix()) { [weak self] response in
             guard let self = self else { return }
-            LogService.shared.debug("---> response: \(response)")
             switch(response) {
             case .success(let result):
-                //TODO: get task id
+                LogService.shared.debug("---> taskId: \(try! response.get().taskId)")
                 DispatchQueue.main.async {
                     //self.didRelayTransaction(taskId: <#T##String#>)
                     completion(.success(()))
