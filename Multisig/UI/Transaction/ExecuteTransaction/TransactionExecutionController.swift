@@ -394,8 +394,10 @@ class TransactionExecutionController {
             return
         }
 
-        if remainingRelays <= ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {  // TODO double check if <
-            guard let key = selectedKey, let keyBalance = key.balance.amount else {
+        if remainingRelays <= ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
+            guard let key = selectedKey,
+                  let keyBalance = key.balance.amount
+            else {
                 return
             }
 
