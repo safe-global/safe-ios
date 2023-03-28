@@ -120,24 +120,6 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         present(vc, animated: true, completion: nil)
     }
 
-    private func updateRemainingRelays() {
-        //TODO: check chain id (Goerli or Gnosis Chain)
-        guard let safe = safe else { return }
-        // Goerli or Gnosis Chain
-        if safe.chain!.id == "5" || safe.chain!.id == "100" {
-            remainingRelaysTask = relayService.asyncRelaysRemaining(chainId: safe.chain!.id!, safeAddress: safe.addressValue) { result in
-                DispatchQueue.main.async { [weak self] in
-                    switch result {
-                    case .success(let response):
-                        break
-                    case .failure(_):
-                        break
-                    }
-                }
-            }
-        }
-    }
-
     private func updateSafeInfo() {
         loadSafeInfoDataTask = clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
                                                                              chainId: safe.chain!.id!) { result in

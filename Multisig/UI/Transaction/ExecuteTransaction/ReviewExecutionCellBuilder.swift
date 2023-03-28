@@ -116,21 +116,21 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         if case let .filled(relayerInfo) = model.relayerState {
             cell.setRelaying(relayerInfo.remainingRelays, ReviewExecutionViewController.MAX_RELAY_TXS)
         }
-        cell.setBackgroundColor(.separator)
+        cell.setBackgroundColor(.backgroundPrimary)
         return cell
     }
 
     func buildAccountPayment(tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(SecondaryDetailDisclosureCell.self)
         cell.setText("With an owner key")
-        cell.setBackgroundColor(.separator)
+        cell.setBackgroundColor(.backgroundPrimary)
         return cell
     }
 
     func buildExecutedWithAccount(_ model: ExecuteWithAccountCellState, tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
         cell.setText("Select key")
-        cell.setBackgroundColor(.separator)
+        cell.setBackgroundColor(.backgroundPrimary)
         switch model {
         case .none:
             //TODO: throw
