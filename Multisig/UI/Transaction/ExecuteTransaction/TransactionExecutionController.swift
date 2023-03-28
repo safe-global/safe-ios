@@ -396,16 +396,10 @@ class TransactionExecutionController {
 
         if remainingRelays <= ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
             guard let key = selectedKey,
-                  let keyBalance = key.balance.amount
+                  let keyBalance = key.balance.amount,
+                  let requiredBalance = requiredBalance,
+                  keyBalance >= requiredBalance
             else {
-                return
-            }
-
-            guard let requiredBalance = requiredBalance else {
-                return
-            }
-
-            guard keyBalance >= requiredBalance else {
                 errorMessage = "Insufficient balance for network fees"
                 return
             }
