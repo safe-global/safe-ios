@@ -23,12 +23,7 @@ class PaymentMethodCell: UITableViewCell {
         descriptionLabel.setStyle(.subheadlineSecondary)
         remainingRelaysLabel.setStyle(.subheadlineSecondary.color(.primary))
 
-        backgroundView = UIView()
-    }
-
-    func setRelaying(_ remaining: Int, _ total: Int) {
         paymentMethodIcon.image = UIImage(named: "ico-payment-relayer")
-
         let gnosisSymbol = NSTextAttachment()
         gnosisSymbol.image = UIImage(named: "ico-gnosis-chain")
         gnosisSymbol.bounds = CGRectMake(0.0, -2.0, gnosisSymbol.image!.size.width, gnosisSymbol.image!.size.height)
@@ -47,11 +42,15 @@ class PaymentMethodCell: UITableViewCell {
 
         paymentMethodLabel.attributedText = paymentMethodLabelString
 
-
         descriptionLabel.text = "Transactions per hour:"
         descriptionLabel.numberOfLines = 1
 
-        if remaining == 0 {
+        backgroundView = UIView()
+    }
+
+    func setRelaying(_ remaining: Int, _ total: Int) {
+
+        if remaining == ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
             remainingRelaysLabel.textColor = .error
 
             let infoSymbol = NSTextAttachment()

@@ -17,6 +17,7 @@ import SafariServices
 class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting {
 
     static let MIN_RELAY_TXS_LEFT = 0
+    static let MAX_RELAY_TXS = 5
 
     private var safe: Safe!
     private var chain: Chain!

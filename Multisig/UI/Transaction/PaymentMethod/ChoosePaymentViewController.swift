@@ -39,7 +39,7 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -75,7 +75,7 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
     private func buildRelayerCell(tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(PaymentMethodCell.self)
         cell.accessoryType = .none
-        cell.setRelaying(4, 5)
+        cell.setRelaying(4, ReviewExecutionViewController.MAX_RELAY_TXS)
         return cell
     }
 }

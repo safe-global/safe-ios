@@ -102,10 +102,6 @@ class AssetsViewController: ContainerViewController {
         totalBalanceView.relayInfoBanner.onOpen = { [unowned self] in
             //TODO: open article
             // Educational series will be shown in V2 of the relayer
-//            relayOnboardingFlow = RelayOnboardingFlow { [unowned self] _ in
-//
-//            }
-//            present(flow: relayOnboardingFlow!)
             Tracker.trackEvent(.bannerRelayOpen)
         }
         totalBalanceView.relayInfoBanner.onClose = { [unowned self] in
