@@ -16,6 +16,9 @@ import SafariServices
 
 class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting {
 
+    static let MIN_RELAY_TXS_LEFT = 0
+    static let MAX_RELAY_TXS = 5
+
     private var safe: Safe!
     private var chain: Chain!
     private var transaction: SCGModels.TransactionDetails!
@@ -37,6 +40,8 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     private var defaultKeyTask: URLSessionTask?
     private var txEstimationTask: URLSessionTask?
     private var sendingTask: URLSessionTask?
+    private var relayingTask: URLSessionTask?
+    private var remainingRelaysTask: URLSessionTask?
     
     private var keystoneSignFlow: KeystoneSignFlow!
 
@@ -52,7 +57,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         self.transaction = transaction
         self.onClose = onClose
         self.onSuccess = onSuccess
-        self.controller = TransactionExecutionController(safe: safe, chain: chain, transaction: transaction)
+        self.controller = TransactionExecutionController(safe: safe, chain: chain, transaction: transaction, relayerService: App.shared.relayService)
     }
 
     override func viewDidLoad() {
@@ -69,12 +74,14 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
             safe: safe,
             chain: chain,
             transaction: transaction)
+        contentVC.onTapPaymentMethod = action(#selector(didTapPaymentMethod(_:)))
         contentVC.onTapAccount = action(#selector(didTapAccount(_:)))
         contentVC.onTapFee = action(#selector(didTapFee(_:)))
         contentVC.onTapAdvanced = action(#selector(didTapAdvanced(_:)))
         contentVC.model = ExecutionReviewUIModel(
             transaction: transaction,
             executionOptions: ExecutionOptionsUIModel(
+                relayerState: .loading,
                 accountState: .loading,
                 feeState: .loading
             )
@@ -119,6 +126,13 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
 
     @IBAction func didTapClose(_ sender: Any) {
         self.onClose()
+    }
+
+    @IBAction func didTapPaymentMethod(_ sender: Any) {
+        // open payment method selection  
+        let choosePaymentVC = ChoosePaymentViewController()
+        let vc = ViewControllerFactory.pageSheet(viewController: choosePaymentVC, halfScreen: true)
+        presentModal(vc)
     }
 
     @IBAction func didTapAccount(_ sender: Any) {
@@ -323,7 +337,12 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
             authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
                 guard let self = self else { return }
                 if success {
-                    self.sign()
+                    if self.controller.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT { // TODO check for user override to send via EOA
+                        // No need to sign when relaying
+                        self.submit()
+                    } else {
+                        self.sign()
+                    }
                 }
 
                 self.submitButton.isEnabled = true
@@ -340,15 +359,37 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         let task = controller.estimate { [weak self] in
             guard let self = self else { return }
             self.didChangeEstimation()
-            self.contentVC.didEndReloading()
-
-            // if we haven't search default
-            if !self.didSearchDefaultKey && self.controller.selectedKey == nil {
-                self.findDefaultKey()
-            }
+            self.getRemainingRelays()
         }
 
         txEstimationTask = task
+    }
+
+    func getRemainingRelays() {
+        switch(contentVC.model?.executionOptions.relayerState) {
+        case .loading, .filled:
+            let task = controller.getRemainingRelays { [weak self] remaining in
+                guard let self = self else { return }
+                self.didLoadPaymentData()
+            }
+            remainingRelaysTask = task
+        default:
+            controller.remainingRelays = -1
+            didLoadPaymentData()
+        }
+    }
+
+    func didLoadPaymentData() {
+        if controller.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
+            contentVC.model?.executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: controller.remainingRelays))
+        } else {
+            // if we haven't search default
+            if !didSearchDefaultKey && controller.selectedKey == nil {
+                findDefaultKey()
+            }
+        }
+        validate()
+        contentVC.didEndReloading()
     }
 
     var didSearchDefaultKey: Bool = false
@@ -423,8 +464,6 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         } else {
             contentVC.model?.executionOptions.feeState = .empty
         }
-
-        validate()
     }
 
     func resetErrors() {
@@ -549,18 +588,35 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         self.submitButton.isEnabled = false
 
         sendingTask?.cancel()
-        sendingTask = controller.send(completion: { [weak self] result in
-            guard let self = self else { return }
+        relayingTask?.cancel()
 
-            switch result {
-            case .failure(let error):
-                self.submitButton.isEnabled = true
-                self.didSubmitFailed(error)
+        if controller.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
+            relayingTask = controller.relay(completion: { [weak self] result in
+                guard let self = self else { return }
 
-            case .success:
-                self.didSubmitSuccess()
-            }
-        })
+                switch result {
+                case .failure(let error):
+                    self.submitButton.isEnabled = true
+                    self.didSubmitFailed(error)
+
+                case .success:
+                    self.didSubmitSuccess()
+                }
+            })
+        } else {
+            sendingTask = controller.send(completion: { [weak self] result in
+                guard let self = self else { return }
+
+                switch result {
+                case .failure(let error):
+                    self.submitButton.isEnabled = true
+                    self.didSubmitFailed(error)
+
+                case .success:
+                    self.didSubmitSuccess()
+                }
+            })
+        }
     }
 
     func didSubmitFailed(_ error: Error?) {
@@ -596,5 +652,11 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         }
 
         self.show(successVC, sender: self)
+    }
+
+    func presentModal(_ vc: UIViewController) {
+        present(vc, animated: true) {
+            TooltipSource.hideAll()
+        }
     }
 }

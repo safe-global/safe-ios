@@ -829,6 +829,8 @@
 		6A6A105D2889A31200B852D5 /* InstructionStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6A105C2889A31200B852D5 /* InstructionStepView.swift */; };
 		6A6A105F2889A32300B852D5 /* InstructionStepListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6A105E2889A32300B852D5 /* InstructionStepListView.swift */; };
 		6A6A10612889A33500B852D5 /* InstructionStepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A6A10602889A33500B852D5 /* InstructionStepView.xib */; };
+		6A72656129CC7F15008B2821 /* ChoosePaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A72655F29CC7F15008B2821 /* ChoosePaymentViewController.swift */; };
+		6A72656229CC7F15008B2821 /* ChoosePaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A72656029CC7F15008B2821 /* ChoosePaymentViewController.xib */; };
 		6A7A489B28201697003278C8 /* SafeOwnerPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7A489928201697003278C8 /* SafeOwnerPickerViewController.swift */; };
 		6A7A489C28201697003278C8 /* SafeOwnerPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A7A489A28201697003278C8 /* SafeOwnerPickerViewController.xib */; };
 		6A7A48A02823A297003278C8 /* SafeOwnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7A489E2823A297003278C8 /* SafeOwnerCell.swift */; };
@@ -880,6 +882,8 @@
 		6AF6296C29C1D62D004C034A /* ROHowItWorksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AF6296A29C1D62D004C034A /* ROHowItWorksViewController.xib */; };
 		6AF6296F29C1FF65004C034A /* ROUncoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF6296D29C1FF65004C034A /* ROUncoverViewController.swift */; };
 		6AF6297029C1FF65004C034A /* ROUncoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AF6296E29C1FF65004C034A /* ROUncoverViewController.xib */; };
+		6AF6297329C359AF004C034A /* PaymentMethodCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF6297129C359AF004C034A /* PaymentMethodCell.swift */; };
+		6AF6297429C359AF004C034A /* PaymentMethodCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AF6297229C359AF004C034A /* PaymentMethodCell.xib */; };
 		6AF685392937629900E63289 /* CollectibleHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF685372937629800E63289 /* CollectibleHeaderTableViewCell.swift */; };
 		6AF6853A2937629900E63289 /* CollectibleHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AF685382937629800E63289 /* CollectibleHeaderTableViewCell.xib */; };
 		6AFD26DB285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFD26D9285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift */; };
@@ -1819,6 +1823,8 @@
 		6A6A105C2889A31200B852D5 /* InstructionStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionStepView.swift; sourceTree = "<group>"; };
 		6A6A105E2889A32300B852D5 /* InstructionStepListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionStepListView.swift; sourceTree = "<group>"; };
 		6A6A10602889A33500B852D5 /* InstructionStepView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstructionStepView.xib; sourceTree = "<group>"; };
+		6A72655F29CC7F15008B2821 /* ChoosePaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePaymentViewController.swift; sourceTree = "<group>"; };
+		6A72656029CC7F15008B2821 /* ChoosePaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChoosePaymentViewController.xib; sourceTree = "<group>"; };
 		6A7A489928201697003278C8 /* SafeOwnerPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeOwnerPickerViewController.swift; sourceTree = "<group>"; };
 		6A7A489A28201697003278C8 /* SafeOwnerPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeOwnerPickerViewController.xib; sourceTree = "<group>"; };
 		6A7A489E2823A297003278C8 /* SafeOwnerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeOwnerCell.swift; sourceTree = "<group>"; };
@@ -1870,6 +1876,8 @@
 		6AF6296A29C1D62D004C034A /* ROHowItWorksViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ROHowItWorksViewController.xib; sourceTree = "<group>"; };
 		6AF6296D29C1FF65004C034A /* ROUncoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ROUncoverViewController.swift; sourceTree = "<group>"; };
 		6AF6296E29C1FF65004C034A /* ROUncoverViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ROUncoverViewController.xib; sourceTree = "<group>"; };
+		6AF6297129C359AF004C034A /* PaymentMethodCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodCell.swift; sourceTree = "<group>"; };
+		6AF6297229C359AF004C034A /* PaymentMethodCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentMethodCell.xib; sourceTree = "<group>"; };
 		6AF685372937629800E63289 /* CollectibleHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectibleHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		6AF685382937629800E63289 /* CollectibleHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectibleHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		6AFD26D9285764A200336FFE /* ReceiveAddOwnerLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveAddOwnerLinkViewController.swift; sourceTree = "<group>"; };
@@ -2933,6 +2941,7 @@
 		0A6886AB2588FB2C0045CAB5 /* Transaction */ = {
 			isa = PBXGroup;
 			children = (
+				6A72655E29CC7D32008B2821 /* PaymentMethod */,
 				D865177E27687D6E000B4C04 /* ExecuteTransaction */,
 				D865177427620628000B4C04 /* InitiateTransaction */,
 				0ADA9127256591410004DEC0 /* TransactionListViewController */,
@@ -4169,6 +4178,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		6A72655E29CC7D32008B2821 /* PaymentMethod */ = {
+			isa = PBXGroup;
+			children = (
+				6A72655F29CC7F15008B2821 /* ChoosePaymentViewController.swift */,
+				6A72656029CC7F15008B2821 /* ChoosePaymentViewController.xib */,
+			);
+			path = PaymentMethod;
+			sourceTree = "<group>";
+		};
 		6A7A489D2823A261003278C8 /* SafeOwnerCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -4480,6 +4498,8 @@
 				0ABE6982279177A4003338AF /* TransactionEstimationController.swift */,
 				D865177F27687E0B000B4C04 /* SuccessViewController.swift */,
 				D865178027687E0B000B4C04 /* SuccessViewController.xib */,
+				6AF6297129C359AF004C034A /* PaymentMethodCell.swift */,
+				6AF6297229C359AF004C034A /* PaymentMethodCell.xib */,
 			);
 			path = ExecuteTransaction;
 			sourceTree = "<group>";
@@ -4738,6 +4758,7 @@
 				3E373F762631781A00D8107A /* EnterUnstoppableNameViewController.xib in Resources */,
 				044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */,
 				0A8CDD4727A5A5C70020066C /* CreateSafeViewController.xib in Resources */,
+				6AF6297429C359AF004C034A /* PaymentMethodCell.xib in Resources */,
 				0A5C0C532818204F0061D96F /* EditConfirmationsViewController.xib in Resources */,
 				93EF2FA427C546330077BE95 /* InstructionsViewController.xib in Resources */,
 				0A50DBDD28C898A900C0CEC6 /* ReviewClaimTokensHeaderCell.xib in Resources */,
@@ -4761,6 +4782,7 @@
 				0AE8C0A3257947CF00E62B34 /* DetailStatusCell.xib in Resources */,
 				04131FBE2851571E001F60C2 /* CreateInviteOwnerIntroViewController.xib in Resources */,
 				6A6A10612889A33500B852D5 /* InstructionStepView.xib in Resources */,
+				6A72656229CC7F15008B2821 /* ChoosePaymentViewController.xib in Resources */,
 				550FB1A126691CA300C13D54 /* dapps-rinkeby.json in Resources */,
 				04D093EA284FD348003F38CF /* OnboardingStepCollectionViewCell.xib in Resources */,
 				0A5F4832254C56CE0069C98D /* AddSafeTableViewCell.xib in Resources */,
@@ -5260,6 +5282,7 @@
 				0AC60C892549C9D800A63AE2 /* SegmentView.swift in Sources */,
 				D86A68E1274E6AA500D7F5C5 /* main.swift in Sources */,
 				550FB1A526691CD800C13D54 /* SigningKeyTableViewCell.swift in Sources */,
+				6A72656129CC7F15008B2821 /* ChoosePaymentViewController.swift in Sources */,
 				0A04507A278DAD4000650F71 /* SecondaryDetailDisclosureCell.swift in Sources */,
 				049BE205291588540004B84D /* LedgerKeyFlow.swift in Sources */,
 				0A2F1A70267A53A800C09F03 /* GSButton.swift in Sources */,
@@ -5569,6 +5592,7 @@
 				B0D61EC425A934B90D6A4288 /* WebConnectionRequest.swift in Sources */,
 				B0D61D48E3387B0982F1EAE2 /* WebConnectionSignatureRequest.swift in Sources */,
 				6A252CF72818512D001F0887 /* OwnerActionView.swift in Sources */,
+				6AF6297329C359AF004C034A /* PaymentMethodCell.swift in Sources */,
 				B0D6186603DDC723F98E4282 /* WebConnectionOpenRequest.swift in Sources */,
 				6A1CFA4A2807F24800B2C340 /* NoScreenshotViewController.swift in Sources */,
 				8D7DFB2CEBACCDB9E9CCF6BC /* WebConnectionExpirationMonitor.swift in Sources */,

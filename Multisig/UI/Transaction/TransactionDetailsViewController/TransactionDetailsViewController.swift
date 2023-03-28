@@ -119,7 +119,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     private func updateSafeInfo() {
-        loadSafeInfoDataTask = App.shared.clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
+        loadSafeInfoDataTask = clientGatewayService.asyncSafeInfo(safeAddress: safe.addressValue,
                                                                              chainId: safe.chain!.id!) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
@@ -568,6 +568,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
     }
 
     // returns true if the app has means to execute the transaction and the transaction has all required confirmations
+    //TODO: check remaining relays
     func needsYourExecution(tx: SCGModels.TransactionDetails) -> Bool {
         if tx.txStatus == .awaitingExecution,
            let multisigInfo = tx.multisigInfo,

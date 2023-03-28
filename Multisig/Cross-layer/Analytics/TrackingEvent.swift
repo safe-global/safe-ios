@@ -337,6 +337,11 @@ enum TrackingEvent: String, Trackable {
     case relayOnboarding2                           = "screen_onboarding_relay_2"
     case relayOnboarding3                           = "screen_onboarding_relay_3"
     case relayOnboarding4                           = "screen_onboarding_relay_4"
+    case relayChoosePayment                         = "screen_exec_tx_payment"
+    case relayUserExecTxPaymentRelay                = "user_exec_tx_payment_relay"
+    case relayUserExecTxPaymentSigner               = "user_exec_tx_payment_signer"
+    case relayUserSuccess                           = "user_relay_success"
+
     
     // MARK: Safe Token Claim
     // See: https://docs.google.com/spreadsheets/d/1mj9iQIhpM-Pak7lQMb1dmxhQn1QdJoJyhbc730dZNzA/edit#gid=1949479240&range=A244:E244

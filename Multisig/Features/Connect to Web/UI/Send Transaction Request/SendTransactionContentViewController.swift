@@ -244,6 +244,10 @@ class SendTransactionCellBuilder {
         let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
         cell.setText("Execute with")
         switch model {
+
+        case .none:
+            preconditionFailure("Developer error: CellState not properly initialized")
+
         case .loading:
             let content = loadingView()
             cell.setContent(content)

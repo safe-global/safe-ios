@@ -11,6 +11,7 @@ import UIKit
 class ReviewExecutionContentViewController: UITableViewController {
 
     typealias Transaction = SCGModels.TransactionDetails
+    var onTapPaymentMethod: () -> Void = {}
     var onTapAccount: () -> Void = {}
     var onTapFee: () -> Void = {}
     var onTapAdvanced: () -> Void = {}
@@ -52,6 +53,7 @@ class ReviewExecutionContentViewController: UITableViewController {
             chain: chain,
             safe: safe
         )
+        builder.onTapPaymentMethod = onTapPaymentMethod
         builder.onTapAccount = onTapAccount
         builder.onTapFee = onTapFee
         builder.onTapAdvanced = onTapAdvanced

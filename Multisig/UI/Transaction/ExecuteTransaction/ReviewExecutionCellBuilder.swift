@@ -12,6 +12,7 @@ import SwiftCryptoTokenFormatter
 
 class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
 
+    var onTapPaymentMethod: () -> Void = {}
     var onTapAccount: () -> Void = {}
     var onTapFee: () -> Void = {}
     var onTapAdvanced: () -> Void = {}
@@ -29,7 +30,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
     func build(_ model: ExecutionReviewUIModel) -> [UITableViewCell] {
         result = []
         // nothing to do for creation transaction
-        if case let SCGModels.TxInfo.creation(_) = model.transaction.txInfo {
+        if case SCGModels.TxInfo.creation(_) = model.transaction.txInfo {
             return result
         }
         buildHeader(model.transaction)
@@ -47,27 +48,59 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
     }
 
     func buildExecutionOptions(_ model: ExecutionOptionsUIModel) {
-        // create a table inner cell with other cells
-        let tableCell = newCell(BorderedInnerTableCell.self)
 
-        tableCell.tableView.registerCell(DisclosureWithContentCell.self)
-        tableCell.tableView.registerCell(SecondaryDetailDisclosureCell.self)
+        dump(model, name: "ExecutionOptionsUIModel: ")
 
-        let disclosureCell1 = buildExecutedWithAccount(model.accountState, tableView: tableCell.tableView)
-        let estimatedFeeCell = buildEstimatedGasFee(model.feeState, tableView: tableCell.tableView)
-        let advancedCell = buildAdvancedParameters(tableView: tableCell.tableView)
+        let paymentGroupCell = newCell(BorderedInnerTableCell.self)
 
-        tableCell.setCells([disclosureCell1, estimatedFeeCell, advancedCell])
+        paymentGroupCell.tableView.registerCell(DisclosureWithContentCell.self)
+        paymentGroupCell.tableView.registerCell(SecondaryDetailDisclosureCell.self)
+        paymentGroupCell.tableView.registerCell(PaymentMethodCell.self)
+
+        let estimatedFeeCell = buildEstimatedGasFee(model.feeState, tableView: paymentGroupCell.tableView)
+
+        if case let .filled(relayerInfo) = model.relayerState,
+           relayerInfo.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
+            let paymentMethod = buildRelayerPayment(model, tableView: paymentGroupCell.tableView)
+            paymentGroupCell.setCells([estimatedFeeCell, paymentMethod])
+        } else {
+            let accountPayment = buildAccountPayment(tableView: paymentGroupCell.tableView)
+            let executeWith = buildExecutedWithAccount(model.accountState, tableView: paymentGroupCell.tableView)
+            paymentGroupCell.setCells([estimatedFeeCell, accountPayment, executeWith])
+        }
 
         // handle cell taps
-        let (executeWithIndex, feeIndex, advancedIndex) = (0, 1, 2)
-        tableCell.onCellTap = { [weak self] index in
+        let (feeIndex, paymentIndex, executeWithIndex) = (0, 1, 2)
+        paymentGroupCell.onCellTap = { [weak self] index in
             guard let self = self else { return }
             switch index {
-            case executeWithIndex:
-                self.onTapAccount()
             case feeIndex:
                 self.onTapFee()
+            case paymentIndex:
+                self.onTapPaymentMethod()
+            case executeWithIndex:
+                self.onTapAccount()
+            default:
+                assertionFailure("Tapped cell at index out of bounds: \(index)")
+            }
+        }
+
+        result.append(paymentGroupCell)
+
+        buildSpacing()
+
+        let advancedParamCell = newCell(BorderedInnerTableCell.self)
+        advancedParamCell.tableView.registerCell(SecondaryDetailDisclosureCell.self)
+
+        let advancedCell = buildAdvancedParameters(tableView: advancedParamCell.tableView)
+
+        advancedParamCell.setCells([advancedCell])
+
+        // handle cell taps
+        let (advancedIndex) = (0)
+        advancedParamCell.onCellTap = { [weak self] index in
+            guard let self = self else { return }
+            switch index {
             case advancedIndex:
                 self.onTapAdvanced()
             default:
@@ -75,13 +108,33 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
             }
         }
 
-        result.append(tableCell)
+        result.append(advancedParamCell)
+    }
+
+    func buildRelayerPayment(_ model: ExecutionOptionsUIModel, tableView: UITableView) -> UITableViewCell{
+        let cell = tableView.dequeueCell(PaymentMethodCell.self)
+        if case let .filled(relayerInfo) = model.relayerState {
+            cell.setRelaying(relayerInfo.remainingRelays, ReviewExecutionViewController.MAX_RELAY_TXS)
+        }
+        cell.setBackgroundColor(.backgroundPrimary)
+        return cell
+    }
+
+    func buildAccountPayment(tableView: UITableView) -> UITableViewCell {
+        let cell = tableView.dequeueCell(SecondaryDetailDisclosureCell.self)
+        cell.setText("With an owner key")
+        cell.setBackgroundColor(.backgroundPrimary)
+        return cell
     }
 
     func buildExecutedWithAccount(_ model: ExecuteWithAccountCellState, tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
-        cell.setText("Execute with")
+        cell.setText("Select key")
+        cell.setBackgroundColor(.backgroundPrimary)
         switch model {
+        case .none:
+            preconditionFailure("Developer error: CellState not properly initialized")
+            
         case .loading:
             let content = loadingView()
             cell.setContent(content)
@@ -101,6 +154,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
     func buildEstimatedGasFee(_ model: EstimatedFeeCellState, tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
         cell.setText("Estimated gas fee")
+        cell.setBackgroundColor(.backgroundSecondary)
 
         switch model {
         case .loading:
@@ -141,6 +195,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
     func buildAdvancedParameters(tableView: UITableView) -> UITableViewCell {
         let advancedCell = tableView.dequeueCell(SecondaryDetailDisclosureCell.self)
         advancedCell.setText("Advanced parameters")
+        advancedCell.setBackgroundColor(.backgroundSecondary)
         return advancedCell
     }
 
@@ -283,14 +338,26 @@ struct ExecutionReviewUIModel {
 }
 
 struct ExecutionOptionsUIModel {
-    var accountState: ExecuteWithAccountCellState = .loading
+    var relayerState: ExecuteWithRelayerCellState = .none
+    var accountState: ExecuteWithAccountCellState = .none
     var feeState: EstimatedFeeCellState = .loading
 }
 
 enum ExecuteWithAccountCellState {
+    case none
     case loading
     case empty
     case filled(MiniAccountInfoUIModel)
+}
+
+enum ExecuteWithRelayerCellState {
+    case none
+    case loading
+    case filled(RelayerInfoUIModel)
+}
+
+struct RelayerInfoUIModel {
+    var remainingRelays: Int
 }
 
 struct MiniAccountInfoUIModel {

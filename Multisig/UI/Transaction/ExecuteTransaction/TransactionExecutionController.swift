@@ -34,6 +34,8 @@ class TransactionExecutionController {
 
     let estimationController: TransactionEstimationController
 
+    let relayerService: SafeGelatoRelayService
+
     var ethTransaction: EthTransaction?
     var minNonce: Sol.UInt64 = 0
     
@@ -50,11 +52,12 @@ class TransactionExecutionController {
         chain.id!
     }
 
-    init(safe: Safe, chain: Chain, transaction: SCGModels.TransactionDetails) {
+    init(safe: Safe, chain: Chain, transaction: SCGModels.TransactionDetails, relayerService: SafeGelatoRelayService) {
         self.safe = safe
         self.chain = chain
         self.transaction = transaction
         self.estimationController = TransactionEstimationController(rpcUri: chain.authenticatedRpcUrl.absoluteString, chain: chain)
+        self.relayerService = relayerService
     }
 
     // returns the execution keys valid for executing this transaction
@@ -92,6 +95,8 @@ class TransactionExecutionController {
             }
         }
     }
+
+    var remainingRelays: Int = 0
 
     var requiredBalance: Sol.UInt256? {
         ethTransaction?.requiredBalance
@@ -158,6 +163,21 @@ class TransactionExecutionController {
         } else {
             self.selectedKey = nil
         }
+    }
+
+    func getRemainingRelays(completion: @escaping (Int) -> Void) -> URLSessionTask? {
+        let task = relayerService.asyncRelaysRemaining(chainId: chain.id!, safeAddress: safe.addressValue) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                self.remainingRelays = response.remaining
+                dispatchOnMainThread(completion(self.remainingRelays))
+            case .failure:
+                self.remainingRelays = 0
+                dispatchOnMainThread(completion(-1))
+            }
+        }
+        return task
     }
 
     func estimate(completion: @escaping () -> Void) -> URLSessionTask? {
@@ -374,17 +394,15 @@ class TransactionExecutionController {
             return
         }
 
-        guard let key = selectedKey, let keyBalance = key.balance.amount else {
-            return
-        }
-
-        guard let requiredBalance = requiredBalance else {
-            return
-        }
-
-        guard keyBalance >= requiredBalance else {
-            errorMessage = "Insufficient balance for network fees"
-            return
+        if remainingRelays <= ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
+            guard let key = selectedKey,
+                  let keyBalance = key.balance.amount,
+                  let requiredBalance = requiredBalance,
+                  keyBalance >= requiredBalance
+            else {
+                errorMessage = "Insufficient balance for network fees"
+                return
+            }
         }
 
         isValid = true
@@ -547,7 +565,7 @@ class TransactionExecutionController {
     }
 
     func send(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
-        guard var tx = self.ethTransaction else { return nil }
+        guard let tx = self.ethTransaction else { return nil }
 
         let rawTransaction = tx.rawTransaction()
 
@@ -596,6 +614,50 @@ class TransactionExecutionController {
             DispatchQueue.main.async {
                 self.didSubmitTransaction(txHash: Eth.Hash(txHash.storage))
                 completion(.success(()))
+            }
+        }
+        return task
+    }
+
+    func relay(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
+        guard
+            let execInfo = transaction.detailedExecutionInfo,
+            case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigDetails) = execInfo,
+            let txData = transaction.txData
+        else {
+            return nil
+        }
+
+        let signatures = multisigDetails.confirmations.sorted { lhs, rhs in
+            lhs.signer.value.address.hexadecimal < rhs.signer.value.address.hexadecimal
+        }.map { confirmation in
+            confirmation.signature.data
+        }.joined()
+
+        let input = try! GnosisSafe_v1_3_0.execTransaction(
+            to:  Sol.Address(txData.to.value.data32),
+            value: Sol.UInt256(txData.value.data32),
+            data: Sol.Bytes(storage: txData.hexData?.data ?? Data()),
+            operation: Sol.UInt8(txData.operation.rawValue),
+            safeTxGas: Sol.UInt256(multisigDetails.safeTxGas.data32),
+            baseGas: Sol.UInt256(multisigDetails.baseGas.data32),
+            gasPrice: Sol.UInt256(multisigDetails.gasPrice.data32),
+            gasToken: Sol.Address(multisigDetails.gasToken.data32),
+            refundReceiver: Sol.Address(multisigDetails.refundReceiver.value.data32),
+            signatures: Sol.Bytes(storage: Data(signatures))
+        ).encode()
+
+
+        let task = relayerService.asyncRelayTransaction(chainId: safe.chain!.id!, to: safe.addressValue, txData: input.toHexStringWithPrefix()) { [weak self] response in
+            guard let self = self else { return }
+            switch(response) {
+            case .success(let result):
+                LogService.shared.debug("Relayer taskId: \(try! response.get().taskId)")
+                DispatchQueue.main.async {
+                    completion(.success(()))
+                }
+            case .failure(let error):
+                dispatchOnMainThread(completion(.failure(error)))
             }
         }
         return task

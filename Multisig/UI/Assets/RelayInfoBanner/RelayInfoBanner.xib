@@ -24,27 +24,27 @@
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bkg-claiming-banner" translatesAutoresizingMaskIntoConstraints="NO" id="zjf-jW-TM6">
                     <rect key="frame" x="0.0" y="0.0" width="475" height="111"/>
                 </imageView>
-                <stackView opaque="NO" contentMode="scaleToFill" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="Jy3-6B-dCe">
-                    <rect key="frame" x="16" y="16" width="397" height="79"/>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Jy3-6B-dCe">
+                    <rect key="frame" x="16" y="16" width="405" height="79"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-relayer" translatesAutoresizingMaskIntoConstraints="NO" id="SMQ-hg-tRf">
-                            <rect key="frame" x="0.0" y="0.0" width="45" height="79"/>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-relayer-gas" translatesAutoresizingMaskIntoConstraints="NO" id="SMQ-hg-tRf">
+                            <rect key="frame" x="0.0" y="0.0" width="32" height="79"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="45" id="7EG-ww-lpW"/>
+                                <constraint firstAttribute="width" constant="32" id="7EG-ww-lpW"/>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="58" id="mWu-d8-aRT"/>
                             </constraints>
                         </imageView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Et2-ua-lwH">
-                            <rect key="frame" x="77" y="0.0" width="320" height="79"/>
+                            <rect key="frame" x="48" y="0.0" width="357" height="79"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Introducing Relayer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eW2-IY-db5">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="34.333333333333336"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Gas fees sponsored by Gnosis Chain" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eW2-IY-db5">
+                                    <rect key="frame" x="0.0" y="0.0" width="357" height="14"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Benefit from gasless experience powered by Gelato" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vt4-lZ-nze">
-                                    <rect key="frame" x="0.0" y="38.333333333333343" width="320" height="40.666666666666657"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Transact without paying gas. 5 free transactions per hour courtesy of Gnosis Chain" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vt4-lZ-nze">
+                                    <rect key="frame" x="0.0" y="18" width="357" height="61"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -80,7 +80,7 @@
                 <constraint firstItem="jK4-zS-tbP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="JB6-GF-mcN"/>
                 <constraint firstAttribute="bottom" secondItem="Jy3-6B-dCe" secondAttribute="bottom" constant="16" id="KqV-Uh-roo"/>
                 <constraint firstAttribute="trailing" secondItem="zjf-jW-TM6" secondAttribute="trailing" id="MVC-gi-l0n"/>
-                <constraint firstItem="EIs-6m-8yT" firstAttribute="leading" secondItem="Et2-ua-lwH" secondAttribute="trailing" constant="16" id="OvU-7n-mxa"/>
+                <constraint firstItem="EIs-6m-8yT" firstAttribute="leading" secondItem="Et2-ua-lwH" secondAttribute="trailing" constant="8" id="OvU-7n-mxa"/>
                 <constraint firstAttribute="bottom" secondItem="jK4-zS-tbP" secondAttribute="bottom" id="Rvt-Ie-R47"/>
                 <constraint firstItem="jK4-zS-tbP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="YZg-Wu-eX7"/>
                 <constraint firstAttribute="trailing" secondItem="jK4-zS-tbP" secondAttribute="trailing" id="bSf-Oy-q1T"/>
@@ -97,7 +97,7 @@
     <resources>
         <image name="bkg-claiming-banner" width="343" height="100"/>
         <image name="ico-close" width="24" height="24"/>
-        <image name="ico-relayer" width="45" height="58"/>
+        <image name="ico-relayer-gas" width="32" height="32"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

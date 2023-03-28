@@ -256,3 +256,10 @@ extension Transaction {
         return try? HashString(hex: EthHasher.hash(data).toHexString())
     }
 }
+
+extension Transaction {
+    public enum PaymentMethod {
+        case SignerAccount
+        case Relayer
+    }
+}
