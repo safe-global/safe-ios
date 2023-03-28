@@ -23,7 +23,7 @@ class PaymentMethodCell: UITableViewCell {
         descriptionLabel.setStyle(.subheadlineSecondary)
         remainingRelaysLabel.setStyle(.subheadlineSecondary.color(.primary))
 
-        self.backgroundView = UIView()
+        backgroundView = UIView()
     }
 
     func setRelaying(_ remaining: Int, _ total: Int) {

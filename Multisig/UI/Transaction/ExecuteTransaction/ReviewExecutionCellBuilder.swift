@@ -25,7 +25,6 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
 
         tableView.registerCell(BorderedInnerTableCell.self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Spacer")
-        tableView.registerCell(LabelCell.self)
     }
 
     func build(_ model: ExecutionReviewUIModel) -> [UITableViewCell] {
@@ -45,12 +44,6 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
     func buildSpacing() {
         let cell = newCell(UITableViewCell.self, reuseId: "Spacer")
         cell.contentView.heightAnchor.constraint(equalToConstant: 16).isActive = true
-        result.append(cell)
-    }
-
-    func buildLabel(text: String) {
-        let cell = tableView.dequeueCell(LabelCell.self)
-        cell.setText(text: text)
         result.append(cell)
     }
 

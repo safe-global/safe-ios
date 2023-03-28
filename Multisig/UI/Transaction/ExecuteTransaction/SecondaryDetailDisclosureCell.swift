@@ -15,7 +15,7 @@ class SecondaryDetailDisclosureCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         cellLabel.setStyle(.headline)
-        self.backgroundView = UIView()
+        backgroundView = UIView()
     }
 
     func setText(_ value: String?) {
