@@ -49,7 +49,6 @@ class PaymentMethodCell: UITableViewCell {
     }
 
     func setRelaying(_ remaining: Int, _ total: Int) {
-
         if remaining == ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
             remainingRelaysLabel.textColor = .error
 

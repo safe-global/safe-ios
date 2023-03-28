@@ -133,8 +133,8 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         cell.setBackgroundColor(.backgroundPrimary)
         switch model {
         case .none:
-            //TODO: throw
-            break
+            preconditionFailure("Developer error: CellState not properly initialized")
+            
         case .loading:
             let content = loadingView()
             cell.setContent(content)

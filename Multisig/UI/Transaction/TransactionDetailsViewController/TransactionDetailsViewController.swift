@@ -13,14 +13,12 @@ import Version
 
 class TransactionDetailsViewController: LoadableViewController, UITableViewDataSource, UITableViewDelegate {
     var clientGatewayService = App.shared.clientGatewayService
-    var relayService = App.shared.relayService
 
     private var cells: [UITableViewCell] = []
     private var tx: SCGModels.TransactionDetails?
     private var reloadDataTask: URLSessionTask?
     private var confirmDataTask: URLSessionTask?
     private var rejectTask: URLSessionTask?
-    private var remainingRelaysTask: URLSessionTask?
     private var builder: TransactionDetailCellBuilder!
     private var confirmButton: UIButton!
     private var rejectButton: UIButton!

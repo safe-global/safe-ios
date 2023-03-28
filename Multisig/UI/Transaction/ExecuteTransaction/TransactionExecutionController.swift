@@ -624,7 +624,6 @@ class TransactionExecutionController {
     }
 
     func relay(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
-
         guard
             let execInfo = transaction.detailedExecutionInfo,
             case let SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(multisigDetails) = execInfo,
@@ -657,9 +656,8 @@ class TransactionExecutionController {
             guard let self = self else { return }
             switch(response) {
             case .success(let result):
-                LogService.shared.debug("---> taskId: \(try! response.get().taskId)")
+                LogService.shared.debug("Relayer taskId: \(try! response.get().taskId)")
                 DispatchQueue.main.async {
-                    //self.didRelayTransaction(taskId: <#T##String#>)
                     completion(.success(()))
                 }
             case .failure(let error):
@@ -691,10 +689,6 @@ class TransactionExecutionController {
 
         // Notify the observers about tx changes
         NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
-    }
-
-    func didRelayTransaction(taskId: String) {
-
     }
 }
 

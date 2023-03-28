@@ -246,8 +246,7 @@ class SendTransactionCellBuilder {
         switch model {
 
         case .none:
-            //TODO: throw
-            break
+            preconditionFailure("Developer error: CellState not properly initialized")
 
         case .loading:
             let content = loadingView()
