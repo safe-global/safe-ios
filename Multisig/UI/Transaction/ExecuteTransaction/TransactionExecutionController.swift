@@ -394,7 +394,7 @@ class TransactionExecutionController {
             return
         }
 
-        if remainingRelays <= 0 {
+        if remainingRelays <= ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {  // TODO double check if <
             guard let key = selectedKey, let keyBalance = key.balance.amount else {
                 return
             }
@@ -569,7 +569,7 @@ class TransactionExecutionController {
     }
 
     func send(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
-        guard var tx = self.ethTransaction else { return nil }
+        guard let tx = self.ethTransaction else { return nil }
 
         let rawTransaction = tx.rawTransaction()
 

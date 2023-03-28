@@ -31,7 +31,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
     func build(_ model: ExecutionReviewUIModel) -> [UITableViewCell] {
         result = []
         // nothing to do for creation transaction
-        if case let SCGModels.TxInfo.creation(_) = model.transaction.txInfo {
+        if case SCGModels.TxInfo.creation(_) = model.transaction.txInfo {
             return result
         }
         buildHeader(model.transaction)
@@ -56,6 +56,8 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
 
     func buildExecutionOptions(_ model: ExecutionOptionsUIModel) {
 
+        dump(model, name: "ExecutionOptionsUIModel: ")
+
         let paymentGroupCell = newCell(BorderedInnerTableCell.self)
 
         paymentGroupCell.tableView.registerCell(DisclosureWithContentCell.self)
@@ -65,7 +67,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         let estimatedFeeCell = buildEstimatedGasFee(model.feeState, tableView: paymentGroupCell.tableView)
 
         if case let .filled(relayerInfo) = model.relayerState,
-           relayerInfo.remainingRelays > 0 {
+           relayerInfo.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
             let paymentMethod = buildRelayerPayment(model, tableView: paymentGroupCell.tableView)
             paymentGroupCell.setCells([estimatedFeeCell, paymentMethod])
         } else {

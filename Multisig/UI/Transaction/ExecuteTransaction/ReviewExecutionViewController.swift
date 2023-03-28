@@ -16,6 +16,8 @@ import SafariServices
 
 class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting {
 
+    static let MIN_RELAY_TXS_LEFT = 0
+
     private var safe: Safe!
     private var chain: Chain!
     private var transaction: SCGModels.TransactionDetails!
@@ -126,7 +128,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     }
 
     @IBAction func didTapPaymentMethod(_ sender: Any) {
-        // open payment method selection
+        // open payment method selection  
         let choosePaymentVC = ChoosePaymentViewController()
         let vc = ViewControllerFactory.pageSheet(viewController: choosePaymentVC, halfScreen: true)
         presentModal(vc)
@@ -334,8 +336,8 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
             authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
                 guard let self = self else { return }
                 if success {
-                    // No need to sign when relaying
-                    if self.controller.remainingRelays >= 0 {
+                    if self.controller.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT { // TODO check for user override to send via EOA
+                        // No need to sign when relaying
                         self.submit()
                     } else {
                         self.sign()
@@ -377,7 +379,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     }
 
     func didLoadPaymentData() {
-        if controller.remainingRelays >= 0 {
+        if controller.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
             contentVC.model?.executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: controller.remainingRelays))
         } else {
             // if we haven't search default
@@ -587,7 +589,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         sendingTask?.cancel()
         relayingTask?.cancel()
 
-        if controller.remainingRelays >= 0 {
+        if controller.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
             relayingTask = controller.relay(completion: { [weak self] result in
                 guard let self = self else { return }
 
