@@ -131,6 +131,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     @IBAction func didTapPaymentMethod(_ sender: Any) {
         // open payment method selection  
         let choosePaymentVC = ChoosePaymentViewController()
+        choosePaymentVC.remainingRelays = controller.remainingRelays
         let vc = ViewControllerFactory.pageSheet(viewController: choosePaymentVC, halfScreen: true)
         presentModal(vc)
     }

@@ -12,6 +12,8 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
 
     @IBOutlet private weak var tableView: UITableView!
 
+    var remainingRelays: Int = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,7 +49,11 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+
         //TODO: pass relaying data; check payment option availability
+
+
         let cell = tableView.dequeueCell(BorderedInnerTableCell.self, for: indexPath)
         cell.tableView.registerCell(PaymentMethodCell.self)
         switch(indexPath.row) {
@@ -75,7 +81,7 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
     private func buildRelayerCell(tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(PaymentMethodCell.self)
         cell.accessoryType = .none
-        cell.setRelaying(4, ReviewExecutionViewController.MAX_RELAY_TXS)
+        cell.setRelaying(remainingRelays, ReviewExecutionViewController.MAX_RELAY_TXS)
         return cell
     }
 }
