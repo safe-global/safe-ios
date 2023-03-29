@@ -41,6 +41,15 @@ class ReviewExecutionContentViewController: UITableViewController {
         self.transaction = transaction
     }
 
+    var userSelectedSigner: Bool {
+        set(value) {
+            builder.userSelectedSigner = value
+        }
+        get {
+            builder.userSelectedSigner
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         assert(safe != nil)

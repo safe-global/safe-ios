@@ -42,6 +42,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     private var sendingTask: URLSessionTask?
     private var relayingTask: URLSessionTask?
     private var remainingRelaysTask: URLSessionTask?
+    private var userSelectedSigner = false
     
     private var keystoneSignFlow: KeystoneSignFlow!
 
@@ -132,6 +133,23 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         // open payment method selection  
         let choosePaymentVC = ChoosePaymentViewController()
         choosePaymentVC.remainingRelays = controller.remainingRelays
+        choosePaymentVC.chooseRelay = {
+            LogService.shared.debug("User selected Relay")
+            self.userSelectedSigner = false
+
+            self.contentVC.userSelectedSigner = false
+            self.contentVC.reloadData()
+        }
+        choosePaymentVC.chooseSigner = {
+            LogService.shared.debug("User selected Signer")
+            self.userSelectedSigner = true
+            self.contentVC.userSelectedSigner = true
+            // trigger find key
+            self.findDefaultKey()
+
+            // refresh ui
+            self.contentVC.reloadData()
+        }
         let vc = ViewControllerFactory.pageSheet(viewController: choosePaymentVC, halfScreen: true)
         presentModal(vc)
     }
@@ -338,7 +356,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
             authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
                 guard let self = self else { return }
                 if success {
-                    if self.controller.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT { // TODO check for user override to send via EOA
+                    if self.controller.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner {
                         // No need to sign when relaying
                         self.submit()
                     } else {
@@ -381,7 +399,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     }
 
     func didLoadPaymentData() {
-        if controller.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
+        if controller.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner {
             contentVC.model?.executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: controller.remainingRelays))
         } else {
             // if we haven't search default
@@ -591,7 +609,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         sendingTask?.cancel()
         relayingTask?.cancel()
 
-        if controller.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
+        if controller.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner {
             relayingTask = controller.relay(completion: { [weak self] result in
                 guard let self = self else { return }
 

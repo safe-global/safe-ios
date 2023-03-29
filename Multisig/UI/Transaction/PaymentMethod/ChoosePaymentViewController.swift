@@ -11,8 +11,9 @@ import UIKit
 class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet private weak var tableView: UITableView!
-
     var remainingRelays: Int = 0
+    var chooseRelay: () -> Void = { }
+    var chooseSigner: () -> Void = { }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,16 +60,32 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
         switch(indexPath.row) {
         case 0:
             cell.setCells([buildRelayerCell(tableView: cell.tableView)])
+            if remainingRelays < ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
+                cell.isUserInteractionEnabled = false //TODO change color so it looks disabled
+            } else {
+                cell.isUserInteractionEnabled = true
+            }
+            cell.onCellTap = { [weak self] _ in
+                guard let self = self else { return }
+                LogService.shared.debug("Select relay")
+
+                self.chooseRelay()
+                self.dismiss(animated: false)
+            }
         case 1:
             cell.setCells([buildSignerAccountCell(tableView: cell.tableView)])
+            cell.onCellTap = { [weak self] _ in
+                guard let self = self else { return }
+                LogService.shared.debug("Select signer account")
+
+                self.chooseSigner()
+                self.dismiss(animated: false)
+            }
         default:
             break
         }
-        return cell
-    }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //TODO: adjust payment
+        return cell
     }
 
     private func buildSignerAccountCell(tableView: UITableView) -> UITableViewCell {
