@@ -50,9 +50,6 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
     }
 
     func buildExecutionOptions(_ model: ExecutionOptionsUIModel) {
-
-        dump(model, name: "ExecutionOptionsUIModel: ")
-
         let paymentGroupCell = newCell(BorderedInnerTableCell.self)
 
         paymentGroupCell.tableView.registerCell(DisclosureWithContentCell.self)

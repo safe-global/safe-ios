@@ -146,7 +146,8 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
             self.contentVC.userSelectedSigner = true
             // trigger find key
             self.findDefaultKey()
-
+            // key doesn't really change but is overlayed with the loading placeholder :-(
+            self.didChangeSelectedKey()
             // refresh ui
             self.contentVC.reloadData()
         }
