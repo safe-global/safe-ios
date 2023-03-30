@@ -50,28 +50,26 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-
-        //TODO: pass relaying data; check payment option availability
-
-
         let cell = tableView.dequeueCell(BorderedInnerTableCell.self, for: indexPath)
+        //cell.selectionStyle = .gray
+
         cell.tableView.registerCell(PaymentMethodCell.self)
         switch(indexPath.row) {
         case 0:
             cell.setCells([buildRelayerCell(tableView: cell.tableView)])
             if remainingRelays < ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
-                cell.isUserInteractionEnabled = false //TODO change color so it looks disabled
-            } else {
-                cell.isUserInteractionEnabled = true
-            }
-            cell.onCellTap = { [weak self] _ in
-                guard let self = self else { return }
-                LogService.shared.debug("Select relay")
+                cell.isEnabled(false)
+                cell.onCellTap = { [weak self] _ in
+                    guard let self = self else { return }
+                    LogService.shared.debug("Select relay")
 
-                self.chooseRelay()
-                self.dismiss(animated: false)
+                    self.chooseRelay()
+                    self.dismiss(animated: true)
+                }
+            } else {
+                cell.isEnabled(true)
             }
+
         case 1:
             cell.setCells([buildSignerAccountCell(tableView: cell.tableView)])
             cell.onCellTap = { [weak self] _ in
@@ -79,7 +77,7 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
                 LogService.shared.debug("Select signer account")
 
                 self.chooseSigner()
-                self.dismiss(animated: false)
+                self.dismiss(animated: true)
             }
         default:
             break
@@ -100,5 +98,15 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
         cell.accessoryType = .none
         cell.setRelaying(remainingRelays, ReviewExecutionViewController.MAX_RELAY_TXS)
         return cell
+    }
+}
+
+extension UITableViewCell {
+    func isEnabled(_ enabled: Bool) {
+        isUserInteractionEnabled = enabled
+        subviews.forEach { subview in
+            subview.isUserInteractionEnabled = enabled
+            subview.alpha = enabled ? 1 : 0.5
+        }
     }
 }
