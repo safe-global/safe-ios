@@ -17,6 +17,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
     var onTapAccount: () -> Void = {}
     var onTapFee: () -> Void = {}
     var onTapAdvanced: () -> Void = {}
+    var userSelectedSigner = false
 
     private var safe: Safe!
 
@@ -31,8 +32,6 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
 
         tableView.registerCell(BorderedInnerTableCell.self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Spacer")
-
-
     }
 
     func build(_ model: ExecutionReviewUIModel) -> [UITableViewCell] {
@@ -45,15 +44,12 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         buildAssetContract(model.transaction)
         buildSpacing()
 
-
-        // Extracted logic for executionOptionsCellBuilder
-
+        executionOptionsCellBuilder.userSelectedSigner = userSelectedSigner
         executionOptionsCellBuilder.onTapPaymentMethod = onTapPaymentMethod
         executionOptionsCellBuilder.onTapAccount = onTapAccount
         executionOptionsCellBuilder.onTapFee = onTapFee
         executionOptionsCellBuilder.onTapAdvanced = onTapAdvanced
         result.append(contentsOf: executionOptionsCellBuilder.buildExecutionOptions(model.executionOptions))
-
 
         buildErrors(model.errorMessage)
         return result

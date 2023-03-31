@@ -16,7 +16,7 @@ class ExecutionOptionsCellBuilder: TransactionDetailCellBuilder {
     var onTapFee: () -> Void = {}
     // TODO: double check if this is necessary here
     var onTapAdvanced: () -> Void = {}
-
+    var userSelectedSigner = false
 
     func buildExecutionOptions(_ model: ExecutionOptionsUIModel) -> [UITableViewCell] {
 
@@ -33,7 +33,7 @@ class ExecutionOptionsCellBuilder: TransactionDetailCellBuilder {
         let estimatedFeeCell = buildEstimatedGasFee(model.feeState, tableView: paymentGroupCell.tableView)
 
         if case let .filled(relayerInfo) = model.relayerState,
-           relayerInfo.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
+           relayerInfo.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !userSelectedSigner {
             let paymentMethod = buildRelayerPayment(model, tableView: paymentGroupCell.tableView)
             paymentGroupCell.setCells([estimatedFeeCell, paymentMethod])
         } else {

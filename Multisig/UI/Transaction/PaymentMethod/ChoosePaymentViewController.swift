@@ -11,6 +11,9 @@ import UIKit
 class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet private weak var tableView: UITableView!
+    var remainingRelays: Int = 0
+    var chooseRelay: () -> Void = { }
+    var chooseSigner: () -> Void = { }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,22 +50,39 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //TODO: pass relaying data; check payment option availability
         let cell = tableView.dequeueCell(BorderedInnerTableCell.self, for: indexPath)
+
         cell.tableView.registerCell(PaymentMethodCell.self)
         switch(indexPath.row) {
         case 0:
             cell.setCells([buildRelayerCell(tableView: cell.tableView)])
+            if remainingRelays < ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
+                cell.isUserInteractionEnabled = false
+            } else {
+                cell.onCellTap = { [weak self] _ in
+                    guard let self = self else { return }
+                    LogService.shared.debug("Select relay")
+
+                    self.chooseRelay()
+                    self.dismiss(animated: true)
+                }
+                cell.isUserInteractionEnabled = true
+            }
+
         case 1:
             cell.setCells([buildSignerAccountCell(tableView: cell.tableView)])
+            cell.onCellTap = { [weak self] _ in
+                guard let self = self else { return }
+                LogService.shared.debug("Select signer account")
+
+                self.chooseSigner()
+                self.dismiss(animated: true)
+            }
         default:
             break
         }
-        return cell
-    }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //TODO: adjust payment
+        return cell
     }
 
     private func buildSignerAccountCell(tableView: UITableView) -> UITableViewCell {
@@ -75,7 +95,7 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
     private func buildRelayerCell(tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(PaymentMethodCell.self)
         cell.accessoryType = .none
-        cell.setRelaying(4, ReviewExecutionViewController.MAX_RELAY_TXS)
+        cell.setRelaying(remainingRelays, ReviewExecutionViewController.MAX_RELAY_TXS)
         return cell
     }
 }
