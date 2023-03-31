@@ -21,9 +21,6 @@ class ExecutionOptionsCellBuilder: TransactionDetailCellBuilder {
     func buildExecutionOptions(_ model: ExecutionOptionsUIModel) -> [UITableViewCell] {
 
         var result = [UITableViewCell]()
-
-        dump(model, name: "ExecutionOptionsUIModel: ")
-
         let paymentGroupCell = newCell(BorderedInnerTableCell.self)
 
         paymentGroupCell.tableView.registerCell(DisclosureWithContentCell.self)

@@ -15,6 +15,7 @@ import SafeAbi
 import JsonRpc2
 import Json
 
+
 protocol CreateSafeFormUIModelDelegate: AnyObject {
     func updateUI(model: CreateSafeFormUIModel)
     func createSafeModelDidFinish()

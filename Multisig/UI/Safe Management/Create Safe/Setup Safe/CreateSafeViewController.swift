@@ -11,6 +11,7 @@ import Ethereum
 import Solidity
 import WalletConnectSwift
 
+
 class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CreateSafeFormUIModelDelegate, PasscodeProtecting {
 
     @IBOutlet private weak var captionLabel: UILabel!
@@ -25,10 +26,22 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     var chain: Chain?
 
     private var cellBuilder: SafeCellBuilder!
+    private var executionOptionsCellBuilder: ExecutionOptionsCellBuilder!
     private var keystoneSignFlow: KeystoneSignFlow!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        executionOptionsCellBuilder = ExecutionOptionsCellBuilder(
+            vc: self,
+            tableView: tableView,
+            chain: chain ?? Chain.mainnetChain()
+        )
+        executionOptionsCellBuilder.userSelectedSigner = false
+        executionOptionsCellBuilder.onTapPaymentMethod = action(#selector(didTapPaymentMethod(_:)))
+        executionOptionsCellBuilder.onTapAccount = action(#selector(selectDeploymentKey))
+        executionOptionsCellBuilder.onTapFee = action(#selector(editParameters))
+        //   executionOptionsCellBuilder.onTapAdvanced = action(#selector(didTapAdvanced(_:)))
 
         title = "Create Safe"
 
@@ -43,7 +56,8 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(BorderedInnerTableCell.self)
-
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Spacer")
+        
         cellBuilder.registerCells()
 
         if #available(iOS 15.0, *) {
@@ -61,8 +75,8 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         uiModel.delegate = self
         if let txHash = txHash,
-            let chain = chain,
-            let safeCreationCall = SafeCreationCall.by(txHashes: [txHash], chainId: chain.id!)?.first {
+           let chain = chain,
+           let safeCreationCall = SafeCreationCall.by(txHashes: [txHash], chainId: chain.id!)?.first {
             uiModel.updateWithSafeCall(call: safeCreationCall)
         }
 
@@ -275,7 +289,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     // select deployer
-    func selectDeploymentKey() {
+    @objc func selectDeploymentKey() {
         let keys = uiModel.executionKeys()
 
         if keys.isEmpty {
@@ -300,13 +314,13 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         }
 
         let keyPickerVC = ChooseOwnerKeyViewController(
-                owners: keys,
-                chainID: uiModel.chain.id,
-                titleText: "Deployer Account",
-                header: .text(description: "The selected account will be used to deploy the Safe."),
-                requestsPasscode: false,
-                selectedKey: uiModel.selectedKey,
-                balancesLoader: balancesLoader
+            owners: keys,
+            chainID: uiModel.chain.id,
+            titleText: "Deployer Account",
+            header: .text(description: "The selected account will be used to deploy the Safe."),
+            requestsPasscode: false,
+            selectedKey: uiModel.selectedKey,
+            balancesLoader: balancesLoader
         )
         keyPickerVC.trackingEvent = .createSafeSelectKey
         keyPickerVC.showsCloseButton = false
@@ -340,7 +354,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     // edit fees
-    func editParameters() {
+    @objc func editParameters() {
         let formModel: FormModel
         var initialValues = UserDefinedTransactionParameters()
 
@@ -483,7 +497,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     // create button tapped
-        // notify the model
+    // notify the model
 
     // MARK: - Cells
 
@@ -572,37 +586,60 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
-    func deploymentCell(for indexPath: IndexPath) -> UITableViewCell {
-        // create a table inner cell with other cells
-        let tableCell = tableView.dequeueCell(BorderedInnerTableCell.self, for: indexPath)
-
-        tableCell.selectionStyle = .none
-        tableCell.verticalSpacing = 16
-
-        tableCell.tableView.registerCell(DisclosureWithContentCell.self)
-        tableCell.tableView.registerCell(SecondaryDetailDisclosureCell.self)
-
-        let accountCell = deployerAccountCell(tableView: tableCell.tableView)
-        let estimatedFeeCell = estimateFeeCell(tableView: tableCell.tableView)
-
-        tableCell.setCells([accountCell, estimatedFeeCell])
-
-        // handle cell taps
-        let (executeWithIndex, feeIndex) = (0, 1)
-        tableCell.onCellTap = { [weak self] index in
-            guard let self = self else { return }
-            switch index {
-            case executeWithIndex:
-                self.selectDeploymentKey()
-            case feeIndex:
-                self.editParameters()
-            default:
-                assertionFailure("Tapped cell at index out of bounds: \(index)")
-            }
+    //TODO extract to utility class?
+    func action(_ selector: Selector) -> () -> Void {
+        { [weak self] in
+            self?.performSelector(onMainThread: selector, with: nil, waitUntilDone: false)
         }
-
-        return tableCell
     }
+
+    func deploymentCell(for indexPath: IndexPath) -> UITableViewCell {
+
+
+
+        let executionOptions = ExecutionOptionsUIModel(
+            relayerState: .loading,
+            accountState: .loading,
+            feeState: .loading
+        )
+
+        let cell = executionOptionsCellBuilder.buildExecutionOptions(executionOptions)[0]
+
+        return cell
+    }
+
+    @IBAction func didTapPaymentMethod(_ sender: Any) {
+        // open payment method selection
+        let choosePaymentVC = ChoosePaymentViewController()
+//        choosePaymentVC.remainingRelays = App.shared.relayService.asyncRelaysRemaining(chainId: chain?.id, safeAddress: safe.add, completion: <#T##(Result<RelaysRemainingRequest.ResponseType, Error>) -> Void#>)
+//        choosePaymentVC.chooseRelay = { [unowned self] in
+//            LogService.shared.debug("User selected Relay")
+//            executionOptionsCellBuilder.userSelectedSigner = false
+//
+//            updateUI(model: uiModel) // ??
+//        }
+        choosePaymentVC.chooseSigner = { [unowned self] in
+            LogService.shared.debug("User selected Signer")
+            executionOptionsCellBuilder.userSelectedSigner = true
+            // trigger find key
+            selectDeploymentKey()
+            // key doesn't really change but is overlayed with the loading placeholder :-(
+            //didChangeSelectedKey()
+            // refresh ui
+            tableView.reloadData() // ??
+
+            updateUI(model: uiModel) // ??
+        }
+        let vc = ViewControllerFactory.pageSheet(viewController: choosePaymentVC, halfScreen: true)
+        presentModal(vc)
+    }
+
+    func presentModal(_ vc: UIViewController) {
+        present(vc, animated: true) {
+            TooltipSource.hideAll()
+        }
+    }
+
     private func deployerAccountCell(tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
         cell.setText("Pay with")
