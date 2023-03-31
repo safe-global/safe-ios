@@ -903,6 +903,7 @@
 		931AB80428808EBC00264AAA /* MockJSONHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931AB80228808EBC00264AAA /* MockJSONHttpClient.swift */; };
 		931AB80628808F3600264AAA /* TransactionPreviewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931AB80528808F3600264AAA /* TransactionPreviewRequest.swift */; };
 		931B211529BD2CB7009C53B5 /* NativeSocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931B211429BD2CB7009C53B5 /* NativeSocketFactory.swift */; };
+		933526FA29D704A0003B9EE3 /* ExecutionOptionsCellBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933526F929D704A0003B9EE3 /* ExecutionOptionsCellBuilder.swift */; };
 		935DCA4C27BD14C600F09EE4 /* WebConnectionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */; };
 		93788EDC29C356F100503C1A /* DummySignerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93788EDB29C356F100503C1A /* DummySignerFactory.swift */; };
 		9388B98227C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */; };
@@ -1897,6 +1898,7 @@
 		931AB80228808EBC00264AAA /* MockJSONHttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockJSONHttpClient.swift; sourceTree = "<group>"; };
 		931AB80528808F3600264AAA /* TransactionPreviewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionPreviewRequest.swift; sourceTree = "<group>"; };
 		931B211429BD2CB7009C53B5 /* NativeSocketFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeSocketFactory.swift; sourceTree = "<group>"; };
+		933526F929D704A0003B9EE3 /* ExecutionOptionsCellBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionOptionsCellBuilder.swift; sourceTree = "<group>"; };
 		935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionDetailsViewController.swift; sourceTree = "<group>"; };
 		93788EDB29C356F100503C1A /* DummySignerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummySignerFactory.swift; sourceTree = "<group>"; };
 		9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentNotificationController.swift; sourceTree = "<group>"; };
@@ -4500,6 +4502,7 @@
 				D865178027687E0B000B4C04 /* SuccessViewController.xib */,
 				6AF6297129C359AF004C034A /* PaymentMethodCell.swift */,
 				6AF6297229C359AF004C034A /* PaymentMethodCell.xib */,
+				933526F929D704A0003B9EE3 /* ExecutionOptionsCellBuilder.swift */,
 			);
 			path = ExecuteTransaction;
 			sourceTree = "<group>";
@@ -5201,6 +5204,7 @@
 				045A17632833E04B0020484B /* ReplaceOwnerFromSettingsFlow.swift in Sources */,
 				6AAE34DE282A2F0400CCFC95 /* OwnerHeaderView.swift in Sources */,
 				0468FB9925912E8300541536 /* TransactionListHeaderTableViewCell.swift in Sources */,
+				933526FA29D704A0003B9EE3 /* ExecutionOptionsCellBuilder.swift in Sources */,
 				04CE3F9624B6115200826AEE /* Collectible.swift in Sources */,
 				04CE3FA024B7191E00826AEE /* CollectibleViewModel.swift in Sources */,
 				558836702565385F0014E8C7 /* RemoveCell.swift in Sources */,
