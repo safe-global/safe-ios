@@ -51,7 +51,7 @@ _CLAIMING_DATA_URL_PROD       = https:/$()/safe-claiming-app-data.gnosis-safe.io
 // Gelato relay service
 _RELAY_URL_DEV                = https:/$()/safe-client-nest.staging.5afe.dev/
 _RELAY_URL_STAGING            = https:/$()/safe-client-nest.staging.5afe.dev/
-_RELAY_URL_PROD               = https:/$()/
+_RELAY_URL_PROD               = https:/$()/safe-client-nest.safe.global/
 
 // App Groups
 _APP_GROUP_ID_PROD     = group.io.gnosis.multisig.prod.mainnet
