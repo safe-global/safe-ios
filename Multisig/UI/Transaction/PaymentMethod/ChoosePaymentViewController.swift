@@ -57,7 +57,8 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
         case 0:
             cell.setCells([buildRelayerCell(tableView: cell.tableView)])
             if remainingRelays < ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
-                cell.isEnabled(false)
+                cell.isUserInteractionEnabled = false
+            } else {
                 cell.onCellTap = { [weak self] _ in
                     guard let self = self else { return }
                     LogService.shared.debug("Select relay")
@@ -65,8 +66,7 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
                     self.chooseRelay()
                     self.dismiss(animated: true)
                 }
-            } else {
-                cell.isEnabled(true)
+                cell.isUserInteractionEnabled = true
             }
 
         case 1:
@@ -97,15 +97,5 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
         cell.accessoryType = .none
         cell.setRelaying(remainingRelays, ReviewExecutionViewController.MAX_RELAY_TXS)
         return cell
-    }
-}
-
-extension UITableViewCell {
-    func isEnabled(_ enabled: Bool) {
-        isUserInteractionEnabled = enabled
-        subviews.forEach { subview in
-            subview.isUserInteractionEnabled = enabled
-            subview.alpha = enabled ? 1 : 0.5
-        }
     }
 }
