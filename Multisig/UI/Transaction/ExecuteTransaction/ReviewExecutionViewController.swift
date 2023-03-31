@@ -133,23 +133,23 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         // open payment method selection  
         let choosePaymentVC = ChoosePaymentViewController()
         choosePaymentVC.remainingRelays = controller.remainingRelays
-        choosePaymentVC.chooseRelay = {
+        choosePaymentVC.chooseRelay = { [unowned self] in
             LogService.shared.debug("User selected Relay")
-            self.userSelectedSigner = false
+            userSelectedSigner = false
 
-            self.contentVC.userSelectedSigner = false
-            self.contentVC.reloadData()
+            contentVC.userSelectedSigner = false
+            contentVC.reloadData()
         }
-        choosePaymentVC.chooseSigner = {
+        choosePaymentVC.chooseSigner = { [unowned self] in
             LogService.shared.debug("User selected Signer")
-            self.userSelectedSigner = true
-            self.contentVC.userSelectedSigner = true
+            userSelectedSigner = true
+            contentVC.userSelectedSigner = true
             // trigger find key
-            self.findDefaultKey()
+            findDefaultKey()
             // key doesn't really change but is overlayed with the loading placeholder :-(
-            self.didChangeSelectedKey()
+            didChangeSelectedKey()
             // refresh ui
-            self.contentVC.reloadData()
+            contentVC.reloadData()
         }
         let vc = ViewControllerFactory.pageSheet(viewController: choosePaymentVC, halfScreen: true)
         presentModal(vc)

@@ -42,8 +42,8 @@ class ReviewExecutionContentViewController: UITableViewController {
     }
 
     var userSelectedSigner: Bool {
-        set(value) {
-            builder.userSelectedSigner = value
+        set {
+            builder.userSelectedSigner = newValue
         }
         get {
             builder.userSelectedSigner

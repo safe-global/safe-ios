@@ -51,7 +51,6 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(BorderedInnerTableCell.self, for: indexPath)
-        //cell.selectionStyle = .gray
 
         cell.tableView.registerCell(PaymentMethodCell.self)
         switch(indexPath.row) {
