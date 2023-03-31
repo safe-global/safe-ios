@@ -12,7 +12,7 @@ import UIKit
 import SwiftCryptoTokenFormatter
 
 class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
-
+    var executionOptionsCellBuilder: ExecutionOptionsCellBuilder
     var onTapPaymentMethod: () -> Void = {}
     var onTapAccount: () -> Void = {}
     var onTapFee: () -> Void = {}
@@ -21,11 +21,18 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
     private var safe: Safe!
 
     init(vc: UIViewController, tableView: UITableView, chain: Chain, safe: Safe) {
+        executionOptionsCellBuilder = ExecutionOptionsCellBuilder(
+            vc: vc,
+            tableView: tableView,
+            chain: chain
+        )
         super.init(vc: vc, tableView: tableView, chain: chain)
         self.safe = safe
 
         tableView.registerCell(BorderedInnerTableCell.self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Spacer")
+
+
     }
 
     func build(_ model: ExecutionReviewUIModel) -> [UITableViewCell] {
@@ -40,11 +47,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
 
 
         // Extracted logic for executionOptionsCellBuilder
-        let executionOptionsCellBuilder = ExecutionOptionsCellBuilder(
-            vc: vc,
-            tableView: tableView,
-            chain: chain
-        )
+
         executionOptionsCellBuilder.onTapPaymentMethod = onTapPaymentMethod
         executionOptionsCellBuilder.onTapAccount = onTapAccount
         executionOptionsCellBuilder.onTapFee = onTapFee
