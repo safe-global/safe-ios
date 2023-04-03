@@ -49,6 +49,8 @@ class CreateSafeFormUIModel {
 
     func start() {
         update(to: .setup)
+        update(to: .estimating)
+
     }
 
     private func update(to newState: CreateSafeFormUIState) {
@@ -84,6 +86,7 @@ class CreateSafeFormUIModel {
                 if self.error != nil {
                     self.update(to: .changed)
                 } else if self.selectedKey != nil {
+                    self.delegate?.updateUI(model: self)
                     self.update(to: .ready)
                 } else {
                     self.update(to: .searchingKey)

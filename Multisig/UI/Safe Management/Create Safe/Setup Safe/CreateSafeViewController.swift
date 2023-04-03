@@ -23,7 +23,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
     private var uiModel = CreateSafeFormUIModel()
     var txHash: String?
-    var chain: Chain?
+    var chain: Chain = Chain.mainnetChain()
 
     private var cellBuilder: SafeCellBuilder!
     private var executionOptionsCellBuilder: ExecutionOptionsCellBuilder!
@@ -35,7 +35,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         executionOptionsCellBuilder = ExecutionOptionsCellBuilder(
             vc: self,
             tableView: tableView,
-            chain: chain ?? Chain.mainnetChain()
+            chain: chain
         )
         executionOptionsCellBuilder.userSelectedSigner = false
         executionOptionsCellBuilder.onTapPaymentMethod = action(#selector(didTapPaymentMethod(_:)))
@@ -74,14 +74,10 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         captionLabel.text = "Creating a Safe may take a few minutes."
 
         uiModel.delegate = self
+
         if let txHash = txHash,
-           let chain = chain,
            let safeCreationCall = SafeCreationCall.by(txHashes: [txHash], chainId: chain.id!)?.first {
             uiModel.updateWithSafeCall(call: safeCreationCall)
-        }
-
-        if let chain = chain {
-            uiModel.chain = chain
         }
 
         uiModel.start()
@@ -597,11 +593,18 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
 
 
-        let executionOptions = ExecutionOptionsUIModel(
+        var executionOptions = ExecutionOptionsUIModel(
             relayerState: .loading,
             accountState: .loading,
             feeState: .loading
         )
+        let feeState: EstimatedFeeUIModel = EstimatedFeeUIModel(tokenAmount: uiModel.estimatedFeeModel?.tokenAmount ?? "0")
+        executionOptions.feeState = .loaded(feeState)
+
+        let address = uiModel.deployerAccountInfoModel?.address
+
+        let accountState: MiniAccountInfoUIModel = MiniAccountInfoUIModel(address: address!)
+        executionOptions.accountState = .filled(accountState)
 
         let cell = executionOptionsCellBuilder.buildExecutionOptions(executionOptions)[0]
 
