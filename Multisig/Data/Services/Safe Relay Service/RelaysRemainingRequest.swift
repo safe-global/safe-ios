@@ -27,6 +27,7 @@ extension RelaysRemainingRequest {
 
 struct RelaysRemaining: Decodable {
     let remaining: Int
+    let limit: Int
     let expiresAt: Date?
 }
 
