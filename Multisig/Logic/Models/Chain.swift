@@ -273,7 +273,7 @@ extension Chain {
         static let ethereumMainnet = "1"
         static let ethereumRinkeby = "4"
         static let polygon = "137"
-        static let xDai = "100"
+        static let gnosis = "100"
         static let bsc = "56"
         static let arbitrum = "42161"
         static let avalanche = "43114"

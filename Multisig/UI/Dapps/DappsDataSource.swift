@@ -30,7 +30,7 @@ class DappsDataSource {
         case Chain.ChainID.ethereumMainnet: path = Bundle.main.path(forResource: "dapps-mainnet", ofType: "json")!
         case Chain.ChainID.ethereumRinkeby: path = Bundle.main.path(forResource: "dapps-rinkeby", ofType: "json")!
         case Chain.ChainID.polygon: path = Bundle.main.path(forResource: "dapps-polygon", ofType: "json")!
-        case Chain.ChainID.xDai: path = Bundle.main.path(forResource: "dapps-xdai", ofType: "json")!
+        case Chain.ChainID.gnosis: path = Bundle.main.path(forResource: "dapps-xdai", ofType: "json")!
         case Chain.ChainID.bsc: path = Bundle.main.path(forResource: "dapps-bsc", ofType: "json")!
         case Chain.ChainID.arbitrum: path = Bundle.main.path(forResource: "dapps-arbitrum", ofType: "json")!
         case Chain.ChainID.optimism: path = Bundle.main.path(forResource: "dapps-optimism", ofType: "json")!
