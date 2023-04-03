@@ -414,7 +414,7 @@ extension Chain {
         } ?? []
     }
 
-    func support(feature: Feature) -> Bool {
+    func isSupport(feature: Feature) -> Bool {
         enabledFeatures.contains(feature)
     }
 }
