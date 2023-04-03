@@ -591,8 +591,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func deploymentCell(for indexPath: IndexPath) -> UITableViewCell {
 
-
-
         var executionOptions = ExecutionOptionsUIModel(
             relayerState: .loading,
             accountState: .loading,
@@ -601,10 +599,16 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         let feeState: EstimatedFeeUIModel = EstimatedFeeUIModel(tokenAmount: uiModel.estimatedFeeModel?.tokenAmount ?? "0")
         executionOptions.feeState = .loaded(feeState)
 
-        let address = uiModel.deployerAccountInfoModel?.address
-
-        let accountState: MiniAccountInfoUIModel = MiniAccountInfoUIModel(address: address!)
+        let accountState: MiniAccountInfoUIModel = MiniAccountInfoUIModel(
+            address: uiModel.deployerAccountInfoModel?.address ?? Address(0),
+            label: uiModel.deployerAccountInfoModel?.label,
+            balance: uiModel.deployerAccountInfoModel?.balance
+            //TODO: add remaining fields
+        )
         executionOptions.accountState = .filled(accountState)
+
+        let relayerModel: RelayerInfoUIModel = RelayerInfoUIModel(remainingRelays: 2, limit: 5) // TODO: Get values from server
+        executionOptions.relayerState = .filled(relayerModel)
 
         let cell = executionOptionsCellBuilder.buildExecutionOptions(executionOptions)[0]
 
