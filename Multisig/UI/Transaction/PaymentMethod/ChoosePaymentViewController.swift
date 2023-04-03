@@ -11,7 +11,8 @@ import UIKit
 class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet private weak var tableView: UITableView!
-    var remainingRelays: Int = 0
+    var relaysRemaining: Int = 0
+    var relaysLimit: Int = 0
     var chooseRelay: () -> Void = { }
     var chooseSigner: () -> Void = { }
 
@@ -56,7 +57,7 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
         switch(indexPath.row) {
         case 0:
             cell.setCells([buildRelayerCell(tableView: cell.tableView)])
-            if remainingRelays < ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
+            if relaysRemaining < ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
                 cell.isUserInteractionEnabled = false
             } else {
                 cell.onCellTap = { [weak self] _ in
@@ -95,7 +96,7 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
     private func buildRelayerCell(tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(PaymentMethodCell.self)
         cell.accessoryType = .none
-        cell.setRelaying(remainingRelays, ReviewExecutionViewController.MAX_RELAY_TXS)
+        cell.setRelaying(relaysRemaining, relaysLimit)
         return cell
     }
 }
