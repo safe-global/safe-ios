@@ -391,3 +391,30 @@ extension Chain {
         theme?.backgroundColor.flatMap(UIColor.init(hex:))
     }
 }
+
+extension Chain {
+    enum Feature: String {
+        case contractInteraction = "CONTRACT_INTERACTION"
+        case defaultTokenList = "DEFAULT_TOKENLIST"
+        case domainLookup = "DOMAIN_LOOKUP"
+        case eip1271 = "EIP1271"
+        case eip1559 = "EIP1559"
+        case erc721 = "ERC721"
+        case relay = "RELAYING"
+        case safeApps = "SAFE_APPS"
+        case safeTxGasOptional = "SAFE_TX_GAS_OPTIONAL"
+        case spendingLimit = "SPENDING_LIMIT"
+        case txSimulation = "TX_SIMULATION"
+        case warningBanner = "WARNING_BANNER"
+    }
+
+    var enabledFeatures: [Feature] {
+        features?.compactMap { feature in
+            Feature(rawValue: feature.uppercased())
+        } ?? []
+    }
+
+    func support(feature: Feature) -> Bool {
+        enabledFeatures.contains(feature)
+    }
+}
