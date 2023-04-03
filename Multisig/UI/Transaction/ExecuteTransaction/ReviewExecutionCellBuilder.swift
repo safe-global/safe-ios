@@ -221,6 +221,7 @@ enum ExecuteWithRelayerCellState {
 
 struct RelayerInfoUIModel {
     var remainingRelays: Int
+    var limit: Int
 }
 
 struct MiniAccountInfoUIModel {

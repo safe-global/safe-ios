@@ -96,7 +96,8 @@ class TransactionExecutionController {
         }
     }
 
-    var remainingRelays: Int = 0
+    var relaysLimit: Int = 0
+    var relaysRemaining: Int = 0
 
     var requiredBalance: Sol.UInt256? {
         ethTransaction?.requiredBalance
@@ -165,16 +166,18 @@ class TransactionExecutionController {
         }
     }
 
-    func getRemainingRelays(completion: @escaping (Int) -> Void) -> URLSessionTask? {
+    func getRemainingRelays(completion: @escaping (Int, Int) -> Void) -> URLSessionTask? {
         let task = relayerService.asyncRelaysRemaining(chainId: chain.id!, safeAddress: safe.addressValue) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
-                self.remainingRelays = response.remaining
-                dispatchOnMainThread(completion(self.remainingRelays))
+                self.relaysRemaining = response.remaining
+                self.relaysLimit = response.limit
+                dispatchOnMainThread(completion(self.relaysRemaining, self.relaysLimit))
             case .failure:
-                self.remainingRelays = 0
-                dispatchOnMainThread(completion(-1))
+                self.relaysRemaining = 0
+                self.relaysLimit = 0
+                dispatchOnMainThread(completion(0, 0))
             }
         }
         return task
@@ -394,7 +397,7 @@ class TransactionExecutionController {
             return
         }
 
-        if remainingRelays <= ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
+        if relaysRemaining <= ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
             guard let key = selectedKey,
                   let keyBalance = key.balance.amount,
                   let requiredBalance = requiredBalance,

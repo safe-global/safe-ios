@@ -17,7 +17,6 @@ import SafariServices
 class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting {
 
     static let MIN_RELAY_TXS_LEFT = 0
-    static let MAX_RELAY_TXS = 5
 
     private var safe: Safe!
     private var chain: Chain!
@@ -132,7 +131,8 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     @IBAction func didTapPaymentMethod(_ sender: Any) {
         // open payment method selection  
         let choosePaymentVC = ChoosePaymentViewController()
-        choosePaymentVC.remainingRelays = controller.remainingRelays
+        choosePaymentVC.relaysRemaining = controller.relaysRemaining
+        choosePaymentVC.relaysLimit = controller.relaysLimit
         choosePaymentVC.chooseRelay = { [unowned self] in
             LogService.shared.debug("User selected Relay")
             userSelectedSigner = false
@@ -357,7 +357,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
             authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
                 guard let self = self else { return }
                 if success {
-                    if self.controller.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner {
+                    if self.controller.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner {
                         // No need to sign when relaying
                         self.submit()
                     } else {
@@ -388,20 +388,21 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     func getRemainingRelays() {
         switch(contentVC.model?.executionOptions.relayerState) {
         case .loading, .filled:
-            let task = controller.getRemainingRelays { [weak self] remaining in
+            let task = controller.getRemainingRelays { [weak self] remaining, limit in
                 guard let self = self else { return }
                 self.didLoadPaymentData()
             }
             remainingRelaysTask = task
         default:
-            controller.remainingRelays = -1
+            controller.relaysRemaining = 0
+            controller.relaysLimit = 0
             didLoadPaymentData()
         }
     }
 
     func didLoadPaymentData() {
-        if controller.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner {
-            contentVC.model?.executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: controller.remainingRelays))
+        if controller.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner {
+            contentVC.model?.executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: controller.relaysRemaining, limit: controller.relaysLimit))
         } else {
             // if we haven't search default
             if !didSearchDefaultKey && controller.selectedKey == nil {
@@ -610,7 +611,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         sendingTask?.cancel()
         relayingTask?.cancel()
 
-        if controller.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner {
+        if controller.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner {
             relayingTask = controller.relay(completion: { [weak self] result in
                 guard let self = self else { return }
 

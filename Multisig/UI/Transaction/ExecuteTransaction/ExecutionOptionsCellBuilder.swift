@@ -128,7 +128,7 @@ class ExecutionOptionsCellBuilder: TransactionDetailCellBuilder {
     func buildRelayerPayment(_ model: ExecutionOptionsUIModel, tableView: UITableView) -> UITableViewCell{
         let cell = tableView.dequeueCell(PaymentMethodCell.self)
         if case let .filled(relayerInfo) = model.relayerState {
-            cell.setRelaying(relayerInfo.remainingRelays, ReviewExecutionViewController.MAX_RELAY_TXS)
+            cell.setRelaying(relayerInfo.remainingRelays, relayerInfo.limit)
         }
         cell.setBackgroundColor(.backgroundPrimary)
         return cell
