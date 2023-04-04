@@ -75,6 +75,7 @@ class ReviewExecutionContentViewController: UITableViewController {
                                        action: #selector(pullToRefreshChanged),
                                        for: .valueChanged)
         tableView.refreshControl = pullToRefreshControl
+        tableView.backgroundColor = .backgroundSecondary
 
         // build everything
         reloadData()
