@@ -78,7 +78,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
             case feeIndex:
                 self.onTapFee()
             case paymentIndex:
-                if safe.chain!.isSupport(feature: .relay) {
+                if self.safe.chain!.isSupport(feature: .relay) {
                     self.onTapPaymentMethod()
                 }
             case executeWithIndex:
