@@ -147,6 +147,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
 
             contentVC.userSelectedSigner = false
             contentVC.reloadData()
+            estimateTransaction()
         }
         choosePaymentVC.chooseSigner = { [unowned self] in
             LogService.shared.debug("User selected Signer")
