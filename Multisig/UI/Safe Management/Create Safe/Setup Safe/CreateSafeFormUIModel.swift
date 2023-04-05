@@ -646,7 +646,7 @@ class CreateSafeFormUIModel {
 
     }
 
-    func relay(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
+     func relay(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
         guard let tx = transaction else { return nil }
 
         let task = relayerService.asyncRelayTransaction(chainId: chain!.id!,
@@ -814,12 +814,12 @@ class CreateSafeFormUIModel {
         // Which can be turnded into a tx hash with a call to Gelato when the tx has been relayed succesfully.
 //        assert(transaction.hash != nil)
         assert(futureSafeAddress != nil)
-//        assert(name != nil)
+        assert(name != nil)
 
         LogService.shared.debug("---> futureSafeAddress: \(futureSafeAddress?.checksummed)")
 
         // create a safe
-        guard let address = futureSafeAddress
+        guard let address = futureSafeAddress//, let txHash = transaction.hash
         else {
            return
         }
@@ -836,13 +836,13 @@ class CreateSafeFormUIModel {
         let context = App.shared.coreDataStack.viewContext
 
         let txHash = transaction.hash
-        let ethTxHash = txHash?.storage.storage.toHexStringWithPrefix() ?? futureSafeAddress?.checksummed
+        let ethTxHash = txHash?.storage.storage.toHexStringWithPrefix() ?? futureSafeAddress?.checksummed // TODO turn TaskId to tx hash
 
         // prevent duplicates
         CDEthTransaction.removeWhere(ethTxHash: ethTxHash!, chainId: chain.id!)
 
         let cdTx = CDEthTransaction(context: context)
-        cdTx.ethTxHash = txHash?.storage.storage.toHexStringWithPrefix() ?? futureSafeAddress?.checksummed
+        cdTx.ethTxHash = txHash?.storage.storage.toHexStringWithPrefix() ?? futureSafeAddress?.checksummed // TODO turn TaskId to tx hash
         cdTx.safeTxHash = nil
         cdTx.status = SCGModels.TxStatus.pending.rawValue
         cdTx.safeAddress = address.checksummed

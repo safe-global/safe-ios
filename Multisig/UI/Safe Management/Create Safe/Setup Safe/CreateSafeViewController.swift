@@ -596,7 +596,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
-    //TODO extract to utility class?
+    // TODO extract to utility class?
     func action(_ selector: Selector) -> () -> Void {
         { [weak self] in
             self?.performSelector(onMainThread: selector, with: nil, waitUntilDone: false)
@@ -630,6 +630,9 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func getRemainingRelays(completion: @escaping (Int, Int) -> Void) -> URLSessionTask? {
+
+        // TODO all owners need to be checked and the lowest value needs to be used
+
         let task = relayerService.asyncRelaysRemaining(chainId: chain.id!, safeAddress: self.uiModel.owners[0].address) { [weak self] result in
             guard let self = self else { return }
             switch result {
