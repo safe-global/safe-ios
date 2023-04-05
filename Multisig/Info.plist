@@ -59,6 +59,8 @@
 	<string>$(CREATE_SAFE_URL)</string>
 	<key>DELEGATE_KEY_URL</key>
 	<string>$(DELEGATE_KEY_URL)</string>
+	<key>RELAYER_INFO_URL</key>
+	<string>$(RELAYER_INFO_URL)</string>
 	<key>DESKTOP_PAIRING_URL</key>
 	<string>$(DESKTOP_PAIRING_URL)</string>
 	<key>DISCORD_URL</key>

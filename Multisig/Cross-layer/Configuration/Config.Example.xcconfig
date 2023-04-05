@@ -119,6 +119,7 @@ ADVANCED_TX_PARAMS_URL = https:/$()/help.safe.global/en/articles/4738445-advance
 LEDGER_PAIRING_URL = https:/$()/support.ledger.com/hc/en-us/articles/360019138694-Set-up-Bluetooth-connection
 CREATE_SAFE_URL = https:/$()/help.safe.global/en/articles/3876461-create-a-safe
 CONFIRMATIONS_URL = https:/$()/help.safe.global/en/articles/3952319-signature-policies
+RELAYER_INFO_URL = https:/$()/help.safe.global/en/articles/7224713-what-is-gas-fee-sponsoring
 
 // Legal URLs
 TERMS_URL       = https:/$()/app.safe.global/terms
