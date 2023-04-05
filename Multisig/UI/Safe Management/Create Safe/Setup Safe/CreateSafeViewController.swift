@@ -706,7 +706,20 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         choosePaymentVC.chooseSigner = { [unowned self] in
             LogService.shared.debug("User selected Signer")
             executionOptionsCellBuilder.userSelectedSigner = true
-
+            if self.uiModel.executionKeys().isEmpty {
+                let addOwnerVC = AddOwnerFirstViewController()
+                addOwnerVC.trackingEvent = .createSafeAddDeploymentKey
+                addOwnerVC.onSuccess = { [weak self] in
+                    guard let self = self else { return }
+                    self.navigationController?.popToViewController(self, animated: true)
+                    self.uiModel.selectedKey = self.uiModel.executionKeys().first
+                    self.uiModel.didEdit()
+                    Tracker.trackEvent(.createSafeDeploymentKeyAdded)
+                }
+                addOwnerVC.showsCloseButton = false
+                show(addOwnerVC, sender: self)
+                return
+            }
             // refresh ui
             tableView.reloadData() // ??
 
