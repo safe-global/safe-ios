@@ -15,7 +15,6 @@ import SafeAbi
 import JsonRpc2
 import Json
 
-
 protocol CreateSafeFormUIModelDelegate: AnyObject {
     func updateUI(model: CreateSafeFormUIModel)
     func createSafeModelDidFinish()
@@ -35,15 +34,18 @@ class CreateSafeFormUIModel {
     var sectionHeaders: [CreateSafeFormSectionHeader] = []
     var state: CreateSafeFormUIState = .initial
     var futureSafeAddress: Address?
+    var userSelectedSigner = false
 
     private var debounceTimer: Timer?
     private var estimationTask: URLSessionTask?
     private var getBalanceTask: URLSessionTask?
     private var sendingTask: URLSessionTask?
+    private var relayingTask: URLSessionTask?
     private var receiptTask: URLSessionTask?
     private var safeInfoTask: URLSessionTask?
 
     var estimationController: TransactionEstimationController!
+    let relayerService: SafeGelatoRelayService = App.shared.relayService
 
     weak var delegate: CreateSafeFormUIModelDelegate?
 
@@ -127,7 +129,7 @@ class CreateSafeFormUIModel {
         threshold > 0 && threshold <= owners.count &&
         selectedKey != nil &&
         transaction != nil &&
-        deployerBalance != nil && deployerBalance! >= transaction.requiredBalance &&
+        deployerBalance != nil && (deployerBalance! >= transaction.requiredBalance || !userSelectedSigner) &&
         error == nil
     }
 
@@ -443,7 +445,7 @@ class CreateSafeFormUIModel {
 
                 self.updateEthTransactionWithUserValues()
 
-                if balance < self.transaction.requiredBalance {
+                if balance < self.transaction.requiredBalance && self.userSelectedSigner {
                     completion(.failure(CreateSafeError(errorCode: -9, message: "Insufficient balance for network fees")))
                 } else {
                     completion(.success(()))
@@ -502,7 +504,7 @@ class CreateSafeFormUIModel {
     // returns the execution keys valid for executing this transaction
     func executionKeys() -> [KeyInfo] {
         // all keys that can sign this tx on its chain.
-            // currently, only wallet connect keys are chain-specific, so we filter those out.
+        // currently, only wallet connect keys are chain-specific, so we filter those out.
         guard let allKeys = try? KeyInfo.all(), !allKeys.isEmpty else {
             return []
         }
@@ -622,6 +624,50 @@ class CreateSafeFormUIModel {
         })
     }
 
+    func relaySubmit() {
+        //self.createButton.isEnabled = false
+
+        relayingTask?.cancel()
+
+        relayingTask = relay(completion: { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .failure(let error):
+                //self.createButton.isEnabled = true
+                LogService.shared.debug("//self.didSubmitFailed(error)")
+                self.didSubmitFailed(error)
+
+            case .success:
+                LogService.shared.debug("//self.didSubmitSuccess()")
+                self.didSubmitSuccess()
+            }
+        })
+
+    }
+
+    func relay(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
+        guard let tx = transaction else { return nil }
+
+        let task = relayerService.asyncRelayTransaction(chainId: chain!.id!,
+                                                        to: Address(tx.to),
+                                                        txData: tx.data.storage.toHexStringWithPrefix()
+        ) { [weak self] response in
+            guard let self = self else { return }
+            switch(response) {
+            case .success(let result):
+                LogService.shared.debug("Relayer taskId: \(try! response.get().taskId)")
+                DispatchQueue.main.async {
+                    completion(.success(()))
+                }
+            case .failure(let error):
+                dispatchOnMainThread(completion(.failure(error)))
+            }
+        }
+        return task
+    }
+
+    // this creates a tx and sends it to infura for execution
     func send(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
         guard let tx = transaction else { return nil }
 
@@ -764,14 +810,19 @@ class CreateSafeFormUIModel {
             delegate?.createSafeModelDidFinish()
         }
 
-        assert(transaction.hash != nil)
+        // TODO When relaying wo do not have a tx hash. Only a taskId.
+        // Which can be turnded into a tx hash with a call to Gelato when the tx has been relayed succesfully.
+//        assert(transaction.hash != nil)
         assert(futureSafeAddress != nil)
-        assert(name != nil)
+//        assert(name != nil)
+
+        LogService.shared.debug("---> futureSafeAddress: \(futureSafeAddress?.checksummed)")
 
         // create a safe
-        guard let address = futureSafeAddress, let txHash = transaction.hash else {
+        guard let address = futureSafeAddress
+        else {
            return
-       }
+        }
         Safe.create(
             address: address.checksummed,
             version: "1.3.0",
@@ -784,13 +835,14 @@ class CreateSafeFormUIModel {
         // save the tx information for monitoring purposes
         let context = App.shared.coreDataStack.viewContext
 
-        let ethTxHash = txHash.storage.storage.toHexStringWithPrefix()
+        let txHash = transaction.hash
+        let ethTxHash = txHash?.storage.storage.toHexStringWithPrefix() ?? futureSafeAddress?.checksummed
 
         // prevent duplicates
-        CDEthTransaction.removeWhere(ethTxHash: ethTxHash, chainId: chain.id!)
+        CDEthTransaction.removeWhere(ethTxHash: ethTxHash!, chainId: chain.id!)
 
         let cdTx = CDEthTransaction(context: context)
-        cdTx.ethTxHash = txHash.storage.storage.toHexStringWithPrefix()
+        cdTx.ethTxHash = txHash?.storage.storage.toHexStringWithPrefix() ?? futureSafeAddress?.checksummed
         cdTx.safeTxHash = nil
         cdTx.status = SCGModels.TxStatus.pending.rawValue
         cdTx.safeAddress = address.checksummed

@@ -63,7 +63,7 @@ class SafeCreationMonitor {
     func querySafeInfo() {
         updateDeployingSafes()
 
-        let indexing = Safe.all.filter { safe in safe.safeStatus == .indexing }
+        let indexing = Safe.all.filter { safe in safe.safeStatus == .indexing || safe.safeStatus == .deploying }
 
         indexing.forEach { safe in
             _ = clientGateway.asyncSafeInfo(safeAddress: safe.addressValue,
