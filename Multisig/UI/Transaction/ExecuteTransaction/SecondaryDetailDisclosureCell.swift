@@ -19,8 +19,9 @@ class SecondaryDetailDisclosureCell: UITableViewCell {
         setBackgroundColor(.backgroundPrimary)
     }
 
-    func setText(_ value: String?) {
+    func setText(_ value: String?, hideDisclousre: Bool = false) {
         cellLabel.text = value
+        accessoryType = hideDisclousre ? .none : .disclosureIndicator
     }
 
     func setBackgroundColor(_ color: UIColor?) {

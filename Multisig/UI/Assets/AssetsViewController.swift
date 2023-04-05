@@ -112,9 +112,7 @@ class AssetsViewController: ContainerViewController {
     }
 
     private var shouldShowRelayBanner: Bool {
-        relayBannerWasShown != true &&
-        AppConfiguration.FeatureToggles.relay &&
-        (safe?.chain?.isSupport(feature: .relay) ?? false)
+        relayBannerWasShown != true && (safe?.chain?.isSupported(feature: .relay) ?? false)
     }
 
     private var relayBannerWasShown: Bool? {
@@ -156,5 +154,6 @@ class AssetsViewController: ContainerViewController {
     @objc private func selectedSafeUpdatedReceived(notification: Notification) {
         self.safe = notification.object as? Safe
         totalBalanceView.tokenBanner.isHidden = !shouldShowSafeTokenBanner
+        totalBalanceView.relayInfoBanner.isHidden = !shouldShowRelayBanner
     }
 }
