@@ -274,11 +274,16 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             guard let self = self else { return }
             self.uiModel.setChain(chain)
             self.chain = self.uiModel.chain
+            self.executionOptionsCellBuilder = ExecutionOptionsCellBuilder(
+                vc: self,
+                tableView: self.tableView,
+                chain: self.chain
+            )
             // hide the screen
             self.navigationController?.popViewController(animated: true)
         }
-        show(selectNetworkVC, sender: self)
 
+        show(selectNetworkVC, sender: self)
     }
 
     func selectOwnerRow(tableView: UITableView, indexPath: IndexPath) {

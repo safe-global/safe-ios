@@ -812,11 +812,9 @@ class CreateSafeFormUIModel {
 
         // TODO When relaying wo do not have a tx hash. Only a taskId.
         // Which can be turnded into a tx hash with a call to Gelato when the tx has been relayed succesfully.
-//        assert(transaction.hash != nil)
+        // assert(transaction.hash != nil)
         assert(futureSafeAddress != nil)
         assert(name != nil)
-
-        LogService.shared.debug("---> futureSafeAddress: \(futureSafeAddress?.checksummed)")
 
         // create a safe
         guard let address = futureSafeAddress//, let txHash = transaction.hash
@@ -836,13 +834,13 @@ class CreateSafeFormUIModel {
         let context = App.shared.coreDataStack.viewContext
 
         let txHash = transaction.hash
-        let ethTxHash = txHash?.storage.storage.toHexStringWithPrefix() ?? futureSafeAddress?.checksummed // TODO turn TaskId to tx hash
+        let ethTxHash = txHash?.storage.storage.toHexStringWithPrefix() ?? futureSafeAddress?.checksummed // TODO turn taskId to tx hash
 
         // prevent duplicates
         CDEthTransaction.removeWhere(ethTxHash: ethTxHash!, chainId: chain.id!)
 
         let cdTx = CDEthTransaction(context: context)
-        cdTx.ethTxHash = txHash?.storage.storage.toHexStringWithPrefix() ?? futureSafeAddress?.checksummed // TODO turn TaskId to tx hash
+        cdTx.ethTxHash = txHash?.storage.storage.toHexStringWithPrefix() ?? futureSafeAddress?.checksummed // TODO turn taskId to tx hash
         cdTx.safeTxHash = nil
         cdTx.status = SCGModels.TxStatus.pending.rawValue
         cdTx.safeAddress = address.checksummed
