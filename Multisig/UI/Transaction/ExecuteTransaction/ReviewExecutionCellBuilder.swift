@@ -55,7 +55,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         paymentGroupCell.tableView.registerCell(DisclosureWithContentCell.self)
         paymentGroupCell.tableView.registerCell(SecondaryDetailDisclosureCell.self)
         paymentGroupCell.tableView.registerCell(PaymentMethodCell.self)
-
+        paymentGroupCell.tableView.separatorStyle = .none
         let estimatedFeeCell = buildEstimatedGasFee(model.feeState, tableView: paymentGroupCell.tableView)
 
         if case let .filled(relayerInfo) = model.relayerState,

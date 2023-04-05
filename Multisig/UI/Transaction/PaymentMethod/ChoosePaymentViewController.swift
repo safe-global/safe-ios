@@ -25,12 +25,14 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
             barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
 
         tableView.registerCell(BorderedInnerTableCell.self)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SpacingCell")
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 100
         tableView.delegate = self
         tableView.dataSource = self
         tableView.refreshControl = nil
+        tableView.backgroundColor = .backgroundSecondary
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -47,13 +49,15 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        3
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(BorderedInnerTableCell.self, for: indexPath)
 
         cell.tableView.registerCell(PaymentMethodCell.self)
+        cell.tableView.backgroundColor = .backgroundSecondary
+        cell.tableView.separatorStyle = .none
         switch(indexPath.row) {
         case 0:
             cell.setCells([buildRelayerCell(tableView: cell.tableView)])
@@ -69,8 +73,9 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
                 }
                 cell.isUserInteractionEnabled = true
             }
-
         case 1:
+            return tableView.spacingCell(indexPath: indexPath)
+        case 2:
             cell.setCells([buildSignerAccountCell(tableView: cell.tableView)])
             cell.onCellTap = { [weak self] _ in
                 guard let self = self else { return }
