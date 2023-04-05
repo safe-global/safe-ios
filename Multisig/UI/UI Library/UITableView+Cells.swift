@@ -125,4 +125,11 @@ extension UITableView {
         cell.selectionStyle = .none
         return cell
     }
+
+    func spacingCell(indexPath: IndexPath) -> UITableViewCell {
+        let cell = dequeueCell(UITableViewCell.self, reuseID: "SpacingCell", for: indexPath)
+        cell.contentView.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        cell.selectionStyle = .none
+        return cell
+    }
 }

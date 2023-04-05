@@ -12,23 +12,18 @@ class WhatsNewHandler {
 
     init() {
         let whatsNew = WhatsNew(
-            version: "3.18.0",
+            version: "3.19.0",
             title: "What's new",
             features: [
                 WhatsNew.Feature(
-                    image: WhatsNew.Feature.Image(name: "ico-whats-new-rebrand", bundle: .main, renderingMode: .original, foregroundColor: nil),
-                    title: "New look! ✨",
-                    subtitle: "Safe is following up with a new look. We have updated the color palette in the app, including dark mode."
+                    image: WhatsNew.Feature.Image(name: "ico-whats-new-relayer", bundle: .main, renderingMode: .original, foregroundColor: nil),
+                    title: "Gasless transactions",
+                    subtitle: "Transact without paying gas. Safes on Gnosis Chain receive 5 free transactions per hour for a limited time. Try it out on Gnosis Chain!"
                 ),
                 WhatsNew.Feature(
-                    image: WhatsNew.Feature.Image(name: "ico-whats-new-collectible", bundle: .main, renderingMode: .original, foregroundColor: nil),
-                    title: "Collectibles are back 💥",
-                    subtitle: "Now you can view collectibles in your Safe. Access it from the Assets tab - Collectibles."
-                ),
-                WhatsNew.Feature(
-                    image: WhatsNew.Feature.Image(name: "ico-whats-new-keystone", bundle: .main, renderingMode: .original, foregroundColor: nil),
-                    title: "Keystone support 🗝",
-                    subtitle: "We have partnered with Keystone to support the user-friendly hardware wallet in the app natively. Connect it from Settings - Owner Keys - Add."
+                    image: WhatsNew.Feature.Image(name: "ico-whats-new-wc2", bundle: .main, renderingMode: .original, foregroundColor: nil),
+                    title: "WalletConnect V2.0",
+                    subtitle: "Support for WalletConnect V2.0 for easier wallet connection."
                 )
             ],
             primaryAction: WhatsNew.PrimaryAction(

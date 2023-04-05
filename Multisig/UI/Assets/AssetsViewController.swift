@@ -100,8 +100,9 @@ class AssetsViewController: ContainerViewController {
 
         totalBalanceView.relayInfoBanner.isHidden = !shouldShowRelayBanner
         totalBalanceView.relayInfoBanner.onOpen = { [unowned self] in
-            //TODO: open article
+            // open article in V1
             // Educational series will be shown in V2 of the relayer
+            openInSafari(App.configuration.help.relayerInfoURL)
             Tracker.trackEvent(.bannerRelayOpen)
         }
         totalBalanceView.relayInfoBanner.onClose = { [unowned self] in
@@ -112,7 +113,7 @@ class AssetsViewController: ContainerViewController {
     }
 
     private var shouldShowRelayBanner: Bool {
-        return relayBannerWasShown != true && AppConfiguration.FeatureToggles.relay
+        relayBannerWasShown != true && (safe?.chain?.isSupported(feature: .relay) ?? false)
     }
 
     private var relayBannerWasShown: Bool? {
@@ -154,5 +155,6 @@ class AssetsViewController: ContainerViewController {
     @objc private func selectedSafeUpdatedReceived(notification: Notification) {
         self.safe = notification.object as? Safe
         totalBalanceView.tokenBanner.isHidden = !shouldShowSafeTokenBanner
+        totalBalanceView.relayInfoBanner.isHidden = !shouldShowRelayBanner
     }
 }

@@ -273,7 +273,7 @@ extension Chain {
         static let ethereumMainnet = "1"
         static let ethereumRinkeby = "4"
         static let polygon = "137"
-        static let xDai = "100"
+        static let gnosis = "100"
         static let bsc = "56"
         static let arbitrum = "42161"
         static let avalanche = "43114"
@@ -389,5 +389,32 @@ extension Chain {
 
     var backgroundColor: UIColor? {
         theme?.backgroundColor.flatMap(UIColor.init(hex:))
+    }
+}
+
+extension Chain {
+    enum Feature: String {
+        case contractInteraction = "CONTRACT_INTERACTION"
+        case defaultTokenList = "DEFAULT_TOKENLIST"
+        case domainLookup = "DOMAIN_LOOKUP"
+        case eip1271 = "EIP1271"
+        case eip1559 = "EIP1559"
+        case erc721 = "ERC721"
+        case relay = "RELAYING"
+        case safeApps = "SAFE_APPS"
+        case safeTxGasOptional = "SAFE_TX_GAS_OPTIONAL"
+        case spendingLimit = "SPENDING_LIMIT"
+        case txSimulation = "TX_SIMULATION"
+        case warningBanner = "WARNING_BANNER"
+    }
+
+    var enabledFeatures: [Feature] {
+        features?.compactMap { feature in
+            Feature(rawValue: feature.uppercased())
+        } ?? []
+    }
+
+    func isSupported(feature: Feature) -> Bool {
+        AppConfiguration.FeatureToggles.relay && enabledFeatures.contains(feature)
     }
 }

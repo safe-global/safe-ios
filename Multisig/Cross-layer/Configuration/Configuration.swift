@@ -79,6 +79,9 @@ struct AppConfiguration {
 
         @ConfigurationKey("CONFIRMATIONS_URL")
         var confirmationsURL: URL
+
+        @ConfigurationKey("RELAYER_INFO_URL")
+        var relayerInfoURL: URL
     }
 
     struct Legal {

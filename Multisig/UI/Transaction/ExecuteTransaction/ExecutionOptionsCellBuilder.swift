@@ -30,7 +30,7 @@ class ExecutionOptionsCellBuilder: TransactionDetailCellBuilder {
         let estimatedFeeCell = buildEstimatedGasFee(model.feeState, tableView: paymentGroupCell.tableView)
 
         if case let .filled(relayerInfo) = model.relayerState,
-           relayerInfo.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !userSelectedSigner {
+           relayerInfo.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !userSelectedSigner && chain.isSupported(feature: .relay) {
             let paymentMethod = buildRelayerPayment(model, tableView: paymentGroupCell.tableView)
             paymentGroupCell.setCells([estimatedFeeCell, paymentMethod])
         } else {
@@ -47,7 +47,9 @@ class ExecutionOptionsCellBuilder: TransactionDetailCellBuilder {
             case feeIndex:
                 self.onTapFee()
             case paymentIndex:
-                self.onTapPaymentMethod()
+                if self.chain.isSupported(feature: .relay) {
+                    self.onTapPaymentMethod()
+                }
             case executeWithIndex:
                 self.onTapAccount()
             default:
@@ -136,7 +138,8 @@ class ExecutionOptionsCellBuilder: TransactionDetailCellBuilder {
 
     func buildAccountPayment(tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(SecondaryDetailDisclosureCell.self)
-        cell.setText("With an owner key")
+        cell.setText("With an owner key", hideDisclousre: !chain.isSupported(feature: .relay))
+        cell.selectionStyle = chain.isSupported(feature: .relay) ? .default : .none
         cell.setBackgroundColor(.backgroundPrimary)
         return cell
     }
