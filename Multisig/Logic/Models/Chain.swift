@@ -414,7 +414,7 @@ extension Chain {
         } ?? []
     }
 
-    func isSupport(feature: Feature) -> Bool {
+    func isSupported(feature: Feature) -> Bool {
         AppConfiguration.FeatureToggles.relay && enabledFeatures.contains(feature)
     }
 }

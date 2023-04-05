@@ -400,7 +400,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     }
 
     func didLoadPaymentData() {
-        if controller.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner && safe.chain!.isSupport(feature: .relay) {
+        if controller.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner && safe.chain!.isSupported(feature: .relay) {
             contentVC.model?.executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: controller.relaysRemaining, limit: controller.relaysLimit))
         } else {
             // if we haven't search default
