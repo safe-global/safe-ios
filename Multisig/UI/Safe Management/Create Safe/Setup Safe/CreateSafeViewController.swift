@@ -34,12 +34,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     private var relaysLimit: Int = 0
     private var relayerService: SafeGelatoRelayService!
 
-    private var controller: TransactionExecutionController!
-
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    fileprivate func initExecutionBuilder() {
         executionOptionsCellBuilder = ExecutionOptionsCellBuilder(
             vc: self,
             tableView: tableView,
@@ -49,6 +44,12 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         executionOptionsCellBuilder.onTapPaymentMethod = action(#selector(didTapPaymentMethod(_:)))
         executionOptionsCellBuilder.onTapAccount = action(#selector(selectDeploymentKey))
         executionOptionsCellBuilder.onTapFee = action(#selector(editParameters))
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        initExecutionBuilder()
         //   executionOptionsCellBuilder.onTapAdvanced = action(#selector(didTapAdvanced(_:)))
 
         title = "Create Safe"
@@ -274,11 +275,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             guard let self = self else { return }
             self.uiModel.setChain(chain)
             self.chain = self.uiModel.chain
-            self.executionOptionsCellBuilder = ExecutionOptionsCellBuilder(
-                vc: self,
-                tableView: self.tableView,
-                chain: self.chain
-            )
+            self.initExecutionBuilder()
             // hide the screen
             self.navigationController?.popViewController(animated: true)
         }
@@ -679,20 +676,20 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBAction func didTapPaymentMethod(_ sender: Any) {
         // open payment method selection
         let choosePaymentVC = ChoosePaymentViewController()
-        //        choosePaymentVC.remainingRelays = App.shared.relayService.asyncRelaysRemaining(chainId: chain?.id, safeAddress: safe.add, completion: <#T##(Result<RelaysRemainingRequest.ResponseType, Error>) -> Void#>)
-        //        choosePaymentVC.chooseRelay = { [unowned self] in
-        //            LogService.shared.debug("User selected Relay")
-        //            executionOptionsCellBuilder.userSelectedSigner = false
-        //
-        //            updateUI(model: uiModel) // ??
-        //        }
+        choosePaymentVC.relaysRemaining = relaysRemaining
+        choosePaymentVC.relaysLimit = relaysLimit
+
+        choosePaymentVC.chooseRelay = { [unowned self] in
+            LogService.shared.debug("User selected Relay")
+            executionOptionsCellBuilder.userSelectedSigner = false
+
+            tableView.reloadData()
+        }
+
         choosePaymentVC.chooseSigner = { [unowned self] in
             LogService.shared.debug("User selected Signer")
             executionOptionsCellBuilder.userSelectedSigner = true
-            // trigger find key
-            selectDeploymentKey()
-            // key doesn't really change but is overlayed with the loading placeholder :-(
-            //didChangeSelectedKey()
+
             // refresh ui
             tableView.reloadData() // ??
 
