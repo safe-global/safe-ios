@@ -651,18 +651,25 @@ class TransactionExecutionController {
         ).encode()
 
 
-        let task = relayerService.asyncRelayTransaction(chainId: safe.chain!.id!, to: safe.addressValue, txData: input.toHexStringWithPrefix()) { [weak self] response in
-            guard let self = self else { return }
+        let task = relayerService.asyncRelayTransaction(chainId: safe.chain!.id!,
+                                                        to: safe.addressValue,
+                                                        txData: input.toHexStringWithPrefix()) { response in
             switch(response) {
-            case .success(let result):
+            case .success:
                 LogService.shared.debug("Relayer taskId: \(try! response.get().taskId)")
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [unowned self] in
+                    guard let tx = ethTransaction else {
+                        dispatchOnMainThread(completion(.failure(TransactionExecutionError(code: -6, message: "Missing transaction hash"))))
+                        return
+                    }
+                    self.didSubmitTransaction(txHash: Eth.Hash(tx.txHash().storage))
                     completion(.success(()))
                 }
             case .failure(let error):
                 dispatchOnMainThread(completion(.failure(error)))
             }
         }
+
         return task
     }
 
