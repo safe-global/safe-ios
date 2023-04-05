@@ -32,7 +32,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
 
     @IBOutlet weak var ribbonView: RibbonView!
     @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var submitButton: ActivityButtonView!
 
     var closeButton: UIBarButtonItem!
 
@@ -95,8 +95,16 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         ribbonView.update(chain: chain)
 
         // configure submit button
-        submitButton.setText("Submit", .filled)
-        submitButton.isEnabled = controller.isValid
+        submitButton.actionTitle = "Submit"
+        submitButton.set(rejectionEnabled: false)
+        if controller.isValid && (relayingTask?.state != .running && sendingTask?.state != .running) {
+            submitButton.state = .normal
+        } else {
+            submitButton.state = .disabled
+        }
+        submitButton.onAction = { [weak self] in
+            self?.didTapSubmit()
+        }
 
         // configure close button
         closeButton = UIBarButtonItem(
@@ -347,12 +355,11 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         show(ribbon, sender: self)
     }
 
-    @IBAction func didTapSubmit(_ sender: Any) {
-        self.submitButton.isEnabled = false
+    func didTapSubmit() {
+        self.submitButton.state = .loading
 
         if AppConfiguration.FeatureToggles.securityCenter {
             self.sign()
-            self.submitButton.isEnabled = true
         } else {
             authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
                 guard let self = self else { return }
@@ -364,8 +371,6 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
                         self.sign()
                     }
                 }
-
-                self.submitButton.isEnabled = true
             }
         }
     }
@@ -495,7 +500,11 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     func validate() {
         controller.validate()
         contentVC?.model?.errorMessage = controller.errorMessage
-        submitButton.isEnabled = controller.isValid
+        if controller.isValid {
+            submitButton.state = .normal
+        } else {
+            submitButton.state = .disabled
+        }
     }
 
     func sign() {
@@ -606,7 +615,6 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     }
 
     func submit() {
-        self.submitButton.isEnabled = false
 
         sendingTask?.cancel()
         relayingTask?.cancel()
@@ -617,7 +625,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
 
                 switch result {
                 case .failure(let error):
-                    self.submitButton.isEnabled = true
+                    self.submitButton.state = .normal
                     self.didSubmitFailed(error)
 
                 case .success:
@@ -630,7 +638,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
 
                 switch result {
                 case .failure(let error):
-                    self.submitButton.isEnabled = true
+                    self.submitButton.state = .normal
                     self.didSubmitFailed(error)
 
                 case .success:
