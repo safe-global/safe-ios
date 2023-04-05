@@ -112,7 +112,7 @@ class AssetsViewController: ContainerViewController {
     }
 
     private var shouldShowRelayBanner: Bool {
-        relayBannerWasShown != true && (safe?.chain?.isSupport(feature: .relay) ?? false)
+        relayBannerWasShown != true && (safe?.chain?.isSupported(feature: .relay) ?? false)
     }
 
     private var relayBannerWasShown: Bool? {

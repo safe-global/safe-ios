@@ -132,6 +132,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         // open payment method selection  
         let choosePaymentVC = ChoosePaymentViewController()
         choosePaymentVC.relaysRemaining = controller.relaysRemaining
+        choosePaymentVC.relaysLimit = controller.relaysLimit
         choosePaymentVC.chooseRelay = { [unowned self] in
             LogService.shared.debug("User selected Relay")
             userSelectedSigner = false
@@ -400,7 +401,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     }
 
     func didLoadPaymentData() {
-        if controller.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner && safe.chain!.isSupport(feature: .relay) {
+        if controller.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner && safe.chain!.isSupported(feature: .relay) {
             contentVC.model?.executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: controller.relaysRemaining, limit: controller.relaysLimit))
         } else {
             // if we haven't search default
