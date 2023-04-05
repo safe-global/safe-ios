@@ -29,7 +29,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     private var executionOptionsCellBuilder: ExecutionOptionsCellBuilder!
     private var keystoneSignFlow: KeystoneSignFlow!
 
-    private var remainingRelaysTask: URLSessionTask?
+    private var remainingRelaysTasks: [URLSessionTask?]?
     private var relaysRemaining: Int = 0
     private var relaysLimit: Int = 0
     private var relayerService: SafeGelatoRelayService!
@@ -614,14 +614,14 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func getRemainingRelays() {
         switch(executionOptions.relayerState) {
         case .loading, .filled:
-            let task = getRemainingRelays { [weak self] remaining, limit in
+            let tasks = getRemainingRelays { [weak self] remaining, limit in
                 guard let self = self else { return }
                 self.relaysRemaining = remaining
                 self.relaysLimit = limit
                 self.executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: remaining, limit: limit))
                 //self.didLoadPaymentData()
             }
-            remainingRelaysTask = task
+            remainingRelaysTasks = tasks
         default:
             self.relaysRemaining = 0
             self.relaysLimit = 0
@@ -631,24 +631,40 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
-    func getRemainingRelays(completion: @escaping (Int, Int) -> Void) -> URLSessionTask? {
+    func getRemainingRelays(completion: @escaping (Int, Int) -> Void) -> [URLSessionTask?] {
+        let group = DispatchGroup()
+        var remaining = 100
+        var limit = 0
+        var tasks: [URLSessionTask?] = []
+        // all owners need to be checked and the lowest value needs to be used
+        uiModel.owners.forEach { owner in
+            group.enter()
+            DispatchQueue.global(qos: .default).async {
+                let task = self.relayerService.asyncRelaysRemaining(chainId: self.chain.id!, safeAddress: owner.address) { [weak self] result in
+                    guard let self = self else { return }
+                    switch result {
+                    case .success(let response):
+                        LogService.shared.debug("---> success: response.remaining: \(response.remaining), remaining: \(remaining) ")
+                        if response.remaining < remaining {
+                            remaining = response.remaining
+                        }
+                        limit = response.limit
+                        LogService.shared.debug("---> success: remaining: \(remaining)")
+                    case .failure:
+                        remaining = 0
+                        limit = 0
+                    }
 
-        // TODO all owners need to be checked and the lowest value needs to be used
-
-        let task = relayerService.asyncRelaysRemaining(chainId: chain.id!, safeAddress: self.uiModel.owners[0].address) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                self.relaysRemaining = response.remaining
-                self.relaysLimit = response.limit
-                dispatchOnMainThread(completion(self.relaysRemaining, self.relaysLimit))
-            case .failure:
-                self.relaysRemaining = 0
-                self.relaysLimit = 0
-                dispatchOnMainThread(completion(0, 0))
+                    group.leave()
+                }
+                tasks.append(task)
             }
         }
-        return task
+        group.notify(queue: .main) {
+            LogService.shared.debug("---> completion: remaining: \(remaining), limit: \(limit) ")
+            completion(remaining, limit)
+        }
+        return tasks
     }
 
     func deploymentCell(for indexPath: IndexPath) -> UITableViewCell {
