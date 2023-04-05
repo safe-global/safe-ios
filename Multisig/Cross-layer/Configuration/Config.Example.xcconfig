@@ -123,7 +123,7 @@ CONFIRMATIONS_URL = https:/$()/help.safe.global/en/articles/3952319-signature-po
 // Legal URLs
 TERMS_URL       = https:/$()/app.safe.global/terms
 PRIVACY_URL     = https:/$()/app.safe.global/privacy
-LICENSES_URL    = https:/$()/safe.global/licenses
+LICENSES_URL    = https:/$()/app.safe.global/licenses
 
 // Contact Information
 DISCORD_URL             = https:/$()/chat.safe.global/
