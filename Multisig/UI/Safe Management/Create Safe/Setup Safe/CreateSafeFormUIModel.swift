@@ -196,6 +196,7 @@ class CreateSafeFormUIModel {
         owners.remove(at: index)
         threshold = min(threshold, owners.count)
         sectionHeaders = makeSectionHeaders()
+
         didEdit()
     }
 

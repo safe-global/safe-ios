@@ -248,6 +248,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         uiModel.deleteOwnerAt(indexPath.row)
+        getRemainingRelays()
     }
 
     func changeName() {
