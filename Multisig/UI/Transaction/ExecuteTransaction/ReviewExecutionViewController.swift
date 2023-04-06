@@ -386,7 +386,11 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         let task = controller.estimate { [weak self] in
             guard let self = self else { return }
             self.didChangeEstimation()
-            self.getRemainingRelays()
+            if self.chain.isSupported(feature: .relay) {
+                self.getRemainingRelays()
+            } else {
+                self.didLoadPaymentData()
+            }
         }
 
         txEstimationTask = task

@@ -241,7 +241,11 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         uiModel.deleteOwnerAt(indexPath.row)
-        getRemainingRelays()
+        if chain.isSupported(feature: .relay) {
+            getRemainingRelays()
+        } else {
+            relaysRemaining = 0
+        }
     }
 
     func changeName() {
@@ -285,7 +289,11 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func addOwner(tableView: UITableView, indexPath: IndexPath) {
         let picker = SelectAddressViewController(chain: uiModel.chain, presenter: self) { [weak self] address in
             self?.uiModel.addOwnerAddress(address)
-            self?.getRemainingRelays()
+            if let chain = self?.chain,
+               chain.isSupported(feature: .relay)
+            {
+                self?.getRemainingRelays()
+            }
         }
 
         if let popoverPresentationController = picker.popoverPresentationController {
