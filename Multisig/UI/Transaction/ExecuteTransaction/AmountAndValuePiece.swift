@@ -23,13 +23,12 @@ class AmountAndValuePiece: UINibView {
 
     func setAmount(_ value: String?, sponsored: Bool = false) {
         if value != nil && sponsored {
+            var textStyleAttributes = GNOTextStyle.headline.color(.labelTertiary).attributes
+            textStyleAttributes[NSAttributedString.Key.strikethroughColor] = UIColor.labelTertiary
+            textStyleAttributes[NSAttributedString.Key.strikethroughStyle] = NSUnderlineStyle.single.rawValue
             amountLabel.attributedText = NSMutableAttributedString(
                 string: value!,
-                attributes: [
-                    NSAttributedString.Key.foregroundColor: UIColor.labelTertiary,
-                    NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue,
-                    NSAttributedString.Key.strikethroughColor: UIColor.labelTertiary
-                ]
+                attributes: textStyleAttributes
             )
         } else {
             amountLabel.text = value
