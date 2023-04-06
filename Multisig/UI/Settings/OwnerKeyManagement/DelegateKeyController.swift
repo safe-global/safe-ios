@@ -144,7 +144,7 @@ class DelegateKeyController {
     // sign and call back with signature or fail with error (incl. cancelled error)
     private func sign(message: Data, completion: @escaping (Result<Data, Error>) -> Void) {
         let title = "Confirm Push Notifications"
-        let hexMessage = message.toHexString()
+        let hexMessage = message.toHexStringWithPrefix()
         let chain = try? Safe.getSelected()?.chain ?? Chain.mainnetChain()
         switch keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
@@ -199,7 +199,7 @@ class DelegateKeyController {
             presenter?.present(vc, animated: true)
         case .keystone:
             let signInfo = KeystoneSignInfo(
-                signData: hexMessage,
+                signData: message.toHexString(),
                 chain: chain,
                 keyInfo: keyInfo,
                 signType: .personalMessage
