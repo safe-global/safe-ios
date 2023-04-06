@@ -626,7 +626,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func getRemainingRelays(completion: @escaping (Int, Int) -> Void) -> [URLSessionTask?] {
         let group = DispatchGroup()
         var remaining = 100
-        var limit = 0
+        var limit = 5
         var tasks: [URLSessionTask?] = []
         // all owners need to be checked and the lowest value needs to be used
         uiModel.owners.forEach { owner in
@@ -658,6 +658,8 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         if uiModel.owners.isEmpty {
             remaining = 0
+            limit = 5
+            completion(remaining, limit)
         }
         return tasks
     }
