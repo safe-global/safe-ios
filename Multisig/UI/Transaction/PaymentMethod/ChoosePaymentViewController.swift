@@ -75,6 +75,7 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
             } else {
                 cell.onCellTap = { [weak self] _ in
                     guard let self = self else { return }
+                    if relaysRemaining <= 0 { return }
                     LogService.shared.debug("Select relay")
 
                     self.unsellectOptions()
