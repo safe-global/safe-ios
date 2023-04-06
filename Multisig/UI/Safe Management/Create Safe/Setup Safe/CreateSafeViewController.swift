@@ -689,7 +689,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             LogService.shared.debug("User selected Relay")
             executionOptionsCellBuilder.userSelectedSigner = false
 
-            tableView.reloadData()
+            updateUI(model: uiModel)
         }
 
         choosePaymentVC.chooseSigner = { [unowned self] in
@@ -709,9 +709,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 show(addOwnerVC, sender: self)
                 return
             }
-            // refresh ui
-            tableView.reloadData() // ??
-
             updateUI(model: uiModel) // ??
         }
         let vc = ViewControllerFactory.pageSheet(viewController: choosePaymentVC, halfScreen: true)
