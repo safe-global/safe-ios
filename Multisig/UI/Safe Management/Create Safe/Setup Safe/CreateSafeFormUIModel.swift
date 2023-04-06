@@ -51,8 +51,6 @@ class CreateSafeFormUIModel {
 
     func start() {
         update(to: .setup)
-        update(to: .estimating)
-
     }
 
     private func update(to newState: CreateSafeFormUIState) {
