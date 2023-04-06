@@ -87,12 +87,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
            let safeCreationCall = SafeCreationCall.by(txHashes: [txHash], chainId: chain.id!)?.first {
             uiModel.updateWithSafeCall(call: safeCreationCall)
         }
-
-        //TODO Start task to get remaining relays
         relayerService = App.shared.relayService
-
-        //self.controller = TransactionExecutionController(safe: safe, chain: chain, transaction: transaction, relayerService: App.shared.relayService)
-
         uiModel.start()
     }
 
@@ -619,15 +614,12 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.relaysRemaining = remaining
                 self.relaysLimit = limit
                 self.executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: remaining, limit: limit))
-                //self.didLoadPaymentData()
             }
             remainingRelaysTasks = tasks
         default:
             self.relaysRemaining = 0
             self.relaysLimit = 0
             executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: 0, limit: 0))
-
-            //didLoadPaymentData()
         }
     }
 
@@ -673,16 +665,14 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         executionOptions.feeState = .loaded(feeState)
 
         let accountState: MiniAccountInfoUIModel = MiniAccountInfoUIModel(
+            prefix: uiModel.deployerAccountInfoModel?.prefix,
             address: uiModel.deployerAccountInfoModel?.address ?? Address(0),
             label: uiModel.deployerAccountInfoModel?.label,
+            imageUri: uiModel.deployerAccountInfoModel?.imageUri,
+            badge: uiModel.deployerAccountInfoModel?.badge,
             balance: uiModel.deployerAccountInfoModel?.balance
-            //TODO: add remaining fields
         )
         executionOptions.accountState = .filled(accountState)
-
-        //        let relayerModel: RelayerInfoUIModel = RelayerInfoUIModel(remainingRelays: 2, limit: 5)
-        // TODO: Get values from server
-        //        executionOptions.relayerState = .filled(relayerModel)
 
         let cell = executionOptionsCellBuilder.buildExecutionOptions(executionOptions)[0]
 

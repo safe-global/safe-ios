@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 class SafeCellBuilder {
     weak var viewController: UIViewController!
     weak var tableView: UITableView!
