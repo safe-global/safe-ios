@@ -141,6 +141,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         let choosePaymentVC = ChoosePaymentViewController()
         choosePaymentVC.relaysRemaining = controller.relaysRemaining
         choosePaymentVC.relaysLimit = controller.relaysLimit
+        choosePaymentVC.userSelectedSigner = userSelectedSigner
         choosePaymentVC.chooseRelay = { [unowned self] in
             LogService.shared.debug("User selected Relay")
             userSelectedSigner = false
