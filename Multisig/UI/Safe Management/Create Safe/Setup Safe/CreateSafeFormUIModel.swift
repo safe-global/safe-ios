@@ -628,7 +628,6 @@ class CreateSafeFormUIModel {
     }
 
     func relaySubmit() {
-        Tracker.trackEvent(.relayUserExecTxPaymentRelay)
         relayingTask?.cancel()
         relayingTask = relay(completion: { [weak self] result in
             guard let self = self else { return }

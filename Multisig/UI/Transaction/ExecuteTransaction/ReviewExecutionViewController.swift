@@ -366,6 +366,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
                 guard let self = self else { return }
                 if success {
                     if self.controller.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner {
+                        Tracker.trackEvent(.relayUserExecTxPaymentRelay)
                         // No need to sign when relaying
                         self.submit()
                     } else {
@@ -616,7 +617,6 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     }
 
     func submit() {
-
         sendingTask?.cancel()
         relayingTask?.cancel()
 
