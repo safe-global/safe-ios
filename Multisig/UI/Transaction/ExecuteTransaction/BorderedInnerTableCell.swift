@@ -39,21 +39,13 @@ class BorderedInnerTableCell: UITableViewCell, UITableViewDelegate, UITableViewD
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        if selected {
-            tableView.layer.borderColor = UIColor.primary.cgColor
-        } else {
-            tableView.layer.borderColor = UIColor.border.cgColor
-        }
+        tableView.layer.borderColor = (selected ? UIColor.primary : UIColor.border).cgColor
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         // appearance will be updated based on the light/dark mode system environment changes
-        if isSelected {
-            tableView.layer.borderColor = UIColor.primary.cgColor
-        } else {
-            tableView.layer.borderColor = UIColor.border.cgColor
-        }
+        tableView.layer.borderColor = (isSelected ? UIColor.primary : UIColor.border).cgColor
     }
 
     func setCells(_ cells: [UITableViewCell]) {
