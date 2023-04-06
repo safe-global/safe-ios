@@ -636,11 +636,9 @@ class CreateSafeFormUIModel {
             switch result {
             case .failure(let error):
                 //self.createButton.isEnabled = true
-                LogService.shared.debug("//self.didSubmitFailed(error)")
                 self.didSubmitFailed(error)
 
             case .success:
-                LogService.shared.debug("//self.didSubmitSuccess()")
                 self.didSubmitSuccess()
             }
         })
@@ -656,7 +654,7 @@ class CreateSafeFormUIModel {
         ) { [weak self] response in
             guard let self = self else { return }
             switch(response) {
-            case .success(let result):
+            case .success:
                 DispatchQueue.main.async {
                     self.didSubmitTransaction(txHash: Eth.Hash(tx.txHash().storage))
                     completion(.success(()))
