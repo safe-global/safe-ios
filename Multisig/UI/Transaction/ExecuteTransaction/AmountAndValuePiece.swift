@@ -21,8 +21,19 @@ class AmountAndValuePiece: UINibView {
         setTextAlignment(.right)
     }
 
-    func setAmount(_ value: String?) {
-        amountLabel.text = value
+    func setAmount(_ value: String?, sponsored: Bool = false) {
+        if value != nil && sponsored {
+            amountLabel.attributedText = NSMutableAttributedString(
+                string: value!,
+                attributes: [
+                    NSAttributedString.Key.foregroundColor: UIColor.labelTertiary,
+                    NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue,
+                    NSAttributedString.Key.strikethroughColor: UIColor.labelTertiary
+                ]
+            )
+        } else {
+            amountLabel.text = value
+        }
     }
 
     func setFiatAmount(_ value: String?) {

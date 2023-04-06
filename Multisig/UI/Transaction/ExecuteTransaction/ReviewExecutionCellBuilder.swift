@@ -56,18 +56,19 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         paymentGroupCell.tableView.registerCell(SecondaryDetailDisclosureCell.self)
         paymentGroupCell.tableView.registerCell(PaymentMethodCell.self)
         paymentGroupCell.tableView.separatorStyle = .none
-        let estimatedFeeCell = buildEstimatedGasFee(model.feeState, tableView: paymentGroupCell.tableView)
 
-        var relayerPaymentSelected = false
+
+        var sponsoredPayment = false
         if case let .filled(relayerInfo) = model.relayerState,
            relayerInfo.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT &&
             !userSelectedSigner &&
             safe.chain!.isSupported(feature: .relay) {
-            relayerPaymentSelected = true
+            sponsoredPayment = true
         }
 
-        if relayerPaymentSelected {
-            estimatedFeeCell.accessoryType = .none
+        let estimatedFeeCell = buildEstimatedGasFee(model.feeState, tableView: paymentGroupCell.tableView, sponsoredPayment: sponsoredPayment)
+
+        if sponsoredPayment {
             let paymentMethod = buildRelayerPayment(model, tableView: paymentGroupCell.tableView)
             paymentGroupCell.setCells([estimatedFeeCell, paymentMethod])
         } else {
@@ -82,7 +83,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
             guard let self = self else { return }
             switch index {
             case feeIndex:
-                if !relayerPaymentSelected {
+                if !sponsoredPayment {
                     self.onTapFee()
                 }
             case paymentIndex:
@@ -163,10 +164,14 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         return cell
     }
 
-    func buildEstimatedGasFee(_ model: EstimatedFeeCellState, tableView: UITableView) -> UITableViewCell {
+    func buildEstimatedGasFee(_ model: EstimatedFeeCellState, tableView: UITableView, sponsoredPayment: Bool) -> UITableViewCell {
         let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
         cell.setText("Estimated gas fee")
         cell.setBackgroundColor(.backgroundSecondary)
+
+        if sponsoredPayment {
+            cell.accessoryType = .none
+        }
 
         switch model {
         case .loading:
@@ -179,7 +184,7 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
 
         case .loaded(let feeModel):
             let amountPiece = AmountAndValuePiece()
-            amountPiece.setAmount(feeModel.tokenAmount)
+            amountPiece.setAmount(feeModel.tokenAmount, sponsored: sponsoredPayment)
             amountPiece.setFiatAmount(feeModel.fiatAmount)
             cell.setContent(amountPiece)
         }
