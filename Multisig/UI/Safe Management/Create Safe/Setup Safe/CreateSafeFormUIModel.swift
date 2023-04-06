@@ -657,8 +657,8 @@ class CreateSafeFormUIModel {
             guard let self = self else { return }
             switch(response) {
             case .success(let result):
-                LogService.shared.debug("Relayer taskId: \(try! response.get().taskId)")
                 DispatchQueue.main.async {
+                    self.didSubmitTransaction(txHash: Eth.Hash(tx.txHash().storage))
                     completion(.success(()))
                 }
             case .failure(let error):
@@ -811,14 +811,15 @@ class CreateSafeFormUIModel {
             delegate?.createSafeModelDidFinish()
         }
 
-        // TODO When relaying wo do not have a tx hash. Only a taskId.
-        // Which can be turnded into a tx hash with a call to Gelato when the tx has been relayed succesfully.
-        // assert(transaction.hash != nil)
+        assert(transaction.hash != nil)
         assert(futureSafeAddress != nil)
         assert(name != nil)
 
+        LogService.shared.debug("---> futureSafeAddress: \(futureSafeAddress)")
+        LogService.shared.debug("--->  transaction.hash: \(transaction.hash?.storage.storage.toHexStringWithPrefix())")
+
         // create a safe
-        guard let address = futureSafeAddress//, let txHash = transaction.hash
+        guard let address = futureSafeAddress, let txHash = transaction.hash
         else {
            return
         }
@@ -833,15 +834,13 @@ class CreateSafeFormUIModel {
 
         // save the tx information for monitoring purposes
         let context = App.shared.coreDataStack.viewContext
-
-        let txHash = transaction.hash
-        let ethTxHash = txHash?.storage.storage.toHexStringWithPrefix() ?? futureSafeAddress?.checksummed // TODO turn taskId to tx hash
+        let ethTxHash = txHash.storage.storage.toHexStringWithPrefix()
 
         // prevent duplicates
-        CDEthTransaction.removeWhere(ethTxHash: ethTxHash!, chainId: chain.id!)
+        CDEthTransaction.removeWhere(ethTxHash: ethTxHash, chainId: chain.id!)
 
         let cdTx = CDEthTransaction(context: context)
-        cdTx.ethTxHash = txHash?.storage.storage.toHexStringWithPrefix() ?? futureSafeAddress?.checksummed // TODO turn taskId to tx hash
+        cdTx.ethTxHash = txHash.storage.storage.toHexStringWithPrefix()
         cdTx.safeTxHash = nil
         cdTx.status = SCGModels.TxStatus.pending.rawValue
         cdTx.safeAddress = address.checksummed
