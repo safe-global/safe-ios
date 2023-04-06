@@ -636,12 +636,10 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                     guard let self = self else { return }
                     switch result {
                     case .success(let response):
-                        LogService.shared.debug("---> success: response.remaining: \(response.remaining), remaining: \(remaining) ")
                         if response.remaining < remaining {
                             remaining = response.remaining
                         }
                         limit = response.limit
-                        LogService.shared.debug("---> success: remaining: \(remaining)")
                     case .failure:
                         remaining = 0
                         limit = 0
@@ -653,7 +651,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
         group.notify(queue: .main) {
-            LogService.shared.debug("---> completion: remaining: \(remaining), limit: \(limit) ")
             completion(remaining, limit)
         }
         if uiModel.owners.isEmpty {

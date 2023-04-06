@@ -628,10 +628,7 @@ class CreateSafeFormUIModel {
     }
 
     func relaySubmit() {
-
-
         relayingTask?.cancel()
-
         relayingTask = relay(completion: { [weak self] result in
             guard let self = self else { return }
 
@@ -642,7 +639,6 @@ class CreateSafeFormUIModel {
                 self.didSubmitSuccess()
             }
         })
-
     }
 
      func relay(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
