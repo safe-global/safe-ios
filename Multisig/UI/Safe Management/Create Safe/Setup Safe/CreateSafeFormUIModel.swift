@@ -86,7 +86,6 @@ class CreateSafeFormUIModel {
                 if self.error != nil {
                     self.update(to: .changed)
                 } else if self.selectedKey != nil {
-                    self.delegate?.updateUI(model: self)
                     self.update(to: .ready)
                 } else {
                     self.update(to: .searchingKey)
@@ -624,7 +623,7 @@ class CreateSafeFormUIModel {
     }
 
     func relaySubmit() {
-        //self.createButton.isEnabled = false
+
 
         relayingTask?.cancel()
 
@@ -633,9 +632,7 @@ class CreateSafeFormUIModel {
 
             switch result {
             case .failure(let error):
-                //self.createButton.isEnabled = true
                 self.didSubmitFailed(error)
-
             case .success:
                 self.didSubmitSuccess()
             }
@@ -645,7 +642,6 @@ class CreateSafeFormUIModel {
 
      func relay(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
         guard let tx = transaction else { return nil }
-
         let task = relayerService.asyncRelayTransaction(chainId: chain!.id!,
                                                         to: Address(tx.to),
                                                         txData: tx.data.storage.toHexStringWithPrefix()
