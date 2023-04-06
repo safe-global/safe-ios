@@ -656,6 +656,9 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             LogService.shared.debug("---> completion: remaining: \(remaining), limit: \(limit) ")
             completion(remaining, limit)
         }
+        if uiModel.owners.isEmpty {
+            remaining = 0
+        }
         return tasks
     }
 

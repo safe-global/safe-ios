@@ -28,7 +28,6 @@ class ExecutionOptionsCellBuilder: TransactionDetailCellBuilder {
         paymentGroupCell.tableView.registerCell(PaymentMethodCell.self)
 
         let estimatedFeeCell = buildEstimatedGasFee(model.feeState, tableView: paymentGroupCell.tableView)
-
         if case let .filled(relayerInfo) = model.relayerState,
            relayerInfo.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !userSelectedSigner && chain.isSupported(feature: .relay) {
             let paymentMethod = buildRelayerPayment(model, tableView: paymentGroupCell.tableView)
@@ -64,7 +63,7 @@ class ExecutionOptionsCellBuilder: TransactionDetailCellBuilder {
         let advancedParamCell = newCell(BorderedInnerTableCell.self)
         advancedParamCell.tableView.registerCell(SecondaryDetailDisclosureCell.self)
 
-        // TODO separate sadvanced cell
+        // TODO separate advanced cell
         let advancedCell = buildAdvancedParameters(tableView: advancedParamCell.tableView)
 
         advancedParamCell.setCells([advancedCell])
