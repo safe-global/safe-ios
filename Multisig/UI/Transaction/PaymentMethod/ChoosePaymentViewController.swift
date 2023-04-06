@@ -13,6 +13,7 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet private weak var tableView: UITableView!
     var relaysRemaining: Int = 0
     var relaysLimit: Int = 0
+    var userSelectedSigner = false
     var chooseRelay: () -> Void = { }
     var chooseSigner: () -> Void = { }
 
@@ -27,12 +28,19 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.registerCell(BorderedInnerTableCell.self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SpacingCell")
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.allowsSelection = true
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 100
         tableView.delegate = self
         tableView.dataSource = self
         tableView.refreshControl = nil
         tableView.backgroundColor = .backgroundSecondary
+
+        if userSelectedSigner {
+            selectSignerAccountOption()
+        } else {
+            selectRelayerOption()
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -58,6 +66,7 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
         cell.tableView.registerCell(PaymentMethodCell.self)
         cell.tableView.backgroundColor = .backgroundSecondary
         cell.tableView.separatorStyle = .none
+        cell.selectionStyle = .none
         switch(indexPath.row) {
         case 0:
             cell.setCells([buildRelayerCell(tableView: cell.tableView)])
@@ -67,6 +76,9 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
                 cell.onCellTap = { [weak self] _ in
                     guard let self = self else { return }
                     LogService.shared.debug("Select relay")
+
+                    self.unsellectOptions()
+                    self.selectRelayerOption()
 
                     self.chooseRelay()
                     self.dismiss(animated: true)
@@ -81,6 +93,9 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
                 guard let self = self else { return }
                 LogService.shared.debug("Select signer account")
 
+                self.unsellectOptions()
+                self.selectSignerAccountOption()
+
                 self.chooseSigner()
                 self.dismiss(animated: true)
             }
@@ -93,6 +108,7 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
 
     private func buildSignerAccountCell(tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(PaymentMethodCell.self)
+        cell.selectionStyle = .none
         cell.accessoryType = .none
         cell.setSignerAccount()
         return cell
@@ -100,8 +116,22 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
 
     private func buildRelayerCell(tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(PaymentMethodCell.self)
+        cell.selectionStyle = .none
         cell.accessoryType = .none
         cell.setRelaying(relaysRemaining, relaysLimit)
         return cell
+    }
+
+    private func selectSignerAccountOption() {
+        tableView.selectRow(at: IndexPath(row: 2, section: 0), animated: false, scrollPosition: .none)
+    }
+
+    private func unsellectOptions() {
+        tableView.deselectRow(at: IndexPath(index: 0), animated: true)
+        tableView.deselectRow(at: IndexPath(index: 2), animated: true)
+    }
+
+    private func selectRelayerOption() {
+        tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .none)
     }
 }

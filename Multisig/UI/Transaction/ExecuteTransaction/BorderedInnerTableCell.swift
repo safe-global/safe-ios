@@ -30,19 +30,30 @@ class BorderedInnerTableCell: UITableViewCell, UITableViewDelegate, UITableViewD
         super.awakeFromNib()
         tableView.layer.borderWidth = 1
         tableView.layer.cornerRadius = 8
-
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
-
         // disable scrolling since we will show the full content
         tableView.isScrollEnabled = false
         tableView.showsVerticalScrollIndicator = false
     }
 
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        if selected {
+            tableView.layer.borderColor = UIColor.primary.cgColor
+        } else {
+            tableView.layer.borderColor = UIColor.border.cgColor
+        }
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
         // appearance will be updated based on the light/dark mode system environment changes
-        tableView.layer.borderColor = UIColor.border.cgColor
+        if isSelected {
+            tableView.layer.borderColor = UIColor.primary.cgColor
+        } else {
+            tableView.layer.borderColor = UIColor.border.cgColor
+        }
     }
 
     func setCells(_ cells: [UITableViewCell]) {
