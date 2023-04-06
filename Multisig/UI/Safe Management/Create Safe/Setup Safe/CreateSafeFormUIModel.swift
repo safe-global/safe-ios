@@ -24,7 +24,7 @@ class CreateSafeFormUIModel {
     var name: String?
     var chain: Chain!
     var owners: [CreateSafeFormOwner] = []
-    var threshold: Int = 0
+    var threshold: Int = 1
     var selectedKey: KeyInfo?
     var deployerBalance: Sol.UInt256?
     var minNonce: Sol.UInt64 = 0
@@ -529,11 +529,11 @@ class CreateSafeFormUIModel {
     // MARK: - UI Data
 
     var minThreshold: Int {
-        owners.isEmpty ? 0 : 1
+        1
     }
 
     var maxThreshold: Int {
-        owners.isEmpty ? 0 : owners.count
+        owners.isEmpty ? 1 : owners.count
     }
 
     var thresholdText: String {

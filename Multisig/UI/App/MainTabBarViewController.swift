@@ -340,7 +340,9 @@ class MainTabBarViewController: UITabBarController {
                 Tracker.trackEvent(.createSafeRetry)
                 let createSafeVC = CreateSafeViewController()
                 createSafeVC.txHash = txHash
-                createSafeVC.chain = safe.chain ?? Chain.mainnetChain()
+                if let chain = safe.chain {
+                    createSafeVC.chain = chain
+                }
                 createSafeVC.onClose = { [weak self] in
                     self?.dismiss(animated: true, completion: nil)
                 }
