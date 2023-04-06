@@ -818,8 +818,10 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
                 guard let self = self else { return }
                 if success {
-                    if self.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.uiModel.userSelectedSigner {
+                    if self.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && self.uiModel.userSelectedPaymentMethod == .Relayer {
                         // No need to sign when relaying
+                        // TODO disable sum
+                        self.createButton.isEnabled = false
                         self.uiModel.relaySubmit()
                     } else {
                         self.sign()

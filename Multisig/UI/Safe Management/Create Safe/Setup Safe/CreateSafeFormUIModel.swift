@@ -34,7 +34,7 @@ class CreateSafeFormUIModel {
     var sectionHeaders: [CreateSafeFormSectionHeader] = []
     var state: CreateSafeFormUIState = .initial
     var futureSafeAddress: Address?
-    var userSelectedSigner = false
+    var userSelectedPaymentMethod = Transaction.PaymentMethod.Relayer
 
     private var debounceTimer: Timer?
     private var estimationTask: URLSessionTask?
@@ -129,7 +129,7 @@ class CreateSafeFormUIModel {
         threshold > 0 && threshold <= owners.count &&
         selectedKey != nil &&
         transaction != nil &&
-        deployerBalance != nil && (deployerBalance! >= transaction.requiredBalance || !userSelectedSigner) &&
+        deployerBalance != nil && (deployerBalance! >= transaction.requiredBalance || userSelectedPaymentMethod == .Relayer) &&
         error == nil
     }
 
@@ -446,7 +446,7 @@ class CreateSafeFormUIModel {
 
                 self.updateEthTransactionWithUserValues()
 
-                if balance < self.transaction.requiredBalance && self.userSelectedSigner {
+                if balance < self.transaction.requiredBalance && self.userSelectedPaymentMethod == .SignerAccount {
                     completion(.failure(CreateSafeError(errorCode: -9, message: "Insufficient balance for network fees")))
                 } else {
                     completion(.success(()))
