@@ -88,7 +88,7 @@ class ExecutionOptionsCellBuilder: TransactionDetailCellBuilder {
 
     func buildEstimatedGasFee(_ model: EstimatedFeeCellState, tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
-        cell.setText("Estimated gas fee")
+        cell.setText("Estimated fee")
         cell.setBackgroundColor(.backgroundSecondary)
 
         switch model {
