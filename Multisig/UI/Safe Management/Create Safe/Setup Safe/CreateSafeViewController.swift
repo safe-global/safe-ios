@@ -32,7 +32,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     private var remainingRelaysTasks: [URLSessionTask?]?
     private var relaysRemaining: Int = 0
     private var relaysLimit: Int = 0
-    private var relayerService: SafeGelatoRelayService!
+    private var relayerService = App.shared.relayService
 
     fileprivate func initExecutionBuilder() {
         executionOptionsCellBuilder = ExecutionOptionsCellBuilder(
@@ -87,7 +87,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
            let safeCreationCall = SafeCreationCall.by(txHashes: [txHash], chainId: chain.id!)?.first {
             uiModel.updateWithSafeCall(call: safeCreationCall)
         }
-        relayerService = App.shared.relayService
         uiModel.start()
     }
 
