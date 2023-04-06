@@ -748,24 +748,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
 
-    private func estimateFeeCell(tableView: UITableView) -> UITableViewCell {
-        let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
-        cell.setText("Network fee")
-        if uiModel.isLoadingFee {
-            let view = loadingView()
-            cell.setContent(view)
-        } else if let model = uiModel.estimatedFeeModel {
-            let view = AmountAndValuePiece()
-            view.setAmount(model.tokenAmount)
-            view.setFiatAmount(model.fiatAmount)
-            cell.setContent(view)
-        } else {
-            let view = textView("Not set")
-            cell.setContent(view)
-        }
-        return cell
-    }
-
     private func textView(_ text: String?) -> UIView {
         let label = UILabel()
         label.textAlignment = .right

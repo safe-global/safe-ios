@@ -19,17 +19,25 @@ class ExecutionOptionsCellBuilder: TransactionDetailCellBuilder {
     var userSelectedSigner = false
 
     func buildExecutionOptions(_ model: ExecutionOptionsUIModel) -> [UITableViewCell] {
-
         var result = [UITableViewCell]()
         let paymentGroupCell = newCell(BorderedInnerTableCell.self)
 
         paymentGroupCell.tableView.registerCell(DisclosureWithContentCell.self)
         paymentGroupCell.tableView.registerCell(SecondaryDetailDisclosureCell.self)
         paymentGroupCell.tableView.registerCell(PaymentMethodCell.self)
+        paymentGroupCell.tableView.separatorStyle = .none
 
-        let estimatedFeeCell = buildEstimatedGasFee(model.feeState, tableView: paymentGroupCell.tableView)
+        var sponsoredPayment = false
         if case let .filled(relayerInfo) = model.relayerState,
-           relayerInfo.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !userSelectedSigner && chain.isSupported(feature: .relay) {
+           relayerInfo.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT &&
+            !userSelectedSigner &&
+            chain.isSupported(feature: .relay) {
+            sponsoredPayment = true
+        }
+
+        let estimatedFeeCell = buildEstimatedGasFee(model.feeState, tableView: paymentGroupCell.tableView, sponsoredPayment: sponsoredPayment)
+
+        if sponsoredPayment {
             let paymentMethod = buildRelayerPayment(model, tableView: paymentGroupCell.tableView)
             paymentGroupCell.setCells([estimatedFeeCell, paymentMethod])
         } else {
@@ -44,7 +52,9 @@ class ExecutionOptionsCellBuilder: TransactionDetailCellBuilder {
             guard let self = self else { return }
             switch index {
             case feeIndex:
-                self.onTapFee()
+                if !sponsoredPayment {
+                    self.onTapFee()
+                }
             case paymentIndex:
                 if self.chain.isSupported(feature: .relay) {
                     self.onTapPaymentMethod()
@@ -63,7 +73,6 @@ class ExecutionOptionsCellBuilder: TransactionDetailCellBuilder {
         let advancedParamCell = newCell(BorderedInnerTableCell.self)
         advancedParamCell.tableView.registerCell(SecondaryDetailDisclosureCell.self)
 
-        // TODO separate advanced cell
         let advancedCell = buildAdvancedParameters(tableView: advancedParamCell.tableView)
 
         advancedParamCell.setCells([advancedCell])
@@ -85,10 +94,14 @@ class ExecutionOptionsCellBuilder: TransactionDetailCellBuilder {
         return result
     }
 
-    func buildEstimatedGasFee(_ model: EstimatedFeeCellState, tableView: UITableView) -> UITableViewCell {
+    func buildEstimatedGasFee(_ model: EstimatedFeeCellState, tableView: UITableView, sponsoredPayment: Bool) -> UITableViewCell {
         let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
-        cell.setText("Estimated fee")
+        cell.setText("Estimated gas fee")
         cell.setBackgroundColor(.backgroundSecondary)
+
+        if sponsoredPayment {
+            cell.accessoryType = .none
+        }
 
         switch model {
         case .loading:
@@ -101,7 +114,7 @@ class ExecutionOptionsCellBuilder: TransactionDetailCellBuilder {
 
         case .loaded(let feeModel):
             let amountPiece = AmountAndValuePiece()
-            amountPiece.setAmount(feeModel.tokenAmount)
+            amountPiece.setAmount(feeModel.tokenAmount, sponsored: sponsoredPayment)
             amountPiece.setFiatAmount(feeModel.fiatAmount)
             cell.setContent(amountPiece)
         }

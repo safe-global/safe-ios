@@ -50,7 +50,6 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         executionOptionsCellBuilder.onTapFee = onTapFee
         executionOptionsCellBuilder.onTapAdvanced = onTapAdvanced
         result.append(contentsOf: executionOptionsCellBuilder.buildExecutionOptions(model.executionOptions))
-
         buildErrors(model.errorMessage)
         return result
     }
