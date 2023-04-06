@@ -50,7 +50,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
 
         initExecutionBuilder()
-        //   executionOptionsCellBuilder.onTapAdvanced = action(#selector(didTapAdvanced(_:)))
 
         title = "Create Safe"
 

@@ -806,10 +806,6 @@ class CreateSafeFormUIModel {
         assert(transaction.hash != nil)
         assert(futureSafeAddress != nil)
         assert(name != nil)
-
-        LogService.shared.debug("---> futureSafeAddress: \(futureSafeAddress)")
-        LogService.shared.debug("--->  transaction.hash: \(transaction.hash?.storage.storage.toHexStringWithPrefix())")
-
         // create a safe
         guard let address = futureSafeAddress, let txHash = transaction.hash
         else {
