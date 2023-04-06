@@ -58,10 +58,16 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         paymentGroupCell.tableView.separatorStyle = .none
         let estimatedFeeCell = buildEstimatedGasFee(model.feeState, tableView: paymentGroupCell.tableView)
 
+        var relayerPaymentSelected = false
         if case let .filled(relayerInfo) = model.relayerState,
            relayerInfo.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT &&
             !userSelectedSigner &&
             safe.chain!.isSupported(feature: .relay) {
+            relayerPaymentSelected = true
+        }
+
+        if relayerPaymentSelected {
+            estimatedFeeCell.accessoryType = .none
             let paymentMethod = buildRelayerPayment(model, tableView: paymentGroupCell.tableView)
             paymentGroupCell.setCells([estimatedFeeCell, paymentMethod])
         } else {
@@ -76,7 +82,9 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
             guard let self = self else { return }
             switch index {
             case feeIndex:
-                self.onTapFee()
+                if !relayerPaymentSelected {
+                    self.onTapFee()
+                }
             case paymentIndex:
                 if self.safe.chain!.isSupported(feature: .relay) {
                     self.onTapPaymentMethod()
