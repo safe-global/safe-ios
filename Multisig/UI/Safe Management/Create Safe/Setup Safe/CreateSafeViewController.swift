@@ -711,7 +711,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 show(addOwnerVC, sender: self)
                 return
             }
-            updateUI(model: uiModel) // ??
+            updateUI(model: uiModel)
         }
         let vc = ViewControllerFactory.pageSheet(viewController: choosePaymentVC, halfScreen: true)
         presentModal(vc)
@@ -811,6 +811,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                         // TODO disable sum
                         self.createButton.isEnabled = false
                         self.uiModel.relaySubmit()
+                        
                     } else {
                         self.sign()
                     }

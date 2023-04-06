@@ -628,6 +628,7 @@ class CreateSafeFormUIModel {
     }
 
     func relaySubmit() {
+        Tracker.trackEvent(.relayUserExecTxPaymentRelay)
         relayingTask?.cancel()
         relayingTask = relay(completion: { [weak self] result in
             guard let self = self else { return }
@@ -636,6 +637,7 @@ class CreateSafeFormUIModel {
             case .failure(let error):
                 self.didSubmitFailed(error)
             case .success:
+                Tracker.trackEvent(.relayUserSuccess)
                 self.didSubmitSuccess()
             }
         })
@@ -663,6 +665,8 @@ class CreateSafeFormUIModel {
 
     // this creates a tx and sends it to infura for execution
     func send(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
+
+        Tracker.trackEvent(.relayUserExecTxPaymentSigner)
         guard let tx = transaction else { return nil }
 
         let rawTransaction = tx.rawTransaction()
