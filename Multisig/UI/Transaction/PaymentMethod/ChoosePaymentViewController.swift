@@ -17,6 +17,9 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
     var chooseRelay: () -> Void = { }
     var chooseSigner: () -> Void = { }
 
+    private let ROW_RELAYER = 0
+    private let ROW_SIGNER_ACCOUNT = 2
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -124,15 +127,15 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
     }
 
     private func selectSignerAccountOption() {
-        tableView.selectRow(at: IndexPath(row: 2, section: 0), animated: false, scrollPosition: .none)
+        tableView.selectRow(at: IndexPath(row: ROW_SIGNER_ACCOUNT, section: 0), animated: false, scrollPosition: .none)
     }
 
     private func unsellectOptions() {
-        tableView.deselectRow(at: IndexPath(index: 0), animated: true)
-        tableView.deselectRow(at: IndexPath(index: 2), animated: true)
+        tableView.deselectRow(at: IndexPath(index: ROW_RELAYER), animated: true)
+        tableView.deselectRow(at: IndexPath(index: ROW_SIGNER_ACCOUNT), animated: true)
     }
 
     private func selectRelayerOption() {
-        tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .none)
+        tableView.selectRow(at: IndexPath(row: ROW_RELAYER, section: 0), animated: false, scrollPosition: .none)
     }
 }
