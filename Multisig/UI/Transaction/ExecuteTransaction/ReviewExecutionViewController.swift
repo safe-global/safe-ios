@@ -367,6 +367,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
                 guard let self = self else { return }
                 if success {
                     if self.controller.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner {
+                        Tracker.trackEvent(.relayUserExecTxPaymentRelay)
                         // No need to sign when relaying
                         self.submit()
                     } else {
@@ -386,7 +387,11 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         let task = controller.estimate { [weak self] in
             guard let self = self else { return }
             self.didChangeEstimation()
-            self.getRemainingRelays()
+            if self.chain.isSupported(feature: .relay) {
+                self.getRemainingRelays()
+            } else {
+                self.didLoadPaymentData()
+            }
         }
 
         txEstimationTask = task
@@ -617,7 +622,6 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     }
 
     func submit() {
-
         sendingTask?.cancel()
         relayingTask?.cancel()
 
