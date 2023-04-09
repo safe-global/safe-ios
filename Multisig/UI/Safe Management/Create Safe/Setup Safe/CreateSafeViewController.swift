@@ -698,13 +698,14 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         choosePaymentVC.chooseRelay = { [unowned self] in
             LogService.shared.debug("User selected Relay")
             executionOptionsCellBuilder.userSelectedSigner = false
-
+            uiModel.userSelectedPaymentMethod = .Relayer
             updateUI(model: uiModel)
         }
 
         choosePaymentVC.chooseSigner = { [unowned self] in
             LogService.shared.debug("User selected Signer")
             executionOptionsCellBuilder.userSelectedSigner = true
+            uiModel.userSelectedPaymentMethod = .SignerAccount
             if self.uiModel.executionKeys().isEmpty {
                 let addOwnerVC = AddOwnerFirstViewController()
                 addOwnerVC.trackingEvent = .createSafeAddDeploymentKey
