@@ -128,7 +128,8 @@ class CreateSafeFormUIModel {
         threshold <= owners.count &&
         (selectedKey != nil || userSelectedPaymentMethod == .Relayer) &&
         transaction != nil &&
-        (deployerBalance != nil && deployerBalance! >= transaction.requiredBalance || userSelectedPaymentMethod == .Relayer) &&
+        (deployerBalance != nil || userSelectedPaymentMethod == .Relayer) &&
+        (deployerBalance! >= transaction.requiredBalance || userSelectedPaymentMethod == .Relayer) &&
         error == nil
     }
 
