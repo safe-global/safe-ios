@@ -120,13 +120,15 @@ class CreateSafeFormUIModel {
 
     var isCreateEnabled: Bool {
         state == .ready &&
-        name != nil && !name!.isEmpty &&
+        name != nil &&
+        !name!.isEmpty &&
         chain != nil &&
         !owners.isEmpty &&
-        threshold > 0 && threshold <= owners.count &&
-        selectedKey != nil &&
+        threshold > 0 &&
+        threshold <= owners.count &&
+        (selectedKey != nil || userSelectedPaymentMethod == .Relayer) &&
         transaction != nil &&
-        deployerBalance != nil && (deployerBalance! >= transaction.requiredBalance || userSelectedPaymentMethod == .Relayer) &&
+        (deployerBalance != nil && deployerBalance! >= transaction.requiredBalance || userSelectedPaymentMethod == .Relayer) &&
         error == nil
     }
 
