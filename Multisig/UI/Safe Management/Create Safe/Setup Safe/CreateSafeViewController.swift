@@ -300,6 +300,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             popoverPresentationController.sourceView = tableView.cellForRow(at: indexPath)
         }
         present(picker, animated: true, completion: nil)
+        updateUI(model: uiModel)
     }
 
     // select deployer

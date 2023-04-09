@@ -266,7 +266,7 @@ class SendTransactionCellBuilder {
 
     func buildEstimatedGasFee(_ model: EstimatedFeeCellState, tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
-        cell.setText("Estimated gas fee")
+        cell.setText("Estimated fee")
 
         switch model {
         case .loading:
