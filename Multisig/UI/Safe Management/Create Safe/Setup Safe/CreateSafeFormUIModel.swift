@@ -119,7 +119,7 @@ class CreateSafeFormUIModel {
     }
 
     var isCreateEnabled: Bool {
-        state == .ready &&
+        (state == .ready || (state == .keyNotFound && userSelectedPaymentMethod == .Relayer)) &&
         name != nil &&
         !name!.isEmpty &&
         chain != nil &&
