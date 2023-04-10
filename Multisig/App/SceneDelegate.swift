@@ -88,6 +88,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         App.shared.clientGatewayHostObserver.startObserving()
 
         PendingTransactionMonitor.scheduleMonitoring()
+        RelayedTransactionMonitor.scheduleMonitoring()
         SafeCreationMonitor.scheduleMonitoring()
         WebConnectionExpirationMonitor.scheduleMonitoring()
 

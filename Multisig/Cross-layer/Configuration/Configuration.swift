@@ -23,6 +23,9 @@ struct AppConfiguration {
         @ConfigurationKey("RELAY_URL")
         var relayURL: URL
 
+        @ConfigurationKey("GELATO_SERVICE_URL")
+        var gelatoRelayURL: URL
+
         @ConfigurationKey("INFURA_API_KEY")
         var infuraKey: String
 
