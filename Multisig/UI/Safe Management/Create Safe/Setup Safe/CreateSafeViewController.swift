@@ -701,14 +701,14 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         choosePaymentVC.chooseRelay = { [unowned self] in
             LogService.shared.debug("User selected Relay")
             executionOptionsCellBuilder.userSelectedSigner = false
-            uiModel.userSelectedPaymentMethod = .Relayer
+            uiModel.userSelectedPaymentMethod = .relayer
             updateUI(model: uiModel)
         }
 
         choosePaymentVC.chooseSigner = { [unowned self] in
             LogService.shared.debug("User selected Signer")
             executionOptionsCellBuilder.userSelectedSigner = true
-            uiModel.userSelectedPaymentMethod = .SignerAccount
+            uiModel.userSelectedPaymentMethod = .signerAccount
             if self.uiModel.executionKeys().isEmpty {
                 let addOwnerVC = AddOwnerFirstViewController()
                 addOwnerVC.trackingEvent = .createSafeAddDeploymentKey
@@ -800,7 +800,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
                 guard let self = self else { return }
                 if success {
-                    if self.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && self.uiModel.userSelectedPaymentMethod == .Relayer {
+                    if self.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && self.uiModel.userSelectedPaymentMethod == .relayer {
                         // No need to sign when relaying
                         // TODO disable sum
                         self.createButton.isEnabled = false
