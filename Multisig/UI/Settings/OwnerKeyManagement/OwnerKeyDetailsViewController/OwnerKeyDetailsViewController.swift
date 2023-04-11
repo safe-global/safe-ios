@@ -221,11 +221,16 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
             self.sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
         }
 
-        self.sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
-                              items: [Section.PushNotificationConfiguration.enabled]))
-        if self.keyInfo.delegateAddress != nil {
+        // TODO: Remove this after release 3.19.0
+        if ![KeyType.deviceImported, KeyType.deviceImported].contains(keyInfo.keyType) {
+            self.sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
+                                  items: [Section.PushNotificationConfiguration.enabled]))
+        }
+
+        if self.keyInfo.delegateAddress != nil &&
+            ![KeyType.deviceImported, KeyType.deviceImported].contains(keyInfo.keyType) {
             self.sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
-                                  items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
+                    items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
         }
 
         self.sections.append((section: .advanced, items: [Section.Advanced.remove]))
