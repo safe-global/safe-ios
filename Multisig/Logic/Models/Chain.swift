@@ -400,7 +400,7 @@ extension Chain {
         case eip1271 = "EIP1271"
         case eip1559 = "EIP1559"
         case erc721 = "ERC721"
-        case relay = "RELAYING"
+        case relayingMobile = "RELAYING_MOBILE"
         case safeApps = "SAFE_APPS"
         case safeTxGasOptional = "SAFE_TX_GAS_OPTIONAL"
         case spendingLimit = "SPENDING_LIMIT"

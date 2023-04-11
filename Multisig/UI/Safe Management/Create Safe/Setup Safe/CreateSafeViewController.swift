@@ -241,7 +241,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         uiModel.deleteOwnerAt(indexPath.row)
-        if chain.isSupported(feature: .relay) {
+        if chain.isSupported(feature: .relayingMobile) {
             getRemainingRelays()
         } else {
             relaysRemaining = 0
@@ -290,7 +290,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         let picker = SelectAddressViewController(chain: uiModel.chain, presenter: self) { [weak self] address in
             self?.uiModel.addOwnerAddress(address)
             if let chain = self?.chain,
-               chain.isSupported(feature: .relay)
+               chain.isSupported(feature: .relayingMobile)
             {
                 self?.getRemainingRelays()
             }
