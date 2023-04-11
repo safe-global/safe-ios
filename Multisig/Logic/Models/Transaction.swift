@@ -259,7 +259,7 @@ extension Transaction {
 
 extension Transaction {
     public enum PaymentMethod {
-        case SignerAccount
-        case Relayer
+        case signerAccount
+        case relayer
     }
 }
