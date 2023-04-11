@@ -274,6 +274,9 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             self.uiModel.setChain(chain)
             self.chain = self.uiModel.chain
             self.initExecutionBuilder()
+            if self.chain.isSupported(feature: .relay) {
+                self.getRemainingRelays()
+            }
             // hide the screen
             self.navigationController?.popViewController(animated: true)
         }
