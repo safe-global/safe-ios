@@ -147,8 +147,13 @@ extension SelectWalletViewController: UITableViewDelegate, UITableViewDataSource
         let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
         let walletConnectionVC = StartWalletConnectionViewController(wallet: wallet, chain: chain)
         walletConnectionVC.onSuccess = { [weak self] connection in
+            var connectedWallet = wallet
             self?.connection = connection
-            self?.completion(wallet, connection)
+            if connectedWallet == nil , let url = connection.remotePeer?.url.absoluteString {
+                connectedWallet = self?.walletsSource.wallets(url: url).first
+            }
+
+            self?.completion(connectedWallet, connection)
         }
         let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: wallet != nil)
         present(vc, animated: true)

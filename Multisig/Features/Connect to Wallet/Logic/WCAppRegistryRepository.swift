@@ -7,9 +7,9 @@ import Foundation
 
 class WCAppRegistryRepository {
 
-    func entries(searchTerm: String? = nil, role: WCAppRegistryEntry.Role = .wallet) -> [WCAppRegistryEntry] {
+    func entries(searchTerm: String? = nil, url: String? = nil, role: WCAppRegistryEntry.Role = .wallet) -> [WCAppRegistryEntry] {
         assert(Thread.isMainThread)
-        let entries = try? CDWCAppRegistryEntry.entries(name: searchTerm, role: role.rawValue)
+        let entries = try? CDWCAppRegistryEntry.entries(name: searchTerm, url: url, role: role.rawValue)
         return entries?.compactMap {
             entry(from: $0)
         } ?? []

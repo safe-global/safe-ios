@@ -76,7 +76,7 @@ class WCRegistryController {
 
 
     // retrieve wallets from db
-    func wallets(_ searchTerm: String? = nil) -> [WCAppRegistryEntry] {
-        repository.entries(searchTerm: searchTerm, role: .wallet)
+    func wallets(_ searchTerm: String? = nil, url: String? = nil) -> [WCAppRegistryEntry] {
+        repository.entries(searchTerm: searchTerm, url: url, role: .wallet)
     }
 }

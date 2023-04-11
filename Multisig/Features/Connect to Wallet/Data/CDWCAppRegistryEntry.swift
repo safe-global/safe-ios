@@ -26,11 +26,16 @@ extension CDWCAppRegistryEntry {
         }
     }
 
-    static func entries(name: String?, role: Int16) throws -> [CDWCAppRegistryEntry] {
+    static func entries(name: String?, url: String?, role: Int16) throws -> [CDWCAppRegistryEntry] {
         do {
             let context = App.shared.coreDataStack.viewContext
             let fr = CDWCAppRegistryEntry.fetchRequest().by(name: name, role: role)
-            let entries = try context.fetch(fr)
+            var entries = try context.fetch(fr)
+            if let homePageURL = url {
+                let fr = CDWCAppRegistryEntry.fetchRequest().by(url: homePageURL, role: role)
+                let urlEntries = try context.fetch(fr)
+                entries.append(contentsOf: urlEntries)
+            }
             return entries
         } catch {
             throw GSError.DatabaseError(reason: error.localizedDescription)
@@ -86,6 +91,16 @@ extension NSFetchRequest where ResultType == CDWCAppRegistryEntry {
         sortDescriptors = [NSSortDescriptor(key: "rank", ascending: true), NSSortDescriptor(key: "name", ascending: true)]
         if let name = name {
             predicate = NSPredicate(format: "name contains[c] %@ AND role == %i", name, role)
+        } else {
+            predicate = NSPredicate(format: "role == %i", role)
+        }
+        return self
+    }
+
+    func by(url: String?, role: Int16) -> Self {
+        sortDescriptors = [NSSortDescriptor(key: "rank", ascending: true), NSSortDescriptor(key: "name", ascending: true)]
+        if let url = url {
+            predicate = NSPredicate(format: "homepage contains[c] %@ AND role == %i", url, role)
         } else {
             predicate = NSPredicate(format: "role == %i", role)
         }
