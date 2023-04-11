@@ -67,6 +67,7 @@ class RelayedTransactionMonitor {
                             cdTxData.status = SCGModels.TxStatus.failed.rawValue
                             cdTxData.dateUpdatedAt = Date()
                             App.shared.coreDataStack.saveContext()
+                            NotificationCenter.default.post(name: .transactionDataInvalidated, object: self, userInfo: nil)
                         }
                     }
                 }
