@@ -553,7 +553,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
 
             sendTxVC.onSuccess = { [weak self, weak sendTxVC] txHashData in
                 guard let self = self else { return }
-                self.controller.didSubmitTransaction(txHash: Eth.Hash(txHashData), taskId: nil)
+                self.controller.didSubmitTransaction(txHash: Eth.Hash(txHashData))
                 self.didSubmitSuccess()
             }
 

@@ -56,11 +56,18 @@ class RelayedTransactionMonitor {
                     case .failure(_):
                         break
                     case .success(let status):
-                        cdTxData.status = SCGModels.TxStatus.success.rawValue
-                        cdTxData.dateUpdatedAt = Date()
-                        cdTxData.dateExecutedAt = Date()
-                        App.shared.coreDataStack.saveContext()
-                        NotificationCenter.default.post(name: .transactionDataInvalidated, object: self, userInfo: nil)
+                        if let txHash = status.task.transactionHash, status.task.taskState == .success {
+                            cdTxData.status = SCGModels.TxStatus.success.rawValue
+                            cdTxData.ethTxHash = txHash
+                            cdTxData.dateUpdatedAt = Date()
+                            cdTxData.dateExecutedAt = Date()
+                            App.shared.coreDataStack.saveContext()
+                            NotificationCenter.default.post(name: .transactionDataInvalidated, object: self, userInfo: nil)
+                        } else if [RelayedTaskStatus.Status.cancelled, .reverted].contains(status.task.taskState) {
+                            cdTxData.status = SCGModels.TxStatus.failed.rawValue
+                            cdTxData.dateUpdatedAt = Date()
+                            App.shared.coreDataStack.saveContext()
+                        }
                     }
                 }
             })

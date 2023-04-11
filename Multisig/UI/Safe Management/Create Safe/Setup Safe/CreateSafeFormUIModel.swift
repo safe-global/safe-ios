@@ -635,14 +635,14 @@ class CreateSafeFormUIModel {
             switch result {
             case .failure(let error):
                 self.didSubmitFailed(error)
-            case .success:
+            case .success(let taskId):
                 Tracker.trackEvent(.relayUserSuccess)
-                self.didSubmitSuccess()
+                self.didSubmitSuccess(taskId: taskId)
             }
         })
     }
 
-     func relay(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
+     func relay(completion: @escaping (Result<String, Error>) -> Void) -> URLSessionTask? {
         guard let tx = transaction else { return nil }
         let task = relayerService.asyncRelayTransaction(chainId: chain!.id!,
                                                         to: Address(tx.to),
@@ -651,9 +651,13 @@ class CreateSafeFormUIModel {
             guard let self = self else { return }
             switch(response) {
             case .success:
+                guard let taskId = try? response.get().taskId else {
+                    dispatchOnMainThread(completion(.failure(TransactionExecutionError(code: -7, message: "Missing taskId"))))
+                    return
+                }
                 DispatchQueue.main.async {
                     self.didSubmitTransaction(txHash: Eth.Hash(tx.txHash().storage))
-                    completion(.success(()))
+                    completion(.success((taskId)))
                 }
             case .failure(let error):
                 dispatchOnMainThread(completion(.failure(error)))
@@ -801,7 +805,7 @@ class CreateSafeFormUIModel {
         update(to: .error)
     }
 
-    func didSubmitSuccess() {
+    func didSubmitSuccess(taskId: String? = nil) {
         defer {
             update(to: .final)
             delegate?.createSafeModelDidFinish()
@@ -834,6 +838,7 @@ class CreateSafeFormUIModel {
         let cdTx = CDEthTransaction(context: context)
         cdTx.ethTxHash = txHash.storage.storage.toHexStringWithPrefix()
         cdTx.safeTxHash = nil
+        cdTx.taskId = taskId
         cdTx.status = SCGModels.TxStatus.pending.rawValue
         cdTx.safeAddress = address.checksummed
         cdTx.chainId = chain.id

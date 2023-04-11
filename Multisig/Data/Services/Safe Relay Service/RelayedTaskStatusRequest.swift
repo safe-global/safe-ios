@@ -16,18 +16,27 @@ struct RelayedTaskStatusRequest: JSONRequest {
 
     var urlPath: String { "/tasks/status/\(taskId)" }
 
-    typealias ResponseType = RelayedTaskStatus
+    typealias ResponseType = StatusResponseObject
+}
+
+struct StatusResponseObject: Decodable {
+    let task: RelayedTaskStatus
 }
 
 struct RelayedTaskStatus: Decodable {
     let taskId: String?
-    let chainId: String?
-    let taskState: String?
-    let creationDate: Date?
-    let executionDate: Date?
-    let transactionHash: Date?
-    let blockNumber: BigInt?
+    let taskState: Status?
+    let transactionHash: String?
     let lastCheckMessage: String?
+
+    enum Status: String, Decodable {
+        case awaitingChecking = "CheckPending"
+        case awaitingExecution = "ExecPending"
+        case awaitingConfirmation = "WaitingForConfirmation"
+        case success = "ExecSuccess"
+        case cancelled = "Cancelled"
+        case reverted = "ExecReverted"
+    }
 }
 
 extension GelatoRelayService {

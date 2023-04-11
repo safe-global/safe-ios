@@ -47,6 +47,8 @@
 	<string>$(CLAIMING_DATA_URL)</string>
 	<key>RELAY_URL</key>
 	<string>$(RELAY_URL)</string>
+	<key>GELATO_SERVICE_URL</key>
+	<string>$(GELATO_SERVICE_URL)</string>
 	<key>CONFIRMATIONS_URL</key>
 	<string>$(CONFIRMATIONS_URL)</string>
 	<key>CONFLICT_URL</key>

@@ -615,7 +615,7 @@ class TransactionExecutionController {
             }
 
             DispatchQueue.main.async {
-                self.didSubmitTransaction(txHash: Eth.Hash(txHash.storage), taskId: nil)
+                self.didSubmitTransaction(txHash: Eth.Hash(txHash.storage))
                 completion(.success(()))
             }
         }
@@ -678,7 +678,7 @@ class TransactionExecutionController {
         return task
     }
 
-    func didSubmitTransaction(txHash: Eth.Hash, taskId: String?) {
+    func didSubmitTransaction(txHash: Eth.Hash, taskId: String? = nil) {
         self.ethTransaction?.hash = txHash
 
         // save the tx information for monitoring purposes
