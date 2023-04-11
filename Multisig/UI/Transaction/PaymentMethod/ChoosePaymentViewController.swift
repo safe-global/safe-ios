@@ -13,7 +13,7 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet private weak var tableView: UITableView!
     var relaysRemaining: Int = 0
     var relaysLimit: Int = 0
-    var userSelectedSigner = false
+    var userSelectedSigner = true
     var chooseRelay: () -> Void = { }
     var chooseSigner: () -> Void = { }
 
@@ -78,7 +78,7 @@ class ChoosePaymentViewController: UIViewController, UITableViewDelegate, UITabl
             } else {
                 cell.onCellTap = { [weak self] _ in
                     guard let self = self else { return }
-                    if self.relaysRemaining <= 0 { return }
+                    if self.relaysRemaining <= ReviewExecutionViewController.MIN_RELAY_TXS_LEFT { return }
                     LogService.shared.debug("Select relay")
 
                     self.unsellectOptions()

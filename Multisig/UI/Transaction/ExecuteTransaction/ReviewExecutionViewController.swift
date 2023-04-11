@@ -418,6 +418,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         } else {
             // if we haven't search default
             if !didSearchDefaultKey && controller.selectedKey == nil {
+                userSelectedSigner = true
                 findDefaultKey()
             }
         }
