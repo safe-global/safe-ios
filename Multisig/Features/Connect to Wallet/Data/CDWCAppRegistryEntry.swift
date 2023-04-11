@@ -85,7 +85,10 @@ extension NSFetchRequest where ResultType == CDWCAppRegistryEntry {
     func by(name: String?, role: Int16) -> Self {
         sortDescriptors = [NSSortDescriptor(key: "rank", ascending: true), NSSortDescriptor(key: "name", ascending: true)]
         if let name = name {
-            predicate = NSPredicate(format: "name contains[c] %@ AND role == %i", name, role)
+            predicate = NSPredicate(format: "homepage contains[c] %@ OR name contains[c] %@ AND role == %i",
+                                    name,
+                                    name,
+                                    role)
         } else {
             predicate = NSPredicate(format: "role == %i", role)
         }

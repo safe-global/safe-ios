@@ -147,8 +147,20 @@ extension SelectWalletViewController: UITableViewDelegate, UITableViewDataSource
         let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
         let walletConnectionVC = StartWalletConnectionViewController(wallet: wallet, chain: chain)
         walletConnectionVC.onSuccess = { [weak self] connection in
+            var connectedWallet = wallet
             self?.connection = connection
-            self?.completion(wallet, connection)
+            // This means that the connection has been made using the qr code
+            // In such case we don't have selected wallet and we count on the remote peer info to get it
+            // We then have to filter our registry to find out which supported wallet was used
+            if connectedWallet == nil, let name = connection.remotePeer?.name {
+                connectedWallet = self?.walletsSource.wallets(name).first
+            }
+
+            if connectedWallet == nil, let name = connection.remotePeer?.url.absoluteString {
+                connectedWallet = self?.walletsSource.wallets(name).first
+            }
+
+            self?.completion(connectedWallet, connection)
         }
         let vc = ViewControllerFactory.pageSheet(viewController: walletConnectionVC, halfScreen: wallet != nil)
         present(vc, animated: true)
