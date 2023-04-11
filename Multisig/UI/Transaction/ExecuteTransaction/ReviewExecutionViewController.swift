@@ -387,7 +387,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         let task = controller.estimate { [weak self] in
             guard let self = self else { return }
             self.didChangeEstimation()
-            if self.chain.isSupported(feature: .relay) {
+            if self.chain.isSupported(feature: .relayingMobile) {
                 self.getRemainingRelays()
             } else {
                 self.didLoadPaymentData()
@@ -413,7 +413,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     }
 
     func didLoadPaymentData() {
-        if controller.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner && safe.chain!.isSupported(feature: .relay) {
+        if controller.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner && safe.chain!.isSupported(feature: .relayingMobile) {
             contentVC.model?.executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: controller.relaysRemaining, limit: controller.relaysLimit))
         } else {
             // if we haven't search default
