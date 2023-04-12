@@ -30,8 +30,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     private var keystoneSignFlow: KeystoneSignFlow!
 
     private var remainingRelaysTasks: [URLSessionTask?]?
-    private var relaysRemaining: Int = 0
-    private var relaysLimit: Int = 0
     private var relayerService = App.shared.relayService
 
     fileprivate func initExecutionBuilder() {
@@ -244,7 +242,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         if chain.isSupported(feature: .relayingMobile) {
             getRemainingRelays()
         } else {
-            relaysRemaining = 0
+            uiModel.relaysRemaining = 0
         }
     }
 
@@ -622,14 +620,14 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         case .loading, .filled:
             let tasks = getRemainingRelays { [weak self] remaining, limit in
                 guard let self = self else { return }
-                self.relaysRemaining = remaining
-                self.relaysLimit = limit
+                self.uiModel.relaysRemaining = remaining
+                self.uiModel.relaysLimit = limit
                 self.executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: remaining, limit: limit))
             }
             remainingRelaysTasks = tasks
         default:
-            self.relaysRemaining = 0
-            self.relaysLimit = 0
+            self.uiModel.relaysRemaining = 0
+            self.uiModel.relaysLimit = 0
             executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: 0, limit: 0))
         }
     }
@@ -695,14 +693,16 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBAction func didTapPaymentMethod(_ sender: Any) {
         // open payment method selection
         let choosePaymentVC = ChoosePaymentViewController()
-        choosePaymentVC.relaysRemaining = relaysRemaining
-        choosePaymentVC.relaysLimit = relaysLimit
+        choosePaymentVC.relaysRemaining = uiModel.relaysRemaining
+        choosePaymentVC.relaysLimit = uiModel.relaysLimit
         choosePaymentVC.userSelectedSigner = uiModel.userSelectedPaymentMethod == .signerAccount
 
         choosePaymentVC.chooseRelay = { [unowned self] in
             LogService.shared.debug("User selected Relay")
             executionOptionsCellBuilder.userSelectedSigner = false
-            uiModel.userSelectedPaymentMethod = .relayer
+            if chain.isSupported(feature: .relayingMobile) && uiModel.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
+                uiModel.userSelectedPaymentMethod = .relayer
+            }
             updateUI(model: uiModel)
         }
 
@@ -801,7 +801,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
                 guard let self = self else { return }
                 if success {
-                    if self.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && self.uiModel.userSelectedPaymentMethod == .relayer {
+                    if self.uiModel.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && self.uiModel.userSelectedPaymentMethod == .relayer {
                         // No need to sign when relaying
                         // TODO disable sum
                         self.createButton.isEnabled = false

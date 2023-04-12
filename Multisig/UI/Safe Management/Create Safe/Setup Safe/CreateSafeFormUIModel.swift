@@ -34,7 +34,9 @@ class CreateSafeFormUIModel {
     var sectionHeaders: [CreateSafeFormSectionHeader] = []
     var state: CreateSafeFormUIState = .initial
     var futureSafeAddress: Address?
-    var userSelectedPaymentMethod = Transaction.PaymentMethod.relayer
+    var userSelectedPaymentMethod = Transaction.PaymentMethod.signerAccount
+    var relaysRemaining = 0
+    var relaysLimit = 0
 
     private var debounceTimer: Timer?
     private var estimationTask: URLSessionTask?
