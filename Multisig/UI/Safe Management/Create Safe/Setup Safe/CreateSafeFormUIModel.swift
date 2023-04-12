@@ -34,7 +34,9 @@ class CreateSafeFormUIModel {
     var sectionHeaders: [CreateSafeFormSectionHeader] = []
     var state: CreateSafeFormUIState = .initial
     var futureSafeAddress: Address?
-    var userSelectedPaymentMethod = Transaction.PaymentMethod.relayer
+    var userSelectedPaymentMethod = Transaction.PaymentMethod.signerAccount
+    var relaysRemaining = 0
+    var relaysLimit = 0
 
     private var debounceTimer: Timer?
     private var estimationTask: URLSessionTask?
@@ -119,22 +121,18 @@ class CreateSafeFormUIModel {
     }
 
     var isCreateEnabled: Bool {
-        (state == .ready || (state == .keyNotFound && userSelectedRelayerAndItIsAvailableForChain)) &&
+        (state == .ready || (state == .keyNotFound && userSelectedPaymentMethod == .relayer)) &&
         name != nil &&
         !name!.isEmpty &&
         chain != nil &&
         !owners.isEmpty &&
         threshold > 0 &&
         threshold <= owners.count &&
-        (selectedKey != nil || userSelectedRelayerAndItIsAvailableForChain) &&
+        (selectedKey != nil || userSelectedPaymentMethod == .relayer) &&
         transaction != nil &&
-        (deployerBalance != nil || userSelectedRelayerAndItIsAvailableForChain) &&
-        (deployerBalance! >= transaction.requiredBalance || userSelectedRelayerAndItIsAvailableForChain) &&
+        (deployerBalance != nil || userSelectedPaymentMethod == .relayer) &&
+        (deployerBalance! >= transaction.requiredBalance || userSelectedPaymentMethod == .relayer) &&
         error == nil
-    }
-
-    var userSelectedRelayerAndItIsAvailableForChain: Bool {
-        userSelectedPaymentMethod == .relayer && chain.isSupported(feature: .relayingMobile)
     }
 
     var isLoadingDeployer: Bool {
