@@ -273,8 +273,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             self.chain = self.uiModel.chain
             self.initExecutionBuilder()
             if self.chain.isSupported(feature: .relayingMobile) {
-                self.uiModel.userSelectedPaymentMethod = .relayer
-                self.getRemainingRelays()
+                self.getRemainingRelays(enableRelay: true)
             }
             // hide the screen
             self.navigationController?.popViewController(animated: true)
@@ -616,12 +615,15 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         feeState: .loading
     )
 
-    func getRemainingRelays() {
+    func getRemainingRelays(enableRelay: Bool = false) {
         switch(executionOptions.relayerState) {
         case .loading, .filled:
             let tasks = getRemainingRelays { [weak self] remaining, limit in
                 guard let self = self else { return }
                 self.uiModel.relaysRemaining = remaining
+                if enableRelay && remaining > 0 {
+                    self.uiModel.userSelectedPaymentMethod = .relayer
+                }
                 self.uiModel.relaysLimit = limit
                 self.executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: remaining, limit: limit))
             }
