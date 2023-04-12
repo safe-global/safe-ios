@@ -621,7 +621,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             let tasks = getRemainingRelays { [weak self] remaining, limit in
                 guard let self = self else { return }
                 self.uiModel.relaysRemaining = remaining
-                if enableRelay && remaining > 0 {
+                if enableRelay && remaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
                     self.uiModel.userSelectedPaymentMethod = .relayer
                 }
                 self.uiModel.relaysLimit = limit
