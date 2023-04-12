@@ -50,8 +50,8 @@ class RelayedTransactionMonitor {
 
         cdEthTransactions.forEach { cdTxData in
             guard let taskId = cdTxData.taskId else { return }
-            _ = gelatoService.asyncStatus(taskId: taskId, completion: { [weak self] result in
-                DispatchQueue.main.async { [weak self] in
+            _ = gelatoService.asyncStatus(taskId: taskId, completion: { result in
+                DispatchQueue.main.async {
                     switch result {
                     case .failure(_):
                         break
@@ -62,12 +62,12 @@ class RelayedTransactionMonitor {
                             cdTxData.dateUpdatedAt = Date()
                             cdTxData.dateExecutedAt = Date()
                             App.shared.coreDataStack.saveContext()
-                            NotificationCenter.default.post(name: .transactionDataInvalidated, object: self, userInfo: nil)
+                            NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
                         } else if [RelayedTaskStatus.Status.cancelled, .reverted].contains(status.task.taskState) {
                             cdTxData.status = SCGModels.TxStatus.failed.rawValue
                             cdTxData.dateUpdatedAt = Date()
                             App.shared.coreDataStack.saveContext()
-                            NotificationCenter.default.post(name: .transactionDataInvalidated, object: self, userInfo: nil)
+                            NotificationCenter.default.post(name: .transactionDataInvalidated, object: nil)
                         }
                     }
                 }
