@@ -697,6 +697,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         let choosePaymentVC = ChoosePaymentViewController()
         choosePaymentVC.relaysRemaining = relaysRemaining
         choosePaymentVC.relaysLimit = relaysLimit
+        choosePaymentVC.userSelectedSigner = uiModel.userSelectedPaymentMethod == .signerAccount
 
         choosePaymentVC.chooseRelay = { [unowned self] in
             LogService.shared.debug("User selected Relay")
