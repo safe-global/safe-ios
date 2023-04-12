@@ -273,6 +273,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             self.chain = self.uiModel.chain
             self.initExecutionBuilder()
             if self.chain.isSupported(feature: .relayingMobile) {
+                self.uiModel.userSelectedPaymentMethod = .relayer
                 self.getRemainingRelays()
             }
             // hide the screen
