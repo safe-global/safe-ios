@@ -119,18 +119,22 @@ class CreateSafeFormUIModel {
     }
 
     var isCreateEnabled: Bool {
-        (state == .ready || (state == .keyNotFound && userSelectedPaymentMethod == .relayer)) &&
+        (state == .ready || (state == .keyNotFound && userSelectedRelayerAndItIsAvailableForChain)) &&
         name != nil &&
         !name!.isEmpty &&
         chain != nil &&
         !owners.isEmpty &&
         threshold > 0 &&
         threshold <= owners.count &&
-        (selectedKey != nil || userSelectedPaymentMethod == .relayer) &&
+        (selectedKey != nil || userSelectedRelayerAndItIsAvailableForChain) &&
         transaction != nil &&
-        (deployerBalance != nil || userSelectedPaymentMethod == .relayer) &&
-        (deployerBalance! >= transaction.requiredBalance || userSelectedPaymentMethod == .relayer) &&
+        (deployerBalance != nil || userSelectedRelayerAndItIsAvailableForChain) &&
+        (deployerBalance! >= transaction.requiredBalance || userSelectedRelayerAndItIsAvailableForChain) &&
         error == nil
+    }
+
+    var userSelectedRelayerAndItIsAvailableForChain: Bool {
+        userSelectedPaymentMethod == .relayer && chain.isSupported(feature: .relayingMobile)
     }
 
     var isLoadingDeployer: Bool {
