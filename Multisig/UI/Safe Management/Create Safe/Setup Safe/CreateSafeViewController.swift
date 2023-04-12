@@ -700,7 +700,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         choosePaymentVC.chooseRelay = { [unowned self] in
             LogService.shared.debug("User selected Relay")
             executionOptionsCellBuilder.userSelectedSigner = false
-            if chain.isSupported(feature: .relayingMobile) && uiModel.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT) {
+            if chain.isSupported(feature: .relayingMobile) && uiModel.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
                 uiModel.userSelectedPaymentMethod = .relayer
             }
             updateUI(model: uiModel)
