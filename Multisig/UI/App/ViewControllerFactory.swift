@@ -73,7 +73,7 @@ enum ViewControllerFactory {
     }
     
     static func transactionDetailsViewController(transaction: SCGModels.TransactionDetails) -> UIViewController {
-        let vc = TransactionDetailsViewController(transaction: transaction)
+        let vc = TransactionDetailsViewController(transactionID: transaction.txId)
         return modalWithRibbon(viewController: vc)
     }
 

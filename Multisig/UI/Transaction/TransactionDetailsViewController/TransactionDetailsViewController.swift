@@ -460,9 +460,8 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
                 self?.onLoadingCompleted(result: $0)
             }
         case .data(let tx):
-            reloadDataTask = clientGatewayService.asyncTransactionDetails(id: tx.txId, chainId: chainId) { [weak self] in
-                self?.onLoadingCompleted(result: $0)
-            }
+            buildCells(from: tx)
+            onSuccess()
         case .none:
             preconditionFailure("Developer error: txSource is required")
         }
