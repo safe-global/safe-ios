@@ -293,7 +293,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             if let chain = self?.chain,
                chain.isSupported(feature: .relayingMobile)
             {
-                self?.getRemainingRelays()
+                self?.getRemainingRelays(enableRelay: true)
             }
         }
 
