@@ -120,20 +120,24 @@ class CreateSafeFormUIModel {
         state == .ready || state == .changed || state == .error || state == .keyNotFound
     }
 
+    // TODO: Refactor this and introduce new state to reflect relaying state
     var isCreateEnabled: Bool {
-        LogService.shared.error("---> isCreateEnabled() called: state: \(state)")
-        return (state == .ready || (state == .keyNotFound && (!userSelectedSigner && chainSupportsRelayer && relaysLeft))) &&
         name != nil &&
         !name!.isEmpty &&
         chain != nil &&
         !owners.isEmpty &&
         threshold > 0 &&
         threshold <= owners.count &&
-        (selectedKey != nil || (!userSelectedSigner && chainSupportsRelayer && relaysLeft)) &&
         transaction != nil &&
-        (deployerBalance != nil || (!userSelectedSigner && chainSupportsRelayer && relaysLeft)) &&
-        (deployerBalance! >= transaction.requiredBalance || (!userSelectedSigner && chainSupportsRelayer && relaysLeft)) &&
-        error == nil
+        error == nil &&
+        ((state == .ready &&
+          selectedKey != nil &&
+          deployerBalance != nil &&
+          deployerBalance! >= transaction.requiredBalance) ||
+         (state == .keyNotFound &&
+          !userSelectedSigner &&
+          chainSupportsRelayer &&
+          relaysLeft))
     }
 
     var userSelectedSigner: Bool {
