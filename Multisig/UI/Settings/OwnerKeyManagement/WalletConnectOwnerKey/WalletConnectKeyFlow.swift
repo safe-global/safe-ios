@@ -44,14 +44,13 @@ class WalletConnectKeyFlow: AddKeyFlow {
 
     override func doImport() -> Bool {
         guard let connection = parameters?.connection,
-                let wallet = parameters?.wallet,
-                let name = parameters?.name else {
+              let name = parameters?.name else {
             assertionFailure("Missing key arguments")
             return false
         }
 
         guard OwnerKeyController.importKey(connection: connection,
-                                           wallet: wallet,
+                                           wallet: parameters?.wallet,
                                            name: name) else {
             WebConnectionController.shared.userDidDisconnect(connection)
             return false
