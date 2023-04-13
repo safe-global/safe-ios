@@ -122,10 +122,7 @@ class CreateSafeFormUIModel {
 
     // TODO: Refactor this and introduce new state to reflect relaying state
     var isCreateEnabled: Bool {
-
-        LogService.shared.error("isCreateEnabled() state: \(state)")
-
-        return name != nil &&
+        name != nil &&
         !name!.isEmpty &&
         chain != nil &&
         !owners.isEmpty &&
@@ -143,17 +140,14 @@ class CreateSafeFormUIModel {
     }
 
     var userSelectedSigner: Bool {
-        LogService.shared.error("---> userSelectedPaymentMethod: \(userSelectedPaymentMethod.debugDescription)")
         return userSelectedPaymentMethod == .signerAccount
     }
 
     var chainSupportsRelayer: Bool {
-        LogService.shared.error("---> chain.isSupported(feature: .relayingMobile): \(chain.isSupported(feature: .relayingMobile))")
         return chain.isSupported(feature: .relayingMobile)
     }
 
     var relaysLeft: Bool {
-        LogService.shared.error("---> relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT: \(relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT)")
         return relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT
     }
 
@@ -170,7 +164,6 @@ class CreateSafeFormUIModel {
         guard isEditingEnabled else { return }
         // remove errors after editing
         if state == .error {
-            print("---> CLEAR ERROR (nil)<---")
             self.error = nil
         }
 

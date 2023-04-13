@@ -617,7 +617,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     )
 
     func getRemainingRelays() {
-        LogService.shared.error("---> getRemainingRelays())")
         switch(executionOptions.relayerState) {
         case .loading, .filled:
             let tasks = getRemainingRelays { [weak self] remaining, limit in
