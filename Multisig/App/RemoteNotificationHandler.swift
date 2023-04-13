@@ -241,13 +241,12 @@ class RemoteNotificationHandler {
             return
         }
 
-
+        do {
             let appConfig = App.configuration.app
             let timestamp = String(format: "%.0f", Date().timeIntervalSince1970)
 
-        let registrationsTask = Task { () -> [SafeRegistration] in
-            var registrations: [SafeRegistration] = []
-            do {
+            let registrationsTask = Task { () -> [SafeRegistration] in
+                var registrations: [SafeRegistration] = []
                 for chainSafes in Chain.chainSafes() {
                     let safes = chainSafes.safes
                         .compactMap { $0.address }
@@ -281,22 +280,29 @@ class RemoteNotificationHandler {
                                                               signatures: signResult.signatures))
                     }
                 }
-            } catch {
-                logDebug("Failed to register the device: \(error)")
+
+                return registrations
             }
 
-            return registrations
-        }
-
-        Task {
-            let registrations = await registrationsTask.value
-            App.shared.clientGatewayService.registerNotification(uuid: deviceID,
-                                                                 cloudMessagingToken: pushToken,
-                                                                 buildNumber: appConfig.buildVersion,
-                                                                 bundle: appConfig.bundleIdentifier,
-                                                                 version: appConfig.marketingVersion,
-                                                                 timestamp: timestamp,
-                                                                 safeRegistrations: registrations) {_ in }
+            Task {
+                let registrations = try await registrationsTask.value
+                App.shared.clientGatewayService.registerNotification(uuid: deviceID,
+                                                                     cloudMessagingToken: pushToken,
+                                                                     buildNumber: appConfig.buildVersion,
+                                                                     bundle: appConfig.bundleIdentifier,
+                                                                     version: appConfig.marketingVersion,
+                                                                     timestamp: timestamp,
+                                                                     safeRegistrations: registrations) { result in
+                    switch result {
+                    case .success(let s):
+                        return
+                    case .failure(let s):
+                        return
+                    }
+                }
+            }
+        } catch {
+            logDebug("Failed to register the device: \(error)")
         }
     }
 
