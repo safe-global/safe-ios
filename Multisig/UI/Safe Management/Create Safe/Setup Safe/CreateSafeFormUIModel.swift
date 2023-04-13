@@ -164,6 +164,7 @@ class CreateSafeFormUIModel {
         guard isEditingEnabled else { return }
         // remove errors after editing
         if state == .error {
+            print("---> CLEAR ERROR (nil)<---")
             self.error = nil
         }
 
@@ -191,6 +192,9 @@ class CreateSafeFormUIModel {
     func setChain(_ scgChain: SCGModels.Chain) {
         let newChain = Chain.createOrUpdate(scgChain)
         chain = newChain
+        if chain.isSupported(feature: .relayingMobile) {
+            userSelectedPaymentMethod = nil  // prefer sponsored payment
+        }
         // needs updating because the chain prefix will change and potentially address name from address book
         updateOwners()
         didEdit()

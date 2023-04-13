@@ -275,6 +275,8 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             if self.chain.isSupported(feature: .relayingMobile) {
                 self.getRemainingRelays()
             }
+
+
             // hide the screen
             self.navigationController?.popViewController(animated: true)
         }
