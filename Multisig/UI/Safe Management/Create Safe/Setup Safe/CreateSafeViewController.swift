@@ -273,7 +273,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             self.chain = self.uiModel.chain
             self.initExecutionBuilder()
             if self.chain.isSupported(feature: .relayingMobile) {
-                self.getRemainingRelays(enableRelay: true)
+                self.getRemainingRelays()
             }
             // hide the screen
             self.navigationController?.popViewController(animated: true)
@@ -291,9 +291,8 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         let picker = SelectAddressViewController(chain: uiModel.chain, presenter: self) { [weak self] address in
             self?.uiModel.addOwnerAddress(address)
             if let chain = self?.chain,
-               chain.isSupported(feature: .relayingMobile)
-            {
-                self?.getRemainingRelays(enableRelay: true)
+               chain.isSupported(feature: .relayingMobile) {
+                self?.getRemainingRelays()
             }
         }
 
@@ -615,15 +614,13 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         feeState: .loading
     )
 
-    func getRemainingRelays(enableRelay: Bool = false) {
+    func getRemainingRelays() {
+        LogService.shared.error("---> getRemainingRelays())")
         switch(executionOptions.relayerState) {
         case .loading, .filled:
             let tasks = getRemainingRelays { [weak self] remaining, limit in
                 guard let self = self else { return }
                 self.uiModel.relaysRemaining = remaining
-                if enableRelay && remaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
-                    self.uiModel.userSelectedPaymentMethod = .relayer
-                }
                 self.uiModel.relaysLimit = limit
                 self.executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: remaining, limit: limit))
             }
@@ -703,9 +700,11 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         choosePaymentVC.chooseRelay = { [unowned self] in
             LogService.shared.debug("User selected Relay")
             executionOptionsCellBuilder.userSelectedSigner = false
+
             if chain.isSupported(feature: .relayingMobile) && uiModel.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
                 uiModel.userSelectedPaymentMethod = .relayer
             }
+            uiModel.didEdit()
             updateUI(model: uiModel)
         }
 
@@ -727,6 +726,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                 show(addOwnerVC, sender: self)
                 return
             }
+            self.uiModel.didEdit()
             updateUI(model: uiModel)
         }
         let vc = ViewControllerFactory.pageSheet(viewController: choosePaymentVC, halfScreen: true)

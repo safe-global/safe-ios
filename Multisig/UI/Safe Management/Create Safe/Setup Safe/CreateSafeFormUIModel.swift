@@ -34,7 +34,7 @@ class CreateSafeFormUIModel {
     var sectionHeaders: [CreateSafeFormSectionHeader] = []
     var state: CreateSafeFormUIState = .initial
     var futureSafeAddress: Address?
-    var userSelectedPaymentMethod = Transaction.PaymentMethod.signerAccount
+    var userSelectedPaymentMethod: Transaction.PaymentMethod? = nil
     var relaysRemaining = 0
     var relaysLimit = 0
 
@@ -121,18 +121,34 @@ class CreateSafeFormUIModel {
     }
 
     var isCreateEnabled: Bool {
-        (state == .ready || (state == .keyNotFound && userSelectedPaymentMethod == .relayer)) &&
+        LogService.shared.error("---> isCreateEnabled() called: state: \(state)")
+        return (state == .ready || (state == .keyNotFound && (!userSelectedSigner && chainSupportsRelayer && relaysLeft))) &&
         name != nil &&
         !name!.isEmpty &&
         chain != nil &&
         !owners.isEmpty &&
         threshold > 0 &&
         threshold <= owners.count &&
-        (selectedKey != nil || userSelectedPaymentMethod == .relayer) &&
+        (selectedKey != nil || (!userSelectedSigner && chainSupportsRelayer && relaysLeft)) &&
         transaction != nil &&
-        (deployerBalance != nil || userSelectedPaymentMethod == .relayer) &&
-        (deployerBalance! >= transaction.requiredBalance || userSelectedPaymentMethod == .relayer) &&
+        (deployerBalance != nil || (!userSelectedSigner && chainSupportsRelayer && relaysLeft)) &&
+        (deployerBalance! >= transaction.requiredBalance || (!userSelectedSigner && chainSupportsRelayer && relaysLeft)) &&
         error == nil
+    }
+
+    var userSelectedSigner: Bool {
+        LogService.shared.error("---> userSelectedPaymentMethod: \(userSelectedPaymentMethod.debugDescription)")
+        return userSelectedPaymentMethod == .signerAccount
+    }
+
+    var chainSupportsRelayer: Bool {
+        LogService.shared.error("---> chain.isSupported(feature: .relayingMobile): \(chain.isSupported(feature: .relayingMobile))")
+        return chain.isSupported(feature: .relayingMobile)
+    }
+
+    var relaysLeft: Bool {
+        LogService.shared.error("---> relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT: \(relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT)")
+        return relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT
     }
 
     var isLoadingDeployer: Bool {
