@@ -234,14 +234,6 @@ class RemoteNotificationHandler {
                                                    chainId: chainId)
     }
 
-    actor SafeRegistrationActor {
-        var registrations: [SafeRegistration] = []
-
-        func addRegistration(registration: SafeRegistration) {
-            registrations.append(registration)
-        }
-    }
-
     private func registerAll() {
         guard let pushToken = token else { return }
         guard let deviceID = storedDeviceID?.lowercased() else {
@@ -253,18 +245,19 @@ class RemoteNotificationHandler {
             let appConfig = App.configuration.app
             let timestamp = String(format: "%.0f", Date().timeIntervalSince1970)
 
-            let safeRegistrationActor = SafeRegistrationActor()
-            for chainSafes in Chain.chainSafes() {
-                let safes = chainSafes.safes
-                    .compactMap { $0.address }
-                    .compactMap { Address($0) }
-                    .map { $0.checksummed }
-                    .sorted()
+            let registrationsTask = Task { () -> [SafeRegistration] in
+                var registrations: [SafeRegistration] = []
+                for chainSafes in Chain.chainSafes() {
+                    let safes = chainSafes.safes
+                        .compactMap { $0.address }
+                        .compactMap { Address($0) }
+                        .map { $0.checksummed }
+                        .sorted()
 
-                // The signing might fail in case the underlying key store is not available. In this case
-                // we abort the whole process. The registration will be attempted again on the next
-                // app coming to foreground event.
-                Task {
+                    // The signing might fail in case the underlying key store is not available. In this case
+                    // we abort the whole process. The registration will be attempted again on the next
+                    // app coming to foreground event.
+
                     if AppConfiguration.FeatureToggles.securityCenter {
 
                         let signResult = try await Self.signAsync(safes: safes,
@@ -272,12 +265,9 @@ class RemoteNotificationHandler {
                                                                   token: pushToken,
                                                                   timestamp: timestamp)
 
-                        await safeRegistrationActor.addRegistration(
-                            registration: SafeRegistration(chainId: chainSafes.chain.id!,
-                                                           safes: safes,
-                                                           signatures: signResult.signatures)
-                        )
-
+                        registrations.append(SafeRegistration(chainId: chainSafes.chain.id!,
+                                                              safes: safes,
+                                                              signatures: signResult.signatures))
                     } else {
                         let signResult = try Self.sign(safes: safes,
                                                        deviceID: deviceID,
@@ -285,24 +275,31 @@ class RemoteNotificationHandler {
                                                        timestamp: timestamp)
 
 
-                        await safeRegistrationActor.addRegistration(
-                            registration: SafeRegistration(chainId: chainSafes.chain.id!,
-                                                           safes: safes,
-                                                           signatures: signResult.signatures)
-                        )
+                        registrations.append(SafeRegistration(chainId: chainSafes.chain.id!,
+                                                              safes: safes,
+                                                              signatures: signResult.signatures))
                     }
                 }
+
+                return registrations
             }
 
             Task {
-                let registrations = await safeRegistrationActor.registrations
+                let registrations = try await registrationsTask.value
                 App.shared.clientGatewayService.registerNotification(uuid: deviceID,
                                                                      cloudMessagingToken: pushToken,
                                                                      buildNumber: appConfig.buildVersion,
                                                                      bundle: appConfig.bundleIdentifier,
                                                                      version: appConfig.marketingVersion,
                                                                      timestamp: timestamp,
-                                                                     safeRegistrations: registrations) { _ in }
+                                                                     safeRegistrations: registrations) { result in
+                    switch result {
+                    case .success(let s):
+                        return
+                    case .failure(let s):
+                        return
+                    }
+                }
             }
         } catch {
             logDebug("Failed to register the device: \(error)")
