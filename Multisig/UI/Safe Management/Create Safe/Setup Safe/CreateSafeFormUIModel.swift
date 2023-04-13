@@ -34,7 +34,7 @@ class CreateSafeFormUIModel {
     var sectionHeaders: [CreateSafeFormSectionHeader] = []
     var state: CreateSafeFormUIState = .initial
     var futureSafeAddress: Address?
-    var userSelectedPaymentMethod = Transaction.PaymentMethod.signerAccount
+    var userSelectedPaymentMethod: Transaction.PaymentMethod? = nil
     var relaysRemaining = 0
     var relaysLimit = 0
 
@@ -120,19 +120,35 @@ class CreateSafeFormUIModel {
         state == .ready || state == .changed || state == .error || state == .keyNotFound
     }
 
+    // TODO: Refactor this and introduce new state to reflect relaying state
     var isCreateEnabled: Bool {
-        (state == .ready || (state == .keyNotFound && userSelectedPaymentMethod == .relayer)) &&
         name != nil &&
         !name!.isEmpty &&
         chain != nil &&
         !owners.isEmpty &&
         threshold > 0 &&
         threshold <= owners.count &&
-        (selectedKey != nil || userSelectedPaymentMethod == .relayer) &&
         transaction != nil &&
-        (deployerBalance != nil || userSelectedPaymentMethod == .relayer) &&
-        (deployerBalance! >= transaction.requiredBalance || userSelectedPaymentMethod == .relayer) &&
-        error == nil
+        error == nil &&
+        ((state == .ready &&
+          selectedKey != nil &&
+          deployerBalance != nil &&
+          deployerBalance! >= transaction.requiredBalance) ||
+         (!userSelectedSigner &&
+          chainSupportsRelayer &&
+          relaysLeft))
+    }
+
+    var userSelectedSigner: Bool {
+        return userSelectedPaymentMethod == .signerAccount
+    }
+
+    var chainSupportsRelayer: Bool {
+        return chain.isSupported(feature: .relayingMobile)
+    }
+
+    var relaysLeft: Bool {
+        return relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT
     }
 
     var isLoadingDeployer: Bool {
@@ -175,6 +191,9 @@ class CreateSafeFormUIModel {
     func setChain(_ scgChain: SCGModels.Chain) {
         let newChain = Chain.createOrUpdate(scgChain)
         chain = newChain
+        if chain.isSupported(feature: .relayingMobile) {
+            userSelectedPaymentMethod = nil  // prefer sponsored payment
+        }
         // needs updating because the chain prefix will change and potentially address name from address book
         updateOwners()
         didEdit()
