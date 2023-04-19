@@ -675,18 +675,19 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         let feeState: EstimatedFeeUIModel = EstimatedFeeUIModel(tokenAmount: uiModel.estimatedFeeModel?.tokenAmount ?? "0")
         executionOptions.feeState = .loaded(feeState)
+        executionOptions.accountState =  .empty
+        if let address = uiModel.deployerAccountInfoModel?.address {
+            let accountState: MiniAccountInfoUIModel = MiniAccountInfoUIModel(
+                prefix: uiModel.deployerAccountInfoModel?.prefix,
+                address: address,
+                label: uiModel.deployerAccountInfoModel?.label,
+                imageUri: uiModel.deployerAccountInfoModel?.imageUri,
+                badge: uiModel.deployerAccountInfoModel?.badge,
+                balance: uiModel.deployerAccountInfoModel?.balance
+            )
+            executionOptions.accountState =  .filled(accountState)
+        }
 
-        let accountState: MiniAccountInfoUIModel = MiniAccountInfoUIModel(
-            prefix: uiModel.deployerAccountInfoModel?.prefix,
-            address: uiModel.deployerAccountInfoModel?.address ?? Address(0),
-            label: uiModel.deployerAccountInfoModel?.label,
-            imageUri: uiModel.deployerAccountInfoModel?.imageUri,
-            badge: uiModel.deployerAccountInfoModel?.badge,
-            balance: uiModel.deployerAccountInfoModel?.balance
-        )
-        executionOptions.accountState = .filled(accountState)
-
-        LogService.shared.debug("---> buildExecutionOptions()")
         executionOptionsCellBuilder.userSelectedSigner = uiModel.userSelectedSigner
         let cell = executionOptionsCellBuilder.buildExecutionOptions(executionOptions)[0]
 
