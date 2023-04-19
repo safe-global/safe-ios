@@ -169,7 +169,7 @@ class ExecutionOptionsCellBuilder: TransactionDetailCellBuilder {
             cell.setContent(content)
 
         case .empty:
-            let content = textView("Not selected")
+            let content = textView("Key not set")
             cell.setContent(content)
 
         case .filled(let accountModel):
