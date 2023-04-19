@@ -75,9 +75,8 @@ class ReviewSendFundsTransactionViewController: ReviewSafeTransactionViewControl
             titleText: title,
             bodyText: body,
             primaryAction: "View details",
-            secondaryAction: "Done",
-            trackingEvent: .assetsTransferSuccess)
-
+            secondaryAction: "Done")
+        successVC.setTrackingData(trackingEvent: .assetsTransferSuccess)
         successVC.onDone = { [weak self] isPrimaryAction in
             guard let self = self else { return }
             self.dismiss(animated: true) {

@@ -105,8 +105,8 @@ class ChangeConfirmationsFlowFactory: SafeSettingsFlowFactory {
                 titleText: "Your transaction is submitted!",
                 bodyText: "It needs to be confirmed and executed first before the owner will be added.",
                 primaryAction: "View transaction details",
-                secondaryAction: "Done",
-                trackingEvent: .changeConfirmationsSuccess)
+                secondaryAction: "Done")
+        successVC.setTrackingData(trackingEvent: .changeConfirmationsSuccess)
         successVC.onDone = completion
         return successVC
     }

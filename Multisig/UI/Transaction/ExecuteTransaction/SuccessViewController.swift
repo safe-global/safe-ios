@@ -21,10 +21,10 @@ class SuccessViewController: UIViewController {
     private var bodyText: String?
     private var primaryAction: String?
     private var secondaryAction: String?
-    private var trackingEvent: TrackingEvent?
     private var wasNavBarHidden: Bool = false
 
-    var trackingParams: [String: Any]? = nil
+    private var trackingEvent: TrackingEvent?
+    private var trackingParams: [String: Any]? = nil
 
     var onDone: (_ didTapPrimary: Bool) -> Void = { _ in }
     
@@ -32,15 +32,18 @@ class SuccessViewController: UIViewController {
         titleText: String?,
         bodyText: String?,
         primaryAction: String?,
-        secondaryAction: String?,
-        trackingEvent: TrackingEvent?
+        secondaryAction: String?
     ) {
         self.init(nibName: nil, bundle: nil)
         self.titleText = titleText
         self.bodyText = bodyText
         self.primaryAction = primaryAction
         self.secondaryAction = secondaryAction
+    }
+
+    func setTrackingData(trackingEvent: TrackingEvent?, trackingParams: [String: Any]? = nil) {
         self.trackingEvent = trackingEvent
+        self.trackingParams = trackingParams
     }
     
     override func viewDidLoad() {
