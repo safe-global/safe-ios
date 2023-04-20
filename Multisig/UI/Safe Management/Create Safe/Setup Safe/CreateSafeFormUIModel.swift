@@ -190,7 +190,12 @@ class CreateSafeFormUIModel {
 
     func setChain(_ scgChain: SCGModels.Chain) {
         let newChain = Chain.createOrUpdate(scgChain)
+        if chain.id != newChain.id {
+            selectedKey = nil
+            deployerBalance = nil
+        }
         chain = newChain
+
         if chain.isSupported(feature: .relayingMobile) {
             userSelectedPaymentMethod = nil  // prefer sponsored payment
         }
