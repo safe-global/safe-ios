@@ -663,6 +663,7 @@ class CreateSafeFormUIModel {
 
             switch result {
             case .failure(let error):
+                Tracker.trackEvent(.relayUserFailure)
                 self.didSubmitFailed(error)
             case .success(let taskId):
                 Tracker.trackEvent(.relayUserSuccess)
