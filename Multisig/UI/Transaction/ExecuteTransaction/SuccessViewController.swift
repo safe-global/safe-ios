@@ -32,13 +32,15 @@ class SuccessViewController: UIViewController {
         titleText: String?,
         bodyText: String?,
         primaryAction: String?,
-        secondaryAction: String?
+        secondaryAction: String?,
+        trackingEvent: TrackingEvent? = nil
     ) {
         self.init(nibName: nil, bundle: nil)
         self.titleText = titleText
         self.bodyText = bodyText
         self.primaryAction = primaryAction
         self.secondaryAction = secondaryAction
+        self.trackingEvent = trackingEvent
     }
 
     func setTrackingData(trackingEvent: TrackingEvent?, trackingParams: [String: Any]? = nil) {

@@ -145,9 +145,9 @@ class BackupFlowFactory {
             titleText: "Your key is backed up!",
             bodyText: "If you lose your phone, you can recover this key with the seed phrase you just backed up.",
             primaryAction: "OK, great",
-            secondaryAction: nil
+            secondaryAction: nil,
+            trackingEvent: .backupCreatedSuccessfully
         )
-        successVC.setTrackingData(trackingEvent: .backupCreatedSuccessfully)
         successVC.onDone = completion
         return successVC
     }

@@ -90,8 +90,8 @@ class SafeSettingsFlowFactory {
             titleText: "Your transaction is submitted!",
             bodyText: bodyText,
             primaryAction: "View transaction details",
-            secondaryAction: "Done")
-        successVC.setTrackingData(trackingEvent: trackingEvent)
+            secondaryAction: "Done",
+            trackingEvent: trackingEvent)
         successVC.onDone = completion
         return successVC
     }
