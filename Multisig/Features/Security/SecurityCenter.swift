@@ -348,7 +348,7 @@ class SecurityCenter {
             do {
                 try task(nil)
             } catch {
-                onFailure(error)
+                onFailure(parse(error: error))
             }
         }
     }
@@ -364,8 +364,8 @@ class SecurityCenter {
         do {
             try store.import(id: id, data: data)
             completion(.success(true))
-        } catch let error {
-            completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
+        } catch {
+            completion(.failure(parse(error: error)))
         }
     }
 
@@ -383,7 +383,7 @@ class SecurityCenter {
             try store.delete(id: dataID)
             completion(.success(true))
         } onFailure: { error in
-            completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
+            completion(.failure(error))
         }
     }
 
@@ -397,7 +397,6 @@ class SecurityCenter {
         } onFailure: { error in
             completion(.failure(error))
         }
-
     }
 
     func derivedKey(from plaintext: String, useOldSalt: Bool = false) -> String {
@@ -423,6 +422,19 @@ class SecurityCenter {
     // For backward compatibility we need to use both salts for some cases
     private func salt(oldSalt: Bool = false) -> String {
         oldSalt ? "Gnosis Safe Multisig Passcode Salt" : "Safe Multisig Passcode Salt"
+    }
+
+    func parse(error: Error) -> Error {
+        guard let nsError = error as? NSError else {
+            return GSError.KeychainError(reason: error.localizedDescription)
+        }
+
+        // User cancel operation
+        if nsError.code == -2 {
+            return GSError.SecureStoreAccessError()
+        }
+
+        return GSError.KeychainError(reason: error.localizedDescription)
     }
 }
 
