@@ -179,7 +179,7 @@ class ProtectedKeyStore: EncryptedStore {
         )
         try store.create(pubKeyItem)
 
-        if locked {
+        if locked && self.protectionClass != .data {
             lock()
         }
     }
