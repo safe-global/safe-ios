@@ -534,6 +534,15 @@ enum GSError {
         let loggable = true
     }
 
+    struct SecureStoreAccessError: DetailedLocalizedError {
+        let description = ""
+        let reason = "The operation is canceled by user"
+        let howToFix = ""
+        let domain = clientErrorDomain
+        let code = 1307
+        let loggable = false
+    }
+
     struct DatabaseError: DetailedLocalizedError {
         let description = "Database error"
         let reason: String
@@ -648,7 +657,7 @@ enum GSError {
 
     struct AddDelegateKeyCancelled: DetailedLocalizedError {
         let description = "Push notifications are not set"
-        let reason = "The operation is cancelled by user"
+        let reason = "The operation is canceled by user"
         let howToFix = ""
         let domain = iOSErrorDomain
         let code = 1322

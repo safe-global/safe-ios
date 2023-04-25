@@ -86,7 +86,7 @@ class ChangePasscodeFlowFactory {
             do {
                 try completion(passcode)
             } catch {
-                //FIXME: error handling
+                App.shared.snackbar.show(error: GSError.FailedToChangePasscode(reason: error.localizedDescription))
             }
         }
         vc.onError = onError

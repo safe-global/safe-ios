@@ -83,7 +83,7 @@ class ChangeLockMethodFlow: UIFlow {
                                                        newMethod: newLockMethod!,
                                                        newPasscode: userPasscode) { [unowned self] error in
                 if let error = error {
-                    App.shared.snackbar.show(message: "Failed to change lock method: \(error)")
+                    App.shared.snackbar.show(message: "Failed to change lock method: \(error.localizedDescription)")
                     stop(success: false)
                 } else {
                     App.shared.snackbar.show(message: "Lock method changed")

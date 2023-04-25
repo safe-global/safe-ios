@@ -14,7 +14,7 @@ class EnterPasscodeViewController: PasscodeViewController {
     // Deprecated with the new security center
     var passcodeCompletion: (_ success: Bool, _ reset: Bool, _ passcode: String?) -> Void = { _, _, _ in }
 
-    var onPasscodeEnter: (_ password: String?) throws -> Void = { _ in }
+    var onPasscodeEnter: (_ password: String) throws -> Void = { _ in }
     var onError: (_ error: Error) -> Void = { _ in }
 
     var navigationItemTitle = "Enter Passcode"
@@ -96,8 +96,7 @@ class EnterPasscodeViewController: PasscodeViewController {
 
     @objc func didTapCloseButton() {
         if AppSettings.securityLockEnabled {
-            // TODO: make a better error?
-            onError("Cancelled")
+            onError(GSError.SecureStoreAccessError())
         } else {
             passcodeCompletion(false, false, nil)
         }
