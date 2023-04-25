@@ -10,7 +10,7 @@ import Foundation
 
 class ProtectedKeyStore: EncryptedStore {
 
-    private let protectionClass: ProtectionClass
+    let protectionClass: ProtectionClass
     private let store: KeychainItemStore
 
     static let publicKeyTag = "global.safe.publicKeyTag"
@@ -125,11 +125,11 @@ class ProtectedKeyStore: EncryptedStore {
     //                        oldPassword == nil -> use stored password to access current KEK
     //                        newPassword == nil -> use stored password to access KEK
     //          useBiometry -> true/false
-    func changePassword(from oldPassword: String?, to newPassword: String?, useBiometry: Bool = false) throws {
+    func changePassword(from oldPassword: String?, to newPassword: String?, useBiometry: Bool = false, keepUnlocked: Bool = false) throws {
 
-        let locked = !unlocked
+        let wasLocked = !unlocked
 
-        if locked {
+        if wasLocked {
             try unlock(derivedPassword: oldPassword)
         }
 
@@ -179,7 +179,7 @@ class ProtectedKeyStore: EncryptedStore {
         )
         try store.create(pubKeyItem)
 
-        if locked && self.protectionClass != .data {
+        if wasLocked && !keepUnlocked {
             lock()
         }
     }

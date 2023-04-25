@@ -278,7 +278,7 @@ class SecurityCenter {
             newStorePassword = nil
             biometryUsed = false
         }
-        try store.changePassword(from: currentDerivedPassword, to: newStorePassword, useBiometry: biometryUsed)
+        try store.changePassword(from: currentDerivedPassword, to: newStorePassword, useBiometry: biometryUsed, keepUnlocked: store.protectionClass == .data)
     }
 
     // TODO: cancelling is not an error? success = false means cancelled?
