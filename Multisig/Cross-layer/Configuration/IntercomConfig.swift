@@ -13,11 +13,17 @@ class IntercomConfig {
     func setUp() {
         Intercom.setApiKey(App.configuration.services.intercomApiKey, forAppId: App.configuration.services.intercomAppId)
 
-#if DEBUG
+        #if DEBUG
         Intercom.enableLogging()
-#endif
-        Intercom.loginUnidentifiedUser(completion: nil)
-
+        #endif
+        Intercom.loginUnidentifiedUser { result in
+            switch result {
+            case .success:
+                LogService.shared.debug("Anonymous login to Intercm succeeded")
+            case .failure(let error):
+                App.shared.snackbar.show(message: "Anonymous login to Intercom failed: \(error)")
+            }
+        }
         disableChatOverlay()
     }
 

@@ -9,7 +9,6 @@
 import UIKit
 import SwiftUI
 import Firebase
-import Intercom
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -86,7 +85,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         LogService.shared.debug("PUSH: Received APNS token: \(deviceToken.toHexStringWithPrefix())")
         Messaging.messaging().apnsToken = deviceToken
-        App.shared.intercomConfig.setDeviceToken(deviceToken)
+        App.shared.intercomConfig.setDeviceToken(deviceToken) { error in
+            App.shared.snackbar.show(message: "Error setting deviceToken: \(error)")
+        }
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
