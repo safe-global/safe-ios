@@ -529,7 +529,7 @@ class SettingsUINavigationController: UINavigationController {
     }
     
     @objc func showBadge() {
-        let count = Intercom.unreadConversationCount()
+        let count = App.shared.intercomConfig.unreadConversationCount()
         if count > 0 {
             tabBarItem.badgeValue = ""
             tabBarItem.badgeColor = UIColor.warning

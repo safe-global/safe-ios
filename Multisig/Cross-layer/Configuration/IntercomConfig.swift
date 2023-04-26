@@ -13,10 +13,10 @@ class IntercomConfig {
     func setUp() {
         Intercom.setApiKey(App.configuration.services.intercomApiKey, forAppId: App.configuration.services.intercomAppId)
 
-        #if DEBUG
+#if DEBUG
         Intercom.enableLogging()
-        #endif
-        Intercom.registerUnidentifiedUser()
+#endif
+        Intercom.loginUnidentifiedUser(completion: nil)
 
         disableChatOverlay()
     }
@@ -26,7 +26,7 @@ class IntercomConfig {
     }
 
     func startChat() {
-        Intercom.presentMessenger()
+        Intercom.present()
     }
 
     func hide() {
@@ -44,5 +44,17 @@ class IntercomConfig {
             Intercom.handlePushNotification(userInfo)
             self.startChat()
         }
+    }
+
+    func unreadConversationCount() -> UInt {
+        Intercom.unreadConversationCount()
+    }
+    
+    func isIntercomPushNotification(_ userInfo: [AnyHashable : Any]) -> Bool {
+        Intercom.isIntercomPushNotification(userInfo)
+    }
+
+    func setDeviceToken(_ deviceToken: Data, failure: ((Error?) -> Void)? = nil) {
+        Intercom.setDeviceToken(deviceToken, failure: failure)
     }
 }

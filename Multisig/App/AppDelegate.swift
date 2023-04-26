@@ -86,14 +86,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         LogService.shared.debug("PUSH: Received APNS token: \(deviceToken.toHexStringWithPrefix())")
         Messaging.messaging().apnsToken = deviceToken
-        Intercom.setDeviceToken(deviceToken)
+        App.shared.intercomConfig.setDeviceToken(deviceToken)
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         LogService.shared.debug("PUSH: didReceiveRemoteNotification with userInfo: \(userInfo)")
         Messaging.messaging().appDidReceiveMessage(userInfo)
 
-        if Intercom.isIntercomPushNotification(userInfo) {
+        if App.shared.intercomConfig.isIntercomPushNotification(userInfo) {
             LogService.shared.debug("PUSH: didReceiveRemoteNotification Intercom push notification with userInfo: \(userInfo)")
             App.shared.intercomConfig.pushNotificationUserInfo = userInfo
         }

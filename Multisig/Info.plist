@@ -91,6 +91,8 @@
 	<string>$(INTERCOM_API_KEY)</string>
 	<key>INTERCOM_APP_ID</key>
 	<string>$(INTERCOM_APP_ID)</string>
+	<key>IntercomRegion</key>
+	<string>EU</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>IntercomAutoIntegratePushNotifications</key>

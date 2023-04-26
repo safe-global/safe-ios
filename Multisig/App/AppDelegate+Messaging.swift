@@ -32,7 +32,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
         Messaging.messaging().appDidReceiveMessage(userInfo)
 
-        if Intercom.isIntercomPushNotification(userInfo) {
+        if App.shared.intercomConfig.isIntercomPushNotification(userInfo) {
             App.shared.intercomConfig.pushNotificationUserInfo = userInfo
         }
 
