@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Intercom
 import WhatsNewKit
 
 class MainTabBarViewController: UITabBarController {
@@ -529,7 +528,7 @@ class SettingsUINavigationController: UINavigationController {
     }
     
     @objc func showBadge() {
-        let count = App.shared.intercomConfig.unreadConversationCount()
+        let count = IntercomConfig.unreadConversationCount()
         if count > 0 {
             tabBarItem.badgeValue = ""
             tabBarItem.badgeColor = UIColor.warning

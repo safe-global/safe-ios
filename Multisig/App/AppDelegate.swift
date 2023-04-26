@@ -13,7 +13,7 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         App.shared.firebaseConfig.setUp()
-        App.shared.intercomConfig.setUp()
+        IntercomConfig.setUp()
 
         UIApplication.shared.registerForRemoteNotifications()
 
@@ -85,8 +85,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         LogService.shared.debug("PUSH: Received APNS token: \(deviceToken.toHexStringWithPrefix())")
         Messaging.messaging().apnsToken = deviceToken
-        App.shared.intercomConfig.setDeviceToken(deviceToken) { error in
-            App.shared.snackbar.show(message: "Error setting deviceToken: \(error)")
+        IntercomConfig.setDeviceToken(deviceToken) { error in
+            // this will fail before a Safe was added
         }
     }
 
@@ -94,9 +94,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         LogService.shared.debug("PUSH: didReceiveRemoteNotification with userInfo: \(userInfo)")
         Messaging.messaging().appDidReceiveMessage(userInfo)
 
-        if App.shared.intercomConfig.isIntercomPushNotification(userInfo) {
+        if IntercomConfig.isIntercomPushNotification(userInfo) {
             LogService.shared.debug("PUSH: didReceiveRemoteNotification Intercom push notification with userInfo: \(userInfo)")
-            App.shared.intercomConfig.pushNotificationUserInfo = userInfo
+            IntercomConfig.pushNotificationUserInfo = userInfo
         }
 
         completionHandler(.noData)

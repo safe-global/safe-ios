@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import UserNotifications
 import Firebase
-import Intercom
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
 
@@ -32,8 +31,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
         Messaging.messaging().appDidReceiveMessage(userInfo)
 
-        if App.shared.intercomConfig.isIntercomPushNotification(userInfo) {
-            App.shared.intercomConfig.pushNotificationUserInfo = userInfo
+        if IntercomConfig.isIntercomPushNotification(userInfo) {
+            IntercomConfig.pushNotificationUserInfo = userInfo
         }
 
         if SafeDeploymentNotificationController.isSafeCreatedNotification(userInfo) {
