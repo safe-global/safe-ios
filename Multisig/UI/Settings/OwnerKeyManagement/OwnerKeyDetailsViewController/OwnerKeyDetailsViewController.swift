@@ -152,7 +152,6 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         if AppConfiguration.FeatureToggles.securityCenter {
 
             keyInfo.privateKey { [unowned self] result in
-
                 do {
                     if let privateKey = try result.get() {
                         exportViewController.privateKey = privateKey.keyData.toHexStringWithPrefix()

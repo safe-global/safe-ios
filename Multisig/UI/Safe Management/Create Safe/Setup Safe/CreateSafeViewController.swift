@@ -832,26 +832,29 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         switch keyInfo.keyType {
         case .deviceImported, .deviceGenerated:
-            do {
-                let txHash = uiModel.transaction.hashForSigning().storage.storage
+            let txHash = uiModel.transaction.hashForSigning().storage.storage
 
-                guard let pk = try keyInfo.privateKey() else {
-                    App.shared.snackbar.show(message: "Private key not available")
+            keyInfo.privateKey { [unowned self] result in
+                do {
+                    if let privateKey = try result.get() {
+                        let signature = try privateKey._store.sign(hash: Array(txHash))
+                        try uiModel.transaction.updateSignature(
+                            v: Sol.UInt256(signature.v),
+                            r: Sol.UInt256(Data(signature.r)),
+                            s: Sol.UInt256(Data(signature.s))
+                        )
+                    } else {
+                        App.shared.snackbar.show(message: "Private key not available")
+                        return
+                    }
+                } catch {
+                    let gsError = GSError.error(description: "Signing failed", error: error)
+                    App.shared.snackbar.show(error: gsError)
                     return
                 }
-                let signature = try pk._store.sign(hash: Array(txHash))
 
-                try uiModel.transaction.updateSignature(
-                    v: Sol.UInt256(signature.v),
-                    r: Sol.UInt256(Data(signature.r)),
-                    s: Sol.UInt256(Data(signature.s))
-                )
-            } catch {
-                let gsError = GSError.error(description: "Signing failed", error: error)
-                App.shared.snackbar.show(error: gsError)
-                return
+                localSignerSubmit()
             }
-            localSignerSubmit()
 
         case .walletConnect:
             guard let clientTx = walletConnectTransaction() else {
