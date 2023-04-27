@@ -75,9 +75,9 @@ class AuthenticationController {
 
     /// Deletes the stored passcode. If passcode not set, this operation
     /// does not have any effect.
-    func deletePasscode(trackingEvent: TrackingEvent = .userPasscodeDisabled) {
+    func deletePasscode(authenticate: Bool = true, trackingEvent: TrackingEvent = .userPasscodeDisabled) {
         if AppConfiguration.FeatureToggles.securityCenter {
-            App.shared.securityCenter.disableSecurityLock { error in
+            App.shared.securityCenter.disableSecurityLock (authenticate: authenticate) { error in
                 if let error = error {
                     LogService.shared.error("Failed to delete passcode: \(error)")
                 } else {
@@ -112,7 +112,7 @@ class AuthenticationController {
     func deleteAllData() throws {
         try Safe.removeAll()
         try OwnerKeyController.deleteAllKeys(showingMessage: false)
-        try deletePasscode(trackingEvent: .userPasscodeReset)
+        deletePasscode(authenticate: false, trackingEvent: .userPasscodeReset)
         App.shared.snackbar.show(message: "All data removed from this app")
     }
 

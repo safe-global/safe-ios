@@ -363,7 +363,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         if AppConfiguration.FeatureToggles.securityCenter {
             self.sign()
         } else {
-            authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
+            authenticate(options: [.useForConfirmation]) { [weak self] success in
                 guard let self = self else { return }
                 if success {
                     if self.controller.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner {

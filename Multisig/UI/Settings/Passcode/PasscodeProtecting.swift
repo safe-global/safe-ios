@@ -10,17 +10,22 @@ import Foundation
 import UIKit
 
 protocol PasscodeProtecting {
-    func authenticate(biometry: Bool, options: PasscodeOptions, completion: @escaping (_ success: Bool, _ reset: Bool) -> Void)
+    func authenticate(biometry: Bool, options: PasscodeOptions, completion: @escaping (_ success: Bool) -> Void)
 }
 
 extension PasscodeProtecting where Self: UIViewController {
-    func authenticate(biometry: Bool = true, options: PasscodeOptions = [], completion: @escaping (_ success: Bool, _ reset: Bool) -> Void) {
+    func authenticate(biometry: Bool = true, options: PasscodeOptions = [], completion: @escaping (_ success: Bool) -> Void) {
         if App.shared.auth.isPasscodeSetAndAvailable && (options.isEmpty || !AppSettings.passcodeOptions.intersection(options).isEmpty) {
             let passcodeVC = EnterPasscodeViewController()
             passcodeVC.usesBiometry = biometry
-            passcodeVC.passcodeCompletion = { [weak self] success, reset, _ in
+            passcodeVC.passcodeCompletion = { [weak self] result in
                 self?.dismiss(animated: true) {
-                    completion(success, reset)
+                    switch result {
+                    case .close:
+                        completion(false)
+                    case.success(_) :
+                        completion(true)
+                    }
                 }
             }
 
@@ -28,7 +33,7 @@ extension PasscodeProtecting where Self: UIViewController {
             nav.modalPresentationStyle = .fullScreen
             present(nav, animated: true)
         } else {
-            completion(true, false)
+            completion(true)
         }
     }
 }

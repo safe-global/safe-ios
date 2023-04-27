@@ -304,7 +304,10 @@ class SecuritySettingsViewController: UITableViewController {
         }
         let nav = UINavigationController(rootViewController: vc)
 
-        vc.passcodeCompletion = { [weak nav] success, _, _ in
+        vc.passcodeCompletion = { [weak nav] result in
+            var success = false
+            if case EnterPasscodeViewController.Result.success(_) = result { success = true }
+
             authenticated(success, nav) {
                 nav?.dismiss(animated: true, completion: nil)
             }

@@ -249,7 +249,7 @@ extension ChooseOwnerKeyViewController: UITableViewDelegate, UITableViewDataSour
             if AppConfiguration.FeatureToggles.securityCenter {
                 completionHandler?(keyInfo)
             } else {
-                authenticate(options: [.useForConfirmation]) { [weak self] success, _ in
+                authenticate(options: [.useForConfirmation]) { [weak self] success in
                     self?.completionHandler?(success ? keyInfo : nil)
                 }
             }

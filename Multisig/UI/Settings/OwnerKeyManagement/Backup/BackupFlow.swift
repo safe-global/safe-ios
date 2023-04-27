@@ -96,15 +96,14 @@ class ModalBackupFlow: BackupFlow {
 
     func passcode() {
         let factory = PasscodeFlowFactory()
-        let enterVC = factory.enter(biometry: false, options: [], reset: { [unowned self] in
-            stop(success: false)
-        }, completion: { [unowned self] success in
-            if success {
+        let enterVC = factory.enter(biometry: false, options: []) { [unowned self] result in
+            if case EnterPasscodeViewController.Result.success(_) = result {
                 seed()
             } else {
                 stop(success: false)
             }
-        })
+        }
+        
         if let enterVC = enterVC {
             show(enterVC)
         } else {

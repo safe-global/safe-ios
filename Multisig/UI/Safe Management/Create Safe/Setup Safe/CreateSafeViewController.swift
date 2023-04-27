@@ -806,7 +806,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         if AppConfiguration.FeatureToggles.securityCenter {
             self.sign()
         } else {
-            authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
+            authenticate(options: [.useForConfirmation]) { [weak self] success in
                 guard let self = self else { return }
                 if success {
                     if self.uiModel.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && self.uiModel.userSelectedPaymentMethod != .signerAccount {
@@ -818,9 +818,11 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                     } else {
                         self.sign()
                     }
-                } else if reset {
-                    self.dismiss(animated: false, completion: nil)
                 }
+                // TODO: Check if we need this
+//                else if reset {
+//                    self.dismiss(animated: false, completion: nil)
+//                }
             }
         }
     }
