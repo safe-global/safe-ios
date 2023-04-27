@@ -151,7 +151,11 @@ class SecuritySettingsViewController: UITableViewController {
         if AppConfiguration.FeatureToggles.securityCenter {
             App.shared.securityCenter.toggleUsage(passcodeOption: option) { [unowned self] error in
                 if let error = error {
-                    App.shared.snackbar.show(message: "Failed to toggle usage \(error.localizedDescription)")
+                    if let userCancellation = error as? GSError.LACancelledByUser {
+                        // do nothing
+                    } else {
+                        App.shared.snackbar.show(message: "Failed to toggle usage \(error.localizedDescription)")
+                    }
                 } else {
                     reloadData()
                 }
