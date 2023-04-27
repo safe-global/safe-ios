@@ -819,10 +819,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                         self.sign()
                     }
                 }
-                // TODO: Check if we need this
-//                else if reset {
-//                    self.dismiss(animated: false, completion: nil)
-//                }
             }
         }
     }
