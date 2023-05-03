@@ -96,7 +96,7 @@ class EnterPasscodeViewController: PasscodeViewController {
 
     @objc func didTapCloseButton() {
         if AppSettings.securityLockEnabled {
-            onError(GSError.LACancelledByUser())
+            onError(GSError.CancelledByUser())
         } else {
             passcodeCompletion(false, false, nil)
         }

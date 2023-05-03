@@ -113,7 +113,7 @@ extension PrivateKey {
                     completion(.success(privateKey))
                 } catch let error as GSError.KeychainError {
                     completion(.failure(error))
-                } catch let error as GSError.LACancelledByUser {
+                } catch let error as GSError.CancelledByUser {
                     completion(.failure(error))
                 } catch {
                     completion(.failure(GSError.ThirdPartyError(reason: error.localizedDescription)))

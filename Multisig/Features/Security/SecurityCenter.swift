@@ -432,7 +432,7 @@ class SecurityCenter {
 
         // User cancel operation
         if nsError.code == LAError.userCancel.rawValue {
-            return GSError.LACancelledByUser()
+            return GSError.CancelledByUser()
         }
 
         return GSError.KeychainError(reason: error.localizedDescription)

@@ -162,7 +162,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                         App.shared.snackbar.show(error: GSError.PrivateKeyDataNotFound(reason: "Key data does not exist"))
                         return
                     }
-                } catch let userCancellationError as GSError.LACancelledByUser {
+                } catch let userCancellationError as GSError.CancelledByUser {
                     return
                 } catch {
                     App.shared.snackbar.show(error: GSError.PrivateKeyFetchError(reason: error.localizedDescription))

@@ -68,7 +68,7 @@ class ChangePasscodeFlow: UIFlow {
                     try App.shared.auth.changePasscode(newPasscodeInPlaintext: newPasscode!)
                     App.shared.snackbar.show(message: "Passcode changed")
                 }
-            } catch let userCancellationError as GSError.LACancelledByUser {
+            } catch let userCancellationError as GSError.CancelledByUser {
                 // do nothing
             } catch {
                 App.shared.snackbar.show(error: GSError.FailedToChangePasscode(reason: error.localizedDescription))
@@ -87,7 +87,7 @@ class ChangePasscodeFlowFactory {
         vc.passcodeCompletion = { _, _, passcode in
             do {
                 try completion(passcode)
-            } catch let userCancellationError as GSError.LACancelledByUser {
+            } catch let userCancellationError as GSError.CancelledByUser {
                 // do nothing
             } catch {
                 App.shared.snackbar.show(error: GSError.FailedToChangePasscode(reason: error.localizedDescription))
