@@ -65,7 +65,7 @@ class EnterPasscodeViewController: PasscodeViewController {
                 isCorrect = try App.shared.auth.isPasscodeCorrect(plaintextPasscode: text)
             }
         } catch {
-            showGenericError(description: "Failed to check passcode", error: error)
+            showIncorrectPasscodeError()
             return
         }
 
@@ -96,7 +96,7 @@ class EnterPasscodeViewController: PasscodeViewController {
 
     @objc func didTapCloseButton() {
         if AppSettings.securityLockEnabled {
-            onError(GSError.SecureStoreAccessError())
+            onError(GSError.CancelledByUser())
         } else {
             passcodeCompletion(false, false, nil)
         }

@@ -534,7 +534,7 @@ enum GSError {
         let loggable = true
     }
 
-    struct SecureStoreAccessError: DetailedLocalizedError {
+    struct CancelledByUser: DetailedLocalizedError {
         let description = ""
         let reason = "The operation is canceled by user"
         let howToFix = ""
