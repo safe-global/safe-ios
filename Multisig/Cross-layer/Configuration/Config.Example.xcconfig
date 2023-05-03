@@ -123,6 +123,8 @@ LEDGER_PAIRING_URL = https:/$()/support.ledger.com/hc/en-us/articles/36001913869
 CREATE_SAFE_URL = https:/$()/help.safe.global/en/articles/40792-how-to-create-a-safe-on-your-ios
 CONFIRMATIONS_URL = https:/$()/help.safe.global/en/articles/40863-signature-policies
 RELAYER_INFO_URL = https:/$()/help.safe.global/en/articles/59203-what-is-gas-fee-sponsoring
+UNEXPECTED_DELEGATE_URL = https:/$()/help.safe.global/en/articles/40794-why-do-i-see-an-unexpected-delegate-call-warning-in-my-transaction
+KEY_SECURITY_URL = https:/$()/help.safe.global/en/articles/40829-how-signer-keys-are-stored
 
 // Legal URLs
 TERMS_URL       = https:/$()/app.safe.global/terms

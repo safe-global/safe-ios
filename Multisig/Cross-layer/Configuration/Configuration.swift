@@ -85,6 +85,12 @@ struct AppConfiguration {
 
         @ConfigurationKey("RELAYER_INFO_URL")
         var relayerInfoURL: URL
+
+        @ConfigurationKey("KEY_SECURITY_URL")
+        var keySecurityURL: URL
+
+        @ConfigurationKey("UNEXPECTED_DELEGATE_URL")
+        var unexpectedDelegateURL: URL
     }
 
     struct Legal {
