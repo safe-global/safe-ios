@@ -133,6 +133,10 @@ class PasscodeViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
+    func showIncorrectPasscodeError() {
+       showError("Wrong passcode")
+    }
+
     func showGenericError(description: String, error: Error) {
         let uiError = GSError.error(
             description: description,

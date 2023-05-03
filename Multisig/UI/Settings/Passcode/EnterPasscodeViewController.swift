@@ -65,7 +65,7 @@ class EnterPasscodeViewController: PasscodeViewController {
                 isCorrect = try App.shared.auth.isPasscodeCorrect(plaintextPasscode: text)
             }
         } catch {
-            showGenericError(description: "Failed to check passcode", error: error)
+            showIncorrectPasscodeError()
             return
         }
 
