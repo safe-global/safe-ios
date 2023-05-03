@@ -259,7 +259,13 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         let view = tableView.dequeueHeaderFooterView(ExternalLinkHeaderFooterView.self)
         view.set(label: "How to connect a dapp via WalletConnect on Safe Mobile?")
-        view.set(url: App.configuration.help.connectDappOnMobileURL)
+
+        var url = URL(string: "https://help.safe.global/en/articles/5307197-how-to-connect-a-dapp-via-walletconnect-on-gnosis-safe-mobile")!
+        if FirebaseRemoteConfig.shared.boolValue(key: .intercomMigration) ?? false {
+            url = App.configuration.help.connectDappOnMobileURL
+        }
+
+        view.set(url: url)
         return view
     }
 

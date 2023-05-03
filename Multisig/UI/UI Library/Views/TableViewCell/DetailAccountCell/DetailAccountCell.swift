@@ -36,7 +36,12 @@ class DetailAccountCell: UITableViewCell {
         warningView.set(title: "Unexpected DelegateCall")
         warningView.showLeftBar(true)
         warningView.onClick = {
-            let url = App.configuration.help.unexpectedDelegateURL
+
+            var url = URL(string: "https://help.safe.global/en/articles/40794-why-do-i-see-an-unexpected-delegate-call-warning-in-my-transaction")!
+            if FirebaseRemoteConfig.shared.boolValue(key: .intercomMigration) ?? false {
+                url = App.configuration.help.unexpectedDelegateURL
+            }
+
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
 

@@ -67,6 +67,8 @@
 	<string>$(DESKTOP_PAIRING_URL)</string>
 	<key>UNEXPECTED_DELEGATE_URL</key>
 	<string>$(UNEXPECTED_DELEGATE_URL)</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>KEY_SECURITY_URL</key>
 	<string>$(KEY_SECURITY_URL)</string>
 	<key>DISCORD_URL</key>

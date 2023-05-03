@@ -96,7 +96,12 @@ class RejectionConfirmationViewController: UIViewController {
     }
 
     @IBAction func learnMoreButtonTouched(_ sender: Any) {
-        openInSafari(App.configuration.help.payForCancellationURL)
+
+        var url = URL(string: "https://help.safe.global/en/articles/4738501-why-do-i-need-to-pay-for-cancelling-a-transaction")!
+        if FirebaseRemoteConfig.shared.boolValue(key: .intercomMigration) ?? false {
+            url = App.configuration.help.payForCancellationURL
+        }
+        openInSafari(url)
     }
 
     private func rejectTransaction(_ keyInfo: KeyInfo) {
