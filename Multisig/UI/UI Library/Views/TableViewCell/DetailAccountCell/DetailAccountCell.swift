@@ -37,6 +37,7 @@ class DetailAccountCell: UITableViewCell {
         warningView.showLeftBar(true)
         warningView.onClick = {
 
+            //FIXME Remove feature flag and flag handling after release
             var url = URL(string: "https://help.safe.global/en/articles/40794-why-do-i-see-an-unexpected-delegate-call-warning-in-my-transaction")!
             if FirebaseRemoteConfig.shared.boolValue(key: .intercomMigration) ?? false {
                 url = App.configuration.help.unexpectedDelegateURL

@@ -74,7 +74,7 @@ class ImportKeyFlow: AddKeyFlow {
 class ImportKeyFlowFactory: AddKeyFlowFactory {
     override func intro(completion: @escaping () -> Void) -> AddKeyOnboardingViewController {
         let introVC = super.intro(completion: completion)
-
+        //FIXME Remove feature flag and flag handling after release
         var url = URL(string: "https://help.safe.global/en/articles/4866738-how-are-private-keys-stored-on-gnosis-safe-mobile")!
         if FirebaseRemoteConfig.shared.boolValue(key: .intercomMigration) ?? false {
             url = App.configuration.help.keySecurityURL

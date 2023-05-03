@@ -127,6 +127,7 @@ extension AdvancedSafeSettingsViewController {
 
         case Section.FallbackHandler.fallbackHandlerHelpLink:
 
+            //FIXME Remove feature flag and flag handling after release
             var url = URL(string: "https://help.safe.global/en/articles/4738352-what-is-a-fallback-handler-and-how-does-it-relate-to-the-gnosis-safe")!
             if FirebaseRemoteConfig.shared.boolValue(key: .intercomMigration) ?? false {
                 url = App.configuration.help.fallbackHandlerURL
@@ -153,6 +154,7 @@ extension AdvancedSafeSettingsViewController {
             }
 
         case Section.GuardInfo.guardInfoHelpLink:
+            //FIXME Remove feature flag and flag handling after release
             var url = URL(string: "https://help.safe.global/en/articles/5324092-what-is-a-transaction-guard")!
             if FirebaseRemoteConfig.shared.boolValue(key: .intercomMigration) ?? false {
                 url = App.configuration.help.guardURL

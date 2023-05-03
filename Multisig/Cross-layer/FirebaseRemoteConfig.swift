@@ -17,6 +17,7 @@ class FirebaseRemoteConfig {
         case deprecated
         case safeClaimEnabled
         case crashDebugEnabled
+        //FIXME Remove feature flag and flag handling after release
         case intercomMigration
     }
 
@@ -25,7 +26,7 @@ class FirebaseRemoteConfig {
                                                       Key.deprecatedSoon.rawValue : "" as NSObject,
                                                       Key.deprecated.rawValue : "" as NSObject,
                                                       Key.safeClaimEnabled.rawValue : false as NSObject,
-                                                      Key.intercomMigration.rawValue : false as NSObject]
+                                                      Key.intercomMigration.rawValue : false as NSObject] //FIXME Remove feature flag and flag handling after release
     private init() {
         remoteConfig = RemoteConfig.remoteConfig()
         let settings = RemoteConfigSettings()

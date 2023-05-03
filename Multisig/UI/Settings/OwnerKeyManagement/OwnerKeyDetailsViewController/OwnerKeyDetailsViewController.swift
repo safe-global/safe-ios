@@ -291,6 +291,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         case Section.DelegateKey.address:
             return tableView.addressDetailsCell(address: keyInfo.delegateAddress ?? Address.zero, indexPath: indexPath)
         case Section.DelegateKey.helpLink:
+            //FIXME Remove feature flag and flag handling after release
             var url = URL(string: "https://help.safe.global/en/articles/5809867-what-is-a-delegate-key")!
             if FirebaseRemoteConfig.shared.boolValue(key: .intercomMigration) ?? false {
                 url = App.configuration.help.delegateKeyURL
