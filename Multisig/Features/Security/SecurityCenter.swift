@@ -6,6 +6,7 @@
 //  Copyright © 2023 Gnosis Ltd. All rights reserved.
 //
 
+import LocalAuthentication
 import Foundation
 import CoreText
 import CommonCrypto
@@ -287,7 +288,7 @@ class SecurityCenter {
             newStorePassword = nil
             biometryUsed = false
         }
-        try store.changePassword(from: currentDerivedPassword, to: newStorePassword, useBiometry: biometryUsed)
+        try store.changePassword(from: currentDerivedPassword, to: newStorePassword, useBiometry: biometryUsed, keepUnlocked: store.protectionClass == .data)
     }
 
     // TODO: cancelling is not an error? success = false means cancelled?
@@ -459,8 +460,8 @@ class SecurityCenter {
         }
 
         // User cancel operation
-        if nsError.code == -2 {
-            return GSError.SecureStoreAccessError()
+        if nsError.code == LAError.userCancel.rawValue {
+            return GSError.CancelledByUser()
         }
 
         return GSError.KeychainError(reason: error.localizedDescription)

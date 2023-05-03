@@ -7175,7 +7175,7 @@
 			repositoryURL = "https://github.com/intercom/intercom-ios.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.3.5;
+				minimumVersion = 14.0.0;
 			};
 		};
 		D80B5A11276B5FAD00D6E024 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {

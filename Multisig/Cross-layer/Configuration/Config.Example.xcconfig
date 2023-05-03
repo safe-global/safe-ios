@@ -111,18 +111,20 @@ WALLETCONNECT_BRIDGE_URL = https:/$()/safe-walletconnect.safe.global/
 WALLETCONNECT_REGISTRY_URL = https:/$()/5afe.github.io/
 
 // Help URLs
-CONFLICT_URL = https:/$()/help.safe.global/en/articles/4730252-why-are-transactions-with-the-same-nonce-conflicting-with-each-other
-FALLBACKHANDLER_URL = https:/$()/help.safe.global/en/articles/4738352-what-is-a-fallback-handler-and-how-does-it-relate-to-the-gnosis-safe
-DELEGATE_KEY_URL = https:/$()/help.safe.global/en/articles/5809867-what-is-a-delegate-key
-GUARD_URL = https:/$()/help.safe.global/en/articles/5324092-what-is-a-transaction-guard
-PAY_FOR_CANCELLATION_URL = https:/$()/help.safe.global/en/articles/4738501-why-do-i-need-to-pay-for-cancelling-a-transaction
-CONNECT_DAPP_ON_MOBILE_URL = https:/$()/help.safe.global/en/articles/5307197-how-to-connect-a-dapp-via-walletconnect-on-gnosis-safe-mobile
-DESKTOP_PAIRING_URL = https:/$()/help.safe.global/en/articles/5584901-desktop-pairing
-ADVANCED_TX_PARAMS_URL = https:/$()/help.safe.global/en/articles/4738445-advanced-transaction-parameters
+CONFLICT_URL = https:/$()/help.safe.global/en/articles/40839-why-are-transactions-with-the-same-nonce-conflicting-with-each-other
+FALLBACKHANDLER_URL = https:/$()/help.safe.global/en/articles/40838-what-is-a-fallback-handler-and-how-does-it-relate-to-safe
+DELEGATE_KEY_URL = https:/$()/help.safe.global/en/articles/40799-what-is-a-delegate-key
+GUARD_URL = https:/$()/help.safe.global/en/articles/40809-what-is-a-transaction-guard
+PAY_FOR_CANCELLATION_URL = https:/$()/help.safe.global/en/articles/40836-why-do-i-need-to-pay-for-cancelling-a-transaction
+CONNECT_DAPP_ON_MOBILE_URL = https:/$()/help.safe.global/en/articles/40810-connect-to-dapps-with-walletconnect-on-mobile
+DESKTOP_PAIRING_URL = https:/$()/help.safe.global/en/articles/40801-connect-to-web-with-mobile-safe
+ADVANCED_TX_PARAMS_URL = https:/$()/help.safe.global/en/articles/40837-advanced-transaction-parameters
 LEDGER_PAIRING_URL = https:/$()/support.ledger.com/hc/en-us/articles/360019138694-Set-up-Bluetooth-connection
-CREATE_SAFE_URL = https:/$()/help.safe.global/en/articles/3876461-create-a-safe
-CONFIRMATIONS_URL = https:/$()/help.safe.global/en/articles/3952319-signature-policies
-RELAYER_INFO_URL = https:/$()/help.safe.global/en/articles/7224713-what-is-gas-fee-sponsoring
+CREATE_SAFE_URL = https:/$()/help.safe.global/en/articles/40792-how-to-create-a-safe-on-your-ios
+CONFIRMATIONS_URL = https:/$()/help.safe.global/en/articles/40863-signature-policies
+RELAYER_INFO_URL = https:/$()/help.safe.global/en/articles/59203-what-is-gas-fee-sponsoring
+UNEXPECTED_DELEGATE_URL = https:/$()/help.safe.global/en/articles/40794-why-do-i-see-an-unexpected-delegate-call-warning-in-my-transaction
+KEY_SECURITY_URL = https:/$()/help.safe.global/en/articles/40829-how-signer-keys-are-stored
 
 // Legal URLs
 TERMS_URL       = https:/$()/app.safe.global/terms
