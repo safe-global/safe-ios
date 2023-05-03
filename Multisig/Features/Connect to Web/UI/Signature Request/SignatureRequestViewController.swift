@@ -166,7 +166,7 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
         if AppConfiguration.FeatureToggles.securityCenter {
             self.sign()
         } else {
-            authenticate(options: [.useForConfirmation]) { [weak self] success, _ in
+            authenticate(options: [.useForConfirmation]) { [weak self] success in
                 if success {
                     self?.sign()
                 }

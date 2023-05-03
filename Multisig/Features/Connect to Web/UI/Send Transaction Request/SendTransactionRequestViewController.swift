@@ -339,7 +339,7 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
 
             self.sign()
         } else {
-            authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
+            authenticate(options: [.useForConfirmation]) { [weak self] success in
                 guard let self = self else { return }
 
                 self.actionPanelView.setConfirmEnabled(true)

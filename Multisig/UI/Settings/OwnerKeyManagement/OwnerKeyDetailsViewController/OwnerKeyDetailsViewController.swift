@@ -152,7 +152,6 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         if AppConfiguration.FeatureToggles.securityCenter {
 
             keyInfo.privateKey { [unowned self] result in
-
                 do {
                     if let privateKey = try result.get() {
                         exportViewController.privateKey = privateKey.keyData.toHexStringWithPrefix()
@@ -185,7 +184,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                 return
             }
 
-            authenticate(biometry: false) { [unowned self] success, _ in
+            authenticate(biometry: false) { [unowned self] success in
                 if success {
                     show(exportViewController, sender: self)
                 }
@@ -359,7 +358,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                     App.shared.snackbar.show(message: error.localizedDescription)
                 }
             } else {
-                authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
+                authenticate(options: [.useForConfirmation]) { [weak self] success in
                     guard let self = self else { return }
 
                     if success {
