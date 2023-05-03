@@ -6,8 +6,6 @@
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:staging.5afe.dev</string>
-		<string>applinks:*.staging.5afe.dev</string>
 		<string>applinks:safe-web-core.staging.5afe.dev</string>
 	</array>
 	<key>com.apple.security.application-groups</key>
