@@ -8,7 +8,6 @@
 
 import UIKit
 import SwiftUI
-import Intercom
 
 fileprivate protocol SectionItem {}
 
@@ -226,7 +225,7 @@ class AppSettingsViewController: UITableViewController {
             return tableView.basicCell(name: name, icon: "ico-app-settings-package", indexPath: indexPath)
             
         case Section.Support.chatWithUs(let name):
-            if Intercom.unreadConversationCount() > 0 {
+            if IntercomConfig.unreadConversationCount() > 0 {
                 return tableView.basicCell(name: name, icon: "ico-app-settings-message-circle-with-badge", indexPath: indexPath)
             } else {
                 return tableView.basicCell(name: name, icon: "ico-app-settings-message-circle", indexPath: indexPath)
@@ -287,7 +286,7 @@ class AppSettingsViewController: UITableViewController {
             
         case Section.Support.chatWithUs:
             Tracker.trackEvent(.userOpenIntercom)
-            App.shared.intercomConfig.startChat()
+            IntercomConfig.startChat()
             break
             
         case Section.Support.getSupport:

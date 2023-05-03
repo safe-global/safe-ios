@@ -65,6 +65,12 @@
 	<string>$(RELAYER_INFO_URL)</string>
 	<key>DESKTOP_PAIRING_URL</key>
 	<string>$(DESKTOP_PAIRING_URL)</string>
+	<key>UNEXPECTED_DELEGATE_URL</key>
+	<string>$(UNEXPECTED_DELEGATE_URL)</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
+	<key>KEY_SECURITY_URL</key>
+	<string>$(KEY_SECURITY_URL)</string>
 	<key>DISCORD_URL</key>
 	<string>$(DISCORD_URL)</string>
 	<key>FORUM_URL</key>
@@ -91,6 +97,8 @@
 	<string>$(INTERCOM_API_KEY)</string>
 	<key>INTERCOM_APP_ID</key>
 	<string>$(INTERCOM_APP_ID)</string>
+	<key>IntercomRegion</key>
+	<string>EU</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>IntercomAutoIntegratePushNotifications</key>

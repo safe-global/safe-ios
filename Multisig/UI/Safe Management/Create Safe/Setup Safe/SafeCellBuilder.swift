@@ -55,7 +55,13 @@ class SafeCellBuilder {
     }
 
     func didSelectThresholdHelpCell() {
-        viewController.openInSafari(App.configuration.help.confirmationsURL)
+        
+        //FIXME Remove feature flag and flag handling after release
+        var url = URL(string: "https://help.safe.global/en/articles/3952319-signature-policies")!
+        if FirebaseRemoteConfig.shared.boolValue(key: .intercomMigration) ?? false {
+            url = App.configuration.help.confirmationsURL
+        }
+        viewController.openInSafari(url)
     }
 
     func headerView(text: String) -> BasicHeaderView {

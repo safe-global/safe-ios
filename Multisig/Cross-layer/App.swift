@@ -69,7 +69,5 @@ class App {
 
     let firebaseConfig = FirebaseConfig()
 
-    let intercomConfig = IntercomConfig()
-
     private init() {}
 }

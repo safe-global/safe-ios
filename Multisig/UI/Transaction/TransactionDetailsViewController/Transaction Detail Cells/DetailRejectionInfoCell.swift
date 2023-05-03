@@ -14,7 +14,14 @@ class DetailRejectionInfoCell: UITableViewCell, ExternalURLSource {
     @IBOutlet private weak var linkButton: UIButton!
     @IBOutlet private weak var helpLinkContinerView: UIView!
 
-    private(set) var url: URL? = App.configuration.help.payForCancellationURL
+    private(set) var url: URL? = {
+        //FIXME Remove feature flag and flag handling after release
+        var url = URL(string: "https://help.safe.global/en/articles/4738501-why-do-i-need-to-pay-for-cancelling-a-transaction")!
+        if FirebaseRemoteConfig.shared.boolValue(key: .intercomMigration) ?? false {
+            url = App.configuration.help.payForCancellationURL
+        }
+        return url
+    }()
 
     override func awakeFromNib() {
         super.awakeFromNib()
