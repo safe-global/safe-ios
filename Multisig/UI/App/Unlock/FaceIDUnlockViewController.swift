@@ -18,6 +18,7 @@ class FaceIDUnlockViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        ViewControllerFactory.removeNavigationBarBorder(self)
         label.setStyle(.slogan)
         unlockButton.setText("Unlock", .filled)
         unlockDataStore()
