@@ -103,8 +103,6 @@
 	<false/>
 	<key>IntercomAutoIntegratePushNotifications</key>
 	<string>NO</string>
-	<key>IntercomRegion</key>
-	<string>EU</string>
 	<key>LEDGER_PAIRING_URL</key>
 	<string>$(LEDGER_PAIRING_URL)</string>
 	<key>LICENSES_URL</key>

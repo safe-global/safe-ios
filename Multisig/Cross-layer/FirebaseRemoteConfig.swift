@@ -39,8 +39,7 @@ class FirebaseRemoteConfig {
     }
 
     func boolValue(key: Key) -> Bool? {
-        LogService.shared.debug("Key: \(key) -> \(remoteConfig[key.rawValue].boolValue)")
-        return remoteConfig[key.rawValue].boolValue
+        remoteConfig[key.rawValue].boolValue
     }
 
     func value(key: Key) -> String? {
