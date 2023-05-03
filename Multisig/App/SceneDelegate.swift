@@ -115,7 +115,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if presentedWindow === tabBarWindow {
             privacyShieldWindow?.isHidden = false
         }
-        App.shared.intercomConfig.hide()
+        IntercomConfig.hide()
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -316,8 +316,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func showMainContentWindow() {
         showWindow(tabBarWindow)
-        App.shared.intercomConfig.appDidShowMainContent()
-
+        IntercomConfig.appDidShowMainContent()
     }
 
     func onTermsCompletion() {

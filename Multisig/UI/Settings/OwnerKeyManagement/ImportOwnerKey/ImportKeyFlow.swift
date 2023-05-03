@@ -82,7 +82,7 @@ class ImportKeyFlowFactory: AddKeyFlowFactory {
                 .init(image: UIImage(named: "ico-onboarding-import-key-2"),
                       title: "How secure is that?",
                       body: "We only store your private key. We do not store your seed phrase in the app.",
-                      link: .init(title: "How is a private key stored on mobile?", url: URL(string: "https://help.safe.global/en/articles/4866738-how-are-private-keys-stored-on-gnosis-safe-mobile")!)),
+                      link: .init(title: "How is a private key stored on mobile?", url: App.configuration.help.keySecurityURL)),
             
                 .init(image: UIImage(named: "ico-onboarding-import-key-3"),
                       title: "Is my wallet supported?",
