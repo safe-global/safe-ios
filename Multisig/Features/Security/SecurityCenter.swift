@@ -78,7 +78,7 @@ class SecurityCenter {
 
         //TODO: check version and perform migration
         if AppSettings.securityCenterVersion == 0 {
-            migrateFromKeychainStorageToSecurityEnclave()
+            SecurityCenter.shared.migrateFromKeychainStorageToSecurityEnclave()
         } else if AppSettings.securityCenterVersion < version {
             // perform migration if needed
         }
@@ -94,8 +94,65 @@ class SecurityCenter {
         }
     }
 
-    private static func migrateFromKeychainStorageToSecurityEnclave() {
-        //TODO:
+    func migrateFromKeychainStorageToSecurityEnclave() {
+        let task = { [unowned self] passcode in
+            do {
+                let keys = try KeyInfo.all()
+                // Migrate private keys
+                keys.compactMap { try? $0.privateKey() }.forEach {
+                    SecurityCenter.shared.import(id: DataID(id: $0.id), data: $0.keyData) { result in
+                        // TODO: Rollback on error
+                    }
+                }
+
+                // Migrate delegate keys
+                keys.compactMap { try? $0.delegatePrivateKey() }.forEach {
+                    SecurityCenter.shared.import(id: DataID(id: $0.id), data: $0.keyData, protectionClass: .data) { result in
+                        // TODO: Rollback on error
+                    }
+                }
+
+                // Migrate to new lock method
+                if App.shared.auth.isPasscodeSetAndAvailable {
+                    var lockMethod = LockMethod.passcode
+                    if AppSettings.passcodeOptions.contains(.useBiometry) {
+                        lockMethod = .userPresence
+                    }
+
+                    AppSettings.securityLockMethod = lockMethod
+                    AppSettings.securityLockEnabled = true
+                    if AppSettings.passcodeOptions.contains(.useForConfirmation) {
+                        try changeStoreSettings(currentPlaintextPassword: nil,
+                                                newPlaintextPassword: passcode,
+                                                store: sensitiveStore)
+                    }
+
+                    if AppSettings.passcodeOptions.contains(.useForLogin) {
+                        try changeStoreSettings(currentPlaintextPassword: nil,
+                                                newPlaintextPassword: passcode,
+                                                store: dataStore)
+                    }
+                }
+
+                // Enable feature toggle
+                AppConfiguration.FeatureToggles.securityCenter = true
+            } catch {
+                Self.reset()
+                AppSettings.securityLockEnabled = false
+                AppSettings.securityLockMethod = .passcode
+                AppConfiguration.FeatureToggles.securityCenter = false
+                // TODO: Check if needed
+                // AppSettings.securityCenterVersion = 0
+            }
+        }
+
+        if App.shared.auth.isPasscodeSetAndAvailable {
+            NotificationCenter.default.post(name: .passcodeRequired,
+                                            object: self,
+                                            userInfo: ["accessTask": task])
+        } else {
+            task(nil)
+        }
     }
 
     private func initKeystores() throws {
