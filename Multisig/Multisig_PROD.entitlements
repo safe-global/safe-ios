@@ -6,8 +6,6 @@
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:safe.global</string>
-		<string>applinks:*.safe.global</string>
 		<string>applinks:app.safe.global</string>
 	</array>
 	<key>com.apple.security.application-groups</key>

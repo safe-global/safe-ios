@@ -24,8 +24,11 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        url = App.configuration.help.desktopPairingURL
+        //FIXME Remove feature flag and flag handling after release
+        url = URL(string: "https://help.safe.global/en/articles/5584901-desktop-pairing")!
+        if FirebaseRemoteConfig.shared.boolValue(key: .intercomMigration) ?? false {
+            url = App.configuration.help.desktopPairingURL
+        }
 
         title = "Connect to Web"
 
