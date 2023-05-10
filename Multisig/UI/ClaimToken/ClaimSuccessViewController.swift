@@ -18,7 +18,7 @@ class ClaimSuccessViewController: UIViewController {
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var askLabel: UILabel!
     @IBOutlet weak var tweetBox: TweetBox!
-    @IBOutlet weak var animationView: AnimationView!
+    @IBOutlet weak var animationView: LottieAnimationView!
     @IBOutlet weak var shareButton: UIButton!
 
     var amount: Sol.UInt128!
@@ -59,7 +59,7 @@ class ClaimSuccessViewController: UIViewController {
         shareButton.setText("Share transaction", .primary)
         shareButton.setImage(UIImage(named: "ico-share")?.withTintColor(.primary), for: .normal)
         shareButton.imageEdgeInsets.right = 16
-        animationView.animation = Animation.named(isDarkMode ? "successAnimationDark" : "successAnimation",
+        animationView.animation = LottieAnimation.named(isDarkMode ? "successAnimationDark" : "successAnimation",
                                                   animationCache: nil)
         animationView.contentMode = .scaleAspectFit
         animationView.backgroundBehavior = .pauseAndRestore
