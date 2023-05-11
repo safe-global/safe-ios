@@ -34,7 +34,7 @@ enum ViewControllerFactory {
         vc.completion = { _, _ in
             completion()
         }
-        return vc
+        return UINavigationController(rootViewController: vc)
     }
 
     static func enterPasscodeViewController(showsCloseButton: Bool,
