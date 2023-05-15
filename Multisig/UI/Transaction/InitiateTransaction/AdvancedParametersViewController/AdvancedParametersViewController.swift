@@ -26,7 +26,7 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
     private var trackingEvent: TrackingEvent!
     private var onUpdate: ((UInt256String, UInt256String?) -> Void)!
 
-    var url: URL? = App.configuration.help.advancedTxParamsURL
+    var url: URL?
     
     @IBAction private func openHelpArticle(_ sender: Any) {
         openExternalURL()
@@ -47,6 +47,11 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
         }
         self.trackingEvent = trackingEvent
         self.onUpdate = onUpdate
+        //FIXME Remove feature flag and flag handling after release
+        url = URL(string: "https://help.safe.global/en/articles/4738445-advanced-transaction-parameters")!
+        if FirebaseRemoteConfig.shared.boolValue(key: .intercomMigration) ?? false {
+            url = App.configuration.help.advancedTxParamsURL
+        }
     }
 
     override func viewDidLoad() {

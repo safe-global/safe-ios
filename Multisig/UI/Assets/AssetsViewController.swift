@@ -102,7 +102,12 @@ class AssetsViewController: ContainerViewController {
         totalBalanceView.relayInfoBanner.onOpen = { [unowned self] in
             // open article in V1
             // Educational series will be shown in V2 of the relayer
-            openInSafari(App.configuration.help.relayerInfoURL)
+            //FIXME Remove feature flag and flag handling after release
+            var url = URL(string: "https://help.safe.global/en/articles/7224713-what-is-gas-fee-sponsoring")!
+            if FirebaseRemoteConfig.shared.boolValue(key: .intercomMigration) ?? false {
+                url = App.configuration.help.relayerInfoURL
+            }
+            openInSafari(url)
             Tracker.trackEvent(.bannerRelayOpen)
         }
         totalBalanceView.relayInfoBanner.onClose = { [unowned self] in
