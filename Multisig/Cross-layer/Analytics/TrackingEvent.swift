@@ -202,6 +202,8 @@ enum TrackingEvent: String, Trackable {
     // keyType: one of [imported, generated, wallet_connect, ledger_nano_x]
     // wallet (String?): name of the wallet (first 100 chars)
     case userTransactionExecuteSubmitted            = "user_transaction_exec_submitted"
+    case successTxSigner                            = "screen_tx_signer_success"
+    case successTxRelay                             = "screen_tx_relay_success"
     
     // MARK: Create Safe
     case createSafe                                 = "screen_cs"
@@ -340,7 +342,10 @@ enum TrackingEvent: String, Trackable {
     case relayChoosePayment                         = "screen_exec_tx_payment"
     case relayUserExecTxPaymentRelay                = "user_exec_tx_payment_relay"
     case relayUserExecTxPaymentSigner               = "user_exec_tx_payment_signer"
+    // successful submission to the relay service
     case relayUserSuccess                           = "user_relay_success"
+    // failed submission to the relay service
+    case relayUserFailure                           = "user_relay_failure"
 
     
     // MARK: Safe Token Claim

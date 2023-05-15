@@ -27,11 +27,19 @@ class ChangePasscodeFlow: UIFlow {
     }
 
     func enterOldPasscode() {
-        let vc = factory.enterOldPasscode { [unowned self] password in
-                oldPasscode = password
+        let vc = factory.enterOldPasscode { [unowned self] result in
+            switch result {
+            case .close:
+                stop(success: false)
+            case .success(let passcode):
+                guard let passcode = passcode else {
+                    App.shared.snackbar.show(error: GSError.FailedToChangePasscode(reason: "Passcode required"))
+                    stop(success: false)
+                    return
+                }
+                oldPasscode = passcode
                 enterNewPasscode()
-        } onError: { [unowned self] error in
-            stop(success: false)
+            }
         }
 
         show(vc)
@@ -68,6 +76,8 @@ class ChangePasscodeFlow: UIFlow {
                     try App.shared.auth.changePasscode(newPasscodeInPlaintext: newPasscode!)
                     App.shared.snackbar.show(message: "Passcode changed")
                 }
+            } catch let userCancellationError as GSError.CancelledByUser {
+                // do nothing
             } catch {
                 App.shared.snackbar.show(error: GSError.FailedToChangePasscode(reason: error.localizedDescription))
             }
@@ -80,16 +90,9 @@ class ChangePasscodeFlow: UIFlow {
 }
 
 class ChangePasscodeFlowFactory {
-    func enterOldPasscode(completion: @escaping ( _ password: String?) throws -> Void, onError: @escaping (Error) -> ()) -> EnterPasscodeViewController {
+    func enterOldPasscode(completion: @escaping ( _ result: EnterPasscodeViewController.Result) -> Void) -> EnterPasscodeViewController {
         let vc = EnterPasscodeViewController()
-        vc.passcodeCompletion = { _, _, passcode in
-            do {
-                try completion(passcode)
-            } catch {
-                //FIXME: error handling
-            }
-        }
-        vc.onError = onError
+        vc.passcodeCompletion = completion
         return vc
     }
 

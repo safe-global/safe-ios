@@ -113,6 +113,8 @@ extension PrivateKey {
                     completion(.success(privateKey))
                 } catch let error as GSError.KeychainError {
                     completion(.failure(error))
+                } catch let error as GSError.CancelledByUser {
+                    completion(.failure(error))
                 } catch {
                     completion(.failure(GSError.ThirdPartyError(reason: error.localizedDescription)))
                 }
@@ -133,11 +135,12 @@ extension PrivateKey {
     //TODO: extract legacy code
     static func remove(id: KeyID,
                        protectionClass: ProtectionClass = .sensitive,
+                       authenticate: Bool = true,
                        completion: ((Result<Bool, Error>) -> ())? = nil) {
         if AppConfiguration.FeatureToggles.securityCenter {
             //TODO: rewrite as App.securityCenter
             //TODO: make invocation async
-            App.shared.securityCenter.remove(dataID: DataID(id: id), protectionClass: protectionClass) { result in
+            App.shared.securityCenter.remove(dataID: DataID(id: id), protectionClass: protectionClass, authenticate: authenticate) { result in
                 completion?(result)
             }
         } else {

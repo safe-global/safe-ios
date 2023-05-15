@@ -74,12 +74,6 @@ class ImportKeyFlow: AddKeyFlow {
 class ImportKeyFlowFactory: AddKeyFlowFactory {
     override func intro(completion: @escaping () -> Void) -> AddKeyOnboardingViewController {
         let introVC = super.intro(completion: completion)
-        //FIXME Remove feature flag and flag handling after release
-        var url = URL(string: "https://help.safe.global/en/articles/4866738-how-are-private-keys-stored-on-gnosis-safe-mobile")!
-        if FirebaseRemoteConfig.shared.boolValue(key: .intercomMigration) ?? false {
-            url = App.configuration.help.keySecurityURL
-        }
-
         introVC.cards = [
             .init(image: UIImage(named: "ico-onboarding-import-key-1"),
                   title: "How does it work?",
@@ -88,7 +82,7 @@ class ImportKeyFlowFactory: AddKeyFlowFactory {
                 .init(image: UIImage(named: "ico-onboarding-import-key-2"),
                       title: "How secure is that?",
                       body: "We only store your private key. We do not store your seed phrase in the app.",
-                      link: .init(title: "How is a private key stored on mobile?", url: url)),
+                      link: .init(title: "How is a private key stored on mobile?", url: App.configuration.help.keySecurityURL)),
             
                 .init(image: UIImage(named: "ico-onboarding-import-key-3"),
                       title: "Is my wallet supported?",

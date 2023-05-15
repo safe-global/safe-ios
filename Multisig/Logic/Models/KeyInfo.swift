@@ -308,8 +308,8 @@ extension KeyInfo {
     }
 
     /// Delete all of the keys stored
-    static func deleteAll() throws {
-        try all().forEach { try $0.delete() }
+    static func deleteAll(authenticate: Bool) throws {
+        try all().forEach { $0.delete(authenticate: authenticate) }
     }
 
     /// Saves the key to the persistent store
@@ -323,9 +323,9 @@ extension KeyInfo {
 
     /// Will delete the key info and the stored private key
     /// - Throws: in case of underlying error
-    func delete(completion: ((Result<Bool, Error>) -> ())? = nil) {
+    func delete(authenticate: Bool = true, completion: ((Result<Bool, Error>) -> ())? = nil) {
         if let keyID = keyID, keyType == .deviceImported || keyType == .deviceGenerated {
-            PrivateKey.remove(id: keyID) { [unowned self] result in
+            PrivateKey.remove(id: keyID, authenticate: authenticate) { [unowned self] result in
                 if (try? result.get()) == true {
                     App.shared.coreDataStack.viewContext.delete(self)
                     save()

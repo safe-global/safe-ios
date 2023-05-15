@@ -363,7 +363,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         if AppConfiguration.FeatureToggles.securityCenter {
             self.sign()
         } else {
-            authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
+            authenticate(options: [.useForConfirmation]) { [weak self] success in
                 guard let self = self else { return }
                 if success {
                     if self.controller.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && !self.userSelectedSigner {
@@ -633,9 +633,11 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
                 switch result {
                 case .failure(let error):
                     self.submitButton.state = .normal
+                    Tracker.trackEvent(.relayUserFailure)
                     self.didSubmitFailed(error)
 
                 case .success:
+                    Tracker.trackEvent(.relayUserSuccess)
                     self.didSubmitSuccess()
                 }
             })
@@ -646,6 +648,9 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
                 switch result {
                 case .failure(let error):
                     self.submitButton.state = .normal
+                    Tracker.trackEvent(.executeFailure, parameters: [
+                        "chain_id": self.controller.chainId
+                    ])
                     self.didSubmitFailed(error)
 
                 case .success:
@@ -658,29 +663,30 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
     func didSubmitFailed(_ error: Error?) {
         let gsError = GSError.error(description: "Submitting failed", error: error)
         App.shared.snackbar.show(error: gsError)
-
-        Tracker.trackEvent(.executeFailure, parameters: [
-            "chain_id": self.controller.chainId
-        ])
     }
 
     func didSubmitSuccess() {
         let txHash = self.controller.ethTransaction?.hash ?? .init()
         LogService.shared.debug("Submitted tx: \(txHash.storage.storage.toHexStringWithPrefix())")
+        Tracker.trackEvent(.userTransactionExecuteSubmitted)
 
         let successVC = SuccessViewController(
             titleText: "Your transaction is submitted!",
             bodyText: "It normally takes some time for a transaction to be executed.",
             primaryAction: "View transaction details",
-            secondaryAction: nil,
-            trackingEvent: .userTransactionExecuteSubmitted
+            secondaryAction: nil
         )
 
-        // track key type
+        var trackingEvent: TrackingEvent? = nil
+        var trackingParameters: [String: Any]? = nil
         if let key = self.controller.selectedKey?.key {
-            let trackingParameters: [String: Any] = ["source": "tx_details"]
-            successVC.trackingParams = TrackingEvent.keyTypeParameters(key, parameters: trackingParameters)
+            trackingEvent = .successTxSigner
+            // track key type
+            trackingParameters = TrackingEvent.keyTypeParameters(key, parameters: ["source": "tx_details"])
+        } else if !userSelectedSigner {
+            trackingEvent = .successTxRelay
         }
+        successVC.setTrackingData(trackingEvent: trackingEvent, trackingParams: trackingParameters)
 
         successVC.onDone = { [weak self] _ in
             guard let self = self else { return }

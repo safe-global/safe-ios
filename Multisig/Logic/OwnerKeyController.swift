@@ -250,7 +250,7 @@ class OwnerKeyController {
             }
 
             for info in keyInfoToDelete {
-                try info.delete()
+                info.delete()
             }
         } catch {
             LogService.shared.error("Failed to delete all keys: \(error)")
@@ -259,7 +259,7 @@ class OwnerKeyController {
 
     /// Call this when you want to wipe out all of the keys by the user's request
     static func deleteAllKeys(showingMessage: Bool = true) throws {
-        try KeyInfo.deleteAll()
+        try KeyInfo.deleteAll(authenticate: false)
         App.shared.notificationHandler.signingKeyUpdated()
         if showingMessage {
             App.shared.snackbar.show(message: "All owner keys removed from this app")

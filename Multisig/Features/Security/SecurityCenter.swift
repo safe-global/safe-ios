@@ -6,6 +6,7 @@
 //  Copyright © 2023 Gnosis Ltd. All rights reserved.
 //
 
+import LocalAuthentication
 import Foundation
 import CoreText
 import CommonCrypto
@@ -66,12 +67,7 @@ class SecurityCenter {
             /// from the iCloud backup, which restores the application data but
             /// does not restore Keychain. It would not happen if a user would
             /// restore from encrypted backup, which restores Keychain data as well.
-            do {
-                try shared.sensitiveStore.deleteAllKeys()
-                try shared.dataStore.deleteAllKeys()
-            } catch {
-                LogService.shared.error("Failed to delete previously installed keys", error: error)
-            }
+            reset()
         }
 
         do {
@@ -87,6 +83,15 @@ class SecurityCenter {
             // perform migration if needed
         }
         AppSettings.securityCenterVersion = version
+    }
+
+    static func reset() {
+        do {
+            try shared.sensitiveStore.deleteAllKeys()
+            try shared.dataStore.deleteAllKeys()
+        } catch {
+            LogService.shared.error("Failed to delete previously installed keys", error: error)
+        }
     }
 
     private static func migrateFromKeychainStorageToSecurityEnclave() {
@@ -153,33 +158,34 @@ class SecurityCenter {
     //  - if newMethod does not require passcode, then `newPasscode` must be nil.
     func changeLockMethod(oldMethod: LockMethod, newMethod: LockMethod, newPasscode: String?, completion: @escaping (Error?) -> Void) {
         requestPassword(for: [.sensitive, .data]) { [unowned self] oldPasscode in
+            do {
+                var changedPasscode = newPasscode
 
-            var changedPasscode = newPasscode
+                if oldMethod.isPasscodeRequired() {
+                    changedPasscode = oldPasscode
+                }
 
-            if oldMethod.isPasscodeRequired() {
-                changedPasscode = oldPasscode
+                AppSettings.securityLockMethod = newMethod
+
+                // Change settings should be done only for the enabled store
+                // Change settings for disabled store will throw an exception
+                if AppSettings.passcodeOptions.contains(.useForConfirmation) {
+                    try changeStoreSettings(currentPlaintextPassword: oldPasscode,
+                                            newPlaintextPassword: changedPasscode,
+                                            store: sensitiveStore)
+                }
+
+                if AppSettings.passcodeOptions.contains(.useForLogin) {
+                    try changeStoreSettings(currentPlaintextPassword: oldPasscode,
+                                            newPlaintextPassword: changedPasscode,
+                                            store: dataStore)
+                }
+
+                completion(nil)
+            } catch {
+                AppSettings.securityLockMethod = oldMethod
+                completion(error)
             }
-
-            AppSettings.securityLockMethod = newMethod
-
-            // Change settings should be done only for the enabled store
-            // Change settings for disabled store will throw an exception
-            if AppSettings.passcodeOptions.contains(.useForConfirmation) {
-                try changeStoreSettings(currentPlaintextPassword: oldPasscode,
-                                        newPlaintextPassword: changedPasscode,
-                                        store: sensitiveStore)
-            }
-
-            if AppSettings.passcodeOptions.contains(.useForLogin) {
-                try changeStoreSettings(currentPlaintextPassword: oldPasscode,
-                                        newPlaintextPassword: changedPasscode,
-                                        store: dataStore)
-            }
-
-            completion(nil)
-        } onFailure: { error in
-            AppSettings.securityLockMethod = oldMethod
-            completion(error)
         }
     }
 
@@ -224,31 +230,35 @@ class SecurityCenter {
         let toggleWillBeOff: Bool = enabledOptions.contains(passcodeOption)
         if toggleWillBeOff {
             requestPassword(for: [protectionClass]) { [unowned self] plaintextPasscode in
-                AppSettings.passcodeOptions.remove(passcodeOption)
-                try changeStoreSettings(currentPlaintextPassword: plaintextPasscode,
-                                        newPlaintextPassword: nil,
-                                        store: protectedKeyStore)
-                completion(nil)
-            } onFailure: { error in
-                AppSettings.passcodeOptions.insert(passcodeOption)
-                completion(error)
+                do {
+                    AppSettings.passcodeOptions.remove(passcodeOption)
+                    try changeStoreSettings(currentPlaintextPassword: plaintextPasscode,
+                                            newPlaintextPassword: nil,
+                                            store: protectedKeyStore)
+                    completion(nil)
+                } catch {
+                    AppSettings.passcodeOptions.remove(passcodeOption)
+                    completion(parse(error: error))
+                }
             }
         } else {
             let otherProtectionClass: ProtectionClass = protectionClass == .sensitive ? .data : .sensitive
             let otherProtectedKeyStore: ProtectedKeyStore = otherProtectionClass == .data ? dataStore : sensitiveStore
 
             requestPassword(for: [otherProtectionClass]) { [unowned self] plaintextPasscode in
-                let currentDerivedPassword = plaintextPasscode.map { derivedKey(from: $0) }
-                try otherProtectedKeyStore.authenticate(password: currentDerivedPassword)
-                AppSettings.passcodeOptions.insert(passcodeOption)
+                do {
+                    let currentDerivedPassword = plaintextPasscode.map { derivedKey(from: $0) }
+                    try otherProtectedKeyStore.authenticate(password: currentDerivedPassword)
+                    AppSettings.passcodeOptions.insert(passcodeOption)
 
-                try changeStoreSettings(currentPlaintextPassword: nil,
-                                        newPlaintextPassword: plaintextPasscode,
-                                        store: protectedKeyStore)
-                completion(nil)
-            } onFailure: { error in
-                AppSettings.passcodeOptions.remove(passcodeOption)
-                completion(error)
+                    try changeStoreSettings(currentPlaintextPassword: nil,
+                                            newPlaintextPassword: plaintextPasscode,
+                                            store: protectedKeyStore)
+                    completion(nil)
+                } catch {
+                    AppSettings.passcodeOptions.remove(passcodeOption)
+                    completion(parse(error: error))
+                }
             }
         }
     }
@@ -278,7 +288,7 @@ class SecurityCenter {
             newStorePassword = nil
             biometryUsed = false
         }
-        try store.changePassword(from: currentDerivedPassword, to: newStorePassword, useBiometry: biometryUsed)
+        try store.changePassword(from: currentDerivedPassword, to: newStorePassword, useBiometry: biometryUsed, keepUnlocked: store.protectionClass == .data)
     }
 
     // TODO: cancelling is not an error? success = false means cancelled?
@@ -289,30 +299,41 @@ class SecurityCenter {
     //  - If user enters correct passcode & biometrics (when needed), then the passcode and biometrics are disabled.
     //    AND the completion block is called with 'nil' result
     //  - If user enters wrong passcode or biometrics OR cancels authentication, then the completion is called with error result.
-    func disableSecurityLock(completion: @escaping (Error?) -> ()) {
+    func disableSecurityLock(authenticate: Bool = true, completion: @escaping (Error?) -> ()) {
         let oldOptions = AppSettings.passcodeOptions
 
-        requestPassword(for: [.sensitive, .data]) { [unowned self] plaintextPasscode in
-            if AppSettings.passcodeOptions.contains(.useForConfirmation) {
-                AppSettings.passcodeOptions.remove(.useForConfirmation)
-                try changeStoreSettings(currentPlaintextPassword: plaintextPasscode,
-                                        newPlaintextPassword: nil,
-                                        store: sensitiveStore)
-            }
+        if authenticate {
+            requestPassword(for: [.sensitive, .data]) { [unowned self] plaintextPasscode in
+                do {
+                    if AppSettings.passcodeOptions.contains(.useForConfirmation) {
+                        AppSettings.passcodeOptions.remove(.useForConfirmation)
+                        try changeStoreSettings(currentPlaintextPassword: plaintextPasscode,
+                                                newPlaintextPassword: nil,
+                                                store: sensitiveStore)
+                    }
 
-            if AppSettings.passcodeOptions.contains(.useForLogin) {
-                AppSettings.passcodeOptions.remove(.useForLogin)
-                try changeStoreSettings(currentPlaintextPassword: plaintextPasscode,
-                                        newPlaintextPassword: nil,
-                                        store: dataStore)
-            }
+                    if AppSettings.passcodeOptions.contains(.useForLogin) {
+                        AppSettings.passcodeOptions.remove(.useForLogin)
+                        try changeStoreSettings(currentPlaintextPassword: plaintextPasscode,
+                                                newPlaintextPassword: nil,
+                                                store: dataStore)
+                    }
 
+                    AppSettings.securityLockEnabled = false
+                    completion(nil)
+                } catch {
+                    AppSettings.passcodeOptions = oldOptions
+                    completion(parse(error: error))
+                }
+            }
+        } else {
+            Self.reset()
+            Self.setUp()
+            AppSettings.passcodeOptions = []
             AppSettings.securityLockEnabled = false
             completion(nil)
-        } onFailure: { error in
-            AppSettings.passcodeOptions = oldOptions
-            completion(error)
         }
+
     }
 
     func shouldShowPasscode(for accessScope: [ProtectionClass] = [.data, .sensitive]) -> Bool {
@@ -331,7 +352,7 @@ class SecurityCenter {
         )
     }
 
-    private func requestPassword(for accessScope: [ProtectionClass], task: @escaping (_ plaintextPasscode: String?) throws -> Void, onFailure: @escaping (_ error: Error) -> Void) {
+    private func requestPassword(for accessScope: [ProtectionClass], task: @escaping (_ plaintextPasscode: String?) -> Void) {
 
         let needsUserPasscode =
             AppSettings.securityLockEnabled &&
@@ -343,13 +364,9 @@ class SecurityCenter {
         if needsUserPasscode {
             NotificationCenter.default.post(name: .passcodeRequired,
                                             object: self,
-                                            userInfo: ["accessTask": task, "onFailure": onFailure])
+                                            userInfo: ["accessTask": task])
         } else {
-            do {
-                try task(nil)
-            } catch {
-                onFailure(error)
-            }
+            task(nil)
         }
     }
 
@@ -364,8 +381,8 @@ class SecurityCenter {
         do {
             try store.import(id: id, data: data)
             completion(.success(true))
-        } catch let error {
-            completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
+        } catch {
+            completion(.failure(parse(error: error)))
         }
     }
 
@@ -375,15 +392,26 @@ class SecurityCenter {
     ///   - dataID: data id
     ///   - protectionClass: which keystore to use for removal: sensitive or data
     ///   - completion: callback returns success(true) if import successfull, success(false) if operation was canceled by user, or failure otherwise.
-    func remove(dataID: DataID, protectionClass: ProtectionClass = .sensitive, completion: @escaping (Result<Bool, Error>) -> ()) {
+    func remove(dataID: DataID, protectionClass: ProtectionClass = .sensitive, authenticate: Bool = true, completion: @escaping (Result<Bool, Error>) -> ()) {
         let store: ProtectedKeyStore = protectionClass == .sensitive ? sensitiveStore : dataStore
-        requestPassword(for: [protectionClass]) { [unowned self] plaintextPassword in
-            let password = plaintextPassword.map { derivedKey(from: $0) }
-            try store.authenticate(password: password)
-            try store.delete(id: dataID)
-            completion(.success(true))
-        } onFailure: { error in
-            completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
+        if authenticate {
+            requestPassword(for: [protectionClass]) { [unowned self] plaintextPassword in
+                do {
+                    let password = plaintextPassword.map { derivedKey(from: $0) }
+                    try store.authenticate(password: password)
+                    try store.delete(id: dataID)
+                    completion(.success(true))
+                } catch {
+                    completion(.failure(parse(error: error)))
+                }
+            }
+        } else {
+            do {
+                try store.delete(id: dataID)
+                completion(.success(true))
+            } catch {
+                completion(.failure(parse(error: error)))
+            }
         }
     }
 
@@ -391,13 +419,14 @@ class SecurityCenter {
         let store: ProtectedKeyStore = protectionClass == .sensitive ? sensitiveStore : dataStore
 
         requestPassword(for: [protectionClass]) { [unowned self] plaintextPassword in
-            let password = plaintextPassword.map { derivedKey(from: $0) }
-            let data = try store.find(dataID: id, password: password)
-            completion(.success(data))
-        } onFailure: { error in
-            completion(.failure(error))
+            do {
+                let password = plaintextPassword.map { derivedKey(from: $0) }
+                let data = try store.find(dataID: id, password: password)
+                completion(.success(data))
+            } catch {
+                completion(.failure(parse(error: error)))
+            }
         }
-
     }
 
     func derivedKey(from plaintext: String, useOldSalt: Bool = false) -> String {
@@ -423,6 +452,19 @@ class SecurityCenter {
     // For backward compatibility we need to use both salts for some cases
     private func salt(oldSalt: Bool = false) -> String {
         oldSalt ? "Gnosis Safe Multisig Passcode Salt" : "Safe Multisig Passcode Salt"
+    }
+
+    func parse(error: Error) -> Error {
+        guard let nsError = error as? NSError else {
+            return GSError.KeychainError(reason: error.localizedDescription)
+        }
+
+        // User cancel operation
+        if nsError.code == LAError.userCancel.rawValue {
+            return GSError.CancelledByUser()
+        }
+
+        return GSError.KeychainError(reason: error.localizedDescription)
     }
 }
 

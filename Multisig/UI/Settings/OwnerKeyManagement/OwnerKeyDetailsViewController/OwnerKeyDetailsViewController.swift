@@ -152,7 +152,6 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         if AppConfiguration.FeatureToggles.securityCenter {
 
             keyInfo.privateKey { [unowned self] result in
-
                 do {
                     if let privateKey = try result.get() {
                         exportViewController.privateKey = privateKey.keyData.toHexStringWithPrefix()
@@ -162,6 +161,8 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                         App.shared.snackbar.show(error: GSError.PrivateKeyDataNotFound(reason: "Key data does not exist"))
                         return
                     }
+                } catch let userCancellationError as GSError.CancelledByUser {
+                    return
                 } catch {
                     App.shared.snackbar.show(error: GSError.PrivateKeyFetchError(reason: error.localizedDescription))
                     return
@@ -183,7 +184,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                 return
             }
 
-            authenticate(biometry: false) { [unowned self] success, _ in
+            authenticate(biometry: false) { [unowned self] success in
                 if success {
                     show(exportViewController, sender: self)
                 }
@@ -208,7 +209,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
             return
         }
 
-        self.sections = [
+        sections = [
             (section: .name("OWNER NAME"), items: [Section.Name.name]),
 
             (section: .keyAddress("OWNER ADDRESS"),
@@ -218,28 +219,24 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                     items: [Section.OwnerKeyType.type])]
 
         if keyInfo.keyType == .walletConnect {
-            self.sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
+            sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
         }
 
-        // TODO: Remove this after release 3.19.0
-        if ![KeyType.deviceImported, KeyType.deviceGenerated].contains(keyInfo.keyType) {
-            self.sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
-                                  items: [Section.PushNotificationConfiguration.enabled]))
-        }
+        sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
+                              items: [Section.PushNotificationConfiguration.enabled]))
 
-        if self.keyInfo.delegateAddress != nil &&
-            ![KeyType.deviceImported, KeyType.deviceGenerated].contains(keyInfo.keyType) {
-            self.sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
+        if keyInfo.delegateAddress != nil {
+            sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
                     items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
         }
 
-        self.sections.append((section: .advanced, items: [Section.Advanced.remove]))
+        sections.append((section: .advanced, items: [Section.Advanced.remove]))
 
         if keyInfo.needsBackup {
             sections.insert((section: .backedup, items: [Section.Backedup.backedup]), at: 0)
         }
 
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
 
     @objc private func pop() {
@@ -366,7 +363,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                     App.shared.snackbar.show(message: error.localizedDescription)
                 }
             } else {
-                authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
+                authenticate(options: [.useForConfirmation]) { [weak self] success in
                     guard let self = self else { return }
 
                     if success {

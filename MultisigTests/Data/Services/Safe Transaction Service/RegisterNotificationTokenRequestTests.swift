@@ -28,7 +28,7 @@ class RegisterNotificationTokenRequestTests: XCTestCase {
 
         XCTAssertEqual(signResult.signatures, ["0x05a119049f1385fc1c8785389a7f7c7c1c104d54ce0225a856ca580c6085d45428d26bbf273b3fe5428a921a5fbc6658e024e87ac0a3291ba8015949c0e7945d1c"])
 
-        try KeyInfo.deleteAll()
+        try KeyInfo.deleteAll(authenticate: false)
     }
 
     func testSignWithMnemonic() throws {
@@ -45,7 +45,7 @@ class RegisterNotificationTokenRequestTests: XCTestCase {
 
         XCTAssertEqual(signResult.signatures, ["0x77a687a3e0021202c4d542a6aeccdb0a22bdcb722892d3a5082334d2c72468771a1e7aa303925a0115a09789c36a2a1e7bb5feb212bbd4db7c9f0c1ab01739291b"])
 
-        try KeyInfo.deleteAll()
+        try KeyInfo.deleteAll(authenticate: false)
     }
 
 }

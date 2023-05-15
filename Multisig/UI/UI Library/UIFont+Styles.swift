@@ -39,6 +39,7 @@ struct GNOTextStyle: Hashable {
 }
 
 extension GNOTextStyle {
+    static let slogan = GNOTextStyle(size: 28, weight: .semibold, color: .labelPrimary)
     // Heading
     static let largeTitle = GNOTextStyle(size: 33, weight: .bold, color: .labelPrimary)
     static let title1 = GNOTextStyle(size: 28, weight: .bold, color: .labelPrimary)

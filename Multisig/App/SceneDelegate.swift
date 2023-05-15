@@ -248,14 +248,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func makeEnterPasscodeWindow(showsCloseButton: Bool = false,
-                                 onPasscodeEnter: ((String?) throws -> Void)? = nil,
-                                 onError: ((Error) -> Void)? = nil) -> UIWindow {
+                                 completion: ((EnterPasscodeViewController.Result) -> Void)? = nil) -> UIWindow {
         let enterPasscodeWindow = makeWindow(scene: scene!)
 
-        let vc = ViewControllerFactory.enterPasscodeViewController (showsCloseButton: showsCloseButton,
-                                                                    completion: { [unowned self] passcode in
-            onEnterPasscodeCompletion(userPassword: passcode)
-        }, onPasscodeEnter: onPasscodeEnter, onError: onError)
+        let vc = ViewControllerFactory.enterPasscodeViewController (showsCloseButton: showsCloseButton) { [unowned self] result in
+            if case let EnterPasscodeViewController.Result.success(passcode) = result {
+                onEnterPasscodeCompletion(userPassword: passcode)
+            } else {
+                showMainContentWindow()
+            }
+
+            completion?(result)
+        }
 
         enterPasscodeWindow.rootViewController = vc
         return enterPasscodeWindow
@@ -359,23 +363,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     @objc private func handlePasscodeRequired(_ notification: Notification) {
-        guard
-            let task = notification.userInfo?["accessTask"] as? (_ password: String?) throws -> Void,
-            let onFailure = notification.userInfo?["onFailure"] as? (_ error: Error) -> Void
-        else {
+        guard let task = notification.userInfo?["accessTask"] as? (_ password: String?) -> Void else {
             return
         }
 
-        showWindow(makeEnterPasscodeWindow(showsCloseButton: true,
-                                           onPasscodeEnter: { [weak self] pwd in
-            try task(pwd)
-            self?.showMainContentWindow()
-        }, onError: { [weak self] error in
-            if let str = error as? String, str == "Cancelled" {
-                self?.showMainContentWindow()
-            }
-            onFailure(error)
-        }))
+        DispatchQueue.main.async { [unowned self] in
+            showWindow(makeEnterPasscodeWindow(showsCloseButton: true) { result in
+                switch result {
+                case .success(let password):
+                    task(password)
+                case .close:
+                    return
+                }
+            })
+        }
     }
 }
 
