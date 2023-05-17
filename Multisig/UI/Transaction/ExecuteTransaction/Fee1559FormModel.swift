@@ -151,12 +151,7 @@ class Fee1559FormModel: FormModel {
 
         helpField = HyperlinkButtonView()
         helpField.setText("How do I configure these details manually?")
-        //FIXME Remove feature flag and flag handling after release
-        var url = URL(string: "https://help.safe.global/en/articles/4738445-advanced-transaction-parameters")!
-        if FirebaseRemoteConfig.shared.boolValue(key: .intercomMigration) ?? false {
-            url = App.configuration.help.advancedTxParamsURL
-        }
-        helpField.url = url
+        helpField.url = App.configuration.help.advancedTxParamsURL
 
         return [nonceField,
                 gasField,

@@ -208,7 +208,7 @@ class RemoteNotificationHandler {
         // get keys for signing
         let privateKeys = try KeyInfo.all()
             .compactMap { keyInfo -> PrivateKey? in
-                try? keyInfo.pushNotificationSigningKey()
+                try? keyInfo.delegatePrivateKey()
             }
 
         let hashPreimage = [

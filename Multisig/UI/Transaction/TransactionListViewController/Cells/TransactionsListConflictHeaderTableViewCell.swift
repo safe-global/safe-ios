@@ -14,12 +14,7 @@ class TransactionsListConflictHeaderTableViewCell: UITableViewCell, ExternalURLS
     @IBOutlet weak var learnMoreButton: UIButton!
 
     private(set) var url: URL? = {
-        //FIXME Remove feature flag and flag handling after release
-        var url = URL(string: "https://help.safe.global/en/articles/4730252-why-are-transactions-with-the-same-nonce-conflicting-with-each-other")!
-        if FirebaseRemoteConfig.shared.boolValue(key: .intercomMigration) ?? false {
-            url = App.configuration.help.conflictURL
-        }
-        return url
+        App.configuration.help.conflictURL
     }()
 
     override func awakeFromNib() {
