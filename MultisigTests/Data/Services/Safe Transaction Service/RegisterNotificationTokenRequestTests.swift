@@ -23,8 +23,8 @@ class RegisterNotificationTokenRequestTests: XCTestCase {
         // Create delegate key
         let mnemonic = "display bless asset brother fish sauce lyrics grit friend online tumble useless"
         let delegateKey = try PrivateKey(mnemonic: mnemonic, pathIndex: 0)
-        KeyInfo.delegateAddressString = delegatePrivateKey.address.checksummed
-        delegateKey.save(.data)
+        KeyInfo.delegateAddressString = delegateKey.address.checksummed
+        delegateKey.save(protectionClass: .data)
 
         let signResult = try RemoteNotificationHandler.sign(
             safes: ["0x4dEBDD6CEe25b2F931D2FE265D70e1a533B02453", "0x72ac1760daF52986421b1552BdCa04707E78950e"],
@@ -46,7 +46,7 @@ class RegisterNotificationTokenRequestTests: XCTestCase {
         // Create delegate key
         let delegateKey = try PrivateKey(data: Data(hex: "0xe7979e5f2ceb1d4ef76019d1fdba88b50ceefe0575bbfdf94969837c50a5d895"))
         KeyInfo.delegateAddressString = delegateKey.address.checksummed
-        delegateKey.save(.data)
+        delegateKey.save(protectionClass: .data)
 
         let signResult = try RemoteNotificationHandler.sign(
             safes: ["0xEefFcdEAB4AC6005E90566B08EAda3994A573C1E"],
