@@ -26,7 +26,7 @@ class SafeLoadedViewController: AccountActionCompletedViewController {
         } catch {
             fatalError()
         }
-        titleText = "Load Safe"
+        titleText = "Load Safe Account"
         headerText = "Safe loaded"
         primaryActionName = "Add owner key"
         secondaryActionName = "Skip"

@@ -121,7 +121,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             safe = selectedSafe
             updateSections()
         } catch {
-            onError(GSError.error(description: "Failed to load safe settings", error: error))
+            onError(GSError.error(description: "Failed to load safe account settings", error: error))
         }
         tableView.reloadData()
     }
@@ -148,7 +148,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                             (error as NSError).domain == NSURLErrorDomain {
                             return
                         }
-                        self.onError(GSError.error(description: "Failed to load safe settings", error: GSError.detailedError(from: error)))
+                        self.onError(GSError.error(description: "Failed to load safe account settings", error: GSError.detailedError(from: error)))
                     }
                 case .success(let safeInfo):
                     DispatchQueue.main.async { [weak self] in
@@ -162,7 +162,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 }
             }
         } catch {
-            onError(GSError.error(description: "Failed to load safe settings", error: GSError.detailedError(from: error)))
+            onError(GSError.error(description: "Failed to load safe account settings", error: GSError.detailedError(from: error)))
         }
     }
 
@@ -182,7 +182,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                     (error as NSError).domain == NSURLErrorDomain {
                     return
                 }
-                self.onError(GSError.error(description: "Failed to load safe owners", error: GSError.detailedError(from: error)))
+                self.onError(GSError.error(description: "Failed to load safe account owners", error: GSError.detailedError(from: error)))
             case .success(let owners):
                 self.safeOwners = owners.compactMap { owner in
                     AddressInfo.init(address: owner)

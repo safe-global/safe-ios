@@ -92,7 +92,7 @@ final class HeaderViewController: ContainerViewController {
             Tracker.trackEvent(.addSafeFromSwitchSafes)
             self?.dismiss(animated: false) {
                 let selectNetworkVC = SelectNetworkViewController()
-                selectNetworkVC.screenTitle = "Load Safe"
+                selectNetworkVC.screenTitle = "Load Safe Account"
                 selectNetworkVC.descriptionText = "Select network on which your Safe was created:"
                 selectNetworkVC.completion = { [weak self] chain  in
                     let vc = EnterSafeAddressViewController()
@@ -187,7 +187,7 @@ final class HeaderViewController: ContainerViewController {
                             (error as NSError).domain == NSURLErrorDomain {
                             return
                         }
-                        LogService.shared.error("Failed to reload safe info: \(error)")
+                        LogService.shared.error("Failed to reload safe account info: \(error)")
                     case .success(let safeInfo):
                         safe.update(from: safeInfo)
                         self?.reloadHeaderBar()
@@ -195,7 +195,7 @@ final class HeaderViewController: ContainerViewController {
                 }
             }
         } catch {
-            LogService.shared.error("Failed to reload safe info: \(error)")
+            LogService.shared.error("Failed to reload safe account info: \(error)")
         }
     }
 }
