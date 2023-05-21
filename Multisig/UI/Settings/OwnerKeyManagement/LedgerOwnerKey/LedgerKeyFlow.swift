@@ -71,7 +71,7 @@ class LedgerKeyFlowFactory: AddKeyFlowFactory {
         introVC.cards = [
             .init(image: UIImage(named: "ico-onboarding-ledger"),
                   title: "How does it work?",
-                  body: "You can connect your Ledger device and select a key. If it is an owner of your Safe you can sign transactions."),
+                  body: "You can connect your Ledger device and select a key. If it is an owner of your Safe Account you can sign transactions."),
 
                 .init(image: UIImage(named: "ico-onboarding-bluetooth"),
                       title: "Pair your Ledger device",

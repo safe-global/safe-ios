@@ -93,7 +93,7 @@ final class HeaderViewController: ContainerViewController {
             self?.dismiss(animated: false) {
                 let selectNetworkVC = SelectNetworkViewController()
                 selectNetworkVC.screenTitle = "Load Safe Account"
-                selectNetworkVC.descriptionText = "Select network on which your Safe was created:"
+                selectNetworkVC.descriptionText = "Select network on which your Safe Account was created:"
                 selectNetworkVC.completion = { [weak self] chain  in
                     let vc = EnterSafeAddressViewController()
                     vc.chain = chain

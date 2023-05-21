@@ -42,7 +42,7 @@ class ROWhatIsViewController: UIViewController {
         )
         let sec1Par1String = NSMutableAttributedString(string: "Tired of handling gas limits? We’ve heard you! Pay for your gasless transactions with our ")
         sec1Par1String.append(relayerSymbolString)
-        sec1Par1String.append(NSAttributedString(string: " service with your Safe balance."))
+        sec1Par1String.append(NSAttributedString(string: " service with your Safe Account balance."))
         par1Label.attributedText = sec1Par1String
 
         par2Label.setStyle(.subheadlineSecondary)

@@ -111,9 +111,9 @@ class SafeDeployingViewController: UIViewController {
         case .deploying:
             return "Deploying Smart Contract"
         case .indexing:
-            return "Preparing your Safe"
+            return "Preparing your Safe Account"
         case .deployed:
-            return "Safe is ready!"
+            return "Safe Account is ready!"
         case .deploymentFailed:
             return "Failed to create Safe"
         }

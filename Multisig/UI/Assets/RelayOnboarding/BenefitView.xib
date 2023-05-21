@@ -46,7 +46,7 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="We pay for your Safe transactions for up to five transactions per hour on Gnosis chain" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIy-qy-f5g">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="We pay for your Safe Account transactions for up to five transactions per hour on Gnosis chain" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIy-qy-f5g">
                                     <rect key="frame" x="0.0" y="24.333333333333332" width="555" height="54.666666666666671"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
