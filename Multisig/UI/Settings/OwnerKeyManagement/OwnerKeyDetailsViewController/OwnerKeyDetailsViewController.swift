@@ -288,13 +288,8 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         case Section.DelegateKey.address:
             return tableView.addressDetailsCell(address: keyInfo.delegateAddress ?? Address.zero, indexPath: indexPath)
         case Section.DelegateKey.helpLink:
-            //FIXME Remove feature flag and flag handling after release
-            var url = URL(string: "https://help.safe.global/en/articles/5809867-what-is-a-delegate-key")!
-            if FirebaseRemoteConfig.shared.boolValue(key: .intercomMigration) ?? false {
-                url = App.configuration.help.delegateKeyURL
-            }
             return tableView.helpLinkCell(text: "What is a delegate key and how does it relate to the Safe",
-                                url: url,
+                                url: App.configuration.help.delegateKeyURL,
                                 indexPath: indexPath)
         case Section.Advanced.remove:
             return tableView.removeCell(indexPath: indexPath, title: "Remove owner key") { [weak self] in
