@@ -152,7 +152,7 @@ class AppSettingsViewController: UITableViewController {
         let keys = WebConnectionController.shared.accountKeys()
         if keys.isEmpty {
             let addOwnersVC = AddOwnerFirstViewController()
-            addOwnersVC.descriptionText = "To connect to Safe import at least one owner key. Keys are used to confirm transactions."
+            addOwnersVC.descriptionText = "To connect to Safe{Wallet} import at least one owner key. Keys are used to confirm transactions."
             addOwnersVC.onSuccess = { [weak self] in
                 self?.dismiss(animated: true) {
                     _ = self?.showDesktopPairing()

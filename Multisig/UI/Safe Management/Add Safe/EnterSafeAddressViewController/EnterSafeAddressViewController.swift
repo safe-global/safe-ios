@@ -57,7 +57,7 @@ class EnterSafeAddressViewController: UIViewController {
         enterAddressVC.prefix = chain.shortName
         enterAddressVC.trackingEvent = .safeAddName
         enterAddressVC.screenTitle = "Load Safe Account"
-        enterAddressVC.descriptionText = "Choose a name for the Safe. The name is only stored locally and will not be shared with us or any third parties"
+        enterAddressVC.descriptionText = "Choose a name for the Safe Account. The name is only stored locally and will not be shared with us or any third parties"
         enterAddressVC.actionTitle = "Next"
         enterAddressVC.placeholder = "Enter name"
 
