@@ -58,15 +58,15 @@ class SafeDeploymentFinishedViewController: UIViewController {
 
             titleLabel.text = "Your Safe Account is ready!"
             descriptionLabel.text = "That’s it! Start using your most secure wallet on Ethereum."
-            actionButton.setText("Start using Safe", .filled)
+            actionButton.setText("Start using Safe{Wallet}", .filled)
             linkButton.isHidden = true
 
         case .failure:
             statusImage.isHidden = false
             animationView.isHidden = true
             statusImage.image = UIImage(named: "ico-safe-deployment-failure")
-            titleLabel.text = "Oops, Safe wasn’t created"
-            descriptionLabel.text = "Safe couldn’t have been created. This might happen due to the mining error or spiked gas fees."
+            titleLabel.text = "Oops, Safe Account wasn’t created"
+            descriptionLabel.text = "Safe Account couldn’t have been created. This might happen due to the mining error or spiked gas fees."
             
             actionButton.setText("Retry", .filled)
             linkButton.setText("View on block explorer", .plain)
