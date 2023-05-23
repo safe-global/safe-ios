@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-/// Basis for flows that create transactions to change safe settings, such as
+/// Basis for flows that create transactions to change Safe Account settings, such as
 /// owner structure or required confirmations.
 class SafeSettingsChangeFlow: UIFlow {
     var factory: SafeSettingsFlowFactory!

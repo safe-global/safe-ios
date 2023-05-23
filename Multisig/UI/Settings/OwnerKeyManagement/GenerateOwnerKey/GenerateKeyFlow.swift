@@ -170,7 +170,7 @@ class GenerateKeyFactory: AddKeyFlowFactory {
         introVC.cards = [
             .init(image: UIImage(named: "ico-onboarding-import-key-1"),
                   title: "How does it work?",
-                  body: "To use this app as an owner in the Safe, you can create a key and add it as an owner of your Safe. When you tap Next, the app will create a new private key from a new unique seed phrase."),
+                  body: "To use this app as an owner in the Safe Account, you can create a key and add it as an owner of your Safe Account. When you tap Next, the app will create a new private key from a new unique seed phrase."),
 
                 .init(image: UIImage(named: "ico-onboarding-import-key-2"),
                       title: "How secure is that?",

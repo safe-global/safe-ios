@@ -70,8 +70,8 @@ class OnboardingViewController: UIViewController {
     @IBAction private func didTapLoadSafe(_ sender: Any) {
         Tracker.trackEvent(.addSafeFromOnboarding)
         let selectNetworkVC = SelectNetworkViewController()
-        selectNetworkVC.screenTitle = "Load Safe"
-        selectNetworkVC.descriptionText = "Select network on which your Safe was created:"
+        selectNetworkVC.screenTitle = "Load Safe Account"
+        selectNetworkVC.descriptionText = "Select network on which your Safe Account was created:"
         selectNetworkVC.completion = { [unowned selectNetworkVC, weak self] chain  in
             let vc = EnterSafeAddressViewController()
             vc.chain = chain

@@ -129,7 +129,7 @@ final class ConnectKeystoneFactory: AddKeyFlowFactory {
         introVC.cards = [
             .init(image: UIImage(named: "ico-onboarding-keystone-device"),
                   title: "How does it work?",
-                  body: "Connect your Keystone device and select a key. If it is an owner of your Safe you can sign transactions."),
+                  body: "Connect your Keystone device and select a key. If it is an owner of your Safe Account you can sign transactions."),
 
                 .init(image: UIImage(named: "ico-onboarding-keystone-qrcode"),
                       title: "Secured QR codes",

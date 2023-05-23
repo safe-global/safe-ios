@@ -101,7 +101,7 @@ class EditConfirmationsViewController: UIViewController, UITableViewDataSource, 
         } else {
             return cellBuilder.warningCell(image: nil,
                                            title: nil,
-                                           description: "We recommend to set a threshold which is lower than the total number of owners of your Safe.",
+                                           description: "We recommend to set a threshold which is lower than the total number of owners of your Safe Account.",
                                            for: indexPath)
         }
     }

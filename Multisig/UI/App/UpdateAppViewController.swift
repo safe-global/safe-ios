@@ -17,11 +17,11 @@ class UpdateAppViewController: UIViewController {
         var description: String {
             switch self {
             case .required:
-                return "Your version of the Safe app is not supported anymore since it is too old. Please update your app"
+                return "Your version of the Safe{Wallet} app is not supported anymore since it is too old. Please update your app"
             case .recommended:
-                return "Your version of the Safe app will be deprecated soon. Please update your app."
+                return "Your version of the Safe{Wallet} app will be deprecated soon. Please update your app."
             case .optional:
-                return "There is an update of the Safe app available"
+                return "There is an update of the Safe{Wallet} app available"
             }
         }
 

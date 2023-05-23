@@ -77,7 +77,7 @@ class ImportKeyFlowFactory: AddKeyFlowFactory {
         introVC.cards = [
             .init(image: UIImage(named: "ico-onboarding-import-key-1"),
                   title: "How does it work?",
-                  body: "Enter the private key or seed phrase of your owner key controlling your Safe. Your owner key will be imported into this app. You can then confirm proposed transactions on the go."),
+                  body: "Enter the private key or seed phrase of your owner key controlling your Safe Account. Your owner key will be imported into this app. You can then confirm proposed transactions on the go."),
             
                 .init(image: UIImage(named: "ico-onboarding-import-key-2"),
                       title: "How secure is that?",

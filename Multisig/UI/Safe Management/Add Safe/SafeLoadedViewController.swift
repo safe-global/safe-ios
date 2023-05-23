@@ -19,15 +19,15 @@ class SafeLoadedViewController: AccountActionCompletedViewController {
     override func viewDidLoad() {
         do {
             safe = try Safe.getSelected()!
-            descriptionText = "\((safe.name ?? "Safe")) is read-only. Would you like to add owner key for this Safe to confirm transactions?"
+            descriptionText = "\((safe.name ?? "Safe Account")) is read-only. Would you like to add owner key for this Safe Account to confirm transactions?"
             accountName = safe.name
             accountAddress = safe.addressValue
             prefix = safe.chain?.shortName
         } catch {
             fatalError()
         }
-        titleText = "Load Safe"
-        headerText = "Safe loaded"
+        titleText = "Load Safe Account"
+        headerText = "Safe Account loaded"
         primaryActionName = "Add owner key"
         secondaryActionName = "Skip"
 

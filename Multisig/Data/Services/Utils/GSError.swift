@@ -117,7 +117,7 @@ enum GSError {
             case 1:
                 return UnprocessableEntity(reason: "Address format is not valid.", code: 42201)
             case 50:
-                return UnprocessableEntity(reason: "Safe info is not found.", code: 42250)
+                return UnprocessableEntity(reason: "Safe Account info is not found.", code: 42250)
             default:
                 LogService.shared.error(
                     "Unrecognised error with code: \(error.code); message: \(error.message ?? "")",
@@ -183,8 +183,8 @@ enum GSError {
 
     struct EntityNotFound: DetailedLocalizedError {
         let description = "HTTP 404 Not Found"
-        let reason = "Safe not found."
-        let howToFix = "Please check that the Safe exists on the blockchain"
+        let reason = "Safe Account not found."
+        let howToFix = "Please check that the Safe Account exists on the blockchain"
         let domain = networkErrorDomain
         let code = 404
         let loggable = false
@@ -221,8 +221,8 @@ enum GSError {
 
     struct SafeAlreadyExists: DetailedLocalizedError {
         let description = "Can’t use this address"
-        let reason = "A Safe with this address has been added already."
-        let howToFix = "Please use another Safe address"
+        let reason = "A Safe Account with this address has been added already."
+        let howToFix = "Please use another Safe Account address"
         let domain = clientErrorDomain
         let code = 1101
         let loggable = false
@@ -231,7 +231,7 @@ enum GSError {
     struct SafeAddressNotValid: DetailedLocalizedError {
         let description = "This address is not valid"
         let reason = "This value is not a valid address."
-        let howToFix = "Please use the checksummed Safe address"
+        let howToFix = "Please use the checksummed Safe Account address"
         let domain = clientErrorDomain
         let code = 1102
         let loggable = false
@@ -292,9 +292,9 @@ enum GSError {
     }
 
     struct UnsupportedImplementationCopy: DetailedLocalizedError {
-        let description = "Unsupported Safe master copy"
-        let reason = "The master copy of your Safe is not supported by this app."
-        let howToFix = "Please change the master copy before adding it or use another Safe"
+        let description = "Unsupported Safe Account base contract"
+        let reason = "The base contract of your Safe Account is not supported by this app."
+        let howToFix = "Please change the base contract before adding it or use another Safe Account"
         let domain = clientErrorDomain
         let code = 1105
         let loggable = false
@@ -319,9 +319,9 @@ enum GSError {
     }
 
     struct InvalidSafeAddress: DetailedLocalizedError {
-        let description = "Invalid safe address"
-        let reason = "Safe not found."
-        let howToFix = "Please check that the Safe exists on the blockchain"
+        let description = "Invalid Safe Account address"
+        let reason = "Safe Account not found."
+        let howToFix = "Please check that the Safe Account exists on the blockchain"
         let domain = clientErrorDomain
         let code = 1109
         let loggable = false
@@ -346,7 +346,7 @@ enum GSError {
     }
     
     struct CreateSafeFailed: DetailedLocalizedError {
-        let description = "Failed to create a safe"
+        let description = "Failed to create a Safe Account"
         let reason = "Submitting failed"
         let howToFix = "Please try to resubmit later"
         let domain = clientErrorDomain
@@ -355,9 +355,9 @@ enum GSError {
     }
 
     struct DelagateToSameSafe: DetailedLocalizedError {
-        let description = "The Safe address can't be a delegate of itself"
+        let description = "The Safe Account address can't be a delegate of itself"
         let reason = "Please choose another address or select a guardian"
-        let howToFix = "Your Safe always has the full voting power even after delegating to another address"
+        let howToFix = "Your Safe Account always has the full voting power even after delegating to another address"
         let domain = clientErrorDomain
         let code = 1113
         let loggable = false
@@ -479,7 +479,7 @@ enum GSError {
     struct WC2SessionApprovalFailedWrongChain: DetailedLocalizedError {
         let description: String = "Session not approved"
         let reason = "Wrong chain"
-        let howToFix = "Please use selected Safes' chain"
+        let howToFix = "Please use selected Safe Accounts' chain"
         let domain = clientErrorDomain
         let code = 9931
         let loggable = false
@@ -518,7 +518,7 @@ enum GSError {
 
     struct PreconditionsForSigningNotSatisfied: DetailedLocalizedError {
         let description: String
-        let reason = "Something is wrong either with the transaction data or with the application state (database, selected Safe, etc.)"
+        let reason = "Something is wrong either with the transaction data or with the application state (database, selected Safe Account, etc.)"
         let howToFix = "Please try again later or contact Safe support if this issue persists"
         let domain = iOSErrorDomain
         let code = 1304

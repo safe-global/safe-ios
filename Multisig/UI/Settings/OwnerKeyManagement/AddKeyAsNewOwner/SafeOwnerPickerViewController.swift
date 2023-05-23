@@ -91,7 +91,7 @@ class SafeOwnerPickerViewController: ContainerViewController {
 
             case .failure(let error):
 
-                self.ownerListViewController.onError(GSError.error(description: "Failed to load safe owners", error: GSError.detailedError(from: error)))
+                self.ownerListViewController.onError(GSError.error(description: "Failed to load Safe Account owners", error: GSError.detailedError(from: error)))
                 self.pullToRefreshControl.endRefreshing()
 
             case .success(let owners):

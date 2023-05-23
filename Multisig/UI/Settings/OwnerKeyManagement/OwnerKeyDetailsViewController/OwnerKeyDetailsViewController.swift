@@ -288,7 +288,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         case Section.DelegateKey.address:
             return tableView.addressDetailsCell(address: keyInfo.delegateAddress ?? Address.zero, indexPath: indexPath)
         case Section.DelegateKey.helpLink:
-            return tableView.helpLinkCell(text: "What is a delegate key and how does it relate to the Safe",
+            return tableView.helpLinkCell(text: "What is a delegate key and how does it relate to the Safe Account",
                                 url: App.configuration.help.delegateKeyURL,
                                 indexPath: indexPath)
         case Section.Advanced.remove:

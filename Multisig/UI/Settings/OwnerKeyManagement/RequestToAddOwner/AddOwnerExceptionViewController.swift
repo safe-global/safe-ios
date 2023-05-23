@@ -101,8 +101,8 @@ extension AddOwnerExceptionViewController {
 
     static func safeReadOnly(address: Address, chain: Chain, onAdd: @escaping () -> Void, onClose: @escaping () -> Void) -> AddOwnerExceptionViewController {
         let vc = AddOwnerExceptionViewController()
-        vc.titleText = "You don’t have permissions to modify Safe settings"
-        vc.bodyText = "Any change in Safe settings requires a signer key that is one of the owners.\n\nAdd the signer key first to unlock permissions."
+        vc.titleText = "You don’t have permissions to modify Safe Account settings"
+        vc.bodyText = "Any change in Safe Account settings requires a signer key that is one of the owners.\n\nAdd the signer key first to unlock permissions."
         vc.addButtonTitle = "Add signer key"
         vc.address = address
         vc.chain = chain
