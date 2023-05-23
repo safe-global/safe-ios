@@ -187,7 +187,7 @@ final class HeaderViewController: ContainerViewController {
                             (error as NSError).domain == NSURLErrorDomain {
                             return
                         }
-                        LogService.shared.error("Failed to reload safe account info: \(error)")
+                        LogService.shared.error("Failed to reload Safe Account info: \(error)")
                     case .success(let safeInfo):
                         safe.update(from: safeInfo)
                         self?.reloadHeaderBar()
@@ -195,7 +195,7 @@ final class HeaderViewController: ContainerViewController {
                 }
             }
         } catch {
-            LogService.shared.error("Failed to reload safe account info: \(error)")
+            LogService.shared.error("Failed to reload Safe Account info: \(error)")
         }
     }
 }

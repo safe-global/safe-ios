@@ -178,7 +178,7 @@ class SafeClientGatewayServiceIntegrationTests: CoreDataTestCase {
         _ = service.asyncSafeInfo(safeAddress: Address("0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"),
                                   chainId: chainId) { result in
             guard case .success(let info) = result else {
-                XCTFail("Failed to load safe account info.")
+                XCTFail("Failed to load Safe Account info.")
                 semaphore.signal()
                 return
             }

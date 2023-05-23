@@ -55,7 +55,7 @@ final class SwitchSafesViewController: UITableViewController {
     }
 
     @objc override func closeModal() {
-        // this will close this controller when the load safe account modal is closed
+        // this will close this controller when the load Safe Account modal is closed
         presentingViewController?.dismiss(animated: true, completion: nil)
     }
 
