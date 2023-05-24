@@ -810,7 +810,7 @@ class CreateSafeFormUIModel {
 
         // we re-generate the salt because otherwise the same safe address will be produced.
         // This leads to the reverted transaction, hence the estimation will fail and user needs to
-        // refresh or change safe parameters to re-generate the salt.
+        // refresh or change Safe Account parameters to re-generate the salt.
         try? generateSalt()
 
         if let singletonAddressString = call.singletonAddress,
