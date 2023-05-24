@@ -60,8 +60,11 @@ class MainTabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        updateTabs()
+        tabBar.isTranslucent = false
         tabBar.barTintColor = .backgroundSecondary
+        tabBar.backgroundColor = .backgroundSecondary
+
+        updateTabs()
 
         let notificationCenter = NotificationCenter.default
 
