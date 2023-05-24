@@ -78,7 +78,7 @@ class SecuritySettingsViewController: UITableViewController {
         if isPasscodeSet {
             data = [(section: .lockMethod, rows: [.enableSecurityLock, .lockMethod])]
 
-            if lock.isPasscodeRequired() {
+            if !AppConfiguration.FeatureToggles.securityCenter || 9lock.isPasscodeRequired() {
                 data.append((section: .passcode, rows: [.changePasscode]))
             }
 
