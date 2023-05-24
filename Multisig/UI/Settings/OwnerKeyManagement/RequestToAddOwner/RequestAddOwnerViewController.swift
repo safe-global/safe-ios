@@ -23,7 +23,7 @@ class RequestAddOwnerViewController: UIViewController {
         ViewControllerFactory.addCloseButton(self)
         ViewControllerFactory.makeTransparentNavigationBar(self)
 
-        safeInfoView.setTitle("Safe")
+        safeInfoView.setTitle("Safe Account")
         safeInfoView.setAddress(safe.addressValue, label: safe.name, prefix: safe.chain!.shortName)
 
         ownerInfoView.setTitle("New Owner")
