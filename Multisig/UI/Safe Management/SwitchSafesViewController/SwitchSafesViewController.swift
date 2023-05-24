@@ -125,11 +125,11 @@ final class SwitchSafesViewController: UITableViewController {
                 popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
             }
 
-            let addSafe = UIAlertAction(title: "Load existing Safe", style: .default) { [weak self] _ in
+            let addSafe = UIAlertAction(title: "Load existing Safe Account", style: .default) { [weak self] _ in
                 self?.onAddSafe?()
             }
 
-            let createSafe = UIAlertAction(title: "Create new Safe", style: .default) { [weak self] _ in
+            let createSafe = UIAlertAction(title: "Create new Safe Account", style: .default) { [weak self] _ in
                 self?.onCreateSafe?()
             }
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
