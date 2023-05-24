@@ -49,7 +49,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         initExecutionBuilder()
 
-        title = "Create Safe"
+        title = "Create Safe Account"
 
         cellBuilder = SafeCellBuilder(viewController: self, tableView: tableView)
 
@@ -74,7 +74,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
         tableView.refreshControl = refreshControl
 
-        createButton.setText("Create Safe", .filled)
+        createButton.setText("Create Safe Account", .filled)
 
         captionLabel.setStyle(.footnote)
         captionLabel.text = "Creating a Safe may take a few minutes."
