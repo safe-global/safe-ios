@@ -20,7 +20,7 @@ final class SwitchSafesViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Switch Safes"
+        title = "Switch Safe Accounts"
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
         
