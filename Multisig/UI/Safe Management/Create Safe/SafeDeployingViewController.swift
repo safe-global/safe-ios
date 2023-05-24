@@ -115,7 +115,7 @@ class SafeDeployingViewController: UIViewController {
         case .deployed:
             return "Safe Account is ready!"
         case .deploymentFailed:
-            return "Failed to create Safe"
+            return "Failed to create Safe Account"
         }
     }
 }

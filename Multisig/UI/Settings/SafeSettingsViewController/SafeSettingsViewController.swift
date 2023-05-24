@@ -207,7 +207,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         else { return }
 
         sections += [
-            (section: .name("Safe Name"), items: [Section.Name.name(safe.name ?? "Safe \(safe.addressValue.ellipsized())")]),
+            (section: .name("Safe Account Name"), items: [Section.Name.name(safe.name ?? "Safe \(safe.addressValue.ellipsized())")]),
 
             (section: .requiredConfirmations("Required confirmations"),
              items: [Section.RequiredConfirmations.confirmations("\(threshold) out of \(ownersInfo.count)")]),
@@ -215,7 +215,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             (section: .ownerAddresses("Owners"),
              items: ownersInfo.map { Section.OwnerAddresses.ownerInfo($0) }),
 
-            (section: .safeVersion("Safe version"),
+            (section: .safeVersion("Safe Account base contract version"),
              items: [Section.ContractVersion.versionInfo(implementationInfo, implementationVersionState, version)]),
 
             (section: .ensName("ENS name"), items: [Section.EnsName.ensName]),

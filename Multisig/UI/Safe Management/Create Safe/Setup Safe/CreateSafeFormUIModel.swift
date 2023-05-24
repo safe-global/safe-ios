@@ -417,8 +417,8 @@ class CreateSafeFormUIModel {
 
     private func makeSectionHeaders() -> [CreateSafeFormSectionHeader] {
         var result: [CreateSafeFormSectionHeader] = [
-            .init(id: .name, title: "Safe Name", itemCount: 1),
-            .init(id: .network, title: "Network", tooltip: "Safe will only exist on the selected network.", itemCount: 2),
+            .init(id: .name, title: "Safe Account Name", itemCount: 1),
+            .init(id: .network, title: "Network", tooltip: "Safe Account will only exist on the selected network.", itemCount: 2),
             // we have 2 additional cells:
             // 'add owner' button cell
             // and help text cell
@@ -810,7 +810,7 @@ class CreateSafeFormUIModel {
 
         // we re-generate the salt because otherwise the same safe address will be produced.
         // This leads to the reverted transaction, hence the estimation will fail and user needs to
-        // refresh or change safe parameters to re-generate the salt.
+        // refresh or change Safe Account parameters to re-generate the salt.
         try? generateSalt()
 
         if let singletonAddressString = call.singletonAddress,

@@ -32,7 +32,7 @@
                     </constraints>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="Up8-2P-bD2">
-                    <rect key="frame" x="20" y="338" width="374" height="99.5"/>
+                    <rect key="frame" x="20" y="338" width="374" height="120"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keep your Safe Account secure" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2xl-gH-FW6">
                             <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
@@ -41,8 +41,8 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MkS-TR-Xqe">
-                            <rect key="frame" x="0.0" y="38.5" width="374" height="61"/>
-                            <string key="text">Protect your data with a passcode used to unlock the Safe and confirm transactions.
+                            <rect key="frame" x="0.0" y="38.5" width="374" height="81.5"/>
+                            <string key="text">Protect your data with a passcode used to unlock the Safe{Wallet} and confirm transactions.
 </string>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>

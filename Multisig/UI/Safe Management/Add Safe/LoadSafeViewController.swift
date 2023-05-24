@@ -27,8 +27,8 @@ class LoadSafeViewController: UIViewController {
         super.viewDidLoad()
         headerLabel.setStyle(.title3)
         descriptionLabel.setStyle(.callout)
-        loadSafeButton.setText("Load existing Safe", .filled)
-        createSafeButton.setText("Create new Safe", .bordered)
+        loadSafeButton.setText("Load existing Safe Account", .filled)
+        createSafeButton.setText("Create new Safe Account", .bordered)
         demoButton.setText("Try Demo", .plain)
     }
 

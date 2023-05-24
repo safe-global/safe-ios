@@ -364,7 +364,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
             image = UIImage(named: "ico-rejection-tx")
         case .creation(_):
             image = UIImage(named: "ico-settings-tx")
-            title = "Safe created"
+            title = "Safe Account created"
         case .unknown:
             image = UIImage(named: "ico-custom-tx")
             title = "Unknown operation"

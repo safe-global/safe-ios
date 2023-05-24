@@ -23,7 +23,7 @@ class RequestAddOwnerViewController: UIViewController {
         ViewControllerFactory.addCloseButton(self)
         ViewControllerFactory.makeTransparentNavigationBar(self)
 
-        safeInfoView.setTitle("Safe")
+        safeInfoView.setTitle("Safe Account")
         safeInfoView.setAddress(safe.addressValue, label: safe.name, prefix: safe.chain!.shortName)
 
         ownerInfoView.setTitle("New Owner")
@@ -31,7 +31,7 @@ class RequestAddOwnerViewController: UIViewController {
 
         closeButton.setText("Close", .filled)
 
-        // NOTE: Safe can be not selected! when making any operation, make the safe selected
+        // NOTE: Safe Account can be not selected! when making any operation, make the Safe Account selected
         // if that's needed by the user flow.
     }
 

@@ -51,8 +51,8 @@ class OnboardingViewController: UIViewController {
         super.viewDidLoad()
 
         completelyNewLabel.setStyle(.callout)
-        loadSafeButton.setText("Load existing Safe", .bordered)
-        createSafeButton.setText("Create new Safe", .filled)
+        loadSafeButton.setText("Load existing Safe Account", .bordered)
+        createSafeButton.setText("Create new Safe Account", .filled)
         demoButton.setText("Explore Demo", .primary)
         skipButton.setText("Skip", .primary)
         let nib = UINib(nibName: OnboardingStepCollectionViewCell.identifier, bundle: Bundle(for: OnboardingStepCollectionViewCell.self))
