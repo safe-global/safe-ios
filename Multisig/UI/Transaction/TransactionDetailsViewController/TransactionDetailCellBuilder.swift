@@ -96,14 +96,14 @@ class TransactionDetailCellBuilder {
             address(
                 implementation,
                 label: creationTx.implementation?.name ?? "Unknown",
-                title: "Mastercopy used",
+                title: "Base contract used",
                 imageUri: creationTx.implementation?.logoUri,
                 browseURL: chain.browserURL(address: implementation.checksummed),
                 prefix: chain.shortName)
         } else {
             text(
                 "Not available",
-                title: "Mastercopy used",
+                title: "Base contract used",
                 expandableTitle: nil,
                 copyText: nil)
         }
@@ -513,7 +513,7 @@ class TransactionDetailCellBuilder {
             type = "On-chain rejection"
             icon = UIImage(named: "ico-rejection-tx")
         case .creation(_):
-            type = "Safe created"
+            type = "Safe Account created"
             icon = UIImage(named: "ico-settings-tx")
         case .unknown:
             type = "Unknown operation"
