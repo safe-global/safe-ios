@@ -215,7 +215,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             (section: .ownerAddresses("Owners"),
              items: ownersInfo.map { Section.OwnerAddresses.ownerInfo($0) }),
 
-            (section: .safeVersion("Safe Account version"),
+            (section: .safeVersion("Safe Account base contract version"),
              items: [Section.ContractVersion.versionInfo(implementationInfo, implementationVersionState, version)]),
 
             (section: .ensName("ENS name"), items: [Section.EnsName.ensName]),
