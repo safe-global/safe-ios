@@ -80,7 +80,6 @@ class AssetsViewController: ContainerViewController {
         }
 
         totalBalanceView.tokenBanner.isHidden = !shouldShowSafeTokenBanner
-
         totalBalanceView.tokenBanner.onClaim = { [unowned self] in
             guard let safe = try? Safe.getSelected() else {
                 return
