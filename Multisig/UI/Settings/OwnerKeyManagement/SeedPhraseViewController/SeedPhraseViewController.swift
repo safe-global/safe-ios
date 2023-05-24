@@ -20,7 +20,7 @@ class SeedPhraseViewController: UIViewController {
         infoLabel.text = infoText
         infoLabel.setStyle(.body)
 
-        warningView.set(description: "Safe will never ask for your seed phrase! It is encrypted and stored locally on your device.")
+        warningView.set(description: "Safe{Wallet} will never ask for your seed phrase! It is encrypted and stored locally on your device.")
 
         copyToClipboardButton.setText("Export", .primary)
 

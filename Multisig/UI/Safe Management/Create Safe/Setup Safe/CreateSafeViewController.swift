@@ -77,7 +77,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         createButton.setText("Create Safe Account", .filled)
 
         captionLabel.setStyle(.footnote)
-        captionLabel.text = "Creating a Safe may take a few minutes."
+        captionLabel.text = "Creating a Safe Account may take a few minutes."
 
         uiModel.delegate = self
 
@@ -526,7 +526,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.setIndicatorColor(uiModel.chain.backgroundColor)
             return cell
         case 1:
-            let cell = helpTextCell("Safe will only exist on the selected network.", indexPath: indexPath)
+            let cell = helpTextCell("Safe Account will only exist on the selected network.", indexPath: indexPath)
             return cell
         default:
             assertionFailure("Developer error: row count should be only two")

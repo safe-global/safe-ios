@@ -50,7 +50,7 @@ class SafeCellBuilder {
 
     func thresholdHelpCell(for indexPath: IndexPath) -> HelpTextTableViewCell {
         let text = "How many owner confirmations are required for a transaction to be executed?"
-        let link = "Learn about Safe setup"
+        let link = "Learn about Safe Account setup"
         return helpTextCell(text, hyperlink: link, indexPath: indexPath)
     }
 

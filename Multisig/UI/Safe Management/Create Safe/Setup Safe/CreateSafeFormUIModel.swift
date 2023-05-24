@@ -418,7 +418,7 @@ class CreateSafeFormUIModel {
     private func makeSectionHeaders() -> [CreateSafeFormSectionHeader] {
         var result: [CreateSafeFormSectionHeader] = [
             .init(id: .name, title: "Safe Name", itemCount: 1),
-            .init(id: .network, title: "Network", tooltip: "Safe will only exist on the selected network.", itemCount: 2),
+            .init(id: .network, title: "Network", tooltip: "Safe Account will only exist on the selected network.", itemCount: 2),
             // we have 2 additional cells:
             // 'add owner' button cell
             // and help text cell
