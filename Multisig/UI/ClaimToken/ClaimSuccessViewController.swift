@@ -44,7 +44,7 @@ class ClaimSuccessViewController: UIViewController {
 
         let displayAmount = TokenFormatter().string(from: BigDecimal(Int256(amount!.big()), 18)) + " SAFE"
 
-        let text = "You successfully started claiming \(displayAmount) tokens! Once you have collected the necessary confirmations, the Safe tokens will be available in this Safe."
+        let text = "You successfully started claiming \(displayAmount) tokens! Once you have collected the necessary confirmations, the Safe tokens will be available in this Safe Account."
 
         textLabel.attributedText = text.highlightRange(
             originalStyle: .body,
