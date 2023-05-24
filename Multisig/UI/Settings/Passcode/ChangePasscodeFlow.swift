@@ -32,10 +32,14 @@ class ChangePasscodeFlow: UIFlow {
             case .close:
                 stop(success: false)
             case .success(let passcode):
-                guard let passcode = passcode else {
-                    App.shared.snackbar.show(error: GSError.FailedToChangePasscode(reason: "Passcode required"))
-                    stop(success: false)
-                    return
+                // Old passcode is required only for security v2 to change the store passcode
+                // For the old secuirty either if biometry is enabled then we validate without entering the passcode
+                if App.shared.auth.isPasscodeSetAndAvailable && !AppSettings.passcodeOptions.contains(.useBiometry) {
+                    guard let passcode = passcode else {
+                        App.shared.snackbar.show(error: GSError.FailedToChangePasscode(reason: "Passcode required"))
+                        stop(success: false)
+                        return
+                    }
                 }
                 oldPasscode = passcode
                 enterNewPasscode()
@@ -46,7 +50,11 @@ class ChangePasscodeFlow: UIFlow {
     }
 
     func enterNewPasscode() {
-        precondition(oldPasscode != nil, "Old passcode should be set before")
+        // Old passcode is required only for security v2 to change the store passcode
+        // For the old secuirty either if biometry is enabled then we validate without entering the passcode
+        if App.shared.auth.isPasscodeSetAndAvailable && !AppSettings.passcodeOptions.contains(.useBiometry) {
+            precondition(oldPasscode != nil, "Old passcode should be set before")
+        }
         let vc = factory.enterNewPasscode { [unowned self] newPasscode in
             self.newPasscode = newPasscode
             enterRepeatPasscode()
@@ -66,10 +74,10 @@ class ChangePasscodeFlow: UIFlow {
 
     override func stop(success: Bool) {
         if success {
-            precondition(oldPasscode != nil, "Old passcode should be set before")
             precondition(newPasscode != nil, "New passcode should be set before")
             do {
                 if AppConfiguration.FeatureToggles.securityCenter {
+                    precondition(oldPasscode != nil, "Old passcode should be set before")
                     try App.shared.securityCenter.changePasscode(oldPasscode: oldPasscode!, newPasscode: newPasscode!)
                     App.shared.snackbar.show(message: "Passcode changed")
                 } else {
