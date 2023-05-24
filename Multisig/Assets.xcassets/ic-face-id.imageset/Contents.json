@@ -3,6 +3,16 @@
     {
       "filename" : "ic-face-id.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ic-face-id-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
