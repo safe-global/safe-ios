@@ -32,7 +32,9 @@ class ChangePasscodeFlow: UIFlow {
             case .close:
                 stop(success: false)
             case .success(let passcode):
-                if AppConfiguration.FeatureToggles.securityCenter {
+                // Old passcode is required only for security v2 to change the store passcode
+                // For the old secuirty either if biometry is enabled then we validate without entering the passcode
+                if App.shared.auth.isPasscodeSetAndAvailable && !AppSettings.passcodeOptions.contains(.useBiometry) {
                     guard let passcode = passcode else {
                         App.shared.snackbar.show(error: GSError.FailedToChangePasscode(reason: "Passcode required"))
                         stop(success: false)
@@ -48,7 +50,9 @@ class ChangePasscodeFlow: UIFlow {
     }
 
     func enterNewPasscode() {
-        if AppConfiguration.FeatureToggles.securityCenter {
+        // Old passcode is required only for security v2 to change the store passcode
+        // For the old secuirty either if biometry is enabled then we validate without entering the passcode
+        if App.shared.auth.isPasscodeSetAndAvailable && !AppSettings.passcodeOptions.contains(.useBiometry) {
             precondition(oldPasscode != nil, "Old passcode should be set before")
         }
         let vc = factory.enterNewPasscode { [unowned self] newPasscode in
