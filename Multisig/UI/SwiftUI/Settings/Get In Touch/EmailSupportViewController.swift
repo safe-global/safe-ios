@@ -32,8 +32,8 @@ struct EmailSupportViewController: UIViewControllerRepresentable {
         let chain = safe != nil ? "\(safe!.chain!.name!) (\(safe!.chain!.id!))" : "None"
 
         let message = """
-        Safe \(version)
-        Safe address: \(address)
+        Safe Account \(version)
+        Safe Account address: \(address)
         Chain: \(chain)
         Feedback:
         """
