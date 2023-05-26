@@ -51,7 +51,7 @@ class WCRequestsHandler: RequestHandler {
         if request.method == "eth_sendTransaction" {
 
             // make transformation of incoming request into internal data types
-            // and fetch information about safe from the request
+            // and fetch information about Safe Account from the request
 
             guard let wcRequest = try? request.parameter(of: WCSendTransactionRequest.self, at: 0),
                   let requestId = request.id,

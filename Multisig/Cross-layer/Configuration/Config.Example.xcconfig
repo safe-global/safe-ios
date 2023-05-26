@@ -65,9 +65,9 @@ APP_GROUP_ID            = $(_APP_GROUP_ID_$(SERVICE_ENV):default=$(_APP_GROUP_ID
 
 
 // User-facing name of the app on the Home screen
-_DISPLAY_NAME_PROD     = Safe
-_DISPLAY_NAME_STAGING  = Safe Staging
-_DISPLAY_NAME_DEV      = Safe Dev
+_DISPLAY_NAME_PROD     = Safe{Wallet}
+_DISPLAY_NAME_STAGING  = Safe{Wallet} Staging
+_DISPLAY_NAME_DEV      = Safe{Wallet} Dev
 
 // Firebase Config File Names
 _FIREBASE_CONFIG_PROD       = GoogleService-Info.Production

@@ -274,7 +274,7 @@ class WalletConnectManager {
             
             if request.method == "eth_sendTransaction" {
                 // make transformation of incoming request into internal data types
-                // and fetch information about safe from the request
+                // and fetch information about Safe Accout from the request
                 DispatchQueue.global(qos: .background).async {
                     guard let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(
                         safeAddress: safe.addressValue, chainId: safe.chain!.id!) else {
