@@ -32,7 +32,7 @@ struct EmailSupportViewController: UIViewControllerRepresentable {
         let chain = safe != nil ? "\(safe!.chain!.name!) (\(safe!.chain!.id!))" : "None"
 
         let message = """
-        Safe{Wallet} \(version)
+        Safe{Wallet} mobile app \(version)
         Safe Account address: \(address)
         Chain: \(chain)
         Feedback:
