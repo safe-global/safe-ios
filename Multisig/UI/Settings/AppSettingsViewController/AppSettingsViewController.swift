@@ -111,7 +111,7 @@ class AppSettingsViewController: UITableViewController {
         }
 
         let aboutSection: (section: AppSettingsViewController.Section, items: [SectionItem]) = (section: .about("About"), items: [
-            Section.About.aboutGnosisSafe("About Safe"),
+            Section.About.aboutGnosisSafe("About Safe{Wallet}"),
             Section.About.appVersion("App version", "\(app.marketingVersion) (\(app.buildVersion))"),
         ])
         sections += [
