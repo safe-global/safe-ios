@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 import URRegistry
-import Web3
+import SafeWeb3
 
 final class KeystoneSignFlow: UIFlow {
     var signCompletion: ((_ unmarshaledSignature: SECP256K1.UnmarshaledSignature) -> Void)?

@@ -9,7 +9,7 @@
 import UIKit
 import Ethereum
 import SwiftCryptoTokenFormatter
-import Web3
+import SafeWeb3
 import Solidity
 import WalletConnectSwift
 import SafariServices

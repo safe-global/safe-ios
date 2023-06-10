@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Web3
+import SafeWeb3
 
 class EnterSafeAddressViewController: UIViewController {
     var address: Address? { addressField?.address }

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Web3
+import SafeWeb3
 
 struct SignRequest {
     var title: String

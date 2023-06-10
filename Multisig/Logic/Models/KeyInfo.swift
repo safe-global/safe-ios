@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-import Web3
+import SafeWeb3
 import WalletConnectSwift
 
 /// Enum for storing key type in the persistence store. The order of existing items should not be changed.

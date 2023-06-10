@@ -13,7 +13,7 @@ import Combine
 import WalletConnectSign
 import WalletConnectUtils
 import WalletConnectRouter
-import Web3
+import SafeWeb3
 import Web3Wallet
 import UIKit
 

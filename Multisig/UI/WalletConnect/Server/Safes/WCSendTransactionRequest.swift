@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Web3
+import SafeWeb3
 
 // https://docs.walletconnect.org/json-rpc-api-methods/ethereum#eth_sendtransaction
 struct WCSendTransactionRequest: Decodable {
