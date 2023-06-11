@@ -8,7 +8,7 @@
 
 import XCTest
 @testable import Multisig
-import Web3
+import SafeWeb3
 
 class SignerTests: XCTestCase {
     func testSigner() throws {

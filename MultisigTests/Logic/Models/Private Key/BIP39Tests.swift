@@ -9,7 +9,7 @@
 import XCTest
 @testable import Multisig
 import CryptoSwift
-import Web3
+import SafeWeb3
 
 class BIP39Tests: XCTestCase {
     func testMnemonics() throws {
