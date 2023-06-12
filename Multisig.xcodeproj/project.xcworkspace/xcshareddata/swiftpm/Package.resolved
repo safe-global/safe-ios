@@ -47,6 +47,15 @@
         }
       },
       {
+        "package": "CustomAuth",
+        "repositoryURL": "https://github.com/torusresearch/customauth-swift-sdk",
+        "state": {
+          "branch": null,
+          "revision": "8ceba0ee4e65616a8602046dd1fd1ffcc4d29733",
+          "version": "6.0.0"
+        }
+      },
+      {
         "package": "EthereumAddress",
         "repositoryURL": "https://github.com/safe-global/EthereumAddress.git",
         "state": {
@@ -56,12 +65,30 @@
         }
       },
       {
+        "package": "FetchNodeDetails",
+        "repositoryURL": "https://github.com/torusresearch/fetch-node-details-swift.git",
+        "state": {
+          "branch": null,
+          "revision": "94a0ee598abfcc2104ceeda80eecf4b55242ba62",
+          "version": "4.0.1"
+        }
+      },
+      {
         "package": "Firebase",
         "repositoryURL": "https://github.com/firebase/firebase-ios-sdk.git",
         "state": {
           "branch": null,
           "revision": "60f9a33e7084482df67b48e16f315f4f7a6f5da9",
           "version": "10.6.0"
+        }
+      },
+      {
+        "package": "GenericJSON",
+        "repositoryURL": "https://github.com/zoul/generic-json-swift",
+        "state": {
+          "branch": null,
+          "revision": "0a06575f4038b504e78ac330913d920f1630f510",
+          "version": "2.0.2"
         }
       },
       {
@@ -119,6 +146,15 @@
         }
       },
       {
+        "package": "JWTDecode",
+        "repositoryURL": "https://github.com/auth0/JWTDecode.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "7918a343e674c7707e0be120bb4e21d679be014c",
+          "version": "3.0.1"
+        }
+      },
+      {
         "package": "Kingfisher",
         "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
         "state": {
@@ -159,8 +195,8 @@
         "repositoryURL": "https://github.com/mxcl/PromiseKit.git",
         "state": {
           "branch": null,
-          "revision": "a739d4effcbafd177a699bac8a7ff343f4d0706c",
-          "version": "6.22.0"
+          "revision": "8a98e31a47854d3180882c8068cc4d9381bf382d",
+          "version": "6.22.1"
         }
       },
       {
@@ -178,6 +214,15 @@
         "state": {
           "branch": "update-cryptoswift-1.5.1",
           "revision": "0bc612c38cef2ffa7d25020e90ae15327390bb62",
+          "version": null
+        }
+      },
+      {
+        "package": "SafeWeb3",
+        "repositoryURL": "https://github.com/safe-global/SafeWeb3.swift",
+        "state": {
+          "branch": "rename-to-SafeWeb3",
+          "revision": "b7ab4cf18749b51dbef4f5ae438899b20db0a7f4",
           "version": null
         }
       },
@@ -263,6 +308,15 @@
         }
       },
       {
+        "package": "TorusUtils",
+        "repositoryURL": "https://github.com/torusresearch/torus-utils-swift.git",
+        "state": {
+          "branch": null,
+          "revision": "93823201f248ce15dab59c027790da4b73375aed",
+          "version": "5.0.0"
+        }
+      },
+      {
         "package": "TrustKit",
         "repositoryURL": "https://github.com/datatheorem/TrustKit.git",
         "state": {
@@ -308,12 +362,12 @@
         }
       },
       {
-        "package": "Web3",
-        "repositoryURL": "https://github.com/gnosis/Web3.swift.git",
+        "package": "web3.swift",
+        "repositoryURL": "https://github.com/argentlabs/web3.swift",
         "state": {
-          "branch": "update-cryptoswift-1.5.1",
-          "revision": "420ce9f98b5ae2ccd9117515dda40819f5317036",
-          "version": null
+          "branch": null,
+          "revision": "0474eb5e883bc4800b3909833207a1d35e72b808",
+          "version": "0.9.3"
         }
       },
       {
