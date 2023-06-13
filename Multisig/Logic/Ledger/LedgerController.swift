@@ -357,7 +357,7 @@ class LedgerController {
         data.append(UInt8(paths.count))
         data.append(pathsData)
 
-        let messageData = Data(hex: messageHash)
+        let messageData = Data(hex: messageHash)!
         let array = withUnsafeBytes(of: Int32(messageData.count).bigEndian, Array.init)
         array.forEach{ x in data.append(x) }
 

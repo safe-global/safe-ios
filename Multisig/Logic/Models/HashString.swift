@@ -20,7 +20,7 @@ struct HashString: Hashable, Codable {
     }
 
     init(hex: String) throws {
-        let data = Data(hex: hex)
+        let data = Data(hex: hex)!
         guard data.count == 32 else { throw HashStringError.wrongHashLength }
         self.hash = data
     }

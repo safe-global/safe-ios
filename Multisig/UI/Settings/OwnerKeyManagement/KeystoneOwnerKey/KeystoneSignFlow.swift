@@ -96,7 +96,7 @@ extension SECP256K1.UnmarshaledSignature {
     }
 
     init?(keystoneSignature signature: String, isLegacyTx: Bool, chainId: String) {
-        let data = Data(hex: signature)
+        let data = Data(hex: signature)!
         guard data.count >= 65 else { return nil }
 
         let r = data[0..<32]

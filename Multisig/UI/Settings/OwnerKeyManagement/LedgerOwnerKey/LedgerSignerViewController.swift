@@ -111,7 +111,7 @@ class LedgerSignerViewController: UINavigationController {
                 }
 
                 // layout is <r: 35 bytes><s: 35 bytes><v: 1 byte>; v = (0 | 1) + 27 + 4
-                let signatureData = Data(hex: signature)
+                let signatureData = Data(hex: signature)!
                 assert(signatureData.count >= 65)
                 let r = Data(Array(signatureData[0..<32]))
                 let s = Data(Array(signatureData[32..<64]))
@@ -121,7 +121,7 @@ class LedgerSignerViewController: UINavigationController {
                 guard case let SignRequest.Payload.hash(hexToSign) = self.request!.payload else {
                     preconditionFailure("Unexpected payload: \(self.request!.payload)")
                 }
-                let originalHash = Data(hex: hexToSign)
+                let originalHash = Data(hex: hexToSign)!
                 let prefix = "\u{19}Ethereum Signed Message:\n\(originalHash.count)"
                 let prefixedMessage = prefix.data(using: .utf8)! + originalHash
 

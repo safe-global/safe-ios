@@ -20,7 +20,7 @@ struct SignatureString: Hashable, Decodable {
     }
 
     init(hex: String) throws {
-        let data = Data(hex: hex)
+        let data = Data(hex: hex)!
         guard data.count == 65 else { throw SignatureStringError.wrongSignatureLength }
         self.signature = data
     }

@@ -18,7 +18,7 @@ public extension Data {
         // if ethHex is not full byte, Data(hex:) adds nibble at the end, but we need it in the beginning
         let paddingToByte = value.count % 2 == 1 ? "0" : ""
         value = paddingToByte + value
-        self.init(hex: value)
+        self.init()
     }
 
     init?(exactlyHex hex: String) {
@@ -29,7 +29,7 @@ public extension Data {
         guard value.rangeOfCharacter(from: CharacterSet.hexadecimals.inverted) == nil else {
             return nil
         }
-        self.init(hex: hex)
+        self.init()
     }
 
     func toHexStringWithPrefix() -> String {
