@@ -353,7 +353,7 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
 
     func sign() {
         switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated:
+        case .deviceImported, .deviceGenerated, .web3Auth:
             do {
                 let txHash = transaction.hashForSigning().storage.storage
 

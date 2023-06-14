@@ -74,6 +74,8 @@ class AddOwnerKeyViewController: UITableViewController {
             cell.set(iconName: KeyType.walletConnect.imageName)
         case .keystone:
             cell.set(iconName: KeyType.keystone.imageName)
+        case .web3Auth:
+            cell.set(iconName: KeyType.web3Auth.imageName)
         }
         return cell
     }
@@ -126,6 +128,9 @@ class AddOwnerKeyViewController: UITableViewController {
                 completion()
             }
             push(flow: connectKeystoneFlow)
+            return
+        case .web3Auth:
+            //TODO: Add handling for login keys
             return
         }
         show(controller, sender: self)

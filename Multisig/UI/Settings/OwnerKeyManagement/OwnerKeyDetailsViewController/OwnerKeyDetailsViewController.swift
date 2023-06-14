@@ -84,7 +84,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
 
         navigationItem.title = "Owner Key"
 
-        if [KeyType.deviceImported, .deviceGenerated].contains(keyInfo.keyType) {
+        if [KeyType.deviceImported, .deviceGenerated, .web3Auth].contains(keyInfo.keyType) {
             exportButton = UIBarButtonItem(title: "Export", style: .done, target: self, action: #selector(didTapExportButton))
             navigationItem.rightBarButtonItem = exportButton
         }
@@ -498,6 +498,8 @@ extension KeyType {
             return "WalletConnect"
         case .keystone:
             return "Keystone"
+        case .web3Auth:
+            return "Web3Auth"
         }
     }
 }

@@ -18,6 +18,24 @@ enum KeyType: Int, CaseIterable {
     case walletConnect = 2
     case ledgerNanoX = 3
     case keystone = 4
+    case web3Auth = 5
+}
+
+enum LoginType: Int, CaseIterable {
+    case none = 0
+    case apple = 1
+    case google = 2
+
+    var name: String {
+        switch self {
+        case .none:
+            return "none"
+        case .apple:
+            return "apple"
+        case .google:
+            return "google"
+        }
+    }
 }
 
 extension KeyInfo {
@@ -35,6 +53,11 @@ extension KeyInfo {
     var keyType: KeyType {
         get { KeyType(rawValue: Int(type)) ?? .deviceImported }
         set { type = Int16(newValue.rawValue) }
+    }
+
+    var web3AuthType: LoginType {
+        get { LoginType(rawValue: Int(loginType)) ?? .none }
+        set { loginType = Int16(newValue.rawValue) }
     }
 
     var needsBackup: Bool {
@@ -162,7 +185,7 @@ extension KeyInfo {
     ///   - name: name of the imported key
     ///   - privateKey: private key to save
     @discardableResult
-    static func `import`(address: Address, name: String, privateKey: PrivateKey) throws -> KeyInfo {
+    static func `import`(address: Address, name: String, privateKey: PrivateKey, type: KeyType) throws -> KeyInfo {
         let context = App.shared.coreDataStack.viewContext
 
         let fr = KeyInfo.fetchRequest().by(address: address)
@@ -177,7 +200,7 @@ extension KeyInfo {
         item.address = address
         item.name = name
         item.keyID = privateKey.id
-        item.keyType = privateKey.mnemonic == nil ? .deviceImported : .deviceGenerated
+        item.keyType = type
         item.backedup = false
 
         item.save()
@@ -324,7 +347,7 @@ extension KeyInfo {
     /// Will delete the key info and the stored private key
     /// - Throws: in case of underlying error
     func delete(authenticate: Bool = true, completion: ((Result<Bool, Error>) -> ())? = nil) {
-        if let keyID = keyID, keyType == .deviceImported || keyType == .deviceGenerated {
+        if let keyID = keyID, keyType == .deviceImported || keyType == .deviceGenerated || keyType == .web3Auth {
             PrivateKey.remove(id: keyID, authenticate: authenticate) { [unowned self] result in
                 if (try? result.get()) == true {
                     App.shared.coreDataStack.viewContext.delete(self)

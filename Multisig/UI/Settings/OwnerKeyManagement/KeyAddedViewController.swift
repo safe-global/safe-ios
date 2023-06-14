@@ -66,6 +66,7 @@ fileprivate extension KeyType {
         case .deviceGenerated: return "Generate Owner Key"
         case .keystone: return "Connect Keystone"
         case .walletConnect: return "Connect WalletConnect"
+        case .web3Auth: return "Login via Web2"
         }
     }
 }
