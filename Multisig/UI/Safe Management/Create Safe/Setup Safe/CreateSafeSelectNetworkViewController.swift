@@ -11,8 +11,5 @@ import UIKit
 class CreateSafeSelectNetworkViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        print ("View loaded")
     }
-
 }
