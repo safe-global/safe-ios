@@ -221,7 +221,7 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
 
             ledgerSignerVC.completion = { [weak self] hexSignature in
                 // subtracting 4 from the v component of the signature in order to convert it to the ethereum signature
-                var signature = Data(hex: hexSignature)!
+                var signature: Data = Data(hex: hexSignature)
                 assert(signature.count == 65)
                 signature[64] -= 4
                 self?.confirm(signature: signature)
