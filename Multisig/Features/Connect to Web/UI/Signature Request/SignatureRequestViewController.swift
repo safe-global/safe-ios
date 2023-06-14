@@ -201,7 +201,7 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
 
             let signVC = SignatureRequestToWalletViewController(hexMessage, keyInfo: keyInfo, chain: self.chain ?? Chain.mainnetChain())
             signVC.onSuccess = { [weak self] signature in
-                let signatureData = Data(hex: signature)!
+                let signatureData: Data = Data(hex: signature)
                 self?.confirm(signature: signatureData)
             }
             let vc = ViewControllerFactory.pageSheet(viewController: signVC, halfScreen: true)
