@@ -8,6 +8,38 @@ import CryptoSwift
 // MARK: - Hex String to Data conversion
 public extension Data {
 
+    static func value(of nibble: UInt8) -> UInt8? {
+        guard let letter = String(bytes: [nibble], encoding: .ascii) else { return nil }
+        return UInt8(letter, radix: 16)
+    }
+
+    init(hexWC: String) {
+        var data = Data()
+        let string = hexWC.hasPrefix("0x") ? String(hexWC.dropFirst(2)) : hexWC
+
+        // Convert the string to bytes for better performance
+        guard
+            let stringData = string.data(using: .ascii, allowLossyConversion: true)
+        else {
+            self =  data
+            return
+        }
+
+        let stringBytes = Array(stringData)
+        for idx in stride(from: 0, to: stringBytes.count, by: 2) {
+            guard let high = Data.value(of: stringBytes[idx]) else {
+                data.removeAll()
+                break
+            }
+            if idx < stringBytes.count - 1, let low = Data.value(of: stringBytes[idx + 1]) {
+                data.append((high << 4) | low)
+            } else {
+                data.append(high)
+            }
+        }
+        self = data
+    }
+
     /// Creates data from hex string, padding to even byte character count from the left with 0.
     /// For example, "0x1" will become "0x01".
     ///
@@ -18,7 +50,7 @@ public extension Data {
         // if ethHex is not full byte, Data(hex:) adds nibble at the end, but we need it in the beginning
         let paddingToByte = value.count % 2 == 1 ? "0" : ""
         value = paddingToByte + value
-        self.init()
+        self.init(hexWC: value)
     }
 
     init?(exactlyHex hex: String) {
@@ -29,7 +61,7 @@ public extension Data {
         guard value.rangeOfCharacter(from: CharacterSet.hexadecimals.inverted) == nil else {
             return nil
         }
-        self.init()
+        self.init(hexWC: value)
     }
 
     func toHexStringWithPrefix() -> String {
