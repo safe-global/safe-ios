@@ -36,10 +36,10 @@ class SignerTests: XCTestCase {
     }
 
     func testRecoverLedgerSignature() throws {
-        let messageHash = Data(hex: "ad9eb178b63d1b85f2721af8b4ec88e9a3acd5d00fc351d44d30ecffd3f20358")
+        let messageHash: Data = Data(hex: "ad9eb178b63d1b85f2721af8b4ec88e9a3acd5d00fc351d44d30ecffd3f20358")
         let v = BigUInt("1f", radix: 16)! - 4 // 4 is added so that the Safe contracts can decode this signature as eth_sign signature
-        let r = Data(hex: "2a442f1e65dfb418acf71ae06c4d84680a6ff377d7e7e0e68c4b8351dd6b833a")
-        let s = Data(hex: "7d03af4a99a8de94d2c45893a8fe07b4f37b46d6d9f8fd3af0d3a6c3da81e5b5")
+        let r: Data = Data(hex: "2a442f1e65dfb418acf71ae06c4d84680a6ff377d7e7e0e68c4b8351dd6b833a")
+        let s: Data = Data(hex: "7d03af4a99a8de94d2c45893a8fe07b4f37b46d6d9f8fd3af0d3a6c3da81e5b5")
 
         let prefixedMessageHash = "\u{19}Ethereum Signed Message:\n\(messageHash.count)"
 

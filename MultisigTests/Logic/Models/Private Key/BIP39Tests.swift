@@ -44,7 +44,7 @@ class BIP39Tests: XCTestCase {
     // https://github.com/matter-labs/web3swift/blob/develop/Tests/web3swiftTests/web3swift_keystores_Tests.swift
 
     func testBIP39 () {
-        var entropy = Data(hex: "00000000000000000000000000000000")
+        var entropy: Data = Data(hex: "00000000000000000000000000000000")
         var phrase = BIP39.generateMnemonicsFromEntropy(entropy: entropy)
         XCTAssert( phrase == "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about")
         var seed = BIP39.seedFromMmemonics(phrase!, password: "TREZOR")
