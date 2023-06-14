@@ -13,6 +13,7 @@ public extension Data {
         return UInt8(letter, radix: 16)
     }
 
+    // TODO: Duplicate code. Remove and use init(hex: String) instead, when possible
     init(hexWC: String) {
         var data = Data()
         let string = hexWC.hasPrefix("0x") ? String(hexWC.dropFirst(2)) : hexWC
