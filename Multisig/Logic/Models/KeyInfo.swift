@@ -21,7 +21,7 @@ enum KeyType: Int, CaseIterable {
     case web3Auth = 5
 }
 
-enum LoginType: Int, CaseIterable {
+enum Web3AuthLoginType: Int, CaseIterable {
     case none = 0
     case apple = 1
     case google = 2
@@ -55,8 +55,8 @@ extension KeyInfo {
         set { type = Int16(newValue.rawValue) }
     }
 
-    var web3AuthType: LoginType {
-        get { LoginType(rawValue: Int(loginType)) ?? .none }
+    var web3AuthType: Web3AuthLoginType {
+        get { Web3AuthLoginType(rawValue: Int(loginType)) ?? .none }
         set { loginType = Int16(newValue.rawValue) }
     }
 

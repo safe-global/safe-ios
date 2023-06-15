@@ -22,8 +22,8 @@ class OwnerKeyController {
     static func importKey(_ privateKey: PrivateKey,
                           name: String,
                           type: KeyType,
-                          isDrivedFromSeedPhrase: Bool,
-                          loginType: LoginType = .none) -> Bool {
+                          isDerivedFromSeedPhrase: Bool,
+                          loginType: Web3AuthLoginType = .none) -> Bool {
         do {
             guard [KeyType.deviceImported, .deviceGenerated, .web3Auth].contains(type) else {
                 App.shared.snackbar.show(error: GSError.error(description: "Could not import signing key."))
@@ -38,7 +38,7 @@ class OwnerKeyController {
             case .deviceImported:
                 Tracker.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
                 Tracker.trackEvent(.ownerKeyImported,
-                                   parameters: ["import_type": isDrivedFromSeedPhrase ? "seed" : "key"])
+                                   parameters: ["import_type": isDerivedFromSeedPhrase ? "seed" : "key"])
             case .deviceGenerated:
                 Tracker.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
                 Tracker.trackEvent(.ownerKeyGenerated)

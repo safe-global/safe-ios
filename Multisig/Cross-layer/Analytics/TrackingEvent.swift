@@ -16,7 +16,7 @@ enum TrackingUserProperty: String, UserProperty {
     case numKeysWalletConnect = "num_keys_walletconnect" // string, number of WalletConnect keys, "0" on fresh install
     case numKeysLedgerNanoX = "num_keys_ledger_nano_x" // string, number of Ledger Nano X keys, "0" on fresh install
     case numKeysKeystone = "num_keys_keystone" // string, number of Keystone keys, "0" on fresh install
-    case numKeysWeb3Auth = "num_keys_web3auth" // string, number of Keystone keys, "0" on fresh install
+    case numKeysWeb3Auth = "num_keys_web3auth" // string, number of Web3Auth keys, "0" on fresh install
     case passcodeIsSet = "passcode_is_set" // string, "true" or "false" depending on if app passcode is set
     case walletConnectForDappsEnabled = "wc_for_dapps_enabled" // string, "true" or "false"
     case walletConnectForKeysEnabled = "wc_for_keys_enabled" // string, "true" or "false"

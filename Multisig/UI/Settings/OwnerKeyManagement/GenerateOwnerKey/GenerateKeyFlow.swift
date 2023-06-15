@@ -55,7 +55,7 @@ class GenerateKeyFlow: AddKeyFlow {
             return false
         }
 
-        return OwnerKeyController.importKey(privateKey, name: name, type: .deviceGenerated, isDrivedFromSeedPhrase: true)
+        return OwnerKeyController.importKey(privateKey, name: name, type: .deviceGenerated, isDerivedFromSeedPhrase: true)
     }
 
     func backup() {

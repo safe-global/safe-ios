@@ -70,7 +70,7 @@ class ImportKeyFlow: AddKeyFlow {
         return OwnerKeyController.importKey(privateKey,
                                             name: name,
                                             type: .deviceImported,
-                                            isDrivedFromSeedPhrase: source == .seed)
+                                            isDerivedFromSeedPhrase: source == .seed)
     }
 }
 
