@@ -98,7 +98,7 @@ class ChainPendingTransactionMonitor {
 
             guard let ethTxHash = cdTx.ethTxHash else { return nil }
 
-            let txHashData = Data(hex: ethTxHash)
+            let txHashData: Data = Data(hex: ethTxHash)
             let txHashEthData = EthRpc1.Data(Eth.Hash(txHashData))
             let getReceiptMethod = EthRpc1.eth_getTransactionReceipt(transactionHash: txHashEthData)
 

@@ -6,7 +6,7 @@
 //  Copyright © 2020 Gnosis Ltd. All rights reserved.
 //
 
-import Web3
+import SafeWeb3
 import Foundation
 import UIKit
 

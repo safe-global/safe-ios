@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Web3
+import SafeWeb3
 
 class EthereumNodeService {
 

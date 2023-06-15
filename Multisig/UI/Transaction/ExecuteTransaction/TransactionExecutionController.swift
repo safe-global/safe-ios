@@ -11,7 +11,7 @@ import Solidity
 import Version
 import SafeAbi
 import Ethereum
-import Web3
+import SafeWeb3
 import JsonRpc2
 import CryptoSwift
 import WalletConnectSwift

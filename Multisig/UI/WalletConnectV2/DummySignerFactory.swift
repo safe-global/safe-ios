@@ -8,7 +8,7 @@
 
 import Foundation
 import CryptoSwift
-import Web3
+import SafeWeb3
 import Auth
 
 public struct DummySignerFactory: SignerFactory {

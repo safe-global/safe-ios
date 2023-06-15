@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import Web3
+import SafeWeb3
 
 class SelectAddressViewController: UIAlertController {
     var completion: (Address) -> Void = { _ in }

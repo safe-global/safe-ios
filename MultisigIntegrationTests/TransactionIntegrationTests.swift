@@ -11,7 +11,7 @@ import Ethereum
 import JsonRpc2
 import CryptoSwift
 import Solidity
-import Web3
+import SafeWeb3
 @testable import Multisig
 import SafeAbi
 

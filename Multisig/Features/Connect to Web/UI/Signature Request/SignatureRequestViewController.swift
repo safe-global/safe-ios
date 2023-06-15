@@ -201,7 +201,7 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
 
             let signVC = SignatureRequestToWalletViewController(hexMessage, keyInfo: keyInfo, chain: self.chain ?? Chain.mainnetChain())
             signVC.onSuccess = { [weak self] signature in
-                let signatureData = Data(hex: signature)
+                let signatureData: Data = Data(hex: signature)
                 self?.confirm(signature: signatureData)
             }
             let vc = ViewControllerFactory.pageSheet(viewController: signVC, halfScreen: true)
@@ -221,7 +221,7 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
 
             ledgerSignerVC.completion = { [weak self] hexSignature in
                 // subtracting 4 from the v component of the signature in order to convert it to the ethereum signature
-                var signature = Data(hex: hexSignature)
+                var signature: Data = Data(hex: hexSignature)
                 assert(signature.count == 65)
                 signature[64] -= 4
                 self?.confirm(signature: signature)

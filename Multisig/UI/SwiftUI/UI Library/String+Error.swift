@@ -1,9 +1,9 @@
 //
-//  String+Error.swift
+//  String+Error.swift .swift
 //  Multisig
 //
-//  Created by Dmitry Bespalov on 07.10.20.
-//  Copyright © 2020 Gnosis Ltd. All rights reserved.
+//  Created by Mouaz on 6/15/23.
+//  Copyright © 2023 Gnosis Ltd. All rights reserved.
 //
 
 import Foundation
