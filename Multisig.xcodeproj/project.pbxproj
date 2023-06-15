@@ -57,7 +57,6 @@
 		044A54502448E5F7009CBB80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 044A544F2448E5F7009CBB80 /* InfoPlist.strings */; };
 		044BEE002987DDD000F533B0 /* ChangePasscodeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044BEDFF2987DDD000F533B0 /* ChangePasscodeFlow.swift */; };
 		044BEE022988076D00F533B0 /* ChangeLockMethodFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044BEE012988076D00F533B0 /* ChangeLockMethodFlow.swift */; };
-		0454DC832A35218F00518CE3 /* Web3AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0454DC822A35218F00518CE3 /* Web3AuthManager.swift */; };
 		0455A42B271F73B7008B772D /* AddressBookEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42A271F73B7008B772D /* AddressBookEntry.swift */; };
 		0455A42E27204181008B772D /* AddressBookListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42D27204181008B772D /* AddressBookListTableViewController.swift */; };
 		0455A43127204A5B008B772D /* CreateAddressBookEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A42F27204A5B008B772D /* CreateAddressBookEntryViewController.swift */; };
@@ -332,7 +331,6 @@
 		0A3FDAF226AEB691006A7DC3 /* Safe+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FDAF126AEB691006A7DC3 /* Safe+Shared.swift */; };
 		0A3FDAF326AEB691006A7DC3 /* Safe+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FDAF126AEB691006A7DC3 /* Safe+Shared.swift */; };
 		0A433E5F25500F87006FFF75 /* BalancesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A433E5E25500F87006FFF75 /* BalancesRequest.swift */; };
-		0A451BDE252DDB17001DB7D2 /* String+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451BDD252DDB17001DB7D2 /* String+Error.swift */; };
 		0A451BEA252DDB39001DB7D2 /* FullScreenLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451BE9252DDB39001DB7D2 /* FullScreenLoadingView.swift */; };
 		0A451BF0252DDB49001DB7D2 /* NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451BEF252DDB49001DB7D2 /* NoDataView.swift */; };
 		0A451C00252DDB67001DB7D2 /* ReloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A451BFF252DDB67001DB7D2 /* ReloadButton.swift */; };
@@ -1084,7 +1082,6 @@
 		044A544F2448E5F7009CBB80 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		044BEDFF2987DDD000F533B0 /* ChangePasscodeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasscodeFlow.swift; sourceTree = "<group>"; };
 		044BEE012988076D00F533B0 /* ChangeLockMethodFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLockMethodFlow.swift; sourceTree = "<group>"; };
-		0454DC822A35218F00518CE3 /* Web3AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3AuthManager.swift; sourceTree = "<group>"; };
 		0455A42A271F73B7008B772D /* AddressBookEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookEntry.swift; sourceTree = "<group>"; };
 		0455A42D27204181008B772D /* AddressBookListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookListTableViewController.swift; sourceTree = "<group>"; };
 		0455A42F27204A5B008B772D /* CreateAddressBookEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAddressBookEntryViewController.swift; sourceTree = "<group>"; };
@@ -1316,7 +1313,6 @@
 		0A3FDAEE26AEB603006A7DC3 /* Chain+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chain+Shared.swift"; sourceTree = "<group>"; };
 		0A3FDAF126AEB691006A7DC3 /* Safe+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Safe+Shared.swift"; sourceTree = "<group>"; };
 		0A433E5E25500F87006FFF75 /* BalancesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalancesRequest.swift; sourceTree = "<group>"; };
-		0A451BDD252DDB17001DB7D2 /* String+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Error.swift"; sourceTree = "<group>"; };
 		0A451BE9252DDB39001DB7D2 /* FullScreenLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenLoadingView.swift; sourceTree = "<group>"; };
 		0A451BEF252DDB49001DB7D2 /* NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataView.swift; sourceTree = "<group>"; };
 		0A451BFF252DDB67001DB7D2 /* ReloadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadButton.swift; sourceTree = "<group>"; };
@@ -3235,7 +3231,6 @@
 				0ADDA2102453467A0066457E /* RoundedTextField.swift */,
 				0AF64FA424475BC30018D070 /* SafariViewController.swift */,
 				047691582464026400D73D8B /* SectionHeader.swift */,
-				0A451BDD252DDB17001DB7D2 /* String+Error.swift */,
 				0A9BC3442460515800EB9C5D /* Address */,
 				0AFA72A324BF39D900A370EE /* Buttons */,
 				0A465C35246C23E800AFA467 /* Frame */,
@@ -3746,7 +3741,6 @@
 				04248BD8272DF18C00431397 /* NamingPolicy.swift */,
 				045769FF27C7DBCF00881206 /* SafeCreationMonitor.swift */,
 				043350C4281887AE003725E2 /* SafeTransactionController.swift */,
-				0454DC822A35218F00518CE3 /* Web3AuthManager.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -5179,7 +5173,6 @@
 				0A5C0C4C2817F1DE0061D96F /* SafeCellBuilder.swift in Sources */,
 				0472B2BA2869D66A0049BA17 /* ChooseDelegateIntroViewController.swift in Sources */,
 				0AEE149F2540233C00046EE7 /* UINibView.swift in Sources */,
-				0A451BDE252DDB17001DB7D2 /* String+Error.swift in Sources */,
 				0AA9F2532498CC70005BD60F /* UInt256String.swift in Sources */,
 				55FBC2D526BA91E4002C2553 /* SelectLedgerDeviceViewController.swift in Sources */,
 				049A9DB125FA6D5F00CA5723 /* ChooseOwnerTableViewCell.swift in Sources */,
@@ -5227,7 +5220,6 @@
 				045A17632833E04B0020484B /* ReplaceOwnerFromSettingsFlow.swift in Sources */,
 				6AAE34DE282A2F0400CCFC95 /* OwnerHeaderView.swift in Sources */,
 				0468FB9925912E8300541536 /* TransactionListHeaderTableViewCell.swift in Sources */,
-				0454DC832A35218F00518CE3 /* Web3AuthManager.swift in Sources */,
 				933526FA29D704A0003B9EE3 /* ExecutionOptionsCellBuilder.swift in Sources */,
 				04CE3F9624B6115200826AEE /* Collectible.swift in Sources */,
 				04CE3FA024B7191E00826AEE /* CollectibleViewModel.swift in Sources */,
