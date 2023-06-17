@@ -105,6 +105,9 @@ class MainTabBarViewController: UITabBarController {
             object: nil)
 
         WebConnectionController.shared.attach(observer: self)
+
+        let loginModel = LoginModel()
+        loginModel.loginWithCustomAuth()
     }
 
     deinit {
