@@ -73,11 +73,24 @@ class LoadSafeViewController: UIViewController {
 
     @IBAction func didTapCreateSafe(_ sender: Any) {
         Tracker.trackEvent(.createSafeFromOnboarding)
-        let instructionsVC = CreateSafeInstructionsViewController()
-        instructionsVC.onClose = { [unowned instructionsVC] in
-            instructionsVC.dismiss(animated: true, completion: nil)
+        let selectNetworkVC = SelectNetworkViewController()
+        selectNetworkVC.showWeb2SupportHint = true
+        selectNetworkVC.screenTitle = "Select network"
+        selectNetworkVC.descriptionText = "Your Safe Account will only exist on the selected network."
+        selectNetworkVC.completion = { [weak selectNetworkVC] chain  in
+            if chain.isSupported(feature: Chain.Feature.web3authCreateSafe.rawValue) {
+                let instructionsVC = CreateSafeWithSocialInstructionsViewController()
+
+                selectNetworkVC?.show(instructionsVC, sender: selectNetworkVC)
+            } else {
+                let instructionsVC = CreateSafeInstructionsViewController()
+                instructionsVC.onClose = { [unowned instructionsVC] in
+                    instructionsVC.dismiss(animated: true, completion: nil)
+                }
+                selectNetworkVC?.show(instructionsVC, sender: selectNetworkVC)
+            }
         }
-        let vc = ViewControllerFactory.modal(viewController: instructionsVC)
+        let vc = ViewControllerFactory.modal(viewController: selectNetworkVC, largeTitles: true)
         present(vc, animated: true)
     }
 
