@@ -79,7 +79,7 @@ class LoadSafeViewController: UIViewController {
         selectNetworkVC.descriptionText = "Your Safe Account will only exist on the selected network."
         selectNetworkVC.completion = { [weak selectNetworkVC] chain  in
             if chain.isSupported(feature: Chain.Feature.web3authCreateSafe.rawValue) {
-                let instructionsVC = CreateSafeWithSocialInstructionsViewController()
+                let instructionsVC = CreateSafeWithSocialIntroViewController()
 
                 selectNetworkVC?.show(instructionsVC, sender: selectNetworkVC)
             } else {

@@ -17,6 +17,8 @@
 		04131FC2285683BA001F60C2 /* ShareAddOwnerLinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04131FC0285683BA001F60C2 /* ShareAddOwnerLinkViewController.xib */; };
 		041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C2A572456F4F50044A24C /* SafeInfoView.swift */; };
 		041C2A5A2456F53E0044A24C /* QRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C2A592456F53E0044A24C /* QRView.swift */; };
+		041E10DF2A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041E10DD2A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.swift */; };
+		041E10E02A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041E10DE2A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.xib */; };
 		0422006025EFDF3700CAC173 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422005F25EFDF3700CAC173 /* TagView.swift */; };
 		0422007025EFDF4E00CAC173 /* TagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0422006F25EFDF4E00CAC173 /* TagView.xib */; };
 		04248BD9272DF18C00431397 /* NamingPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04248BD8272DF18C00431397 /* NamingPolicy.swift */; };
@@ -917,8 +919,6 @@
 		938D327128C8808D00198B7E /* NavigatingDAOViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 938D326F28C8808D00198B7E /* NavigatingDAOViewController.xib */; };
 		93C38DC128C74CAA005188EC /* WhatIsSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C38DBF28C74CAA005188EC /* WhatIsSafeViewController.swift */; };
 		93C38DC228C74CAA005188EC /* WhatIsSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C38DC028C74CAA005188EC /* WhatIsSafeViewController.xib */; };
-		93D4C5512A3A034D00260C21 /* CreateSafeSelectNetworkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93D4C5502A3A034D00260C21 /* CreateSafeSelectNetworkViewController.xib */; };
-		93D4C5532A3A036F00260C21 /* CreateSafeSelectNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D4C5522A3A036F00260C21 /* CreateSafeSelectNetworkViewController.swift */; };
 		93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */; };
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
 		93EF2FA327C546330077BE95 /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EF2FA127C546330077BE95 /* InstructionsViewController.swift */; };
@@ -1046,6 +1046,8 @@
 		04131FC0285683BA001F60C2 /* ShareAddOwnerLinkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareAddOwnerLinkViewController.xib; sourceTree = "<group>"; };
 		041C2A572456F4F50044A24C /* SafeInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeInfoView.swift; sourceTree = "<group>"; };
 		041C2A592456F53E0044A24C /* QRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRView.swift; sourceTree = "<group>"; };
+		041E10DD2A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSafeWithSocialIntroViewController.swift; sourceTree = "<group>"; };
+		041E10DE2A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateSafeWithSocialIntroViewController.xib; sourceTree = "<group>"; };
 		0422005F25EFDF3700CAC173 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		0422006F25EFDF4E00CAC173 /* TagView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagView.xib; sourceTree = "<group>"; };
 		04248BD8272DF18C00431397 /* NamingPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamingPolicy.swift; sourceTree = "<group>"; };
@@ -1917,8 +1919,6 @@
 		938D326F28C8808D00198B7E /* NavigatingDAOViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigatingDAOViewController.xib; sourceTree = "<group>"; };
 		93C38DBF28C74CAA005188EC /* WhatIsSafeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WhatIsSafeViewController.swift; path = Tutorial/WhatIsSafeViewController.swift; sourceTree = "<group>"; };
 		93C38DC028C74CAA005188EC /* WhatIsSafeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WhatIsSafeViewController.xib; path = Tutorial/WhatIsSafeViewController.xib; sourceTree = "<group>"; };
-		93D4C5502A3A034D00260C21 /* CreateSafeSelectNetworkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateSafeSelectNetworkViewController.xib; sourceTree = "<group>"; };
-		93D4C5522A3A036F00260C21 /* CreateSafeSelectNetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSafeSelectNetworkViewController.swift; sourceTree = "<group>"; };
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
 		93EF2FA127C546330077BE95 /* InstructionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsViewController.swift; sourceTree = "<group>"; };
 		93EF2FA227C546330077BE95 /* InstructionsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstructionsViewController.xib; sourceTree = "<group>"; };
@@ -2575,8 +2575,6 @@
 				0A930F4C27CD4BC600866074 /* SelectAddressViewController.swift */,
 				0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */,
 				0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */,
-				93D4C5502A3A034D00260C21 /* CreateSafeSelectNetworkViewController.xib */,
-				93D4C5522A3A036F00260C21 /* CreateSafeSelectNetworkViewController.swift */,
 			);
 			path = "Setup Safe";
 			sourceTree = "<group>";
@@ -3130,6 +3128,8 @@
 				9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */,
 				045769FB27C7DBBF00881206 /* SafeDeployingViewController.swift */,
 				045769FC27C7DBBF00881206 /* SafeDeployingViewController.xib */,
+				041E10DD2A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.swift */,
+				041E10DE2A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.xib */,
 			);
 			path = "Create Safe";
 			sourceTree = "<group>";
@@ -4837,6 +4837,7 @@
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				049A9D7125F9303000CA5723 /* ChooseOwnerKeyViewController.xib in Resources */,
 				D88FA81F2770869E0023B77F /* TokenAmountField.xib in Resources */,
+				041E10E02A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.xib in Resources */,
 				6AAE34E5282A824800CCFC95 /* EnterOwnerAddressViewController.xib in Resources */,
 				D80B5A0B2769F95000D6E024 /* AssetsViewController.xib in Resources */,
 				6AFD26E428589B0C00336FFE /* AddOwnerView.xib in Resources */,
@@ -4906,7 +4907,6 @@
 				0ABE698927920294003338AF /* ErrorTableViewCell.xib in Resources */,
 				6A6A105A2889496100B852D5 /* ClaimGetStartedViewController.xib in Resources */,
 				04077B38278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.xib in Resources */,
-				93D4C5512A3A034D00260C21 /* CreateSafeSelectNetworkViewController.xib in Resources */,
 				0A9A1A33257924C600B44405 /* DetailMultiAccountsCell.xib in Resources */,
 				0A9A1A37257924C600B44405 /* DetailAccountCell.xib in Resources */,
 				0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */,
@@ -5176,6 +5176,7 @@
 				555312EB2506608D0008206B /* Base58.swift in Sources */,
 				55DCC333258A4C71003346FC /* GSError.swift in Sources */,
 				0A791D9724D2E38800D70DA9 /* TransferDecodingError.swift in Sources */,
+				041E10DF2A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.swift in Sources */,
 				04D1306C25DD525A0032FA03 /* ProposeTransactionRequest.swift in Sources */,
 				55BCFC562554627100020CE7 /* BasicCell.swift in Sources */,
 				0A9A1A34257924C600B44405 /* DetailAccountCell.swift in Sources */,
@@ -5524,7 +5525,6 @@
 				55A5853D2501479C005E778B /* BIP39.swift in Sources */,
 				55CCD58727550F42004EA3E3 /* DelegateKeyController.swift in Sources */,
 				0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */,
-				93D4C5532A3A036F00260C21 /* CreateSafeSelectNetworkViewController.swift in Sources */,
 				0AB5DFB3270F48EB005BFB43 /* LedgerSignerViewController.swift in Sources */,
 				0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */,
 				0A9D5CEB27D8F48B0075A21D /* WCAppRegistryEntry.swift in Sources */,

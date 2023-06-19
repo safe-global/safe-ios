@@ -95,7 +95,7 @@ class OnboardingViewController: UIViewController {
         selectNetworkVC.descriptionText = "Your Safe Account will only exist on the selected network."
         selectNetworkVC.completion = { [weak self] chain  in
             if chain.isSupported(feature: Chain.Feature.web3authCreateSafe.rawValue) {
-                let instructionsVC = CreateSafeWithSocialInstructionsViewController()
+                let instructionsVC = CreateSafeWithSocialIntroViewController()
 
                 let vc = ViewControllerFactory.modal(viewController: instructionsVC)
                 self?.present(vc, animated: true)
