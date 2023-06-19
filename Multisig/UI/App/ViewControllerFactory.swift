@@ -110,9 +110,16 @@ enum ViewControllerFactory {
         vc.navigationController?.isNavigationBarHidden = false
     }
 
-    static func modal(viewController: UIViewController, halfScreen: Bool = false) -> UIViewController {
+    static func modal(viewController: UIViewController,
+                      halfScreen: Bool = false,
+                      largeTitles: Bool = false) -> UIViewController {
         Self.addCloseButton(viewController)
         let navController = UINavigationController(rootViewController: viewController)
+        if largeTitles {
+            navController.navigationBar.prefersLargeTitles = true
+            navController.navigationItem.largeTitleDisplayMode = .always
+        }
+        
         if #unavailable(iOS 15) {
             // explicitly set background color to prevent transparent background in dark mode (iOS 14)
             navController.navigationBar.backgroundColor = .backgroundSecondary

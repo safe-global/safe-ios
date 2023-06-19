@@ -2577,6 +2577,8 @@
 				0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */,
 				93D4C5502A3A034D00260C21 /* CreateSafeSelectNetworkViewController.xib */,
 				93D4C5522A3A036F00260C21 /* CreateSafeSelectNetworkViewController.swift */,
+				04C22B892A408C1100F58A15 /* CreateSafeWithSocialInstructionsViewController.swift */,
+				04C22B8A2A408C1100F58A15 /* CreateSafeWithSocialInstructionsViewController.xib */,
 			);
 			path = "Setup Safe";
 			sourceTree = "<group>";
@@ -4752,6 +4754,7 @@
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
 				04D1322E25E41E560032FA03 /* RejectionCreatedPiece.xib in Resources */,
 				04D1309D25E2BB830032FA03 /* RejectionConfirmationViewController.xib in Resources */,
+				04C22B8C2A408C1100F58A15 /* CreateSafeWithSocialInstructionsViewController.xib in Resources */,
 				0455A43227204A5B008B772D /* CreateAddressBookEntryViewController.xib in Resources */,
 				048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */,
 				0AE8C0572579328800E62B34 /* ExternalURLCell.xib in Resources */,
@@ -5514,6 +5517,7 @@
 				0AC2BAE728B8F9B500AB66EB /* ActivateBiometryAlertController.swift in Sources */,
 				0A04506F278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift in Sources */,
 				0A478D1B25B860240038363E /* KeyPickerController.swift in Sources */,
+				04C22B8B2A408C1100F58A15 /* CreateSafeWithSocialInstructionsViewController.swift in Sources */,
 				6A7D476F29B49BC500D690BE /* RelaysRemainingRequest.swift in Sources */,
 				0AF2737724DD48AD007E4012 /* NotificationPayload.swift in Sources */,
 				55B6465B253050200050BD95 /* SignatureString.swift in Sources */,
