@@ -401,6 +401,7 @@ extension Chain {
         case eip1559 = "EIP1559"
         case erc721 = "ERC721"
         case relayingMobile = "RELAYING_MOBILE"
+        case web3authCreateSafe = "WEB3AUTH_CREATE_SAFE"
         case safeApps = "SAFE_APPS"
         case safeTxGasOptional = "SAFE_TX_GAS_OPTIONAL"
         case spendingLimit = "SPENDING_LIMIT"

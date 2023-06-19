@@ -2566,9 +2566,9 @@
 				0A0391C727C565D3003C871A /* IconButtonTableViewCell.xib */,
 				0A8CDD4827A5AE860020066C /* CreateSafeFormUIModel.swift */,
 				0A8CDD4427A5A5C70020066C /* CreateSafeViewController.swift */,
+				0A8CDD4527A5A5C70020066C /* CreateSafeViewController.xib */,
 				0A5C0C4B2817F1DE0061D96F /* SafeCellBuilder.swift */,
 				0A930F4C27CD4BC600866074 /* SelectAddressViewController.swift */,
-				0A8CDD4527A5A5C70020066C /* CreateSafeViewController.xib */,
 				0A8CDD4E27A682CF0020066C /* StepperTableViewCell.swift */,
 				0A8CDD4F27A682CF0020066C /* StepperTableViewCell.xib */,
 			);
