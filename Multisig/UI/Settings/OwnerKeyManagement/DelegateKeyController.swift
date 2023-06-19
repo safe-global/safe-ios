@@ -147,7 +147,7 @@ class DelegateKeyController {
         let hexMessage = message.toHexStringWithPrefix()
         let chain = try? Safe.getSelected()?.chain ?? Chain.mainnetChain()
         switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated, .web3Auth:
+        case .deviceImported, .deviceGenerated, .web3AuthApple, .web3AuthGoogle:
             guard let message = try? HashString(hex: hexMessage) else {
                 completion(.failure(GSError.AddDelegateKeyCancelled()))
                 return

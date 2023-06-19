@@ -74,8 +74,10 @@ extension KeyType {
             return "key-type-ledger"
         case .keystone:
             return "key-type-keystone"
-        case .web3Auth:
-            return "key-type-web3auth"
+        case .web3AuthApple:
+            return "key-type-web3auth-google"
+        case .web3AuthGoogle:
+            return "key-type-web3auth-apple"
         }
     }
 }

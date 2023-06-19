@@ -244,7 +244,7 @@ class ReviewSafeTransactionViewController: UIViewController {
         }
 
         switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated, .web3Auth:
+        case .deviceImported, .deviceGenerated, .web3AuthApple, .web3AuthGoogle:
             Wallet.shared.sign(transaction, keyInfo: keyInfo) { [unowned self] result in
                 do {
                     let signature = try result.get()

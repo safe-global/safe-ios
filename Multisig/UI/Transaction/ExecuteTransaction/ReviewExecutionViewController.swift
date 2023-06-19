@@ -521,7 +521,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         }
 
         switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated, .web3Auth:
+        case .deviceImported, .deviceGenerated, .web3AuthApple, .web3AuthGoogle:
             do {
                 let txHash = controller.hashForSigning()
 

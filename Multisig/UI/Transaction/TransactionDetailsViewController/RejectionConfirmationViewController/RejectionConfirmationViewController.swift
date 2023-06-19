@@ -103,7 +103,7 @@ class RejectionConfirmationViewController: UIViewController {
         self.keyInfo = keyInfo
 
         switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated, .web3Auth:
+        case .deviceImported, .deviceGenerated, .web3AuthGoogle, .web3AuthApple:
             Wallet.shared.sign(rejectionTransaction, keyInfo: keyInfo) { [unowned self] result in
                 do {
                     let signature = try result.get()

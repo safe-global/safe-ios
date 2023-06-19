@@ -22,10 +22,9 @@ class OwnerKeyController {
     static func importKey(_ privateKey: PrivateKey,
                           name: String,
                           type: KeyType,
-                          isDerivedFromSeedPhrase: Bool,
-                          loginType: Web3AuthLoginType = .none) -> Bool {
+                          isDerivedFromSeedPhrase: Bool) -> Bool {
         do {
-            guard [KeyType.deviceImported, .deviceGenerated, .web3Auth].contains(type) else {
+            guard KeyType.privateKeyTypes.contains(type) else {
                 App.shared.snackbar.show(error: GSError.error(description: "Could not import signing key."))
                 return false
             }
@@ -42,10 +41,12 @@ class OwnerKeyController {
             case .deviceGenerated:
                 Tracker.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
                 Tracker.trackEvent(.ownerKeyGenerated)
-            case .web3Auth:
-                Tracker.setNumKeys(KeyInfo.count(.web3Auth), type: .web3Auth)
-                Tracker.trackEvent(.web3AuthKeyGenerated,
-                                   parameters: ["login_type": loginType.name])
+            case .web3AuthApple:
+                Tracker.setNumKeys(KeyInfo.count(.web3AuthApple), type: .web3AuthApple)
+                Tracker.trackEvent(.web3AuthKeyApple)
+            case .web3AuthGoogle:
+                Tracker.setNumKeys(KeyInfo.count(.web3AuthGoogle), type: .web3AuthGoogle)
+                Tracker.trackEvent(.web3AuthKeyGoogle)
             default:
                 break
             }
@@ -250,7 +251,7 @@ class OwnerKeyController {
             }
 
             // delete all device key infos with private keys that are missing
-            let keyInfoToDelete = try KeyInfo.keys(types: [.deviceImported, .deviceGenerated, .web3Auth]).filter { info in
+            let keyInfoToDelete = try KeyInfo.keys(types: KeyType.privateKeyTypes).filter { info in
                 let shouldDelete: Bool
                 do {
                     let keyOrNil = try info.privateKey()
@@ -285,7 +286,8 @@ class OwnerKeyController {
         Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
         Tracker.setNumKeys(KeyInfo.count(.ledgerNanoX), type: .ledgerNanoX)
         Tracker.setNumKeys(KeyInfo.count(.keystone), type: .keystone)
-        Tracker.setNumKeys(KeyInfo.count(.web3Auth), type: .web3Auth)
+        Tracker.setNumKeys(KeyInfo.count(.web3AuthApple), type: .web3AuthApple)
+        Tracker.setNumKeys(KeyInfo.count(.web3AuthGoogle), type: .web3AuthGoogle)
         NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
     }
 }

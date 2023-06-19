@@ -46,7 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
         Tracker.setNumKeys(KeyInfo.count(.ledgerNanoX), type: .ledgerNanoX)
         Tracker.setNumKeys(KeyInfo.count(.keystone), type: .keystone)
-        Tracker.setNumKeys(KeyInfo.count(.web3Auth), type: .web3Auth)
+        Tracker.setNumKeys(KeyInfo.count(.web3AuthApple), type: .web3AuthApple)
+        Tracker.setNumKeys(KeyInfo.count(.web3AuthGoogle), type: .web3AuthGoogle)
         Tracker.setPasscodeIsSet(to: App.shared.auth.isPasscodeSetAndAvailable)        
         Tracker.setWalletConnectForDappsEnabled(true)
 

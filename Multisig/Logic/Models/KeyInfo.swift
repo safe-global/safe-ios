@@ -18,23 +18,11 @@ enum KeyType: Int, CaseIterable {
     case walletConnect = 2
     case ledgerNanoX = 3
     case keystone = 4
-    case web3Auth = 5
-}
+    case web3AuthApple = 5
+    case web3AuthGoogle = 6
 
-enum Web3AuthLoginType: Int, CaseIterable {
-    case none = 0
-    case apple = 1
-    case google = 2
-
-    var name: String {
-        switch self {
-        case .none:
-            return "none"
-        case .apple:
-            return "apple"
-        case .google:
-            return "google"
-        }
+    static var privateKeyTypes: [KeyType] {
+        [.deviceImported, .deviceGenerated, .web3AuthApple, .web3AuthGoogle ]
     }
 }
 
@@ -53,11 +41,6 @@ extension KeyInfo {
     var keyType: KeyType {
         get { KeyType(rawValue: Int(type)) ?? .deviceImported }
         set { type = Int16(newValue.rawValue) }
-    }
-
-    var web3AuthType: Web3AuthLoginType {
-        get { Web3AuthLoginType(rawValue: Int(loginType)) ?? .none }
-        set { loginType = Int16(newValue.rawValue) }
     }
 
     var needsBackup: Bool {
@@ -347,7 +330,7 @@ extension KeyInfo {
     /// Will delete the key info and the stored private key
     /// - Throws: in case of underlying error
     func delete(authenticate: Bool = true, completion: ((Result<Bool, Error>) -> ())? = nil) {
-        if let keyID = keyID, keyType == .deviceImported || keyType == .deviceGenerated || keyType == .web3Auth {
+        if let keyID = keyID, KeyType.privateKeyTypes.contains(keyType) {
             PrivateKey.remove(id: keyID, authenticate: authenticate) { [unowned self] result in
                 if (try? result.get()) == true {
                     App.shared.coreDataStack.viewContext.delete(self)
