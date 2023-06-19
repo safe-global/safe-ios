@@ -42,15 +42,9 @@ class InstructionsViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func didTapButton(_ sender: Any) {
-
-        if Chain.all.filter({ $0.isSupported(feature: .web3authCreateSafe) }).count > 1 {
-            let createSafeVC = CreateSafeViewController()
-            createSafeVC.onClose = onClose
-            show(createSafeVC, sender: self)
-        } else {
-            let selectNetworkVC = CreateSafeSelectNetworkViewController()
-            show(selectNetworkVC, sender: self)
-        }
+        let createSafeVC = CreateSafeViewController()
+        createSafeVC.onClose = onClose
+        show(createSafeVC, sender: self)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
