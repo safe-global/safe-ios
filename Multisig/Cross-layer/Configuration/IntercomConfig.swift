@@ -61,6 +61,6 @@ class IntercomConfig {
     }
 
     static func setDeviceToken(_ deviceToken: Data, failure: ((Error?) -> Void)? = nil) {
-        Intercom.setDeviceToken(deviceToken, failure: failure)
+         Intercom.setDeviceToken(deviceToken, failure: failure)
     }
 }
