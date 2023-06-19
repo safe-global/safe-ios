@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -650,7 +650,7 @@
 		0AF1C9202541DB3F00E28669 /* BalanceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF1C91E2541DB3F00E28669 /* BalanceTableViewCell.xib */; };
 		0AF1C9262541E09D00E28669 /* UIView+UINib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF1C9252541E09C00E28669 /* UIView+UINib.swift */; };
 		0AF2731624DAABDC007E4012 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2731524DAABDC007E4012 /* NotificationService.swift */; };
-		0AF2731A24DAABDC007E4012 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0AF2731A24DAABDC007E4012 /* NotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0AF2733D24DABAAF007E4012 /* AppDelegate+Messaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2733C24DABAAF007E4012 /* AppDelegate+Messaging.swift */; };
 		0AF2733F24DAC9FE007E4012 /* RemoteNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2733E24DAC9FE007E4012 /* RemoteNotificationHandler.swift */; };
 		0AF2734124DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2734024DAE8B6007E4012 /* UserDefaultPropertyWrapper.swift */; };
@@ -1022,15 +1022,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		0AF2732824DAABDC007E4012 /* Embed App Extensions */ = {
+		0AF2732824DAABDC007E4012 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				0AF2731A24DAABDC007E4012 /* NotificationServiceExtension.appex in Embed App Extensions */,
+				0AF2731A24DAABDC007E4012 /* NotificationServiceExtension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -4546,7 +4546,7 @@
 				0A93DD502445CC8A00688050 /* Frameworks */,
 				0A93DD512445CC8A00688050 /* Resources */,
 				0ACDC01924926081002035A2 /* [FIREBASE] Copy config file */,
-				0AF2732824DAABDC007E4012 /* Embed App Extensions */,
+				0AF2732824DAABDC007E4012 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -4661,8 +4661,9 @@
 		0A93DD4B2445CC8A00688050 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1230;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "Gnosis Ltd";
 				TargetAttributes = {
 					0A93DD522445CC8A00688050 = {
@@ -5336,7 +5337,6 @@
 				04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */,
 				557D80B8270B32F80036D6D0 /* SignatureRequestViewController.swift in Sources */,
 				6ADEB02727B559370062ADFE /* WebConnectionOwnerView.swift in Sources */,
-				557D80B8270B32F80036D6D0 /* SignatureRequestViewController.swift in Sources */,
 				551DDEE9244F183500C719D3 /* Selection.swift in Sources */,
 				04D093E9284FD348003F38CF /* OnboardingStepCollectionViewCell.swift in Sources */,
 				0A26FABB28C1F22500B0F519 /* SelectedDelegateCell.swift in Sources */,
@@ -5914,7 +5914,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
-				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
@@ -5940,7 +5939,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
-				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
@@ -6113,7 +6111,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
-				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
@@ -6238,7 +6235,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
-				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
@@ -6790,7 +6786,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
-				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
@@ -6920,7 +6915,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
-				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Multisig/Preview Content\"";
 				DEVELOPMENT_TEAM = ZKG876RKJ8;
 				ENABLE_PREVIEWS = YES;
