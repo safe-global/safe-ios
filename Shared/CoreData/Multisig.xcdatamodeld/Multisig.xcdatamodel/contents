@@ -147,7 +147,6 @@
         <attribute name="backedup" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="delegateAddressString" optional="YES" attributeType="String"/>
         <attribute name="keyID" optional="YES" attributeType="String"/>
-        <attribute name="loginType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="metadata" optional="YES" attributeType="Binary"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
