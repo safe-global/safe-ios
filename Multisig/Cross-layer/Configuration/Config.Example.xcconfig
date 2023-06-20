@@ -46,7 +46,7 @@ _APP_BUNDLE_ID_DEV      = io.gnosis.multisig.dev.mainnet
 // Claiming app service
 _CLAIMING_DATA_URL_DEV        = https:/$()/safe-claiming-app-data.staging.5afe.dev/
 _CLAIMING_DATA_URL_STAGING    = https:/$()/safe-claiming-app-data.staging.5afe.dev/
-_CLAIMING_DATA_URL_PROD       = https:/$()/safe-claiming-app-data.gnosis-safe.io/
+_CLAIMING_DATA_URL_PROD       = https:/$()/safe-claiming-app-data.safe.global/
 
 // Gelato relay service
 _RELAY_URL_DEV                = https:/$()/safe-client-nest.staging.5afe.dev/
