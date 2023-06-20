@@ -32,9 +32,9 @@ class CreateSafeWithSocialIntroViewController: UIViewController {
         infoView2.set(text: "Owner key is protected by your social login")
         infoView3.set(text: "No need to keep seed phrases")
         headerLabel.hyperLinkLabel("Select a social login to create your Safe Account. ",
-                                   prefixStyle: .headlineSecondary,
+                                   prefixStyle: .body,
                                    linkText: "How does it work?",
-                                   linkStyle: .body,
+                                   linkStyle: .button,
                                    linkIcon: nil,
                                    underlined: false)
     }
