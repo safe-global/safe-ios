@@ -41,25 +41,25 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="RYn-DT-pyM">
-                    <rect key="frame" x="16" y="159.66666666666666" width="361" height="366.33333333333337"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="RYn-DT-pyM">
+                    <rect key="frame" x="16" y="159.66666666666666" width="361" height="396.33333333333337"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vWv-K4-a2S" customClass="InfoView" customModule="Multisig" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="361" height="0.0"/>
+                            <rect key="frame" x="0.0" y="0.0" width="361" height="22"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="shq-iR-2cw" customClass="InfoView" customModule="Multisig" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="8" width="361" height="0.0"/>
+                            <rect key="frame" x="0.0" y="34" width="361" height="0.0"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgt-eF-3EJ" customClass="InfoView" customModule="Multisig" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="16" width="361" height="350.33333333333331"/>
+                            <rect key="frame" x="0.0" y="46" width="361" height="350.33333333333331"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
                     </subviews>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="2oq-sg-HGY">
-                    <rect key="frame" x="16" y="538" width="361" height="260"/>
+                    <rect key="frame" x="16" y="564" width="361" height="234"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oXV-jD-Quo">
                             <rect key="frame" x="0.0" y="0.0" width="361" height="56"/>
@@ -84,17 +84,17 @@
                             </state>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aJp-r8-dBY">
-                            <rect key="frame" x="0.0" y="144" width="361" height="44"/>
+                            <rect key="frame" x="0.0" y="144" width="361" height="18"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PUg-Zg-uii">
-                                    <rect key="frame" x="0.0" y="21.666666666666629" width="361" height="1"/>
+                                    <rect key="frame" x="0.0" y="8.6666666666666288" width="361" height="1"/>
                                     <color key="backgroundColor" name="separator"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="1" id="6m3-GF-w1u"/>
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zcc-Hx-wF2">
-                                    <rect key="frame" x="163.66666666666666" y="12.666666666666629" width="34" height="19"/>
+                                    <rect key="frame" x="163.66666666666666" y="-0.33333333333337123" width="34" height="19"/>
                                     <color key="backgroundColor" name="backgroundPrimary"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="34" id="Xp3-pW-B83"/>
@@ -109,14 +109,14 @@
                             <constraints>
                                 <constraint firstItem="PUg-Zg-uii" firstAttribute="width" secondItem="aJp-r8-dBY" secondAttribute="width" id="3Ra-AH-V9X"/>
                                 <constraint firstItem="zcc-Hx-wF2" firstAttribute="centerX" secondItem="PUg-Zg-uii" secondAttribute="centerX" id="4E9-pb-P1S"/>
-                                <constraint firstAttribute="height" constant="44" id="jKR-6P-nuz"/>
+                                <constraint firstAttribute="height" constant="18" id="jKR-6P-nuz"/>
                                 <constraint firstItem="PUg-Zg-uii" firstAttribute="centerY" secondItem="zcc-Hx-wF2" secondAttribute="centerY" id="nXJ-gh-LEW"/>
                                 <constraint firstItem="zcc-Hx-wF2" firstAttribute="centerY" secondItem="aJp-r8-dBY" secondAttribute="centerY" id="tzi-XL-b1u"/>
                                 <constraint firstItem="zcc-Hx-wF2" firstAttribute="centerX" secondItem="aJp-r8-dBY" secondAttribute="centerX" id="wyk-ni-KQN"/>
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZSx-fR-csC">
-                            <rect key="frame" x="0.0" y="204" width="361" height="56"/>
+                            <rect key="frame" x="0.0" y="178" width="361" height="56"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="56" id="qzs-Wr-XrO"/>
                             </constraints>
@@ -128,10 +128,6 @@
                             </connections>
                         </button>
                     </subviews>
-                </stackView>
-                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Ymw-T3-UrC">
-                    <rect key="frame" x="141" y="105" width="85.333333333333314" height="28"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -148,7 +144,7 @@
                 <constraint firstItem="lAr-U7-OaX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="atg-r6-iw8"/>
                 <constraint firstItem="Gs7-p6-YFs" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="eLE-hR-in3"/>
                 <constraint firstItem="RYn-DT-pyM" firstAttribute="top" secondItem="lAr-U7-OaX" secondAttribute="bottom" constant="16" id="fmJ-9P-zWm"/>
-                <constraint firstItem="2oq-sg-HGY" firstAttribute="top" relation="greaterThanOrEqual" secondItem="RYn-DT-pyM" secondAttribute="bottom" constant="12" id="n1r-DE-tYw"/>
+                <constraint firstItem="2oq-sg-HGY" firstAttribute="top" relation="greaterThanOrEqual" secondItem="RYn-DT-pyM" secondAttribute="bottom" constant="8" id="n1r-DE-tYw"/>
                 <constraint firstItem="Gs7-p6-YFs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="x8D-ST-V5Q"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="lAr-U7-OaX" secondAttribute="trailing" constant="16" id="yMP-t6-KUb"/>
             </constraints>

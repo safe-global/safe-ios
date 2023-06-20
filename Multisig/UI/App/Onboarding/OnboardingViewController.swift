@@ -93,12 +93,11 @@ class OnboardingViewController: UIViewController {
         selectNetworkVC.showWeb2SupportHint = true
         selectNetworkVC.screenTitle = "Select network"
         selectNetworkVC.descriptionText = "Your Safe Account will only exist on the selected network."
-        selectNetworkVC.completion = { [weak self] chain  in
+        selectNetworkVC.completion = { [weak self, weak selectNetworkVC] chain  in
             if chain.isSupported(feature: Chain.Feature.web3authCreateSafe.rawValue) {
                 let instructionsVC = CreateSafeWithSocialIntroViewController()
                 instructionsVC.chain = chain
-                let vc = ViewControllerFactory.modal(viewController: instructionsVC)
-                self?.present(vc, animated: true)
+                selectNetworkVC?.show(instructionsVC, sender: self)
             } else {
                 let instructionsVC = CreateSafeInstructionsViewController()
                 instructionsVC.chain = chain
@@ -106,7 +105,7 @@ class OnboardingViewController: UIViewController {
                     instructionsVC.dismiss(animated: true, completion: nil)
                     self?.completion()
                 }
-                self?.present(instructionsVC, animated: true)
+                selectNetworkVC?.show(instructionsVC, sender: self)
             }
         }
         let vc = ViewControllerFactory.modal(viewController: selectNetworkVC, largeTitles: true)
