@@ -36,7 +36,12 @@ class SelectNetworkTableViewCell: UITableViewCell {
     }
 
     func setIndicatorColor(_ color: UIColor?) {
+        colorImageView.image = UIImage(named: "ico-bullet-point")
         colorImageView.tintColor = color
+    }
+
+    func setIcon(_ icon: UIImage) {
+        colorImageView.image = icon
     }
 
     func setInfo(_ text: NSAttributedString?) {
