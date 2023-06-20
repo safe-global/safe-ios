@@ -38,4 +38,11 @@ class CreateSafeWithSocialIntroViewController: UIViewController {
                                    linkIcon: nil,
                                    underlined: false)
     }
+
+
+    @IBAction private func addressButtonTouched(_ sender: Any) {
+        let instructionsVC = CreateSafeInstructionsViewController()
+        instructionsVC.chain = chain
+        show(instructionsVC, sender: self)
+    }
 }

@@ -123,6 +123,9 @@
                             <state key="normal" title="Continue with a wallet address">
                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
+                            <connections>
+                                <action selector="addressButtonTouched:" destination="-1" eventType="touchUpInside" id="rnZ-8l-oUU"/>
+                            </connections>
                         </button>
                     </subviews>
                 </stackView>

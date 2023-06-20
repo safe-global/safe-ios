@@ -308,6 +308,15 @@
         }
       },
       {
+        "package": "tkey_pkg",
+        "repositoryURL": "https://github.com/torusresearch/tkey-rust-ios/",
+        "state": {
+          "branch": null,
+          "revision": "8a719d6a60d233e66728dcc8e17533c0b5d2e7ea",
+          "version": "0.0.3"
+        }
+      },
+      {
         "package": "TorusUtils",
         "repositoryURL": "https://github.com/torusresearch/torus-utils-swift.git",
         "state": {

@@ -96,11 +96,12 @@ class OnboardingViewController: UIViewController {
         selectNetworkVC.completion = { [weak self] chain  in
             if chain.isSupported(feature: Chain.Feature.web3authCreateSafe.rawValue) {
                 let instructionsVC = CreateSafeWithSocialIntroViewController()
-
+                instructionsVC.chain = chain
                 let vc = ViewControllerFactory.modal(viewController: instructionsVC)
                 self?.present(vc, animated: true)
             } else {
                 let instructionsVC = CreateSafeInstructionsViewController()
+                instructionsVC.chain = chain
                 instructionsVC.onClose = { [unowned instructionsVC, weak self] in
                     instructionsVC.dismiss(animated: true, completion: nil)
                     self?.completion()
