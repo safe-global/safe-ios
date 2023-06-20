@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Base Goerli.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
