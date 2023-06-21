@@ -35,10 +35,10 @@
                         <constraint firstAttribute="height" constant="28" id="UTy-7X-Qj4"/>
                     </constraints>
                 </view>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vrb-yk-akK">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vrb-yk-akK">
                     <rect key="frame" x="0.0" y="87" width="393" height="731"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="djk-7j-fCE">
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="djk-7j-fCE">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="865"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a social login to create your Safe Account. How does it work?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAr-U7-OaX">
@@ -64,7 +64,7 @@
                                         </view>
                                     </subviews>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="2oq-sg-HGY">
+                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="2oq-sg-HGY">
                                     <rect key="frame" x="20" y="601" width="353" height="244"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oXV-jD-Quo">
@@ -142,7 +142,7 @@
                                 <constraint firstItem="RYn-DT-pyM" firstAttribute="top" secondItem="lAr-U7-OaX" secondAttribute="bottom" constant="16" id="67f-rX-Y2o"/>
                                 <constraint firstItem="RYn-DT-pyM" firstAttribute="width" secondItem="2oq-sg-HGY" secondAttribute="width" id="7Nd-pI-LNA"/>
                                 <constraint firstItem="RYn-DT-pyM" firstAttribute="centerX" secondItem="lAr-U7-OaX" secondAttribute="centerX" id="FuF-Vg-ZgK"/>
-                                <constraint firstItem="2oq-sg-HGY" firstAttribute="top" secondItem="RYn-DT-pyM" secondAttribute="bottom" constant="50" id="Uya-sz-2R8"/>
+                                <constraint firstItem="2oq-sg-HGY" firstAttribute="top" relation="greaterThanOrEqual" secondItem="RYn-DT-pyM" secondAttribute="bottom" constant="50" id="Uya-sz-2R8"/>
                                 <constraint firstAttribute="trailing" secondItem="lAr-U7-OaX" secondAttribute="trailing" constant="20" id="ZEp-HW-tTu"/>
                                 <constraint firstItem="lAr-U7-OaX" firstAttribute="width" secondItem="RYn-DT-pyM" secondAttribute="width" id="aLK-CR-q6G"/>
                                 <constraint firstItem="2oq-sg-HGY" firstAttribute="centerX" secondItem="RYn-DT-pyM" secondAttribute="centerX" id="ozY-tm-jzE"/>
@@ -154,6 +154,7 @@
                     <constraints>
                         <constraint firstItem="djk-7j-fCE" firstAttribute="width" secondItem="N9r-zh-1mA" secondAttribute="width" id="2J5-cj-MsY"/>
                         <constraint firstItem="djk-7j-fCE" firstAttribute="bottom" secondItem="dqg-8N-igS" secondAttribute="bottom" id="Ga6-PT-5uH"/>
+                        <constraint firstItem="djk-7j-fCE" firstAttribute="height" relation="greaterThanOrEqual" secondItem="N9r-zh-1mA" secondAttribute="height" id="LaE-jv-kdT"/>
                         <constraint firstItem="djk-7j-fCE" firstAttribute="top" secondItem="dqg-8N-igS" secondAttribute="top" id="fbt-Jd-Hfs"/>
                         <constraint firstItem="djk-7j-fCE" firstAttribute="leading" secondItem="dqg-8N-igS" secondAttribute="leading" id="pJf-aP-WY0"/>
                         <constraint firstItem="djk-7j-fCE" firstAttribute="trailing" secondItem="dqg-8N-igS" secondAttribute="trailing" id="sb5-Hc-xJ0"/>
