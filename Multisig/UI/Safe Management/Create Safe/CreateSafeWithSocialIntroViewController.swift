@@ -45,4 +45,9 @@ class CreateSafeWithSocialIntroViewController: UIViewController {
         instructionsVC.chain = chain
         show(instructionsVC, sender: self)
     }
+
+    @IBAction private func googleButtonTouched(_ sender: Any) {
+        let loginModel = LoginModel()
+        loginModel.loginWithCustomAuth(caller: self)
+    }
 }
