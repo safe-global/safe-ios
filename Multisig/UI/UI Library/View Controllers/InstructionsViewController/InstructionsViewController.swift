@@ -12,7 +12,7 @@ class InstructionsViewController: UIViewController, UITableViewDelegate, UITable
     
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var tableView: UITableView!
-    
+
     enum Step {
         case header
         case step(number: String, title: String, description: String)
@@ -21,7 +21,7 @@ class InstructionsViewController: UIViewController, UITableViewDelegate, UITable
 
     var onClose: () -> Void = {}
     var steps: [Step] = []
-    
+    var chain: SCGModels.Chain?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,6 +44,9 @@ class InstructionsViewController: UIViewController, UITableViewDelegate, UITable
     @IBAction func didTapButton(_ sender: Any) {
         let createSafeVC = CreateSafeViewController()
         createSafeVC.onClose = onClose
+        if let chain = chain {
+            createSafeVC.chain = Chain.createOrUpdate(chain)
+        }
         show(createSafeVC, sender: self)
     }
     

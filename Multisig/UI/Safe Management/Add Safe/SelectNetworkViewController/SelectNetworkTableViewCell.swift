@@ -9,12 +9,22 @@
 import UIKit
 
 class SelectNetworkTableViewCell: UITableViewCell {
-    @IBOutlet weak var colorImageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-
+    @IBOutlet private weak var colorImageView: UIImageView!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var containerView: UIView!
+    @IBOutlet private weak var infoView: InfoBoxView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        containerView.layer.borderWidth = 2
+        containerView.layer.cornerRadius = 10
         nameLabel.setStyle(.headline)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // changing here to react to dark/light color change
+        containerView.layer.borderColor = UIColor.border.cgColor
     }
 
     func setText(_ text: String?) {
@@ -26,6 +36,22 @@ class SelectNetworkTableViewCell: UITableViewCell {
     }
 
     func setIndicatorColor(_ color: UIColor?) {
+        colorImageView.image = UIImage(named: "ico-bullet-point")
         colorImageView.tintColor = color
+    }
+
+    func setIcon(_ icon: UIImage) {
+        colorImageView.image = icon
+    }
+
+    func setInfo(_ text: NSAttributedString?) {
+        if let text = text {
+            infoView.isHidden = false
+            infoView.setText(text, backgroundColor: .backgroundLightGreen, hideIcon: true)
+        } else {
+            infoView.isHidden = true
+        }
+
+        layoutIfNeeded()
     }
 }

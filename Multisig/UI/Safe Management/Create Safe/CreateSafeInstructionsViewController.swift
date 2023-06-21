@@ -16,7 +16,7 @@ class CreateSafeInstructionsViewController: InstructionsViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationItem.largeTitleDisplayMode = .never
         title = "How does it work?"
 
         steps = [

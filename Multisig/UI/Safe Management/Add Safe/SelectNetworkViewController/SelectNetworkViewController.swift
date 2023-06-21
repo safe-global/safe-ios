@@ -17,6 +17,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
     private var model = NetworksListViewModel()
     var screenTitle: String!
     var descriptionText: String!
+    var showWeb2SupportHint: Bool = false
     var trackingEvent: TrackingEvent?
 
     var completion: (SCGModels.Chain) -> Void = { _ in }
@@ -39,14 +40,15 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
             tableView.sectionHeaderTopPadding = 0
         }
 
-        tableView.backgroundColor = .backgroundPrimary
+        tableView.backgroundColor = .backgroundSecondary
         tableView.sectionHeaderHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
+        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
-
         navigationItem.title = screenTitle
+        navigationItem.largeTitleDisplayMode = .always
         emptyView.setText("Networks will appear here")
     }
 
@@ -187,7 +189,26 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
         let cell = tableView.dequeueCell(SelectNetworkTableViewCell.self, for: indexPath)
         let chain = model.models[indexPath.row]
         cell.setText(chain.chainName)
-        cell.setIndicatorColor(hex: chain.theme.backgroundColor)
+        if showWeb2SupportHint && chain.isSupported(feature: Chain.Feature.web3authCreateSafe.rawValue) {
+            var text = NSMutableAttributedString(string: "Enjoy ",
+                                                 attributes: GNOTextStyle.subheadlineSecondary.attributes)
+            text.append(NSAttributedString(string: "free transactions ", attributes: GNOTextStyle.bodyPrimary.attributes))
+            text.append(NSAttributedString(string: "and ", attributes: GNOTextStyle.subheadlineSecondary.attributes))
+            text.append(NSAttributedString(string: "social login account creation!", attributes: GNOTextStyle.bodyPrimary.attributes))
+
+            cell.setInfo(text)
+        } else {
+            cell.setInfo(nil)
+        }
+
+        if let image = UIImage(named: "ico-chain-\(chain.id)") {
+            cell.setIcon(image)
+        } else {
+            cell.setIndicatorColor(hex: chain.theme.backgroundColor)
+        }
+
+        cell.selectionStyle = .none
+        
         return cell
     }
 
