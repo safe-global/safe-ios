@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InfoView" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="imageView" destination="O3Y-pn-fsm" id="EFp-Rs-ePq"/>
                 <outlet property="textLabel" destination="hVT-Oe-46d" id="hWf-Ik-TxV"/>
             </connections>
         </placeholder>
