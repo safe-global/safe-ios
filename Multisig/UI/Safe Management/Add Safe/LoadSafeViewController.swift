@@ -80,10 +80,11 @@ class LoadSafeViewController: UIViewController {
         selectNetworkVC.completion = { [weak selectNetworkVC] chain  in
             if chain.isSupported(feature: Chain.Feature.web3authCreateSafe.rawValue) {
                 let instructionsVC = CreateSafeWithSocialIntroViewController()
-
+                instructionsVC.chain = chain
                 selectNetworkVC?.show(instructionsVC, sender: selectNetworkVC)
             } else {
                 let instructionsVC = CreateSafeInstructionsViewController()
+                instructionsVC.chain = chain
                 instructionsVC.onClose = { [unowned instructionsVC] in
                     instructionsVC.dismiss(animated: true, completion: nil)
                 }
