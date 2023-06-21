@@ -129,7 +129,6 @@
 		047A5B9128A5582F00BB8B2A /* GuardiansRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A5B9028A5582F00BB8B2A /* GuardiansRequest.swift */; };
 		0482A2742A4115D3001B10C3 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482A2732A4115D3001B10C3 /* InfoView.swift */; };
 		0482A2762A4115E7001B10C3 /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0482A2752A4115E7001B10C3 /* InfoView.xib */; };
-		0482A2792A41CD7A001B10C3 /* ThresholdKey in Frameworks */ = {isa = PBXBuildFile; productRef = 0482A2782A41CD7A001B10C3 /* ThresholdKey */; };
 		048643B124DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B024DAB5D6003DD966 /* RegisterNotificationTokenRequest.swift */; };
 		048643B324DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048643B224DAB5E3003DD966 /* UnregisterNotificationTokenRequest.swift */; };
 		048AA142260D053400382E24 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048AA141260D053300382E24 /* MainTabBarViewController.swift */; };
@@ -2037,7 +2036,6 @@
 				0497B2BD29A641C9007109ED /* WalletConnectVerify in Frameworks */,
 				04C22B322A36807500F58A15 /* Web3ContractABI in Frameworks */,
 				0A29B5622666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
-				0482A2792A41CD7A001B10C3 /* ThresholdKey in Frameworks */,
 				0497B2AF29A641C9007109ED /* WalletConnectAuth in Frameworks */,
 				0497B2BB29A641C9007109ED /* WalletConnectRouter in Frameworks */,
 				04C22B342A36807500F58A15 /* Web3PromiseKit in Frameworks */,
@@ -4598,7 +4596,6 @@
 				04C22B2F2A36807500F58A15 /* SafeWeb3 */,
 				04C22B312A36807500F58A15 /* Web3ContractABI */,
 				04C22B332A36807500F58A15 /* Web3PromiseKit */,
-				0482A2782A41CD7A001B10C3 /* ThresholdKey */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig_PROD.app */;
@@ -4722,7 +4719,6 @@
 				0497B2AB29A641C9007109ED /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
 				04C22B2B2A367FF800F58A15 /* XCRemoteSwiftPackageReference "customauth-swift-sdk" */,
 				04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3" */,
-				0482A2772A41CD7A001B10C3 /* XCRemoteSwiftPackageReference "tkey-rust-ios" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -7086,14 +7082,6 @@
 				minimumVersion = 10.0.0;
 			};
 		};
-		0482A2772A41CD7A001B10C3 /* XCRemoteSwiftPackageReference "tkey-rust-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/torusresearch/tkey-rust-ios/";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.3;
-			};
-		};
 		0497B2A629A63A3E007109ED /* XCRemoteSwiftPackageReference "Starscream" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/daltoniam/Starscream.git";
@@ -7260,11 +7248,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0463F5BD26296924009C04FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
-		};
-		0482A2782A41CD7A001B10C3 /* ThresholdKey */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0482A2772A41CD7A001B10C3 /* XCRemoteSwiftPackageReference "tkey-rust-ios" */;
-			productName = ThresholdKey;
 		};
 		0497B2A729A63A3E007109ED /* Starscream */ = {
 			isa = XCSwiftPackageProductDependency;
