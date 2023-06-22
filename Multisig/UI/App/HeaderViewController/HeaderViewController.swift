@@ -112,23 +112,17 @@ final class HeaderViewController: ContainerViewController {
             Tracker.trackEvent(.createSafeFromSwitchSafes)
             self?.dismiss(animated: true) {
                 let selectNetworkVC = SelectNetworkViewController()
-                selectNetworkVC.showWeb2SupportHint = true
+                selectNetworkVC.showWeb2SupportHint = false
                 selectNetworkVC.screenTitle = "Select network"
                 selectNetworkVC.descriptionText = "Your Safe Account will only exist on the selected network."
                 selectNetworkVC.completion = { [weak selectNetworkVC] chain  in
-                    if chain.isSupported(feature: Chain.Feature.web3authCreateSafe.rawValue) {
-                        let instructionsVC = CreateSafeWithSocialIntroViewController()
-                        instructionsVC.chain = chain
-                        selectNetworkVC?.show(instructionsVC, sender: selectNetworkVC)
-                    } else {
-                        let instructionsVC = CreateSafeInstructionsViewController()
-                        instructionsVC.chain = chain
-                        instructionsVC.onClose = { [weak self] in
-                            self?.dismiss(animated: true, completion: nil)
-                        }
-
-                        selectNetworkVC?.show(instructionsVC, sender: selectNetworkVC)
+                    let instructionsVC = CreateSafeInstructionsViewController()
+                    instructionsVC.chain = chain
+                    instructionsVC.onClose = { [weak self] in
+                        self?.dismiss(animated: true, completion: nil)
                     }
+
+                    selectNetworkVC?.show(instructionsVC, sender: selectNetworkVC)
                 }
                 let vc = ViewControllerFactory.modal(viewController: selectNetworkVC, largeTitles: true)
                 self?.present(vc, animated: true)
