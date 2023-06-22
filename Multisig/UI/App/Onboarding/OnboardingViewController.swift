@@ -100,7 +100,7 @@ class OnboardingViewController: UIViewController {
                 instructionsVC.dismiss(animated: true, completion: nil)
                 self?.completion()
             }
-            selectNetworkVC?.show(instructionsVC, sender: self)
+            selectNetworkVC?.show(instructionsVC, sender: self) 
         }
         let vc = ViewControllerFactory.modal(viewController: selectNetworkVC, largeTitles: true)
         present(vc, animated: true)
