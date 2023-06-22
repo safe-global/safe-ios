@@ -31,7 +31,7 @@ class InfoView: UINibView {
         if let status = status {
             set(status: status)
         }
-        
+
         layoutIfNeeded()
     }
 
