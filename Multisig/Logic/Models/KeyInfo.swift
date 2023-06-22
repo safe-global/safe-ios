@@ -167,8 +167,14 @@ extension KeyInfo {
     ///   - address: address of the imported key
     ///   - name: name of the imported key
     ///   - privateKey: private key to save
+    ///   - type: type of the key
+    ///   - email: email used for creating the key
     @discardableResult
-    static func `import`(address: Address, name: String, privateKey: PrivateKey, type: KeyType) throws -> KeyInfo {
+    static func `import`(address: Address,
+                         name: String,
+                         privateKey: PrivateKey,
+                         type: KeyType,
+                         email: String? = nil) throws -> KeyInfo {
         let context = App.shared.coreDataStack.viewContext
 
         let fr = KeyInfo.fetchRequest().by(address: address)
@@ -185,6 +191,9 @@ extension KeyInfo {
         item.keyID = privateKey.id
         item.keyType = type
         item.backedup = false
+        if let email = email {
+            item.metadata = try! JSONEncoder().encode(email)
+        }
 
         item.save()
         try privateKey.save()
