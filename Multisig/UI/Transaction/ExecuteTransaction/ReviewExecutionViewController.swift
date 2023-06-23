@@ -521,7 +521,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         }
 
         switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated:
+        case .deviceImported, .deviceGenerated, .web3AuthApple, .web3AuthGoogle:
             do {
                 let txHash = controller.hashForSigning()
 
@@ -552,7 +552,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
                 chain: chain
             )
 
-            sendTxVC.onSuccess = { [weak self, weak sendTxVC] txHashData in
+            sendTxVC.onSuccess = { [weak self] txHashData in
                 guard let self = self else { return }
                 self.controller.didSubmitTransaction(txHash: Eth.Hash(txHashData))
                 self.didSubmitSuccess()

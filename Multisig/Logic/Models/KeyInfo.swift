@@ -18,6 +18,12 @@ enum KeyType: Int, CaseIterable {
     case walletConnect = 2
     case ledgerNanoX = 3
     case keystone = 4
+    case web3AuthApple = 5
+    case web3AuthGoogle = 6
+
+    static var privateKeyTypes: [KeyType] {
+        [.deviceImported, .deviceGenerated, .web3AuthApple, .web3AuthGoogle ]
+    }
 }
 
 extension KeyInfo {
@@ -161,8 +167,14 @@ extension KeyInfo {
     ///   - address: address of the imported key
     ///   - name: name of the imported key
     ///   - privateKey: private key to save
+    ///   - type: type of the key
+    ///   - email: email used for creating the key
     @discardableResult
-    static func `import`(address: Address, name: String, privateKey: PrivateKey) throws -> KeyInfo {
+    static func `import`(address: Address,
+                         name: String,
+                         privateKey: PrivateKey,
+                         type: KeyType,
+                         email: String? = nil) throws -> KeyInfo {
         let context = App.shared.coreDataStack.viewContext
 
         let fr = KeyInfo.fetchRequest().by(address: address)
@@ -177,8 +189,11 @@ extension KeyInfo {
         item.address = address
         item.name = name
         item.keyID = privateKey.id
-        item.keyType = privateKey.mnemonic == nil ? .deviceImported : .deviceGenerated
+        item.keyType = type
         item.backedup = false
+        if let email = email {
+            item.metadata = try! JSONEncoder().encode(email)
+        }
 
         item.save()
         try privateKey.save()
@@ -324,7 +339,7 @@ extension KeyInfo {
     /// Will delete the key info and the stored private key
     /// - Throws: in case of underlying error
     func delete(authenticate: Bool = true, completion: ((Result<Bool, Error>) -> ())? = nil) {
-        if let keyID = keyID, keyType == .deviceImported || keyType == .deviceGenerated {
+        if let keyID = keyID, KeyType.privateKeyTypes.contains(keyType) {
             PrivateKey.remove(id: keyID, authenticate: authenticate) { [unowned self] result in
                 if (try? result.get()) == true {
                     App.shared.coreDataStack.viewContext.delete(self)

@@ -111,7 +111,7 @@ enum KeyConnectionStatus {
 
     init(keyInfo: KeyInfo, chainID: String?) {
         switch keyInfo.keyType {
-        case .deviceGenerated, .deviceImported, .ledgerNanoX, .keystone:
+        case .deviceGenerated, .deviceImported, .ledgerNanoX, .keystone, .web3AuthApple, .web3AuthGoogle:
             self = .none
         case .walletConnect:
             if keyInfo.connectedAsDapp {
