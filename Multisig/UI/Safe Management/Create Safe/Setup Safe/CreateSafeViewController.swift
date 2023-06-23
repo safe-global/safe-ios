@@ -827,7 +827,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         guard let keyInfo = uiModel.selectedKey else { return }
 
         switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated:
+        case .deviceImported, .deviceGenerated, .web3AuthApple, .web3AuthGoogle:
             let txHash = uiModel.transaction.hashForSigning().storage.storage
 
             keyInfo.privateKey { [unowned self] result in

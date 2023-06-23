@@ -147,12 +147,12 @@ class DelegateKeyController {
         let hexMessage = message.toHexStringWithPrefix()
         let chain = try? Safe.getSelected()?.chain ?? Chain.mainnetChain()
         switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated:
+        case .deviceImported, .deviceGenerated, .web3AuthApple, .web3AuthGoogle:
             guard let message = try? HashString(hex: hexMessage) else {
                 completion(.failure(GSError.AddDelegateKeyCancelled()))
                 return
             }
-            Wallet.shared.sign(hash: message, keyInfo: keyInfo) { [unowned self] result in
+            Wallet.shared.sign(hash: message, keyInfo: keyInfo) { result in
                 do {
                     let signature = try result.get()
                     completion(.success(Data(hex: signature.hexadecimal)))
