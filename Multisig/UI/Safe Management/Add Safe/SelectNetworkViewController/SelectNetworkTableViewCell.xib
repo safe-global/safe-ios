@@ -19,16 +19,16 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eLG-fU-8DQ">
-                        <rect key="frame" x="16" y="4" width="392" height="103"/>
+                        <rect key="frame" x="16" y="4" width="392" height="84"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="KbO-9c-OY3">
-                                <rect key="frame" x="16" y="12" width="360" height="79"/>
+                                <rect key="frame" x="16" y="12" width="360" height="60"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SP4-Wo-uRj">
-                                        <rect key="frame" x="0.0" y="0.0" width="360" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="360" height="60"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-bullet-point" translatesAutoresizingMaskIntoConstraints="NO" id="SU1-7O-LVH">
-                                                <rect key="frame" x="0.0" y="8" width="24" height="24"/>
+                                                <rect key="frame" x="0.0" y="18" width="24" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="24" id="Nj3-Wa-skd"/>
                                                     <constraint firstAttribute="width" secondItem="SU1-7O-LVH" secondAttribute="height" id="St8-ea-BZl"/>
@@ -44,7 +44,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="e7n-8b-KlS">
-                                                <rect key="frame" x="330" y="0.0" width="30" height="40"/>
+                                                <rect key="frame" x="330" y="0.0" width="30" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="30" id="Lbu-Q6-ywh"/>
                                                 </constraints>
@@ -63,8 +63,8 @@
                                             <constraint firstItem="e7n-8b-KlS" firstAttribute="centerY" secondItem="SP4-Wo-uRj" secondAttribute="centerY" id="xDc-Gt-2IY"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vM8-Im-XUh" customClass="InfoBoxView" customModule="Multisig" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="48" width="360" height="31"/>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vM8-Im-XUh" customClass="InfoBoxView" customModule="Multisig" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="360" height="0.0"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
                                 </subviews>
