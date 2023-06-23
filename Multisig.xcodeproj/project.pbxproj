@@ -228,6 +228,9 @@
 		04F8041329A68386007CFF40 /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F8041229A68386007CFF40 /* Proposal.swift */; };
 		04FA1A2E2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */; };
 		04FA1A342580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */; };
+		04FA9CCE2A45C7520027F315 /* SafeActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA9CCC2A45C7520027F315 /* SafeActionViewController.swift */; };
+		04FA9CCF2A45C7520027F315 /* SafeActionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04FA9CCD2A45C7520027F315 /* SafeActionViewController.xib */; };
+		04FA9CD12A45F7170027F315 /* CreateSafeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FA9CD02A45F7170027F315 /* CreateSafeFlow.swift */; };
 		04FC26B625CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FC26B425CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift */; };
 		04FEFE7C28C5FD570028A349 /* LegalDisclaimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FEFE7A28C5FD570028A349 /* LegalDisclaimerViewController.swift */; };
 		04FEFE7D28C5FD570028A349 /* LegalDisclaimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04FEFE7B28C5FD570028A349 /* LegalDisclaimerViewController.xib */; };
@@ -1240,6 +1243,9 @@
 		04F8041229A68386007CFF40 /* Proposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proposal.swift; sourceTree = "<group>"; };
 		04FA1A2D2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueuedTransactionsSummaryListRequest.swift; sourceTree = "<group>"; };
 		04FA1A332580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionsSummaryListRequest.swift; sourceTree = "<group>"; };
+		04FA9CCC2A45C7520027F315 /* SafeActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeActionViewController.swift; sourceTree = "<group>"; };
+		04FA9CCD2A45C7520027F315 /* SafeActionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SafeActionViewController.xib; sourceTree = "<group>"; };
+		04FA9CD02A45F7170027F315 /* CreateSafeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSafeFlow.swift; sourceTree = "<group>"; };
 		04FC26B425CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSafeSettingsViewController.swift; sourceTree = "<group>"; };
 		04FEFE7A28C5FD570028A349 /* LegalDisclaimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalDisclaimerViewController.swift; sourceTree = "<group>"; };
 		04FEFE7B28C5FD570028A349 /* LegalDisclaimerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LegalDisclaimerViewController.xib; sourceTree = "<group>"; };
@@ -3134,6 +3140,9 @@
 				045769FC27C7DBBF00881206 /* SafeDeployingViewController.xib */,
 				041E10DD2A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.swift */,
 				041E10DE2A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.xib */,
+				04FA9CCC2A45C7520027F315 /* SafeActionViewController.swift */,
+				04FA9CCD2A45C7520027F315 /* SafeActionViewController.xib */,
+				04FA9CD02A45F7170027F315 /* CreateSafeFlow.swift */,
 			);
 			path = "Create Safe";
 			sourceTree = "<group>";
@@ -4759,6 +4768,7 @@
 				55BCFC68255469C200020CE7 /* BasicHeaderView.xib in Resources */,
 				04D1322E25E41E560032FA03 /* RejectionCreatedPiece.xib in Resources */,
 				04D1309D25E2BB830032FA03 /* RejectionConfirmationViewController.xib in Resources */,
+				04FA9CCF2A45C7520027F315 /* SafeActionViewController.xib in Resources */,
 				0455A43227204A5B008B772D /* CreateAddressBookEntryViewController.xib in Resources */,
 				048B3B0F25A5E7AB0005219B /* EditSafeNameViewController.xib in Resources */,
 				0AE8C0572579328800E62B34 /* ExternalURLCell.xib in Resources */,
@@ -5225,6 +5235,7 @@
 				0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */,
 				93EF2FA327C546330077BE95 /* InstructionsViewController.swift in Sources */,
 				04FA1A2E2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift in Sources */,
+				04FA9CCE2A45C7520027F315 /* SafeActionViewController.swift in Sources */,
 				0AF2733F24DAC9FE007E4012 /* RemoteNotificationHandler.swift in Sources */,
 				0A35D6C828C66ADA00D5AB06 /* ClaimSplashViewController.swift in Sources */,
 				6A91EFD727DA0604009E63E9 /* WCRegistryController.swift in Sources */,
@@ -5489,6 +5500,7 @@
 				D8A6B12D2779D01900438460 /* AdvancedParametersViewController.swift in Sources */,
 				0A864D282835563D00AE1B36 /* UIFlow.swift in Sources */,
 				04576A0227C8F26100881206 /* CDEthTransaction.swift in Sources */,
+				04FA9CD12A45F7170027F315 /* CreateSafeFlow.swift in Sources */,
 				938D327028C8808D00198B7E /* NavigatingDAOViewController.swift in Sources */,
 				043350B92816D522003725E2 /* ReviewSafeTransactionViewController.swift in Sources */,
 				0AC3FBF22936156F0003255F /* KeychainStore.swift in Sources */,
