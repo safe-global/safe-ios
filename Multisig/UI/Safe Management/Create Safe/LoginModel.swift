@@ -2,30 +2,11 @@ import Foundation
 import CustomAuth
 import UIKit
 
-class LoginModel: ObservableObject {
-    @Published var loggedIn: Bool = false
-    @Published var isLoading = false
-    @Published var navigationTitle: String = ""
-    @Published var userData: [String: Any]!
-
+class LoginModel {
     var onClose: () -> Void
 
     init(onClose: @escaping () -> Void) {
         self.onClose = onClose
-    }
-    
-    func setup() async {
-        await MainActor.run(body: {
-            isLoading = true
-            navigationTitle = "Loading"
-        })
-        await MainActor.run(body: {
-            if self.userData != nil {
-                loggedIn = true
-            }
-            isLoading = false
-            navigationTitle = loggedIn ? "UserInfo" : "SignIn"
-        })
     }
 
     func loginWithCustomAuth(caller: UIViewController) {
@@ -44,11 +25,7 @@ class LoginModel: ObservableObject {
             )
             let data = try await tdsdk.triggerLogin(controller: caller)
             await MainActor.run(body: {
-                self.userData = data
-                //dump(data, name: "Data ")
-                print("privateKey: \(userData["privateKey"] ?? "foo")")
-                loggedIn = true
-
+                print("privateKey: \(data["privateKey"] ?? "foo")")
                 onClose()
                 caller.closeModal()
             })
