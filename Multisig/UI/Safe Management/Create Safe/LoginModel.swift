@@ -8,8 +8,12 @@ class LoginModel: ObservableObject {
     @Published var navigationTitle: String = ""
     @Published var userData: [String: Any]!
 
-//    var onClose: @escaping () -> Void
+    var onClose: () -> Void
 
+    init(onClose: @escaping () -> Void) {
+        self.onClose = onClose
+    }
+    
     func setup() async {
         await MainActor.run(body: {
             isLoading = true
@@ -45,7 +49,7 @@ class LoginModel: ObservableObject {
                 dump(data, name: "Data ")
                 loggedIn = true
 
-//                onClose()
+                onClose()
                 caller.closeModal()
             })
         }
