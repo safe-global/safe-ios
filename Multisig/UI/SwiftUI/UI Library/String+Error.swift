@@ -6,10 +6,10 @@
 //  Copyright © 2023 Gnosis Ltd. All rights reserved.
 //
 
-//import Foundation
-//
-//extension String: LocalizedError {
-//    public var errorDescription: String? {
-//        self
-//    }
-//}
+import Foundation
+
+extension String: LocalizedError {
+    public var errorDescription: String? {
+        self
+    }
+}

@@ -104,7 +104,7 @@ class MainTabBarViewController: UITabBarController {
             name: .passcodeDeleted,
             object: nil)
 
-        WebConnectionController.shared.attach(observer: self)        
+        WebConnectionController.shared.attach(observer: self)
     }
 
     deinit {
