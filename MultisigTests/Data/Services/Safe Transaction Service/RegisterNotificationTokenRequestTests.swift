@@ -18,7 +18,7 @@ class RegisterNotificationTokenRequestTests: XCTestCase {
 
     func testSignWithPrivateKey() throws {
         let key = try PrivateKey(data: Data(hex: "0xe7979e5f2ceb1d4ef76019d1fdba88b50ceefe0575bbfdf94969837c50a5d895"))
-        let keyInfo = try KeyInfo.import(address: key.address, name: "Key 1", privateKey: key)
+        let keyInfo = try KeyInfo.import(address: key.address, name: "Key 1", privateKey: key, type: .deviceImported)
 
         // Create delegate key
         let mnemonic = "display bless asset brother fish sauce lyrics grit friend online tumble useless"
@@ -41,7 +41,7 @@ class RegisterNotificationTokenRequestTests: XCTestCase {
         // test vector from requirements doc
         let mnemonic = "display bless asset brother fish sauce lyrics grit friend online tumble useless"
         let key = try PrivateKey(mnemonic: mnemonic, pathIndex: 0)
-        let keyInfo = try KeyInfo.import(address: key.address, name: "Key 2", privateKey: key)
+        let keyInfo = try KeyInfo.import(address: key.address, name: "Key 2", privateKey: key, type: .deviceImported)
 
         // Create delegate key
         let delegateKey = try PrivateKey(data: Data(hex: "0xe7979e5f2ceb1d4ef76019d1fdba88b50ceefe0575bbfdf94969837c50a5d895"))

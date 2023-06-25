@@ -39,6 +39,8 @@ class CreateSafeWithSocialIntroViewController: UIViewController {
                                    underlined: false)
     }
 
+    @IBAction func appleButtonTouched(_ sender: Any) {
+    }
 
     @IBAction private func addressButtonTouched(_ sender: Any) {
         let instructionsVC = CreateSafeInstructionsViewController()
@@ -48,6 +50,10 @@ class CreateSafeWithSocialIntroViewController: UIViewController {
 
     @IBAction private func googleButtonTouched(_ sender: Any) {
         let loginModel = LoginModel()
+        //let view = SafeCreatingViewController()
+        // show(view, sender: self)
+        //loginModel.setOnClose(view)
         loginModel.loginWithCustomAuth(caller: self)
+
     }
 }

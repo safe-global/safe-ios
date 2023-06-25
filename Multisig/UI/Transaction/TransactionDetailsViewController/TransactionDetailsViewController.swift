@@ -341,7 +341,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         transaction.chainId = chainId
 
         switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated:
+        case .deviceImported, .deviceGenerated, .web3AuthApple, .web3AuthGoogle:
             Wallet.shared.sign(transaction, keyInfo: keyInfo) { [unowned self] result in
                 do {
                     let signature = try result.get()

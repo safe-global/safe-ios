@@ -182,7 +182,7 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
         }
 
         switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated:
+        case .deviceImported, .deviceGenerated, .web3AuthApple, .web3AuthGoogle:
             do {
                 guard let pk = try keyInfo.privateKey() else {
                     App.shared.snackbar.show(message: "Private key not available")

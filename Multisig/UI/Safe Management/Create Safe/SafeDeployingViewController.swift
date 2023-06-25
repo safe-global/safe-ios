@@ -35,7 +35,7 @@ class SafeDeployingViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .selectedSafeChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .selectedSafeUpdated, object: nil)
 
-        animationView.animation = LottieAnimation.named(isDarkMode ? "safeCreation" : "safeCreationDark", animationCache: nil)
+        animationView.animation = LottieAnimation.named(isDarkMode ? "safeCreationDark" : "safeCreation", animationCache: nil)
         animationView.contentMode = .scaleAspectFit
         animationView.loopMode = .loop
         animationView.play()

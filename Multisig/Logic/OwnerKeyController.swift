@@ -19,20 +19,36 @@ class OwnerKeyController {
         return key
     }
 
-    static func importKey(_ privateKey: PrivateKey, name: String, isDrivedFromSeedPhrase: Bool) -> Bool {
+    static func importKey(_ privateKey: PrivateKey,
+                          name: String,
+                          type: KeyType,
+                          isDerivedFromSeedPhrase: Bool) -> Bool {
         do {
+            guard KeyType.privateKeyTypes.contains(type) else {
+                App.shared.snackbar.show(error: GSError.error(description: "Could not import signing key."))
+                return false
+            }
 
-            try KeyInfo.import(address: privateKey.address, name: name, privateKey: privateKey)
+            try KeyInfo.import(address: privateKey.address, name: name, privateKey: privateKey, type: type)
 
             App.shared.notificationHandler.signingKeyUpdated()
 
-            if privateKey.mnemonic != nil { // generating key on mobile
-                Tracker.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
-                Tracker.trackEvent(.ownerKeyGenerated)
-            } else { // importing key
+            switch type {
+            case .deviceImported:
                 Tracker.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
                 Tracker.trackEvent(.ownerKeyImported,
-                                   parameters: ["import_type": isDrivedFromSeedPhrase ? "seed" : "key"])
+                                   parameters: ["import_type": isDerivedFromSeedPhrase ? "seed" : "key"])
+            case .deviceGenerated:
+                Tracker.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
+                Tracker.trackEvent(.ownerKeyGenerated)
+            case .web3AuthApple:
+                Tracker.setNumKeys(KeyInfo.count(.web3AuthApple), type: .web3AuthApple)
+                Tracker.trackEvent(.web3AuthKeyApple)
+            case .web3AuthGoogle:
+                Tracker.setNumKeys(KeyInfo.count(.web3AuthGoogle), type: .web3AuthGoogle)
+                Tracker.trackEvent(.web3AuthKeyGoogle)
+            default:
+                break
             }
 
             NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
@@ -207,9 +223,9 @@ class OwnerKeyController {
             try KeyInfo.import(
                 address: legacyKey.address,
                 name: existingKeyInfoOrNil?.name ?? defaultName,
-                privateKey: updatedKey)
+                privateKey: updatedKey, type: .deviceImported)
 
-            try legacyKey.remove()
+            legacyKey.remove()
         } catch {
             // silence any warnings because this should run in a stealth mode
             LogService.shared.error("Failed to migrate legacy key: \(error)")
@@ -235,7 +251,7 @@ class OwnerKeyController {
             }
 
             // delete all device key infos with private keys that are missing
-            let keyInfoToDelete = try KeyInfo.keys(types: [.deviceImported, .deviceGenerated]).filter { info in
+            let keyInfoToDelete = try KeyInfo.keys(types: KeyType.privateKeyTypes).filter { info in
                 let shouldDelete: Bool
                 do {
                     let keyOrNil = try info.privateKey()
@@ -268,6 +284,10 @@ class OwnerKeyController {
         Tracker.setNumKeys(KeyInfo.count(.deviceGenerated), type: .deviceGenerated)
         Tracker.setNumKeys(KeyInfo.count(.deviceImported), type: .deviceImported)
         Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
+        Tracker.setNumKeys(KeyInfo.count(.ledgerNanoX), type: .ledgerNanoX)
+        Tracker.setNumKeys(KeyInfo.count(.keystone), type: .keystone)
+        Tracker.setNumKeys(KeyInfo.count(.web3AuthApple), type: .web3AuthApple)
+        Tracker.setNumKeys(KeyInfo.count(.web3AuthGoogle), type: .web3AuthGoogle)
         NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
     }
 }

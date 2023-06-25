@@ -190,7 +190,10 @@ extension Tracker {
             Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numKeysLedgerNanoX)
         case .keystone:
             Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numKeysKeystone)
-            break
+        case .web3AuthApple:
+            Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numKeysWeb3AuthApple)
+        case .web3AuthGoogle:
+            Tracker.shared.setUserProperty("\(count)", for: TrackingUserProperty.numKeysWeb3AuthGoogle)
         }
     }
 
