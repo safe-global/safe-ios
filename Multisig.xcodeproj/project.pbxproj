@@ -192,7 +192,6 @@
 		04C22B322A36807500F58A15 /* Web3ContractABI in Frameworks */ = {isa = PBXBuildFile; productRef = 04C22B312A36807500F58A15 /* Web3ContractABI */; };
 		04C22B342A36807500F58A15 /* Web3PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 04C22B332A36807500F58A15 /* Web3PromiseKit */; };
 		04C22B362A36811200F58A15 /* SafeWeb3 in Frameworks */ = {isa = PBXBuildFile; productRef = 04C22B352A36811200F58A15 /* SafeWeb3 */; };
-		04C22B852A3B25A900F58A15 /* String+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C22B842A3B25A900F58A15 /* String+Error.swift */; };
 		04C5DF6B26FB451B0072476C /* KeyTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C5DF6926FB451B0072476C /* KeyTypeTableViewCell.swift */; };
 		04C5DF6C26FB451B0072476C /* KeyTypeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C5DF6A26FB451B0072476C /* KeyTypeTableViewCell.xib */; };
 		04C5ED3A27878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C5ED3827878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift */; };
@@ -1209,7 +1208,6 @@
 		04B4B6E325B9A08D00CFE24B /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
 		04B4B6E425B9A08D00CFE24B /* CardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardTableViewCell.xib; sourceTree = "<group>"; };
 		04B964402734427D00A21EE9 /* ChainSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainSettingsTableViewController.swift; sourceTree = "<group>"; };
-		04C22B842A3B25A900F58A15 /* String+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Error.swift"; sourceTree = "<group>"; };
 		04C5DF6926FB451B0072476C /* KeyTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyTypeTableViewCell.swift; sourceTree = "<group>"; };
 		04C5DF6A26FB451B0072476C /* KeyTypeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyTypeTableViewCell.xib; sourceTree = "<group>"; };
 		04C5ED3827878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAdvancedParametersUITableViewCell.swift; sourceTree = "<group>"; };
@@ -3264,7 +3262,6 @@
 				55B66E8A247FE0F500249E98 /* Overlays */,
 				0AF432D4244F063800E22E50 /* Styleguide */,
 				0A9BC3432460514B00EB9C5D /* Text */,
-				04C22B842A3B25A900F58A15 /* String+Error.swift */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -4733,7 +4730,7 @@
 				0497B2A629A63A3E007109ED /* XCRemoteSwiftPackageReference "Starscream" */,
 				0497B2AB29A641C9007109ED /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
 				04C22B2B2A367FF800F58A15 /* XCRemoteSwiftPackageReference "customauth-swift-sdk" */,
-				04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3.swift" */,
+				04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -5411,7 +5408,6 @@
 				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,
 				0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */,
 				043963832704E25800018F74 /* AdvancedTransactionDetailsViewController.swift in Sources */,
-				04C22B852A3B25A900F58A15 /* String+Error.swift in Sources */,
 				0AADCDC82859BA9F00A0139B /* RequestAddOwnerViewController.swift in Sources */,
 				0A8CDD4627A5A5C70020066C /* CreateSafeViewController.swift in Sources */,
 				0A4F44542754DE3D00423ABB /* GetDelegateRequest.swift in Sources */,
@@ -7126,7 +7122,7 @@
 				minimumVersion = 6.0.0;
 			};
 		};
-		04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3.swift" */ = {
+		04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/safe-global/SafeWeb3.swift";
 			requirement = {
@@ -7336,22 +7332,22 @@
 		};
 		04C22B2F2A36807500F58A15 /* SafeWeb3 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3.swift" */;
+			package = 04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3" */;
 			productName = SafeWeb3;
 		};
 		04C22B312A36807500F58A15 /* Web3ContractABI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3.swift" */;
+			package = 04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3" */;
 			productName = Web3ContractABI;
 		};
 		04C22B332A36807500F58A15 /* Web3PromiseKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3.swift" */;
+			package = 04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3" */;
 			productName = Web3PromiseKit;
 		};
 		04C22B352A36811200F58A15 /* SafeWeb3 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3.swift" */;
+			package = 04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3" */;
 			productName = SafeWeb3;
 		};
 		0A0C094B287D7D48000CEB4F /* WalletConnectSwift */ = {
