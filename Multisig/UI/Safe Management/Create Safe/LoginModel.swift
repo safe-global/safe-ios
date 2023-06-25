@@ -32,13 +32,12 @@ class LoginModel: ObservableObject {
         Task {
             let sub = SubVerifierDetails(loginType: .web,
                                          loginProvider: .google,
-                                         clientId: "443535743496-p5quu0qi2c81ceq42dgubmjgmhokovq5.apps.googleusercontent.com", // web
-                                         verifier: "google-web-prod-mainnet",
-                                         redirectURL: "https://safe-wallet-web.staging.5afe.dev/web3auth/"
-
+                                         clientId: App.configuration.web3auth.googleClientId,
+                                         verifier: App.configuration.web3auth.googleVerifier,
+                                         redirectURL: App.configuration.web3auth.redirectUrl
             )
             let tdsdk = CustomAuth(aggregateVerifierType: .singleLogin,
-                                   aggregateVerifier: "google-web-prod-mainnet",
+                                   aggregateVerifier: App.configuration.web3auth.googleVerifier,
                                    subVerifierDetails: [sub],
                                    network: .CYAN,
                                    loglevel: .debug
@@ -46,7 +45,8 @@ class LoginModel: ObservableObject {
             let data = try await tdsdk.triggerLogin(controller: caller)
             await MainActor.run(body: {
                 self.userData = data
-                dump(data, name: "Data ")
+                //dump(data, name: "Data ")
+                print("privateKey: \(userData["privateKey"] ?? "foo")")
                 loggedIn = true
 
                 onClose()

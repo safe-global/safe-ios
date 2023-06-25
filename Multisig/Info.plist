@@ -284,5 +284,11 @@ DMSans-Regular.ttf</string>
 	<string>$(CLAIM_PROPOSE_URL)</string>
 	<key>CLAIM_CHAT_URL</key>
 	<string>$(CLAIM_CHAT_URL)</string>
+	<key>WEB3AUTH_GOOGLE_CLIENT_ID</key>
+	<string>$(WEB3AUTH_GOOGLE_CLIENT_ID)</string>
+	<key>WEB3AUTH_GOOGLE_VERIFIER</key>
+	<string>$(WEB3AUTH_GOOGLE_VERIFIER)</string>
+	<key>WEB3AUTH_REDIRECT_URL</key>
+	<string>$(WEB3AUTH_REDIRECT_URL)</string>
 </dict>
 </plist>

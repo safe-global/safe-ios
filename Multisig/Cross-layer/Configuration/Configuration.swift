@@ -176,6 +176,17 @@ struct AppConfiguration {
         var chatURL: URL
     }
 
+    struct Web3Auth {
+        @ConfigurationKey("WEB3AUTH_GOOGLE_CLIENT_ID")
+        var googleClientId: String
+
+        @ConfigurationKey("WEB3AUTH_GOOGLE_VERIFIER")
+        var googleVerifier: String
+
+        @ConfigurationKey("WEB3AUTH_REDIRECT_URL")
+        var redirectUrl: String
+    }
+
     let services = Services()
     let help = Help()
     let legal = Legal()
@@ -183,4 +194,5 @@ struct AppConfiguration {
     let app = App()
     let walletConnect = WalletConnect()
     let claim = Claim()
+    let web3auth = Web3Auth()
 }
