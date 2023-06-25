@@ -2,11 +2,15 @@ import Foundation
 import CustomAuth
 import UIKit
 
-class LoginModel {
+class GoogleWeb3AuthLoginModel {
     var onClose: () -> Void
 
     init(onClose: @escaping () -> Void) {
         self.onClose = onClose
+    }
+
+    static func isValid(url: String) -> Bool {
+        url.starts(with: App.configuration.web3auth.redirectUrl)
     }
 
     func loginWithCustomAuth(caller: UIViewController) {
@@ -31,5 +35,4 @@ class LoginModel {
             })
         }
     }
-
 }

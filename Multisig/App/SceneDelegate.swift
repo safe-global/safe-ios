@@ -36,13 +36,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         guard let _ = (scene as? UIWindowScene) else { return }
 
-        if let userActivity = connectionOptions.userActivities.first {
-            LogService.shared.debug("userActivity: \(userActivity.webpageURL)")
-
-            CustomAuth.handle(url: userActivity.webpageURL!)
-        }
-
-
 #if DEBUG
         guard UIApplication.shared.delegate is AppDelegate else {
             // assume we're in a testing mode, so exit any further configuration
@@ -143,9 +136,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
-
-        LogService.shared.debug("userActivity: \(userActivity.webpageURL)")
-        CustomAuth.handle(url: userActivity.webpageURL!)
+       // CustomAuth.handle(url: userActivity.webpageURL!)
 
 #if DEBUG
         guard UIApplication.shared.delegate is AppDelegate else {
@@ -165,6 +156,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     //   - 'open' link to move the app to foreground so that it is able to process WalletConnect request or response.
     // - Request To Add Owner
     //   - <web app url>/<network:safe_address>/addOwner?address=<owner_address>
+    // - Web3auth
+    //   - handled by CustomAuth.handle()
     private func handleUserActivity(_ userActivity: NSUserActivity) {
         // Get URL components from the incoming user activity.
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
@@ -190,6 +183,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
            let params = AddOwnerRequestValidator.parameters(from: incomingURL) {
             DefaultNavigationRouter.shared.navigate(to: .requestToAddOwner(params))
             return
+        }
+
+        // Handle Web3Auth redirect
+        if GoogleWeb3AuthLoginModel.isValid(url: incomingURL.absoluteString) {
+            CustomAuth.handle(url: incomingURL)
         }
 
         if let navigationRoute = DefaultNavigationRouter.shared.routeFrom(from: incomingURL) {

@@ -18,6 +18,8 @@ class SafeCreatingViewController: UIViewController {
     @IBOutlet weak var infoView2: InfoView!
     @IBOutlet weak var infoView1: InfoView!
 
+    var privateKey: String!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

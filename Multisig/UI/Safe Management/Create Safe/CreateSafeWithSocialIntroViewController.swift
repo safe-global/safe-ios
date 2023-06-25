@@ -49,12 +49,11 @@ class CreateSafeWithSocialIntroViewController: UIViewController {
     }
 
     @IBAction private func googleButtonTouched(_ sender: Any) {
-        let loginModel = LoginModel(onClose: {
+        let loginModel = GoogleWeb3AuthLoginModel {
             let view = SafeCreatingViewController()
             self.show(view, sender: self)
-        })
+        }
 
         loginModel.loginWithCustomAuth(caller: self)
-
     }
 }
