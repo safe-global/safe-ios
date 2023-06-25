@@ -24,19 +24,17 @@ class LoginModel: ObservableObject {
 
     func loginWithCustomAuth(caller: UIViewController) {
         Task {
-            let sub = SubVerifierDetails(loginType: .web, // .installed,
-//                                         loginProvider: .apple,
+            let sub = SubVerifierDetails(loginType: .web,
                                          loginProvider: .google,
-//                                         clientId: "500572929132-57dbeqrtq84m5oibve186vfmdd6p5rmh.apps.googleusercontent.com", // ios
-                                         clientId: "500572929132-4735prr2svs7qphpmgdu5bgcvq3cdkr4.apps.googleusercontent.com", // web
-                                         verifier: "test-custom-web-safe",
+                                         clientId: "443535743496-p5quu0qi2c81ceq42dgubmjgmhokovq5.apps.googleusercontent.com", // web
+                                         verifier: "google-web-prod-mainnet",
                                          redirectURL: "https://safe-wallet-web.staging.5afe.dev/web3auth/"
 
             )
             let tdsdk = CustomAuth(aggregateVerifierType: .singleLogin,
-                                   aggregateVerifier: "test-custom-web-safe",
+                                   aggregateVerifier: "google-web-prod-mainnet",
                                    subVerifierDetails: [sub],
-                                   network: .TESTNET,
+                                   network: .CYAN,
                                    loglevel: .debug
             )
             let data = try await tdsdk.triggerLogin(controller: caller)
@@ -45,14 +43,7 @@ class LoginModel: ObservableObject {
                 dump(data, name: "Data ")
                 loggedIn = true
 
-                // TODO remember private key
-
-                //TODO Close sheet here
-
                 caller.closeModal()
-
-
-
             })
         }
     }
