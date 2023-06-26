@@ -48,7 +48,6 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
         tableView.delegate = self
         tableView.dataSource = self
         navigationItem.title = screenTitle
-        navigationItem.largeTitleDisplayMode = .always
         emptyView.setText("Networks will appear here")
     }
 

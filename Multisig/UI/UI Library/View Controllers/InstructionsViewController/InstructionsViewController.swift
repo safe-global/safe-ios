@@ -21,7 +21,8 @@ class InstructionsViewController: UIViewController, UITableViewDelegate, UITable
 
     var onClose: () -> Void = {}
     var steps: [Step] = []
-    var chain: SCGModels.Chain?
+    var chain: Chain?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,8 +46,9 @@ class InstructionsViewController: UIViewController, UITableViewDelegate, UITable
         let createSafeVC = CreateSafeViewController()
         createSafeVC.onClose = onClose
         if let chain = chain {
-            createSafeVC.chain = Chain.createOrUpdate(chain)
+            createSafeVC.chain = chain
         }
+        
         show(createSafeVC, sender: self)
     }
     

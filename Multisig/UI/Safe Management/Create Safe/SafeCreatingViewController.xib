@@ -25,9 +25,13 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tHf-T2-TLm" customClass="LottieAnimationView" customModule="Lottie">
-                    <rect key="frame" x="76" y="160" width="240" height="128"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tHf-T2-TLm" customClass="LottieAnimationView" customModule="Lottie">
+                    <rect key="frame" x="146.66666666666666" y="216" width="100" height="100"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="tHf-T2-TLm" secondAttribute="height" id="WHC-jJ-6la"/>
+                        <constraint firstAttribute="width" constant="100" id="oNQ-bW-o4s"/>
+                    </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zk6-bq-5Hs">
                     <rect key="frame" x="139" y="348" width="115.33333333333331" height="40.666666666666686"/>
@@ -70,7 +74,7 @@ Safe Account...</string>
             <constraints>
                 <constraint firstItem="zk6-bq-5Hs" firstAttribute="centerX" secondItem="PDd-K5-Xkc" secondAttribute="centerX" id="GtE-mc-4i2"/>
                 <constraint firstItem="PDd-K5-Xkc" firstAttribute="top" secondItem="zk6-bq-5Hs" secondAttribute="bottom" constant="24" id="IhE-BW-fC9"/>
-                <constraint firstItem="zk6-bq-5Hs" firstAttribute="top" secondItem="tHf-T2-TLm" secondAttribute="bottom" constant="40" id="MC4-mN-RMZ"/>
+                <constraint firstItem="zk6-bq-5Hs" firstAttribute="top" secondItem="tHf-T2-TLm" secondAttribute="bottom" constant="32" id="MC4-mN-RMZ"/>
                 <constraint firstItem="9Of-ON-jlc" firstAttribute="top" secondItem="PDd-K5-Xkc" secondAttribute="bottom" constant="32" id="Y14-HK-sW2"/>
                 <constraint firstItem="PDd-K5-Xkc" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="YgR-Tf-cT2"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9Of-ON-jlc" secondAttribute="trailing" constant="16" id="aZQ-lq-Buz"/>

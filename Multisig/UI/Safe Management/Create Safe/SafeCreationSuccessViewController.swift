@@ -16,6 +16,8 @@ class SafeCreationSuccessViewController: UIViewController {
     @IBOutlet private weak var continueButton: UIButton!
     @IBOutlet private weak var addressInfoView: AddressInfoView!
 
+    var safe: Safe!
+    var onContinue: () -> () = {}
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,7 +30,7 @@ class SafeCreationSuccessViewController: UIViewController {
         animationView.backgroundBehavior = .pauseAndRestore
         animationView.play()
         continueButton.setText("Continue", .filled)
-        addressInfoView.setAddress("0x1EF905613bd3ec793A2f84EbbCE6b2d372418405", label: "My Safe Account")
+        addressInfoView.setAddress(safe.addressValue, label: safe.name)
         addressInfoView.backgroundColor = .backgroundLightGreen
     }
 
@@ -43,6 +45,6 @@ class SafeCreationSuccessViewController: UIViewController {
     }
 
     @IBAction private func continueButtonTouched(_ sender: Any) {
-
+        onContinue()
     }
 }

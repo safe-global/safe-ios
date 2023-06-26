@@ -26,6 +26,7 @@ final class HeaderViewController: ContainerViewController {
     var clientGatewayService = App.shared.clientGatewayService
     var notificationCenter = NotificationCenter.default
     private var claimTokenFlow: ClaimSafeTokenFlow!
+    private var createSafeFlow: CreateSafeFlow!
 
     convenience init(rootViewController: UIViewController) {
         self.init(namedClass: nil)
@@ -108,32 +109,13 @@ final class HeaderViewController: ContainerViewController {
             }
         }
 
-        switchSafesVC.onCreateSafe = { [weak self] in
+        switchSafesVC.onCreateSafe = { [unowned self] in
             Tracker.trackEvent(.createSafeFromSwitchSafes)
-            self?.dismiss(animated: true) {
-                let selectNetworkVC = SelectNetworkViewController()
-                selectNetworkVC.showWeb2SupportHint = true
-                selectNetworkVC.screenTitle = "Select network"
-                selectNetworkVC.descriptionText = "Your Safe Account will only exist on the selected network."
-                selectNetworkVC.completion = { [weak selectNetworkVC] chain  in
-                    if chain.isSupported(feature: Chain.Feature.web3authCreateSafe.rawValue) {
-                        let instructionsVC = CreateSafeWithSocialIntroViewController()
-                        instructionsVC.chain = chain
-                        selectNetworkVC?.show(instructionsVC, sender: selectNetworkVC)
-                    } else {
-                        let instructionsVC = CreateSafeInstructionsViewController()
-                        instructionsVC.chain = chain
-                        instructionsVC.onClose = { [weak self] in
-                            self?.dismiss(animated: true, completion: nil)
-                        }
-
-                        selectNetworkVC?.show(instructionsVC, sender: selectNetworkVC)
-                    }
-                }
-                let vc = ViewControllerFactory.modal(viewController: selectNetworkVC, largeTitles: true)
-                self?.present(vc, animated: true)
-
-
+            dismiss(animated: true) { [unowned self] in
+                createSafeFlow = CreateSafeFlow(completion: { [unowned self] _ in
+                    createSafeFlow = nil
+                })
+                present(flow: createSafeFlow, dismissableOnSwipe: false)
             }
         }
 

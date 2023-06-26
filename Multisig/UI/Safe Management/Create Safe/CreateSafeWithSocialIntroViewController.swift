@@ -19,11 +19,15 @@ class CreateSafeWithSocialIntroViewController: UIViewController {
     @IBOutlet private weak var infoView2: InfoView!
     @IBOutlet private weak var infoView1: InfoView!
 
-    var chain: SCGModels.Chain!
+    var chain: Chain!
+    var onAppleAction: () -> () = {}
+    var onGoogleAction: () -> () = {}
+    var onAddressAction: () -> () = {}
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Create a Safe Account"
-        ribbonView.update(scgChain: chain)
+        ribbonView.update(chain: chain)
         orLabel.setStyle(.caption1)
         appleButton.setText("Continue with Apple ID", .filled)
         googleButton.setText("Continue with Google", .filled)
@@ -40,15 +44,14 @@ class CreateSafeWithSocialIntroViewController: UIViewController {
     }
 
     @IBAction func googleButtonTouched(_ sender: Any) {
-        let view = SafeCreatingViewController()
-        show(view, sender: self)
+        onGoogleAction()
     }
 
     @IBAction func appleButtonTouched(_ sender: Any) {
+        onAppleAction()
     }
+
     @IBAction private func addressButtonTouched(_ sender: Any) {
-        let instructionsVC = CreateSafeInstructionsViewController()
-        instructionsVC.chain = chain
-        show(instructionsVC, sender: self)
+        onAddressAction()
     }
 }
