@@ -201,11 +201,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
             cell.setInfo(nil)
         }
 
-        if let image = UIImage(named: "ico-chain-\(chain.id)") {
-            cell.setIcon(image)
-        } else {
-            cell.setIndicatorColor(hex: chain.theme.backgroundColor)
-        }
+        cell.set(UIImage(named: "ico-chain-\(chain.id)"), color: chain.theme.backgroundColor)
 
         cell.selectionStyle = .none
         

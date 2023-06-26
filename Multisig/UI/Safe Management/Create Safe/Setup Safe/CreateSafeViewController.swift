@@ -86,13 +86,16 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             uiModel.updateWithSafeCall(call: safeCreationCall)
         }
         uiModel.start()
+
+        uiModel.chain = chain
+        updateUI(model: uiModel)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.createSafeOnePage)
     }
-    
+
     // MARK: - UI Model Events
 
     func updateUI(model: CreateSafeFormUIModel) {
@@ -523,7 +526,8 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         case 0:
             let cell = tableView.dequeueCell(SelectNetworkTableViewCell.self, for: indexPath)
             cell.setText(uiModel.chain.name)
-            cell.setIndicatorColor(uiModel.chain.backgroundColor)
+            cell.set(UIImage(named: "ico-chain-\(uiModel.chain.id!)"), color: uiModel.chain.theme?.backgroundColor)
+            cell.selectionStyle = .none
             return cell
         case 1:
             let cell = helpTextCell("Safe Account will only exist on the selected network.", indexPath: indexPath)
