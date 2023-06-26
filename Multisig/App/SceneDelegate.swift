@@ -7,6 +7,7 @@
 //
 import UIKit
 import SwiftUI
+import CustomAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -150,6 +151,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     //   - 'open' link to move the app to foreground so that it is able to process WalletConnect request or response.
     // - Request To Add Owner
     //   - <web app url>/<network:safe_address>/addOwner?address=<owner_address>
+    // - Web3auth
+    //   - handled by CustomAuth.handle()
     private func handleUserActivity(_ userActivity: NSUserActivity) {
         // Get URL components from the incoming user activity.
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
@@ -174,6 +177,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if AddOwnerRequestValidator.isValid(url: incomingURL),
            let params = AddOwnerRequestValidator.parameters(from: incomingURL) {
             DefaultNavigationRouter.shared.navigate(to: .requestToAddOwner(params))
+            return
+        }
+
+        if GoogleWeb3AuthLoginModel.handle(url: incomingURL) {
             return
         }
 

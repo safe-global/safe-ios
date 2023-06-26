@@ -192,7 +192,6 @@
 		04C22B322A36807500F58A15 /* Web3ContractABI in Frameworks */ = {isa = PBXBuildFile; productRef = 04C22B312A36807500F58A15 /* Web3ContractABI */; };
 		04C22B342A36807500F58A15 /* Web3PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 04C22B332A36807500F58A15 /* Web3PromiseKit */; };
 		04C22B362A36811200F58A15 /* SafeWeb3 in Frameworks */ = {isa = PBXBuildFile; productRef = 04C22B352A36811200F58A15 /* SafeWeb3 */; };
-		04C22B852A3B25A900F58A15 /* String+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C22B842A3B25A900F58A15 /* String+Error.swift */; };
 		04C5DF6B26FB451B0072476C /* KeyTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C5DF6926FB451B0072476C /* KeyTypeTableViewCell.swift */; };
 		04C5DF6C26FB451B0072476C /* KeyTypeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C5DF6A26FB451B0072476C /* KeyTypeTableViewCell.xib */; };
 		04C5ED3A27878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C5ED3827878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift */; };
@@ -923,6 +922,7 @@
 		933526FA29D704A0003B9EE3 /* ExecutionOptionsCellBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933526F929D704A0003B9EE3 /* ExecutionOptionsCellBuilder.swift */; };
 		935DCA4C27BD14C600F09EE4 /* WebConnectionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */; };
 		93788EDC29C356F100503C1A /* DummySignerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93788EDB29C356F100503C1A /* DummySignerFactory.swift */; };
+		9388410D2A3D74E20052EB87 /* GoogleWeb3AuthLoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9388410C2A3D74E20052EB87 /* GoogleWeb3AuthLoginModel.swift */; };
 		9388B98227C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */; };
 		938D327028C8808D00198B7E /* NavigatingDAOViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D326E28C8808D00198B7E /* NavigatingDAOViewController.swift */; };
 		938D327128C8808D00198B7E /* NavigatingDAOViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 938D326F28C8808D00198B7E /* NavigatingDAOViewController.xib */; };
@@ -1211,7 +1211,6 @@
 		04B4B6E325B9A08D00CFE24B /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
 		04B4B6E425B9A08D00CFE24B /* CardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardTableViewCell.xib; sourceTree = "<group>"; };
 		04B964402734427D00A21EE9 /* ChainSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainSettingsTableViewController.swift; sourceTree = "<group>"; };
-		04C22B842A3B25A900F58A15 /* String+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Error.swift"; sourceTree = "<group>"; };
 		04C5DF6926FB451B0072476C /* KeyTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyTypeTableViewCell.swift; sourceTree = "<group>"; };
 		04C5DF6A26FB451B0072476C /* KeyTypeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyTypeTableViewCell.xib; sourceTree = "<group>"; };
 		04C5ED3827878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAdvancedParametersUITableViewCell.swift; sourceTree = "<group>"; };
@@ -1932,6 +1931,7 @@
 		933526F929D704A0003B9EE3 /* ExecutionOptionsCellBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionOptionsCellBuilder.swift; sourceTree = "<group>"; };
 		935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionDetailsViewController.swift; sourceTree = "<group>"; };
 		93788EDB29C356F100503C1A /* DummySignerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummySignerFactory.swift; sourceTree = "<group>"; };
+		9388410C2A3D74E20052EB87 /* GoogleWeb3AuthLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleWeb3AuthLoginModel.swift; sourceTree = "<group>"; };
 		9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentNotificationController.swift; sourceTree = "<group>"; };
 		938D326E28C8808D00198B7E /* NavigatingDAOViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigatingDAOViewController.swift; sourceTree = "<group>"; };
 		938D326F28C8808D00198B7E /* NavigatingDAOViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigatingDAOViewController.xib; sourceTree = "<group>"; };
@@ -3148,6 +3148,7 @@
 				045769FC27C7DBBF00881206 /* SafeDeployingViewController.xib */,
 				041E10DD2A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.swift */,
 				041E10DE2A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.xib */,
+				9388410C2A3D74E20052EB87 /* GoogleWeb3AuthLoginModel.swift */,
 				04FA9CC42A4354250027F315 /* SafeCreatingViewController.swift */,
 				04FA9CC52A4354250027F315 /* SafeCreatingViewController.xib */,
 				04FA9CC82A43882D0027F315 /* SafeCreationSuccessViewController.swift */,
@@ -3270,7 +3271,6 @@
 				55B66E8A247FE0F500249E98 /* Overlays */,
 				0AF432D4244F063800E22E50 /* Styleguide */,
 				0A9BC3432460514B00EB9C5D /* Text */,
-				04C22B842A3B25A900F58A15 /* String+Error.swift */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -5419,7 +5419,6 @@
 				55B66E8C247FE13300249E98 /* SemitransparentBackgroundView.swift in Sources */,
 				0A0C607B255D83E80085C178 /* ViewControllerFactory.swift in Sources */,
 				043963832704E25800018F74 /* AdvancedTransactionDetailsViewController.swift in Sources */,
-				04C22B852A3B25A900F58A15 /* String+Error.swift in Sources */,
 				0AADCDC82859BA9F00A0139B /* RequestAddOwnerViewController.swift in Sources */,
 				0A8CDD4627A5A5C70020066C /* CreateSafeViewController.swift in Sources */,
 				0A4F44542754DE3D00423ABB /* GetDelegateRequest.swift in Sources */,
@@ -5591,6 +5590,7 @@
 				55A5853F25014AD7005E778B /* BIP39+WordLists.swift in Sources */,
 				0A6630EC28C0F22400F0FFAE /* AllocationBoxCell.swift in Sources */,
 				0428DA5A25CBFC25002CF4A9 /* HelpLinkTableViewCell.swift in Sources */,
+				9388410D2A3D74E20052EB87 /* GoogleWeb3AuthLoginModel.swift in Sources */,
 				0A0391CC27C565D4003C871A /* HelpTextTableViewCell.swift in Sources */,
 				0A72AC622453169700840641 /* LinkText.swift in Sources */,
 				04626EB6265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift in Sources */,

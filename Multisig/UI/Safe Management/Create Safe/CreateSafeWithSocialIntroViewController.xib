@@ -78,7 +78,7 @@
                                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <connections>
-                                                <action selector="googleButtonTouched:" destination="-1" eventType="touchUpInside" id="tc1-c8-OjC"/>
+                                                <action selector="googleButtonTouched:" destination="-1" eventType="touchUpInside" id="dgZ-oc-22b"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PAT-eX-vXp">
