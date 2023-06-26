@@ -133,7 +133,7 @@ LICENSES_URL    = https:/$()/app.safe.global/licenses
 
 // Contact Information
 DISCORD_URL             = https:/$()/chat.safe.global/
-TWITTER_URL             = https:/$()/twitter.com/gnosisSafe
+TWITTER_URL             = https:/$()/twitter.com/safe
 HELP_CENTER_URL         = https:/$()/help.safe.global/
 FEATURE_SUGGESTION_URL  = https:/$()/safe.cnflx.io/
 CONTACT_EMAIL           = support@safe.global
