@@ -180,10 +180,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        // Handle Web3Auth redirect
-        if GoogleWeb3AuthLoginModel.isValid(url: incomingURL.absoluteString) {
-            CustomAuth.handle(url: incomingURL)
-        }
+        if GoogleWeb3AuthLoginModel.handle(url: incomingURL.absoluteString)
 
         if let navigationRoute = DefaultNavigationRouter.shared.routeFrom(from: incomingURL) {
             DefaultNavigationRouter.shared.navigate(to: navigationRoute)

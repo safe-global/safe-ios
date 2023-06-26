@@ -9,8 +9,12 @@ class GoogleWeb3AuthLoginModel {
         self.onClose = onClose
     }
 
-    static func isValid(url: String) -> Bool {
-        url.starts(with: App.configuration.web3auth.redirectUrl)
+    static func handle(url: String) -> Bool {
+        if url.starts(with: App.configuration.web3auth.redirectUrl) {
+            CustomAuth.handle(url: url)
+            return true
+        }
+        return false
     }
 
     func loginWithCustomAuth(caller: UIViewController) {
