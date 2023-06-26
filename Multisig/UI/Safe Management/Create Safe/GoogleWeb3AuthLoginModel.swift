@@ -9,8 +9,8 @@ class GoogleWeb3AuthLoginModel {
         self.onClose = onClose
     }
 
-    static func handle(url: String) -> Bool {
-        if url.starts(with: App.configuration.web3auth.redirectUrl) {
+    static func handle(url: URL) -> Bool {
+        if url.absoluteString.starts(with: App.configuration.web3auth.redirectUrl) {
             CustomAuth.handle(url: url)
             return true
         }
