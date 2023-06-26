@@ -33,9 +33,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // MARK: - Scene Life Cycle
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-
-        guard let _ = (scene as? UIWindowScene) else { return }
-
 #if DEBUG
         guard UIApplication.shared.delegate is AppDelegate else {
             // assume we're in a testing mode, so exit any further configuration
@@ -136,8 +133,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
-       // CustomAuth.handle(url: userActivity.webpageURL!)
-
 #if DEBUG
         guard UIApplication.shared.delegate is AppDelegate else {
             // assume we're in a testing mode, so exit any further configuration
