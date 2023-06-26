@@ -17,6 +17,7 @@ class SafeCreationSuccessViewController: UIViewController {
     @IBOutlet private weak var addressInfoView: AddressInfoView!
 
     var safe: Safe!
+    var chain: Chain!
     var onContinue: () -> () = {}
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,18 +31,12 @@ class SafeCreationSuccessViewController: UIViewController {
         animationView.backgroundBehavior = .pauseAndRestore
         animationView.play()
         continueButton.setText("Continue", .filled)
-        addressInfoView.setAddress(safe.addressValue, label: safe.name)
+
+        addressInfoView.setAddress(Address("0xEa3290590Dd491739f5F731266631A2649eBa661"),
+                                   label: "custom name",
+                                   browseURL: chain.browserURL(address: "0xEa3290590Dd491739f5F731266631A2649eBa661"))
+
         addressInfoView.backgroundColor = .backgroundLightGreen
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
     @IBAction private func continueButtonTouched(_ sender: Any) {

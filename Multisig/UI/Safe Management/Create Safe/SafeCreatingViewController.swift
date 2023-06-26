@@ -18,6 +18,7 @@ class SafeCreatingViewController: UIViewController {
     @IBOutlet weak var infoView2: InfoView!
     @IBOutlet weak var infoView1: InfoView!
 
+    var onSuccess: () -> () = {}
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -58,16 +59,6 @@ class SafeCreatingViewController: UIViewController {
         }
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-
     @objc func accountCreated() {
         infoView1.set(status: .success)
     }
@@ -79,8 +70,9 @@ class SafeCreatingViewController: UIViewController {
     @objc func safeCreated() {
         infoView3.set(status: .success)
         Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { [weak self] timer in
-            let view = SafeCreationSuccessViewController()
-            self?.show(view, sender: self)
+            DispatchQueue.main.async {
+                self?.onSuccess()
+            }
         }
     }
 }

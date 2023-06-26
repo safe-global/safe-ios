@@ -12,9 +12,12 @@ import UIKit
 class CreateSafeFlow: UIFlow {
     var factory: CreateSafeFlowFactory!
     var chain: Chain!
-    var safe: Safe!
+    var safe: Safe?
     var owner: KeyInfo!
     var createPasscodeFlow: CreatePasscodeFlow!
+    private var relayingTask: URLSessionTask?
+    let relayerService: SafeGelatoRelayService = App.shared.relayService
+    
     init(_ factory: CreateSafeFlowFactory = CreateSafeFlowFactory() , completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
         super.init(completion: completion)
@@ -45,10 +48,10 @@ class CreateSafeFlow: UIFlow {
     }
 
     func web2StyleInstructions() {
-        let vc = factory.createSafeWithSocialIntroViewController(chain: chain) {
-            // TODO: Create safe with Apple login
-        } onGoogle: { [unowned self] in
+        let vc = factory.createSafeWithSocialIntroViewController(chain: chain) { [unowned self] in
             creatingSafe()
+        } onGoogle: { [unowned self] in
+            googleLogin()
         } onAddress: { [unowned self] in
             web3StyleInstructions()
         }
@@ -64,13 +67,26 @@ class CreateSafeFlow: UIFlow {
         show(vc)
     }
 
+    func googleLogin() {
+        let loginModel = GoogleWeb3AuthLoginModel {
+            let view = SafeCreatingViewController()
+            self.show(view)
+        }
+
+        loginModel.loginWithCustomAuth(caller: navigationController)
+    }
+
     func creatingSafe() {
         let vc = factory.creatingSafeViewController()
+        vc.onSuccess = { [unowned self] in
+            safeCreationSuccess()
+        }
+        navigationController.setNavigationBarHidden(true, animated: true)
         show(vc)
     }
 
     func safeCreationSuccess() {
-        let vc = factory.safeCreationSuccess(safe: safe) { [unowned self] in
+        let vc = factory.safeCreationSuccess(safe: safe, chain: chain) { [unowned self] in
             enableNotifications()
         }
 
@@ -82,12 +98,13 @@ class CreateSafeFlow: UIFlow {
                                     titleText: "Never miss a thing",
                                     descriptionText: "Turn on push notifications to track your wallet activity. You can also do this later.",
                                     primaryActionTitle: "Enable notifications",
-                                    secondaryActionTitle: "Skip") {
-
+                                    secondaryActionTitle: "Skip") { [unowned self] in
+            enablePasscode()
         } onSeconradyAction: { [unowned self] in
             stop(success: true)
         }
 
+        navigationController.setNavigationBarHidden(true, animated: true)
         show(vc)
     }
 
@@ -129,10 +146,12 @@ class CreateSafeFlowFactory {
         return vc
     }
 
-    func safeCreationSuccess(safe: Safe, completion: @escaping () -> Void) -> SafeCreationSuccessViewController {
+    func safeCreationSuccess(safe: Safe!, chain: Chain, completion: @escaping () -> Void) -> SafeCreationSuccessViewController {
         let vc = SafeCreationSuccessViewController()
         vc.safe = safe
+        vc.chain = chain
         vc.onContinue = completion
+
         return vc
     }
 
@@ -149,6 +168,8 @@ class CreateSafeFlowFactory {
         vc.descriptionText = descriptionText
         vc.primaryActionTitle = primaryActionTitle
         vc.secondaryActionTitle = secondaryActionTitle
+        vc.onPrimaryAction = onPrimaryAction
+        vc.onSeconradyAction = onSeconradyAction
 
         return vc
     }
