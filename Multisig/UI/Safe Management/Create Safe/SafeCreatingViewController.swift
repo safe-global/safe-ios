@@ -47,7 +47,7 @@ class SafeCreatingViewController: UIViewController {
                                                selector: #selector(safeCreated),
                                                name: .safeCreationUpdate,
                                                object: nil)
-
+        // TODO: bind the tx status changes to SafeCreatingViewController and remove times I defined there
         Timer.scheduledTimer(withTimeInterval: 3, repeats: false) {_ in
             NotificationCenter.default.post(name: .safeAccountOwnerCreated, object: nil)
             Timer.scheduledTimer(withTimeInterval: 3, repeats: false) {_ in

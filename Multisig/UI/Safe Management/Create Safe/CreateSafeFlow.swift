@@ -49,7 +49,7 @@ class CreateSafeFlow: UIFlow {
 
     func web2StyleInstructions() {
         let vc = factory.createSafeWithSocialIntroViewController(chain: chain) { [unowned self] in
-            creatingSafe()
+            appleLogin()
         } onGoogle: { [unowned self] in
             googleLogin()
         } onAddress: { [unowned self] in
@@ -67,13 +67,22 @@ class CreateSafeFlow: UIFlow {
         show(vc)
     }
 
+    func appleLogin() {
+        // TODO: Create login via apple
+        // This line is not needed after this method implementation
+        creatingSafe()
+        // TODO: submit create safe tx
+    }
+
     func googleLogin() {
+        // TODO: Fix login via google
         let loginModel = GoogleWeb3AuthLoginModel {
             let view = SafeCreatingViewController()
             self.show(view)
         }
 
         loginModel.loginWithCustomAuth(caller: navigationController)
+        // TODO: submit create safe tx
     }
 
     func creatingSafe() {
@@ -99,6 +108,7 @@ class CreateSafeFlow: UIFlow {
                                     descriptionText: "Turn on push notifications to track your wallet activity. You can also do this later.",
                                     primaryActionTitle: "Enable notifications",
                                     secondaryActionTitle: "Skip") { [unowned self] in
+            // TODO: register for notifications after safe created and before calling create passcode flow
             enablePasscode()
         } onSeconradyAction: { [unowned self] in
             stop(success: true)
