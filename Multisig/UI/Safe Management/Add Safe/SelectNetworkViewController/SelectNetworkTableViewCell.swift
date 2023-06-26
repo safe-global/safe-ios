@@ -40,8 +40,12 @@ class SelectNetworkTableViewCell: UITableViewCell {
         colorImageView.tintColor = color
     }
 
-    func setIcon(_ icon: UIImage) {
-        colorImageView.image = icon
+    func set(_ image: UIImage?, color: String?) {
+        if let image = image {
+            colorImageView.image = image
+        } else {
+            setIndicatorColor(hex: color ?? "")
+        }
     }
 
     func setInfo(_ text: NSAttributedString?) {
