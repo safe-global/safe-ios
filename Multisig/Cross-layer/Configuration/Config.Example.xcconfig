@@ -178,8 +178,8 @@ ASSETCATALOG_COMPILER_APPICON_NAME  = AppIcon_$(SERVICE_ENV)
 OTHER_LDFLAGS = $(inherited) -fprofile-instr-generate -ObjC
 
 // Set in https://console.cloud.google.com/apis/credentials?project=web3auth-safe&supportedpurview=project
-WEB3AUTH_GOOGLE_CLIENT_ID =
+WEB3AUTH_GOOGLE_CLIENT_ID = YOUR_WEB3AUTH_GOOGLE_CLIENT_ID
 // Set in https://dashboard.web3auth.io/home/customauth
-WEB3AUTH_GOOGLE_VERIFIER =
+WEB3AUTH_GOOGLE_VERIFIER = YOUR_WEB3AUTH_GOOGLE_VERIFIER
 // Needs to be registered in entitlements of app
 WEB3AUTH_REDIRECT_URL = https:/$()/safe-wallet-web.staging.5afe.dev/web3auth/
