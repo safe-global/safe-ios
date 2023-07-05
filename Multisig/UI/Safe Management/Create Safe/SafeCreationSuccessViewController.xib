@@ -107,6 +107,7 @@ Here are your account details:</string>
                 <constraint firstItem="szy-an-61U" firstAttribute="centerX" secondItem="P0p-92-1Lf" secondAttribute="centerX" id="n4F-Ca-bRM"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="P0p-92-1Lf" secondAttribute="trailing" constant="16" id="tmv-Od-tdv"/>
             </constraints>
+            <nil key="simulatedTopBarMetrics"/>
             <point key="canvasLocation" x="98.473282442748086" y="41.549295774647888"/>
         </view>
     </objects>

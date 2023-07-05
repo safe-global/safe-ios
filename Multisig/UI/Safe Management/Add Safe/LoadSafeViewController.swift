@@ -18,6 +18,7 @@ class LoadSafeViewController: UIViewController {
 
     private var buttonYConstraint: NSLayoutConstraint?
     var trackingEvent: TrackingEvent?
+    var createSafeFlow: CreateSafeFlow!
 
     convenience init() {
         self.init(nibName: nil, bundle: nil)
@@ -73,20 +74,10 @@ class LoadSafeViewController: UIViewController {
 
     @IBAction func didTapCreateSafe(_ sender: Any) {
         Tracker.trackEvent(.createSafeFromOnboarding)
-        let selectNetworkVC = SelectNetworkViewController()
-        selectNetworkVC.showWeb2SupportHint = false
-        selectNetworkVC.screenTitle = "Select network"
-        selectNetworkVC.descriptionText = "Your Safe Account will only exist on the selected network."
-        selectNetworkVC.completion = { [weak selectNetworkVC] chain  in
-            let instructionsVC = CreateSafeInstructionsViewController()
-            instructionsVC.chain = chain
-            instructionsVC.onClose = { [unowned instructionsVC] in
-                instructionsVC.dismiss(animated: true, completion: nil)
-            }
-            selectNetworkVC?.show(instructionsVC, sender: selectNetworkVC)
-        }
-        let vc = ViewControllerFactory.modal(viewController: selectNetworkVC, largeTitles: true)
-        present(vc, animated: true)
+        createSafeFlow = CreateSafeFlow(completion: { [unowned self] _ in
+            createSafeFlow = nil
+        })
+        present(flow: createSafeFlow, dismissableOnSwipe: false)
     }
 
     @IBAction func didTapTryDemo(_ sender: Any) {
