@@ -1933,9 +1933,6 @@
 		935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionDetailsViewController.swift; sourceTree = "<group>"; };
 		93788EDB29C356F100503C1A /* DummySignerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummySignerFactory.swift; sourceTree = "<group>"; };
 		937B74AD2A55D02000023D23 /* AppleWeb3AuthLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleWeb3AuthLogin.swift; sourceTree = "<group>"; };
-		937B74AF2A56E48F00023D23 /* MultisigDebug.Development.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MultisigDebug.Development.entitlements; sourceTree = "<group>"; };
-		937B74B02A56E91C00023D23 /* MultisigDebug.Production.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MultisigDebug.Production.entitlements; sourceTree = "<group>"; };
-		937B74B12A56E92800023D23 /* MultisigDebug.Staging.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MultisigDebug.Staging.entitlements; sourceTree = "<group>"; };
 		9388410C2A3D74E20052EB87 /* GoogleWeb3AuthLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleWeb3AuthLoginModel.swift; sourceTree = "<group>"; };
 		9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentNotificationController.swift; sourceTree = "<group>"; };
 		938D326E28C8808D00198B7E /* NavigatingDAOViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigatingDAOViewController.swift; sourceTree = "<group>"; };
@@ -3194,9 +3191,6 @@
 		0A93DD552445CC8A00688050 /* Multisig */ = {
 			isa = PBXGroup;
 			children = (
-				937B74B12A56E92800023D23 /* MultisigDebug.Staging.entitlements */,
-				937B74B02A56E91C00023D23 /* MultisigDebug.Production.entitlements */,
-				937B74AF2A56E48F00023D23 /* MultisigDebug.Development.entitlements */,
 				55AF4CF226C15261006DA1CC /* Multisig_DEV.entitlements */,
 				55AF4CF326C15261006DA1CC /* Multisig_PROD.entitlements */,
 				55AF4CF426C15261006DA1CC /* Multisig_STAGING.entitlements */,
@@ -5958,7 +5952,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Multisig/MultisigDebug.Production.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Multisig/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
@@ -6158,7 +6152,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Multisig/MultisigDebug.Staging.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Multisig/${CODE_SIGN_ENTITLEMENTS}";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
@@ -6968,7 +6962,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Multisig/MultisigDebug.Development.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Multisig/$(CODE_SIGN_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
