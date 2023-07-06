@@ -48,10 +48,9 @@ extension AppleWeb3AuthLogin: ASAuthorizationControllerDelegate {
                         idToken: token
                 )
 
-                //{ data in
                 await MainActor.run(body: {
                     dump(data, name: "---> getTorusKey() result: ")
-                    App.shared.snackbar.show(message: "Private Key: \(data["privateKey"] as? String)")
+                    // App.shared.snackbar.show(message: "Private Key: \(data["privateKey"] as? String)")
                     onClose()
                 })
             }
@@ -84,6 +83,15 @@ extension AppleWeb3AuthLogin: ASAuthorizationControllerDelegate {
 
     /// - Tag: did_complete_error
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        App.shared.snackbar.show(message: "Error: \(error)")
+        // Most likely the user canceled the authorization request.
+        dump(error, name: "Error")
+        if error._code != 1001 {
+            LogService.shared.error("Error: \(error)")
+            App.shared.snackbar.show(message: "Error: \(error)")
+
+        } else {
+            LogService.shared.debug("User canceled the authorization request")
+            App.shared.snackbar.show(message: "User canceled the authorization request")
+        }
     }
 }
