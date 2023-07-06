@@ -184,6 +184,12 @@ WEB3AUTH_GOOGLE_VERIFIER = YOUR_WEB3AUTH_GOOGLE_VERIFIER
 // Needs to be registered in entitlements of app
 WEB3AUTH_REDIRECT_URL = https:/$()/safe-wallet-web.staging.5afe.dev/web3auth/
 
+// Needs to be registered in entitlements of the app
+_WEB3AUTH_REDIRECT_URL_DEV = https:/$()/safe-wallet-web.dev.5afe.dev/web3auth/
+_WEB3AUTH_REDIRECT_URL_STAGING = https:/$()/safe-wallet-web.staging.5afe.dev/web3auth/
+_WEB3AUTH_REDIRECT_URL_PROD = https:/$()/app.safe.global/web3auth/
+WEB3AUTH_REDIRECT_URL = $(_WEB3AUTH_REDIRECT_URL_$(SERVICE_ENV):default=$(_WEB3AUTH_REDIRECT_URL_PROD))
+
 _WEB3AUTH_APPLE_VERIFIER_DEV = apple-cyan-safe-dev
 _WEB3AUTH_APPLE_VERIFIER_STAGING = apple-cyan-safe-staging
 _WEB3AUTH_APPLE_VERIFIER_PROD = apple-cyan-safe-prod
