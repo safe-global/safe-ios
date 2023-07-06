@@ -22,7 +22,7 @@ class SafeActionViewController: UIViewController {
     var imageName: String?
     
     var onPrimaryAction: () -> () = {}
-    var onSeconradyAction: () -> () = {}
+    var onSecondaryAction: () -> () = {}
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +47,6 @@ class SafeActionViewController: UIViewController {
     }
 
     @IBAction func secondaryActionTouched(_ sender: Any) {
-        onSeconradyAction()
+        onSecondaryAction()
     }
 }

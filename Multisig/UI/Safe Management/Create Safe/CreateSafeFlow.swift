@@ -145,7 +145,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                                     secondaryActionTitle: "Skip") { [unowned self] in
             // TODO: register for notifications after safe created and before calling create passcode flow
             enablePasscode()
-        } onSeconradyAction: { [unowned self] in
+        } onSecondaryAction: { [unowned self] in
             stop(success: true)
         }
 
@@ -205,7 +205,7 @@ class CreateSafeFlowFactory {
                     primaryActionTitle: String,
                     secondaryActionTitle: String,
                     onPrimaryAction: @escaping () -> Void,
-                    onSeconradyAction: @escaping () -> Void) -> SafeActionViewController {
+                    onSecondaryAction: @escaping () -> Void) -> SafeActionViewController {
         let vc = SafeActionViewController()
         vc.imageName = imageName
         vc.titleText = titleText
@@ -213,7 +213,7 @@ class CreateSafeFlowFactory {
         vc.primaryActionTitle = primaryActionTitle
         vc.secondaryActionTitle = secondaryActionTitle
         vc.onPrimaryAction = onPrimaryAction
-        vc.onSeconradyAction = onSeconradyAction
+        vc.onSecondaryAction = onSecondaryAction
 
         return vc
     }
