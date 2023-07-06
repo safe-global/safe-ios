@@ -8,8 +8,14 @@
 
 import Foundation
 import UIKit
+import AuthenticationServices
 
-class CreateSafeFlow: UIFlow {
+class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProviding, ASAuthorizationControllerDelegate {
+
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return ASPresentationAnchor()
+    }
+
     var factory: CreateSafeFlowFactory!
     var chain: Chain!
     var safe: Safe?
@@ -17,8 +23,9 @@ class CreateSafeFlow: UIFlow {
     var createPasscodeFlow: CreatePasscodeFlow!
     private var relayingTask: URLSessionTask?
     let relayerService: SafeGelatoRelayService = App.shared.relayService
-    
-    init(_ factory: CreateSafeFlowFactory = CreateSafeFlowFactory() , completion: @escaping (_ success: Bool) -> Void) {
+    private var appleWeb3AuthLogin: AppleWeb3AuthLogin!
+
+    init(_ factory: CreateSafeFlowFactory = CreateSafeFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
         super.init(completion: completion)
     }
@@ -48,13 +55,15 @@ class CreateSafeFlow: UIFlow {
     }
 
     func web2StyleInstructions() {
-        let vc = factory.createSafeWithSocialIntroViewController(chain: chain) { [unowned self] in
-            appleLogin()
-        } onGoogle: { [unowned self] in
-            googleLogin()
-        } onAddress: { [unowned self] in
-            web3StyleInstructions()
-        }
+        let vc: CreateSafeWithSocialIntroViewController = factory.createSafeWithSocialIntroViewController(
+            chain: chain,
+            onApple: { [unowned self] in
+                appleLogin()
+            }, onGoogle: { [unowned self] in
+                googleLogin()
+            }, onAddress: { [unowned self] in
+                web3StyleInstructions()
+            })
 
         show(vc)
     }
@@ -68,10 +77,36 @@ class CreateSafeFlow: UIFlow {
     }
 
     func appleLogin() {
+        handleAuthorizationAppleIDButtonPress(vc: self.navigationController)
+//        showLoginViewController { [unowned self] in
+//            creatingSafe()
+//        }
+        //        show(vc)
+
         // TODO: Create login via apple
         // This line is not needed after this method implementation
-        creatingSafe()
+        //        creatingSafe()
         // TODO: submit create safe tx
+    }
+
+    func handleAuthorizationAppleIDButtonPress(vc: UIViewController) {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+
+        appleWeb3AuthLogin = AppleWeb3AuthLogin {
+            print(" onclose called....")
+
+
+        }
+
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+
+        authorizationController.delegate = appleWeb3AuthLogin
+        authorizationController.presentationContextProvider = self // vc
+        authorizationController.performRequests()
+
+        //appleWeb3AuthLogin.loginWithCustomAuth(caller: vc)
     }
 
     func googleLogin() {
@@ -134,7 +169,6 @@ class CreateSafeFlowFactory {
         vc.completion = completion
         vc.screenTitle = "Select network"
         vc.descriptionText = "Your Safe Account will only exist on the selected network."
-        
         return vc
     }
 
