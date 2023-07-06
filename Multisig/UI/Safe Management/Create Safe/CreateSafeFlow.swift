@@ -77,36 +77,27 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     }
 
     func appleLogin() {
-        handleAuthorizationAppleIDButtonPress(vc: self.navigationController)
-//        showLoginViewController { [unowned self] in
-//            creatingSafe()
-//        }
-        //        show(vc)
+        handleAuthorizationAppleIDButtonPress()
 
-        // TODO: Create login via apple
-        // This line is not needed after this method implementation
-        //        creatingSafe()
         // TODO: submit create safe tx
     }
 
-    func handleAuthorizationAppleIDButtonPress(vc: UIViewController) {
+    func handleAuthorizationAppleIDButtonPress() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
 
         appleWeb3AuthLogin = AppleWeb3AuthLogin {
-            print(" onclose called....")
-
-
+            LogService.shared.debug("onClose called....")
+            let view = SafeCreatingViewController()
+            self.show(view)
         }
 
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
 
         authorizationController.delegate = appleWeb3AuthLogin
-        authorizationController.presentationContextProvider = self // vc
+        authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
-
-        //appleWeb3AuthLogin.loginWithCustomAuth(caller: vc)
     }
 
     func googleLogin() {
