@@ -19,7 +19,7 @@ class PaymentMethodCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        paymentMethodLabel.setStyle(.headlinePrimary)
+        paymentMethodLabel.setStyle(.headline)
         descriptionLabel.setStyle(.subheadlineSecondary)
         remainingRelaysLabel.setStyle(.subheadlineSecondary.color(.primary))
 
@@ -37,7 +37,7 @@ class PaymentMethodCell: UITableViewCell {
                 ]
             )
         )
-        let paymentMethodLabelString = NSMutableAttributedString(string: "Sponsored by ")
+        let paymentMethodLabelString = NSMutableAttributedString(string: "Sponsored by ", attributes: GNOTextStyle.headline.attributes)
         paymentMethodLabelString.append(gnosisSymbolString)
 
         paymentMethodLabel.attributedText = paymentMethodLabelString
@@ -69,7 +69,7 @@ class PaymentMethodCell: UITableViewCell {
             remainingRelaysLabel.attributedText = remainingRelaysString
 
         } else {
-            remainingRelaysLabel.textColor = .primary
+            remainingRelaysLabel.textColor = .labelPrimary
             remainingRelaysLabel.text = "\(remaining) of \(total)"
         }
         remainingRelaysLabel.isHidden = false

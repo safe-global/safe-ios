@@ -37,12 +37,19 @@ class App {
     lazy var clientGatewayService = SafeClientGatewayService(
         url: App.configuration.services.clientGatewayURL,
         logger: LogService.shared)
+
     lazy var claimingService = SafeClaimingService(
         url: App.configuration.services.claimingDataURL,
         logger: LogService.shared
     )
+
     lazy var relayService = SafeGelatoRelayService(
         url: App.configuration.services.relayURL,
+        logger: LogService.shared
+    )
+
+    lazy var gelatoRelayService = GelatoRelayService(
+        url: App.configuration.services.gelatoRelayURL,
         logger: LogService.shared
     )
     
@@ -61,8 +68,6 @@ class App {
     static let configuration = AppConfiguration()
 
     let firebaseConfig = FirebaseConfig()
-
-    let intercomConfig = IntercomConfig()
 
     private init() {}
 }

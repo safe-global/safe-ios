@@ -23,6 +23,9 @@ struct AppConfiguration {
         @ConfigurationKey("RELAY_URL")
         var relayURL: URL
 
+        @ConfigurationKey("GELATO_SERVICE_URL")
+        var gelatoRelayURL: URL
+
         @ConfigurationKey("INFURA_API_KEY")
         var infuraKey: String
 
@@ -82,6 +85,12 @@ struct AppConfiguration {
 
         @ConfigurationKey("RELAYER_INFO_URL")
         var relayerInfoURL: URL
+
+        @ConfigurationKey("KEY_SECURITY_URL")
+        var keySecurityURL: URL
+
+        @ConfigurationKey("UNEXPECTED_DELEGATE_URL")
+        var unexpectedDelegateURL: URL
     }
 
     struct Legal {
@@ -167,6 +176,17 @@ struct AppConfiguration {
         var chatURL: URL
     }
 
+    struct Web3Auth {
+        @ConfigurationKey("WEB3AUTH_GOOGLE_CLIENT_ID")
+        var googleClientId: String
+
+        @ConfigurationKey("WEB3AUTH_GOOGLE_VERIFIER")
+        var googleVerifier: String
+
+        @ConfigurationKey("WEB3AUTH_REDIRECT_URL")
+        var redirectUrl: String
+    }
+
     let services = Services()
     let help = Help()
     let legal = Legal()
@@ -174,4 +194,5 @@ struct AppConfiguration {
     let app = App()
     let walletConnect = WalletConnect()
     let claim = Claim()
+    let web3auth = Web3Auth()
 }

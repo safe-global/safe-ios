@@ -67,7 +67,7 @@ class ClaimTokensViewController: LoadableViewController {
         super.viewDidLoad()
         Tracker.trackEvent(.screenClaimForm)
 
-        title = "Your SAFE allocation"
+        title = "Your allocation"
         navigationItem.largeTitleDisplayMode = .always
 
         view.backgroundColor = .backgroundSecondary

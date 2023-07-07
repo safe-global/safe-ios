@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Web3
+import SafeWeb3
 
 class EnterSafeAddressViewController: UIViewController {
     var address: Address? { addressField?.address }
@@ -25,7 +25,7 @@ class EnterSafeAddressViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Load Safe"
+        navigationItem.title = "Load Safe Account"
 
         headerLabel.setStyle(.body)
 
@@ -56,8 +56,8 @@ class EnterSafeAddressViewController: UIViewController {
         enterAddressVC.address = address
         enterAddressVC.prefix = chain.shortName
         enterAddressVC.trackingEvent = .safeAddName
-        enterAddressVC.screenTitle = "Load Safe"
-        enterAddressVC.descriptionText = "Choose a name for the Safe. The name is only stored locally and will not be shared with us or any third parties"
+        enterAddressVC.screenTitle = "Load Safe Account"
+        enterAddressVC.descriptionText = "Choose a name for the Safe Account. The name is only stored locally and will not be shared with us or any third parties"
         enterAddressVC.actionTitle = "Next"
         enterAddressVC.placeholder = "Enter name"
 

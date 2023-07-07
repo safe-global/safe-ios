@@ -35,7 +35,7 @@ extension SafeGelatoRelayService {
 
     func asyncRelaysRemaining(
         chainId: String,
-        safeAddress: Address,
+        safeAddress: Address, // doesn't have to be a Safe Address. In the case of a safe creation call it is an owner address
         completion: @escaping (Result<RelaysRemainingRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
 
             return asyncExecute(

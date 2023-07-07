@@ -55,7 +55,7 @@ class GenerateKeyFlow: AddKeyFlow {
             return false
         }
 
-        return OwnerKeyController.importKey(privateKey, name: name, isDrivedFromSeedPhrase: true)
+        return OwnerKeyController.importKey(privateKey, name: name, type: .deviceGenerated, isDerivedFromSeedPhrase: true)
     }
 
     func backup() {
@@ -170,12 +170,12 @@ class GenerateKeyFactory: AddKeyFlowFactory {
         introVC.cards = [
             .init(image: UIImage(named: "ico-onboarding-import-key-1"),
                   title: "How does it work?",
-                  body: "To use this app as an owner in the Safe, you can create a key and add it as an owner of your Safe. When you tap Next, the app will create a new private key from a new unique seed phrase."),
+                  body: "To use this app as an owner in the Safe Account, you can create a key and add it as an owner of your Safe Account. When you tap Next, the app will create a new private key from a new unique seed phrase."),
 
                 .init(image: UIImage(named: "ico-onboarding-import-key-2"),
                       title: "How secure is that?",
                       body: "The owner key and the seed phrase are stored in the device's secure store - iOS Keychain.",
-                      link: .init(title: "How is a private key stored on mobile?", url: URL(string: "https://help.safe.global/en/articles/4866738-how-are-private-keys-stored-on-gnosis-safe-mobile")!)),
+                      link: .init(title: "How is a private key stored on mobile?", url: App.configuration.help.keySecurityURL)),
 
                 .init(image: UIImage(named: "ico-onboarding-import-key-3"),
                       title: "How to export?",

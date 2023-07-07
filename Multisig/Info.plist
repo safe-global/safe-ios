@@ -25,7 +25,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.19.0</string>
+	<string>3.22.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -47,6 +47,8 @@
 	<string>$(CLAIMING_DATA_URL)</string>
 	<key>RELAY_URL</key>
 	<string>$(RELAY_URL)</string>
+	<key>GELATO_SERVICE_URL</key>
+	<string>$(GELATO_SERVICE_URL)</string>
 	<key>CONFIRMATIONS_URL</key>
 	<string>$(CONFIRMATIONS_URL)</string>
 	<key>CONFLICT_URL</key>
@@ -63,6 +65,10 @@
 	<string>$(RELAYER_INFO_URL)</string>
 	<key>DESKTOP_PAIRING_URL</key>
 	<string>$(DESKTOP_PAIRING_URL)</string>
+	<key>UNEXPECTED_DELEGATE_URL</key>
+	<string>$(UNEXPECTED_DELEGATE_URL)</string>
+	<key>KEY_SECURITY_URL</key>
+	<string>$(KEY_SECURITY_URL)</string>
 	<key>DISCORD_URL</key>
 	<string>$(DISCORD_URL)</string>
 	<key>FORUM_URL</key>
@@ -89,10 +95,14 @@
 	<string>$(INTERCOM_API_KEY)</string>
 	<key>INTERCOM_APP_ID</key>
 	<string>$(INTERCOM_APP_ID)</string>
+	<key>IntercomRegion</key>
+	<string>EU</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>IntercomAutoIntegratePushNotifications</key>
 	<string>NO</string>
+	<key>IntercomRegion</key>
+	<string>EU</string>
 	<key>LEDGER_PAIRING_URL</key>
 	<string>$(LEDGER_PAIRING_URL)</string>
 	<key>LICENSES_URL</key>
@@ -274,5 +284,11 @@ DMSans-Regular.ttf</string>
 	<string>$(CLAIM_PROPOSE_URL)</string>
 	<key>CLAIM_CHAT_URL</key>
 	<string>$(CLAIM_CHAT_URL)</string>
+	<key>WEB3AUTH_GOOGLE_CLIENT_ID</key>
+	<string>$(WEB3AUTH_GOOGLE_CLIENT_ID)</string>
+	<key>WEB3AUTH_GOOGLE_VERIFIER</key>
+	<string>$(WEB3AUTH_GOOGLE_VERIFIER)</string>
+	<key>WEB3AUTH_REDIRECT_URL</key>
+	<string>$(WEB3AUTH_REDIRECT_URL)</string>
 </dict>
 </plist>

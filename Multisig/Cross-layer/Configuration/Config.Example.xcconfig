@@ -34,8 +34,8 @@ WALLETCONNECT_PROJECT_ID = YOUR_WALLETCONNECT_PROJECT_ID
 // Configuration Values
 
 // Safe Client Gateway Service
-_CLIENT_GATEWAY_URL_DEV        = https:/$()/safe-client.staging.5afe.dev/
-_CLIENT_GATEWAY_URL_STAGING    = https:/$()/safe-client.staging.5afe.dev/
+_CLIENT_GATEWAY_URL_DEV        = https:/$()/safe-client-nest.staging.5afe.dev/
+_CLIENT_GATEWAY_URL_STAGING    = https:/$()/safe-client-nest.staging.5afe.dev/
 _CLIENT_GATEWAY_URL_PROD       = https:/$()/safe-client.safe.global/
 
 // Apps
@@ -46,12 +46,15 @@ _APP_BUNDLE_ID_DEV      = io.gnosis.multisig.dev.mainnet
 // Claiming app service
 _CLAIMING_DATA_URL_DEV        = https:/$()/safe-claiming-app-data.staging.5afe.dev/
 _CLAIMING_DATA_URL_STAGING    = https:/$()/safe-claiming-app-data.staging.5afe.dev/
-_CLAIMING_DATA_URL_PROD       = https:/$()/safe-claiming-app-data.gnosis-safe.io/
+_CLAIMING_DATA_URL_PROD       = https:/$()/safe-claiming-app-data.safe.global/
 
 // Gelato relay service
 _RELAY_URL_DEV                = https:/$()/safe-client-nest.staging.5afe.dev/
 _RELAY_URL_STAGING            = https:/$()/safe-client-nest.staging.5afe.dev/
 _RELAY_URL_PROD               = https:/$()/safe-client-nest.safe.global/
+
+// Gelato Service
+GELATO_SERVICE_URL            = https:/$()/relay.gelato.digital
 
 // App Groups
 _APP_GROUP_ID_PROD     = group.io.gnosis.multisig.prod.mainnet
@@ -62,9 +65,9 @@ APP_GROUP_ID            = $(_APP_GROUP_ID_$(SERVICE_ENV):default=$(_APP_GROUP_ID
 
 
 // User-facing name of the app on the Home screen
-_DISPLAY_NAME_PROD     = Safe
-_DISPLAY_NAME_STAGING  = Safe Staging
-_DISPLAY_NAME_DEV      = Safe Dev
+_DISPLAY_NAME_PROD     = Safe{Wallet}
+_DISPLAY_NAME_STAGING  = Safe{Wallet} Staging
+_DISPLAY_NAME_DEV      = Safe{Wallet} Dev
 
 // Firebase Config File Names
 _FIREBASE_CONFIG_PROD       = GoogleService-Info.Production
@@ -108,27 +111,29 @@ WALLETCONNECT_BRIDGE_URL = https:/$()/safe-walletconnect.safe.global/
 WALLETCONNECT_REGISTRY_URL = https:/$()/5afe.github.io/
 
 // Help URLs
-CONFLICT_URL = https:/$()/help.safe.global/en/articles/4730252-why-are-transactions-with-the-same-nonce-conflicting-with-each-other
-FALLBACKHANDLER_URL = https:/$()/help.safe.global/en/articles/4738352-what-is-a-fallback-handler-and-how-does-it-relate-to-the-gnosis-safe
-DELEGATE_KEY_URL = https:/$()/help.safe.global/en/articles/5809867-what-is-a-delegate-key
-GUARD_URL = https:/$()/help.safe.global/en/articles/5324092-what-is-a-transaction-guard
-PAY_FOR_CANCELLATION_URL = https:/$()/help.safe.global/en/articles/4738501-why-do-i-need-to-pay-for-cancelling-a-transaction
-CONNECT_DAPP_ON_MOBILE_URL = https:/$()/help.safe.global/en/articles/5307197-how-to-connect-a-dapp-via-walletconnect-on-gnosis-safe-mobile
-DESKTOP_PAIRING_URL = https:/$()/help.safe.global/en/articles/5584901-desktop-pairing
-ADVANCED_TX_PARAMS_URL = https:/$()/help.safe.global/en/articles/4738445-advanced-transaction-parameters
+CONFLICT_URL = https:/$()/help.safe.global/en/articles/40839-why-are-transactions-with-the-same-nonce-conflicting-with-each-other
+FALLBACKHANDLER_URL = https:/$()/help.safe.global/en/articles/40838-what-is-a-fallback-handler-and-how-does-it-relate-to-safe
+DELEGATE_KEY_URL = https:/$()/help.safe.global/en/articles/40799-what-is-a-delegate-key
+GUARD_URL = https:/$()/help.safe.global/en/articles/40809-what-is-a-transaction-guard
+PAY_FOR_CANCELLATION_URL = https:/$()/help.safe.global/en/articles/40836-why-do-i-need-to-pay-for-cancelling-a-transaction
+CONNECT_DAPP_ON_MOBILE_URL = https:/$()/help.safe.global/en/articles/40810-connect-to-dapps-with-walletconnect-on-mobile
+DESKTOP_PAIRING_URL = https:/$()/help.safe.global/en/articles/40801-connect-to-web-with-mobile-safe
+ADVANCED_TX_PARAMS_URL = https:/$()/help.safe.global/en/articles/40837-advanced-transaction-parameters
 LEDGER_PAIRING_URL = https:/$()/support.ledger.com/hc/en-us/articles/360019138694-Set-up-Bluetooth-connection
-CREATE_SAFE_URL = https:/$()/help.safe.global/en/articles/3876461-create-a-safe
-CONFIRMATIONS_URL = https:/$()/help.safe.global/en/articles/3952319-signature-policies
-RELAYER_INFO_URL = https:/$()/help.safe.global/en/articles/7224713-what-is-gas-fee-sponsoring
+CREATE_SAFE_URL = https:/$()/help.safe.global/en/articles/40792-how-to-create-a-safe-on-your-ios
+CONFIRMATIONS_URL = https:/$()/help.safe.global/en/articles/40863-signature-policies
+RELAYER_INFO_URL = https:/$()/help.safe.global/en/articles/59203-what-is-gas-fee-sponsoring
+UNEXPECTED_DELEGATE_URL = https:/$()/help.safe.global/en/articles/40794-why-do-i-see-an-unexpected-delegate-call-warning-in-my-transaction
+KEY_SECURITY_URL = https:/$()/help.safe.global/en/articles/40829-how-signer-keys-are-stored
 
 // Legal URLs
 TERMS_URL       = https:/$()/app.safe.global/terms
 PRIVACY_URL     = https:/$()/app.safe.global/privacy
-LICENSES_URL    = https:/$()/safe.global/licenses
+LICENSES_URL    = https:/$()/app.safe.global/licenses
 
 // Contact Information
 DISCORD_URL             = https:/$()/chat.safe.global/
-TWITTER_URL             = https:/$()/twitter.com/gnosisSafe
+TWITTER_URL             = https:/$()/twitter.com/safe
 HELP_CENTER_URL         = https:/$()/help.safe.global/
 FEATURE_SUGGESTION_URL  = https:/$()/safe.cnflx.io/
 CONTACT_EMAIL           = support@safe.global
@@ -171,3 +176,13 @@ ASSETCATALOG_COMPILER_APPICON_NAME  = AppIcon_$(SERVICE_ENV)
 //
 // Also, Firebase Analytics requires clients to add -ObjC linker option.
 OTHER_LDFLAGS = $(inherited) -fprofile-instr-generate -ObjC
+
+// Set in https://console.cloud.google.com/apis/credentials?project=web3auth-safe&supportedpurview=project
+WEB3AUTH_GOOGLE_CLIENT_ID = YOUR_WEB3AUTH_GOOGLE_CLIENT_ID
+// Set in https://dashboard.web3auth.io/home/customauth
+WEB3AUTH_GOOGLE_VERIFIER = YOUR_WEB3AUTH_GOOGLE_VERIFIER
+// Needs to be registered in entitlements of the app
+_WEB3AUTH_REDIRECT_URL_DEV = https:/$()/safe-wallet-web.dev.5afe.dev/web3auth/
+_WEB3AUTH_REDIRECT_URL_STAGING = https:/$()/safe-wallet-web.staging.5afe.dev/web3auth/
+_WEB3AUTH_REDIRECT_URL_PROD = https:/$()/app.safe.global/web3auth/
+WEB3AUTH_REDIRECT_URL = $(_WEB3AUTH_REDIRECT_URL_$(SERVICE_ENV):default=$(_WEB3AUTH_REDIRECT_URL_PROD))

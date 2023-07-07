@@ -36,6 +36,10 @@ class FirebaseRemoteConfig {
         fetchConfig()
     }
 
+    func boolValue(key: Key) -> Bool? {
+        remoteConfig[key.rawValue].boolValue
+    }
+
     func value(key: Key) -> String? {
         remoteConfig[key.rawValue].stringValue
     }

@@ -258,7 +258,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
             return nil
         }
         let view = tableView.dequeueHeaderFooterView(ExternalLinkHeaderFooterView.self)
-        view.set(label: "How to connect a dapp via WalletConnect on Safe Mobile?")
+        view.set(label: "How to connect a dapp via WalletConnect on Safe{Wallet} Mobile?")
         view.set(url: App.configuration.help.connectDappOnMobileURL)
         return view
     }

@@ -9,12 +9,11 @@
 import UIKit
 import SwiftUI
 import Firebase
-import Intercom
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         App.shared.firebaseConfig.setUp()
-        App.shared.intercomConfig.setUp()
+        IntercomConfig.setUp()
 
         UIApplication.shared.registerForRemoteNotifications()
 
@@ -47,6 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
         Tracker.setNumKeys(KeyInfo.count(.ledgerNanoX), type: .ledgerNanoX)
         Tracker.setNumKeys(KeyInfo.count(.keystone), type: .keystone)
+        Tracker.setNumKeys(KeyInfo.count(.web3AuthApple), type: .web3AuthApple)
+        Tracker.setNumKeys(KeyInfo.count(.web3AuthGoogle), type: .web3AuthGoogle)
         Tracker.setPasscodeIsSet(to: App.shared.auth.isPasscodeSetAndAvailable)        
         Tracker.setWalletConnectForDappsEnabled(true)
 
@@ -86,16 +87,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         LogService.shared.debug("PUSH: Received APNS token: \(deviceToken.toHexStringWithPrefix())")
         Messaging.messaging().apnsToken = deviceToken
-        Intercom.setDeviceToken(deviceToken)
+        IntercomConfig.setDeviceToken(deviceToken) { error in
+            // this will fail before a Safe was added
+        }
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         LogService.shared.debug("PUSH: didReceiveRemoteNotification with userInfo: \(userInfo)")
         Messaging.messaging().appDidReceiveMessage(userInfo)
 
-        if Intercom.isIntercomPushNotification(userInfo) {
+        if IntercomConfig.isIntercomPushNotification(userInfo) {
             LogService.shared.debug("PUSH: didReceiveRemoteNotification Intercom push notification with userInfo: \(userInfo)")
-            App.shared.intercomConfig.pushNotificationUserInfo = userInfo
+            IntercomConfig.pushNotificationUserInfo = userInfo
         }
 
         completionHandler(.noData)

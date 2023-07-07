@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Intercom
 import WhatsNewKit
 
 class MainTabBarViewController: UITabBarController {
@@ -61,8 +60,11 @@ class MainTabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        updateTabs()
+        tabBar.isTranslucent = false
         tabBar.barTintColor = .backgroundSecondary
+        tabBar.backgroundColor = .backgroundSecondary
+
+        updateTabs()
 
         let notificationCenter = NotificationCenter.default
 
@@ -223,7 +225,7 @@ class MainTabBarViewController: UITabBarController {
         let segmentVC = SegmentViewController(namedClass: nil)
         segmentVC.segmentItems = [
             SegmentBarItem(image: UIImage(named: "ico-app-settings")!, title: "App Settings"),
-            SegmentBarItem(image: UIImage(named: "ico-safe-settings")!, title: "Safe Settings")
+            SegmentBarItem(image: UIImage(named: "ico-safe-settings")!, title: "My Safe Account")
         ]
         segmentVC.viewControllers = [
             appSettingsVC,
@@ -340,7 +342,9 @@ class MainTabBarViewController: UITabBarController {
                 Tracker.trackEvent(.createSafeRetry)
                 let createSafeVC = CreateSafeViewController()
                 createSafeVC.txHash = txHash
-                createSafeVC.chain = safe.chain
+                if let chain = safe.chain {
+                    createSafeVC.chain = chain
+                }
                 createSafeVC.onClose = { [weak self] in
                     self?.dismiss(animated: true, completion: nil)
                 }
@@ -527,7 +531,7 @@ class SettingsUINavigationController: UINavigationController {
     }
     
     @objc func showBadge() {
-        let count = Intercom.unreadConversationCount()
+        let count = IntercomConfig.unreadConversationCount()
         if count > 0 {
             tabBarItem.badgeValue = ""
             tabBarItem.badgeColor = UIColor.warning

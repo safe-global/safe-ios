@@ -26,6 +26,7 @@ final class HeaderViewController: ContainerViewController {
     var clientGatewayService = App.shared.clientGatewayService
     var notificationCenter = NotificationCenter.default
     private var claimTokenFlow: ClaimSafeTokenFlow!
+    private var createSafeFlow: CreateSafeFlow!
 
     convenience init(rootViewController: UIViewController) {
         self.init(namedClass: nil)
@@ -92,8 +93,8 @@ final class HeaderViewController: ContainerViewController {
             Tracker.trackEvent(.addSafeFromSwitchSafes)
             self?.dismiss(animated: false) {
                 let selectNetworkVC = SelectNetworkViewController()
-                selectNetworkVC.screenTitle = "Load Safe"
-                selectNetworkVC.descriptionText = "Select network on which your Safe was created:"
+                selectNetworkVC.screenTitle = "Load Safe Account"
+                selectNetworkVC.descriptionText = "Select network on which your Safe Account was created:"
                 selectNetworkVC.completion = { [weak self] chain  in
                     let vc = EnterSafeAddressViewController()
                     vc.chain = chain
@@ -108,15 +109,13 @@ final class HeaderViewController: ContainerViewController {
             }
         }
 
-        switchSafesVC.onCreateSafe = { [weak self] in
+        switchSafesVC.onCreateSafe = { [unowned self] in
             Tracker.trackEvent(.createSafeFromSwitchSafes)
-            self?.dismiss(animated: true) {
-                let instructionsVC = CreateSafeInstructionsViewController()
-                instructionsVC.onClose = { [weak self] in
-                    self?.dismiss(animated: true, completion: nil)
-                }
-                let vc = ViewControllerFactory.modal(viewController: instructionsVC)
-                self?.present(vc, animated: true)
+            dismiss(animated: true) { [unowned self] in
+                createSafeFlow = CreateSafeFlow(completion: { [unowned self] _ in
+                    createSafeFlow = nil
+                })
+                present(flow: createSafeFlow, dismissableOnSwipe: false)
             }
         }
 
@@ -187,7 +186,7 @@ final class HeaderViewController: ContainerViewController {
                             (error as NSError).domain == NSURLErrorDomain {
                             return
                         }
-                        LogService.shared.error("Failed to reload safe info: \(error)")
+                        LogService.shared.error("Failed to reload Safe Account info: \(error)")
                     case .success(let safeInfo):
                         safe.update(from: safeInfo)
                         self?.reloadHeaderBar()
@@ -195,7 +194,7 @@ final class HeaderViewController: ContainerViewController {
                 }
             }
         } catch {
-            LogService.shared.error("Failed to reload safe info: \(error)")
+            LogService.shared.error("Failed to reload Safe Account info: \(error)")
         }
     }
 }

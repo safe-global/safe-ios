@@ -12,7 +12,10 @@ class TransactionsListConflictHeaderTableViewCell: UITableViewCell, ExternalURLS
     @IBOutlet private weak var nonceLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var learnMoreButton: UIButton!
-    private(set) var url: URL? = App.configuration.help.conflictURL
+
+    private(set) var url: URL? = {
+        App.configuration.help.conflictURL
+    }()
 
     override func awakeFromNib() {
         super.awakeFromNib()

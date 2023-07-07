@@ -35,7 +35,7 @@ class SafeDeployingViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .selectedSafeChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .selectedSafeUpdated, object: nil)
 
-        animationView.animation = LottieAnimation.named(isDarkMode ? "safeCreation" : "safeCreationDark", animationCache: nil)
+        animationView.animation = LottieAnimation.named(isDarkMode ? "safeCreationDark" : "safeCreation", animationCache: nil)
         animationView.contentMode = .scaleAspectFit
         animationView.loopMode = .loop
         animationView.play()
@@ -111,11 +111,11 @@ class SafeDeployingViewController: UIViewController {
         case .deploying:
             return "Deploying Smart Contract"
         case .indexing:
-            return "Preparing your Safe"
+            return "Preparing your Safe Account"
         case .deployed:
-            return "Safe is ready!"
+            return "Safe Account is ready!"
         case .deploymentFailed:
-            return "Failed to create Safe"
+            return "Failed to create Safe Account"
         }
     }
 }

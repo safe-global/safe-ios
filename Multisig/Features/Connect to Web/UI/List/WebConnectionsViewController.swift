@@ -24,7 +24,6 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         url = App.configuration.help.desktopPairingURL
 
         title = "Connect to Web"
@@ -228,7 +227,7 @@ class DisconnectionConfirmationController: UIAlertController {
     static func create(connection: WebConnection) -> DisconnectionConfirmationController {
         let alertController = DisconnectionConfirmationController(
                 title: nil,
-                message: "Your Safe will be disconnected from web.",
+                message: "Your Safe Account will be disconnected from web.",
                 preferredStyle: .actionSheet)
         let remove = UIAlertAction(title: "Disconnect", style: .destructive) { _ in
             Tracker.trackEvent(.webConnectionDisconnected)

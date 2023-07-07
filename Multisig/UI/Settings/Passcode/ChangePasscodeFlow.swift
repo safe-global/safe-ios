@@ -27,18 +27,34 @@ class ChangePasscodeFlow: UIFlow {
     }
 
     func enterOldPasscode() {
-        let vc = factory.enterOldPasscode { [unowned self] password in
-                oldPasscode = password
+        let vc = factory.enterOldPasscode { [unowned self] result in
+            switch result {
+            case .close:
+                stop(success: false)
+            case .success(let passcode):
+                // Old passcode is required only for security v2 to change the store passcode
+                // For the old secuirty either if biometry is enabled then we validate without entering the passcode
+                if App.shared.auth.isPasscodeSetAndAvailable && !AppSettings.passcodeOptions.contains(.useBiometry) {
+                    guard let passcode = passcode else {
+                        App.shared.snackbar.show(error: GSError.FailedToChangePasscode(reason: "Passcode required"))
+                        stop(success: false)
+                        return
+                    }
+                }
+                oldPasscode = passcode
                 enterNewPasscode()
-        } onError: { [unowned self] error in
-            stop(success: false)
+            }
         }
 
         show(vc)
     }
 
     func enterNewPasscode() {
-        precondition(oldPasscode != nil, "Old passcode should be set before")
+        // Old passcode is required only for security v2 to change the store passcode
+        // For the old secuirty either if biometry is enabled then we validate without entering the passcode
+        if App.shared.auth.isPasscodeSetAndAvailable && !AppSettings.passcodeOptions.contains(.useBiometry) {
+            precondition(oldPasscode != nil, "Old passcode should be set before")
+        }
         let vc = factory.enterNewPasscode { [unowned self] newPasscode in
             self.newPasscode = newPasscode
             enterRepeatPasscode()
@@ -58,16 +74,18 @@ class ChangePasscodeFlow: UIFlow {
 
     override func stop(success: Bool) {
         if success {
-            precondition(oldPasscode != nil, "Old passcode should be set before")
             precondition(newPasscode != nil, "New passcode should be set before")
             do {
                 if AppConfiguration.FeatureToggles.securityCenter {
+                    precondition(oldPasscode != nil, "Old passcode should be set before")
                     try App.shared.securityCenter.changePasscode(oldPasscode: oldPasscode!, newPasscode: newPasscode!)
                     App.shared.snackbar.show(message: "Passcode changed")
                 } else {
                     try App.shared.auth.changePasscode(newPasscodeInPlaintext: newPasscode!)
                     App.shared.snackbar.show(message: "Passcode changed")
                 }
+            } catch let userCancellationError as GSError.CancelledByUser {
+                // do nothing
             } catch {
                 App.shared.snackbar.show(error: GSError.FailedToChangePasscode(reason: error.localizedDescription))
             }
@@ -80,16 +98,9 @@ class ChangePasscodeFlow: UIFlow {
 }
 
 class ChangePasscodeFlowFactory {
-    func enterOldPasscode(completion: @escaping ( _ password: String?) throws -> Void, onError: @escaping (Error) -> ()) -> EnterPasscodeViewController {
+    func enterOldPasscode(completion: @escaping ( _ result: EnterPasscodeViewController.Result) -> Void) -> EnterPasscodeViewController {
         let vc = EnterPasscodeViewController()
-        vc.passcodeCompletion = { _, _, passcode in
-            do {
-                try completion(passcode)
-            } catch {
-                //FIXME: error handling
-            }
-        }
-        vc.onError = onError
+        vc.passcodeCompletion = completion
         return vc
     }
 

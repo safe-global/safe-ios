@@ -49,13 +49,13 @@ class SigningKeyTableViewCell: UITableViewCell {
 
         set(connectionStatus: KeyConnectionStatus(keyInfo: keyInfo, chainID: chainID))
 
-        cellDetailLabel.text = detail
-
         if isLoading {
             cellDetailLabel.showSkeleton(delay: 0.2)
         } else {
             cellDetailLabel.hideSkeleton()
         }
+
+        cellDetailLabel.text = detail
 
         if keyInfo.connectedAsDapp,
            let connection = keyInfo.walletConnections?.first,
@@ -111,7 +111,7 @@ enum KeyConnectionStatus {
 
     init(keyInfo: KeyInfo, chainID: String?) {
         switch keyInfo.keyType {
-        case .deviceGenerated, .deviceImported, .ledgerNanoX, .keystone:
+        case .deviceGenerated, .deviceImported, .ledgerNanoX, .keystone, .web3AuthApple, .web3AuthGoogle:
             self = .none
         case .walletConnect:
             if keyInfo.connectedAsDapp {

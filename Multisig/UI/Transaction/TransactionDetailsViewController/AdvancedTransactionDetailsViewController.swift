@@ -89,7 +89,7 @@ class AdvancedTransactionDetailsViewController: UITableViewController {
 
             safeTransactionData.append(SectionItem(title: "Operation:", value: "\(txData.operation.rawValue) (\(txData.operation.name))"))
 
-            sections.append(Section(title: "Safe transaction data", items: safeTransactionData))
+            sections.append(Section(title: "Safe Account transaction data", items: safeTransactionData))
         }
 
         if case SCGModels.TransactionDetails.DetailedExecutionInfo.multisig(let multisigTx)? =

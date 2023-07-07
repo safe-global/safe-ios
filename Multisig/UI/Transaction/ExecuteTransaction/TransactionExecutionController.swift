@@ -11,7 +11,7 @@ import Solidity
 import Version
 import SafeAbi
 import Ethereum
-import Web3
+import SafeWeb3
 import JsonRpc2
 import CryptoSwift
 import WalletConnectSwift
@@ -656,13 +656,18 @@ class TransactionExecutionController {
                                                         txData: input.toHexStringWithPrefix()) { response in
             switch(response) {
             case .success:
-                LogService.shared.debug("Relayer taskId: \(try! response.get().taskId)")
+                guard let taskId = try? response.get().taskId else {
+                    dispatchOnMainThread(completion(.failure(TransactionExecutionError(code: -7, message: "Missing taskId"))))
+                    return
+                }
+
+                LogService.shared.debug("Relayer taskId: \(taskId)")
                 DispatchQueue.main.async { [unowned self] in
                     guard let tx = ethTransaction else {
                         dispatchOnMainThread(completion(.failure(TransactionExecutionError(code: -6, message: "Missing transaction hash"))))
                         return
                     }
-                    self.didSubmitTransaction(txHash: Eth.Hash(tx.txHash().storage))
+                    self.didSubmitTransaction(txHash: Eth.Hash(tx.txHash().storage), taskId: taskId)
                     completion(.success(()))
                 }
             case .failure(let error):
@@ -673,7 +678,7 @@ class TransactionExecutionController {
         return task
     }
 
-    func didSubmitTransaction(txHash: Eth.Hash) {
+    func didSubmitTransaction(txHash: Eth.Hash, taskId: String? = nil) {
         self.ethTransaction?.hash = txHash
 
         // save the tx information for monitoring purposes
@@ -690,6 +695,7 @@ class TransactionExecutionController {
         cdTx.status = SCGModels.TxStatus.pending.rawValue
         cdTx.safeAddress = self.safe.address
         cdTx.chainId = self.chainId
+        cdTx.taskId = taskId
         cdTx.dateSubmittedAt = Date()
         App.shared.coreDataStack.saveContext()
 

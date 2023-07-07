@@ -80,7 +80,6 @@ class AssetsViewController: ContainerViewController {
         }
 
         totalBalanceView.tokenBanner.isHidden = !shouldShowSafeTokenBanner
-
         totalBalanceView.tokenBanner.onClaim = { [unowned self] in
             guard let safe = try? Safe.getSelected() else {
                 return
@@ -113,7 +112,7 @@ class AssetsViewController: ContainerViewController {
     }
 
     private var shouldShowRelayBanner: Bool {
-        relayBannerWasShown != true && (safe?.chain?.isSupported(feature: .relay) ?? false)
+        relayBannerWasShown != true && (safe?.chain?.isSupported(feature: .relayingMobile) ?? false)
     }
 
     private var relayBannerWasShown: Bool? {

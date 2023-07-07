@@ -11,6 +11,7 @@ import Ethereum
 import Solidity
 import WalletConnectSwift
 
+
 class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CreateSafeFormUIModelDelegate, PasscodeProtecting {
 
     @IBOutlet private weak var captionLabel: UILabel!
@@ -22,15 +23,33 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
     private var uiModel = CreateSafeFormUIModel()
     var txHash: String?
-    var chain: Chain?
+    var chain: Chain = Chain.mainnetChain()
 
     private var cellBuilder: SafeCellBuilder!
+    private var executionOptionsCellBuilder: ExecutionOptionsCellBuilder!
     private var keystoneSignFlow: KeystoneSignFlow!
+
+    private var remainingRelaysTasks: [URLSessionTask?]?
+    private var relayerService = App.shared.relayService
+
+    fileprivate func initExecutionBuilder() {
+        executionOptionsCellBuilder = ExecutionOptionsCellBuilder(
+            vc: self,
+            tableView: tableView,
+            chain: chain
+        )
+        executionOptionsCellBuilder.userSelectedSigner = false
+        executionOptionsCellBuilder.onTapPaymentMethod = action(#selector(didTapPaymentMethod(_:)))
+        executionOptionsCellBuilder.onTapAccount = action(#selector(selectDeploymentKey))
+        executionOptionsCellBuilder.onTapFee = action(#selector(editParameters))
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Create Safe"
+        initExecutionBuilder()
+
+        title = "Create Safe Account"
 
         cellBuilder = SafeCellBuilder(viewController: self, tableView: tableView)
 
@@ -43,7 +62,8 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
 
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(BorderedInnerTableCell.self)
-
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Spacer")
+        
         cellBuilder.registerCells()
 
         if #available(iOS 15.0, *) {
@@ -54,30 +74,28 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
         tableView.refreshControl = refreshControl
 
-        createButton.setText("Create Safe", .filled)
+        createButton.setText("Create Safe Account", .filled)
 
         captionLabel.setStyle(.footnote)
-        captionLabel.text = "Creating a Safe may take a few minutes."
+        captionLabel.text = "Creating a Safe Account may take a few minutes."
 
         uiModel.delegate = self
+
         if let txHash = txHash,
-            let chain = chain,
-            let safeCreationCall = SafeCreationCall.by(txHashes: [txHash], chainId: chain.id!)?.first {
+           let safeCreationCall = SafeCreationCall.by(txHashes: [txHash], chainId: chain.id!)?.first {
             uiModel.updateWithSafeCall(call: safeCreationCall)
         }
-
-        if let chain = chain {
-            uiModel.chain = chain
-        }
-
         uiModel.start()
+
+        uiModel.chain = chain
+        updateUI(model: uiModel)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.createSafeOnePage)
     }
-    
+
     // MARK: - UI Model Events
 
     func updateUI(model: CreateSafeFormUIModel) {
@@ -224,6 +242,11 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         uiModel.deleteOwnerAt(indexPath.row)
+        if chain.isSupported(feature: .relayingMobile) {
+            getRemainingRelays()
+        } else {
+            uiModel.relaysRemaining = 0
+        }
     }
 
     func changeName() {
@@ -244,17 +267,23 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         // show network selection screen
         let selectNetworkVC = SelectNetworkViewController()
         selectNetworkVC.screenTitle = "Select Network"
-        selectNetworkVC.descriptionText = "Choose a network on which to create your Safe"
+        selectNetworkVC.descriptionText = "Choose a network on which to create your Safe Account"
         selectNetworkVC.trackingEvent = .createSafeSelectNetwork
         // get the selected network back
         selectNetworkVC.completion = { [weak self] chain in
             guard let self = self else { return }
             self.uiModel.setChain(chain)
             self.chain = self.uiModel.chain
+            self.initExecutionBuilder()
+            if self.chain.isSupported(feature: .relayingMobile) {
+                self.getRemainingRelays()
+            }
+
 
             // hide the screen
             self.navigationController?.popViewController(animated: true)
         }
+
         show(selectNetworkVC, sender: self)
     }
 
@@ -266,16 +295,21 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     func addOwner(tableView: UITableView, indexPath: IndexPath) {
         let picker = SelectAddressViewController(chain: uiModel.chain, presenter: self) { [weak self] address in
             self?.uiModel.addOwnerAddress(address)
+            if let chain = self?.chain,
+               chain.isSupported(feature: .relayingMobile) {
+                self?.getRemainingRelays()
+            }
         }
 
         if let popoverPresentationController = picker.popoverPresentationController {
             popoverPresentationController.sourceView = tableView.cellForRow(at: indexPath)
         }
         present(picker, animated: true, completion: nil)
+        updateUI(model: uiModel)
     }
 
     // select deployer
-    func selectDeploymentKey() {
+    @objc func selectDeploymentKey() {
         let keys = uiModel.executionKeys()
 
         if keys.isEmpty {
@@ -300,13 +334,13 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         }
 
         let keyPickerVC = ChooseOwnerKeyViewController(
-                owners: keys,
-                chainID: uiModel.chain.id,
-                titleText: "Deployer Account",
-                header: .text(description: "The selected account will be used to deploy the Safe."),
-                requestsPasscode: false,
-                selectedKey: uiModel.selectedKey,
-                balancesLoader: balancesLoader
+            owners: keys,
+            chainID: uiModel.chain.id,
+            titleText: "Deployer Account",
+            header: .text(description: "The selected account will be used to deploy the Safe."),
+            requestsPasscode: false,
+            selectedKey: uiModel.selectedKey,
+            balancesLoader: balancesLoader
         )
         keyPickerVC.trackingEvent = .createSafeSelectKey
         keyPickerVC.showsCloseButton = false
@@ -340,7 +374,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     // edit fees
-    func editParameters() {
+    @objc func editParameters() {
         let formModel: FormModel
         var initialValues = UserDefinedTransactionParameters()
 
@@ -483,7 +517,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     // create button tapped
-        // notify the model
+    // notify the model
 
     // MARK: - Cells
 
@@ -492,10 +526,11 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         case 0:
             let cell = tableView.dequeueCell(SelectNetworkTableViewCell.self, for: indexPath)
             cell.setText(uiModel.chain.name)
-            cell.setIndicatorColor(uiModel.chain.backgroundColor)
+            cell.set(UIImage(named: "ico-chain-\(uiModel.chain.id!)"), color: uiModel.chain.theme?.backgroundColor)
+            cell.selectionStyle = .none
             return cell
         case 1:
-            let cell = helpTextCell("Safe will only exist on the selected network.", indexPath: indexPath)
+            let cell = helpTextCell("Safe Account will only exist on the selected network.", indexPath: indexPath)
             return cell
         default:
             assertionFailure("Developer error: row count should be only two")
@@ -572,37 +607,147 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
-    func deploymentCell(for indexPath: IndexPath) -> UITableViewCell {
-        // create a table inner cell with other cells
-        let tableCell = tableView.dequeueCell(BorderedInnerTableCell.self, for: indexPath)
+    // TODO extract to utility class?
+    func action(_ selector: Selector) -> () -> Void {
+        { [weak self] in
+            self?.performSelector(onMainThread: selector, with: nil, waitUntilDone: false)
+        }
+    }
 
-        tableCell.selectionStyle = .none
-        tableCell.verticalSpacing = 16
+    var executionOptions = ExecutionOptionsUIModel(
+        relayerState: .loading,
+        accountState: .loading,
+        feeState: .loading
+    )
 
-        tableCell.tableView.registerCell(DisclosureWithContentCell.self)
-        tableCell.tableView.registerCell(SecondaryDetailDisclosureCell.self)
+    func getRemainingRelays() {
+        switch(executionOptions.relayerState) {
+        case .loading, .filled:
+            let tasks = getRemainingRelays { [weak self] remaining, limit in
+                guard let self = self else { return }
+                self.uiModel.relaysRemaining = remaining
+                self.uiModel.relaysLimit = limit
+                self.executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: remaining, limit: limit))
+            }
+            remainingRelaysTasks = tasks
+        default:
+            self.uiModel.relaysRemaining = 0
+            self.uiModel.relaysLimit = 0
+            executionOptions.relayerState = .filled(RelayerInfoUIModel(remainingRelays: 0, limit: 0))
+        }
+    }
 
-        let accountCell = deployerAccountCell(tableView: tableCell.tableView)
-        let estimatedFeeCell = estimateFeeCell(tableView: tableCell.tableView)
+    func getRemainingRelays(completion: @escaping (Int, Int) -> Void) -> [URLSessionTask?] {
+        let group = DispatchGroup()
+        var remaining = 100
+        var limit = 5
+        var tasks: [URLSessionTask?] = []
+        // all owners need to be checked and the lowest value needs to be used
+        uiModel.owners.forEach { owner in
+            group.enter()
+            DispatchQueue.global(qos: .default).async {
+                let task = self.relayerService.asyncRelaysRemaining(chainId: self.chain.id!, safeAddress: owner.address) { [weak self] result in
+                    guard let self = self else { return }
+                    switch result {
+                    case .success(let response):
+                        if response.remaining < remaining {
+                            remaining = response.remaining
+                        }
+                        limit = response.limit
+                    case .failure:
+                        remaining = 0
+                        limit = 0
+                    }
 
-        tableCell.setCells([accountCell, estimatedFeeCell])
-
-        // handle cell taps
-        let (executeWithIndex, feeIndex) = (0, 1)
-        tableCell.onCellTap = { [weak self] index in
-            guard let self = self else { return }
-            switch index {
-            case executeWithIndex:
-                self.selectDeploymentKey()
-            case feeIndex:
-                self.editParameters()
-            default:
-                assertionFailure("Tapped cell at index out of bounds: \(index)")
+                    group.leave()
+                }
+                tasks.append(task)
             }
         }
-
-        return tableCell
+        group.notify(queue: .main) {
+            completion(remaining, limit)
+        }
+        if uiModel.owners.isEmpty {
+            remaining = 0
+            limit = 5
+            completion(remaining, limit)
+        }
+        return tasks
     }
+
+    func deploymentCell(for indexPath: IndexPath) -> UITableViewCell {
+
+        let feeState: EstimatedFeeUIModel = EstimatedFeeUIModel(tokenAmount: uiModel.estimatedFeeModel?.tokenAmount ?? "0")
+        executionOptions.feeState = .loaded(feeState)
+        executionOptions.accountState =  .empty
+        if let address = uiModel.deployerAccountInfoModel?.address {
+            let accountState: MiniAccountInfoUIModel = MiniAccountInfoUIModel(
+                prefix: uiModel.deployerAccountInfoModel?.prefix,
+                address: address,
+                label: uiModel.deployerAccountInfoModel?.label,
+                imageUri: uiModel.deployerAccountInfoModel?.imageUri,
+                badge: uiModel.deployerAccountInfoModel?.badge,
+                balance: uiModel.deployerAccountInfoModel?.balance
+            )
+            executionOptions.accountState =  .filled(accountState)
+        }
+
+        executionOptionsCellBuilder.userSelectedSigner = uiModel.userSelectedSigner
+        let cell = executionOptionsCellBuilder.buildExecutionOptions(executionOptions)[0]
+
+        return cell
+    }
+
+    @IBAction func didTapPaymentMethod(_ sender: Any) {
+        // open payment method selection
+        let choosePaymentVC = ChoosePaymentViewController()
+        choosePaymentVC.relaysRemaining = uiModel.relaysRemaining
+        choosePaymentVC.relaysLimit = uiModel.relaysLimit
+        choosePaymentVC.userSelectedSigner = uiModel.userSelectedPaymentMethod == .signerAccount
+
+        choosePaymentVC.chooseRelay = { [unowned self] in
+            LogService.shared.debug("---> User selected Relay")
+            //executionOptionsCellBuilder.userSelectedSigner = false
+
+            if chain.isSupported(feature: .relayingMobile) && uiModel.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT {
+                uiModel.userSelectedPaymentMethod = .relayer
+            }
+            uiModel.didEdit()
+            updateUI(model: uiModel)
+        }
+
+        choosePaymentVC.chooseSigner = { [unowned self] in
+            LogService.shared.debug("User selected Signer")
+            if self.uiModel.executionKeys().isEmpty {
+                let addOwnerVC = AddOwnerFirstViewController()
+                addOwnerVC.trackingEvent = .createSafeAddDeploymentKey
+                addOwnerVC.onSuccess = { [weak self] in
+                    guard let self = self else { return }
+                    self.navigationController?.popToViewController(self, animated: true)
+                    self.uiModel.selectedKey = self.uiModel.executionKeys().first
+                    self.uiModel.userSelectedPaymentMethod = .signerAccount
+                    self.uiModel.didEdit()
+                    Tracker.trackEvent(.createSafeDeploymentKeyAdded)
+                }
+                addOwnerVC.showsCloseButton = false
+                show(addOwnerVC, sender: self)
+                return
+            } else {
+                uiModel.userSelectedPaymentMethod = .signerAccount
+            }
+            self.uiModel.didEdit()
+            updateUI(model: uiModel)
+        }
+        let vc = ViewControllerFactory.pageSheet(viewController: choosePaymentVC, halfScreen: true)
+        presentModal(vc)
+    }
+
+    func presentModal(_ vc: UIViewController) {
+        present(vc, animated: true) {
+            TooltipSource.hideAll()
+        }
+    }
+
     private func deployerAccountCell(tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
         cell.setText("Pay with")
@@ -616,24 +761,6 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.setContent(view)
         } else {
             let view = textView("Key not set")
-            cell.setContent(view)
-        }
-        return cell
-    }
-
-    private func estimateFeeCell(tableView: UITableView) -> UITableViewCell {
-        let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
-        cell.setText("Network fee")
-        if uiModel.isLoadingFee {
-            let view = loadingView()
-            cell.setContent(view)
-        } else if let model = uiModel.estimatedFeeModel {
-            let view = AmountAndValuePiece()
-            view.setAmount(model.tokenAmount)
-            view.setFiatAmount(model.fiatAmount)
-            cell.setContent(view)
-        } else {
-            let view = textView("Not set")
             cell.setContent(view)
         }
         return cell
@@ -683,12 +810,18 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         if AppConfiguration.FeatureToggles.securityCenter {
             self.sign()
         } else {
-            authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
+            authenticate(options: [.useForConfirmation]) { [weak self] success in
                 guard let self = self else { return }
                 if success {
-                    self.sign()
-                } else if reset {
-                    self.dismiss(animated: false, completion: nil)
+                    if self.uiModel.relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT && self.uiModel.userSelectedPaymentMethod != .signerAccount {
+                        // No need to sign when relaying
+                        // TODO disable sum
+                        self.createButton.isEnabled = false
+                        self.uiModel.relaySubmit()
+                        
+                    } else {
+                        self.sign()
+                    }
                 }
             }
         }
@@ -698,27 +831,30 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         guard let keyInfo = uiModel.selectedKey else { return }
 
         switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated:
-            do {
-                let txHash = uiModel.transaction.hashForSigning().storage.storage
+        case .deviceImported, .deviceGenerated, .web3AuthApple, .web3AuthGoogle:
+            let txHash = uiModel.transaction.hashForSigning().storage.storage
 
-                guard let pk = try keyInfo.privateKey() else {
-                    App.shared.snackbar.show(message: "Private key not available")
+            keyInfo.privateKey { [unowned self] result in
+                do {
+                    if let privateKey = try result.get() {
+                        let signature = try privateKey._store.sign(hash: Array(txHash))
+                        try uiModel.transaction.updateSignature(
+                            v: Sol.UInt256(signature.v),
+                            r: Sol.UInt256(Data(signature.r)),
+                            s: Sol.UInt256(Data(signature.s))
+                        )
+                    } else {
+                        App.shared.snackbar.show(message: "Private key not available")
+                        return
+                    }
+                } catch {
+                    let gsError = GSError.error(description: "Signing failed", error: error)
+                    App.shared.snackbar.show(error: gsError)
                     return
                 }
-                let signature = try pk._store.sign(hash: Array(txHash))
 
-                try uiModel.transaction.updateSignature(
-                    v: Sol.UInt256(signature.v),
-                    r: Sol.UInt256(Data(signature.r)),
-                    s: Sol.UInt256(Data(signature.s))
-                )
-            } catch {
-                let gsError = GSError.error(description: "Signing failed", error: error)
-                App.shared.snackbar.show(error: gsError)
-                return
+                localSignerSubmit()
             }
-            submit()
 
         case .walletConnect:
             guard let clientTx = walletConnectTransaction() else {
@@ -767,7 +903,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                     return
                 }
 
-                self.submit()
+                self.localSignerSubmit()
             }
 
             present(vc, animated: true, completion: nil)
@@ -800,7 +936,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
                         r: Sol.UInt256(Data(Array(unmarshaledSignature.r))),
                         s: Sol.UInt256(Data(Array(unmarshaledSignature.s)))
                     )
-                    self?.submit()
+                    self?.localSignerSubmit()
                 } catch {
                     App.shared.snackbar.show(error: GSError.error(description: "Signing failed", error: error))
                 }
@@ -875,7 +1011,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
 
-    func submit() {
+    func localSignerSubmit() {
         uiModel.userDidSubmit()
     }
 

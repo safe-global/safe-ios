@@ -29,7 +29,7 @@
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hde-lS-rfK">
                             <rect key="frame" x="0.0" y="0.0" width="382" height="81.5"/>
-                            <string key="text">You can select yourself or any other person to be a delegate. Your Safe has the full voting power even after delegation.
+                            <string key="text">You can select yourself or any other person to be a delegate. Your Safe Account has the full voting power even after delegation.
 </string>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>

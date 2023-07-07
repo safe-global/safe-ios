@@ -14,7 +14,9 @@ class DetailRejectionInfoCell: UITableViewCell, ExternalURLSource {
     @IBOutlet private weak var linkButton: UIButton!
     @IBOutlet private weak var helpLinkContinerView: UIView!
 
-    private(set) var url: URL? = App.configuration.help.payForCancellationURL
+    private(set) var url: URL? = {
+        App.configuration.help.payForCancellationURL
+    }()
 
     override func awakeFromNib() {
         super.awakeFromNib()

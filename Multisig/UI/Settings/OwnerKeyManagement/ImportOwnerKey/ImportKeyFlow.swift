@@ -67,7 +67,10 @@ class ImportKeyFlow: AddKeyFlow {
             return false
         }
         
-        return OwnerKeyController.importKey(privateKey, name: name, isDrivedFromSeedPhrase: source == .seed)
+        return OwnerKeyController.importKey(privateKey,
+                                            name: name,
+                                            type: .deviceImported,
+                                            isDerivedFromSeedPhrase: source == .seed)
     }
 }
 
@@ -77,12 +80,12 @@ class ImportKeyFlowFactory: AddKeyFlowFactory {
         introVC.cards = [
             .init(image: UIImage(named: "ico-onboarding-import-key-1"),
                   title: "How does it work?",
-                  body: "Enter the private key or seed phrase of your owner key controlling your Safe. Your owner key will be imported into this app. You can then confirm proposed transactions on the go."),
+                  body: "Enter the private key or seed phrase of your owner key controlling your Safe Account. Your owner key will be imported into this app. You can then confirm proposed transactions on the go."),
             
                 .init(image: UIImage(named: "ico-onboarding-import-key-2"),
                       title: "How secure is that?",
                       body: "We only store your private key. We do not store your seed phrase in the app.",
-                      link: .init(title: "How is a private key stored on mobile?", url: URL(string: "https://help.safe.global/en/articles/4866738-how-are-private-keys-stored-on-gnosis-safe-mobile")!)),
+                      link: .init(title: "How is a private key stored on mobile?", url: App.configuration.help.keySecurityURL)),
             
                 .init(image: UIImage(named: "ico-onboarding-import-key-3"),
                       title: "Is my wallet supported?",

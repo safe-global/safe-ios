@@ -84,7 +84,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
 
         navigationItem.title = "Owner Key"
 
-        if [KeyType.deviceImported, .deviceGenerated].contains(keyInfo.keyType) {
+        if KeyType.privateKeyTypes.contains(keyInfo.keyType) {
             exportButton = UIBarButtonItem(title: "Export", style: .done, target: self, action: #selector(didTapExportButton))
             navigationItem.rightBarButtonItem = exportButton
         }
@@ -152,7 +152,6 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         if AppConfiguration.FeatureToggles.securityCenter {
 
             keyInfo.privateKey { [unowned self] result in
-
                 do {
                     if let privateKey = try result.get() {
                         exportViewController.privateKey = privateKey.keyData.toHexStringWithPrefix()
@@ -162,6 +161,8 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                         App.shared.snackbar.show(error: GSError.PrivateKeyDataNotFound(reason: "Key data does not exist"))
                         return
                     }
+                } catch let userCancellationError as GSError.CancelledByUser {
+                    return
                 } catch {
                     App.shared.snackbar.show(error: GSError.PrivateKeyFetchError(reason: error.localizedDescription))
                     return
@@ -183,7 +184,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                 return
             }
 
-            authenticate(biometry: false) { [unowned self] success, _ in
+            authenticate(biometry: false) { [unowned self] success in
                 if success {
                     show(exportViewController, sender: self)
                 }
@@ -208,7 +209,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
             return
         }
 
-        self.sections = [
+        sections = [
             (section: .name("OWNER NAME"), items: [Section.Name.name]),
 
             (section: .keyAddress("OWNER ADDRESS"),
@@ -218,23 +219,24 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                     items: [Section.OwnerKeyType.type])]
 
         if keyInfo.keyType == .walletConnect {
-            self.sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
+            sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
         }
 
-        self.sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
+        sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
                               items: [Section.PushNotificationConfiguration.enabled]))
-        if self.keyInfo.delegateAddress != nil {
-            self.sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
-                                  items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
+
+        if keyInfo.delegateAddress != nil {
+            sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
+                    items: [Section.DelegateKey.address, Section.DelegateKey.helpLink]))
         }
 
-        self.sections.append((section: .advanced, items: [Section.Advanced.remove]))
+        sections.append((section: .advanced, items: [Section.Advanced.remove]))
 
         if keyInfo.needsBackup {
             sections.insert((section: .backedup, items: [Section.Backedup.backedup]), at: 0)
         }
 
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
 
     @objc private func pop() {
@@ -286,7 +288,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         case Section.DelegateKey.address:
             return tableView.addressDetailsCell(address: keyInfo.delegateAddress ?? Address.zero, indexPath: indexPath)
         case Section.DelegateKey.helpLink:
-            return tableView.helpLinkCell(text: "What is a delegate key and how does it relate to the Safe",
+            return tableView.helpLinkCell(text: "What is a delegate key and how does it relate to the Safe Account",
                                 url: App.configuration.help.delegateKeyURL,
                                 indexPath: indexPath)
         case Section.Advanced.remove:
@@ -356,7 +358,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                     App.shared.snackbar.show(message: error.localizedDescription)
                 }
             } else {
-                authenticate(options: [.useForConfirmation]) { [weak self] success, reset in
+                authenticate(options: [.useForConfirmation]) { [weak self] success in
                     guard let self = self else { return }
 
                     if success {
@@ -496,6 +498,10 @@ extension KeyType {
             return "WalletConnect"
         case .keystone:
             return "Keystone"
+        case .web3AuthApple:
+            return "Web3AuthApple"
+        case .web3AuthGoogle:
+            return "Web3AuthGoogle"
         }
     }
 }

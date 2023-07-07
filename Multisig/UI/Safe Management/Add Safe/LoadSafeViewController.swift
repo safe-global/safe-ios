@@ -18,6 +18,7 @@ class LoadSafeViewController: UIViewController {
 
     private var buttonYConstraint: NSLayoutConstraint?
     var trackingEvent: TrackingEvent?
+    var createSafeFlow: CreateSafeFlow!
 
     convenience init() {
         self.init(nibName: nil, bundle: nil)
@@ -27,8 +28,8 @@ class LoadSafeViewController: UIViewController {
         super.viewDidLoad()
         headerLabel.setStyle(.title3)
         descriptionLabel.setStyle(.callout)
-        loadSafeButton.setText("Load existing Safe", .filled)
-        createSafeButton.setText("Create new Safe", .bordered)
+        loadSafeButton.setText("Load existing Safe Account", .filled)
+        createSafeButton.setText("Create new Safe Account", .bordered)
         demoButton.setText("Try Demo", .plain)
     }
 
@@ -55,8 +56,8 @@ class LoadSafeViewController: UIViewController {
     @IBAction private func didTapLoadSafe(_ sender: Any) {
         Tracker.trackEvent(.addSafeFromOnboarding)
         let selectNetworkVC = SelectNetworkViewController()
-        selectNetworkVC.screenTitle = "Load Safe"
-        selectNetworkVC.descriptionText = "Select network on which your Safe was created:"
+        selectNetworkVC.screenTitle = "Load Safe Account"
+        selectNetworkVC.descriptionText = "Select network on which your Safe Account was created:"
         selectNetworkVC.completion = { [unowned selectNetworkVC] chain  in
             let vc = EnterSafeAddressViewController()
             vc.chain = chain
@@ -73,12 +74,10 @@ class LoadSafeViewController: UIViewController {
 
     @IBAction func didTapCreateSafe(_ sender: Any) {
         Tracker.trackEvent(.createSafeFromOnboarding)
-        let instructionsVC = CreateSafeInstructionsViewController()
-        instructionsVC.onClose = { [unowned instructionsVC] in
-            instructionsVC.dismiss(animated: true, completion: nil)
-        }
-        let vc = ViewControllerFactory.modal(viewController: instructionsVC)
-        present(vc, animated: true)
+        createSafeFlow = CreateSafeFlow(completion: { [unowned self] _ in
+            createSafeFlow = nil
+        })
+        present(flow: createSafeFlow, dismissableOnSwipe: false)
     }
 
     @IBAction func didTapTryDemo(_ sender: Any) {

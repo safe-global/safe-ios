@@ -16,6 +16,8 @@ enum TrackingUserProperty: String, UserProperty {
     case numKeysWalletConnect = "num_keys_walletconnect" // string, number of WalletConnect keys, "0" on fresh install
     case numKeysLedgerNanoX = "num_keys_ledger_nano_x" // string, number of Ledger Nano X keys, "0" on fresh install
     case numKeysKeystone = "num_keys_keystone" // string, number of Keystone keys, "0" on fresh install
+    case numKeysWeb3AuthApple = "num_keys_web3auth_apple" // string, number of Web3Auth keys of Apple login, "0" on fresh install
+    case numKeysWeb3AuthGoogle = "num_keys_web3auth_google" // string, number of Web3Auth keys of Goolge login, "0" on fresh install
     case passcodeIsSet = "passcode_is_set" // string, "true" or "false" depending on if app passcode is set
     case walletConnectForDappsEnabled = "wc_for_dapps_enabled" // string, "true" or "false"
     case walletConnectForKeysEnabled = "wc_for_keys_enabled" // string, "true" or "false"
@@ -126,6 +128,8 @@ enum TrackingEvent: String, Trackable {
 
     case ownerKeyImported                           = "user_key_imported"
     case ownerKeyGenerated                          = "user_key_generated"
+    case web3AuthKeyApple                           = "user_web3auth_key_Apple"
+    case web3AuthKeyGoogle                          = "user_web3auth_key_Google"
     case ownerKeyRemoved                            = "user_key_deleted"
 
     case chooseOwner                                = "screen_owner_choose"
@@ -202,6 +206,8 @@ enum TrackingEvent: String, Trackable {
     // keyType: one of [imported, generated, wallet_connect, ledger_nano_x]
     // wallet (String?): name of the wallet (first 100 chars)
     case userTransactionExecuteSubmitted            = "user_transaction_exec_submitted"
+    case successTxSigner                            = "screen_tx_signer_success"
+    case successTxRelay                             = "screen_tx_relay_success"
     
     // MARK: Create Safe
     case createSafe                                 = "screen_cs"
@@ -340,7 +346,10 @@ enum TrackingEvent: String, Trackable {
     case relayChoosePayment                         = "screen_exec_tx_payment"
     case relayUserExecTxPaymentRelay                = "user_exec_tx_payment_relay"
     case relayUserExecTxPaymentSigner               = "user_exec_tx_payment_signer"
+    // successful submission to the relay service
     case relayUserSuccess                           = "user_relay_success"
+    // failed submission to the relay service
+    case relayUserFailure                           = "user_relay_failure"
 
     
     // MARK: Safe Token Claim
@@ -461,6 +470,10 @@ extension KeyType {
             return "connected"
         case .keystone:
             return "keystone"
+        case .web3AuthApple:
+            return "web3AuthApple"
+        case .web3AuthGoogle:
+            return "web3AuthGoogle"
         }
     }
 }

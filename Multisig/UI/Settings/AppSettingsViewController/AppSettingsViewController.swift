@@ -8,7 +8,6 @@
 
 import UIKit
 import SwiftUI
-import Intercom
 
 fileprivate protocol SectionItem {}
 
@@ -112,7 +111,7 @@ class AppSettingsViewController: UITableViewController {
         }
 
         let aboutSection: (section: AppSettingsViewController.Section, items: [SectionItem]) = (section: .about("About"), items: [
-            Section.About.aboutGnosisSafe("About Safe"),
+            Section.About.aboutGnosisSafe("About Safe{Wallet}"),
             Section.About.appVersion("App version", "\(app.marketingVersion) (\(app.buildVersion))"),
         ])
         sections += [
@@ -153,7 +152,7 @@ class AppSettingsViewController: UITableViewController {
         let keys = WebConnectionController.shared.accountKeys()
         if keys.isEmpty {
             let addOwnersVC = AddOwnerFirstViewController()
-            addOwnersVC.descriptionText = "To connect to Safe import at least one owner key. Keys are used to confirm transactions."
+            addOwnersVC.descriptionText = "To connect to Safe{Wallet} import at least one owner key. Keys are used to confirm transactions."
             addOwnersVC.onSuccess = { [weak self] in
                 self?.dismiss(animated: true) {
                     _ = self?.showDesktopPairing()
@@ -226,7 +225,7 @@ class AppSettingsViewController: UITableViewController {
             return tableView.basicCell(name: name, icon: "ico-app-settings-package", indexPath: indexPath)
             
         case Section.Support.chatWithUs(let name):
-            if Intercom.unreadConversationCount() > 0 {
+            if IntercomConfig.unreadConversationCount() > 0 {
                 return tableView.basicCell(name: name, icon: "ico-app-settings-message-circle-with-badge", indexPath: indexPath)
             } else {
                 return tableView.basicCell(name: name, icon: "ico-app-settings-message-circle", indexPath: indexPath)
@@ -287,7 +286,7 @@ class AppSettingsViewController: UITableViewController {
             
         case Section.Support.chatWithUs:
             Tracker.trackEvent(.userOpenIntercom)
-            App.shared.intercomConfig.startChat()
+            IntercomConfig.startChat()
             break
             
         case Section.Support.getSupport:

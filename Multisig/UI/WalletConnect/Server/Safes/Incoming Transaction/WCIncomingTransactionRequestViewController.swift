@@ -136,7 +136,7 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
             imageName = "ico-rejection-tx"
         case .creation(_):
             imageName = "ico-settings-tx"
-            name = "Safe created"
+            name = "Safe Account created"
         case .unknown:
             imageName = "ico-custom-tx"
             name = "Unknown operation"

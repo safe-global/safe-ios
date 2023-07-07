@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,8 +19,8 @@
             <rect key="frame" x="0.0" y="0.0" width="481" height="204"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select network on which your Safe was created:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6uV-fd-5gt">
-                    <rect key="frame" x="110.5" y="60" width="260" height="94"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select network on which your Safe Account was created:" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6uV-fd-5gt">
+                    <rect key="frame" x="16" y="64" width="431" height="90"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="260" id="jhE-IF-vNU"/>
                     </constraints>
@@ -32,8 +32,10 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="6uV-fd-5gt" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="Kb9-U5-EVI"/>
                 <constraint firstItem="6uV-fd-5gt" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="Ymm-Iw-ZLH"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="6uV-fd-5gt" secondAttribute="bottom" constant="16" id="apz-gB-lET"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="6uV-fd-5gt" secondAttribute="trailing" constant="16" id="e6K-JH-iLa"/>
                 <constraint firstItem="6uV-fd-5gt" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="hTB-1N-GMW"/>
                 <constraint firstItem="6uV-fd-5gt" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="lk9-Wp-kjp"/>
             </constraints>

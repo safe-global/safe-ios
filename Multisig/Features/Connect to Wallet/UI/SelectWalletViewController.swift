@@ -147,6 +147,7 @@ extension SelectWalletViewController: UITableViewDelegate, UITableViewDataSource
         let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
         let walletConnectionVC = StartWalletConnectionViewController(wallet: wallet, chain: chain)
         walletConnectionVC.onSuccess = { [weak self] connection in
+            var connectedWallet = wallet
             self?.connection = connection
             self?.completion(wallet, connection)
         }

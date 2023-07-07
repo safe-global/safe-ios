@@ -19,7 +19,7 @@ class OnboardingViewController: UIViewController {
     @IBOutlet private weak var actionsContainerView: UIStackView!
     @IBOutlet private weak var pageControl: UIPageControl!
     @IBOutlet private weak var collectionView: UICollectionView!
-
+    private var createSafeFlow: CreateSafeFlow!
     private let steps: [OnboardingStep] = [OnboardingStep(title: (text: "The world of Web3 in your pocket",
                                                                   highlightedText: "Web3"),
                                                           description: (text: "Use the most popular Ethereum-compatible networks, connect to dApps, get transaction notifications and more.",
@@ -51,8 +51,8 @@ class OnboardingViewController: UIViewController {
         super.viewDidLoad()
 
         completelyNewLabel.setStyle(.callout)
-        loadSafeButton.setText("Load existing Safe", .bordered)
-        createSafeButton.setText("Create new Safe", .filled)
+        loadSafeButton.setText("Load existing Safe Account", .bordered)
+        createSafeButton.setText("Create new Safe Account", .filled)
         demoButton.setText("Explore Demo", .primary)
         skipButton.setText("Skip", .primary)
         let nib = UINib(nibName: OnboardingStepCollectionViewCell.identifier, bundle: Bundle(for: OnboardingStepCollectionViewCell.self))
@@ -70,8 +70,8 @@ class OnboardingViewController: UIViewController {
     @IBAction private func didTapLoadSafe(_ sender: Any) {
         Tracker.trackEvent(.addSafeFromOnboarding)
         let selectNetworkVC = SelectNetworkViewController()
-        selectNetworkVC.screenTitle = "Load Safe"
-        selectNetworkVC.descriptionText = "Select network on which your Safe was created:"
+        selectNetworkVC.screenTitle = "Load Safe Account"
+        selectNetworkVC.descriptionText = "Select network on which your Safe Account was created:"
         selectNetworkVC.completion = { [unowned selectNetworkVC, weak self] chain  in
             let vc = EnterSafeAddressViewController()
             vc.chain = chain
@@ -89,13 +89,10 @@ class OnboardingViewController: UIViewController {
 
     @IBAction private func didTapCreateSafe(_ sender: Any) {
         Tracker.trackEvent(.createSafeFromOnboarding)
-        let instructionsVC = CreateSafeInstructionsViewController()
-        instructionsVC.onClose = { [unowned instructionsVC, weak self] in
-            instructionsVC.dismiss(animated: true, completion: nil)
-            self?.completion()
-        }
-        let vc = ViewControllerFactory.modal(viewController: instructionsVC)
-        present(vc, animated: true)
+        createSafeFlow = CreateSafeFlow(completion: { [unowned self] _ in
+            createSafeFlow = nil
+        })
+        present(flow: createSafeFlow, dismissableOnSwipe: false)
     }
 
     @IBAction private func didTapTryDemo(_ sender: Any) {

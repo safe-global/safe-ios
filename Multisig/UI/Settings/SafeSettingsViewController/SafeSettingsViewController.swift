@@ -121,7 +121,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             safe = selectedSafe
             updateSections()
         } catch {
-            onError(GSError.error(description: "Failed to load safe settings", error: error))
+            onError(GSError.error(description: "Failed to load Safe Account settings", error: error))
         }
         tableView.reloadData()
     }
@@ -148,7 +148,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                             (error as NSError).domain == NSURLErrorDomain {
                             return
                         }
-                        self.onError(GSError.error(description: "Failed to load safe settings", error: GSError.detailedError(from: error)))
+                        self.onError(GSError.error(description: "Failed to load Safe Account settings", error: GSError.detailedError(from: error)))
                     }
                 case .success(let safeInfo):
                     DispatchQueue.main.async { [weak self] in
@@ -162,7 +162,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 }
             }
         } catch {
-            onError(GSError.error(description: "Failed to load safe settings", error: GSError.detailedError(from: error)))
+            onError(GSError.error(description: "Failed to load Safe Account settings", error: GSError.detailedError(from: error)))
         }
     }
 
@@ -182,7 +182,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                     (error as NSError).domain == NSURLErrorDomain {
                     return
                 }
-                self.onError(GSError.error(description: "Failed to load safe owners", error: GSError.detailedError(from: error)))
+                self.onError(GSError.error(description: "Failed to load Safe Account owners", error: GSError.detailedError(from: error)))
             case .success(let owners):
                 self.safeOwners = owners.compactMap { owner in
                     AddressInfo.init(address: owner)
@@ -207,7 +207,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         else { return }
 
         sections += [
-            (section: .name("Safe Name"), items: [Section.Name.name(safe.name ?? "Safe \(safe.addressValue.ellipsized())")]),
+            (section: .name("Safe Account Name"), items: [Section.Name.name(safe.name ?? "Safe \(safe.addressValue.ellipsized())")]),
 
             (section: .requiredConfirmations("Required confirmations"),
              items: [Section.RequiredConfirmations.confirmations("\(threshold) out of \(ownersInfo.count)")]),
@@ -215,7 +215,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             (section: .ownerAddresses("Owners"),
              items: ownersInfo.map { Section.OwnerAddresses.ownerInfo($0) }),
 
-            (section: .safeVersion("Safe version"),
+            (section: .safeVersion("Safe Account base contract version"),
              items: [Section.ContractVersion.versionInfo(implementationInfo, implementationVersionState, version)]),
 
             (section: .ensName("ENS name"), items: [Section.EnsName.ensName]),

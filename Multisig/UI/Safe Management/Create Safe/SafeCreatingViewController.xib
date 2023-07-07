@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SafeCreatingViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="animationView" destination="tHf-T2-TLm" id="ivH-mj-smL"/>
+                <outlet property="descriptionLabel" destination="PDd-K5-Xkc" id="F8b-yd-vBr"/>
+                <outlet property="infoView1" destination="vGq-dm-w2u" id="ofn-W1-Fb3"/>
+                <outlet property="infoView2" destination="5Q1-1T-Cxq" id="27b-Qt-H5Y"/>
+                <outlet property="infoView3" destination="6QE-TX-Pex" id="oDy-4S-PT9"/>
+                <outlet property="titleLabel" destination="zk6-bq-5Hs" id="7hN-Ox-Ce4"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tHf-T2-TLm" customClass="LottieAnimationView" customModule="Lottie">
+                    <rect key="frame" x="146.66666666666666" y="216" width="100" height="100"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="tHf-T2-TLm" secondAttribute="height" id="WHC-jJ-6la"/>
+                        <constraint firstAttribute="width" constant="100" id="oNQ-bW-o4s"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zk6-bq-5Hs">
+                    <rect key="frame" x="139" y="348" width="115.33333333333331" height="40.666666666666686"/>
+                    <string key="text">Creating your
+Safe Account...</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="This may take a minute or so, please don't close the app." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDd-K5-Xkc">
+                    <rect key="frame" x="16" y="428" width="361" height="46"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="360" id="5kj-Pw-6md"/>
+                        <constraint firstAttribute="height" constant="52" id="RDM-7f-6Lh"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="9Of-ON-jlc">
+                    <rect key="frame" x="16" y="516" width="361" height="416"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vGq-dm-w2u" customClass="InfoView" customModule="Multisig" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="361" height="128"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Q1-1T-Cxq" customClass="InfoView" customModule="Multisig" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="143.99999999999994" width="361" height="128"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6QE-TX-Pex" customClass="InfoView" customModule="Multisig" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="287.99999999999994" width="361" height="128"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="zk6-bq-5Hs" firstAttribute="centerX" secondItem="PDd-K5-Xkc" secondAttribute="centerX" id="GtE-mc-4i2"/>
+                <constraint firstItem="PDd-K5-Xkc" firstAttribute="top" secondItem="zk6-bq-5Hs" secondAttribute="bottom" constant="24" id="IhE-BW-fC9"/>
+                <constraint firstItem="zk6-bq-5Hs" firstAttribute="top" secondItem="tHf-T2-TLm" secondAttribute="bottom" constant="32" id="MC4-mN-RMZ"/>
+                <constraint firstItem="9Of-ON-jlc" firstAttribute="top" secondItem="PDd-K5-Xkc" secondAttribute="bottom" constant="32" id="Y14-HK-sW2"/>
+                <constraint firstItem="PDd-K5-Xkc" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="YgR-Tf-cT2"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9Of-ON-jlc" secondAttribute="trailing" constant="16" id="aZQ-lq-Buz"/>
+                <constraint firstItem="tHf-T2-TLm" firstAttribute="centerX" secondItem="zk6-bq-5Hs" secondAttribute="centerX" id="iXg-DS-kiB"/>
+                <constraint firstItem="PDd-K5-Xkc" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="rJr-x9-Qak"/>
+                <constraint firstItem="9Of-ON-jlc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="ygb-0m-Tr2"/>
+            </constraints>
+            <point key="canvasLocation" x="130.53435114503816" y="9.8591549295774659"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

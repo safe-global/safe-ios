@@ -10,12 +10,13 @@ import Foundation
 import UIKit
 
 class EnterPasscodeViewController: PasscodeViewController {
+    enum Result {
+        //TODO: Remove optional when remove the old security code
+        case success(String?)
+        case close
+    }
 
-    // Deprecated with the new security center
-    var passcodeCompletion: (_ success: Bool, _ reset: Bool, _ passcode: String?) -> Void = { _, _, _ in }
-
-    var onPasscodeEnter: (_ password: String?) throws -> Void = { _ in }
-    var onError: (_ error: Error) -> Void = { _ in }
+    var passcodeCompletion: (_ result: Result) -> Void = { _ in }
 
     var navigationItemTitle = "Enter Passcode"
     var screenTrackingEvent = TrackingEvent.enterPasscode
@@ -65,17 +66,12 @@ class EnterPasscodeViewController: PasscodeViewController {
                 isCorrect = try App.shared.auth.isPasscodeCorrect(plaintextPasscode: text)
             }
         } catch {
-            showGenericError(description: "Failed to check passcode", error: error)
+            showIncorrectPasscodeError()
             return
         }
 
         if isCorrect {
-            passcodeCompletion(true, false, text)
-            do {
-                try onPasscodeEnter(text)
-            } catch {
-                onError(error)
-            }
+            passcodeCompletion(.success(text))
         } else {
             wrongAttemptsCount += 1
             if wrongAttemptsCount >= warnAfterWrongAttemptCount {
@@ -95,12 +91,7 @@ class EnterPasscodeViewController: PasscodeViewController {
     }
 
     @objc func didTapCloseButton() {
-        if AppSettings.securityLockEnabled {
-            // TODO: make a better error?
-            onError("Cancelled")
-        } else {
-            passcodeCompletion(false, false, nil)
-        }
+        self.passcodeCompletion(.close)
     }
 
     override func didTapButton(_ sender: Any) {
@@ -116,8 +107,7 @@ class EnterPasscodeViewController: PasscodeViewController {
                 return
             }
             do {
-                // should be before deleting all data
-                self.passcodeCompletion(false, true, nil)
+                self.passcodeCompletion(.close)
                 try App.shared.auth.deleteAllData()
             } catch {
                 showGenericError(description: "Failed to remove passcode", error: error)
@@ -141,8 +131,7 @@ class EnterPasscodeViewController: PasscodeViewController {
             guard let `self` = self else { return }
             switch result {
             case .success:
-                self.passcodeCompletion(true, false, nil)
-
+                self.passcodeCompletion(.success(nil))
             case .failure(_):
                 self.biometryButton.isHidden = !self.canUseBiometry
             }

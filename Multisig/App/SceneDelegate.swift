@@ -7,6 +7,7 @@
 //
 import UIKit
 import SwiftUI
+import CustomAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -88,6 +89,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         App.shared.clientGatewayHostObserver.startObserving()
 
         PendingTransactionMonitor.scheduleMonitoring()
+        RelayedTransactionMonitor.scheduleMonitoring()
         SafeCreationMonitor.scheduleMonitoring()
         WebConnectionExpirationMonitor.scheduleMonitoring()
 
@@ -114,7 +116,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if presentedWindow === tabBarWindow {
             privacyShieldWindow?.isHidden = false
         }
-        App.shared.intercomConfig.hide()
+        IntercomConfig.hide()
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -149,6 +151,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     //   - 'open' link to move the app to foreground so that it is able to process WalletConnect request or response.
     // - Request To Add Owner
     //   - <web app url>/<network:safe_address>/addOwner?address=<owner_address>
+    // - Web3auth
+    //   - handled by CustomAuth.handle()
     private func handleUserActivity(_ userActivity: NSUserActivity) {
         // Get URL components from the incoming user activity.
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
@@ -173,6 +177,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if AddOwnerRequestValidator.isValid(url: incomingURL),
            let params = AddOwnerRequestValidator.parameters(from: incomingURL) {
             DefaultNavigationRouter.shared.navigate(to: .requestToAddOwner(params))
+            return
+        }
+
+        if GoogleWeb3AuthLoginModel.handle(url: incomingURL) {
             return
         }
 
@@ -247,14 +255,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func makeEnterPasscodeWindow(showsCloseButton: Bool = false,
-                                 onPasscodeEnter: ((String?) throws -> Void)? = nil,
-                                 onError: ((Error) -> Void)? = nil) -> UIWindow {
+                                 completion: ((EnterPasscodeViewController.Result) -> Void)? = nil) -> UIWindow {
         let enterPasscodeWindow = makeWindow(scene: scene!)
 
-        let vc = ViewControllerFactory.enterPasscodeViewController (showsCloseButton: showsCloseButton,
-                                                                    completion: { [unowned self] passcode in
-            onEnterPasscodeCompletion(userPassword: passcode)
-        }, onPasscodeEnter: onPasscodeEnter, onError: onError)
+        let vc = ViewControllerFactory.enterPasscodeViewController (showsCloseButton: showsCloseButton) { [unowned self] result in
+            if case let EnterPasscodeViewController.Result.success(passcode) = result {
+                onEnterPasscodeCompletion(userPassword: passcode)
+            } else {
+                showMainContentWindow()
+            }
+
+            completion?(result)
+        }
 
         enterPasscodeWindow.rootViewController = vc
         return enterPasscodeWindow
@@ -315,8 +327,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func showMainContentWindow() {
         showWindow(tabBarWindow)
-        App.shared.intercomConfig.appDidShowMainContent()
-
+        IntercomConfig.appDidShowMainContent()
     }
 
     func onTermsCompletion() {
@@ -359,23 +370,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     @objc private func handlePasscodeRequired(_ notification: Notification) {
-        guard
-            let task = notification.userInfo?["accessTask"] as? (_ password: String?) throws -> Void,
-            let onFailure = notification.userInfo?["onFailure"] as? (_ error: Error) -> Void
-        else {
+        guard let task = notification.userInfo?["accessTask"] as? (_ password: String?) -> Void else {
             return
         }
 
-        showWindow(makeEnterPasscodeWindow(showsCloseButton: true,
-                                           onPasscodeEnter: { [weak self] pwd in
-            try task(pwd)
-            self?.showMainContentWindow()
-        }, onError: { [weak self] error in
-            if let str = error as? String, str == "Cancelled" {
-                self?.showMainContentWindow()
-            }
-            onFailure(error)
-        }))
+        DispatchQueue.main.async { [unowned self] in
+            showWindow(makeEnterPasscodeWindow(showsCloseButton: true) { result in
+                switch result {
+                case .success(let password):
+                    task(password)
+                case .close:
+                    return
+                }
+            })
+        }
     }
 }
 

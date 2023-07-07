@@ -38,21 +38,10 @@ enum ViewControllerFactory {
     }
 
     static func enterPasscodeViewController(showsCloseButton: Bool,
-                                            completion: @escaping (_ passcode: String?) -> Void,
-                                            onPasscodeEnter: ((String?) throws -> Void)? = nil,
-                                            onError: ((Error) -> Void)? = nil) -> UIViewController {
+                                            completion: @escaping (_ result: EnterPasscodeViewController.Result) -> Void) -> UIViewController {
         let vc = EnterPasscodeViewController()
         vc.showsCloseButton = showsCloseButton
-        // TODO: EnterPasscodeViewController to use the correct handlers
-
-        // because close button is hidden, this will complete only
-        // if passcode is correct or if the data is deleted.
-        // in both cases, we want to trigger completion closure
-        vc.passcodeCompletion = { _, _, passcode in
-            completion(passcode)
-        }
-        vc.onPasscodeEnter = onPasscodeEnter ?? { _ in }
-        vc.onError = onError ?? { _ in }
+        vc.passcodeCompletion = completion
         return UINavigationController(rootViewController: vc)
     }
 
@@ -73,7 +62,7 @@ enum ViewControllerFactory {
     }
     
     static func transactionDetailsViewController(transaction: SCGModels.TransactionDetails) -> UIViewController {
-        let vc = TransactionDetailsViewController(transaction: transaction)
+        let vc = TransactionDetailsViewController(transactionID: transaction.txId)
         return modalWithRibbon(viewController: vc)
     }
 
@@ -121,9 +110,16 @@ enum ViewControllerFactory {
         vc.navigationController?.isNavigationBarHidden = false
     }
 
-    static func modal(viewController: UIViewController, halfScreen: Bool = false) -> UIViewController {
+    static func modal(viewController: UIViewController,
+                      halfScreen: Bool = false,
+                      largeTitles: Bool = false) -> UIViewController {
         Self.addCloseButton(viewController)
         let navController = UINavigationController(rootViewController: viewController)
+        if largeTitles {
+            navController.navigationBar.prefersLargeTitles = true
+            navController.navigationItem.largeTitleDisplayMode = .always
+        }
+        
         if #unavailable(iOS 15) {
             // explicitly set background color to prevent transparent background in dark mode (iOS 14)
             navController.navigationBar.backgroundColor = .backgroundSecondary

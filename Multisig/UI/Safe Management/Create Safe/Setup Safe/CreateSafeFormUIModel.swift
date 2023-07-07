@@ -24,7 +24,7 @@ class CreateSafeFormUIModel {
     var name: String?
     var chain: Chain!
     var owners: [CreateSafeFormOwner] = []
-    var threshold: Int = 0
+    var threshold: Int = 1
     var selectedKey: KeyInfo?
     var deployerBalance: Sol.UInt256?
     var minNonce: Sol.UInt64 = 0
@@ -34,15 +34,20 @@ class CreateSafeFormUIModel {
     var sectionHeaders: [CreateSafeFormSectionHeader] = []
     var state: CreateSafeFormUIState = .initial
     var futureSafeAddress: Address?
+    var userSelectedPaymentMethod: Transaction.PaymentMethod? = nil
+    var relaysRemaining = 0
+    var relaysLimit = 0
 
     private var debounceTimer: Timer?
     private var estimationTask: URLSessionTask?
     private var getBalanceTask: URLSessionTask?
     private var sendingTask: URLSessionTask?
+    private var relayingTask: URLSessionTask?
     private var receiptTask: URLSessionTask?
     private var safeInfoTask: URLSessionTask?
 
     var estimationController: TransactionEstimationController!
+    let relayerService: SafeGelatoRelayService = App.shared.relayService
 
     weak var delegate: CreateSafeFormUIModelDelegate?
 
@@ -115,16 +120,35 @@ class CreateSafeFormUIModel {
         state == .ready || state == .changed || state == .error || state == .keyNotFound
     }
 
+    // TODO: Refactor this and introduce new state to reflect relaying state
     var isCreateEnabled: Bool {
-        state == .ready &&
-        name != nil && !name!.isEmpty &&
+        name != nil &&
+        !name!.isEmpty &&
         chain != nil &&
         !owners.isEmpty &&
-        threshold > 0 && threshold <= owners.count &&
-        selectedKey != nil &&
+        threshold > 0 &&
+        threshold <= owners.count &&
         transaction != nil &&
-        deployerBalance != nil && deployerBalance! >= transaction.requiredBalance &&
-        error == nil
+        error == nil &&
+        ((state == .ready &&
+          selectedKey != nil &&
+          deployerBalance != nil &&
+          deployerBalance! >= transaction.requiredBalance) ||
+         (!userSelectedSigner &&
+          chainSupportsRelayer &&
+          relaysLeft))
+    }
+
+    var userSelectedSigner: Bool {
+        return userSelectedPaymentMethod == .signerAccount
+    }
+
+    var chainSupportsRelayer: Bool {
+        return chain.isSupported(feature: .relayingMobile)
+    }
+
+    var relaysLeft: Bool {
+        return relaysRemaining > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT
     }
 
     var isLoadingDeployer: Bool {
@@ -166,7 +190,15 @@ class CreateSafeFormUIModel {
 
     func setChain(_ scgChain: SCGModels.Chain) {
         let newChain = Chain.createOrUpdate(scgChain)
+        if chain.id != newChain.id {
+            selectedKey = nil
+            deployerBalance = nil
+        }
         chain = newChain
+
+        if chain.isSupported(feature: .relayingMobile) {
+            userSelectedPaymentMethod = nil  // prefer sponsored payment
+        }
         // needs updating because the chain prefix will change and potentially address name from address book
         updateOwners()
         didEdit()
@@ -188,8 +220,14 @@ class CreateSafeFormUIModel {
     func deleteOwnerAt(_ index: Int) {
         guard index < owners.count else { return }
         owners.remove(at: index)
-        threshold = min(threshold, owners.count)
+        let min = min(threshold, owners.count)
+        if min > 0 {
+             threshold = min
+        } else {
+            threshold = 1
+        }
         sectionHeaders = makeSectionHeaders()
+
         didEdit()
     }
 
@@ -379,8 +417,8 @@ class CreateSafeFormUIModel {
 
     private func makeSectionHeaders() -> [CreateSafeFormSectionHeader] {
         var result: [CreateSafeFormSectionHeader] = [
-            .init(id: .name, title: "Safe Name", itemCount: 1),
-            .init(id: .network, title: "Network", tooltip: "Safe will only exist on the selected network.", itemCount: 2),
+            .init(id: .name, title: "Safe Account Name", itemCount: 1),
+            .init(id: .network, title: "Network", tooltip: "Safe Account will only exist on the selected network.", itemCount: 2),
             // we have 2 additional cells:
             // 'add owner' button cell
             // and help text cell
@@ -439,7 +477,7 @@ class CreateSafeFormUIModel {
 
                 self.updateEthTransactionWithUserValues()
 
-                if balance < self.transaction.requiredBalance {
+                if balance < self.transaction.requiredBalance && self.userSelectedPaymentMethod == .signerAccount {
                     completion(.failure(CreateSafeError(errorCode: -9, message: "Insufficient balance for network fees")))
                 } else {
                     completion(.success(()))
@@ -498,7 +536,7 @@ class CreateSafeFormUIModel {
     // returns the execution keys valid for executing this transaction
     func executionKeys() -> [KeyInfo] {
         // all keys that can sign this tx on its chain.
-            // currently, only wallet connect keys are chain-specific, so we filter those out.
+        // currently, only wallet connect keys are chain-specific, so we filter those out.
         guard let allKeys = try? KeyInfo.all(), !allKeys.isEmpty else {
             return []
         }
@@ -525,11 +563,11 @@ class CreateSafeFormUIModel {
     // MARK: - UI Data
 
     var minThreshold: Int {
-        owners.isEmpty ? 0 : 1
+        1
     }
 
     var maxThreshold: Int {
-        owners.isEmpty ? 0 : owners.count
+        owners.isEmpty ? 1 : owners.count
     }
 
     var thresholdText: String {
@@ -618,7 +656,50 @@ class CreateSafeFormUIModel {
         })
     }
 
+    func relaySubmit() {
+        relayingTask?.cancel()
+        relayingTask = relay(completion: { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .failure(let error):
+                Tracker.trackEvent(.relayUserFailure)
+                self.didSubmitFailed(error)
+            case .success(let taskId):
+                Tracker.trackEvent(.relayUserSuccess)
+                self.didSubmitSuccess(taskId: taskId)
+            }
+        })
+    }
+
+     func relay(completion: @escaping (Result<String, Error>) -> Void) -> URLSessionTask? {
+        guard let tx = transaction else { return nil }
+        let task = relayerService.asyncRelayTransaction(chainId: chain!.id!,
+                                                        to: Address(tx.to),
+                                                        txData: tx.data.storage.toHexStringWithPrefix()
+        ) { [weak self] response in
+            guard let self = self else { return }
+            switch(response) {
+            case .success:
+                guard let taskId = try? response.get().taskId else {
+                    dispatchOnMainThread(completion(.failure(TransactionExecutionError(code: -7, message: "Missing taskId"))))
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.didSubmitTransaction(txHash: Eth.Hash(tx.txHash().storage))
+                    completion(.success((taskId)))
+                }
+            case .failure(let error):
+                dispatchOnMainThread(completion(.failure(error)))
+            }
+        }
+        return task
+    }
+
+    // this creates a tx and sends it to infura for execution
     func send(completion: @escaping (Result<Void, Error>) -> Void) -> URLSessionTask? {
+
+        Tracker.trackEvent(.relayUserExecTxPaymentSigner)
         guard let tx = transaction else { return nil }
 
         let rawTransaction = tx.rawTransaction()
@@ -729,7 +810,7 @@ class CreateSafeFormUIModel {
 
         // we re-generate the salt because otherwise the same safe address will be produced.
         // This leads to the reverted transaction, hence the estimation will fail and user needs to
-        // refresh or change safe parameters to re-generate the salt.
+        // refresh or change Safe Account parameters to re-generate the salt.
         try? generateSalt()
 
         if let singletonAddressString = call.singletonAddress,
@@ -754,7 +835,7 @@ class CreateSafeFormUIModel {
         update(to: .error)
     }
 
-    func didSubmitSuccess() {
+    func didSubmitSuccess(taskId: String? = nil) {
         defer {
             update(to: .final)
             delegate?.createSafeModelDidFinish()
@@ -763,11 +844,11 @@ class CreateSafeFormUIModel {
         assert(transaction.hash != nil)
         assert(futureSafeAddress != nil)
         assert(name != nil)
-
         // create a safe
-        guard let address = futureSafeAddress, let txHash = transaction.hash else {
+        guard let address = futureSafeAddress, let txHash = transaction.hash
+        else {
            return
-       }
+        }
         Safe.create(
             address: address.checksummed,
             version: "1.3.0",
@@ -779,7 +860,6 @@ class CreateSafeFormUIModel {
 
         // save the tx information for monitoring purposes
         let context = App.shared.coreDataStack.viewContext
-
         let ethTxHash = txHash.storage.storage.toHexStringWithPrefix()
 
         // prevent duplicates
@@ -788,6 +868,7 @@ class CreateSafeFormUIModel {
         let cdTx = CDEthTransaction(context: context)
         cdTx.ethTxHash = txHash.storage.storage.toHexStringWithPrefix()
         cdTx.safeTxHash = nil
+        cdTx.taskId = taskId
         cdTx.status = SCGModels.TxStatus.pending.rawValue
         cdTx.safeAddress = address.checksummed
         cdTx.chainId = chain.id

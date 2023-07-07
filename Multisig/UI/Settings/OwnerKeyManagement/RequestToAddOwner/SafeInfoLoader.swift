@@ -8,7 +8,7 @@
 
 import Foundation
 
-// Loads safe info from the backend and safe owners from the blockchain
+// Loads safe info from the backend and Safe Account owners from the blockchain
 // and combines two results so that the owners addresses are up-to-date with the
 // blockchain.
 class SafeInfoLoader {

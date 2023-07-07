@@ -26,7 +26,7 @@ class ROBenefitsViewController: UIViewController {
         benefitsListView.setContent(benefits: [
             BenefitsListView.Benefit(
                 title: "Free 5 transactions per hour",
-                description: "We pay for your Safe transactions for up to five transactions per hour on Gnosis chain."
+                description: "We pay for your Safe Account transactions for up to five transactions per hour on Gnosis chain."
             ),
             BenefitsListView.Benefit(
                 title: "Scalability for signer accounts",

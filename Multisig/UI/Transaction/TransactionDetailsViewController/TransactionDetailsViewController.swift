@@ -341,7 +341,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         transaction.chainId = chainId
 
         switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated:
+        case .deviceImported, .deviceGenerated, .web3AuthApple, .web3AuthGoogle:
             Wallet.shared.sign(transaction, keyInfo: keyInfo) { [unowned self] result in
                 do {
                     let signature = try result.get()
@@ -446,18 +446,17 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         super.reloadData()
         reloadDataTask?.cancel()
 
-        // delete all app triggers update cycle
-        guard safe != nil && safe.chain != nil else { return }
+        guard let chainId = safe.chain?.id else { return }
 
         switch txSource {
         case .id(let txID):
-            reloadDataTask = clientGatewayService.asyncTransactionDetails(id: txID, chainId: safe.chain!.id!) {
+            reloadDataTask = clientGatewayService.asyncTransactionDetails(id: txID, chainId: chainId) {
                 [weak self] in
                 
                 self?.onLoadingCompleted(result: $0)
             }
         case .safeTxHash(let safeTxHash):
-            reloadDataTask = clientGatewayService.asyncTransactionDetails(safeTxHash: safeTxHash, chainId: safe.chain!.id!) { [weak self] in
+            reloadDataTask = clientGatewayService.asyncTransactionDetails(safeTxHash: safeTxHash, chainId: chainId) { [weak self] in
                 self?.onLoadingCompleted(result: $0)
             }
         case .data(let tx):

@@ -74,7 +74,7 @@ class ChainPendingTransactionMonitor {
 
         let fetchRequest = CDEthTransaction.fetchRequest()
         fetchRequest.sortDescriptors = []
-        fetchRequest.predicate = NSPredicate(format: "ethTxHash != nil AND chainId == %@ AND status == %@", chainId, statusPending)
+        fetchRequest.predicate = NSPredicate(format: "ethTxHash != nil AND chainId == %@ AND status == %@ AND taskId == nil", chainId, statusPending)
 
         let cdEthTransactions: [CDEthTransaction]
 
@@ -98,7 +98,7 @@ class ChainPendingTransactionMonitor {
 
             guard let ethTxHash = cdTx.ethTxHash else { return nil }
 
-            let txHashData = Data(hex: ethTxHash)
+            let txHashData: Data = Data(hex: ethTxHash)
             let txHashEthData = EthRpc1.Data(Eth.Hash(txHashData))
             let getReceiptMethod = EthRpc1.eth_getTransactionReceipt(transactionHash: txHashEthData)
 

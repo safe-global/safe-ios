@@ -26,7 +26,7 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
     private var trackingEvent: TrackingEvent!
     private var onUpdate: ((UInt256String, UInt256String?) -> Void)!
 
-    var url: URL? = App.configuration.help.advancedTxParamsURL
+    var url: URL?
     
     @IBAction private func openHelpArticle(_ sender: Any) {
         openExternalURL()
@@ -47,6 +47,7 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
         }
         self.trackingEvent = trackingEvent
         self.onUpdate = onUpdate
+        url = App.configuration.help.advancedTxParamsURL
     }
 
     override func viewDidLoad() {
@@ -58,7 +59,7 @@ class AdvancedParametersViewController: UIViewController, ExternalURLSource {
         saveButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(save))
         navigationItem.rightBarButtonItem = saveButton
 
-        nonceLabel.setText("Safe nonce", description: "Safe nonce determines an order in which transactions are executed.")
+        nonceLabel.setText("Safe Account nonce", description: "Safe Account nonce determines an order in which transactions are executed.")
         nonceTextField.textField.text = nonce.description
         nonceTextField.textField.addTarget(self, action: #selector(validateInputs), for: .editingChanged)
         nonceTextField.textField.keyboardType = .numberPad

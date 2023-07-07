@@ -78,7 +78,7 @@ class SecuritySettingsViewController: UITableViewController {
         if isPasscodeSet {
             data = [(section: .lockMethod, rows: [.enableSecurityLock, .lockMethod])]
 
-            if lock.isPasscodeRequired() {
+            if !AppConfiguration.FeatureToggles.securityCenter || lock.isPasscodeRequired() {
                 data.append((section: .passcode, rows: [.changePasscode]))
             }
 
@@ -151,10 +151,13 @@ class SecuritySettingsViewController: UITableViewController {
         if AppConfiguration.FeatureToggles.securityCenter {
             App.shared.securityCenter.toggleUsage(passcodeOption: option) { [unowned self] error in
                 if let error = error {
-                    App.shared.snackbar.show(message: "Failed to toggle usage \(error)")
-                } else {
-                    reloadData()
+                    if let userCancellation = error as? GSError.CancelledByUser {
+                        // do nothing
+                    } else {
+                        App.shared.snackbar.show(message: "Failed to toggle usage \(error.localizedDescription)")
+                    }
                 }
+                reloadData()
             }
         } else {
             withPasscodeAuthentication(for: reason) { [unowned self] success, _, finish in
@@ -304,7 +307,10 @@ class SecuritySettingsViewController: UITableViewController {
         }
         let nav = UINavigationController(rootViewController: vc)
 
-        vc.passcodeCompletion = { [weak nav] success, _, _ in
+        vc.passcodeCompletion = { [weak nav] result in
+            var success = false
+            if case EnterPasscodeViewController.Result.success(_) = result { success = true }
+
             authenticated(success, nav) {
                 nav?.dismiss(animated: true, completion: nil)
             }

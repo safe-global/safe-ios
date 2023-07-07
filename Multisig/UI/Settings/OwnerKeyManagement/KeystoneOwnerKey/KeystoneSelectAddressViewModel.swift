@@ -8,7 +8,7 @@
 
 import Foundation
 import URRegistry
-import Web3
+import SafeWeb3
 
 final class KeystoneSelectAddressViewModel: SelectOwnerAddressViewModelProtocol {
     var items = [KeyAddressInfo]()

@@ -12,7 +12,7 @@ import Ethereum
 import JsonRpc2
 import CryptoSwift
 import Solidity
-import Web3
+import SafeWeb3
 
 // Transaction domain model based on https://docs.gnosis.io/safe/docs/contracts_tx_execution/#transaction-hash
 struct Transaction: Codable {
@@ -259,7 +259,7 @@ extension Transaction {
 
 extension Transaction {
     public enum PaymentMethod {
-        case SignerAccount
-        case Relayer
+        case signerAccount
+        case relayer
     }
 }

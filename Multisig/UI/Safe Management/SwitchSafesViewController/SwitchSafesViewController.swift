@@ -20,7 +20,7 @@ final class SwitchSafesViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Switch Safes"
+        title = "Switch Safe Accounts"
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
         
@@ -55,7 +55,7 @@ final class SwitchSafesViewController: UITableViewController {
     }
 
     @objc override func closeModal() {
-        // this will close this controller when the load safe modal is closed
+        // this will close this controller when the load Safe Account modal is closed
         presentingViewController?.dismiss(animated: true, completion: nil)
     }
 
@@ -125,11 +125,11 @@ final class SwitchSafesViewController: UITableViewController {
                 popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
             }
 
-            let addSafe = UIAlertAction(title: "Load existing Safe", style: .default) { [weak self] _ in
+            let addSafe = UIAlertAction(title: "Load existing Safe Account", style: .default) { [weak self] _ in
                 self?.onAddSafe?()
             }
 
-            let createSafe = UIAlertAction(title: "Create new Safe", style: .default) { [weak self] _ in
+            let createSafe = UIAlertAction(title: "Create new Safe Account", style: .default) { [weak self] _ in
                 self?.onCreateSafe?()
             }
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

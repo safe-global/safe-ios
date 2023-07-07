@@ -166,7 +166,7 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
         if AppConfiguration.FeatureToggles.securityCenter {
             self.sign()
         } else {
-            authenticate(options: [.useForConfirmation]) { [weak self] success, _ in
+            authenticate(options: [.useForConfirmation]) { [weak self] success in
                 if success {
                     self?.sign()
                 }
@@ -182,7 +182,7 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
         }
 
         switch keyInfo.keyType {
-        case .deviceImported, .deviceGenerated:
+        case .deviceImported, .deviceGenerated, .web3AuthApple, .web3AuthGoogle:
             do {
                 guard let pk = try keyInfo.privateKey() else {
                     App.shared.snackbar.show(message: "Private key not available")
@@ -201,7 +201,7 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
 
             let signVC = SignatureRequestToWalletViewController(hexMessage, keyInfo: keyInfo, chain: self.chain ?? Chain.mainnetChain())
             signVC.onSuccess = { [weak self] signature in
-                let signatureData = Data(hex: signature)
+                let signatureData: Data = Data(hex: signature)
                 self?.confirm(signature: signatureData)
             }
             let vc = ViewControllerFactory.pageSheet(viewController: signVC, halfScreen: true)
@@ -221,7 +221,7 @@ class SignatureRequestViewController: WebConnectionContainerViewController, WebC
 
             ledgerSignerVC.completion = { [weak self] hexSignature in
                 // subtracting 4 from the v component of the signature in order to convert it to the ethereum signature
-                var signature = Data(hex: hexSignature)
+                var signature: Data = Data(hex: hexSignature)
                 assert(signature.count == 65)
                 signature[64] -= 4
                 self?.confirm(signature: signature)

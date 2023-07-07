@@ -21,7 +21,7 @@ protocol EncryptedStore {
     /// - parameter password: application password. Can be nil, then the stored password is used
     /// - returns: String with hex encoded bytes of the private key or nil if key not found
     func find(dataID: DataID, password: String?, forceUnlock: Bool) throws -> Data?
-    func changePassword(from oldPassword: String?, to newPassword: String?, useBiometry: Bool) throws
+    func changePassword(from oldPassword: String?, to newPassword: String?, useBiometry: Bool, keepUnlocked: Bool) throws
 
     func deleteAllKeys() throws
 }

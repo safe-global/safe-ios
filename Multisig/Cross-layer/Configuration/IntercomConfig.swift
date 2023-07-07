@@ -8,41 +8,59 @@ import Intercom
 
 class IntercomConfig {
 
-    var pushNotificationUserInfo: [AnyHashable : Any]?
+    static var pushNotificationUserInfo: [AnyHashable : Any]?
 
-    func setUp() {
+    static func setUp() {
         Intercom.setApiKey(App.configuration.services.intercomApiKey, forAppId: App.configuration.services.intercomAppId)
 
         #if DEBUG
         Intercom.enableLogging()
         #endif
-        Intercom.registerUnidentifiedUser()
-
-        disableChatOverlay()
+        Intercom.loginUnidentifiedUser { result in
+            switch result {
+            case .success:
+                LogService.shared.debug("Anonymous login to Intercm succeeded")
+            case .failure(let error):
+                App.shared.snackbar.show(message: "Anonymous login to Intercom failed: \(error)")
+            }
+        }
+        IntercomConfig.disableChatOverlay()
     }
 
-    func disableChatOverlay() {
+    private static func disableChatOverlay() {
         Intercom.setInAppMessagesVisible(false)
     }
 
-    func startChat() {
-        Intercom.presentMessenger()
+    static func startChat() {
+        Intercom.present()
     }
 
-    func hide() {
+    static func hide() {
         Intercom.hide()
     }
 
-    func appDidShowMainContent() {
+    static func appDidShowMainContent() {
         // adding delay hack to handle the case when this shows right after app start -  in that case we would see the
         // black window background behind the intercom window. We give the app time to initialize.
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) { [weak self] in
-            guard let self = self, let userInfo = self.pushNotificationUserInfo else {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
+            guard let userInfo = IntercomConfig.pushNotificationUserInfo else {
                 return
             }
-            self.pushNotificationUserInfo = nil
+            IntercomConfig.pushNotificationUserInfo = nil
             Intercom.handlePushNotification(userInfo)
-            self.startChat()
+            IntercomConfig.startChat()
         }
+    }
+
+    static func unreadConversationCount() -> UInt {
+        Intercom.unreadConversationCount()
+    }
+    
+    static func isIntercomPushNotification(_ userInfo: [AnyHashable : Any]) -> Bool {
+        Intercom.isIntercomPushNotification(userInfo)
+    }
+
+    static func setDeviceToken(_ deviceToken: Data, failure: ((Error?) -> Void)? = nil) {
+        Intercom.setDeviceToken(deviceToken, failure: failure)
     }
 }

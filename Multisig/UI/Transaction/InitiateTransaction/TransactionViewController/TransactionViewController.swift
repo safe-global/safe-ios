@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Web3
+import SafeWeb3
 import SwiftCryptoTokenFormatter
 import Ethereum
 import Solidity

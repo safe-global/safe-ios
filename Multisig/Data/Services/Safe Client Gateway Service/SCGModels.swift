@@ -594,6 +594,10 @@ extension SCGModels {
         var prefixString: String {
             AppSettings.prependingChainPrefixToAddresses ? "\(shortName):" : ""
         }
+
+        func isSupported(feature: String) -> Bool {
+            features.contains(feature)
+        }
     }
 
     enum GasPrice: Decodable {

@@ -6,22 +6,27 @@
 //  Copyright © 2022 Gnosis Ltd. All rights reserved.
 //
 
+
 import Foundation
 import UIKit
 import SwiftCryptoTokenFormatter
 
 class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
-
+    var executionOptionsCellBuilder: ExecutionOptionsCellBuilder
     var onTapPaymentMethod: () -> Void = {}
     var onTapAccount: () -> Void = {}
     var onTapFee: () -> Void = {}
     var onTapAdvanced: () -> Void = {}
-
     var userSelectedSigner = false
 
     private var safe: Safe!
 
     init(vc: UIViewController, tableView: UITableView, chain: Chain, safe: Safe) {
+        executionOptionsCellBuilder = ExecutionOptionsCellBuilder(
+            vc: vc,
+            tableView: tableView,
+            chain: chain
+        )
         super.init(vc: vc, tableView: tableView, chain: chain)
         self.safe = safe
 
@@ -38,169 +43,22 @@ class ReviewExecutionCellBuilder: TransactionDetailCellBuilder {
         buildHeader(model.transaction)
         buildAssetContract(model.transaction)
         buildSpacing()
-        buildExecutionOptions(model.executionOptions)
+
+        executionOptionsCellBuilder.userSelectedSigner = userSelectedSigner
+        executionOptionsCellBuilder.onTapPaymentMethod = onTapPaymentMethod
+        executionOptionsCellBuilder.onTapAccount = onTapAccount
+        executionOptionsCellBuilder.onTapFee = onTapFee
+        executionOptionsCellBuilder.onTapAdvanced = onTapAdvanced
+        result.append(contentsOf: executionOptionsCellBuilder.buildExecutionOptions(model.executionOptions))
         buildErrors(model.errorMessage)
         return result
     }
 
+    // TODO can this be moved to TransactionDetailCellBuilder ?
     func buildSpacing() {
         let cell = newCell(UITableViewCell.self, reuseId: "Spacer")
         cell.contentView.heightAnchor.constraint(equalToConstant: 16).isActive = true
         result.append(cell)
-    }
-
-    func buildExecutionOptions(_ model: ExecutionOptionsUIModel) {
-        let paymentGroupCell = newCell(BorderedInnerTableCell.self)
-
-        paymentGroupCell.tableView.registerCell(DisclosureWithContentCell.self)
-        paymentGroupCell.tableView.registerCell(SecondaryDetailDisclosureCell.self)
-        paymentGroupCell.tableView.registerCell(PaymentMethodCell.self)
-        paymentGroupCell.tableView.separatorStyle = .none
-        let estimatedFeeCell = buildEstimatedGasFee(model.feeState, tableView: paymentGroupCell.tableView)
-
-        if case let .filled(relayerInfo) = model.relayerState,
-           relayerInfo.remainingRelays > ReviewExecutionViewController.MIN_RELAY_TXS_LEFT &&
-            !userSelectedSigner &&
-            safe.chain!.isSupported(feature: .relay) {
-            let paymentMethod = buildRelayerPayment(model, tableView: paymentGroupCell.tableView)
-            paymentGroupCell.setCells([estimatedFeeCell, paymentMethod])
-        } else {
-            let accountPayment = buildAccountPayment(tableView: paymentGroupCell.tableView)
-            let executeWith = buildExecutedWithAccount(model.accountState, tableView: paymentGroupCell.tableView)
-            paymentGroupCell.setCells([estimatedFeeCell, accountPayment, executeWith])
-        }
-
-        // handle cell taps
-        let (feeIndex, paymentIndex, executeWithIndex) = (0, 1, 2)
-        paymentGroupCell.onCellTap = { [weak self] index in
-            guard let self = self else { return }
-            switch index {
-            case feeIndex:
-                self.onTapFee()
-            case paymentIndex:
-                if self.safe.chain!.isSupported(feature: .relay) {
-                    self.onTapPaymentMethod()
-                }
-            case executeWithIndex:
-                self.onTapAccount()
-            default:
-                assertionFailure("Tapped cell at index out of bounds: \(index)")
-            }
-        }
-
-        result.append(paymentGroupCell)
-
-        buildSpacing()
-
-        let advancedParamCell = newCell(BorderedInnerTableCell.self)
-        advancedParamCell.tableView.registerCell(SecondaryDetailDisclosureCell.self)
-
-        let advancedCell = buildAdvancedParameters(tableView: advancedParamCell.tableView)
-
-        advancedParamCell.setCells([advancedCell])
-
-        // handle cell taps
-        let (advancedIndex) = (0)
-        advancedParamCell.onCellTap = { [weak self] index in
-            guard let self = self else { return }
-            switch index {
-            case advancedIndex:
-                self.onTapAdvanced()
-            default:
-                assertionFailure("Tapped cell at index out of bounds: \(index)")
-            }
-        }
-
-        result.append(advancedParamCell)
-    }
-
-    func buildRelayerPayment(_ model: ExecutionOptionsUIModel, tableView: UITableView) -> UITableViewCell{
-        let cell = tableView.dequeueCell(PaymentMethodCell.self)
-        if case let .filled(relayerInfo) = model.relayerState {
-            cell.setRelaying(relayerInfo.remainingRelays, relayerInfo.limit)
-        }
-        cell.setBackgroundColor(.backgroundPrimary)
-        return cell
-    }
-
-    func buildAccountPayment(tableView: UITableView) -> UITableViewCell {
-        let cell = tableView.dequeueCell(SecondaryDetailDisclosureCell.self)
-        cell.setText("With an owner key", hideDisclousre: !safe.chain!.isSupported(feature: .relay))
-        cell.selectionStyle = safe.chain!.isSupported(feature: .relay) ? .default : .none
-        cell.setBackgroundColor(.backgroundPrimary)
-        return cell
-    }
-
-    func buildExecutedWithAccount(_ model: ExecuteWithAccountCellState, tableView: UITableView) -> UITableViewCell {
-        let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
-        cell.setText("Select key")
-        cell.setBackgroundColor(.backgroundPrimary)
-        switch model {
-        case .none:
-            preconditionFailure("Developer error: CellState not properly initialized")
-            
-        case .loading:
-            let content = loadingView()
-            cell.setContent(content)
-            
-        case .empty:
-            let content = textView("Not selected")
-            cell.setContent(content)
-
-        case .filled(let accountModel):
-            let content = MiniAccountAndBalancePiece()
-            content.setModel(accountModel)
-            cell.setContent(content)
-        }
-        return cell
-    }
-
-    func buildEstimatedGasFee(_ model: EstimatedFeeCellState, tableView: UITableView) -> UITableViewCell {
-        let cell = tableView.dequeueCell(DisclosureWithContentCell.self)
-        cell.setText("Estimated gas fee")
-        cell.setBackgroundColor(.backgroundSecondary)
-
-        switch model {
-        case .loading:
-            let content = loadingView()
-            cell.setContent(content)
-
-        case .empty:
-            let content = textView("Not set")
-            cell.setContent(content)
-
-        case .loaded(let feeModel):
-            let amountPiece = AmountAndValuePiece()
-            amountPiece.setAmount(feeModel.tokenAmount)
-            amountPiece.setFiatAmount(feeModel.fiatAmount)
-            cell.setContent(amountPiece)
-        }
-
-        return cell
-    }
-
-    func textView(_ text: String?) -> UIView {
-        let label = UILabel()
-        label.textAlignment = .right
-        label.setStyle(.body)
-        label.text = text
-        return label
-    }
-
-    func loadingView() -> UIView {
-        let skeleton = UILabel()
-        skeleton.textAlignment = .right
-        skeleton.isSkeletonable = true
-        skeleton.skeletonTextLineHeight = .fixed(25)
-        skeleton.showSkeleton(delay: 0.2)
-        return skeleton
-    }
-
-    func buildAdvancedParameters(tableView: UITableView) -> UITableViewCell {
-        let advancedCell = tableView.dequeueCell(SecondaryDetailDisclosureCell.self)
-        advancedCell.setText("Advanced parameters")
-        advancedCell.setBackgroundColor(.backgroundSecondary)
-        return advancedCell
     }
 
     func buildErrors(_ errorText: String?) {
