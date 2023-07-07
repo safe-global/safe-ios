@@ -1931,6 +1931,7 @@
 		933526F929D704A0003B9EE3 /* ExecutionOptionsCellBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionOptionsCellBuilder.swift; sourceTree = "<group>"; };
 		935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionDetailsViewController.swift; sourceTree = "<group>"; };
 		93788EDB29C356F100503C1A /* DummySignerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummySignerFactory.swift; sourceTree = "<group>"; };
+		937B74B32A58505000023D23 /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		9388410C2A3D74E20052EB87 /* GoogleWeb3AuthLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleWeb3AuthLoginModel.swift; sourceTree = "<group>"; };
 		9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentNotificationController.swift; sourceTree = "<group>"; };
 		938D326E28C8808D00198B7E /* NavigatingDAOViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigatingDAOViewController.swift; sourceTree = "<group>"; };
@@ -3163,6 +3164,7 @@
 		0A93DD4A2445CC8A00688050 = {
 			isa = PBXGroup;
 			children = (
+				937B74B22A58500800023D23 /* ci_scripts */,
 				0A01DCE02770996E00A87D7A /* Ethereum */,
 				0A3FDAD726AEB07F006A7DC3 /* Shared */,
 				0A93DD552445CC8A00688050 /* Multisig */,
@@ -4318,6 +4320,14 @@
 				6AFD26EC2861B0DE00336FFE /* SafeTokenBanner.xib */,
 			);
 			path = SafeTokenBanner;
+			sourceTree = "<group>";
+		};
+		937B74B22A58500800023D23 /* ci_scripts */ = {
+			isa = PBXGroup;
+			children = (
+				937B74B32A58505000023D23 /* ci_post_clone.sh */,
+			);
+			path = ci_scripts;
 			sourceTree = "<group>";
 		};
 		AD3034214AE5434B20ABC8B5 /* Features */ = {
