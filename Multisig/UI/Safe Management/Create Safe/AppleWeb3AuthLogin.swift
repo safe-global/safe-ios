@@ -73,6 +73,7 @@ extension AppleWeb3AuthLogin: ASAuthorizationControllerDelegate {
                 case .invalidResponse: App.shared.snackbar.show(message: "The authorization request received an invalid response.")
                 case .notHandled: App.shared.snackbar.show(message: "The authorization request was not handled.")
                 case .unknown: App.shared.snackbar.show(message: "The authorization attempt failed for an unknown reason.")
+                default: App.shared.snackbar.show(message: "The authorization attempt failed for an unknown reason.")
             }
         } else {
             App.shared.snackbar.show(message: "Unexpected error received")
