@@ -51,7 +51,6 @@ extension AppleWeb3AuthLogin: ASAuthorizationControllerDelegate {
                 })
             }
         default:
-            LogService.shared.debug("AppleId authorization failed")
             App.shared.snackbar.show(message: "AppleId authorization failed")
             break
         }
@@ -65,16 +64,18 @@ extension AppleWeb3AuthLogin: ASAuthorizationControllerDelegate {
         alertController.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
     }
 
-    /// - Tag: did_complete_error
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        // Most likely the user canceled the authorization request.
-        if error._code != 1001 {
-            LogService.shared.error("Error: \(error)")
-            App.shared.snackbar.show(message: "Error: \(error)")
-
+    
+        if let authError = error as? ASAuthorizationError {
+            switch authError.code {
+                case .canceled: App.shared.snackbar.show(message: "The user canceled the authorization attempt.")
+                case .failed: App.shared.snackbar.show(message: "The authorization attempt failed.")
+                case .invalidResponse: App.shared.snackbar.show(message: "The authorization request received an invalid response.")
+                case .notHandled: App.shared.snackbar.show(message: "The authorization request was not handled.")
+                case .unknown: App.shared.snackbar.show(message: "The authorization attempt failed for an unknown reason.")
+            }
         } else {
-            LogService.shared.debug("User canceled the authorization request")
-            App.shared.snackbar.show(message: "User canceled the authorization request")
+            App.shared.snackbar.show(message: "Unexpected error received")
         }
     }
 }
