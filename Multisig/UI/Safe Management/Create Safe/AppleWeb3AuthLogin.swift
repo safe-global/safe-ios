@@ -15,6 +15,9 @@ class AppleWeb3AuthLogin: NSObject {
 extension AppleWeb3AuthLogin: ASAuthorizationControllerDelegate {
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        
+        onClose()
+        
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             let userIdentifier = appleIDCredential.user
@@ -46,8 +49,6 @@ extension AppleWeb3AuthLogin: ASAuthorizationControllerDelegate {
 
                 await MainActor.run(body: {
                     App.shared.snackbar.show(message: "Private Key: \(data["privateKey"] as? String)")
-                    // TODO pass private key to the next screen
-                    onClose()
                 })
             }
         default:
