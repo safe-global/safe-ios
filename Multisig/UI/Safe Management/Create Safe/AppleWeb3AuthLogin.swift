@@ -17,7 +17,6 @@ extension AppleWeb3AuthLogin: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            // Create an account in your system.
             let userIdentifier = appleIDCredential.user
 
             let token = String(data: appleIDCredential.identityToken!, encoding: .utf8)!
@@ -47,40 +46,28 @@ extension AppleWeb3AuthLogin: ASAuthorizationControllerDelegate {
 
                 await MainActor.run(body: {
                     App.shared.snackbar.show(message: "Private Key: \(data["privateKey"] as? String)")
+                    // TODO pass private key to the next screen
                     onClose()
                 })
             }
-                // TODO this need to be tested
-        case let passwordCredential as ASPasswordCredential:
-
-            // Sign in using an existing iCloud Keychain credential.
-            let username = passwordCredential.user
-            let password = passwordCredential.password
-
-            // For the purpose of this demo app, show the password credential as an alert.
-            DispatchQueue.main.async {
-                self.showPasswordCredentialAlert(username: username, password: password)
-            }
-
         default:
+            LogService.shared.debug("AppleId authorization failed")
+            App.shared.snackbar.show(message: "AppleId authorization failed")
             break
         }
     }
 
-    //TODO How to test this?
     private func showPasswordCredentialAlert(username: String, password: String) {
         let message = "The app has received your selected credential from the keychain. \n\n Username: \(username)\n Password: \(password)"
         let alertController = UIAlertController(title: "Keychain Credential Received",
                 message: message,
                 preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
-        //self.present(alertController, animated: true, completion: nil)
     }
 
     /// - Tag: did_complete_error
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         // Most likely the user canceled the authorization request.
-        dump(error, name: "Error")
         if error._code != 1001 {
             LogService.shared.error("Error: \(error)")
             App.shared.snackbar.show(message: "Error: \(error)")
