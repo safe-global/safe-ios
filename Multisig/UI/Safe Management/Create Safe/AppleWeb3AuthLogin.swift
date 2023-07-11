@@ -5,10 +5,12 @@ import JWTDecode
 import UIKit
 
 class AppleWeb3AuthLogin: NSObject {
-    var onClose: () -> Void
+    var authorizationComplete: () -> Void
+    var keyGenerationComplete: ((_ key: String) -> Void)
 
-    init(onClose: @escaping () -> Void) {
-        self.onClose = onClose
+    init(authorizationComplete: @escaping () -> Void, keyGenerationComplete: @escaping ((_ key: String) -> Void)) {
+        self.authorizationComplete = authorizationComplete
+        self.keyGenerationComplete = keyGenerationComplete
     }
 }
 
@@ -16,7 +18,7 @@ extension AppleWeb3AuthLogin: ASAuthorizationControllerDelegate {
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         
-        onClose()
+        authorizationComplete()
         
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
@@ -48,7 +50,13 @@ extension AppleWeb3AuthLogin: ASAuthorizationControllerDelegate {
                 )
 
                 await MainActor.run(body: {
-                    App.shared.snackbar.show(message: "Private Key: \(data["privateKey"] as? String)")
+                    let key = data["privateKey"] as? String
+                    if let key = key {
+                        App.shared.snackbar.show(message: "Private Key: \(key)")
+                        keyGenerationComplete(key)
+                    } else {
+                        App.shared.snackbar.show(message: "No key generated/found")
+                    }
                 })
             }
         default:

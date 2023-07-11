@@ -87,11 +87,15 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
 
-        appleWeb3AuthLogin = AppleWeb3AuthLogin {
-            LogService.shared.debug("onClose called....")
-            let view = SafeCreatingViewController()
-            self.show(view)
-        }
+        appleWeb3AuthLogin = AppleWeb3AuthLogin (
+            authorizationComplete: {
+                let view = SafeCreatingViewController()
+                view.onSuccess = { self.safeCreationSuccess() }
+                self.show(view)
+            }, keyGenerationComplete: { key in
+                print("key: \(key)")
+            }
+        )
 
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
 
@@ -104,6 +108,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         // TODO: Fix login via google
         let loginModel = GoogleWeb3AuthLoginModel {
             let view = SafeCreatingViewController()
+            view.onSuccess = { self.safeCreationSuccess() }
             self.show(view)
         }
 
