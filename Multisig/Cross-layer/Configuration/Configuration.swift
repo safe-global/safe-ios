@@ -186,8 +186,11 @@ struct AppConfiguration {
         @ConfigurationKey("WEB3AUTH_REDIRECT_URL")
         var redirectUrl: String
 
-        @ConfigurationKey("WEB3AUTH_APPLE_VERIFIER")
+        @ConfigurationKey("WEB3AUTH_APPLE_VERIFIER_AGGREGATE")
         var appleVerifier: String
+        
+        @ConfigurationKey("WEB3AUTH_APPLE_VERIFIER")
+        var appleSubVerifier: String
     }
 
     let services = Services()

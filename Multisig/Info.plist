@@ -290,5 +290,7 @@ DMSans-Regular.ttf</string>
 	<string>$(WEB3AUTH_REDIRECT_URL)</string>
 	<key>WEB3AUTH_APPLE_VERIFIER</key>
 	<string>$(WEB3AUTH_APPLE_VERIFIER)</string>
+	<key>WEB3AUTH_APPLE_VERIFIER_AGGREGATE</key>
+	<string>$(WEB3AUTH_APPLE_VERIFIER_AGGREGATE)</string>
 </dict>
 </plist>
