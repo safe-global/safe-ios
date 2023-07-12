@@ -657,6 +657,10 @@ class CreateSafeFormUIModel {
     }
 
     func relaySubmit() {
+        
+        dump(self, name: "relaySubmit: CreateSafeFormUIModel")
+        
+        
         relayingTask?.cancel()
         relayingTask = relay(completion: { [weak self] result in
             guard let self = self else { return }

@@ -10,21 +10,34 @@ import Foundation
 import UIKit
 import AuthenticationServices
 
-class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProviding, ASAuthorizationControllerDelegate {
 
+class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProviding, ASAuthorizationControllerDelegate, CreateSafeFormUIModelDelegate {
+    func updateUI(model: CreateSafeFormUIModel) {
+        //dump(model, name: "CreateSafeFormUIModel")
+        App.shared.snackbar.show(message: "updateUI()")
+    }
+    
+    func createSafeModelDidFinish() {
+        LogService.shared.debug("createSafeModelDidFinish()")
+        App.shared.snackbar.show(message: "createSafeModelDidFinish()")
+    }
+    
+    
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return ASPresentationAnchor()
     }
-
+    
     var factory: CreateSafeFlowFactory!
     var chain: Chain!
+    var txHash: String?
     var safe: Safe?
     var owner: KeyInfo!
     var createPasscodeFlow: CreatePasscodeFlow!
     private var relayingTask: URLSessionTask?
     let relayerService: SafeGelatoRelayService = App.shared.relayService
     private var appleWeb3AuthLogin: AppleWeb3AuthLogin!
-
+    private let uiModel = CreateSafeFormUIModel()
+    
     init(_ factory: CreateSafeFlowFactory = CreateSafeFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
         super.init(completion: completion)
@@ -86,15 +99,18 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
-
-        appleWeb3AuthLogin = AppleWeb3AuthLogin (
+        
+        appleWeb3AuthLogin = AppleWeb3AuthLogin(
             authorizationComplete: {
                 let view = SafeCreatingViewController()
-                view.onSuccess = { self.safeCreationSuccess() }
+                view.onSuccess = {
+                    self.safeCreationSuccess()
+                }
                 self.show(view)
             }, keyGenerationComplete: { key in
                 // TODO: Use key to start the safe creation process here (separate PR)
                 LogService.shared.debug("key: \(key)")
+                self.startCreateSafe(key)
             }
         )
 
@@ -107,14 +123,65 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
 
     func googleLogin() {
         // TODO: Fix login via google
-        let loginModel = GoogleWeb3AuthLoginModel {
+        let loginModel = GoogleWeb3AuthLoginModel { key in
+            
+            
+            // TODO: Safe key to database
+            
+            
+            self.startCreateSafe(key)
+            
             let view = SafeCreatingViewController()
-            view.onSuccess = { self.safeCreationSuccess() }
+            view.onSuccess = {
+                self.safeCreationSuccess()
+            }
             self.show(view)
         }
 
         loginModel.loginWithCustomAuth(caller: navigationController)
+        
+        
+    }
+    
+    func startCreateSafe(_ key: String?) {
+        
         // TODO: submit create safe tx
+        guard let key = key else {
+            App.shared.snackbar.show(message: "key was nil")
+            return
+        }
+        let privateKey = try? PrivateKey(data: Data(ethHex: key))
+        dump(privateKey, name: "PrivateKey")
+        
+        guard let privateKey = privateKey else {
+            App.shared.snackbar.show(message: "Couldn't create key from: [\(key)]")
+            return
+        }
+        var keyInfo: KeyInfo? = try? KeyInfo.firstKey(address: privateKey.address)
+        if keyInfo == nil {
+            do {
+                keyInfo =  try KeyInfo.import(address: privateKey.address, name: "New Apple key", privateKey: privateKey, type: .web3AuthApple)
+            } catch {
+                App.shared.snackbar.show(message: "\(error.localizedDescription)" )
+            }
+        }
+        uiModel.delegate = self
+        //        if let txHash = txHash,
+        //           let safeCreationCall = SafeCreationCall.by(txHashes: [txHash], chainId: chain.id!)?.first {
+        //            uiModel.updateWithSafeCall(call: safeCreationCall)
+        //        }
+        
+        uiModel.start()
+        uiModel.chain = chain
+        uiModel.setName("Neuer Safe")
+        uiModel.selectedKey = keyInfo
+        
+        let address: Address = keyInfo?.address!
+        uiModel.addOwnerAddress(address)
+        
+        uiModel.relaySubmit()
+        
+        
     }
 
     func creatingSafe() {
