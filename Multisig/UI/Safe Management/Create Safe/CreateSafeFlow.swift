@@ -93,7 +93,8 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                 view.onSuccess = { self.safeCreationSuccess() }
                 self.show(view)
             }, keyGenerationComplete: { key in
-                print("key: \(key)")
+                // TODO: Use key to start the safe creation process here (separate PR)
+                LogService.shared.debug("key: \(key)")
             }
         )
 
