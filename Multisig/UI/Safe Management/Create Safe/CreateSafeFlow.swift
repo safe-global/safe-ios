@@ -176,12 +176,15 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         uiModel.setName("Neuer Safe")
         uiModel.selectedKey = keyInfo
         
-        let address: Address = keyInfo?.address!
-        uiModel.addOwnerAddress(address)
+        let address: Address? = keyInfo?.address
+        LogService.shared.debug("Address: \(address)")
+        uiModel.addOwnerAddress(address!)
         
-        uiModel.relaySubmit()
+        dump(keyInfo, name:"keyInfo")
         
-        
+        uiModel.estimate { result in
+            uiModel.relaySubmit()
+        }
     }
 
     func creatingSafe() {
