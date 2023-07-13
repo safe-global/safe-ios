@@ -33,7 +33,7 @@ class CreateSafeWithSocialIntroViewController: UIViewController {
         googleButton.setText("Continue with Google", .filled)
         addressButton.setText("Continue with a wallet address", .bordered)
         infoView1.set(text: "Create a Safe Account now and add more owners later for better security")
-        infoView2.set(text: "Owner key is protected by your social login")
+        infoView2.set(text: "Your owner key is secured by your social login only")
         infoView3.set(text: "No need to keep seed phrases")
         headerLabel.hyperLinkLabel("Select a social login to create your Safe Account. ",
                                    prefixStyle: .body,
@@ -41,6 +41,10 @@ class CreateSafeWithSocialIntroViewController: UIViewController {
                                    linkStyle: .button,
                                    linkIcon: nil,
                                    underlined: false)
+        headerLabel.isUserInteractionEnabled = true
+        let tapgesture = UITapGestureRecognizer(target: self, action: #selector(didTapHowItWorks(_ :)))
+        tapgesture.numberOfTapsRequired = 1
+        headerLabel.addGestureRecognizer(tapgesture)
     }
 
     @IBAction func googleButtonTouched(_ sender: Any) {
@@ -54,4 +58,13 @@ class CreateSafeWithSocialIntroViewController: UIViewController {
     @IBAction private func addressButtonTouched(_ sender: Any) {
         onAddressAction()
     }
+
+    @objc func didTapHowItWorks(_ gesture: UITapGestureRecognizer) {
+           guard let text = headerLabel.text else { return }
+           let howItWorksRange = (text as NSString).range(of: "How does it work?")
+           if gesture.didTapAttributedTextInLabel(label: headerLabel, inRange: howItWorksRange) {
+               let socialLoginInfoVC = SocialLoginInfoViewController()
+               show(socialLoginInfoVC, sender: self)
+           }
+       }
 }

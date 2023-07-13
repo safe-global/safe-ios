@@ -18,7 +18,7 @@ import UIKit
 // I want the flow to be stand-alone when opened from different places in the app --> create a navigation controller for the standalone case
 // I want to have variations in the flows based on where it should be opened or based on the passed in parameters --> sub-class or enum/bool flags. If more variations can be added in the future, then it is better to subclass.
 //
-class UIFlow {
+class UIFlow: NSObject {
 
     weak var presenter: UIViewController!
     var navigationController: UINavigationController!

@@ -8,8 +8,14 @@
 
 import Foundation
 import UIKit
+import AuthenticationServices
 
-class CreateSafeFlow: UIFlow {
+class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProviding, ASAuthorizationControllerDelegate {
+
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return ASPresentationAnchor()
+    }
+
     var factory: CreateSafeFlowFactory!
     var chain: Chain!
     var safe: Safe?
@@ -17,8 +23,9 @@ class CreateSafeFlow: UIFlow {
     var createPasscodeFlow: CreatePasscodeFlow!
     private var relayingTask: URLSessionTask?
     let relayerService: SafeGelatoRelayService = App.shared.relayService
-    
-    init(_ factory: CreateSafeFlowFactory = CreateSafeFlowFactory() , completion: @escaping (_ success: Bool) -> Void) {
+    private var appleWeb3AuthLogin: AppleWeb3AuthLogin!
+
+    init(_ factory: CreateSafeFlowFactory = CreateSafeFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
         super.init(completion: completion)
     }
@@ -48,13 +55,15 @@ class CreateSafeFlow: UIFlow {
     }
 
     func web2StyleInstructions() {
-        let vc = factory.createSafeWithSocialIntroViewController(chain: chain) { [unowned self] in
-            appleLogin()
-        } onGoogle: { [unowned self] in
-            googleLogin()
-        } onAddress: { [unowned self] in
-            web3StyleInstructions()
-        }
+        let vc: CreateSafeWithSocialIntroViewController = factory.createSafeWithSocialIntroViewController(
+            chain: chain,
+            onApple: { [unowned self] in
+                appleLogin()
+            }, onGoogle: { [unowned self] in
+                googleLogin()
+            }, onAddress: { [unowned self] in
+                web3StyleInstructions()
+            })
 
         show(vc)
     }
@@ -68,16 +77,39 @@ class CreateSafeFlow: UIFlow {
     }
 
     func appleLogin() {
-        // TODO: Create login via apple
-        // This line is not needed after this method implementation
-        creatingSafe()
+        handleAuthorizationAppleIDButtonPress()
+
         // TODO: submit create safe tx
+    }
+
+    func handleAuthorizationAppleIDButtonPress() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+
+        appleWeb3AuthLogin = AppleWeb3AuthLogin (
+            authorizationComplete: {
+                let view = SafeCreatingViewController()
+                view.onSuccess = { self.safeCreationSuccess() }
+                self.show(view)
+            }, keyGenerationComplete: { key in
+                // TODO: Use key to start the safe creation process here (separate PR)
+                LogService.shared.debug("key: \(key)")
+            }
+        )
+
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+
+        authorizationController.delegate = appleWeb3AuthLogin
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
     }
 
     func googleLogin() {
         // TODO: Fix login via google
         let loginModel = GoogleWeb3AuthLoginModel {
             let view = SafeCreatingViewController()
+            view.onSuccess = { self.safeCreationSuccess() }
             self.show(view)
         }
 
@@ -110,7 +142,7 @@ class CreateSafeFlow: UIFlow {
                                     secondaryActionTitle: "Skip") { [unowned self] in
             // TODO: register for notifications after safe created and before calling create passcode flow
             enablePasscode()
-        } onSeconradyAction: { [unowned self] in
+        } onSecondaryAction: { [unowned self] in
             stop(success: true)
         }
 
@@ -134,7 +166,6 @@ class CreateSafeFlowFactory {
         vc.completion = completion
         vc.screenTitle = "Select network"
         vc.descriptionText = "Your Safe Account will only exist on the selected network."
-        
         return vc
     }
 
@@ -171,7 +202,7 @@ class CreateSafeFlowFactory {
                     primaryActionTitle: String,
                     secondaryActionTitle: String,
                     onPrimaryAction: @escaping () -> Void,
-                    onSeconradyAction: @escaping () -> Void) -> SafeActionViewController {
+                    onSecondaryAction: @escaping () -> Void) -> SafeActionViewController {
         let vc = SafeActionViewController()
         vc.imageName = imageName
         vc.titleText = titleText
@@ -179,7 +210,7 @@ class CreateSafeFlowFactory {
         vc.primaryActionTitle = primaryActionTitle
         vc.secondaryActionTitle = secondaryActionTitle
         vc.onPrimaryAction = onPrimaryAction
-        vc.onSeconradyAction = onSeconradyAction
+        vc.onSecondaryAction = onSecondaryAction
 
         return vc
     }
