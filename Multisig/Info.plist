@@ -69,6 +69,8 @@
 	<string>$(UNEXPECTED_DELEGATE_URL)</string>
 	<key>KEY_SECURITY_URL</key>
 	<string>$(KEY_SECURITY_URL)</string>
+	<key>SOCIAL_LOGIN_INFO_URL</key>
+	<string>$(SOCIAL_LOGIN_INFO_URL)</string>
 	<key>DISCORD_URL</key>
 	<string>$(DISCORD_URL)</string>
 	<key>FORUM_URL</key>
