@@ -45,30 +45,24 @@ class SafeCreatingViewController: UIViewController {
                                                object: nil)
 
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(safeCreated),
+                                               selector: #selector(safeSubmitted),
                                                name: .safeCreationUpdate,
                                                object: nil)
-        // TODO: bind the tx status changes to SafeCreatingViewController and remove times I defined there
-//        Timer.scheduledTimer(withTimeInterval: 3, repeats: false) {_ in
-//            //NotificationCenter.default.post(name: .safeAccountOwnerCreated, object: nil)
-//            Timer.scheduledTimer(withTimeInterval: 3, repeats: false) {_ in
-//                NotificationCenter.default.post(name: .safeAccountOwnerSecured, object: nil)
-//                Timer.scheduledTimer(withTimeInterval: 3, repeats: false) {_ in
-//                    //NotificationCenter.default.post(name: .safeCreationUpdate, object: nil)
-//                }
-//            }
-//        }
     }
 
     @objc func accountCreated() {
         infoView1.set(status: .success)
+        // Fake delay until account is secured...
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) {_ in
+            NotificationCenter.default.post(name: .safeAccountOwnerSecured, object: nil)
+        }
     }
 
     @objc func accountSecured() {
         infoView2.set(status: .success)
     }
 
-    @objc func safeCreated() {
+    @objc func safeSubmitted() {
         infoView3.set(status: .success)
         Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { [weak self] timer in
             DispatchQueue.main.async {

@@ -93,7 +93,8 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
             authorizationComplete: {
                 let view = SafeCreatingViewController()
                 view.onSuccess = {
-                    self.safeCreationSuccess()
+//                    self.safeCreationSuccess()
+                    self.stop(success: true)
                 }
                 self.show(view)
             }, keyGenerationComplete: { (key, email) in
@@ -114,7 +115,8 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
             
             let view = SafeCreatingViewController()
             view.onSuccess = {
-                self.safeCreationSuccess()
+                //self.safeCreationSuccess()
+                self.stop(success: true)
             }
             self.show(view)
         }
@@ -177,7 +179,6 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         let vc = factory.safeCreationSuccess(safe: safe, chain: chain) { [unowned self] in
             enableNotifications()
         }
-
         show(vc)
     }
 
