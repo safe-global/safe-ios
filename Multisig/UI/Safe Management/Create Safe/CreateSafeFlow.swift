@@ -19,7 +19,6 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     
     var factory: CreateSafeFlowFactory!
     var chain: Chain!
-    var txHash: String?
     var safe: Safe?
     var owner: KeyInfo!
     var createPasscodeFlow: CreatePasscodeFlow!
