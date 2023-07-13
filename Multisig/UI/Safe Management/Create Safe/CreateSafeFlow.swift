@@ -183,7 +183,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         dump(keyInfo, name:"keyInfo")
         
         uiModel.estimate { result in
-            uiModel.relaySubmit()
+            self.uiModel.relaySubmit()
         }
     }
 
