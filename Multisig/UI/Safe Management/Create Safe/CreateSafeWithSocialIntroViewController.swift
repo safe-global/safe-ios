@@ -33,7 +33,7 @@ class CreateSafeWithSocialIntroViewController: UIViewController {
         googleButton.setText("Continue with Google", .filled)
         addressButton.setText("Continue with a wallet address", .bordered)
         infoView1.set(text: "Create a Safe Account now and add more owners later for better security")
-        infoView2.set(text: "Owner key is protected by your social login")
+        infoView2.set(text: "Your owner key is secured by your social login only")
         infoView3.set(text: "No need to keep seed phrases")
         headerLabel.hyperLinkLabel("Select a social login to create your Safe Account. ",
                                    prefixStyle: .body,
