@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SocialLoginInfoViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
+                <outlet property="infoBox" destination="S4e-bL-zW5" id="mc9-Q6-M4Q"/>
                 <outlet property="readMoreLabel" destination="w2H-8Y-Sul" id="MUr-Av-3cm"/>
                 <outlet property="sec1Label" destination="hfQ-Ax-Fq7" id="ADM-wR-q9H"/>
                 <outlet property="sec2Label" destination="x3K-Ta-YFW" id="HJT-m2-McF"/>
@@ -23,32 +24,46 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JDK-mV-eoW">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JDK-mV-eoW">
                     <rect key="frame" x="16" y="75" width="361" height="657"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="2cQ-AR-Zgo">
-                            <rect key="frame" x="0.0" y="0.0" width="361" height="276"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="2cQ-AR-Zgo">
+                            <rect key="frame" x="0.0" y="0.0" width="361" height="428"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfQ-Ax-Fq7">
-                                    <rect key="frame" x="0.0" y="0.0" width="361" height="101.66666666666667"/>
-                                    <string key="text">Your Google or Apple ID will serve as the 1/1 owner of your new Safe Account.   For enhanced security, you can always add more owners later.</string>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is the account under my full control?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUI-YY-QsS">
-                                    <rect key="frame" x="0.0" y="117.66666666666666" width="361" height="20.333333333333343"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3K-Ta-YFW">
-                                    <rect key="frame" x="0.0" y="154" width="361" height="122"/>
-                                    <string key="text">For convenience and recovery, Google and Apple ID will directly generate your keys and be the custodian of your account.   You can use a 3rd party wallet to stay in full control of your account.</string>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="b0A-ma-epJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="361" height="245.66666666666666"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfQ-Ax-Fq7">
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="101.66666666666667"/>
+                                            <string key="text">Your Google or Apple ID will serve as the 1/1 owner of your new Safe Account.   For enhanced security, you can always add more owners later.</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S4e-bL-zW5" customClass="InfoBoxView" customModule="Multisig" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="117.66666666666666" width="361" height="128"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        </view>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="aMG-tR-TAV">
+                                    <rect key="frame" x="0.0" y="269.66666666666669" width="361" height="158.33333333333331"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is the account under my full control?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUI-YY-QsS">
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="20.333333333333332"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3K-Ta-YFW">
+                                            <rect key="frame" x="0.0" y="36.333333333333314" width="361" height="122"/>
+                                            <string key="text">For convenience and recovery, Google and Apple ID will directly generate your keys and be the custodian of your account.   You can use a 3rd party wallet to stay in full control of your account.</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
                             </subviews>
                         </stackView>
                     </subviews>

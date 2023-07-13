@@ -12,6 +12,7 @@ class SocialLoginInfoViewController: UIViewController {
 
     @IBOutlet weak var sec1Label: UILabel!
     @IBOutlet weak var sec2TitleLabel: UILabel!
+    @IBOutlet weak var infoBox: InfoBoxView!
     @IBOutlet weak var sec2Label: UILabel!
     @IBOutlet weak var readMoreLabel: UILabel!
 
@@ -30,6 +31,12 @@ class SocialLoginInfoViewController: UIViewController {
             textToHighlight: "1/1 owner")
         sec1Par1String.paragraph()
         sec1Label.attributedText = sec1Par1String
+
+        infoBox.setText(
+            "No private key data will be shared with Google or Apple ID at any time. Even if you lose your device, you can still recover your account.",
+            backgroundColor: .infoBackground,
+            icon: UIImage(named: "ico-shield-infobox")
+        )
 
         sec2TitleLabel.setStyle(.headline)
 

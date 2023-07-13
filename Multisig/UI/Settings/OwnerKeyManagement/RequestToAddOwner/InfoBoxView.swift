@@ -25,11 +25,29 @@ class InfoBoxView: UINibView {
         messageLabel.text = text
     }
 
+    func setText(_ text: String,
+                 backgroundColor: UIColor = .infoBackground,
+                 hideIcon: Bool = false,
+                 icon: UIImage? = nil
+    ) {
+        setText(
+            NSAttributedString(string: text),
+            backgroundColor: backgroundColor,
+            hideIcon: hideIcon,
+            icon: icon
+        )
+    }
+
     func setText(_ text: NSAttributedString,
                  backgroundColor: UIColor = .infoBackground,
-                 hideIcon: Bool = false) {
+                 hideIcon: Bool = false,
+                 icon: UIImage? = nil
+    ) {
         messageLabel.attributedText = text
-        iconImageView.isHidden = hideIcon
         backgroundView.backgroundColor = backgroundColor
+        iconImageView.isHidden = hideIcon
+        if let icon = icon {
+            iconImageView.image = icon
+        }
     }
 }
