@@ -19,6 +19,7 @@ class SafeCreatingViewController: UIViewController {
     @IBOutlet weak var infoView1: InfoView!
 
     var onSuccess: () -> () = {}
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,15 +49,15 @@ class SafeCreatingViewController: UIViewController {
                                                name: .safeCreationUpdate,
                                                object: nil)
         // TODO: bind the tx status changes to SafeCreatingViewController and remove times I defined there
-        Timer.scheduledTimer(withTimeInterval: 3, repeats: false) {_ in
-            NotificationCenter.default.post(name: .safeAccountOwnerCreated, object: nil)
-            Timer.scheduledTimer(withTimeInterval: 3, repeats: false) {_ in
-                NotificationCenter.default.post(name: .safeAccountOwnerSecured, object: nil)
-                Timer.scheduledTimer(withTimeInterval: 3, repeats: false) {_ in
-                    NotificationCenter.default.post(name: .safeCreationUpdate, object: nil)
-                }
-            }
-        }
+//        Timer.scheduledTimer(withTimeInterval: 3, repeats: false) {_ in
+//            //NotificationCenter.default.post(name: .safeAccountOwnerCreated, object: nil)
+//            Timer.scheduledTimer(withTimeInterval: 3, repeats: false) {_ in
+//                NotificationCenter.default.post(name: .safeAccountOwnerSecured, object: nil)
+//                Timer.scheduledTimer(withTimeInterval: 3, repeats: false) {_ in
+//                    //NotificationCenter.default.post(name: .safeCreationUpdate, object: nil)
+//                }
+//            }
+//        }
     }
 
     @objc func accountCreated() {

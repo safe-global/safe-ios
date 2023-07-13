@@ -32,13 +32,10 @@ class GoogleWeb3AuthLoginModel {
             )
             let data = try await tdsdk.triggerLogin(controller: caller)
             await MainActor.run(body: {
-                
-                dump(data, name: "---> data")
-                
-                LogService.shared.debug("privateKey: \(data["privateKey"] ?? "foo")")
-                //App.shared.snackbar.show(message: "Private Key: \(data["privateKey"] as? String)")
                 let key = data["privateKey"] as? String
-                let email = "data@foo.de"
+                let userInfo = data["userInfo"] as? Dictionary ?? [:] as Dictionary
+                let email = userInfo["email"] as? String ?? "email withheld"
+
                 onClose(key, email)
                 caller.closeModal()
             })

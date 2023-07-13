@@ -6,9 +6,9 @@ import UIKit
 
 class AppleWeb3AuthLogin: NSObject {
     var authorizationComplete: () -> Void
-    var keyGenerationComplete: ((_ key: String, email: String?) -> Void)
+    var keyGenerationComplete: ((_ key: String, _ email: String?) -> Void)
 
-    init(authorizationComplete: @escaping () -> Void, keyGenerationComplete: @escaping ((_ key: String) -> Void)) {
+    init(authorizationComplete: @escaping () -> Void, keyGenerationComplete: @escaping ((_ key: String, _ email: String?) -> Void)) {
         self.authorizationComplete = authorizationComplete
         self.keyGenerationComplete = keyGenerationComplete
     }
@@ -26,10 +26,12 @@ extension AppleWeb3AuthLogin: ASAuthorizationControllerDelegate {
 
             let token = String(data: appleIDCredential.identityToken!, encoding: .utf8)!
             let JWT = try? JWTDecode.decode(jwt: token)
-            let claim = JWT?.claim(name: "sub")
-            guard let sub = claim?.string else {
+            let subClaim = JWT?.claim(name: "sub")
+            guard let sub = subClaim?.string else {
                 return
             }
+            let emailClaim = JWT?.claim(name: "email")
+            let email = emailClaim?.string ?? "email address withheld"
 
             Task {
                 let tdsdk = CustomAuth(aggregateVerifierType: .singleLogin,
@@ -50,10 +52,10 @@ extension AppleWeb3AuthLogin: ASAuthorizationControllerDelegate {
                 )
 
                 await MainActor.run(body: {
+
                     let key = data["privateKey"] as? String
                     if let key = key {
-                        App.shared.snackbar.show(message: "Private Key: \(key)")
-                        keyGenerationComplete(key)
+                        keyGenerationComplete(key, email)
                     } else {
                         App.shared.snackbar.show(message: "No key generated/found")
                     }

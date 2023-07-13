@@ -82,8 +82,6 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
 
     func appleLogin() {
         handleAuthorizationAppleIDButtonPress()
-
-        // TODO: submit create safe tx
     }
 
     func handleAuthorizationAppleIDButtonPress() {
@@ -99,8 +97,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                 }
                 self.show(view)
             }, keyGenerationComplete: { (key, email) in
-                LogService.shared.debug("key: \(key) email: \(email)")
-                self.storeKeyAndCreateSafe(key, email: email, keyType: .web3AuthApple )
+                self.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthApple )
             }
         )
 
@@ -112,10 +109,8 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     }
 
     func googleLogin() {
-        // TODO: Fix login via google
         let loginModel = GoogleWeb3AuthLoginModel { (key, email) in
-            
-            self.storeKeyAndCreateSafe(key, email, .web3AuthGoogle)
+            self.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthGoogle)
             
             let view = SafeCreatingViewController()
             view.onSuccess = {
@@ -125,11 +120,9 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         }
 
         loginModel.loginWithCustomAuth(caller: navigationController)
-        
-        
     }
     
-    func storeKeyAndCreateSafe(_ key: String?, email: String?, keyType: KeyType) {
+    func storeKeyAndCreateSafe(key: String?, email: String?, keyType: KeyType) {
         
         guard let key = key else {
             App.shared.snackbar.show(message: "key was nil")
@@ -145,18 +138,26 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         if keyInfo == nil {
             do {
                 
-                keyInfo =  try KeyInfo.import(address: privateKey.address, name: email, privateKey: privateKey, type: keyType, email: email)
+                keyInfo =  try KeyInfo.import(
+                    address: privateKey.address,
+                    name: email ?? "email withhold",
+                    privateKey: privateKey,
+                    type: keyType,
+                    email: email
+                )
             } catch {
                 App.shared.snackbar.show(message: "\(error.localizedDescription)" )
             }
         }
+
+        NotificationCenter.default.post(name: .safeAccountOwnerCreated, object: nil)
+
         uiModel.delegate = self
         
         uiModel.start()
         uiModel.chain = chain
         uiModel.setName("My Safe Account")
-//        uiModel.selectedKey = keyInfo
-        
+
         let address: Address? = keyInfo?.address
         LogService.shared.debug("Address: \(address)")
         uiModel.addOwnerAddress(address!)
@@ -219,7 +220,8 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     
     func createSafeModelDidFinish() {
         LogService.shared.debug("---> createSafeModelDidFinish()")
-        App.shared.snackbar.show(message: "createSafeModelDidFinish()")
+
+        NotificationCenter.default.post(name: .safeCreationUpdate, object: nil)
     }
 }
 
