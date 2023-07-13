@@ -437,13 +437,15 @@ enum TrackingEvent: String, Trackable {
     // MARK: Web2 style onboarding
     case screenStartingInfo                        = "screen_starting_screen_info"
     case screenSocialLoginInfo                     = "screen_info_modal_sheet"
+    case screenCreatingInProgress                  = "screen_creating_in_progress"
+    case screenCreatingComplete                    = "screen_creating_complete"
 
     case userHowItWorks                            = "user_how_does_it_work"
     case userContinueGoogle                        = "user_continue_google"
     case userContinueApple                         = "user_continue_apple"
     case userContinueAddress                       = "user_use_wallet_address"
     case userReadMore                              = "user_read_more"
-
+    case userCreatingCompleteContinue              = "user_creating_complete_continue"
 }
 
 extension TrackingEvent {

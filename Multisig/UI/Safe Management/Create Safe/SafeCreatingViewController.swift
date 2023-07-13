@@ -59,6 +59,11 @@ class SafeCreatingViewController: UIViewController {
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.screenCreatingInProgress)
+    }
+
     @objc func accountCreated() {
         infoView1.set(status: .success)
     }
