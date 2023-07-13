@@ -446,6 +446,11 @@ enum TrackingEvent: String, Trackable {
     case userContinueAddress                       = "user_use_wallet_address"
     case userReadMore                              = "user_read_more"
     case userCreatingCompleteContinue              = "user_creating_complete_continue"
+
+    case userNotificationsEnable                   = "user_enable_notifications_enable"
+    case userNotificationsSkip                     = "user_enable_notifications_skip"
+    case userFaceIDEnable                          = "user_enable_face_ID"
+    case userFaceIDSkip                            = "user_enable_face_ID_skip"
 }
 
 extension TrackingEvent {
