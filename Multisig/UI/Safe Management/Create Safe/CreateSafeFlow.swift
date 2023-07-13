@@ -141,7 +141,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                 
                 keyInfo =  try KeyInfo.import(
                     address: privateKey.address,
-                    name: email ?? "email withhold",
+                    name: email ?? "email withheld",
                     privateKey: privateKey,
                     type: keyType,
                     email: email
