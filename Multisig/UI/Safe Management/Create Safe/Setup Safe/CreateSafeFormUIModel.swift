@@ -56,7 +56,8 @@ class CreateSafeFormUIModel {
     }
 
     private func update(to newState: CreateSafeFormUIState) {
-        assert(Thread.isMainThread)        
+        assert(Thread.isMainThread)
+
         state = newState
 
         switch newState {
