@@ -12,16 +12,6 @@ import AuthenticationServices
 
 
 class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProviding, ASAuthorizationControllerDelegate, CreateSafeFormUIModelDelegate {
-    func updateUI(model: CreateSafeFormUIModel) {
-        //dump(model, name: "CreateSafeFormUIModel")
-        App.shared.snackbar.show(message: "updateUI()")
-    }
-    
-    func createSafeModelDidFinish() {
-        LogService.shared.debug("createSafeModelDidFinish()")
-        App.shared.snackbar.show(message: "createSafeModelDidFinish()")
-    }
-    
     
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return ASPresentationAnchor()
@@ -37,6 +27,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     let relayerService: SafeGelatoRelayService = App.shared.relayService
     private var appleWeb3AuthLogin: AppleWeb3AuthLogin!
     private let uiModel = CreateSafeFormUIModel()
+    private var didSubmit = false
     
     init(_ factory: CreateSafeFlowFactory = CreateSafeFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
@@ -107,10 +98,9 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                     self.safeCreationSuccess()
                 }
                 self.show(view)
-            }, keyGenerationComplete: { key in
-                // TODO: Use key to start the safe creation process here (separate PR)
-                LogService.shared.debug("key: \(key)")
-                self.startCreateSafe(key)
+            }, keyGenerationComplete: { (key, email) in
+                LogService.shared.debug("key: \(key) email: \(email)")
+                self.storeKeyAndCreateSafe(key, email: email, keyType: .web3AuthApple )
             }
         )
 
@@ -123,13 +113,9 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
 
     func googleLogin() {
         // TODO: Fix login via google
-        let loginModel = GoogleWeb3AuthLoginModel { key in
+        let loginModel = GoogleWeb3AuthLoginModel { (key, email) in
             
-            
-            // TODO: Safe key to database
-            
-            
-            self.startCreateSafe(key)
+            self.storeKeyAndCreateSafe(key, email, .web3AuthGoogle)
             
             let view = SafeCreatingViewController()
             view.onSuccess = {
@@ -143,48 +129,38 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         
     }
     
-    func startCreateSafe(_ key: String?) {
+    func storeKeyAndCreateSafe(_ key: String?, email: String?, keyType: KeyType) {
         
-        // TODO: submit create safe tx
         guard let key = key else {
             App.shared.snackbar.show(message: "key was nil")
             return
         }
         let privateKey = try? PrivateKey(data: Data(ethHex: key))
-        dump(privateKey, name: "PrivateKey")
         
         guard let privateKey = privateKey else {
-            App.shared.snackbar.show(message: "Couldn't create key from: [\(key)]")
+            App.shared.snackbar.show(message: "Couldn't create private key from: [\(key)]")
             return
         }
         var keyInfo: KeyInfo? = try? KeyInfo.firstKey(address: privateKey.address)
         if keyInfo == nil {
             do {
-                keyInfo =  try KeyInfo.import(address: privateKey.address, name: "New Apple key", privateKey: privateKey, type: .web3AuthApple)
+                
+                keyInfo =  try KeyInfo.import(address: privateKey.address, name: email, privateKey: privateKey, type: keyType, email: email)
             } catch {
                 App.shared.snackbar.show(message: "\(error.localizedDescription)" )
             }
         }
         uiModel.delegate = self
-        //        if let txHash = txHash,
-        //           let safeCreationCall = SafeCreationCall.by(txHashes: [txHash], chainId: chain.id!)?.first {
-        //            uiModel.updateWithSafeCall(call: safeCreationCall)
-        //        }
         
         uiModel.start()
         uiModel.chain = chain
-        uiModel.setName("Neuer Safe")
-        uiModel.selectedKey = keyInfo
+        uiModel.setName("My Safe Account")
+//        uiModel.selectedKey = keyInfo
         
         let address: Address? = keyInfo?.address
         LogService.shared.debug("Address: \(address)")
         uiModel.addOwnerAddress(address!)
-        
-        dump(keyInfo, name:"keyInfo")
-        
-        uiModel.estimate { result in
-            self.uiModel.relaySubmit()
-        }
+    
     }
 
     func creatingSafe() {
@@ -226,6 +202,24 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
             stop(success: true)
         })
         push(flow: createPasscodeFlow)
+    }
+    
+    
+    // CreateSafeFormUIModelDelegate protocol methods
+    func updateUI(model: CreateSafeFormUIModel) {
+
+        LogService.shared.debug("---> updateUI() called: state: \(model.state)")
+        if model.state == .ready && !didSubmit {
+            model.relaySubmit()
+            didSubmit = true
+        } else if model.state == .error {
+            LogService.shared.error("---> updateUI() called: state: \(model.state)")
+        }
+    }
+    
+    func createSafeModelDidFinish() {
+        LogService.shared.debug("---> createSafeModelDidFinish()")
+        App.shared.snackbar.show(message: "createSafeModelDidFinish()")
     }
 }
 

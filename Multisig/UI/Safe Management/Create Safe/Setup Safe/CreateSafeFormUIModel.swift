@@ -57,7 +57,8 @@ class CreateSafeFormUIModel {
 
     private func update(to newState: CreateSafeFormUIState) {
         assert(Thread.isMainThread)
-
+        LogService.shared.debug("---> State transition: \(state) -> \(newState)")
+        
         state = newState
 
         switch newState {
@@ -657,10 +658,6 @@ class CreateSafeFormUIModel {
     }
 
     func relaySubmit() {
-        
-        dump(self, name: "relaySubmit: CreateSafeFormUIModel")
-        
-        
         relayingTask?.cancel()
         relayingTask = relay(completion: { [weak self] result in
             guard let self = self else { return }

@@ -6,7 +6,7 @@ import UIKit
 
 class AppleWeb3AuthLogin: NSObject {
     var authorizationComplete: () -> Void
-    var keyGenerationComplete: ((_ key: String) -> Void)
+    var keyGenerationComplete: ((_ key: String, email: String?) -> Void)
 
     init(authorizationComplete: @escaping () -> Void, keyGenerationComplete: @escaping ((_ key: String) -> Void)) {
         self.authorizationComplete = authorizationComplete
