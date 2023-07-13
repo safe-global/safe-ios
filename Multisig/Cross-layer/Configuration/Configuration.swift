@@ -91,6 +91,9 @@ struct AppConfiguration {
 
         @ConfigurationKey("UNEXPECTED_DELEGATE_URL")
         var unexpectedDelegateURL: URL
+
+        @ConfigurationKey("SOCIAL_LOGIN_INFO_URL")
+        var socialLoginInfoURL: URL
     }
 
     struct Legal {
