@@ -19,6 +19,7 @@ class SafeCreatingViewController: UIViewController {
     @IBOutlet weak var infoView1: InfoView!
 
     var onSuccess: () -> () = {}
+    var onViewDidLoad: () -> () = {}
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +49,7 @@ class SafeCreatingViewController: UIViewController {
                                                selector: #selector(safeSubmitted),
                                                name: .safeCreationUpdate,
                                                object: nil)
+        onViewDidLoad()
     }
 
     @objc func accountCreated() {

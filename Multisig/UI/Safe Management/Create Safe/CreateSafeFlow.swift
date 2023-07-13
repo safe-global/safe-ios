@@ -91,9 +91,8 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         
         appleWeb3AuthLogin = AppleWeb3AuthLogin(
             authorizationComplete: {
-                let view = SafeCreatingViewController()
+                let view = self.factory.creatingSafeViewController()
                 view.onSuccess = {
-//                    self.safeCreationSuccess()
                     self.stop(success: true)
                 }
                 self.show(view)
@@ -111,12 +110,12 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
 
     func googleLogin() {
         let loginModel = GoogleWeb3AuthLoginModel { (key, email) in
-            self.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthGoogle)
-            
-            let view = SafeCreatingViewController()
+            let view = self.factory.creatingSafeViewController()
             view.onSuccess = {
-                //self.safeCreationSuccess()
                 self.stop(success: true)
+            }
+            view.onViewDidLoad = {
+                self.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthGoogle)
             }
             self.show(view)
         }
@@ -127,7 +126,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     func storeKeyAndCreateSafe(key: String?, email: String?, keyType: KeyType) {
         
         guard let key = key else {
-            App.shared.snackbar.show(message: "key was nil")
+            App.shared.snackbar.show(message: "Key was nil")
             return
         }
         let privateKey = try? PrivateKey(data: Data(ethHex: key))
@@ -155,15 +154,12 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         NotificationCenter.default.post(name: .safeAccountOwnerCreated, object: nil)
 
         uiModel.delegate = self
-        
         uiModel.start()
         uiModel.chain = chain
         uiModel.setName("My Safe Account")
-
-        let address: Address? = keyInfo?.address
-        LogService.shared.debug("Address: \(address)")
-        uiModel.addOwnerAddress(address!)
-    
+        if let address = keyInfo?.address {
+            uiModel.addOwnerAddress(address)
+        }
     }
 
     func creatingSafe() {
@@ -209,8 +205,6 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     
     // CreateSafeFormUIModelDelegate protocol methods
     func updateUI(model: CreateSafeFormUIModel) {
-
-        LogService.shared.debug("---> updateUI() called: state: \(model.state)")
         if model.state == .ready && !didSubmit {
             model.relaySubmit()
             didSubmit = true
@@ -220,8 +214,6 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     }
     
     func createSafeModelDidFinish() {
-        LogService.shared.debug("---> createSafeModelDidFinish()")
-
         NotificationCenter.default.post(name: .safeCreationUpdate, object: nil)
     }
 }
