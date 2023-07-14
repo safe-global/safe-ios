@@ -45,7 +45,13 @@ class SocialLoginInfoViewController: UIViewController {
         readMoreLabel.hyperLinkLabel(linkText: "Read more in Help Center", underlined: false)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.screenSocialLoginInfo)
+    }
+
     @IBAction func didTapReadMore(_ sender: Any) {
+        Tracker.trackEvent(.userReadMore)
         openInSafari(App.configuration.help.socialLoginInfoURL)
     }
 }

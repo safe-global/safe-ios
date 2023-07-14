@@ -19,6 +19,8 @@ class SafeCreatingViewController: UIViewController {
     @IBOutlet weak var infoView1: InfoView!
 
     var onSuccess: () -> () = {}
+    var onViewDidLoad: () -> () = {}
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,30 +46,30 @@ class SafeCreatingViewController: UIViewController {
                                                object: nil)
 
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(safeCreated),
+                                               selector: #selector(safeSubmitted),
                                                name: .safeCreationUpdate,
                                                object: nil)
-        // TODO: bind the tx status changes to SafeCreatingViewController and remove times I defined there
-        Timer.scheduledTimer(withTimeInterval: 3, repeats: false) {_ in
-            NotificationCenter.default.post(name: .safeAccountOwnerCreated, object: nil)
-            Timer.scheduledTimer(withTimeInterval: 3, repeats: false) {_ in
-                NotificationCenter.default.post(name: .safeAccountOwnerSecured, object: nil)
-                Timer.scheduledTimer(withTimeInterval: 3, repeats: false) {_ in
-                    NotificationCenter.default.post(name: .safeCreationUpdate, object: nil)
-                }
-            }
-        }
+        onViewDidLoad()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.screenCreatingInProgress)
     }
 
     @objc func accountCreated() {
         infoView1.set(status: .success)
+        // It is not defined, what this "owner secured" exactly means. Thats why we check this box after a short time automatically
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) {_ in
+            NotificationCenter.default.post(name: .safeAccountOwnerSecured, object: nil)
+        }
     }
 
     @objc func accountSecured() {
         infoView2.set(status: .success)
     }
 
-    @objc func safeCreated() {
+    @objc func safeSubmitted() {
         infoView3.set(status: .success)
         Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { [weak self] timer in
             DispatchQueue.main.async {

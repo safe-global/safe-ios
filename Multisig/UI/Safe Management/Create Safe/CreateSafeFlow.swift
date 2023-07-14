@@ -10,12 +10,13 @@ import Foundation
 import UIKit
 import AuthenticationServices
 
-class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProviding, ASAuthorizationControllerDelegate {
 
+class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProviding, ASAuthorizationControllerDelegate, CreateSafeFormUIModelDelegate {
+    
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return ASPresentationAnchor()
     }
-
+    
     var factory: CreateSafeFlowFactory!
     var chain: Chain!
     var safe: Safe?
@@ -24,7 +25,9 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     private var relayingTask: URLSessionTask?
     let relayerService: SafeGelatoRelayService = App.shared.relayService
     private var appleWeb3AuthLogin: AppleWeb3AuthLogin!
-
+    private let uiModel = CreateSafeFormUIModel()
+    private var didSubmit = false
+    
     init(_ factory: CreateSafeFlowFactory = CreateSafeFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
         super.init(completion: completion)
@@ -35,7 +38,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     }
 
     func chooseNetwork() {
-        let vc = factory.selectNetworkView { [unowned self] chain in
+        let vc = factory.selectNetworkViewController { [unowned self] chain in
             self.chain = Chain.createOrUpdate(chain)
             instructions()
         }
@@ -78,23 +81,22 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
 
     func appleLogin() {
         handleAuthorizationAppleIDButtonPress()
-
-        // TODO: submit create safe tx
     }
 
     func handleAuthorizationAppleIDButtonPress() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
-
-        appleWeb3AuthLogin = AppleWeb3AuthLogin (
+        
+        appleWeb3AuthLogin = AppleWeb3AuthLogin(
             authorizationComplete: {
-                let view = SafeCreatingViewController()
-                view.onSuccess = { self.safeCreationSuccess() }
+                let view = self.factory.safeCreatingViewController()
+                view.onSuccess = {
+                    self.stop(success: true)
+                }
                 self.show(view)
-            }, keyGenerationComplete: { key in
-                // TODO: Use key to start the safe creation process here (separate PR)
-                LogService.shared.debug("key: \(key)")
+            }, keyGenerationComplete: { (key, email) in
+                self.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthApple )
             }
         )
 
@@ -106,19 +108,61 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     }
 
     func googleLogin() {
-        // TODO: Fix login via google
-        let loginModel = GoogleWeb3AuthLoginModel {
-            let view = SafeCreatingViewController()
-            view.onSuccess = { self.safeCreationSuccess() }
+        let loginModel = GoogleWeb3AuthLoginModel { (key, email) in
+            let view = self.factory.safeCreatingViewController()
+            view.onSuccess = {
+                self.stop(success: true)
+            }
+            view.onViewDidLoad = {
+                self.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthGoogle)
+            }
             self.show(view)
         }
 
         loginModel.loginWithCustomAuth(caller: navigationController)
-        // TODO: submit create safe tx
+    }
+    
+    func storeKeyAndCreateSafe(key: String?, email: String?, keyType: KeyType) {
+        
+        guard let key = key else {
+            App.shared.snackbar.show(message: "Key was nil")
+            return
+        }
+        let privateKey = try? PrivateKey(data: Data(ethHex: key))
+        
+        guard let privateKey = privateKey else {
+            App.shared.snackbar.show(message: "Couldn't create private key from: [\(key)]")
+            return
+        }
+        var keyInfo: KeyInfo? = try? KeyInfo.firstKey(address: privateKey.address)
+        if keyInfo == nil {
+            do {
+                
+                keyInfo =  try KeyInfo.import(
+                    address: privateKey.address,
+                    name: email ?? "email withheld",
+                    privateKey: privateKey,
+                    type: keyType,
+                    email: email
+                )
+            } catch {
+                App.shared.snackbar.show(message: "\(error.localizedDescription)" )
+            }
+        }
+
+        NotificationCenter.default.post(name: .safeAccountOwnerCreated, object: nil)
+
+        uiModel.delegate = self
+        uiModel.start()
+        uiModel.chain = chain
+        uiModel.setName("My Safe Account")
+        if let address = keyInfo?.address {
+            uiModel.addOwnerAddress(address)
+        }
     }
 
     func creatingSafe() {
-        let vc = factory.creatingSafeViewController()
+        let vc = factory.safeCreatingViewController()
         vc.onSuccess = { [unowned self] in
             safeCreationSuccess()
         }
@@ -127,10 +171,9 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     }
 
     func safeCreationSuccess() {
-        let vc = factory.safeCreationSuccess(safe: safe, chain: chain) { [unowned self] in
+        let vc = factory.safeCreationSuccessViewController(safe: safe, chain: chain) { [unowned self] in
             enableNotifications()
         }
-
         show(vc)
     }
 
@@ -141,8 +184,10 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                                     primaryActionTitle: "Enable notifications",
                                     secondaryActionTitle: "Skip") { [unowned self] in
             // TODO: register for notifications after safe created and before calling create passcode flow
+            Tracker.trackEvent(.userNotificationsEnable)
             enablePasscode()
         } onSecondaryAction: { [unowned self] in
+            Tracker.trackEvent(.userNotificationsSkip)
             stop(success: true)
         }
 
@@ -157,10 +202,25 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         })
         push(flow: createPasscodeFlow)
     }
+    
+    
+    // CreateSafeFormUIModelDelegate protocol methods
+    func updateUI(model: CreateSafeFormUIModel) {
+        if model.state == .ready && !didSubmit {
+            model.relaySubmit()
+            didSubmit = true
+        } else if model.state == .error {
+            LogService.shared.error("---> updateUI() called: state: \(model.state)")
+        }
+    }
+    
+    func createSafeModelDidFinish() {
+        NotificationCenter.default.post(name: .safeCreationUpdate, object: nil)
+    }
 }
 
 class CreateSafeFlowFactory {
-    func selectNetworkView(completion: @escaping (_ chain: SCGModels.Chain) -> Void) -> SelectNetworkViewController {
+    func selectNetworkViewController(completion: @escaping (_ chain: SCGModels.Chain) -> Void) -> SelectNetworkViewController {
         let vc = SelectNetworkViewController()
         vc.showWeb2SupportHint = true
         vc.completion = completion
@@ -182,12 +242,12 @@ class CreateSafeFlowFactory {
         return instructionsVC
     }
 
-    func creatingSafeViewController() -> SafeCreatingViewController {
+    func safeCreatingViewController() -> SafeCreatingViewController {
         let vc = SafeCreatingViewController()
         return vc
     }
 
-    func safeCreationSuccess(safe: Safe!, chain: Chain, completion: @escaping () -> Void) -> SafeCreationSuccessViewController {
+    func safeCreationSuccessViewController(safe: Safe!, chain: Chain, completion: @escaping () -> Void) -> SafeCreationSuccessViewController {
         let vc = SafeCreationSuccessViewController()
         vc.safe = safe
         vc.chain = chain
