@@ -28,12 +28,12 @@ class GoogleWeb3AuthLoginModel {
             let tdsdk = CustomAuth(aggregateVerifierType: .singleLogin,
                                    aggregateVerifier: App.configuration.web3auth.googleVerifier,
                                    subVerifierDetails: [sub],
-                                   network: .CYAN,
-                                   loglevel: .debug
+                                   network: .CYAN
             )
             let data = try await tdsdk.triggerLogin(controller: caller)
             await MainActor.run(body: {
                 print("privateKey: \(data["privateKey"] ?? "foo")")
+                App.shared.snackbar.show(message: "Private Key: \(data["privateKey"] as? String)")
                 onClose()
                 caller.closeModal()
             })

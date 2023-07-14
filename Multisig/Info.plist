@@ -69,6 +69,8 @@
 	<string>$(UNEXPECTED_DELEGATE_URL)</string>
 	<key>KEY_SECURITY_URL</key>
 	<string>$(KEY_SECURITY_URL)</string>
+	<key>SOCIAL_LOGIN_INFO_URL</key>
+	<string>$(SOCIAL_LOGIN_INFO_URL)</string>
 	<key>DISCORD_URL</key>
 	<string>$(DISCORD_URL)</string>
 	<key>FORUM_URL</key>
@@ -101,8 +103,6 @@
 	<false/>
 	<key>IntercomAutoIntegratePushNotifications</key>
 	<string>NO</string>
-	<key>IntercomRegion</key>
-	<string>EU</string>
 	<key>LEDGER_PAIRING_URL</key>
 	<string>$(LEDGER_PAIRING_URL)</string>
 	<key>LICENSES_URL</key>
@@ -290,5 +290,9 @@ DMSans-Regular.ttf</string>
 	<string>$(WEB3AUTH_GOOGLE_VERIFIER)</string>
 	<key>WEB3AUTH_REDIRECT_URL</key>
 	<string>$(WEB3AUTH_REDIRECT_URL)</string>
+	<key>WEB3AUTH_APPLE_VERIFIER</key>
+	<string>$(WEB3AUTH_APPLE_VERIFIER)</string>
+	<key>WEB3AUTH_APPLE_VERIFIER_AGGREGATE</key>
+	<string>$(WEB3AUTH_APPLE_VERIFIER_AGGREGATE)</string>
 </dict>
 </plist>

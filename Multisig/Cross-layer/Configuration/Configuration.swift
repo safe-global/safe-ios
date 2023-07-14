@@ -91,6 +91,9 @@ struct AppConfiguration {
 
         @ConfigurationKey("UNEXPECTED_DELEGATE_URL")
         var unexpectedDelegateURL: URL
+
+        @ConfigurationKey("SOCIAL_LOGIN_INFO_URL")
+        var socialLoginInfoURL: URL
     }
 
     struct Legal {
@@ -185,6 +188,12 @@ struct AppConfiguration {
 
         @ConfigurationKey("WEB3AUTH_REDIRECT_URL")
         var redirectUrl: String
+
+        @ConfigurationKey("WEB3AUTH_APPLE_VERIFIER_AGGREGATE")
+        var appleVerifier: String
+        
+        @ConfigurationKey("WEB3AUTH_APPLE_VERIFIER")
+        var appleSubVerifier: String
     }
 
     let services = Services()

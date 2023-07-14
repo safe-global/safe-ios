@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SocialLoginInfoViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="infoBox" destination="S4e-bL-zW5" id="mc9-Q6-M4Q"/>
+                <outlet property="readMoreLabel" destination="w2H-8Y-Sul" id="MUr-Av-3cm"/>
+                <outlet property="sec1Label" destination="hfQ-Ax-Fq7" id="ADM-wR-q9H"/>
+                <outlet property="sec2Label" destination="x3K-Ta-YFW" id="HJT-m2-McF"/>
+                <outlet property="sec2TitleLabel" destination="aUI-YY-QsS" id="eBg-w1-2aB"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JDK-mV-eoW">
+                    <rect key="frame" x="16" y="75" width="361" height="657"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="2cQ-AR-Zgo">
+                            <rect key="frame" x="0.0" y="0.0" width="361" height="428"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="b0A-ma-epJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="361" height="245.66666666666666"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfQ-Ax-Fq7">
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="101.66666666666667"/>
+                                            <string key="text">Your Google or Apple ID will serve as the 1/1 owner of your new Safe Account.   For enhanced security, you can always add more owners later.</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S4e-bL-zW5" customClass="InfoBoxView" customModule="Multisig" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="117.66666666666666" width="361" height="128"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        </view>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="aMG-tR-TAV">
+                                    <rect key="frame" x="0.0" y="269.66666666666669" width="361" height="158.33333333333331"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is the account under my full control?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUI-YY-QsS">
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="20.333333333333332"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3K-Ta-YFW">
+                                            <rect key="frame" x="0.0" y="36.333333333333314" width="361" height="122"/>
+                                            <string key="text">For convenience and recovery, Google and Apple ID will directly generate your keys and be the custodian of your account.   You can use a 3rd party wallet to stay in full control of your account.</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="2cQ-AR-Zgo" firstAttribute="leading" secondItem="qKK-nO-F5v" secondAttribute="leading" id="RLc-UJ-Qab"/>
+                        <constraint firstItem="2cQ-AR-Zgo" firstAttribute="width" secondItem="7dJ-x0-w6U" secondAttribute="width" id="Vdx-eM-bc3"/>
+                        <constraint firstItem="2cQ-AR-Zgo" firstAttribute="trailing" secondItem="qKK-nO-F5v" secondAttribute="trailing" id="a3h-p3-ug4"/>
+                        <constraint firstItem="2cQ-AR-Zgo" firstAttribute="top" secondItem="qKK-nO-F5v" secondAttribute="top" id="kpw-XB-aKg"/>
+                        <constraint firstItem="2cQ-AR-Zgo" firstAttribute="bottom" secondItem="qKK-nO-F5v" secondAttribute="bottom" id="nH8-Xf-G1Y"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="qKK-nO-F5v"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="7dJ-x0-w6U"/>
+                </scrollView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Read more in Help Center" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2H-8Y-Sul">
+                    <rect key="frame" x="16" y="748" width="361" height="54"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="54" id="e32-7c-wua"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aju-Df-Zj4">
+                    <rect key="frame" x="16" y="748" width="361" height="54"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="54" id="3ir-yd-rWQ"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain"/>
+                    <connections>
+                        <action selector="didTapReadMore:" destination="-1" eventType="touchUpInside" id="OWv-bY-Xos"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="w2H-8Y-Sul" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="7cc-8O-ChP"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="w2H-8Y-Sul" secondAttribute="bottom" constant="16" id="I6c-te-0wp"/>
+                <constraint firstItem="aju-Df-Zj4" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Nk8-4o-aXl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="aju-Df-Zj4" secondAttribute="bottom" constant="16" id="Rxc-h9-i4X"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="aju-Df-Zj4" secondAttribute="trailing" constant="16" id="TXP-6O-rTJ"/>
+                <constraint firstItem="w2H-8Y-Sul" firstAttribute="top" secondItem="JDK-mV-eoW" secondAttribute="bottom" constant="16" id="ic2-dY-btl"/>
+                <constraint firstItem="JDK-mV-eoW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="jz5-TF-7CP"/>
+                <constraint firstItem="JDK-mV-eoW" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="o8m-xy-sxP"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="w2H-8Y-Sul" secondAttribute="trailing" constant="16" id="qEb-oN-Ggo"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JDK-mV-eoW" secondAttribute="trailing" constant="16" id="uSE-6E-k2w"/>
+            </constraints>
+            <point key="canvasLocation" x="132" y="-12"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
