@@ -3,9 +3,9 @@ import CustomAuth
 import UIKit
 
 class GoogleWeb3AuthLoginModel {
-    var onClose: () -> Void
+    var onClose: ((_ key: String?, _ email: String?) -> Void)
 
-    init(onClose: @escaping () -> Void) {
+    init(onClose: @escaping ((_ key: String?, _ email: String?) -> Void)) {
         self.onClose = onClose
     }
 
@@ -32,9 +32,11 @@ class GoogleWeb3AuthLoginModel {
             )
             let data = try await tdsdk.triggerLogin(controller: caller)
             await MainActor.run(body: {
-                print("privateKey: \(data["privateKey"] ?? "foo")")
-                App.shared.snackbar.show(message: "Private Key: \(data["privateKey"] as? String)")
-                onClose()
+                let key = data["privateKey"] as? String
+                let userInfo = data["userInfo"] as? Dictionary ?? [:] as Dictionary
+                let email = userInfo["email"] as? String ?? "email withheld"
+
+                onClose(key, email)
                 caller.closeModal()
             })
         }

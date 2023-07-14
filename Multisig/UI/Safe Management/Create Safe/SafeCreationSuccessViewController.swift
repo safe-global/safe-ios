@@ -33,7 +33,7 @@ class SafeCreationSuccessViewController: UIViewController {
         continueButton.setText("Continue", .filled)
 
         addressInfoView.setAddress(Address("0xEa3290590Dd491739f5F731266631A2649eBa661"),
-                                   label: "custom name",
+                                   label: "My Safe Account",
                                    browseURL: chain.browserURL(address: "0xEa3290590Dd491739f5F731266631A2649eBa661"))
 
         addressInfoView.backgroundColor = .backgroundLightGreen
