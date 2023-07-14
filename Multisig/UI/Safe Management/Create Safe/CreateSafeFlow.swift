@@ -38,7 +38,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     }
 
     func chooseNetwork() {
-        let vc = factory.selectNetworkView { [unowned self] chain in
+        let vc = factory.selectNetworkViewController { [unowned self] chain in
             self.chain = Chain.createOrUpdate(chain)
             instructions()
         }
@@ -90,7 +90,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         
         appleWeb3AuthLogin = AppleWeb3AuthLogin(
             authorizationComplete: {
-                let view = self.factory.creatingSafeViewController()
+                let view = self.factory.safeCreatingViewController()
                 view.onSuccess = {
                     self.stop(success: true)
                 }
@@ -109,7 +109,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
 
     func googleLogin() {
         let loginModel = GoogleWeb3AuthLoginModel { (key, email) in
-            let view = self.factory.creatingSafeViewController()
+            let view = self.factory.safeCreatingViewController()
             view.onSuccess = {
                 self.stop(success: true)
             }
@@ -162,7 +162,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     }
 
     func creatingSafe() {
-        let vc = factory.creatingSafeViewController()
+        let vc = factory.safeCreatingViewController()
         vc.onSuccess = { [unowned self] in
             safeCreationSuccess()
         }
@@ -171,7 +171,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     }
 
     func safeCreationSuccess() {
-        let vc = factory.safeCreationSuccess(safe: safe, chain: chain) { [unowned self] in
+        let vc = factory.safeCreationSuccessViewController(safe: safe, chain: chain) { [unowned self] in
             enableNotifications()
         }
         show(vc)
@@ -218,7 +218,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
 }
 
 class CreateSafeFlowFactory {
-    func selectNetworkView(completion: @escaping (_ chain: SCGModels.Chain) -> Void) -> SelectNetworkViewController {
+    func selectNetworkViewController(completion: @escaping (_ chain: SCGModels.Chain) -> Void) -> SelectNetworkViewController {
         let vc = SelectNetworkViewController()
         vc.showWeb2SupportHint = true
         vc.completion = completion
@@ -240,12 +240,12 @@ class CreateSafeFlowFactory {
         return instructionsVC
     }
 
-    func creatingSafeViewController() -> SafeCreatingViewController {
+    func safeCreatingViewController() -> SafeCreatingViewController {
         let vc = SafeCreatingViewController()
         return vc
     }
 
-    func safeCreationSuccess(safe: Safe!, chain: Chain, completion: @escaping () -> Void) -> SafeCreationSuccessViewController {
+    func safeCreationSuccessViewController(safe: Safe!, chain: Chain, completion: @escaping () -> Void) -> SafeCreationSuccessViewController {
         let vc = SafeCreationSuccessViewController()
         vc.safe = safe
         vc.chain = chain
