@@ -39,7 +39,13 @@ class SafeCreationSuccessViewController: UIViewController {
         addressInfoView.backgroundColor = .backgroundLightGreen
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.screenCreatingComplete)
+    }
+
     @IBAction private func continueButtonTouched(_ sender: Any) {
+        Tracker.trackEvent(.userCreatingCompleteContinue)
         onContinue()
     }
 }

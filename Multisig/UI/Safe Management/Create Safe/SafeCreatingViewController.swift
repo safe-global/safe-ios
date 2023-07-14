@@ -52,6 +52,11 @@ class SafeCreatingViewController: UIViewController {
         onViewDidLoad()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.screenCreatingInProgress)
+    }
+
     @objc func accountCreated() {
         infoView1.set(status: .success)
         // It is not defined, what this "owner secured" exactly means. Thats why we check this box after a short time automatically

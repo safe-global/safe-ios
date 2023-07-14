@@ -184,8 +184,10 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                                     primaryActionTitle: "Enable notifications",
                                     secondaryActionTitle: "Skip") { [unowned self] in
             // TODO: register for notifications after safe created and before calling create passcode flow
+            Tracker.trackEvent(.userNotificationsEnable)
             enablePasscode()
         } onSecondaryAction: { [unowned self] in
+            Tracker.trackEvent(.userNotificationsSkip)
             stop(success: true)
         }
 

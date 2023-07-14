@@ -433,6 +433,24 @@ enum TrackingEvent: String, Trackable {
     case userClaimNotDao                            = "user_claim_not_dao"
     case userClaimNotForum                          = "user_claim_not_forum"
     case userClaimNotOk                             = "user_claim_not_ok"
+
+    // MARK: Web2 style onboarding
+    case screenStartingInfo                        = "screen_starting_screen_info"
+    case screenSocialLoginInfo                     = "screen_info_modal_sheet"
+    case screenCreatingInProgress                  = "screen_creating_in_progress"
+    case screenCreatingComplete                    = "screen_creating_complete"
+
+    case userHowItWorks                            = "user_how_does_it_work"
+    case userContinueGoogle                        = "user_continue_google"
+    case userContinueApple                         = "user_continue_apple"
+    case userContinueAddress                       = "user_use_wallet_address"
+    case userReadMore                              = "user_read_more"
+    case userCreatingCompleteContinue              = "user_creating_complete_continue"
+
+    case userNotificationsEnable                   = "user_enable_notifications_enable"
+    case userNotificationsSkip                     = "user_enable_notifications_skip"
+    case userFaceIDEnable                          = "user_enable_face_ID"
+    case userFaceIDSkip                            = "user_enable_face_ID_skip"
 }
 
 extension TrackingEvent {

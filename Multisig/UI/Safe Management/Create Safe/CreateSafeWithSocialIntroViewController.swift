@@ -47,15 +47,23 @@ class CreateSafeWithSocialIntroViewController: UIViewController {
         headerLabel.addGestureRecognizer(tapgesture)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.screenStartingInfo)
+    }
+
     @IBAction func googleButtonTouched(_ sender: Any) {
+        Tracker.trackEvent(.userContinueGoogle)
         onGoogleAction()
     }
 
     @IBAction func appleButtonTouched(_ sender: Any) {
+        Tracker.trackEvent(.userContinueApple)
         onAppleAction()
     }
 
     @IBAction private func addressButtonTouched(_ sender: Any) {
+        Tracker.trackEvent(.userContinueAddress)
         onAddressAction()
     }
 
@@ -63,6 +71,7 @@ class CreateSafeWithSocialIntroViewController: UIViewController {
            guard let text = headerLabel.text else { return }
            let howItWorksRange = (text as NSString).range(of: "How does it work?")
            if gesture.didTapAttributedTextInLabel(label: headerLabel, inRange: howItWorksRange) {
+               Tracker.trackEvent(.userHowItWorks)
                let socialLoginInfoVC = SocialLoginInfoViewController()
                show(socialLoginInfoVC, sender: self)
            }
