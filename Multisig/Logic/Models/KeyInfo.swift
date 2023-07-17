@@ -48,16 +48,17 @@ extension KeyInfo {
     }
 
     var displayName: String {
-        var result = ""
         switch(keyType) {
         case .web3AuthGoogle:
-            result = "Google (\(name ?? "unknown"))"
+            let result = "Google (\(name ?? "unknown"))"
+            return result
         case .web3AuthApple:
-            result = "Apple ID  (\(name ?? "unknown"))"
+            let result = "Apple ID (\(name ?? "unknown"))"
+            return result
         default:
-            result = name ?? "Key \(address.ellipsized())"
+            let result = name ?? "Key \(address.ellipsized())"
+            return result
         }
-        return result
     }
 
     var connectedAsDapp: Bool {

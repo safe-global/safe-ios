@@ -286,7 +286,6 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             let (name, _) = NamingPolicy.name(for: info.address,
                                                         info: info,
                                                         chainId: safe.chain!.id!)
-
             return addressDetailsCell(address: info.address,
                                       name: keyInfo?.displayName,
                                       indexPath: indexPath,
