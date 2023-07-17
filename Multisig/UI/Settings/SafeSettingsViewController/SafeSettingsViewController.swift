@@ -286,17 +286,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             let (name, _) = NamingPolicy.name(for: info.address,
                                                         info: info,
                                                         chainId: safe.chain!.id!)
-            var displayName: String!
-            switch keyInfo?.keyType {
-                case .web3AuthApple:
-                displayName = "Apple ID (\(name!))"
-                case .web3AuthGoogle:
-                displayName = "Google (\(name!))"
-                default:
-                    displayName = name
-            }
+
             return addressDetailsCell(address: info.address,
-                                      name: displayName,
+                                      name: keyInfo?.displayName,
                                       indexPath: indexPath,
                                       badgeName: keyInfo?.keyType.badgeName,
                                       browseURL: safe.chain!.browserURL(address: info.address.checksummed),
