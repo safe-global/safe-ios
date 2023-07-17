@@ -94,6 +94,9 @@ struct AppConfiguration {
 
         @ConfigurationKey("SOCIAL_LOGIN_INFO_URL")
         var socialLoginInfoURL: URL
+
+        @ConfigurationKey("ONRAMPING_INFO_URL")
+        var onrampingInfoURL: URL
     }
 
     struct Legal {
