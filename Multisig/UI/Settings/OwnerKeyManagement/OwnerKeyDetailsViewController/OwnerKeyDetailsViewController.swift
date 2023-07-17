@@ -230,8 +230,11 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
             sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
         }
 
-        sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
-                              items: [Section.PushNotificationConfiguration.enabled]))
+        //TODO: remove check when push notifications for social logins are implemented
+        if keyInfo.keyType != .web3AuthGoogle && keyInfo.keyType != .web3AuthApple {
+            sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
+                             items: [Section.PushNotificationConfiguration.enabled]))
+        }
 
         if keyInfo.delegateAddress != nil {
             sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
