@@ -105,6 +105,8 @@ class MainTabBarViewController: UITabBarController {
             object: nil)
 
         WebConnectionController.shared.attach(observer: self)
+
+        App.shared.snackbar.show(message: "INFURA_KEY: \(App.configuration.services.infuraKey)")
     }
 
     deinit {
