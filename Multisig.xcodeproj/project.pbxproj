@@ -821,6 +821,8 @@
 		6A007E8F2A5ED538000F0ADD /* SocialLoginInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A007E8D2A5ED538000F0ADD /* SocialLoginInfoViewController.swift */; };
 		6A007E902A5ED538000F0ADD /* SocialLoginInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A007E8E2A5ED538000F0ADD /* SocialLoginInfoViewController.xib */; };
 		6A007E922A60179B000F0ADD /* UIGestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A007E912A60179B000F0ADD /* UIGestures.swift */; };
+		6A007E9A2A61531C000F0ADD /* SocialLoginInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A007E982A61531C000F0ADD /* SocialLoginInfoTableViewCell.swift */; };
+		6A007E9B2A61531C000F0ADD /* SocialLoginInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A007E992A61531C000F0ADD /* SocialLoginInfoTableViewCell.xib */; };
 		6A1CFA4A2807F24800B2C340 /* NoScreenshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1CFA482807F24800B2C340 /* NoScreenshotViewController.swift */; };
 		6A1CFA4B2807F24800B2C340 /* NoScreenshotViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A1CFA492807F24800B2C340 /* NoScreenshotViewController.xib */; };
 		6A1CFA4F28081A1200B2C340 /* BackupSeedPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1CFA4D28081A1200B2C340 /* BackupSeedPhraseViewController.swift */; };
@@ -1834,6 +1836,8 @@
 		6A007E8D2A5ED538000F0ADD /* SocialLoginInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginInfoViewController.swift; sourceTree = "<group>"; };
 		6A007E8E2A5ED538000F0ADD /* SocialLoginInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialLoginInfoViewController.xib; sourceTree = "<group>"; };
 		6A007E912A60179B000F0ADD /* UIGestures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGestures.swift; sourceTree = "<group>"; };
+		6A007E982A61531C000F0ADD /* SocialLoginInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginInfoTableViewCell.swift; sourceTree = "<group>"; };
+		6A007E992A61531C000F0ADD /* SocialLoginInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialLoginInfoTableViewCell.xib; sourceTree = "<group>"; };
 		6A1CFA482807F24800B2C340 /* NoScreenshotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoScreenshotViewController.swift; sourceTree = "<group>"; };
 		6A1CFA492807F24800B2C340 /* NoScreenshotViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoScreenshotViewController.xib; sourceTree = "<group>"; };
 		6A1CFA4D28081A1200B2C340 /* BackupSeedPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupSeedPhraseViewController.swift; sourceTree = "<group>"; };
@@ -4086,6 +4090,7 @@
 		55BCFC372552FCA900020CE7 /* SafeSettingsViewController */ = {
 			isa = PBXGroup;
 			children = (
+				6A007E932A61464E000F0ADD /* SocialLoginInfoTableViewCell */,
 				0428DA5725CBFBEA002CF4A9 /* HelpLinkUITableViewCell */,
 				55BCFC382552FCDB00020CE7 /* SafeSettingsViewController.swift */,
 				04FC26B425CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift */,
@@ -4166,6 +4171,15 @@
 				04273E5B26B41A3700A14E95 /* APDUController.swift */,
 			);
 			path = Ledger;
+			sourceTree = "<group>";
+		};
+		6A007E932A61464E000F0ADD /* SocialLoginInfoTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				6A007E982A61531C000F0ADD /* SocialLoginInfoTableViewCell.swift */,
+				6A007E992A61531C000F0ADD /* SocialLoginInfoTableViewCell.xib */,
+			);
+			path = SocialLoginInfoTableViewCell;
 			sourceTree = "<group>";
 		};
 		6A1CFA4C280819C600B2C340 /* Backup */ = {
@@ -4930,6 +4944,7 @@
 				0A8AEB1925A4726E002A3FE1 /* ActionDetailExpandableCell.xib in Resources */,
 				04C5DF6C26FB451B0072476C /* KeyTypeTableViewCell.xib in Resources */,
 				93C38DC228C74CAA005188EC /* WhatIsSafeViewController.xib in Resources */,
+				6A007E9B2A61531C000F0ADD /* SocialLoginInfoTableViewCell.xib in Resources */,
 				6A1CFA5028081A1200B2C340 /* BackupSeedPhraseViewController.xib in Resources */,
 				6A7A48A12823A297003278C8 /* SafeOwnerCell.xib in Resources */,
 				0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */,
@@ -5552,6 +5567,7 @@
 				0472B2BE286A49420049BA17 /* GuardianListViewController.swift in Sources */,
 				0A2F1A6E267A538E00C09F03 /* GSLabel.swift in Sources */,
 				0439B29C28048A5F00796F18 /* BackupKeyTableViewCell.swift in Sources */,
+				6A007E9A2A61531C000F0ADD /* SocialLoginInfoTableViewCell.swift in Sources */,
 				6A6A105D2889A31200B852D5 /* InstructionStepView.swift in Sources */,
 				0A9366B3278F1EA0001918A9 /* HyperlinkButtonView.swift in Sources */,
 				0A478D5825B876AF0038363E /* ButtonTableViewCell.swift in Sources */,
