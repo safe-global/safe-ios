@@ -75,9 +75,9 @@ extension KeyType {
         case .keystone:
             return "key-type-keystone"
         case .web3AuthApple:
-            return "key-type-web3auth-google"
-        case .web3AuthGoogle:
             return "key-type-web3auth-apple"
+        case .web3AuthGoogle:
+            return "key-type-web3auth-google"
         }
     }
 }
