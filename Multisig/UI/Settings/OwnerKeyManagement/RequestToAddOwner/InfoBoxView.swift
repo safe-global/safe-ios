@@ -13,6 +13,13 @@ class InfoBoxView: UINibView {
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var actionContainer: UIStackView!
+    @IBOutlet weak var actionButton: UIButton!
+
+    private var onActionPrimary: (() -> ())? = nil
+    private var onActionSecondary: (() -> ())? = nil
+    private var actionSecondary: String? = nil
+
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,5 +56,42 @@ class InfoBoxView: UINibView {
         if let icon = icon {
             iconImageView.image = icon
         }
+    }
+
+    func addActionSecondary(title: String, action: (() -> ())?) {
+        guard let text = messageLabel.attributedText else { return }
+        messageLabel.hyperLinkLabel(
+            text.string,
+            prefixStyle: .body,
+            linkText: title,
+            linkStyle: .button,
+            linkIcon: nil,
+            underlined: false
+        )
+        actionSecondary = title
+        onActionSecondary = action
+        let tapgesture = UITapGestureRecognizer(target: self, action: #selector(didTapActionSecondary(_ :)))
+        tapgesture.numberOfTapsRequired = 1
+        messageLabel.isUserInteractionEnabled = true
+        messageLabel.addGestureRecognizer(tapgesture)
+    }
+
+    @objc func didTapActionSecondary(_ gesture: UITapGestureRecognizer) {
+        guard let text = messageLabel.text else { return }
+        guard let actionSecondary = self.actionSecondary else { return }
+        let actionSecondaryRange = (text as NSString).range(of: actionSecondary)
+        if gesture.didTapAttributedTextInLabel(label: messageLabel, inRange: actionSecondaryRange) {
+            self.onActionSecondary?()
+        }
+    }
+
+    func addActionPrimary(title: String, action: (() -> ())?) {
+        actionButton.setText(title, .plain)
+        actionContainer.isHidden = false
+        onActionPrimary = action
+    }
+
+    @IBAction func didTapActionPrimary(_ sender: Any) {
+        onActionPrimary?()
     }
 }
