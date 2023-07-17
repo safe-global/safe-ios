@@ -19,7 +19,7 @@ class GoogleWeb3AuthLoginModel {
 
     func loginWithCustomAuth(caller: UIViewController) {
         Task {
-            let sub = SubVerifierDetails(loginType: .web,
+            let sub = SubVerifierDetails(loginType: .installed,
                                          loginProvider: .google,
                                          clientId: App.configuration.web3auth.googleClientId,
                                          verifier: App.configuration.web3auth.googleVerifier,
