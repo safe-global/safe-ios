@@ -1947,6 +1947,7 @@
 		9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentNotificationController.swift; sourceTree = "<group>"; };
 		938D326E28C8808D00198B7E /* NavigatingDAOViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigatingDAOViewController.swift; sourceTree = "<group>"; };
 		938D326F28C8808D00198B7E /* NavigatingDAOViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigatingDAOViewController.xib; sourceTree = "<group>"; };
+		93B331A92A655FE300ADD507 /* ci-post-clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "ci-post-clone.sh"; sourceTree = "<group>"; };
 		93C38DBF28C74CAA005188EC /* WhatIsSafeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WhatIsSafeViewController.swift; path = Tutorial/WhatIsSafeViewController.swift; sourceTree = "<group>"; };
 		93C38DC028C74CAA005188EC /* WhatIsSafeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WhatIsSafeViewController.xib; path = Tutorial/WhatIsSafeViewController.xib; sourceTree = "<group>"; };
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
@@ -3179,6 +3180,7 @@
 		0A93DD4A2445CC8A00688050 = {
 			isa = PBXGroup;
 			children = (
+				93B331A82A655FB600ADD507 /* ci_scripts */,
 				0A01DCE02770996E00A87D7A /* Ethereum */,
 				0A3FDAD726AEB07F006A7DC3 /* Shared */,
 				0A93DD552445CC8A00688050 /* Multisig */,
@@ -4344,6 +4346,14 @@
 				6AFD26EC2861B0DE00336FFE /* SafeTokenBanner.xib */,
 			);
 			path = SafeTokenBanner;
+			sourceTree = "<group>";
+		};
+		93B331A82A655FB600ADD507 /* ci_scripts */ = {
+			isa = PBXGroup;
+			children = (
+				93B331A92A655FE300ADD507 /* ci-post-clone.sh */,
+			);
+			path = ci_scripts;
 			sourceTree = "<group>";
 		};
 		AD3034214AE5434B20ABC8B5 /* Features */ = {
