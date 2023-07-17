@@ -178,6 +178,20 @@ extension UILabel {
 
         attributedText = result
     }
+
+    func apendBetaBadge() {
+        let result = NSMutableAttributedString()
+        if attributedText?.length ?? 0 > 0 {
+            result.append(attributedText!)
+            result.append(NSAttributedString(string: " "))
+        }
+        let betaSymbol = NSTextAttachment()
+        betaSymbol.image = UIImage(named: "ico-beta")
+        betaSymbol.bounds = CGRectMake(0.0, -6.0, betaSymbol.image!.size.width, betaSymbol.image!.size.height)
+        let betaSymbolString = NSAttributedString(attachment: betaSymbol)
+        result.append(betaSymbolString)
+        attributedText = result
+    }
 }
 
 extension UITextField {
