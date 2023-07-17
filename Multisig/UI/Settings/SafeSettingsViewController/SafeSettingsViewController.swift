@@ -25,6 +25,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     // We need this to get the correct order of owners, this is needed for replace&remove owner
     //and not guaranteed by SafeInfo endpoint
     private var safeOwners: [AddressInfo] = []
+    private var socialOwnerOnly = false
 
     private var ensLoader: ENSNameLoader?
 
@@ -51,6 +52,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
         enum OwnerAddresses: SectionItem {
             case ownerInfo(AddressInfo)
+            case socialLoginInfoBox
         }
 
         enum ContractVersion: SectionItem {
@@ -86,6 +88,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(DetailAccountCell.self)
+        tableView.registerCell(SocialLoginInfoTableViewCell.self)
         tableView.registerCell(ContractVersionStatusCell.self)
         tableView.registerCell(LoadingValueCell.self)
         tableView.registerCell(RemoveCell.self)
@@ -206,6 +209,21 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             let version = safe.version
         else { return }
 
+        var ownersInfoItems: [Section.OwnerAddresses] = []
+        // Add social login info box only if there is only one owner and it is social login
+        if ownersInfo.count == 1 {
+            let owner = ownersInfo.first!
+            ownersInfoItems.append(Section.OwnerAddresses.ownerInfo(owner))
+            let keyInfo = try? KeyInfo.keys(addresses: [owner.address]).first
+            if keyInfo?.keyType == .web3AuthApple || keyInfo?.keyType == .web3AuthGoogle {
+                ownersInfoItems.append(Section.OwnerAddresses.socialLoginInfoBox)
+                socialOwnerOnly = true
+            }
+        } else {
+            ownersInfoItems = ownersInfo.map { Section.OwnerAddresses.ownerInfo($0) }
+            socialOwnerOnly = false
+        }
+
         sections += [
             (section: .name("Safe Account Name"), items: [Section.Name.name(safe.name ?? "Safe \(safe.addressValue.ellipsized())")]),
 
@@ -213,7 +231,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
              items: [Section.RequiredConfirmations.confirmations("\(threshold) out of \(ownersInfo.count)")]),
 
             (section: .ownerAddresses("Owners"),
-             items: ownersInfo.map { Section.OwnerAddresses.ownerInfo($0) }),
+             items: ownersInfoItems),
 
             (section: .safeVersion("Safe Account base contract version"),
              items: [Section.ContractVersion.versionInfo(implementationInfo, implementationVersionState, version)]),
@@ -268,13 +286,36 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             let (name, _) = NamingPolicy.name(for: info.address,
                                                         info: info,
                                                         chainId: safe.chain!.id!)
-
+            var displayName: String!
+            switch keyInfo?.keyType {
+                case .web3AuthApple:
+                displayName = "Apple ID (\(name!))"
+                case .web3AuthGoogle:
+                displayName = "Google (\(name!))"
+                default:
+                    displayName = name
+            }
             return addressDetailsCell(address: info.address,
-                                      name: name,
+                                      name: displayName,
                                       indexPath: indexPath,
                                       badgeName: keyInfo?.keyType.badgeName,
                                       browseURL: safe.chain!.browserURL(address: info.address.checksummed),
                                       prefix: safe.chain!.shortName)
+
+        case Section.OwnerAddresses.socialLoginInfoBox:
+            let infoBoxCell = tableView.dequeueCell(SocialLoginInfoTableViewCell.self, for: indexPath)
+            infoBoxCell.setup(
+                onAddOwner: { [unowned self] in
+                    Tracker.trackEvent(.userAddOwner)
+                    addOwner()
+                },
+                onLearnMore: { [unowned self] in
+                    Tracker.trackEvent(.userLearnMore)
+                    openInSafari(App.configuration.help.socialLoginInfoURL)
+                }
+            )
+            infoBoxCell.selectionStyle = .none
+            return infoBoxCell
 
         case Section.ContractVersion.versionInfo(let info, let status, let version):
             return safeVersionCell(info: info,
@@ -395,6 +436,10 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                                     prefix: String? = nil) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
         cell.setAccount(address: address, label: name, badgeName: badgeName, browseURL: browseURL, prefix: prefix)
+        // Remove separator line between address item and social login info box
+        if socialOwnerOnly {
+            cell.separatorInset = UIEdgeInsets(top: 0, left: cell.bounds.size.width, bottom: 0, right: 0)
+        }
         return cell
     }
 
@@ -472,6 +517,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.OwnerAddresses.ownerInfo:
+            return UITableView.automaticDimension
+
+        case Section.OwnerAddresses.socialLoginInfoBox:
             return UITableView.automaticDimension
 
         case Section.ContractVersion.versionInfo:
