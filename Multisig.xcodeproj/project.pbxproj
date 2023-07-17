@@ -1947,7 +1947,7 @@
 		9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentNotificationController.swift; sourceTree = "<group>"; };
 		938D326E28C8808D00198B7E /* NavigatingDAOViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigatingDAOViewController.swift; sourceTree = "<group>"; };
 		938D326F28C8808D00198B7E /* NavigatingDAOViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigatingDAOViewController.xib; sourceTree = "<group>"; };
-		93B331A92A655FE300ADD507 /* ci-post-clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "ci-post-clone.sh"; sourceTree = "<group>"; };
+		93B331AA2A6570AB00ADD507 /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		93C38DBF28C74CAA005188EC /* WhatIsSafeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WhatIsSafeViewController.swift; path = Tutorial/WhatIsSafeViewController.swift; sourceTree = "<group>"; };
 		93C38DC028C74CAA005188EC /* WhatIsSafeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WhatIsSafeViewController.xib; path = Tutorial/WhatIsSafeViewController.xib; sourceTree = "<group>"; };
 		93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntercomConfig.swift; sourceTree = "<group>"; };
@@ -4351,7 +4351,7 @@
 		93B331A82A655FB600ADD507 /* ci_scripts */ = {
 			isa = PBXGroup;
 			children = (
-				93B331A92A655FE300ADD507 /* ci-post-clone.sh */,
+				93B331AA2A6570AB00ADD507 /* ci_post_clone.sh */,
 			);
 			path = ci_scripts;
 			sourceTree = "<group>";
