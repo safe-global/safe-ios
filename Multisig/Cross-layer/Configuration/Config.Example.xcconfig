@@ -126,6 +126,7 @@ RELAYER_INFO_URL = https:/$()/help.safe.global/en/articles/59203-what-is-gas-fee
 UNEXPECTED_DELEGATE_URL = https:/$()/help.safe.global/en/articles/40794-why-do-i-see-an-unexpected-delegate-call-warning-in-my-transaction
 KEY_SECURITY_URL = https:/$()/help.safe.global/en/articles/40829-how-signer-keys-are-stored
 SOCIAL_LOGIN_INFO_URL = https:/$()/help.safe.global/en/articles/82471-how-does-onboarding-with-your-social-logins-work-on-ios
+ONRAMPING_INFO_URL = https:/$()/help.safe.global/en/articles/...
 
 // Legal URLs
 TERMS_URL       = https:/$()/app.safe.global/terms
