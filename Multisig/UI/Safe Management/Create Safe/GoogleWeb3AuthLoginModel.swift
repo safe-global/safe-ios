@@ -12,7 +12,7 @@ class GoogleWeb3AuthLoginModel {
     }
 
     static func handle(url: URL) -> Bool {
-        if url.absoluteString.starts(with: App.configuration.web3auth.redirectUrl) {
+        if url.absoluteString.starts(with: App.configuration.web3auth.redirectScheme + "://") {
             CustomAuth.handle(url: url)
             return true
         }
@@ -25,7 +25,7 @@ class GoogleWeb3AuthLoginModel {
                                          loginProvider: .google,
                                          clientId: App.configuration.web3auth.googleClientId,
                                          verifier: App.configuration.web3auth.googleVerifier,
-                                         redirectURL: App.configuration.web3auth.redirectUrl
+                                         redirectURL: App.configuration.web3auth.redirectScheme + "://"
             )
             let tdsdk = CustomAuth(aggregateVerifierType: .singleLogin,
                                    aggregateVerifier: App.configuration.web3auth.googleVerifier,

@@ -185,8 +185,8 @@ WEB3AUTH_GOOGLE_CLIENT_ID = YOUR_WEB3AUTH_GOOGLE_CLIENT_ID
 // Set in https://dashboard.web3auth.io/home/customauth
 WEB3AUTH_GOOGLE_VERIFIER = YOUR_WEB3AUTH_GOOGLE_VERIFIER
 // Use value from ios OAuth client. Credentials -> Safe{Wallet} (type ios) ->  Additional Information -> iOS URL scheme
-// Don't forget to add :/$()/ at the end
-WEB3AUTH_REDIRECT_URL = YOUR_WEB3AUTH_REDIRECT_URL
+// Do not add :/$()/ at the end. It won't pass the build stage
+WEB3AUTH_REDIRECT_SCHEME = YOUR_WEB3AUTH_REDIRECT_SCHEME
 
 WEB3AUTH_APPLE_VERIFIER_AGGREGATE = apple-aggregate-prod
 _WEB3AUTH_APPLE_VERIFIER_DEV = apple-sub-dev
