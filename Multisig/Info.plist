@@ -33,7 +33,7 @@
 			<string>safe.global.app</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>$(WEB3AUTH_REDIRECT_URL)</string>
+				<string>$(WEB3AUTH_REDIRECT_SCHEME)</string>
 			</array>
 		</dict>
 		<dict/>
@@ -297,7 +297,7 @@ DMSans-Regular.ttf</string>
 	<string>$(WEB3AUTH_GOOGLE_CLIENT_ID)</string>
 	<key>WEB3AUTH_GOOGLE_VERIFIER</key>
 	<string>$(WEB3AUTH_GOOGLE_VERIFIER)</string>
-	<key>WEB3AUTH_REDIRECT_URL</key>
-	<string>$(WEB3AUTH_REDIRECT_URL)</string>
+	<key>WEB3AUTH_REDIRECT_SCHEME</key>
+	<string>$(WEB3AUTH_REDIRECT_SCHEME)</string>
 </dict>
 </plist>
