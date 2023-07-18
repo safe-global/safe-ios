@@ -63,7 +63,7 @@ class SelectAssetViewController: LoadableViewController, UITableViewDelegate, UI
         tableView.refreshControl = nil
         
         emptyView.setImage(UIImage(named: "ico-no-assets")!)
-        emptyView.setText("No assets found.")
+        emptyView.setTitle("No assets found.")
         emptyView.refreshControl = nil
         
         searchController.searchResultsUpdater = self

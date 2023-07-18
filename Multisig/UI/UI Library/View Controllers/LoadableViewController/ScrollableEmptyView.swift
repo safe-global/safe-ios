@@ -10,8 +10,12 @@ import UIKit
 
 class ScrollableEmptyView: UINibView {
     @IBOutlet private weak var scrollView: UIScrollView!
-    @IBOutlet private weak var textLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var actionButton: UIButton!
+
+    private var onAction: (() -> Void)?
 
     var refreshControl: UIRefreshControl? {
         get { scrollView.refreshControl }
@@ -20,14 +24,30 @@ class ScrollableEmptyView: UINibView {
     
     override func commonInit() {
         super.commonInit()
-        textLabel.setStyle(.title3)
+        titleLabel.setStyle(.title3)
+        descriptionLabel.setStyle(.subheadlineSecondary)
     }
 
-    func setText(_ value: String) {
-        textLabel.text = value
+    func setTitle(_ value: String) {
+        titleLabel.text = value
     }
 
     func setImage(_ value: UIImage) {
         imageView.image = value
+    }
+
+    func setDescription(_ value: String) {
+        descriptionLabel.text = value
+        descriptionLabel.isHidden = false
+    }
+
+    func setAction(text: String, action: @escaping () -> Void) {
+        actionButton.setText(text, .filled)
+        actionButton.isHidden = false
+        onAction = action
+    }
+
+    @IBAction func didTapAction(_ sender: Any) {
+        onAction?()
     }
 }

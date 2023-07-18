@@ -62,7 +62,7 @@ class SelectLedgerDeviceViewController: LoadableViewController, UITableViewDeleg
 
         loadingView.set(title: "Searching for Ledger Nano X devices")
 
-        emptyView.setText("No Ledger Nano X device found. Please make sure your Ledger Nano X is unlocked, Bluetooth is enabled, and the Ethereum app is installed and opened.")
+        emptyView.setTitle("No Ledger Nano X device found. Please make sure your Ledger Nano X is unlocked, Bluetooth is enabled, and the Ethereum app is installed and opened.")
         emptyView.setImage(UIImage(named: "enable-ledger")!)
     }
 
