@@ -81,6 +81,7 @@ class AppSettingsViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.settingsApp)
+        reload()
     }
 
     private func buildSections() {
