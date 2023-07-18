@@ -1,0 +1,22 @@
+{
+  "images" : [
+    {
+      "filename" : "ico-whats-new-social-login.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ico-whats-new-social-login-dark.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
