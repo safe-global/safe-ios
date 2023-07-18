@@ -33,7 +33,7 @@
 			<string>safe.global.app</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.443535743496-tflh0tu4r9v3tg9taf0c8o7f2e3ui4o7</string>
+				<string>$(WEB3AUTH_REDIRECT_URL)</string>
 			</array>
 		</dict>
 		<dict/>
