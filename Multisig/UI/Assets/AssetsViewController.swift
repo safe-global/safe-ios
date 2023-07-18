@@ -79,6 +79,10 @@ class AssetsViewController: ContainerViewController {
             Tracker.trackEvent(.assetTransferSendClicked)
         }
 
+        totalBalanceView.onBuyClicked = { [weak self] in
+            //TODO: start onramping
+        }
+
         totalBalanceView.tokenBanner.isHidden = !shouldShowSafeTokenBanner
         totalBalanceView.tokenBanner.onClaim = { [unowned self] in
             guard let safe = try? Safe.getSelected() else {
