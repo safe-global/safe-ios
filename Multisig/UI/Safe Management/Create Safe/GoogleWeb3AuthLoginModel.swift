@@ -3,10 +3,12 @@ import CustomAuth
 import UIKit
 
 class GoogleWeb3AuthLoginModel {
-    var onClose: ((_ key: String?, _ email: String?) -> Void)
+    var authorizationComplete: () -> Void
+    var keyGenerationComplete: ((_ key: String, _ email: String?) -> Void)
 
-    init(onClose: @escaping ((_ key: String?, _ email: String?) -> Void)) {
-        self.onClose = onClose
+    init(authorizationComplete: @escaping () -> Void, keyGenerationComplete: @escaping ((_ key: String, _ email: String?) -> Void)) {
+        self.authorizationComplete = authorizationComplete
+        self.keyGenerationComplete = keyGenerationComplete
     }
 
     static func handle(url: URL) -> Bool {
@@ -17,7 +19,7 @@ class GoogleWeb3AuthLoginModel {
         return false
     }
 
-    func loginWithCustomAuth(caller: UIViewController) {
+    func loginWithCustomAuth() {
         Task {
             let sub = SubVerifierDetails(loginType: .installed,
                                          loginProvider: .google,
@@ -30,14 +32,17 @@ class GoogleWeb3AuthLoginModel {
                                    subVerifierDetails: [sub],
                                    network: .CYAN
             )
-            let data = try await tdsdk.triggerLogin(controller: caller)
+            await MainActor.run(body: {
+                authorizationComplete()
+            })
+
+            let data = try await tdsdk.triggerLogin()
             await MainActor.run(body: {
                 let key = data["privateKey"] as? String
                 let userInfo = data["userInfo"] as? Dictionary ?? [:] as Dictionary
                 let email = userInfo["email"] as? String ?? "email withheld"
 
-                onClose(key, email)
-                caller.closeModal()
+                keyGenerationComplete(key!, email)
             })
         }
     }

@@ -108,18 +108,18 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     }
 
     func googleLogin() {
-        let loginModel = GoogleWeb3AuthLoginModel { (key, email) in
+        let loginModel = GoogleWeb3AuthLoginModel(authorizationComplete: {
             let view = self.factory.safeCreatingViewController()
             view.onSuccess = {
                 self.stop(success: true)
             }
-            view.onViewDidLoad = {
-                self.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthGoogle)
-            }
             self.show(view)
-        }
 
-        loginModel.loginWithCustomAuth(caller: navigationController)
+        } , keyGenerationComplete: { key, email in
+            self.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthGoogle)
+        })
+
+        loginModel.loginWithCustomAuth()
     }
     
     func storeKeyAndCreateSafe(key: String?, email: String?, keyType: KeyType) {
