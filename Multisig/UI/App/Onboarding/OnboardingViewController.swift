@@ -91,6 +91,7 @@ class OnboardingViewController: UIViewController {
         Tracker.trackEvent(.createSafeFromOnboarding)
         createSafeFlow = CreateSafeFlow(completion: { [unowned self] _ in
             createSafeFlow = nil
+            self.completion()
         })
         present(flow: createSafeFlow, dismissableOnSwipe: false)
     }
