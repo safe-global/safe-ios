@@ -19,13 +19,13 @@ class WhatsNewHandler {
             features: [
                 WhatsNew.Feature(
                     image: WhatsNew.Feature.Image(name: "ico-whats-new-social-login", bundle: .main, renderingMode: .original, foregroundColor: nil),
-                    title: "Seedless login and easy Safe creation on Gnosis Chain",
-                    subtitle: "Add description"
+                    title: "Gmail and Apple ID login and easy Safe Account creation on Gnosis Chain",
+                    subtitle: "Use your Gmail account or Apple ID to create an owner key for your new 1/1 Safe Account without the need for seed phrases."
                 ),
                 WhatsNew.Feature(
                     image: WhatsNew.Feature.Image(name: "ico-whats-new-onramp", bundle: .main, renderingMode: .original, foregroundColor: nil),
-                    title: "Buy crypto and top up your account",
-                    subtitle: "Add description"
+                    title: "Buy crypto and top up your Safe Account",
+                    subtitle: "Use Apple Pay, bank transfers or your debit and credit card to top up your Safe Account."
                 )
             ],
             primaryAction: WhatsNew.PrimaryAction(
