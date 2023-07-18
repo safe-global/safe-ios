@@ -183,6 +183,7 @@ OTHER_LDFLAGS = $(inherited) -fprofile-instr-generate -ObjC
 WEB3AUTH_GOOGLE_CLIENT_ID = YOUR_WEB3AUTH_GOOGLE_CLIENT_ID
 // Set in https://dashboard.web3auth.io/home/customauth
 WEB3AUTH_GOOGLE_VERIFIER = YOUR_WEB3AUTH_GOOGLE_VERIFIER
+// Use value from ios OAuth client. Credentials -> Safe{Wallet} (type ios) ->  Additional Information -> iOS URL scheme
 WEB3AUTH_REDIRECT_URL = YOUR_WEB3AUTH_REDIRECT_URL
 
 WEB3AUTH_APPLE_VERIFIER_AGGREGATE = apple-aggregate-prod
