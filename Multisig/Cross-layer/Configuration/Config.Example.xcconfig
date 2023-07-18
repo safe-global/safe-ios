@@ -111,6 +111,7 @@ WALLETCONNECT_BRIDGE_URL = https:/$()/safe-walletconnect.safe.global/
 WALLETCONNECT_REGISTRY_URL = https:/$()/5afe.github.io/
 
 // Help URLs
+ADD_OWNERS_URL = https:/$()/help.safe.global/en/articles/40864-add-owners
 CONFLICT_URL = https:/$()/help.safe.global/en/articles/40839-why-are-transactions-with-the-same-nonce-conflicting-with-each-other
 FALLBACKHANDLER_URL = https:/$()/help.safe.global/en/articles/40838-what-is-a-fallback-handler-and-how-does-it-relate-to-safe
 DELEGATE_KEY_URL = https:/$()/help.safe.global/en/articles/40799-what-is-a-delegate-key

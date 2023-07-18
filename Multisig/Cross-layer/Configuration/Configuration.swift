@@ -50,6 +50,9 @@ struct AppConfiguration {
     }
 
     struct Help {
+        @ConfigurationKey("ADD_OWNERS_URL")
+        var addOwnersURL: URL
+
         @ConfigurationKey("CONFLICT_URL")
         var conflictURL: URL
 
