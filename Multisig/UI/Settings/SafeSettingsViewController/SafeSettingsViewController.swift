@@ -302,7 +302,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 },
                 onLearnMore: { [unowned self] in
                     Tracker.trackEvent(.userLearnMore)
-                    openInSafari(App.configuration.help.socialLoginInfoURL)
+                    openInSafari(App.configuration.help.addOwnersURL)
                 }
             )
             infoBoxCell.selectionStyle = .none

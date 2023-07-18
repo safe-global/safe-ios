@@ -52,6 +52,8 @@
 	<string>$(CLIENT_GATEWAY_URL)</string>
 	<key>CONFIRMATIONS_URL</key>
 	<string>$(CONFIRMATIONS_URL)</string>
+	<key>ADD_OWNERS_URL</key>
+	<string>$(ADD_OWNERS_URL)</string>
 	<key>CONFLICT_URL</key>
 	<string>$(CONFLICT_URL)</string>
 	<key>CONNECT_DAPP_ON_MOBILE_URL</key>
