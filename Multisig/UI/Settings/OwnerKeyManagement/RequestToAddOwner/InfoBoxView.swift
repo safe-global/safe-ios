@@ -15,6 +15,7 @@ class InfoBoxView: UINibView {
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var actionContainer: UIStackView!
     @IBOutlet weak var actionButton: UIButton!
+    @IBOutlet weak var beta: UIImageView!
 
     private var onActionPrimary: (() -> ())? = nil
     private var onActionSecondary: (() -> ())? = nil
@@ -28,27 +29,31 @@ class InfoBoxView: UINibView {
         messageLabel.setStyle(.callout)
     }
 
-    func setText(_ text: String) {
+    func setText(_ text: String, showBeta: Bool = false) {
         messageLabel.text = text
+        beta.isHidden = !showBeta
     }
 
     func setText(_ text: String,
                  backgroundColor: UIColor = .infoBackground,
                  hideIcon: Bool = false,
-                 icon: UIImage? = nil
+                 icon: UIImage? = nil,
+                 showBeta: Bool = false
     ) {
         setText(
             NSAttributedString(string: text),
             backgroundColor: backgroundColor,
             hideIcon: hideIcon,
-            icon: icon
+            icon: icon,
+            showBeta: showBeta
         )
     }
 
     func setText(_ text: NSAttributedString,
                  backgroundColor: UIColor = .infoBackground,
                  hideIcon: Bool = false,
-                 icon: UIImage? = nil
+                 icon: UIImage? = nil,
+                 showBeta: Bool = false
     ) {
         messageLabel.attributedText = text
         backgroundView.backgroundColor = backgroundColor
@@ -56,6 +61,7 @@ class InfoBoxView: UINibView {
         if let icon = icon {
             iconImageView.image = icon
         }
+        beta.isHidden = !showBeta
     }
 
     func addActionSecondary(title: String, action: (() -> ())?) {

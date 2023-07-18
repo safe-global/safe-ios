@@ -48,10 +48,10 @@ class SelectNetworkTableViewCell: UITableViewCell {
         }
     }
 
-    func setInfo(_ text: NSAttributedString?) {
+    func setInfo(_ text: NSAttributedString?, showBeta: Bool = false) {
         if let text = text {
             infoView.isHidden = false
-            infoView.setText(text, backgroundColor: .backgroundLightGreen, hideIcon: true)
+            infoView.setText(text, backgroundColor: .backgroundLightGreen, hideIcon: true, showBeta: showBeta)
         } else {
             infoView.isHidden = true
         }

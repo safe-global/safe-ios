@@ -35,12 +35,14 @@ class CreateSafeWithSocialIntroViewController: UIViewController {
         infoView1.set(text: "Create a Safe Account now and add more owners later for better security")
         infoView2.set(text: "Your owner key is secured by your social login only")
         infoView3.set(text: "No need to keep seed phrases")
-        headerLabel.hyperLinkLabel("Select a social login to create your Safe Account. ",
+        headerLabel.hyperLinkLabel("Select a social login to create your Safe Account.",
                                    prefixStyle: .body,
                                    linkText: "How does it work?",
                                    linkStyle: .button,
                                    linkIcon: nil,
                                    underlined: false)
+        //FIXME: remove beta label when social login feature not in beta
+        headerLabel.apendBetaBadge()
         headerLabel.isUserInteractionEnabled = true
         let tapgesture = UITapGestureRecognizer(target: self, action: #selector(didTapHowItWorks(_ :)))
         tapgesture.numberOfTapsRequired = 1

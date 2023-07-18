@@ -195,7 +195,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
             text.append(NSAttributedString(string: "and ", attributes: GNOTextStyle.subheadlineSecondary.attributes))
             text.append(NSAttributedString(string: "social login account creation!", attributes: GNOTextStyle.bodyPrimary.attributes))
 
-            cell.setInfo(text)
+            cell.setInfo(text, showBeta: true)
         } else {
             cell.setInfo(nil)
         }
