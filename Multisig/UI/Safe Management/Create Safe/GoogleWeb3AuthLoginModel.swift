@@ -12,7 +12,9 @@ class GoogleWeb3AuthLoginModel {
     }
 
     static func handle(url: URL) -> Bool {
-        if url.absoluteString.starts(with: App.configuration.web3auth.redirectScheme + "://") {
+        // this is never called in the uris scheme flow
+        App.shared.snackbar.show(message: "handle called with: \(url.absoluteString)")
+        if url.absoluteString.starts(with: "\(App.configuration.web3auth.redirectScheme)://") {
             CustomAuth.handle(url: url)
             return true
         }
@@ -25,7 +27,7 @@ class GoogleWeb3AuthLoginModel {
                                          loginProvider: .google,
                                          clientId: App.configuration.web3auth.googleClientId,
                                          verifier: App.configuration.web3auth.googleVerifier,
-                                         redirectURL: App.configuration.web3auth.redirectScheme + "://"
+                                         redirectURL: "\(App.configuration.web3auth.redirectScheme)://"
             )
             let tdsdk = CustomAuth(aggregateVerifierType: .singleLogin,
                                    aggregateVerifier: App.configuration.web3auth.googleVerifier,

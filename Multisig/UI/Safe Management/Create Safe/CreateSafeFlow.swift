@@ -34,6 +34,9 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     }
 
     override func start() {
+        App.shared.snackbar.show(message: "redirectScheme: \(App.configuration.web3auth.redirectScheme)")
+        App.shared.snackbar.show(message: "googleClientId: \(App.configuration.web3auth.googleClientId)")
+        App.shared.snackbar.show(message: "googleVerifier: \(App.configuration.web3auth.googleVerifier)")
         chooseNetwork()
     }
 
