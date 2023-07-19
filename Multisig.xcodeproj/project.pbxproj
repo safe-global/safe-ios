@@ -844,6 +844,7 @@
 		6A39DC9427C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A39DC9227C64254006BCAE7 /* SafeDeploymentFinishedViewController.xib */; };
 		6A4BC4D6288DD921002B6DDA /* EnterCustomAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4BC4D4288DD921002B6DDA /* EnterCustomAddressViewController.swift */; };
 		6A4BC4D7288DD921002B6DDA /* EnterCustomAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A4BC4D5288DD921002B6DDA /* EnterCustomAddressViewController.xib */; };
+		6A5976342A67E7AE00D3385B /* MoonpaySDK in Frameworks */ = {isa = PBXBuildFile; productRef = 6A5976332A67E7AE00D3385B /* MoonpaySDK */; };
 		6A68612F28816B18009FB8DF /* BackupFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A68612E28816B18009FB8DF /* BackupFlowTests.swift */; };
 		6A6A10592889496100B852D5 /* ClaimGetStartedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6A10572889496100B852D5 /* ClaimGetStartedViewController.swift */; };
 		6A6A105A2889496100B852D5 /* ClaimGetStartedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A6A10582889496100B852D5 /* ClaimGetStartedViewController.xib */; };
@@ -2044,6 +2045,7 @@
 				55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
 				0497B2B329A641C9007109ED /* WalletConnectEcho in Frameworks */,
 				0497B2AD29A641C9007109ED /* WalletConnect in Frameworks */,
+				6A5976342A67E7AE00D3385B /* MoonpaySDK in Frameworks */,
 				04C22B302A36807500F58A15 /* SafeWeb3 in Frameworks */,
 				04C22B2D2A367FF800F58A15 /* CustomAuth in Frameworks */,
 				5591CEEE260C725C0067DFDF /* BlockiesSwift in Frameworks */,
@@ -4653,6 +4655,7 @@
 				04C22B2F2A36807500F58A15 /* SafeWeb3 */,
 				04C22B312A36807500F58A15 /* Web3ContractABI */,
 				04C22B332A36807500F58A15 /* Web3PromiseKit */,
+				6A5976332A67E7AE00D3385B /* MoonpaySDK */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig_PROD.app */;
@@ -4776,6 +4779,7 @@
 				0497B2AB29A641C9007109ED /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
 				04C22B2B2A367FF800F58A15 /* XCRemoteSwiftPackageReference "customauth-swift-sdk" */,
 				04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3" */,
+				6A5976322A67E7AE00D3385B /* XCRemoteSwiftPackageReference "mobile-sdk-ios" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -7280,6 +7284,14 @@
 				minimumVersion = 2.0.1;
 			};
 		};
+		6A5976322A67E7AE00D3385B /* XCRemoteSwiftPackageReference "mobile-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/moonpay/mobile-sdk-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		93EE3F732760F49700111F17 /* XCRemoteSwiftPackageReference "intercom-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/intercom/intercom-ios.git";
@@ -7477,6 +7489,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 55DA0661269C9411006C9AA5 /* XCRemoteSwiftPackageReference "Version" */;
 			productName = Version;
+		};
+		6A5976332A67E7AE00D3385B /* MoonpaySDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6A5976322A67E7AE00D3385B /* XCRemoteSwiftPackageReference "mobile-sdk-ios" */;
+			productName = MoonpaySDK;
 		};
 		93EE3F742760F49800111F17 /* Intercom */ = {
 			isa = XCSwiftPackageProductDependency;
