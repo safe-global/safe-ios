@@ -38,6 +38,9 @@ struct AppConfiguration {
         @ConfigurationKey("GNOSIS_SAFE_WEB_URL")
         var webAppURL: URL
 
+        @ConfigurationKey("MOONPAY_API_KEY")
+        var moonpayKey: String
+
         enum ServiceEnvironment: String, InfoPlistValueType {
             case development = "DEV"
             case staging = "STAGING"
