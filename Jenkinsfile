@@ -28,7 +28,6 @@ pipeline {
         WALLETCONNECT_PROJECT_ID_PROD = credentials('WALLETCONNECT_PROJECT_ID_PROD')
 	WEB3AUTH_GOOGLE_CLIENT_ID = credentials('WEB3AUTH_GOOGLE_CLIENT_ID')
 	WEB3AUTH_GOOGLE_VERIFIER = credentials('WEB3AUTH_GOOGLE_VERIFIER')
-	WEB3AUTH_REDIRECT_SCHEME = credentials('WEB3AUTH_REDIRECT_SCHEME')
     }
     parameters {
         string(name: 'SSL_ENFORCE_PINNING', defaultValue: '1', description: 'Enforce SSL Pinning? (0 = NO/1 = YES)')
