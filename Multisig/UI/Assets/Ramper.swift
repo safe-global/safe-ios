@@ -21,11 +21,19 @@ class Ramper: MoonpayCallbackInterface {
             theme = "dark"
         }
 
+#if DEBUG
+        let moonpayEnv = MoonpayEnvironment.production
+        let moonpayDebugLevel = MoonpayDebug.info
+#else
+        let moonpayEnv = MoonpayEnvironment.sandbox
+        let moonpayDebugLevel = MoonpayDebug.error
+#endif
+
         moonpay.doInit(
             apiKey: App.configuration.services.moonpayKey,
-            debugLevel: MoonpayDebug.info,
+            debugLevel: moonpayDebugLevel,
             flow: MoonpayFlow.buy,
-            environment: MoonpayEnvironment.sandbox,
+            environment: moonpayEnv,
             properties: [
                 // use safe theme in light and dark mode
                 MoonpayOptions.themeid: MOONPAY_THEME_ID_SAFE,
