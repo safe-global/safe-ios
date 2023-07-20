@@ -93,7 +93,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         emptyView.setTitle("Add some crypto to get started")
         emptyView.setDescription("Buy crypto directly with your credit card or a bank account")
         emptyView.setAction(text: "Buy crypto", action: { [weak self] in
-
+            Ramper().startOnRamp()
         })
 
         NotificationCenter.default.addObserver(
