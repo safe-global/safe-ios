@@ -42,8 +42,10 @@ class Ramper: MoonpayCallbackInterface {
                 MoonpayOptions.language: "en",
                 // preselect default chain currency if available via moonpay
                 MoonpayOptions.defaultcurrencycode: safe.chain!.nativeCurrency!.symbol!,
-                // the purchased funds will be sent to safe account
-                MoonpayOptions.walletaddress: safe.address!
+                // the purchased funds will be sent to the selected safe account
+                MoonpayOptions.walletaddress: safe.address!,
+                // preselect user's default fiat currency
+                MoonpayOptions.basecurrencycode: AppSettings.selectedFiatCode
             ],
             rendering: MoonpayRenderingiOS.webviewoverlay,
             delegate: self
