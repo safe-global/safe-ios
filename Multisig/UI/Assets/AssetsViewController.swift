@@ -80,7 +80,8 @@ class AssetsViewController: ContainerViewController {
         }
 
         totalBalanceView.onBuyClicked = { [weak self] in
-            Ramper().startOnRamp()
+            guard let safe = self?.safe else { return }
+            Ramper().startOnRamp(safe: safe)
         }
 
         totalBalanceView.tokenBanner.isHidden = !shouldShowSafeTokenBanner

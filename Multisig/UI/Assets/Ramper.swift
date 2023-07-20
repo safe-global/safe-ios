@@ -13,7 +13,7 @@ class Ramper: MoonpayCallbackInterface {
 
     let MOONPAY_THEME_ID_SAFE = "7e8968f6-99a4-43b5-8286-d3c290d3a0b2"
 
-    func startOnRamp() {
+    func startOnRamp(safe: Safe) {
         let moonpay = MoonpaySDK()
 
         var theme = "light"
@@ -39,7 +39,11 @@ class Ramper: MoonpayCallbackInterface {
                 MoonpayOptions.themeid: MOONPAY_THEME_ID_SAFE,
                 MoonpayOptions.theme: theme,
                 // prevent using device localisation by explicitly setting interface language
-                MoonpayOptions.language: "en"
+                MoonpayOptions.language: "en",
+                // preselect default chain currency if available via moonpay
+                MoonpayOptions.defaultcurrencycode: safe.chain!.nativeCurrency!.symbol!,
+                // the purchased funds will be sent to safe account
+                MoonpayOptions.walletaddress: safe.address!
             ],
             rendering: MoonpayRenderingiOS.webviewoverlay,
             delegate: self
