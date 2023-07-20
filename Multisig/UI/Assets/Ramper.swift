@@ -22,11 +22,11 @@ class Ramper: MoonpayCallbackInterface {
         }
 
 #if DEBUG
-        let moonpayEnv = MoonpayEnvironment.production
         let moonpayDebugLevel = MoonpayDebug.info
-#else
         let moonpayEnv = MoonpayEnvironment.sandbox
+#else
         let moonpayDebugLevel = MoonpayDebug.error
+        let moonpayEnv = MoonpayEnvironment.production
 #endif
 
         moonpay.doInit(
