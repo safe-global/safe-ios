@@ -186,7 +186,10 @@ WEB3AUTH_GOOGLE_CLIENT_ID = YOUR_WEB3AUTH_GOOGLE_CLIENT_ID
 WEB3AUTH_GOOGLE_VERIFIER = YOUR_WEB3AUTH_GOOGLE_VERIFIER
 // Use value from ios OAuth client. Credentials -> Safe{Wallet} (type ios) ->  Additional Information -> iOS URL scheme
 // Do not add :/$()/ at the end. It won't pass the build stage
-WEB3AUTH_REDIRECT_SCHEME = YOUR_WEB3AUTH_REDIRECT_SCHEME
+_WEB3AUTH_REDIRECT_URL_DEV = https:/$()/safe-wallet-web.dev.5afe.dev/web3auth/
+_WEB3AUTH_REDIRECT_URL_STAGING = https:/$()/safe-wallet-web.staging.5afe.dev/web3auth/
+_WEB3AUTH_REDIRECT_URL_PROD = https:/$()/app.safe.global/web3auth/
+WEB3AUTH_REDIRECT_URL = $(_WEB3AUTH_REDIRECT_URL_$(SERVICE_ENV):default=$(_WEB3AUTH_REDIRECT_URL_PROD))
 
 WEB3AUTH_APPLE_VERIFIER_AGGREGATE = apple-aggregate-prod
 _WEB3AUTH_APPLE_VERIFIER_DEV = apple-sub-dev
