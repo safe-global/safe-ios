@@ -11,16 +11,19 @@ import MoonpaySDK
 
 class Ramper: MoonpayCallbackInterface {
 
-    let MOONPAY_THEME_ID_SAFE = "7e8968f6-99a4-43b5-8286-d3c290d3a0b2"
+    private let MOONPAY_THEME_ID_SAFE = "7e8968f6-99a4-43b5-8286-d3c290d3a0b2"
+    private let moonpay: MoonpaySDK
+
+    init() {
+        moonpay = MoonpaySDK()
+    }
 
     func startOnRamp(safe: Safe) {
-        let moonpay = MoonpaySDK()
-
         var theme = "light"
         if UIScreen.main.traitCollection.userInterfaceStyle == UIUserInterfaceStyle.dark || App.shared.theme.displayMode == UIUserInterfaceStyle.dark {
             theme = "dark"
         }
-
+        
 #if DEBUG
         let moonpayDebugLevel = MoonpayDebug.info
         let moonpayEnv = MoonpayEnvironment.sandbox
