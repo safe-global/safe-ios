@@ -20,6 +20,8 @@ class Ramper: MoonpayCallbackInterface {
 
     func startOnRamp(safe: Safe) {
         var theme = "light"
+        // use dark safe theme if appearance app setting is set to dark
+        // or if appearance app setting is set to auto and device uses dark mode
         if UIScreen.main.traitCollection.userInterfaceStyle == UIUserInterfaceStyle.dark || App.shared.theme.displayMode == UIUserInterfaceStyle.dark {
             theme = "dark"
         }
@@ -32,6 +34,7 @@ class Ramper: MoonpayCallbackInterface {
         let moonpayEnv = MoonpayEnvironment.production
 #endif
 
+        // Reference: https://docs.moonpay.com/moonpay/developer-resources/sdks/ios-sdk/customize-the-widget
         moonpay.doInit(
             apiKey: App.configuration.services.moonpayKey,
             debugLevel: moonpayDebugLevel,
