@@ -63,6 +63,8 @@ class App {
         url: App.configuration.walletConnect.registryURL,
         logger: LogService.shared)
 
+    lazy var ramper = Ramper()
+
     // MARK: - Cross-layer
 
     static let configuration = AppConfiguration()

@@ -96,7 +96,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             guard let safe = try? Safe.getSelected() else {
                 return
             }
-            Ramper().startOnRamp(safe: safe)
+            App.shared.ramper.startOnRamp(safe: safe)
         })
 
         NotificationCenter.default.addObserver(
