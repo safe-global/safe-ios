@@ -36,7 +36,7 @@ class GoogleWeb3AuthLoginModel {
                 authorizationComplete()
             })
 
-            let data = try await tdsdk.triggerLogin()
+            let data = try await tdsdk.triggerLogin(browserType: .asWebAuthSession)
             await MainActor.run(body: {
                 let key = data["privateKey"] as? String
                 let userInfo = data["userInfo"] as? Dictionary ?? [:] as Dictionary
