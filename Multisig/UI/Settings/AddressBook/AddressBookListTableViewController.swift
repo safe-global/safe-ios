@@ -38,7 +38,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48
 
-        emptyView.setText("There are no address book entries")
+        emptyView.setTitle("There are no address book entries")
         emptyView.setImage(UIImage(named: "ico-no-address-book")!)
 
         if !isPickerModeEnabled {

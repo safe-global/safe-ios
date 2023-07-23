@@ -48,7 +48,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
         tableView.delegate = self
         tableView.dataSource = self
         navigationItem.title = screenTitle
-        emptyView.setText("Networks will appear here")
+        emptyView.setTitle("Networks will appear here")
     }
 
     override func viewDidAppear(_ animated: Bool) {

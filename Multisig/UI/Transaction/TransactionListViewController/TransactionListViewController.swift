@@ -56,7 +56,7 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 48
 
-        emptyView.setText(emptyText)
+        emptyView.setTitle(emptyText)
         emptyView.setImage(emptyImage)
 
         for notification in [Notification.Name.transactionDataInvalidated, .ownerKeyImported, .ownerKeyRemoved, .chainInfoChanged] {
