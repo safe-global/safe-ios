@@ -108,28 +108,28 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     }
 
     func googleLogin() {
-        let loginModel = GoogleWeb3AuthLoginModel { (key, email) in
+        let loginModel = GoogleWeb3AuthLoginModel(authorizationComplete: {
             let view = self.factory.safeCreatingViewController()
             view.onSuccess = {
                 self.stop(success: true)
             }
-            view.onViewDidLoad = {
-                self.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthGoogle)
-            }
             self.show(view)
-        }
 
-        loginModel.loginWithCustomAuth(caller: navigationController)
+        } , keyGenerationComplete: { [weak self] key, email in
+            self?.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthGoogle)
+        })
+
+        loginModel.loginWithCustomAuth()
     }
-
+    
     func storeKeyAndCreateSafe(key: String?, email: String?, keyType: KeyType) {
-
+        
         guard let key = key else {
             App.shared.snackbar.show(message: "Key was nil")
             return
         }
         let privateKey = try? PrivateKey(data: Data(ethHex: key))
-
+        
         guard let privateKey = privateKey else {
             App.shared.snackbar.show(message: "Couldn't create private key from: [\(key)]")
             return
@@ -137,7 +137,6 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         var keyInfo: KeyInfo? = try? KeyInfo.firstKey(address: privateKey.address)
         if keyInfo == nil {
             do {
-
                 keyInfo =  try KeyInfo.import(
                     address: privateKey.address,
                     name: email ?? "email withheld",
