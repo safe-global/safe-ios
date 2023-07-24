@@ -34,8 +34,8 @@ WALLETCONNECT_PROJECT_ID = YOUR_WALLETCONNECT_PROJECT_ID
 // Configuration Values
 
 // Safe Client Gateway Service
-_CLIENT_GATEWAY_URL_DEV        = https:/$()/safe-client-nest.staging.5afe.dev/
-_CLIENT_GATEWAY_URL_STAGING    = https:/$()/safe-client-nest.staging.5afe.dev/
+_CLIENT_GATEWAY_URL_DEV        = https:/$()/safe-client.staging.5afe.dev/
+_CLIENT_GATEWAY_URL_STAGING    = https:/$()/safe-client.staging.5afe.dev/
 _CLIENT_GATEWAY_URL_PROD       = https:/$()/safe-client.safe.global/
 
 // Apps
