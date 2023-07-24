@@ -37,7 +37,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 200
 
-        emptyView.setText("There are no added owner keys")
+        emptyView.setTitle("There are no added owner keys")
         emptyView.setImage(UIImage(named: "ico-no-keys")!)
 
         addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton(_:)))

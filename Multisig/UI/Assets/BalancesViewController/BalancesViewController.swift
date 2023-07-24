@@ -20,7 +20,24 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     var remoteConfig: FirebaseRemoteConfig = FirebaseRemoteConfig.shared
     var createPasscodeFlow: CreatePasscodeFlow!
 
-    override var isEmpty: Bool { sections.isEmpty }
+    override var isEmpty: Bool {
+        var result = false
+        if sections.isEmpty {
+            result = true
+        } else if sections.count == 1 {
+            if let firstItem = sections.first {
+                switch firstItem {
+                case .balances(let items):
+                    if items.count == 1 && items.first?.balance == "0" {
+                        result = true
+                    }
+                default:
+                    break
+                }
+            }
+        }
+        return result
+    }
 
     private var currentDataTask: URLSessionTask?
 
@@ -73,7 +90,14 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             importKeyBannerWasShown = true
         }
 
-        emptyView.setText("Balances will appear here")
+        emptyView.setTitle("Add some crypto to get started")
+        emptyView.setDescription("Buy crypto directly with your credit card or a bank account")
+        emptyView.setAction(text: "Buy crypto", action: { [weak self] in
+            guard let safe = try? Safe.getSelected() else {
+                return
+            }
+            App.shared.ramper.startOnRamp(safe: safe)
+        })
 
         NotificationCenter.default.addObserver(
             self, selector: #selector(ownerKeyImported), name: .ownerKeyImported, object: nil)

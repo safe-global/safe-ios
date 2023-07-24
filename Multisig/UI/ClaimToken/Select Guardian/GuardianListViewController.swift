@@ -65,7 +65,7 @@ class GuardianListViewController: LoadableViewController {
         tableView.separatorStyle = .none
 
         // Empty view is never shown. Instead the list is empty, when no results are found
-        emptyView.setText("No delegates were found. Try to search again or use a custom address.")
+        emptyView.setTitle("No delegates were found. Try to search again or use a custom address.")
         emptyView.setImage(UIImage(named: "ico-delegate-placeholder")!)
         extendedLayoutIncludesOpaqueBars = true
     }

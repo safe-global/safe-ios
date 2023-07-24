@@ -48,7 +48,7 @@ class CollectiblesViewController: LoadableViewController, UITableViewDelegate, U
         tableView.sectionHeaderHeight = headerHeight
         tableView.sectionFooterHeight = footerHeight
         tableView.separatorStyle = .none
-        emptyView.setText("Collectibles will appear here")
+        emptyView.setTitle("Collectibles will appear here")
         emptyView.setImage(UIImage(named: "ico-no-collectibles")!)
     }
 
