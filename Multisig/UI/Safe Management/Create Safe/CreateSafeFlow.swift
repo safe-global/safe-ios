@@ -115,8 +115,8 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
             }
             self.show(view)
 
-        } , keyGenerationComplete: { key, email in
-            self.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthGoogle)
+        } , keyGenerationComplete: { [weak self] key, email in
+            self?.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthGoogle)
         })
 
         loginModel.loginWithCustomAuth()
@@ -137,7 +137,6 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         var keyInfo: KeyInfo? = try? KeyInfo.firstKey(address: privateKey.address)
         if keyInfo == nil {
             do {
-                
                 keyInfo =  try KeyInfo.import(
                     address: privateKey.address,
                     name: email ?? "email withheld",

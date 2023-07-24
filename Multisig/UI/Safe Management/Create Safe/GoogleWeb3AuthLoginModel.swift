@@ -3,6 +3,7 @@ import CustomAuth
 import UIKit
 
 class GoogleWeb3AuthLoginModel {
+    static let schemePostfix = "://"
     var authorizationComplete: () -> Void
     var keyGenerationComplete: ((_ key: String, _ email: String?) -> Void)
 
@@ -12,7 +13,7 @@ class GoogleWeb3AuthLoginModel {
     }
 
     static func handle(url: URL) -> Bool {
-        if url.absoluteString.starts(with: App.configuration.web3auth.redirectScheme + "://") {
+        if url.absoluteString.starts(with: App.configuration.web3auth.redirectScheme + GoogleWeb3AuthLoginModel.schemePostfix) {
             CustomAuth.handle(url: url)
             return true
         }
@@ -25,7 +26,7 @@ class GoogleWeb3AuthLoginModel {
                                          loginProvider: .google,
                                          clientId: App.configuration.web3auth.googleClientId,
                                          verifier: App.configuration.web3auth.googleVerifier,
-                                         redirectURL: App.configuration.web3auth.redirectScheme + "://"
+                                         redirectURL: App.configuration.web3auth.redirectScheme + GoogleWeb3AuthLoginModel.schemePostfix
             )
             let tdsdk = CustomAuth(aggregateVerifierType: .singleLogin,
                                    aggregateVerifier: App.configuration.web3auth.googleVerifier,
