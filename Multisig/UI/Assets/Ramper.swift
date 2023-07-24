@@ -25,14 +25,15 @@ class Ramper: MoonpayCallbackInterface {
         if UIScreen.main.traitCollection.userInterfaceStyle == UIUserInterfaceStyle.dark || App.shared.theme.displayMode == UIUserInterfaceStyle.dark {
             theme = "dark"
         }
-        
-#if DEBUG
+
+
+        // TODO: enable production envoronment on production and sandbox on staging 
         let moonpayDebugLevel = MoonpayDebug.info
         let moonpayEnv = MoonpayEnvironment.sandbox
-#else
-        let moonpayDebugLevel = MoonpayDebug.error
-        let moonpayEnv = MoonpayEnvironment.production
-#endif
+
+//        let moonpayDebugLevel = MoonpayDebug.error
+//        let moonpayEnv = MoonpayEnvironment.production
+
 
         // Reference: https://docs.moonpay.com/moonpay/developer-resources/sdks/ios-sdk/customize-the-widget
         moonpay.doInit(
