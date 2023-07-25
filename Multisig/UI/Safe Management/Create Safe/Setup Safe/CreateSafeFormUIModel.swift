@@ -30,6 +30,7 @@ class CreateSafeFormUIModel {
     var minNonce: Sol.UInt64 = 0
     var transaction: EthTransaction!
     var error: Error?
+    var gsError: DetailedLocalizedError?
     var userTxParameters = UserDefinedTransactionParameters()
     var sectionHeaders: [CreateSafeFormSectionHeader] = []
     var state: CreateSafeFormUIState = .initial
@@ -830,8 +831,8 @@ class CreateSafeFormUIModel {
     }
 
     func didSubmitFailed(_ error: Error?) {
-        App.shared.snackbar.show(error: GSError.CreateSafeFailed())
         self.error = error
+        self.gsError = GSError.CreateSafeFailed()
         update(to: .error)
     }
 

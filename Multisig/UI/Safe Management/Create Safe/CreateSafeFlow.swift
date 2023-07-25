@@ -201,8 +201,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         })
         push(flow: createPasscodeFlow)
     }
-    
-    
+
     // CreateSafeFormUIModelDelegate protocol methods
     func updateUI(model: CreateSafeFormUIModel) {
         if model.state == .ready && !didSubmit {
@@ -210,6 +209,13 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
             didSubmit = true
         } else if model.state == .error {
             LogService.shared.error("---> updateUI() called: state: \(model.state)")
+        }
+
+        if model.state == .error {
+            if let error = model.gsError {
+                App.shared.snackbar.show(message: error.localizedDescription)
+                self.stop(success: false)
+            }
         }
     }
     
