@@ -89,9 +89,9 @@ class OnboardingViewController: UIViewController {
 
     @IBAction private func didTapCreateSafe(_ sender: Any) {
         Tracker.trackEvent(.createSafeFromOnboarding)
-        createSafeFlow = CreateSafeFlow(completion: { [unowned self] _ in
-            createSafeFlow = nil
-            self.completion()
+        createSafeFlow = CreateSafeFlow(completion: { [weak self] _ in
+            self?.createSafeFlow = nil
+            self?.completion()
         })
         present(flow: createSafeFlow, dismissableOnSwipe: false)
     }
