@@ -43,5 +43,6 @@ class GoogleWeb3AuthLoginModel {
     @objc
     func handleAuthorizationComplete() {
         authorizationComplete()
+        notificationCenter.removeObserver(self)
     }
 }
