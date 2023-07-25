@@ -39,6 +39,9 @@ class GoogleWeb3AuthLoginModel {
                 })
                 let data = try await tdsdk.triggerLogin(browserType: .asWebAuthSession)
                 await MainActor.run(body: {
+
+                    dump(data, name: "---> Data")
+
                     let key = data["privateKey"] as? String
                     let userInfo = data["userInfo"] as? Dictionary ?? [:] as Dictionary
                     let email = userInfo["email"] as? String ?? "email withheld"
@@ -49,7 +52,7 @@ class GoogleWeb3AuthLoginModel {
                     }
                 })
             } catch {
-                print("👎🏻 Task group throws error: \(error)")
+                print("👎🏻 Task throws error: \(error)")
             }
         }
     }
