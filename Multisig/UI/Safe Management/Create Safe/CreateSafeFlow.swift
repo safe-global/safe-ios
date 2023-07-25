@@ -207,15 +207,10 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         if model.state == .ready && !didSubmit {
             model.relaySubmit()
             didSubmit = true
-        } else if model.state == .error {
-            LogService.shared.error("---> updateUI() called: state: \(model.state)")
-        }
-
-        if model.state == .error {
-            if let error = model.gsError {
-                App.shared.snackbar.show(message: error.localizedDescription)
-                self.stop(success: false)
-            }
+        } else if model.state == .error,
+                  let error = model.gsError {
+            App.shared.snackbar.show(message: error.localizedDescription)
+            self.stop(success: false)
         }
     }
     
