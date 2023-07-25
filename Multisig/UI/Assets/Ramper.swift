@@ -29,11 +29,11 @@ class Ramper: MoonpayCallbackInterface {
 
 
         // TODO: enable production envoronment on production and sandbox on staging 
-        let moonpayDebugLevel = MoonpayDebug.info
-        let moonpayEnv = MoonpayEnvironment.sandbox
+//        let moonpayDebugLevel = MoonpayDebug.info
+//        let moonpayEnv = MoonpayEnvironment.sandbox
 
-//        let moonpayDebugLevel = MoonpayDebug.error
-//        let moonpayEnv = MoonpayEnvironment.production
+        let moonpayDebugLevel = MoonpayDebug.error
+        let moonpayEnv = MoonpayEnvironment.production
 
 
         // Reference: https://docs.moonpay.com/moonpay/developer-resources/sdks/ios-sdk/customize-the-widget

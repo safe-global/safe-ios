@@ -33,6 +33,7 @@ class SafeCreatingViewController: UIViewController {
                                                   animationCache: nil)
         animationView.contentMode = .scaleAspectFit
         animationView.loopMode = .loop
+        animationView.backgroundBehavior = .pauseAndRestore
         animationView.play()
 
         NotificationCenter.default.addObserver(self,

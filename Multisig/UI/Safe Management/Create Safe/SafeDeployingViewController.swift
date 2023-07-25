@@ -38,6 +38,7 @@ class SafeDeployingViewController: UIViewController {
         animationView.animation = LottieAnimation.named(isDarkMode ? "safeCreationDark" : "safeCreation", animationCache: nil)
         animationView.contentMode = .scaleAspectFit
         animationView.loopMode = .loop
+        animationView.backgroundBehavior = .pauseAndRestore
         animationView.play()
 
         reloadData()
