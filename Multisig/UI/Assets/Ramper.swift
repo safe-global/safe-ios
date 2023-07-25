@@ -19,6 +19,7 @@ class Ramper: MoonpayCallbackInterface {
     }
 
     func startOnRamp(safe: Safe) {
+        guard let chainName = safe.chain?.shortName else { return }
         var theme = "light"
         // use dark safe theme if appearance app setting is set to dark
         // or if appearance app setting is set to auto and device uses dark mode
@@ -50,7 +51,7 @@ class Ramper: MoonpayCallbackInterface {
                 // preselect default chain currency if available via moonpay
                 MoonpayOptions.defaultcurrencycode: safe.chain!.nativeCurrency!.symbol!,
                 // the purchased funds will be sent to the selected safe account
-                MoonpayOptions.walletaddress: safe.address!,
+                MoonpayOptions.walletaddresses: "{\"\(chainName)\":\"\(safe.address!)\"}",
                 // preselect user's default fiat currency
                 MoonpayOptions.basecurrencycode: AppSettings.selectedFiatCode
             ],
