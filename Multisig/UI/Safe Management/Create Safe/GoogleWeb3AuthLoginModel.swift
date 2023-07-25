@@ -3,6 +3,7 @@ import CustomAuth
 import UIKit
 
 class GoogleWeb3AuthLoginModel {
+    let notificationCenter = NotificationCenter.default
     static let schemePostfix = "://"
     var authorizationComplete: () -> Void
     var keyGenerationComplete: ((_ key: String, _ email: String?) -> Void)
@@ -10,14 +11,8 @@ class GoogleWeb3AuthLoginModel {
     init(authorizationComplete: @escaping () -> Void, keyGenerationComplete: @escaping ((_ key: String, _ email: String?) -> Void)) {
         self.authorizationComplete = authorizationComplete
         self.keyGenerationComplete = keyGenerationComplete
-    }
 
-    static func handle(url: URL) -> Bool {
-        if url.absoluteString.starts(with: App.configuration.web3auth.redirectScheme + GoogleWeb3AuthLoginModel.schemePostfix) {
-            CustomAuth.handle(url: url)
-            return true
-        }
-        return false
+        notificationCenter.addObserver(self, selector: #selector(handleAuthorizationComplete), name: NSNotification.Name("TSDSDKCallbackNotification"), object: nil)
     }
 
     func loginWithCustomAuth() {
@@ -33,9 +28,6 @@ class GoogleWeb3AuthLoginModel {
                                    subVerifierDetails: [sub],
                                    network: .CYAN
             )
-            await MainActor.run(body: {
-                authorizationComplete()
-            })
 
             let data = try await tdsdk.triggerLogin(browserType: .asWebAuthSession)
             await MainActor.run(body: {
@@ -46,5 +38,10 @@ class GoogleWeb3AuthLoginModel {
                 keyGenerationComplete(key!, email)
             })
         }
+    }
+
+    @objc
+    func handleAuthorizationComplete() {
+        authorizationComplete()
     }
 }
