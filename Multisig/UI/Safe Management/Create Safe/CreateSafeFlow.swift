@@ -109,11 +109,12 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
 
     func googleLogin() {
         let authorizationComplete = { [weak self] in
-            let view = self?.factory.safeCreatingViewController()
-            view?.onSuccess = {
+            guard let self = self else { return }
+            let view = self.factory.safeCreatingViewController()
+            view.onSuccess = { [weak self] in
                 self?.stop(success: true)
             }
-            self?.show(view!)
+            self.show(view)
         }
         let keyGenerationComplete = { [weak self] (key, email) in
             self?.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthGoogle)
@@ -122,20 +123,20 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         if loginModel == nil {
             loginModel = GoogleWeb3AuthLoginModel()
         }
-        loginModel?.authorizationComplete = authorizationComplete
-        loginModel?.keyGenerationComplete = keyGenerationComplete
-        
-        loginModel?.loginWithCustomAuth()
+        loginModel!.authorizationComplete = authorizationComplete
+        loginModel!.keyGenerationComplete = keyGenerationComplete
+
+        loginModel!.loginWithCustomAuth()
     }
-    
+
     func storeKeyAndCreateSafe(key: String?, email: String?, keyType: KeyType) -> Void {
-        
+
         guard let key = key else {
             App.shared.snackbar.show(message: "Key was nil")
             return
         }
         let privateKey = try? PrivateKey(data: Data(ethHex: key))
-        
+
         guard let privateKey = privateKey else {
             App.shared.snackbar.show(message: "Couldn't create private key from: [\(key)]")
             return
@@ -219,7 +220,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
             self.stop(success: false)
         }
     }
-    
+
     func createSafeModelDidFinish() {
         NotificationCenter.default.post(name: .safeCreationUpdate, object: nil)
     }
