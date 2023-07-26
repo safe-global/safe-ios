@@ -8,6 +8,8 @@
 
 import UIKit
 import MoonpaySDK
+import Foundation
+import CryptoKit
 
 class Ramper: MoonpayCallbackInterface {
 
@@ -37,7 +39,7 @@ class Ramper: MoonpayCallbackInterface {
 
 
         // Reference: https://docs.moonpay.com/moonpay/developer-resources/sdks/ios-sdk/customize-the-widget
-        moonpay.doInit(
+        moonpay.initialize(
             apiKey: App.configuration.services.moonpayKey,
             debugLevel: moonpayDebugLevel,
             flow: MoonpayFlow.buy,
