@@ -34,12 +34,12 @@ class Ramper: MoonpayCallbackInterface {
 //        let moonpayDebugLevel = MoonpayDebug.info
 //        let moonpayEnv = MoonpayEnvironment.sandbox
 
-        let moonpayDebugLevel = MoonpayDebug.info
-        let moonpayEnv = MoonpayEnvironment.sandbox
+        let moonpayDebugLevel = MoonpayDebug.error
+        let moonpayEnv = MoonpayEnvironment.production
 
 
         // Reference: https://docs.moonpay.com/moonpay/developer-resources/sdks/ios-sdk/customize-the-widget
-        moonpay.doInit(
+        moonpay.initialize(
             apiKey: App.configuration.services.moonpayKey,
             debugLevel: moonpayDebugLevel,
             flow: MoonpayFlow.buy,
@@ -61,15 +61,7 @@ class Ramper: MoonpayCallbackInterface {
             delegate: self
         )
 
-        let url = moonpay.urlForSignature()
-        let encoder = JSONEncoder()
-        if let json = try? encoder.encode(url) {
-            do {
-                moonpay.show()
-            } catch {
-                print("Something went wrong")
-            }
-        }
+        moonpay.show()
     }
 
     func startOffRamp() {
