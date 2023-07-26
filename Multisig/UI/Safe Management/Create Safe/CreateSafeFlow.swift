@@ -12,8 +12,6 @@ import AuthenticationServices
 
 
 class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProviding, ASAuthorizationControllerDelegate, CreateSafeFormUIModelDelegate {
-    private var loginModel: GoogleWeb3AuthLoginModel?
-
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return ASPresentationAnchor()
     }
@@ -24,11 +22,12 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     var owner: KeyInfo!
     var createPasscodeFlow: CreatePasscodeFlow!
     private var relayingTask: URLSessionTask?
-    let relayerService: SafeGelatoRelayService = App.shared.relayService
+    private let relayerService: SafeGelatoRelayService = App.shared.relayService
     private var appleWeb3AuthLogin: AppleWeb3AuthLogin!
     private let uiModel = CreateSafeFormUIModel()
     private var didSubmit = false
-    
+    private var loginModel: GoogleWeb3AuthLoginModel!
+
     init(_ factory: CreateSafeFlowFactory = CreateSafeFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
         super.init(completion: completion)
@@ -109,28 +108,27 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     }
 
     func googleLogin() {
-        let authorizationComplete = {
-            let view = self.factory.safeCreatingViewController()
-            view.onSuccess = {
-                self.stop(success: true)
+        let authorizationComplete = { [weak self] in
+            let view = self?.factory.safeCreatingViewController()
+            view?.onSuccess = {
+                self?.stop(success: true)
             }
-            self.show(view)
+            self?.show(view!)
         }
-        let keyGenerationComplete = { (key, email) in
-            self.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthGoogle)
+        let keyGenerationComplete = { [weak self] (key, email) in
+            self?.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthGoogle)
         }
-        if let loginModel = loginModel {
-            loginModel.authorizationComplete = authorizationComplete
-            loginModel.keyGenerationComplete = keyGenerationComplete
-        } else {
-            loginModel = GoogleWeb3AuthLoginModel(authorizationComplete: authorizationComplete,
-                                                  keyGenerationComplete: keyGenerationComplete
-            )
+
+        if loginModel == nil {
+            loginModel = GoogleWeb3AuthLoginModel()
         }
+        loginModel?.authorizationComplete = authorizationComplete
+        loginModel?.keyGenerationComplete = keyGenerationComplete
+        
         loginModel?.loginWithCustomAuth()
     }
     
-    func storeKeyAndCreateSafe(key: String?, email: String?, keyType: KeyType) {
+    func storeKeyAndCreateSafe(key: String?, email: String?, keyType: KeyType) -> Void {
         
         guard let key = key else {
             App.shared.snackbar.show(message: "Key was nil")

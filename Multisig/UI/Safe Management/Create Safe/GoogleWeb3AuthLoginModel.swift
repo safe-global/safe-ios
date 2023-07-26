@@ -5,13 +5,10 @@ import UIKit
 class GoogleWeb3AuthLoginModel {
     let notificationCenter = NotificationCenter.default
     static let schemePostfix = "://"
-    var authorizationComplete: () -> Void
-    var keyGenerationComplete: ((_ key: String, _ email: String?) -> Void)
+    var authorizationComplete: (() -> Void)!
+    var keyGenerationComplete: ((_ key: String?, _ email: String?) -> Void?)!
 
-    init(authorizationComplete: @escaping () -> Void, keyGenerationComplete: @escaping ((_ key: String, _ email: String?) -> Void)) {
-        self.authorizationComplete = authorizationComplete
-        self.keyGenerationComplete = keyGenerationComplete
-
+    init() {
         notificationCenter.addObserver(self, selector: #selector(handleAuthorizationComplete), name: NSNotification.Name("TSDSDKCallbackNotification"), object: nil)
     }
 
