@@ -75,7 +75,7 @@ class SafeCreatingViewController: UIViewController {
         Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { [weak self] timer in
             DispatchQueue.main.async {
                 self?.onSuccess()
-                self?.dismiss(animated: false)
+                self?.dismiss(animated: true)
             }
         }
     }
