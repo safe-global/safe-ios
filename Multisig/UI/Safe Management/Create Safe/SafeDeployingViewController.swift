@@ -94,27 +94,12 @@ class SafeDeployingViewController: UIViewController {
 
     @objc func updateStatus() {
         statusLabel.pushTransition(1)
-        statusLabel.text = statusName()
     }
 
     @IBAction func didTapViewTransaction(_ sender: Any) {
         Tracker.trackEvent(.createSafeViewTxOnEtherscan)
         if let txHash = txHash, let chain = safe?.chain {
             openInSafari(chain.browserURL(txHash: txHash))
-        }
-    }
-
-    func statusName() -> String {
-        guard let safe = safe else { return "" }
-        switch safe.safeStatus {
-        case .deploying:
-            return "Deploying Smart Contract"
-        case .indexing:
-            return "Preparing your Safe Account"
-        case .deployed:
-            return "Safe Account is ready!"
-        case .deploymentFailed:
-            return "Failed to create Safe Account"
         }
     }
 }
