@@ -75,6 +75,7 @@ class SafeCreatingViewController: UIViewController {
         Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { [weak self] timer in
             DispatchQueue.main.async {
                 self?.onSuccess()
+                // TODO: find a place where this controller is presented and dismiss from there
                 self?.dismiss(animated: true)
             }
         }
