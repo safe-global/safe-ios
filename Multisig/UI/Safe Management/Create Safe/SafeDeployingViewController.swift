@@ -12,7 +12,6 @@ import Lottie
 class SafeDeployingViewController: UIViewController {
 
     @IBOutlet weak var desciptionLabel: UILabel!
-    @IBOutlet weak var didYouKnowLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var txButton: UIButton!
@@ -28,7 +27,6 @@ class SafeDeployingViewController: UIViewController {
         super.viewDidLoad()
         statusLabel.setStyle(.title3)
         desciptionLabel.setStyle(.body)
-        didYouKnowLabel.setStyle(.caption2.color(.primary))
         txButton.setText("View transaction in block explorer", .primary)
 
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .transactionDataInvalidated, object: nil)
@@ -96,27 +94,12 @@ class SafeDeployingViewController: UIViewController {
 
     @objc func updateStatus() {
         statusLabel.pushTransition(1)
-        statusLabel.text = statusName()
     }
 
     @IBAction func didTapViewTransaction(_ sender: Any) {
         Tracker.trackEvent(.createSafeViewTxOnEtherscan)
         if let txHash = txHash, let chain = safe?.chain {
             openInSafari(chain.browserURL(txHash: txHash))
-        }
-    }
-
-    func statusName() -> String {
-        guard let safe = safe else { return "" }
-        switch safe.safeStatus {
-        case .deploying:
-            return "Deploying Smart Contract"
-        case .indexing:
-            return "Preparing your Safe Account"
-        case .deployed:
-            return "Safe Account is ready!"
-        case .deploymentFailed:
-            return "Failed to create Safe Account"
         }
     }
 }
