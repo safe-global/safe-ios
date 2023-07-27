@@ -113,6 +113,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
             let view = self.factory.safeCreatingViewController()
             view.onSuccess = { [weak self] in
                 self?.stop(success: true)
+                view.dismiss(animated: true)
             }
             self.show(view)
         }
