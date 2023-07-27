@@ -18,7 +18,7 @@ import Web3Wallet
 import UIKit
 
 class WalletConnectManager {
-    let EVM_COMPATIBLE_NETWORK = "eip155"
+    static let EVM_COMPATIBLE_NETWORK = "eip155"
     static let shared = WalletConnectManager()
     
     private var publishers = [AnyCancellable]()
@@ -36,7 +36,7 @@ class WalletConnectManager {
         Networking.configure(projectId: App.configuration.walletConnect.walletConnectProjectId,
                              socketFactory: SocketFactory())
         Pair.configure(metadata: metadata)
-        Web3Wallet.configure(metadata: metadata, signerFactory: DummySignerFactory())
+        Web3Wallet.configure(metadata: metadata, crypto: NullCryptoProvider())
         setUpAuthSubscribing()
     }
     
@@ -54,13 +54,13 @@ class WalletConnectManager {
         Web3Wallet.instance.sessionProposalPublisher
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] proposal in
-                approveSession(proposal: proposal)
+                approveSession(proposal: proposal.proposal)
             }.store(in: &publishers)
         
         Web3Wallet.instance.sessionRequestPublisher
             .receive(on: DispatchQueue.global(qos: .background))
             .sink { [unowned self] request in
-                handle(request: request)
+                handle(request: request.request)
             }.store(in: &publishers)
         
         Web3Wallet.instance.sessionsPublisher
@@ -153,52 +153,57 @@ class WalletConnectManager {
         }
     }
     
+    // Approves a single chain where selected safe resides.
+    //
+    // Requires:
+    //   - proposal with the chain that is same as the currently selected safe
+    // Guarantees:
+    //   - connection approved
+    //   - if no such chain found in proposal, connection will fail
     func approveSession(proposal: Session.Proposal) {
         Task {
             guard let safe = try? Safe.getSelected() else { return }
-            guard isValidProposal(proposal: proposal, safe: safe) else {
+                        
+            // Step 1: find a compatible namespace with safe's chain
+            var resultNamespaces = [String: SessionNamespace]()
+
+            let EVM_COMPATIBLE_NETWORK = "eip155"
+            
+            for (caip2Namespace, namespace) in proposal.allNamespaces {
+                guard
+                    caip2Namespace == EVM_COMPATIBLE_NETWORK,
+                    let chains = namespace.chains,
+                    let validChain = chains.first(where: { $0.reference == safe.chain?.id }),
+                    let account = Account(validChain.absoluteString + ":\(safe.addressValue)")
+                else { continue }
+                
+                // Step 2: share the account address
+                resultNamespaces[caip2Namespace] = SessionNamespace(
+                    accounts: Set([account]),
+                    methods: namespace.methods,
+                    events: namespace.events)
+                
+                break
+            }
+            
+            // Step 1.2: fail if no valid chains found
+            let hasFoundNamespace = !resultNamespaces.isEmpty
+            guard hasFoundNamespace else {
                 Task { @MainActor in
                     App.shared.snackbar.show(error: GSError.WC2SessionApprovalFailedWrongChain())
                 }
                 return
             }
-            var sessionNamespaces = [String: SessionNamespace]()
-            proposal.requiredNamespaces.forEach {
-                let caip2Namespace = $0.key
-                let proposalNamespace = $0.value
-                guard let chains = proposalNamespace.chains else { return }
-                let accounts = Set(chains.compactMap {
-                    Account($0.absoluteString + ":\(safe.addressValue)")
-                })
-                let sessionNamespace = SessionNamespace(accounts: accounts,
-                                                        methods: proposalNamespace.methods,
-                                                        events: proposalNamespace.events)
-                sessionNamespaces[caip2Namespace] = sessionNamespace
-            }
+            
+            // Step 3: continue with connection
             do {
-                try await Web3Wallet.instance.approve(proposalId: proposal.id, namespaces: sessionNamespaces)
+                try await Web3Wallet.instance.approve(proposalId: proposal.id, namespaces: resultNamespaces)
             } catch {
                 Task { @MainActor in
                     App.shared.snackbar.show(error: GSError.WC2SessionApprovalFailed())
                 }
             }
         }
-    }
-    
-    private func isValidProposal(proposal: Session.Proposal, safe: Safe) -> Bool {
-        var isValid = false
-        proposal.requiredNamespaces.forEach {
-            let caip2Namespace = $0.key
-            let proposalNamespace = $0.value
-            guard let chains = proposalNamespace.chains else { return }
-            let selectedSafeChain = chains.filter { chain in
-                if chain.namespace == EVM_COMPATIBLE_NETWORK && chain.reference == safe.chain?.id {
-                    isValid = true
-                }
-                return false
-            }
-        }
-        return isValid
     }
     
     /// By default, session lifetime is set for 7 days and after that time user's session will expire.
@@ -210,7 +215,7 @@ class WalletConnectManager {
             Task { @MainActor in
                 App.shared.snackbar.show(error: GSError.error(description: error.localizedDescription, error: error))
             }
-            print("DAPP: extending Session error: \(error)")
+            LogService.shared.error("DAPP: extending Session error: \(error)")
         }
     }
     
@@ -220,7 +225,7 @@ class WalletConnectManager {
                 NotificationCenter.default.post(name: .wcDidDisconnectSafeServer, object: self)
                 try await Web3Wallet.instance.disconnect(topic: session.topic)
             } catch {
-                print("DAPP: disconnecting Session error: \(error)")
+                LogService.shared.error("DAPP: disconnecting Session error: \(error)")
                 Task { @MainActor in
                     App.shared.snackbar.show(error: GSError.error(description: "Disconnecting Session error", error: error))
                 }
@@ -275,10 +280,10 @@ class WalletConnectManager {
             if request.method == "eth_sendTransaction" {
                 // make transformation of incoming request into internal data types
                 // and fetch information about Safe Accout from the request
-                DispatchQueue.global(qos: .background).async {
+                DispatchQueue.global(qos: .background).async { [weak self] in
                     guard let safeInfo = try? App.shared.clientGatewayService.syncSafeInfo(
                         safeAddress: safe.addressValue, chainId: safe.chain!.id!) else {
-                        reject(request: request)
+                        self?.reject(request: request)
                         return
                     }
                     safe.update(from: safeInfo)
@@ -340,5 +345,11 @@ class WalletConnectManager {
 extension Bundle {
     var displayName: String {
         return object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? "Safe Multisig"
+    }
+}
+
+extension Session.Proposal {
+    var allNamespaces: [String: ProposalNamespace] {
+        requiredNamespaces.merging(optionalNamespaces ?? [:], uniquingKeysWith: { (req, _) in req })
     }
 }
