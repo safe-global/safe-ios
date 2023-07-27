@@ -12,7 +12,6 @@ import Lottie
 class SafeDeployingViewController: UIViewController {
 
     @IBOutlet weak var desciptionLabel: UILabel!
-    @IBOutlet weak var didYouKnowLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var txButton: UIButton!
@@ -28,7 +27,6 @@ class SafeDeployingViewController: UIViewController {
         super.viewDidLoad()
         statusLabel.setStyle(.title3)
         desciptionLabel.setStyle(.body)
-        didYouKnowLabel.setStyle(.caption2.color(.primary))
         txButton.setText("View transaction in block explorer", .primary)
 
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .transactionDataInvalidated, object: nil)
