@@ -94,7 +94,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                 let view = self.factory.safeCreatingViewController()
                 view.onSuccess = { [weak self, unowned view] in
                     view.dismiss(animated: true) {
-                        // The dismiss() should not be necessary here, biut the SafeCreatingViewCobntroller is not dismissed, if omitted
+                        // The dismiss() should not be necessary here, but the SafeCreatingViewCobntroller is not dismissed, if omitted
                         self?.stop(success: true)
                     }
                 }
@@ -116,7 +116,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
             guard let self = self else { return }
             let view = self.factory.safeCreatingViewController()
             view.onSuccess = { [weak self, unowned view] in
-                // The dismiss() should not be necessary here, biut the SafeCreatingViewCobntroller is not dismissed, if omitted
+                // The dismiss() should not be necessary here, but the SafeCreatingViewCobntroller is not dismissed, if omitted
                 view.dismiss(animated: true) {
                     self?.stop(success: true)
                 }
