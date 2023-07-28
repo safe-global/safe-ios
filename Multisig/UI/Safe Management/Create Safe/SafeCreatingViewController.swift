@@ -48,7 +48,7 @@ class SafeCreatingViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(safeSubmitted),
-                                               name: .safeCreationUpdate,
+                                               name: .web3AuthSafeCreationUpdate,
                                                object: nil)
         onViewDidLoad()
     }

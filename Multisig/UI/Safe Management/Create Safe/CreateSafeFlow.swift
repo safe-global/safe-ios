@@ -89,10 +89,14 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         request.requestedScopes = [.fullName, .email]
         
         appleWeb3AuthLogin = AppleWeb3AuthLogin(
-            authorizationComplete: {
+            authorizationComplete: { [weak self] in
+                guard let self = self else { return }
                 let view = self.factory.safeCreatingViewController()
-                view.onSuccess = {
-                    self.stop(success: true)
+                view.onSuccess = { [weak self, unowned view] in
+                    view.dismiss(animated: true) {
+                        // The dismiss() should not be necessary here, biut the SafeCreatingViewCobntroller is not dismissed, if omitted
+                        self?.stop(success: true)
+                    }
                 }
                 self.show(view)
             }, keyGenerationComplete: { (key, email) in
@@ -111,9 +115,11 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         let authorizationComplete = { [weak self] in
             guard let self = self else { return }
             let view = self.factory.safeCreatingViewController()
-            view.onSuccess = { [weak self] in
-                self?.stop(success: true)
-                view.dismiss(animated: true)
+            view.onSuccess = { [weak self, unowned view] in
+                // The dismiss() should not be necessary here, biut the SafeCreatingViewCobntroller is not dismissed, if omitted
+                view.dismiss(animated: true) {
+                    self?.stop(success: true)
+                }
             }
             self.show(view)
         }
@@ -223,7 +229,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     }
 
     func createSafeModelDidFinish() {
-        NotificationCenter.default.post(name: .safeCreationUpdate, object: nil)
+        NotificationCenter.default.post(name: .web3AuthSafeCreationUpdate, object: nil)
     }
 }
 
