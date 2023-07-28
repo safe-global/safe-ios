@@ -16,6 +16,8 @@ extension NSNotification.Name {
 
     static let safeCreationUpdate = NSNotification.Name("io.gnosis.safe.safeCreationUpdate")
 
+    static let web3AuthSafeCreationUpdate = NSNotification.Name("io.gnosis.safe.web3AuthSafeCreationUpdate")
+
     static let chainInfoChanged = NSNotification.Name("io.gnosis.safe.chainInfoChanged")
 
     static let ownerKeyImported = NSNotification.Name("io.gnosis.safe.ownerKeyImported")
