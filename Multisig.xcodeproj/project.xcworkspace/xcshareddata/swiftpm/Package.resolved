@@ -218,6 +218,15 @@
         }
       },
       {
+        "package": "QRCode",
+        "repositoryURL": "https://github.com/WalletConnect/QRCode",
+        "state": {
+          "branch": null,
+          "revision": "263f280d2c8144adfb0b6676109846cfc8dd552b",
+          "version": "14.3.1"
+        }
+      },
+      {
         "package": "UnstoppableDomainsResolution",
         "repositoryURL": "https://github.com/safe-global/resolution-swift",
         "state": {
@@ -290,6 +299,15 @@
         }
       },
       {
+        "package": "swift-qrcode-generator",
+        "repositoryURL": "https://github.com/dagronf/swift-qrcode-generator",
+        "state": {
+          "branch": null,
+          "revision": "5ca09b6a2ad190f94aa3d6ddef45b187f8c0343b",
+          "version": "1.0.3"
+        }
+      },
+      {
         "package": "swift-snapshot-testing",
         "repositoryURL": "https://github.com/pointfreeco/swift-snapshot-testing.git",
         "state": {
@@ -314,6 +332,15 @@
           "branch": null,
           "revision": "8ad26a303147cfc8df89d2f1ac32a5017855c52c",
           "version": "1.1.1"
+        }
+      },
+      {
+        "package": "SwiftImageReadWrite",
+        "repositoryURL": "https://github.com/dagronf/SwiftImageReadWrite",
+        "state": {
+          "branch": null,
+          "revision": "5596407d1cf61b953b8e658fa8636a471df3c509",
+          "version": "1.1.6"
         }
       },
       {
@@ -365,9 +392,9 @@
         "package": "WalletConnect",
         "repositoryURL": "https://github.com/WalletConnect/WalletConnectSwiftV2",
         "state": {
-          "branch": "main",
-          "revision": "75944463e6a0d3598b867c81742dd7991ed17bb5",
-          "version": null
+          "branch": null,
+          "revision": "7d4eca9cf4441bbfef649a055baea0a31fd96d83",
+          "version": "1.6.14"
         }
       },
       {

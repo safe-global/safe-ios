@@ -928,7 +928,7 @@
 		931B211529BD2CB7009C53B5 /* NativeSocketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931B211429BD2CB7009C53B5 /* NativeSocketFactory.swift */; };
 		933526FA29D704A0003B9EE3 /* ExecutionOptionsCellBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933526F929D704A0003B9EE3 /* ExecutionOptionsCellBuilder.swift */; };
 		935DCA4C27BD14C600F09EE4 /* WebConnectionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */; };
-		93788EDC29C356F100503C1A /* DummySignerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93788EDB29C356F100503C1A /* DummySignerFactory.swift */; };
+		93788EDC29C356F100503C1A /* NullCryptoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93788EDB29C356F100503C1A /* NullCryptoProvider.swift */; };
 		937B74AE2A55D02000023D23 /* AppleWeb3AuthLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937B74AD2A55D02000023D23 /* AppleWeb3AuthLogin.swift */; };
 		9388410D2A3D74E20052EB87 /* GoogleWeb3AuthLoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9388410C2A3D74E20052EB87 /* GoogleWeb3AuthLoginModel.swift */; };
 		9388B98227C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */; };
@@ -1944,7 +1944,7 @@
 		931B211429BD2CB7009C53B5 /* NativeSocketFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeSocketFactory.swift; sourceTree = "<group>"; };
 		933526F929D704A0003B9EE3 /* ExecutionOptionsCellBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionOptionsCellBuilder.swift; sourceTree = "<group>"; };
 		935DCA4B27BD14C500F09EE4 /* WebConnectionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionDetailsViewController.swift; sourceTree = "<group>"; };
-		93788EDB29C356F100503C1A /* DummySignerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummySignerFactory.swift; sourceTree = "<group>"; };
+		93788EDB29C356F100503C1A /* NullCryptoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullCryptoProvider.swift; sourceTree = "<group>"; };
 		937B74AD2A55D02000023D23 /* AppleWeb3AuthLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleWeb3AuthLogin.swift; sourceTree = "<group>"; };
 		9388410C2A3D74E20052EB87 /* GoogleWeb3AuthLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleWeb3AuthLoginModel.swift; sourceTree = "<group>"; };
 		9388B98127C8DDE400AAB7F5 /* SafeDeploymentNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeDeploymentNotificationController.swift; sourceTree = "<group>"; };
@@ -2466,7 +2466,7 @@
 				0497B2A929A63BE8007109ED /* WalletConnectManager.swift */,
 				04F8041229A68386007CFF40 /* Proposal.swift */,
 				931B211429BD2CB7009C53B5 /* NativeSocketFactory.swift */,
-				93788EDB29C356F100503C1A /* DummySignerFactory.swift */,
+				93788EDB29C356F100503C1A /* NullCryptoProvider.swift */,
 			);
 			path = WalletConnectV2;
 			sourceTree = "<group>";
@@ -5280,7 +5280,7 @@
 				550FB1C826691E4A00C13D54 /* ExperimentalViewController.swift in Sources */,
 				0ADD19BF265EA23200EB0F2B /* ExportViewController.swift in Sources */,
 				D88FA81E2770869E0023B77F /* TokenAmountField.swift in Sources */,
-				93788EDC29C356F100503C1A /* DummySignerFactory.swift in Sources */,
+				93788EDC29C356F100503C1A /* NullCryptoProvider.swift in Sources */,
 				047588182774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift in Sources */,
 				0A8AEB1025A4712B002A3FE1 /* ActionDetailTextCell.swift in Sources */,
 				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
@@ -7172,8 +7172,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WalletConnect/WalletConnectSwiftV2";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.14;
 			};
 		};
 		04C22B2B2A367FF800F58A15 /* XCRemoteSwiftPackageReference "customauth-swift-sdk" */ = {
