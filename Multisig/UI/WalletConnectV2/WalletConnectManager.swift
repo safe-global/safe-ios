@@ -18,7 +18,6 @@ import Web3Wallet
 import UIKit
 
 class WalletConnectManager {
-    static let EVM_COMPATIBLE_NETWORK = "eip155"
     static let shared = WalletConnectManager()
     
     private var publishers = [AnyCancellable]()
