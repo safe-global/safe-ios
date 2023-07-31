@@ -145,7 +145,6 @@
 		048D72D7268DACAF0095999C /* NetworksListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D72D6268DACAF0095999C /* NetworksListViewModel.swift */; };
 		0491068028F99247005A4A99 /* DMSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0491067A28F99246005A4A99 /* DMSans-Regular.ttf */; };
 		0491068128F99247005A4A99 /* DMSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0491067B28F99246005A4A99 /* DMSans-Medium.ttf */; };
-		0491068228F99247005A4A99 /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0491067C28F99246005A4A99 /* DMSans-Bold.ttf */; };
 		049257AE273C239C00507C33 /* String+Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049257AD273C239C00507C33 /* String+Highlight.swift */; };
 		0493A28B262979820056EC49 /* UpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0493A28A262979820056EC49 /* UpdateController.swift */; };
 		0497B2A129A42F0F007109ED /* SessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497B2A029A42F0F007109ED /* SessionInfo.swift */; };
@@ -993,6 +992,7 @@
 		B0D61EC425A934B90D6A4288 /* WebConnectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6155D349D7F06F7D48818 /* WebConnectionRequest.swift */; };
 		B0D61F54F176906A7C5A65CB /* SendTransactionRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61BDFEADB74805D9221DB /* SendTransactionRequestViewController.swift */; };
 		B0D61FFF1935AA2484BD940A /* WebConnectionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D617C60F3081A3A923005D /* WebConnectionRepository.swift */; };
+		B343BEB32A77DDA1006BF46B /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0491067C28F99246005A4A99 /* DMSans-Bold.ttf */; };
 		D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A022769CEAD00D6E024 /* Tooltip.swift */; };
 		D80B5A052769CF1B00D6E024 /* TooltipSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A042769CF1B00D6E024 /* TooltipSource.swift */; };
 		D80B5A072769D05D00D6E024 /* BaseCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A062769D05D00D6E024 /* BaseCustomView.swift */; };
@@ -4804,8 +4804,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B343BEB32A77DDA1006BF46B /* DMSans-Bold.ttf in Resources */,
 				0ACCC6E827429A3300EC79B9 /* AccountActionCompletedViewController.xib in Resources */,
-				0491068228F99247005A4A99 /* DMSans-Bold.ttf in Resources */,
 				0A06533527B6D0F90008C5F1 /* ChooseOwnerBasicHeaderView.xib in Resources */,
 				0A9366B5278F1EAC001918A9 /* HyperlinkButtonView.xib in Resources */,
 				0A9E8E7825B9CA4200256AD3 /* BannerTableViewCell.xib in Resources */,

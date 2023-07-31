@@ -37,6 +37,8 @@ class Theme: ObservableObject {
         let appearance = UINavigationBarAppearance()
         let attributes = [NSAttributedString.Key.font: UIFont.gnoFont(forTextStyle: .headline)]
         appearance.titleTextAttributes = attributes
+        let largeFont = UIFont.gnoFont(forTextStyle: .largeTitle)
+        appearance.largeTitleTextAttributes = [NSAttributedString.Key.font: largeFont]
         if #available(iOS 15, *) {
             appearance.configureWithOpaqueBackground()
         }
