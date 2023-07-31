@@ -27,6 +27,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     private let uiModel = CreateSafeFormUIModel()
     private var didSubmit = false
     private var loginModel: GoogleWeb3AuthLoginModel!
+    private var safeCreatingViewController: SafeCreatingViewController!
 
     init(_ factory: CreateSafeFlowFactory = CreateSafeFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
@@ -94,7 +95,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                 let view = self.factory.safeCreatingViewController()
                 view.onSuccess = { [weak self, unowned view] in
                     view.dismiss(animated: true) {
-                        // The dismiss() should not be necessary here, but the SafeCreatingViewCobntroller is not dismissed, if omitted
+                        // The dismiss() should not be necessary here, but the SafeCreatingViewController is not dismissed, if omitted
                         self?.stop(success: true)
                     }
                 }
@@ -114,14 +115,14 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     func googleLogin() {
         let authorizationComplete = { [weak self] in
             guard let self = self else { return }
-            let view = self.factory.safeCreatingViewController()
-            view.onSuccess = { [weak self, unowned view] in
+            safeCreatingViewController = self.factory.safeCreatingViewController()
+            safeCreatingViewController.onSuccess = { [weak self] in
                 // The dismiss() should not be necessary here, but the SafeCreatingViewCobntroller is not dismissed, if omitted
-                view.dismiss(animated: true) {
+                self?.safeCreatingViewController.dismiss(animated: true) {
                     self?.stop(success: true)
                 }
             }
-            self.show(view)
+            self.show(safeCreatingViewController)
         }
         let keyGenerationComplete = { [weak self] (key, email) in
             self?.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthGoogle)
@@ -133,19 +134,25 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         loginModel!.authorizationComplete = authorizationComplete
         loginModel!.keyGenerationComplete = keyGenerationComplete
 
-        loginModel!.loginWithCustomAuth()
+        do {
+
+            try loginModel!.loginWithCustomAuth()
+        } catch {
+            App.shared.snackbar.show(message: "loginWithCustomAuth: error: \(error.localizedDescription)")
+            safeCreatingViewController.dismiss(animated: true)
+        }
     }
 
     func storeKeyAndCreateSafe(key: String?, email: String?, keyType: KeyType) -> Void {
 
         guard let key = key else {
-            App.shared.snackbar.show(message: "Key was nil")
+            App.shared.snackbar.show(message: "No key recveiver from Web3Auth. Please try again later!")
             return
         }
         let privateKey = try? PrivateKey(data: Data(ethHex: key))
 
         guard let privateKey = privateKey else {
-            App.shared.snackbar.show(message: "Couldn't create private key from: [\(key)]")
+            App.shared.snackbar.show(message: "Invalid key material received from Web3Auth. Please try again later!")
             return
         }
         var keyInfo: KeyInfo? = try? KeyInfo.firstKey(address: privateKey.address)
@@ -159,7 +166,8 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                     email: email
                 )
             } catch {
-                App.shared.snackbar.show(message: "\(error.localizedDescription)" )
+                App.shared.snackbar.show(message: "\(error.localizedDescription). Please try again later!" )
+                // TODO dismiss safecreating view?
             }
         }
 
@@ -218,13 +226,21 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
 
     // CreateSafeFormUIModelDelegate protocol methods
     func updateUI(model: CreateSafeFormUIModel) {
+        var error = "error: \(model.error)"
+        if model.error == nil {
+            error = ""
+        }
         if model.state == .ready && !didSubmit {
             model.relaySubmit()
             didSubmit = true
         } else if model.state == .error,
-                  let error = model.gsError {
-            App.shared.snackbar.show(message: error.localizedDescription)
-            self.stop(success: false)
+                  let error = model.error {
+            App.shared.snackbar.show(message: "Error from model: \(error.localizedDescription)")
+            if let view = safeCreatingViewController {
+                view.dismiss(animated: true)
+            } else {
+                self.stop(success: false)
+            }
         }
     }
 
