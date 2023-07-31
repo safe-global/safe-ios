@@ -155,7 +155,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         let privateKey = try? PrivateKey(data: Data(ethHex: key))
 
         guard let privateKey = privateKey else {
-            App.shared.snackbar.show(message: "Invalid key material received. Please try again later!")
+            App.shared.snackbar.show(message: "Invalid key data received. Please try again later!")
             return false
         }
         var keyInfo: KeyInfo? = try? KeyInfo.firstKey(address: privateKey.address)
