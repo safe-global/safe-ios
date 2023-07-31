@@ -6,9 +6,12 @@ import UIKit
 
 class AppleWeb3AuthLogin: NSObject {
     var authorizationComplete: () -> Void
-    var keyGenerationComplete: ((_ key: String, _ email: String?) -> Void)
+    var keyGenerationComplete: ((_ key: String?, _ email: String?, _ error: Error?) -> Void)
 
-    init(authorizationComplete: @escaping () -> Void, keyGenerationComplete: @escaping ((_ key: String, _ email: String?) -> Void)) {
+    init(
+        authorizationComplete: @escaping () -> Void,
+        keyGenerationComplete: @escaping ((_ key: String?, _ email: String?, _ error: Error?) -> Void)
+    ) {
         self.authorizationComplete = authorizationComplete
         self.keyGenerationComplete = keyGenerationComplete
     }
@@ -16,8 +19,10 @@ class AppleWeb3AuthLogin: NSObject {
 
 extension AppleWeb3AuthLogin: ASAuthorizationControllerDelegate {
 
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        
+    func authorizationController(
+        controller: ASAuthorizationController,
+        didCompleteWithAuthorization authorization: ASAuthorization
+    ) {
         authorizationComplete()
         
         switch authorization.credential {
@@ -40,26 +45,34 @@ extension AppleWeb3AuthLogin: ASAuthorizationControllerDelegate {
                         network: .CYAN
                 )
 
-                let data = try await tdsdk.getAggregateTorusKey(verifier: App.configuration.web3auth.appleVerifier,
-                        verifierId: sub,
-                        idToken: token,
-                        subVerifierDetails: SubVerifierDetails(
-                                loginType: .installed,
-                                loginProvider: .jwt,
-                                clientId: "",
-                                verifier: App.configuration.web3auth.appleSubVerifier,
-                                redirectURL: "")
-                )
+                do {
+                    let data = try await tdsdk.getAggregateTorusKey(verifier: App.configuration.web3auth.appleVerifier,
+                                                                    verifierId: sub,
+                                                                    idToken: token,
+                                                                    subVerifierDetails: SubVerifierDetails(
+                                                                        loginType: .installed,
+                                                                        loginProvider: .jwt,
+                                                                        clientId: "",
+                                                                        verifier: App.configuration.web3auth.appleSubVerifier,
+                                                                        redirectURL: "")
+                    )
+                    
+                    await MainActor.run(body: {
+                        let key = data["privateKey"] as? String
+                        if let key = key {
+                            keyGenerationComplete(key, email, nil)
+                        } else {
+                            let error = GSError.Web3AuthGenericError(underlyingError: "No key generated/found")
+                            keyGenerationComplete(nil, nil, error)
+                        }
+                    })
+                } catch {
+                    await MainActor.run(body: {
+                        keyGenerationComplete(nil, nil, error)
+                    })
+                }
 
-                await MainActor.run(body: {
-
-                    let key = data["privateKey"] as? String
-                    if let key = key {
-                        keyGenerationComplete(key, email)
-                    } else {
-                        App.shared.snackbar.show(message: "No key generated/found")
-                    }
-                })
+                
             }
         default:
             App.shared.snackbar.show(message: "AppleId authorization failed")

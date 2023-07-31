@@ -699,6 +699,17 @@ enum GSError {
         let code = 1326
         let loggable = false
     }
+    
+    struct Web3AuthGenericError: DetailedLocalizedError {
+        let description = "Failed to log in"
+        var reason: String { underlyingError.localizedDescription }
+        let underlyingError: Error
+        let howToFix = "Please try again"
+        let domain = iOSErrorDomain
+        let code = 1327
+        let loggable = false
+    }
+
 
     // - MARK: - Unstoppable domain errors
 

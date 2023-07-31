@@ -6,7 +6,7 @@ class GoogleWeb3AuthLoginModel {
     let notificationCenter = NotificationCenter.default
     static let schemePostfix = "://"
     var authorizationComplete: (() -> Void)!
-    var keyGenerationComplete: ((_ key: String?, _ email: String?) -> Void?)!
+    var keyGenerationComplete: ((_ key: String?, _ email: String?, _ error: Error?) -> Void?)!
 
     init() {
         notificationCenter.addObserver(self, selector: #selector(handleAuthorizationComplete), name: NSNotification.Name("TSDSDKCallbackNotification"), object: nil)
@@ -26,14 +26,21 @@ class GoogleWeb3AuthLoginModel {
                                    network: .CYAN
             )
 
-            let data = try await tdsdk.triggerLogin(browserType: .asWebAuthSession)
-            await MainActor.run(body: {
-                let key = data["privateKey"] as? String
-                let userInfo = data["userInfo"] as? Dictionary ?? [:] as Dictionary
-                let email = userInfo["email"] as? String ?? "email withheld"
+            do {
+                let data = try await tdsdk.triggerLogin(browserType: .asWebAuthSession)
+                
+                await MainActor.run(body: {
+                    let key = data["privateKey"] as? String
+                    let userInfo = data["userInfo"] as? [String: Any] ?? [:]
+                    let email = userInfo["email"] as? String ?? "email withheld"
 
-                keyGenerationComplete(key!, email)
-            })
+                    keyGenerationComplete(key!, email, nil)
+                })
+            } catch {
+                await MainActor.run(body: {
+                    keyGenerationComplete(nil, nil, error)
+                })
+            }
         }
     }
 
