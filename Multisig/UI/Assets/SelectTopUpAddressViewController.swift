@@ -94,7 +94,7 @@ class SelectTopUpAddressViewController: LoadableViewController, UITableViewDeleg
         sections.append(SectionItems(section: .owners("ACCOUNT OWNER KEYS"),
                                      items: safe.ownersInfo!.map { Section.Owner.owner($0) }))
         let view = TableHeaderView(frame: CGRect(x: 0, y: 0, width: 0, height: 80))
-        view.set("Choose for which account or can owner key you would like to top up", centered: true)
+        view.set("Choose for which account or owner key you would like to top up", centered: true)
         tableView.tableHeaderView = view
     }
 

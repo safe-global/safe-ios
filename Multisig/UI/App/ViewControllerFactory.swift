@@ -56,8 +56,8 @@ enum ViewControllerFactory {
 
         Self.addCloseButton(vc)
         vc.safe = safe
-        vc.onSelect = { address in
-            vc.dismiss(animated: true, completion: {
+        vc.onSelect = { [weak vc] address in
+            vc?.dismiss(animated: true, completion: {
                 App.shared.ramper.startOnRamp(address: safe.address!, chain: safe.chain!)
             })
         }
