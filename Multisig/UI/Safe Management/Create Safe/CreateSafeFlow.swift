@@ -124,8 +124,12 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
             }
             self.show(safeCreatingViewController)
         }
-        let keyGenerationComplete = { [weak self] (key, email) in
-            self?.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthGoogle)
+        let keyGenerationComplete: ((_ key: String?, _ email: String?) -> ()) = { [weak self] (key: String?, email: String?) in
+            guard let self = self else { return }
+            if !self.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthGoogle) {
+                self.safeCreatingViewController.dismiss(animated: true)
+                return
+            }
         }
 
         if loginModel == nil {
@@ -135,25 +139,24 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         loginModel!.keyGenerationComplete = keyGenerationComplete
 
         do {
-
             try loginModel!.loginWithCustomAuth()
         } catch {
-            App.shared.snackbar.show(message: "loginWithCustomAuth: error: \(error.localizedDescription)")
+            App.shared.snackbar.show(message: "\(error.localizedDescription)")
             safeCreatingViewController.dismiss(animated: true)
         }
     }
 
-    func storeKeyAndCreateSafe(key: String?, email: String?, keyType: KeyType) -> Void {
+    func storeKeyAndCreateSafe(key: String?, email: String?, keyType: KeyType) -> Bool {
 
         guard let key = key else {
-            App.shared.snackbar.show(message: "No key recveiver from Web3Auth. Please try again later!")
-            return
+            App.shared.snackbar.show(message: "No key recveived. Please try again later!")
+            return false
         }
         let privateKey = try? PrivateKey(data: Data(ethHex: key))
 
         guard let privateKey = privateKey else {
-            App.shared.snackbar.show(message: "Invalid key material received from Web3Auth. Please try again later!")
-            return
+            App.shared.snackbar.show(message: "Invalid key material received. Please try again later!")
+            return false
         }
         var keyInfo: KeyInfo? = try? KeyInfo.firstKey(address: privateKey.address)
         if keyInfo == nil {
@@ -167,7 +170,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                 )
             } catch {
                 App.shared.snackbar.show(message: "\(error.localizedDescription). Please try again later!" )
-                // TODO dismiss safecreating view?
+                return false
             }
         }
 
@@ -180,6 +183,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         if let address = keyInfo?.address {
             uiModel.addOwnerAddress(address)
         }
+        return true
     }
 
     func creatingSafe() {
