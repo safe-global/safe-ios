@@ -51,6 +51,20 @@ enum ViewControllerFactory {
         return nav
     }
 
+    static func selectTopUpAddress(safe: Safe) -> UIViewController {
+        let vc = SelectTopUpAddressViewController()
+
+        Self.addCloseButton(vc)
+        vc.safe = safe
+        vc.onSelect = { address in
+            vc.dismiss(animated: true, completion: {
+                App.shared.ramper.startOnRamp(address: safe.address!, chain: safe.chain!)
+            })
+        }
+
+        return UINavigationController(rootViewController: vc)
+    }
+
     static func transactionDetailsViewController(transactionId: String) -> UIViewController {
         let vc = TransactionDetailsViewController(transactionID: transactionId)
         return modalWithRibbon(viewController: vc)

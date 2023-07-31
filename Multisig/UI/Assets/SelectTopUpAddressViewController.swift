@@ -42,13 +42,16 @@ class SelectTopUpAddressViewController: LoadableViewController, UITableViewDeleg
         tableView.registerCell(DetailAccountCell.self)
         tableView.registerCell(SafeEntryTableViewCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
-
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
 
         tableView.delegate = self
         tableView.dataSource = self
         title = "Buy crypto"
+
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -88,7 +91,11 @@ class SelectTopUpAddressViewController: LoadableViewController, UITableViewDeleg
         sections = []
 
         sections.append(SectionItems(section: .safeAccount("SAFE ACCOUNT"), items: [Section.SafeAccount.safe]))
-        sections.append(SectionItems(section: .owners("ACCOUNT OWNER KEYS"), items: safe.ownersInfo!.map { Section.Owner.owner($0) }))
+        sections.append(SectionItems(section: .owners("ACCOUNT OWNER KEYS"),
+                                     items: safe.ownersInfo!.map { Section.Owner.owner($0) }))
+        let view = TableHeaderView(frame: CGRect(x: 0, y: 0, width: 0, height: 80))
+        view.set("Choose for which account or can owner key you would like to top up", centered: true)
+        tableView.tableHeaderView = view
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -121,7 +128,6 @@ class SelectTopUpAddressViewController: LoadableViewController, UITableViewDeleg
                                           name: keyInfo?.displayName ?? name,
                                           indexPath: indexPath,
                                           badgeName: keyInfo?.keyType.badgeName,
-                                          browseURL: safe.chain!.browserURL(address: info.address.checksummed),
                                           prefix: safe.chain!.shortName)
             }
         }
@@ -152,19 +158,22 @@ class SelectTopUpAddressViewController: LoadableViewController, UITableViewDeleg
         }
 
         view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
-        (view as! BasicHeaderView).setName(title, backgroundColor: .backgroundSecondary, style: .caption2Secondary)
+        (view as! BasicHeaderView).setName(title, backgroundColor: .clear, style: .caption2Secondary)
 
         return view
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        DetailAccountCell.headerHeight
     }
 
     private func addressDetailsCell(address: Address,
                                     name: String?,
                                     indexPath: IndexPath,
                                     badgeName: String? = nil,
-                                    browseURL: URL? = nil,
                                     prefix: String? = nil) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: address, label: name, badgeName: badgeName, browseURL: browseURL, prefix: prefix)
+        cell.setAccount(address: address, label: name, badgeName: badgeName, copyEnabled: false, prefix: prefix)
 
         return cell
     }
