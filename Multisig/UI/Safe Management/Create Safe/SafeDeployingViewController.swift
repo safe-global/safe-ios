@@ -21,8 +21,6 @@ class SafeDeployingViewController: UIViewController {
     var containerViewYConstraint: NSLayoutConstraint?
     var txHash: String?
 
-    var timer: Timer?
-
     override func viewDidLoad() {
         super.viewDidLoad()
         statusLabel.setStyle(.title3)
@@ -41,16 +39,6 @@ class SafeDeployingViewController: UIViewController {
 
         reloadData()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(updateStatus), userInfo: nil, repeats: true)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        timer?.invalidate()
-    }
 
     @objc func reloadData() {
         guard let safe = try? Safe.getSelected() else {
@@ -68,7 +56,6 @@ class SafeDeployingViewController: UIViewController {
         }
 
         txButton.isHidden = txHash == nil
-        updateStatus()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -92,26 +79,10 @@ class SafeDeployingViewController: UIViewController {
         }
     }
 
-    @objc func updateStatus() {
-        statusLabel.pushTransition(1)
-    }
-
     @IBAction func didTapViewTransaction(_ sender: Any) {
         Tracker.trackEvent(.createSafeViewTxOnEtherscan)
         if let txHash = txHash, let chain = safe?.chain {
             openInSafari(chain.browserURL(txHash: txHash))
         }
-    }
-}
-
-extension UIView {
-    func pushTransition(_ duration: CFTimeInterval) {
-        let animation:CATransition = CATransition()
-        animation.timingFunction = CAMediaTimingFunction(name:
-            CAMediaTimingFunctionName.easeInEaseOut)
-        animation.type = CATransitionType.push
-        animation.duration = duration
-        animation.subtype = .fromTop
-        layer.add(animation, forKey: CATransitionType.push.rawValue)
     }
 }
