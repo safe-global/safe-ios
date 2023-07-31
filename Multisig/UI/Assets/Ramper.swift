@@ -28,10 +28,12 @@ class Ramper: MoonpayCallbackInterface {
             theme = "dark"
         }
 
+        let environment = App.configuration.services.environment == .production ? WidgetEnvironment.production : WidgetEnvironment.sandbox
         let signature = sigature(address: address,
                                  chain: chain.shortName!,
                                  theme: theme,
-                                 defaultCurrencyCode: chain.nativeCurrency!.symbol!)
+                                 defaultCurrencyCode: chain.nativeCurrency!.symbol!,
+                                 environment: environment.description().lowercased())
 
         let params = OnrampWidgetQueryParams(
             apiKey: App.configuration.services.moonpayKey,
@@ -64,7 +66,7 @@ class Ramper: MoonpayCallbackInterface {
 
         let config = MoonPayCoreSdkBuyConfig(
             debug: true,
-            environment: .production,
+            environment: environment,
             flow: BuyFlow(),
             params: params,
             handlers: nil
@@ -86,8 +88,8 @@ class Ramper: MoonpayCallbackInterface {
 
     }
 
-    func sigature(address: String, chain: String, theme: String, defaultCurrencyCode: String) -> String {
-        let bytes = Array( "?apiKey=\(App.configuration.services.moonpayKey)&defaultCurrencyCode=\(defaultCurrencyCode)&walletAddresses=%7B%22\(chain)%22%3A%22\(address)%22%7D&theme=\(theme)&themeId=\(MOONPAY_THEME_ID_SAFE)&language=en&baseCurrencyCode=\(AppSettings.selectedFiatCode)&mpSdk=%7B%22environment%22%3A%22production%22%2C%22flow%22%3A%22buy%22%2C%22version%22%3A%221.0%22%2C%22platform%22%3A%22iOS%22%7D".utf8)
+    func sigature(address: String, chain: String, theme: String, defaultCurrencyCode: String, environment: String) -> String {
+        let bytes = Array( "?apiKey=\(App.configuration.services.moonpayKey)&defaultCurrencyCode=\(defaultCurrencyCode)&walletAddresses=%7B%22\(chain)%22%3A%22\(address)%22%7D&theme=\(theme)&themeId=\(MOONPAY_THEME_ID_SAFE)&language=en&baseCurrencyCode=\(AppSettings.selectedFiatCode)&mpSdk=%7B%22environment%22%3A%22\(environment)%22%2C%22flow%22%3A%22buy%22%2C%22version%22%3A%221.0%22%2C%22platform%22%3A%22iOS%22%7D".utf8)
 
         let key: Array<UInt8> = Array(App.configuration.services.moonpaySecretKey.utf8)
 
