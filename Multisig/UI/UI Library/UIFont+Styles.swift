@@ -76,6 +76,7 @@ extension GNOTextStyle {
     static let caption1Medium = GNOTextStyle(size: 12, weight: .medium, color: .labelSecondary)
     static let caption2 = GNOTextStyle(size: 12, weight: .bold, color: .labelPrimary)
     static let caption2Tertiary = GNOTextStyle(size: 12, weight: .bold, color: .labelTertiary)
+    static let caption2Secondary = GNOTextStyle(size: 12, weight: .bold, color: .labelSecondary)
 
     static let footnote = GNOTextStyle(size: 13, weight: .medium, color: .labelTertiary)
     static let footnoteSecondary = GNOTextStyle(size: 13, weight: .medium, color: .labelSecondary)

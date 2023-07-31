@@ -18,7 +18,8 @@ class BasicHeaderView: UITableViewHeaderFooterView {
         nameLabel.text = nil
     }
 
-    func setName(_ value: String) {
-        nameLabel.setAttributedText(value.uppercased(), style: .caption2Tertiary)
+    func setName(_ value: String, backgroundColor: UIColor = .backgroundPrimary, style: GNOTextStyle = .caption2Tertiary) {
+        nameLabel.setAttributedText(value.uppercased(), style: style)
+        self.backgroundColor = backgroundColor
     }
 }
