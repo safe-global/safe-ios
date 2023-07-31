@@ -175,6 +175,8 @@
 		049BE2032912C3B00004B84D /* WalletConnectKeyFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049BE2022912C3B00004B84D /* WalletConnectKeyFlow.swift */; };
 		049BE205291588540004B84D /* LedgerKeyFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049BE204291588540004B84D /* LedgerKeyFlow.swift */; };
 		049EB0FF25AF713700F66CEA /* TimeZone+Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */; };
+		04AECBB72A744B21008D5A35 /* MoonpaySDK in Frameworks */ = {isa = PBXBuildFile; productRef = 04AECBB62A744B21008D5A35 /* MoonpaySDK */; };
+		04AECBBA2A76B990008D5A35 /* SelectTopUpAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AECBB82A76B990008D5A35 /* SelectTopUpAddressViewController.swift */; };
 		04AFFBD0282AFC0100429513 /* ReviewRemoveOwnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AFFBCF282AFC0100429513 /* ReviewRemoveOwnerViewController.swift */; };
 		04AFFBD2282BBE1900429513 /* RemoveOwnerFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AFFBD1282BBE1900429513 /* RemoveOwnerFlow.swift */; };
 		04B1F43E2966070B009D13AA /* SecurityCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B1F43D2966070B009D13AA /* SecurityCenter.swift */; };
@@ -222,7 +224,6 @@
 		04D224C128CA4FFE00853E34 /* NSMutableAttributedString+LineSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D224C028CA4FFD00853E34 /* NSMutableAttributedString+LineSpacing.swift */; };
 		04D968D4276B872D00CE4A9E /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D968D2276B872D00CE4A9E /* TransactionViewController.swift */; };
 		04D968D5276B872D00CE4A9E /* TransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D968D3276B872D00CE4A9E /* TransactionViewController.xib */; };
-		04DED7D12A71106B00C10C70 /* MoonpaySDK in Frameworks */ = {isa = PBXBuildFile; productRef = 04DED7D02A71106B00C10C70 /* MoonpaySDK */; };
 		04E4CD65277752A500B558F4 /* TokenAmountInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E4CD64277752A500B558F4 /* TokenAmountInfoView.swift */; };
 		04E4CD67277752C400B558F4 /* TokenAmountInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E4CD66277752C400B558F4 /* TokenAmountInfoView.xib */; };
 		04F8041329A68386007CFF40 /* Proposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F8041229A68386007CFF40 /* Proposal.swift */; };
@@ -1206,6 +1207,7 @@
 		049BE2022912C3B00004B84D /* WalletConnectKeyFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectKeyFlow.swift; sourceTree = "<group>"; };
 		049BE204291588540004B84D /* LedgerKeyFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerKeyFlow.swift; sourceTree = "<group>"; };
 		049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeZone+Offset.swift"; sourceTree = "<group>"; };
+		04AECBB82A76B990008D5A35 /* SelectTopUpAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTopUpAddressViewController.swift; sourceTree = "<group>"; };
 		04AFFBCF282AFC0100429513 /* ReviewRemoveOwnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRemoveOwnerViewController.swift; sourceTree = "<group>"; };
 		04AFFBD1282BBE1900429513 /* RemoveOwnerFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveOwnerFlow.swift; sourceTree = "<group>"; };
 		04B1F43D2966070B009D13AA /* SecurityCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCenter.swift; sourceTree = "<group>"; };
@@ -2047,7 +2049,7 @@
 				55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
 				0497B2B329A641C9007109ED /* WalletConnectEcho in Frameworks */,
 				0497B2AD29A641C9007109ED /* WalletConnect in Frameworks */,
-				04DED7D12A71106B00C10C70 /* MoonpaySDK in Frameworks */,
+				04AECBB72A744B21008D5A35 /* MoonpaySDK in Frameworks */,
 				04C22B302A36807500F58A15 /* SafeWeb3 in Frameworks */,
 				04C22B2D2A367FF800F58A15 /* CustomAuth in Frameworks */,
 				5591CEEE260C725C0067DFDF /* BlockiesSwift in Frameworks */,
@@ -2989,6 +2991,7 @@
 				5503F62A255062070046545C /* CollectiblesViewController */,
 				D80B5A082769F95000D6E024 /* AssetsViewController.swift */,
 				D80B5A092769F95000D6E024 /* AssetsViewController.xib */,
+				04AECBB82A76B990008D5A35 /* SelectTopUpAddressViewController.swift */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -4658,7 +4661,7 @@
 				04C22B2F2A36807500F58A15 /* SafeWeb3 */,
 				04C22B312A36807500F58A15 /* Web3ContractABI */,
 				04C22B332A36807500F58A15 /* Web3PromiseKit */,
-				04DED7D02A71106B00C10C70 /* MoonpaySDK */,
+				04AECBB62A744B21008D5A35 /* MoonpaySDK */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig_PROD.app */;
@@ -4782,7 +4785,7 @@
 				0497B2AB29A641C9007109ED /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
 				04C22B2B2A367FF800F58A15 /* XCRemoteSwiftPackageReference "customauth-swift-sdk" */,
 				04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3" */,
-				04DED7CF2A71106B00C10C70 /* XCRemoteSwiftPackageReference "mobile-sdk-ios" */,
+				04AECBB52A744B21008D5A35 /* XCRemoteSwiftPackageReference "mobile-sdk-ios" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -5582,6 +5585,7 @@
 				0A7AEAF62463189400014184 /* CenteredAddressWithLink.swift in Sources */,
 				0A5B157A28085BC1003AD853 /* BackupFlow.swift in Sources */,
 				043913A124BF4E480006517D /* BrowseLinkButton.swift in Sources */,
+				04AECBBA2A76B990008D5A35 /* SelectTopUpAddressViewController.swift in Sources */,
 				0472B2BE286A49420049BA17 /* GuardianListViewController.swift in Sources */,
 				0A2F1A6E267A538E00C09F03 /* GSLabel.swift in Sources */,
 				0439B29C28048A5F00796F18 /* BackupKeyTableViewCell.swift in Sources */,
@@ -7176,6 +7180,14 @@
 				minimumVersion = 1.6.14;
 			};
 		};
+		04AECBB52A744B21008D5A35 /* XCRemoteSwiftPackageReference "mobile-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/moonpay/mobile-sdk-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		04C22B2B2A367FF800F58A15 /* XCRemoteSwiftPackageReference "customauth-swift-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/torusresearch/customauth-swift-sdk";
@@ -7189,14 +7201,6 @@
 			repositoryURL = "https://github.com/safe-global/SafeWeb3.swift";
 			requirement = {
 				branch = "rename-to-SafeWeb3";
-				kind = branch;
-			};
-		};
-		04DED7CF2A71106B00C10C70 /* XCRemoteSwiftPackageReference "mobile-sdk-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/moonpay/mobile-sdk-ios.git";
-			requirement = {
-				branch = main;
 				kind = branch;
 			};
 		};
@@ -7395,6 +7399,11 @@
 			package = 0497B2AB29A641C9007109ED /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
 			productName = Web3Wallet;
 		};
+		04AECBB62A744B21008D5A35 /* MoonpaySDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04AECBB52A744B21008D5A35 /* XCRemoteSwiftPackageReference "mobile-sdk-ios" */;
+			productName = MoonpaySDK;
+		};
 		04C22B2C2A367FF800F58A15 /* CustomAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 04C22B2B2A367FF800F58A15 /* XCRemoteSwiftPackageReference "customauth-swift-sdk" */;
@@ -7419,11 +7428,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3" */;
 			productName = SafeWeb3;
-		};
-		04DED7D02A71106B00C10C70 /* MoonpaySDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 04DED7CF2A71106B00C10C70 /* XCRemoteSwiftPackageReference "mobile-sdk-ios" */;
-			productName = MoonpaySDK;
 		};
 		0A0C094B287D7D48000CEB4F /* WalletConnectSwift */ = {
 			isa = XCSwiftPackageProductDependency;

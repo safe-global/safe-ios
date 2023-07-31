@@ -41,6 +41,9 @@ struct AppConfiguration {
         @ConfigurationKey("MOONPAY_API_KEY")
         var moonpayKey: String
 
+        @ConfigurationKey("MOONPAY_SECRET_KEY")
+        var moonpaySecretKey: String
+
         enum ServiceEnvironment: String, InfoPlistValueType {
             case development = "DEV"
             case staging = "STAGING"

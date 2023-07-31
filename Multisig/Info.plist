@@ -94,6 +94,8 @@
 	<string>$(INTERCOM_APP_ID)</string>
 	<key>MOONPAY_API_KEY</key>
 	<string>$(MOONPAY_API_KEY)</string>
+	<key>MOONPAY_SECRET_KEY</key>
+	<string>$(MOONPAY_SECRET_KEY)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>IntercomAutoIntegratePushNotifications</key>

@@ -24,6 +24,8 @@ pipeline {
         INTERCOM_PROD_APP_ID = credentials('INTERCOM_PROD_APP_ID')
         MOONPAY_STAGING_API_KEY = credentials('MOONPAY_STAGING_API_KEY')
         MOONPAY_PROD_API_KEY = credentials('MOONPAY_PROD_API_KEY')
+	MOONPAY_STAGING_SECRET_KEY = credentials('MOONPAY_STAGING_SECRET_KEY')
+        MOONPAY_PROD_SECRET_KEY = credentials('MOONPAY_PROD_SECRET_KEY')
         ENCRYPTION_KEY = credentials('ENCRYPTION_KEY')
         CODECOV_TOKEN = credentials('CODECOV_TOKEN')
         WALLETCONNECT_PROJECT_ID_STAGING = credentials('WALLETCONNECT_PROJECT_ID_STAGING')
@@ -93,6 +95,7 @@ pipeline {
 			INTERCOM_APP_ID=\"${INTERCOM_PROD_APP_ID}\" \
 			INTERCOM_API_KEY=\"${INTERCOM_PROD_API_KEY}\" \
 			MOONPAY_API_KEY=\"${MOONPAY_PROD_API_KEY}\" \
+			MOONPAY_SECRET_KEY=\"${MOONPAY_PROD_SECRET_KEY}\" \
 			bin/archive.sh \"Multisig - Production\"'
                     sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" \
 			SSL_ENFORCE_PINNING=\"${SSL_ENFORCE_PINNING}\" \
@@ -103,6 +106,7 @@ pipeline {
 			INTERCOM_APP_ID=\"${INTERCOM_STAGING_APP_ID}\" \
 			INTERCOM_API_KEY=\"${INTERCOM_STAGING_API_KEY}\" \
 			MOONPAY_API_KEY=\"${MOONPAY_STAGING_API_KEY}\" \
+			MOONPAY_SECRET_KEY=\"${MOONPAY_STAGING_SECRET_KEY}\" \
 			bin/archive.sh \"Multisig - Staging\"'
                     archiveArtifacts 'Build/*/xcodebuild-*.log'
                 }
