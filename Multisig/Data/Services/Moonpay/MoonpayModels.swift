@@ -13,11 +13,11 @@ enum MoonpayModels {
         let id: String
         let name: String
         let code: String
-        let metadata: Metadata
+        let metadata: Metadata?
 
         struct Metadata: Decodable {
-            let chainId: String
-            let networkCode: String
+            let chainId: String?
+            let networkCode: String?
         }
     }
 }

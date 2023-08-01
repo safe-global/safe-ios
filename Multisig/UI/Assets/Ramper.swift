@@ -20,6 +20,10 @@ class Ramper: MoonpayCallbackInterface {
     private var chain: Chain!
     private var currencies: [MoonpayModels.Currency] = []
 
+    private var chainCurrencies: [MoonpayModels.Currency] {
+        currencies.filter { $0.metadata?.chainId != nil && $0.metadata?.chainId == chain.id }
+    }
+
     static let shared = Ramper()
 
     init() {
@@ -27,7 +31,16 @@ class Ramper: MoonpayCallbackInterface {
     }
 
     func config() {
-        currencies = (try? App.shared.moonpayService.syncCurrenciesRequest()) ?? []
+        App.shared.moonpayService.asyncCurrenciesRequest { result in
+            DispatchQueue.main.async { [weak self] in
+                switch result {
+                case .success(let currencies):
+                    self?.currencies = currencies
+                case .failure(_):
+                    break
+                }
+            }
+        }
     }
 
     func startOnRamp(address: String, chain: Chain) {
@@ -86,7 +99,7 @@ class Ramper: MoonpayCallbackInterface {
         )
 
         moonpay.doInit(config: config)
-        moonpay.show(mode: .WebViewOverlay())
+        moonpay.show(mode: .SafariOverlay())
     }
 
     func startOffRamp() {
@@ -102,7 +115,7 @@ class Ramper: MoonpayCallbackInterface {
     }
 
     private func sigature(address: String, chain: String, theme: String, defaultCurrencyCode: String, environment: String) -> String {
-        let bytes = Array( "?apiKey=\(App.configuration.services.moonpayKey)&defaultCurrencyCode=\(defaultCurrencyCode)&walletAddresses=%7B%22\(chain)%22%3A%22\(address)%22%7D&theme=\(theme)&themeId=\(MOONPAY_THEME_ID_SAFE)&language=en&baseCurrencyCode=\(AppSettings.selectedFiatCode)&mpSdk=%7B%22environment%22%3A%22\(environment)%22%2C%22flow%22%3A%22buy%22%2C%22version%22%3A%221.0%22%2C%22platform%22%3A%22iOS%22%7D".utf8)
+        let bytes = Array( "?apiKey=\(App.configuration.services.moonpayKey)&defaultCurrencyCode=\(defaultCurrencyCode)&walletAddresses=\(walletAddressesEncoded())&theme=\(theme)&themeId=\(MOONPAY_THEME_ID_SAFE)&language=en&baseCurrencyCode=\(AppSettings.selectedFiatCode)&mpSdk=%7B%22environment%22%3A%22\(environment)%22%2C%22flow%22%3A%22buy%22%2C%22version%22%3A%221.0%22%2C%22platform%22%3A%22iOS%22%7D".utf8)
 
         let key: Array<UInt8> = Array(App.configuration.services.moonpaySecretKey.utf8)
 
@@ -110,6 +123,10 @@ class Ramper: MoonpayCallbackInterface {
     }
 
     private func walletAddresses() -> String {
-        "{\"\(chain.shortName!)\":\"\(address!)\"}"
+        "{\(chainCurrencies.map { "\"\($0.code)\":\"\(address!)\"" }.joined(separator: ","))}"
+    }
+
+    private func walletAddressesEncoded() -> String {
+        "%7B\(chainCurrencies.map { "%22\($0.code)%22%3A%22\(address!)%22" }.joined(separator: "%2C"))%7D"
     }
 }

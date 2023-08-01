@@ -62,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         SecurityCenter.setUp()
         WalletConnectManager.shared.config()
-        Ramper.shared.config()
+        App.shared.ramper.config()
         return true
     }
 

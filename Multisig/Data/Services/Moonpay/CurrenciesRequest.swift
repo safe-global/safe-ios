@@ -12,7 +12,11 @@ struct CurrenciesRequest: JSONRequest {
     var httpMethod: String { "GET" }
 
     var urlPath: String {
-        "/v3/currencies?apiKey=\(App.configuration.services.moonpayKey)"
+        "/v3/currencies"
+    }
+
+    var query: String? {
+        "apiKey=\(App.configuration.services.moonpayKey)"
     }
 
     typealias ResponseType = [MoonpayModels.Currency]
