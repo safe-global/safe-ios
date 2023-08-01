@@ -58,7 +58,7 @@ enum ViewControllerFactory {
         vc.safe = safe
         vc.onSelect = { [weak vc] address in
             vc?.dismiss(animated: true, completion: {
-                App.shared.ramper.startOnRamp(address: safe.address!, chain: safe.chain!)
+                App.shared.ramper.startOnRamp(address: address, chain: safe.chain!)
             })
         }
 
