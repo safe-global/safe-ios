@@ -99,8 +99,8 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                     }
                 }
                 self.show(view)
-            }, keyGenerationComplete: { (key, email) in
-                self.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthApple )
+            }, keyGenerationComplete: { (key, email, error) in
+                self.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthApple, error: error)
             }
         )
 
@@ -123,8 +123,8 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
             }
             self.show(view)
         }
-        let keyGenerationComplete = { [weak self] (key, email) in
-            self?.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthGoogle)
+        let keyGenerationComplete = { [weak self] (key, email, error) in
+            self?.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthGoogle, error: error)
         }
 
         if loginModel == nil {
@@ -136,22 +136,37 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         loginModel!.loginWithCustomAuth()
     }
 
-    func storeKeyAndCreateSafe(key: String?, email: String?, keyType: KeyType) -> Void {
-
+    
+    func storeKeyAndCreateSafe(key: String?, email: String?, keyType: KeyType, error: Error?) -> Void {
+        if let error = error {
+            App.shared.snackbar.show(error: GSError.Web3AuthGenericError(underlyingError: error))
+            return
+        }
+        
         guard let key = key else {
             App.shared.snackbar.show(message: "Key was nil")
             return
         }
-        let privateKey = try? PrivateKey(data: Data(ethHex: key))
-
-        guard let privateKey = privateKey else {
-            App.shared.snackbar.show(message: "Couldn't create private key from: [\(key)]")
+        
+        let privateKey: PrivateKey
+        do {
+            privateKey = try PrivateKey(data: Data(ethHex: key))
+        } catch {
+            App.shared.snackbar.show(message: "Failed to create a private key (\(error.localizedDescription)).")
             return
         }
-        var keyInfo: KeyInfo? = try? KeyInfo.firstKey(address: privateKey.address)
+
+        var keyInfo: KeyInfo?
+        do {
+            keyInfo = try KeyInfo.firstKey(address: privateKey.address)
+        } catch {
+            App.shared.snackbar.show(message: "Failed to get a key (\(error.localizedDescription))")
+            return
+        }
+        
         if keyInfo == nil {
             do {
-                keyInfo =  try KeyInfo.import(
+                keyInfo = try KeyInfo.import(
                     address: privateKey.address,
                     name: email ?? "email withheld",
                     privateKey: privateKey,
@@ -159,7 +174,8 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                     email: email
                 )
             } catch {
-                App.shared.snackbar.show(message: "\(error.localizedDescription)" )
+                App.shared.snackbar.show(message: "Failed to import key (\(error.localizedDescription))")
+                return
             }
         }
 
@@ -169,6 +185,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         uiModel.start()
         uiModel.chain = chain
         uiModel.setName("My Safe Account")
+        
         if let address = keyInfo?.address {
             uiModel.addOwnerAddress(address)
         }
