@@ -75,32 +75,26 @@ extension AppleWeb3AuthLogin: ASAuthorizationControllerDelegate {
                 
             }
         default:
-            App.shared.snackbar.show(message: "AppleId authorization failed")
-            break
+            keyGenerationComplete(nil, nil, "Apple ID authorization failed (missing credentials)")
         }
     }
 
-    private func showPasswordCredentialAlert(username: String, password: String) {
-        let message = "The app has received your selected credential from the keychain. \n\n Username: \(username)\n Password: \(password)"
-        let alertController = UIAlertController(title: "Keychain Credential Received",
-                message: message,
-                preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
-    }
-
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        keyGenerationComplete(nil, nil, humanReadableError(error))
+    }
     
+    func humanReadableError(_ error: Error) -> String {
         if let authError = error as? ASAuthorizationError {
             switch authError.code {
-                case .canceled: App.shared.snackbar.show(message: "The user canceled the authorization attempt.")
-                case .failed: App.shared.snackbar.show(message: "The authorization attempt failed.")
-                case .invalidResponse: App.shared.snackbar.show(message: "The authorization request received an invalid response.")
-                case .notHandled: App.shared.snackbar.show(message: "The authorization request was not handled.")
-                case .unknown: App.shared.snackbar.show(message: "The authorization attempt failed for an unknown reason.")
-                default: App.shared.snackbar.show(message: "The authorization attempt failed for an unknown reason.")
+            case .canceled: return "The user canceled the authorization attempt."
+            case .failed: return "The authorization attempt failed."
+            case .invalidResponse: return "The authorization request received an invalid response."
+            case .notHandled: return "The authorization request was not handled."
+            case .unknown: return "The authorization attempt failed for an unknown reason."
+            default: return "The authorization attempt failed for an unknown reason."
             }
         } else {
-            App.shared.snackbar.show(message: "Unexpected error received")
+            return "Unexpected error received"
         }
     }
 }
