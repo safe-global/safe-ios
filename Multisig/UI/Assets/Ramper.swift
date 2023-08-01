@@ -16,11 +16,18 @@ class Ramper: MoonpayCallbackInterface {
     private let MOONPAY_THEME_ID_SAFE = "7e8968f6-99a4-43b5-8286-d3c290d3a0b2"
     private let moonpay: MoonPayiOSSdk
 
+    private var address: String!
+    private var chain: Chain!
+
     init() {
         moonpay = MoonPayiOSSdk()
     }
 
     func startOnRamp(address: String, chain: Chain) {
+
+        self.address = address
+        self.chain = chain
+
         var theme = "light"
         // use dark safe theme if appearance app setting is set to dark
         // or if appearance app setting is set to auto and device uses dark mode
@@ -41,7 +48,7 @@ class Ramper: MoonpayCallbackInterface {
             defaultCurrencyCode: chain.nativeCurrency!.symbol!,
             walletAddress: nil,
             walletAddressTag: nil,
-            walletAddresses: "{\"\(chain.shortName!)\":\"\(address)\"}",
+            walletAddresses: walletAddresses(),
             walletAddressTags: nil,
             colorCode: nil,
             theme: theme,
@@ -96,7 +103,7 @@ class Ramper: MoonpayCallbackInterface {
         return Data(try! HMAC(key: key, variant: .sha2(.sha256)).authenticate(bytes)).base64EncodedString()
     }
 
-    private func walletAddresses(chain: Chain) -> String {
-        
+    private func walletAddresses() -> String {
+        "{\"\(chain.shortName!)\":\"\(address!)\"}"
     }
 }
