@@ -176,6 +176,7 @@
 		049EB0FF25AF713700F66CEA /* TimeZone+Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */; };
 		04AECBB72A744B21008D5A35 /* MoonpaySDK in Frameworks */ = {isa = PBXBuildFile; productRef = 04AECBB62A744B21008D5A35 /* MoonpaySDK */; };
 		04AECBBA2A76B990008D5A35 /* SelectTopUpAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AECBB82A76B990008D5A35 /* SelectTopUpAddressViewController.swift */; };
+		04AECBBE2A7867DB008D5A35 /* MoonpayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AECBBD2A7867DB008D5A35 /* MoonpayService.swift */; };
 		04AFFBD0282AFC0100429513 /* ReviewRemoveOwnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AFFBCF282AFC0100429513 /* ReviewRemoveOwnerViewController.swift */; };
 		04AFFBD2282BBE1900429513 /* RemoveOwnerFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AFFBD1282BBE1900429513 /* RemoveOwnerFlow.swift */; };
 		04B1F43E2966070B009D13AA /* SecurityCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B1F43D2966070B009D13AA /* SecurityCenter.swift */; };
@@ -1208,6 +1209,7 @@
 		049BE204291588540004B84D /* LedgerKeyFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerKeyFlow.swift; sourceTree = "<group>"; };
 		049EB0FE25AF713700F66CEA /* TimeZone+Offset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeZone+Offset.swift"; sourceTree = "<group>"; };
 		04AECBB82A76B990008D5A35 /* SelectTopUpAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTopUpAddressViewController.swift; sourceTree = "<group>"; };
+		04AECBBD2A7867DB008D5A35 /* MoonpayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonpayService.swift; sourceTree = "<group>"; };
 		04AFFBCF282AFC0100429513 /* ReviewRemoveOwnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRemoveOwnerViewController.swift; sourceTree = "<group>"; };
 		04AFFBD1282BBE1900429513 /* RemoveOwnerFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveOwnerFlow.swift; sourceTree = "<group>"; };
 		04B1F43D2966070B009D13AA /* SecurityCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCenter.swift; sourceTree = "<group>"; };
@@ -2505,6 +2507,14 @@
 				049A9DB025FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib */,
 			);
 			path = ChooseOwnerKeyViewController;
+			sourceTree = "<group>";
+		};
+		04AECBBC2A78502D008D5A35 /* Moonpay */ = {
+			isa = PBXGroup;
+			children = (
+				04AECBBD2A7867DB008D5A35 /* MoonpayService.swift */,
+			);
+			path = Moonpay;
 			sourceTree = "<group>";
 		};
 		04B4B5F425B754A400CFE24B /* AccountActionCompletedViewController */ = {
@@ -3848,6 +3858,7 @@
 		5532D4DF2449A4C00067505A /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				04AECBBC2A78502D008D5A35 /* Moonpay */,
 				6A7D476929B4928C00D690BE /* Safe Relay Service */,
 				047A5B8D28A54FAC00BB8B2A /* Safe Claiming Service */,
 				5532D4B72449A17D0067505A /* Utils */,
@@ -5230,6 +5241,7 @@
 				041C2A582456F4F50044A24C /* SafeInfoView.swift in Sources */,
 				049A9D3A25F81F2C00CA5723 /* EditOwnerKeyViewController.swift in Sources */,
 				043350C5281887AE003725E2 /* SafeTransactionController.swift in Sources */,
+				04AECBBE2A7867DB008D5A35 /* MoonpayService.swift in Sources */,
 				0AE061D62464560500CB60D7 /* Safe+CoreDataProperties.swift in Sources */,
 				0A22E12725E4FA3200D24DE1 /* SwitchTableViewCell.swift in Sources */,
 				0AF1C8A52541ADFF00E28669 /* LoadingView.swift in Sources */,
