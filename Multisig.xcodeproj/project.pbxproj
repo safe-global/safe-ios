@@ -178,6 +178,7 @@
 		04AECBBA2A76B990008D5A35 /* SelectTopUpAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AECBB82A76B990008D5A35 /* SelectTopUpAddressViewController.swift */; };
 		04AECBBE2A7867DB008D5A35 /* MoonpayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AECBBD2A7867DB008D5A35 /* MoonpayService.swift */; };
 		04AECBC22A78F6C0008D5A35 /* CurrenciesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AECBC12A78F6C0008D5A35 /* CurrenciesRequest.swift */; };
+		04AECBC42A7946E0008D5A35 /* MoonpayModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AECBC32A7946E0008D5A35 /* MoonpayModels.swift */; };
 		04AFFBD0282AFC0100429513 /* ReviewRemoveOwnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AFFBCF282AFC0100429513 /* ReviewRemoveOwnerViewController.swift */; };
 		04AFFBD2282BBE1900429513 /* RemoveOwnerFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AFFBD1282BBE1900429513 /* RemoveOwnerFlow.swift */; };
 		04B1F43E2966070B009D13AA /* SecurityCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B1F43D2966070B009D13AA /* SecurityCenter.swift */; };
@@ -1212,6 +1213,7 @@
 		04AECBB82A76B990008D5A35 /* SelectTopUpAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTopUpAddressViewController.swift; sourceTree = "<group>"; };
 		04AECBBD2A7867DB008D5A35 /* MoonpayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonpayService.swift; sourceTree = "<group>"; };
 		04AECBC12A78F6C0008D5A35 /* CurrenciesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesRequest.swift; sourceTree = "<group>"; };
+		04AECBC32A7946E0008D5A35 /* MoonpayModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonpayModels.swift; sourceTree = "<group>"; };
 		04AFFBCF282AFC0100429513 /* ReviewRemoveOwnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRemoveOwnerViewController.swift; sourceTree = "<group>"; };
 		04AFFBD1282BBE1900429513 /* RemoveOwnerFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveOwnerFlow.swift; sourceTree = "<group>"; };
 		04B1F43D2966070B009D13AA /* SecurityCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCenter.swift; sourceTree = "<group>"; };
@@ -2516,6 +2518,7 @@
 			children = (
 				04AECBBD2A7867DB008D5A35 /* MoonpayService.swift */,
 				04AECBC12A78F6C0008D5A35 /* CurrenciesRequest.swift */,
+				04AECBC32A7946E0008D5A35 /* MoonpayModels.swift */,
 			);
 			path = Moonpay;
 			sourceTree = "<group>";
@@ -5274,6 +5277,7 @@
 				041E10DF2A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.swift in Sources */,
 				04D1306C25DD525A0032FA03 /* ProposeTransactionRequest.swift in Sources */,
 				55BCFC562554627100020CE7 /* BasicCell.swift in Sources */,
+				04AECBC42A7946E0008D5A35 /* MoonpayModels.swift in Sources */,
 				0A9A1A34257924C600B44405 /* DetailAccountCell.swift in Sources */,
 				0ABC002A2823D4CD00F42D29 /* ReplaceOwnerFlow.swift in Sources */,
 				0A5C0C4C2817F1DE0061D96F /* SafeCellBuilder.swift in Sources */,

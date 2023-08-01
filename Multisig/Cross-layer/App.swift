@@ -52,6 +52,11 @@ class App {
         url: App.configuration.services.gelatoRelayURL,
         logger: LogService.shared
     )
+
+    lazy var moonpayService = MoonpayService(
+        url: App.configuration.services.moonpayServiceURL,
+        logger: LogService.shared
+    )
     
     var nodeService = EthereumNodeService()
 

@@ -56,6 +56,9 @@ _RELAY_URL_PROD               = https:/$()/safe-client-nest.safe.global/
 // Gelato Service
 GELATO_SERVICE_URL            = https:/$()/relay.gelato.digital
 
+// Moonpay Service
+MOONPAY_SERVICE_URL           = https:/$()/api.moonpay.com
+
 // App Groups
 _APP_GROUP_ID_PROD     = group.io.gnosis.multisig.prod.mainnet
 _APP_GROUP_ID_STAGING  = group.io.gnosis.multisig.staging.mainnet

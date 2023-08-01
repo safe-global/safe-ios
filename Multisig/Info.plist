@@ -80,6 +80,8 @@
 	<false/>
 	<key>GELATO_SERVICE_URL</key>
 	<string>$(GELATO_SERVICE_URL)</string>
+	<key>MOONPAY_SERVICE_URL</key>
+	<string>$(MOONPAY_SERVICE_URL)</string>
 	<key>GNOSIS_SAFE_WEB_URL</key>
 	<string>$(GNOSIS_SAFE_WEB_URL)</string>
 	<key>GUARD_URL</key>

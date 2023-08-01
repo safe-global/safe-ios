@@ -7,3 +7,23 @@
 //
 
 import Foundation
+
+struct CurrenciesRequest: JSONRequest {
+    var httpMethod: String { "GET" }
+
+    var urlPath: String {
+        "/v3/currencies?apiKey=\(App.configuration.services.moonpayKey)"
+    }
+
+    typealias ResponseType = [MoonpayModels.Currency]
+}
+
+extension MoonpayService {
+    func asyncCurrenciesRequest(completion: @escaping (Result<CurrenciesRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
+        asyncExecute(request: CurrenciesRequest(), completion: completion)
+    }
+
+    func syncCurrenciesRequest() throws -> [MoonpayModels.Currency] {
+        try execute(request: CurrenciesRequest())
+    }
+}

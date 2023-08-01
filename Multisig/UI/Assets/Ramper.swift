@@ -18,13 +18,19 @@ class Ramper: MoonpayCallbackInterface {
 
     private var address: String!
     private var chain: Chain!
+    private var currencies: [MoonpayModels.Currency] = []
+
+    static let shared = Ramper()
 
     init() {
         moonpay = MoonPayiOSSdk()
     }
 
-    func startOnRamp(address: String, chain: Chain) {
+    func config() {
+        currencies = (try? App.shared.moonpayService.syncCurrenciesRequest()) ?? []
+    }
 
+    func startOnRamp(address: String, chain: Chain) {
         self.address = address
         self.chain = chain
 
