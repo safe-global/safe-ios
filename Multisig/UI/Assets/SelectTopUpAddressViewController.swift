@@ -56,6 +56,7 @@ class SelectTopUpAddressViewController: LoadableViewController, UITableViewDeleg
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        Tracker.trackEvent(.screenSelectTopUpAddress)
     }
 
     override func reloadData() {
@@ -138,9 +139,11 @@ class SelectTopUpAddressViewController: LoadableViewController, UITableViewDeleg
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch sections[indexPath.section].section {
         case .safeAccount(_):
+            Tracker.trackEvent(.userTopUpSafeAccount)
             onSelect(safe.address!)
         case .owners(_):
             if case let Section.Owner.owner(info) = sections[indexPath.section].items[indexPath.row] {
+                Tracker.trackEvent(.userTopUpEOA)
                 onSelect(info.address.checksummed)
             }
         }

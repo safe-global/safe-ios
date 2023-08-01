@@ -453,6 +453,14 @@ enum TrackingEvent: String, Trackable {
     case userNotificationsSkip                     = "user_enable_notifications_skip"
     case userFaceIDEnable                          = "user_enable_face_ID"
     case userFaceIDSkip                            = "user_enable_face_ID_skip"
+
+    // Onramping
+
+    case userBuy                                   = "user_buying"
+    case userBuyCrypto                             = "user_buying_crypto"
+    case userTopUpEOA                              = "user_top_EOA"
+    case userTopUpSafeAccount                      = "user_top_safe_account"
+    case screenSelectTopUpAddress                  = "screen_select_top_up_address"
 }
 
 extension TrackingEvent {

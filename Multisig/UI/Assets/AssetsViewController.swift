@@ -83,7 +83,7 @@ class AssetsViewController: ContainerViewController {
             guard let safe = try? Safe.getSelected() else {
                 return
             }
-
+            Tracker.trackEvent(.userBuy)
             let vc = ViewControllerFactory.selectTopUpAddress(safe: safe)
 
             self?.present(vc, animated: true)

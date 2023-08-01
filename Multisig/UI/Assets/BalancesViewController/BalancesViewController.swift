@@ -97,6 +97,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                 return
             }
 
+            Tracker.trackEvent(.userBuyCrypto)
             let vc = ViewControllerFactory.selectTopUpAddress(safe: safe)
 
             self?.present(vc, animated: true)
