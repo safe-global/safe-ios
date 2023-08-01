@@ -10,6 +10,7 @@ import UIKit
 
 class BasicHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var backgroundColorView: UIView!
 
     static let headerHeight: CGFloat = 44
 
@@ -20,6 +21,6 @@ class BasicHeaderView: UITableViewHeaderFooterView {
 
     func setName(_ value: String, backgroundColor: UIColor = .backgroundPrimary, style: GNOTextStyle = .caption2Tertiary) {
         nameLabel.setAttributedText(value.uppercased(), style: style)
-        self.backgroundColor = backgroundColor
+        backgroundColorView.backgroundColor = backgroundColor
     }
 }

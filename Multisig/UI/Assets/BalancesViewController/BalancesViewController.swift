@@ -97,16 +97,10 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
                 return
             }
 
-            let vc = SelectTopUpAddressViewController()
-            vc.safe = safe
-            vc.onSelect = { [weak self] address in
-                self?.dismiss(animated: true, completion: {
-                    App.shared.ramper.startOnRamp(address: safe.address!, chain: safe.chain!)
-                })
-            }
+            Tracker.trackEvent(.userBuyCrypto)
+            let vc = ViewControllerFactory.selectTopUpAddress(safe: safe)
 
-            let nav = UINavigationController(rootViewController: vc)
-            self?.present(nav, animated: true)
+            self?.present(vc, animated: true)
         })
 
         NotificationCenter.default.addObserver(
