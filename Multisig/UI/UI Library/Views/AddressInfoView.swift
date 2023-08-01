@@ -27,6 +27,7 @@ class AddressInfoView: UINibView {
     private(set) var prefix: String?
     private(set) var label: String?
     private(set) var copyAddressEnabled: Bool = true
+    private(set) var showDetailNavigation: Bool = false
 
     var copyEnabled: Bool {
         get { !copyButton.isHidden }
@@ -69,6 +70,7 @@ class AddressInfoView: UINibView {
     ///   - badgeName: name of the badge asset image
     ///   - browseURL: if not nil, then the detail button will show that would open the browser to look for this address
     ///   - prefix: chain prefix
+    ///   - showDetailNavigation: whteher to show browseUrl of navigate to the key details page if the adress has been imported
     func setAddress(_ address: Address,
                     ensName: String? = nil,
                     label: String? = nil,
@@ -76,12 +78,14 @@ class AddressInfoView: UINibView {
                     showIdenticon: Bool = true,
                     badgeName: String? = nil,
                     browseURL: URL? = nil,
-                    prefix: String? = nil) {
+                    prefix: String? = nil,
+                    showDetailNavigation: Bool = false) {
         self.address = address
         self.ensName = ensName
         self.browseURL = browseURL
         self.prefix = prefix
         self.label = label
+        self.showDetailNavigation = showDetailNavigation
 
         if let label = label {
             textLabel.isHidden = false
@@ -97,7 +101,15 @@ class AddressInfoView: UINibView {
             identiconView.set(address: address, imageURL: imageUri, badgeName: badgeName)
         }
         identiconView.isHidden = !showIdenticon
-        detailButton.isHidden = browseURL == nil
+        //detailButton.isHidden = browseURL == nil && !showDetailNavigation
+        if showDetailNavigation {
+            let keyInfo = try? KeyInfo.keys(addresses: [address]).first
+            if let keyInfo = keyInfo {
+                detailButton.setImage(UIImage(systemName: "arrow"), for: .normal)
+            } else {
+                detailButton.setImage(UIImage(systemName: "ico-browse-address"), for: .normal)
+            }
+        }
     }
 
     // show address with identicon, and show label or address ellipsized.
@@ -190,9 +202,14 @@ class AddressInfoView: UINibView {
 
 extension UIViewController {
     @objc func didTapAddressInfoDetails(_ sender: AddressInfoView) {
-        if let url = sender.browseURL {
-            openInSafari(url)
+        if sender.showDetailNavigation,
+           let keyInfo = try? KeyInfo.firstKey(address: sender.address) {
+                let vc = OwnerKeyDetailsViewController(keyInfo: keyInfo)
+                show(vc, sender: self)
+        } else {
+            if let url = sender.browseURL {
+                openInSafari(url)
+            }
         }
     }
 }
-

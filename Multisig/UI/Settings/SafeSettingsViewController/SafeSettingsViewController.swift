@@ -426,7 +426,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                                     browseURL: URL? = nil,
                                     prefix: String? = nil) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: address, label: name, badgeName: badgeName, browseURL: browseURL, prefix: prefix)
+        
+        cell.setAccount(address: address, label: name, badgeName: badgeName, browseURL: browseURL, prefix: prefix, showDetailNavigation: true)
         // Remove separator line between address item and social login info box
         if socialOwnerOnly {
             cell.separatorInset = UIEdgeInsets(top: 0, left: cell.bounds.size.width, bottom: 0, right: 0)
