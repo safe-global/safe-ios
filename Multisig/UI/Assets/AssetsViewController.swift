@@ -83,17 +83,10 @@ class AssetsViewController: ContainerViewController {
             guard let safe = try? Safe.getSelected() else {
                 return
             }
+            Tracker.trackEvent(.userBuy)
+            let vc = ViewControllerFactory.selectTopUpAddress(safe: safe)
 
-            let vc = SelectTopUpAddressViewController()
-            vc.safe = safe
-            vc.onSelect = { [weak self] address in
-                self?.dismiss(animated: true, completion: {
-                    App.shared.ramper.startOnRamp(address: safe.address!, chain: safe.chain!)
-                })
-            }
-
-            let nav = UINavigationController(rootViewController: vc)
-            self?.present(nav, animated: true)
+            self?.present(vc, animated: true)
         }
 
         totalBalanceView.tokenBanner.isHidden = !shouldShowSafeTokenBanner

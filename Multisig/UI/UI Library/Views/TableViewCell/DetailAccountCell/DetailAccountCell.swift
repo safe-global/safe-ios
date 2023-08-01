@@ -13,6 +13,8 @@ class DetailAccountCell: UITableViewCell {
     @IBOutlet private weak var qrCodeView: QRCodeView!
     @IBOutlet private weak var warningView: WarningView!
 
+    static let headerHeight: CGFloat = 77
+
     func setAccount(address: Address, label: String? = nil,
                     title: String? = nil,
                     imageUri: URL? = nil,

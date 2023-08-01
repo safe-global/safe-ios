@@ -11,8 +11,11 @@ import UIKit
 class TableHeaderView: UINibView {
     @IBOutlet private weak var titleLabel: UILabel!
 
-    func set(_ title: String, style: GNOTextStyle = .body) {
+    func set(_ title: String, style: GNOTextStyle = .body, centered: Bool = false) {
         titleLabel.text = title
         titleLabel.setStyle(style)
+        if centered {
+            titleLabel.textAlignment = .center
+        }
     }
 }
