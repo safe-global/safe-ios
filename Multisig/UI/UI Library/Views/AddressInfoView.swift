@@ -15,6 +15,7 @@ class AddressInfoView: UINibView {
     @IBOutlet private weak var addressLabel: UILabel!
     @IBOutlet private weak var copyButton: UIButton!
     @IBOutlet private var detailButton: UIButton!
+    @IBOutlet private var browserButton: UIButton!
 
     @IBOutlet weak var iconHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var iconWidthConstraint: NSLayoutConstraint!
@@ -101,14 +102,19 @@ class AddressInfoView: UINibView {
             identiconView.set(address: address, imageURL: imageUri, badgeName: badgeName)
         }
         identiconView.isHidden = !showIdenticon
-        //detailButton.isHidden = browseURL == nil && !showDetailNavigation
+
         if showDetailNavigation {
             let keyInfo = try? KeyInfo.keys(addresses: [address]).first
-            if let keyInfo = keyInfo {
-                detailButton.setImage(UIImage(systemName: "arrow"), for: .normal)
+            if keyInfo != nil {
+                detailButton.isHidden = false
+                browserButton.isHidden = true
             } else {
-                detailButton.setImage(UIImage(systemName: "ico-browse-address"), for: .normal)
+                detailButton.isHidden = true
+                browserButton.isHidden = false
             }
+        } else {
+            detailButton.isHidden = true
+            browserButton.isHidden = false
         }
     }
 
