@@ -91,13 +91,12 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         appleWeb3AuthLogin = AppleWeb3AuthLogin(
             authorizationComplete: { [weak self] in
                 guard let self = self else { return }
+                
                 let view = self.factory.safeCreatingViewController()
-                view.onSuccess = { [weak self, unowned view] in
-                    view.dismiss(animated: true) {
-                        // The dismiss() should not be necessary here, but the SafeCreatingViewCobntroller is not dismissed, if omitted
-                        self?.stop(success: true)
-                    }
+                view.onSuccess = { [weak self] in
+                    self?.safeCreationSuccess()
                 }
+                self.navigationController.setNavigationBarHidden(true, animated: true)
                 self.show(view)
             }, keyGenerationComplete: { (key, email, error) in
                 self.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthApple, error: error)
@@ -115,12 +114,10 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         let authorizationComplete = { [weak self] in
             guard let self = self else { return }
             let view = self.factory.safeCreatingViewController()
-            view.onSuccess = { [weak self, unowned view] in
-                // The dismiss() should not be necessary here, but the SafeCreatingViewCobntroller is not dismissed, if omitted
-                view.dismiss(animated: true) {
-                    self?.stop(success: true)
-                }
+            view.onSuccess = { [weak self] in
+                self?.safeCreationSuccess()
             }
+            self.navigationController.setNavigationBarHidden(true, animated: true)
             self.show(view)
         }
         let keyGenerationComplete = { [weak self] (key, email, error) in
@@ -136,15 +133,16 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         loginModel!.loginWithCustomAuth()
     }
 
-    
     func storeKeyAndCreateSafe(key: String?, email: String?, keyType: KeyType, error: Error?) -> Void {
         if let error = error {
             App.shared.snackbar.show(error: GSError.Web3AuthGenericError(underlyingError: error))
+            stop(success: false)
             return
         }
         
         guard let key = key else {
             App.shared.snackbar.show(message: "Key was nil")
+            stop(success: false)
             return
         }
         
@@ -153,6 +151,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
             privateKey = try PrivateKey(data: Data(ethHex: key))
         } catch {
             App.shared.snackbar.show(message: "Failed to create a private key (\(error.localizedDescription)).")
+            stop(success: false)
             return
         }
 
@@ -161,6 +160,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
             keyInfo = try KeyInfo.firstKey(address: privateKey.address)
         } catch {
             App.shared.snackbar.show(message: "Failed to get a key (\(error.localizedDescription))")
+            stop(success: false)
             return
         }
         
@@ -175,10 +175,12 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                 )
             } catch {
                 App.shared.snackbar.show(message: "Failed to import key (\(error.localizedDescription))")
+                stop(success: false)
                 return
             }
         }
 
+        // Notify the UI observer
         NotificationCenter.default.post(name: .safeAccountOwnerCreated, object: nil)
 
         uiModel.delegate = self
@@ -208,12 +210,15 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     }
 
     func enableNotifications() {
+        enablePasscode()
+        return
+
+        // TODO: implement registering for notifications
         let vc = factory.safeAction(imageName: "ico-notifications",
                                     titleText: "Never miss a thing",
                                     descriptionText: "Turn on push notifications to track your wallet activity. You can also do this later.",
                                     primaryActionTitle: "Enable notifications",
                                     secondaryActionTitle: "Skip") { [unowned self] in
-            // TODO: register for notifications after safe created and before calling create passcode flow
             Tracker.trackEvent(.userNotificationsEnable)
             enablePasscode()
         } onSecondaryAction: { [unowned self] in
@@ -238,9 +243,9 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         if model.state == .ready && !didSubmit {
             model.relaySubmit()
             didSubmit = true
-        } else if model.state == .error,
-                  let error = model.gsError {
-            App.shared.snackbar.show(message: error.localizedDescription)
+        } else if model.state == .error {
+            let error = model.gsError ?? GSError.Web3AuthGenericError(underlyingError: "Failed to create a Safe")
+            App.shared.snackbar.show(error: error)
             self.stop(success: false)
         }
     }
