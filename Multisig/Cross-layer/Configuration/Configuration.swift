@@ -26,6 +26,9 @@ struct AppConfiguration {
         @ConfigurationKey("GELATO_SERVICE_URL")
         var gelatoRelayURL: URL
 
+        @ConfigurationKey("MOONPAY_SERVICE_URL")
+        var moonpayServiceURL: URL
+
         @ConfigurationKey("INFURA_API_KEY")
         var infuraKey: String
 
