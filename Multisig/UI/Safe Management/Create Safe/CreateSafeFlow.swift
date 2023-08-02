@@ -94,7 +94,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                 
                 let view = self.factory.safeCreatingViewController()
                 view.onSuccess = { [weak self] in
-                    self?.safeCreationSuccess()
+                    self?.enablePasscode()
                 }
                 self.navigationController.setNavigationBarHidden(true, animated: true)
                 self.show(view)
@@ -115,7 +115,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
             guard let self = self else { return }
             let view = self.factory.safeCreatingViewController()
             view.onSuccess = { [weak self] in
-                self?.safeCreationSuccess()
+                self?.enablePasscode()
             }
             self.navigationController.setNavigationBarHidden(true, animated: true)
             self.show(view)
@@ -202,6 +202,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         show(vc)
     }
 
+    // TODO: show this screen after the safe is deployed
     func safeCreationSuccess() {
         let vc = factory.safeCreationSuccessViewController(safe: safe, chain: chain) { [unowned self] in
             enableNotifications()
