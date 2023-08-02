@@ -219,10 +219,8 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                                     descriptionText: "Turn on push notifications to track your wallet activity. You can also do this later.",
                                     primaryActionTitle: "Enable notifications",
                                     secondaryActionTitle: "Skip") { [unowned self] in
-            Tracker.trackEvent(.userNotificationsEnable)
             enablePasscode()
         } onSecondaryAction: { [unowned self] in
-            Tracker.trackEvent(.userNotificationsSkip)
             stop(success: true)
         }
 

@@ -449,11 +449,6 @@ enum TrackingEvent: String, Trackable {
     case userLearnMore                             = "user_learn_more"
     case userAddOwner                              = "user_add_owner"
 
-    case userNotificationsEnable                   = "user_enable_notifications_enable"
-    case userNotificationsSkip                     = "user_enable_notifications_skip"
-    case userFaceIDEnable                          = "user_enable_face_ID"
-    case userFaceIDSkip                            = "user_enable_face_ID_skip"
-
     // Onramping
 
     case userBuy                                   = "user_buying"
