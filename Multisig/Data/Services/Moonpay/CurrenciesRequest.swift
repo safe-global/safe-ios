@@ -23,6 +23,7 @@ struct CurrenciesRequest: JSONRequest {
 }
 
 extension MoonpayService {
+    @discardableResult
     func asyncCurrenciesRequest(completion: @escaping (Result<CurrenciesRequest.ResponseType, Error>) -> Void) -> URLSessionTask? {
         asyncExecute(request: CurrenciesRequest(), completion: completion)
     }
