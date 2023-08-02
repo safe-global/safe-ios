@@ -5157,7 +5157,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ ${CONFIGURATION} = Release* ]]; then \n    \"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\nelse\n    echo \"Firebase Crashlytics script skipped: not in production\"\nfi\n";
+			shellScript = "if [[ ${CONFIGURATION} = Debug* ]]; then \n    # script copied from SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\n    \"${SRCROOT}/bin/crashlytics\"\nelse\n    echo \"Firebase Crashlytics script skipped: not in production\"\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
