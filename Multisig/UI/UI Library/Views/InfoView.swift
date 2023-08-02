@@ -25,8 +25,9 @@ class InfoView: UINibView {
         textLabel.setStyle(.subheadline1Medium)
     }
 
-    func set(text: String, background: UIColor = .backgroundLightGreen, status: Status? = nil) {
+    func set(text: String, background: UIColor = .backgroundLightGreen, status: Status? = nil, textStyle: GNOTextStyle = .subheadline1Medium) {
         textLabel.text = text
+        textLabel.setStyle(textStyle)
         self.backgroundColor = background
         if let status = status {
             set(status: status)

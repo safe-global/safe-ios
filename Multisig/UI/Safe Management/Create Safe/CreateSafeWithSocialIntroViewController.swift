@@ -27,6 +27,7 @@ class CreateSafeWithSocialIntroViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Create a Safe Account"
+        navigationItem.backButtonTitle = "Back"
         ribbonView.update(chain: chain)
         orLabel.setStyle(.caption1)
         appleButton.setText("Continue with Apple ID", .filled)

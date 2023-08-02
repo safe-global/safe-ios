@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/torusresearch/customauth-swift-sdk",
         "state": {
           "branch": null,
-          "revision": "a894ed86d3688d141626fd93580a13bd8d29fefa",
-          "version": "6.0.1"
+          "revision": "8ceba0ee4e65616a8602046dd1fd1ffcc4d29733",
+          "version": "6.0.0"
         }
       },
       {

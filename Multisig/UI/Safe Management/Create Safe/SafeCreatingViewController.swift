@@ -24,9 +24,18 @@ class SafeCreatingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        infoView1.set(text: "Creating an owner key for your Safe Account...", background: .clear, status: .loading)
-        infoView2.set(text: "Securing it with your social login...", background: .clear, status: .loading)
-        infoView3.set(text: "Creating your Safe Account...", background: .clear, status: .loading)
+        infoView1.set(text: "Creating an owner key for your Safe Account...",
+                      background: .clear,
+                      status: .loading,
+                      textStyle: .body)
+        infoView2.set(text: "Securing it with your social login...",
+                      background: .clear,
+                      status: .loading,
+                      textStyle: .body)
+        infoView3.set(text: "Creating your Safe Account...",
+                      background: .clear,
+                      status: .loading,
+                      textStyle: .body)
         titleLabel.setStyle(.title1)
         descriptionLabel.setStyle(.body)
         animationView.animation = LottieAnimation.named(isDarkMode ? "safeCreationDark" : "safeCreation",
