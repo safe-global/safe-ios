@@ -186,7 +186,9 @@ OTHER_LDFLAGS = $(inherited) -fprofile-instr-generate -ObjC
 // Set in https://console.cloud.google.com/apis/credentials?project=web3auth-safe&supportedpurview=project
 WEB3AUTH_GOOGLE_CLIENT_ID = YOUR_WEB3AUTH_GOOGLE_CLIENT_ID
 // Set in https://dashboard.web3auth.io/home/customauth
-WEB3AUTH_GOOGLE_VERIFIER = YOUR_WEB3AUTH_GOOGLE_VERIFIER
+WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE = YOUR_WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE
+WEB3AUTH_GOOGLE_VERIFIER_SUB = YOUR_WEB3AUTH_GOOGLE_VERIFIER_SUB
+
 // Use value from ios OAuth client. Credentials -> Safe{Wallet} (type ios) ->  Additional Information -> iOS URL scheme
 // Do not add :/$()/ at the end. It won't pass the build stage
 WEB3AUTH_REDIRECT_SCHEME = YOUR_WEB3AUTH_REDIRECT_SCHEME

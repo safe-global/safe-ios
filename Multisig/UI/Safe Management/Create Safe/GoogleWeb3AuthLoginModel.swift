@@ -17,11 +17,11 @@ class GoogleWeb3AuthLoginModel {
             let sub = SubVerifierDetails(loginType: .installed,
                                          loginProvider: .google,
                                          clientId: App.configuration.web3auth.googleClientId,
-                                         verifier: App.configuration.web3auth.googleVerifier,
+                                         verifier: App.configuration.web3auth.googleVerifierSub,
                                          redirectURL: App.configuration.web3auth.redirectScheme + GoogleWeb3AuthLoginModel.schemePostfix
             )
-            let tdsdk = CustomAuth(aggregateVerifierType: .singleLogin,
-                                   aggregateVerifier: App.configuration.web3auth.googleVerifier,
+            let tdsdk = CustomAuth(aggregateVerifierType: .singleIdVerifier,
+                                   aggregateVerifier: App.configuration.web3auth.googleVerifierAggregate,
                                    subVerifierDetails: [sub],
                                    network: .CYAN
             )
