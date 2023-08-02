@@ -198,8 +198,11 @@ struct AppConfiguration {
         @ConfigurationKey("WEB3AUTH_GOOGLE_CLIENT_ID")
         var googleClientId: String
 
-        @ConfigurationKey("WEB3AUTH_GOOGLE_VERIFIER")
-        var googleVerifier: String
+        @ConfigurationKey("WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE")
+        var googleVerifierAggregate: String
+
+        @ConfigurationKey("WEB3AUTH_GOOGLE_VERIFIER_SUB")
+        var googleVerifierSub: String
 
         @ConfigurationKey("WEB3AUTH_REDIRECT_SCHEME")
         var redirectScheme: String
