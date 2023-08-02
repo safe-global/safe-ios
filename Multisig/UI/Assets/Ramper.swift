@@ -55,7 +55,7 @@ class Ramper: MoonpayCallbackInterface {
         }
 
         let environment = App.configuration.services.environment == .production ? WidgetEnvironment.production : WidgetEnvironment.sandbox
-        let signature = sigature(address: address,
+        let signature = signature(address: address,
                                  chain: chain.shortName!,
                                  theme: theme,
                                  defaultCurrencyCode: chain.nativeCurrency!.symbol!,
@@ -99,7 +99,7 @@ class Ramper: MoonpayCallbackInterface {
         )
 
         moonpay.doInit(config: config)
-        moonpay.show(mode: .SafariOverlay())
+        moonpay.show(mode: .WebViewOverlay())
     }
 
     func startOffRamp() {
@@ -114,7 +114,7 @@ class Ramper: MoonpayCallbackInterface {
 
     }
 
-    private func sigature(address: String, chain: String, theme: String, defaultCurrencyCode: String, environment: String) -> String {
+    private func signature(address: String, chain: String, theme: String, defaultCurrencyCode: String, environment: String) -> String {
         let bytes = Array( "?apiKey=\(App.configuration.services.moonpayKey)&defaultCurrencyCode=\(defaultCurrencyCode)&walletAddresses=\(walletAddressesEncoded())&theme=\(theme)&themeId=\(MOONPAY_THEME_ID_SAFE)&language=en&baseCurrencyCode=\(AppSettings.selectedFiatCode)&mpSdk=%7B%22environment%22%3A%22\(environment)%22%2C%22flow%22%3A%22buy%22%2C%22version%22%3A%221.0%22%2C%22platform%22%3A%22iOS%22%7D".utf8)
 
         let key: Array<UInt8> = Array(App.configuration.services.moonpaySecretKey.utf8)
