@@ -27,7 +27,7 @@ pipeline {
         
         MOONPAY_STAGING_API_KEY = credentials('MOONPAY_STAGING_API_KEY')
         MOONPAY_PROD_API_KEY = credentials('MOONPAY_PROD_API_KEY')
-	    MOONPAY_STAGING_SECRET_KEY = credentials('MOONPAY_STAGING_SECRET_KEY')
+        MOONPAY_STAGING_SECRET_KEY = credentials('MOONPAY_STAGING_SECRET_KEY')
         MOONPAY_PROD_SECRET_KEY = credentials('MOONPAY_PROD_SECRET_KEY')
         
         ENCRYPTION_KEY = credentials('ENCRYPTION_KEY')
