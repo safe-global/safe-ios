@@ -54,7 +54,6 @@ class LoadSafeViewController: UIViewController {
     }
 
     @IBAction private func didTapLoadSafe(_ sender: Any) {
-        Tracker.trackEvent(.addSafeFromOnboarding)
         let selectNetworkVC = SelectNetworkViewController()
         selectNetworkVC.screenTitle = "Load Safe Account"
         selectNetworkVC.descriptionText = "Select network on which your Safe Account was created:"
@@ -73,7 +72,6 @@ class LoadSafeViewController: UIViewController {
     }
 
     @IBAction func didTapCreateSafe(_ sender: Any) {
-        Tracker.trackEvent(.createSafeFromOnboarding)
         createSafeFlow = CreateSafeFlow(completion: { [unowned self] _ in
             createSafeFlow = nil
         })
