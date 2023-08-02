@@ -73,7 +73,7 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </stackView>
-                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6lD-yN-uXE" userLabel="details">
+                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6lD-yN-uXE" userLabel="Blockchain Explorer Button">
                                     <rect key="frame" x="261" y="0.0" width="44" height="52"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="peA-gz-lMq"/>
@@ -83,7 +83,7 @@
                                         <action selector="didTapDetailButton" destination="-1" eventType="touchUpInside" id="rG5-23-yOz"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="right" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wpR-pO-EBP" userLabel="explorer">
+                                <button opaque="NO" contentMode="right" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wpR-pO-EBP" userLabel="Key Details Button">
                                     <rect key="frame" x="305" y="0.0" width="44" height="52"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="erm-QC-7Yf"/>
