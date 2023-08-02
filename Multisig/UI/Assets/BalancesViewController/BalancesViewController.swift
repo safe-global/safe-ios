@@ -28,9 +28,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             if let firstItem = sections.first {
                 switch firstItem {
                 case .balances(let items):
-                    if items.count == 1 && items.first?.balance == "0" {
-                        result = true
-                    }
+                    result = isEmptyAccount(items: items)
                 default:
                     break
                 }
@@ -180,9 +178,9 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             onError(GSError.error(description: "Failed to load balances", error: error))
         }
     }
-
+    
     private func makeSections(items: [TokenBalance]) -> [Section] {
-        guard !items.isEmpty else { return [] }
+        guard !isEmptyAccount(items: items) else { return [] }
 
         var sections = [Section]()
 
@@ -194,6 +192,10 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
 
         sections.append(.balances(items: items))
         return sections
+    }
+    
+    private func isEmptyAccount(items: [TokenBalance]) -> Bool {
+        items.isEmpty || items.count == 1 && items.first?.balance == "0"
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
