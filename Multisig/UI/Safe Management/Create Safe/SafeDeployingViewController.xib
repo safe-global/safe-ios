@@ -100,6 +100,11 @@
             <point key="canvasLocation" x="131.8840579710145" y="125.89285714285714"/>
         </view>
     </objects>
+    <designables>
+        <designable name="gHo-3D-eRz">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
+    </designables>
     <resources>
         <namedColor name="backgroundPrimary">
             <color red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
