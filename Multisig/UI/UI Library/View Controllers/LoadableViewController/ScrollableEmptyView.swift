@@ -36,14 +36,14 @@ class ScrollableEmptyView: UINibView {
         imageView.image = value
     }
 
-    func setDescription(_ value: String) {
+    func setDescription(_ value: String?) {
         descriptionLabel.text = value
-        descriptionLabel.isHidden = false
+        descriptionLabel.isHidden = value?.isEmpty ?? true
     }
 
-    func setAction(text: String, action: @escaping () -> Void) {
+    func setAction(text: String?, action: @escaping () -> Void) {
         actionButton.setText(text, .filled)
-        actionButton.isHidden = false
+        actionButton.isHidden = text?.isEmpty ?? true
         onAction = action
     }
 

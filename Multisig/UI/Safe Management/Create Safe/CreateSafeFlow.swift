@@ -94,7 +94,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                 
                 let view = self.factory.safeCreatingViewController()
                 view.onSuccess = { [weak self] in
-                    self?.safeCreationSuccess()
+                    self?.enablePasscode()
                 }
                 self.navigationController.setNavigationBarHidden(true, animated: true)
                 self.show(view)
@@ -115,7 +115,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
             guard let self = self else { return }
             let view = self.factory.safeCreatingViewController()
             view.onSuccess = { [weak self] in
-                self?.safeCreationSuccess()
+                self?.enablePasscode()
             }
             self.navigationController.setNavigationBarHidden(true, animated: true)
             self.show(view)
@@ -202,6 +202,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         show(vc)
     }
 
+    // TODO: show this screen after the safe is deployed
     func safeCreationSuccess() {
         let vc = factory.safeCreationSuccessViewController(safe: safe, chain: chain) { [unowned self] in
             enableNotifications()
@@ -219,10 +220,8 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                                     descriptionText: "Turn on push notifications to track your wallet activity. You can also do this later.",
                                     primaryActionTitle: "Enable notifications",
                                     secondaryActionTitle: "Skip") { [unowned self] in
-            Tracker.trackEvent(.userNotificationsEnable)
             enablePasscode()
         } onSecondaryAction: { [unowned self] in
-            Tracker.trackEvent(.userNotificationsSkip)
             stop(success: true)
         }
 

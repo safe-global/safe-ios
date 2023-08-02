@@ -55,13 +55,9 @@ class CreatePasscodeFlow: UIFlow {
 
         //   if device supports it, ask if to enable biometry
         let biometryAlert = factory.enableBiometryAlert { [unowned self] in
-
             // if user enabled biometry, we finish
             if AppSettings.securityLockMethod == .userPresence {
-                Tracker.trackEvent(.userFaceIDEnable)
                 stop(success: true)
-            } else {
-                Tracker.trackEvent(.userFaceIDSkip)
             }
             // otherwise, alert is dismissed to show the passcode screen.
         }

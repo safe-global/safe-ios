@@ -26,6 +26,9 @@ struct AppConfiguration {
         @ConfigurationKey("GELATO_SERVICE_URL")
         var gelatoRelayURL: URL
 
+        @ConfigurationKey("MOONPAY_SERVICE_URL")
+        var moonpayServiceURL: URL
+
         @ConfigurationKey("INFURA_API_KEY")
         var infuraKey: String
 
@@ -195,8 +198,11 @@ struct AppConfiguration {
         @ConfigurationKey("WEB3AUTH_GOOGLE_CLIENT_ID")
         var googleClientId: String
 
-        @ConfigurationKey("WEB3AUTH_GOOGLE_VERIFIER")
-        var googleVerifier: String
+        @ConfigurationKey("WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE")
+        var googleVerifierAggregate: String
+
+        @ConfigurationKey("WEB3AUTH_GOOGLE_VERIFIER_SUB")
+        var googleVerifierSub: String
 
         @ConfigurationKey("WEB3AUTH_REDIRECT_SCHEME")
         var redirectScheme: String

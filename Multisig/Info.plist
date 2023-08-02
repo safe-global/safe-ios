@@ -23,7 +23,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.22.0</string>
+	<string>3.23.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -80,6 +80,8 @@
 	<false/>
 	<key>GELATO_SERVICE_URL</key>
 	<string>$(GELATO_SERVICE_URL)</string>
+	<key>MOONPAY_SERVICE_URL</key>
+	<string>$(MOONPAY_SERVICE_URL)</string>
 	<key>GNOSIS_SAFE_WEB_URL</key>
 	<string>$(GNOSIS_SAFE_WEB_URL)</string>
 	<key>GUARD_URL</key>
@@ -294,8 +296,10 @@
 	<string>$(WEB3AUTH_APPLE_VERIFIER_AGGREGATE)</string>
 	<key>WEB3AUTH_GOOGLE_CLIENT_ID</key>
 	<string>$(WEB3AUTH_GOOGLE_CLIENT_ID)</string>
-	<key>WEB3AUTH_GOOGLE_VERIFIER</key>
-	<string>$(WEB3AUTH_GOOGLE_VERIFIER)</string>
+	<key>WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE</key>
+	<string>$(WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE)</string>
+	<key>WEB3AUTH_GOOGLE_VERIFIER_SUB</key>
+	<string>$(WEB3AUTH_GOOGLE_VERIFIER_SUB)</string>
 	<key>WEB3AUTH_REDIRECT_SCHEME</key>
 	<string>$(WEB3AUTH_REDIRECT_SCHEME)</string>
 </dict>
