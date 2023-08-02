@@ -88,19 +88,6 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             importKeyBannerWasShown = true
         }
 
-        emptyView.setTitle("Add some crypto to get started")
-        emptyView.setDescription("Buy crypto directly with your credit card or a bank account")
-        emptyView.setAction(text: "Buy crypto", action: { [weak self] in
-            guard let safe = try? Safe.getSelected() else {
-                return
-            }
-
-            Tracker.trackEvent(.userBuyCrypto)
-            let vc = ViewControllerFactory.selectTopUpAddress(safe: safe)
-
-            self?.present(vc, animated: true)
-        })
-
         NotificationCenter.default.addObserver(
             self, selector: #selector(ownerKeyImported), name: .ownerKeyImported, object: nil)
 
@@ -133,6 +120,24 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         super.reloadData()
         currentDataTask?.cancel()
         do {
+            if let safe = try? Safe.getSelected(), safe.chain?.isSupported(feature: .onramp) ?? false {
+                emptyView.setTitle("Add some crypto to get started")
+                emptyView.setDescription("Buy crypto directly with your credit card or a bank account")
+                emptyView.setAction(text: "Buy crypto", action: { [weak self] in
+                    guard let safe = try? Safe.getSelected() else {
+                        return
+                    }
+
+                    Tracker.trackEvent(.userBuyCrypto)
+                    let vc = ViewControllerFactory.selectTopUpAddress(safe: safe)
+
+                    self?.present(vc, animated: true)
+                })
+            } else {
+                emptyView.setTitle("Balances will appear here")
+                emptyView.setDescription(nil)
+                emptyView.setAction(text: nil) { }
+            }
             guard let safe = try Safe.getSelected() else {
                 return
             }
