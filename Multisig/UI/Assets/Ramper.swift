@@ -47,6 +47,11 @@ class Ramper: MoonpayCallbackInterface {
         self.address = address
         self.chain = chain
 
+        guard !chainCurrencies.isEmpty else {
+            App.shared.snackbar.show(message: "No currencies supported on the selected chain")
+            return
+        }
+
         var theme = "light"
         // use dark safe theme if appearance app setting is set to dark
         // or if appearance app setting is set to auto and device uses dark mode
@@ -56,15 +61,15 @@ class Ramper: MoonpayCallbackInterface {
 
         let environment = App.configuration.services.environment == .production ? WidgetEnvironment.production : WidgetEnvironment.sandbox
         let signature = signature(address: address,
-                                 chain: chain.shortName!,
-                                 theme: theme,
-                                 defaultCurrencyCode: chain.nativeCurrency!.symbol!,
-                                 environment: environment.description().lowercased())
+                                  chain: chain.shortName!,
+                                  theme: theme,
+                                  defaultCurrencyCode: chainCurrencies.first!.code,
+                                  environment: environment.description().lowercased())
 
         let params = OnrampWidgetQueryParams(
             apiKey: App.configuration.services.moonpayKey,
             currencyCode: nil,
-            defaultCurrencyCode: chain.nativeCurrency!.symbol!,
+            defaultCurrencyCode: chainCurrencies.first!.code,
             walletAddress: nil,
             walletAddressTag: nil,
             walletAddresses: walletAddresses(),

@@ -42,6 +42,12 @@ class TotalBalanceView: UINibView {
             sendButton.isEnabled = sendEnabled
         }
     }
+
+    var buyEnabled: Bool = false {
+        didSet {
+            buyButton.isHidden = !buyEnabled
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
