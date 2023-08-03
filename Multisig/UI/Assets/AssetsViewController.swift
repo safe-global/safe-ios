@@ -165,6 +165,6 @@ class AssetsViewController: ContainerViewController {
         self.safe = notification.object as? Safe
         totalBalanceView.tokenBanner.isHidden = !shouldShowSafeTokenBanner
         totalBalanceView.relayInfoBanner.isHidden = !shouldShowRelayBanner
-        totalBalanceView.buyEnabled = safe?.chain?.isSupported(feature: .onramp) ?? false
+        totalBalanceView.buyEnabled = safe?.chain?.isSupported(feature: .moonpay) ?? false
     }
 }
