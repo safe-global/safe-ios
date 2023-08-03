@@ -90,7 +90,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                 
                 let view = self.factory.safeCreatingViewController()
                 view.onSuccess = { [weak self] in
-                    self?.enablePasscode()
+                    self?.stop(success: true)
                 }
                 self.navigationController.setNavigationBarHidden(true, animated: true)
                 self.show(view)
@@ -111,7 +111,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
             guard let self = self else { return }
             let view = self.factory.safeCreatingViewController()
             view.onSuccess = { [weak self] in
-                self?.enablePasscode()
+                self?.stop(success: true)
             }
             self.navigationController.setNavigationBarHidden(true, animated: true)
             self.show(view)
