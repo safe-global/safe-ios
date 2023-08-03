@@ -50,7 +50,16 @@ class AssetsViewController: ContainerViewController {
             object: nil)
         
         NotificationCenter.default.addObserver(
-            self, selector: #selector(selectedSafeUpdatedReceived), name: .selectedSafeUpdated, object: nil)
+            self,
+            selector: #selector(selectedSafeUpdatedReceived),
+            name: .selectedSafeUpdated,
+            object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(selectionChanged),
+            name: .selectedSafeChanged,
+            object: nil)
         
         totalBalanceView.onReceivedClicked = { [weak self] in
             let vc = SafeInfoViewController()
@@ -166,5 +175,9 @@ class AssetsViewController: ContainerViewController {
         totalBalanceView.tokenBanner.isHidden = !shouldShowSafeTokenBanner
         totalBalanceView.relayInfoBanner.isHidden = !shouldShowRelayBanner
         totalBalanceView.buyEnabled = safe?.chain?.isSupported(feature: .onramp) ?? false
+    }
+    
+    @objc private func selectionChanged(notification: Notification) {
+        self.safe = try? Safe.getSelected()
     }
 }
