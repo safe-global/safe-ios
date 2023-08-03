@@ -286,12 +286,24 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             let (name, _) = NamingPolicy.name(for: info.address,
                                                         info: info,
                                                         chainId: safe.chain!.id!)
-            return addressDetailsCell(address: info.address,
+            var browseUrl: URL? = nil
+            if keyInfo == nil {
+                 browseUrl = safe.chain!.browserURL(address: info.address.checksummed)
+            }
+            let cell = addressDetailsCell(address: info.address,
                                       name: keyInfo?.displayName,
                                       indexPath: indexPath,
                                       badgeName: keyInfo?.keyType.badgeName,
-                                      browseURL: safe.chain!.browserURL(address: info.address.checksummed),
+                                      browseURL: browseUrl,
                                       prefix: safe.chain!.shortName)
+            cell.selectionStyle = .default
+            if keyInfo == nil {
+                cell.accessoryType = .none
+            } else {
+                cell.accessoryType = .disclosureIndicator
+            }
+
+            return cell
 
         case Section.OwnerAddresses.socialLoginInfoBox:
             let infoBoxCell = tableView.dequeueCell(SocialLoginInfoTableViewCell.self, for: indexPath)
@@ -426,7 +438,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                                     browseURL: URL? = nil,
                                     prefix: String? = nil) -> UITableViewCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
-        cell.setAccount(address: address, label: name, badgeName: badgeName, browseURL: browseURL, prefix: prefix)
+        let keyInfo = try? KeyInfo.keys(addresses: [address]).first
+        let copyEnabled = keyInfo == nil
+        cell.setAccount(address: address, label: name, badgeName: badgeName, copyEnabled: copyEnabled,  browseURL: browseURL, prefix: prefix)
         // Remove separator line between address item and social login info box
         if socialOwnerOnly {
             cell.separatorInset = UIEdgeInsets(top: 0, left: cell.bounds.size.width, bottom: 0, right: 0)
@@ -496,6 +510,12 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             let advancedSafeSettingsViewController = AdvancedSafeSettingsViewController()
             let ribbon = RibbonViewController(rootViewController: advancedSafeSettingsViewController)
             show(ribbon, sender: self)
+        case Section.OwnerAddresses.ownerInfo(let addressInfo):
+            let keyInfo = try? KeyInfo.keys(addresses: [addressInfo.address]).first
+            if let keyInfo = keyInfo {
+                let vc = OwnerKeyDetailsViewController(keyInfo: keyInfo)
+                show(vc, sender: self)
+            }
         default:
             break
         }
