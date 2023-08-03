@@ -111,7 +111,7 @@ final class HeaderViewController: ContainerViewController {
 
         switchSafesVC.onCreateSafe = { [weak self] in
             Tracker.trackEvent(.createSafeFromSwitchSafes)
-            self?.dismiss(animated: true) {
+            self?.dismiss(animated: true) { [weak self] in
                 guard let self = self else { return }
                 self.createSafeFlow = CreateSafeFlow(completion: { [weak self] _ in
                     self?.createSafeFlow = nil
