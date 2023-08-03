@@ -24,14 +24,12 @@ class DetailAccountCell: UITableViewCell {
                     browseURL: URL? = nil,
                     prefix: String? = nil,
                     titleStyle: GNOTextStyle = .headline,
-                    showDelegateWarning: Bool = false,
-                    showDetailNavigation: Bool = false) {
+                    showDelegateWarning: Bool = false) {
         addressInfoView.setAddress(address, label: label,
                                    imageUri: imageUri,
                                    badgeName: badgeName,
                                    browseURL: browseURL,
-                                   prefix: prefix,
-                                   showDetailNavigation: showDetailNavigation)
+                                   prefix: prefix)
         addressInfoView.setTitle(title, style: titleStyle)
         qrCodeView.isHidden = !showQRCode
         qrCodeView.value = address.checksummed

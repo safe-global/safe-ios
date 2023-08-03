@@ -440,7 +440,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
         let keyInfo = try? KeyInfo.keys(addresses: [address]).first
         let copyEnabled = keyInfo == nil
-        cell.setAccount(address: address, label: name, badgeName: badgeName, copyEnabled: copyEnabled,  browseURL: browseURL, prefix: prefix, showDetailNavigation: true)
+        cell.setAccount(address: address, label: name, badgeName: badgeName, copyEnabled: copyEnabled,  browseURL: browseURL, prefix: prefix)
         // Remove separator line between address item and social login info box
         if socialOwnerOnly {
             cell.separatorInset = UIEdgeInsets(top: 0, left: cell.bounds.size.width, bottom: 0, right: 0)
