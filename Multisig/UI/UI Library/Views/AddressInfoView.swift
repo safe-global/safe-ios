@@ -27,7 +27,6 @@ class AddressInfoView: UINibView {
     private(set) var prefix: String?
     private(set) var label: String?
     private(set) var copyAddressEnabled: Bool = true
-    private(set) var showDetailNavigation: Bool = false
 
     var copyEnabled: Bool {
         get { !copyButton.isHidden }
@@ -78,14 +77,12 @@ class AddressInfoView: UINibView {
                     showIdenticon: Bool = true,
                     badgeName: String? = nil,
                     browseURL: URL? = nil,
-                    prefix: String? = nil,
-                    showDetailNavigation: Bool = false) {
+                    prefix: String? = nil) {
         self.address = address
         self.ensName = ensName
         self.browseURL = browseURL
         self.prefix = prefix
         self.label = label
-        self.showDetailNavigation = showDetailNavigation
 
         if let label = label {
             textLabel.isHidden = false
