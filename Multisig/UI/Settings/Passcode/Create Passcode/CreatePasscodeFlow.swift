@@ -105,7 +105,7 @@ class CreatePasscodeFlow: UIFlow {
 
             stop(success: true)
         }
-        repeatVC.skipCompletion = { [unowned self] in
+        repeatVC.skipCompletion = { [unowned self, unowned repeatVC] in
             // passcode repeat was skipped, so we finish with failure
 
             // reset passcode from memory
