@@ -69,7 +69,6 @@ class AddressInfoView: UINibView {
     ///   - badgeName: name of the badge asset image
     ///   - browseURL: if not nil, then the detail button will show that would open the browser to look for this address
     ///   - prefix: chain prefix
-    ///   - showDetailNavigation: whether to show browseUrl or navigate to the key details page if the key for that address has been imported
     func setAddress(_ address: Address,
                     ensName: String? = nil,
                     label: String? = nil,
