@@ -14,8 +14,7 @@ class AddressInfoView: UINibView {
     @IBOutlet private weak var textLabel: UILabel!
     @IBOutlet private weak var addressLabel: UILabel!
     @IBOutlet private weak var copyButton: UIButton!
-    @IBOutlet private var detailButton: UIButton!
-    @IBOutlet private var browserButton: UIButton!
+    @IBOutlet private weak var browserButton: UIButton!
 
     @IBOutlet weak var iconHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var iconWidthConstraint: NSLayoutConstraint!
@@ -102,20 +101,7 @@ class AddressInfoView: UINibView {
             identiconView.set(address: address, imageURL: imageUri, badgeName: badgeName)
         }
         identiconView.isHidden = !showIdenticon
-
-        if showDetailNavigation {
-            let keyInfo = try? KeyInfo.keys(addresses: [address]).first
-            if keyInfo != nil {
-                detailButton.isHidden = false
-                browserButton.isHidden = true
-            } else {
-                detailButton.isHidden = true
-                browserButton.isHidden = false
-            }
-        } else {
-            detailButton.isHidden = true
-            browserButton.isHidden = false
-        }
+        browserButton.isHidden = browseURL == nil
     }
 
     // show address with identicon, and show label or address ellipsized.
@@ -154,7 +140,7 @@ class AddressInfoView: UINibView {
                           placeholderImage: placeholderImage,
                           badgeName: badgeName)
 
-        detailButton.isHidden = browseURL == nil
+        browserButton.isHidden = browseURL == nil
     }
 
     @IBAction private func didTapDetailButton() {

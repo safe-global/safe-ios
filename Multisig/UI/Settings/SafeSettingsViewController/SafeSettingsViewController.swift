@@ -286,12 +286,24 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             let (name, _) = NamingPolicy.name(for: info.address,
                                                         info: info,
                                                         chainId: safe.chain!.id!)
-            return addressDetailsCell(address: info.address,
+            var browseUrl: URL? = nil
+            if keyInfo == nil {
+                 browseUrl = safe.chain!.browserURL(address: info.address.checksummed)
+            }
+            let cell = addressDetailsCell(address: info.address,
                                       name: keyInfo?.displayName,
                                       indexPath: indexPath,
                                       badgeName: keyInfo?.keyType.badgeName,
-                                      browseURL: safe.chain!.browserURL(address: info.address.checksummed),
+                                      browseURL: browseUrl,
                                       prefix: safe.chain!.shortName)
+            cell.selectionStyle = .default
+            if keyInfo == nil {
+                cell.accessoryType = .none
+            } else {
+                cell.accessoryType = .disclosureIndicator
+            }
+
+            return cell
 
         case Section.OwnerAddresses.socialLoginInfoBox:
             let infoBoxCell = tableView.dequeueCell(SocialLoginInfoTableViewCell.self, for: indexPath)
