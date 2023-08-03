@@ -96,23 +96,24 @@ class CreatePasscodeFlow: UIFlow {
 
     func repeatPasscodeV2(passcode: String) {
         let repeatVC = factory.repeatPasscode(passcode)
-        repeatVC.completion = { [unowned self, unowned repeatVC] in
+        repeatVC.completion = { [weak self, weak repeatVC] in
             // repeated passcode was matching entered passcode, so we finish with success.
-            userPasscode = repeatVC.passcode
+            self?.userPasscode = repeatVC?.passcode
 
             // reset from memory
-            repeatVC.passcode = nil
+            repeatVC?.passcode = nil
 
-            stop(success: true)
+            self?.stop(success: true)
         }
-        repeatVC.skipCompletion = { [unowned self, unowned repeatVC] in
+        repeatVC.skipCompletion = { [weak self, weak repeatVC] in
             // passcode repeat was skipped, so we finish with failure
 
             // reset passcode from memory
-            repeatVC.passcode = nil
+            repeatVC?.passcode = nil
 
-            stop(success: false)
+            self?.stop(success: false)
         }
+
         show(repeatVC)
     }
 
