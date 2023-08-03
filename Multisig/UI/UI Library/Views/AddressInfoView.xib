@@ -11,8 +11,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="addressLabel" destination="7W9-8E-b4N" id="VoN-mi-qiW"/>
-                <outlet property="browserButton" destination="6lD-yN-uXE" id="OYT-zM-jcy"/>
                 <outlet property="copyButton" destination="R5S-g3-hhS" id="nyg-fw-AKq"/>
+                <outlet property="detailButton" destination="6lD-yN-uXE" id="j0S-I4-XbE"/>
                 <outlet property="iconHeightConstraint" destination="Wb0-zh-q3M" id="1dl-h3-USk"/>
                 <outlet property="iconWidthConstraint" destination="hXo-NT-Du3" id="J8C-6B-uUb"/>
                 <outlet property="identiconView" destination="m2N-AO-TdO" id="uCd-7s-cd5"/>
