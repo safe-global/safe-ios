@@ -14,7 +14,7 @@ class AddressInfoView: UINibView {
     @IBOutlet private weak var textLabel: UILabel!
     @IBOutlet private weak var addressLabel: UILabel!
     @IBOutlet private weak var copyButton: UIButton!
-    @IBOutlet private weak var browserButton: UIButton!
+    @IBOutlet private var browserButton: UIButton!
 
     @IBOutlet weak var iconHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var iconWidthConstraint: NSLayoutConstraint!
