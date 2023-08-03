@@ -57,22 +57,21 @@ extension AppleWeb3AuthLogin: ASAuthorizationControllerDelegate {
                                                                         redirectURL: "")
                     )
                     
-                    await MainActor.run(body: {
+                    await MainActor.run(body: { [weak self] in
+                        guard let self = self else { return }
                         let key = data["privateKey"] as? String
                         if let key = key {
-                            keyGenerationComplete(key, email, nil)
+                            self.keyGenerationComplete(key, email, nil)
                         } else {
                             let error = GSError.Web3AuthGenericError(underlyingError: "No key generated/found")
-                            keyGenerationComplete(nil, nil, error)
+                            self.keyGenerationComplete(nil, nil, error)
                         }
                     })
                 } catch {
-                    await MainActor.run(body: {
-                        keyGenerationComplete(nil, nil, error)
+                    await MainActor.run(body: { [weak self] in
+                        self?.keyGenerationComplete(nil, nil, error)
                     })
                 }
-
-                
             }
         default:
             keyGenerationComplete(nil, nil, "Apple ID authorization failed (missing credentials)")
