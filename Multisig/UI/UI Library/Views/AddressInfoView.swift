@@ -194,14 +194,8 @@ class AddressInfoView: UINibView {
 
 extension UIViewController {
     @objc func didTapAddressInfoDetails(_ sender: AddressInfoView) {
-        if sender.showDetailNavigation,
-           let keyInfo = try? KeyInfo.firstKey(address: sender.address) {
-                let vc = OwnerKeyDetailsViewController(keyInfo: keyInfo)
-                show(vc, sender: self)
-        } else {
-            if let url = sender.browseURL {
-                openInSafari(url)
-            }
+        if let url = sender.browseURL {
+            openInSafari(url)
         }
     }
 }
