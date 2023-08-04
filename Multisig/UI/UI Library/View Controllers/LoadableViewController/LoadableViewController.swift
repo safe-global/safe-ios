@@ -161,8 +161,8 @@ class LoadableViewController: UIViewController {
             showOnly(view: emptyView)
         } else {
             showOnly(view: tableView)
-            tableView.reloadData()
         }
+        tableView.reloadData()
     }
 
     // subclassable
