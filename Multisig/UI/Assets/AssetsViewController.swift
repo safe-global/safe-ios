@@ -89,7 +89,6 @@ class AssetsViewController: ContainerViewController {
             self?.present(vc, animated: true)
         }
 
-        totalBalanceView.tokenBanner.isHidden = !shouldShowSafeTokenBanner
         totalBalanceView.tokenBanner.onClaim = { [unowned self] in
             guard let safe = try? Safe.getSelected() else {
                 return
@@ -107,7 +106,6 @@ class AssetsViewController: ContainerViewController {
             Tracker.trackEvent(.bannerSafeTokenSkip)
         }
 
-        totalBalanceView.relayInfoBanner.isHidden = !shouldShowRelayBanner
         totalBalanceView.relayInfoBanner.onOpen = { [unowned self] in
             // open article in V1
             // Educational series will be shown in V2 of the relayer
@@ -119,6 +117,10 @@ class AssetsViewController: ContainerViewController {
             totalBalanceView.relayInfoBanner.isHidden = !shouldShowRelayBanner
             Tracker.trackEvent(.bannerRelaySkip)
         }
+
+        safe = try? Safe.getSelected()
+
+        updateSafeOptions()
     }
 
     private var shouldShowRelayBanner: Bool {
@@ -163,6 +165,10 @@ class AssetsViewController: ContainerViewController {
     
     @objc private func selectedSafeUpdatedReceived(notification: Notification) {
         self.safe = notification.object as? Safe
+        updateSafeOptions()
+    }
+
+    private func updateSafeOptions() {
         totalBalanceView.tokenBanner.isHidden = !shouldShowSafeTokenBanner
         totalBalanceView.relayInfoBanner.isHidden = !shouldShowRelayBanner
         totalBalanceView.buyEnabled = safe?.chain?.isSupported(feature: .moonpay) ?? false
