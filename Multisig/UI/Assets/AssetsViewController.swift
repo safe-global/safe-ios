@@ -48,6 +48,13 @@ class AssetsViewController: ContainerViewController {
             selector: #selector(updateBalances),
             name: .balanceUpdated,
             object: nil)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(selectedSafeChangedReceived),
+            name: .selectedSafeChanged,
+            object: nil)
+
         
         NotificationCenter.default.addObserver(
             self, selector: #selector(selectedSafeUpdatedReceived), name: .selectedSafeUpdated, object: nil)
@@ -165,6 +172,11 @@ class AssetsViewController: ContainerViewController {
     
     @objc private func selectedSafeUpdatedReceived(notification: Notification) {
         self.safe = notification.object as? Safe
+        updateSafeOptions()
+    }
+
+    @objc private func selectedSafeChangedReceived(notification: Notification) {
+        self.safe = try? Safe.getSelected()
         updateSafeOptions()
     }
 
