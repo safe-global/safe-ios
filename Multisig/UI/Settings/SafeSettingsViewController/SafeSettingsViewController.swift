@@ -293,7 +293,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             let cell = addressDetailsCell(address: info.address,
                                       name: keyInfo?.displayName,
                                       indexPath: indexPath,
-                                      badgeName: keyInfo?.keyType.badgeName,
+                                      badgeName: "bdg-key-type-web3auth-apple", //keyInfo?.keyType.badgeName,
                                       browseURL: browseUrl,
                                       prefix: safe.chain!.shortName)
             cell.selectionStyle = .default
