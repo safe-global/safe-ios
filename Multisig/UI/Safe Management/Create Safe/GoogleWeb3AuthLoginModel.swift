@@ -23,7 +23,8 @@ class GoogleWeb3AuthLoginModel {
             let tdsdk = CustomAuth(aggregateVerifierType: .singleIdVerifier,
                                    aggregateVerifier: App.configuration.web3auth.googleVerifierAggregate,
                                    subVerifierDetails: [sub],
-                                   network: .CYAN
+                                   network: .CYAN,
+                                   enableOneKey: true
             )
 
             do {

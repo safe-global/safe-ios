@@ -42,7 +42,8 @@ extension AppleWeb3AuthLogin: ASAuthorizationControllerDelegate {
                 let tdsdk = CustomAuth(aggregateVerifierType: .singleLogin,
                         aggregateVerifier: App.configuration.web3auth.appleVerifier,
                         subVerifierDetails: [],
-                        network: .CYAN
+                        network: .CYAN,
+                        enableOneKey: true
                 )
 
                 do {
