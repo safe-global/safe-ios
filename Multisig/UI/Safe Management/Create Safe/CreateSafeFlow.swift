@@ -80,10 +80,6 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     }
 
     func appleLogin() {
-        handleAuthorizationAppleIDButtonPress()
-    }
-
-    func handleAuthorizationAppleIDButtonPress() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
@@ -94,12 +90,12 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
                 
                 let view = self.factory.safeCreatingViewController()
                 view.onSuccess = { [weak self] in
-                    self?.enablePasscode()
+                    self?.stop(success: true)
                 }
                 self.navigationController.setNavigationBarHidden(true, animated: true)
                 self.show(view)
-            }, keyGenerationComplete: { (key, email, error) in
-                self.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthApple, error: error)
+            }, keyGenerationComplete: { [weak self] (key, email, error) in
+                self?.storeKeyAndCreateSafe(key: key, email: email, keyType: .web3AuthApple, error: error)
             }
         )
 
@@ -115,7 +111,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
             guard let self = self else { return }
             let view = self.factory.safeCreatingViewController()
             view.onSuccess = { [weak self] in
-                self?.enablePasscode()
+                self?.stop(success: true)
             }
             self.navigationController.setNavigationBarHidden(true, animated: true)
             self.show(view)

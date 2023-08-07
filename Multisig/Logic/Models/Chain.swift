@@ -407,7 +407,7 @@ extension Chain {
         case spendingLimit = "SPENDING_LIMIT"
         case txSimulation = "TX_SIMULATION"
         case warningBanner = "WARNING_BANNER"
-        case onramp = "ONRAMP_MOBILE"
+        case moonpay = "MOONPAY_MOBILE"
     }
 
     var enabledFeatures: [Feature] {

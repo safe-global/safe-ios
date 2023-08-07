@@ -109,13 +109,14 @@ final class HeaderViewController: ContainerViewController {
             }
         }
 
-        switchSafesVC.onCreateSafe = { [unowned self] in
+        switchSafesVC.onCreateSafe = { [weak self] in
             Tracker.trackEvent(.createSafeFromSwitchSafes)
-            dismiss(animated: true) { [unowned self] in
-                createSafeFlow = CreateSafeFlow(completion: { [unowned self] _ in
-                    createSafeFlow = nil
+            self?.dismiss(animated: true) { [weak self] in
+                guard let self = self else { return }
+                self.createSafeFlow = CreateSafeFlow(completion: { [weak self] _ in
+                    self?.createSafeFlow = nil
                 })
-                present(flow: createSafeFlow, dismissableOnSwipe: false)
+                self.present(flow: self.createSafeFlow, dismissableOnSwipe: false)
             }
         }
 

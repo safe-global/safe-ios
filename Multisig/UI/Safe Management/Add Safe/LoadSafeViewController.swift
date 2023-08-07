@@ -72,8 +72,8 @@ class LoadSafeViewController: UIViewController {
     }
 
     @IBAction func didTapCreateSafe(_ sender: Any) {
-        createSafeFlow = CreateSafeFlow(completion: { [unowned self] _ in
-            createSafeFlow = nil
+        createSafeFlow = CreateSafeFlow(completion: { [weak self] _ in
+            self?.createSafeFlow = nil
         })
         present(flow: createSafeFlow, dismissableOnSwipe: false)
     }
