@@ -242,7 +242,7 @@ class TransactionExecutionController {
                        safeTxGas > 0 {
                         // `gas` is UInt64, so it can overflow if a large number returned from the estimator
                         let (newGas, overflow) = gas!.multipliedReportingOverflow(by: 130)
-                        gas = overflow ? .max : newGas
+                        gas = (overflow ? .max : newGas) / 100
                     }
 
                     let execTransactionSuccess = try partialResults.ethCall.get()
