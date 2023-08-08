@@ -148,7 +148,7 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
             do {
                 let results = try result.get()
 
-                let gas = try results.gas.get()
+                var gas = try results.gas.get()
                 let _ = try results.ethCall.get()
                 let gasPrice = try results.gasPrice.get()
                 let txCount = try results.transactionCount.get()

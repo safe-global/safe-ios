@@ -234,6 +234,18 @@ class TransactionExecutionController {
                     //
                     // to avoid that, we handle both cases in one do-catch block.
                     gas = try partialResults.gas.get()
+                    
+                    // GH-3084: fix for a bug in Nethermind requiring 30% increase in the gas estimation
+                    // on gnosis chain for transactions with positive safeTxGas
+                    if chain.id == Chain.ChainID.gnosis,
+                       let safeTxGas = transaction.multisigInfo?.safeTxGas.value,
+                       safeTxGas > 0 {
+                        // `gas` is UInt64, so it can overflow if a large number returned from the estimator
+                        let (newGas, overflow) = gas!.multipliedReportingOverflow(by: 130)
+                        if !overflow {
+                            gas = newGas / 100
+                        }
+                    }
 
                     let execTransactionSuccess = try partialResults.ethCall.get()
                     let success = try Sol.Bool(execTransactionSuccess).storage
