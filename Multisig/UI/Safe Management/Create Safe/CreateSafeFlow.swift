@@ -189,6 +189,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         }
     }
 
+    // NOTE: This set of methods is unused because it was crashing the app
     func creatingSafe() {
         let vc = factory.safeCreatingViewController()
         vc.onSuccess = { [unowned self] in
@@ -198,7 +199,6 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         show(vc)
     }
 
-    // TODO: show this screen after the safe is deployed
     func safeCreationSuccess() {
         let vc = factory.safeCreationSuccessViewController(safe: safe, chain: chain) { [unowned self] in
             enableNotifications()
@@ -210,7 +210,6 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         enablePasscode()
         return
 
-        // TODO: implement registering for notifications
         let vc = factory.safeAction(imageName: "ico-notifications",
                                     titleText: "Never miss a thing",
                                     descriptionText: "Turn on push notifications to track your wallet activity. You can also do this later.",
@@ -232,6 +231,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
         })
         push(flow: createPasscodeFlow)
     }
+    // END OF NOTE
 
     // CreateSafeFormUIModelDelegate protocol methods
     func updateUI(model: CreateSafeFormUIModel) {
