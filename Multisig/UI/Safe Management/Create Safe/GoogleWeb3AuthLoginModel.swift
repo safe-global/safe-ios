@@ -33,10 +33,28 @@ class GoogleWeb3AuthLoginModel {
                 await MainActor.run(body: { [weak self] in
                     guard let self = self else { return }
                     let key = data["privateKey"] as? String
+                    let publicAddress = data["publicAddress"] as? String
                     let userInfo = data["userInfo"] as? [String: Any] ?? [:]
                     let email = userInfo["email"] as? String ?? "email withheld"
 
-                    self.keyGenerationComplete(key!, email, nil)
+                    if Web3AuthMFAService.mfaEnabled(userInfo: userInfo) {
+                        Task {
+                            do {
+                                let web3authService = try await Web3AuthMFAService(postBoxKey: key!, publicAddress: publicAddress!, password: "foobar23")
+                                let finalKey = web3authService.finalKey
+                                print ("---> finalKey: \(finalKey)")
+                                self.keyGenerationComplete(finalKey!, email + "_mfa", nil)
+                            } catch {
+                                LogService.shared.error("---> error: \(error)")
+                                await MainActor.run(body: { [weak self] in
+                                    self?.keyGenerationComplete(nil, nil, error)
+                                })
+                            }
+                        }
+                    } else {
+                        self.keyGenerationComplete(key!, email, nil)
+                    }
+
                 })
             } catch {
                 await MainActor.run(body: { [weak self] in
