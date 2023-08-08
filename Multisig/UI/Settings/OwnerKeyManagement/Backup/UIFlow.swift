@@ -71,7 +71,13 @@ class UIFlow: NSObject {
     }
 
     func stop(success: Bool) {
-        if let presenter = presenter {
+        if let presenter = presenter, presenter.presentedViewController != nil {
+            presenter.dismiss(animated: true) { [unowned self] in
+                completion(success)
+            }
+        } else if let presenter = navigationController.presentingViewController {
+            // in this case, the presenting view controller is not a direct ancestor of the
+            // currently opened view controller
             presenter.dismiss(animated: true) { [unowned self] in
                 completion(success)
             }
