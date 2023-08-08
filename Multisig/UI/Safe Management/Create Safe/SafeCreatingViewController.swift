@@ -70,7 +70,7 @@ class SafeCreatingViewController: UIViewController {
     @objc func accountCreated() {
         infoView1.set(status: .success)
         // It is not defined, what this "owner secured" exactly means. Thats why we check this box after a short time automatically
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) {_ in
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
             NotificationCenter.default.post(name: .safeAccountOwnerSecured, object: nil)
         }
     }

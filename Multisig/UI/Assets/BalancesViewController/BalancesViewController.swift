@@ -120,7 +120,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
         super.reloadData()
         currentDataTask?.cancel()
         do {
-            if let safe = try? Safe.getSelected(), safe.chain?.isSupported(feature: .onramp) ?? false {
+            if let safe = try? Safe.getSelected(), safe.chain?.isSupported(feature: .moonpay) ?? false {
                 emptyView.setTitle("Add some crypto to get started")
                 emptyView.setDescription("Buy crypto directly with your credit card or a bank account")
                 emptyView.setAction(text: "Buy crypto", action: { [weak self] in

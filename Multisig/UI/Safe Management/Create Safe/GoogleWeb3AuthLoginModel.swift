@@ -23,22 +23,24 @@ class GoogleWeb3AuthLoginModel {
             let tdsdk = CustomAuth(aggregateVerifierType: .singleIdVerifier,
                                    aggregateVerifier: App.configuration.web3auth.googleVerifierAggregate,
                                    subVerifierDetails: [sub],
-                                   network: .CYAN
+                                   network: .CYAN,
+                                   enableOneKey: true
             )
 
             do {
                 let data = try await tdsdk.triggerLogin(browserType: .asWebAuthSession)
                 
-                await MainActor.run(body: {
+                await MainActor.run(body: { [weak self] in
+                    guard let self = self else { return }
                     let key = data["privateKey"] as? String
                     let userInfo = data["userInfo"] as? [String: Any] ?? [:]
                     let email = userInfo["email"] as? String ?? "email withheld"
 
-                    keyGenerationComplete(key!, email, nil)
+                    self.keyGenerationComplete(key!, email, nil)
                 })
             } catch {
-                await MainActor.run(body: {
-                    keyGenerationComplete(nil, nil, error)
+                await MainActor.run(body: { [weak self] in
+                    self?.keyGenerationComplete(nil, nil, error)
                 })
             }
         }
