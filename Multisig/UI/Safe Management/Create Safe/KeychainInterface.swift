@@ -1,20 +1,28 @@
 import Foundation
-
 import Security
 
-public class KeychainInterface {
-    // Note: This class is provided for example purposes only,
-    //      it is not intended to be used in a production environment.
+public protocol KeychainInterface {
+    func save(item: String, key: String) throws
+    func fetch(key: String) throws -> String
+}
 
-    public enum KeychainError: Error {
-        case itemNotFound
-        case invalidItemFormat
-        case unexpectedStatus(OSStatus)
-    }
+enum KeychainError: Error {
+    case itemNotFound
+    case invalidItemFormat
+    case unexpectedStatus(OSStatus)
+}
+
+public class SimpleKeychainInterface: KeychainInterface {
 
     // TODO: add delete function
 
-    public static func save(item: String, key: String, identifier: String = "web3auth.tkey-ios") throws {
+    let identifier: String
+
+    init(identifier: String) {
+        self.identifier = identifier
+    }
+
+    public func save(item: String, key: String) throws {
         let query: [String: AnyObject] = [
             kSecAttrService as String: identifier as AnyObject,
             kSecAttrAccount as String: key as AnyObject,
@@ -40,7 +48,7 @@ public class KeychainInterface {
         }
     }
 
-    public static func fetch(key: String, identifier: String = "web3auth.tkey-ios") throws -> String {
+    public func fetch(key: String) throws -> String {
         let query: [String: AnyObject] = [
             kSecAttrService as String: identifier as AnyObject,
             kSecAttrAccount as String: key as AnyObject,

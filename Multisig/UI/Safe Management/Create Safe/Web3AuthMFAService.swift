@@ -16,12 +16,13 @@ class Web3AuthMFAService {
     var finalKey: String?
     private var password: String?
 
+    private let keychainInterface: KeychainInterface!
     private var isAlreadyMFA = true
     private let postBoxKey: String
     private let publicAddress: String
     private var thresholdKey: ThresholdKey
     private var threshold = 0
-    let question = "PASSWORD"
+    private let question = "PASSWORD"
 
     static func mfaEnabled(userInfo: [String: Any]) -> Bool {
         // TODO: in future version od the SDK there will be an entry called "nonce". If 0, then mfa is enabled
@@ -64,6 +65,8 @@ class Web3AuthMFAService {
         }
 
         guard let reconstructionDetails = try? await thresholdKey.reconstruct() else {
+            shareMissing = true
+
             throw("Failed to reconstruct key. More share(s) required.")
         }
         LogService.shared.debug("---> key reconstructed: \(reconstructionDetails)")
@@ -75,6 +78,41 @@ class Web3AuthMFAService {
         } else {
             LogService.shared.debug("---> password not changed")
         }
+    }
+
+    func recoverDeviceShare(password: String? = nil) async throws {
+        if let password = password {
+            guard let result = try? await SecurityQuestionModule.input_share(threshold_key: thresholdKey, answer: password) else {
+                LogService.shared.debug("---> password input share failed. Make sure threshold key is initialized")
+                throw("password input share failed. Make sure threshold key is initialized")
+            }
+            if !result {
+                LogService.shared.debug("---> password incorrect")
+                throw("password incorrect")
+            } else {
+                LogService.shared.debug("---> password correct")
+            }
+        }
+        guard let reconstructionDetails = try? await thresholdKey.reconstruct() else {
+            shareMissing = true
+            throw("Failed to reconstruct key. more share(s) required.")
+        }
+
+        guard let _ = try? await thresholdKey.generate_new_share() else {
+            throw("Failed create new share")
+        }
+
+        var shareIndexes = try thresholdKey.get_shares_indexes()
+        shareIndexes.removeAll(where: {$0 == "1"}) // apparently 1 is the postboxkey share
+
+        guard let share = try? thresholdKey.output_share(shareIndex: shareIndexes[shareIndexes.count], shareType: nil) else {
+            throw("Failed to output share")
+        }
+        guard let _ = try? keychainInterface.save(item: share, key: "\(publicAddress):device-key") else {
+            throw("Failed to save share")
+        }
+
+        LogService.shared.debug("---> Recovery complete")
     }
 
 
@@ -95,9 +133,10 @@ class Web3AuthMFAService {
     init(postBoxKey: String,
          publicAddress: String,
          password: String? = nil, // if not nil, use to create a password share on initialize otherwise used to unlock the key
-         initialize: Bool = false
+         keychainInterface: KeychainInterface = SimpleKeychainInterface(identifier: "global.safe.tkey-ios") // "web3auth.tkey-ios" "global.safe.tkey-ios"
     ) async throws {
 
+        self.keychainInterface = keychainInterface
         self.postBoxKey = postBoxKey
         LogService.shared.debug("---> postboxkey: \(postBoxKey)")
         self.publicAddress = publicAddress
@@ -122,15 +161,9 @@ class Web3AuthMFAService {
         }
 
         self.thresholdKey = thresholdKey
-
-        if initialize {
-            try await initialSetup()
-        } else {
-            try await setup()
-        }
     }
 
-    private func initialSetup() async throws {
+    func initialReconstruct() async throws {
 
         // This is the first time initialize is called on a threshold key derived by this postbox key. That means a device share is created automatically.
         // We must save this device share to the keychain if this is a trudted device. Otherwise we do not save it.
@@ -143,6 +176,7 @@ class Web3AuthMFAService {
         }
 
         guard let reconstructionDetails = try? await thresholdKey.reconstruct() else {
+            shareMissing = true
             throw("Failed to reconstruct key. \(key_details.required_shares) more share(s) required.") // this should not happen when using initialsetup on an SFA-Key
         }
 
@@ -152,7 +186,7 @@ class Web3AuthMFAService {
         guard let share = try? thresholdKey.output_share(shareIndex: shareIndexes[0], shareType: nil) else {
             throw("Failed to output share")
         }
-        guard let _ = try? KeychainInterface.save(item: share, key: "\(publicAddress):device-key") else {
+        guard let _ = try? keychainInterface.save(item: share, key: "\(publicAddress):device-key") else {
             throw("Failed to save share")
         }
 
@@ -164,11 +198,11 @@ class Web3AuthMFAService {
     }
 
     /// set up a key to be used as an MFA key
-    private func setup() async throws {
+    func reconstruct() async throws {
         LogService.shared.debug("---> setup()")
 
         // Find device share in Keychain
-        let deviceShare = try? KeychainInterface.fetch(key: "\(publicAddress):device-key")
+        let deviceShare = try? keychainInterface.fetch(key: "\(publicAddress):device-key")
 
         guard let key_details = try? await thresholdKey.initialize(never_initialize_new_key: false, include_local_metadata_transitions: false) else {
             throw("Failed to get key details")

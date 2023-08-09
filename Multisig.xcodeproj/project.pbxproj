@@ -952,6 +952,7 @@
 		93F1365B2A82C5E200AC1C3E /* KeychainInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F1365A2A82C5E200AC1C3E /* KeychainInterface.swift */; };
 		93F1365D2A82C5F200AC1C3E /* Web3AuthMFAService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F1365C2A82C5F200AC1C3E /* Web3AuthMFAService.swift */; };
 		93F136602A82C65800AC1C3E /* ThresholdKey in Frameworks */ = {isa = PBXBuildFile; productRef = 93F1365F2A82C65800AC1C3E /* ThresholdKey */; };
+		93F136652A83ED5A00AC1C3E /* Web3AuthMFAServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F136642A83ED5A00AC1C3E /* Web3AuthMFAServiceTest.swift */; };
 		AD3031332AAA437DA1EED403 /* TransferNoWarningButDelegateWithName.json in Resources */ = {isa = PBXBuildFile; fileRef = AD30370F4D8215898B27959A /* TransferNoWarningButDelegateWithName.json */; };
 		AD30333439A0A2388F0749B0 /* ChangeConfirmationsFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303AD3E32FBAF7FC2B202B /* ChangeConfirmationsFlow.swift */; };
 		AD303399362FE10A1FB79BB6 /* ReviewChangeConfirmationsTxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303815FA00D7D2A33A3F8C /* ReviewChangeConfirmationsTxViewController.swift */; };
@@ -1975,6 +1976,7 @@
 		93EF2FAE27C551DC0077BE95 /* StepInstructionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepInstructionTableViewCell.xib; sourceTree = "<group>"; };
 		93F1365A2A82C5E200AC1C3E /* KeychainInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainInterface.swift; sourceTree = "<group>"; };
 		93F1365C2A82C5F200AC1C3E /* Web3AuthMFAService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web3AuthMFAService.swift; sourceTree = "<group>"; };
+		93F136642A83ED5A00AC1C3E /* Web3AuthMFAServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3AuthMFAServiceTest.swift; sourceTree = "<group>"; };
 		AD303139191A822F493B9A87 /* NoDelegateWarningBecauseNoDelegateOperation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NoDelegateWarningBecauseNoDelegateOperation.json; sourceTree = "<group>"; };
 		AD30320FB98CBA790C56F472 /* DelegateWarningMultiSend.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DelegateWarningMultiSend.json; sourceTree = "<group>"; };
 		AD3032263454247E99CC6C62 /* TransferWithDelegateWarning.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransferWithDelegateWarning.json; sourceTree = "<group>"; };
@@ -3267,6 +3269,7 @@
 			isa = PBXGroup;
 			children = (
 				D86A68E2274E6B3E00D7F5C5 /* App */,
+				93F136612A83ED0F00AC1C3E /* UI */,
 				0A0EFCA3246EADE900D3D8BF /* Logic */,
 				0A0EFCA1246EADD100D3D8BF /* Data */,
 				0A0EFCA2246EADE200D3D8BF /* Cross-layer */,
@@ -4387,6 +4390,30 @@
 				93B331AA2A6570AB00ADD507 /* ci_post_clone.sh */,
 			);
 			path = ci_scripts;
+			sourceTree = "<group>";
+		};
+		93F136612A83ED0F00AC1C3E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				93F136622A83ED2300AC1C3E /* Safe Management */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		93F136622A83ED2300AC1C3E /* Safe Management */ = {
+			isa = PBXGroup;
+			children = (
+				93F136632A83ED3200AC1C3E /* Create Safe */,
+			);
+			path = "Safe Management";
+			sourceTree = "<group>";
+		};
+		93F136632A83ED3200AC1C3E /* Create Safe */ = {
+			isa = PBXGroup;
+			children = (
+				93F136642A83ED5A00AC1C3E /* Web3AuthMFAServiceTest.swift */,
+			);
+			path = "Create Safe";
 			sourceTree = "<group>";
 		};
 		AD3034214AE5434B20ABC8B5 /* Features */ = {
@@ -5819,6 +5846,7 @@
 				0AADCDC02858CE2600A0139B /* AddOwnerRequestValidatorTests.swift in Sources */,
 				0AF78A3027E0AAD3001BAFE0 /* WCAppRegistryEntryTests.swift in Sources */,
 				D86A68DF274E692500D7F5C5 /* TestingAppDelegate.swift in Sources */,
+				93F136652A83ED5A00AC1C3E /* Web3AuthMFAServiceTest.swift in Sources */,
 				5532D4CA2449A1980067505A /* CrashlyticsLoggerTests.swift in Sources */,
 				55CEFC112493923A003B2B19 /* TrackerTests.swift in Sources */,
 				5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */,
