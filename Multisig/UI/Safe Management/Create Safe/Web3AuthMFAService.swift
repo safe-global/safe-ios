@@ -82,6 +82,7 @@ class Web3AuthMFAService {
 
     func recoverDeviceShare(password: String? = nil) async throws {
         if let password = password {
+            LogService.shared.debug("---> password: \(password)")
             guard let result = try? await SecurityQuestionModule.input_share(threshold_key: thresholdKey, answer: password) else {
                 LogService.shared.debug("---> password input share failed. Make sure threshold key is initialized")
                 throw("password input share failed. Make sure threshold key is initialized")
@@ -133,7 +134,7 @@ class Web3AuthMFAService {
     init(postBoxKey: String,
          publicAddress: String,
          password: String? = nil, // if not nil, use to create a password share on initialize otherwise used to unlock the key
-         keychainInterface: KeychainInterface = SimpleKeychainInterface(identifier: "global.safe.tkey-ios") // "web3auth.tkey-ios" "global.safe.tkey-ios"
+         keychainInterface: KeychainInterface = SimpleKeychainInterface(identifier: "web3auth.tkey-ios") // "web3auth.tkey-ios" "global.safe.tkey-ios"
     ) async throws {
 
         self.keychainInterface = keychainInterface
