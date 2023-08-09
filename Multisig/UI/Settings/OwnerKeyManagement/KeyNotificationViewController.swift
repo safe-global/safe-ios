@@ -1,5 +1,5 @@
 //
-//  KeyAddedViewController.swift
+//  KeyNotificationViewController.swift
 //  Multisig
 //
 //  Created by Mouaz on 11/1/22.
@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class KeyAddedViewController: AccountActionCompletedViewController {
+class KeyNotificationViewController: AccountActionCompletedViewController {
     private var addKeyController: DelegateKeyController!
     private var type: KeyType!
 

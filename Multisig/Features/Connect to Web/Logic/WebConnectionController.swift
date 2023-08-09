@@ -1032,6 +1032,10 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     }
     
     private func handleSignResponse(_ response: Response, completion: @escaping (Result<String, Error>) -> Void) {
+        if let error = response.error {
+            completion(.failure(error))
+            return
+        }
         do {
             var signature = try response.result(as: String.self)
 
