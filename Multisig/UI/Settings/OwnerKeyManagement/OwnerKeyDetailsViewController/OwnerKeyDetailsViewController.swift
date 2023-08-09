@@ -142,8 +142,8 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         Tracker.trackEvent(.ownerKeyDetails)
     }
 
-    @IBAction func removeButtonTouched(_ sender: Any) {
-        removeKey()
+    @IBAction func removeButtonTouched(_ sender: UIButton) {
+        removeKey(sourceView: sender)
     }
 
     @objc private func didTapExportButton() {
@@ -255,11 +255,14 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         completion?()
     }
 
-    private func removeKey() {
+    private func removeKey(sourceView: UIView) {
         let alertController = UIAlertController(
             title: nil,
             message: "Removing the owner key only removes it from this app. It doesn’t delete any Safes from this app or from blockchain. Transactions for Safes controlled by this key will no longer be available for signing in this app.",
             preferredStyle: .actionSheet)
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.sourceView = sourceView
+        }
         let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
             OwnerKeyController.remove(keyInfo: self.keyInfo)
         }
@@ -312,7 +315,11 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                                 indexPath: indexPath)
         case Section.Advanced.remove:
             return tableView.removeCell(indexPath: indexPath, title: "Remove owner key") { [weak self] in
-                self?.removeKey()
+                guard let self = self,
+                      let cell = tableView.cellForRow(at: indexPath) else {
+                    return
+                }
+                self.removeKey(sourceView: cell)
             }
         default:
             return UITableViewCell()
@@ -369,8 +376,8 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         case Section.PushNotificationConfiguration.enabled:
             if AppConfiguration.FeatureToggles.securityCenter {
                 do {
-                    self.addKeyController = try DelegateKeyController(ownerAddress: self.keyInfo.address) {
-                        self.dismiss(animated: true, completion: nil)
+                    self.addKeyController = try DelegateKeyController(ownerAddress: self.keyInfo.address) { [weak self] in
+                        self?.dismiss(animated: true, completion: nil)
                     }
                     self.addKeyController.presenter = self
                     if self.keyInfo.delegateAddress == nil {
@@ -387,8 +394,8 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
 
                     if success {
                         do {
-                            self.addKeyController = try DelegateKeyController(ownerAddress: self.keyInfo.address) {
-                                self.dismiss(animated: true, completion: nil)
+                            self.addKeyController = try DelegateKeyController(ownerAddress: self.keyInfo.address) { [weak self] in
+                                self?.dismiss(animated: true, completion: nil)
                             }
                             self.addKeyController.presenter = self
                             if self.keyInfo.delegateAddress == nil {
