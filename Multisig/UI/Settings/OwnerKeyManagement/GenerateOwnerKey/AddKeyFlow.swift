@@ -115,8 +115,8 @@ class AddKeyFlow: UIFlow {
             return
         }
 
-        let vc = factory.keyNotification(for: address, name: name, type: type) { [unowned self] in
-            didDelegateKeySetup()
+        let vc = factory.keyNotification(for: address, name: name, type: type) { [weak self] in
+            self?.didDelegateKeySetup()
         }
 
         show(vc)
