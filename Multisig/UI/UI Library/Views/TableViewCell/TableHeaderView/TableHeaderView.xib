@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,7 +19,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select network on which your Safe Account was created:" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6uV-fd-5gt">
-                    <rect key="frame" x="16" y="64" width="431" height="90"/>
+                    <rect key="frame" x="16" y="64" width="449" height="90"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="260" id="jhE-IF-vNU"/>
                     </constraints>
@@ -30,7 +29,6 @@
                 </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="6uV-fd-5gt" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="Kb9-U5-EVI"/>
                 <constraint firstItem="6uV-fd-5gt" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="Ymm-Iw-ZLH"/>
@@ -43,9 +41,4 @@
             <point key="canvasLocation" x="96.376811594202906" y="268.52678571428572"/>
         </view>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

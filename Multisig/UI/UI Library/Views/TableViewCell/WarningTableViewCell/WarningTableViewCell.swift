@@ -11,8 +11,10 @@ import UIKit
 class WarningTableViewCell: UITableViewCell {
     @IBOutlet private weak var warningView: WarningView!
 
-    func set(image: UIImage? = nil, title: String? = nil, description: String? = nil) {
-        warningView.set(image: image, title: title, description: description)
-        layoutIfNeeded()
+    func set(image: UIImage? = nil,
+             title: String? = nil,
+             description: String? = nil,
+             backgroundColor: UIColor = .warningBackground) {
+        warningView.set(image: image, title: title, description: description, backgroundColor: backgroundColor)
     }
 }
