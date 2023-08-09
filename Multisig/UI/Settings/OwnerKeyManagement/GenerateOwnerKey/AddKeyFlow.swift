@@ -115,7 +115,7 @@ class AddKeyFlow: UIFlow {
             return
         }
 
-        let vc = factory.keyAdded(address: address, name: name, type: type) { [unowned self] in
+        let vc = factory.keyNotification(for: address, name: name, type: type) { [unowned self] in
             didDelegateKeySetup()
         }
 
@@ -174,11 +174,11 @@ class AddKeyFlowFactory {
         OwnerKeyDetailsViewController(keyInfo: keyInfo, completion: completion)
     }
 
-    func keyAdded(address: Address,
-                  name: String,
-                  type: KeyType,
-                  completion: @escaping () -> ()) -> KeyAddedViewController {
-        KeyAddedViewController(address: address,
+    func keyNotification(for address: Address,
+                         name: String,
+                         type: KeyType,
+                         completion: @escaping () -> ()) -> KeyNotificationViewController {
+        KeyNotificationViewController(address: address,
                                name: name,
                                type: type,
                                completion: completion)

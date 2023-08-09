@@ -25,7 +25,7 @@
 		04248BDB272E21C500431397 /* AddressBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04248BDA272E11BB00431397 /* AddressBookTests.swift */; };
 		042626E128EEE61E000BD2CC /* successAnimationDark.json in Resources */ = {isa = PBXBuildFile; fileRef = 042626E028EEE61E000BD2CC /* successAnimationDark.json */; };
 		042626E328EEE62F000BD2CC /* successAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 042626E228EEE62F000BD2CC /* successAnimation.json */; };
-		04273663291191980033FEF5 /* KeyAddedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04273662291191980033FEF5 /* KeyAddedViewController.swift */; };
+		04273663291191980033FEF5 /* KeyNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04273662291191980033FEF5 /* KeyNotificationViewController.swift */; };
 		04273E5826AEE06500A14E95 /* BluetoothController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04273E5726AEE06500A14E95 /* BluetoothController.swift */; };
 		04273E5A26B1474700A14E95 /* LedgerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04273E5926B1474700A14E95 /* LedgerController.swift */; };
 		04273E5C26B41A3700A14E95 /* APDUController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04273E5B26B41A3700A14E95 /* APDUController.swift */; };
@@ -1075,7 +1075,7 @@
 		04248BDA272E11BB00431397 /* AddressBookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookTests.swift; sourceTree = "<group>"; };
 		042626E028EEE61E000BD2CC /* successAnimationDark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = successAnimationDark.json; sourceTree = "<group>"; };
 		042626E228EEE62F000BD2CC /* successAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = successAnimation.json; sourceTree = "<group>"; };
-		04273662291191980033FEF5 /* KeyAddedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAddedViewController.swift; sourceTree = "<group>"; };
+		04273662291191980033FEF5 /* KeyNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyNotificationViewController.swift; sourceTree = "<group>"; };
 		04273E5726AEE06500A14E95 /* BluetoothController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothController.swift; sourceTree = "<group>"; };
 		04273E5926B1474700A14E95 /* LedgerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerController.swift; sourceTree = "<group>"; };
 		04273E5B26B41A3700A14E95 /* APDUController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APDUController.swift; sourceTree = "<group>"; };
@@ -4157,7 +4157,7 @@
 				6A1CFA4C280819C600B2C340 /* Backup */,
 				55CCD58627550F42004EA3E3 /* DelegateKeyController.swift */,
 				0ADD19B5265EA23200EB0F2B /* ExportViewController.swift */,
-				04273662291191980033FEF5 /* KeyAddedViewController.swift */,
+				04273662291191980033FEF5 /* KeyNotificationViewController.swift */,
 				D80B5A0C276A362900D6E024 /* AddOwnerFirst */,
 				55413674265E49E100796F91 /* AddOwnerKeyViewController */,
 				049A9D6D25F92FB000CA5723 /* ChooseOwnerKeyViewController */,
@@ -5560,7 +5560,7 @@
 				0A451C06252DDB93001DB7D2 /* NetworkContentView.swift in Sources */,
 				0AC0948127945B5900FA1B83 /* CircleView.swift in Sources */,
 				0A93DDBB24461F4800688050 /* Buttons.swift in Sources */,
-				04273663291191980033FEF5 /* KeyAddedViewController.swift in Sources */,
+				04273663291191980033FEF5 /* KeyNotificationViewController.swift in Sources */,
 				04FA1A342580FDF100E45671 /* HistoryTransactionsSummaryListRequest.swift in Sources */,
 				0A3DAD9B26270F5500743E38 /* IDN.swift in Sources */,
 				550FB1B626691D9500C13D54 /* DetailedCell.swift in Sources */,
