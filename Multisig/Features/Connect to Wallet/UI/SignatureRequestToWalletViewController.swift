@@ -79,10 +79,14 @@ class SignatureRequestToWalletViewController: PendingWalletActionViewController 
     }
 
     private func handleRequestResponse(_ result: Result<String, Error>) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             switch result {
             case .failure(let error):
-                App.shared.snackbar.show(message: error.localizedDescription)
+                let wallet = self.connection?.remotePeer?.name
+                let message = error.localizedDescription
+                let errorMessage = [wallet, message].compactMap{ $0 }.joined(separator: ": ")
+                App.shared.snackbar.show(message: errorMessage)
                 self.doCancel()
             case .success(let signature):
                 self.dismiss(animated: true) {
