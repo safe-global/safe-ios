@@ -41,7 +41,7 @@ class Web3AuthMFAServiceTests: XCTestCase {
                                                               keychainInterface: keychain)
             try await web2authMFAService.reconstruct()
         } catch {
-            XCTAssertEqual((error as? GSError.Web3AuthKeyReconstructionError)?.reason, GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to input share").reason)
+            XCTAssertEqual((error as? GSError.Web3AuthKeyReconstructionError)?.reason, GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to input device share").reason)
             XCTAssert(web2authMFAService.finalKey == nil)
         }
     }
