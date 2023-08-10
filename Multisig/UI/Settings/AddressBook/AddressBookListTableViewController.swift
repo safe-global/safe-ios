@@ -181,14 +181,14 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         let entry = chainEntries[indexPath.section].entries[indexPath.row]
 
         var actions = [UIContextualAction]()
-        let editAction = UIContextualAction(style: .normal, title: "Edit") { [unowned self] _, _, completion in
-            showEdit(entry: chainEntries[indexPath.section].entries[indexPath.row])
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { [weak self] _, _, completion in
+            self?.showEdit(entry: entry)
             completion(true)
         }
         actions.append(editAction)
 
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [unowned self] _, _, completion in
-            self.remove(entry, tableView: tableView, indexPath: indexPath)
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
+            self?.remove(entry)
             completion(true)
         }
         actions.append(deleteAction)
@@ -232,15 +232,12 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         show(ribbonVC, sender: nil)
     }
 
-    private func remove(_ entry: AddressBookEntry, tableView: UITableView, indexPath: IndexPath) {
+    private func remove(_ entry: AddressBookEntry) {
         let alertController = UIAlertController(
             title: nil,
             message: "Removing the entry key only removes it from this app.",
-            preferredStyle: .actionSheet)
-        if let popoverPresentationController = alertController.popoverPresentationController {
-            popoverPresentationController.sourceView = tableView
-            popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
-        }
+            preferredStyle: .multiplatformActionSheet)
+
         let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
             AddressBookEntry.remove(entry: entry)
             App.shared.snackbar.show(message: "Address book entry removed")

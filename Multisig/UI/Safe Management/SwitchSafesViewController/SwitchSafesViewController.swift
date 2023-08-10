@@ -118,12 +118,7 @@ final class SwitchSafesViewController: UITableViewController {
             let alertController = UIAlertController(
                 title: nil,
                 message: nil,
-                preferredStyle: .actionSheet)
-
-            if let popoverPresentationController = alertController.popoverPresentationController {
-                popoverPresentationController.sourceView = tableView
-                popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
-            }
+                preferredStyle: .multiplatformActionSheet)
 
             let addSafe = UIAlertAction(title: "Load existing Safe Account", style: .default) { [weak self] _ in
                 self?.onAddSafe?()
@@ -169,8 +164,8 @@ final class SwitchSafesViewController: UITableViewController {
 
         var actions = [UIContextualAction]()
 
-        let deleteAction = UIContextualAction(style: .destructive, title: "Remove") { [unowned self] _, _, completion in
-            self.remove(safe: safe, tableView: tableView, indexPath: indexPath)
+        let deleteAction = UIContextualAction(style: .destructive, title: "Remove") { [weak self] _, _, completion in
+            self?.remove(safe: safe)
             completion(true)
         }
         actions.append(deleteAction)
@@ -178,19 +173,14 @@ final class SwitchSafesViewController: UITableViewController {
         return UISwipeActionsConfiguration(actions: actions)
     }
 
-    private func remove(safe: Safe, tableView: UITableView, indexPath: IndexPath) {
+    private func remove(safe: Safe) {
         let title = safe.safeStatus == .deployed ?
         "Removing a Safe only removes it from this app. It does not delete the Safe from the blockchain. Funds will not get lost." :
         "Are you sure you want to remove this Safe? The transaction fees will not be returned."
         let alertController = UIAlertController(
             title: nil,
             message: title,
-            preferredStyle: .actionSheet)
-
-        if let popoverPresentationController = alertController.popoverPresentationController {
-            popoverPresentationController.sourceView = tableView
-            popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
-        }
+            preferredStyle: .multiplatformActionSheet)
 
         let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
             Safe.remove(safe: safe)

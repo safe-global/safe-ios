@@ -17,7 +17,7 @@ class SelectAddressViewController: UIAlertController {
     weak var presenter: UIViewController?
 
     convenience init(chain: Chain?, presenter: UIViewController, completion: @escaping (Address) -> Void) {
-        self.init(title: nil, message: nil, preferredStyle: .actionSheet)
+        self.init(title: nil, message: nil, preferredStyle: .multiplatformActionSheet)
         self.presenter = presenter
         self.chain = chain
         self.completion = completion
