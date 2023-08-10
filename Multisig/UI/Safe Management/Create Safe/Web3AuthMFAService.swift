@@ -70,8 +70,8 @@ class Web3AuthMFAService {
         }
     }
 
-    /// This is used on a new device after the user logged in with their social login and we detect, that wecannot
-    /// recreate the final key because we're missing the devcice share. We nned to ask the suer for their password
+    /// This is used on a new device after the user logged in with their social login and we detect, that we cannot
+    /// recreate the final key because we're missing the device share. We need to ask the user for their password
     /// to recreate the device share and reconstruct the final key
     func recreateDeviceShare(password: String? = nil) async throws {
         if let password = password {
@@ -87,16 +87,14 @@ class Web3AuthMFAService {
             throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to reconstruct key. more share(s) required.")
         }
 
-        guard let _ = try? await thresholdKey.generate_new_share() else {
+        guard let generateShareStoreResult = try? await thresholdKey.generate_new_share() else {
             throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed create new share")
         }
 
-        var shareIndexes = try thresholdKey.get_shares_indexes()
-        shareIndexes.removeAll(where: {$0 == "1"}) // apparently 1 is the postboxkey share
-
-        guard let share = try? thresholdKey.output_share(shareIndex: shareIndexes[shareIndexes.count - 1], shareType: nil) else {
+        guard let share = try? thresholdKey.output_share(shareIndex: generateShareStoreResult.hex, shareType: nil) else {
             throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to output share")
         }
+
         guard let _ = try? keychainInterface.save(item: share, key: "\(publicAddress):device-key") else {
             throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to save share")
         }
