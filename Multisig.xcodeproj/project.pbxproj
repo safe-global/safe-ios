@@ -951,7 +951,6 @@
 		93EF2FB027C551DC0077BE95 /* StepInstructionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93EF2FAE27C551DC0077BE95 /* StepInstructionTableViewCell.xib */; };
 		93F1365D2A82C5F200AC1C3E /* Web3AuthMFAService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F1365C2A82C5F200AC1C3E /* Web3AuthMFAService.swift */; };
 		93F136602A82C65800AC1C3E /* ThresholdKey in Frameworks */ = {isa = PBXBuildFile; productRef = 93F1365F2A82C65800AC1C3E /* ThresholdKey */; };
-		93F136652A83ED5A00AC1C3E /* Web3AuthMFAServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F136642A83ED5A00AC1C3E /* Web3AuthMFAServiceTest.swift */; };
 		AD3031332AAA437DA1EED403 /* TransferNoWarningButDelegateWithName.json in Resources */ = {isa = PBXBuildFile; fileRef = AD30370F4D8215898B27959A /* TransferNoWarningButDelegateWithName.json */; };
 		AD30333439A0A2388F0749B0 /* ChangeConfirmationsFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303AD3E32FBAF7FC2B202B /* ChangeConfirmationsFlow.swift */; };
 		AD303399362FE10A1FB79BB6 /* ReviewChangeConfirmationsTxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303815FA00D7D2A33A3F8C /* ReviewChangeConfirmationsTxViewController.swift */; };
@@ -969,6 +968,7 @@
 		AD303BDA3B1979B4643DAAB1 /* WarnAboutAnyNestedMultisendWithDelegate.json in Resources */ = {isa = PBXBuildFile; fileRef = AD3034FC5D96E7DF5D59FBED /* WarnAboutAnyNestedMultisendWithDelegate.json */; };
 		AD303BE8223BCB5899176612 /* WarnAboutAnyNestedMultisendWithDelegate.json in Resources */ = {isa = PBXBuildFile; fileRef = AD3034FC5D96E7DF5D59FBED /* WarnAboutAnyNestedMultisendWithDelegate.json */; };
 		AD303C6514DB164B8DE3BC73 /* DelegateWarningTopLevel.json in Resources */ = {isa = PBXBuildFile; fileRef = AD30357FB6EC8DC8DA51ADE4 /* DelegateWarningTopLevel.json */; };
+		AD303CC78D8A75E60FD31027 /* Web3AuthMFAServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD303ADE8C7FDA8DAE7D61E4 /* Web3AuthMFAServiceTest.swift */; };
 		AD303E80E0AC44F56C729462 /* NoDelegateWarningBecauseNoDelegateOperation.json in Resources */ = {isa = PBXBuildFile; fileRef = AD303139191A822F493B9A87 /* NoDelegateWarningBecauseNoDelegateOperation.json */; };
 		AD303F546D6DDF8E749E77BE /* DelegateWarningCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD30344347AAE28AEE159D2A /* DelegateWarningCalculator.swift */; };
 		AD303FEF053E282FD249D1DE /* TransferNoDelegateWarning.json in Resources */ = {isa = PBXBuildFile; fileRef = AD303DAF50ACA9AB6A3ED41D /* TransferNoDelegateWarning.json */; };
@@ -1974,7 +1974,6 @@
 		93EF2FAD27C551DC0077BE95 /* StepInstructionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepInstructionTableViewCell.swift; sourceTree = "<group>"; };
 		93EF2FAE27C551DC0077BE95 /* StepInstructionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepInstructionTableViewCell.xib; sourceTree = "<group>"; };
 		93F1365C2A82C5F200AC1C3E /* Web3AuthMFAService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web3AuthMFAService.swift; sourceTree = "<group>"; };
-		93F136642A83ED5A00AC1C3E /* Web3AuthMFAServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3AuthMFAServiceTest.swift; sourceTree = "<group>"; };
 		AD303139191A822F493B9A87 /* NoDelegateWarningBecauseNoDelegateOperation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NoDelegateWarningBecauseNoDelegateOperation.json; sourceTree = "<group>"; };
 		AD30320FB98CBA790C56F472 /* DelegateWarningMultiSend.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DelegateWarningMultiSend.json; sourceTree = "<group>"; };
 		AD3032263454247E99CC6C62 /* TransferWithDelegateWarning.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransferWithDelegateWarning.json; sourceTree = "<group>"; };
@@ -1989,6 +1988,7 @@
 		AD30392AFE8D95B651C509BA /* KeychainItemStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemStoreTests.swift; sourceTree = "<group>"; };
 		AD303A2303B63B1408463F64 /* ReviewReplaceOwnerTxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewReplaceOwnerTxViewController.swift; sourceTree = "<group>"; };
 		AD303AD3E32FBAF7FC2B202B /* ChangeConfirmationsFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeConfirmationsFlow.swift; sourceTree = "<group>"; };
+		AD303ADE8C7FDA8DAE7D61E4 /* Web3AuthMFAServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web3AuthMFAServiceTest.swift; sourceTree = "<group>"; };
 		AD303BAB464F66AA4AE3FF4C /* KeychainItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItem.swift; sourceTree = "<group>"; };
 		AD303BF18FC3591AD8AF6FBC /* DelegateWarningCalculatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegateWarningCalculatorTests.swift; sourceTree = "<group>"; };
 		AD303C1150C4F4070D76632E /* DelegateWarningNotTopLevel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DelegateWarningNotTopLevel.json; sourceTree = "<group>"; };
@@ -3266,7 +3266,6 @@
 			isa = PBXGroup;
 			children = (
 				D86A68E2274E6B3E00D7F5C5 /* App */,
-				93F136612A83ED0F00AC1C3E /* UI */,
 				0A0EFCA3246EADE900D3D8BF /* Logic */,
 				0A0EFCA1246EADD100D3D8BF /* Data */,
 				0A0EFCA2246EADE200D3D8BF /* Cross-layer */,
@@ -3384,6 +3383,7 @@
 				0AA5F55E28BF6F2200D6D220 /* claiming_test_fixtures.yml */,
 				0AA5F55C28BF667000D6D220 /* claiming_test_fixtures.json */,
 				0A884C4328B3B4BC00D008A0 /* ClaimingAppControllerTests.swift */,
+				AD3036F82DAAF432185B8C60 /* UI */,
 			);
 			path = MultisigIntegrationTests;
 			sourceTree = "<group>";
@@ -4389,30 +4389,6 @@
 			path = ci_scripts;
 			sourceTree = "<group>";
 		};
-		93F136612A83ED0F00AC1C3E /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				93F136622A83ED2300AC1C3E /* Safe Management */,
-			);
-			path = UI;
-			sourceTree = "<group>";
-		};
-		93F136622A83ED2300AC1C3E /* Safe Management */ = {
-			isa = PBXGroup;
-			children = (
-				93F136632A83ED3200AC1C3E /* Create Safe */,
-			);
-			path = "Safe Management";
-			sourceTree = "<group>";
-		};
-		93F136632A83ED3200AC1C3E /* Create Safe */ = {
-			isa = PBXGroup;
-			children = (
-				93F136642A83ED5A00AC1C3E /* Web3AuthMFAServiceTest.swift */,
-			);
-			path = "Create Safe";
-			sourceTree = "<group>";
-		};
 		AD3034214AE5434B20ABC8B5 /* Features */ = {
 			isa = PBXGroup;
 			children = (
@@ -4430,6 +4406,22 @@
 			path = ChangeConfirmations;
 			sourceTree = "<group>";
 		};
+		AD3034BBE6F528F26DFC56F3 /* Create Safe */ = {
+			isa = PBXGroup;
+			children = (
+				AD303ADE8C7FDA8DAE7D61E4 /* Web3AuthMFAServiceTest.swift */,
+			);
+			path = "Create Safe";
+			sourceTree = "<group>";
+		};
+		AD3036F82DAAF432185B8C60 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				AD303E1C57DA75D88959798D /* Safe Management */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		AD3039C484C693A046C926F1 /* Security */ = {
 			isa = PBXGroup;
 			children = (
@@ -4437,6 +4429,14 @@
 				AD30392AFE8D95B651C509BA /* KeychainItemStoreTests.swift */,
 			);
 			path = Security;
+			sourceTree = "<group>";
+		};
+		AD303E1C57DA75D88959798D /* Safe Management */ = {
+			isa = PBXGroup;
+			children = (
+				AD3034BBE6F528F26DFC56F3 /* Create Safe */,
+			);
+			path = "Safe Management";
 			sourceTree = "<group>";
 		};
 		B0D61012F3C4AC13FA79F697 /* Features */ = {
@@ -5842,7 +5842,6 @@
 				0AADCDC02858CE2600A0139B /* AddOwnerRequestValidatorTests.swift in Sources */,
 				0AF78A3027E0AAD3001BAFE0 /* WCAppRegistryEntryTests.swift in Sources */,
 				D86A68DF274E692500D7F5C5 /* TestingAppDelegate.swift in Sources */,
-				93F136652A83ED5A00AC1C3E /* Web3AuthMFAServiceTest.swift in Sources */,
 				5532D4CA2449A1980067505A /* CrashlyticsLoggerTests.swift in Sources */,
 				55CEFC112493923A003B2B19 /* TrackerTests.swift in Sources */,
 				5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */,
@@ -5859,6 +5858,7 @@
 				AD30360125D8B1D8735A8CF4 /* DelegateWarningCalculatorTests.swift in Sources */,
 				AD303814C19C41AB35176EA7 /* ProtectedKeyStoreTests.swift in Sources */,
 				AD3035E34B7E49C48D1B6FEE /* KeychainItemStoreTests.swift in Sources */,
+				AD303CC78D8A75E60FD31027 /* Web3AuthMFAServiceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
