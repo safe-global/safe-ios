@@ -16,7 +16,7 @@ class Web3AuthMFAService {
     var finalKey: String?
     private var password: String?
 
-    private let keychainInterface: KeychainInterface!
+    private let keychainService: SecureStore!
     private var isAlreadyMFA = true
     private let postBoxKey: String
     private let publicAddress: String
@@ -95,7 +95,7 @@ class Web3AuthMFAService {
             throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to output share")
         }
 
-        guard let _ = try? keychainInterface.save(item: share, key: "\(publicAddress):device-key") else {
+        guard let _ = try? keychainService.save(data: Data(share.utf8), forKey: "\(publicAddress):device-key") else {
             throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to save share")
         }
     }
@@ -118,10 +118,10 @@ class Web3AuthMFAService {
     init(postBoxKey: String,
          publicAddress: String,
          password: String? = nil, // if not nil, use to create a password share on initialize otherwise used to unlock the key
-         keychainInterface: KeychainInterface = SimpleKeychainInterface(identifier: "web3auth.tkey-ios") // "web3auth.tkey-ios" "global.safe.tkey-ios"
+         keychainService: SecureStore = KeychainService(identifier: "global.safe.tkey-ios") // "web3auth.tkey-ios"
     ) async throws {
 
-        self.keychainInterface = keychainInterface
+        self.keychainService = keychainService
         self.postBoxKey = postBoxKey
         self.publicAddress = publicAddress
         self.shareMissing = false
@@ -167,7 +167,7 @@ class Web3AuthMFAService {
         guard let share = try? thresholdKey.output_share(shareIndex: shareIndexes[0], shareType: nil) else {
             throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to output share")
         }
-        guard let _ = try? keychainInterface.save(item: share, key: "\(publicAddress):device-key") else {
+        guard let _ = try? keychainService.save(data: Data(share.utf8), forKey: "\(publicAddress):device-key") else {
             throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to save share")
         }
 
@@ -179,7 +179,7 @@ class Web3AuthMFAService {
     /// set up a key to be used as an MFA key
     func reconstruct() async throws {
         // Find device share in Keychain
-        let deviceShare = try? keychainInterface.fetch(key: "\(publicAddress):device-key")
+        let deviceShare = try? keychainService.data(forKey: "\(publicAddress):device-key")
 
         guard let key_details = try? await thresholdKey.initialize(never_initialize_new_key: false, include_local_metadata_transitions: false) else {
             throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to get key details")
@@ -187,8 +187,9 @@ class Web3AuthMFAService {
         threshold = Int(key_details.threshold)
 
         if let deviceShare = deviceShare {
+            let deviceShareString = String(decoding: deviceShare, as: UTF8.self)
             do {
-                try await thresholdKey.input_share(share: deviceShare, shareType: nil)
+                try await thresholdKey.input_share(share: deviceShareString, shareType: nil)
             } catch {
                 throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to input device share")
             }

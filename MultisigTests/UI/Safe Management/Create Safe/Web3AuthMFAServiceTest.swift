@@ -13,7 +13,7 @@ import tkey_pkg
 class Web3AuthMFAServiceTests: XCTestCase {
 
     var web2authMFAService: Web3AuthMFAService!
-    var keychain: TestKeychainInterface!
+    var keychain: TestKeychainService!
     let aDeviceShare = "66665182a2b416cfe448413513dfc6ee8d87538b8d678bde30177c1f463aa822"
     let passwordShare = "4b5a18ed39e4b369fdcda96bdeeb7ec7375b3cdb89b5fb37de8635c8e07382d7"
     let postBoxKey = "c57c57f1a3463f14fb6ce79835f5df8437a8d449b5e2219aa2bb3876554f99cb"
@@ -22,7 +22,7 @@ class Web3AuthMFAServiceTests: XCTestCase {
     let finalKey = "75907aad04675827696b92ca481c6b00a24514d8b8819c97840c1960a50f7126"
 
     override func setUp() async throws {
-        keychain = TestKeychainInterface()
+        keychain = TestKeychainService()
     }
 
     override func tearDown() {
@@ -30,10 +30,10 @@ class Web3AuthMFAServiceTests: XCTestCase {
 
     func testInitWithDeviceShare() async throws {
         // init with device share
-        keychain.dict["\(publicAddress):device-key"] = aDeviceShare
+        keychain.dict["\(publicAddress):device-key"] = Data(aDeviceShare.utf8)
         try await web2authMFAService = Web3AuthMFAService(postBoxKey: postBoxKey,
                                                           publicAddress: publicAddress,
-                                                          keychainInterface: keychain)
+                                                          keychainService: keychain)
         try await web2authMFAService.reconstruct()
         XCTAssert(web2authMFAService.finalKey == finalKey)
     }
@@ -41,10 +41,10 @@ class Web3AuthMFAServiceTests: XCTestCase {
     func testInitWithWrongDeviceShare() async throws {
         do {
             // init with wrong device share
-            keychain.dict["\(publicAddress):device-key"] = "66665182a2b416cfe448413513dfc6ee8d87538b8d678bde30177c1f4aaaaaaa"
+            keychain.dict["\(publicAddress):device-key"] = Data("66665182a2b416cfe448413513dfc6ee8d87538b8d678bde30177c1f4aaaaaaa".utf8)
             try await web2authMFAService = Web3AuthMFAService(postBoxKey: postBoxKey,
                                                               publicAddress: publicAddress,
-                                                              keychainInterface: keychain)
+                                                              keychainService: keychain)
             try await web2authMFAService.reconstruct()
         } catch {
             XCTAssertEqual((error as? GSError.Web3AuthKeyReconstructionError)?.reason, GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to input device share").reason)
@@ -57,7 +57,7 @@ class Web3AuthMFAServiceTests: XCTestCase {
         try await web2authMFAService = Web3AuthMFAService(postBoxKey: postBoxKey,
                                                           publicAddress: publicAddress,
                                                           password: password,
-                                                          keychainInterface: keychain)
+                                                          keychainService: keychain)
         try await web2authMFAService.reconstruct()
         XCTAssert(web2authMFAService.finalKey == finalKey)
     }
@@ -69,7 +69,7 @@ class Web3AuthMFAServiceTests: XCTestCase {
             try await web2authMFAService = Web3AuthMFAService(postBoxKey: postBoxKey,
                                                               publicAddress: publicAddress,
                                                               password: password,
-                                                              keychainInterface: keychain)
+                                                              keychainService: keychain)
             try await web2authMFAService.reconstruct()
         } catch {
             XCTAssertEqual((error as? GSError.Web3AuthKeyReconstructionError)?.reason, GSError.Web3AuthKeyReconstructionError(underlyingError: "password incorrect").reason)
@@ -81,7 +81,7 @@ class Web3AuthMFAServiceTests: XCTestCase {
         do {
             try await web2authMFAService = Web3AuthMFAService(postBoxKey: postBoxKey,
                                                               publicAddress: publicAddress,
-                                                              keychainInterface: keychain)
+                                                              keychainService: keychain)
             try await web2authMFAService.reconstruct()
 
         } catch {
@@ -89,11 +89,11 @@ class Web3AuthMFAServiceTests: XCTestCase {
             try await web2authMFAService.reconstruct()
 
             // use saved share to reconstruct the finalKey
-            let newKeyChain = TestKeychainInterface()
-            try await newKeyChain.save(item: keychain.dict["\(publicAddress):device-key"]!, key: "\(publicAddress):device-key")
+            let newKeyChain = TestKeychainService()
+            try await newKeyChain.save(data: keychain.dict["\(publicAddress):device-key"]!, forKey: "\(publicAddress):device-key")
             try await web2authMFAService = Web3AuthMFAService(postBoxKey: postBoxKey,
                                                               publicAddress: publicAddress,
-                                                              keychainInterface: newKeyChain)
+                                                              keychainService: newKeyChain)
             try await web2authMFAService.reconstruct()
             XCTAssert(web2authMFAService.finalKey == finalKey)
         }
@@ -104,7 +104,7 @@ class Web3AuthMFAServiceTests: XCTestCase {
         do {
             try await web2authMFAService = Web3AuthMFAService(postBoxKey: postBoxKey,
                                                               publicAddress: publicAddress,
-                                                              keychainInterface: keychain)
+                                                              keychainService: keychain)
             try await web2authMFAService.reconstruct()
         } catch {
             do {
@@ -118,10 +118,10 @@ class Web3AuthMFAServiceTests: XCTestCase {
     }
 
     func testChangePasswordAfterReconstructWithDeviceShare() async throws {
-        keychain.dict["\(publicAddress):device-key"] = aDeviceShare
+        keychain.dict["\(publicAddress):device-key"] = Data(aDeviceShare.utf8)
         try await web2authMFAService = Web3AuthMFAService(postBoxKey: postBoxKey,
                                                           publicAddress: publicAddress,
-                                                          keychainInterface: keychain)
+                                                          keychainService: keychain)
         try await web2authMFAService.reconstruct()
 
         try await web2authMFAService.changePassword(oldPassword: password, newPassword: "foobar42")
@@ -133,7 +133,7 @@ class Web3AuthMFAServiceTests: XCTestCase {
         try await web2authMFAService = Web3AuthMFAService(postBoxKey: postBoxKey,
                                                           publicAddress: publicAddress,
                                                           password: password,
-                                                          keychainInterface: keychain
+                                                          keychainService: keychain
         )
         try await web2authMFAService.reconstruct()
 
@@ -142,10 +142,10 @@ class Web3AuthMFAServiceTests: XCTestCase {
     }
 
     func testChangePasswordWithWrongPassword() async throws {
-        keychain.dict["\(publicAddress):device-key"] = aDeviceShare
+        keychain.dict["\(publicAddress):device-key"] = Data(aDeviceShare.utf8)
         try await web2authMFAService = Web3AuthMFAService(postBoxKey: postBoxKey,
                                                           publicAddress: publicAddress,
-                                                          keychainInterface: keychain)
+                                                          keychainService: keychain)
         try await web2authMFAService.reconstruct()
 
         do {
@@ -156,17 +156,27 @@ class Web3AuthMFAServiceTests: XCTestCase {
     }
 }
 
-class TestKeychainInterface: KeychainInterface {
-    var dict: [String: String] = [:]
+class TestKeychainService: SecureStore {
+    var dict: [String: Data] = [:]
 
-    func save(item: String, key: String) throws {
-        dict[key] = item
+    func save(data: Data, forKey: String) throws {
+        dict[forKey] = data
     }
 
-    func fetch(key: String) throws -> String {
-        if let result = dict[key] {
+    func data(forKey: String) throws -> Data? {
+        if let result = dict[forKey] {
             return result
         }
-        throw KeychainError.itemNotFound
+        return nil
+    }
+
+    func allKeys() throws -> [String] {
+        fatalError("allKeys() has not been implemented")
+    }
+
+    func removeData(forKey: String) throws {
+    }
+
+    func destroy() throws {
     }
 }
