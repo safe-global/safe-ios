@@ -97,9 +97,10 @@ class KeySecurityOverviewViewController: LoadableViewController, UITableViewDele
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let factor = sections[indexPath.section].items[indexPath.row]
         switch sections[indexPath.section].section {
         case .enabledFactors(_), .otherFactors(_):
-            if case let Section.Factor.factor(name, value, image, isDefault, selected) = sections[indexPath.section].items[indexPath.row] {
+            if case let Section.Factor.factor(name, value, image, isDefault, selected) = factor {
                 let cell = tableView.dequeueCell(SecurityFactorTableViewCell.self, for: indexPath)
                 cell.selectionStyle = .none
                 cell.set(name: name,
@@ -111,7 +112,7 @@ class KeySecurityOverviewViewController: LoadableViewController, UITableViewDele
                 return cell
             }
         case .info:
-            if case let Section.Info.info(text, image) = sections[indexPath.section].items[indexPath.row] {
+            if case let Section.Info.info(text, image) = factor {
                 let cell = tableView.dequeueCell(WarningTableViewCell.self, for: indexPath)
                 cell.selectionStyle = .none
                 cell.set(image: UIImage(named: image)?.withTintColor(.info, renderingMode: .alwaysOriginal),
