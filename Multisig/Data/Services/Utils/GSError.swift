@@ -710,6 +710,15 @@ enum GSError {
         let loggable = false
     }
 
+    struct Web3AuthKeyReconstructionError: DetailedLocalizedError {
+        let description = "Failed to reconstruct key"
+        var reason: String { underlyingError.localizedDescription }
+        let underlyingError: Error
+        let howToFix = "Please try again"
+        let domain = iOSErrorDomain
+        let code = 1328
+        let loggable = false
+    }
 
     // - MARK: - Unstoppable domain errors
 
