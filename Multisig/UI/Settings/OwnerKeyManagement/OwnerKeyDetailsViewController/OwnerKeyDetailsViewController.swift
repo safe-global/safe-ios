@@ -143,7 +143,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
     }
 
     @IBAction func removeButtonTouched(_ sender: UIButton) {
-        removeKey(sourceView: sender)
+        removeKey()
     }
 
     @objc private func didTapExportButton() {
@@ -255,14 +255,12 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         completion?()
     }
 
-    private func removeKey(sourceView: UIView) {
+    private func removeKey() {
         let alertController = UIAlertController(
             title: nil,
             message: "Removing the owner key only removes it from this app. It doesn’t delete any Safes from this app or from blockchain. Transactions for Safes controlled by this key will no longer be available for signing in this app.",
-            preferredStyle: .actionSheet)
-        if let popoverPresentationController = alertController.popoverPresentationController {
-            popoverPresentationController.sourceView = sourceView
-        }
+            preferredStyle: .multiplatformActionSheet)
+
         let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
             OwnerKeyController.remove(keyInfo: self.keyInfo)
         }
@@ -315,11 +313,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                                 indexPath: indexPath)
         case Section.Advanced.remove:
             return tableView.removeCell(indexPath: indexPath, title: "Remove owner key") { [weak self] in
-                guard let self = self,
-                      let cell = tableView.cellForRow(at: indexPath) else {
-                    return
-                }
-                self.removeKey(sourceView: cell)
+                self?.removeKey()
             }
         default:
             return UITableViewCell()

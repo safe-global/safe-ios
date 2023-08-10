@@ -999,6 +999,7 @@
 		B0D61F54F176906A7C5A65CB /* SendTransactionRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61BDFEADB74805D9221DB /* SendTransactionRequestViewController.swift */; };
 		B0D61FFF1935AA2484BD940A /* WebConnectionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D617C60F3081A3A923005D /* WebConnectionRepository.swift */; };
 		B343BEB32A77DDA1006BF46B /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0491067C28F99246005A4A99 /* DMSans-Bold.ttf */; };
+		B3B6044F2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B6044E2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift */; };
 		D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A022769CEAD00D6E024 /* Tooltip.swift */; };
 		D80B5A052769CF1B00D6E024 /* TooltipSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A042769CF1B00D6E024 /* TooltipSource.swift */; };
 		D80B5A072769D05D00D6E024 /* BaseCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A062769D05D00D6E024 /* BaseCustomView.swift */; };
@@ -2022,6 +2023,7 @@
 		B0D61DB08E699747DCEE7325 /* GnosisSafeWebPeerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GnosisSafeWebPeerInfo.swift; sourceTree = "<group>"; };
 		B0D61EF933B18A7181F0F6E8 /* WebConnectionOpenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionOpenRequest.swift; sourceTree = "<group>"; };
 		B0D61FB05FC8C6D45FAC1246 /* ActionPanelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionPanelView.xib; sourceTree = "<group>"; };
+		B3B6044E2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertControllerStyle+Multiplatform.swift"; sourceTree = "<group>"; };
 		D80B5A022769CEAD00D6E024 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
 		D80B5A042769CF1B00D6E024 /* TooltipSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipSource.swift; sourceTree = "<group>"; };
 		D80B5A062769D05D00D6E024 /* BaseCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCustomView.swift; sourceTree = "<group>"; };
@@ -2844,6 +2846,7 @@
 				0A839B5F2578EB9500103AD9 /* View Controllers */,
 				558835ED255BFEA80014E8C7 /* Views */,
 				6A007E912A60179B000F0ADD /* UIGestures.swift */,
+				B3B6044E2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -5672,6 +5675,7 @@
 				0A478D1B25B860240038363E /* KeyPickerController.swift in Sources */,
 				6A7D476F29B49BC500D690BE /* RelaysRemainingRequest.swift in Sources */,
 				0AF2737724DD48AD007E4012 /* NotificationPayload.swift in Sources */,
+				B3B6044F2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift in Sources */,
 				55B6465B253050200050BD95 /* SignatureString.swift in Sources */,
 				04131FBD2851571E001F60C2 /* CreateInviteOwnerIntroViewController.swift in Sources */,
 				0497B2AA29A63BE8007109ED /* WalletConnectManager.swift in Sources */,

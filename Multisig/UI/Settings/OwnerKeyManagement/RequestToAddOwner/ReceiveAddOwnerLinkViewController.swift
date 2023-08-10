@@ -77,7 +77,7 @@ class ReceiveAddOwnerLinkViewController: UIViewController {
         let alertController = UIAlertController(
             title: nil,
             message: nil,
-            preferredStyle: .actionSheet)
+            preferredStyle: .multiplatformActionSheet)
         alertController.addAction(add)
         alertController.addAction(replace)
         alertController.addAction(cancel)

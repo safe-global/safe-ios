@@ -59,7 +59,7 @@ class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentation
         let alertController = UIAlertController(
             title: nil,
             message: nil,
-            preferredStyle: .actionSheet)
+            preferredStyle: .multiplatformActionSheet)
 
         let add = UIAlertAction(title: "Add new owner", style: .default) { [unowned self] _ in
             onAdd?()
