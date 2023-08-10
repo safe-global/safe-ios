@@ -16,13 +16,12 @@ class GoogleWeb3AuthLoginModel {
         Task {
             let sub = SubVerifierDetails(loginType: .installed,
                                          loginProvider: .google,
-                                         clientId: "500572929132-57dbeqrtq84m5oibve186vfmdd6p5rmh.apps.googleusercontent.com",
-                                         verifier: "google-sub-bttr-500572929132",
-                                         redirectURL: "com.googleusercontent.apps.500572929132-57dbeqrtq84m5oibve186vfmdd6p5rmh://"
-
+                                         clientId: App.configuration.web3auth.googleClientId,
+                                         verifier: App.configuration.web3auth.googleVerifierSub,
+                                         redirectURL: App.configuration.web3auth.redirectScheme + GoogleWeb3AuthLoginModel.schemePostfix
             )
             let tdsdk = CustomAuth(aggregateVerifierType: .singleIdVerifier,
-                                   aggregateVerifier: "google-aggregate-bttr",
+                                   aggregateVerifier: App.configuration.web3auth.googleVerifierAggregate,
                                    subVerifierDetails: [sub],
                                    network: .CYAN,
                                    enableOneKey: true
@@ -37,7 +36,7 @@ class GoogleWeb3AuthLoginModel {
                     let publicAddress = data["publicAddress"] as? String
                     let userInfo = data["userInfo"] as? [String: Any] ?? [:]
                     let email = userInfo["email"] as? String ?? "email withheld"
-                    
+
                     self.keyGenerationComplete(key!, email, nil)
                 })
             } catch {
