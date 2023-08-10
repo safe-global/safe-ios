@@ -81,6 +81,9 @@
 		0463F5C326296924009C04FA /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0463F5C226296924009C04FA /* FirebaseCrashlytics */; };
 		0463F5C526296924009C04FA /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0463F5C426296924009C04FA /* FirebaseMessaging */; };
 		0466877628E6388F0004D488 /* UIViewController+Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466877528E6388F0004D488 /* UIViewController+Display.swift */; };
+		0468C32B2A826398009872C2 /* KeySecurityOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468C3292A826398009872C2 /* KeySecurityOverviewViewController.swift */; };
+		0468C32F2A83D1DA009872C2 /* SecurityFactorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468C32D2A83D1DA009872C2 /* SecurityFactorTableViewCell.swift */; };
+		0468C3302A83D1DA009872C2 /* SecurityFactorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0468C32E2A83D1DA009872C2 /* SecurityFactorTableViewCell.xib */; };
 		0468EE9D26148A3B008270BF /* PrivacyProtectionScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */; };
 		0468EE9E26148A3B008270BF /* PrivacyProtectionScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0468EE9C26148A3B008270BF /* PrivacyProtectionScreenViewController.xib */; };
 		0468FB45259106F400541536 /* StyledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468FB44259106F400541536 /* StyledView.swift */; };
@@ -1127,6 +1130,9 @@
 		04626EB4265E6BBC00CC7FC8 /* OwnerKeyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerKeyDetailsViewController.swift; sourceTree = "<group>"; };
 		0463F5AB2628B60C009C04FA /* FirebaseRemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRemoteConfig.swift; sourceTree = "<group>"; };
 		0466877528E6388F0004D488 /* UIViewController+Display.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Display.swift"; sourceTree = "<group>"; };
+		0468C3292A826398009872C2 /* KeySecurityOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySecurityOverviewViewController.swift; sourceTree = "<group>"; };
+		0468C32D2A83D1DA009872C2 /* SecurityFactorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityFactorTableViewCell.swift; sourceTree = "<group>"; };
+		0468C32E2A83D1DA009872C2 /* SecurityFactorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecurityFactorTableViewCell.xib; sourceTree = "<group>"; };
 		0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyProtectionScreenViewController.swift; sourceTree = "<group>"; };
 		0468EE9C26148A3B008270BF /* PrivacyProtectionScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrivacyProtectionScreenViewController.xib; sourceTree = "<group>"; };
 		0468FB44259106F400541536 /* StyledView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledView.swift; sourceTree = "<group>"; };
@@ -2274,6 +2280,16 @@
 			path = OwnerKeyDetailsViewController;
 			sourceTree = "<group>";
 		};
+		0468C3282A826199009872C2 /* MFA */ = {
+			isa = PBXGroup;
+			children = (
+				0468C3292A826398009872C2 /* KeySecurityOverviewViewController.swift */,
+				0468C32D2A83D1DA009872C2 /* SecurityFactorTableViewCell.swift */,
+				0468C32E2A83D1DA009872C2 /* SecurityFactorTableViewCell.xib */,
+			);
+			path = MFA;
+			sourceTree = "<group>";
+		};
 		0468FB8D25912E8300541536 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -2986,6 +3002,7 @@
 		0A6886A52588FB0F0045CAB5 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				0468C3282A826199009872C2 /* MFA */,
 				0455A42C2720413B008B772D /* AddressBook */,
 				558835DE255A90420014E8C7 /* AppSettingsViewController */,
 				550FB1C626691E4A00C13D54 /* Experimental */,
@@ -4991,6 +5008,7 @@
 				0ADD0FB427C148880099DF7D /* DatePickerViewController.xib in Resources */,
 				0AD0273A25A34FF600886671 /* MultiSendRowTableViewCell.xib in Resources */,
 				04D1323625E43C560032FA03 /* DetailRejectionInfoCell.xib in Resources */,
+				0468C3302A83D1DA009872C2 /* SecurityFactorTableViewCell.xib in Resources */,
 				0472B2AA2857B44F0049BA17 /* ShareTextView.xib in Resources */,
 				6A1CFA4B2807F24800B2C340 /* NoScreenshotViewController.xib in Resources */,
 				0A6630F128C10DC300F0FFAE /* AllocationTotalCell.xib in Resources */,
@@ -5331,6 +5349,7 @@
 				D88FA81E2770869E0023B77F /* TokenAmountField.swift in Sources */,
 				93788EDC29C356F100503C1A /* NullCryptoProvider.swift in Sources */,
 				047588182774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift in Sources */,
+				0468C32F2A83D1DA009872C2 /* SecurityFactorTableViewCell.swift in Sources */,
 				0A8AEB1025A4712B002A3FE1 /* ActionDetailTextCell.swift in Sources */,
 				0A7AEAF82463190100014184 /* LoadableENSNameText.swift in Sources */,
 				0A8CDD5327A85C0D0020066C /* TransactionExecutionLookup.swift in Sources */,
@@ -5567,6 +5586,7 @@
 				0ADF9DD028B4E02700D4FBA2 /* Guardian.swift in Sources */,
 				6AD4772F28932160004C736D /* GuardianCountTableViewCell.swift in Sources */,
 				5532D4BD2449A17D0067505A /* LogFormatter.swift in Sources */,
+				0468C32B2A826398009872C2 /* KeySecurityOverviewViewController.swift in Sources */,
 				0AC0948527948BD900FA1B83 /* TransactionDataTransformer.swift in Sources */,
 				0A451C0C252DDBE5001DB7D2 /* CollectibleListSection.swift in Sources */,
 				55BCFC2A2551C9C200020CE7 /* UITableView+Reusable.swift in Sources */,

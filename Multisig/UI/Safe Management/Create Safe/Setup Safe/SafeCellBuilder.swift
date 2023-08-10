@@ -64,9 +64,13 @@ class SafeCellBuilder {
         return view
     }
 
-    func warningCell(image: UIImage? = nil, title: String? = nil, description: String? = nil, for indexPath: IndexPath) -> WarningTableViewCell {
+    func warningCell(image: UIImage? = nil,
+                     title: String? = nil,
+                     description: String? = nil,
+                     backgroundColor: UIColor = .warningBackground,
+                     for indexPath: IndexPath) -> WarningTableViewCell {
         let cell = tableView.dequeueCell(WarningTableViewCell.self, for: indexPath)
-        cell.set(image: image, title: title, description: description)
+        cell.set(image: image, title: title, description: description, backgroundColor: backgroundColor)
 
         return cell
     }

@@ -33,7 +33,10 @@ class WarningView: UINibView {
         contentStackView.spacing = 16
     }
 
-    func set(image: UIImage? = nil, title: String? = nil, description: String? = nil) {
+    func set(image: UIImage? = nil,
+             title: String? = nil,
+             description: String? = nil,
+             backgroundColor: UIColor = .warningBackground) {
         assert(title != nil || description != nil)
         
         if let image = image {
@@ -45,6 +48,7 @@ class WarningView: UINibView {
 
         descriptionLabel.text = description
         descriptionLabel.isHidden = description == nil
+        self.backgroundColor = backgroundColor
     }
 
     // Do everything required for delegate warning if true
