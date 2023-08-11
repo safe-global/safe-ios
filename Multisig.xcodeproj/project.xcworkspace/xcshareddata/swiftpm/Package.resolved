@@ -177,8 +177,8 @@
         "repositoryURL": "https://github.com/torusresearch/libtkey-pkg/",
         "state": {
           "branch": null,
-          "revision": "5ddc5ea6dea44cc84fa8d2aee7cb24cc3f5f9f49",
-          "version": "0.0.4"
+          "revision": "3cb2d894da704751f62f0f41e8f8a929504f883c",
+          "version": "0.0.5"
         }
       },
       {

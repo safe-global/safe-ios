@@ -202,11 +202,5 @@ class Web3AuthMFAService {
         }
 
         finalKey = reconstructionDetails.key
-
-        var shareIndexes = try? thresholdKey.get_shares_indexes()
-        shareIndexes?.forEach { shareIndex in
-            let share = try? thresholdKey.output_share(shareIndex: shareIndex, shareType: nil)
-            LogService.shared.info("share index: \(shareIndex), share: \(share)")
-        }
     }
 }
