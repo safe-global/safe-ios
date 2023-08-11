@@ -11,13 +11,9 @@ import tkey_pkg
 
 class Web3AuthMFAService {
 
-    // if the device share is missing and also no password has been provided
-    var shareMissing: Bool
     var finalKey: String?
     private var password: String?
-
     private let keychainService: SecureStore!
-    private var isAlreadyMFA = true
     private let postBoxKey: String
     private let publicAddress: String
     private var thresholdKey: ThresholdKey
@@ -59,8 +55,6 @@ class Web3AuthMFAService {
         }
 
         guard let reconstructionDetails = try? await thresholdKey.reconstruct() else {
-            shareMissing = true
-
             throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to reconstruct key. More share(s) required.")
         }
 
@@ -83,7 +77,6 @@ class Web3AuthMFAService {
             }
         }
         guard let reconstructionDetails = try? await thresholdKey.reconstruct() else {
-            shareMissing = true
             throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to reconstruct key. more share(s) required.")
         }
 
@@ -124,7 +117,6 @@ class Web3AuthMFAService {
         self.keychainService = keychainService
         self.postBoxKey = postBoxKey
         self.publicAddress = publicAddress
-        self.shareMissing = false
         self.password = password
 
         guard let storage_layer = try? StorageLayer(enable_logging: true, host_url: "https://metadata.tor.us", server_time_offset: 2) else {
@@ -139,7 +131,8 @@ class Web3AuthMFAService {
             storage_layer: storage_layer,
             service_provider: service_provider,
             enable_logging: true,
-            manual_sync: false) else {
+            manual_sync: false)
+        else {
             throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to create threshold key")
         }
 
@@ -157,12 +150,11 @@ class Web3AuthMFAService {
         }
 
         guard let reconstructionDetails = try? await thresholdKey.reconstruct() else {
-            shareMissing = true
             throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to reconstruct key. \(key_details.required_shares) more share(s) required.") // this should not happen when using initialsetup on an SFA-Key
         }
 
         var shareIndexes = try thresholdKey.get_shares_indexes()
-        shareIndexes.removeAll(where: {$0 == "1"}) // apparently 1 is the postboxkey share
+        shareIndexes.removeAll(where: { $0 == "1" }) // apparently 1 is the postboxkey share
 
         guard let share = try? thresholdKey.output_share(shareIndex: shareIndexes[0], shareType: nil) else {
             throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to output share")
@@ -206,11 +198,15 @@ class Web3AuthMFAService {
         }
 
         guard let reconstructionDetails = try? await thresholdKey.reconstruct() else {
-            shareMissing = true
             throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to reconstruct key with available shares.")
         }
-        shareMissing = false
 
         finalKey = reconstructionDetails.key
+
+        var shareIndexes = try? thresholdKey.get_shares_indexes()
+        shareIndexes?.forEach { shareIndex in
+            let share = try? thresholdKey.output_share(shareIndex: shareIndex, shareType: nil)
+            LogService.shared.info("share index: \(shareIndex), share: \(share)")
+        }
     }
 }
