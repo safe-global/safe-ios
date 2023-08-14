@@ -145,9 +145,12 @@ class Web3AuthMFAService {
         // We must save this device share to the keychain if this is a trudted device. Otherwise we do not save it.
         // we must add the password share if we're given a password
 
-        guard let key_details = try? await thresholdKey.initialize(never_initialize_new_key: false, include_local_metadata_transitions: false) else {
-            throw RuntimeError("Failed to get key details")
+        do {
+            let _ = try await thresholdKey.initialize(never_initialize_new_key: false, include_local_metadata_transitions: false)
+        } catch {
+            throw GSError.Web3AuthInitializationError(description: "Failed to get key details", underlyingError: error)
         }
+
         try await reconstructWithError()
         var shareIndexes = try thresholdKey.get_shares_indexes()
         shareIndexes.removeAll(where: { $0 == "1" }) // apparently 1 is the postboxkey share
@@ -161,11 +164,12 @@ class Web3AuthMFAService {
     func reconstruct() async throws {
         // Find device share in Keychain
         let deviceShare = try? keychainService.data(forKey: "\(publicAddress):device-key")
-
-        guard let key_details = try? await thresholdKey.initialize(never_initialize_new_key: false, include_local_metadata_transitions: false) else {
-            throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to get key details")
+        do {
+            let  keyDetails = try await thresholdKey.initialize(never_initialize_new_key: false, include_local_metadata_transitions: false)
+            threshold = Int(keyDetails.threshold)
+        } catch {
+            throw GSError.Web3AuthKeyReconstructionError(description: "Failed to get key details", underlyingError: error)
         }
-        threshold = Int(key_details.threshold)
 
         if let deviceShare = deviceShare {
             let deviceShareString = String(decoding: deviceShare, as: UTF8.self)

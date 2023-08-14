@@ -100,7 +100,6 @@ class Web3AuthMFAServiceTests: XCTestCase {
     }
 
     func testRecreateDeviceShareWithWrongPassword() async throws {
-
         do {
             try await web2authMFAService = Web3AuthMFAService(postBoxKey: postBoxKey,
                                                               publicAddress: publicAddress,
