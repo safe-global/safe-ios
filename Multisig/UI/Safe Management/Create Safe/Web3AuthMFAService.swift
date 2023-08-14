@@ -9,8 +9,10 @@
 import Foundation
 import tkey_pkg
 
-class Web3AuthMFAService {
+let WEB3AUTH_MFA_KEYCHAIN_IDENTIFIER = "global.safe.tkey-ios"
+let TORUS_METADATA_HOST = "https://metadata.tor.us"
 
+class Web3AuthMFAService {
     var finalKey: String?
     private var password: String?
     private let keychainService: SecureStore!
@@ -98,7 +100,7 @@ class Web3AuthMFAService {
     /// - Parameters:
     ///   - postBoxKey: Key returned by CustomAuth
     ///   - publicAddress: Used as a key to store the shares in the KeyChain
-    ///   - password: If given used as one share (optional)
+    ///   - password: If given used as one share (optional),. Either to unlock the key or on initialReconstruct to create a share with this password
     ///   - initialize: If given, init() assumes it is called on a postBoxKey that is still on SFA.
     ///
     /// - Returns: `Web3AuthMFAService`
@@ -106,8 +108,8 @@ class Web3AuthMFAService {
     /// - Throws: `RuntimeError`, indicates the setup failed. Password wrong, not enough shares to recover key, etc.
     init(postBoxKey: String,
          publicAddress: String,
-         password: String? = nil, // if not nil, use to create a password share on initialize otherwise used to unlock the key
-         keychainService: SecureStore = KeychainService(identifier: "global.safe.tkey-ios") // "web3auth.tkey-ios"
+         password: String? = nil,
+         keychainService: SecureStore = KeychainService(identifier: WEB3AUTH_MFA_KEYCHAIN_IDENTIFIER) // "web3auth.tkey-ios"
     ) async throws {
 
         self.keychainService = keychainService
@@ -118,7 +120,7 @@ class Web3AuthMFAService {
         var storage_layer: StorageLayer
         var service_provider: ServiceProvider
         do {
-            storage_layer = try StorageLayer(enable_logging: true, host_url: "https://metadata.tor.us", server_time_offset: 2)
+            storage_layer = try StorageLayer(enable_logging: true, host_url: TORUS_METADATA_HOST, server_time_offset: 2)
         } catch {
             throw GSError.Web3AuthInitializationError(description: "Failed to initialize Storage Layer", underlyingError: error)
         }
