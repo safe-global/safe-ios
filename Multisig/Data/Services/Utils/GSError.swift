@@ -711,10 +711,10 @@ enum GSError {
     }
 
     struct Web3AuthKeyReconstructionError: DetailedLocalizedError {
-        let description = "Failed to reconstruct key"
+        var description = "Failed to reconstruct key"
         var reason: String { underlyingError.localizedDescription }
         let underlyingError: Error
-        let howToFix = "Please try again"
+        var howToFix = "Please try again"
         let domain = iOSErrorDomain
         let code = 1328
         let loggable = false

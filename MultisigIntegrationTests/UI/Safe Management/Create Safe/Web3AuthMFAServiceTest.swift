@@ -151,7 +151,7 @@ class Web3AuthMFAServiceTests: XCTestCase {
         do {
             try await web2authMFAService.changePassword(oldPassword: "foobar44", newPassword: "foobar42")
         } catch {
-            XCTAssertEqual((error as? GSError.Web3AuthKeyReconstructionError)?.reason, GSError.Web3AuthKeyReconstructionError(underlyingError: "old password incorrect").reason)
+            XCTAssertEqual((error as? GSError.Web3AuthKeyReconstructionError)?.reason, GSError.Web3AuthKeyReconstructionError(underlyingError: "Old password incorrect").reason)
         }
     }
 }
