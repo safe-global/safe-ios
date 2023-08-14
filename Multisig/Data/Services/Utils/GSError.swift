@@ -720,6 +720,16 @@ enum GSError {
         let loggable = false
     }
 
+    struct Web3AuthInitializationError: DetailedLocalizedError {
+        var description = "Failed to initialize Web3Auth"
+        var reason: String { underlyingError.localizedDescription }
+        let underlyingError: Error
+        var howToFix = "Please try again"
+        let domain = iOSErrorDomain
+        let code = 1329
+        let loggable = false
+    }
+
     // - MARK: - Unstoppable domain errors
 
     struct UDUnsuportedName: DetailedLocalizedError {

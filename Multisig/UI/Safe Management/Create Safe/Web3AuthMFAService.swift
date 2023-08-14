@@ -135,24 +135,29 @@ class Web3AuthMFAService {
         self.publicAddress = publicAddress
         self.password = password
 
-        guard let storage_layer = try? StorageLayer(enable_logging: true, host_url: "https://metadata.tor.us", server_time_offset: 2) else {
-            throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to create storage layer")
+        var storage_layer: StorageLayer
+        var service_provider: ServiceProvider
+        do {
+            storage_layer = try StorageLayer(enable_logging: true, host_url: "https://metadata.tor.us", server_time_offset: 2)
+        } catch {
+            throw GSError.Web3AuthInitializationError(description: "Failed to initialize Storage Layer", underlyingError: error)
+        }
+        do {
+            service_provider = try ServiceProvider(enable_logging: true, postbox_key: postBoxKey)
+        } catch {
+            throw GSError.Web3AuthInitializationError(description: "Failed to initialize ServiceProvidewr", underlyingError: error)
         }
 
-        guard let service_provider = try? ServiceProvider(enable_logging: true, postbox_key: postBoxKey) else {
-            throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to create service provider")
-        }
-
-        guard let thresholdKey = try? ThresholdKey(
-                storage_layer: storage_layer,
-                service_provider: service_provider,
-                enable_logging: true,
-                manual_sync: false)
-        else {
+        do {
+            let thresholdKey = try ThresholdKey(
+                    storage_layer: storage_layer,
+                    service_provider: service_provider,
+                    enable_logging: true,
+                    manual_sync: false)
+            self.thresholdKey = thresholdKey
+        } catch {
             throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to create threshold key")
         }
-
-        self.thresholdKey = thresholdKey
     }
 
     func initialReconstruct() async throws {
@@ -165,18 +170,24 @@ class Web3AuthMFAService {
             throw RuntimeError("Failed to get key details")
         }
 
-        guard let reconstructionDetails = try? await thresholdKey.reconstruct() else {
-            throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to reconstruct key. \(key_details.required_shares) more share(s) required.") // this should not happen when using initialsetup on an SFA-Key
+        do {
+            let _ = try await thresholdKey.reconstruct()
+        } catch {
+            throw GSError.Web3AuthKeyReconstructionError(description: "Failed to reconstruct key", underlyingError: error, howToFix: "More shares required.")
         }
 
         var shareIndexes = try thresholdKey.get_shares_indexes()
         shareIndexes.removeAll(where: { $0 == "1" }) // apparently 1 is the postboxkey share
 
-        guard let share = try? thresholdKey.output_share(shareIndex: shareIndexes[0], shareType: nil) else {
+        do {
+            let share = try thresholdKey.output_share(shareIndex: generateShareStoreResult.hex, shareType: nil)
+            do {
+                let _ = try keychainService.save(data: Data(share.utf8), forKey: "\(publicAddress):device-key")
+            } catch {
+                throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to save share")
+            }
+        } catch {
             throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to output share")
-        }
-        guard let _ = try? keychainService.save(data: Data(share.utf8), forKey: "\(publicAddress):device-key") else {
-            throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to save share")
         }
 
         if let password = password {
@@ -205,18 +216,22 @@ class Web3AuthMFAService {
 
         if let password = password {
             // password given
-            guard let result = try? await SecurityQuestionModule.input_share(threshold_key: thresholdKey, answer: password) else {
-                throw GSError.Web3AuthKeyReconstructionError(underlyingError: "input share failed. Make sure threshold key is initialized")
+            var result: Bool
+            do {
+                result = try await SecurityQuestionModule.input_share(threshold_key: thresholdKey, answer: password)
+            } catch {
+                throw GSError.Web3AuthKeyReconstructionError(description: "Input share failed", underlyingError: error, howToFix: "Make sure threshold key is initialized")
             }
             if !result {
-                throw GSError.Web3AuthKeyReconstructionError(underlyingError: "password incorrect")
+                throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Password incorrect")
             }
         }
 
-        guard let reconstructionDetails = try? await thresholdKey.reconstruct() else {
-            throw GSError.Web3AuthKeyReconstructionError(underlyingError: "Failed to reconstruct key with available shares.")
+        do {
+            let reconstructionDetails = try await thresholdKey.reconstruct()
+            finalKey = reconstructionDetails.key
+        } catch {
+            throw GSError.Web3AuthKeyReconstructionError(description: "Failed to reconstruct key", underlyingError: error, howToFix: "More shares required.")
         }
-
-        finalKey = reconstructionDetails.key
     }
 }
