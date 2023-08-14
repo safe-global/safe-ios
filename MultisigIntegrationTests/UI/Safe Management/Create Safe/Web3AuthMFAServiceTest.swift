@@ -72,7 +72,7 @@ class Web3AuthMFAServiceTests: XCTestCase {
                                                               keychainService: keychain)
             try await web2authMFAService.reconstruct()
         } catch {
-            XCTAssertEqual((error as? GSError.Web3AuthKeyReconstructionError)?.reason, GSError.Web3AuthKeyReconstructionError(underlyingError: "password incorrect").reason)
+            XCTAssertEqual((error as? GSError.Web3AuthKeyReconstructionError)?.reason, GSError.Web3AuthKeyReconstructionError(underlyingError: "Password incorrect").reason)
             XCTAssert(web2authMFAService.finalKey == nil)
         }
     }
@@ -111,7 +111,7 @@ class Web3AuthMFAServiceTests: XCTestCase {
                 try await web2authMFAService.recreateDeviceShare(password: "foobar42")
                 try await web2authMFAService.reconstruct()
             } catch {
-                XCTAssertEqual((error as? GSError.Web3AuthKeyReconstructionError)?.reason, GSError.Web3AuthKeyReconstructionError(underlyingError: "password incorrect").reason)
+                XCTAssertEqual((error as? GSError.Web3AuthKeyReconstructionError)?.reason, GSError.Web3AuthKeyReconstructionError(underlyingError: "Password incorrect").reason)
                 XCTAssert(web2authMFAService.finalKey == nil)
             }
         }
@@ -151,7 +151,7 @@ class Web3AuthMFAServiceTests: XCTestCase {
         do {
             try await web2authMFAService.changePassword(oldPassword: "foobar44", newPassword: "foobar42")
         } catch {
-            XCTAssertEqual((error as? GSError.Web3AuthKeyReconstructionError)?.reason, GSError.Web3AuthKeyReconstructionError(underlyingError: "Old password incorrect").reason)
+            XCTAssertEqual((error as? GSError.Web3AuthKeyReconstructionError)?.reason, GSError.Web3AuthKeyReconstructionError(underlyingError: "Password incorrect").reason)
         }
     }
 }
