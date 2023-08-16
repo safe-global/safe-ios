@@ -456,6 +456,15 @@ enum TrackingEvent: String, Trackable {
     case userTopUpEOA                              = "user_top_EOA"
     case userTopUpSafeAccount                      = "user_top_safe_account"
     case screenSelectTopUpAddress                  = "screen_select_top_up_address"
+
+    // MFA
+
+    case screenSecurityOverview                    = "screen_security_overview"
+    case screenEmailAddress                        = "screen_email_address"
+    case securityOverviewInfo                      = "user_click_info_security_overview"
+    case screenStartCreatePassword                 = "screen_set_pw_start"
+    case screenCreatePassword                      = "screen_set_pw_create"
+    case screenCreatePasswordSuccess               = "screen_set_pw_sucess"
 }
 
 extension TrackingEvent {

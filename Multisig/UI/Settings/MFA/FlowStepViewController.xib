@@ -12,7 +12,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlowStepViewController" customModule="Multisig" customModuleProvider="target">
             <connections>
                 <outlet property="actionButton" destination="Gpn-tR-Cvp" id="HWn-RE-K2E"/>
-                <outlet property="descriptionButton" destination="qe0-46-rGb" id="Oof-2t-Z0P"/>
+                <outlet property="animationView" destination="c6R-j2-fY5" id="wq9-K7-a3r"/>
+                <outlet property="descriptionLabel" destination="qe0-46-rGb" id="edK-DE-c2I"/>
                 <outlet property="imageView" destination="XaS-k0-jRe" id="5Ac-Ve-R10"/>
                 <outlet property="titleLabel" destination="AoG-hO-rRl" id="RRs-mO-HaK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -40,10 +41,33 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="hva-8m-hGd">
                     <rect key="frame" x="16" y="79" width="361" height="592"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XaS-k0-jRe">
+                        <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="a8h-ZT-fGE">
                             <rect key="frame" x="0.0" y="0.0" width="361" height="296"/>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your transaction is queued!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AoG-hO-rRl">
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XaS-k0-jRe">
+                                    <rect key="frame" x="0.0" y="0.0" width="361" height="296"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </imageView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6R-j2-fY5" customClass="LottieAnimationView" customModule="Lottie">
+                                    <rect key="frame" x="0.0" y="93" width="361" height="110"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="110" id="u0c-37-Mf4"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="c6R-j2-fY5" firstAttribute="centerY" secondItem="a8h-ZT-fGE" secondAttribute="centerY" id="8Lo-fw-aXM"/>
+                                <constraint firstAttribute="bottom" secondItem="XaS-k0-jRe" secondAttribute="bottom" id="MaT-ae-V5A"/>
+                                <constraint firstItem="c6R-j2-fY5" firstAttribute="centerX" secondItem="a8h-ZT-fGE" secondAttribute="centerX" id="W2Y-ad-dsK"/>
+                                <constraint firstItem="XaS-k0-jRe" firstAttribute="top" secondItem="a8h-ZT-fGE" secondAttribute="top" id="Yb4-o1-Vec"/>
+                                <constraint firstAttribute="trailing" secondItem="XaS-k0-jRe" secondAttribute="trailing" id="hnw-OZ-Jnm"/>
+                                <constraint firstItem="XaS-k0-jRe" firstAttribute="leading" secondItem="a8h-ZT-fGE" secondAttribute="leading" id="lYp-vW-JiS"/>
+                                <constraint firstItem="c6R-j2-fY5" firstAttribute="width" secondItem="a8h-ZT-fGE" secondAttribute="width" id="z9R-eI-sXr"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your transaction is queued!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AoG-hO-rRl">
                             <rect key="frame" x="0.0" y="515" width="361" height="20.333333333333371"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
@@ -57,8 +81,8 @@
                         </label>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="XaS-k0-jRe" firstAttribute="height" secondItem="hva-8m-hGd" secondAttribute="height" multiplier="0.5" id="19v-tX-R2o"/>
                         <constraint firstItem="qe0-46-rGb" firstAttribute="top" secondItem="AoG-hO-rRl" secondAttribute="bottom" constant="16" id="60R-lv-X9z"/>
+                        <constraint firstItem="a8h-ZT-fGE" firstAttribute="height" secondItem="hva-8m-hGd" secondAttribute="height" multiplier="0.5" id="DQx-Vu-ka5"/>
                     </constraints>
                 </stackView>
             </subviews>
