@@ -13,6 +13,8 @@ fileprivate protocol SectionItem {}
 class KeySecurityOverviewViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet private var infoButton: UIBarButtonItem!
 
+    private var createPasswordFlow: CreatePasswordFlow!
+
     private typealias SectionItems = (section: Section, items: [SectionItem])
     private var sections = [SectionItems]()
 
@@ -58,6 +60,11 @@ class KeySecurityOverviewViewController: LoadableViewController, UITableViewDele
                 target: self,
                 action: #selector(showHelpScreen))
         navigationItem.rightBarButtonItem = infoButton
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.screenSecurityOverview)
     }
 
     @objc func showHelpScreen() { 
@@ -128,7 +135,14 @@ class KeySecurityOverviewViewController: LoadableViewController, UITableViewDele
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        let factor = sections[indexPath.section].items[indexPath.row]
+        if case let Section.Factor.factor(name, value, image, isDefault, selected) = factor {
+            createPasswordFlow = CreatePasswordFlow(completion: { [weak self] _ in
+                self?.createPasswordFlow = nil
+                self?.buildSections()
+            })
+            present(flow: createPasswordFlow)
+        }
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
