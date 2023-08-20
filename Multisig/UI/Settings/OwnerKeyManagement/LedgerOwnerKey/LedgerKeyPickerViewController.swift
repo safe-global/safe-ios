@@ -284,12 +284,12 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
             if shouldShowLoadMoreButton {
                 return loadMoreCell()
             } else {
-                return opneBluetoothSettingsCell()
+                return openBluetoothSettingsCell()
             }
         }
 
         if indexPath.row == model.keys.count + 1 {
-            return opneBluetoothSettingsCell()
+            return openBluetoothSettingsCell()
         }
 
         let key = model.keys[indexPath.row]
@@ -312,7 +312,7 @@ fileprivate class LedgerKeyPickerContentViewController: UITableViewController, L
         return cell
     }
 
-    private func opneBluetoothSettingsCell() -> UITableViewCell {
+    private func openBluetoothSettingsCell() -> UITableViewCell {
         let cell = tableView.dequeueCell(ButtonTableViewCell.self)
         let text = "Open Bluetooth settings"
         cell.height = estimatedRowHeight
