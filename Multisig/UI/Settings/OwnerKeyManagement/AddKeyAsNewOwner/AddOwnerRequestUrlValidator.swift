@@ -13,8 +13,8 @@ struct AddOwnerRequestParameters {
     var safeAddress: Address
     var ownerAddress: Address
     
-    func link() -> String {
-        var url = App.configuration.services.webAppURL
+    func link(base: URL = App.configuration.services.webAppURL) -> String {
+        var url = base
             .appendingPathComponent("addOwner")
         
         let result: String

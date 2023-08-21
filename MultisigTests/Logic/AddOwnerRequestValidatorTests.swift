@@ -73,7 +73,7 @@ class AddOwnerRequestValidatorTests: XCTestCase {
             chain: .mainnetChain(),
             safeAddress: "0x71592E6Cbe7779D480C1D029e70904041F8f602A",
             ownerAddress: "0x8e6A5aDb2B88257A3DAc7A76A7B4EcaCdA090b66"
-        ).link()
+        ).link(base: AddOwnerRequestValidator.webAppURL)
         
         XCTAssertEqual(str, "https://\(domain)/addOwner?safe=eth:0x71592E6Cbe7779D480C1D029e70904041F8f602A&address=0x8e6A5aDb2B88257A3DAc7A76A7B4EcaCdA090b66")
     }
