@@ -75,8 +75,7 @@ class UIFlow: NSObject {
     }
 
     func stop(success: Bool) {
-        if let presenter = presenter {
-            assert(presenter.presentedViewController != nil)
+        if let presenter = presenter, presenter.presentedViewController != nil {
             presenter.dismiss(animated: true) { [unowned self] in
                 completion(success)
             }
