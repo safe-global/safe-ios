@@ -45,7 +45,11 @@ class ShareAddOwnerLinkViewController: UIViewController {
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
-        shareLinkView.set(text: App.configuration.services.webAppURL.appendingPathComponent("\(safe.chain!.shortName!):\(safe.displayAddress)/addOwner?address=\(owner.checksummed)").absoluteString)
+        
+        let params = AddOwnerRequestParameters(chain: safe.chain!, safeAddress: safe.addressValue, ownerAddress: owner)
+        let text = params.link()
+
+        shareLinkView.set(text: text)
         shareLinkView.onShare = { [weak self] text in
             let vc = UIActivityViewController(activityItems: [text], applicationActivities: nil)
             vc.completionWithItemsHandler = { _, success, _, _ in
