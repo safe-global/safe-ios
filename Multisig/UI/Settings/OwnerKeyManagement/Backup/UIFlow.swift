@@ -50,9 +50,13 @@ class UIFlow: NSObject {
         if let presentedViewController = presenter.presentedViewController {
             presentedViewController.dismiss(animated: true) { [weak self] in
                 self?.presenter.present(nav, animated: true)
+                // the actual presenting view controller might be different from the `presenter`
+                self?.presenter = nav.presentingViewController
             }
         } else {
             presenter.present(nav, animated: true)
+            // the actual presenting view controller might be different from the `presenter`
+            presenter = nav.presentingViewController
         }
     }
 
@@ -71,13 +75,8 @@ class UIFlow: NSObject {
     }
 
     func stop(success: Bool) {
-        if let presenter = presenter, presenter.presentedViewController != nil {
-            presenter.dismiss(animated: true) { [unowned self] in
-                completion(success)
-            }
-        } else if let presenter = navigationController.presentingViewController {
-            // in this case, the presenting view controller is not a direct ancestor of the
-            // currently opened view controller
+        if let presenter = presenter {
+            assert(presenter.presentedViewController != nil)
             presenter.dismiss(animated: true) { [unowned self] in
                 completion(success)
             }
