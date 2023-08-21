@@ -176,12 +176,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // handle request to add owner
         if AddOwnerRequestValidator.isValid(url: incomingURL),
            let params = AddOwnerRequestValidator.parameters(from: incomingURL) {
-            DefaultNavigationRouter.shared.navigate(to: .requestToAddOwner(params))
+            CompositeNavigationRouter.shared.navigate(to: .requestToAddOwner(params))
             return
         }
 
-        if let navigationRoute = DefaultNavigationRouter.shared.routeFrom(from: incomingURL) {
-            DefaultNavigationRouter.shared.navigate(to: navigationRoute)
+        if let navigationRoute = CompositeNavigationRouter.shared.routeFrom(from: incomingURL) {
+            CompositeNavigationRouter.shared.navigate(to: navigationRoute)
         }
     }
 
@@ -384,6 +384,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 
 extension SceneDelegate: NavigationRouter {
+    func routeFrom(from url: URL) -> NavigationRoute? {
+        nil
+    }
+    
     func canNavigate(to route: NavigationRoute) -> Bool {
         guard let tabWindow = tabBarWindow, let tabBarVC = tabWindow.rootViewController as? MainTabBarViewController else { return false }
         return tabBarVC.canNavigate(to: route)

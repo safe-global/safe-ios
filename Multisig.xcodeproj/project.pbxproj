@@ -999,6 +999,7 @@
 		B0D61F54F176906A7C5A65CB /* SendTransactionRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61BDFEADB74805D9221DB /* SendTransactionRequestViewController.swift */; };
 		B0D61FFF1935AA2484BD940A /* WebConnectionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D617C60F3081A3A923005D /* WebConnectionRepository.swift */; };
 		B343BEB32A77DDA1006BF46B /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0491067C28F99246005A4A99 /* DMSans-Bold.ttf */; };
+		B35BFD0F2A937DC000A9FB15 /* DefaultNavigationRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BFD0E2A937DC000A9FB15 /* DefaultNavigationRouterTests.swift */; };
 		B3B6044F2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B6044E2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift */; };
 		D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A022769CEAD00D6E024 /* Tooltip.swift */; };
 		D80B5A052769CF1B00D6E024 /* TooltipSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A042769CF1B00D6E024 /* TooltipSource.swift */; };
@@ -2023,6 +2024,7 @@
 		B0D61DB08E699747DCEE7325 /* GnosisSafeWebPeerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GnosisSafeWebPeerInfo.swift; sourceTree = "<group>"; };
 		B0D61EF933B18A7181F0F6E8 /* WebConnectionOpenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionOpenRequest.swift; sourceTree = "<group>"; };
 		B0D61FB05FC8C6D45FAC1246 /* ActionPanelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionPanelView.xib; sourceTree = "<group>"; };
+		B35BFD0E2A937DC000A9FB15 /* DefaultNavigationRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationRouterTests.swift; sourceTree = "<group>"; };
 		B3B6044E2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertControllerStyle+Multiplatform.swift"; sourceTree = "<group>"; };
 		D80B5A022769CEAD00D6E024 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
 		D80B5A042769CF1B00D6E024 /* TooltipSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipSource.swift; sourceTree = "<group>"; };
@@ -2674,6 +2676,7 @@
 				551DDEEA244F192300C719D3 /* Models */,
 				0A9366BC279090CC001918A9 /* OwnerKeySelectionPolicyTests.swift */,
 				0AADCDBF2858CE2600A0139B /* AddOwnerRequestValidatorTests.swift */,
+				B35BFD0E2A937DC000A9FB15 /* DefaultNavigationRouterTests.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -3278,7 +3281,6 @@
 		0A93DD6F2445CC8C00688050 /* MultisigTests */ = {
 			isa = PBXGroup;
 			children = (
-				D86A68E2274E6B3E00D7F5C5 /* App */,
 				0A0EFCA3246EADE900D3D8BF /* Logic */,
 				0A0EFCA1246EADD100D3D8BF /* Data */,
 				0A0EFCA2246EADE200D3D8BF /* Cross-layer */,
@@ -4636,13 +4638,6 @@
 			path = ExecuteTransaction;
 			sourceTree = "<group>";
 		};
-		D86A68E2274E6B3E00D7F5C5 /* App */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = App;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -5836,6 +5831,7 @@
 				5532D4CE2449A1980067505A /* ConsoleLoggerTests.swift in Sources */,
 				0AA9F25924992CB6005BD60F /* TransactionTests.swift in Sources */,
 				0ADD04D6268CB9BF00C2B44A /* UIColorStylesTests.swift in Sources */,
+				B35BFD0F2A937DC000A9FB15 /* DefaultNavigationRouterTests.swift in Sources */,
 				0A9366BD279090CD001918A9 /* OwnerKeySelectionPolicyTests.swift in Sources */,
 				0A096CC82608F49E0034E6BC /* RegisterNotificationTokenRequestTests.swift in Sources */,
 				5532D4CB2449A1980067505A /* LoggableErrorTests.swift in Sources */,

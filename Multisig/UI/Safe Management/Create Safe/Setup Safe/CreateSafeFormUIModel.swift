@@ -879,7 +879,7 @@ class CreateSafeFormUIModel {
         try? saveCreationParameters()
 
         App.shared.notificationHandler.safeAdded(address: address)
-        DefaultNavigationRouter.shared.navigate(to: NavigationRoute.showAssets(address.checksummed, chainId: chain.id))
+        CompositeNavigationRouter.shared.navigate(to: NavigationRoute.showAssets(address.checksummed, chainId: chain.id))
     }
 }
 

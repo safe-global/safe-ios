@@ -391,6 +391,10 @@ class MainTabBarViewController: UITabBarController {
 }
 
 extension MainTabBarViewController: NavigationRouter {
+    func routeFrom(from url: URL) -> NavigationRoute? {
+        nil
+    }
+    
     func canNavigate(to route: NavigationRoute) -> Bool {
         if route.path.starts(with: "/settings/") {
             return true

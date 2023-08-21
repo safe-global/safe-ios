@@ -63,7 +63,7 @@ class SafeDeploymentNotificationController {
         let address: String = userInfo["safe"] as! String
         let chainId: String = userInfo["chainId"] as! String
         let route = NavigationRoute.showAssets(address, chainId: chainId)
-        DefaultNavigationRouter.shared.navigate(to: route)
+        CompositeNavigationRouter.shared.navigate(to: route)
     }
 }
 

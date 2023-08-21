@@ -284,9 +284,7 @@ extension DappsViewController: QRCodeScannerViewControllerDelegate {
         if (url.starts(with: "safe-wc:")) {
             dismiss(animated: true) {
                 let route = NavigationRoute.connectToWeb(url)
-                if DefaultNavigationRouter.shared.canNavigate(to: route) {
-                    DefaultNavigationRouter.shared.navigate(to: route)
-                }
+                CompositeNavigationRouter.shared.navigate(to: route)
             }
         } else {
             if WalletConnectManager.shared.canConnect(url: url) {

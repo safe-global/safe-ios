@@ -349,6 +349,10 @@ class AppSettingsViewController: UITableViewController {
 }
 
 extension AppSettingsViewController: NavigationRouter {
+    func routeFrom(from url: URL) -> NavigationRoute? {
+        nil
+    }
+    
     func canNavigate(to route: NavigationRoute) -> Bool {
         if route.path == NavigationRoute.connectToWeb().path {
             return true
