@@ -371,15 +371,6 @@
         }
       },
       {
-        "package": "PasswordChecker",
-        "repositoryURL": "https://github.com/5afe/wallet-passwordchecker-ios.git",
-        "state": {
-          "branch": "main",
-          "revision": "1e8bc8b2e44edea6ff1b0ee6125e402f78a00477",
-          "version": null
-        }
-      },
-      {
         "package": "WalletConnectSwift",
         "repositoryURL": "https://github.com/WalletConnect/WalletConnectSwift",
         "state": {
