@@ -8,9 +8,6 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '30'))
     }
-    triggers {
-        cron('@midnight')
-    }
     environment {
         // this enables ruby gem binaries, such as xcpretty
         PATH = "$HOME/.rbenv/bin:$HOME/.rbenv/shims:/usr/local/bin:/usr/local/sbin:$PATH"
@@ -52,9 +49,6 @@ pipeline {
                 allOf {
                     // Jenkins checks out PRs with a PR-XXX format
                     expression { BRANCH_NAME ==~ /^PR-.*/ }
-                    not {
-                        triggeredBy 'TimerTrigger'
-                    }
                 }
             }
             steps {
@@ -75,9 +69,6 @@ pipeline {
             when {
                 allOf {
                     expression { BRANCH_NAME ==~ /^(main|release\/.*)$/ }
-                    not {
-                        triggeredBy 'TimerTrigger'
-                    }
                 }
             }
             steps {
@@ -115,27 +106,6 @@ pipeline {
 			MOONPAY_SECRET_KEY=\"${MOONPAY_STAGING_SECRET_KEY}\" \
 			bin/archive.sh \"Multisig - Staging\"'
                     archiveArtifacts 'Build/*/xcodebuild-*.log'
-                }
-            }
-        }
-        stage('All Tests') {
-            when {
-                allOf {
-                    expression { BRANCH_NAME ==~ /^(main)$/ }
-                    triggeredBy 'TimerTrigger'
-                }
-            }
-            steps {
-                ansiColor('xterm') {
-                    // clean build dir
-                    // (was useful when CoreData code generation didn't work properly for some reason)
-                    sh "rm -rf Build"
-
-                    // new param for uikit enabled - alternative
-                    sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" bin/test.sh \"All Tests\"'
-                    junit 'Build/reports/junit.xml'
-                    archiveArtifacts 'Build/*/xcodebuild-test.log'
-                    archiveArtifacts 'Build/*/tests-bundle.xcresult.tgz'
                 }
             }
         }

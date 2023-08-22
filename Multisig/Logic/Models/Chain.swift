@@ -316,6 +316,24 @@ extension Chain {
             themeTextColor: "#ffffff",
             themeBackgroundColor: "#E8673C")
     }
+    
+    static func goerliChain() -> Chain {
+        try! Chain.by(ChainID.goerli) ?? Chain.create(
+            chainId: ChainID.goerli,
+            chainName: "Base Goerli Testnet",
+            rpcUrl: URL(string: "https://goerli.base.org")!,
+            rpcUrlAuthentication: SCGModels.RpcAuthentication.Authentication.none.rawValue,
+            blockExplorerUrlAddress: "https://goerli.basescan.org/address/{{address}}",
+            blockExplorerUrlTxHash: "https://goerli.basescan.org/tx/{{txHash}}",
+            ensRegistryAddress: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e",
+            shortName: "gor",
+            currencyName: "Goerli Ether",
+            currencySymbl: "GOR",
+            currencyDecimals: 18,
+            currencyLogo: URL(string: "https://safe-transaction-assets.safe.global/chains/5/currency_logo.png")!,
+            themeTextColor: "#ffffff",
+            themeBackgroundColor: "#4D99EB")
+    }
 
     typealias ChainSafes = [(chain: Chain, safes: [Safe])]
 

@@ -152,7 +152,7 @@ class BackupFlowTests: UIIntegrationTestCase {
     func test_updateKey() throws {
 
         let privateKey = try PrivateKey(mnemonic: mnemonic, pathIndex: 0)
-        try KeyInfo.import(address: privateKey.address, name: "key", privateKey: privateKey)
+        try KeyInfo.import(address: privateKey.address, name: "key", privateKey: privateKey, type: .deviceGenerated)
 
         let flow = BackupFlow(mnemonic: mnemonic) { success in }
         flow.modal(from: presenterVC)

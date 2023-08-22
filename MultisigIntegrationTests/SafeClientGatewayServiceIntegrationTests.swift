@@ -147,7 +147,7 @@ class SafeClientGatewayServiceIntegrationTests: CoreDataTestCase {
     }
 
     private func fetchTransaction(safeTxHash: String) -> Result<SCGModels.TransactionDetails, Error> {
-        let hash = Data(hex: safeTxHash)
+        let hash: Data = Data(hex: safeTxHash)
         var result: Result<SCGModels.TransactionDetails, Error>?
         let semaphore = DispatchSemaphore(value: 0)
 
