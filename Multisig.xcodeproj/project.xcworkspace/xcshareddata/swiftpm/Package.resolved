@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "AnyCodable",
+        "repositoryURL": "https://github.com/Flight-School/AnyCodable",
+        "state": {
+          "branch": null,
+          "revision": "862808b2070cd908cb04f9aafe7de83d35f81b05",
+          "version": "0.6.7"
+        }
+      },
+      {
         "package": "BigInt",
         "repositoryURL": "https://github.com/attaswift/BigInt.git",
         "state": {
@@ -42,25 +51,25 @@
         "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
         "state": {
           "branch": null,
-          "revision": "039f56c5d7960f277087a0be51f5eb04ed0ec073",
-          "version": "1.5.1"
+          "revision": "32f641cf24fc7abc1c591a2025e9f2f572648b0f",
+          "version": "1.7.2"
         }
       },
       {
         "package": "CustomAuth",
         "repositoryURL": "https://github.com/torusresearch/customauth-swift-sdk",
         "state": {
-          "branch": null,
-          "revision": "8ceba0ee4e65616a8602046dd1fd1ffcc4d29733",
-          "version": "6.0.0"
+          "branch": "alpha",
+          "revision": "8c3357fbb16f300be0f0abe957c83644f7d007c7",
+          "version": null
         }
       },
       {
         "package": "EthereumAddress",
         "repositoryURL": "https://github.com/safe-global/EthereumAddress.git",
         "state": {
-          "branch": "update-cryptoswift-1.5.1",
-          "revision": "6156ce94d4663b0a499e87cef64def56a068ed7d",
+          "branch": "update-cryptoswift-1.7.2",
+          "revision": "32da2b4aee4107776cae1afba22ee57c99417388",
           "version": null
         }
       },
@@ -68,9 +77,9 @@
         "package": "FetchNodeDetails",
         "repositoryURL": "https://github.com/torusresearch/fetch-node-details-swift.git",
         "state": {
-          "branch": null,
-          "revision": "94a0ee598abfcc2104ceeda80eecf4b55242ba62",
-          "version": "4.0.1"
+          "branch": "alpha",
+          "revision": "46603072d1796e9adc5afe2af33aaceb2294db67",
+          "version": null
         }
       },
       {
@@ -80,15 +89,6 @@
           "branch": null,
           "revision": "60f9a33e7084482df67b48e16f315f4f7a6f5da9",
           "version": "10.6.0"
-        }
-      },
-      {
-        "package": "GenericJSON",
-        "repositoryURL": "https://github.com/zoul/generic-json-swift",
-        "state": {
-          "branch": null,
-          "revision": "0a06575f4038b504e78ac330913d920f1630f510",
-          "version": "2.0.2"
         }
       },
       {
@@ -173,15 +173,6 @@
         }
       },
       {
-        "package": "tkey_pkg",
-        "repositoryURL": "https://github.com/torusresearch/libtkey-pkg/",
-        "state": {
-          "branch": null,
-          "revision": "3cb2d894da704751f62f0f41e8f8a929504f883c",
-          "version": "0.0.5"
-        }
-      },
-      {
         "package": "Lottie",
         "repositoryURL": "https://github.com/airbnb/lottie-ios",
         "state": {
@@ -239,8 +230,8 @@
         "package": "UnstoppableDomainsResolution",
         "repositoryURL": "https://github.com/safe-global/resolution-swift",
         "state": {
-          "branch": "update-cryptoswift-1.5.1",
-          "revision": "0bc612c38cef2ffa7d25020e90ae15327390bb62",
+          "branch": "update-cryptoswift-1.7.2",
+          "revision": "baa281e5bd43219f4c8f12b081feec294ac80229",
           "version": null
         }
       },
@@ -255,11 +246,11 @@
       },
       {
         "package": "secp256k1",
-        "repositoryURL": "https://github.com/Boilertalk/secp256k1.swift.git",
+        "repositoryURL": "https://github.com/GigaBitcoin/secp256k1.swift",
         "state": {
           "branch": null,
-          "revision": "cd187c632fb812fd93711a9f7e644adb7e5f97f0",
-          "version": "0.1.7"
+          "revision": "1a14e189def5eaa92f839afdd2faad8e43b61a6e",
+          "version": "0.12.2"
         }
       },
       {
@@ -272,12 +263,21 @@
         }
       },
       {
+        "package": "SocketIO",
+        "repositoryURL": "https://github.com/socketio/socket.io-client-swift",
+        "state": {
+          "branch": null,
+          "revision": "af5ce97b755d964235348d96f6db5cbdcbe334a5",
+          "version": "16.0.1"
+        }
+      },
+      {
         "package": "Starscream",
         "repositoryURL": "https://github.com/daltoniam/Starscream.git",
         "state": {
           "branch": null,
-          "revision": "a063fda2b8145a231953c20e7a646be254365396",
-          "version": "3.1.2"
+          "revision": "df8d82047f6654d8e4b655d1b1525c64e1059d21",
+          "version": "4.0.4"
         }
       },
       {
@@ -353,12 +353,21 @@
         }
       },
       {
+        "package": "tkey_pkg",
+        "repositoryURL": "https://github.com/tkey/tkey-mpc-swift/",
+        "state": {
+          "branch": "alpha",
+          "revision": "9f2930b6c24703dca52c7fb19fd56a4755a954a0",
+          "version": null
+        }
+      },
+      {
         "package": "TorusUtils",
         "repositoryURL": "https://github.com/torusresearch/torus-utils-swift.git",
         "state": {
-          "branch": null,
-          "revision": "93823201f248ce15dab59c027790da4b73375aed",
-          "version": "5.0.0"
+          "branch": "alpha",
+          "revision": "82956b84fc60dbb3983f1663a315cfe798e29f06",
+          "version": null
         }
       },
       {
@@ -368,6 +377,15 @@
           "branch": null,
           "revision": "3c953558d61fdd9b136d981764e3242bd92b2648",
           "version": "1.7.0"
+        }
+      },
+      {
+        "package": "tss-client-swift",
+        "repositoryURL": "https://github.com/torusresearch/tss-client-swift/",
+        "state": {
+          "branch": null,
+          "revision": "ab123d96c36d07aa73bf6118ca9602ab2d2846d0",
+          "version": "1.0.10"
         }
       },
       {
@@ -390,11 +408,11 @@
       },
       {
         "package": "WalletConnectSwift",
-        "repositoryURL": "https://github.com/WalletConnect/WalletConnectSwift",
+        "repositoryURL": "https://github.com/biafra23/WalletConnectSwift",
         "state": {
-          "branch": null,
-          "revision": "e0bbfd16d5c54a7aa7e316956d765399c6332fa2",
-          "version": "1.7.0"
+          "branch": "update-cryptoswift-1.7.2",
+          "revision": "5449a705e1f0fb239a7cc13c61944d87551a993d",
+          "version": null
         }
       },
       {
@@ -404,15 +422,6 @@
           "branch": null,
           "revision": "7d4eca9cf4441bbfef649a055baea0a31fd96d83",
           "version": "1.6.14"
-        }
-      },
-      {
-        "package": "web3.swift",
-        "repositoryURL": "https://github.com/argentlabs/web3.swift",
-        "state": {
-          "branch": null,
-          "revision": "0474eb5e883bc4800b3909833207a1d35e72b808",
-          "version": "0.9.3"
         }
       },
       {
