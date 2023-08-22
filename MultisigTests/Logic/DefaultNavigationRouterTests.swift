@@ -67,6 +67,18 @@ final class DefaultNavigationRouterTests: XCTestCase {
 
 final class ExtendedNavigationRouterTests: XCTestCase {
     let router = ExtendedNavigationRouter()
+    
+    func testWelcome() {
+        let url = "https://some.host/welcome"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/assets/")
+    }
+    
+    func testHome() {
+        let url = "https://some.host/home"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/assets/")
+    }
 
     func testAssets() {
         let url = "https://some.host/balances?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
