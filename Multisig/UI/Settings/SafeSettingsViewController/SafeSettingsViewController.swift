@@ -46,6 +46,10 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             case name(String)
         }
 
+        enum Security: SectionItem {
+            case security(String, Bool)
+        }
+
         enum RequiredConfirmations: SectionItem {
             case confirmations(String)
         }
@@ -226,6 +230,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
         sections += [
             (section: .name("Safe Account Name"), items: [Section.Name.name(safe.name ?? "Safe \(safe.addressValue.ellipsized())")]),
+            // TODO: Handle when exactly to show the security row
+            (section: .name("SECURITY"), items: [Section.Security.security("Account security", true)]),
 
             (section: .requiredConfirmations("Required confirmations"),
              items: [Section.RequiredConfirmations.confirmations("\(threshold) out of \(ownersInfo.count)")]),
@@ -273,7 +279,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         switch item {
         case Section.Name.name(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
-
+        case Section.Security.security(let name, let showWarning):
+            return tableView.basicCell(name: name,
+                                       icon: "ico-shield-infobox",
+                                       indexPath: indexPath,
+                                       supplementaryImage: showWarning ? UIImage(named:"ico-info-24")?.withTintColor(.warning) : nil)
         case Section.RequiredConfirmations.confirmations(let name):
             let canChangeConfirmations = ChangeConfirmationsFlow.canChangeConfirmations(safe: safe)
             return tableView.basicCell(name: name,
@@ -343,15 +353,10 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 let alertController = UIAlertController(
                     title: nil,
                     message: "Removing a Safe only removes it from this app. It does not delete the Safe from the blockchain. Funds will not get lost.",
-                    preferredStyle: .actionSheet)
+                    preferredStyle: .multiplatformActionSheet)
 
-                if let popoverPresentationController = alertController.popoverPresentationController {
-                    popoverPresentationController.sourceView = tableView
-                    popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
-                }
-
-                let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
-                    if let safe = self.safe {
+                let remove = UIAlertAction(title: "Remove", style: .destructive) { [weak self] _ in
+                    if let safe = self?.safe {
                         Safe.remove(safe: safe)
                     }
                 }
@@ -495,7 +500,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 }
             }
             show(editSafeNameViewController, sender: self)
-
+        case Section.Security.security(_, _):
+            let vc = KeySecurityOverviewViewController()
+            show(vc, sender: self)
         case Section.RequiredConfirmations.confirmations(_):
             changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe) { [unowned self] _ in
                 changeConfirmationsFlow = nil

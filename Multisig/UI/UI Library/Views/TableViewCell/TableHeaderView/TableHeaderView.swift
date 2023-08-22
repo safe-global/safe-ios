@@ -11,11 +11,14 @@ import UIKit
 class TableHeaderView: UINibView {
     @IBOutlet private weak var titleLabel: UILabel!
 
-    func set(_ title: String, style: GNOTextStyle = .body, centered: Bool = false) {
+    func set(_ title: String, style: GNOTextStyle = .body, centered: Bool = false, linesCount: Int = 2, backgroundColor: UIColor = .systemBackground) {
         titleLabel.text = title
+        titleLabel.numberOfLines = linesCount
         titleLabel.setStyle(style)
         if centered {
             titleLabel.textAlignment = .center
         }
+
+        self.backgroundColor = backgroundColor
     }
 }

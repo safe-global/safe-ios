@@ -49,5 +49,4 @@ class GNOTextField: UINibView {
         errorLabel.isHidden = value == nil
         borderView.tintColor = value == nil ? .border : .error
     }
-
 }

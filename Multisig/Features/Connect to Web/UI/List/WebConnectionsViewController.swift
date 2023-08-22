@@ -228,7 +228,7 @@ class DisconnectionConfirmationController: UIAlertController {
         let alertController = DisconnectionConfirmationController(
                 title: nil,
                 message: "Your Safe Account will be disconnected from web.",
-                preferredStyle: .actionSheet)
+                preferredStyle: .multiplatformActionSheet)
         let remove = UIAlertAction(title: "Disconnect", style: .destructive) { _ in
             Tracker.trackEvent(.webConnectionDisconnected)
             WebConnectionController.shared.userDidDisconnect(connection)
@@ -243,7 +243,7 @@ class DisconnectionConfirmationController: UIAlertController {
         let alertController = DisconnectionConfirmationController(
                 title: nil,
                 message: "Your owner will be disconnected from the wallet.",
-                preferredStyle: .actionSheet)
+                preferredStyle: .multiplatformActionSheet)
         let remove = UIAlertAction(title: "Disconnect", style: .destructive) { _ in
             Tracker.trackEvent(.disconnectInstalledWallet)
             WebConnectionController.shared.disconnectConnections(account: key.address)
