@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "ill-lock.pdf",
+      "filename" : "ill-recovery-shield.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ill-lock (1).pdf",
+      "filename" : "ill-recovery-shield-dark.pdf",
       "idiom" : "universal"
     }
   ],

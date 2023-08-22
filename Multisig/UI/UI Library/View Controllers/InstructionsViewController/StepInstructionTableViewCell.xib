@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -30,7 +30,7 @@
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="w4a-gt-bVl">
                                                 <rect key="frame" x="0.0" y="-3" width="28" height="34"/>
-                                                <color key="tintColor" name="backgroundTetriary"/>
+                                                <color key="tintColor" name="backgroundTertiary"/>
                                                 <imageReference key="image" image="circle.fill" catalog="system" symbolScale="large"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="76G-bI-Opo">
@@ -98,6 +98,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="circleLabel" destination="76G-bI-Opo" id="40D-DH-uY1"/>
+                <outlet property="contentViewTopPaddingConstraint" destination="e6I-6W-dix" id="GyA-Pe-lEW"/>
                 <outlet property="descriptionLabel" destination="aEl-Hx-Rhz" id="Qda-n0-Vk9"/>
                 <outlet property="headerLabel" destination="8YV-Zg-VEu" id="cLa-kU-f2f"/>
                 <outlet property="verticalBarView" destination="c4W-9e-d2L" id="OV8-S6-Ov5"/>
@@ -106,13 +107,13 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="circle.fill" catalog="system" width="128" height="121"/>
-        <image name="ico-vertical" width="2" height="5"/>
-        <namedColor name="backgroundTetriary">
+        <image name="circle.fill" catalog="system" width="128" height="123"/>
+        <image name="ico-vertical" width="2" height="64"/>
+        <namedColor name="backgroundTertiary">
             <color red="0.93333333333333335" green="0.93725490196078431" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="labelSecondary">
-            <color red="0.36470588235294116" green="0.42745098039215684" blue="0.45490196078431372" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.38823529411764707" green="0.40000000000000002" blue="0.41176470588235292" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

@@ -44,7 +44,7 @@ extension Safe {
 
     // TODO: Imporve conditions
     var security: SafeSecurityStatus {
-        return .low
+        return .medium
     }
 
     var walletConnectSessiontopics: [String] {
@@ -330,14 +330,11 @@ enum SafeStatus: Int16 {
 }
 
 enum SafeSecurityStatus: Int16 {
-    case low = 0
-    case medium = 1
-    case high = 2
+    case medium = 0
+    case high = 1
 
     var color: UIColor {
         switch self {
-        case .low:
-            return .error
         case .medium:
             return .warning
         case .high:

@@ -79,11 +79,6 @@
             <point key="canvasLocation" x="280.91603053435114" y="151.05633802816902"/>
         </tableViewCell>
     </objects>
-    <designables>
-        <designable name="PEW-j5-rEP">
-            <size key="intrinsicContentSize" width="30" height="34"/>
-        </designable>
-    </designables>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -211,11 +211,10 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
                                                                              (false, "Add more owners"),
                                                                              (false , "Increase confirmation threshold")])])]
         sections += [
-            (section: .requiredConfirmations("Required confirmations"),
-             items: [Section.RequiredConfirmations.confirmations("\(threshold) out of \(ownersInfo.count)")]),
-
             (section: .ownerAddresses("Owners"),
              items: ownersInfoItems),
+            (section: .requiredConfirmations("Required confirmations"),
+             items: [Section.RequiredConfirmations.confirmations("\(threshold) out of \(ownersInfo.count)")])
         ]
     }
 
@@ -436,6 +435,9 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
                 let vc = OwnerKeyDetailsViewController(keyInfo: keyInfo)
                 show(vc, sender: self)
             }
+        case Section.OwnerAddresses.socialLoginInfoBox:
+            let vc = KeySecurityOverviewViewController()
+            show(vc, sender: self)
         default:
             break
         }

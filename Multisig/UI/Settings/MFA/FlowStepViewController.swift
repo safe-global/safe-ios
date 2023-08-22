@@ -13,6 +13,7 @@ class FlowStepViewController: UIViewController {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var actionButton: UIButton!
+    @IBOutlet weak var learnMoreView: HyperlinkButtonView!
     @IBOutlet weak var animationView: LottieAnimationView!
     @IBOutlet private weak var descriptionLabel: UILabel!
 
@@ -21,9 +22,11 @@ class FlowStepViewController: UIViewController {
     private var actionText: String?
     private var image: String?
     private var animation: String?
+    private var learnMoreURL: URL?
     private var trackingEvent: TrackingEvent?
+    private var learnMoreTrackingEvent: TrackingEvent?
 
-    var onDone: () -> Void = { }
+    var onAction: () -> Void = { }
 
     convenience init(
         titleText: String?,
@@ -31,7 +34,9 @@ class FlowStepViewController: UIViewController {
         actionText: String?,
         image: String?,
         animation: String?,
+        learnMoreURL: URL? = nil,
         trackingEvent: TrackingEvent? = nil,
+        learnMoreTrackingEvent: TrackingEvent? = nil,
         onDone: @escaping () -> Void
     ) {
         self.init(nibName: nil, bundle: nil)
@@ -41,7 +46,9 @@ class FlowStepViewController: UIViewController {
         self.image = image
         self.animation = animation
         self.trackingEvent = trackingEvent
-        self.onDone = onDone
+        self.learnMoreTrackingEvent = learnMoreTrackingEvent
+        self.onAction = onDone
+        self.learnMoreURL = learnMoreURL
     }
 
     override func viewDidLoad() {
@@ -64,6 +71,11 @@ class FlowStepViewController: UIViewController {
         }
 
         self.actionButton.setText(actionText, .filled)
+
+        learnMoreView.isHidden = learnMoreURL == nil
+        learnMoreView.setText("Learn more")
+        learnMoreView.trackingEvent = learnMoreTrackingEvent
+        learnMoreView.url = learnMoreURL
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -74,6 +86,6 @@ class FlowStepViewController: UIViewController {
     }
 
     @IBAction private func actionButtonTouched(_ sender: Any) {
-        onDone()
+        onAction()
     }
 }
