@@ -14,6 +14,7 @@ struct NavigationRoute {
 protocol NavigationRouter {
     func canNavigate(to route: NavigationRoute) -> Bool
     func navigate(to route: NavigationRoute)
+    func routeFrom(from url: URL) -> NavigationRoute?
 }
 
 extension NavigationRouter {
@@ -21,6 +22,43 @@ extension NavigationRouter {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
             navigate(to: route)
         }
+    }
+}
+
+class CompositeNavigationRouter: NavigationRouter {
+    static let shared = CompositeNavigationRouter(routers: [ExtendedNavigationRouter(), DefaultNavigationRouter()])
+    
+    private var routers: [NavigationRouter]
+
+    init(routers: [NavigationRouter]) {
+        self.routers = routers
+    }
+    
+    func canNavigate(to route: NavigationRoute) -> Bool {
+        for router in routers {
+            if router.canNavigate(to: route) {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func navigate(to route: NavigationRoute) {
+        for router in routers {
+            if router.canNavigate(to: route) {
+                router.navigate(to: route)
+                return
+            }
+        }
+    }
+    
+    func routeFrom(from url: URL) -> NavigationRoute? {
+        for router in routers {
+            if let route = router.routeFrom(from: url) {
+                return route
+            }
+        }
+        return nil
     }
 }
 
@@ -40,12 +78,12 @@ class DefaultNavigationRouter: NavigationRouter {
         sceneDelegate?.navigate(to: route)
     }
 
-    private let pattern = "^\(App.configuration.services.webAppURL)([-a-zA-Z0-9]{1,20}):(0x[a-fA-F0-9]{40})/([-a-zA-Z0-9]{1,20})(/[-a-zA-Z0-9_]+)?"
+    private let pattern = "^https://.*/([-a-zA-Z0-9]{1,20}):(0x[a-fA-F0-9]{40})/([-a-zA-Z0-9]{1,20})(/[-a-zA-Z0-9_]+)?"
 
     func routeFrom(from url: URL) -> NavigationRoute? {
         let matches = url.absoluteString.capturedValues(pattern: pattern).flatMap { $0 }
         guard matches.count >= 3,
-                let ـ = Address(matches[1]),
+                let _ = Address(matches[1]),
               let chain = Chain.by(shortName: matches[0]) else { return nil }
 
         let safeAddress = matches[1]
@@ -71,6 +109,113 @@ class DefaultNavigationRouter: NavigationRouter {
     }
 }
 
+class ExtendedNavigationRouter: NavigationRouter {
+    static let shared = ExtendedNavigationRouter()
+
+    private var sceneDelegate: SceneDelegate? {
+        UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+    }
+
+    func canNavigate(to route: NavigationRoute) -> Bool {
+        guard let sceneDelegate = sceneDelegate else { return false }
+        return sceneDelegate.canNavigate(to: route)
+    }
+
+    func navigate(to route: NavigationRoute) {
+        sceneDelegate?.navigate(to: route)
+    }
+
+    private let pattern = "^https://.*/([-a-zA-Z0-9]{1,20})(/[-a-zA-Z0-9_]+)?"
+
+    func routeFrom(from url: URL) -> NavigationRoute? {
+        
+        switch url.path {
+        case "/welcome", "/home":
+            return NavigationRoute.showAssets()
+        case "/balances":
+            guard let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url) else {
+                return nil
+            }
+            let route = NavigationRoute.showAssets(
+                safeAddress.address,
+                chainId: safeAddress.chainId
+            )
+            return route
+        case "/balances/nfts":
+            guard let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url) else {
+                return nil
+            }
+            let route = NavigationRoute.showCollectibles(
+                safeAddress.address,
+                chainId: safeAddress.chainId
+            )
+            return route
+        case "/transactions/history":
+            guard let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url) else {
+                return nil
+            }
+            let route = NavigationRoute.showTransactionHistory(
+                safeAddress.address,
+                chainId: safeAddress.chainId
+            )
+            return route
+        case "/transactions/queue":
+            guard let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url) else {
+                return nil
+            }
+            let route = NavigationRoute.showTransactionQueued(
+                safeAddress.address,
+                chainId: safeAddress.chainId
+            )
+            return route
+        case "/transactions/tx":
+            guard
+                let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url),
+                let transactionId = queryParameterValue(named: "id", in: url)
+            else {
+                return nil
+            }
+            let route = NavigationRoute.showTransactionDetails(
+                safeAddress.address,
+                chainId: safeAddress.chainId,
+                transactionId: transactionId
+            )
+            return route
+
+        default:
+            return nil
+        }
+    }
+    
+    // get the address and chain id from the 'safe'
+    private func eip3770AddressQueryParameter(named name: String, in url: URL) -> (address: String, chainId: String)? {
+        guard
+            let paramValue = queryParameterValue(named: name, in: url),
+            let address = try? Address.addressWithPrefix(text: paramValue),
+            let prefix = address.prefix,
+            let chainId = Chain.by(shortName: prefix)?.id
+        else {
+            return nil
+        }
+        return (address.checksummed, chainId)
+    }
+
+    // get the value of a query parameter
+    private func queryParameterValue(named name: String, in url: URL) -> String? {
+        let urlComps = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        let items = urlComps?.queryItems
+        guard
+            let paramValue = items?.first(where: { item in
+                item.name == name
+            })?.value
+        else {
+            return nil
+        }
+        return paramValue
+    }
+}
+
+
 extension NavigationRoute {
     static func connectToWeb(_ code: String? = nil) -> NavigationRoute {
         var route = NavigationRoute(path: "/settings/connectToWeb")
@@ -82,6 +227,17 @@ extension NavigationRoute {
 
     static func showAssets(_ address: String? = nil, chainId: String? = nil) -> NavigationRoute {
         var route = NavigationRoute(path: "/assets/")
+        if let address = address,
+           let chainId = chainId {
+            route.info["address"] = address
+            route.info["chainId"] = chainId
+        }
+
+        return route
+    }
+    
+    static func showCollectibles(_ address: String? = nil, chainId: String? = nil) -> NavigationRoute {
+        var route = NavigationRoute(path: "/assets/collectibles/")
         if let address = address,
            let chainId = chainId {
             route.info["address"] = address

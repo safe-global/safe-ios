@@ -62,7 +62,7 @@ class SafeDeployingViewController: UIViewController {
         super.viewDidAppear(animated)
         animationView.play()
         if let safe = safe, safe.safeStatus == .deploymentFailed {
-            DefaultNavigationRouter.shared.navigateAfterDelay(to: NavigationRoute.deploymentFailed(safe: safe))
+            CompositeNavigationRouter.shared.navigateAfterDelay(to: NavigationRoute.deploymentFailed(safe: safe))
         }
     }
 

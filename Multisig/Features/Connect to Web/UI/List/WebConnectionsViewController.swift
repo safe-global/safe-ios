@@ -212,6 +212,10 @@ extension WebConnectionsViewController: QRCodeScannerViewControllerDelegate {
 }
 
 extension WebConnectionsViewController: NavigationRouter {
+    func routeFrom(from url: URL) -> NavigationRoute? {
+        nil
+    }
+    
     func canNavigate(to route: NavigationRoute) -> Bool {
         route.path == NavigationRoute.connectToWeb().path
     }

@@ -391,12 +391,18 @@ class MainTabBarViewController: UITabBarController {
 }
 
 extension MainTabBarViewController: NavigationRouter {
+    func routeFrom(from url: URL) -> NavigationRoute? {
+        nil
+    }
+    
     func canNavigate(to route: NavigationRoute) -> Bool {
         if route.path.starts(with: "/settings/") {
             return true
         } else if route.path.starts(with: "/transactions/") {
             return true
         } else if route.path == NavigationRoute.showAssets().path {
+            return true
+        } else if route.path == NavigationRoute.showCollectibles().path {
             return true
         } else if route.path == NavigationRoute.deploymentFailedPath {
             return true
@@ -433,20 +439,11 @@ extension MainTabBarViewController: NavigationRouter {
                 }
             }
         } else if route.path == NavigationRoute.showAssets().path {
-            // if there is address and chain id, then switch to that safe.
-            //      if such safe doesn't exist, then do nothing.
-            // if no parameters passed, just switch to balances.
-            if let rawAddress = route.info["address"] as? String,
-               let rawChainId = route.info["chainId"] as? String {
-                guard let safe = Safe.by(address: rawAddress, chainId: rawChainId) else {
-                    // don't navigate, exit because the route can't work.
-                    return
-                }
-                if !safe.isSelected {
-                    safe.select()
-                }
-            }
+            guard selectSafe(from: route) else { return }
             switchTo(indexPath: Path.balances)
+        } else if route.path == NavigationRoute.showCollectibles().path {
+            guard selectSafe(from: route) else { return }
+            switchTo(indexPath: Path.collectibles)
         } else if route.path == NavigationRoute.deploymentFailedPath {
             presentFailedDeployment(safe: route.info["safe"] as! Safe)
         } else if route.path == NavigationRoute.requestToAddOwnerPath {
@@ -459,6 +456,24 @@ extension MainTabBarViewController: NavigationRouter {
 
             present(flow: addOwnerFlow)
         }
+    }
+    
+    
+    // if there is address and chain id, then switch to that safe.
+    //      if such safe doesn't exist, then do nothing.
+    // if no parameters passed, just switch to balances.
+    private func selectSafe(from route: NavigationRoute) -> Bool {
+        if let rawAddress = route.info["address"] as? String,
+           let rawChainId = route.info["chainId"] as? String {
+            guard let safe = Safe.by(address: rawAddress, chainId: rawChainId) else {
+                // don't navigate, exit because the route can't work.
+                return false
+            }
+            if !safe.isSelected {
+                safe.select()
+            }
+        }
+        return true
     }
 
     func switchTo(indexPath: IndexPath) {
@@ -475,6 +490,9 @@ extension MainTabBarViewController: NavigationRouter {
 
         switch index {
         case Path.assets.first:
+            switchAssets(segment: segment)
+            
+        case Path.collectibles.last:
             switchAssets(segment: segment)
 
         case Path.transactions.first:
