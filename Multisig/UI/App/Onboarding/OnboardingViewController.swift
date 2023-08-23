@@ -77,7 +77,7 @@ class OnboardingViewController: UIViewController {
             vc.chain = chain
             let ribbon = RibbonViewController(rootViewController: vc)
             ribbon.chain = vc.chain
-            vc.completion = {
+            vc.completion = { _, _ in
                 selectNetworkVC.dismiss(animated: true, completion: nil)
                 self?.completion()
             }

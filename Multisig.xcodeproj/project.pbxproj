@@ -599,7 +599,7 @@
 		0AD0273A25A34FF600886671 /* MultiSendRowTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD0273825A34FF600886671 /* MultiSendRowTableViewCell.xib */; };
 		0AD0274525A3586800886671 /* ActionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD0274425A3586800886671 /* ActionDetailViewController.swift */; };
 		0AD062E62577AE7E0030810D /* TransactionDetailCellBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD062E52577AE7E0030810D /* TransactionDetailCellBuilder.swift */; };
-		0AD27A21271053B400E22BDC /* SafeLoadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA59CC1270CAD05000CA7B1 /* SafeLoadedViewController.swift */; };
+		0AD27A21271053B400E22BDC /* SuggestToAddSignerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA59CC1270CAD05000CA7B1 /* SuggestToAddSignerViewController.swift */; };
 		0AD6EF1E25CAF5EC00EE5512 /* AppReviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6EF1D25CAF5EC00EE5512 /* AppReviewController.swift */; };
 		0AD89A46246C38920052F4CD /* EmailSupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD89A45246C38920052F4CD /* EmailSupportViewController.swift */; };
 		0AD89A48246C46110052F4CD /* AnyIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD89A47246C46110052F4CD /* AnyIdentifiable.swift */; };
@@ -1005,6 +1005,7 @@
 		B0D61EC425A934B90D6A4288 /* WebConnectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6155D349D7F06F7D48818 /* WebConnectionRequest.swift */; };
 		B0D61F54F176906A7C5A65CB /* SendTransactionRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61BDFEADB74805D9221DB /* SendTransactionRequestViewController.swift */; };
 		B0D61FFF1935AA2484BD940A /* WebConnectionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D617C60F3081A3A923005D /* WebConnectionRepository.swift */; };
+		B32620492A961E690003A2F0 /* AddSafeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32620482A961E690003A2F0 /* AddSafeFlow.swift */; };
 		B343BEB32A77DDA1006BF46B /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0491067C28F99246005A4A99 /* DMSans-Bold.ttf */; };
 		B35BFD0F2A937DC000A9FB15 /* DefaultNavigationRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BFD0E2A937DC000A9FB15 /* DefaultNavigationRouterTests.swift */; };
 		B3B6044F2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B6044E2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift */; };
@@ -1550,7 +1551,7 @@
 		0A9D5CEA27D8F48A0075A21D /* WCAppRegistryEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCAppRegistryEntry.swift; sourceTree = "<group>"; };
 		0A9E8E7525B9CA4200256AD3 /* BannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerTableViewCell.swift; sourceTree = "<group>"; };
 		0A9E8E7625B9CA4200256AD3 /* BannerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerTableViewCell.xib; sourceTree = "<group>"; };
-		0AA59CC1270CAD05000CA7B1 /* SafeLoadedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeLoadedViewController.swift; sourceTree = "<group>"; };
+		0AA59CC1270CAD05000CA7B1 /* SuggestToAddSignerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestToAddSignerViewController.swift; sourceTree = "<group>"; };
 		0AA5F55C28BF667000D6D220 /* claiming_test_fixtures.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = claiming_test_fixtures.json; sourceTree = "<group>"; };
 		0AA5F55E28BF6F2200D6D220 /* claiming_test_fixtures.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = claiming_test_fixtures.yml; sourceTree = "<group>"; };
 		0AA9F1F32497BCA9005BD60F /* TokenInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInfo.swift; sourceTree = "<group>"; };
@@ -2038,6 +2039,7 @@
 		B0D61DB08E699747DCEE7325 /* GnosisSafeWebPeerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GnosisSafeWebPeerInfo.swift; sourceTree = "<group>"; };
 		B0D61EF933B18A7181F0F6E8 /* WebConnectionOpenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebConnectionOpenRequest.swift; sourceTree = "<group>"; };
 		B0D61FB05FC8C6D45FAC1246 /* ActionPanelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionPanelView.xib; sourceTree = "<group>"; };
+		B32620482A961E690003A2F0 /* AddSafeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSafeFlow.swift; sourceTree = "<group>"; };
 		B35BFD0E2A937DC000A9FB15 /* DefaultNavigationRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationRouterTests.swift; sourceTree = "<group>"; };
 		B3B6044E2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertControllerStyle+Multiplatform.swift"; sourceTree = "<group>"; };
 		D80B5A022769CEAD00D6E024 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
@@ -3010,7 +3012,7 @@
 				048D72CA2685DC4C0095999C /* SelectNetworkViewController */,
 				3E373F752631781A00D8107A /* EnterUnstoppableNameViewController.swift */,
 				3E373F742631781900D8107A /* EnterUnstoppableNameViewController.xib */,
-				0AA59CC1270CAD05000CA7B1 /* SafeLoadedViewController.swift */,
+				0AA59CC1270CAD05000CA7B1 /* SuggestToAddSignerViewController.swift */,
 				0AE46C86257684B8001DC62B /* LoadSafeViewController.swift */,
 				0AE46C8C257684DF001DC62B /* LoadSafeViewController.xib */,
 				0A57C9072587C1B100B7C019 /* EnterSafeAddressViewController */,
@@ -3020,6 +3022,7 @@
 				0A6886912588F87E0045CAB5 /* EnterAddressNameViewController.xib */,
 				5534F7352760C7670018E655 /* CreatePasscodeSuggestionViewController.swift */,
 				5534F7362760C7670018E655 /* CreatePasscodeSuggestionViewController.xib */,
+				B32620482A961E690003A2F0 /* AddSafeFlow.swift */,
 			);
 			path = "Add Safe";
 			sourceTree = "<group>";
@@ -5223,6 +5226,7 @@
 				049A9D0E25F7C66E00CA5723 /* OwnerKeysListViewController.swift in Sources */,
 				0ACB4CDB256BCD6900845BF4 /* SwiftUITableViewCell.swift in Sources */,
 				0AE8C0A2257947CF00E62B34 /* DetailStatusCell.swift in Sources */,
+				B32620492A961E690003A2F0 /* AddSafeFlow.swift in Sources */,
 				55F91A9825BEABD400938475 /* KeyboardAvoidingBehavior.swift in Sources */,
 				04F8041329A68386007CFF40 /* Proposal.swift in Sources */,
 				0468FB8825912E6800541536 /* HistoryTransactionsViewController.swift in Sources */,
@@ -5571,7 +5575,7 @@
 				0A86EE5D25CC2B2B0059876E /* RetryFooterView.swift in Sources */,
 				0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */,
 				0AA9F1F42497BCA9005BD60F /* TokenInfo.swift in Sources */,
-				0AD27A21271053B400E22BDC /* SafeLoadedViewController.swift in Sources */,
+				0AD27A21271053B400E22BDC /* SuggestToAddSignerViewController.swift in Sources */,
 				0AEEBC7A258CE24A00F3A6F9 /* WebImageView.swift in Sources */,
 				0A93DD592445CC8A00688050 /* SceneDelegate.swift in Sources */,
 				0A6430E2247EC2C7006FD30A /* ConfigurationKey.swift in Sources */,

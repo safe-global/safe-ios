@@ -25,6 +25,8 @@ final class HeaderViewController: ContainerViewController {
 
     var clientGatewayService = App.shared.clientGatewayService
     var notificationCenter = NotificationCenter.default
+    
+    private var addSafeFlow: AddSafeFlow!
     private var claimTokenFlow: ClaimSafeTokenFlow!
     private var createSafeFlow: CreateSafeFlow!
 
@@ -92,24 +94,12 @@ final class HeaderViewController: ContainerViewController {
         switchSafesVC.onAddSafe = { [weak self] in
             Tracker.trackEvent(.addSafeFromSwitchSafes)
             self?.dismiss(animated: false) {
-                let selectNetworkVC = SelectNetworkViewController()
-                selectNetworkVC.screenTitle = "Load Safe Account"
-                selectNetworkVC.descriptionText = "Select network on which your Safe Account was created:"
-                selectNetworkVC.completion = { [weak self] chain  in
-                    let vc = EnterSafeAddressViewController()
-                    vc.chain = chain
-                    let ribbon = RibbonViewController(rootViewController: vc)
-                    ribbon.chain = vc.chain
-                    vc.completion = { self?.dismiss(animated: true, completion: nil) }
-                    selectNetworkVC.show(ribbon, sender: self)
-                }
-
-                let vc = ViewControllerFactory.modal(viewController: selectNetworkVC)
-                self?.present(vc, animated: true)
+                self?.addSafe()
             }
         }
 
         switchSafesVC.onCreateSafe = { [weak self] in
+            // Create Safe Flow
             Tracker.trackEvent(.createSafeFromSwitchSafes)
             self?.dismiss(animated: true) { [weak self] in
                 guard let self = self else { return }
@@ -122,6 +112,13 @@ final class HeaderViewController: ContainerViewController {
 
         let nav = UINavigationController(rootViewController: switchSafesVC)
         present(nav, animated: true)
+    }
+    
+    private func addSafe() {
+        addSafeFlow = AddSafeFlow(completion: { [weak self] success in
+            self?.addSafeFlow = nil
+        })
+        present(flow: addSafeFlow)
     }
 
     @objc private func didTapSafeBarView(_ sender: Any) {

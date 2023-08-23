@@ -132,6 +132,8 @@ class ExtendedNavigationRouter: NavigationRouter {
         switch url.path {
         case "/welcome", "/home":
             return NavigationRoute.showAssets()
+        case "/new-safe/load":
+            return NavigationRoute.loadSafe()
         case "/balances":
             guard let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url) else {
                 return nil
@@ -217,14 +219,33 @@ class ExtendedNavigationRouter: NavigationRouter {
 
 
 extension NavigationRoute {
-    static func connectToWeb(_ code: String? = nil) -> NavigationRoute {
-        var route = NavigationRoute(path: "/settings/connectToWeb")
-        if let code = code {
-            route.info["code"] = code
-        }
+    
+    // MARK: Onboarding
+    
+    static let requestToAddOwnerPath = "/addOwner"
+
+    static func requestToAddOwner(_ params: AddOwnerRequestParameters) -> NavigationRoute {
+        var route = NavigationRoute(path: requestToAddOwnerPath)
+        route.info["parameters"] = params
         return route
     }
 
+    // MARK: Add Safe
+    static func loadSafe() -> NavigationRoute {
+        NavigationRoute(path: "/loadSafe")
+    }
+    
+    static let deploymentFailedPath = "/deploymentFailed/"
+
+    static func deploymentFailed(safe: Safe) -> NavigationRoute {
+        var route = NavigationRoute(path: deploymentFailedPath)
+        route.info["safe"] = safe
+        return route
+    }
+
+
+    // MARK: Assets
+    
     static func showAssets(_ address: String? = nil, chainId: String? = nil) -> NavigationRoute {
         var route = NavigationRoute(path: "/assets/")
         if let address = address,
@@ -232,7 +253,7 @@ extension NavigationRoute {
             route.info["address"] = address
             route.info["chainId"] = chainId
         }
-
+        
         return route
     }
     
@@ -243,25 +264,11 @@ extension NavigationRoute {
             route.info["address"] = address
             route.info["chainId"] = chainId
         }
-
+        
         return route
     }
 
-    static let deploymentFailedPath = "/deploymentFailed/"
-
-    static func deploymentFailed(safe: Safe) -> NavigationRoute {
-        var route = NavigationRoute(path: deploymentFailedPath)
-        route.info["safe"] = safe
-        return route
-    }
-
-    static let requestToAddOwnerPath = "/addOwner"
-
-    static func requestToAddOwner(_ params: AddOwnerRequestParameters) -> NavigationRoute {
-        var route = NavigationRoute(path: requestToAddOwnerPath)
-        route.info["parameters"] = params
-        return route
-    }
+    // MARK: Transactions
 
     static func showTransactionHistory(_ address: String, chainId: String) -> NavigationRoute {
         var route = NavigationRoute(path: "/transactions/history/")
@@ -285,6 +292,16 @@ extension NavigationRoute {
         route.info["chainId"] = chainId
         route.info["transactionId"] = transactionId
 
+        return route
+    }
+    
+    // MARK: Settings
+    
+    static func connectToWeb(_ code: String? = nil) -> NavigationRoute {
+        var route = NavigationRoute(path: "/settings/connectToWeb")
+        if let code = code {
+            route.info["code"] = code
+        }
         return route
     }
 }

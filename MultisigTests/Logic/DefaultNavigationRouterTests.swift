@@ -79,6 +79,12 @@ final class ExtendedNavigationRouterTests: XCTestCase {
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/assets/")
     }
+    
+    func testLoadSafe() {
+        let url = "https://some.host/new-safe/load"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/loadSafe")
+    }
 
     func testAssets() {
         let url = "https://some.host/balances?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"

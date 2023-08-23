@@ -12,7 +12,7 @@ import SafeWeb3
 class EnterSafeAddressViewController: UIViewController {
     var address: Address? { addressField?.address }
     var gatewayService = App.shared.clientGatewayService
-    var completion: () -> Void = { }
+    var completion: (_ address: Address, _ safeVersion: String) -> Void = { _, _ in }
     var chain: SCGModels.Chain!
     var safeVersion: String?
     lazy var trackingParameters: [String: Any]  = { ["chain_id" : chain.chainId.description] }()
@@ -44,62 +44,8 @@ class EnterSafeAddressViewController: UIViewController {
     }
 
     @objc private func didTapNextButton(_ sender: Any) {
-        guard let address = address else { return }
-        // NOTE: blank lines for better readability
-
-        let enterAddressVC = EnterAddressNameViewController()
-        enterAddressVC.trackingParameters = trackingParameters
-
-        let enterAddressWrapperVC = RibbonViewController(rootViewController: enterAddressVC)
-        enterAddressWrapperVC.chain = chain
-
-        enterAddressVC.address = address
-        enterAddressVC.prefix = chain.shortName
-        enterAddressVC.trackingEvent = .safeAddName
-        enterAddressVC.screenTitle = "Load Safe Account"
-        enterAddressVC.descriptionText = "Choose a name for the Safe Account. The name is only stored locally and will not be shared with us or any third parties"
-        enterAddressVC.actionTitle = "Next"
-        enterAddressVC.placeholder = "Enter name"
-
-        enterAddressVC.completion = { [unowned enterAddressVC, unowned self] name in
-            let coreDataChain = Chain.createOrUpdate(chain)
-            Safe.create(address: address.checksummed, version: safeVersion!, name: name, chain: coreDataChain)
-
-            let createdCompletion = { [unowned self] in
-                self.completion()
-                App.shared.notificationHandler.safeAdded(address: address)
-            }
-
-            if AppSettings.shouldOfferToSetupPasscode {
-                let createPasscodeSuggestionVC = CreatePasscodeSuggestionViewController()
-                createPasscodeSuggestionVC.onExit = { [unowned enterAddressVC, unowned self] in
-                    showImportKeySuggestion(from: enterAddressVC, createdCompletion: createdCompletion)
-                }
-                createPasscodeSuggestionVC.hidesBottomBarWhenPushed = true
-                enterAddressVC.show(createPasscodeSuggestionVC, sender: enterAddressVC)
-            } else {
-                showImportKeySuggestion(from: enterAddressVC, createdCompletion: createdCompletion)
-            }
-        }
-        show(enterAddressWrapperVC, sender: self)
-    }
-
-    private func showImportKeySuggestion(from presenter: UIViewController, createdCompletion: @escaping () -> Void) {
-        if !AppSettings.hasShownImportKeyOnboarding && !OwnerKeyController.hasPrivateKey {
-
-            let loadedVC = SafeLoadedViewController()
-            loadedVC.completion = createdCompletion
-
-            let loadedWrapperVC = RibbonViewController(rootViewController: loadedVC)
-            loadedWrapperVC.chain = self.chain
-            loadedWrapperVC.hidesBottomBarWhenPushed = true
-
-            presenter.show(loadedWrapperVC, sender: presenter)
-
-            AppSettings.hasShownImportKeyOnboarding = true
-        } else {
-            createdCompletion()
-        }
+        guard let address = address, let safeVersion = safeVersion else { return }
+        completion(address, safeVersion)
     }
 
     private func didTapAddressField() {
