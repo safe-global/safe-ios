@@ -11,6 +11,12 @@ import SnapshotTesting
 @testable import Multisig
 
 class BalancesViewControllerSnapshotTests: CoreDataTestCase {
+    
+    static let config = FirebaseConfig()
+    
+    override class func setUp() {
+        config.setUp()
+    }
 
     func test_happyCase() throws {
         // Set Up

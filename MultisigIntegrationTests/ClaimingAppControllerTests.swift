@@ -8,14 +8,14 @@
 
 import XCTest
 import Solidity
-import Multisig
+@testable import Multisig
 
 class ClaimingAppControllerTests: XCTestCase {
     var controller: ClaimingAppController!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        controller = ClaimingAppController(chain: .rinkebyChain())
+        controller = ClaimingAppController(chain: .goerliChain())
     }
 
     func test_isPaused() {
@@ -173,7 +173,7 @@ class ClaimingAppControllerTests: XCTestCase {
 
         let amountToClaim: Sol.UInt128 = 100
 
-        let chain = Chain.rinkebyChain()
+        let chain = Chain.goerliChain()
 
         // get safe info
         let safe: Safe = Safe.create(address: safeAddress.checksummed, version: "1.3.0", name: "Claim Test Safe", chain: chain, selected: true, status: .deployed)
@@ -372,7 +372,7 @@ class ClaimingAppControllerTests: XCTestCase {
                     let lines = data.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: "\n").map(String.init)
                     let bytes = lines.filter { !$0.hasPrefix("//") }
                     let hex = bytes.joined()
-                    let result = Data(hex: hex)
+                    let result: Data = Data(hex: hex)
                     return result
                 }
             }
