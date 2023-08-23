@@ -31,7 +31,7 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
     private var removeOwnerFlow: RemoveOwnerFlow!
     private var replaceOwnerFlow: ReplaceOwnerFromSettingsFlow!
     private var addOwnerFlow: AddOwnerFlowFromSettings!
-    private var createPasswordFlow: SetupRecoveryKitFlow!
+    private var setupRecoveryKitFlow: SetupRecoveryKitFlow!
 
     enum Section {
         case status
@@ -281,11 +281,11 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
                             backgroundColor: .warningBackground) { [weak self] in
                 guard let `self` = self else { return }
 
-                self.createPasswordFlow = SetupRecoveryKitFlow(completion: {success in 
-                    self.createPasswordFlow = nil
+                self.setupRecoveryKitFlow = SetupRecoveryKitFlow(completion: {success in 
+                    self.setupRecoveryKitFlow = nil
                 })
 
-                present(flow: createPasswordFlow)
+                present(flow: setupRecoveryKitFlow)
             }
             return cell
         default:
@@ -307,8 +307,8 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
 
             if safeOwners.count > 1 {
                 let removeOwnerAction = UIContextualAction(style: .destructive, title: "Remove") {
-                    [unowned self] _, _, completion in
-                    self.remove(owner: info.address, prevOwner: prevOwner?.address)
+                    [weak self] _, _, completion in
+                    self?.remove(owner: info.address, prevOwner: prevOwner?.address)
                     completion(true)
                 }
                 removeOwnerAction.backgroundColor = .error
@@ -317,8 +317,8 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
             }
 
             let replaceAction = UIContextualAction(style: .normal, title: "Replace") {
-                [unowned self] _, _, completion in
-                self.replace(owner: info.address, prevOwner: prevOwner?.address)
+                [weak self] _, _, completion in
+                self?.replace(owner: info.address, prevOwner: prevOwner?.address)
                 completion(true)
             }
             replaceAction.backgroundColor = .labelTertiary
@@ -331,8 +331,8 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     func addOwner() {
-        addOwnerFlow = AddOwnerFlowFromSettings(safe: safe!) { [unowned self] _ in
-            addOwnerFlow = nil
+        addOwnerFlow = AddOwnerFlowFromSettings(safe: safe!) { [weak self] _ in
+            self?.addOwnerFlow = nil
         }
         present(flow: addOwnerFlow)
         Tracker.trackEvent(.addOwnerFromSettings)
@@ -343,16 +343,16 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
             ownerToReplace: owner,
             prevOwner: prevOwner,
             safe: safe!
-        ) { [unowned self] _ in
-            replaceOwnerFlow = nil
+        ) { [weak self] _ in
+            self?.replaceOwnerFlow = nil
         }
         present(flow: replaceOwnerFlow)
         Tracker.trackEvent(.replaceOwnerFromSettings)
     }
 
     func remove(owner: Address, prevOwner: Address?) {
-        removeOwnerFlow = RemoveOwnerFlow(owner: owner, prevOwner: prevOwner, safe: safe!) { [unowned self] _ in
-            removeOwnerFlow = nil
+        removeOwnerFlow = RemoveOwnerFlow(owner: owner, prevOwner: prevOwner, safe: safe!) { [weak self] _ in
+            self?.removeOwnerFlow = nil
         }
         present(flow: removeOwnerFlow)
         Tracker.trackEvent(.userRemoveOwnerFromSettings)
@@ -416,8 +416,8 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
         switch item {
 
         case Section.RequiredConfirmations.confirmations(_):
-            changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe) { [unowned self] _ in
-                changeConfirmationsFlow = nil
+            changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe) { [weak self] _ in
+                self?.changeConfirmationsFlow = nil
             }
 
             guard changeConfirmationsFlow != nil else {
@@ -470,9 +470,9 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
             ownerHeaderView.setNumber(safe.ownersInfo?.count)
             ownerHeaderView.addButton.isHidden = safe.isReadOnly
 
-            ownerHeaderView.onAdd = { [unowned self] in
+            ownerHeaderView.onAdd = { [weak self] in
                 Tracker.trackEvent(.addOwnerFromSettings)
-                addOwner()
+                self?.addOwner()
             }
         default:
             break
