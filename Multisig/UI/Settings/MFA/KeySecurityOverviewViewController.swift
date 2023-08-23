@@ -110,7 +110,6 @@ class KeySecurityOverviewViewController: LoadableViewController, UITableViewDele
         case .enabledFactors(_), .otherFactors(_):
             if case let Section.Factor.factor(name, value, image, isDefault, selected) = factor {
                 let cell = tableView.dequeueCell(SecurityFactorTableViewCell.self, for: indexPath)
-                //cell.selectionStyle = .none
                 cell.set(name: name,
                          icon: UIImage(named: image)!,
                          value: value,

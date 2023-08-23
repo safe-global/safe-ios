@@ -12,6 +12,8 @@ class DetailAccountCell: UITableViewCell {
     @IBOutlet private weak var addressInfoView: AddressInfoView!
     @IBOutlet private weak var qrCodeView: QRCodeView!
     @IBOutlet private weak var warningView: WarningView!
+    @IBOutlet private weak var warningBanner: WarningBanner!
+    @IBOutlet weak var accessoryImageView: UIImageView!
 
     static let headerHeight: CGFloat = 77
 
@@ -24,7 +26,8 @@ class DetailAccountCell: UITableViewCell {
                     browseURL: URL? = nil,
                     prefix: String? = nil,
                     titleStyle: GNOTextStyle = .headline,
-                    showDelegateWarning: Bool = false) {
+                    showDelegateWarning: Bool = false,
+                    showAccessoryImage: Bool = false) {
         addressInfoView.setAddress(address, label: label,
                                    imageUri: imageUri,
                                    badgeName: badgeName,
@@ -43,5 +46,24 @@ class DetailAccountCell: UITableViewCell {
         }
 
         addressInfoView.copyEnabled = copyEnabled
+        accessoryImageView.isHidden = !showAccessoryImage
+    }
+
+    func setWarning(image: UIImage? = nil,
+                    title: String? = nil,
+                    description: String? = nil,
+                    info: String? = nil,
+                    accessory: UIImage? = nil,
+                    backgroundColor: UIColor = .warningBackground,
+                    onClick: (() ->())?) {
+
+        warningBanner.isHidden = false
+        warningBanner.set(image: image,
+                          title: title,
+                          description: description,
+                          info: info,
+                          accessory: accessory,
+                          backgroundColor: backgroundColor,
+                          onClick: onClick)
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -22,11 +22,22 @@
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LgM-CF-TET">
                         <rect key="frame" x="16" y="12" width="382" height="447"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wXw-fU-tjL" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
-                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gYN-t1-tIi">
+                                <rect key="frame" x="0.0" y="0.0" width="382" height="128"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wXw-fU-tjL" customClass="AddressInfoView" customModule="Multisig" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="128"/>
+                                    </view>
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="1vi-KG-7Ge">
+                                        <rect key="frame" x="382" y="0.0" width="40" height="128"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="LQg-wz-IfO"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="wG6-sb-pJl">
-                                <rect key="frame" x="0.0" y="122.5" width="382" height="124"/>
+                                <rect key="frame" x="0.0" y="161.5" width="382" height="124"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QOP-i4-x4K" customClass="QRCodeView" customModule="Multisig" customModuleProvider="target">
                                         <rect key="frame" x="129" y="0.0" width="124" height="124"/>
@@ -42,6 +53,10 @@
                                 <rect key="frame" x="0.0" y="319" width="382" height="128"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7jp-K0-gI4" customClass="WarningBanner" customModule="Multisig" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="447" width="382" height="0.0"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                         </subviews>
                     </stackView>
                 </subviews>
@@ -55,14 +70,17 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" name="backgroundSecondary"/>
             <connections>
+                <outlet property="accessoryImageView" destination="1vi-KG-7Ge" id="CQH-ak-ner"/>
                 <outlet property="addressInfoView" destination="wXw-fU-tjL" id="Q02-1w-VXe"/>
                 <outlet property="qrCodeView" destination="QOP-i4-x4K" id="LsX-XK-vGR"/>
+                <outlet property="warningBanner" destination="7jp-K0-gI4" id="18n-9K-GX6"/>
                 <outlet property="warningView" destination="JiK-8K-DfS" id="cE2-j9-ch1"/>
             </connections>
             <point key="canvasLocation" x="63.768115942028992" y="228.34821428571428"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="arrow" width="40" height="60"/>
         <namedColor name="backgroundSecondary">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

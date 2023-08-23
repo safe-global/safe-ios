@@ -31,6 +31,7 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
     private var removeOwnerFlow: RemoveOwnerFlow!
     private var replaceOwnerFlow: ReplaceOwnerFromSettingsFlow!
     private var addOwnerFlow: AddOwnerFlowFromSettings!
+    private var createPasswordFlow: SetupRecoveryKitFlow!
 
     enum Section {
         case status
@@ -47,7 +48,6 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
 
         enum OwnerAddresses: SectionItem {
             case ownerInfo(AddressInfo)
-            case socialLoginInfoBox
         }
     }
 
@@ -71,7 +71,6 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
         
         tableView.registerCell(BasicCell.self)
         tableView.registerCell(DetailAccountCell.self)
-        tableView.registerCell(SocialLoginInfoTableViewCell.self)
         tableView.registerCell(SecurityStatusTableViewCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
         tableView.registerHeaderFooterView(OwnerHeaderView.self)
@@ -198,7 +197,6 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
             ownersInfoItems.append(Section.OwnerAddresses.ownerInfo(owner))
             let keyInfo = try? KeyInfo.keys(addresses: [owner.address]).first
             if keyInfo?.keyType == .web3AuthApple || keyInfo?.keyType == .web3AuthGoogle {
-                ownersInfoItems.append(Section.OwnerAddresses.socialLoginInfoBox)
                 socialOwnerOnly = true
             }
         } else {
@@ -272,30 +270,24 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
                                       indexPath: indexPath,
                                       badgeName: keyInfo?.keyType.badgeName,
                                       browseURL: browseUrl,
-                                      prefix: safe.chain!.shortName)
-            cell.selectionStyle = .default
-            if keyInfo == nil {
-                cell.accessoryType = .none
-            } else {
-                cell.accessoryType = .disclosureIndicator
+                                      prefix: safe.chain!.shortName,
+                                          showAccessoryImage: keyInfo != nil)
+            cell.selectionStyle = .none
+
+            cell.setWarning(image: UIImage(named: "ico-shield-infobox")?.withTintColor(.warning, renderingMode: .alwaysOriginal),
+                            title: "Your owner recovery kit",
+                            description: "Add an extra layer of protection",
+                            info: "Set up",
+                            backgroundColor: .warningBackground) { [weak self] in
+                guard let `self` = self else { return }
+
+                self.createPasswordFlow = SetupRecoveryKitFlow(completion: {success in 
+                    self.createPasswordFlow = nil
+                })
+
+                present(flow: createPasswordFlow)
             }
-
             return cell
-
-        case Section.OwnerAddresses.socialLoginInfoBox:
-            let infoBoxCell = tableView.dequeueCell(SocialLoginInfoTableViewCell.self, for: indexPath)
-            infoBoxCell.setup(
-                onAddOwner: { [unowned self] in
-                    Tracker.trackEvent(.userAddOwner)
-                    addOwner()
-                },
-                onLearnMore: { [unowned self] in
-                    Tracker.trackEvent(.userLearnMore)
-                    openInSafari(App.configuration.help.addOwnersURL)
-                }
-            )
-            infoBoxCell.selectionStyle = .none
-            return infoBoxCell
         default:
             return UITableViewCell()
         }
@@ -371,15 +363,19 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
                                     indexPath: IndexPath,
                                     badgeName: String? = nil,
                                     browseURL: URL? = nil,
-                                    prefix: String? = nil) -> UITableViewCell {
+                                    prefix: String? = nil,
+                                    showAccessoryImage: Bool = false) -> DetailAccountCell {
         let cell = tableView.dequeueCell(DetailAccountCell.self, for: indexPath)
         let keyInfo = try? KeyInfo.keys(addresses: [address]).first
         let copyEnabled = keyInfo == nil
-        cell.setAccount(address: address, label: name, badgeName: badgeName, copyEnabled: copyEnabled,  browseURL: browseURL, prefix: prefix)
-        // Remove separator line between address item and social login info box
-        if socialOwnerOnly {
-            cell.separatorInset = UIEdgeInsets(top: 0, left: cell.bounds.size.width, bottom: 0, right: 0)
-        }
+        cell.setAccount(address: address,
+                        label: name,
+                        badgeName: badgeName,
+                        copyEnabled: copyEnabled,
+                        browseURL: browseURL,
+                        prefix: prefix,
+                        showAccessoryImage: showAccessoryImage)
+
         return cell
     }
 
@@ -435,9 +431,6 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
                 let vc = OwnerKeyDetailsViewController(keyInfo: keyInfo)
                 show(vc, sender: self)
             }
-        case Section.OwnerAddresses.socialLoginInfoBox:
-            let vc = KeySecurityOverviewViewController()
-            show(vc, sender: self)
         default:
             break
         }
@@ -451,10 +444,6 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
         switch item {
         case Section.OwnerAddresses.ownerInfo:
             return UITableView.automaticDimension
-
-        case Section.OwnerAddresses.socialLoginInfoBox:
-            return UITableView.automaticDimension
-
         case Section.Status.status:
             return UITableView.automaticDimension
         default:
