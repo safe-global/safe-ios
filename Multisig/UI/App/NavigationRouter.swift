@@ -130,6 +130,8 @@ class ExtendedNavigationRouter: NavigationRouter {
     func routeFrom(from url: URL) -> NavigationRoute? {
         
         switch url.path {
+        case "/welcome", "/home":
+            return NavigationRoute.showAssets()
         case "/balances":
             guard let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url) else {
                 return nil
