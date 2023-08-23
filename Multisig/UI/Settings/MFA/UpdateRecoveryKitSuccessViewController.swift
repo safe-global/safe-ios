@@ -56,7 +56,7 @@ class UpdateRecoveryKitSuccessViewController: UIViewController, UITableViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        titleLabel.setStyle(.headline)
+        titleLabel.setStyle(.title1)
         bodyLabel.setStyle(.body)
 
         tableView.registerCell(SecurityFactorTableViewCell.self)

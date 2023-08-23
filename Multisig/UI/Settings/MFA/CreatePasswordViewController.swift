@@ -14,6 +14,7 @@ class CreatePasswordViewController: UIViewController {
     @IBOutlet private weak var passwordInputField: PasswordInputField!
     @IBOutlet private weak var confirmPasswordField: PasswordInputField!
 
+    @IBOutlet weak var titleLabel: UILabel!
     private var keyboardBehavior: KeyboardAvoidingBehavior!
     var onDone: (String) -> Void = { _ in }
 
@@ -29,7 +30,8 @@ class CreatePasswordViewController: UIViewController {
         super.viewDidLoad()
 
         title = "Create password"
-        
+
+        titleLabel.setStyle(.body)
         keyboardBehavior = KeyboardAvoidingBehavior(scrollView: scrollView)
         createButton.setText("Set password", .filled)
 

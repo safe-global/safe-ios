@@ -19,7 +19,7 @@ class SecurityFactorTableViewCell: UITableViewCell {
     @IBOutlet private weak var disclosureImageView: UIImageView!
     @IBOutlet private weak var borderImageView: UIImageView!
 
-    static let rowHeight: CGFloat = 72
+    static let rowHeight: CGFloat = 80
 
     override func awakeFromNib() {
         super.awakeFromNib()
