@@ -16,6 +16,7 @@ class MainTabBarViewController: UITabBarController {
     private weak var transactionsSegementControl: SegmentViewController?
     private var appearsFirstTime: Bool = true
     private var addOwnerFlow: UpdateOwnersFromInviteLinkFlow!
+    private var addSafeFlow: AddSafeFlow!
     
     // In-memory queue of incoming requests to present. Due to limitation of UIKit,
     // only one view controller can be presented at the same time.
@@ -408,6 +409,8 @@ extension MainTabBarViewController: NavigationRouter {
             return true
         } else if route.path == NavigationRoute.requestToAddOwnerPath {
             return true
+        } else if route.path == NavigationRoute.loadSafe().path {
+            return true
         }
 
         return false
@@ -455,6 +458,11 @@ extension MainTabBarViewController: NavigationRouter {
             }
 
             present(flow: addOwnerFlow)
+        } else if route.path == NavigationRoute.loadSafe().path {
+            addSafeFlow = AddSafeFlow(completion: { [weak self] _ in
+                self?.addSafeFlow = nil
+            })
+            present(flow: addSafeFlow)
         }
     }
     
