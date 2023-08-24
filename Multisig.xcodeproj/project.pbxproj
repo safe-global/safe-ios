@@ -202,10 +202,6 @@
 		04B4B6E625B9A08D00CFE24B /* CardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B4B6E425B9A08D00CFE24B /* CardTableViewCell.xib */; };
 		04B964412734427D00A21EE9 /* ChainSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B964402734427D00A21EE9 /* ChainSettingsTableViewController.swift */; };
 		04C22B2D2A367FF800F58A15 /* CustomAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 04C22B2C2A367FF800F58A15 /* CustomAuth */; };
-		04C22B302A36807500F58A15 /* SafeWeb3 in Frameworks */ = {isa = PBXBuildFile; productRef = 04C22B2F2A36807500F58A15 /* SafeWeb3 */; };
-		04C22B322A36807500F58A15 /* Web3ContractABI in Frameworks */ = {isa = PBXBuildFile; productRef = 04C22B312A36807500F58A15 /* Web3ContractABI */; };
-		04C22B342A36807500F58A15 /* Web3PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 04C22B332A36807500F58A15 /* Web3PromiseKit */; };
-		04C22B362A36811200F58A15 /* SafeWeb3 in Frameworks */ = {isa = PBXBuildFile; productRef = 04C22B352A36811200F58A15 /* SafeWeb3 */; };
 		04C5DF6B26FB451B0072476C /* KeyTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C5DF6926FB451B0072476C /* KeyTypeTableViewCell.swift */; };
 		04C5DF6C26FB451B0072476C /* KeyTypeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C5DF6A26FB451B0072476C /* KeyTypeTableViewCell.xib */; };
 		04C5ED3A27878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C5ED3827878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift */; };
@@ -1008,6 +1004,12 @@
 		B0D61F54F176906A7C5A65CB /* SendTransactionRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D61BDFEADB74805D9221DB /* SendTransactionRequestViewController.swift */; };
 		B0D61FFF1935AA2484BD940A /* WebConnectionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D617C60F3081A3A923005D /* WebConnectionRepository.swift */; };
 		B343BEB32A77DDA1006BF46B /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0491067C28F99246005A4A99 /* DMSans-Bold.ttf */; };
+		B347EC232A97DA2B00CC7BD7 /* WalletConnectSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B347EC222A97DA2B00CC7BD7 /* WalletConnectSwift */; };
+		B347EC252A97DB1000CC7BD7 /* ThresholdKey in Frameworks */ = {isa = PBXBuildFile; productRef = B347EC242A97DB1000CC7BD7 /* ThresholdKey */; };
+		B347EC282A97DBD700CC7BD7 /* SafeWeb3 in Frameworks */ = {isa = PBXBuildFile; productRef = B347EC272A97DBD700CC7BD7 /* SafeWeb3 */; };
+		B347EC2A2A97DBD700CC7BD7 /* Web3ContractABI in Frameworks */ = {isa = PBXBuildFile; productRef = B347EC292A97DBD700CC7BD7 /* Web3ContractABI */; };
+		B347EC2C2A97DBD700CC7BD7 /* Web3PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = B347EC2B2A97DBD700CC7BD7 /* Web3PromiseKit */; };
+		B347EC2E2A97DBEB00CC7BD7 /* SafeWeb3 in Frameworks */ = {isa = PBXBuildFile; productRef = B347EC2D2A97DBEB00CC7BD7 /* SafeWeb3 */; };
 		B3B6044F2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B6044E2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift */; };
 		D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A022769CEAD00D6E024 /* Tooltip.swift */; };
 		D80B5A052769CF1B00D6E024 /* TooltipSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A042769CF1B00D6E024 /* TooltipSource.swift */; };
@@ -2068,6 +2070,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B347EC282A97DBD700CC7BD7 /* SafeWeb3 in Frameworks */,
 				0463F5C126296924009C04FA /* FirebaseRemoteConfig in Frameworks */,
 				55D3FF65260B2551008ABD2B /* Kingfisher in Frameworks */,
 				0497B2B929A641C9007109ED /* WalletConnectPush in Frameworks */,
@@ -2079,10 +2082,10 @@
 				0A259AB5287D83F9006770E7 /* UnstoppableDomainsResolution in Frameworks */,
 				55D3FF90260B2B21008ABD2B /* TrustKit in Frameworks */,
 				55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
+				B347EC2A2A97DBD700CC7BD7 /* Web3ContractABI in Frameworks */,
 				0497B2B329A641C9007109ED /* WalletConnectEcho in Frameworks */,
 				0497B2AD29A641C9007109ED /* WalletConnect in Frameworks */,
 				04AECBB72A744B21008D5A35 /* MoonpaySDK in Frameworks */,
-				04C22B302A36807500F58A15 /* SafeWeb3 in Frameworks */,
 				04C22B2D2A367FF800F58A15 /* CustomAuth in Frameworks */,
 				5591CEEE260C725C0067DFDF /* BlockiesSwift in Frameworks */,
 				0A13BD7729756CE700322C66 /* URRegistry in Frameworks */,
@@ -2090,6 +2093,7 @@
 				0497B2B129A641C9007109ED /* WalletConnectChat in Frameworks */,
 				0A3DAD9426270F4D00743E38 /* unistring.xcframework in Frameworks */,
 				0497B2BF29A641C9007109ED /* Web3Inbox in Frameworks */,
+				B347EC232A97DA2B00CC7BD7 /* WalletConnectSwift in Frameworks */,
 				043350AF2808628E003725E2 /* Lottie in Frameworks */,
 				0A3E980B2806FAD300E90EEC /* Algorithms in Frameworks */,
 				D80B5A13276B5FAD00D6E024 /* SkeletonView in Frameworks */,
@@ -2099,12 +2103,12 @@
 				55888DFF260C4F6200940347 /* SwiftAccessPolicy in Frameworks */,
 				0463F5C326296924009C04FA /* FirebaseCrashlytics in Frameworks */,
 				0497B2BD29A641C9007109ED /* WalletConnectVerify in Frameworks */,
-				04C22B322A36807500F58A15 /* Web3ContractABI in Frameworks */,
 				0A29B5622666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				B347EC252A97DB1000CC7BD7 /* ThresholdKey in Frameworks */,
 				0497B2AF29A641C9007109ED /* WalletConnectAuth in Frameworks */,
 				0497B2BB29A641C9007109ED /* WalletConnectRouter in Frameworks */,
-				04C22B342A36807500F58A15 /* Web3PromiseKit in Frameworks */,
 				0497B2C129A641C9007109ED /* Web3Wallet in Frameworks */,
+				B347EC2C2A97DBD700CC7BD7 /* Web3PromiseKit in Frameworks */,
 				0463F5C526296924009C04FA /* FirebaseMessaging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2128,7 +2132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04C22B362A36811200F58A15 /* SafeWeb3 in Frameworks */,
+				B347EC2E2A97DBEB00CC7BD7 /* SafeWeb3 in Frameworks */,
 				0A2A3A6D26AEBA50005FAEB7 /* SwiftCryptoTokenFormatter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4747,11 +4751,13 @@
 				0497B2BE29A641C9007109ED /* Web3Inbox */,
 				0497B2C029A641C9007109ED /* Web3Wallet */,
 				04C22B2C2A367FF800F58A15 /* CustomAuth */,
-				04C22B2F2A36807500F58A15 /* SafeWeb3 */,
-				04C22B312A36807500F58A15 /* Web3ContractABI */,
-				04C22B332A36807500F58A15 /* Web3PromiseKit */,
 				04AECBB62A744B21008D5A35 /* MoonpaySDK */,
 				936731902A9506ED00B3D4E9 /* tss-client-swift */,
+				B347EC222A97DA2B00CC7BD7 /* WalletConnectSwift */,
+				B347EC242A97DB1000CC7BD7 /* ThresholdKey */,
+				B347EC272A97DBD700CC7BD7 /* SafeWeb3 */,
+				B347EC292A97DBD700CC7BD7 /* Web3ContractABI */,
+				B347EC2B2A97DBD700CC7BD7 /* Web3PromiseKit */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig_PROD.app */;
@@ -4811,7 +4817,7 @@
 			name = NotificationServiceExtension;
 			packageProductDependencies = (
 				0A2A3A6C26AEBA50005FAEB7 /* SwiftCryptoTokenFormatter */,
-				04C22B352A36811200F58A15 /* SafeWeb3 */,
+				B347EC2D2A97DBEB00CC7BD7 /* SafeWeb3 */,
 			);
 			productName = NotificationServiceExtension;
 			productReference = 0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */;
@@ -4873,11 +4879,11 @@
 				0497B2A629A63A3E007109ED /* XCRemoteSwiftPackageReference "Starscream" */,
 				0497B2AB29A641C9007109ED /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */,
 				04C22B2B2A367FF800F58A15 /* XCRemoteSwiftPackageReference "customauth-swift-sdk" */,
-				04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3" */,
 				04AECBB52A744B21008D5A35 /* XCRemoteSwiftPackageReference "mobile-sdk-ios" */,
 				93008E442A94CD7B0027801F /* XCRemoteSwiftPackageReference "WalletConnectSwift" */,
 				9367318F2A9506ED00B3D4E9 /* XCRemoteSwiftPackageReference "tss-client-swift" */,
 				936731922A950BF700B3D4E9 /* XCRemoteSwiftPackageReference "tkey-mpc-swift" */,
+				B347EC262A97DBD700CC7BD7 /* XCRemoteSwiftPackageReference "SafeWeb3" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -7347,14 +7353,6 @@
 				kind = branch;
 			};
 		};
-		04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/safe-global/SafeWeb3.swift";
-			requirement = {
-				branch = "secp256k1-dep-change";
-				kind = branch;
-			};
-		};
 		0A13BD7529756CE700322C66 /* XCRemoteSwiftPackageReference "ur-registry-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/KeystoneHQ/ur-registry-ios";
@@ -7475,6 +7473,14 @@
 				minimumVersion = 14.0.0;
 			};
 		};
+		B347EC262A97DBD700CC7BD7 /* XCRemoteSwiftPackageReference "SafeWeb3" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/safe-global/SafeWeb3.swift";
+			requirement = {
+				branch = "secp256k1-dep-change";
+				kind = branch;
+			};
+		};
 		D80B5A11276B5FAD00D6E024 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
@@ -7576,26 +7582,6 @@
 			package = 04C22B2B2A367FF800F58A15 /* XCRemoteSwiftPackageReference "customauth-swift-sdk" */;
 			productName = CustomAuth;
 		};
-		04C22B2F2A36807500F58A15 /* SafeWeb3 */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3" */;
-			productName = SafeWeb3;
-		};
-		04C22B312A36807500F58A15 /* Web3ContractABI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3" */;
-			productName = Web3ContractABI;
-		};
-		04C22B332A36807500F58A15 /* Web3PromiseKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3" */;
-			productName = Web3PromiseKit;
-		};
-		04C22B352A36811200F58A15 /* SafeWeb3 */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 04C22B2E2A36807500F58A15 /* XCRemoteSwiftPackageReference "SafeWeb3" */;
-			productName = SafeWeb3;
-		};
 		0A13BD7629756CE700322C66 /* URRegistry */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0A13BD7529756CE700322C66 /* XCRemoteSwiftPackageReference "ur-registry-ios" */;
@@ -7674,6 +7660,36 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 93EE3F732760F49700111F17 /* XCRemoteSwiftPackageReference "intercom-ios" */;
 			productName = Intercom;
+		};
+		B347EC222A97DA2B00CC7BD7 /* WalletConnectSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93008E442A94CD7B0027801F /* XCRemoteSwiftPackageReference "WalletConnectSwift" */;
+			productName = WalletConnectSwift;
+		};
+		B347EC242A97DB1000CC7BD7 /* ThresholdKey */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 936731922A950BF700B3D4E9 /* XCRemoteSwiftPackageReference "tkey-mpc-swift" */;
+			productName = ThresholdKey;
+		};
+		B347EC272A97DBD700CC7BD7 /* SafeWeb3 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B347EC262A97DBD700CC7BD7 /* XCRemoteSwiftPackageReference "SafeWeb3" */;
+			productName = SafeWeb3;
+		};
+		B347EC292A97DBD700CC7BD7 /* Web3ContractABI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B347EC262A97DBD700CC7BD7 /* XCRemoteSwiftPackageReference "SafeWeb3" */;
+			productName = Web3ContractABI;
+		};
+		B347EC2B2A97DBD700CC7BD7 /* Web3PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B347EC262A97DBD700CC7BD7 /* XCRemoteSwiftPackageReference "SafeWeb3" */;
+			productName = Web3PromiseKit;
+		};
+		B347EC2D2A97DBEB00CC7BD7 /* SafeWeb3 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B347EC262A97DBD700CC7BD7 /* XCRemoteSwiftPackageReference "SafeWeb3" */;
+			productName = SafeWeb3;
 		};
 		D80B5A12276B5FAD00D6E024 /* SkeletonView */ = {
 			isa = XCSwiftPackageProductDependency;

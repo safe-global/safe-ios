@@ -14,6 +14,7 @@ extension WebSocket: WebSocketConnecting { }
 
 struct SocketFactory: WebSocketFactory {
     func create(with url: URL) -> WebSocketConnecting {
-        WebSocket(url: url)
+        let request = URLRequest(url: url)
+        WebSocket(request: request)
     }
 }
