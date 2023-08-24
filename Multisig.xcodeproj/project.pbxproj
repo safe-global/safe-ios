@@ -949,8 +949,6 @@
 		938D327128C8808D00198B7E /* NavigatingDAOViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 938D326F28C8808D00198B7E /* NavigatingDAOViewController.xib */; };
 		93C38DC128C74CAA005188EC /* WhatIsSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C38DBF28C74CAA005188EC /* WhatIsSafeViewController.swift */; };
 		93C38DC228C74CAA005188EC /* WhatIsSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C38DC028C74CAA005188EC /* WhatIsSafeViewController.xib */; };
-		93D6A0BB2A95123D0082F2FF /* secp256k1 in Frameworks */ = {isa = PBXBuildFile; productRef = 93D6A0BA2A95123D0082F2FF /* secp256k1 */; };
-		93D6A0BD2A95123D0082F2FF /* zkp in Frameworks */ = {isa = PBXBuildFile; productRef = 93D6A0BC2A95123D0082F2FF /* zkp */; };
 		93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */; };
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
 		93EF2FA327C546330077BE95 /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EF2FA127C546330077BE95 /* InstructionsViewController.swift */; };
@@ -2102,10 +2100,8 @@
 				0463F5C326296924009C04FA /* FirebaseCrashlytics in Frameworks */,
 				0497B2BD29A641C9007109ED /* WalletConnectVerify in Frameworks */,
 				04C22B322A36807500F58A15 /* Web3ContractABI in Frameworks */,
-				93D6A0BD2A95123D0082F2FF /* zkp in Frameworks */,
 				0A29B5622666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				0497B2AF29A641C9007109ED /* WalletConnectAuth in Frameworks */,
-				93D6A0BB2A95123D0082F2FF /* secp256k1 in Frameworks */,
 				0497B2BB29A641C9007109ED /* WalletConnectRouter in Frameworks */,
 				04C22B342A36807500F58A15 /* Web3PromiseKit in Frameworks */,
 				0497B2C129A641C9007109ED /* Web3Wallet in Frameworks */,
@@ -4711,6 +4707,7 @@
 				0ACDC01924926081002035A2 /* [FIREBASE] Copy config file */,
 				0AF2732824DAABDC007E4012 /* Embed Foundation Extensions */,
 				B343BEB42A7A5E49006BF46B /* [FIREBASE] Upload dSYMs */,
+				93D6A0C32A95EB670082F2FF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -4755,8 +4752,6 @@
 				04C22B332A36807500F58A15 /* Web3PromiseKit */,
 				04AECBB62A744B21008D5A35 /* MoonpaySDK */,
 				936731902A9506ED00B3D4E9 /* tss-client-swift */,
-				93D6A0BA2A95123D0082F2FF /* secp256k1 */,
-				93D6A0BC2A95123D0082F2FF /* zkp */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig_PROD.app */;
@@ -4883,7 +4878,6 @@
 				93008E442A94CD7B0027801F /* XCRemoteSwiftPackageReference "WalletConnectSwift" */,
 				9367318F2A9506ED00B3D4E9 /* XCRemoteSwiftPackageReference "tss-client-swift" */,
 				936731922A950BF700B3D4E9 /* XCRemoteSwiftPackageReference "tkey-mpc-swift" */,
-				93D6A0B92A95123D0082F2FF /* XCRemoteSwiftPackageReference "secp256k1" */,
 			);
 			productRefGroup = 0A93DD542445CC8A00688050 /* Products */;
 			projectDirPath = "";
@@ -5218,6 +5212,23 @@
 			shellPath = /bin/sh;
 			shellScript = "FIREBASE_SRC=\"${SRCROOT}/Multisig/Cross-layer/Analytics/Firebase/${FIREBASE_CONFIG}.plist\"\nFIREBASE_DST=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\nif [ -f \"${FIREBASE_SRC}\" ]; then\n    rsync -a \"${FIREBASE_SRC}\" \"${FIREBASE_DST}/GoogleService-Info.plist\"\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		93D6A0C32A95EB670082F2FF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nenv -i \"$PROJECT_DIR/bin/dependenciesTree.sh\" \"$BUILD_DIR\" \"$PROJECT_DIR\"\n";
 		};
 		B343BEB42A7A5E49006BF46B /* [FIREBASE] Upload dSYMs */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -7340,7 +7351,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/safe-global/SafeWeb3.swift";
 			requirement = {
-				branch = "rename-to-SafeWeb3";
+				branch = "secp256k1-dep-change";
 				kind = branch;
 			};
 		};
@@ -7454,14 +7465,6 @@
 			requirement = {
 				branch = alpha;
 				kind = branch;
-			};
-		};
-		93D6A0B92A95123D0082F2FF /* XCRemoteSwiftPackageReference "secp256k1" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/GigaBitcoin/secp256k1.swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.12.2;
 			};
 		};
 		93EE3F732760F49700111F17 /* XCRemoteSwiftPackageReference "intercom-ios" */ = {
@@ -7666,16 +7669,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9367318F2A9506ED00B3D4E9 /* XCRemoteSwiftPackageReference "tss-client-swift" */;
 			productName = "tss-client-swift";
-		};
-		93D6A0BA2A95123D0082F2FF /* secp256k1 */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 93D6A0B92A95123D0082F2FF /* XCRemoteSwiftPackageReference "secp256k1" */;
-			productName = secp256k1;
-		};
-		93D6A0BC2A95123D0082F2FF /* zkp */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 93D6A0B92A95123D0082F2FF /* XCRemoteSwiftPackageReference "secp256k1" */;
-			productName = zkp;
 		};
 		93EE3F742760F49800111F17 /* Intercom */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -239,8 +239,8 @@
         "package": "SafeWeb3",
         "repositoryURL": "https://github.com/safe-global/SafeWeb3.swift",
         "state": {
-          "branch": "rename-to-SafeWeb3",
-          "revision": "b7ab4cf18749b51dbef4f5ae438899b20db0a7f4",
+          "branch": "secp256k1-dep-change",
+          "revision": "64604958731b389e93ce2b9d4ac920382d0e406f",
           "version": null
         }
       },
