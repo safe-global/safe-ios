@@ -86,11 +86,26 @@
 		0468C3302A83D1DA009872C2 /* SecurityFactorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0468C32E2A83D1DA009872C2 /* SecurityFactorTableViewCell.xib */; };
 		0468C3372A850C60009872C2 /* FlowStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468C3352A850C60009872C2 /* FlowStepViewController.swift */; };
 		0468C3382A850C60009872C2 /* FlowStepViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0468C3362A850C60009872C2 /* FlowStepViewController.xib */; };
-		0468C33A2A85281A009872C2 /* CreatePasswordFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468C3392A85281A009872C2 /* CreatePasswordFlow.swift */; };
+		0468C33A2A85281A009872C2 /* SetupRecoveryKitFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468C3392A85281A009872C2 /* SetupRecoveryKitFlow.swift */; };
 		0468C33D2A8577C1009872C2 /* CreatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468C33B2A8577C1009872C2 /* CreatePasswordViewController.swift */; };
 		0468C33E2A8577C1009872C2 /* CreatePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0468C33C2A8577C1009872C2 /* CreatePasswordViewController.xib */; };
 		0468C3402A8A90AA009872C2 /* PasswordInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468C33F2A8A90AA009872C2 /* PasswordInputField.swift */; };
 		0468C3422A8A90C7009872C2 /* PasswordInputField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0468C3412A8A90C7009872C2 /* PasswordInputField.xib */; };
+		0468C3442A8CE34C009872C2 /* SafeSecurityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468C3432A8CE34C009872C2 /* SafeSecurityViewController.swift */; };
+		0468C3472A8E43D9009872C2 /* SecurityStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468C3452A8E43D9009872C2 /* SecurityStatusTableViewCell.swift */; };
+		0468C3482A8E43D9009872C2 /* SecurityStatusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0468C3462A8E43D9009872C2 /* SecurityStatusTableViewCell.xib */; };
+		0468C34A2A8E5217009872C2 /* ToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468C3492A8E5217009872C2 /* ToDoListView.swift */; };
+		0468C34C2A8E5228009872C2 /* ToDoListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0468C34B2A8E5228009872C2 /* ToDoListView.xib */; };
+		0468C34F2A911E32009872C2 /* InfoTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468C34D2A911E32009872C2 /* InfoTableFooterView.swift */; };
+		0468C3502A911E32009872C2 /* InfoTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0468C34E2A911E32009872C2 /* InfoTableFooterView.xib */; };
+		0468C3532A93B33A009872C2 /* HowDoesItWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468C3512A93B33A009872C2 /* HowDoesItWorkViewController.swift */; };
+		0468C3542A93B33A009872C2 /* HowDoesItWorkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0468C3522A93B33A009872C2 /* HowDoesItWorkViewController.xib */; };
+		0468C3562A93F1A6009872C2 /* TrustedDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468C3552A93F1A6009872C2 /* TrustedDeviceViewController.swift */; };
+		0468C3582A93F1B2009872C2 /* TrustedEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468C3572A93F1B2009872C2 /* TrustedEmailViewController.swift */; };
+		0468C35B2A94FEBD009872C2 /* UpdateRecoveryKitSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468C3592A94FEBD009872C2 /* UpdateRecoveryKitSuccessViewController.swift */; };
+		0468C35C2A94FEBD009872C2 /* UpdateRecoveryKitSuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0468C35A2A94FEBD009872C2 /* UpdateRecoveryKitSuccessViewController.xib */; };
+		0468C35E2A955F75009872C2 /* WarningBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468C35D2A955F75009872C2 /* WarningBanner.swift */; };
+		0468C3602A955F85009872C2 /* WarningBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0468C35F2A955F85009872C2 /* WarningBanner.xib */; };
 		0468EE9D26148A3B008270BF /* PrivacyProtectionScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */; };
 		0468EE9E26148A3B008270BF /* PrivacyProtectionScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0468EE9C26148A3B008270BF /* PrivacyProtectionScreenViewController.xib */; };
 		0468FB45259106F400541536 /* StyledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468FB44259106F400541536 /* StyledView.swift */; };
@@ -835,8 +850,6 @@
 		6A007E8F2A5ED538000F0ADD /* SocialLoginInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A007E8D2A5ED538000F0ADD /* SocialLoginInfoViewController.swift */; };
 		6A007E902A5ED538000F0ADD /* SocialLoginInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A007E8E2A5ED538000F0ADD /* SocialLoginInfoViewController.xib */; };
 		6A007E922A60179B000F0ADD /* UIGestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A007E912A60179B000F0ADD /* UIGestures.swift */; };
-		6A007E9A2A61531C000F0ADD /* SocialLoginInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A007E982A61531C000F0ADD /* SocialLoginInfoTableViewCell.swift */; };
-		6A007E9B2A61531C000F0ADD /* SocialLoginInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A007E992A61531C000F0ADD /* SocialLoginInfoTableViewCell.xib */; };
 		6A1CFA4A2807F24800B2C340 /* NoScreenshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1CFA482807F24800B2C340 /* NoScreenshotViewController.swift */; };
 		6A1CFA4B2807F24800B2C340 /* NoScreenshotViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A1CFA492807F24800B2C340 /* NoScreenshotViewController.xib */; };
 		6A1CFA4F28081A1200B2C340 /* BackupSeedPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1CFA4D28081A1200B2C340 /* BackupSeedPhraseViewController.swift */; };
@@ -1144,11 +1157,26 @@
 		0468C32E2A83D1DA009872C2 /* SecurityFactorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecurityFactorTableViewCell.xib; sourceTree = "<group>"; };
 		0468C3352A850C60009872C2 /* FlowStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowStepViewController.swift; sourceTree = "<group>"; };
 		0468C3362A850C60009872C2 /* FlowStepViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlowStepViewController.xib; sourceTree = "<group>"; };
-		0468C3392A85281A009872C2 /* CreatePasswordFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasswordFlow.swift; sourceTree = "<group>"; };
+		0468C3392A85281A009872C2 /* SetupRecoveryKitFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupRecoveryKitFlow.swift; sourceTree = "<group>"; };
 		0468C33B2A8577C1009872C2 /* CreatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasswordViewController.swift; sourceTree = "<group>"; };
 		0468C33C2A8577C1009872C2 /* CreatePasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreatePasswordViewController.xib; sourceTree = "<group>"; };
 		0468C33F2A8A90AA009872C2 /* PasswordInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordInputField.swift; sourceTree = "<group>"; };
 		0468C3412A8A90C7009872C2 /* PasswordInputField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PasswordInputField.xib; sourceTree = "<group>"; };
+		0468C3432A8CE34C009872C2 /* SafeSecurityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeSecurityViewController.swift; sourceTree = "<group>"; };
+		0468C3452A8E43D9009872C2 /* SecurityStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityStatusTableViewCell.swift; sourceTree = "<group>"; };
+		0468C3462A8E43D9009872C2 /* SecurityStatusTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecurityStatusTableViewCell.xib; sourceTree = "<group>"; };
+		0468C3492A8E5217009872C2 /* ToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListView.swift; sourceTree = "<group>"; };
+		0468C34B2A8E5228009872C2 /* ToDoListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToDoListView.xib; sourceTree = "<group>"; };
+		0468C34D2A911E32009872C2 /* InfoTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableFooterView.swift; sourceTree = "<group>"; };
+		0468C34E2A911E32009872C2 /* InfoTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoTableFooterView.xib; sourceTree = "<group>"; };
+		0468C3512A93B33A009872C2 /* HowDoesItWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowDoesItWorkViewController.swift; sourceTree = "<group>"; };
+		0468C3522A93B33A009872C2 /* HowDoesItWorkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HowDoesItWorkViewController.xib; sourceTree = "<group>"; };
+		0468C3552A93F1A6009872C2 /* TrustedDeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustedDeviceViewController.swift; sourceTree = "<group>"; };
+		0468C3572A93F1B2009872C2 /* TrustedEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustedEmailViewController.swift; sourceTree = "<group>"; };
+		0468C3592A94FEBD009872C2 /* UpdateRecoveryKitSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRecoveryKitSuccessViewController.swift; sourceTree = "<group>"; };
+		0468C35A2A94FEBD009872C2 /* UpdateRecoveryKitSuccessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdateRecoveryKitSuccessViewController.xib; sourceTree = "<group>"; };
+		0468C35D2A955F75009872C2 /* WarningBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningBanner.swift; sourceTree = "<group>"; };
+		0468C35F2A955F85009872C2 /* WarningBanner.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WarningBanner.xib; sourceTree = "<group>"; };
 		0468EE9B26148A3B008270BF /* PrivacyProtectionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyProtectionScreenViewController.swift; sourceTree = "<group>"; };
 		0468EE9C26148A3B008270BF /* PrivacyProtectionScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrivacyProtectionScreenViewController.xib; sourceTree = "<group>"; };
 		0468FB44259106F400541536 /* StyledView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledView.swift; sourceTree = "<group>"; };
@@ -1868,8 +1896,6 @@
 		6A007E8D2A5ED538000F0ADD /* SocialLoginInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginInfoViewController.swift; sourceTree = "<group>"; };
 		6A007E8E2A5ED538000F0ADD /* SocialLoginInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialLoginInfoViewController.xib; sourceTree = "<group>"; };
 		6A007E912A60179B000F0ADD /* UIGestures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGestures.swift; sourceTree = "<group>"; };
-		6A007E982A61531C000F0ADD /* SocialLoginInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginInfoTableViewCell.swift; sourceTree = "<group>"; };
-		6A007E992A61531C000F0ADD /* SocialLoginInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialLoginInfoTableViewCell.xib; sourceTree = "<group>"; };
 		6A1CFA482807F24800B2C340 /* NoScreenshotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoScreenshotViewController.swift; sourceTree = "<group>"; };
 		6A1CFA492807F24800B2C340 /* NoScreenshotViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoScreenshotViewController.xib; sourceTree = "<group>"; };
 		6A1CFA4D28081A1200B2C340 /* BackupSeedPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupSeedPhraseViewController.swift; sourceTree = "<group>"; };
@@ -2306,9 +2332,15 @@
 				0468C32E2A83D1DA009872C2 /* SecurityFactorTableViewCell.xib */,
 				0468C3352A850C60009872C2 /* FlowStepViewController.swift */,
 				0468C3362A850C60009872C2 /* FlowStepViewController.xib */,
-				0468C3392A85281A009872C2 /* CreatePasswordFlow.swift */,
+				0468C3392A85281A009872C2 /* SetupRecoveryKitFlow.swift */,
 				0468C33B2A8577C1009872C2 /* CreatePasswordViewController.swift */,
 				0468C33C2A8577C1009872C2 /* CreatePasswordViewController.xib */,
+				0468C3592A94FEBD009872C2 /* UpdateRecoveryKitSuccessViewController.swift */,
+				0468C35A2A94FEBD009872C2 /* UpdateRecoveryKitSuccessViewController.xib */,
+				0468C3512A93B33A009872C2 /* HowDoesItWorkViewController.swift */,
+				0468C3522A93B33A009872C2 /* HowDoesItWorkViewController.xib */,
+				0468C3552A93F1A6009872C2 /* TrustedDeviceViewController.swift */,
+				0468C3572A93F1B2009872C2 /* TrustedEmailViewController.swift */,
 			);
 			path = MFA;
 			sourceTree = "<group>";
@@ -2869,6 +2901,8 @@
 				558835ED255BFEA80014E8C7 /* Views */,
 				6A007E912A60179B000F0ADD /* UIGestures.swift */,
 				B3B6044E2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift */,
+				0468C3492A8E5217009872C2 /* ToDoListView.swift */,
+				0468C34B2A8E5228009872C2 /* ToDoListView.xib */,
 			);
 			path = "UI Library";
 			sourceTree = "<group>";
@@ -4085,6 +4119,10 @@
 				0482A2752A4115E7001B10C3 /* InfoView.xib */,
 				0468C33F2A8A90AA009872C2 /* PasswordInputField.swift */,
 				0468C3412A8A90C7009872C2 /* PasswordInputField.xib */,
+				0468C34D2A911E32009872C2 /* InfoTableFooterView.swift */,
+				0468C34E2A911E32009872C2 /* InfoTableFooterView.xib */,
+				0468C35D2A955F75009872C2 /* WarningBanner.swift */,
+				0468C35F2A955F85009872C2 /* WarningBanner.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4160,15 +4198,17 @@
 		55BCFC372552FCA900020CE7 /* SafeSettingsViewController */ = {
 			isa = PBXGroup;
 			children = (
-				6A007E932A61464E000F0ADD /* SocialLoginInfoTableViewCell */,
 				0428DA5725CBFBEA002CF4A9 /* HelpLinkUITableViewCell */,
 				55BCFC382552FCDB00020CE7 /* SafeSettingsViewController.swift */,
 				04FC26B425CABE2300CDA9A0 /* AdvancedSafeSettingsViewController.swift */,
+				0468C3432A8CE34C009872C2 /* SafeSecurityViewController.swift */,
 				5588363A2562904E0014E8C7 /* ContractVersionStatusCell.swift */,
 				5588363B2562904E0014E8C7 /* ContractVersionStatusCell.xib */,
 				0428DA4B25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.swift */,
 				0428DA4C25CB0E8A002CF4A9 /* FallbackHandlerTableViewCell.xib */,
 				AD30347831BBAF9E3E43EEA3 /* ChangeConfirmations */,
+				0468C3452A8E43D9009872C2 /* SecurityStatusTableViewCell.swift */,
+				0468C3462A8E43D9009872C2 /* SecurityStatusTableViewCell.xib */,
 			);
 			path = SafeSettingsViewController;
 			sourceTree = "<group>";
@@ -4241,15 +4281,6 @@
 				04273E5B26B41A3700A14E95 /* APDUController.swift */,
 			);
 			path = Ledger;
-			sourceTree = "<group>";
-		};
-		6A007E932A61464E000F0ADD /* SocialLoginInfoTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				6A007E982A61531C000F0ADD /* SocialLoginInfoTableViewCell.swift */,
-				6A007E992A61531C000F0ADD /* SocialLoginInfoTableViewCell.xib */,
-			);
-			path = SocialLoginInfoTableViewCell;
 			sourceTree = "<group>";
 		};
 		6A1CFA4C280819C600B2C340 /* Backup */ = {
@@ -4958,9 +4989,12 @@
 				0A8AEB2125A4764F002A3FE1 /* ActionDetailAddressCell.xib in Resources */,
 				0468FB9525912E8300541536 /* TransactionListHeaderTableViewCell.xib in Resources */,
 				0AADCDB828589DCC00A0139B /* AddOwnerExceptionViewController.xib in Resources */,
+				0468C3502A911E32009872C2 /* InfoTableFooterView.xib in Resources */,
 				0AF78A3227E0E07B001BAFE0 /* PendingWalletActionViewController.xib in Resources */,
+				0468C3602A955F85009872C2 /* WarningBanner.xib in Resources */,
 				6AF6296229C0C5C7004C034A /* ROBenefitsViewController.xib in Resources */,
 				55413678265E4A0000796F91 /* AddOwnerKeyCell.xib in Resources */,
+				0468C3542A93B33A009872C2 /* HowDoesItWorkViewController.xib in Resources */,
 				0A35D6C928C66ADA00D5AB06 /* ClaimSplashViewController.xib in Resources */,
 				6A94721B2891711500807B3B /* GuardianDetailsViewController.xib in Resources */,
 				93EF2FB027C551DC0077BE95 /* StepInstructionTableViewCell.xib in Resources */,
@@ -4970,6 +5004,7 @@
 				044A54482448D0B6009CBB80 /* QRCodeScannerViewController.xib in Resources */,
 				049A9D7125F9303000CA5723 /* ChooseOwnerKeyViewController.xib in Resources */,
 				D88FA81F2770869E0023B77F /* TokenAmountField.xib in Resources */,
+				0468C34C2A8E5228009872C2 /* ToDoListView.xib in Resources */,
 				041E10E02A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.xib in Resources */,
 				6AAE34E5282A824800CCFC95 /* EnterOwnerAddressViewController.xib in Resources */,
 				D80B5A0B2769F95000D6E024 /* AssetsViewController.xib in Resources */,
@@ -5021,7 +5056,6 @@
 				0A8AEB1925A4726E002A3FE1 /* ActionDetailExpandableCell.xib in Resources */,
 				04C5DF6C26FB451B0072476C /* KeyTypeTableViewCell.xib in Resources */,
 				93C38DC228C74CAA005188EC /* WhatIsSafeViewController.xib in Resources */,
-				6A007E9B2A61531C000F0ADD /* SocialLoginInfoTableViewCell.xib in Resources */,
 				6A1CFA5028081A1200B2C340 /* BackupSeedPhraseViewController.xib in Resources */,
 				6A7A48A12823A297003278C8 /* SafeOwnerCell.xib in Resources */,
 				0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */,
@@ -5037,12 +5071,14 @@
 				0A2AD3BD27ECD6CA00A0A6FD /* QRCodeShareViewController.xib in Resources */,
 				0468EE9E26148A3B008270BF /* PrivacyProtectionScreenViewController.xib in Resources */,
 				049A9DB225FA6D5F00CA5723 /* ChooseOwnerTableViewCell.xib in Resources */,
+				0468C35C2A94FEBD009872C2 /* UpdateRecoveryKitSuccessViewController.xib in Resources */,
 				0A0C7E52296F1C4100DC1C3B /* MenuTableViewCell.xib in Resources */,
 				6A7A489C28201697003278C8 /* SafeOwnerPickerViewController.xib in Resources */,
 				04B28F5329C8C0A90072B188 /* safeCreation.json in Resources */,
 				0482A2762A4115E7001B10C3 /* InfoView.xib in Resources */,
 				0ABE698927920294003338AF /* ErrorTableViewCell.xib in Resources */,
 				6A6A105A2889496100B852D5 /* ClaimGetStartedViewController.xib in Resources */,
+				0468C3482A8E43D9009872C2 /* SecurityStatusTableViewCell.xib in Resources */,
 				04077B38278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.xib in Resources */,
 				0A9A1A33257924C600B44405 /* DetailMultiAccountsCell.xib in Resources */,
 				0A9A1A37257924C600B44405 /* DetailAccountCell.xib in Resources */,
@@ -5211,6 +5247,7 @@
 				0AFA729E24BF363400A370EE /* SlicedText.swift in Sources */,
 				6AFD26E228589AFF00336FFE /* AddOwnerView.swift in Sources */,
 				049EB0FF25AF713700F66CEA /* TimeZone+Offset.swift in Sources */,
+				0468C34F2A911E32009872C2 /* InfoTableFooterView.swift in Sources */,
 				049A9DDA2602211500CA5723 /* FiatCodesRequest.swift in Sources */,
 				3E373F772631781A00D8107A /* EnterUnstoppableNameViewController.swift in Sources */,
 				558835EF255BFEDB0014E8C7 /* AddressInfoView.swift in Sources */,
@@ -5254,6 +5291,7 @@
 				0ADDB34E24518F8F0056B284 /* ActivityIndicator.swift in Sources */,
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
 				0A9BC32F246022BD00EB9C5D /* ENS.swift in Sources */,
+				0468C3562A93F1A6009872C2 /* TrustedDeviceViewController.swift in Sources */,
 				0A86EE6325CC2B350059876E /* LoadingFooterView.swift in Sources */,
 				0438C9212760120D009A0E31 /* DeleteDelegateKeyRequest.swift in Sources */,
 				0A2F1A7B267A5E9E00C09F03 /* GSImageView.swift in Sources */,
@@ -5301,6 +5339,7 @@
 				0AEDCE0B2472946600A1EC80 /* BarButton.swift in Sources */,
 				0A93DD572445CC8A00688050 /* AppDelegate.swift in Sources */,
 				550FB1A826691D0A00C13D54 /* OwnerKeyController.swift in Sources */,
+				0468C3472A8E43D9009872C2 /* SecurityStatusTableViewCell.swift in Sources */,
 				0A9E8E7725B9CA4200256AD3 /* BannerTableViewCell.swift in Sources */,
 				0AF8832225A5EC1F00029A43 /* ActionDetailTableViewCell.swift in Sources */,
 				0AADCDB728589DCC00A0139B /* AddOwnerExceptionViewController.swift in Sources */,
@@ -5338,7 +5377,7 @@
 				0ADD19C0265EA23200EB0F2B /* PrivateKeyViewController.swift in Sources */,
 				0A50DBDC28C898A900C0CEC6 /* ReviewClaimTokensHeaderCell.swift in Sources */,
 				0AADCDC42858E8A100A0139B /* ValidateRequestToAddOwnerViewController.swift in Sources */,
-				0468C33A2A85281A009872C2 /* CreatePasswordFlow.swift in Sources */,
+				0468C33A2A85281A009872C2 /* SetupRecoveryKitFlow.swift in Sources */,
 				558835E7255AEA390014E8C7 /* InfoCell.swift in Sources */,
 				0AC2A3C726FB6802002CB26A /* CollectiblesUnsupportedViewController.swift in Sources */,
 				555312EB2506608D0008206B /* Base58.swift in Sources */,
@@ -5380,6 +5419,7 @@
 				0A8CDD5327A85C0D0020066C /* TransactionExecutionLookup.swift in Sources */,
 				0A5B15842808643B003AD853 /* CreatePasscodeViewController.swift in Sources */,
 				0A04506D278D973C00650F71 /* ReviewExecutionContentViewController.swift in Sources */,
+				0468C34A2A8E5217009872C2 /* ToDoListView.swift in Sources */,
 				044BEE002987DDD000F533B0 /* ChangePasscodeFlow.swift in Sources */,
 				D86517732760CA7C000B4C04 /* AboutGnosisSafeTableViewController.swift in Sources */,
 				6AAE34E8282A833D00CCFC95 /* EnterOwnerNameViewController.swift in Sources */,
@@ -5389,6 +5429,7 @@
 				93EF2FA327C546330077BE95 /* InstructionsViewController.swift in Sources */,
 				04FA1A2E2580FAE300E45671 /* QueuedTransactionsSummaryListRequest.swift in Sources */,
 				04FA9CCE2A45C7520027F315 /* SafeActionViewController.swift in Sources */,
+				0468C35E2A955F75009872C2 /* WarningBanner.swift in Sources */,
 				0AF2733F24DAC9FE007E4012 /* RemoteNotificationHandler.swift in Sources */,
 				0A35D6C828C66ADA00D5AB06 /* ClaimSplashViewController.swift in Sources */,
 				6A91EFD727DA0604009E63E9 /* WCRegistryController.swift in Sources */,
@@ -5541,6 +5582,7 @@
 				0AE46C87257684B8001DC62B /* LoadSafeViewController.swift in Sources */,
 				0AC94458254068D800921CA5 /* NSNotification+Events.swift in Sources */,
 				0471B3BD262742CD001F2D3B /* UpdateAppViewController.swift in Sources */,
+				0468C35B2A94FEBD009872C2 /* UpdateRecoveryKitSuccessViewController.swift in Sources */,
 				0AFD9DCC27BFE18800011CF1 /* SignatureRequestContentViewController.swift in Sources */,
 				55CEFC2024939525003B2B19 /* TrackingEvent.swift in Sources */,
 				0478383F28C699BA00459F9B /* WhatIsSafeTokenViewController.swift in Sources */,
@@ -5663,6 +5705,7 @@
 				938D327028C8808D00198B7E /* NavigatingDAOViewController.swift in Sources */,
 				043350B92816D522003725E2 /* ReviewSafeTransactionViewController.swift in Sources */,
 				0AC3FBF22936156F0003255F /* KeychainStore.swift in Sources */,
+				0468C3582A93F1B2009872C2 /* TrustedEmailViewController.swift in Sources */,
 				6A252CF228169352001F0887 /* AddKeyAsOwnerIntroViewController.swift in Sources */,
 				5532D4C22449A17D0067505A /* JSONHTTPClient.swift in Sources */,
 				0A57C5AF2577F02100420303 /* ConfirmationCreatedPiece.swift in Sources */,
@@ -5682,7 +5725,6 @@
 				0472B2BE286A49420049BA17 /* GuardianListViewController.swift in Sources */,
 				0A2F1A6E267A538E00C09F03 /* GSLabel.swift in Sources */,
 				0439B29C28048A5F00796F18 /* BackupKeyTableViewCell.swift in Sources */,
-				6A007E9A2A61531C000F0ADD /* SocialLoginInfoTableViewCell.swift in Sources */,
 				6A6A105D2889A31200B852D5 /* InstructionStepView.swift in Sources */,
 				0A9366B3278F1EA0001918A9 /* HyperlinkButtonView.swift in Sources */,
 				0A478D5825B876AF0038363E /* ButtonTableViewCell.swift in Sources */,
@@ -5696,6 +5738,7 @@
 				0AC2BAE728B8F9B500AB66EB /* ActivateBiometryAlertController.swift in Sources */,
 				0A04506F278D9A2A00650F71 /* ReviewExecutionCellBuilder.swift in Sources */,
 				0A478D1B25B860240038363E /* KeyPickerController.swift in Sources */,
+				0468C3532A93B33A009872C2 /* HowDoesItWorkViewController.swift in Sources */,
 				6A7D476F29B49BC500D690BE /* RelaysRemainingRequest.swift in Sources */,
 				0AF2737724DD48AD007E4012 /* NotificationPayload.swift in Sources */,
 				B3B6044F2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift in Sources */,
@@ -5808,6 +5851,7 @@
 				B0D61BDA26F9EB2E994B7860 /* WebConnectionURL.swift in Sources */,
 				04FA9CCA2A43882D0027F315 /* SafeCreationSuccessViewController.swift in Sources */,
 				B0D61EC425A934B90D6A4288 /* WebConnectionRequest.swift in Sources */,
+				0468C3442A8CE34C009872C2 /* SafeSecurityViewController.swift in Sources */,
 				B0D61D48E3387B0982F1EAE2 /* WebConnectionSignatureRequest.swift in Sources */,
 				6A252CF72818512D001F0887 /* OwnerActionView.swift in Sources */,
 				6AF6297329C359AF004C034A /* PaymentMethodCell.swift in Sources */,

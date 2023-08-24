@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-class StyledView: UIButton {
+class StyledView: UIView {
     @IBInspectable var cornerRadius: CGFloat = 8
     @IBInspectable var roundRect: Bool = true
 

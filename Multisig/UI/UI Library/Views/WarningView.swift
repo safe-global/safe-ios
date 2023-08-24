@@ -49,6 +49,7 @@ class WarningView: UINibView {
         descriptionLabel.text = description
         descriptionLabel.isHidden = description == nil
         self.backgroundColor = backgroundColor
+        layoutIfNeeded()
     }
 
     // Do everything required for delegate warning if true

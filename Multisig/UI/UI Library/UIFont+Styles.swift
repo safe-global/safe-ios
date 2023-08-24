@@ -66,6 +66,7 @@ extension GNOTextStyle {
     static let calloutTertiary = GNOTextStyle(size: 16, weight: .regular, color: .labelTertiary)
     static let calloutPrimary = GNOTextStyle(size: 16, weight: .regular, color: .labelPrimary)
     static let calloutMedium = GNOTextStyle(size: 16, weight: .medium, color: .labelSecondary)
+    static let calloutMediumPrimary = GNOTextStyle(size: 16, weight: .medium, color: .labelPrimary)
     static let calloutMediumError = GNOTextStyle(size: 16, weight: .medium, color: .error)
 
     // Label

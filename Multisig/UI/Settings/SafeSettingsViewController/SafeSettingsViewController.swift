@@ -29,15 +29,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
     private var ensLoader: ENSNameLoader?
 
-    private var changeConfirmationsFlow: ChangeConfirmationsFlow!
-    private var removeOwnerFlow: RemoveOwnerFlow!
-    private var replaceOwnerFlow: ReplaceOwnerFromSettingsFlow!
-    private var addOwnerFlow: AddOwnerFlowFromSettings!
-    
     enum Section {
         case name(String)
-        case requiredConfirmations(String)
-        case ownerAddresses(String)
+        case security(String)
         case safeVersion(String)
         case ensName(String)
         case advanced
@@ -47,16 +41,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
 
         enum Security: SectionItem {
-            case security(String, Bool)
-        }
-
-        enum RequiredConfirmations: SectionItem {
-            case confirmations(String)
-        }
-
-        enum OwnerAddresses: SectionItem {
-            case ownerInfo(AddressInfo)
-            case socialLoginInfoBox
+            case security(String, SafeSecurityStatus)
         }
 
         enum ContractVersion: SectionItem {
@@ -84,15 +69,12 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         tableView.backgroundColor = tableBackgroundColor
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 68
+
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
-        } else {
-            // Fallback on earlier versions
         }
 
         tableView.registerCell(BasicCell.self)
-        tableView.registerCell(DetailAccountCell.self)
-        tableView.registerCell(SocialLoginInfoTableViewCell.self)
         tableView.registerCell(ContractVersionStatusCell.self)
         tableView.registerCell(LoadingValueCell.self)
         tableView.registerCell(RemoveCell.self)
@@ -206,39 +188,14 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
 
         guard
             let safe = safe,
-            let threshold = safe.threshold,
-            let ownersInfo = safe.ownersInfo,
             let implementationInfo = safe.implementationInfo,
             let implementationVersionState = safe.implementationVersionState,
             let version = safe.version
         else { return }
 
-        var ownersInfoItems: [Section.OwnerAddresses] = []
-        // Add social login info box only if there is only one owner and it is social login
-        if ownersInfo.count == 1 {
-            let owner = ownersInfo.first!
-            ownersInfoItems.append(Section.OwnerAddresses.ownerInfo(owner))
-            let keyInfo = try? KeyInfo.keys(addresses: [owner.address]).first
-            if keyInfo?.keyType == .web3AuthApple || keyInfo?.keyType == .web3AuthGoogle {
-                ownersInfoItems.append(Section.OwnerAddresses.socialLoginInfoBox)
-                socialOwnerOnly = true
-            }
-        } else {
-            ownersInfoItems = ownersInfo.map { Section.OwnerAddresses.ownerInfo($0) }
-            socialOwnerOnly = false
-        }
-
         sections += [
             (section: .name("Safe Account Name"), items: [Section.Name.name(safe.name ?? "Safe \(safe.addressValue.ellipsized())")]),
-            // TODO: Handle when exactly to show the security row
-            (section: .name("SECURITY"), items: [Section.Security.security("Account security", true)]),
-
-            (section: .requiredConfirmations("Required confirmations"),
-             items: [Section.RequiredConfirmations.confirmations("\(threshold) out of \(ownersInfo.count)")]),
-
-            (section: .ownerAddresses("Owners"),
-             items: ownersInfoItems),
-
+            (section: .security("SECURITY"), items: [Section.Security.security("Account security", safe.security)]),
             (section: .safeVersion("Safe Account base contract version"),
              items: [Section.ContractVersion.versionInfo(implementationInfo, implementationVersionState, version)]),
 
@@ -279,56 +236,11 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         switch item {
         case Section.Name.name(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
-        case Section.Security.security(let name, let showWarning):
+        case Section.Security.security(let name, let status):
             return tableView.basicCell(name: name,
-                                       icon: "ico-shield-infobox",
+                                       icon: "ico-shield",
                                        indexPath: indexPath,
-                                       supplementaryImage: showWarning ? UIImage(named:"ico-info-24")?.withTintColor(.warning) : nil)
-        case Section.RequiredConfirmations.confirmations(let name):
-            let canChangeConfirmations = ChangeConfirmationsFlow.canChangeConfirmations(safe: safe)
-            return tableView.basicCell(name: name,
-                                       indexPath: indexPath,
-                                       disclosureImage: canChangeConfirmations ? UIImage(named: "arrow") : nil,
-                                       canSelect: canChangeConfirmations)
-
-        case Section.OwnerAddresses.ownerInfo(let info):
-            let keyInfo = try? KeyInfo.keys(addresses: [info.address]).first
-            let (name, _) = NamingPolicy.name(for: info.address,
-                                                        info: info,
-                                                        chainId: safe.chain!.id!)
-            var browseUrl: URL? = nil
-            if keyInfo == nil {
-                 browseUrl = safe.chain!.browserURL(address: info.address.checksummed)
-            }
-            let cell = addressDetailsCell(address: info.address,
-                                      name: keyInfo?.displayName,
-                                      indexPath: indexPath,
-                                      badgeName: keyInfo?.keyType.badgeName,
-                                      browseURL: browseUrl,
-                                      prefix: safe.chain!.shortName)
-            cell.selectionStyle = .default
-            if keyInfo == nil {
-                cell.accessoryType = .none
-            } else {
-                cell.accessoryType = .disclosureIndicator
-            }
-
-            return cell
-
-        case Section.OwnerAddresses.socialLoginInfoBox:
-            let infoBoxCell = tableView.dequeueCell(SocialLoginInfoTableViewCell.self, for: indexPath)
-            infoBoxCell.setup(
-                onAddOwner: { [unowned self] in
-                    Tracker.trackEvent(.userAddOwner)
-                    addOwner()
-                },
-                onLearnMore: { [unowned self] in
-                    Tracker.trackEvent(.userLearnMore)
-                    openInSafari(App.configuration.help.addOwnersURL)
-                }
-            )
-            infoBoxCell.selectionStyle = .none
-            return infoBoxCell
+                                       supplementaryImage: status == .high ? nil : UIImage(named:"ico-info-24")?.withTintColor(status.color))
 
         case Section.ContractVersion.versionInfo(let info, let status, let version):
             return safeVersionCell(info: info,
@@ -369,71 +281,6 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         default:
             return UITableViewCell()
         }
-    }
-
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard isValid(path: indexPath), let safe = safe, !safe.isReadOnly, !safeOwners.isEmpty else { return nil }
-
-        let item = sections[indexPath.section].items[indexPath.row]
-        switch item {
-        case Section.OwnerAddresses.ownerInfo(let info):
-            guard let ownerIndex = (safeOwners.firstIndex { $0.address == info.address }) else { return nil }
-
-            var actions: [UIContextualAction] = []
-
-            let prevOwner = safeOwners.before(ownerIndex)
-
-            if safeOwners.count > 1 {
-                let removeOwnerAction = UIContextualAction(style: .destructive, title: "Remove") {
-                    [unowned self] _, _, completion in
-                    self.remove(owner: info.address, prevOwner: prevOwner?.address)
-                    completion(true)
-                }
-                removeOwnerAction.backgroundColor = .error
-
-                actions.append(removeOwnerAction)
-            }
-
-            let replaceAction = UIContextualAction(style: .normal, title: "Replace") {
-                [unowned self] _, _, completion in
-                self.replace(owner: info.address, prevOwner: prevOwner?.address)
-                completion(true)
-            }
-            replaceAction.backgroundColor = .labelTertiary
-
-            actions.append(replaceAction)
-            return UISwipeActionsConfiguration(actions: actions)
-        default:
-            return nil
-        }
-    }
-
-    func addOwner() {
-        addOwnerFlow = AddOwnerFlowFromSettings(safe: safe!) { [unowned self] _ in
-            addOwnerFlow = nil
-        }
-        present(flow: addOwnerFlow)
-        Tracker.trackEvent(.addOwnerFromSettings)
-    }
-
-    func replace(owner: Address, prevOwner: Address?) {
-        replaceOwnerFlow = ReplaceOwnerFromSettingsFlow(
-            ownerToReplace: owner,
-            prevOwner: prevOwner,
-            safe: safe!
-        ) { [unowned self] _ in
-            replaceOwnerFlow = nil
-        }
-        present(flow: replaceOwnerFlow)
-        Tracker.trackEvent(.replaceOwnerFromSettings)
-    }
-
-    func remove(owner: Address, prevOwner: Address?) {
-        removeOwnerFlow = RemoveOwnerFlow(owner: owner, prevOwner: prevOwner, safe: safe!) { [unowned self] _ in
-            removeOwnerFlow = nil
-        }
-        present(flow: removeOwnerFlow)
-        Tracker.trackEvent(.userRemoveOwnerFromSettings)
     }
 
     private func addressDetailsCell(address: Address,
@@ -501,28 +348,14 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             }
             show(editSafeNameViewController, sender: self)
         case Section.Security.security(_, _):
-            let vc = KeySecurityOverviewViewController()
+            let vc = SafeSecurityViewController()
             show(vc, sender: self)
-        case Section.RequiredConfirmations.confirmations(_):
-            changeConfirmationsFlow = ChangeConfirmationsFlow(safe: safe) { [unowned self] _ in
-                changeConfirmationsFlow = nil
-            }
 
-            guard changeConfirmationsFlow != nil else {
-                return
-            }
-
-            present(flow: changeConfirmationsFlow)
         case Section.Advanced.advanced(_):
             let advancedSafeSettingsViewController = AdvancedSafeSettingsViewController()
             let ribbon = RibbonViewController(rootViewController: advancedSafeSettingsViewController)
             show(ribbon, sender: self)
-        case Section.OwnerAddresses.ownerInfo(let addressInfo):
-            let keyInfo = try? KeyInfo.keys(addresses: [addressInfo.address]).first
-            if let keyInfo = keyInfo {
-                let vc = OwnerKeyDetailsViewController(keyInfo: keyInfo)
-                show(vc, sender: self)
-            }
+
         default:
             break
         }
@@ -534,11 +367,6 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         }
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
-        case Section.OwnerAddresses.ownerInfo:
-            return UITableView.automaticDimension
-
-        case Section.OwnerAddresses.socialLoginInfoBox:
-            return UITableView.automaticDimension
 
         case Section.ContractVersion.versionInfo:
             return UITableView.automaticDimension
@@ -555,9 +383,8 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection _section: Int) -> UIView? {
-        guard isValid(section: _section), let safe = safe else {
-            return nil
-        }
+        guard isValid(section: _section) else { return nil }
+
         let section = sections[_section].section
         var view: UIView?
         switch section {
@@ -565,21 +392,9 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
             (view as! BasicHeaderView).setName(name)
 
-        case Section.requiredConfirmations(let name):
+        case Section.security(let name):
             view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
             (view as! BasicHeaderView).setName(name)
-
-        case Section.ownerAddresses(let name):
-            view = tableView.dequeueHeaderFooterView(OwnerHeaderView.self)
-            let ownerHeaderView = view as! OwnerHeaderView
-            ownerHeaderView.setName(name)
-            ownerHeaderView.setNumber(safe.ownersInfo?.count)
-            ownerHeaderView.addButton.isHidden = safe.isReadOnly
-
-            ownerHeaderView.onAdd = { [unowned self] in
-                Tracker.trackEvent(.addOwnerFromSettings)
-                addOwner()
-            }
 
         case Section.safeVersion(let name):
             view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
@@ -615,7 +430,6 @@ extension SafeSettingsViewController: ENSNameLoaderDelegate {
         tableView.reloadData()
     }
 }
-
 
 extension BidirectionalCollection {
     typealias Element = Self.Iterator.Element

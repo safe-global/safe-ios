@@ -42,6 +42,11 @@ extension Safe {
         }
     }
 
+    // TODO: Imporve conditions
+    var security: SafeSecurityStatus {
+        return .medium
+    }
+
     var walletConnectSessiontopics: [String] {
         guard let topics = sessionTopics else { return [] }
         return topics.components(separatedBy: " ")
@@ -203,7 +208,7 @@ extension Safe {
 
     static func removeSession(topic: String) {
         Safe.all.forEach{
-            var topics = $0.walletConnectSessiontopics
+            let topics = $0.walletConnectSessiontopics
             if topics.contains(topic) {
                 $0.sessionTopics = topics.filter { $0 != topic }.joined(separator: " ")
             }
@@ -322,4 +327,18 @@ enum SafeStatus: Int16 {
     case deploying = 1
     case deploymentFailed = 2
     case indexing = 3
+}
+
+enum SafeSecurityStatus: Int16 {
+    case medium = 0
+    case high = 1
+
+    var color: UIColor {
+        switch self {
+        case .medium:
+            return .warning
+        case .high:
+            return .success
+        }
+    }
 }

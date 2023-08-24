@@ -20,6 +20,7 @@ extension UIColor {
     static let backgroundGreen = UIColor(named: "backgroundGreen")!
     static let backgroundTweet = UIColor(named: "backgroundTweet")!
     static let splashBackground = UIColor(named:"splashBackground")!
+    static let backgroundTertiary = UIColor(named:"backgroundTertiary")!
 
     // Components
     static let icon = UIColor(named: "icon")!

@@ -13,7 +13,7 @@ fileprivate protocol SectionItem {}
 class KeySecurityOverviewViewController: LoadableViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet private var infoButton: UIBarButtonItem!
 
-    private var createPasswordFlow: CreatePasswordFlow!
+    private var createPasswordFlow: SetupRecoveryKitFlow!
 
     private typealias SectionItems = (section: Section, items: [SectionItem])
     private var sections = [SectionItems]()
@@ -43,12 +43,14 @@ class KeySecurityOverviewViewController: LoadableViewController, UITableViewDele
         tableView.registerCell(WarningTableViewCell.self)
         tableView.registerHeaderFooterView(BasicHeaderView.self)
 
+        tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
 
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
+
         title = "Recovery Kit"
 
         if #available(iOS 15.0, *) {
@@ -80,12 +82,11 @@ class KeySecurityOverviewViewController: LoadableViewController, UITableViewDele
         sections = []
 
         // TODO: Build sections properly
-        sections.append(SectionItems(section: .enabledFactors("ENABLED FACTORS"), items: [
-            Section.Factor.factor("Email address", "ann.fischer@gmail", "ico-eMail", true, true)]))
-        sections.append(SectionItems(section: .otherFactors("OTHER FACTORS"),
-                                     items: [
-                                        Section.Factor.factor("Security password", nil, "ico-password", false, false),
-                                        Section.Factor.factor("Trusted device", nil, "ico-mobile", false, false)]))
+        sections.append(SectionItems(section: .enabledFactors("YOUR SECURITY FACTORS"), items: [
+            Section.Factor.factor("Email address", "ann.fischer@gmail", "ico-eMail", true, true),
+            Section.Factor.factor("Trusted device", nil, "ico-mobile", false, false),
+            Section.Factor.factor("Security password", nil, "ico-password", false, false)]))
+
         sections.append(SectionItems(section: .info,
                                      items: [Section.Info.info("More factors are coming soon!", "ico-clock")]))
 
@@ -109,7 +110,6 @@ class KeySecurityOverviewViewController: LoadableViewController, UITableViewDele
         case .enabledFactors(_), .otherFactors(_):
             if case let Section.Factor.factor(name, value, image, isDefault, selected) = factor {
                 let cell = tableView.dequeueCell(SecurityFactorTableViewCell.self, for: indexPath)
-                cell.selectionStyle = .none
                 cell.set(name: name,
                          icon: UIImage(named: image)!,
                          value: value,
@@ -135,13 +135,20 @@ class KeySecurityOverviewViewController: LoadableViewController, UITableViewDele
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let factor = sections[indexPath.section].items[indexPath.row]
-        if case let Section.Factor.factor(name, value, image, isDefault, selected) = factor {
-            createPasswordFlow = CreatePasswordFlow(completion: { [weak self] _ in
-                self?.createPasswordFlow = nil
-                self?.buildSections()
-            })
-            present(flow: createPasswordFlow)
+        if indexPath.row == 0 {
+            show(TrustedEmailViewController(), sender: self)
+        } else if indexPath.row == 1 {
+            show(TrustedDeviceViewController(), sender: self)
+        } else {
+            let factor = sections[indexPath.section].items[indexPath.row]
+
+            if case let Section.Factor.factor(name, value, image, isDefault, selected) = factor {
+                createPasswordFlow = SetupRecoveryKitFlow(completion: { [weak self] _ in
+                    self?.createPasswordFlow = nil
+                    self?.buildSections()
+                })
+                present(flow: createPasswordFlow)
+            }
         }
     }
 
@@ -170,6 +177,15 @@ class KeySecurityOverviewViewController: LoadableViewController, UITableViewDele
             return 0
         default:
             return BasicHeaderView.headerHeight
+        }
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch sections[indexPath.section].section {
+        case .info:
+            return UITableView.automaticDimension
+        default:
+            return SecurityFactorTableViewCell.rowHeight
         }
     }
 }
