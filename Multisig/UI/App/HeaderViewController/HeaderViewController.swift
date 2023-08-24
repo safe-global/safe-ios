@@ -115,7 +115,7 @@ final class HeaderViewController: ContainerViewController {
     }
     
     private func addSafe() {
-        addSafeFlow = AddSafeFlow(completion: { [weak self] success in
+        addSafeFlow = AddSafeFlow(completion: { [weak self] _ in
             self?.addSafeFlow = nil
         })
         present(flow: addSafeFlow)

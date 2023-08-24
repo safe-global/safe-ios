@@ -19,7 +19,10 @@ class OnboardingViewController: UIViewController {
     @IBOutlet private weak var actionsContainerView: UIStackView!
     @IBOutlet private weak var pageControl: UIPageControl!
     @IBOutlet private weak var collectionView: UICollectionView!
+    
     private var createSafeFlow: CreateSafeFlow!
+    private var addSafeFlow: AddSafeFlow!
+    
     private let steps: [OnboardingStep] = [OnboardingStep(title: (text: "The world of Web3 in your pocket",
                                                                   highlightedText: "Web3"),
                                                           description: (text: "Use the most popular Ethereum-compatible networks, connect to dApps, get transaction notifications and more.",
@@ -69,22 +72,11 @@ class OnboardingViewController: UIViewController {
 
     @IBAction private func didTapLoadSafe(_ sender: Any) {
         Tracker.trackEvent(.addSafeFromOnboarding)
-        let selectNetworkVC = SelectNetworkViewController()
-        selectNetworkVC.screenTitle = "Load Safe Account"
-        selectNetworkVC.descriptionText = "Select network on which your Safe Account was created:"
-        selectNetworkVC.completion = { [unowned selectNetworkVC, weak self] chain  in
-            let vc = EnterSafeAddressViewController()
-            vc.chain = chain
-            let ribbon = RibbonViewController(rootViewController: vc)
-            ribbon.chain = vc.chain
-            vc.completion = { _, _ in
-                selectNetworkVC.dismiss(animated: true, completion: nil)
-                self?.completion()
-            }
-            selectNetworkVC.show(ribbon, sender: selectNetworkVC)
-        }
-        let vc = ViewControllerFactory.modal(viewController: selectNetworkVC)
-        present(vc, animated: true)
+        addSafeFlow = AddSafeFlow(completion: { [weak self] _ in
+            self?.addSafeFlow = nil
+            self?.completion()
+        })
+        present(flow: addSafeFlow)
     }
 
     @IBAction private func didTapCreateSafe(_ sender: Any) {

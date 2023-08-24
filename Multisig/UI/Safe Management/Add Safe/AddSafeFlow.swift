@@ -8,9 +8,6 @@
 
 import UIKit
 
-// not working
-// Onboarding -> LoadSafe
-
 class AddSafeFlow: UIFlow {
     
     private let factory = AddSafeFlowFactory()
