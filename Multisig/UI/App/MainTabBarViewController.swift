@@ -459,6 +459,8 @@ extension MainTabBarViewController: NavigationRouter {
 
             present(flow: addOwnerFlow)
         } else if route.path == NavigationRoute.loadSafe().path {
+            Tracker.trackEvent(.addSafeFromURL)
+
             addSafeFlow = AddSafeFlow(completion: { [weak self] _ in
                 self?.addSafeFlow = nil
             })
