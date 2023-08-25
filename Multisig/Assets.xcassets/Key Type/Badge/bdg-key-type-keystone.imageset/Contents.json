@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "logo_accountlabs.pdf",
+      "filename" : "logo-accountlabs.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "logo-accountlabs-dark.pdf",
       "idiom" : "universal"
     }
   ],
