@@ -949,6 +949,11 @@
 		93A95EB92A9892820000D729 /* Web3PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 93A95EB82A9892820000D729 /* Web3PromiseKit */; };
 		93C38DC128C74CAA005188EC /* WhatIsSafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C38DBF28C74CAA005188EC /* WhatIsSafeViewController.swift */; };
 		93C38DC228C74CAA005188EC /* WhatIsSafeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C38DC028C74CAA005188EC /* WhatIsSafeViewController.xib */; };
+		93E268512A98FBC5008EB6D6 /* SafeWeb3 in Frameworks */ = {isa = PBXBuildFile; productRef = 93E268502A98FBC5008EB6D6 /* SafeWeb3 */; };
+		93E268532A98FF82008EB6D6 /* WalletConnectHistory in Frameworks */ = {isa = PBXBuildFile; productRef = 93E268522A98FF82008EB6D6 /* WalletConnectHistory */; };
+		93E268552A98FF82008EB6D6 /* WalletConnectModal in Frameworks */ = {isa = PBXBuildFile; productRef = 93E268542A98FF82008EB6D6 /* WalletConnectModal */; };
+		93E268572A98FF83008EB6D6 /* WalletConnectSync in Frameworks */ = {isa = PBXBuildFile; productRef = 93E268562A98FF83008EB6D6 /* WalletConnectSync */; };
+		93E268592A98FFC4008EB6D6 /* WalletConnectSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 93E268582A98FFC4008EB6D6 /* WalletConnectSwift */; };
 		93EE3F702760EC7E00111F17 /* IntercomConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE3F6F2760EC7E00111F17 /* IntercomConfig.swift */; };
 		93EE3F752760F49800111F17 /* Intercom in Frameworks */ = {isa = PBXBuildFile; productRef = 93EE3F742760F49800111F17 /* Intercom */; };
 		93EF2FA327C546330077BE95 /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EF2FA127C546330077BE95 /* InstructionsViewController.swift */; };
@@ -2084,6 +2089,9 @@
 				5591CEEE260C725C0067DFDF /* BlockiesSwift in Frameworks */,
 				0A13BD7729756CE700322C66 /* URRegistry in Frameworks */,
 				0A7FBE2528BE684100B5FFCF /* WhatsNewKit in Frameworks */,
+				93E268592A98FFC4008EB6D6 /* WalletConnectSwift in Frameworks */,
+				93E268552A98FF82008EB6D6 /* WalletConnectModal in Frameworks */,
+				93E268572A98FF83008EB6D6 /* WalletConnectSync in Frameworks */,
 				0497B2B129A641C9007109ED /* WalletConnectChat in Frameworks */,
 				0A3DAD9426270F4D00743E38 /* unistring.xcframework in Frameworks */,
 				0497B2BF29A641C9007109ED /* Web3Inbox in Frameworks */,
@@ -2101,6 +2109,7 @@
 				0497B2BD29A641C9007109ED /* WalletConnectVerify in Frameworks */,
 				0A29B5622666808A0060F06A /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				0497B2AF29A641C9007109ED /* WalletConnectAuth in Frameworks */,
+				93E268532A98FF82008EB6D6 /* WalletConnectHistory in Frameworks */,
 				93A95EB22A9892660000D729 /* CustomAuth in Frameworks */,
 				93A95EB92A9892820000D729 /* Web3PromiseKit in Frameworks */,
 				0497B2BB29A641C9007109ED /* WalletConnectRouter in Frameworks */,
@@ -2129,6 +2138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93E268512A98FBC5008EB6D6 /* SafeWeb3 in Frameworks */,
 				0A2A3A6D26AEBA50005FAEB7 /* SwiftCryptoTokenFormatter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4752,6 +4762,10 @@
 				93A95EB42A9892820000D729 /* SafeWeb3 */,
 				93A95EB62A9892820000D729 /* Web3ContractABI */,
 				93A95EB82A9892820000D729 /* Web3PromiseKit */,
+				93E268522A98FF82008EB6D6 /* WalletConnectHistory */,
+				93E268542A98FF82008EB6D6 /* WalletConnectModal */,
+				93E268562A98FF83008EB6D6 /* WalletConnectSync */,
+				93E268582A98FFC4008EB6D6 /* WalletConnectSwift */,
 			);
 			productName = Multisig;
 			productReference = 0A93DD532445CC8A00688050 /* Multisig_PROD.app */;
@@ -4811,6 +4825,7 @@
 			name = NotificationServiceExtension;
 			packageProductDependencies = (
 				0A2A3A6C26AEBA50005FAEB7 /* SwiftCryptoTokenFormatter */,
+				93E268502A98FBC5008EB6D6 /* SafeWeb3 */,
 			);
 			productName = NotificationServiceExtension;
 			productReference = 0AF2731324DAABDC007E4012 /* NotificationServiceExtension.appex */;
@@ -7651,6 +7666,31 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 93A95EB32A9892820000D729 /* XCRemoteSwiftPackageReference "SafeWeb3" */;
 			productName = Web3PromiseKit;
+		};
+		93E268502A98FBC5008EB6D6 /* SafeWeb3 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93A95EB32A9892820000D729 /* XCRemoteSwiftPackageReference "SafeWeb3" */;
+			productName = SafeWeb3;
+		};
+		93E268522A98FF82008EB6D6 /* WalletConnectHistory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0497B2AB29A641C9007109ED /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = WalletConnectHistory;
+		};
+		93E268542A98FF82008EB6D6 /* WalletConnectModal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0497B2AB29A641C9007109ED /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = WalletConnectModal;
+		};
+		93E268562A98FF83008EB6D6 /* WalletConnectSync */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0497B2AB29A641C9007109ED /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
+			productName = WalletConnectSync;
+		};
+		93E268582A98FFC4008EB6D6 /* WalletConnectSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93008E442A94CD7B0027801F /* XCRemoteSwiftPackageReference "WalletConnectSwift" */;
+			productName = WalletConnectSwift;
 		};
 		93EE3F742760F49800111F17 /* Intercom */ = {
 			isa = XCSwiftPackageProductDependency;

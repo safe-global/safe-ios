@@ -10,10 +10,42 @@ import Foundation
 import Starscream
 import WalletConnectRelay
 
-extension WebSocket: WebSocketConnecting { }
+extension WebSocket: WebSocketConnecting {
+    public var isConnected: Bool {
+        false
+    }
+
+    public var onConnect: (() -> Void)? {
+        get {
+            nil
+        }
+        set(newValue) {
+
+        }
+    }
+
+    public var onDisconnect: ((Error?) -> Void)? {
+        get {
+            nil
+        }
+        set(newValue) {
+
+        }
+    }
+
+    public var onText: ((String) -> Void)? {
+        get {
+            nil
+        }
+        set(newValue) {
+
+        }
+    }
+}
 
 struct SocketFactory: WebSocketFactory {
     func create(with url: URL) -> WebSocketConnecting {
-        WebSocket(url: url)
+        let request = URLRequest(url: url)
+        return WebSocket(request: request)
     }
 }
