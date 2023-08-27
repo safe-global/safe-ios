@@ -43,9 +43,9 @@ class WebSocketWrapper: WebSocketConnecting, WebSocketDelegate {
                 onConnect()
             }
             break
-        case .disconnected(let foo, let bar):
+        case .disconnected(let reason, let _):
             if let onDisconnect {
-                onDisconnect(foo)
+                onDisconnect(reason)
             }
         case .text(let text):
             if let onText {
