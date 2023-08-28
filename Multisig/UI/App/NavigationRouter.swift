@@ -133,7 +133,14 @@ class ExtendedNavigationRouter: NavigationRouter {
         case "/welcome", "/home":
             return NavigationRoute.showAssets()
         case "/new-safe/load":
-            return NavigationRoute.loadSafe()
+            let chain = chainQueryParameter(named: "chain", in: url)
+            let address = addressQueryParameter(named: "address", in: url)
+            // prefer prefixed address in order to reduce input errors
+            let prefixedAddress = eip3770AddressQueryParameter(named: "address", in: url)
+            return NavigationRoute.loadSafe(
+                chainId: prefixedAddress?.chainId ?? chain?.id,
+                address: prefixedAddress?.address ?? address?.checksummed
+            )
         case "/balances":
             guard let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url) else {
                 return nil
@@ -201,6 +208,26 @@ class ExtendedNavigationRouter: NavigationRouter {
         }
         return (address.checksummed, chainId)
     }
+    
+    private func addressQueryParameter(named name: String, in url: URL) -> Address? {
+        guard
+            let text = queryParameterValue(named: name, in: url),
+            let address = Address(text)
+        else {
+            return nil
+        }
+        return address
+    }
+    
+    private func chainQueryParameter(named name: String, in url: URL) -> Chain? {
+        guard
+            let text = queryParameterValue(named: name, in: url),
+            let chain = Chain.by(shortName: text)
+        else {
+            return nil
+        }
+        return chain
+    }
 
     // get the value of a query parameter
     private func queryParameterValue(named name: String, in url: URL) -> String? {
@@ -231,8 +258,17 @@ extension NavigationRoute {
     }
 
     // MARK: Add Safe
-    static func loadSafe() -> NavigationRoute {
-        NavigationRoute(path: "/loadSafe")
+    static func loadSafe(chainId: String? = nil, address: String? = nil) -> NavigationRoute {
+        var route = NavigationRoute(path: "/loadSafe")
+
+        if let chainId = chainId {
+            route.info["chainId"] = chainId
+        }
+        if let address = address {
+            route.info["address"] = address
+        }
+
+        return route
     }
     
     static let deploymentFailedPath = "/deploymentFailed/"

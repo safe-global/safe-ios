@@ -86,6 +86,44 @@ final class ExtendedNavigationRouterTests: XCTestCase {
         XCTAssertEqual(route?.path, "/loadSafe")
     }
 
+    func testLoadSafeWithNetwork() {
+        let url = "https://some.host/new-safe/load?chain=eth"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/loadSafe")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
+    }
+    
+    func testLoadSafeWithNetworkAndAddress() {
+        let url = "https://some.host/new-safe/load?chain=eth&address=0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/loadSafe")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
+        XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
+    }
+    
+    func testLoadSafeWithAddress() {
+        let url = "https://some.host/new-safe/load?address=0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/loadSafe")
+        XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
+    }
+    
+    func testLoadSafeWithPrefixedAddress() {
+        let url = "https://some.host/new-safe/load?address=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/loadSafe")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
+        XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
+    }
+    
+    func testLoadSafeWithChainAndPrefixedAddress() {
+        let url = "https://some.host/new-safe/load?chain=matic&address=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/loadSafe")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
+        XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
+    }
+
     func testAssets() {
         let url = "https://some.host/balances?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
         let route = router.routeFrom(from: URL(url))

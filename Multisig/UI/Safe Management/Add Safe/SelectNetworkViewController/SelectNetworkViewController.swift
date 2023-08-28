@@ -19,8 +19,10 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
     var descriptionText: String!
     var showWeb2SupportHint: Bool = false
     var trackingEvent: TrackingEvent?
+    var preselectedChainId: String?
 
     var completion: (SCGModels.Chain) -> Void = { _ in }
+    
     convenience init() {
         self.init(namedClass: Self.superclass())
     }
@@ -89,8 +91,20 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
                     guard let `self` = self else { return }
                     self.model = model
                     self.onSuccess()
+                    self.findPreselectedChainId()
                 }
             }
+        }
+    }
+    
+    // Select the chain automatically based on the given input chain id
+    private func findPreselectedChainId() {
+        guard let chainId = preselectedChainId else { return }
+        
+        if let chain = model.models.first(where: { $0.id == chainId }) {
+            completion(chain)
+        } else if model.next != nil {
+            loadNextPage()
         }
     }
 
@@ -148,6 +162,7 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
                         self.model.append(from: model)
                         self.onSuccess()
                         self.pageLoadingState = .idle
+                        self.findPreselectedChainId()
                     }
                 }
                 self.loadNextPageDataTask = nil
