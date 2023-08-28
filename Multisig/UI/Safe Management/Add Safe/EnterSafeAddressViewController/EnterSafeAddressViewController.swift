@@ -40,9 +40,7 @@ class EnterSafeAddressViewController: UIViewController {
         navigationItem.rightBarButtonItem = nextButton
 
         if let address = preselectedAddress {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: { [weak self] in
-                self?.didEnterText(address)
-            })
+            didEnterText(address)
         }
     }
 
