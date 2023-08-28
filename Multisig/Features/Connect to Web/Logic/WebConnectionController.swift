@@ -774,7 +774,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 from: request.transaction.from,
                 to: request.transaction.to,
                 value: request.transaction.value,
-                input: request.transaction.data,
+                data: request.transaction.data,
                 fee: .init(maxPriorityFee: minerTip)
             )
         } else {
@@ -783,7 +783,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 from: request.transaction.from,
                 to: request.transaction.to,
                 value: request.transaction.value,
-                input: request.transaction.data
+                data: request.transaction.data
             )
         }
     }
