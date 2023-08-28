@@ -170,6 +170,22 @@ final class ExtendedNavigationRouterTests: XCTestCase {
         XCTAssertEqual(route?.info["chainId"] as? String, "1")
 
     }
+    
+    func testTransactions() {
+        let url = "https://some.host/transactions?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/transactions/queued/")
+        XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
+    }
+    
+    func testTransactionMessages() {
+        let url = "https://some.host/transactions/messages?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/transactions/queued/")
+        XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
+    }
 
     func testDetails() {
         let url = "https://some.host/transactions/tx?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b&id=some-identifier"

@@ -173,7 +173,7 @@ class ExtendedNavigationRouter: NavigationRouter {
                 chainId: safeAddress.chainId
             )
             return route
-        case "/transactions/queue":
+        case "/transactions/queue", "/transactions", "/transactions/messages":
             guard let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url) else {
                 return nil
             }
