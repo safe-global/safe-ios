@@ -27,9 +27,11 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     private let uiModel = CreateSafeFormUIModel()
     private var didSubmit = false
     private var loginModel: GoogleWeb3AuthLoginModel!
+    private var inputChainId: String?
 
-    init(_ factory: CreateSafeFlowFactory = CreateSafeFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
+    init(chainId: String? = nil, _ factory: CreateSafeFlowFactory = CreateSafeFlowFactory(), completion: @escaping (_ success: Bool) -> Void) {
         self.factory = factory
+        self.inputChainId = chainId
         super.init(completion: completion)
     }
 
@@ -38,7 +40,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     }
 
     func chooseNetwork() {
-        let vc = factory.selectNetworkViewController { [unowned self] chain in
+        let vc = factory.selectNetworkViewController(chainId: inputChainId) { [unowned self] chain in
             self.chain = Chain.createOrUpdate(chain)
             instructions()
         }
@@ -251,8 +253,9 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
 }
 
 class CreateSafeFlowFactory {
-    func selectNetworkViewController(completion: @escaping (_ chain: SCGModels.Chain) -> Void) -> SelectNetworkViewController {
+    func selectNetworkViewController(chainId: String? = nil, completion: @escaping (_ chain: SCGModels.Chain) -> Void) -> SelectNetworkViewController {
         let vc = SelectNetworkViewController()
+        vc.preselectedChainId = chainId
         vc.showWeb2SupportHint = true
         vc.completion = completion
         vc.screenTitle = "Select network"

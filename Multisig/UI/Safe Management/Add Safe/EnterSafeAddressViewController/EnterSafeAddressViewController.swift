@@ -15,6 +15,8 @@ class EnterSafeAddressViewController: UIViewController {
     var completion: (_ address: Address, _ safeVersion: String) -> Void = { _, _ in }
     var chain: SCGModels.Chain!
     var safeVersion: String?
+    var preselectedAddress: String?
+    
     lazy var trackingParameters: [String: Any]  = { ["chain_id" : chain.chainId.description] }()
 
     @IBOutlet private weak var headerLabel: UILabel!
@@ -36,6 +38,10 @@ class EnterSafeAddressViewController: UIViewController {
         nextButton.isEnabled = false
 
         navigationItem.rightBarButtonItem = nextButton
+
+        if let address = preselectedAddress {
+            didEnterText(address)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

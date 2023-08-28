@@ -16,13 +16,21 @@ class AddSafeFlow: UIFlow {
     private var safeVersion: String!
     private var name: String!
     private var createPasscodeFlow: CreatePasscodeFlow!
+    private var inputChainId: String?
+    private var inputAddress: String?
+    
+    init(chainId: String? = nil, address: String? = nil, completion: @escaping (Bool) -> Void) {
+        inputChainId = chainId
+        inputAddress = address
+        super.init(completion: completion)
+    }
     
     override func start() {
         selectNetwork()
     }
     
     func selectNetwork() {
-        let vc = factory.selectNetwork { [weak self] chain in
+        let vc = factory.selectNetwork(chainId: inputChainId) { [weak self] chain in
             guard let self = self else { return }
             self.chain = chain
             self.enterAddress()
@@ -31,7 +39,7 @@ class AddSafeFlow: UIFlow {
     }
     
     func enterAddress() {
-        let vc = factory.enterAddress(chain: chain) { [weak self] address, safeVersion in
+        let vc = factory.enterAddress(chain: chain, address: inputAddress) { [weak self] address, safeVersion in
             guard let self = self else { return }
             self.address = address
             self.safeVersion = safeVersion
@@ -118,17 +126,19 @@ class AddSafeFlow: UIFlow {
 }
 
 class AddSafeFlowFactory {
-    func selectNetwork(completion: @escaping (SCGModels.Chain) -> Void) -> UIViewController {
+    func selectNetwork(chainId: String?, completion: @escaping (SCGModels.Chain) -> Void) -> UIViewController {
         let selectNetworkVC = SelectNetworkViewController()
+        selectNetworkVC.preselectedChainId = chainId
         selectNetworkVC.screenTitle = "Load Safe Account"
         selectNetworkVC.descriptionText = "Select network on which your Safe Account was created:"
         selectNetworkVC.completion = completion
         return selectNetworkVC
     }
     
-    func enterAddress(chain: SCGModels.Chain, completion: @escaping (_ address: Address, _ safeVersion: String) -> Void) -> UIViewController {
+    func enterAddress(chain: SCGModels.Chain, address: String?, completion: @escaping (_ address: Address, _ safeVersion: String) -> Void) -> UIViewController {
         let vc = EnterSafeAddressViewController()
         vc.chain = chain
+        vc.preselectedAddress = address
         vc.completion = completion
         let ribbon = RibbonViewController(rootViewController: vc)
         ribbon.chain = vc.chain
