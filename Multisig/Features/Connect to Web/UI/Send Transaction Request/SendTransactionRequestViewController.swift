@@ -480,7 +480,7 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
             clientTx = .init(
                 from: rpcTx.from!.hex,
                 to: rpcTx.to?.hex,
-                data: rpcTx.input.hex,
+                data: rpcTx.data.hex,
                 gas: rpcTx.gas?.hex,
                 gasPrice: rpcTx.gasPrice?.hex,
                 value: rpcTx.value.hex,
@@ -497,7 +497,7 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
             clientTx = .init(
                 from: rpcTx.from!.hex,
                 to: rpcTx.to?.hex,
-                data: rpcTx.input.hex,
+                data: rpcTx.data.hex,
                 gas: rpcTx.gas?.hex,
                 gasPrice: rpcTx.gasPrice?.hex,
                 value: rpcTx.value.hex,
@@ -514,7 +514,7 @@ class SendTransactionRequestViewController: WebConnectionContainerViewController
             clientTx = .init(
                 from: rpcTx.from!.hex,
                 to: rpcTx.to?.hex,
-                data: rpcTx.input.hex,
+                data: rpcTx.data.hex,
                 gas: rpcTx.gas?.hex,
                 gasPrice: rpcTx.maxFeePerGas?.hex,
                 value: rpcTx.value.hex,

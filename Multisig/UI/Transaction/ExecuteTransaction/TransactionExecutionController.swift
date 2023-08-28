@@ -358,7 +358,7 @@ class TransactionExecutionController {
                 chainId: chainId,
                 from: from,
                 to: Sol.Address(safeAddress.data32),
-                input: Sol.Bytes(storage: input),
+                data: Sol.Bytes(storage: input),
                 fee: .init(maxPriorityFee: minerTip)
             )
         } else {
@@ -366,7 +366,7 @@ class TransactionExecutionController {
                 chainId: chainId,
                 from: from,
                 to: Sol.Address(safeAddress.data32),
-                input: Sol.Bytes(storage: input)
+                data: Sol.Bytes(storage: input)
             )
         }
 
@@ -524,7 +524,7 @@ class TransactionExecutionController {
             clientTx = .init(
                 from: rpcTx.from!.hex,
                 to: rpcTx.to?.hex,
-                data: rpcTx.input.hex,
+                data: rpcTx.data.hex,
                 gas: rpcTx.gas?.hex,
                 gasPrice: rpcTx.gasPrice?.hex,
                 value: rpcTx.value.hex,
@@ -541,7 +541,7 @@ class TransactionExecutionController {
             clientTx = .init(
                 from: rpcTx.from!.hex,
                 to: rpcTx.to?.hex,
-                data: rpcTx.input.hex,
+                data: rpcTx.data.hex,
                 gas: rpcTx.gas?.hex,
                 gasPrice: rpcTx.gasPrice?.hex,
                 value: rpcTx.value.hex,
@@ -558,7 +558,7 @@ class TransactionExecutionController {
             clientTx = .init(
                 from: rpcTx.from!.hex,
                 to: rpcTx.to?.hex,
-                data: rpcTx.input.hex,
+                data: rpcTx.data.hex,
                 gas: rpcTx.gas?.hex,
                 gasPrice: rpcTx.maxFeePerGas?.hex,
                 value: rpcTx.value.hex,

@@ -26,7 +26,7 @@ class RpcClient {
     func eth_call<T>(to: Sol.Address, input: T, completion: @escaping (Result<T.Returns, Error>) -> Void) -> URLSessionTask? where T: SolContractFunction {
         let tx: EthTransaction = Eth.TransactionEip1559(
             to: to,
-            input: Sol.Bytes(storage: input.encode())
+            data: Sol.Bytes(storage: input.encode())
         )
         // latest is the default for web3 js lib
         let block: EthRpc1.BlockSpecifier = .tag(.latest)
