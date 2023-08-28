@@ -1,5 +1,5 @@
 //
-//  SafeLoadedViewController.swift
+//  SuggestToAddSignerViewController.swift
 //  Multisig
 //
 //  Created by Dmitry Bespalov on 05.10.21.
@@ -8,8 +8,9 @@
 
 import UIKit
 
-class SafeLoadedViewController: AccountActionCompletedViewController {
+class SuggestToAddSignerViewController: AccountActionCompletedViewController {
 
+    var onAddSigner: (() -> Void)!
     private var safe: Safe!
 
     convenience init() {
@@ -36,12 +37,7 @@ class SafeLoadedViewController: AccountActionCompletedViewController {
 
     override func primaryAction(_ sender: Any) {
         Tracker.trackEvent(.userOnboardingOwnerAdd)
-        let vc = ViewControllerFactory.addOwnerViewController { [unowned self] in
-            self.dismiss(animated: true) {
-                self.completion()
-            }
-        }
-        present(vc, animated: true)
+        onAddSigner?()
     }
 
     override func secondaryAction(_ sender: Any) {

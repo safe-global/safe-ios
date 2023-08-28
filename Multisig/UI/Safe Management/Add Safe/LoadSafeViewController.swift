@@ -18,6 +18,7 @@ class LoadSafeViewController: UIViewController {
 
     private var buttonYConstraint: NSLayoutConstraint?
     var trackingEvent: TrackingEvent?
+    var addSafeFlow: AddSafeFlow!
     var createSafeFlow: CreateSafeFlow!
 
     convenience init() {
@@ -54,21 +55,10 @@ class LoadSafeViewController: UIViewController {
     }
 
     @IBAction private func didTapLoadSafe(_ sender: Any) {
-        let selectNetworkVC = SelectNetworkViewController()
-        selectNetworkVC.screenTitle = "Load Safe Account"
-        selectNetworkVC.descriptionText = "Select network on which your Safe Account was created:"
-        selectNetworkVC.completion = { [unowned selectNetworkVC] chain  in
-            let vc = EnterSafeAddressViewController()
-            vc.chain = chain
-            let ribbon = RibbonViewController(rootViewController: vc)
-            ribbon.chain = vc.chain
-            vc.completion = {
-                selectNetworkVC.dismiss(animated: true, completion: nil)
-            }
-            selectNetworkVC.show(ribbon, sender: selectNetworkVC)
-        }
-        let vc = ViewControllerFactory.modal(viewController: selectNetworkVC)
-        present(vc, animated: true)
+        addSafeFlow = AddSafeFlow(completion: { [weak self] _ in
+            self?.addSafeFlow = nil
+        })
+        present(flow: addSafeFlow)
     }
 
     @IBAction func didTapCreateSafe(_ sender: Any) {

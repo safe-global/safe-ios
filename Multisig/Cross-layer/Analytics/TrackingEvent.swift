@@ -236,6 +236,8 @@ enum TrackingEvent: String, Trackable {
     
     case createSafeFromSwitchSafes                  = "user_cs_from_switch_safes"
     case addSafeFromSwitchSafes                     = "user_add_safe_from_switch_safes"
+    
+    case addSafeFromURL                             = "user_add_safe_from_url"
 
     // MARK: Web Connections
     case webConnectionList                          = "screen_connect_to_web"

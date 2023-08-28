@@ -18,7 +18,7 @@ class EnterAddressNameViewController: UIViewController {
     var actionTitle: String!
     var placeholder: String!
     var descriptionText: String!
-    var completion: (String) -> Void = { _ in }
+    var completion: (_ name: String) -> Void = { _ in }
     var trackingParameters: [String: Any]?
 
     private var nextButton: UIBarButtonItem!
