@@ -17,6 +17,7 @@ class MainTabBarViewController: UITabBarController {
     private var appearsFirstTime: Bool = true
     private var addOwnerFlow: UpdateOwnersFromInviteLinkFlow!
     private var addSafeFlow: AddSafeFlow!
+    private var createSafeFlow: CreateSafeFlow!
     
     // In-memory queue of incoming requests to present. Due to limitation of UIKit,
     // only one view controller can be presented at the same time.
@@ -411,6 +412,8 @@ extension MainTabBarViewController: NavigationRouter {
             return true
         } else if route.path == NavigationRoute.loadSafe().path {
             return true
+        } else if route.path == NavigationRoute.createSafe().path {
+            return true
         }
 
         return false
@@ -467,6 +470,16 @@ extension MainTabBarViewController: NavigationRouter {
                 self?.addSafeFlow = nil
             })
             present(flow: addSafeFlow)
+        } else if route.path == NavigationRoute.createSafe().path {
+            Tracker.trackEvent(.createSafeFromURL)
+            
+            let chain = route.info["chainId"] as? String
+            
+            createSafeFlow = CreateSafeFlow(chainId: chain, completion: { [weak self] _ in
+                self?.createSafeFlow = nil
+            })
+            
+            present(flow: createSafeFlow)
         }
     }
     

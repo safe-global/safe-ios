@@ -123,6 +123,19 @@ final class ExtendedNavigationRouterTests: XCTestCase {
         XCTAssertEqual(route?.info["chainId"] as? String, "1")
         XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
     }
+    
+    func testCreateSafe() {
+        let url = "https://some.host/new-safe/create"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/createSafe")
+    }
+
+    func testCreateSafeWithNetwork() {
+        let url = "https://some.host/new-safe/create?chain=eth"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/createSafe")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
+    }
 
     func testAssets() {
         let url = "https://some.host/balances?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
@@ -166,7 +179,6 @@ final class ExtendedNavigationRouterTests: XCTestCase {
         XCTAssertEqual(route?.info["chainId"] as? String, "1")
         XCTAssertEqual(route?.info["transactionId"] as? String, "some-identifier")
     }
-    
 }
 
 fileprivate let SUPPORTED_PATH = "/some/path"

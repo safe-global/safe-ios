@@ -137,10 +137,15 @@ class ExtendedNavigationRouter: NavigationRouter {
             let address = addressQueryParameter(named: "address", in: url)
             // prefer prefixed address in order to reduce input errors
             let prefixedAddress = eip3770AddressQueryParameter(named: "address", in: url)
-            return NavigationRoute.loadSafe(
+            let route = NavigationRoute.loadSafe(
                 chainId: prefixedAddress?.chainId ?? chain?.id,
                 address: prefixedAddress?.address ?? address?.checksummed
             )
+            return route
+        case "/new-safe/create":
+            let chain = chainQueryParameter(named: "chain", in: url)
+            let route = NavigationRoute.createSafe(chainId: chain?.id)
+            return route
         case "/balances":
             guard let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url) else {
                 return nil
@@ -268,6 +273,14 @@ extension NavigationRoute {
             route.info["address"] = address
         }
 
+        return route
+    }
+    
+    static func createSafe(chainId: String? = nil) -> NavigationRoute {
+        var route = NavigationRoute(path: "/createSafe")
+        if let chainId = chainId {
+            route.info["chainId"] = chainId
+        }
         return route
     }
     
