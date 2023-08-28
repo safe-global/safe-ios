@@ -9,12 +9,14 @@
 import XCTest
 @testable import Multisig
 
+let BASE_URL = "https://some.host"
+
 final class DefaultNavigationRouterTests: XCTestCase {
 
     let router = DefaultNavigationRouter()
 
     func testAssets() {
-        let url = "https://some.host/eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b/balances"
+        let url = "\(BASE_URL)/eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b/balances"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/assets/")
         XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
@@ -22,7 +24,7 @@ final class DefaultNavigationRouterTests: XCTestCase {
     }
 
     func testHistory() {
-        let url = "https://some.host/eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b/transactions/history"
+        let url = "\(BASE_URL)/eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b/transactions/history"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/transactions/history/")
         XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
@@ -30,7 +32,7 @@ final class DefaultNavigationRouterTests: XCTestCase {
     }
     
     func testQueue() {
-        let url = "https://some.host/eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b/transactions/queue"
+        let url = "\(BASE_URL)/eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b/transactions/queue"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/transactions/queued/")
         XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
@@ -38,7 +40,7 @@ final class DefaultNavigationRouterTests: XCTestCase {
     }
 
     func testTransactionDetails() {
-        let url = "https://some.host/eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b/transactions/some_identifier"
+        let url = "\(BASE_URL)/eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b/transactions/some_identifier"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/transactions/details/")
         XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
@@ -47,19 +49,19 @@ final class DefaultNavigationRouterTests: XCTestCase {
     }
     
     func testNotMatching() {
-        let url = "https://some.host/settings"
+        let url = "\(BASE_URL)/settings"
         let route = router.routeFrom(from: URL(url))
         XCTAssertNil(route)
     }
     
     func testAddressNotValid() {
-        let url = "https://some.host/eth:0x1111111111D19Be20952152c549ee478Bf1bf36b/balances"
+        let url = "\(BASE_URL)/eth:0x1111111111D19Be20952152c549ee478Bf1bf36b/balances"
         let route = router.routeFrom(from: URL(url))
         XCTAssertNil(route)
     }
     
     func testChainIDNotValid() {
-        let url = "https://some.host/ABC:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b/balances"
+        let url = "\(BASE_URL)/ABC:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b/balances"
         let route = router.routeFrom(from: URL(url))
         XCTAssertNil(route)
     }
@@ -69,32 +71,32 @@ final class ExtendedNavigationRouterTests: XCTestCase {
     let router = ExtendedNavigationRouter()
     
     func testWelcome() {
-        let url = "https://some.host/welcome"
+        let url = "\(BASE_URL)/welcome"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/assets/")
     }
     
     func testHome() {
-        let url = "https://some.host/home"
+        let url = "\(BASE_URL)/home"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/assets/")
     }
     
     func testLoadSafe() {
-        let url = "https://some.host/new-safe/load"
+        let url = "\(BASE_URL)/new-safe/load"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/loadSafe")
     }
 
     func testLoadSafeWithNetwork() {
-        let url = "https://some.host/new-safe/load?chain=eth"
+        let url = "\(BASE_URL)/new-safe/load?chain=eth"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/loadSafe")
         XCTAssertEqual(route?.info["chainId"] as? String, "1")
     }
     
     func testLoadSafeWithNetworkAndAddress() {
-        let url = "https://some.host/new-safe/load?chain=eth&address=0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let url = "\(BASE_URL)/new-safe/load?chain=eth&address=0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/loadSafe")
         XCTAssertEqual(route?.info["chainId"] as? String, "1")
@@ -102,14 +104,14 @@ final class ExtendedNavigationRouterTests: XCTestCase {
     }
     
     func testLoadSafeWithAddress() {
-        let url = "https://some.host/new-safe/load?address=0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let url = "\(BASE_URL)/new-safe/load?address=0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/loadSafe")
         XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
     }
     
     func testLoadSafeWithPrefixedAddress() {
-        let url = "https://some.host/new-safe/load?address=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let url = "\(BASE_URL)/new-safe/load?address=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/loadSafe")
         XCTAssertEqual(route?.info["chainId"] as? String, "1")
@@ -117,7 +119,7 @@ final class ExtendedNavigationRouterTests: XCTestCase {
     }
     
     func testLoadSafeWithChainAndPrefixedAddress() {
-        let url = "https://some.host/new-safe/load?chain=matic&address=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let url = "\(BASE_URL)/new-safe/load?chain=matic&address=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/loadSafe")
         XCTAssertEqual(route?.info["chainId"] as? String, "1")
@@ -125,20 +127,20 @@ final class ExtendedNavigationRouterTests: XCTestCase {
     }
     
     func testCreateSafe() {
-        let url = "https://some.host/new-safe/create"
+        let url = "\(BASE_URL)/new-safe/create"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/createSafe")
     }
 
     func testCreateSafeWithNetwork() {
-        let url = "https://some.host/new-safe/create?chain=eth"
+        let url = "\(BASE_URL)/new-safe/create?chain=eth"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/createSafe")
         XCTAssertEqual(route?.info["chainId"] as? String, "1")
     }
 
     func testAssets() {
-        let url = "https://some.host/balances?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let url = "\(BASE_URL)/balances?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/assets/")
         XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
@@ -146,7 +148,7 @@ final class ExtendedNavigationRouterTests: XCTestCase {
     }
     
     func testCollectibles() {
-        let url = "https://some.host/balances/nfts?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let url = "\(BASE_URL)/balances/nfts?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/assets/collectibles/")
         XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
@@ -154,7 +156,7 @@ final class ExtendedNavigationRouterTests: XCTestCase {
     }
     
     func testHistory() {
-        let url = "https://some.host/transactions/history?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let url = "\(BASE_URL)/transactions/history?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/transactions/history/")
         XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
@@ -163,7 +165,7 @@ final class ExtendedNavigationRouterTests: XCTestCase {
     }
     
     func testQueue() {
-        let url = "https://some.host/transactions/queue?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let url = "\(BASE_URL)/transactions/queue?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/transactions/queued/")
         XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
@@ -172,7 +174,7 @@ final class ExtendedNavigationRouterTests: XCTestCase {
     }
 
     func testDetails() {
-        let url = "https://some.host/transactions/tx?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b&id=some-identifier"
+        let url = "\(BASE_URL)/transactions/tx?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b&id=some-identifier"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/transactions/details/")
         XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
@@ -246,7 +248,7 @@ final class CompositeNavigationRouterTests: XCTestCase {
     }
     
     func testRouteFrom() {
-        let route = router.routeFrom(from: URL("https://some.host/"))
+        let route = router.routeFrom(from: URL("\(BASE_URL)/"))
         XCTAssertEqual(route?.path, SUPPORTED_PATH)
     }
 }
