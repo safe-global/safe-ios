@@ -173,6 +173,8 @@ class ExtendedNavigationRouter: NavigationRouter {
                 chainId: safeAddress.chainId
             )
             return route
+
+        // messages are not implemented, so navigate to the default location, i.e. queue
         case "/transactions/queue", "/transactions", "/transactions/messages":
             guard let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url) else {
                 return nil
