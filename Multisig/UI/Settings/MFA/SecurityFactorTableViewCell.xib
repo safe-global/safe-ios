@@ -86,9 +86,6 @@
                                     </imageView>
                                 </subviews>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.94999999999999996" height="1"/>
-                                <constraints>
-                                    <constraint firstItem="8TA-Ad-Wi3" firstAttribute="width" secondItem="8TA-Ad-Wi3" secondAttribute="height" id="oAQ-w5-j7f"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" name="backgroundSecondary"/>

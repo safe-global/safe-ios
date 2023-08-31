@@ -177,9 +177,9 @@ class AllocationBoxCell: UITableViewCell {
         switch style {
         case .darkGuardian:
             boxBackgroundColor = .primary
-            headerStyle = .headline.color(.claimableAmountLabel)
-            titleStyle = .bodyPrimary.color(.claimableAmountLabel)
-            valueStyle = .title1.color(.claimableAmountLabel)
+            headerStyle = .headlinePrimaryInverted
+            titleStyle = .bodyPrimary.color(.primaryInverted)
+            valueStyle = .title1.color(.primaryInverted)
             headerButtonHidden = true
             titleButtonImage = .darkCircle
             backgroundImage.isHidden = false
@@ -195,9 +195,9 @@ class AllocationBoxCell: UITableViewCell {
 
         case .darkUser:
             boxBackgroundColor = .primary
-            headerStyle = .headline.color(.claimableAmountLabel)
-            titleStyle = .bodyPrimary.color(.claimableAmountLabel)
-            valueStyle = .title1.color(.claimableAmountLabel)
+            headerStyle = .headlinePrimaryInverted
+            titleStyle = .bodyPrimary.color(.primaryInverted)
+            valueStyle = .title1.color(.primaryInverted)
             headerButtonHidden = true
             titleButtonImage = .dark
             backgroundImage.isHidden = false

@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 // base class for onboarding screens when addding a key
 class AddKeyOnboardingViewController: UITableViewController {
     struct Card {

@@ -33,7 +33,7 @@ extension UIColor {
     static let labelSecondary = UIColor(named: "labelSecondary")!
     static let labelTertiary = UIColor(named: "labelTetriary")!
     static let labelDisabled = UIColor(named: "labelDisabled")
-    static let claimableAmountLabel = UIColor(named: "claimableAmountLabel")
+    static let primaryInverted = UIColor(named: "primaryInverted")
     // Error
     static let error = UIColor(named: "error")!
     static let errorPressed = UIColor(named: "errorPressed")!

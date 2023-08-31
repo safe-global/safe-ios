@@ -54,12 +54,11 @@ class TotalBalanceView: UINibView {
         amountLabel.skeletonTextLineHeight = .relativeToConstraints
         amountLabel.setStyle(.title1Medium)
         sendButton.setText("Send", .filled)
-        //TODO: rename UIColor.claimableAmountLabel
-        sendButton.tintColor = UIColor.claimableAmountLabel
+        sendButton.tintColor = UIColor.primaryInverted
         receiveButton.setText("Receive", .filled)
-        receiveButton.tintColor = UIColor.claimableAmountLabel
+        receiveButton.tintColor = UIColor.primaryInverted
         buyButton.setText("Buy", .filled)
-        buyButton.tintColor = UIColor.claimableAmountLabel
+        buyButton.tintColor = UIColor.primaryInverted
     }
     
     @IBAction func sendButtonClicked(_ sender: Any) {
