@@ -49,9 +49,9 @@ _CLAIMING_DATA_URL_STAGING    = https:/$()/safe-claiming-app-data.staging.5afe.d
 _CLAIMING_DATA_URL_PROD       = https:/$()/safe-claiming-app-data.safe.global/
 
 // Gelato relay service
-_RELAY_URL_DEV                = https:/$()/safe-client-nest.staging.5afe.dev/
-_RELAY_URL_STAGING            = https:/$()/safe-client-nest.staging.5afe.dev/
-_RELAY_URL_PROD               = https:/$()/safe-client-nest.safe.global/
+_RELAY_URL_DEV                = https:/$()/safe-client.staging.5afe.dev/
+_RELAY_URL_STAGING            = https:/$()/safe-client.staging.5afe.dev/
+_RELAY_URL_PROD               = https:/$()/safe-client.safe.global/
 
 // Gelato Service
 GELATO_SERVICE_URL            = https:/$()/relay.gelato.digital
