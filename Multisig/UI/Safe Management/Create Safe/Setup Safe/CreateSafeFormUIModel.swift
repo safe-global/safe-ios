@@ -67,7 +67,7 @@ class CreateSafeFormUIModel {
 
         case .setup:
             setup()
-            update(to: .changed)
+            update(to: .searchingKey)
 
         case .changed:
             debounceTimer?.invalidate()
