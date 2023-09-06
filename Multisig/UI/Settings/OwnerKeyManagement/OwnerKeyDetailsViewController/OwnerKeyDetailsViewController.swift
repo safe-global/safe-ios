@@ -31,6 +31,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
     enum Section {
         case backedup
         case name(String)
+        case email(String)
         case keyAddress(String)
         case ownerKeyType(String)
         case connected(String)
@@ -44,6 +45,10 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
 
         enum Name: SectionItem {
             case name
+        }
+
+        enum Email: SectionItem {
+            case email
         }
 
         enum KeyAddress: SectionItem {
@@ -209,32 +214,22 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
             return
         }
 
-        var nameSectionTitle = ""
-        switch(keyInfo.keyType) {
-        case .web3AuthApple, .web3AuthGoogle:
-            nameSectionTitle = "EMAIL ADDRESS"
-        default:
-            nameSectionTitle = "OWNER NAME"
+        sections = [
+            (section: .name("OWNER NAME"), items: [Section.Name.name])]
+
+        if KeyType.socialKeyTypes.contains(keyInfo.keyType) {
+            sections.append((section: .email("EMAIL ADDRESS"), items: [Section.Email.email]))
         }
 
-        sections = [
-            (section: .name(nameSectionTitle), items: [Section.Name.name]),
-
-            (section: .keyAddress("OWNER ADDRESS"),
-                    items: [Section.KeyAddress.address]),
-
-            (section: .ownerKeyType("OWNER TYPE"),
-                    items: [Section.OwnerKeyType.type])]
+        sections.append(contentsOf: [(section: .keyAddress("OWNER ADDRESS"), items: [Section.KeyAddress.address]),
+                                     (section: .ownerKeyType("OWNER TYPE"), items: [Section.OwnerKeyType.type])])
 
         if keyInfo.keyType == .walletConnect {
             sections.append((section: .connected("WC CONNECTION"), items: [Section.Connected.connected]))
         }
 
-        //TODO: remove check when push notifications for social logins are implemented
-        if keyInfo.keyType != .web3AuthGoogle && keyInfo.keyType != .web3AuthApple {
-            sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
-                             items: [Section.PushNotificationConfiguration.enabled]))
-        }
+        sections.append((section: .pushNotificationConfiguration("PUSH NOTIFICATIONS"),
+                         items: [Section.PushNotificationConfiguration.enabled]))
 
         if keyInfo.delegateAddress != nil {
             sections.append((section: .delegateKey("DELEGATE KEY ADDRESS"),
@@ -286,15 +281,11 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                 self?.startBackup()
             }
         case Section.Name.name:
-            switch(keyInfo.keyType) {
-            case .web3AuthApple, .web3AuthGoogle:
-                // email address should not be editable
-                let nameCell = tableView.basicCell(name: keyInfo.name ?? "", indexPath: indexPath, disclosureImage: nil)
-                nameCell.selectionStyle = .none
-                return nameCell
-            default:
-                return tableView.basicCell(name: keyInfo.name ?? "", indexPath: indexPath)
-            }
+            return tableView.basicCell(name: keyInfo.displayName, indexPath: indexPath)
+        case Section.Email.email:
+            let nameCell = tableView.basicCell(name: keyInfo.email ?? "", indexPath: indexPath, disclosureImage: nil)
+            nameCell.selectionStyle = .none
+            return nameCell
         case Section.KeyAddress.address:
             return tableView.addressDetailsCell(address: keyInfo.address, showQRCode: true, indexPath: indexPath)
         case Section.OwnerKeyType.type:
@@ -353,13 +344,8 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
         case Section.Name.name:
-            switch(keyInfo.keyType) {
-            case .web3AuthApple, .web3AuthGoogle:
-                break
-            default:
-                let vc = EditOwnerKeyViewController(keyInfo: keyInfo)
-                show(vc, sender: self)
-            }
+            let vc = EditOwnerKeyViewController(keyInfo: keyInfo)
+            show(vc, sender: self)
         case Section.Connected.connected:
             if keyInfo.connectedAsDapp {
                 let alertController = DisconnectionConfirmationController.create(key: keyInfo)
@@ -441,6 +427,8 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
         switch section {
         case Section.name(let name):
+            view.setName(name)
+        case Section.email(let name):
             view.setName(name)
         case Section.keyAddress(let name):
             view.setName(name)
@@ -524,10 +512,20 @@ extension KeyType {
         case .keystone:
             return "Keystone"
         case .web3AuthApple:
-            return "Social login"
+            return "Social Key"
         case .web3AuthGoogle:
-            return "Social login"
+            return "Social Key"
         }
+    }
+}
+
+extension KeyInfo {
+    var email: String? {
+        if KeyType.socialKeyTypes.contains(keyType), let metadata = metadata {
+            return try! JSONDecoder().decode(String.self, from: metadata)
+        }
+
+        return nil
     }
 }
 

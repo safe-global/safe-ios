@@ -22,7 +22,11 @@ enum KeyType: Int, CaseIterable {
     case web3AuthGoogle = 6
 
     static var privateKeyTypes: [KeyType] {
-        [.deviceImported, .deviceGenerated, .web3AuthApple, .web3AuthGoogle ]
+        [.deviceImported, .deviceGenerated, .web3AuthApple, .web3AuthGoogle]
+    }
+
+    static var socialKeyTypes: [KeyType] {
+        [.web3AuthApple, .web3AuthGoogle]
     }
 }
 
@@ -48,17 +52,7 @@ extension KeyInfo {
     }
 
     var displayName: String {
-        switch(keyType) {
-        case .web3AuthGoogle:
-            let result = "Google (\(name ?? "unknown"))"
-            return result
-        case .web3AuthApple:
-            let result = "Apple ID (\(name ?? "unknown"))"
-            return result
-        default:
-            let result = name ?? "Key \(address.ellipsized())"
-            return result
-        }
+        name ?? "Key \(address.ellipsized())"
     }
 
     var connectedAsDapp: Bool {

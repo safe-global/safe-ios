@@ -19,6 +19,7 @@ class AddOwnerKeyViewController: UITableViewController {
     var connectKeystoneFlow: ConnectKeystoneFlow!
     var walletConnectKeyFlow: WalletConnectKeyFlow!
     var ledgerKeyFlow: LedgerKeyFlow!
+    var socialKeyFlow: AddSocialKeyFlow!
 
     enum Row {
         case social
@@ -96,7 +97,7 @@ class AddOwnerKeyViewController: UITableViewController {
         title = "Add Owner Key"
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
-        
+
         if showsCloseButton {
             navigationItem.leftBarButtonItem = UIBarButtonItem(
                 barButtonSystemItem: .close,
@@ -163,46 +164,50 @@ class AddOwnerKeyViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch sections[indexPath.section].items[indexPath.row] {
         case .importKey:
-            importKeyFlow = ImportKeyFlow { [unowned self] _ in
-                importKeyFlow = nil
-                completion()
+            importKeyFlow = ImportKeyFlow { [weak self] _ in
+                self?.importKeyFlow = nil
+                self?.completion()
             }
             push(flow: importKeyFlow)
             return
 
         case .generate:
-            generateKeyFlow = GenerateKeyFlow { [unowned self] _ in
-                generateKeyFlow = nil
-                completion()
+            generateKeyFlow = GenerateKeyFlow { [weak self] _ in
+                self?.generateKeyFlow = nil
+                self?.completion()
             }
             push(flow: generateKeyFlow)
             return
 
         case .walletConnect:
-            walletConnectKeyFlow = WalletConnectKeyFlow { [unowned self] _ in
-                walletConnectKeyFlow = nil
-                completion()
+            walletConnectKeyFlow = WalletConnectKeyFlow { [weak self] _ in
+                self?.walletConnectKeyFlow = nil
+                self?.completion()
             }
             push(flow: walletConnectKeyFlow)
             return
 
         case .ledger:
-            ledgerKeyFlow = LedgerKeyFlow { [unowned self] _ in
-                ledgerKeyFlow = nil
-                completion()
+            ledgerKeyFlow = LedgerKeyFlow { [weak self] _ in
+                self?.ledgerKeyFlow = nil
+                self?.completion()
             }
             push(flow: ledgerKeyFlow)
             return
             
         case .keystone:
-            connectKeystoneFlow = ConnectKeystoneFlow { [unowned self] _ in
-                connectKeystoneFlow = nil
-                completion()
+            connectKeystoneFlow = ConnectKeystoneFlow { [weak self] _ in
+                self?.connectKeystoneFlow = nil
+                self?.completion()
             }
             push(flow: connectKeystoneFlow)
             return
         case .social:
-            //TODO: Add handling for login keys
+            socialKeyFlow = AddSocialKeyFlow { [weak self] _ in
+                self?.socialKeyFlow = nil
+                self?.completion()
+            }
+            push(flow: socialKeyFlow)
             return
         }
     }

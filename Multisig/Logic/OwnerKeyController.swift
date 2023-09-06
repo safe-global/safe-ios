@@ -60,6 +60,40 @@ class OwnerKeyController {
     }
 
     @discardableResult
+    static func importKey(_ key: PrivateKey,
+                          name: String,
+                          email: String,
+                          type: KeyType) -> Bool {
+        do {
+            guard KeyType.socialKeyTypes.contains(type) else {
+                App.shared.snackbar.show(error: GSError.error(description: "Could not import signing key."))
+                return false
+            }
+
+            try KeyInfo.import(address: key.address, name: name, privateKey: key, type: type, email: email)
+
+            App.shared.notificationHandler.signingKeyUpdated()
+
+            switch type {
+            case .web3AuthApple:
+                Tracker.setNumKeys(KeyInfo.count(.web3AuthApple), type: .web3AuthApple)
+                Tracker.trackEvent(.web3AuthKeyApple)
+            case .web3AuthGoogle:
+                Tracker.setNumKeys(KeyInfo.count(.web3AuthGoogle), type: .web3AuthGoogle)
+                Tracker.trackEvent(.web3AuthKeyGoogle)
+            default:
+                break
+            }
+
+            NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
+            return true
+        } catch {
+            App.shared.snackbar.show(error: GSError.error(description: "Could not import signing key.", error: error))
+            return false
+        }
+    }
+
+    @discardableResult
     static func importKey(connection: WebConnection, wallet: WCAppRegistryEntry?, name: String) -> Bool {
         do {
             let newKey = try KeyInfo.import(connection: connection, wallet: wallet, name: name)
