@@ -8,16 +8,75 @@
 
 import UIKit
 
+
 class AddOwnerKeyViewController: UITableViewController {
+    private typealias SectionItems = (section: String, items: [Row])
+
+    private var sections = [SectionItems]()
+
+    var importKeyFlow: ImportKeyFlow!
+    var generateKeyFlow: GenerateKeyFlow!
+    var walletConnectKeyFlow: WalletConnectKeyFlow!
+    var socialKeyFlow: AddSocialKeyFlow!
+
+    enum Row {
+        case social
+        case generate
+        case importKey
+        case hardware
+        case walletConnect
+
+        var title: String {
+            switch self {
+            case .social:
+                return "Create or import with Google or Apple ID"
+            case .generate:
+                return "Create new owner key"
+            case .importKey:
+                return "Import existing key"
+            case .hardware:
+                return "Connect hardware wallet"
+            case .walletConnect:
+                return "Connect a key"
+            }
+        }
+
+        var image: UIImage {
+            switch self {
+            case .generate:
+                return UIImage(named: KeyType.deviceGenerated.imageName)!
+            case .importKey:
+                return UIImage(named: KeyType.deviceImported.imageName)!
+            case .walletConnect:
+                return UIImage(named: KeyType.walletConnect.imageName)!
+            case .hardware:
+                return UIImage(named: "ico-hardware-wallet")!
+            case .social:
+                return UIImage(named: "ico-add")!
+            }
+        }
+
+        var style: AddOwnerKeyCell.Style {
+            switch self {
+            case .social:
+                return .highlighted
+            default:
+                return .normal
+            }
+        }
+
+        var detailsImage: UIImage? {
+            switch self {
+            case .walletConnect:
+                return UIImage(named: "ico-wallet-logos")
+            default:
+                return nil
+            }
+        }
+    }
 
     private(set) var completion: () -> Void = {}
     private var showsCloseButton: Bool = true
-    private var keyTypes: [(type: KeyType, title: String, subtitle: String)] = [
-        (.deviceImported, "Import existing owner key", "Import an existing key or a seed phrase"),
-        (.deviceGenerated, "Create new owner key", "Create a new key that you can use as an owner of your Safe Account"),
-        (.ledgerNanoX, "Connect Ledger Nano X", "Add a key from your hardware wallet"),
-        (.keystone, "Connect Keystone", "Connect your key via QR code")
-    ]
 
     convenience init(showsCloseButton: Bool = true, completion: @escaping () -> Void) {
         self.init()
@@ -29,6 +88,9 @@ class AddOwnerKeyViewController: UITableViewController {
         super.viewDidLoad()
 
         title = "Add Owner Key"
+        navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.prefersLargeTitles = true
+        ViewControllerFactory.removeNavigationBarBorder(self)
 
         if showsCloseButton {
             navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -38,13 +100,24 @@ class AddOwnerKeyViewController: UITableViewController {
         }
 
         tableView.registerCell(AddOwnerKeyCell.self)
+        tableView.registerHeaderFooterView(BasicHeaderView.self)
+        tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 90
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.backgroundColor = .backgroundPrimary
+        tableView.backgroundColor = .backgroundSecondary
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        }
 
-        keyTypes.append(
-            (.walletConnect, "Connect key", "Connect an existing key from another wallet using WalletConnect")
-        )
+        sections = [
+            (section: "Start from scratch", items: [.social, .generate]),
+            (section: "Already have a key?", items: [.walletConnect, .importKey, .hardware])
+        ]
+
+        let header = TableHeaderView(frame: CGRect(x: 0, y: 0, width: 0, height: 80))
+        header.set("Use owner keys independently or as Safe owners to login, confirm and transact.", backgroundColor: .clear)
+
+        tableView.tableHeaderView = header
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -54,87 +127,78 @@ class AddOwnerKeyViewController: UITableViewController {
 
     // MARK: - Table view data source
 
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        sections.count
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        keyTypes.count
+        sections[section].items.count
+    }
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
+        view.setName(sections[section].section, backgroundColor: .clear)
+
+        return view
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let keyType = keyTypes[indexPath.row]
         let cell = tableView.dequeueCell(AddOwnerKeyCell.self)
-        cell.set(title: keyType.title)
-        cell.set(subtitle: keyType.subtitle)
-        switch keyTypes[indexPath.row].type {
-        case .deviceGenerated:
-            cell.set(iconName: KeyType.deviceGenerated.imageName)
-        case .deviceImported:
-            cell.set(iconName: KeyType.deviceImported.imageName)
-        case .ledgerNanoX:
-            cell.set(iconName: KeyType.ledgerNanoX.imageName)
-        case .walletConnect:
-            cell.set(iconName: KeyType.walletConnect.imageName)
-        case .keystone:
-            cell.set(iconName: KeyType.keystone.imageName)
-        case .web3AuthApple:
-            cell.set(iconName: KeyType.web3AuthApple.imageName)
-        case .web3AuthGoogle:
-            cell.set(iconName: KeyType.web3AuthGoogle.imageName)
-        }
+        let option = sections[indexPath.section].items[indexPath.row]
+
+        cell.set(title: option.title)
+        cell.set(image: option.image)
+        cell.set(style: option.style)
+        cell.set(detailsImage: option.detailsImage)
+        
         return cell
     }
 
-    var importKeyFlow: ImportKeyFlow!
-    var generateKeyFlow: GenerateKeyFlow!
-    var connectKeystoneFlow: ConnectKeystoneFlow!
-    var walletConnectKeyFlow: WalletConnectKeyFlow!
-    var ledgerKeyFlow: LedgerKeyFlow!
-
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let controller: UIViewController
-
-        switch keyTypes[indexPath.row].type {
-        case .deviceImported:
-            importKeyFlow = ImportKeyFlow { [unowned self] _ in
-                importKeyFlow = nil
-                completion()
+        switch sections[indexPath.section].items[indexPath.row] {
+        case .importKey:
+            importKeyFlow = ImportKeyFlow { [weak self] _ in
+                self?.importKeyFlow = nil
+                self?.completion()
             }
             push(flow: importKeyFlow)
             return
 
-        case .deviceGenerated:
-            generateKeyFlow = GenerateKeyFlow { [unowned self] _ in
-                generateKeyFlow = nil
-                completion()
+        case .generate:
+            generateKeyFlow = GenerateKeyFlow { [weak self] _ in
+                self?.generateKeyFlow = nil
+                self?.completion()
             }
             push(flow: generateKeyFlow)
             return
 
         case .walletConnect:
-            walletConnectKeyFlow = WalletConnectKeyFlow { [unowned self] _ in
-                walletConnectKeyFlow = nil
-                completion()
+            walletConnectKeyFlow = WalletConnectKeyFlow { [weak self] _ in
+                self?.walletConnectKeyFlow = nil
+                self?.completion()
             }
             push(flow: walletConnectKeyFlow)
             return
 
-        case .ledgerNanoX:
-            ledgerKeyFlow = LedgerKeyFlow { [unowned self] _ in
-                ledgerKeyFlow = nil
-                completion()
+        case .hardware:
+            let vc = ChooseHardwareWalletTableViewController()
+            ViewControllerFactory.makeMultiLinesNavigationBar(vc)
+            ViewControllerFactory.removeNavigationBarBorder(vc)
+
+            vc.completion = completion
+
+            show(vc, sender: self)
+        case .social:
+            socialKeyFlow = AddSocialKeyFlow { [weak self] _ in
+                self?.socialKeyFlow = nil
+                self?.completion()
             }
-            push(flow: ledgerKeyFlow)
-            return
-            
-        case .keystone:
-            connectKeystoneFlow = ConnectKeystoneFlow { [unowned self] _ in
-                connectKeystoneFlow = nil
-                completion()
-            }
-            push(flow: connectKeystoneFlow)
-            return
-        case .web3AuthApple , .web3AuthGoogle:
-            //TODO: Add handling for login keys
+            push(flow: socialKeyFlow)
             return
         }
-        show(controller, sender: self)
+    }
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        BasicHeaderView.headerHeight
     }
 }
