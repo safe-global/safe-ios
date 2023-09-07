@@ -45,7 +45,7 @@ class AddSocialKeyFlow: AddKeyFlow {
                 guard let self = self else { return }
 
                 let view = self.flowFactory.creatingViewController()
-                self.navigationController.setNavigationBarHidden(true, animated: true)
+                ViewControllerFactory.makeTransparentNavigationBar(view)
                 self.show(view)
             }, keyGenerationComplete: { [weak self] (key, email, error) in
                 guard let `self` = self else { return }
