@@ -16,16 +16,13 @@ class AddOwnerKeyViewController: UITableViewController {
 
     var importKeyFlow: ImportKeyFlow!
     var generateKeyFlow: GenerateKeyFlow!
-    var connectKeystoneFlow: ConnectKeystoneFlow!
     var walletConnectKeyFlow: WalletConnectKeyFlow!
-    var ledgerKeyFlow: LedgerKeyFlow!
 
     enum Row {
         case social
         case generate
         case importKey
-        case ledger
-        case keystone
+        case hardware
         case walletConnect
 
         var title: String {
@@ -36,10 +33,8 @@ class AddOwnerKeyViewController: UITableViewController {
                 return "Create new owner key"
             case .importKey:
                 return "Import existing key"
-            case .ledger:
-                return "Connect Ledger Nano X"
-            case .keystone:
-                return "Connect Keystone"
+            case .hardware:
+                return "Connect hardware wallet"
             case .walletConnect:
                 return "Connect a key"
             }
@@ -53,10 +48,8 @@ class AddOwnerKeyViewController: UITableViewController {
                 return UIImage(named: KeyType.deviceImported.imageName)!
             case .walletConnect:
                 return UIImage(named: KeyType.walletConnect.imageName)!
-            case .keystone:
-                return UIImage(named: KeyType.keystone.imageName)!
-            case .ledger:
-                return UIImage(named: KeyType.ledgerNanoX.imageName)!
+            case .hardware:
+                return UIImage(named: "ico-hardware-wallet")!
             case .social:
                 return UIImage(named: "ico-add")!
             }
@@ -116,8 +109,7 @@ class AddOwnerKeyViewController: UITableViewController {
 
         sections = [
             (section: "Start from scratch", items: [.social, .generate]),
-            (section: "Already have a key?", items: [.walletConnect, .importKey]),
-            (section: "Connect a hardware wallet", items: [.ledger, .keystone])
+            (section: "Already have a key?", items: [.walletConnect, .importKey, .hardware])
         ]
 
         let header = TableHeaderView(frame: CGRect(x: 0, y: 0, width: 0, height: 80))
@@ -186,21 +178,9 @@ class AddOwnerKeyViewController: UITableViewController {
             push(flow: walletConnectKeyFlow)
             return
 
-        case .ledger:
-            ledgerKeyFlow = LedgerKeyFlow { [unowned self] _ in
-                ledgerKeyFlow = nil
-                completion()
-            }
-            push(flow: ledgerKeyFlow)
-            return
-            
-        case .keystone:
-            connectKeystoneFlow = ConnectKeystoneFlow { [unowned self] _ in
-                connectKeystoneFlow = nil
-                completion()
-            }
-            push(flow: connectKeystoneFlow)
-            return
+        case .hardware:
+            let vc = ChooseHardwareWalletTableViewController()
+            show(vc, sender: self)
         case .social:
             //TODO: Add handling for login keys
             return

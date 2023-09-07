@@ -21,6 +21,7 @@
 		041E10E02A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041E10DE2A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.xib */; };
 		0422006025EFDF3700CAC173 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422005F25EFDF3700CAC173 /* TagView.swift */; };
 		0422007025EFDF4E00CAC173 /* TagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0422006F25EFDF4E00CAC173 /* TagView.xib */; };
+		042221D32AAA0A1F00671594 /* ChooseHardwareWalletTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042221D22AAA0A1F00671594 /* ChooseHardwareWalletTableViewController.swift */; };
 		04248BD9272DF18C00431397 /* NamingPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04248BD8272DF18C00431397 /* NamingPolicy.swift */; };
 		04248BDB272E21C500431397 /* AddressBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04248BDA272E11BB00431397 /* AddressBookTests.swift */; };
 		042626E128EEE61E000BD2CC /* successAnimationDark.json in Resources */ = {isa = PBXBuildFile; fileRef = 042626E028EEE61E000BD2CC /* successAnimationDark.json */; };
@@ -1097,6 +1098,7 @@
 		041E10DE2A40E37200D8F980 /* CreateSafeWithSocialIntroViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateSafeWithSocialIntroViewController.xib; sourceTree = "<group>"; };
 		0422005F25EFDF3700CAC173 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		0422006F25EFDF4E00CAC173 /* TagView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagView.xib; sourceTree = "<group>"; };
+		042221D22AAA0A1F00671594 /* ChooseHardwareWalletTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseHardwareWalletTableViewController.swift; sourceTree = "<group>"; };
 		04248BD8272DF18C00431397 /* NamingPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamingPolicy.swift; sourceTree = "<group>"; };
 		04248BDA272E11BB00431397 /* AddressBookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookTests.swift; sourceTree = "<group>"; };
 		042626E028EEE61E000BD2CC /* successAnimationDark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = successAnimationDark.json; sourceTree = "<group>"; };
@@ -3957,6 +3959,7 @@
 			children = (
 				0AF1042726BACD96009C4B14 /* AddKeyOnboardingViewController.swift */,
 				55413672265E493500796F91 /* AddOwnerKeyViewController.swift */,
+				042221D22AAA0A1F00671594 /* ChooseHardwareWalletTableViewController.swift */,
 				0AF78A3427E0FB20001BAFE0 /* AddKeyNavigationController.swift */,
 				55413675265E4A0000796F91 /* AddOwnerKeyCell.swift */,
 				55413676265E4A0000796F91 /* AddOwnerKeyCell.xib */,
@@ -5778,6 +5781,7 @@
 				0ABC0024282313B300F42D29 /* AddKeyFlow.swift in Sources */,
 				931B211529BD2CB7009C53B5 /* NativeSocketFactory.swift in Sources */,
 				04077B37278BB5C400AF6376 /* ReviewSendFundsTransactionHeaderTableViewCell.swift in Sources */,
+				042221D32AAA0A1F00671594 /* ChooseHardwareWalletTableViewController.swift in Sources */,
 				0ADD0FB327C148880099DF7D /* DatePickerViewController.swift in Sources */,
 				0A6C85B4245080620026139E /* App.swift in Sources */,
 				5562DD732693425E00B56722 /* NetworkIndicatorHeaderView.swift in Sources */,
