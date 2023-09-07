@@ -92,6 +92,7 @@ class ImportKeyFlowFactory: AddKeyFlowFactory {
                       body: "You can use your seed phrase from MetaMask or hardware wallet. We support private keys from any wallet in a hexadecimal 64 characters format. Importing the key will not show the balance for Ether or other assets from your MetaMask or hardware wallet.")]
         introVC.viewTrackingEvent = .importOwnerOnboarding
         introVC.navigationItem.title = "Import Owner Key"
+        introVC.navigationItem.largeTitleDisplayMode = .never
         return introVC
     }
 

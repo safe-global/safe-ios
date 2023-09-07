@@ -140,6 +140,7 @@ final class ConnectKeystoneFactory: AddKeyFlowFactory {
                       body: "Your key will remain on your Keystone wallet. We do not store it in the app.")]
         introVC.viewTrackingEvent = .keystoneOwnerOnboarding
         introVC.navigationItem.title = "Connect Keystone"
+        introVC.navigationItem.largeTitleDisplayMode = .never
         return introVC
     }
     

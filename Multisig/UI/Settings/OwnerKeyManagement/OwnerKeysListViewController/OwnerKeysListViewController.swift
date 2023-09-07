@@ -124,14 +124,12 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         let keyInfo = keys[indexPath.row]
 
         var actions = [UIContextualAction]()
-        if ![KeyType.web3AuthGoogle, .web3AuthApple].contains(keyInfo.keyType) {
-            let editAction = UIContextualAction(style: .normal, title: "Rename") { [unowned self] _, _, completion in
-                let vc = EditOwnerKeyViewController(keyInfo: self.keys[indexPath.row])
-                self.show(vc, sender: self)
-                completion(true)
-            }
-            actions.append(editAction)
+        let editAction = UIContextualAction(style: .normal, title: "Rename") { [unowned self] _, _, completion in
+            let vc = EditOwnerKeyViewController(keyInfo: self.keys[indexPath.row])
+            self.show(vc, sender: self)
+            completion(true)
         }
+        actions.append(editAction)
 
         if keyInfo.keyType == .walletConnect {
             let isConnected = keyInfo.connectedAsDapp

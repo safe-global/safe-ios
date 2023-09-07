@@ -17,6 +17,7 @@ class AddOwnerKeyViewController: UITableViewController {
     var importKeyFlow: ImportKeyFlow!
     var generateKeyFlow: GenerateKeyFlow!
     var walletConnectKeyFlow: WalletConnectKeyFlow!
+    var socialKeyFlow: AddSocialKeyFlow!
 
     enum Row {
         case social
@@ -89,7 +90,8 @@ class AddOwnerKeyViewController: UITableViewController {
         title = "Add Owner Key"
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
-        
+        ViewControllerFactory.removeNavigationBarBorder(self)
+
         if showsCloseButton {
             navigationItem.leftBarButtonItem = UIBarButtonItem(
                 barButtonSystemItem: .close,
@@ -155,34 +157,43 @@ class AddOwnerKeyViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch sections[indexPath.section].items[indexPath.row] {
         case .importKey:
-            importKeyFlow = ImportKeyFlow { [unowned self] _ in
-                importKeyFlow = nil
-                completion()
+            importKeyFlow = ImportKeyFlow { [weak self] _ in
+                self?.importKeyFlow = nil
+                self?.completion()
             }
             push(flow: importKeyFlow)
             return
 
         case .generate:
-            generateKeyFlow = GenerateKeyFlow { [unowned self] _ in
-                generateKeyFlow = nil
-                completion()
+            generateKeyFlow = GenerateKeyFlow { [weak self] _ in
+                self?.generateKeyFlow = nil
+                self?.completion()
             }
             push(flow: generateKeyFlow)
             return
 
         case .walletConnect:
-            walletConnectKeyFlow = WalletConnectKeyFlow { [unowned self] _ in
-                walletConnectKeyFlow = nil
-                completion()
+            walletConnectKeyFlow = WalletConnectKeyFlow { [weak self] _ in
+                self?.walletConnectKeyFlow = nil
+                self?.completion()
             }
             push(flow: walletConnectKeyFlow)
             return
 
         case .hardware:
             let vc = ChooseHardwareWalletTableViewController()
+            ViewControllerFactory.makeMultiLinesNavigationBar(vc)
+            ViewControllerFactory.removeNavigationBarBorder(vc)
+
+            vc.completion = completion
+
             show(vc, sender: self)
         case .social:
-            //TODO: Add handling for login keys
+            socialKeyFlow = AddSocialKeyFlow { [weak self] _ in
+                self?.socialKeyFlow = nil
+                self?.completion()
+            }
+            push(flow: socialKeyFlow)
             return
         }
     }

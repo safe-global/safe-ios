@@ -124,6 +124,10 @@ enum ViewControllerFactory {
         vc.navigationController?.isNavigationBarHidden = false
     }
 
+    static func makeMultiLinesNavigationBar(_ vc: UIViewController) {
+        vc.navigationItem.setValuesForKeys(["__largeTitleTwoLineMode": true])
+    }
+
     static func modal(viewController: UIViewController,
                       halfScreen: Bool = false,
                       largeTitles: Bool = false) -> UIViewController {

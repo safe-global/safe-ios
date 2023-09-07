@@ -226,6 +226,11 @@
 		04C5DF6C26FB451B0072476C /* KeyTypeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C5DF6A26FB451B0072476C /* KeyTypeTableViewCell.xib */; };
 		04C5ED3A27878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C5ED3827878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift */; };
 		04C5ED3B27878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C5ED3927878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.xib */; };
+		04C945DA2AA1F20E002D782B /* AddOwnerViaSocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C945D82AA1F20E002D782B /* AddOwnerViaSocialViewController.swift */; };
+		04C945DB2AA1F20E002D782B /* AddOwnerViaSocialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C945D92AA1F20E002D782B /* AddOwnerViaSocialViewController.xib */; };
+		04C945DE2AA5E835002D782B /* AddSocialKeyFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C945DD2AA5E835002D782B /* AddSocialKeyFlow.swift */; };
+		04C945E12AA66DD3002D782B /* CreatingSocialKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C945DF2AA66DD3002D782B /* CreatingSocialKeyViewController.swift */; };
+		04C945E22AA66DD3002D782B /* CreatingSocialKeyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C945E02AA66DD3002D782B /* CreatingSocialKeyViewController.xib */; };
 		04C97A9A246C3E5F00EBA0F1 /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97A99246C3E5F00EBA0F1 /* ViewState.swift */; };
 		04C97AB0246EEF1600EBA0F1 /* BrowserLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C97AAF246EEF1600EBA0F1 /* BrowserLink.swift */; };
 		04CE3F9624B6115200826AEE /* Collectible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE3F9524B6115200826AEE /* Collectible.swift */; };
@@ -1284,6 +1289,11 @@
 		04C5DF6A26FB451B0072476C /* KeyTypeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyTypeTableViewCell.xib; sourceTree = "<group>"; };
 		04C5ED3827878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAdvancedParametersUITableViewCell.swift; sourceTree = "<group>"; };
 		04C5ED3927878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditAdvancedParametersUITableViewCell.xib; sourceTree = "<group>"; };
+		04C945D82AA1F20E002D782B /* AddOwnerViaSocialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOwnerViaSocialViewController.swift; sourceTree = "<group>"; };
+		04C945D92AA1F20E002D782B /* AddOwnerViaSocialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddOwnerViaSocialViewController.xib; sourceTree = "<group>"; };
+		04C945DD2AA5E835002D782B /* AddSocialKeyFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSocialKeyFlow.swift; sourceTree = "<group>"; };
+		04C945DF2AA66DD3002D782B /* CreatingSocialKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingSocialKeyViewController.swift; sourceTree = "<group>"; };
+		04C945E02AA66DD3002D782B /* CreatingSocialKeyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreatingSocialKeyViewController.xib; sourceTree = "<group>"; };
 		04C97A99246C3E5F00EBA0F1 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
 		04C97AAF246EEF1600EBA0F1 /* BrowserLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserLink.swift; sourceTree = "<group>"; };
 		04CE3F9524B6115200826AEE /* Collectible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collectible.swift; sourceTree = "<group>"; };
@@ -2633,6 +2643,18 @@
 				04B4B6E425B9A08D00CFE24B /* CardTableViewCell.xib */,
 			);
 			path = CardTableViewCell;
+			sourceTree = "<group>";
+		};
+		04C945DC2AA5E7F9002D782B /* SocialLoginKey */ = {
+			isa = PBXGroup;
+			children = (
+				04C945D82AA1F20E002D782B /* AddOwnerViaSocialViewController.swift */,
+				04C945D92AA1F20E002D782B /* AddOwnerViaSocialViewController.xib */,
+				04C945DD2AA5E835002D782B /* AddSocialKeyFlow.swift */,
+				04C945DF2AA66DD3002D782B /* CreatingSocialKeyViewController.swift */,
+				04C945E02AA66DD3002D782B /* CreatingSocialKeyViewController.xib */,
+			);
+			path = SocialLoginKey;
 			sourceTree = "<group>";
 		};
 		04CE3F9724B611FC00826AEE /* Collectible */ = {
@@ -4240,6 +4262,7 @@
 		55F91A8E25BEABA100938475 /* OwnerKeyManagement */ = {
 			isa = PBXGroup;
 			children = (
+				04C945DC2AA5E7F9002D782B /* SocialLoginKey */,
 				0AADCDC12858E82F00A0139B /* RequestToAddOwner */,
 				6AAE34E1282A81DD00CCFC95 /* AddOwnerKey */,
 				6A252CEF281692FE001F0887 /* AddKeyAsNewOwner */,
@@ -4967,6 +4990,7 @@
 				04CF31C127B6B9DC001BEEED /* TitledMiniPieceView.xib in Resources */,
 				D865177D27675DD1000B4C04 /* TotalBalanceView.xib in Resources */,
 				0A57C5DD2577F9ED00420303 /* ConfirmationStatusPiece.xib in Resources */,
+				04C945E22AA66DD3002D782B /* CreatingSocialKeyViewController.xib in Resources */,
 				55BCFC572554627100020CE7 /* BasicCell.xib in Resources */,
 				D80B5A10276A367A00D6E024 /* AddOwnerFirstViewController.xib in Resources */,
 				0ADD19C6265EA23200EB0F2B /* SeedWordCollectionViewCell.xib in Resources */,
@@ -5089,6 +5113,7 @@
 				0A9A1A33257924C600B44405 /* DetailMultiAccountsCell.xib in Resources */,
 				0A9A1A37257924C600B44405 /* DetailAccountCell.xib in Resources */,
 				0A5F482A254C56580069C98D /* SafeEntryTableViewCell.xib in Resources */,
+				04C945DB2AA1F20E002D782B /* AddOwnerViaSocialViewController.xib in Resources */,
 				04B4B6E625B9A08D00CFE24B /* CardTableViewCell.xib in Resources */,
 				0A045087278DC04C00650F71 /* BorderedInnerTableCell.xib in Resources */,
 				6AD477382898E360004C736D /* TweetBox.xib in Resources */,
@@ -5279,6 +5304,7 @@
 				0AE8C0442579317700E62B34 /* DetailDisclosingCell.swift in Sources */,
 				0AD0273225A34E2F00886671 /* MultiSendListTableViewController.swift in Sources */,
 				0A6630F028C10DC300F0FFAE /* AllocationTotalCell.swift in Sources */,
+				04C945E12AA66DD3002D782B /* CreatingSocialKeyViewController.swift in Sources */,
 				5532D4BE2449A17D0067505A /* CrashlyticsLogger.swift in Sources */,
 				0A9366B9279073E3001918A9 /* TextValidator.swift in Sources */,
 				D80B5A0A2769F95000D6E024 /* AssetsViewController.swift in Sources */,
@@ -5619,6 +5645,7 @@
 				0AE8C0632579355800E62B34 /* TokenInfoView.swift in Sources */,
 				0A86EE5D25CC2B2B0059876E /* RetryFooterView.swift in Sources */,
 				0A3F34DB2477E4E900E872AF /* KeyboardAdaptive.swift in Sources */,
+				04C945DA2AA1F20E002D782B /* AddOwnerViaSocialViewController.swift in Sources */,
 				0AA9F1F42497BCA9005BD60F /* TokenInfo.swift in Sources */,
 				0AD27A21271053B400E22BDC /* SuggestToAddSignerViewController.swift in Sources */,
 				0AEEBC7A258CE24A00F3A6F9 /* WebImageView.swift in Sources */,
@@ -5777,6 +5804,7 @@
 				0A045080278DAD9000650F71 /* DisclosureWithContentCell.swift in Sources */,
 				04CF31BF27B6B9D2001BEEED /* TitledMiniPieceView.swift in Sources */,
 				0443A0BD29E0FE7C00ABE93D /* RelayedTransactionMonitor.swift in Sources */,
+				04C945DE2AA5E835002D782B /* AddSocialKeyFlow.swift in Sources */,
 				0AD6EF1E25CAF5EC00EE5512 /* AppReviewController.swift in Sources */,
 				0ABC0024282313B300F42D29 /* AddKeyFlow.swift in Sources */,
 				931B211529BD2CB7009C53B5 /* NativeSocketFactory.swift in Sources */,
