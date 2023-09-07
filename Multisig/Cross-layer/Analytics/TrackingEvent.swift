@@ -114,6 +114,9 @@ enum TrackingEvent: String, Trackable {
     case ownerKeysOptions                           = "screen_owner_options"
     case ownerKeyDetails                            = "screen_owner_details"
     case editOwnerKey                               = "screen_owner_edit_name"
+    case chooseHardwareWallet                       = "screen_choose_hardware_wallet"
+    case creatingSocialKey                          = "screen_creating_social_key"
+    case chooseSocialAccountType                    = "screen_choose_combined"
 
     case importOwnerOnboarding                      = "screen_owner_info"
     case generateOwnerOnboarding                    = "screen_owner_generate_info"
