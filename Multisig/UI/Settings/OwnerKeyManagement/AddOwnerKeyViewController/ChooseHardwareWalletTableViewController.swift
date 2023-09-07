@@ -35,7 +35,7 @@ class ChooseHardwareWalletTableViewController: UITableViewController {
     }
 
     private var sections = [SectionItems]()
-    private(set) var completion: () -> Void = {}
+    var completion: () -> Void = {}
 
     private var connectKeystoneFlow: ConnectKeystoneFlow!
     private var ledgerKeyFlow: LedgerKeyFlow!
@@ -44,19 +44,13 @@ class ChooseHardwareWalletTableViewController: UITableViewController {
         super.viewDidLoad()
 
         title = "Connect hardware wallet"
-        navigationItem.largeTitleDisplayMode = .always
-        navigationController?.navigationBar.prefersLargeTitles = true
-
 
         tableView.registerCell(AddOwnerKeyCell.self)
-        tableView.registerHeaderFooterView(BasicHeaderView.self)
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 90
         tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .backgroundSecondary
-        if #available(iOS 15.0, *) {
-            tableView.sectionHeaderTopPadding = 0
-        }
+        tableView.tableFooterView = UIView()
 
         sections = [
             (section: "", items: [.ledger, .keystone])
@@ -76,13 +70,6 @@ class ChooseHardwareWalletTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         sections[section].items.count
-    }
-
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = tableView.dequeueHeaderFooterView(BasicHeaderView.self)
-        view.setName(sections[section].section, backgroundColor: .clear)
-
-        return view
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -115,9 +102,5 @@ class ChooseHardwareWalletTableViewController: UITableViewController {
             push(flow: connectKeystoneFlow)
             return
         }
-    }
-
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        BasicHeaderView.headerHeight
     }
 }

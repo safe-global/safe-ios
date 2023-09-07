@@ -30,6 +30,11 @@ class AddOwnerViaSocialViewController: UIViewController {
         ViewControllerFactory.makeMultiLinesNavigationBar(self)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.chooseSocialAccountType)
+    }
+
     @IBAction func googleButtonTouched(_ sender: Any) {
         Tracker.trackEvent(.userContinueGoogle)
         onGoogleAction()

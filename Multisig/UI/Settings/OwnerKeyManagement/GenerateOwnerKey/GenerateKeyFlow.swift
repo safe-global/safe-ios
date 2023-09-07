@@ -182,6 +182,7 @@ class GenerateKeyFactory: AddKeyFlowFactory {
                       body: "To export your owner key or seed phrase, navigate to the key details.")]
         introVC.viewTrackingEvent = .generateOwnerOnboarding
         introVC.navigationItem.title = "Create Owner Key"
+        introVC.navigationItem.largeTitleDisplayMode = .never
         return introVC
     }
 

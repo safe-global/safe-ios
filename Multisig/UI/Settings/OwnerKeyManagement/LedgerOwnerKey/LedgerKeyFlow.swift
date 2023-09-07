@@ -83,6 +83,7 @@ class LedgerKeyFlowFactory: AddKeyFlowFactory {
         ]
         introVC.viewTrackingEvent = .ledgerOwnerOnboarding
         introVC.navigationItem.title = "Connect Ledger Nano X"
+        introVC.navigationItem.largeTitleDisplayMode = .never
         return introVC
     }
 

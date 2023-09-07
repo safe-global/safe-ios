@@ -76,8 +76,11 @@ class WalletConnectKeyFlowFactory: AddKeyFlowFactory {
                     title: "Is my wallet supported?",
                     body: "You wallet needs to support the WalletConnect protocol.")
         ]
+
         introVC.viewTrackingEvent = .connectOwnerOnboarding
         introVC.navigationItem.title = "Connect Owner Key"
+        introVC.navigationItem.largeTitleDisplayMode = .never
+
         return introVC
     }
 }

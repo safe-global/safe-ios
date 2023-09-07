@@ -90,6 +90,7 @@ class AddOwnerKeyViewController: UITableViewController {
         title = "Add Owner Key"
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
+        ViewControllerFactory.removeNavigationBarBorder(self)
 
         if showsCloseButton {
             navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -181,6 +182,11 @@ class AddOwnerKeyViewController: UITableViewController {
 
         case .hardware:
             let vc = ChooseHardwareWalletTableViewController()
+            ViewControllerFactory.makeMultiLinesNavigationBar(vc)
+            ViewControllerFactory.removeNavigationBarBorder(vc)
+
+            vc.completion = completion
+
             show(vc, sender: self)
         case .social:
             socialKeyFlow = AddSocialKeyFlow { [weak self] _ in

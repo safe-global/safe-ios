@@ -25,4 +25,9 @@ class CreatingSocialKeyViewController: UIViewController {
         animationView.backgroundBehavior = .pauseAndRestore
         animationView.play()
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Tracker.trackEvent(.creatingSocialKey)
+    }
 }
