@@ -216,9 +216,10 @@ class MainTabBarViewController: UITabBarController {
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
         let deploySafeVC = SafeDeployingViewController()
-
+        let safeSettingsVC = SafeSettingsViewController()
+        
         loadSafeViewController.trackingEvent = .settingsSafeNoSafe
-        noSafesVC.hasSafeViewController = SafeSettingsViewController()
+        noSafesVC.hasSafeViewController = safeSettingsVC
         noSafesVC.noSafeViewController = loadSafeViewController
         noSafesVC.safeDepolyingViewContoller = deploySafeVC
 
@@ -245,6 +246,7 @@ class MainTabBarViewController: UITabBarController {
         )
         settingsTabVC.segmentViewController = segmentVC
         settingsTabVC.appSettingsViewController = appSettingsVC
+        settingsTabVC.safeSettingsViewController = safeSettingsVC
         return settingsTabVC
     }
 
@@ -421,11 +423,33 @@ extension MainTabBarViewController: NavigationRouter {
 
     func navigate(to route: NavigationRoute) {
         if route.path.starts(with: "/settings/") {
-            switchTo(indexPath: Path.appSettings)
-
-            if let appSettingsVC = settingsTabVC.appSettingsViewController {
-                appSettingsVC.navigateAfterDelay(to: route)
+            
+            if let address = route.info["address"] as? String,
+               let chain = route.info["chainId"] as? String,
+               let safe = Safe.by(address: address, chainId: chain),
+               !safe.isSelected {
+                safe.select()
             }
+            
+            if route.path == NavigationRoute.appSettings().path {
+                switchTo(indexPath: Path.appSettings)
+            } else if route.path == NavigationRoute.accountSettingsPath {
+                switchTo(indexPath: Path.safeSettings)
+            } else if route.path == NavigationRoute.accountAdvancedSettingsPath {
+                switchTo(indexPath: Path.safeSettings)
+                
+                if let safeSettingsVC = settingsTabVC.safeSettingsViewController {
+                    safeSettingsVC.navigateAfterDelay(to: route)
+                }
+            } else if route.path == NavigationRoute.connectToWeb().path ||
+                        route.path == NavigationRoute.appearanceSettings().path {
+                switchTo(indexPath: Path.appSettings)
+                
+                if let appSettingsVC = settingsTabVC.appSettingsViewController {
+                    appSettingsVC.navigateAfterDelay(to: route)
+                }
+            }
+
         } else if route.path.starts(with: "/transactions/") {
             if let rawAddress = route.info["address"] as? String,
                let rawChainId = route.info["chainId"] as? String {
@@ -558,6 +582,7 @@ extension MainTabBarViewController: NavigationRouter {
 class SettingsUINavigationController: UINavigationController {
     weak var segmentViewController: SegmentViewController?
     weak var appSettingsViewController: AppSettingsViewController?
+    weak var safeSettingsViewController: SafeSettingsViewController?
 
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)

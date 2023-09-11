@@ -174,7 +174,7 @@ final class ExtendedNavigationRouterTests: XCTestCase {
     }
     
     func testTransactions() {
-        let url = "https://some.host/transactions?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let url = "\(BASE_URL)/transactions?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/transactions/queued/")
         XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
@@ -182,7 +182,7 @@ final class ExtendedNavigationRouterTests: XCTestCase {
     }
     
     func testTransactionMessages() {
-        let url = "https://some.host/transactions/messages?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let url = "\(BASE_URL)/transactions/messages?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
         let route = router.routeFrom(from: URL(url))
         XCTAssertEqual(route?.path, "/transactions/queued/")
         XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
@@ -196,6 +196,62 @@ final class ExtendedNavigationRouterTests: XCTestCase {
         XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
         XCTAssertEqual(route?.info["chainId"] as? String, "1")
         XCTAssertEqual(route?.info["transactionId"] as? String, "some-identifier")
+    }
+    
+    func testSettingsMain() {
+        let url = "\(BASE_URL)/settings?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/settings/app")
+        XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
+    }
+    
+    func testSettingsMainFromData() {
+        let url = "\(BASE_URL)/settings/data?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/settings/app")
+        XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
+    }
+    
+    func testSettingsMainFromEnvVars() {
+        let url = "\(BASE_URL)/settings/environment-variables?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/settings/app")
+        XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
+    }
+    
+    func testSettingsAccount() {
+        let url = "\(BASE_URL)/settings/setup?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/settings/account")
+        XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
+    }
+    
+    func testSettingsAccountFromSpendingLimits() {
+        let url = "\(BASE_URL)/settings/spending-limits?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/settings/account")
+        XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
+    }
+    
+    func testSettingsAppearance() {
+        let url = "\(BASE_URL)/settings/appearance?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/settings/app/appearance")
+        XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
+    }
+    
+    func testSettingsAccountModules() {
+        let url = "\(BASE_URL)/settings/modules?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/settings/account/advanced")
+        XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
     }
 }
 

@@ -16,7 +16,7 @@ class RibbonViewController: ContainerViewController {
     @IBOutlet private weak var contentView: UIView!
     @IBOutlet private weak var ribbonView: RibbonView!
 
-    private var rootViewController: UIViewController?
+    private(set) var rootViewController: UIViewController?
 
     convenience init(rootViewController: UIViewController) {
         self.init(namedClass: nil)
