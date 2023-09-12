@@ -302,9 +302,7 @@ class AppSettingsViewController: UITableViewController {
             show(hostingController, sender: self)
             
         case Section.Advanced.advanced:
-            let advancedVC = AdvancedAppSettings()
-            let hostingController = UIHostingController(rootView: advancedVC)
-            show(hostingController, sender: self)
+            navigateToAdvancedAppSettings()
 
         case Section.Advanced.toggles:
             let togglesVC = FeatureToggleTableViewController()
@@ -371,10 +369,14 @@ extension AppSettingsViewController: NavigationRouter {
             navigateToAppearance()
         } else if route.path == NavigationRoute.connectToWeb().path {
             navigateToConnectToWeb(route)
+        } else if route.path == NavigationRoute.advancedAppSettings().path {
+            navigateToAdvancedAppSettings()
+        } else if route.path == NavigationRoute.addressBook().path {
+            navigateToAddressBook()
         }
     }
     
-    func navigateToAppearance() {
+    private func navigateToAppearance() {
         if navigationTopIs(ChangeDisplayModeTableViewController.self) {
             return
         }
@@ -385,9 +387,31 @@ extension AppSettingsViewController: NavigationRouter {
         show(appearanceViewController, sender: self)
     }
     
-    func navigateToConnectToWeb(_ route: NavigationRoute) {
+    private func navigateToConnectToWeb(_ route: NavigationRoute) {
         if let pairingVC = showDesktopPairing() {
             pairingVC.navigateAfterDelay(to: route)
         }
+    }
+    
+    private func navigateToAdvancedAppSettings() {
+        if navigationTopIs(UIHostingController<AdvancedAppSettings>.self) {
+            return
+        }
+
+        popNavigationStack()
+        
+        let advancedVC = AdvancedAppSettings()
+        let hostingController = UIHostingController(rootView: advancedVC)
+        show(hostingController, sender: self)
+    }
+    
+    private func navigateToAddressBook() {
+        if navigationTopIs(AddressBookListTableViewController.self) {
+            return
+        }
+        
+        popNavigationStack()
+        
+        showAddressBook()
     }
 }

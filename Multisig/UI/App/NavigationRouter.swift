@@ -231,6 +231,27 @@ class ExtendedNavigationRouter: NavigationRouter {
                 chainId: safeAddress.chainId
             )
             return route
+        case "/settings/safe-apps":
+            let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url)
+            let route = NavigationRoute.dapps(
+                address: safeAddress?.address,
+                chainId: safeAddress?.chainId
+            )
+            return route
+        case "/settings/cookies":
+            let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url)
+            let route = NavigationRoute.advancedAppSettings(
+                address: safeAddress?.address,
+                chainId: safeAddress?.chainId
+            )
+            return route
+        case "/address-book":
+            let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url)
+            let route = NavigationRoute.addressBook(
+                address: safeAddress?.address,
+                chainId: safeAddress?.chainId
+            )
+            return route
         default:
             return nil
         }
@@ -422,6 +443,33 @@ extension NavigationRoute {
         var route = NavigationRoute(path: accountAdvancedSettingsPath)
         route.info["address"] = address
         route.info["chainId"] = chainId
+        return route
+    }
+    
+    static func dapps(address: String? = nil, chainId: String? = nil) -> NavigationRoute {
+        var route = NavigationRoute(path: "/dapps/")
+        if let address = address, let chainId = chainId {
+            route.info["address"] = address
+            route.info["chainId"] = chainId
+        }
+        return route
+    }
+    
+    static func advancedAppSettings(address: String? = nil, chainId: String? = nil) -> NavigationRoute {
+        var route = NavigationRoute(path: "/settings/app/advanced")
+        if let address = address, let chainId = chainId {
+            route.info["address"] = address
+            route.info["chainId"] = chainId
+        }
+        return route
+    }
+    
+    static func addressBook(address: String? = nil, chainId: String? = nil) -> NavigationRoute {
+        var route = NavigationRoute(path: "/settings/app/address-book")
+        if let address = address, let chainId = chainId {
+            route.info["address"] = address
+            route.info["chainId"] = chainId
+        }
         return route
     }
 }

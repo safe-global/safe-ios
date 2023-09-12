@@ -253,6 +253,30 @@ final class ExtendedNavigationRouterTests: XCTestCase {
         XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
         XCTAssertEqual(route?.info["chainId"] as? String, "1")
     }
+    
+    func testDappsSettings() {
+        let url = "\(BASE_URL)/settings/safe-apps?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/dapps/")
+        XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
+    }
+    
+    func testCookieSettings() {
+        let url = "\(BASE_URL)/settings/cookies?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/settings/app/advanced")
+        XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
+    }
+    
+    func testAddressBook() {
+        let url = "\(BASE_URL)/address-book?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/settings/app/address-book")
+        XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
+    }
 }
 
 fileprivate let SUPPORTED_PATH = "/some/path"
