@@ -434,7 +434,8 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
     }
 
     func formatted(date: Date) -> String {
-        timeFormatter.string(from: date)
+        let result = timeFormatter.string(from: date)
+        return result
     }
 
     func shouldHighlight(transaction: SCGModels.TxSummary) -> Bool {
