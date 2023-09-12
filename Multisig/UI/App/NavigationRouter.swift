@@ -231,7 +231,7 @@ class ExtendedNavigationRouter: NavigationRouter {
                 chainId: safeAddress.chainId
             )
             return route
-        case "/settings/safe-apps":
+        case "/settings/safe-apps", "/apps":
             let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url)
             let route = NavigationRoute.dapps(
                 address: safeAddress?.address,
@@ -252,11 +252,29 @@ class ExtendedNavigationRouter: NavigationRouter {
                 chainId: safeAddress?.chainId
             )
             return route
+        case "/share/safe-app":
+            let chain = chainQueryParameter(named: "chain", in: url)
+            var route = NavigationRoute.dapps(
+                chainId: chain?.id
+            )
+            if let encodedAppUrl = queryParameterValue(named: "appUrl", in: url),
+                let appUrl = encodedAppUrl.removingPercentEncoding {
+                route.info["appUrl"] = appUrl
+            }
+            return route
+        case "/terms":
+            return NavigationRoute.terms()
+        case "/privacy":
+            return NavigationRoute.privacy()
+        case "/licenses":
+            return NavigationRoute.licenses()
+        case "/imprint", "/cookie":
+            return NavigationRoute.about()
         default:
             return nil
         }
     }
-    
+
     // get the address and chain id from the 'safe'
     private func eip3770AddressQueryParameter(named name: String, in url: URL) -> (address: String, chainId: String)? {
         guard
@@ -448,8 +466,10 @@ extension NavigationRoute {
     
     static func dapps(address: String? = nil, chainId: String? = nil) -> NavigationRoute {
         var route = NavigationRoute(path: "/dapps/")
-        if let address = address, let chainId = chainId {
+        if let address = address {
             route.info["address"] = address
+        }
+        if let chainId = chainId {
             route.info["chainId"] = chainId
         }
         return route
@@ -472,4 +492,38 @@ extension NavigationRoute {
         }
         return route
     }
+    
+    static func about() -> NavigationRoute {
+        return NavigationRoute(path: "/settings/app/about")
+    }
+    
+    static func terms() -> NavigationRoute {
+        return NavigationRoute(path: "/settings/app/about/terms")
+    }
+    
+    static func privacy() -> NavigationRoute {
+        return NavigationRoute(path: "/settings/app/about/privacy")
+    }
+    
+    static func licenses() -> NavigationRoute {
+        return NavigationRoute(path: "/settings/app/about/licenses")
+    }
+    
+    static var appSettingsDetailPaths: [String] = [
+        NavigationRoute.connectToWeb(),
+        .appearanceSettings(),
+        .advancedAppSettings(),
+        .addressBook(),
+        .about(),
+        .terms(),
+        .licenses(),
+        .privacy()
+    ].map { $0.path }
+    
+    static var appSettingsAboutPaths: [String] = [
+        NavigationRoute.about(),
+        .terms(),
+        .licenses(),
+        .privacy()
+    ].map { $0.path }
 }

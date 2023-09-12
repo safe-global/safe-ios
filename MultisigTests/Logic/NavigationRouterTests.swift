@@ -277,6 +277,52 @@ final class ExtendedNavigationRouterTests: XCTestCase {
         XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
         XCTAssertEqual(route?.info["chainId"] as? String, "1")
     }
+    
+    func testDapps() {
+        let url = "\(BASE_URL)/apps?safe=eth:0x46F228b5eFD19Be20952152c549ee478Bf1bf36b"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/dapps/")
+        XCTAssertEqual(route?.info["address"] as? String, "0x46F228b5eFD19Be20952152c549ee478Bf1bf36b")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
+    }
+    
+    func testShareDapp() {
+        let url = "\(BASE_URL)/share/safe-app?appUrl=https%3A%2F%2Fapp.ens.domains&chain=eth"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/dapps/")
+        XCTAssertEqual(route?.info["appUrl"] as? String, "https://app.ens.domains")
+        XCTAssertEqual(route?.info["chainId"] as? String, "1")
+    }
+    
+    func testTerms() {
+        let url = "\(BASE_URL)/terms"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/settings/app/about/terms")
+    }
+    
+    func testPrivacy() {
+        let url = "\(BASE_URL)/privacy"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/settings/app/about/privacy")
+    }
+    
+    func testLicenses() {
+        let url = "\(BASE_URL)/licenses"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/settings/app/about/licenses")
+    }
+    
+    func testImprint() {
+        let url = "\(BASE_URL)/imprint"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/settings/app/about")
+    }
+    
+    func testCookie() {
+        let url = "\(BASE_URL)/cookie"
+        let route = router.routeFrom(from: URL(url))
+        XCTAssertEqual(route?.path, "/settings/app/about")
+    }
 }
 
 fileprivate let SUPPORTED_PATH = "/some/path"

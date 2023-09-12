@@ -437,10 +437,7 @@ extension MainTabBarViewController: NavigationRouter {
                 if let safeSettingsVC = settingsTabVC.safeSettingsViewController {
                     safeSettingsVC.navigateAfterDelay(to: route)
                 }
-            } else if route.path == NavigationRoute.connectToWeb().path ||
-                        route.path == NavigationRoute.appearanceSettings().path ||
-                        route.path == NavigationRoute.advancedAppSettings().path ||
-                        route.path == NavigationRoute.addressBook().path {
+            } else if NavigationRoute.appSettingsDetailPaths.contains(route.path) {
                 switchTo(indexPath: Path.appSettings)
                 
                 if let appSettingsVC = settingsTabVC.appSettingsViewController {

@@ -373,7 +373,23 @@ extension AppSettingsViewController: NavigationRouter {
             navigateToAdvancedAppSettings()
         } else if route.path == NavigationRoute.addressBook().path {
             navigateToAddressBook()
+        } else if NavigationRoute.appSettingsAboutPaths.contains(route.path) {
+            navigateToAbout(route)
         }
+    }
+    
+    private func navigateToAbout(_ route: NavigationRoute) {
+        var aboutVC: AboutGnosisSafeTableViewController
+        if let vc = navigationTop(as: AboutGnosisSafeTableViewController.self) {
+            aboutVC = vc
+        } else {
+            popNavigationStack()
+            
+            aboutVC = AboutGnosisSafeTableViewController()
+            show(aboutVC, sender: self)
+        }
+
+        aboutVC.navigateAfterDelay(to: route)
     }
     
     private func navigateToAppearance() {
