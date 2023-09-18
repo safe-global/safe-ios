@@ -90,6 +90,8 @@ class AddOwnerKeyViewController: UITableViewController {
         title = "Add Owner Key"
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back")
+        
         ViewControllerFactory.removeNavigationBarBorder(self)
 
         if showsCloseButton {

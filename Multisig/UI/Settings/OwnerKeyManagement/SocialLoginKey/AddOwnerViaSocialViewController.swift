@@ -20,14 +20,13 @@ class AddOwnerViaSocialViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Create or import with Google or Apple ID"
-        navigationItem.largeTitleDisplayMode = .always
-        navigationController?.navigationBar.prefersLargeTitles = true
-
+        title = "Continue with…"
+        
+        ViewControllerFactory.removeNavigationBarBorder(self)
+        
         appleButton.setText("Continue with Apple ID", .filled)
         googleButton.setText("Continue with Google", .filled)
         titleLabel.setStyle(.body)
-        ViewControllerFactory.makeMultiLinesNavigationBar(self)
     }
 
     override func viewDidAppear(_ animated: Bool) {

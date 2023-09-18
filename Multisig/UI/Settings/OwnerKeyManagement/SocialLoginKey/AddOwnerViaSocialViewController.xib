@@ -14,71 +14,70 @@
             <connections>
                 <outlet property="appleButton" destination="6Pb-Es-tsr" id="UxL-UX-WLn"/>
                 <outlet property="googleButton" destination="WjK-dY-8RY" id="yKT-aJ-cwa"/>
-                <outlet property="titleLabel" destination="EeW-nC-Cni" id="Qjh-8C-Qxd"/>
+                <outlet property="titleLabel" destination="hVR-6x-MFT" id="IIX-V8-Oub"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a new owner key or sign in, if you have already created one before." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EeW-nC-Cni">
-                    <rect key="frame" x="16" y="75" width="343" height="40.666666666666657"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="4uL-t0-pPu">
-                    <rect key="frame" x="16" y="489" width="343" height="128"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Pdk-Ee-dsO">
+                    <rect key="frame" x="16" y="89" width="361" height="713"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WjK-dY-8RY">
-                            <rect key="frame" x="0.0" y="0.0" width="343" height="56"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="56" id="fPj-f8-sBV"/>
-                            </constraints>
-                            <color key="tintColor" name="backgroundPrimary"/>
-                            <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="Continue with Google" image="ico-google">
-                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="googleButtonTouched:" destination="-1" eventType="touchUpInside" id="Uqa-Rb-Wcz"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Pb-Es-tsr">
-                            <rect key="frame" x="0.0" y="72" width="343" height="56"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="56" id="fjV-9W-u3M"/>
-                            </constraints>
-                            <color key="tintColor" name="backgroundPrimary"/>
-                            <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="Continue with Apple ID" image="ico-apple">
-                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="appleButtonTouched:" destination="-1" eventType="touchUpInside" id="y9B-1A-pJN"/>
-                            </connections>
-                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a new owner key or sign in, if you have already created one before." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVR-6x-MFT">
+                            <rect key="frame" x="0.0" y="0.0" width="361" height="40.666666666666664"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ico-social-keys" translatesAutoresizingMaskIntoConstraints="NO" id="nkc-x5-4UK">
+                            <rect key="frame" x="0.0" y="70.666666666666657" width="361" height="484.33333333333337"/>
+                        </imageView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="4uL-t0-pPu">
+                            <rect key="frame" x="0.0" y="585" width="361" height="128"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WjK-dY-8RY">
+                                    <rect key="frame" x="0.0" y="0.0" width="361" height="56"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="56" id="fPj-f8-sBV"/>
+                                    </constraints>
+                                    <color key="tintColor" name="backgroundPrimary"/>
+                                    <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="Continue with Google" image="ico-google">
+                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="googleButtonTouched:" destination="-1" eventType="touchUpInside" id="Uqa-Rb-Wcz"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Pb-Es-tsr">
+                                    <rect key="frame" x="0.0" y="72" width="361" height="56"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="56" id="fjV-9W-u3M"/>
+                                    </constraints>
+                                    <color key="tintColor" name="backgroundPrimary"/>
+                                    <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="Continue with Apple ID" image="ico-apple">
+                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="appleButtonTouched:" destination="-1" eventType="touchUpInside" id="y9B-1A-pJN"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
                     </subviews>
                 </stackView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico-social-keys" translatesAutoresizingMaskIntoConstraints="NO" id="nkc-x5-4UK">
-                    <rect key="frame" x="16" y="145.66666666666663" width="343" height="300"/>
-                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="nkc-x5-4UK" secondAttribute="trailing" constant="16" id="3BP-3D-Bez"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="4uL-t0-pPu" secondAttribute="bottom" constant="16" id="3Tj-hf-tnX"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="EeW-nC-Cni" secondAttribute="trailing" constant="16" id="6Gc-Eb-qYT"/>
-                <constraint firstItem="nkc-x5-4UK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="9ab-Ac-dK5"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4uL-t0-pPu" secondAttribute="trailing" constant="16" id="9ko-pz-nbx"/>
-                <constraint firstItem="4uL-t0-pPu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="GAC-aO-ioe"/>
-                <constraint firstItem="4uL-t0-pPu" firstAttribute="top" relation="greaterThanOrEqual" secondItem="nkc-x5-4UK" secondAttribute="bottom" constant="20" id="L7O-lI-eP8"/>
-                <constraint firstItem="EeW-nC-Cni" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="Qw7-Ci-SKv"/>
-                <constraint firstItem="EeW-nC-Cni" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="c58-Po-MDP"/>
-                <constraint firstItem="nkc-x5-4UK" firstAttribute="top" secondItem="EeW-nC-Cni" secondAttribute="bottom" constant="30" id="luB-OP-e1K"/>
+                <constraint firstItem="Pdk-Ee-dsO" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="JML-LD-AAw"/>
+                <constraint firstAttribute="trailing" secondItem="Pdk-Ee-dsO" secondAttribute="trailing" constant="16" id="JTr-OC-3ZA"/>
+                <constraint firstItem="Pdk-Ee-dsO" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="30" id="rPY-cK-cta"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Pdk-Ee-dsO" secondAttribute="bottom" constant="16" id="vHK-4B-fSx"/>
             </constraints>
             <point key="canvasLocation" x="73" y="10"/>
         </view>
