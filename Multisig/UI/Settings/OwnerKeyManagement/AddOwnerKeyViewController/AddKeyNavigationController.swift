@@ -14,6 +14,7 @@ class AddKeyNavigationController: UINavigationController, UINavigationController
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
+        view.backgroundColor = .systemBackground
     }
 
     override func viewDidAppear(_ animated: Bool) {
