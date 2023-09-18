@@ -150,6 +150,12 @@ class AppSettingsViewController: UITableViewController {
     }
 
     private func showDesktopPairing() -> WebConnectionsViewController? {
+        if let vc = navigationTop(as: WebConnectionsViewController.self) {
+            return vc
+        } else {
+            popNavigationStack()
+        }
+        
         let keys = WebConnectionController.shared.accountKeys()
         if keys.isEmpty {
             let addOwnersVC = AddOwnerFirstViewController()
@@ -296,9 +302,7 @@ class AppSettingsViewController: UITableViewController {
             show(hostingController, sender: self)
             
         case Section.Advanced.advanced:
-            let advancedVC = AdvancedAppSettings()
-            let hostingController = UIHostingController(rootView: advancedVC)
-            show(hostingController, sender: self)
+            navigateToAdvancedAppSettings()
 
         case Section.Advanced.toggles:
             let togglesVC = FeatureToggleTableViewController()
@@ -361,17 +365,53 @@ extension AppSettingsViewController: NavigationRouter {
     }
 
     func navigate(to route: NavigationRoute) {
-        if let vc = navigationController?.topViewController as? WebConnectionsViewController {
-            vc.navigateAfterDelay(to: route)
+        if route.path == NavigationRoute.appearanceSettings().path {
+            navigateToAppearance()
+        } else if route.path == NavigationRoute.connectToWeb().path {
+            navigateToConnectToWeb(route)
+        } else if route.path == NavigationRoute.advancedAppSettings().path {
+            navigateToAdvancedAppSettings()
+        } else if route.path == NavigationRoute.addressBook().path {
+            navigateToAddressBook()
+        }
+    }
+    
+    private func navigateToAppearance() {
+        if navigationTopIs(ChangeDisplayModeTableViewController.self) {
             return
         }
-
-        if let controllers =  navigationController?.viewControllers, controllers.count > 1 {
-            navigationController?.popToRootViewController(animated: true)
-        }
-
+        
+        popNavigationStack()
+        
+        let appearanceViewController = ChangeDisplayModeTableViewController()
+        show(appearanceViewController, sender: self)
+    }
+    
+    private func navigateToConnectToWeb(_ route: NavigationRoute) {
         if let pairingVC = showDesktopPairing() {
             pairingVC.navigateAfterDelay(to: route)
         }
+    }
+    
+    private func navigateToAdvancedAppSettings() {
+        if navigationTopIs(UIHostingController<AdvancedAppSettings>.self) {
+            return
+        }
+
+        popNavigationStack()
+        
+        let advancedVC = AdvancedAppSettings()
+        let hostingController = UIHostingController(rootView: advancedVC)
+        show(hostingController, sender: self)
+    }
+    
+    private func navigateToAddressBook() {
+        if navigationTopIs(AddressBookListTableViewController.self) {
+            return
+        }
+        
+        popNavigationStack()
+        
+        showAddressBook()
     }
 }

@@ -197,7 +197,61 @@ class ExtendedNavigationRouter: NavigationRouter {
                 transactionId: transactionId
             )
             return route
-
+        // data and environment-variables are not implemented
+        case "/settings", "/settings/data", "/settings/environment-variables":
+            let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url)
+            let route = NavigationRoute.appSettings(
+                address: safeAddress?.address,
+                chainId: safeAddress?.chainId
+            )
+            return route
+        // spending-limits are not implemented
+        case "/settings/setup", "/settings/spending-limits":
+            guard let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url) else {
+                return nil
+            }
+            let route = NavigationRoute.accountSettings(
+                address: safeAddress.address,
+                chainId: safeAddress.chainId
+            )
+            return route
+        case "/settings/appearance":
+            let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url)
+            let route = NavigationRoute.appearanceSettings(
+                address: safeAddress?.address,
+                chainId: safeAddress?.chainId
+            )
+            return route
+        case "/settings/modules":
+            guard let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url) else {
+                return nil
+            }
+            let route = NavigationRoute.accountAdvancedSettings(
+                address: safeAddress.address,
+                chainId: safeAddress.chainId
+            )
+            return route
+        case "/settings/safe-apps":
+            let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url)
+            let route = NavigationRoute.dapps(
+                address: safeAddress?.address,
+                chainId: safeAddress?.chainId
+            )
+            return route
+        case "/settings/cookies":
+            let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url)
+            let route = NavigationRoute.advancedAppSettings(
+                address: safeAddress?.address,
+                chainId: safeAddress?.chainId
+            )
+            return route
+        case "/address-book":
+            let safeAddress = eip3770AddressQueryParameter(named: "safe", in: url)
+            let route = NavigationRoute.addressBook(
+                address: safeAddress?.address,
+                chainId: safeAddress?.chainId
+            )
+            return route
         default:
             return nil
         }
@@ -352,6 +406,69 @@ extension NavigationRoute {
         var route = NavigationRoute(path: "/settings/connectToWeb")
         if let code = code {
             route.info["code"] = code
+        }
+        return route
+    }
+    
+    static func appSettings(address: String? = nil, chainId: String? = nil) -> NavigationRoute {
+        var route = NavigationRoute(path: "/settings/app")
+        if let address = address, let chainId = chainId {
+            route.info["address"] = address
+            route.info["chainId"] = chainId
+        }
+        return route
+    }
+    
+    static func appearanceSettings(address: String? = nil, chainId: String? = nil) -> NavigationRoute {
+        var route = NavigationRoute(path: "/settings/app/appearance")
+        if let address = address, let chainId = chainId {
+            route.info["address"] = address
+            route.info["chainId"] = chainId
+        }
+        return route
+    }
+    
+    static let accountSettingsPath = "/settings/account"
+    
+    static func accountSettings(address: String, chainId: String) -> NavigationRoute {
+        var route = NavigationRoute(path: accountSettingsPath)
+        route.info["address"] = address
+        route.info["chainId"] = chainId
+        return route
+    }
+    
+    static let accountAdvancedSettingsPath = "/settings/account/advanced"
+    
+    static func accountAdvancedSettings(address: String, chainId: String) -> NavigationRoute {
+        var route = NavigationRoute(path: accountAdvancedSettingsPath)
+        route.info["address"] = address
+        route.info["chainId"] = chainId
+        return route
+    }
+    
+    static func dapps(address: String? = nil, chainId: String? = nil) -> NavigationRoute {
+        var route = NavigationRoute(path: "/dapps/")
+        if let address = address, let chainId = chainId {
+            route.info["address"] = address
+            route.info["chainId"] = chainId
+        }
+        return route
+    }
+    
+    static func advancedAppSettings(address: String? = nil, chainId: String? = nil) -> NavigationRoute {
+        var route = NavigationRoute(path: "/settings/app/advanced")
+        if let address = address, let chainId = chainId {
+            route.info["address"] = address
+            route.info["chainId"] = chainId
+        }
+        return route
+    }
+    
+    static func addressBook(address: String? = nil, chainId: String? = nil) -> NavigationRoute {
+        var route = NavigationRoute(path: "/settings/app/address-book")
+        if let address = address, let chainId = chainId {
+            route.info["address"] = address
+            route.info["chainId"] = chainId
         }
         return route
     }

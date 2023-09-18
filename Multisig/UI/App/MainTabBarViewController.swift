@@ -216,9 +216,10 @@ class MainTabBarViewController: UITabBarController {
         let noSafesVC = NoSafesViewController()
         let loadSafeViewController = LoadSafeViewController()
         let deploySafeVC = SafeDeployingViewController()
-
+        let safeSettingsVC = SafeSettingsViewController()
+        
         loadSafeViewController.trackingEvent = .settingsSafeNoSafe
-        noSafesVC.hasSafeViewController = SafeSettingsViewController()
+        noSafesVC.hasSafeViewController = safeSettingsVC
         noSafesVC.noSafeViewController = loadSafeViewController
         noSafesVC.safeDepolyingViewContoller = deploySafeVC
 
@@ -245,6 +246,7 @@ class MainTabBarViewController: UITabBarController {
         )
         settingsTabVC.segmentViewController = segmentVC
         settingsTabVC.appSettingsViewController = appSettingsVC
+        settingsTabVC.safeSettingsViewController = safeSettingsVC
         return settingsTabVC
     }
 
@@ -414,6 +416,8 @@ extension MainTabBarViewController: NavigationRouter {
             return true
         } else if route.path == NavigationRoute.createSafe().path {
             return true
+        } else if route.path == NavigationRoute.dapps().path {
+            return true
         }
 
         return false
@@ -421,11 +425,29 @@ extension MainTabBarViewController: NavigationRouter {
 
     func navigate(to route: NavigationRoute) {
         if route.path.starts(with: "/settings/") {
-            switchTo(indexPath: Path.appSettings)
-
-            if let appSettingsVC = settingsTabVC.appSettingsViewController {
-                appSettingsVC.navigateAfterDelay(to: route)
+            selectSafe(from: route)
+            
+            if route.path == NavigationRoute.appSettings().path {
+                switchTo(indexPath: Path.appSettings)
+            } else if route.path == NavigationRoute.accountSettingsPath {
+                switchTo(indexPath: Path.safeSettings)
+            } else if route.path == NavigationRoute.accountAdvancedSettingsPath {
+                switchTo(indexPath: Path.safeSettings)
+                
+                if let safeSettingsVC = settingsTabVC.safeSettingsViewController {
+                    safeSettingsVC.navigateAfterDelay(to: route)
+                }
+            } else if route.path == NavigationRoute.connectToWeb().path ||
+                        route.path == NavigationRoute.appearanceSettings().path ||
+                        route.path == NavigationRoute.advancedAppSettings().path ||
+                        route.path == NavigationRoute.addressBook().path {
+                switchTo(indexPath: Path.appSettings)
+                
+                if let appSettingsVC = settingsTabVC.appSettingsViewController {
+                    appSettingsVC.navigateAfterDelay(to: route)
+                }
             }
+
         } else if route.path.starts(with: "/transactions/") {
             if let rawAddress = route.info["address"] as? String,
                let rawChainId = route.info["chainId"] as? String {
@@ -480,6 +502,9 @@ extension MainTabBarViewController: NavigationRouter {
             })
             
             present(flow: createSafeFlow)
+        } else if route.path == NavigationRoute.dapps().path {
+            selectSafe(from: route)
+            switchTo(indexPath: Path.dapps)
         }
     }
     
@@ -487,18 +512,16 @@ extension MainTabBarViewController: NavigationRouter {
     // if there is address and chain id, then switch to that safe.
     //      if such safe doesn't exist, then do nothing.
     // if no parameters passed, just switch to balances.
+    @discardableResult
     private func selectSafe(from route: NavigationRoute) -> Bool {
-        if let rawAddress = route.info["address"] as? String,
-           let rawChainId = route.info["chainId"] as? String {
-            guard let safe = Safe.by(address: rawAddress, chainId: rawChainId) else {
-                // don't navigate, exit because the route can't work.
-                return false
-            }
-            if !safe.isSelected {
-                safe.select()
-            }
+        if let address = route.info["address"] as? String,
+           let chainId = route.info["chainId"] as? String,
+           let safe = Safe.by(address: address, chainId: chainId),
+           !safe.isSelected {
+            safe.select()
+            return true
         }
-        return true
+        return false
     }
 
     func switchTo(indexPath: IndexPath) {
@@ -558,6 +581,7 @@ extension MainTabBarViewController: NavigationRouter {
 class SettingsUINavigationController: UINavigationController {
     weak var segmentViewController: SegmentViewController?
     weak var appSettingsViewController: AppSettingsViewController?
+    weak var safeSettingsViewController: SafeSettingsViewController?
 
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)

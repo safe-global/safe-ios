@@ -352,9 +352,7 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
             show(vc, sender: self)
 
         case Section.Advanced.advanced(_):
-            let advancedSafeSettingsViewController = AdvancedSafeSettingsViewController()
-            let ribbon = RibbonViewController(rootViewController: advancedSafeSettingsViewController)
-            show(ribbon, sender: self)
+            openAdvancedSettings()
 
         default:
             break
@@ -422,6 +420,37 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
         default:
             return BasicHeaderView.headerHeight
         }
+    }
+}
+
+extension SafeSettingsViewController: NavigationRouter {
+    func canNavigate(to route: NavigationRoute) -> Bool {
+        false
+    }
+    
+    func routeFrom(from url: URL) -> NavigationRoute? {
+        nil
+    }
+    
+    func navigate(to route: NavigationRoute) {
+        guard safe != nil else { return }
+        
+        if route.path == NavigationRoute.accountAdvancedSettingsPath {
+            openAdvancedSettings()
+        }
+    }
+    
+    func openAdvancedSettings() {
+        if let vc = navigationTop(as: RibbonViewController.self),
+           vc.rootViewController is AdvancedSafeSettingsViewController {
+            return
+        }
+        
+        popNavigationStack()
+        
+        let advancedSafeSettingsViewController = AdvancedSafeSettingsViewController()
+        let ribbon = RibbonViewController(rootViewController: advancedSafeSettingsViewController)
+        show(ribbon, sender: self)
     }
 }
 
