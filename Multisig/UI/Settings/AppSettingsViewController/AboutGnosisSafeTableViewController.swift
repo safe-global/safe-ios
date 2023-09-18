@@ -66,21 +66,78 @@ class AboutGnosisSafeTableViewController: UITableViewController {
         let item = items[indexPath.row]
         switch item {
         case Item.terms:
-            openInSafari(legal.termsURL)
-            Tracker.trackEvent(.settingsTerms)
+            showTerms()
     
         case Item.privacyPolicy:
-            openInSafari(legal.privacyURL)
-            Tracker.trackEvent(.settingsPrivacyPolicy)
+            showPrivacyPolicy()
 
         case Item.licenses:
-            openInSafari(legal.licensesURL)
-            Tracker.trackEvent(.settingsLicenses)
+            showLicenses()
 
         case Item.rateTheApp:
-            let url = App.configuration.contact.appStoreReviewURL
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            Tracker.trackEvent(.settingsRateApp)
+            showRateTheApp()
+        }
+    }
+    
+    fileprivate func showTerms() {
+        openInSafari(legal.termsURL)
+        Tracker.trackEvent(.settingsTerms)
+    }
+    
+    fileprivate func showPrivacyPolicy() {
+        openInSafari(legal.privacyURL)
+        Tracker.trackEvent(.settingsPrivacyPolicy)
+    }
+    
+    fileprivate func showLicenses() {
+        openInSafari(legal.licensesURL)
+        Tracker.trackEvent(.settingsLicenses)
+    }
+    
+    fileprivate func showRateTheApp() {
+        let url = App.configuration.contact.appStoreReviewURL
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        Tracker.trackEvent(.settingsRateApp)
+    }
+}
+
+extension AboutGnosisSafeTableViewController: NavigationRouter {
+    func canNavigate(to route: NavigationRoute) -> Bool {
+        false
+    }
+    
+    func routeFrom(from url: URL) -> NavigationRoute? {
+        nil
+    }
+    
+    func navigate(to route: NavigationRoute) {
+        if route.path == NavigationRoute.terms().path {
+            presentAfterDelay { [weak self] in
+                self?.showTerms()
+            }
+        } else if route.path == NavigationRoute.privacy().path {
+            presentAfterDelay { [weak self] in
+                self?.showPrivacyPolicy()
+            }
+        } else if route.path == NavigationRoute.licenses().path {
+            presentAfterDelay { [weak self] in
+                self?.showLicenses()
+            }
+        }
+    }
+    
+    // 500 milliseconds was chosen because it is enough time to
+    // first dismiss existing controllers, and then show the 'about' screen and
+    // a specific detail view controller.
+    // Other way of synchronisation (completion block or a notification) would be too cumbersome to implement.
+    private func presentAfterDelay(ms: Int = 500, task: @escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) { [weak self] in
+            guard let self = self else { return }
+            if self.presentedViewController != nil {
+                self.dismiss(animated: false)
+            }
+            
+            task()
         }
     }
 }
