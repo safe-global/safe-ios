@@ -92,7 +92,6 @@ class ChooseHardwareWalletTableViewController: UITableViewController {
                 completion()
             }
             push(flow: ledgerKeyFlow)
-            return
 
         case .keystone:
             connectKeystoneFlow = ConnectKeystoneFlow { [unowned self] _ in
@@ -100,7 +99,6 @@ class ChooseHardwareWalletTableViewController: UITableViewController {
                 completion()
             }
             push(flow: connectKeystoneFlow)
-            return
         }
     }
 }
