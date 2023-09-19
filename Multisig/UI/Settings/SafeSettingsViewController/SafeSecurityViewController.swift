@@ -203,11 +203,13 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
             ownersInfoItems = ownersInfo.map { Section.OwnerAddresses.ownerInfo($0) }
             socialOwnerOnly = false
         }
-
-        // TODO: Get status based on the safe conditions
-        sections = [(section: .status, items: [Section.Status.status(.high, [(true, "Set up a recovery kit for your owner"),
-                                                                             (false, "Add more owners"),
-                                                                             (false , "Increase confirmation threshold")])])]
+        
+        sections = [(section: .status, items: [Section.Status.status(safe.security, [
+            (safe.securityHasBackup, "Back up your owners"),
+            (safe.securityHasEnoughOwners, "Add more owners"),
+            (safe.securityHasRecommendedThreshold , "Increase confirmation threshold")
+        ])])]
+        
         sections += [
             (section: .ownerAddresses("Owners"),
              items: ownersInfoItems),
@@ -257,40 +259,31 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
                                        canSelect: canChangeConfirmations)
 
         case Section.OwnerAddresses.ownerInfo(let info):
-            let keyInfo = try? KeyInfo.keys(addresses: [info.address]).first
-            let (name, _) = NamingPolicy.name(for: info.address,
-                                                        info: info,
-                                                        chainId: safe.chain!.id!)
-            var browseUrl: URL? = nil
-            if keyInfo == nil {
-                 browseUrl = safe.chain!.browserURL(address: info.address.checksummed)
-            }
-            let cell = addressDetailsCell(address: info.address,
+            return ownerInfoCell(info, safe, indexPath)
+        default:
+            return UITableViewCell()
+        }
+    }
+    
+    fileprivate func ownerInfoCell(_ info: (AddressInfo), _ safe: Safe, _ indexPath: IndexPath) -> UITableViewCell {
+        let keyInfo = try? KeyInfo.keys(addresses: [info.address]).first
+        let (name, _) = NamingPolicy.name(for: info.address,
+                                          info: info,
+                                          chainId: safe.chain!.id!)
+        var browseUrl: URL? = nil
+        if keyInfo == nil {
+            browseUrl = safe.chain!.browserURL(address: info.address.checksummed)
+        }
+        let cell = addressDetailsCell(address: info.address,
                                       name: keyInfo?.displayName ?? name,
                                       indexPath: indexPath,
                                       badgeName: keyInfo?.keyType.badgeName,
                                       browseURL: browseUrl,
                                       prefix: safe.chain!.shortName,
-                                          showAccessoryImage: keyInfo != nil)
-            cell.selectionStyle = .none
+                                      showAccessoryImage: keyInfo != nil)
+        cell.selectionStyle = .none
 
-            cell.setWarning(image: UIImage(named: "ico-shield-infobox")?.withTintColor(.warning, renderingMode: .alwaysOriginal),
-                            title: "Your owner recovery kit",
-                            description: "Add an extra layer of protection",
-                            info: "Set up",
-                            backgroundColor: .warningBackground) { [weak self] in
-                guard let `self` = self else { return }
-
-                self.setupRecoveryKitFlow = SetupRecoveryKitFlow(completion: {success in 
-                    self.setupRecoveryKitFlow = nil
-                })
-
-                present(flow: setupRecoveryKitFlow)
-            }
-            return cell
-        default:
-            return UITableViewCell()
-        }
+        return cell
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -491,7 +484,7 @@ class SafeSecurityViewController: LoadableViewController, UITableViewDelegate, U
         switch section {
         case Section.requiredConfirmations(_):
             view = tableView.dequeueHeaderFooterView(InfoTableFooterView.self)
-            view!.titleLabel.text = "Use a threshold higher than one to prevent losing access to your Safe Account."
+            view!.titleLabel.text = "Use a threshold higher than one to prevent losing access to your Safe Account. Also, keep it lower than the total number of owners."
 
         case Section.ownerAddresses(_):
             view = tableView.dequeueHeaderFooterView(InfoTableFooterView.self)

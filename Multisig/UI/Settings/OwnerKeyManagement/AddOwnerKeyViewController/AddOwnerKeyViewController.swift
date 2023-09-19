@@ -35,7 +35,7 @@ class AddOwnerKeyViewController: UITableViewController {
             case .importKey:
                 return "Import existing key"
             case .hardware:
-                return "Connect hardware wallet"
+                return "Pair hardware device"
             case .walletConnect:
                 return "Connect a key"
             }
