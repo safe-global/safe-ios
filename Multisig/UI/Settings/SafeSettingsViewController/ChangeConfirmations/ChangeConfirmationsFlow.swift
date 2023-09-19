@@ -70,8 +70,15 @@ class ChangeConfirmationsFlow: SafeSettingsChangeFlow {
         show(successVC)
     }
 
-    static func canChangeConfirmations(safe: Safe?) -> Bool{
-        safe != nil && !safe!.isReadOnly && safe!.ownersInfo?.count ?? 1 >= 2
+    // true iff can execute transactions (not read-only) and max threshold is at least 2 confirmations
+    // otherwise, the threshold is capped at 1 and it won't make sense to change it
+    static func canChangeConfirmations(safe: Safe?) -> Bool {
+        if let safe = safe, !safe.isReadOnly,
+           let maxThreshold = safe.ownersInfo?.count, maxThreshold >= 2 {
+            return true
+        } else {
+            return false
+        }
     }
 }
 

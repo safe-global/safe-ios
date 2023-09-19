@@ -43,7 +43,7 @@ class ChooseHardwareWalletTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Connect hardware wallet"
+        title = "Pair hardware device"
 
         tableView.registerCell(AddOwnerKeyCell.self)
         tableView.separatorStyle = .none

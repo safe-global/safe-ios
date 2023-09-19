@@ -42,9 +42,40 @@ extension Safe {
         }
     }
 
-    // TODO: Imporve conditions
     var security: SafeSecurityStatus {
-        return .medium
+        if securityHasBackup && securityHasEnoughOwners && securityHasRecommendedThreshold {
+            return .high
+        } else {
+            return .medium
+        }
+    }
+    
+    // has back up is false iff there are generated keys that need backup
+    var securityHasBackup: Bool {
+        if let ownersInfo = ownersInfo, let keyInfos = try? KeyInfo.keys(addresses: ownersInfo.map(\.address)),
+           keyInfos.contains(where: { $0.needsBackup }) {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    var securityHasEnoughOwners: Bool {
+        if let ownersInfo = ownersInfo, ownersInfo.count > 1 {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    var securityHasRecommendedThreshold: Bool {
+        if let threshold = threshold,
+           let ownersInfo = ownersInfo,
+           threshold > 1 && ownersInfo.count > 2 {
+            return true
+        } else {
+            return false
+        }
     }
 
     var walletConnectSessiontopics: [String] {
