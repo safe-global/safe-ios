@@ -536,9 +536,6 @@ extension MainTabBarViewController: NavigationRouter {
         switch index {
         case Path.assets.first:
             switchAssets(segment: segment)
-            
-        case Path.collectibles.last:
-            switchAssets(segment: segment)
 
         case Path.transactions.first:
             switchTransactions(segment: segment)
