@@ -180,7 +180,7 @@ struct AppConfiguration {
         @AppSetting(\.toggle_securityCenter)
         static var securityCenter: Bool
         
-        static var socialLogin: Bool = true
+        static var socialLogin: Bool = false
 
         static var relay: Bool = true
     }
