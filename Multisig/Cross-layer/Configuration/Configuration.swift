@@ -175,10 +175,12 @@ struct AppConfiguration {
         @ConfigurationKey("WALLETCONNECT_PROJECT_ID")
         var walletConnectProjectId: String
     }
-    
+
     struct FeatureToggles {
         @AppSetting(\.toggle_securityCenter)
         static var securityCenter: Bool
+        
+        static var socialLogin: Bool = true
 
         static var relay: Bool = true
     }

@@ -112,7 +112,9 @@ class AddOwnerKeyViewController: UITableViewController {
         }
 
         sections = [
-            (section: "Start from scratch", items: [.social, .generate]),
+            (section: "Start from scratch",
+             items: AppConfiguration.FeatureToggles.socialLogin ? [.social, .generate] : [.generate]),
+
             (section: "Already have a key?", items: [.walletConnect, .importKey, .hardware])
         ]
 
