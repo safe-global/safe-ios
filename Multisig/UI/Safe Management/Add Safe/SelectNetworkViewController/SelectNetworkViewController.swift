@@ -206,9 +206,14 @@ class SelectNetworkViewController: LoadableViewController, UITableViewDelegate, 
         if showWeb2SupportHint && chain.isSupported(feature: Chain.Feature.web3authCreateSafe.rawValue) {
             var text = NSMutableAttributedString(string: "Enjoy ",
                                                  attributes: GNOTextStyle.subheadlineSecondary.attributes)
-            text.append(NSAttributedString(string: "free transactions ", attributes: GNOTextStyle.bodyPrimary.attributes))
-            text.append(NSAttributedString(string: "and ", attributes: GNOTextStyle.subheadlineSecondary.attributes))
-            text.append(NSAttributedString(string: "social login account creation!", attributes: GNOTextStyle.bodyPrimary.attributes))
+            
+            if AppConfiguration.FeatureToggles.socialLogin {
+                text.append(NSAttributedString(string: "free transactions ", attributes: GNOTextStyle.bodyPrimary.attributes))
+                text.append(NSAttributedString(string: "and ", attributes: GNOTextStyle.subheadlineSecondary.attributes))
+                text.append(NSAttributedString(string: "social login account creation!", attributes: GNOTextStyle.bodyPrimary.attributes))
+            } else {
+                text.append(NSAttributedString(string: "free transactions!", attributes: GNOTextStyle.bodyPrimary.attributes))
+            }
 
             cell.setInfo(text, showBeta: true)
         } else {

@@ -52,7 +52,8 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     }
 
     func instructions() {
-        if chain.isSupported(feature: Chain.Feature.web3authCreateSafe) {
+        if AppConfiguration.FeatureToggles.socialLogin,
+           chain.isSupported(feature: Chain.Feature.web3authCreateSafe) {
             web2StyleInstructions()
         } else {
             web3StyleInstructions()
