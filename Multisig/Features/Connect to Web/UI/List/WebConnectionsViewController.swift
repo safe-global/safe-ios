@@ -19,6 +19,8 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
     private var connectionController = WebConnectionController.shared
 
     private static let relativeDateTimerUpdateInterval: TimeInterval = 15
+    private let warningSection = 0
+    private let dataSection = 1
 
     var url: URL?
 
@@ -30,6 +32,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
 
         tableView.backgroundColor = .backgroundPrimary
         tableView.registerCell(WebConnectionTableViewCell.self)
+        tableView.registerCell(WarningTableViewCell.self)
         tableView.registerHeaderFooterView(DesktopPairingHeaderView.self)
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 100
@@ -53,6 +56,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Tracker.trackEvent(.webConnectionList)
+        AppSettings.didShowDeprecateConnectToWeb = true
     }
 
     private func subscribeToNotifications() {
@@ -106,41 +110,74 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
     }
 
     // MARK: - Table view data source
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        connections.count
+        switch section {
+        case warningSection:
+            return 1
+        case dataSection:
+            return connections.count
+        default:
+            return 0
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard indexPath.row < connections.count else { return UITableViewCell() }
-        let connection = connections[indexPath.row]
-        let header = connection.remotePeer?.name ?? "Connection"
-        let peerIconUrl: URL? = connection.remotePeer?.icons.first
-        let chainId = connection.chainId.map(String.init) ?? Chain.ChainID.ethereumMainnet
-        let keyAddress: Address? = connection.accounts.first
-        let keyName: String? = keyAddress.flatMap { NamingPolicy.name(for: $0, chainId: chainId).name }
-
-        let cell = tableView.dequeueCell(WebConnectionTableViewCell.self, for: indexPath)
-        cell.setImage(url: peerIconUrl, placeholder: UIImage(named: "connection-placeholder"))
-        cell.setHeader(header)
-        cell.setConnectionInfo(connection.remotePeer?.url.host)
-        cell.setConnectionTimeInfo(connection.createdDate?.timeAgo())
-        cell.setKey(keyName, address: keyAddress)
-        return cell
+        switch indexPath.section {
+        case warningSection:
+            let cell = tableView.dequeueCell(WarningTableViewCell.self, for: indexPath)
+            cell.set(
+                title: "Deprecated",
+                description: "The \"Connect to web\" pairing feature will be discontinued from 15th November 2023. Please migrate to a different signer wallet before this date. Tap to learn more.",
+                backgroundColor: .warning)
+            cell.backgroundConfiguration = .clear()
+            return cell
+        case dataSection:
+            guard indexPath.row < connections.count else { return UITableViewCell() }
+            let connection = connections[indexPath.row]
+            let header = connection.remotePeer?.name ?? "Connection"
+            let peerIconUrl: URL? = connection.remotePeer?.icons.first
+            let chainId = connection.chainId.map(String.init) ?? Chain.ChainID.ethereumMainnet
+            let keyAddress: Address? = connection.accounts.first
+            let keyName: String? = keyAddress.flatMap { NamingPolicy.name(for: $0, chainId: chainId).name }
+            
+            let cell = tableView.dequeueCell(WebConnectionTableViewCell.self, for: indexPath)
+            cell.setImage(url: peerIconUrl, placeholder: UIImage(named: "connection-placeholder"))
+            cell.setHeader(header)
+            cell.setConnectionInfo(connection.remotePeer?.url.host)
+            cell.setConnectionTimeInfo(connection.createdDate?.timeAgo())
+            cell.setKey(keyName, address: keyAddress)
+            return cell
+        default:
+            return UITableViewCell()
+        }
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let connection = connections[indexPath.row]
-        let detailsVC = WebConnectionDetailsViewController()
-        detailsVC.connection = connection
-        let vc = ViewControllerFactory.modal(viewController: detailsVC)
-        present(vc, animated: true)
+        
+        switch indexPath.section {
+        case warningSection:
+            openHelpUrl()
+        case dataSection:
+            let connection = connections[indexPath.row]
+            let detailsVC = WebConnectionDetailsViewController()
+            detailsVC.connection = connection
+            let vc = ViewControllerFactory.modal(viewController: detailsVC)
+            present(vc, animated: true)
+        default:
+            break
+        }
     }
 
     // MARK: - Table view delegate
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard section == warningSection else { return nil }
         let view = tableView.dequeueHeaderFooterView(DesktopPairingHeaderView.self)
         view.onScan = { [unowned self] in
             self.scan()
@@ -150,6 +187,7 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
 
     override func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard indexPath.section == dataSection else { return nil }
         let connection = connections[indexPath.row]
         let actions = [
             UIContextualAction(style: .destructive, title: "Disconnect") {  [weak self] _, _, completion in

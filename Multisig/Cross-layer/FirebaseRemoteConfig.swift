@@ -17,13 +17,15 @@ class FirebaseRemoteConfig {
         case deprecated
         case safeClaimEnabled
         case crashDebugEnabled
+        case connectToWebDiscontinued
     }
 
     private var remoteConfig: RemoteConfig
     private let defaultValues: [String : NSObject] = [Key.newestVersion.rawValue : "" as NSObject,
                                                       Key.deprecatedSoon.rawValue : "" as NSObject,
                                                       Key.deprecated.rawValue : "" as NSObject,
-                                                      Key.safeClaimEnabled.rawValue : false as NSObject]
+                                                      Key.safeClaimEnabled.rawValue : false as NSObject,
+                                                      Key.connectToWebDiscontinued.rawValue : false as NSObject]
     private init() {
         remoteConfig = RemoteConfig.remoteConfig()
         let settings = RemoteConfigSettings()

@@ -86,8 +86,13 @@ class AppSettingsViewController: UITableViewController {
 
     private func buildSections() {
         sections = []
-        let appSection: (section: AppSettingsViewController.Section, items: [SectionItem]) = (section: .app, items: [
-            Section.App.desktopPairing("Connect to Web"),
+        var appSection: (section: AppSettingsViewController.Section, items: [SectionItem]) = (section: .app, items: [])
+        
+        if FirebaseRemoteConfig.shared.boolValue(key: .connectToWebDiscontinued) != true {
+            appSection.items.append(Section.App.desktopPairing("Connect to Web"))
+        }
+        
+        appSection.items.append(contentsOf: [
             Section.App.ownerKeys("Owner keys", !KeyInfo.keysWithoutBackup().isEmpty, "\(KeyInfo.count())"),
             Section.App.addressBook("Address Book"),
             Section.App.passcode("Security"),
@@ -97,6 +102,7 @@ class AppSettingsViewController: UITableViewController {
             // we do not have experimental features at the moment
             //Section.App.experimental("Experimental")
         ])
+        
         let supportSection: (section: AppSettingsViewController.Section, items: [SectionItem]) = (section: .support("Support & Feedback"), items: [
             Section.Support.chatWithUs("Chat with us"),
             Section.Support.getSupport("Help Center")
@@ -140,7 +146,8 @@ class AppSettingsViewController: UITableViewController {
                              .ownerKeyBackedUp,
                              .selectedFiatCurrencyChanged,
                              .updatedExperemental,
-                             .IntercomUnreadConversationCountDidChange] {
+                             .IntercomUnreadConversationCountDidChange,
+                             .didReadConnectToWebBanner] {
             notificationCenter.addObserver(
                 self,
                 selector: #selector(reload),
@@ -149,6 +156,7 @@ class AppSettingsViewController: UITableViewController {
         }
     }
 
+    @discardableResult
     private func showDesktopPairing() -> WebConnectionsViewController? {
         if let vc = navigationTop(as: WebConnectionsViewController.self) {
             return vc
@@ -199,12 +207,22 @@ class AppSettingsViewController: UITableViewController {
         sections[section].items.count
     }
 
+    static func shouldBringAttentionToDesktopPairing() -> Bool {
+        !WebConnectionController.shared.accountKeys().isEmpty &&
+            AppSettings.didShowDeprecateConnectToWeb != true &&
+            FirebaseRemoteConfig.shared.boolValue(key: .connectToWebDiscontinued) != true
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.row]
         switch item {
             
         case Section.App.desktopPairing(let name):
-            return tableView.basicCell(name: name, icon: "ico-app-settings-desktop-pairing", indexPath: indexPath)
+            return tableView.basicCell(
+                name: name,
+                icon: "ico-app-settings-desktop-pairing",
+                indexPath: indexPath,
+                supplementaryImage: Self.shouldBringAttentionToDesktopPairing() ? UIImage(named: "ico-warning") : nil)
             
         case Section.App.ownerKeys(let name, let warning, let count):
             return tableView.basicCell(name: name,
@@ -358,7 +376,7 @@ extension AppSettingsViewController: NavigationRouter {
     }
     
     func canNavigate(to route: NavigationRoute) -> Bool {
-        if route.path == NavigationRoute.connectToWeb().path {
+        if route.path == NavigationRoute.connectToWeb().path && FirebaseRemoteConfig.shared.boolValue(key: .connectToWebDiscontinued) != true {
             return true
         }
         return false
@@ -367,7 +385,7 @@ extension AppSettingsViewController: NavigationRouter {
     func navigate(to route: NavigationRoute) {
         if route.path == NavigationRoute.appearanceSettings().path {
             navigateToAppearance()
-        } else if route.path == NavigationRoute.connectToWeb().path {
+        } else if route.path == NavigationRoute.connectToWeb().path && FirebaseRemoteConfig.shared.boolValue(key: .connectToWebDiscontinued) != true {
             navigateToConnectToWeb(route)
         } else if route.path == NavigationRoute.advancedAppSettings().path {
             navigateToAdvancedAppSettings()
@@ -404,6 +422,7 @@ extension AppSettingsViewController: NavigationRouter {
     }
     
     private func navigateToConnectToWeb(_ route: NavigationRoute) {
+        guard FirebaseRemoteConfig.shared.boolValue(key: .connectToWebDiscontinued) != true else { return }
         if let pairingVC = showDesktopPairing() {
             pairingVC.navigateAfterDelay(to: route)
         }
