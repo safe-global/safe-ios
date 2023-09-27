@@ -57,7 +57,7 @@ class SafeDeploymentFinishedViewController: UIViewController {
             animationView.play()
 
             titleLabel.text = "Your Safe Account is ready!"
-            descriptionLabel.text = "That’s it! Start using your most secure wallet on Ethereum."
+            descriptionLabel.text = "That’s it! Start using your most secure wallet on \(chain.name ?? "the blockchain")."
             actionButton.setText("Start using Safe{Wallet}", .filled)
             linkButton.isHidden = true
 
