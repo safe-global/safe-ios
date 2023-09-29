@@ -215,12 +215,14 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard indexPath.section < sections.count else { return UITableViewCell() }
         switch sections[indexPath.section] {
         case .importKeyBanner:
             return importKeyBanner(indexPath: indexPath)
         case .passcodeBanner:
             return createPasscodeBanner(indexPath: indexPath)
         case .balances(items: let items):
+            guard indexPath.row < items.count else { return UITableViewCell() }
             let item = items[indexPath.row]
             let cell = tableView.dequeueCell(BalanceTableViewCell.self, for: indexPath)
             cell.setMainText(item.symbol)
