@@ -261,6 +261,7 @@ class MainTabBarViewController: UITabBarController {
         let nav = SettingsUINavigationController(rootViewController: root)
         let tabItem = UITabBarItem(title: title, image: image, tag: tag)
         nav.tabBarItem = tabItem
+        nav.showBadge()
         return nav
     }
 
@@ -584,16 +585,24 @@ class SettingsUINavigationController: UINavigationController {
             selector: #selector(showBadge),
             name: NSNotification.Name.IntercomUnreadConversationCountDidChange,
             object: nil)
-
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(showBadge),
+            name: NSNotification.Name.didReadConnectToWebBanner,
+            object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
+    var shouldShowBadge: Bool {
+        IntercomConfig.unreadConversationCount() > 0 ||
+            AppSettingsViewController.shouldBringAttentionToDesktopPairing()
+    }
+    
     @objc func showBadge() {
-        let count = IntercomConfig.unreadConversationCount()
-        if count > 0 {
+        if shouldShowBadge {
             tabBarItem.badgeValue = ""
             tabBarItem.badgeColor = UIColor.warning
         } else {

@@ -70,6 +70,13 @@ extension AppSettings {
 
     @UserDefault(key: "io.gnosis.multisig.relayBannerWasShown")
     static var relayBannerWasShown: Bool?
+    
+    @UserDefault(key: "global.safe.ios.connectToWebDeprecationMessageShown")
+    static var didShowDeprecateConnectToWeb: Bool? {
+        didSet {
+            NotificationCenter.default.post(name: .didReadConnectToWebBanner, object: nil)
+        }
+    }
 
     @AppSetting(\.lastMarketingVersion)
     static var lastMarketingVersion: String?

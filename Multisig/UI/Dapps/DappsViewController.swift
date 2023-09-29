@@ -281,7 +281,7 @@ class DappsViewController: UIViewController, UITableViewDataSource, UITableViewD
 
 extension DappsViewController: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ url: String) {
-        if (url.starts(with: "safe-wc:")) {
+        if (url.starts(with: "safe-wc:")) && FirebaseRemoteConfig.shared.boolValue(key: .connectToWebDiscontinued) != true {
             dismiss(animated: true) {
                 let route = NavigationRoute.connectToWeb(url)
                 CompositeNavigationRouter.shared.navigate(to: route)
