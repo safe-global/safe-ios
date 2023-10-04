@@ -149,7 +149,7 @@ SAFE_DAO_URL            = https:/$()/snapshot.org/#/safe.eth
 
 // Web app url
 GNOSIS_SAFE_WEB_URL_PROD     = https:/$()/app.safe.global/
-GNOSIS_SAFE_WEB_URL_STAGING     =  https:/$()/safe-team.staging.5afe.dev/app/
+GNOSIS_SAFE_WEB_URL_STAGING     =  https:/$()/safe-wallet-web.staging.5afe.dev/
 
 // App Review URLs
 _APP_STORE_REVIEW_URL_DEV        = https:/$()/apps.apple.com/app/id1515758190?action=write-review
