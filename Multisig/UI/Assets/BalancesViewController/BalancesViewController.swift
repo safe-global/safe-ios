@@ -98,8 +98,16 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
             self, selector: #selector(lazyReloadData), name: .selectedFiatCurrencyChanged, object: nil)
         NotificationCenter.default.addObserver(
             self, selector: #selector(lazyReloadData), name: .chainInfoChanged, object: nil)
+        
+        // update the balances for the case when collectibles were shown and this controller was off screen.
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(doReloadData), name: .selectedSafeChanged, object: nil)
 
         recreateSectionsWithCurrentItems()
+    }
+    
+    @objc private func doReloadData() {
+        reloadData()
     }
 
     @objc private func ownerKeyImported() {
