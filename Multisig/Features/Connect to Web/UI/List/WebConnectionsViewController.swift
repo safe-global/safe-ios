@@ -177,12 +177,22 @@ class WebConnectionsViewController: UITableViewController, ExternalURLSource, We
     // MARK: - Table view delegate
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        // we want the header view to appear at the top of the table, so we show it not in the data section but
+        // in the warning section
         guard section == warningSection else { return nil }
         let view = tableView.dequeueHeaderFooterView(DesktopPairingHeaderView.self)
         view.onScan = { [unowned self] in
             self.scan()
         }
         return view
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == warningSection {
+            return UITableView.automaticDimension
+        } else {
+            return 0
+        }
     }
 
     override func tableView(_ tableView: UITableView,

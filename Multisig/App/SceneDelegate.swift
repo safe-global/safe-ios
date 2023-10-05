@@ -150,7 +150,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     //   - 'connect' link to establish new connection
     //   - 'open' link to move the app to foreground so that it is able to process WalletConnect request or response.
     // - Request To Add Owner 
-    //   - <web app url>/addOwner?safe=<safe_address>&address=<owner_address>
+    //   - <web app url>/settings/setup?safe=<safe_address>&address=<owner_address>
     // - Web3auth
     //   - handled by CustomAuth.handle()
     private func handleUserActivity(_ userActivity: NSUserActivity) {
