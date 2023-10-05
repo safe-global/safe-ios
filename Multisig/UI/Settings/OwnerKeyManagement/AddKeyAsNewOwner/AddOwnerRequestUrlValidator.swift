@@ -15,7 +15,8 @@ struct AddOwnerRequestParameters {
     
     func link(base: URL = App.configuration.services.webAppURL) -> String {
         var url = base
-            .appendingPathComponent("addOwner")
+            .appendingPathComponent("settings")
+            .appendingPathComponent("setup")
         
         let result: String
         
@@ -46,10 +47,10 @@ struct AddOwnerRequestValidator {
         }
         set {
             _webAppURL = newValue
-            pattern = "^\(newValue)addOwner\\?safe=([-a-zA-Z0-9]{1,20}):(0x[a-fA-F0-9]{40})&address=(0x[a-fA-F0-9]{40})$"
+            pattern = "^\(newValue)settings/setup\\?safe=([-a-zA-Z0-9]{1,20}):(0x[a-fA-F0-9]{40})&address=(0x[a-fA-F0-9]{40})$"
         }
     }
-    private static var pattern = "^\(webAppURL)addOwner\\?safe=([-a-zA-Z0-9]{1,20}):(0x[a-fA-F0-9]{40})&address=(0x[a-fA-F0-9]{40})$"
+    private static var pattern = "^\(webAppURL)settings/setup\\?safe=([-a-zA-Z0-9]{1,20}):(0x[a-fA-F0-9]{40})&address=(0x[a-fA-F0-9]{40})$"
 
     static func isValid(url: URL) -> Bool {
         guard url.absoluteString.matches(pattern: pattern) else { return false }

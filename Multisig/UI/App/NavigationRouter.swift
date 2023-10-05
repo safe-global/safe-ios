@@ -328,7 +328,7 @@ extension NavigationRoute {
     
     // MARK: Onboarding
     
-    static let requestToAddOwnerPath = "/addOwner"
+    static let requestToAddOwnerPath = "/settings/setup"
 
     static func requestToAddOwner(_ params: AddOwnerRequestParameters) -> NavigationRoute {
         var route = NavigationRoute(path: requestToAddOwnerPath)
