@@ -107,6 +107,7 @@ class BalancesViewController: LoadableViewController, UITableViewDelegate, UITab
     }
     
     @objc private func doReloadData() {
+        guard (try? Safe.getSelected())?.safeStatus == .deployed else { return }
         reloadData()
     }
 
