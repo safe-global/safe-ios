@@ -72,40 +72,8 @@ class GenerateKeyFlow: AddKeyFlow {
     }
 
     func addKeyAsOwner() {
-        guard let address = parameters?.address else {
-            assertionFailure("Missing key arguments")
-            return
-        }
-
         safe = try? Safe.getSelected()
-        guard let safe = safe else {
-            didAddKeyAsOwner()
-            return
-        }
-
-        if safe.isReadOnly {
-            let vc = flowFactory.inviteToAddOwner { [unowned self] in
-                let vc = flowFactory.shareAddKeyAsOwnerLink(owner: address, safe: safe) { [unowned self] in
-                    stop(success: true)
-                    return
-                }
-
-                show(vc)
-            } onSkip: { [unowned self] in
-                didAddKeyAsOwner()
-            }
-            show(vc)
-
-        } else {
-            let addVC = flowFactory.addAsOwner { [unowned self] in
-                addOwner()
-            } replaced: { [unowned self] in
-                replaceOwner()
-            } skipped: { [unowned self] in
-                didAddKeyAsOwner()
-            }
-            show(addVC)
-        }
+        didAddKeyAsOwner()
     }
 
     func addOwner() {
