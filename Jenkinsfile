@@ -38,9 +38,9 @@ pipeline {
                     // (was useful when CoreData code generation didn't work properly for some reason)
                     sh "rm -rf Build"
 
-                    sh 'rm -f Multisig/Cross-layer/Configuration/apis.bundle/*.json'
-                    sh 'cat \"${CONFIG_FILE_STAGING}\"'
-                    sh 'cp -f \"${CONFIG_FILE_STAGING}\" Multisig/Cross-layer/Configuration/apis.bundle/apis-staging.enc.json'
+                    sh 'rm -f Multisig/Cross-layer/Configuration/config.bundle/*.json'
+
+                    sh 'cp -f \"${CONFIG_FILE_STAGING}\" \"Multisig/Cross-layer/Configuration/config.bundle/apis-staging.enc.json\"'
                     sh 'CONFIG_KEY_STAGING=\"${CONFIG_KEY_STAGING}\" bin/test.sh \"Multisig - Staging\"'
                     junit 'Build/reports/junit.xml'
                     archiveArtifacts 'Build/*/xcodebuild-test.log'
@@ -66,12 +66,12 @@ pipeline {
                     // the machine's UI (remotely or directly), then
                     // the uploading to AppStoreConnect started to work.
 
-                    sh 'rm -f Multisig/Cross-layer/Configuration/apis.bundle/*.json'
-                    sh 'cp -f \"${CONFIG_FILE_PROD}\" Multisig/Cross-layer/Configuration/apis.bundle/apis-prod.enc.json'
+                    sh 'rm -f Multisig/Cross-layer/Configuration/config.bundle/*.json'
+                    sh 'cp -f \"${CONFIG_FILE_PROD}\" Multisig/Cross-layer/Configuration/config.bundle/apis-prod.enc.json'
                     sh 'CONFIG_KEY_PROD=\"${CONFIG_KEY_PROD}\" bin/archive.sh \"Multisig - Production\"'
 
-                    sh 'rm -f Multisig/Cross-layer/Configuration/apis.bundle/*.json'
-                    sh 'cp -f \"${CONFIG_FILE_STAGING}\" Multisig/Cross-layer/Configuration/apis.bundle/apis-staging.enc.json'
+                    sh 'rm -f Multisig/Cross-layer/Configuration/config.bundle/*.json'
+                    sh 'cp -f \"${CONFIG_FILE_STAGING}\" Multisig/Cross-layer/Configuration/config.bundle/apis-staging.enc.json'
                     sh 'CONFIG_KEY_STAGING=\"${CONFIG_KEY_STAGING}\" bin/archive.sh \"Multisig - Staging\"'
                     archiveArtifacts 'Build/*/xcodebuild-*.log'
                 }
