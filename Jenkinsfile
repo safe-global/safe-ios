@@ -39,6 +39,7 @@ pipeline {
                     sh "rm -rf Build"
 
                     sh 'rm -f Multisig/Cross-layer/Configuration/apis.bundle/*.json'
+                    sh 'cat \"${CONFIG_FILE_STAGING}\"'
                     sh 'cp -f \"${CONFIG_FILE_STAGING}\" Multisig/Cross-layer/Configuration/apis.bundle/apis-staging.enc.json'
                     sh 'CONFIG_KEY_STAGING=\"${CONFIG_KEY_STAGING}\" bin/test.sh \"Multisig - Staging\"'
                     junit 'Build/reports/junit.xml'
