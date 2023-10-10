@@ -72,7 +72,7 @@ class App {
 
     // MARK: - Cross-layer
 
-    static let configuration = AppConfiguration()
+    static var configuration = AppConfiguration()
 
     let firebaseConfig = FirebaseConfig()
 

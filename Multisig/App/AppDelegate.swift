@@ -12,6 +12,8 @@ import Firebase
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        App.configuration.protected = AppConfiguration.Protected()
+        
         App.shared.firebaseConfig.setUp()
         IntercomConfig.setUp()
 

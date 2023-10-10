@@ -16,7 +16,7 @@ struct CurrenciesRequest: JSONRequest {
     }
 
     var query: String? {
-        "apiKey=\(App.configuration.services.moonpayKey)"
+        "apiKey=\(App.configuration.protected[.MOONPAY_API_KEY])"
     }
 
     typealias ResponseType = [MoonpayModels.Currency]

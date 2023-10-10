@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SecureConfig
 
 struct AppConfiguration {
 
@@ -29,23 +30,11 @@ struct AppConfiguration {
         @ConfigurationKey("MOONPAY_SERVICE_URL")
         var moonpayServiceURL: URL
 
-        @ConfigurationKey("INFURA_API_KEY")
-        var infuraKey: String
-
-        @ConfigurationKey("INTERCOM_APP_ID")
-        var intercomAppId: String
-
-        @ConfigurationKey("INTERCOM_API_KEY")
-        var intercomApiKey: String
-
         @ConfigurationKey("GNOSIS_SAFE_WEB_URL")
         var webAppURL: URL
-
-        @ConfigurationKey("MOONPAY_API_KEY")
-        var moonpayKey: String
-
-        @ConfigurationKey("MOONPAY_SECRET_KEY")
-        var moonpaySecretKey: String
+        
+        @ConfigurationKey("CONFIG_KEY")
+        var configKey: String
 
         enum ServiceEnvironment: String, InfoPlistValueType {
             case development = "DEV"
@@ -54,6 +43,53 @@ struct AppConfiguration {
 
             static func convert(from value: Any) -> Self {
                 (value as? String).flatMap { Self(rawValue: $0) } ?? .production
+            }
+        }
+    }
+    
+    struct Protected {
+        private let config: SecureConfig.PlainFile
+        
+        init() {
+            guard let bundlePath = Bundle.main.path(forResource: "config", ofType: "bundle") else {
+                fatalError("config.bundle not found")
+            }
+            let filename = Multisig.App.configuration.services.environment == .production ? "apis-prod.enc.json" : "apis-staging.enc.json"
+            let file = bundlePath + "/" + filename
+            
+            let config = SecureConfig()
+            
+            guard let key = config.key(from: Multisig.App.configuration.services.configKey) else {
+                fatalError("key not found in bundle")
+            }
+            
+            do {
+                let sealed: SecureConfig.SealedFile = try config.load(filename: file)
+                self.config = try config.decrypt(file: sealed, key: key)
+            } catch {
+                fatalError("Failed to read config: \(error)")
+            }
+        }
+        
+        enum Keys: String {
+            case INFURA_API_KEY
+            case INTERCOM_APP_ID
+            case INTERCOM_API_KEY
+            case WALLETCONNECT_PROJECT_ID
+            case WEB3AUTH_GOOGLE_CLIENT_ID
+            case WEB3AUTH_REDIRECT_SCHEME
+            case WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE
+            case WEB3AUTH_GOOGLE_VERIFIER_SUB
+            case MOONPAY_API_KEY
+            case MOONPAY_SECRET_KEY
+        }
+        
+        subscript(_ key: Keys) -> String {
+            get {
+                guard let value = config.config[key.rawValue] else {
+                    fatalError("Failed to find value for '\(key)'")
+                }
+                return value
             }
         }
     }
@@ -171,9 +207,6 @@ struct AppConfiguration {
 
         @ConfigurationKey("WALLETCONNECT_REGISTRY_URL")
         var registryURL: URL
-
-        @ConfigurationKey("WALLETCONNECT_PROJECT_ID")
-        var walletConnectProjectId: String
     }
 
     struct FeatureToggles {
@@ -197,17 +230,6 @@ struct AppConfiguration {
     }
 
     struct Web3Auth {
-        @ConfigurationKey("WEB3AUTH_GOOGLE_CLIENT_ID")
-        var googleClientId: String
-
-        @ConfigurationKey("WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE")
-        var googleVerifierAggregate: String
-
-        @ConfigurationKey("WEB3AUTH_GOOGLE_VERIFIER_SUB")
-        var googleVerifierSub: String
-
-        @ConfigurationKey("WEB3AUTH_REDIRECT_SCHEME")
-        var redirectScheme: String
 
         @ConfigurationKey("WEB3AUTH_APPLE_VERIFIER_AGGREGATE")
         var appleVerifier: String
@@ -224,4 +246,5 @@ struct AppConfiguration {
     let walletConnect = WalletConnect()
     let claim = Claim()
     let web3auth = Web3Auth()
+    var protected: Protected!
 }
