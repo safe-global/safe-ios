@@ -51,8 +51,7 @@ pipeline {
         stage('Upload to TestFlight') {
             when {
                 allOf {
-                    // expression { BRANCH_NAME ==~ /^(main|release\/.*)$/ }
-                    expression { BRANCH_NAME ==~ /^PR-.*/ }
+                    expression { BRANCH_NAME ==~ /^(main|release\/.*)$/ }
                 }
             }
             steps {
