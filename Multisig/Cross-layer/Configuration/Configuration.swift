@@ -50,9 +50,9 @@ struct AppConfiguration {
     struct Protected {
         private let config: SecureConfig.PlainFile
         
-        init() {
+        init() throws {
             guard let bundlePath = Bundle.main.path(forResource: "config", ofType: "bundle") else {
-                fatalError("config.bundle not found")
+                throw "config.bundle not found"
             }
             let filename = Multisig.App.configuration.services.environment == .production ? "apis-prod.enc.json" : "apis-staging.enc.json"
             let file = bundlePath + "/" + filename
@@ -60,14 +60,14 @@ struct AppConfiguration {
             let config = SecureConfig()
             
             guard let key = config.key(from: Multisig.App.configuration.services.configKey) else {
-                fatalError("key not found in bundle")
+                throw "CONFIG_KEY not found"
             }
             
             do {
                 let sealed: SecureConfig.SealedFile = try config.load(filename: file)
                 self.config = try config.decrypt(file: sealed, key: key)
             } catch {
-                fatalError("Failed to read config: \(error)")
+                throw "Failed to load or decrypt: \(error)"
             }
         }
         
