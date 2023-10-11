@@ -13,7 +13,7 @@ if ! [ -z ${CONFIG_KEY_STAGING} ]; then
 fi
 
 if ! [ -z ${CONFIG_KEY_PROD} ]; then
-    sed -i '' "s/your-staging-config-key/${CONFIG_KEY_PROD}/g" "${CONFIG_FILE}"
+    sed -i '' "s/your-production-config-key/${CONFIG_KEY_PROD}/g" "${CONFIG_FILE}"
 fi
 
 # decrypt configuration file with the key from environment

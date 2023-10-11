@@ -12,7 +12,11 @@ import Firebase
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        App.configuration.protected = AppConfiguration.Protected()
+        do {
+            App.configuration.protected = try AppConfiguration.Protected()
+        } catch {
+            LogService.shared.error("failed to load configuration", error: error)
+        }
         
         App.shared.firebaseConfig.setUp()
         IntercomConfig.setUp()
