@@ -11,7 +11,7 @@ class IntercomConfig {
     static var pushNotificationUserInfo: [AnyHashable : Any]?
 
     static func setUp() {
-        Intercom.setApiKey(App.configuration.services.intercomApiKey, forAppId: App.configuration.services.intercomAppId)
+        Intercom.setApiKey(App.configuration.protected[.INTERCOM_API_KEY], forAppId: App.configuration.protected[.INTERCOM_APP_ID])
 
         #if DEBUG
         Intercom.enableLogging()

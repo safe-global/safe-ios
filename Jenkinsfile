@@ -14,34 +14,15 @@ pipeline {
         // to enable utf-8 in logs output
         LC_CTYPE = "en_US.UTF-8"
 
-        INFURA_STAGING_KEY = credentials('INFURA_STAGING_KEY')
-        INFURA_PROD_KEY = credentials('INFURA_PROD_KEY')
-        
-        INTERCOM_STAGING_API_KEY = credentials('INTERCOM_STAGING_API_KEY')
-        INTERCOM_PROD_API_KEY = credentials('INTERCOM_PROD_API_KEY')
-        INTERCOM_STAGING_APP_ID = credentials('INTERCOM_STAGING_APP_ID')
-        INTERCOM_PROD_APP_ID = credentials('INTERCOM_PROD_APP_ID')
-        
-        MOONPAY_STAGING_API_KEY = credentials('MOONPAY_STAGING_API_KEY')
-        MOONPAY_PROD_API_KEY = credentials('MOONPAY_PROD_API_KEY')
-        MOONPAY_STAGING_SECRET_KEY = credentials('MOONPAY_STAGING_SECRET_KEY')
-        MOONPAY_PROD_SECRET_KEY = credentials('MOONPAY_PROD_SECRET_KEY')
+        CONFIG_KEY_STAGING = credentials('CONFIG_KEY_STAGING')
+        CONFIG_KEY_PROD = credentials('CONFIG_KEY_PROD')
+
+        CONFIG_FILE_STAGING = credentials('CONFIG_FILE_STAGING')
+        CONFIG_FILE_PROD = credentials('CONFIG_FILE_PROD')
         
         ENCRYPTION_KEY = credentials('ENCRYPTION_KEY')
         
         CODECOV_TOKEN = credentials('CODECOV_TOKEN')
-        
-        WALLETCONNECT_PROJECT_ID_STAGING = credentials('WALLETCONNECT_PROJECT_ID_STAGING')
-        WALLETCONNECT_PROJECT_ID_PROD = credentials('WALLETCONNECT_PROJECT_ID_PROD')
-
-        WEB3AUTH_GOOGLE_CLIENT_ID_PROD = credentials('WEB3AUTH_GOOGLE_CLIENT_ID_PROD')
-        WEB3AUTH_GOOGLE_CLIENT_ID_STAGING = credentials('WEB3AUTH_GOOGLE_CLIENT_ID_STAGING')
-        WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE_PROD = credentials('WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE_PROD')
-        WEB3AUTH_GOOGLE_VERIFIER_SUB_PROD = credentials('WEB3AUTH_GOOGLE_VERIFIER_SUB_PROD')
-        WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE_STAGING = credentials('WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE_STAGING')
-        WEB3AUTH_GOOGLE_VERIFIER_SUB_STAGING = credentials('WEB3AUTH_GOOGLE_VERIFIER_SUB_STAGING')
-        WEB3AUTH_REDIRECT_SCHEME_PROD = credentials('WEB3AUTH_REDIRECT_SCHEME_PROD')
-        WEB3AUTH_REDIRECT_SCHEME_STAGING = credentials('WEB3AUTH_REDIRECT_SCHEME_STAGING')
     }
     stages {
         stage('Unit Test') {
@@ -57,8 +38,10 @@ pipeline {
                     // (was useful when CoreData code generation didn't work properly for some reason)
                     sh "rm -rf Build"
 
-                    // new param for uikit enabled - alternative
-                    sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" bin/test.sh \"Multisig - Staging\"'
+                    sh 'rm -f Multisig/Cross-layer/Configuration/config.bundle/*.json'
+
+                    sh 'cp -f \"${CONFIG_FILE_STAGING}\" \"Multisig/Cross-layer/Configuration/config.bundle/apis-staging.enc.json\"'
+                    sh 'CONFIG_KEY_STAGING=\"${CONFIG_KEY_STAGING}\" bin/test.sh \"Multisig - Staging\"'
                     junit 'Build/reports/junit.xml'
                     archiveArtifacts 'Build/*/xcodebuild-test.log'
                     archiveArtifacts 'Build/*/tests-bundle.xcresult.tgz'
@@ -82,29 +65,13 @@ pipeline {
                     // the machine's UI (remotely or directly), then
                     // the uploading to AppStoreConnect started to work.
 
-                    // new param for uikit enabled
-                    sh 'INFURA_KEY=\"${INFURA_PROD_KEY}\" \
-			WALLETCONNECT_PROJECT_ID=\"${WALLETCONNECT_PROJECT_ID_PROD}\" \
-			WEB3AUTH_GOOGLE_CLIENT_ID=\"${WEB3AUTH_GOOGLE_CLIENT_ID_PROD}\" \
-			WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE=\"${WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE_PROD}\" \
-			WEB3AUTH_GOOGLE_VERIFIER_SUB=\"${WEB3AUTH_GOOGLE_VERIFIER_SUB_PROD}\" \
-			WEB3AUTH_REDIRECT_SCHEME=\"${WEB3AUTH_REDIRECT_SCHEME_PROD}\" \
-			INTERCOM_APP_ID=\"${INTERCOM_PROD_APP_ID}\" \
-			INTERCOM_API_KEY=\"${INTERCOM_PROD_API_KEY}\" \
-			MOONPAY_API_KEY=\"${MOONPAY_PROD_API_KEY}\" \
-			MOONPAY_SECRET_KEY=\"${MOONPAY_PROD_SECRET_KEY}\" \
-			bin/archive.sh \"Multisig - Production\"'
-                    sh 'INFURA_KEY=\"${INFURA_STAGING_KEY}\" \
-			WALLETCONNECT_PROJECT_ID=\"${WALLETCONNECT_PROJECT_ID_STAGING}\" \
-			WEB3AUTH_GOOGLE_CLIENT_ID=\"${WEB3AUTH_GOOGLE_CLIENT_ID_STAGING}\" \
-			WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE=\"${WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE_STAGING}\" \
-			WEB3AUTH_GOOGLE_VERIFIER_SUB=\"${WEB3AUTH_GOOGLE_VERIFIER_SUB_STAGING}\" \
-			WEB3AUTH_REDIRECT_SCHEME=\"${WEB3AUTH_REDIRECT_SCHEME_STAGING}\" \
-			INTERCOM_APP_ID=\"${INTERCOM_STAGING_APP_ID}\" \
-			INTERCOM_API_KEY=\"${INTERCOM_STAGING_API_KEY}\" \
-			MOONPAY_API_KEY=\"${MOONPAY_STAGING_API_KEY}\" \
-			MOONPAY_SECRET_KEY=\"${MOONPAY_STAGING_SECRET_KEY}\" \
-			bin/archive.sh \"Multisig - Staging\"'
+                    sh 'rm -f Multisig/Cross-layer/Configuration/config.bundle/*.json'
+                    sh 'cp -f \"${CONFIG_FILE_PROD}\" Multisig/Cross-layer/Configuration/config.bundle/apis-prod.enc.json'
+                    sh 'CONFIG_KEY_PROD=\"${CONFIG_KEY_PROD}\" bin/archive.sh \"Multisig - Production\"'
+
+                    sh 'rm -f Multisig/Cross-layer/Configuration/config.bundle/*.json'
+                    sh 'cp -f \"${CONFIG_FILE_STAGING}\" Multisig/Cross-layer/Configuration/config.bundle/apis-staging.enc.json'
+                    sh 'CONFIG_KEY_STAGING=\"${CONFIG_KEY_STAGING}\" bin/archive.sh \"Multisig - Staging\"'
                     archiveArtifacts 'Build/*/xcodebuild-*.log'
                 }
             }

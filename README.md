@@ -26,10 +26,24 @@ Notable differences that we should look for:
 
 # Configuration
 
-Export your Infura project key as an `INFURA_KEY` environment variable:
+In order for the app to be functional, you need to create the protected configuration file
+with API keys in it (at least the `INFURA_API_KEY`).
 
-    $> export INFURA_KEY="..."
+You can find an example of unprotected configuration file at `Multisig/Cross-layer/Configurations/apis-staging.example.json`
 
+You then encrypt that file using the `secconfig` tool:
+
+    $> bin/secconfig encrypt Multisig/Cross-layer/Configurations/apis-staging.example.json Multisig/Cross-layer/Configuration/apis.bundle/apis-staging.enc.json
+    <TOOL OUTPUT ENDING WITH '='>
+
+The tool outputs the encryption key with which the configuration was encrypted. Export that value as an environment variable
+    $> export CONFIG_KEY_STAGING="..."
+
+Then, repeat the same for the production environment (in that case the files would be named `apis-prod.example.json` and `apis-prod.enc.json`, and the environment variable is `CONFIG_KEY_PROD`).
+
+**NOTE: Do not commit unencrypted files with real API keys `apis-staging.exmaple.json` or `apis-prod.example.json` to git! Otherwise you will compromise them.**
+
+You can find more details about the `secconfig` tool in the script `Pakcages/SecureConfig/Sources/secconfig/main.swift`
 
 *Optional*. If you use the encrypted `Firebase.dat` configuration, provide the encryption key as 
 environment variable.
@@ -43,4 +57,3 @@ Then, run the configure script to install the Config.xcconfig
     $> bin/configure.sh
 
 Now you are ready to build the project.
-

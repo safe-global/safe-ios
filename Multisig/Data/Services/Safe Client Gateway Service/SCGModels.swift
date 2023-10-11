@@ -585,7 +585,7 @@ extension SCGModels {
             switch rpcUri.authentication {
             case .apiKeyPath:
                 // assume for now that we're using INFURA API for every authenticated url
-                return rpcUri.value.appendingPathComponent(App.configuration.services.infuraKey)
+                return rpcUri.value.appendingPathComponent(App.configuration.protected[.INFURA_API_KEY])
             case .none:
                 return rpcUri.value
             }

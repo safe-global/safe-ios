@@ -23,7 +23,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.24.0</string>
+	<string>3.24.1</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -88,16 +88,6 @@
 	<string>$(GUARD_URL)</string>
 	<key>HELP_CENTER_URL</key>
 	<string>$(HELP_CENTER_URL)</string>
-	<key>INFURA_API_KEY</key>
-	<string>$(INFURA_API_KEY)</string>
-	<key>INTERCOM_API_KEY</key>
-	<string>$(INTERCOM_API_KEY)</string>
-	<key>INTERCOM_APP_ID</key>
-	<string>$(INTERCOM_APP_ID)</string>
-	<key>MOONPAY_API_KEY</key>
-	<string>$(MOONPAY_API_KEY)</string>
-	<key>MOONPAY_SECRET_KEY</key>
-	<string>$(MOONPAY_SECRET_KEY)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>IntercomAutoIntegratePushNotifications</key>
@@ -286,21 +276,13 @@
 	<string>$(UNEXPECTED_DELEGATE_URL)</string>
 	<key>WALLETCONNECT_BRIDGE_URL</key>
 	<string>$(WALLETCONNECT_BRIDGE_URL)</string>
-	<key>WALLETCONNECT_PROJECT_ID</key>
-	<string>$(WALLETCONNECT_PROJECT_ID)</string>
 	<key>WALLETCONNECT_REGISTRY_URL</key>
 	<string>$(WALLETCONNECT_REGISTRY_URL)</string>
 	<key>WEB3AUTH_APPLE_VERIFIER</key>
 	<string>$(WEB3AUTH_APPLE_VERIFIER)</string>
 	<key>WEB3AUTH_APPLE_VERIFIER_AGGREGATE</key>
 	<string>$(WEB3AUTH_APPLE_VERIFIER_AGGREGATE)</string>
-	<key>WEB3AUTH_GOOGLE_CLIENT_ID</key>
-	<string>$(WEB3AUTH_GOOGLE_CLIENT_ID)</string>
-	<key>WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE</key>
-	<string>$(WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE)</string>
-	<key>WEB3AUTH_GOOGLE_VERIFIER_SUB</key>
-	<string>$(WEB3AUTH_GOOGLE_VERIFIER_SUB)</string>
-	<key>WEB3AUTH_REDIRECT_SCHEME</key>
-	<string>$(WEB3AUTH_REDIRECT_SCHEME)</string>
+	<key>CONFIG_KEY</key>
+	<string>$(CONFIG_KEY)</string>
 </dict>
 </plist>

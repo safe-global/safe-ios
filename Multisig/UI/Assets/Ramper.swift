@@ -67,7 +67,7 @@ class Ramper: MoonpayCallbackInterface {
                                   environment: environment.description().lowercased())
 
         let params = OnrampWidgetQueryParams(
-            apiKey: App.configuration.services.moonpayKey,
+            apiKey: App.configuration.protected[.MOONPAY_API_KEY],
             currencyCode: nil,
             defaultCurrencyCode: chainCurrencies.first!.code,
             walletAddress: nil,
@@ -120,9 +120,9 @@ class Ramper: MoonpayCallbackInterface {
     }
 
     private func signature(address: String, chain: String, theme: String, defaultCurrencyCode: String, environment: String) -> String {
-        let bytes = Array( "?apiKey=\(App.configuration.services.moonpayKey)&defaultCurrencyCode=\(defaultCurrencyCode)&walletAddresses=\(walletAddressesEncoded())&theme=\(theme)&themeId=\(MOONPAY_THEME_ID_SAFE)&language=en&baseCurrencyCode=\(AppSettings.selectedFiatCode)&mpSdk=%7B%22environment%22%3A%22\(environment)%22%2C%22flow%22%3A%22buy%22%2C%22version%22%3A%221.0%22%2C%22platform%22%3A%22iOS%22%7D".utf8)
+        let bytes = Array( "?apiKey=\(App.configuration.protected[.MOONPAY_API_KEY])&defaultCurrencyCode=\(defaultCurrencyCode)&walletAddresses=\(walletAddressesEncoded())&theme=\(theme)&themeId=\(MOONPAY_THEME_ID_SAFE)&language=en&baseCurrencyCode=\(AppSettings.selectedFiatCode)&mpSdk=%7B%22environment%22%3A%22\(environment)%22%2C%22flow%22%3A%22buy%22%2C%22version%22%3A%221.0%22%2C%22platform%22%3A%22iOS%22%7D".utf8)
 
-        let key: Array<UInt8> = Array(App.configuration.services.moonpaySecretKey.utf8)
+        let key: Array<UInt8> = Array(App.configuration.protected[.MOONPAY_SECRET_KEY].utf8)
 
         return Data(try! HMAC(key: key, variant: .sha2(.sha256)).authenticate(bytes)).base64EncodedString()
     }

@@ -14,14 +14,15 @@ class GoogleWeb3AuthLoginModel {
 
     func loginWithCustomAuth() {
         Task {
-            let sub = SubVerifierDetails(loginType: .installed,
-                                         loginProvider: .google,
-                                         clientId: App.configuration.web3auth.googleClientId,
-                                         verifier: App.configuration.web3auth.googleVerifierSub,
-                                         redirectURL: App.configuration.web3auth.redirectScheme + GoogleWeb3AuthLoginModel.schemePostfix
+            let sub = SubVerifierDetails(
+                loginType: .installed,
+                loginProvider: .google,
+                clientId: App.configuration.protected[.WEB3AUTH_GOOGLE_CLIENT_ID],
+                verifier: App.configuration.protected[.WEB3AUTH_GOOGLE_VERIFIER_SUB],
+                redirectURL: App.configuration.protected[.WEB3AUTH_REDIRECT_SCHEME] + GoogleWeb3AuthLoginModel.schemePostfix
             )
             let tdsdk = CustomAuth(aggregateVerifierType: .singleIdVerifier,
-                                   aggregateVerifier: App.configuration.web3auth.googleVerifierAggregate,
+                                   aggregateVerifier: App.configuration.protected[.WEB3AUTH_GOOGLE_VERIFIER_AGGREGATE],
                                    subVerifierDetails: [sub],
                                    network: .CYAN,
                                    enableOneKey: true

@@ -395,7 +395,7 @@ extension Chain {
     var authenticatedRpcUrl: URL {
         switch self.rpcUrlAuthentication {
         case SCGModels.RpcAuthentication.Authentication.apiKeyPath.rawValue:
-            return rpcUrl!.appendingPathComponent(App.configuration.services.infuraKey)
+            return rpcUrl!.appendingPathComponent(App.configuration.protected[.INFURA_API_KEY])
         default:
             return rpcUrl!
         }

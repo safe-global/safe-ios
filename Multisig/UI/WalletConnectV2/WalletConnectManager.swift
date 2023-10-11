@@ -32,7 +32,7 @@ class WalletConnectManager {
     private init() { }
     
     func config() {
-        Networking.configure(projectId: App.configuration.walletConnect.walletConnectProjectId,
+        Networking.configure(projectId: App.configuration.protected[.WALLETCONNECT_PROJECT_ID],
                              socketFactory: SocketFactory())
         Pair.configure(metadata: metadata)
         Web3Wallet.configure(metadata: metadata, crypto: NullCryptoProvider())
