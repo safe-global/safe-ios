@@ -54,7 +54,7 @@ class QueuedTransactionsViewController: TransactionListViewController {
     }
 
     override func formatted(date: Date) -> String {
-        date.timeAgo()
+        date.timeAgo(adjustForTimeZone: true)
     }
 
     override func shouldHighlight(transaction: SCGModels.TxSummary) -> Bool {
@@ -73,9 +73,16 @@ class QueuedTransactionsViewController: TransactionListViewController {
 
 
 extension Date {
-    func timeAgo() -> String {
+    func timeAgo(adjustForTimeZone: Bool = false) -> String {
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .full
-        return formatter.localizedString(for: self, relativeTo: Date())
+        let actualDate: Date
+        if adjustForTimeZone {
+            actualDate = Date(timeIntervalSinceNow: TimeInterval(TimeZone.current.secondsFromGMT()))
+        } else {
+            actualDate = Date()
+        }
+        let str = formatter.localizedString(for: self, relativeTo: actualDate)
+        return str
     }
 }
