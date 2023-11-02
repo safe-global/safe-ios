@@ -665,6 +665,11 @@ extension SCGModels {
         let recommendedNonce: UInt256String
         let safeTxGas: String
     }
+    
+    struct Nonces: Decodable {
+        let currentNonce: UInt256String
+        let recommendedNonce: UInt256String
+    }
 
     struct KeyDelegate: Codable {
         var safe: AddressString?
