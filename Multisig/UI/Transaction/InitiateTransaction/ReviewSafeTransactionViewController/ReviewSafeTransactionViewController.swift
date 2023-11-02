@@ -137,9 +137,20 @@ class ReviewSafeTransactionViewController: UIViewController {
             let safeAddress = tx.safe?.address
         else { return }
 
+        if let version = self.safe.contractVersion.flatMap(Version.init),
+           version < Version(1, 3, 0) {
+            estimateTransaction(chainId, safeAddress, tx)
+        } else {
+            fetchNonces(chainId, safeAddress)
+        }
+    }
+    
+    // Requires:
+    //  safe.version < 1.3.0
+    fileprivate func estimateTransaction(_ chainId: String, _ safeAddress: Address, _ tx: Transaction) {
         startLoading()
         currentDataTask?.cancel()
-
+        
         currentDataTask = App.shared.clientGatewayService.asyncTransactionEstimation(
             chainId: chainId,
             safeAddress: safeAddress,
@@ -151,54 +162,76 @@ class ReviewSafeTransactionViewController: UIViewController {
             guard let `self` = self else { return }
             switch result {
             case .failure(let error):
-                DispatchQueue.main.async { [weak self] in
-                    guard let `self` = self else { return }
-                    if (error as NSError).code == URLError.cancelled.rawValue &&
-                        (error as NSError).domain == NSURLErrorDomain {
-                        return
-                    }
-                    self.showError(GSError.error(description: "Failed to create transaction", error: error))
-                }
+                self.handleError(error)
             case .success(let estimationResult):
                 self.minimalNonce = estimationResult.currentNonce
                 self.nonce = estimationResult.recommendedNonce
-
-                if let contractVersion = self.safe.contractVersion,
-                   let version = Version(contractVersion),
-                   version >= Version(1, 3, 0) {
-                    self.safeTxGas = nil
-                } else if let estimatedSafeTxGas = UInt256(estimationResult.safeTxGas) {
+                
+                if let estimatedSafeTxGas = UInt256(estimationResult.safeTxGas) {
                     self.safeTxGas = UInt256String(estimatedSafeTxGas)
                 }
+                
+                self.handleEstimationSuccess()
+            }
+        }
+    }
+    
+    // Requires:
+    //  safe.version >= 1.3.0
+    fileprivate func fetchNonces(_ chainId: String, _ safeAddress: Address) {
+        startLoading()
+        currentDataTask?.cancel()
 
-                if self.shouldLoadTransactionPreview, let transaction = self.createTransaction() {
-                    self.transactionPreview = nil
+        currentDataTask = App.shared.clientGatewayService.asyncSafeNonces(
+            chainId: chainId,
+            safeAddress: safeAddress
+        ) { [weak self] result in
+            guard let `self` = self else { return }
+            switch result {
+            case .failure(let error):
+                self.handleError(error)
+            case .success(let nonces):
+                self.minimalNonce = nonces.currentNonce
+                self.nonce = nonces.recommendedNonce
+                self.safeTxGas = nil
+                self.handleEstimationSuccess()
+            }
+        }
+    }
 
-                    self.currentDataTask = App.shared.clientGatewayService.asyncPreviewTransaction(
-                        transaction: transaction,
-                        sender: AddressString(self.safe.addressValue),
-                        chainId: self.safe.chain!.id!
-                    ) { result in
-                        DispatchQueue.main.async {
-                            switch result {
-                            case .success(let response):
-                                self.transactionPreview = response
-                                self.onSuccess()
-                            case .failure(let error):
-                                if (error as NSError).code == URLError.cancelled.rawValue &&
-                                    (error as NSError).domain == NSURLErrorDomain {
-                                    return
-                                }
-                                self.showError(GSError.error(description: "Failed to create transaction", error: error))
-                            }
-                        }
-                    }
-                } else {
-                    DispatchQueue.main.async {
+    fileprivate func handleError(_ error: Error) {
+        DispatchQueue.main.async { [weak self] in
+            guard let `self` = self else { return }
+            if (error as NSError).code == URLError.cancelled.rawValue &&
+                (error as NSError).domain == NSURLErrorDomain {
+                return
+            }
+            self.showError(GSError.error(description: "Failed to create transaction", error: error))
+        }
+    }
+    
+    fileprivate func handleEstimationSuccess() {
+        if self.shouldLoadTransactionPreview, let transaction = self.createTransaction() {
+            self.transactionPreview = nil
+            
+            self.currentDataTask = App.shared.clientGatewayService.asyncPreviewTransaction(
+                transaction: transaction,
+                sender: AddressString(self.safe.addressValue),
+                chainId: self.safe.chain!.id!
+            ) { result in
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    switch result {
+                    case .success(let response):
+                        self.transactionPreview = response
                         self.onSuccess()
+                    case .failure(let error):
+                        self.handleError(error)
                     }
                 }
             }
+        } else {
+            self.onSuccess()
         }
     }
 
