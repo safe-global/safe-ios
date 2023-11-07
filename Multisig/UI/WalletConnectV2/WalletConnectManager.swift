@@ -12,10 +12,10 @@ import WalletConnectPairing
 import Combine
 import WalletConnectSign
 import WalletConnectUtils
-import WalletConnectRouter
 import SafeWeb3
 import Web3Wallet
 import UIKit
+import WalletConnectRelay
 
 class WalletConnectManager {
     static let shared = WalletConnectManager()
@@ -27,13 +27,14 @@ class WalletConnectManager {
         description: "The most trusted platform to manage digital assets on Ethereum",
         url: App.configuration.services.webAppURL.absoluteString,
         icons: ["https://app.safe.global/favicons/mstile-150x150.png",
-                "https://app.safe.global/favicons/logo_120x120.png"])
+                "https://app.safe.global/favicons/logo_120x120.png"], 
+        redirect: AppMetadata.Redirect(native: "", universal: "https://app.safe.global/"))
     
     private init() { }
     
     func config() {
-        Networking.configure(projectId: App.configuration.protected[.WALLETCONNECT_PROJECT_ID],
-                             socketFactory: SocketFactory())
+        let projectId = App.configuration.protected[.WALLETCONNECT_PROJECT_ID]
+        Networking.configure(projectId: projectId, socketFactory: SocketFactory())
         Pair.configure(metadata: metadata)
         Web3Wallet.configure(metadata: metadata, crypto: NullCryptoProvider())
         setUpAuthSubscribing()
@@ -111,7 +112,7 @@ class WalletConnectManager {
             } catch {
                 LogService.shared.error("DAPP: Pairing failed: \(error)")
                 Task { @MainActor in
-                    if "\(error)" == "pairingAlreadyExist" {
+                    if "\(error)".hasPrefix("pairingAlreadyExist") {
                         App.shared.snackbar.show(error: GSError.WC2PairingAlreadyExists())
                     } else {
                         App.shared.snackbar.show(error: GSError.WC2PairingFailed())

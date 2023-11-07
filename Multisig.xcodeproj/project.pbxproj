@@ -180,13 +180,11 @@
 		0497B2AD29A641C9007109ED /* WalletConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 0497B2AC29A641C9007109ED /* WalletConnect */; };
 		0497B2AF29A641C9007109ED /* WalletConnectAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0497B2AE29A641C9007109ED /* WalletConnectAuth */; };
 		0497B2B129A641C9007109ED /* WalletConnectChat in Frameworks */ = {isa = PBXBuildFile; productRef = 0497B2B029A641C9007109ED /* WalletConnectChat */; };
-		0497B2B329A641C9007109ED /* WalletConnectEcho in Frameworks */ = {isa = PBXBuildFile; productRef = 0497B2B229A641C9007109ED /* WalletConnectEcho */; };
 		0497B2B529A641C9007109ED /* WalletConnectNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 0497B2B429A641C9007109ED /* WalletConnectNetworking */; };
 		0497B2B729A641C9007109ED /* WalletConnectPairing in Frameworks */ = {isa = PBXBuildFile; productRef = 0497B2B629A641C9007109ED /* WalletConnectPairing */; };
 		0497B2B929A641C9007109ED /* WalletConnectPush in Frameworks */ = {isa = PBXBuildFile; productRef = 0497B2B829A641C9007109ED /* WalletConnectPush */; };
 		0497B2BB29A641C9007109ED /* WalletConnectRouter in Frameworks */ = {isa = PBXBuildFile; productRef = 0497B2BA29A641C9007109ED /* WalletConnectRouter */; };
 		0497B2BD29A641C9007109ED /* WalletConnectVerify in Frameworks */ = {isa = PBXBuildFile; productRef = 0497B2BC29A641C9007109ED /* WalletConnectVerify */; };
-		0497B2BF29A641C9007109ED /* Web3Inbox in Frameworks */ = {isa = PBXBuildFile; productRef = 0497B2BE29A641C9007109ED /* Web3Inbox */; };
 		0497B2C129A641C9007109ED /* Web3Wallet in Frameworks */ = {isa = PBXBuildFile; productRef = 0497B2C029A641C9007109ED /* Web3Wallet */; };
 		049A9D0E25F7C66E00CA5723 /* OwnerKeysListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D0C25F7C66E00CA5723 /* OwnerKeysListViewController.swift */; };
 		049A9D3A25F81F2C00CA5723 /* EditOwnerKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049A9D3825F81F2C00CA5723 /* EditOwnerKeyViewController.swift */; };
@@ -2127,7 +2125,6 @@
 				0A259AB5287D83F9006770E7 /* UnstoppableDomainsResolution in Frameworks */,
 				55D3FF90260B2B21008ABD2B /* TrustKit in Frameworks */,
 				55D3FE8C260A0F88008ABD2B /* SwiftCryptoTokenFormatter in Frameworks */,
-				0497B2B329A641C9007109ED /* WalletConnectEcho in Frameworks */,
 				0497B2AD29A641C9007109ED /* WalletConnect in Frameworks */,
 				04AECBB72A744B21008D5A35 /* MoonpaySDK in Frameworks */,
 				04C22B302A36807500F58A15 /* SafeWeb3 in Frameworks */,
@@ -2137,7 +2134,6 @@
 				0A7FBE2528BE684100B5FFCF /* WhatsNewKit in Frameworks */,
 				0497B2B129A641C9007109ED /* WalletConnectChat in Frameworks */,
 				0A3DAD9426270F4D00743E38 /* unistring.xcframework in Frameworks */,
-				0497B2BF29A641C9007109ED /* Web3Inbox in Frameworks */,
 				043350AF2808628E003725E2 /* Lottie in Frameworks */,
 				0A3E980B2806FAD300E90EEC /* Algorithms in Frameworks */,
 				D80B5A13276B5FAD00D6E024 /* SkeletonView in Frameworks */,
@@ -4780,13 +4776,11 @@
 				0497B2AC29A641C9007109ED /* WalletConnect */,
 				0497B2AE29A641C9007109ED /* WalletConnectAuth */,
 				0497B2B029A641C9007109ED /* WalletConnectChat */,
-				0497B2B229A641C9007109ED /* WalletConnectEcho */,
 				0497B2B429A641C9007109ED /* WalletConnectNetworking */,
 				0497B2B629A641C9007109ED /* WalletConnectPairing */,
 				0497B2B829A641C9007109ED /* WalletConnectPush */,
 				0497B2BA29A641C9007109ED /* WalletConnectRouter */,
 				0497B2BC29A641C9007109ED /* WalletConnectVerify */,
-				0497B2BE29A641C9007109ED /* Web3Inbox */,
 				0497B2C029A641C9007109ED /* Web3Wallet */,
 				04C22B2C2A367FF800F58A15 /* CustomAuth */,
 				04C22B2F2A36807500F58A15 /* SafeWeb3 */,
@@ -7373,7 +7367,7 @@
 			repositoryURL = "https://github.com/WalletConnect/WalletConnectSwiftV2";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.6.14;
+				minimumVersion = 1.9.5;
 			};
 		};
 		04AECBB52A744B21008D5A35 /* XCRemoteSwiftPackageReference "mobile-sdk-ios" */ = {
@@ -7501,7 +7495,7 @@
 			repositoryURL = "https://github.com/intercom/intercom-ios.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 14.0.0;
+				minimumVersion = 16.2.3;
 			};
 		};
 		D80B5A11276B5FAD00D6E024 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
@@ -7555,11 +7549,6 @@
 			package = 0497B2AB29A641C9007109ED /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
 			productName = WalletConnectChat;
 		};
-		0497B2B229A641C9007109ED /* WalletConnectEcho */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0497B2AB29A641C9007109ED /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
-			productName = WalletConnectEcho;
-		};
 		0497B2B429A641C9007109ED /* WalletConnectNetworking */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0497B2AB29A641C9007109ED /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
@@ -7584,11 +7573,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0497B2AB29A641C9007109ED /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
 			productName = WalletConnectVerify;
-		};
-		0497B2BE29A641C9007109ED /* Web3Inbox */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0497B2AB29A641C9007109ED /* XCRemoteSwiftPackageReference "WalletConnectSwiftV2" */;
-			productName = Web3Inbox;
 		};
 		0497B2C029A641C9007109ED /* Web3Wallet */ = {
 			isa = XCSwiftPackageProductDependency;
