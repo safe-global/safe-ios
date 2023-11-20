@@ -251,7 +251,7 @@ extension Transaction {
         .reduce(Data()) { $0 + $1 }
     }
 
-    private func safeTransactionHash() -> HashString? {
+    func safeTransactionHash() -> HashString? {
         let data = encodeTransactionData()
         return try? HashString(hex: EthHasher.hash(data).toHexString())
     }

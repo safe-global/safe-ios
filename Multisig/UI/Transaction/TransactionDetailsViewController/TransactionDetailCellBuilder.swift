@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 import SwiftCryptoTokenFormatter
 import SwiftUI
+import Version
+import Solidity
+import SafeWeb3
 
 class TransactionDetailCellBuilder {
 
@@ -43,18 +46,20 @@ class TransactionDetailCellBuilder {
         tableView.registerCell(DetailTransferInfoCell.self)
         tableView.registerCell(DetailRejectionInfoCell.self)
         tableView.registerCell(DetailStatusCell.self)
+        tableView.registerCell(WarningTableViewCell.self)
     }
 
-    func build(_ tx: SCGModels.TransactionDetails) -> [UITableViewCell] {
+    func build(_ tx: SCGModels.TransactionDetails, _ safe: Safe?) -> [UITableViewCell] {
         result = []
-        buildTransaction(tx)
+        buildTransaction(tx, safe)
         return result
     }
 
-    func buildTransaction(_ tx: SCGModels.TransactionDetails) {
+    func buildTransaction(_ tx: SCGModels.TransactionDetails, _ safe: Safe? = nil) {
         let isCreationTx = buildCreationTx(tx)
         if !isCreationTx {
             buildHeader(tx)
+            buildWarning(tx, safe)
             buildAssetContract(tx)
             buildStatus(tx)
             buildMultisigInfo(tx)
@@ -426,6 +431,139 @@ class TransactionDetailCellBuilder {
             label: label,
             addressLogoUri: addressLogoUri,
             isOutgoing: isOutgoing)
+    }
+    
+    // TODO: Move this out into a class or function and Unit-Test it and / or Integration Test it.
+    func buildWarning(_ tx: SCGModels.TransactionDetails, _ safe: Safe? = nil) {
+        guard tx.txStatus.isAwatingConfiramtions || tx.txStatus == .awaitingExecution else {
+            // don't warn outside of signature or execution requests
+            return
+        }
+        
+        // safe has owners
+        guard let safe = safe, let ownersInfo = safe.ownersInfo, !ownersInfo.isEmpty else {
+            // not enough data for further checks
+            return
+        }
+        let ownerAddresses = ownersInfo.map(\.address)
+        
+        // transaction has confirmations
+        guard let txMultisigInfo = tx.multisigInfo else {
+            // not a kind of transaction we can take a look into
+            return
+        }
+        
+        guard !txMultisigInfo.confirmations.isEmpty else {
+            warningCell("Warning: transaction has no confirmations. This may be a dangerous transaction")
+            return
+        }
+        
+        // all confirming addresses are from safe owners
+        guard txMultisigInfo.confirmations.allSatisfy({ confirmation in
+            ownerAddresses.contains(confirmation.signer.value.address)
+        }) else {
+            warningCell("Warning: not all confirmations are from safe owners.")
+            return
+        }
+        
+        // transaction hash is valid
+        guard var transaction = Transaction(tx: tx),
+              let contractVersion = safe.version.flatMap(Version.init),
+              let chainId = safe.chain?.id
+        else {
+            // not enough information for further checks
+            return
+        }
+        transaction.safe = AddressString(stringLiteral: safe.displayAddress)
+        transaction.safeVersion = contractVersion
+        transaction.chainId = chainId
+        
+        guard
+            let computedSafeTxHash = transaction.safeTransactionHash(),
+            transaction.safeTxHash == computedSafeTxHash
+        else {
+            warningCell("Warning: safeTxHash is invalid. This may be a dangerous transaction.")
+            return
+        }
+        
+        // all confirming signatures are from a confirming addresses
+        func signer(of signature: Data) -> Address? {
+            guard signature.count >= 65 else {
+                // cannot decode signature
+                return nil
+            }
+            
+            let v: UInt8 = signature[0]
+            let r: Data /* 32 bytes */ = signature[1...32]
+            let s: Data /* 32 bytes */ = signature[33...64]
+            
+            let contractSignature: UInt8 = 0
+            let approvedHashSignature: UInt8 = 1
+            let ethSignSignature: ClosedRange<UInt8> = (31...UInt8.max)
+            
+            if contractVersion >= Version(1, 1, 0) {
+                switch v {
+                case contractSignature, approvedHashSignature:
+                    let owner = (try? Sol.Address(data: r)).map { Address($0) }
+                    return owner
+                    
+                case ethSignSignature:
+                    let hash = computedSafeTxHash.hash
+                    let message = "\u{19}Ethereum Signed Message:\n\(hash.count)".data(using: .utf8)! + hash
+                    
+                    let pubKey = try? EthereumPublicKey(
+                        message: message.makeBytes(),
+                        v: EthereumQuantity(quantity: (BigUInt(v) - 4) - 27),
+                        r: EthereumQuantity(r.makeBytes()),
+                        s: EthereumQuantity(s.makeBytes())
+                    )
+
+                    let owner = pubKey.map(\.address).map(Address.init)
+                    return owner
+                    
+                default:
+                    let pubKey = try? EthereumPublicKey(
+                        message: computedSafeTxHash.hash.makeBytes(),
+                        v: EthereumQuantity(quantity: BigUInt(v)),
+                        r: EthereumQuantity(r.makeBytes()),
+                        s: EthereumQuantity(s.makeBytes())
+                    )
+                    let owner = pubKey.map(\.address).map(Address.init)
+                    return owner
+                }
+            } else {
+                switch v {
+                case contractSignature, approvedHashSignature:
+                    let owner = (try? Sol.Address(data: r)).map { Address($0) }
+                    return owner
+                default:
+                    let pubKey = try? EthereumPublicKey(
+                        message: computedSafeTxHash.hash.makeBytes(),
+                        v: EthereumQuantity(quantity: BigUInt(v)),
+                        r: EthereumQuantity(r.makeBytes()),
+                        s: EthereumQuantity(s.makeBytes())
+                    )
+                    let owner = pubKey.map(\.address).map(Address.init)
+                    return owner
+
+                }
+            }
+        }
+        
+        guard txMultisigInfo.confirmations.allSatisfy({ confirmation in
+            signer(of: confirmation.signature.data) == confirmation.signer.value.address
+        }) else {
+            warningCell("Warning: not all signatures are from safe's owners.")
+            return
+        }
+        
+        // all good! no warnings.
+    }
+    
+    func warningCell(_ text: String) {
+        let cell = newCell(WarningTableViewCell.self)
+        cell.set(title: text)
+        result.append(cell)
     }
 
 
