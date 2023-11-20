@@ -59,7 +59,7 @@ class TransactionDetailCellBuilder {
         let isCreationTx = buildCreationTx(tx)
         if !isCreationTx {
             buildHeader(tx)
-            buildWarning(tx, safe)
+            // buildWarning(tx, safe)
             buildAssetContract(tx)
             buildStatus(tx)
             buildMultisigInfo(tx)
