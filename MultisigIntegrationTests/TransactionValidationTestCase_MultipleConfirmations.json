@@ -1,5 +1,5 @@
 {
-    "testCaseName": "Valid transaction, Ethereum, 2/4 owners, 1/2 confirmations",
+    "testCaseName": "Multiple valid confirmations",
     "chain": {
         "chainId": "1",
         "chainName": "Ethereum",

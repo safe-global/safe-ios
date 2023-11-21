@@ -1,5 +1,5 @@
 {
-    "testCaseName": "Valid transaction, Ethereum, 2/4 owners, 1/2 confirmations",
+    "testCaseName": "All valid signatures for v1.0.0",
     "chain": {
         "chainId": "1",
         "chainName": "Ethereum",
