@@ -117,7 +117,7 @@ final class TransactionValidationTests: CoreDataTestCase {
         try builder.validate(tx: testCase.tx, safe: safe)
     }
     
-    func testSigning() throws {
+    func testGenerateEthSignSignature() throws {
         let key = try PrivateKey(data:  Data(hex: "0xe7979e5f2ceb1d4ef76019d1fdba88b50ceefe0575bbfdf94969837c50a5d895"))
         //
         let messageHash: Data = Data(hex: "aed54190962dce2c448391841fcd7730eb23ac18c5fa2a7896ac9074bf38f127")
@@ -144,8 +144,8 @@ final class TransactionValidationTests: CoreDataTestCase {
         print(address) // 0x728cafe9fB8CC2218Fb12a9A2D9335193caa07e0
     }
     
-    func testSome() {
-        // contract signature
+    func testGenerateFakeSignatureData() {
+        // type 'contract signature' (0)
         let s = Data(repeating: 0xab, count: 32)
         
         let addr1: Sol.Address = "0x9F87C1aCaF3Afc6a5557c58284D9F8609470b571"
@@ -154,7 +154,7 @@ final class TransactionValidationTests: CoreDataTestCase {
         
         print(data1.toHexStringWithPrefix())
         
-        // approvedHash
+        // type 'approved hash' (1)
         let addr2: Sol.Address = "0x9F7dfAb2222A473284205cdDF08a677726d786A0"
         let data2 = addr2.encode() + s + Data([1])
         print(data2.toHexStringWithPrefix())

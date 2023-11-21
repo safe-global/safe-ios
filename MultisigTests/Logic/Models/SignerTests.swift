@@ -56,7 +56,4 @@ class SignerTests: XCTestCase {
 
         XCTAssertEqual(pubKey.address.hex(eip55: true), "0xe44F9E113Fbd671Bf697d5a1cf1716E1a8c3F35b")
     }
-    
 }
-
-
