@@ -1029,6 +1029,13 @@
 		B367AED22B0CB89600F06B86 /* TransactionValidationTestCase1.json in Resources */ = {isa = PBXBuildFile; fileRef = B367AED12B0CB89600F06B86 /* TransactionValidationTestCase1.json */; };
 		B3710B3D2AD584BE002E503B /* SecureConfig in Frameworks */ = {isa = PBXBuildFile; productRef = B3710B3C2AD584BE002E503B /* SecureConfig */; };
 		B3710B442AD5AAD7002E503B /* config.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B3710B432AD5AAD7002E503B /* config.bundle */; };
+		B380756B2B0CF45200C62BCF /* TransactionValidationTestCase_InvalidSafeTxHash.json in Resources */ = {isa = PBXBuildFile; fileRef = B380756A2B0CF45200C62BCF /* TransactionValidationTestCase_InvalidSafeTxHash.json */; };
+		B380756D2B0CF60A00C62BCF /* TransactionValidationTestCase_NoConfirmations.json in Resources */ = {isa = PBXBuildFile; fileRef = B380756C2B0CF60A00C62BCF /* TransactionValidationTestCase_NoConfirmations.json */; };
+		B380756F2B0CF6AC00C62BCF /* TransactionValidationTestCase_ConfirmationsNotFromOwners.json in Resources */ = {isa = PBXBuildFile; fileRef = B380756E2B0CF6AC00C62BCF /* TransactionValidationTestCase_ConfirmationsNotFromOwners.json */; };
+		B38075712B0CF75200C62BCF /* TransactionValidationTestCase_SignerNotMatchingSignature.json in Resources */ = {isa = PBXBuildFile; fileRef = B38075702B0CF75200C62BCF /* TransactionValidationTestCase_SignerNotMatchingSignature.json */; };
+		B38075732B0CF7C600C62BCF /* TransactionValidationTestCase_MultipleConfirmations.json in Resources */ = {isa = PBXBuildFile; fileRef = B38075722B0CF7C600C62BCF /* TransactionValidationTestCase_MultipleConfirmations.json */; };
+		B38075752B0CF85900C62BCF /* TransactionValidationTestCase_AllSignatureTypes_v1_1_0.json in Resources */ = {isa = PBXBuildFile; fileRef = B38075742B0CF85900C62BCF /* TransactionValidationTestCase_AllSignatureTypes_v1_1_0.json */; };
+		B38075772B0CFD3A00C62BCF /* TransactionValidationTestCase_AllSignatureTypes_v1_0_0.json in Resources */ = {isa = PBXBuildFile; fileRef = B38075762B0CFD3A00C62BCF /* TransactionValidationTestCase_AllSignatureTypes_v1_0_0.json */; };
 		B3B6044F2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B6044E2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift */; };
 		B3C4D2D92AAF596D0026A8BC /* UIViewController+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C4D2D82AAF596D0026A8BC /* UIViewController+Navigation.swift */; };
 		D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A022769CEAD00D6E024 /* Tooltip.swift */; };
@@ -2089,6 +2096,13 @@
 		B3710B432AD5AAD7002E503B /* config.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = config.bundle; sourceTree = "<group>"; };
 		B3710B452AD5AE9D002E503B /* apis-prod.example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "apis-prod.example.json"; sourceTree = "<group>"; };
 		B3710B462AD5AE9D002E503B /* apis-staging.example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "apis-staging.example.json"; sourceTree = "<group>"; };
+		B380756A2B0CF45200C62BCF /* TransactionValidationTestCase_InvalidSafeTxHash.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TransactionValidationTestCase_InvalidSafeTxHash.json; sourceTree = "<group>"; };
+		B380756C2B0CF60A00C62BCF /* TransactionValidationTestCase_NoConfirmations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransactionValidationTestCase_NoConfirmations.json; sourceTree = "<group>"; };
+		B380756E2B0CF6AC00C62BCF /* TransactionValidationTestCase_ConfirmationsNotFromOwners.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransactionValidationTestCase_ConfirmationsNotFromOwners.json; sourceTree = "<group>"; };
+		B38075702B0CF75200C62BCF /* TransactionValidationTestCase_SignerNotMatchingSignature.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransactionValidationTestCase_SignerNotMatchingSignature.json; sourceTree = "<group>"; };
+		B38075722B0CF7C600C62BCF /* TransactionValidationTestCase_MultipleConfirmations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransactionValidationTestCase_MultipleConfirmations.json; sourceTree = "<group>"; };
+		B38075742B0CF85900C62BCF /* TransactionValidationTestCase_AllSignatureTypes_v1_1_0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransactionValidationTestCase_AllSignatureTypes_v1_1_0.json; sourceTree = "<group>"; };
+		B38075762B0CFD3A00C62BCF /* TransactionValidationTestCase_AllSignatureTypes_v1_0_0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransactionValidationTestCase_AllSignatureTypes_v1_0_0.json; sourceTree = "<group>"; };
 		B3B6044E2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertControllerStyle+Multiplatform.swift"; sourceTree = "<group>"; };
 		B3C4D2D82AAF596D0026A8BC /* UIViewController+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Navigation.swift"; sourceTree = "<group>"; };
 		D80B5A022769CEAD00D6E024 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
@@ -3482,6 +3496,13 @@
 				0A64313F247ED1AA006FD30A /* MultisigIntegrationTests.xctestplan */,
 				B367AECE2B0CB59700F06B86 /* TransactionValidationTests.swift */,
 				B367AED12B0CB89600F06B86 /* TransactionValidationTestCase1.json */,
+				B38075762B0CFD3A00C62BCF /* TransactionValidationTestCase_AllSignatureTypes_v1_0_0.json */,
+				B38075742B0CF85900C62BCF /* TransactionValidationTestCase_AllSignatureTypes_v1_1_0.json */,
+				B38075722B0CF7C600C62BCF /* TransactionValidationTestCase_MultipleConfirmations.json */,
+				B380756C2B0CF60A00C62BCF /* TransactionValidationTestCase_NoConfirmations.json */,
+				B38075702B0CF75200C62BCF /* TransactionValidationTestCase_SignerNotMatchingSignature.json */,
+				B380756E2B0CF6AC00C62BCF /* TransactionValidationTestCase_ConfirmationsNotFromOwners.json */,
+				B380756A2B0CF45200C62BCF /* TransactionValidationTestCase_InvalidSafeTxHash.json */,
 				0A802B8F24E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift */,
 				0A513A9C2768EBC900F07D5A /* DelegateKeyTests.swift */,
 				5532D4D02449A1E40067505A /* MockLogger.swift */,
@@ -5220,11 +5241,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B38075732B0CF7C600C62BCF /* TransactionValidationTestCase_MultipleConfirmations.json in Resources */,
+				B38075772B0CFD3A00C62BCF /* TransactionValidationTestCase_AllSignatureTypes_v1_0_0.json in Resources */,
+				B38075752B0CF85900C62BCF /* TransactionValidationTestCase_AllSignatureTypes_v1_1_0.json in Resources */,
 				0AA5F55F28BF6F2200D6D220 /* claiming_test_fixtures.yml in Resources */,
+				B380756B2B0CF45200C62BCF /* TransactionValidationTestCase_InvalidSafeTxHash.json in Resources */,
+				B380756D2B0CF60A00C62BCF /* TransactionValidationTestCase_NoConfirmations.json in Resources */,
 				0A61E8452670E632009D68A4 /* __Snapshots__ in Resources */,
 				6A91EFDA27DA2C8D009E63E9 /* wc_registry_wallets.json in Resources */,
 				0AA5F55D28BF667000D6D220 /* claiming_test_fixtures.json in Resources */,
+				B380756F2B0CF6AC00C62BCF /* TransactionValidationTestCase_ConfirmationsNotFromOwners.json in Resources */,
 				B367AED22B0CB89600F06B86 /* TransactionValidationTestCase1.json in Resources */,
+				B38075712B0CF75200C62BCF /* TransactionValidationTestCase_SignerNotMatchingSignature.json in Resources */,
 				0A74719A269F152D008E9F2D /* chains_4_safes_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_balances_usd.json in Resources */,
 				0A3DFEFE2667D3A700B45770 /* README.md in Resources */,
 			);

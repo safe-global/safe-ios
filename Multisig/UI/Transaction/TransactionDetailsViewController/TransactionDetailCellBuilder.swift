@@ -453,7 +453,7 @@ class TransactionDetailCellBuilder {
         }
         
         guard !txMultisigInfo.confirmations.isEmpty else {
-            throw "Transaction has no confirmations. This may be a dangerous transaction"
+            throw "Transaction has no confirmations."
         }
         
         // all confirming addresses are from safe owners

@@ -1,0 +1,265 @@
+{
+    "testCaseName": "Valid transaction, Ethereum, 2/4 owners, 1/2 confirmations",
+    "chain": {
+        "chainId": "1",
+        "chainName": "Ethereum",
+        "description": "The main Ethereum network",
+        "l2": false,
+        "nativeCurrency": {
+          "name": "Ether",
+          "symbol": "ETH",
+          "decimals": 18,
+          "logoUri": "https://safe-transaction-assets.safe.global/chains/1/currency_logo.png"
+        },
+        "transactionService": "https://safe-transaction-mainnet.safe.global",
+        "blockExplorerUriTemplate": {
+          "address": "https://etherscan.io/address/{{address}}",
+          "txHash": "https://etherscan.io/tx/{{txHash}}",
+          "api": "https://api.etherscan.io/api?module={{module}}&action={{action}}&address={{address}}&apiKey={{apiKey}}"
+        },
+        "disabledWallets": [
+          "NONE",
+          "opera",
+          "operaTouch",
+          "safeMobile",
+          "socialSigner",
+          "tally",
+          "trust",
+          "walletConnect"
+        ],
+        "ensRegistryAddress": "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e",
+        "features": [
+          "CONTRACT_INTERACTION",
+          "DEFAULT_TOKENLIST",
+          "DOMAIN_LOOKUP",
+          "EIP1271",
+          "EIP1559",
+          "ERC721",
+          "MOONPAY_MOBILE",
+          "NATIVE_WALLETCONNECT",
+          "PUSH_NOTIFICATIONS",
+          "RISK_MITIGATION",
+          "SAFE_APPS",
+          "SAFE_TX_GAS_OPTIONAL",
+          "SOCIAL_LOGIN",
+          "SPENDING_LIMIT",
+          "TX_SIMULATION"
+        ],
+        "gasPrice": [
+          {
+            "type": "oracle",
+            "uri": "https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=JNFAU892RF9TJWBU3EV7DJCPIWZY8KEMY1",
+            "gasParameter": "FastGasPrice",
+            "gweiFactor": "1000000000.000000000"
+          }
+        ],
+        "publicRpcUri": {
+          "authentication": "NO_AUTHENTICATION",
+          "value": "https://cloudflare-eth.com"
+        },
+        "rpcUri": {
+          "authentication": "API_KEY_PATH",
+          "value": "https://mainnet.infura.io/v3/"
+        },
+        "safeAppsRpcUri": {
+          "authentication": "API_KEY_PATH",
+          "value": "https://mainnet.infura.io/v3/"
+        },
+        "shortName": "eth",
+        "theme": {
+          "textColor": "#001428",
+          "backgroundColor": "#DDDDDD"
+        }
+      },
+    "safe": {
+        "address": {
+          "value": "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7",
+          "name": null,
+          "logoUri": null
+        },
+        "chainId": "1",
+        "nonce": 20,
+        "threshold": 2,
+        "owners": [
+          {
+            "value": "0x9F87C1aCaF3Afc6a5557c58284D9F8609470b571",
+            "name": null,
+            "logoUri": null
+          },
+          {
+            "value": "0x8712128BEA09C9687Df05A5D692F3750F8086C81",
+            "name": null,
+            "logoUri": null
+          },
+          {
+            "value": "0x80F59C1D46EFC1Bb18F0AaEc132b77266f00Be9a",
+            "name": null,
+            "logoUri": null
+          },
+          {
+            "value": "0x9F7dfAb2222A473284205cdDF08a677726d786A0",
+            "name": null,
+            "logoUri": null
+          }
+        ],
+        "implementation": {
+          "value": "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F",
+          "name": "Safe 1.1.1",
+          "logoUri": "https://safe-transaction-assets.safe.global/contracts/logos/0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F.png"
+        },
+        "implementationVersionState": "OUTDATED",
+        "collectiblesTag": "1663062476",
+        "txQueuedTag": "1670938242",
+        "txHistoryTag": "1697840747",
+        "messagesTag": "1700560947",
+        "modules": [
+          {
+            "value": "0xCFbFaC74C26F8647cBDb8c5caf80BB5b32E43134",
+            "name": null,
+            "logoUri": null
+          }
+        ],
+        "fallbackHandler": {
+          "value": "0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44",
+          "name": "Safe: DefaultCallbackHandler 1.1.1",
+          "logoUri": "https://safe-transaction-assets.safe.global/contracts/logos/0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44.png"
+        },
+        "guard": null,
+        "version": "1.1.1"
+      },
+    "tx": {
+        "safeAddress": "0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7",
+        "txId": "multisig_0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7_0xa6de2e7c697f0bd469fa1d9e24f4d955a6ba013eecc770a63781aa3698c9abe5",
+        "executedAt": 1694994827000,
+        "txStatus": "FAILED",
+        "txInfo": {
+          "type": "Custom",
+          "humanDescription": null,
+          "richDecodedInfo": null,
+          "to": {
+            "value": "0x8D29bE29923b68abfDD21e541b9374737B49cdAD",
+            "name": "Safe: MultiSend 1.1.1",
+            "logoUri": "https://safe-transaction-assets.safe.global/contracts/logos/0x8D29bE29923b68abfDD21e541b9374737B49cdAD.png"
+          },
+          "dataSize": "164",
+          "value": "0",
+          "methodName": "multiSend",
+          "actionCount": 1,
+          "isCancellation": false
+        },
+        "txData": {
+          "hexData": "0x8d80ff0a00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000059004ddc2d193948926d02f9b1fe9e1daa0718270ed5000000000000000000000000000000000000000000000000016345785d8a000000000000000000000000000000000000000000000000000000000000000000041249c58b00000000000000",
+          "dataDecoded": {
+            "method": "multiSend",
+            "parameters": [
+              {
+                "name": "transactions",
+                "type": "bytes",
+                "value": "0x004ddc2d193948926d02f9b1fe9e1daa0718270ed5000000000000000000000000000000000000000000000000016345785d8a000000000000000000000000000000000000000000000000000000000000000000041249c58b",
+                "valueDecoded": [
+                  {
+                    "operation": 0,
+                    "to": "0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5",
+                    "value": "100000000000000000",
+                    "data": "0x1249c58b",
+                    "dataDecoded": {
+                      "method": "mint",
+                      "parameters": []
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "to": {
+            "value": "0x8D29bE29923b68abfDD21e541b9374737B49cdAD",
+            "name": "Safe: MultiSend 1.1.1",
+            "logoUri": "https://safe-transaction-assets.safe.global/contracts/logos/0x8D29bE29923b68abfDD21e541b9374737B49cdAD.png"
+          },
+          "value": "0",
+          "operation": 1,
+          "trustedDelegateCallTarget": true,
+          "addressInfoIndex": {
+            "0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5": {
+              "value": "0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5",
+              "name": "Compound Ether",
+              "logoUri": "https://safe-transaction-assets.safe.global/tokens/logos/0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5.png"
+            }
+          }
+        },
+        "txHash": "0x0444a2bf7b7d77dd3de5b1fd2a082e06e3f0e23aafe3e199b941596e6daaceb1",
+        "detailedExecutionInfo": {
+          "type": "MULTISIG",
+          "submittedAt": 1607940967582,
+          "nonce": 19,
+          "safeTxGas": "135275",
+          "baseGas": "0",
+          "gasPrice": "0",
+          "gasToken": "0x0000000000000000000000000000000000000000",
+          "refundReceiver": {
+            "value": "0x0000000000000000000000000000000000000000",
+            "name": null,
+            "logoUri": null
+          },
+          "safeTxHash": "0xa6de2e7c697f0bd469fa1d9e24f4d955a6ba013eecc770a63781aa3698c9abe5",
+          "executor": {
+            "value": "0x357274B8fE85c7696106fC4a8E4D26A53981bAcc",
+            "name": null,
+            "logoUri": null
+          },
+          "signers": [
+            {
+              "value": "0x9F87C1aCaF3Afc6a5557c58284D9F8609470b571",
+              "name": null,
+              "logoUri": null
+            },
+            {
+              "value": "0x8712128BEA09C9687Df05A5D692F3750F8086C81",
+              "name": null,
+              "logoUri": null
+            },
+            {
+              "value": "0x80F59C1D46EFC1Bb18F0AaEc132b77266f00Be9a",
+              "name": null,
+              "logoUri": null
+            },
+            {
+              "value": "0x9F7dfAb2222A473284205cdDF08a677726d786A0",
+              "name": null,
+              "logoUri": null
+            }
+          ],
+          "confirmationsRequired": 2,
+          "confirmations": [
+            {
+              "signer": {
+                "value": "0x80F59C1D46EFC1Bb18F0AaEc132b77266f00Be9a",
+                "name": null,
+                "logoUri": null
+              },
+              "signature": "0x16cf24cddee1d9b947cc330a57daa5b83c64bfa3b26faf5bfff7c281f2bf8a5558016b5878ce3d7df04339f089e9e444642ec0ee13c2b1482150d37e80e58fdf1c",
+              "submittedAt": 1607940967600
+            },
+            {
+              "signer": {
+                "value": "0x8712128BEA09C9687Df05A5D692F3750F8086C81",
+                "name": null,
+                "logoUri": null
+              },
+              "signature": "0x3ac535045d56e25d318e8a70f7bd1b26224fd11089c3ff41552f633547b86705764e110f7c889ca9322784846377cd3a986ee9253bdfd2737238ad1a60a1142e1c",
+              "submittedAt": 1616371316036
+            }
+          ],
+          "rejectors": [
+            {
+              "value": "0x8712128BEA09C9687Df05A5D692F3750F8086C81",
+              "name": null,
+              "logoUri": null
+            }
+          ],
+          "gasTokenInfo": null,
+          "trusted": true
+        },
+        "safeAppInfo": null
+      }
+}
