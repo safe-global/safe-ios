@@ -161,7 +161,7 @@ class TransactionIntegrationTests: XCTestCase {
         continueAfterFailure = false
         let privateKey = try PrivateKey(data: Data(hex: "0xe7979e5f2ceb1d4ef76019d1fdba88b50ceefe0575bbfdf94969837c50a5d895"))
 
-        let input = ERC20.transfer(
+        let callData = ERC20.transfer(
             // eoa address
 //            to: "Ad302A4b09402b41EC3Fb4981B63E4Dd141fed6d",
             // safe address
@@ -170,7 +170,7 @@ class TransactionIntegrationTests: XCTestCase {
             value: 1000
         ).encode()
 
-        print("call data", input.toHexStringWithPrefix())
+        print("call data", callData.toHexStringWithPrefix())
 
         let minerTip = Eth.Amount(value: 2, unit: Eth.Unit.gigawei).converted(to: Eth.Unit.wei).value
 
@@ -180,7 +180,7 @@ class TransactionIntegrationTests: XCTestCase {
             // erc20 contract address (LOVE)
             to: "b3a4Bc89d8517E0e2C9B66703d09D3029ffa1e6d",
             // erc20 transfer call
-            input: Sol.Bytes(storage: input),
+            input: Sol.Bytes(storage: callData),
             fee: Eth.Fee1559(
                 maxFeePerGas: minerTip,
                 maxPriorityFee: minerTip
@@ -405,7 +405,7 @@ class TransactionIntegrationTests: XCTestCase {
             confirmation.signature.data
         }.joined()
 
-        let input = try GnosisSafe_v1_3_0.execTransaction(
+        let callData = try GnosisSafe_v1_3_0.execTransaction(
             to:  Sol.Address(txData.to.value.data32),
             value: Sol.UInt256(txData.value.data32),
             data: Sol.Bytes(storage: txData.hexData?.data ?? Data()),
@@ -419,7 +419,7 @@ class TransactionIntegrationTests: XCTestCase {
             signatures: Sol.Bytes(storage: Data(signatures))
         ).encode()
 
-        print("call data", input.toHexStringWithPrefix())
+        print("call data", callData.toHexStringWithPrefix())
 
         let minerTip = Eth.Amount(value: 2, unit: Eth.Unit.gigawei).converted(to: Eth.Unit.wei).value
 
@@ -427,7 +427,7 @@ class TransactionIntegrationTests: XCTestCase {
             chainId: 4,
             from: "728cafe9fB8CC2218Fb12a9A2D9335193caa07e0",
             to: "dd1D27C114aB45e8A650B251eDFA1b0795bbe020",
-            input: Sol.Bytes(storage: input),
+            input: Sol.Bytes(storage: callData),
             fee: Eth.Fee1559(
                 maxFeePerGas: minerTip,
                 maxPriorityFee: minerTip
