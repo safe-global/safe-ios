@@ -49,17 +49,17 @@ class TransactionDetailCellBuilder {
         tableView.registerCell(WarningTableViewCell.self)
     }
 
-    func build(_ tx: SCGModels.TransactionDetails, _ safe: Safe?) -> [UITableViewCell] {
+    func build(_ tx: SCGModels.TransactionDetails) -> [UITableViewCell] {
         result = []
-        buildTransaction(tx, safe)
+        buildTransaction(tx)
         return result
     }
 
-    func buildTransaction(_ tx: SCGModels.TransactionDetails, _ safe: Safe? = nil) {
+    func buildTransaction(_ tx: SCGModels.TransactionDetails) {
         let isCreationTx = buildCreationTx(tx)
         if !isCreationTx {
+            buildWarning(tx)
             buildHeader(tx)
-            // buildWarning(tx, safe)
             buildAssetContract(tx)
             buildStatus(tx)
             buildMultisigInfo(tx)
@@ -433,15 +433,14 @@ class TransactionDetailCellBuilder {
             isOutgoing: isOutgoing)
     }
     
-    // TODO: Move this out into a class or function and Unit-Test it and / or Integration Test it.
-    func buildWarning(_ tx: SCGModels.TransactionDetails, _ safe: Safe? = nil) {
+    func validate(tx: SCGModels.TransactionDetails, safe: Safe) throws {
         guard tx.txStatus.isAwatingConfiramtions || tx.txStatus == .awaitingExecution else {
             // don't warn outside of signature or execution requests
             return
         }
         
         // safe has owners
-        guard let safe = safe, let ownersInfo = safe.ownersInfo, !ownersInfo.isEmpty else {
+        guard let ownersInfo = safe.ownersInfo, !ownersInfo.isEmpty else {
             // not enough data for further checks
             return
         }
@@ -454,16 +453,14 @@ class TransactionDetailCellBuilder {
         }
         
         guard !txMultisigInfo.confirmations.isEmpty else {
-            warningCell("Warning: transaction has no confirmations. This may be a dangerous transaction")
-            return
+            throw "Transaction has no confirmations. This may be a dangerous transaction"
         }
         
         // all confirming addresses are from safe owners
         guard txMultisigInfo.confirmations.allSatisfy({ confirmation in
             ownerAddresses.contains(confirmation.signer.value.address)
         }) else {
-            warningCell("Warning: not all confirmations are from safe owners.")
-            return
+            throw "Not all confirmations are from safe owners."
         }
         
         // transaction hash is valid
@@ -482,8 +479,7 @@ class TransactionDetailCellBuilder {
             let computedSafeTxHash = transaction.safeTransactionHash(),
             transaction.safeTxHash == computedSafeTxHash
         else {
-            warningCell("Warning: safeTxHash is invalid. This may be a dangerous transaction.")
-            return
+            throw "Invalid safeTxHash. This may be a dangerous transaction."
         }
         
         // all confirming signatures are from a confirming addresses
@@ -493,9 +489,9 @@ class TransactionDetailCellBuilder {
                 return nil
             }
             
-            let v: UInt8 = signature[0]
-            let r: Data /* 32 bytes */ = signature[1...32]
-            let s: Data /* 32 bytes */ = signature[33...64]
+            let r: Data /* 32 bytes */ = signature[0..<32]
+            let s: Data /* 32 bytes */ = signature[32..<64]
+            let v: UInt8 = signature[64]
             
             let contractSignature: UInt8 = 0
             let approvedHashSignature: UInt8 = 1
@@ -522,9 +518,11 @@ class TransactionDetailCellBuilder {
                     return owner
                     
                 default:
+                    let message = transaction.encodeTransactionData()
+
                     let pubKey = try? EthereumPublicKey(
-                        message: computedSafeTxHash.hash.makeBytes(),
-                        v: EthereumQuantity(quantity: BigUInt(v)),
+                        message: message.makeBytes(),
+                        v: EthereumQuantity(quantity: v >= 27 ? BigUInt(v) - 27 : BigUInt(v)),
                         r: EthereumQuantity(r.makeBytes()),
                         s: EthereumQuantity(s.makeBytes())
                     )
@@ -537,15 +535,16 @@ class TransactionDetailCellBuilder {
                     let owner = (try? Sol.Address(data: r)).map { Address($0) }
                     return owner
                 default:
+                    let message = transaction.encodeTransactionData()
+
                     let pubKey = try? EthereumPublicKey(
-                        message: computedSafeTxHash.hash.makeBytes(),
-                        v: EthereumQuantity(quantity: BigUInt(v)),
+                        message: message.makeBytes(),
+                        v: EthereumQuantity(quantity: v >= 27 ? BigUInt(v) - 27 : BigUInt(v)),
                         r: EthereumQuantity(r.makeBytes()),
                         s: EthereumQuantity(s.makeBytes())
                     )
                     let owner = pubKey.map(\.address).map(Address.init)
                     return owner
-
                 }
             }
         }
@@ -553,17 +552,21 @@ class TransactionDetailCellBuilder {
         guard txMultisigInfo.confirmations.allSatisfy({ confirmation in
             signer(of: confirmation.signature.data) == confirmation.signer.value.address
         }) else {
-            warningCell("Warning: not all signatures are from safe's owners.")
-            return
+            throw "Not all signatures are from safe's owners. This may be a dangerous transaction."
         }
-        
-        // all good! no warnings.
     }
     
-    func warningCell(_ text: String) {
-        let cell = newCell(WarningTableViewCell.self)
-        cell.set(title: text)
-        result.append(cell)
+    func buildWarning(_ tx: SCGModels.TransactionDetails) {
+        do {
+            guard let aSafe = Safe.by(address: tx.safeAddress.description, chainId: chain.id!) else {
+                return
+            }
+            try validate(tx: tx, safe: aSafe)
+        } catch {
+            let cell = newCell(WarningTableViewCell.self)
+            cell.set(title: "Warning!", description: error.localizedDescription)
+            result.append(cell)
+        }
     }
 
 

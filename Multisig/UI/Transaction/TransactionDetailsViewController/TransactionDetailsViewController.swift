@@ -511,7 +511,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         self.tx = transformer.transformed(transaction: self.tx!)
 
         trackScreen()
-        cells = builder.build(self.tx!, safe)
+        cells = builder.build(self.tx!)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

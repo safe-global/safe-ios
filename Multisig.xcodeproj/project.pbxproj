@@ -274,7 +274,6 @@
 		04FEFE8128C6304B0028A349 /* TokenDistributionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04FEFE7F28C6304B0028A349 /* TokenDistributionViewController.xib */; };
 		0A007124254B255C00A57CAF /* UIFont+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A007123254B255C00A57CAF /* UIFont+Styles.swift */; };
 		0A00712A254B379000A57CAF /* UIColor+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A007129254B379000A57CAF /* UIColor+Styles.swift */; };
-		0A01DCE42770B0A100A87D7A /* TransactionIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A01DCE32770B0A100A87D7A /* TransactionIntegrationTests.swift */; };
 		0A0391CB27C565D4003C871A /* IconButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A0391C727C565D3003C871A /* IconButtonTableViewCell.xib */; };
 		0A0391CC27C565D4003C871A /* HelpTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0391C827C565D3003C871A /* HelpTextTableViewCell.swift */; };
 		0A0391CD27C565D4003C871A /* HelpTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A0391C927C565D3003C871A /* HelpTextTableViewCell.xib */; };
@@ -1026,6 +1025,8 @@
 		B32620492A961E690003A2F0 /* AddSafeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32620482A961E690003A2F0 /* AddSafeFlow.swift */; };
 		B343BEB32A77DDA1006BF46B /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0491067C28F99246005A4A99 /* DMSans-Bold.ttf */; };
 		B35BFD0F2A937DC000A9FB15 /* NavigationRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BFD0E2A937DC000A9FB15 /* NavigationRouterTests.swift */; };
+		B367AED02B0CB69200F06B86 /* TransactionValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B367AECE2B0CB59700F06B86 /* TransactionValidationTests.swift */; };
+		B367AED22B0CB89600F06B86 /* TransactionValidationTestCase1.json in Resources */ = {isa = PBXBuildFile; fileRef = B367AED12B0CB89600F06B86 /* TransactionValidationTestCase1.json */; };
 		B3710B3D2AD584BE002E503B /* SecureConfig in Frameworks */ = {isa = PBXBuildFile; productRef = B3710B3C2AD584BE002E503B /* SecureConfig */; };
 		B3710B442AD5AAD7002E503B /* config.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B3710B432AD5AAD7002E503B /* config.bundle */; };
 		B3B6044F2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B6044E2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift */; };
@@ -2082,6 +2083,8 @@
 		B300E8CA2AF3A7A90073A908 /* SafeNoncesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeNoncesRequest.swift; sourceTree = "<group>"; };
 		B32620482A961E690003A2F0 /* AddSafeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSafeFlow.swift; sourceTree = "<group>"; };
 		B35BFD0E2A937DC000A9FB15 /* NavigationRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouterTests.swift; sourceTree = "<group>"; };
+		B367AECE2B0CB59700F06B86 /* TransactionValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionValidationTests.swift; sourceTree = "<group>"; };
+		B367AED12B0CB89600F06B86 /* TransactionValidationTestCase1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TransactionValidationTestCase1.json; sourceTree = "<group>"; };
 		B3710B3B2AD58492002E503B /* SecureConfig */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SecureConfig; path = Packages/SecureConfig; sourceTree = "<group>"; };
 		B3710B432AD5AAD7002E503B /* config.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = config.bundle; sourceTree = "<group>"; };
 		B3710B452AD5AE9D002E503B /* apis-prod.example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "apis-prod.example.json"; sourceTree = "<group>"; };
@@ -3477,6 +3480,8 @@
 				6A91EFD827DA2C45009E63E9 /* Data */,
 				0A3DFF002667D7DA00B45770 /* CoreData */,
 				0A64313F247ED1AA006FD30A /* MultisigIntegrationTests.xctestplan */,
+				B367AECE2B0CB59700F06B86 /* TransactionValidationTests.swift */,
+				B367AED12B0CB89600F06B86 /* TransactionValidationTestCase1.json */,
 				0A802B8F24E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift */,
 				0A513A9C2768EBC900F07D5A /* DelegateKeyTests.swift */,
 				5532D4D02449A1E40067505A /* MockLogger.swift */,
@@ -5219,6 +5224,7 @@
 				0A61E8452670E632009D68A4 /* __Snapshots__ in Resources */,
 				6A91EFDA27DA2C8D009E63E9 /* wc_registry_wallets.json in Resources */,
 				0AA5F55D28BF667000D6D220 /* claiming_test_fixtures.json in Resources */,
+				B367AED22B0CB89600F06B86 /* TransactionValidationTestCase1.json in Resources */,
 				0A74719A269F152D008E9F2D /* chains_4_safes_0x1230B3d59858296A31053C1b8562Ecf89A2f888b_balances_usd.json in Resources */,
 				0A3DFEFE2667D3A700B45770 /* README.md in Resources */,
 			);
@@ -5996,13 +6002,13 @@
 				0A9BC35F246058F800EB9C5D /* MockLogger.swift in Sources */,
 				550A6182268A23A9002C02E1 /* SafeNetworkMigrationTests.swift in Sources */,
 				0A7B3518288071EB00EC04EC /* TestCoreDataStack.swift in Sources */,
-				0A01DCE42770B0A100A87D7A /* TransactionIntegrationTests.swift in Sources */,
 				0A65522B28816B9900701238 /* TestingAppDelegate.swift in Sources */,
 				0A61E83E2670DED5009D68A4 /* BalanceTableViewCellTests.swift in Sources */,
 				0A3DFEF72667D1C000B45770 /* CoreDataTestCase.swift in Sources */,
 				0A06532F27B68AF40008C5F1 /* WebConnectionRepositoryTests.swift in Sources */,
 				0A6552282881642300701238 /* UIIntegrationTestCase.swift in Sources */,
 				0A802B9024E581A50001790F /* SafeClientGatewayServiceIntegrationTests.swift in Sources */,
+				B367AED02B0CB69200F06B86 /* TransactionValidationTests.swift in Sources */,
 				0AC62ED628783700007945A1 /* CreatePasscodeFlowTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
