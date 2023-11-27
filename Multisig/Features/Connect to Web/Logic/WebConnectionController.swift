@@ -7,6 +7,7 @@ import Foundation
 import WalletConnectSwift
 import Ethereum
 import Solidity
+import WalletConnectSign
 
 protocol WebConnectionObserver: AnyObject {
     func didUpdate(connection: WebConnection)
@@ -121,7 +122,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
     }
 
-    // MARK: - Request Observer
+    // MARK: - WalletConnectSwift.Request Observer
 
     private var requestListObservers: [WebConnectionRequestObserver] = []
     private var requestObservers: [WebRequestIdentifier: [WebConnectionRequestObserver]] = [:]
@@ -369,7 +370,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
     }
 
-    func connection(for session: Session) -> WebConnection? {
+    func connection(for session: WalletConnectSwift.Session) -> WebConnection? {
         connection(for: session.url)
     }
 
@@ -546,7 +547,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             if connection.connectedAsWallet {
                 try server.updateSession(session, with: walletInfo)
             } else {
-                let request = try Request(url: connection.connectionURL.wcURL, method: "wc_sessionUpdate", params: [walletInfo], id: nil)
+                let request = try WalletConnectSwift.Request(url: connection.connectionURL.wcURL, method: "wc_sessionUpdate", params: [walletInfo], id: nil)
                 try client.send(request, completion: nil)
             }
 
@@ -558,11 +559,11 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
     // MARK: - Server Delegate (Server events)
 
-    func server(_ server: Server, shouldStart session: Session, completion: @escaping (Session.WalletInfo) -> ()) {
+    func server(_ server: Server, shouldStart session: WalletConnectSwift.Session, completion: @escaping (WalletConnectSwift.Session.WalletInfo) -> ()) {
         // ignore this, because we implement another method - didReceiveConnectionRequest
     }
 
-    func server(_ server: Server, didReceiveConnectionRequest requestId: RequestID, for session: Session) {
+    func server(_ server: Server, didReceiveConnectionRequest requestId: RequestID, for session: WalletConnectSwift.Session) {
         // we save the information from the request and wait until user responds with some action.
         // main thread needed because of the CoreData dependency
         DispatchQueue.main.async { [unowned self] in
@@ -572,7 +573,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             assert(connection.status == .handshaking)
             sessionTransformer.update(connection: connection, with: session)
 
-            let wcRequest = Request(url: session.url, method: "wc_sessionRequest", id: requestId)
+            let wcRequest = WalletConnectSwift.Request(url: session.url, method: "wc_sessionRequest", id: requestId)
             guard let request = sessionTransformer.request(from: wcRequest) else {
                 respondToSessionCreation(connection)
                 handle(error: WebConnectionError.connectionStartFailed, in: connection)
@@ -607,11 +608,11 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         handleConnectionFailure(url)
     }
 
-    func server(_ server: Server, didConnect session: Session) {
+    func server(_ server: Server, didConnect session: WalletConnectSwift.Session) {
         // ignore
     }
 
-    fileprivate func handleConnectionClosed(_ session: Session) {
+    fileprivate func handleConnectionClosed(_ session: WalletConnectSwift.Session) {
         // when the connection is closed from outside
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -620,13 +621,13 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
     }
 
-    func server(_ server: Server, didDisconnect session: Session) {
+    func server(_ server: Server, didDisconnect session: WalletConnectSwift.Session) {
         handleConnectionClosed(session)
     }
 
     // this will be called when session's chain Id or accounts change
     // when session is closed (approved = false), the 'disconnect' method will be called instead.
-    fileprivate func handleSessionUpdate(_ updatedSession: Session) {
+    fileprivate func handleSessionUpdate(_ updatedSession: WalletConnectSwift.Session) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             guard let connection = self.connection(for: updatedSession), connection.status == .opened else { return }
@@ -691,39 +692,39 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
     }
 
-    func server(_ server: Server, didUpdate updatedSession: Session) {
+    func server(_ server: Server, didUpdate updatedSession: WalletConnectSwift.Session) {
         handleSessionUpdate(updatedSession)
     }
 
-    func server(_ server: Server, willReconnect session: Session) {
+    func server(_ server: Server, willReconnect session: WalletConnectSwift.Session) {
         // not implemented
     }
 
-    // MARK: - Server Request Handling
+    // MARK: - Server WalletConnectSwift.Request Handling
 
-    func canHandle(request: Request) -> Bool {
+    func canHandle(request: WalletConnectSwift.Request) -> Bool {
         ["eth_sign", "eth_sendTransaction"].contains(request.method)
     }
 
-    func handle(request wcRequest: Request) {
+    func handle(request wcRequest: WalletConnectSwift.Request) {
         if !Thread.isMainThread {
             DispatchQueue.main.async { [weak self] in self?.handle(request: wcRequest) }
             return
         }
         // convert WC request to a connection request
         guard let request = sessionTransformer.request(from: wcRequest) else {
-            try? server.send(Response(request: wcRequest, error: .invalidParams))
+            try? server.send(WalletConnectSwift.Response(request: wcRequest, error: .invalidParams))
             return
         }
         guard let url = request.connectionURL, let connection = connection(for: url), connection.status == .opened else {
-            try? server.send(Response(request: wcRequest, error: .internalError))
+            try? server.send(WalletConnectSwift.Response(request: wcRequest, error: .internalError))
             return
         }
 
         switch request {
         case let signRequest as WebConnectionSignatureRequest:
             guard connection.accounts.contains(signRequest.account) else {
-                try? server.send(Response(request: wcRequest, error: .invalidParams))
+                try? server.send(WalletConnectSwift.Response(request: wcRequest, error: .invalidParams))
                 return
             }
 
@@ -731,14 +732,14 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             guard let from = sendTxRequest.transaction.from,
                   connection.accounts.contains(Address(from))
             else {
-                try? server.send(Response(request: wcRequest, error: .invalidParams))
+                try? server.send(WalletConnectSwift.Response(request: wcRequest, error: .invalidParams))
                 return
             }
             let address = Address(from)
 
             // reject ledger nano x because it is not yet supported for sending transactions
             if let key = try? KeyInfo.firstKey(address: address), key.keyType == .ledgerNanoX {
-                try? server.send(Response(request: wcRequest, error: .requestRejected))
+                try? server.send(WalletConnectSwift.Response(request: wcRequest, error: .requestRejected))
                 App.shared.snackbar.show(message: "Executing transactions with Ledger Nano X is not supported.")
                 return
             }
@@ -803,7 +804,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
         if let connection = connection(for: connectionURL), connection.status == .opened {
             do {
-                try server.send(Response(url: connectionURL.wcURL, value: value, id: id))
+                try server.send(WalletConnectSwift.Response(url: connectionURL.wcURL, value: value, id: id))
             } catch {
                 LogService.shared.error("Failed to respond to WC server: \(error)")
             }
@@ -823,7 +824,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         else { return }
         if let connection = connection(for: connectionURL), connection.status == .opened {
             do {
-                try server.send(Response(url: connectionURL.wcURL, errorCode: errorCode, message: message, id: id))
+                try server.send(WalletConnectSwift.Response(url: connectionURL.wcURL, errorCode: errorCode, message: message, id: id))
             } catch {
                 LogService.shared.error("Failed to return error to WC server: \(error)")
             }
@@ -840,7 +841,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     // MARK: - Client Delegate
 
     // called when creating connection or creating a session
-    func client(_ client: Client, dappInfoForUrl url: WCURL) -> Session.DAppInfo? {
+    func client(_ client: Client, dappInfoForUrl url: WCURL) -> WalletConnectSwift.Session.DAppInfo? {
         guard let connection = connection(for: url),
               let session = sessionTransformer.session(from: connection) else {
             return nil
@@ -860,7 +861,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
     // called when successfully established session (handshake success).
     // also called on re-connect to the bridge
-    func client(_ client: Client, didConnect session: Session) {
+    func client(_ client: Client, didConnect session: WalletConnectSwift.Session) {
         DispatchQueue.main.async { [unowned self] in
             guard let connection = connection(for: session), connection.status == .handshaking else {
                 return
@@ -879,16 +880,16 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     }
 
     // called when received 'wc_updateSession' with approved = false
-    func client(_ client: Client, didDisconnect session: Session) {
+    func client(_ client: Client, didDisconnect session: WalletConnectSwift.Session) {
         handleConnectionClosed(session)
     }
 
     // called when received 'wc_updateSession' with approved = true
-    func client(_ client: Client, didUpdate session: Session) {
+    func client(_ client: Client, didUpdate session: WalletConnectSwift.Session) {
         handleSessionUpdate(session)
     }
 
-    func client(_ client: Client, willReconnect session: Session) {
+    func client(_ client: Client, willReconnect session: WalletConnectSwift.Session) {
         // not implemented
     }
 
@@ -909,7 +910,8 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             throw WebConnectionError.keyGenerationFailed
         }
         let wcURL = WCURL(topic: handshakeTopic, version: "1", bridgeURL: bridgeURL, key: encryptionKey.toHexStringWithPrefix())
-        let connection = createWalletConnection(from: WebConnectionURL(wcURL: wcURL), info: info)
+        let connectURL: WebConnectionURL = WebConnectionURL(wcURL: wcURL)
+        let connection = createWalletConnection(from: connectURL, info: info)
         connection.chainId = chainId
         update(connection, to: .handshaking)
         return connection
@@ -1031,7 +1033,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
     }
     
-    private func handleSignResponse(_ response: Response, completion: @escaping (Result<String, Error>) -> Void) {
+    private func handleSignResponse(_ response: WalletConnectSwift.Response, completion: @escaping (Result<String, Error>) -> Void) {
         if let error = response.error {
             completion(.failure(error))
             return

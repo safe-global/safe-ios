@@ -1036,6 +1036,7 @@
 		B38075732B0CF7C600C62BCF /* TransactionValidationTestCase_MultipleConfirmations.json in Resources */ = {isa = PBXBuildFile; fileRef = B38075722B0CF7C600C62BCF /* TransactionValidationTestCase_MultipleConfirmations.json */; };
 		B38075752B0CF85900C62BCF /* TransactionValidationTestCase_AllSignatureTypes_v1_1_0.json in Resources */ = {isa = PBXBuildFile; fileRef = B38075742B0CF85900C62BCF /* TransactionValidationTestCase_AllSignatureTypes_v1_1_0.json */; };
 		B38075772B0CFD3A00C62BCF /* TransactionValidationTestCase_AllSignatureTypes_v1_0_0.json in Resources */ = {isa = PBXBuildFile; fileRef = B38075762B0CFD3A00C62BCF /* TransactionValidationTestCase_AllSignatureTypes_v1_0_0.json */; };
+		B3A222D62B10A3DB00897966 /* WCV2DappToWalletController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A222D52B10A3DB00897966 /* WCV2DappToWalletController.swift */; };
 		B3B6044F2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B6044E2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift */; };
 		B3C4D2D92AAF596D0026A8BC /* UIViewController+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C4D2D82AAF596D0026A8BC /* UIViewController+Navigation.swift */; };
 		D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A022769CEAD00D6E024 /* Tooltip.swift */; };
@@ -2103,6 +2104,7 @@
 		B38075722B0CF7C600C62BCF /* TransactionValidationTestCase_MultipleConfirmations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransactionValidationTestCase_MultipleConfirmations.json; sourceTree = "<group>"; };
 		B38075742B0CF85900C62BCF /* TransactionValidationTestCase_AllSignatureTypes_v1_1_0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransactionValidationTestCase_AllSignatureTypes_v1_1_0.json; sourceTree = "<group>"; };
 		B38075762B0CFD3A00C62BCF /* TransactionValidationTestCase_AllSignatureTypes_v1_0_0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransactionValidationTestCase_AllSignatureTypes_v1_0_0.json; sourceTree = "<group>"; };
+		B3A222D52B10A3DB00897966 /* WCV2DappToWalletController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCV2DappToWalletController.swift; sourceTree = "<group>"; };
 		B3B6044E2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertControllerStyle+Multiplatform.swift"; sourceTree = "<group>"; };
 		B3C4D2D82AAF596D0026A8BC /* UIViewController+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Navigation.swift"; sourceTree = "<group>"; };
 		D80B5A022769CEAD00D6E024 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
@@ -4646,6 +4648,7 @@
 				B0D6115FF6A54381B9C5F2A9 /* Data */,
 				B0D61C5B6EC7511DB976DBF7 /* Logic */,
 				B0D617085DF09D1A0ED39DD2 /* UI */,
+				B3A222D52B10A3DB00897966 /* WCV2DappToWalletController.swift */,
 			);
 			path = "Connect to Wallet";
 			sourceTree = "<group>";
@@ -5834,6 +5837,7 @@
 				0A5F4821254C55390069C98D /* SwitchSafesViewController.swift in Sources */,
 				0AB5DFB3270F48EB005BFB43 /* LedgerSignerViewController.swift in Sources */,
 				0ADB93FC24D31904006928DF /* SnackbarBottomPaddingModifier.swift in Sources */,
+				B3A222D62B10A3DB00897966 /* WCV2DappToWalletController.swift in Sources */,
 				0A9D5CEB27D8F48B0075A21D /* WCAppRegistryEntry.swift in Sources */,
 				6AFD26EB2861B0CF00336FFE /* SafeTokenBanner.swift in Sources */,
 				0AE8C06A2579371A00E62B34 /* DetailTransferInfoCell.swift in Sources */,
