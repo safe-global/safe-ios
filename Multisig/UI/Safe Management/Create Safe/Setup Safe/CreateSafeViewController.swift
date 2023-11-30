@@ -945,11 +945,11 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
 
-    func walletConnectTransaction() -> Client.Transaction? {
+    func walletConnectTransaction() -> WCTransaction? {
         guard let ethTransaction = uiModel.transaction else {
             return nil
         }
-        let clientTx: Client.Transaction
+        let clientTx: WCTransaction
 
         // NOTE: only legacy parameters seem to work with current wallets.
         switch ethTransaction {

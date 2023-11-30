@@ -27,6 +27,24 @@ extension CDWCConnection {
             return nil
         }
     }
+    
+    static func connection(topic: String) -> CDWCConnection? {
+        do {
+            let context = App.shared.coreDataStack.viewContext
+            
+            let fetchRequest = CDWCConnection.fetchRequest()
+            fetchRequest.sortDescriptors = []
+            fetchRequest.predicate = NSPredicate(format: "connectionURL LIKE[c] %@", "*\(topic)*")
+            fetchRequest.fetchLimit = 1
+
+            let results = try context.fetch(fetchRequest)
+            let result = results.first
+            return result
+        } catch {
+            LogService.shared.error("Failed to fetch connection: \(error)")
+            return nil
+        }
+    }
 
     // get all connections
     static func getAll() throws -> [CDWCConnection] {

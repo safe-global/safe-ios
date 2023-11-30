@@ -511,11 +511,11 @@ class TransactionExecutionController {
         ethTransaction = tx
     }
 
-    func walletConnectTransaction() -> Client.Transaction? {
+    func walletConnectTransaction() -> WCTransaction? {
         guard let ethTransaction = ethTransaction else {
             return nil
         }
-        let clientTx: Client.Transaction
+        let clientTx: WCTransaction
 
         // NOTE: only legacy parameters seem to work with current wallets.
         switch ethTransaction {

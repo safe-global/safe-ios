@@ -36,21 +36,23 @@ class StartWalletConnectionViewController: PendingWalletActionViewController {
         }
     }
 
+    
     override func main() {
-        //TODO: add tracking here
-        guard connection == nil else { return }
-        do {
-            connection = try WebConnectionController.shared.connect(wallet: wallet, chainId: chain.id.flatMap(Int.init))
-            WebConnectionController.shared.attach(observer: self, to: connection)
-            if wallet != nil {
-                openWallet()
-            } else {
-                displayChild(at: 0, in: contentView)
-                qrCodeController.value = connection.connectionURL.absoluteString
+        Task { @MainActor in
+            guard connection == nil else { return }
+            do {
+                connection = try await WebConnectionController.shared.connect(wallet: wallet, chainId: chain.id.flatMap(Int.init))
+                WebConnectionController.shared.attach(observer: self, to: connection)
+                if wallet != nil {
+                    openWallet()
+                } else {
+                    displayChild(at: 0, in: contentView)
+                    qrCodeController.value = connection.connectionURL.absoluteString
+                }
+            } catch {
+                App.shared.snackbar.show(message: error.localizedDescription)
+                doCancel()
             }
-        } catch {
-            App.shared.snackbar.show(message: error.localizedDescription)
-            doCancel()
         }
     }
 

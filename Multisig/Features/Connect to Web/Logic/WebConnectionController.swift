@@ -8,6 +8,7 @@ import WalletConnectSwift
 import Ethereum
 import Solidity
 import WalletConnectSign
+import Combine
 
 protocol WebConnectionObserver: AnyObject {
     func didUpdate(connection: WebConnection)
@@ -57,6 +58,8 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     private let sessionTransformer = WebConnectionToSessionTransformer()
 
     private var client: Client!
+    
+    private var subscriptions = Set<AnyCancellable>()
 
     private static let safeWebConnectionLoadingTimeout: TimeInterval = 30
     private static let walletConnectionLoadingTimeout: TimeInterval = 180
@@ -65,6 +68,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         server = WalletConnectSwift.Server(delegate: self)
         server.register(handler: self)
         client = WalletConnectSwift.Client(delegate: self)
+        regsiterEventListeners()
     }
 
     deinit {
@@ -73,15 +77,15 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
     // MARK: - Connection Observers
 
-    private var connectionObservers: [WebConnectionURL: [WebConnectionObserver]] = [:]
+    private var connectionObservers: [String: [WebConnectionObserver]] = [:]
 
     func attach(observer: WebConnectionObserver, to connection: WebConnection) {
-        if var existing = connectionObservers[connection.connectionURL] {
+        if var existing = connectionObservers[connection.connectionURL.absoluteString] {
             guard !existing.contains(where: { $0 === observer  }) else { return }
             existing.append(observer)
-            connectionObservers[connection.connectionURL] = existing
+            connectionObservers[connection.connectionURL.absoluteString] = existing
         } else {
-            connectionObservers[connection.connectionURL] = [observer]
+            connectionObservers[connection.connectionURL.absoluteString] = [observer]
         }
     }
 
@@ -95,7 +99,10 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     }
 
     func notifyObservers(of connection: WebConnection) {
-        guard let toNotify = connectionObservers[connection.connectionURL], let connection = self.connection(for: connection.connectionURL) else { return }
+        guard
+            let toNotify = connectionObservers[connection.connectionURL.absoluteString],
+            let connection = self.connection(for: connection.connectionURL)
+        else { return }
         for observer in toNotify {
             observer.didUpdate(connection: connection)
         }
@@ -240,10 +247,11 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             notifyListObservers()
 
         case .closed:
-            disconnect(connection)
+            disconnectV2(connection)
             update(connection, to: .final)
 
         case .final:
+            // TODO: delete pending
             notifyObservers(of: connection)
             deleteOutstandingRequests(connection)
             delete(connection)
@@ -261,7 +269,9 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
     private func start(_ connection: WebConnection) throws {
         do {
-            guard let local = connection.localPeer else {
+            guard 
+                let local = connection.localPeer
+            else {
                 assertionFailure("Misconfigured connection: local peer is missing")
                 throw WebConnectionError.configurationError
             }
@@ -271,8 +281,28 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 scheduleTimeout(connectionURL: connection.connectionURL, timeout: Self.safeWebConnectionLoadingTimeout)
 
             case .dapp:
-                try client.connect(to: connection.connectionURL.wcURL)
-                scheduleTimeout(connectionURL: connection.connectionURL, timeout: Self.walletConnectionLoadingTimeout)
+                guard 
+                    let chainId = connection.chainId,
+                    let blockchain = Blockchain("eip155:\(chainId)")
+                else { throw WebConnectionError.configurationError }
+                Task { @MainActor in
+                    do {
+                        scheduleTimeout(connectionURL: connection.connectionURL, timeout: Self.walletConnectionLoadingTimeout)
+                        
+                        let namespace = ProposalNamespace(
+                            chains: [blockchain],
+                            methods: ["eth_sendTransaction", "eth_sign", "eth_signTypedData_v4"],
+                            events: [])
+                        
+                        try await Sign.instance.connect(
+                            requiredNamespaces: ["eip155": namespace],
+                            topic: connection.connectionURL.wcURI!.topic
+                        )
+                    } catch {
+                        handle(error: error, in: connection)
+                    }
+                }
+                
 
             default:
                 throw WebConnectionError.unsupportedConnectionType
@@ -307,7 +337,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
     private func respondToSessionCreation(_ connection: WebConnection) {
         // only applicable for wallet role
-        guard let peer = connection.localPeer, peer.role == .wallet else {
+        guard let myself = connection.localPeer, myself.role == .wallet else {
             return
         }
 
@@ -325,6 +355,8 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     }
 
     func reconnect() {
+        // TODO: reconnect with v2 - needed?
+        return
         let connections = connectionRepository.connections(status: WebConnectionStatus.opened)
         let sessions = connections.map(sessionTransformer.session(from:))
 
@@ -370,6 +402,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
     }
 
+    @available(iOS, introduced: 13, deprecated: 13, message: "Use another one")
     func connection(for session: WalletConnectSwift.Session) -> WebConnection? {
         connection(for: session.url)
     }
@@ -396,6 +429,22 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
     func pendingRequests() -> [WebConnectionRequest] {
         connectionRepository.pendingRequests()
+    }
+    
+    // MARK: - v2 session <--> connection
+    
+    // URI.topic == session.pairingTopic <-- url.absoluteString
+    
+    func connection(for session: WalletConnectSign.Session) -> WebConnection? {
+        connectionRepository.connection(topic: session.pairingTopic)
+    }
+    
+    func connection(for proposal: WalletConnectSign.Session.Proposal) -> WebConnection? {
+        connectionRepository.connection(topic: proposal.pairingTopic)
+    }
+    
+    func connection(uri: WebConnectionURL) -> WebConnection? {
+        connectionRepository.connection(url: uri.wcURI!.topic)
     }
 
     /// Creates new wallet to gnosis safe web app connection. The dapp information is set to placeholder data except
@@ -465,6 +514,17 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 default:
                     break
                 }
+            } catch {
+                LogService.shared.error("Failed to disconnect: \(error)")
+            }
+        }
+    }
+    
+    func disconnectV2(_ connection: WebConnection) {
+        guard let session = sessionTransformer.sessionV2(from: connection) else { return }
+        Task { @MainActor in
+            do {
+                try await Sign.instance.disconnect(topic: session.topic)
             } catch {
                 LogService.shared.error("Failed to disconnect: \(error)")
             }
@@ -903,14 +963,10 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     }
 
     // create connection to a wallet
-    func connect(wallet info: WCAppRegistryEntry?, chainId: Int?) throws -> WebConnection {
-        let handshakeTopic = UUID().uuidString
-        let bridgeURL = App.configuration.walletConnect.bridgeURL
-        guard let encryptionKey = Data(randomOfSize: 32) else {
-            throw WebConnectionError.keyGenerationFailed
-        }
-        let wcURL = WCURL(topic: handshakeTopic, version: "1", bridgeURL: bridgeURL, key: encryptionKey.toHexStringWithPrefix())
-        let connectURL: WebConnectionURL = WebConnectionURL(wcURL: wcURL)
+    @MainActor
+    func connect(wallet info: WCAppRegistryEntry?, chainId: Int?) async throws -> WebConnection {
+        let wcURI = try await Pair.instance.create()
+        let connectURL: WebConnectionURL = WebConnectionURL(wcURI: wcURI)
         let connection = createWalletConnection(from: connectURL, info: info)
         connection.chainId = chainId
         update(connection, to: .handshaking)
@@ -925,7 +981,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                 peerType: .thisApp,
                 role: .dapp,
                 url: App.configuration.services.webAppURL,
-                name: "Gnosis Safe",
+                name: "Safe {Wallet}",
                 description: "The most trusted platform to manage digital assets",
                 icons: [App.configuration.services.webAppURL.appendingPathComponent("favicon.ico")],
                 deeplinkScheme: "gnosissafe:"
@@ -956,19 +1012,36 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
 
     // MARK: - Sending Requests to Wallet
 
-    func sendTransaction(connection: WebConnection, transaction: Client.Transaction, completion: @escaping (Result<Data, Error>) -> ()) {
-        do {
-            try client.eth_sendTransaction(url: connection.connectionURL.wcURL, transaction: transaction) { response in
-                DispatchQueue.main.async {
-                    if let error = response.error {
-                        completion(.failure(error))
-                    } else if let data = try? response.result(as: DataString.self) {
-                        completion(.success(data.data))
-                    }
+    func sendTransaction(connection: WebConnection, transaction: WCTransaction, completion: @escaping (Result<String, Error>) -> ()) {
+        guard
+            let session = sessionTransformer.sessionV2(from: connection),
+            let walletAddress = session.accounts.first
+        else {
+            completion(.failure(GSError.WalletNotConnected(description: "Failed to send transaction")))
+            return
+        }
+        
+        let request = WalletConnectSign.Request(
+            topic: session.topic,
+            method: "eth_sendTransaction",
+            params: AnyCodable([transaction]),
+            chainId: walletAddress.blockchain
+        )
+        send(request: request, completion: completion)
+    }
+    
+    func send(request: WalletConnectSign.Request, completion: @escaping (Result<String, Error>) -> Void) {
+        pendingRequestCompletions.append((request, completion))
+        Task {
+            do {
+                try await Sign.instance.request(params: request)
+                // response will come via publisher subscription
+            } catch {
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    completion(.failure(userError(from: error)))
                 }
             }
-        } catch {
-            completion(.failure(userError(from: error)))
         }
     }
 
@@ -987,51 +1060,117 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     
     // MARK: - Signing
     
+    var pendingRequestCompletions: [(request: WalletConnectSign.Request, completion: (Result<String, Error>) -> Void)] = []
+    
     func wcSign(connection: WebConnection, message: String, completion: @escaping (Result<String, Error>) -> Void) {
         guard
-            let session = sessionTransformer.session(from: connection),
-            let walletAddress = session.walletInfo?.accounts.first else {
-                completion(.failure(GSError.WalletNotConnected(description: "Could not sign message")))
-                return
-            }
-        
-        do {
-            try client.eth_sign(url: session.url, account: walletAddress, message: message) { [weak self] in
-                self?.handleSignResponse($0, completion: completion)
-            }
-        } catch {
-            completion(.failure(userError(from: error)))
+            let session = sessionTransformer.sessionV2(from: connection),
+            let walletAddress = session.accounts.first
+        else {
+            completion(.failure(GSError.WalletNotConnected(description: "Could not sign message")))
+            return
         }
+        let request = WalletConnectSign.Request(
+            topic: session.topic,
+            method: "eth_sign",
+            params: AnyCodable([walletAddress.address, message]),
+            chainId: walletAddress.blockchain
+        )
+        send(request: request, completion: completion)
     }
     
     func wcSign(connection: WebConnection, transaction: Transaction, completion: @escaping (Result<String, Error>) -> Void) {
         guard
-            let session = sessionTransformer.session(from: connection),
-              let walletAddress = session.walletInfo?.accounts.first else {
+            let session = sessionTransformer.sessionV2(from: connection),
+            let walletAddress = session.accounts.first
+        else {
             completion(.failure(GSError.WalletNotConnected(description: "Could not sign transaction")))
             return
         }
-        
-        do {
-            switch session.walletInfo?.peerMeta.name ?? "" {
-            // we call signTypedData only for wallets supporting this feature
-            case "MetaMask", "LedgerLive", "🌈 Rainbow", "Trust Wallet":
-                let message = EIP712Transformer.typedDataString(from: transaction)
-                try client.eth_signTypedData(url: session.url, account: walletAddress, message: message) { [weak self] in
-                    self?.handleSignResponse($0, completion: completion)
-                }
-            default:
-                let message = transaction.safeTxHash.description
-                try client.eth_sign(url: session.url, account: walletAddress, message: message) { [weak self] response in
-                    DispatchQueue.main.async {
-                        self?.handleSignResponse(response, completion: completion)
-                    }
-                }
-            }
-        } catch {
-            completion(.failure(userError(from: error)))
+        let supportsTypedData = session.namespaces.contains { (key: String, value: SessionNamespace) in
+            key == "eip155" && value.methods.contains("eth_signTypedData_v4")
+        }
+        if supportsTypedData {
+            // FIXME: this signature is not accepted!
+            let message = EIP712Transformer.typedData(transaction)
+            let request = WalletConnectSign.Request(
+                topic: session.topic,
+                method: "eth_signTypedData_v4",
+                params: AnyCodable([walletAddress.address, message]),
+                chainId: walletAddress.blockchain
+            )
+            send(request: request, completion: completion)
+        } else {
+            let message = transaction.safeTxHash.description
+            let request = WalletConnectSign.Request(
+                topic: session.topic,
+                method: "eth_sign",
+                params: AnyCodable([walletAddress.address, message]),
+                chainId: walletAddress.blockchain
+            )
+            send(request: request, completion: completion)
         }
     }
+    
+    // TODO: Do we need to clean up the requests regularly after some expiration time?
+    
+    fileprivate func handleSignature(result: AnyCodable, _ completion: @escaping (Result<String, Error>) -> Void) {
+        do {
+            var signature = try result.get(String.self)
+            
+            var signatureBytes = Data(hex: signature).bytes
+            
+            if signatureBytes.count == 65 {
+                var v = signatureBytes.last!
+                if v < 27 {
+                    v += 27
+                    signatureBytes[signatureBytes.count - 1] = v
+                    signature = Data(signatureBytes).toHexStringWithPrefix()
+                }
+                
+                completion(.success(signature))
+            } else {
+                completion(.success(signature))
+            }
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+    fileprivate func handleTxHash(result: AnyCodable, _ completion: @escaping (Result<String, Error>) -> Void) {
+        do {
+            let txHash = try result.get(String.self)
+            completion(.success(txHash))
+        } catch {
+            completion(.failure(error))
+        }
+    }
+
+    func handleResponse(response: WalletConnectSign.Response) {
+        let requestIndex = pendingRequestCompletions.firstIndex { item in
+            item.request.id == response.id
+        }
+        guard let i = requestIndex else { return }
+        
+        let request = pendingRequestCompletions.remove(at: i)
+        
+        if case RPCResult.error(let error) = response.result {
+            request.completion(.failure(error))
+            return
+        }
+        
+        guard case RPCResult.response(let result) = response.result else {
+            return
+        }
+        
+        if request.request.method == "eth_sign" || request.request.method == "eth_signTypedData_v4" {
+            handleSignature(result: result, request.completion)
+        } else {
+            handleTxHash(result: result, request.completion)
+        }
+    }
+    
+    // TODO: trying to reconnect session - too many messages
     
     private func handleSignResponse(_ response: WalletConnectSwift.Response, completion: @escaping (Result<String, Error>) -> Void) {
         if let error = response.error {
@@ -1059,6 +1198,130 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             completion(.failure(error))
         }
     }
+    
+    // MARK: - V2 Publishers
+    
+    func regsiterEventListeners() {
+        let s = Sign.instance
+
+        s.socketConnectionStatusPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { (status: SocketConnectionStatus) in
+                LogService.shared.debug("{WC} Socket: \(status)")
+            }
+            .store(in: &subscriptions)
+        
+        s.pingResponsePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { topic in
+                LogService.shared.debug("{WC} Ping: \(topic)")
+            }
+            .store(in: &subscriptions)
+        
+        s.sessionsPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { (sessions: [WalletConnectSign.Session]) in
+                LogService.shared.debug("{WC} Sessions Updated (\(sessions.count)): \(sessions.map(\.topic))")
+            })
+            .store(in: &subscriptions)
+        
+        s.sessionProposalPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { (proposal: WalletConnectSign.Session.Proposal, context: VerifyContext?) in
+                LogService.shared.debug("{WC} Proposal: \(proposal.id) \(context as Any)")
+            }
+            .store(in: &subscriptions)
+                
+        s.sessionSettlePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] (session: WalletConnectSign.Session) in
+                guard let self = self else { return }
+                LogService.shared.debug("{WC} Session Settled: \(session.topic)")
+                self.handleOpened(session: session)
+            }
+            .store(in: &subscriptions)
+        
+        s.sessionRejectionPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] (proposal: WalletConnectSign.Session.Proposal, reason: Reason) in
+                guard let self = self else { return }
+                LogService.shared.debug("{WC} Session Rejected: \(proposal.id) \(reason)")
+                self.handleRejected(proposal: proposal, reason: reason)
+            }
+            .store(in: &subscriptions)
+        
+        s.sessionUpdatePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { (sessionTopic: String, namespaces: [String : SessionNamespace]) in
+                LogService.shared.debug("{WC} Session Update: \(sessionTopic) \(namespaces)")
+            }
+            .store(in: &subscriptions)
+        
+        s.sessionEventPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { (event: WalletConnectSign.Session.Event, sessionTopic: String, chainId: Blockchain?) in
+                LogService.shared.debug("{WC} Session Event Occurred: \(event) \(sessionTopic) \(chainId as Any)")
+            })
+            .store(in: &subscriptions)
+        
+        s.sessionExtendPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { (sessionTopic: String, date: Date) in
+                LogService.shared.debug("{WC} Session Extended: \(sessionTopic) \(date)")
+            }
+            .store(in: &subscriptions)
+
+        s.sessionDeletePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { (topic: String, reason: Reason) in
+                LogService.shared.debug("{WC} Session Deleted: \(topic) \(reason)")
+            }
+            .store(in: &subscriptions)
+
+        s.sessionRequestPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { (request: WalletConnectSign.Request, context: VerifyContext?) in
+                LogService.shared.debug("{WC} Request: \(request) \(context as Any)")
+            }
+            .store(in: &subscriptions)
+        
+        s.sessionResponsePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] (response: WalletConnectSign.Response) in
+                guard let self = self else { return }
+                LogService.shared.debug("{WC} Response: \(response)")
+                handleResponse(response: response)
+            }
+            .store(in: &subscriptions)
+    }
+    
+    func handleOpened(session: WalletConnectSign.Session) {
+        Task { @MainActor in
+            guard let connection = connection(for: session), connection.status == .handshaking else {
+                return
+            }
+            
+            sessionTransformer.update(connection: connection, with: session)
+
+            // check that the chain id exists in the app
+            if let chainId = connection.chainId, let exists = (try? Chain.exists("\(chainId)")), !exists {
+                // respond with rejection and close connection
+                connection.lastError = WebConnectionError.unsupportedNetwork.localizedDescription
+                update(connection, to: .closed)
+            } else {
+                update(connection, to: .approved)
+            }
+        }
+    }
+    
+    func handleRejected(proposal: WalletConnectSign.Session.Proposal, reason: Reason) {
+        guard let connection = connection(for: proposal), connection.status == .handshaking else {
+            return
+        }
+        let error = WebConnectionError(errorCode: reason.code, message: reason.message)
+        handle(error: error, in: connection)
+    }
+
 }
 
 /// User-visible error
@@ -1104,5 +1367,7 @@ extension WebConnectionError {
     static let unexpectedAccount = WebConnectionError(errorCode: -9, message: "Unexpected account change. Please connect new account instead of changing existing one.")
 
     static let connectionLost = WebConnectionError(errorCode: -10, message: "Connection lost. Please reconnect and try again.")
+    
+    static let chainNotFound = WebConnectionError(errorCode: -11, message: "Selected chain not found. Please try again later.")
 }
 
