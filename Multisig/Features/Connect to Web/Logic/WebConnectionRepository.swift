@@ -20,7 +20,7 @@ class WebConnectionRepository {
     func connections() -> [WebConnection] {
         var connections: [WebConnection] = []
         do {
-            connections = try CDWCConnection.getAll().compactMap(connection(from:))
+            connections = try CDWCConnection.getAll().compactMap(connectionV2(from:))
         } catch {
             LogService.shared.error("Failed to get Web Connections: \(error.localizedDescription)")
         }
@@ -28,23 +28,32 @@ class WebConnectionRepository {
     }
 
     func connections(status: WebConnectionStatus) -> [WebConnection] {
-        let result = CDWCConnection.connections(by: status.rawValue).compactMap(connection(from:))
+        let result = CDWCConnection.connections(by: status.rawValue).compactMap(connectionV2(from:))
         return result
     }
 
     func connection(url: WebConnectionURL) -> WebConnection? {
-        guard let cdConnection = CDWCConnection.connection(by: url.absoluteString) else { return nil }
-        return connection(from: cdConnection)
+        connection(url: url.absoluteString)
+    }
+    
+    func connection(url: String) -> WebConnection? {
+        guard let cdConnection = CDWCConnection.connection(by: url) else { return nil }
+        return connectionV2(from: cdConnection)
+    }
+    
+    func connection(topic: String) -> WebConnection? {
+        guard let cdConnection = CDWCConnection.connection(topic: topic) else { return nil }
+        return connectionV2(from: cdConnection)
     }
 
     func connections(expiredAt date: Date) -> [WebConnection] {
-        let result = CDWCConnection.connections(expiredAt: date).compactMap(connection(from:))
+        let result = CDWCConnection.connections(expiredAt: date).compactMap(connectionV2(from:))
         return result
     }
 
     func connections(account: Address) -> [WebConnection] {
         guard let keyInfo = (try? KeyInfo.firstKey(address: account)), let cdConnections = keyInfo.connections else { return [] }
-        let result = cdConnections.allObjects.compactMap { $0 as? CDWCConnection }.compactMap(connection(from:))
+        let result = cdConnections.allObjects.compactMap { $0 as? CDWCConnection }.compactMap(connectionV2(from:))
         return result
     }
 
@@ -52,6 +61,7 @@ class WebConnectionRepository {
         CDWCConnection.delete(by: connection.connectionURL.absoluteString)
     }
 
+    //  connection.url = pairingTopic (the session doesn't have the initial wc url
     func save(_ connection: WebConnection) {
         assert(Thread.isMainThread)
 
@@ -122,6 +132,41 @@ class WebConnectionRepository {
         guard
             let rawConnectionURL: String = other.connectionURL,
             let connectionURL = WebConnectionURL(string: rawConnectionURL)
+        else { return nil }
+
+        let chainId: Int? = other.chainId == Self.CHAIN_ID_NIL ? nil : Int(other.chainId)
+        let createdDate: Date? = other.createdDate
+        let expirationDate: Date? = other.expirationDate
+        let lastActivityDate: Date? = other.lastActivityDate
+        let status = WebConnectionStatus(rawValue: other.status) ?? .unknown
+
+        let accountsFromKeyInfos = (other.keys ?? NSSet()).allObjects.map { $0 as! KeyInfo }.map(\.address)
+        let accountsFromStrings = (other.accounts ?? "").split(separator: ",").map(String.init).compactMap(Address.init)
+        let accounts = Array(Set(accountsFromKeyInfos + accountsFromStrings))
+
+        let localPeer = other.localPeer.flatMap(peer(from:))
+        let remotePeer = other.remotePeer.flatMap(peer(from:))
+        let lastError: String? = other.lastError
+
+        let result = WebConnection(
+            connectionURL: connectionURL,
+            status: status,
+            chainId: chainId,
+            accounts: accounts,
+            createdDate: createdDate,
+            expirationDate: expirationDate,
+            lastActivityDate: lastActivityDate,
+            localPeer: localPeer,
+            remotePeer: remotePeer,
+            lastError: lastError
+        )
+        return result
+    }
+    
+    private func connectionV2(from other: CDWCConnection) -> WebConnection? {
+        guard
+            let rawConnectionURL: String = other.connectionURL,
+            let connectionURL = WebConnectionURL(stringV2: rawConnectionURL)
         else { return nil }
 
         let chainId: Int? = other.chainId == Self.CHAIN_ID_NIL ? nil : Int(other.chainId)
@@ -242,6 +287,7 @@ class WebConnectionRepository {
 
     fileprivate func openConnectionRequest(_ other: CDWCRequest) -> WebConnectionOpenRequest {
         let id = requestId(from: other)
+        // TODO: stringV2
         let connectionURL = other.connection?.connectionURL.flatMap { WebConnectionURL(string: $0) }
         let status = WebConnectionRequestStatus(rawValue: other.status) ?? .unknown
         let result = WebConnectionOpenRequest(
@@ -257,6 +303,7 @@ class WebConnectionRepository {
 
     fileprivate func signatureRequest(_ other: CDWCRequest) -> WebConnectionSignatureRequest? {
         let id = requestId(from: other)
+        // TODO: stringV2
         let connectionURL = other.connection?.connectionURL.flatMap { WebConnectionURL(string: $0) }
         let status = WebConnectionRequestStatus(rawValue: other.status) ?? .unknown
         guard let json = other.json else {
@@ -296,6 +343,7 @@ class WebConnectionRepository {
 
     fileprivate func sendTransactionRequest(_ other: CDWCRequest) -> WebConnectionSendTransactionRequest? {
         let id = requestId(from: other)
+        // TODO: stringV2
         let connectionURL = other.connection?.connectionURL.flatMap { WebConnectionURL(string: $0) }
         let status = WebConnectionRequestStatus(rawValue: other.status) ?? .unknown
         guard let json = other.json else {
@@ -330,6 +378,7 @@ class WebConnectionRepository {
 
     fileprivate func genericRequest(_ other: CDWCRequest) -> WebConnectionRequest? {
         let id = requestId(from: other)
+        // TODO: stringV2
         let connectionURL = other.connection?.connectionURL.flatMap { WebConnectionURL(string: $0) }
         let status = WebConnectionRequestStatus(rawValue: other.status) ?? .unknown
         let result = WebConnectionRequest(

@@ -6,11 +6,12 @@
 import Foundation
 import WalletConnectSwift
 import Ethereum
+import WalletConnectSign
 
 /// Responsible for data conversion back-and-forth between WebConnection-related objects and the WalletConnectSwift's library objects.
 class WebConnectionToSessionTransformer {
 
-    func update(connection: WebConnection, with session: Session) {
+    func update(connection: WebConnection, with session: WalletConnectSwift.Session) {
         guard let myself = connection.localPeer, let other = connection.remotePeer else {
             assertionFailure("Local or remote peer are not set")
             return
@@ -27,25 +28,53 @@ class WebConnectionToSessionTransformer {
             update(peer: other, with: walletInfo.peerMeta)
         }
     }
+    
+    func update(connection: WebConnection, with session: WalletConnectSign.Session) {
+        guard
+            let myself = connection.localPeer, let other = connection.remotePeer,
+            myself.role == .dapp, other.role == .wallet
+        else {
+            return
+        }
+        
+        let caip10accs = session.accounts.compactMap { (a: Account) -> Address? in
+            guard var addr = Address(a.address) else { return nil }
+            addr.prefix = a.reference
+            return addr
+        }
+        
+        connection.accounts = caip10accs
+        connection.chainId = session.accounts.first.flatMap { Int($0.reference, radix: 10) }
+        other.peerId = session.topic
+        update(peer: other, with: session.peer)
+    }
 
-    private func update(peer: WebConnectionPeerInfo, with peerMeta: Session.ClientMeta) {
+    private func update(peer: WebConnectionPeerInfo, with peerMeta: WalletConnectSwift.Session.ClientMeta) {
         peer.url = peerMeta.url
         peer.name = peerMeta.name
         peer.description = peerMeta.description
         peer.icons = peerMeta.icons
         peer.deeplinkScheme = peerMeta.scheme
     }
+    
+    private func update(peer: WebConnectionPeerInfo, with meta: WalletConnectSign.AppMetadata) {
+        peer.url = URL(string: meta.url) ?? URL(string: "https://walletconnect.com/")!
+        peer.name = meta.name
+        peer.description = meta.description
+        peer.icons = meta.icons.compactMap(URL.init(string:))
+        peer.deeplinkScheme = meta.redirect?.native
+    }
 
-    func session(from connection: WebConnection) -> Session? {
+    func session(from connection: WebConnection) -> WalletConnectSwift.Session? {
         guard let myself = connection.localPeer,
               let remotePeer = connection.remotePeer
         else {
             return nil
         }
         if myself.role == .wallet && remotePeer.role == .dapp {
-            let dappInfo: Session.DAppInfo = dappInfo(from: remotePeer)
-            let walletInfo: Session.WalletInfo = walletInfo(from: myself, connection: connection)
-            let result = Session(
+            let dappInfo: WalletConnectSwift.Session.DAppInfo = dappInfo(from: remotePeer)
+            let walletInfo: WalletConnectSwift.Session.WalletInfo = walletInfo(from: myself, connection: connection)
+            let result = WalletConnectSwift.Session(
                 url: connection.connectionURL.wcURL,
                 dAppInfo: dappInfo,
                 walletInfo: walletInfo
@@ -54,7 +83,7 @@ class WebConnectionToSessionTransformer {
         } else if myself.role == .dapp && remotePeer.role == .wallet {
             let dappInfo = self.dappInfo(from: myself)
             let walletInfo = self.walletInfo(from: remotePeer, connection: connection)
-            let result = Session(
+            let result = WalletConnectSwift.Session(
                 url: connection.connectionURL.wcURL,
                 dAppInfo: dappInfo,
                 walletInfo: walletInfo
@@ -64,10 +93,24 @@ class WebConnectionToSessionTransformer {
             return nil
         }
     }
+    
+    func sessionV2(from connection: WebConnection) -> WalletConnectSign.Session? {
+        guard let myself = connection.localPeer,
+              let remotePeer = connection.remotePeer,
+              myself.role == .dapp,
+              remotePeer.role == .wallet
+        else {
+            return nil
+        }
+        let sessions = Sign.instance.getSessions()
+        let uri = connection.connectionURL.wcURI!
+        let session = sessions.first { $0.pairingTopic == uri.topic }
+        return session
+    }
 
-    private func walletInfo(from peer: WebConnectionPeerInfo, connection: WebConnection) -> Session.WalletInfo {
+    private func walletInfo(from peer: WebConnectionPeerInfo, connection: WebConnection) -> WalletConnectSwift.Session.WalletInfo {
         let peerMeta = clientMeta(from: peer)
-        let result = Session.WalletInfo(
+        let result = WalletConnectSwift.Session.WalletInfo(
                 approved: connection.status == .approved || connection.status == .opened,
                 accounts: connection.accounts.map(\.checksummed),
                 chainId: connection.chainId ?? 0,
@@ -77,9 +120,9 @@ class WebConnectionToSessionTransformer {
         return result
     }
 
-    private func dappInfo(from peer: WebConnectionPeerInfo) -> Session.DAppInfo {
+    private func dappInfo(from peer: WebConnectionPeerInfo) -> WalletConnectSwift.Session.DAppInfo {
         let peerMeta = clientMeta(from: peer)
-        let result = Session.DAppInfo(
+        let result = WalletConnectSwift.Session.DAppInfo(
             peerId: peer.peerId,
             peerMeta: peerMeta,
             chainId: nil,
@@ -88,8 +131,8 @@ class WebConnectionToSessionTransformer {
         return result
     }
 
-    private func clientMeta(from peer: WebConnectionPeerInfo) -> Session.ClientMeta {
-        let peerMeta = Session.ClientMeta(
+    private func clientMeta(from peer: WebConnectionPeerInfo) -> WalletConnectSwift.Session.ClientMeta {
+        let peerMeta = WalletConnectSwift.Session.ClientMeta(
                 name: peer.name,
                 description: peer.description,
                 icons: peer.icons,
@@ -126,7 +169,7 @@ class WebConnectionToSessionTransformer {
         }
     }
 
-    fileprivate func openConnectionRequest(_ request: Request) -> WebConnectionOpenRequest {
+    fileprivate func openConnectionRequest(_ request: WalletConnectSwift.Request) -> WebConnectionOpenRequest {
         let result = WebConnectionOpenRequest(
             id: requestId(id: request.id),
             method: request.method,
@@ -139,7 +182,7 @@ class WebConnectionToSessionTransformer {
         return result
     }
 
-    fileprivate func signatureRequest(_ request: Request) -> WebConnectionSignatureRequest? {
+    fileprivate func signatureRequest(_ request: WalletConnectSwift.Request) -> WebConnectionSignatureRequest? {
         guard request.parameterCount == 2 else { return nil }
 
         do {
@@ -163,7 +206,7 @@ class WebConnectionToSessionTransformer {
         }
     }
 
-    fileprivate func sendTransactionRequest(_ request: Request) -> WebConnectionSendTransactionRequest? {
+    fileprivate func sendTransactionRequest(_ request: WalletConnectSwift.Request) -> WebConnectionSendTransactionRequest? {
         do {
             guard request.parameterCount == 1 else { return nil }
 
@@ -187,7 +230,7 @@ class WebConnectionToSessionTransformer {
         }
     }
 
-    fileprivate func genericRequest(_ request: Request) -> WebConnectionRequest {
+    fileprivate func genericRequest(_ request: WalletConnectSwift.Request) -> WebConnectionRequest {
         let result = WebConnectionRequest(
             id: requestId(id: request.id),
             method: request.method,
@@ -200,7 +243,7 @@ class WebConnectionToSessionTransformer {
         return result
     }
 
-    func request(from request: Request) -> WebConnectionRequest? {
+    func request(from request: WalletConnectSwift.Request) -> WebConnectionRequest? {
         switch request.method {
         case "wc_sessionRequest":
             return openConnectionRequest(request)

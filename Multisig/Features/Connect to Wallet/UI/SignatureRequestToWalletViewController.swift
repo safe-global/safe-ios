@@ -13,7 +13,7 @@ import WalletConnectSwift
 class SignatureRequestToWalletViewController: PendingWalletActionViewController {
 
     private var transaction: Transaction?
-    private var clientTransaction: Client.Transaction?
+    private var clientTransaction: WCTransaction?
     private var isRejection: Bool = false
     private var message: String?
 
@@ -22,7 +22,7 @@ class SignatureRequestToWalletViewController: PendingWalletActionViewController 
     // if true and the chain does not match the wallet chain then the operation will cancel.
     var requiresChainIdMatch: Bool = true
 
-    convenience init(_ transaction: Client.Transaction, keyInfo: KeyInfo, chain: Chain) {
+    convenience init(_ transaction: WCTransaction, keyInfo: KeyInfo, chain: Chain) {
         self.init(namedClass: PendingWalletActionViewController.self)
         self.wallet = keyInfo.wallet.flatMap { WCAppRegistryRepository().entry(from: $0) }
         self.keyInfo = keyInfo

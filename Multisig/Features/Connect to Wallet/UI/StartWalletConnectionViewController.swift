@@ -14,6 +14,11 @@ class StartWalletConnectionViewController: PendingWalletActionViewController {
 
     var qrCodeController: QRCodeShareViewController!
 
+    /// Constructor of a new WalletConnect connection request (session request) screen
+    /// - Parameters:
+    ///   - wallet: if nil then will display qr code; otherwise will try to open the wallet
+    ///   - chain: required chain for the account to be in
+    ///   - keyInfo: if nil then will create new connection; otherwise will restrict the connection to pre-existing account
     convenience init(wallet: WCAppRegistryEntry?, chain: Chain, keyInfo: KeyInfo? = nil) {
         self.init(namedClass: PendingWalletActionViewController.self)
         self.wallet = wallet
@@ -33,21 +38,23 @@ class StartWalletConnectionViewController: PendingWalletActionViewController {
         }
     }
 
+    
     override func main() {
-        //TODO: add tracking here
-        guard connection == nil else { return }
-        do {
-            connection = try WebConnectionController.shared.connect(wallet: wallet, chainId: chain.id.flatMap(Int.init))
-            WebConnectionController.shared.attach(observer: self, to: connection)
-            if wallet != nil {
-                openWallet()
-            } else {
-                displayChild(at: 0, in: contentView)
-                qrCodeController.value = connection.connectionURL.absoluteString
+        Task { @MainActor in
+            guard connection == nil else { return }
+            do {
+                connection = try await WebConnectionController.shared.connect(wallet: wallet, chainId: chain.id.flatMap(Int.init))
+                WebConnectionController.shared.attach(observer: self, to: connection)
+                if wallet != nil {
+                    openWallet()
+                } else {
+                    displayChild(at: 0, in: contentView)
+                    qrCodeController.value = connection.connectionURL.absoluteString
+                }
+            } catch {
+                App.shared.snackbar.show(message: error.localizedDescription)
+                doCancel()
             }
-        } catch {
-            App.shared.snackbar.show(message: error.localizedDescription)
-            doCancel()
         }
     }
 

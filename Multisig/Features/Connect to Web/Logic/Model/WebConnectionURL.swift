@@ -5,10 +5,11 @@
 
 import Foundation
 import WalletConnectSwift
+import WalletConnectSign
 
 /// Connection URL identifies a connection and contains information for establishing the connection
 struct WebConnectionURL: Hashable {
-    var wcURL: WCURL
+    var wcURL: WCURL!
 
     /// Channel (topic) on which the dapp will send the connection request
     var handshakeChannelId: String {
@@ -36,8 +37,10 @@ struct WebConnectionURL: Hashable {
 
     /// String representation of the URL.
     var absoluteString: String {
-        wcURL.absoluteString
+        wcURI?.absoluteString ?? wcURL?.absoluteString ?? ""
     }
+    
+    var wcURI: WalletConnectURI?
 }
 
 extension WebConnectionURL {
@@ -49,5 +52,31 @@ extension WebConnectionURL {
     init?(string: String) {
         guard let url = WCURL(string) else { return nil }
         wcURL = url
+    }
+    
+    init?(stringV2: String) {
+        guard let uri = WalletConnectURI(string: stringV2) else { return nil }
+        self.init(uri: uri)
+    }
+    
+    init(uri: WalletConnectURI) {
+        wcURL = WCURL(topic: uri.topic, version: uri.version, bridgeURL: URL(string: "https://safe.global/")!, key: uri.symKey)
+        wcURI = uri
+    }
+}
+
+extension WalletConnectURI: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(self.topic)
+        hasher.combine(self.version)
+        hasher.combine(self.symKey)
+        hasher.combine(self.relay)
+    }
+}
+
+extension RelayProtocolOptions: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(self.data)
+        hasher.combine(self.protocol)
     }
 }

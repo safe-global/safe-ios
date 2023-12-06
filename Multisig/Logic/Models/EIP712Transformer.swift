@@ -9,107 +9,179 @@
 import Foundation
 import Version
 
-class EIP712Transformer {
-    static func typedDataString(from transaction: Transaction) -> String {
-        guard let safe = transaction.safe else { preconditionFailure("safe is required for typedData") }
+struct TDTypedData<Message: Codable>: Codable {
+    var types: [TDObjectName: [TDMemberDescription]]
+    var primaryType: TDObjectName
+    var domain: TDDomain
+    var message: Message
+}
 
-        var safeDomain = EIP712Domain(
-            verifyingContract: safe.description
-        )
-        var eip712Description = EIP712Domain.eip712Description
-
-        // Reference: https://github.com/gnosis/gnosis-py/blob/772a7da3a281c21931b8e5f01508a74cab7ecfb8/gnosis/safe/safe_tx.py#L169
-        if transaction.safeVersion! >= Version("1.3.0")! {
-            safeDomain.chainId = transaction.chainId
-            eip712Description.members.insert(.init(name: "chainId", type: "uint256"), at: 0)
+func TDTypes(from value: [String : [(name: String, type: String)]]) -> [TDObjectName: [TDMemberDescription]] {
+    let result = Dictionary(
+        uniqueKeysWithValues: value.map { (key, value) -> (TDObjectName, [TDMemberDescription]) in
+            (key, value.map { (name, type) -> TDMemberDescription in
+                TDMemberDescription(name: name, type: type)
+            })
         }
-
-        let typedData = EIP712TypedData<Transaction>(
-            types: [
-                eip712Description,
-                Transaction.eip712Description
-            ],
-            primaryType: Transaction.eip712Description.name,
-            domain: safeDomain,
-            message: transaction
-        )
-
-        return try! JSONEncoder().encode(typedData).makeString()
-    }
+    )
+    return result
 }
 
-extension Transaction: EIP712Convertible {
-    static var eip712Description: EIP712TypeDescription {
-        .init(
-            name: "SafeTx",
-            members: [
-                .init(name: "to", type: "address"),
-                .init(name: "value", type: "uint256"),
-                .init(name: "data", type: "bytes"),
-                .init(name: "operation", type: "uint8"),
-                .init(name: "safeTxGas", type: "uint256"),
-                .init(name: "baseGas", type: "uint256"),
-                .init(name: "gasPrice", type: "uint256"),
-                .init(name: "gasToken", type: "address"),
-                .init(name: "refundReceiver", type: "address"),
-                .init(name: "nonce", type: "uint256")
-            ]
-        )
-    }
-}
-
-struct EIP712MemberDescription: Encodable {
+typealias TDObjectName = String
+struct TDMemberDescription: Codable {
     var name: String
     var type: String
 }
 
-struct EIP712TypeDescription {
-    var name: String
-    var members: [EIP712MemberDescription]
-}
-
-extension EIP712TypeDescription: Encodable {
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(members)
-    }
-}
-
-protocol EIP712Convertible {
-    static var eip712Description: EIP712TypeDescription { get }
-}
-
-struct EIP712TypedData<T: Encodable & EIP712Convertible> {
-    var types: [EIP712TypeDescription]
-    var primaryType: String
-    var domain: EIP712Domain
-    var message: T
-}
-
-extension EIP712TypedData: Encodable {
-    enum Key: String, CodingKey { case types, primaryType, domain, message }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: Key.self)
-        let encodedTypes: [String: EIP712TypeDescription] = .init(uniqueKeysWithValues: types.map({  ($0.name, $0) }))
-        try container.encode(encodedTypes, forKey: .types)
-        try container.encode(primaryType, forKey: .primaryType)
-        try container.encode(domain, forKey: .domain)
-        try container.encode(message, forKey: .message)
-    }
-}
-
-struct EIP712Domain: Encodable {
-    var verifyingContract: String
+struct TDDomain: Codable {
+    var name: String?
+    var version: String?
     var chainId: String?
+    var verifyingContract: String?
+    var salt: String?
 }
 
-extension EIP712Domain: EIP712Convertible {
-    static var eip712Description: EIP712TypeDescription {
-        .init(
-            name: "EIP712Domain",
-            members: [
-                .init(name: "verifyingContract", type: "address"),
-            ])
+// version < 1.0.0: 'dataGas' is used
+struct TDSafeTx_pre_1_0_0: Codable {
+    var to: AddressString
+    var value: UInt256String
+    var data: DataString
+    var operation: SCGModels.Operation
+    var safeTxGas: UInt256String
+    var dataGas: UInt256String
+    var gasPrice: UInt256String
+    var gasToken: AddressString
+    var refundReceiver: AddressString
+    var nonce: UInt256String
+    
+    static let typeName = "SafeTx"
+    static let types = TDTypes(from: [
+        typeName: [
+            ("to", "address"),
+            ("value", "uint256"),
+            ("data", "bytes"),
+            ("operation", "uint8"),
+            ("safeTxGas", "uint256"),
+            ("dataGas", "uint256"),
+            ("gasPrice", "uint256"),
+            ("gasToken", "address"),
+            ("refundReceiver", "address"),
+            ("nonce", "uint256"),
+        ]
+    ])
+}
+
+extension TDSafeTx_pre_1_0_0 {
+    init(tx: Transaction) {
+        to = tx.to
+        value = tx.value
+        data = tx.data ?? DataString(Data())
+        operation = tx.operation
+        safeTxGas = tx.safeTxGas
+        dataGas = tx.baseGas
+        gasPrice = tx.gasPrice
+        gasToken = tx.gasToken
+        refundReceiver = tx.refundReceiver
+        nonce = tx.nonce
+    }
+}
+
+// version >= 1.0.0: 'baseGas' is used
+struct TDSafeTx: Codable {
+    var to: AddressString
+    var value: UInt256String
+    var data: DataString
+    var operation: SCGModels.Operation
+    var safeTxGas: UInt256String
+    var baseGas: UInt256String
+    var gasPrice: UInt256String
+    var gasToken: AddressString
+    var refundReceiver: AddressString
+    var nonce: UInt256String
+    
+    static let typeName = "SafeTx"
+    static let types = TDTypes(from: [
+        typeName: [
+            ("to", "address"),
+            ("value", "uint256"),
+            ("data", "bytes"),
+            ("operation", "uint8"),
+            ("safeTxGas", "uint256"),
+            ("baseGas", "uint256"),
+            ("gasPrice", "uint256"),
+            ("gasToken", "address"),
+            ("refundReceiver", "address"),
+            ("nonce", "uint256"),
+        ]
+    ])
+}
+
+extension TDSafeTx {
+    init(tx: Transaction) {
+        to = tx.to
+        value = tx.value
+        data = tx.data ?? DataString(Data())
+        operation = tx.operation
+        safeTxGas = tx.safeTxGas
+        baseGas = tx.baseGas
+        gasPrice = tx.gasPrice
+        gasToken = tx.gasToken
+        refundReceiver = tx.refundReceiver
+        nonce = tx.nonce
+    }
+}
+
+// version < 1.3.0
+let TDEIP712Domain_pre_1_3_0 = TDTypes(from: [
+    "EIP712Domain": [(name: "verifyingContract", type: "address")]
+])
+
+// version >= 1.3.0
+let TDEIP712Domain = TDTypes(from: [
+    "EIP712Domain": [
+        (name: "chainId", type: "uint256"),
+        (name: "verifyingContract", type: "address"),
+    ]
+])
+
+class EIP712Transformer {
+    // https://github.com/safe-global/safe-eth-py/blob/772a7da3a281c21931b8e5f01508a74cab7ecfb8/gnosis/safe/safe_tx.py#L126
+    static func typedData(_ tx: Transaction) -> String {
+        let safeAddress = tx.safe!
+        let safeVersion = tx.safeVersion!
+        
+        let domainType: [TDObjectName: [TDMemberDescription]]
+        let domain: TDDomain
+        
+        if safeVersion >= Version(1, 3, 0) {
+            domainType = TDEIP712Domain
+            domain = TDDomain(
+                chainId: tx.chainId!,
+                verifyingContract: safeAddress.description
+            )
+        } else {
+            domainType = TDEIP712Domain_pre_1_3_0
+            domain = TDDomain(verifyingContract: safeAddress.description)
+        }
+        
+        if safeVersion >= Version(1, 0, 0) {
+            let data = TDTypedData<TDSafeTx>(
+                types: domainType.merging(TDSafeTx.types) { (current, _) in current },
+                primaryType: TDSafeTx.typeName,
+                domain: domain,
+                message: TDSafeTx(tx: tx)
+            )
+            let result = try! String(data: JSONEncoder().encode(data), encoding: .utf8)!
+            return result
+        } else {
+            let data = TDTypedData<TDSafeTx_pre_1_0_0>(
+                types: domainType.merging(TDSafeTx_pre_1_0_0.types) { (current, _ ) in current },
+                primaryType: TDSafeTx_pre_1_0_0.typeName,
+                domain: domain,
+                message: TDSafeTx_pre_1_0_0(tx: tx)
+            )
+            let result = try! String(data: JSONEncoder().encode(data), encoding: .utf8)!
+            return result
+        }
     }
 }
