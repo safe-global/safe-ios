@@ -247,11 +247,10 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             notifyListObservers()
 
         case .closed:
-            disconnectV2(connection)
+            disconnect(connection)
             update(connection, to: .final)
 
         case .final:
-            // TODO: delete pending
             notifyObservers(of: connection)
             deleteOutstandingRequests(connection)
             delete(connection)
@@ -302,7 +301,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
                         handle(error: error, in: connection)
                     }
                 }
-                
 
             default:
                 throw WebConnectionError.unsupportedConnectionType
@@ -355,8 +353,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     }
 
     func reconnect() {
-        // TODO: reconnect with v2 - needed?
-        return
         let connections = connectionRepository.connections(status: WebConnectionStatus.opened)
         let sessions = connections.map(sessionTransformer.session(from:))
 
@@ -364,8 +360,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             do {
                 if connection.localPeer?.role == .wallet {
                     try server.reconnect(to: session!)
-                } else if connection.localPeer?.role == .dapp {
-                    try client.reconnect(to: session!)
                 }
             } catch {
                 handle(error: userError(from: error), in: connection)
@@ -402,7 +396,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
     }
 
-    @available(iOS, introduced: 13, deprecated: 13, message: "Use another one")
     func connection(for session: WalletConnectSwift.Session) -> WebConnection? {
         connection(for: session.url)
     }
@@ -431,9 +424,7 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         connectionRepository.pendingRequests()
     }
     
-    // MARK: - v2 session <--> connection
-    
-    // URI.topic == session.pairingTopic <-- url.absoluteString
+    // MARK: - v2 Session
     
     func connection(for session: WalletConnectSign.Session) -> WebConnection? {
         connectionRepository.connection(topic: session.pairingTopic)
@@ -496,31 +487,8 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     func delete(_ request: WebConnectionRequest) {
         connectionRepository.delete(request: request)
     }
-
-    /// Disconnects the connection from gnosis safe web app
-    ///
-    /// - Parameter connection: connection to disconnect
-    func disconnect(_ connection: WebConnection) {
-        if let session = sessionTransformer.session(from: connection) {
-            do {
-                guard let peer = connection.localPeer else { return }
-                switch peer.role {
-                case .wallet:
-                    try server.disconnect(from: session)
-
-                case .dapp:
-                    try client.disconnect(from: session)
-
-                default:
-                    break
-                }
-            } catch {
-                LogService.shared.error("Failed to disconnect: \(error)")
-            }
-        }
-    }
     
-    func disconnectV2(_ connection: WebConnection) {
+    func disconnect(_ connection: WebConnection) {
         guard let session = sessionTransformer.sessionV2(from: connection) else { return }
         Task { @MainActor in
             do {
@@ -1091,7 +1059,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             key == "eip155" && value.methods.contains("eth_signTypedData_v4")
         }
         if supportsTypedData {
-            // FIXME: this signature is not accepted!
             let message = EIP712Transformer.typedData(transaction)
             let request = WalletConnectSign.Request(
                 topic: session.topic,
@@ -1111,8 +1078,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             send(request: request, completion: completion)
         }
     }
-    
-    // TODO: Do we need to clean up the requests regularly after some expiration time?
     
     fileprivate func handleSignature(result: AnyCodable, _ completion: @escaping (Result<String, Error>) -> Void) {
         do {
@@ -1170,8 +1135,6 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
     }
     
-    // TODO: trying to reconnect session - too many messages
-    
     private func handleSignResponse(_ response: WalletConnectSwift.Response, completion: @escaping (Result<String, Error>) -> Void) {
         if let error = response.error {
             completion(.failure(error))
@@ -1200,38 +1163,10 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
     }
     
     // MARK: - V2 Publishers
-    
+
     func regsiterEventListeners() {
         let s = Sign.instance
-
-        s.socketConnectionStatusPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { (status: SocketConnectionStatus) in
-                LogService.shared.debug("{WC} Socket: \(status)")
-            }
-            .store(in: &subscriptions)
         
-        s.pingResponsePublisher
-            .receive(on: DispatchQueue.main)
-            .sink { topic in
-                LogService.shared.debug("{WC} Ping: \(topic)")
-            }
-            .store(in: &subscriptions)
-        
-        s.sessionsPublisher
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { (sessions: [WalletConnectSign.Session]) in
-                LogService.shared.debug("{WC} Sessions Updated (\(sessions.count)): \(sessions.map(\.topic))")
-            })
-            .store(in: &subscriptions)
-        
-        s.sessionProposalPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { (proposal: WalletConnectSign.Session.Proposal, context: VerifyContext?) in
-                LogService.shared.debug("{WC} Proposal: \(proposal.id) \(context as Any)")
-            }
-            .store(in: &subscriptions)
-                
         s.sessionSettlePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] (session: WalletConnectSign.Session) in
@@ -1250,38 +1185,21 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             }
             .store(in: &subscriptions)
         
-        s.sessionUpdatePublisher
-            .receive(on: DispatchQueue.main)
-            .sink { (sessionTopic: String, namespaces: [String : SessionNamespace]) in
-                LogService.shared.debug("{WC} Session Update: \(sessionTopic) \(namespaces)")
-            }
-            .store(in: &subscriptions)
-        
-        s.sessionEventPublisher
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { (event: WalletConnectSign.Session.Event, sessionTopic: String, chainId: Blockchain?) in
-                LogService.shared.debug("{WC} Session Event Occurred: \(event) \(sessionTopic) \(chainId as Any)")
-            })
-            .store(in: &subscriptions)
-        
         s.sessionExtendPublisher
             .receive(on: DispatchQueue.main)
-            .sink { (sessionTopic: String, date: Date) in
+            .sink { [weak self] (sessionTopic: String, date: Date) in
+                guard let self = self else { return }
                 LogService.shared.debug("{WC} Session Extended: \(sessionTopic) \(date)")
+                self.handleExtended(topic: sessionTopic, to: date)
             }
             .store(in: &subscriptions)
 
         s.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
-            .sink { (topic: String, reason: Reason) in
+            .sink { [weak self] (topic: String, reason: Reason) in
+                guard let self = self else { return }
                 LogService.shared.debug("{WC} Session Deleted: \(topic) \(reason)")
-            }
-            .store(in: &subscriptions)
-
-        s.sessionRequestPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { (request: WalletConnectSign.Request, context: VerifyContext?) in
-                LogService.shared.debug("{WC} Request: \(request) \(context as Any)")
+                self.handleDeleted(topic: topic)
             }
             .store(in: &subscriptions)
         
@@ -1320,6 +1238,30 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
         }
         let error = WebConnectionError(errorCode: reason.code, message: reason.message)
         handle(error: error, in: connection)
+    }
+    
+    func handleExtended(topic: String, to date: Date) {
+        Task { @MainActor in
+            guard let session = Sign.instance.getSessions().first(where: { $0.topic == topic }),
+                  let connection = connection(for: session)
+            else {
+                return
+            }
+            connection.lastActivityDate = Date()
+            connection.expirationDate = date
+            save(connection)
+        }
+    }
+    
+    func handleDeleted(topic: String) {
+        Task { @MainActor in
+            guard let session = Sign.instance.getSessions().first(where: { $0.topic == topic }),
+                  let connection = connection(for: session)
+            else {
+                return
+            }
+            update(connection, to: .closed)
+        }
     }
 
 }

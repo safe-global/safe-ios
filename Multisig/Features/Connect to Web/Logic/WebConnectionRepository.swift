@@ -61,7 +61,6 @@ class WebConnectionRepository {
         CDWCConnection.delete(by: connection.connectionURL.absoluteString)
     }
 
-    // TODO: update for the v2 case
     //  connection.url = pairingTopic (the session doesn't have the initial wc url
     func save(_ connection: WebConnection) {
         assert(Thread.isMainThread)

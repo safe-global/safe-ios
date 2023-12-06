@@ -27,7 +27,6 @@ func TDTypes(from value: [String : [(name: String, type: String)]]) -> [TDObject
     return result
 }
 
-
 typealias TDObjectName = String
 struct TDMemberDescription: Codable {
     var name: String
@@ -37,7 +36,7 @@ struct TDMemberDescription: Codable {
 struct TDDomain: Codable {
     var name: String?
     var version: String?
-    var chainId: Int?
+    var chainId: String?
     var verifyingContract: String?
     var salt: String?
 }
@@ -140,8 +139,8 @@ let TDEIP712Domain_pre_1_3_0 = TDTypes(from: [
 // version >= 1.3.0
 let TDEIP712Domain = TDTypes(from: [
     "EIP712Domain": [
+        (name: "chainId", type: "uint256"),
         (name: "verifyingContract", type: "address"),
-        (name: "chainId", type: "uint256")
     ]
 ])
 
@@ -157,7 +156,7 @@ class EIP712Transformer {
         if safeVersion >= Version(1, 3, 0) {
             domainType = TDEIP712Domain
             domain = TDDomain(
-                chainId: Int(tx.chainId!, radix: 10)!,
+                chainId: tx.chainId!,
                 verifyingContract: safeAddress.description
             )
         } else {

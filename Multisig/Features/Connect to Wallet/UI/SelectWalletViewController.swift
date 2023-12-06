@@ -9,18 +9,9 @@
 import UIKit
 import WalletConnectSwift
 
-// actions:
-    // show available wallets (loadable from network)
-    // search a wallet by name
-    // initiate connection
-        // via selected wallet
-        // via connection qr code
-    // cancel pending (or existing) connection}
-
 class SelectWalletViewController: LoadableViewController {
     private var completion: (_ wallet: WCAppRegistryEntry?, _ connection: WebConnection) -> Void = { _, _ in }
     
-    // can be re-connected, i.e. existing pending connection can be cancelled
     private var connection: WebConnection?
 
     let searchController = UISearchController(searchResultsController: nil)
@@ -152,13 +143,11 @@ extension SelectWalletViewController: UITableViewDelegate, UITableViewDataSource
         connect(to: nil)
     }
 
-    // - wallet: if nil, then connect to qr code; otherwise to a wallet
     func connect(to wallet: WCAppRegistryEntry?) {
         cancelExistingConnection()
         let chain = Selection.current().safe?.chain ?? Chain.mainnetChain()
         let walletConnectionVC = StartWalletConnectionViewController(wallet: wallet, chain: chain)
         walletConnectionVC.onSuccess = { [weak self] connection in
-            var connectedWallet = wallet
             self?.connection = connection
             self?.completion(wallet, connection)
         }

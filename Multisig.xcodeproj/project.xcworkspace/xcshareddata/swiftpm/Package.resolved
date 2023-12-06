@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "AppCheck",
+        "repositoryURL": "https://github.com/google/app-check.git",
+        "state": {
+          "branch": null,
+          "revision": "5746b2d35c91c50581590ed97abe4c06b5037274",
+          "version": "10.18.0"
+        }
+      },
+      {
         "package": "BigInt",
         "repositoryURL": "https://github.com/attaswift/BigInt.git",
         "state": {
@@ -69,8 +78,8 @@
         "repositoryURL": "https://github.com/firebase/firebase-ios-sdk.git",
         "state": {
           "branch": null,
-          "revision": "df2171b0c6afb9e9d4f7e07669d558c510b9f6be",
-          "version": "10.13.0"
+          "revision": "d9bcd141c3e4ad48a9500e6faeebb073f43cbcbd",
+          "version": "10.19.0"
         }
       },
       {
@@ -87,8 +96,8 @@
         "repositoryURL": "https://github.com/google/GoogleAppMeasurement.git",
         "state": {
           "branch": null,
-          "revision": "03b9beee1a61f62d32c521e172e192a1663a5e8b",
-          "version": "10.13.0"
+          "revision": "6b332152355c372ace9966d8ee76ed191f97025e",
+          "version": "10.17.0"
         }
       },
       {
@@ -96,8 +105,8 @@
         "repositoryURL": "https://github.com/google/GoogleDataTransport.git",
         "state": {
           "branch": null,
-          "revision": "aae45a320fd0d11811820335b1eabc8753902a40",
-          "version": "9.2.5"
+          "revision": "a732a4b47f59e4f725a2ea10f0c77e93a7131117",
+          "version": "9.3.0"
         }
       },
       {
@@ -105,8 +114,8 @@
         "repositoryURL": "https://github.com/google/GoogleUtilities.git",
         "state": {
           "branch": null,
-          "revision": "c38ce365d77b04a9a300c31061c5227589e5597b",
-          "version": "7.11.5"
+          "revision": "bc27fad73504f3d4af235de451f02ee22586ebd3",
+          "version": "7.12.1"
         }
       },
       {
@@ -114,8 +123,8 @@
         "repositoryURL": "https://github.com/google/grpc-binary.git",
         "state": {
           "branch": null,
-          "revision": "f1b366129d1125be7db83247e003fc333104b569",
-          "version": "1.50.2"
+          "revision": "a673bc2937fbe886dd1f99c401b01b6d977a9c98",
+          "version": "1.49.1"
         }
       },
       {
@@ -134,6 +143,15 @@
           "branch": null,
           "revision": "fcc1ad96bdc2e2dfe079852715bd265504432cdd",
           "version": "16.2.3"
+        }
+      },
+      {
+        "package": "InteropForGoogle",
+        "repositoryURL": "https://github.com/google/interop-ios-for-google-sdks.git",
+        "state": {
+          "branch": null,
+          "revision": "2d12673670417654f08f5f90fdd62926dc3a2648",
+          "version": "100.0.0"
         }
       },
       {
@@ -384,8 +402,8 @@
         "repositoryURL": "https://github.com/WalletConnect/WalletConnectSwiftV2",
         "state": {
           "branch": null,
-          "revision": "7cf45ea8f98097b5813cd3c99d08b87c1be28ebe",
-          "version": "1.9.5"
+          "revision": "58d2b49eeac5cf94432e2647b9107577c156a25c",
+          "version": "1.9.9"
         }
       },
       {

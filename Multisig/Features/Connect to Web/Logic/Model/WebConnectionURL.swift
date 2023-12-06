@@ -37,7 +37,7 @@ struct WebConnectionURL: Hashable {
 
     /// String representation of the URL.
     var absoluteString: String {
-        wcURI!.absoluteString
+        wcURI?.absoluteString ?? wcURL?.absoluteString ?? ""
     }
     
     var wcURI: WalletConnectURI?

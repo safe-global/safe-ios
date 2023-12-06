@@ -99,9 +99,6 @@ extension CDWCConnection {
         }
         App.shared.coreDataStack.saveContext()
     }
-
-    // update connection with network, address
-
 }
 
 extension NSFetchRequest where ResultType == CDWCConnection {

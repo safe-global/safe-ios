@@ -14,9 +14,11 @@ class StartWalletConnectionViewController: PendingWalletActionViewController {
 
     var qrCodeController: QRCodeShareViewController!
 
-    // - chain: required chain for the account to be in
-    // - wallet: if nil then will display qr code; otherwise will try to open the wallet
-    // - keyInfo: if nil then will create new connection; otherwise will restrict the connection to pre-existing account
+    /// Constructor of a new WalletConnect connection request (session request) screen
+    /// - Parameters:
+    ///   - wallet: if nil then will display qr code; otherwise will try to open the wallet
+    ///   - chain: required chain for the account to be in
+    ///   - keyInfo: if nil then will create new connection; otherwise will restrict the connection to pre-existing account
     convenience init(wallet: WCAppRegistryEntry?, chain: Chain, keyInfo: KeyInfo? = nil) {
         self.init(namedClass: PendingWalletActionViewController.self)
         self.wallet = wallet
