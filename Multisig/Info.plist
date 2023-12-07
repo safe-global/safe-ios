@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ADD_OWNERS_URL</key>
+	<string>$(ADD_OWNERS_URL)</string>
 	<key>ADVANCED_TX_PARAMS_URL</key>
 	<string>$(ADVANCED_TX_PARAMS_URL)</string>
 	<key>APP_GROUP_ID</key>
@@ -36,7 +38,16 @@
 				<string>$(WEB3AUTH_REDIRECT_SCHEME)</string>
 			</array>
 		</dict>
-		<dict/>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>global.safe.ios.deeplink</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>safe</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
@@ -50,10 +61,10 @@
 	<string>$(CLAIM_PROPOSE_URL)</string>
 	<key>CLIENT_GATEWAY_URL</key>
 	<string>$(CLIENT_GATEWAY_URL)</string>
+	<key>CONFIG_KEY</key>
+	<string>$(CONFIG_KEY)</string>
 	<key>CONFIRMATIONS_URL</key>
 	<string>$(CONFIRMATIONS_URL)</string>
-	<key>ADD_OWNERS_URL</key>
-	<string>$(ADD_OWNERS_URL)</string>
 	<key>CONFLICT_URL</key>
 	<string>$(CONFLICT_URL)</string>
 	<key>CONNECT_DAPP_ON_MOBILE_URL</key>
@@ -80,8 +91,6 @@
 	<false/>
 	<key>GELATO_SERVICE_URL</key>
 	<string>$(GELATO_SERVICE_URL)</string>
-	<key>MOONPAY_SERVICE_URL</key>
-	<string>$(MOONPAY_SERVICE_URL)</string>
 	<key>GNOSIS_SAFE_WEB_URL</key>
 	<string>$(GNOSIS_SAFE_WEB_URL)</string>
 	<key>GUARD_URL</key>
@@ -160,6 +169,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MOONPAY_SERVICE_URL</key>
+	<string>$(MOONPAY_SERVICE_URL)</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Allow Safe to connect hardware devices and sign transactions.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
@@ -282,7 +293,5 @@
 	<string>$(WEB3AUTH_APPLE_VERIFIER)</string>
 	<key>WEB3AUTH_APPLE_VERIFIER_AGGREGATE</key>
 	<string>$(WEB3AUTH_APPLE_VERIFIER_AGGREGATE)</string>
-	<key>CONFIG_KEY</key>
-	<string>$(CONFIG_KEY)</string>
 </dict>
 </plist>

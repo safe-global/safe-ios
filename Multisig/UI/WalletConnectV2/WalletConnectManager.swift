@@ -94,13 +94,23 @@ class WalletConnectManager {
     }
     
     func canConnect(url: String) -> Bool {
-        WalletConnectURI(string: url) != nil
+        wcURI(string: url) != nil
     }
     
     func pairClient(url: String, trackingEvent: TrackingEvent?) {
-        guard let uri = WalletConnectURI(string: url) else { return }
+        guard let uri = wcURI(string: url) else { return }
         dappConnectedTrackingEvent = trackingEvent
         pairClient(uri: uri)
+    }
+    
+    private func wcURI(string: String) -> WalletConnectURI? {
+        if string.hasPrefix("safe://wc?uri=") {
+            let wcString = string.replacingOccurrences(of: "safe://wc?uri=", with: "wc://wc?uri=").removingPercentEncoding!
+            let url = URL(string: wcString)!
+            return WalletConnectURI(deeplinkUri: url)
+        } else {
+            return WalletConnectURI(string: string)
+        }
     }
     
     func pairClient(uri: WalletConnectURI) {
@@ -161,7 +171,7 @@ class WalletConnectManager {
     //   - connection approved
     //   - if no such chain found in proposal, connection will fail
     func approveSession(proposal: Session.Proposal) {
-        Task {
+        Task { @MainActor in
             guard let safe = try? Safe.getSelected() else { return }
                         
             // Step 1: find a compatible namespace with safe's chain

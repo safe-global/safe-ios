@@ -142,6 +142,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         handleUserActivity(userActivity)
     }
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        _ = handleURL(wcURL: URLContexts.first?.url.absoluteString)
+    }
+    
+    
 
     // Handles opening of a universal link.
     //
@@ -162,16 +168,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         // handle wallet connect
-        if let wcURL = components.queryItems?.first?.value,
-           (try? Safe.getSelected()) != nil {
-            if WalletConnectManager.shared.canConnect(url: wcURL) {
-                WalletConnectManager.shared.pairClient(url: wcURL, trackingEvent: .dappConnectedWithUniversalLink)
-            } else if WalletConnectSafesServerController.shared.canConnect(url: wcURL) {
-                try? WalletConnectSafesServerController.shared.connect(url: wcURL)
-                WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithUniversalLink
-                return
-            }
+        let didHandleURL = handleURL(wcURL: components.queryItems?.first?.value)
+        if didHandleURL {
+            return
         }
+        
 
         // handle request to add owner
         if AddOwnerRequestValidator.isValid(url: incomingURL),
@@ -182,6 +183,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         if let navigationRoute = CompositeNavigationRouter.shared.routeFrom(from: incomingURL) {
             CompositeNavigationRouter.shared.navigate(to: navigationRoute)
+        }
+    }
+    
+    private func handleURL(wcURL: String?) -> Bool {
+        guard let wcURL = wcURL, (try? Safe.getSelected()) != nil else { return false }
+        if WalletConnectManager.shared.canConnect(url: wcURL) {
+            WalletConnectManager.shared.pairClient(url: wcURL, trackingEvent: .dappConnectedWithUniversalLink)
+            return true
+        } else if WalletConnectSafesServerController.shared.canConnect(url: wcURL) {
+            try? WalletConnectSafesServerController.shared.connect(url: wcURL)
+            WalletConnectSafesServerController.shared.dappConnectedTrackingEvent = .dappConnectedWithUniversalLink
+            return true
+        } else {
+            return false
         }
     }
 
