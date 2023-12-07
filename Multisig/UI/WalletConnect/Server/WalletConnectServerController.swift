@@ -34,6 +34,11 @@ class WalletConnectServerController: ServerDelegate {
     }
 
     func connect(url: String) throws {
+        var url = url
+        if url.hasPrefix("safe://wc?uri=") {
+            url = url.replacingOccurrences(of: "safe://wc?uri=", with: "wc://wc?uri=").removingPercentEncoding!
+        }
+
         guard let wcurl = WCURL(url) else { throw GSError.InvalidWalletConnectQRCode() }
         do {
             createSession(wcurl: wcurl)
