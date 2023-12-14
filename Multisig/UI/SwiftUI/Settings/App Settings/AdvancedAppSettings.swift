@@ -12,6 +12,12 @@ struct AdvancedAppSettings: View {
 
     @ObservedObject
     var theme: Theme = App.shared.theme
+    
+    @State var showFCMToken = false
+    
+    var token: String {
+        Multisig.App.shared.notificationHandler.token ?? ""
+    }
 
     var body: some View {
         List {
@@ -35,6 +41,20 @@ struct AdvancedAppSettings: View {
                         LogService.shared.error("Non-fatal triggerred", error: "Test non-fatal error (id \(Int.random(in: 0...10_000)))")
                     }) {
                         Text("Trigger non-fatal error").body()
+                    }
+                    
+                    Button {
+                        showFCMToken = true
+                    } label: {
+                        Text("Show FCM Token").body()
+                    }
+                    .alert("FCM Registration Token", isPresented: $showFCMToken) {
+                        CopyButton(token) {
+                            Text("Copy")
+                        }
+                        Button("Close", role: .cancel) { }
+                    } message: {
+                        Text(token)
                     }
                 }
             }

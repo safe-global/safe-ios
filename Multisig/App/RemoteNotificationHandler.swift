@@ -22,7 +22,7 @@ class RemoteNotificationHandler {
     private var authorizationStatus: UNAuthorizationStatus?
 
     @UserDefault(key: "io.gnosis.multisig.pushToken")
-    private var token: String?
+    private(set) var token: String?
 
     func setUpMessaging(delegate: MessagingDelegate & UNUserNotificationCenterDelegate) {
         logDebug("Setting up notification handling")
