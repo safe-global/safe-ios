@@ -1,4 +1,4 @@
-# safe-multisig-ios
+# Safe iOS App
 Safe Multisig iOS app.
 
 # Coding Style
