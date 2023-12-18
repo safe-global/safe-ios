@@ -45,7 +45,7 @@ struct TDDomain: Codable {
 struct TDSafeTx_pre_1_0_0: Codable {
     var to: AddressString
     var value: UInt256String
-    var data: DataString
+    var data: String
     var operation: SCGModels.Operation
     var safeTxGas: UInt256String
     var dataGas: UInt256String
@@ -75,7 +75,12 @@ extension TDSafeTx_pre_1_0_0 {
     init(tx: Transaction) {
         to = tx.to
         value = tx.value
-        data = tx.data ?? DataString(Data())
+        // MetaMask workaround
+        if let d = tx.data, !d.data.isEmpty {
+            data = d.description
+        } else {
+            data = ""
+        }
         operation = tx.operation
         safeTxGas = tx.safeTxGas
         dataGas = tx.baseGas
@@ -90,7 +95,7 @@ extension TDSafeTx_pre_1_0_0 {
 struct TDSafeTx: Codable {
     var to: AddressString
     var value: UInt256String
-    var data: DataString
+    var data: String
     var operation: SCGModels.Operation
     var safeTxGas: UInt256String
     var baseGas: UInt256String
@@ -120,7 +125,12 @@ extension TDSafeTx {
     init(tx: Transaction) {
         to = tx.to
         value = tx.value
-        data = tx.data ?? DataString(Data())
+        // MetaMask workaround
+        if let d = tx.data, !d.data.isEmpty {
+            data = d.description
+        } else {
+            data = ""
+        }
         operation = tx.operation
         safeTxGas = tx.safeTxGas
         baseGas = tx.baseGas
