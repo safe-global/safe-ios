@@ -5,6 +5,8 @@ CONFIG_DIR=Multisig/Cross-layer/Configuration
 EXAMPLE_CONFIG="${CONFIG_DIR}/Config.Example.xcconfig"
 CONFIG_FILE="${CONFIG_DIR}/Config.xcconfig"
 
+echo `env`
+
 cp "${EXAMPLE_CONFIG}" "${CONFIG_FILE}"
 
 # replace the example value with the environment key
