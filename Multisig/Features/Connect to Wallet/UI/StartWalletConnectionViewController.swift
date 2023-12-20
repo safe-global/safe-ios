@@ -41,9 +41,9 @@ class StartWalletConnectionViewController: PendingWalletActionViewController {
     
     override func main() {
         Task { @MainActor in
-            guard connection == nil else { return }
+            guard connection == nil, let chainIdStr = chain?.id, let chainId = Int(chainIdStr) else { return }
             do {
-                connection = try await WebConnectionController.shared.connect(wallet: wallet, chainId: chain.id.flatMap(Int.init))
+                connection = try await WebConnectionController.shared.connect(wallet: wallet, chainId: chainId)
                 WebConnectionController.shared.attach(observer: self, to: connection)
                 if wallet != nil {
                     openWallet()
