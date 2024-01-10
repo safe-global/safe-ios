@@ -16,8 +16,6 @@ class HistoryTransactionsViewController: TransactionListViewController {
         timeFormatter = {
             let d = DateFormatter()
             d.locale = .autoupdatingCurrent
-            // time offset is 0 here because server returns adjusted dates in the specified client's time zone
-            d.timeZone = TimeZone(secondsFromGMT: 0)
             d.dateStyle = .none
             d.timeStyle = .short
             return d
@@ -26,8 +24,6 @@ class HistoryTransactionsViewController: TransactionListViewController {
         dateFormatter = {
             let d = DateFormatter()
             d.locale = .autoupdatingCurrent
-            // time offset is 0 here because server returns adjusted dates in the specified client's time zone
-            d.timeZone = TimeZone(secondsFromGMT: 0)
             d.dateStyle = .medium
             d.timeStyle = .none
             return d
