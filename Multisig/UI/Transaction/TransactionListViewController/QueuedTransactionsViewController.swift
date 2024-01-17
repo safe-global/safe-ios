@@ -54,7 +54,7 @@ class QueuedTransactionsViewController: TransactionListViewController {
     }
 
     override func formatted(date: Date) -> String {
-        date.timeAgo(adjustForTimeZone: true)
+        date.timeAgo()
     }
 
     override func shouldHighlight(transaction: SCGModels.TxSummary) -> Bool {
