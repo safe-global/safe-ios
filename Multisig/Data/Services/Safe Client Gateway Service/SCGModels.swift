@@ -554,7 +554,7 @@ extension SCGModels {
         var modules: [AddressInfo]?
         var fallbackHandler: AddressInfo?
         var `guard`: AddressInfo?
-        var version: String
+        var version: String?
         var implementationVersionState: ImplementationVersionState
     }
 
