@@ -57,3 +57,7 @@ Then, run the configure script to install the Config.xcconfig
     $> bin/configure.sh
 
 Now you are ready to build the project.
+
+# Documentation
+
+Documentation is in the [docs](docs/doc.md) folder.
