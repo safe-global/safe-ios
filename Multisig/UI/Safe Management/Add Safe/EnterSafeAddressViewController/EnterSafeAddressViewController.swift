@@ -183,14 +183,14 @@ class EnterSafeAddressViewController: UIViewController {
                         guard let `self` = self else { return }
 
             // (4) and its mastercopy is supported
-                        guard App.shared.gnosisSafe.isSupported(info.version) else {
+                        guard let version = info.version, App.shared.gnosisSafe.isSupported(version) else {
                             let error = GSError.error(description: "Can’t use this address",
                                                       error: GSError.UnsupportedImplementationCopy())
                             self.addressField.setError(error.localizedDescription)
                             return
                         }
 
-                        self.safeVersion = info.version
+                        self.safeVersion = version
                         self.nextButton.isEnabled = true
                     }
                 }
