@@ -192,7 +192,7 @@ extension Safe {
     }
 
     @discardableResult
-    static func create(address: String, version: String, name: String, chain: Chain, selected: Bool = true, status: SafeStatus = .deployed) -> Safe {
+    static func create(address: String, version: String?, name: String, chain: Chain, selected: Bool = true, status: SafeStatus = .deployed) -> Safe {
         dispatchPrecondition(condition: .onQueue(.main))
         let context = App.shared.coreDataStack.viewContext
 
