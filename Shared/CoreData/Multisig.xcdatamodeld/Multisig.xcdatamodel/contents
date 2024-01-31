@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F66" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23D56" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AddressBookEntry" representedClassName="AddressBookEntry" syncable="YES" codeGenerationType="class">
         <attribute name="additionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="address" optional="YES" attributeType="String"/>
@@ -156,7 +156,7 @@
     <entity name="Safe" representedClassName="Safe" syncable="YES">
         <attribute name="additionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="address" optional="YES" attributeType="String"/>
-        <attribute name="contractVersion" attributeType="String" defaultValueString=""/>
+        <attribute name="contractVersion" optional="YES" attributeType="String" defaultValueString="0.0.0"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="sessionTopics" optional="YES" attributeType="String"/>
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
