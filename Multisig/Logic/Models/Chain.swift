@@ -171,6 +171,8 @@ extension Chain {
         l2 = chainInfo.l2
         features = chainInfo.features
         gasPrice = chainInfo.gasPrice
+        
+        try App.shared.coreDataStack.viewContext.save()
     }
 
     var gasPrice: [SCGModels.GasPrice] {

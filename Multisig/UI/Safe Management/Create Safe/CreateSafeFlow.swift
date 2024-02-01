@@ -42,6 +42,7 @@ class CreateSafeFlow: UIFlow, ASAuthorizationControllerPresentationContextProvid
     func chooseNetwork() {
         let vc = factory.selectNetworkViewController(chainId: inputChainId) { [unowned self] chain in
             self.chain = Chain.createOrUpdate(chain)
+            uiModel.chain = self.chain
             instructions()
         }
 
