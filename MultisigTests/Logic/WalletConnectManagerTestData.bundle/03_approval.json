@@ -1,0 +1,37 @@
+{
+    "eip155": {
+      "chains": [
+        "eip155:42161"
+      ],
+      "accounts": [
+        "eip155:42161:0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+      ],
+      "methods": [
+        "eth_accounts",
+        "wallet_requestPermissions",
+        "wallet_getPermissions",
+        "personal_sign",
+        "eth_sign",
+        "wallet_scanQRCode",
+        "wallet_addEthereumChain",
+        "eth_signTypedData_v3",
+        "eth_signTypedData_v4",
+        "eth_sendRawTransaction",
+        "eth_sendTransaction",
+        "wallet_registerOnboarding",
+        "eth_signTypedData",
+        "eth_requestAccounts",
+        "eth_signTransaction",
+        "wallet_watchAsset",
+        "wallet_switchEthereumChain"
+      ],
+      "events": [
+        "connect",
+        "message",
+        "chainChanged",
+        "accountsChanged",
+        "disconnect"
+      ]
+    }
+  }
+  

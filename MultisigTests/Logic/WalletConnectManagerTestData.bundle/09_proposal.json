@@ -1,0 +1,139 @@
+{
+    "proposer": {
+      "description": "Explore DeFi liquidity pools or create your own. Provide liquidity to accumulate yield from swap fees while retaining your token exposure as prices move",
+      "url": "https://app.balancer.fi",
+      "name": "Balancer",
+      "icons": [
+        "https://app.balancer.fi/favicon.ico"
+      ]
+    },
+    "requiredNamespaces": {
+      "eip155": {
+        "chains": [
+          "eip155:1",
+          "eip155:42161"
+        ],
+        "methods": [
+          "personal_sign",
+          "eth_sendTransaction"
+        ],
+        "events": [
+          "chainChanged",
+          "accountsChanged"
+        ]
+      }
+    },
+    "optionalNamespaces": {
+      "eip155": {
+        "chains": [
+          "eip155:42161",
+          "eip155:100",
+          "eip155:137",
+          "eip155:43114",
+          "eip155:1101",
+          "eip155:8453"
+        ],
+        "methods": [
+          "eth_signTransaction",
+          "wallet_switchEthereumChain",
+          "wallet_registerOnboarding",
+          "eth_sign",
+          "wallet_watchAsset",
+          "wallet_scanQRCode",
+          "eth_accounts",
+          "eth_signTypedData",
+          "eth_signTypedData_v4",
+          "eth_sendRawTransaction",
+          "eth_requestAccounts",
+          "personal_sign",
+          "wallet_getPermissions",
+          "wallet_addEthereumChain",
+          "eth_sendTransaction",
+          "wallet_requestPermissions",
+          "eth_signTypedData_v3"
+        ],
+        "events": [
+          "connect",
+          "disconnect",
+          "accountsChanged",
+          "chainChanged",
+          "message"
+        ]
+      }
+    },
+    "pairingTopic": "45bfa73feb1dcd24142a6603a735d2f47463e3662cdacc99c55213a5f7b79794",
+    "proposal": {
+      "requiredNamespaces": {
+        "eip155": {
+          "methods": [
+            "personal_sign",
+            "eth_sendTransaction"
+          ],
+          "events": [
+            "chainChanged",
+            "accountsChanged"
+          ],
+          "chains": [
+            "eip155:1",
+            "eip155:42161"
+          ]
+        }
+      },
+      "relays": [
+        {
+          "protocol": "irn"
+        }
+      ],
+      "proposer": {
+        "metadata": {
+          "url": "https://app.balancer.fi",
+          "description": "Explore DeFi liquidity pools or create your own. Provide liquidity to accumulate yield from swap fees while retaining your token exposure as prices move",
+          "name": "Balancer",
+          "icons": [
+            "https://app.balancer.fi/favicon.ico"
+          ]
+        },
+        "publicKey": "49dda9830d2e7139d8580c44d4a10be9e209c38442f542e5ca176d34867a5279"
+      },
+      "optionalNamespaces": {
+        "eip155": {
+          "chains": [
+            "eip155:42161",
+            "eip155:100",
+            "eip155:137",
+            "eip155:43114",
+            "eip155:1101",
+            "eip155:8453"
+          ],
+          "methods": [
+            "eth_signTransaction",
+            "wallet_switchEthereumChain",
+            "wallet_registerOnboarding",
+            "eth_sign",
+            "wallet_watchAsset",
+            "wallet_scanQRCode",
+            "eth_accounts",
+            "eth_signTypedData",
+            "eth_signTypedData_v4",
+            "eth_sendRawTransaction",
+            "eth_requestAccounts",
+            "personal_sign",
+            "wallet_getPermissions",
+            "wallet_addEthereumChain",
+            "eth_sendTransaction",
+            "wallet_requestPermissions",
+            "eth_signTypedData_v3"
+          ],
+          "events": [
+            "connect",
+            "disconnect",
+            "accountsChanged",
+            "chainChanged",
+            "message"
+          ]
+        }
+      }
+    },
+    "id": "49dda9830d2e7139d8580c44d4a10be9e209c38442f542e5ca176d34867a5279"
+  }
+  

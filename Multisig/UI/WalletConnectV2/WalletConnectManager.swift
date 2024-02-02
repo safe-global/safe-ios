@@ -29,7 +29,10 @@ class WalletConnectManager {
         icons: ["https://app.safe.global/favicons/mstile-150x150.png",
                 "https://app.safe.global/favicons/logo_120x120.png"], 
         redirect: AppMetadata.Redirect(native: "", universal: "https://app.safe.global/"))
-    
+
+    // Testable interface for approving a session
+    var approver: Approver = ApproverImpl()
+
     private init() { }
     
     func config() {
@@ -162,59 +165,131 @@ class WalletConnectManager {
             }
         }
     }
-    
-    // Approves a single chain where selected safe resides.
+        
+    // Approves required chains and a chain where selected safe resides.
+    //
+    // For reference:
+    //  - https://chainagnostic.org/CAIPs/caip-10
+    //  - https://chainagnostic.org/CAIPs/caip-2
     //
     // Requires:
-    //   - proposal with the chain that is same as the currently selected safe
+    //   - session proposal
     // Guarantees:
-    //   - connection approved
+    //   - connection approved if safe's chain is in the proposal
     //   - if no such chain found in proposal, connection will fail
     func approveSession(proposal: Session.Proposal) {
-        Task { @MainActor in
-            guard let safe = try? Safe.getSelected() else { return }
-                        
-            // Step 1: find a compatible namespace with safe's chain
-            var resultNamespaces = [String: SessionNamespace]()
+        let NAMESPACE_ID = "eip155"
+        
+        guard
+            let address = approver.safe?.address,
+            let chainId = approver.safe?.chain,
+            let blockchain = Blockchain(namespace: NAMESPACE_ID, reference: chainId)
+        else {
+            approver.reject(.preconditionsNotSatisfied(id: proposal.id))
+            return
+        }
+        
+        var chains = [Blockchain]()
+        var methods = [String]()
+        var events = [String]()
+        
+        // approved proposal must contain all of the required namespaces
+        if let ns = proposal.requiredNamespaces[NAMESPACE_ID] {
+            chains.append(contentsOf: ns.chains ?? [])
+            methods.append(contentsOf: ns.methods)
+            events.append(contentsOf: ns.events)
+        }
+        
+        // depending on the dApp, the chain we're looking for will be in the optional namespaces
+        if let ns = proposal.optionalNamespaces?[NAMESPACE_ID], ns.chains?.contains(blockchain) == true {
+            chains.append(blockchain)
+            methods.append(contentsOf: ns.methods)
+            events.append(contentsOf: ns.events)
+        }
+        
+        guard chains.contains(blockchain) else {
+            approver.reject(.chainNotFound(id: proposal.id))
+            return
+        }
+        
+        // WalletConnect requires to support accounts at least for all required chains
+        let accounts = chains.compactMap { Account(blockchain: $0, address: address) }
+        
+        let creme = SessionNamespace(
+            chains: Set(chains),
+            accounts: Set(accounts),
+            methods: Set(methods),
+            events: Set(events)
+        )
+        
+        let treat: [String: SessionNamespace] = [
+            NAMESPACE_ID: creme
+        ]
 
-            let EVM_COMPATIBLE_NETWORK = "eip155"
-            
-            for (caip2Namespace, namespace) in proposal.allNamespaces {
-                guard
-                    caip2Namespace == EVM_COMPATIBLE_NETWORK,
-                    let chains = namespace.chains,
-                    let validChain = chains.first(where: { $0.reference == safe.chain?.id }),
-                    let account = Account(validChain.absoluteString + ":\(safe.addressValue)")
-                else { continue }
-                
-                // Step 2: share the account address
-                resultNamespaces[caip2Namespace] = SessionNamespace(
-                    accounts: Set([account]),
-                    methods: namespace.methods,
-                    events: namespace.events)
-                
-                break
+        approver.approve(proposalId: proposal.id, namespaces: treat)
+    }
+        
+    class Approver {
+        enum ApprovalFailure: Equatable {
+            case preconditionsNotSatisfied(id: String)
+            case chainNotFound(id: String)
+        }
+        
+        struct Account {
+            var address: String
+            var chain: String
+        }
+        
+        var safe: Account? {
+            nil
+        }
+        
+        func reject(_ failure: ApprovalFailure) {
+        }
+        
+        func approve(proposalId: String, namespaces: [String: SessionNamespace]) {
+        }
+    }
+    
+    class ApproverImpl: Approver {
+
+        override var safe: Account? {
+            guard let safe = try? Safe.getSelected(),
+                  let address = safe.address,
+                  let chain = safe.chain,
+                  let chainId = chain.id
+            else {
+                return nil
             }
-            
-            // Step 1.2: fail if no valid chains found
-            let hasFoundNamespace = !resultNamespaces.isEmpty
-            guard hasFoundNamespace else {
-                Task { @MainActor in
+            return Account(address: address, chain: chainId)
+        }
+        
+        override func reject(_ failure: ApprovalFailure) {
+            Task { @MainActor in
+                switch failure {
+                case .preconditionsNotSatisfied(let id):
+                    App.shared.snackbar.show(error: GSError.WC2SessionApprovalFailed())
+                    try? await Web3Wallet.instance.reject(proposalId: id, reason: .userRejected)
+
+                case .chainNotFound(let id):
                     App.shared.snackbar.show(error: GSError.WC2SessionApprovalFailedWrongChain())
+                    try? await Web3Wallet.instance.reject(proposalId: id, reason: .userRejectedChains)
                 }
-                return
             }
-            
-            // Step 3: continue with connection
-            do {
-                try await Web3Wallet.instance.approve(proposalId: proposal.id, namespaces: resultNamespaces)
-            } catch {
-                Task { @MainActor in
+        }
+        
+        override func approve(proposalId: String, namespaces: [String: SessionNamespace]) {
+            Task { @MainActor in
+                do {
+                    try await Web3Wallet.instance.approve(proposalId: proposalId, namespaces: namespaces)
+                } catch {
+                    LogService.shared.error("Approval failed: \(error)")
                     App.shared.snackbar.show(error: GSError.WC2SessionApprovalFailed())
                 }
             }
         }
     }
+
     
     /// By default, session lifetime is set for 7 days and after that time user's session will expire.
     /// This method will extend the session for 7 days
@@ -355,11 +430,5 @@ class WalletConnectManager {
 extension Bundle {
     var displayName: String {
         return object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? "Safe Multisig"
-    }
-}
-
-extension Session.Proposal {
-    var allNamespaces: [String: ProposalNamespace] {
-        requiredNamespaces.merging(optionalNamespaces ?? [:], uniquingKeysWith: { (req, _) in req })
     }
 }

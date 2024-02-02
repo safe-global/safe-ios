@@ -1029,6 +1029,8 @@
 		B367AED22B0CB89600F06B86 /* TransactionValidationTestCase1.json in Resources */ = {isa = PBXBuildFile; fileRef = B367AED12B0CB89600F06B86 /* TransactionValidationTestCase1.json */; };
 		B3710B3D2AD584BE002E503B /* SecureConfig in Frameworks */ = {isa = PBXBuildFile; productRef = B3710B3C2AD584BE002E503B /* SecureConfig */; };
 		B3710B442AD5AAD7002E503B /* config.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B3710B432AD5AAD7002E503B /* config.bundle */; };
+		B37C73AB2B6D0ADC00E85E7F /* WalletConnectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C73AA2B6D0ADC00E85E7F /* WalletConnectManagerTests.swift */; };
+		B37C73AF2B6D2FC100E85E7F /* WalletConnectManagerTestData.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B37C73AE2B6D2FC100E85E7F /* WalletConnectManagerTestData.bundle */; };
 		B380756B2B0CF45200C62BCF /* TransactionValidationTestCase_InvalidSafeTxHash.json in Resources */ = {isa = PBXBuildFile; fileRef = B380756A2B0CF45200C62BCF /* TransactionValidationTestCase_InvalidSafeTxHash.json */; };
 		B380756D2B0CF60A00C62BCF /* TransactionValidationTestCase_NoConfirmations.json in Resources */ = {isa = PBXBuildFile; fileRef = B380756C2B0CF60A00C62BCF /* TransactionValidationTestCase_NoConfirmations.json */; };
 		B380756F2B0CF6AC00C62BCF /* TransactionValidationTestCase_ConfirmationsNotFromOwners.json in Resources */ = {isa = PBXBuildFile; fileRef = B380756E2B0CF6AC00C62BCF /* TransactionValidationTestCase_ConfirmationsNotFromOwners.json */; };
@@ -2096,6 +2098,8 @@
 		B3710B432AD5AAD7002E503B /* config.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = config.bundle; sourceTree = "<group>"; };
 		B3710B452AD5AE9D002E503B /* apis-prod.example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "apis-prod.example.json"; sourceTree = "<group>"; };
 		B3710B462AD5AE9D002E503B /* apis-staging.example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "apis-staging.example.json"; sourceTree = "<group>"; };
+		B37C73AA2B6D0ADC00E85E7F /* WalletConnectManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletConnectManagerTests.swift; sourceTree = "<group>"; };
+		B37C73AE2B6D2FC100E85E7F /* WalletConnectManagerTestData.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WalletConnectManagerTestData.bundle; sourceTree = "<group>"; };
 		B380756A2B0CF45200C62BCF /* TransactionValidationTestCase_InvalidSafeTxHash.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TransactionValidationTestCase_InvalidSafeTxHash.json; sourceTree = "<group>"; };
 		B380756C2B0CF60A00C62BCF /* TransactionValidationTestCase_NoConfirmations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransactionValidationTestCase_NoConfirmations.json; sourceTree = "<group>"; };
 		B380756E2B0CF6AC00C62BCF /* TransactionValidationTestCase_ConfirmationsNotFromOwners.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransactionValidationTestCase_ConfirmationsNotFromOwners.json; sourceTree = "<group>"; };
@@ -2779,6 +2783,8 @@
 				0A9366BC279090CC001918A9 /* OwnerKeySelectionPolicyTests.swift */,
 				0AADCDBF2858CE2600A0139B /* AddOwnerRequestValidatorTests.swift */,
 				B35BFD0E2A937DC000A9FB15 /* NavigationRouterTests.swift */,
+				B37C73AA2B6D0ADC00E85E7F /* WalletConnectManagerTests.swift */,
+				B37C73AE2B6D2FC100E85E7F /* WalletConnectManagerTestData.bundle */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -5223,6 +5229,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B37C73AF2B6D2FC100E85E7F /* WalletConnectManagerTestData.bundle in Resources */,
 				0A19D43B249A5BA500A316B6 /* TransferTransaction.json in Resources */,
 				AD30377B2E867EBF8647725B /* DelegateWarningMultiSend.json in Resources */,
 				AD303C6514DB164B8DE3BC73 /* DelegateWarningTopLevel.json in Resources */,
@@ -5981,6 +5988,7 @@
 				0A9BC3482460539F00EB9C5D /* ContractTests.swift in Sources */,
 				555312F2250673AD0008206B /* BIP39Tests.swift in Sources */,
 				0AADCDC02858CE2600A0139B /* AddOwnerRequestValidatorTests.swift in Sources */,
+				B37C73AB2B6D0ADC00E85E7F /* WalletConnectManagerTests.swift in Sources */,
 				0AF78A3027E0AAD3001BAFE0 /* WCAppRegistryEntryTests.swift in Sources */,
 				D86A68DF274E692500D7F5C5 /* TestingAppDelegate.swift in Sources */,
 				5532D4CA2449A1980067505A /* CrashlyticsLoggerTests.swift in Sources */,
