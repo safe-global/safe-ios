@@ -1,0 +1,19 @@
+{
+    "eip155": {
+      "chains": [
+        "eip155:42161"
+      ],
+      "accounts": [
+        "eip155:42161:0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+      ],
+      "methods": [
+        "personal_sign",
+        "eth_sendTransaction"
+    ],
+      "events": [
+        "chainChanged",
+        "accountsChanged"
+    ]
+    }
+  }
+  
