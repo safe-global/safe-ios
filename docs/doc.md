@@ -1,6 +1,8 @@
 # Application
 
-This doc explains high-level app design with a structural and functional view. 
+This doc explains high-level app design with a structural view.
+
+[Functional view](fun.md) is in another doc.
 
 ## Structural View
 
