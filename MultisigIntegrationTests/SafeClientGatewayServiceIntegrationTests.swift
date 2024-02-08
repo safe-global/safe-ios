@@ -222,4 +222,19 @@ class SafeClientGatewayServiceIntegrationTests: CoreDataTestCase {
         }
         semaphore.wait()
     }
+    
+    /// Test for the `/v1/chains`
+    func testNetworks() {
+        let semaphore = DispatchSemaphore(value: 0)
+        _ = service.asyncChains { (result: Result<Page<SCGModels.Chain>, Error>) in
+            guard case .success(let page) = result else {
+                XCTFail("Failed to load chains.")
+                semaphore.signal()
+                return
+            }
+            XCTAssertTrue(!page.results.isEmpty)
+            semaphore.signal()
+        }
+        semaphore.wait()
+    }
 }
