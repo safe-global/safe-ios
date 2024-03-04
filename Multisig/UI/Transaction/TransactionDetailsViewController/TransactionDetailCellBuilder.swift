@@ -465,7 +465,7 @@ class TransactionDetailCellBuilder {
         
         // transaction hash is valid
         guard var transaction = Transaction(tx: tx),
-              let contractVersion = safe.version.flatMap(Version.init),
+              let contractVersion = safe.semVer,
               let chainId = safe.chain?.id
         else {
             // not enough information for further checks

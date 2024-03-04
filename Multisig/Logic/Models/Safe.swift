@@ -32,6 +32,10 @@ extension Safe {
         get { SafeStatus(rawValue: status) ?? .deployed }
         set { status = newValue.rawValue }
     }
+    
+    var semVer: Version? {
+        contractVersion.flatMap(Version.init) ?? version.flatMap(Version.init)
+    }
 
     var isReadOnly: Bool {
         guard let owners = ownersInfo else { return false }
