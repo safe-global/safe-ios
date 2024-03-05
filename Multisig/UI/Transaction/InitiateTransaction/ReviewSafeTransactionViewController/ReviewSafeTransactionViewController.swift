@@ -137,8 +137,7 @@ class ReviewSafeTransactionViewController: UIViewController {
             let safeAddress = tx.safe?.address
         else { return }
 
-        if let version = self.safe.contractVersion.flatMap(Version.init),
-           version < Version(1, 3, 0) {
+        if let version = self.safe.semVer, version < Version(1, 3, 0) {
             estimateTransaction(chainId, safeAddress, tx)
         } else {
             fetchNonces(chainId, safeAddress)

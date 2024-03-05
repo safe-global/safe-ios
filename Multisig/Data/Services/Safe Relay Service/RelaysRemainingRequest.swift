@@ -14,7 +14,7 @@ struct RelaysRemainingRequest: JSONRequest {
 
     var httpMethod: String { "GET" }
 
-    var urlPath: String { "/v1/relay/\(chainId)/\(safeAddress)" }
+    var urlPath: String { "/v1/chains/\(chainId)/relay/\(safeAddress)" }
 
     typealias ResponseType = RelaysRemaining
 }

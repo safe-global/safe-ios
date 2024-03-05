@@ -659,10 +659,12 @@ class TransactionExecutionController {
             signatures: Sol.Bytes(storage: Data(signatures))
         ).encode()
 
-
+        let safeVersion = safe.semVer?.description ?? "1.3.0"
         let task = relayerService.asyncRelayTransaction(chainId: safe.chain!.id!,
                                                         to: safe.addressValue,
-                                                        txData: input.toHexStringWithPrefix()) { response in
+                                                        txData: input.toHexStringWithPrefix(),
+                                                        version: safeVersion
+        ) { response in
             switch(response) {
             case .success:
                 guard let taskId = try? response.get().taskId else {

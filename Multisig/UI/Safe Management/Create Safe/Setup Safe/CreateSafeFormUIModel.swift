@@ -673,11 +673,13 @@ class CreateSafeFormUIModel {
         })
     }
 
-     func relay(completion: @escaping (Result<String, Error>) -> Void) -> URLSessionTask? {
+    func relay(completion: @escaping (Result<String, Error>) -> Void) -> URLSessionTask? {
         guard let tx = transaction else { return nil }
+        let safeVersion = deploymentVersion?.rawValue.filter { char in char.isNumber || char.isPunctuation } ?? "1.3.0"
         let task = relayerService.asyncRelayTransaction(chainId: chain!.id!,
                                                         to: Address(tx.to),
-                                                        txData: tx.data.storage.toHexStringWithPrefix()
+                                                        txData: tx.data.storage.toHexStringWithPrefix(),
+                                                        version: safeVersion
         ) { [weak self] response in
             guard let self = self else { return }
             switch(response) {
