@@ -149,13 +149,13 @@ class WalletConnectManager {
         }
     }
     
-    func reject(request: Request) {
+    func reject(request: Request, error: JSONRPCError = JSONRPCError(code: 0, message: "")) {
         Task {
             do {
                 try await Web3Wallet.instance.respond(
                     topic: request.topic,
                     requestId: request.id,
-                    response: .error(.init(code: 0, message: ""))
+                    response: .error(error)
                 )
             } catch {
                 print("DAPP: Respond Error: \(error.localizedDescription)")
@@ -165,7 +165,9 @@ class WalletConnectManager {
             }
         }
     }
-        
+    
+    let NAMESPACE_ID = "eip155"
+
     // Approves required chains and a chain where selected safe resides.
     //
     // For reference:
@@ -178,8 +180,6 @@ class WalletConnectManager {
     //   - connection approved if safe's chain is in the proposal
     //   - if no such chain found in proposal, connection will fail
     func approveSession(proposal: Session.Proposal) {
-        let NAMESPACE_ID = "eip155"
-        
         guard
             let address = approver.safe?.address,
             let chainId = approver.safe?.chain,
@@ -363,6 +363,19 @@ class WalletConnectManager {
             }
             
             if request.method == "eth_sendTransaction" {
+                guard 
+                    let idString = safe.chain?.id,
+                    let safeChainId = Blockchain(namespace: NAMESPACE_ID, reference: safe.chain!.id!),
+                    request.chainId == safeChainId
+                else {
+                    DispatchQueue.main.async {
+                        App.shared.snackbar.show(message: "Please select dApp chain matching with the safe's chain")
+                    }
+                    reject(request: request, 
+                           error: JSONRPCError(code: -33012, message: "Please select a different chain"))
+                    return
+                }
+
                 // make transformation of incoming request into internal data types
                 // and fetch information about Safe Accout from the request
                 DispatchQueue.global(qos: .background).async { [weak self] in
