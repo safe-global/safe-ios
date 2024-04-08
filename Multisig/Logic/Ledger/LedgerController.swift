@@ -103,7 +103,7 @@ class LedgerController {
 
                 let gnosisSafeSignature = r + s + Data([v + 4])
 
-                completion(gnosisSafeSignature.toHexString(), nil)
+                completion(gnosisSafeSignature.toHexStringWithPrefix(), nil)
 
             case .failure(_):
                 completion(nil, "Please check that Ethereum App is running on the Ledger device.")
