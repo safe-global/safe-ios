@@ -37,7 +37,7 @@ class WalletConnectManager {
     
     func config() {
         let projectId = App.configuration.protected[.WALLETCONNECT_PROJECT_ID]
-        Networking.configure(groupIdentifier: "", projectId: projectId, socketFactory: SocketFactory())
+        Networking.configure(projectId: projectId, socketFactory: SocketFactory())
         Pair.configure(metadata: metadata)
         Web3Wallet.configure(metadata: metadata, crypto: NullCryptoProvider())
         setUpAuthSubscribing()
@@ -107,17 +107,12 @@ class WalletConnectManager {
     }
     
     private func wcURI(string: String) -> WalletConnectURI? {
-        do {
-            if string.hasPrefix("safe://wc?uri=") {
-                let wcString = string.replacingOccurrences(of: "safe://wc?uri=", with: "wc://wc?uri=").removingPercentEncoding!
-                let url = URL(string: wcString)!
-                return try WalletConnectURI(deeplinkUri: url)
-            } else {
-                return try WalletConnectURI(uriString: string)
-            }
-        } catch {
-            LogService.shared.error("WC URI: \(error)")
-            return nil
+        if string.hasPrefix("safe://wc?uri=") {
+            let wcString = string.replacingOccurrences(of: "safe://wc?uri=", with: "wc://wc?uri=").removingPercentEncoding!
+            let url = URL(string: wcString)!
+            return WalletConnectURI(deeplinkUri: url)
+        } else {
+            return WalletConnectURI(string: string)
         }
     }
     
@@ -221,8 +216,8 @@ class WalletConnectManager {
         let accounts = chains.compactMap { Account(blockchain: $0, address: address) }
         
         let creme = SessionNamespace(
-            chains: chains,
-            accounts: accounts,
+            chains: Set(chains),
+            accounts: Set(accounts),
             methods: Set(methods),
             events: Set(events)
         )
@@ -274,11 +269,11 @@ class WalletConnectManager {
                 switch failure {
                 case .preconditionsNotSatisfied(let id):
                     App.shared.snackbar.show(error: GSError.WC2SessionApprovalFailed())
-                    try? await Web3Wallet.instance.rejectSession(proposalId: id, reason: .userRejected)
+                    try? await Web3Wallet.instance.reject(proposalId: id, reason: .userRejected)
 
                 case .chainNotFound(let id):
                     App.shared.snackbar.show(error: GSError.WC2SessionApprovalFailedWrongChain())
-                    try? await Web3Wallet.instance.rejectSession(proposalId: id, reason: .unsupportedChains)
+                    try? await Web3Wallet.instance.reject(proposalId: id, reason: .userRejectedChains)
                 }
             }
         }
@@ -286,7 +281,7 @@ class WalletConnectManager {
         override func approve(proposalId: String, namespaces: [String: SessionNamespace]) {
             Task { @MainActor in
                 do {
-                    _ = try await Web3Wallet.instance.approve(proposalId: proposalId, namespaces: namespaces)
+                    try await Web3Wallet.instance.approve(proposalId: proposalId, namespaces: namespaces)
                 } catch {
                     LogService.shared.error("Approval failed: \(error)")
                     App.shared.snackbar.show(error: GSError.WC2SessionApprovalFailed())
