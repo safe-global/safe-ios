@@ -989,13 +989,21 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             return
         }
         
-        let request = WalletConnectSign.Request(
-            topic: session.topic,
-            method: "eth_sendTransaction",
-            params: AnyCodable([transaction]),
-            chainId: walletAddress.blockchain
-        )
-        send(request: request, completion: completion)
+        do {
+            let request = try WalletConnectSign.Request(
+                topic: session.topic,
+                method: "eth_sendTransaction",
+                params: AnyCodable([transaction]),
+                chainId: walletAddress.blockchain
+            )
+            send(request: request, completion: completion)
+        } catch {
+            LogService.shared.error("WalletConnectSign.Request failed: \(error)")
+            completion(.failure(GSError.WC2GenericError(
+                description: "Failed to send transaction",
+                reason: "Sign request has an error",
+                howToFix: "Please contact Safe support")))
+        }
     }
     
     func send(request: WalletConnectSign.Request, completion: @escaping (Result<String, Error>) -> Void) {
@@ -1038,13 +1046,21 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             completion(.failure(GSError.WalletNotConnected(description: "Could not sign message")))
             return
         }
-        let request = WalletConnectSign.Request(
-            topic: session.topic,
-            method: "eth_sign",
-            params: AnyCodable([walletAddress.address, message]),
-            chainId: walletAddress.blockchain
-        )
-        send(request: request, completion: completion)
+        do {
+            let request = try WalletConnectSign.Request(
+                topic: session.topic,
+                method: "eth_sign",
+                params: AnyCodable([walletAddress.address, message]),
+                chainId: walletAddress.blockchain
+            )
+            send(request: request, completion: completion)
+        } catch {
+            LogService.shared.error("WalletConnectSign.Request failed: \(error)")
+            completion(.failure(GSError.WC2GenericError(
+                description: "Failed to sign message",
+                reason: "Sign request has an error",
+                howToFix: "Please contact Safe support")))
+        }
     }
     
     func wcSign(connection: WebConnection, transaction: Transaction, completion: @escaping (Result<String, Error>) -> Void) {
@@ -1059,23 +1075,39 @@ class WebConnectionController: ServerDelegateV2, RequestHandler, WebConnectionSu
             key == "eip155" && value.methods.contains("eth_signTypedData_v4")
         }
         if supportsTypedData {
-            let message = EIP712Transformer.typedData(transaction)
-            let request = WalletConnectSign.Request(
-                topic: session.topic,
-                method: "eth_signTypedData_v4",
-                params: AnyCodable([walletAddress.address, message]),
-                chainId: walletAddress.blockchain
-            )
-            send(request: request, completion: completion)
+            do {
+                let message = EIP712Transformer.typedData(transaction)
+                let request = try WalletConnectSign.Request(
+                    topic: session.topic,
+                    method: "eth_signTypedData_v4",
+                    params: AnyCodable([walletAddress.address, message]),
+                    chainId: walletAddress.blockchain
+                )
+                send(request: request, completion: completion)
+            } catch {
+                LogService.shared.error("WalletConnectSign.Request failed: \(error)")
+                completion(.failure(GSError.WC2GenericError(
+                    description: "Failed to sign transaction",
+                    reason: "Sign typed data request has an error",
+                    howToFix: "Please contact Safe support")))
+            }
         } else {
-            let message = transaction.safeTxHash.description
-            let request = WalletConnectSign.Request(
-                topic: session.topic,
-                method: "eth_sign",
-                params: AnyCodable([walletAddress.address, message]),
-                chainId: walletAddress.blockchain
-            )
-            send(request: request, completion: completion)
+            do {
+                let message = transaction.safeTxHash.description
+                let request = try WalletConnectSign.Request(
+                    topic: session.topic,
+                    method: "eth_sign",
+                    params: AnyCodable([walletAddress.address, message]),
+                    chainId: walletAddress.blockchain
+                )
+                send(request: request, completion: completion)
+            } catch {
+                LogService.shared.error("WalletConnectSign.Request failed: \(error)")
+                completion(.failure(GSError.WC2GenericError(
+                    description: "Failed to sign transaction",
+                    reason: "Sign request has an error",
+                    howToFix: "Please contact Safe support")))
+            }
         }
     }
     

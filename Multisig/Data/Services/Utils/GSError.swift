@@ -484,6 +484,15 @@ enum GSError {
         let code = 9931
         let loggable = false
     }
+    
+    struct WC2GenericError: DetailedLocalizedError {
+        let description: String
+        let reason: String
+        let howToFix: String
+        let domain = clientErrorDomain
+        let code = 9932
+        let loggable = false
+    }
 
 	// MARK: Address Book
 
