@@ -82,6 +82,11 @@ class QRCodeScannerViewController: UIViewController {
         let alert = UIAlertController(title: "Camera unavailable", message: "The camera is unavailable in Split View or in Slide Over mode. Please open the app to full screen.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default)
         alert.addAction(okAction)
+        
+        if let popoverPresentationController = alert.popoverPresentationController {
+            popoverPresentationController.sourceView = cameraFrameView
+        }
+        
         present(alert, animated: true)
     }
 
@@ -201,6 +206,10 @@ class QRCodeScannerViewController: UIViewController {
         alert.addAction(UIAlertAction(title: Strings.cameraAlertCancel, style: .default) { [weak self] _ in
             self?.delegate?.scannerViewControllerDidCancel()
         })
+        
+        if let popoverPresentationController = alert.popoverPresentationController {
+            popoverPresentationController.sourceView = cameraFrameView
+        }
         present(alert, animated: true)
     }
 
@@ -209,6 +218,11 @@ class QRCodeScannerViewController: UIViewController {
                                    message: Strings.scannerNotSupportedMessage,
                                    preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: Strings.ok, style: .default))
+        
+        if let popoverPresentationController = ac.popoverPresentationController {
+            popoverPresentationController.sourceView = cameraFrameView
+        }
+        
         present(ac, animated: true)
         captureSession = nil
     }
@@ -256,6 +270,11 @@ extension QRCodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
                 self?.captureSession.startRunning()
             }
             alert.addAction(retryButton)
+            
+            if let popoverPresentationController = alert.popoverPresentationController {
+                popoverPresentationController.sourceView = cameraFrameView
+            }
+            
             present(alert, animated: true)
         }
     }

@@ -63,6 +63,10 @@ class CreatePasscodeFlow: UIFlow {
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) { [unowned self] in
+            
+            if let popoverPresentationController = biometryAlert.popoverPresentationController {
+                popoverPresentationController.sourceView = self.navigationController.view
+            }
             self.navigationController.present(biometryAlert, animated: true)
         }
     }
@@ -167,6 +171,10 @@ class CreatePasscodeFlow: UIFlow {
         //   if device supports it, ask if to enable biometry
         let biometryAlert = factory.enableBiometryAlert { [unowned self] in
             stop(success: true)
+        }
+        
+        if let popoverPresentationController = biometryAlert.popoverPresentationController {
+            popoverPresentationController.sourceView = presenter.view
         }
 
         presenter.present(biometryAlert, animated: true)

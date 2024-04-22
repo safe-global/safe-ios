@@ -82,6 +82,10 @@ class CreateAddressBookEntryViewController: UIViewController {
         }))
 
         alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        if let popoverPresentationController = alertVC.popoverPresentationController {
+            popoverPresentationController.sourceView = addressField
+        }
 
         present(alertVC, animated: true, completion: nil)
     }

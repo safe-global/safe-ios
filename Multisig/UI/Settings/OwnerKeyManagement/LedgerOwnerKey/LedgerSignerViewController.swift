@@ -61,6 +61,10 @@ class LedgerSignerViewController: UINavigationController {
             confirmVC.modalPresentationStyle = .popover
             confirmVC.modalTransitionStyle = .crossDissolve
 
+            if let popoverPresentationController = confirmVC.popoverPresentationController {
+                popoverPresentationController.sourceView = self.view
+            }
+
             present(confirmVC, animated: true)
 
             confirmVC.onClose = { [unowned vc] in

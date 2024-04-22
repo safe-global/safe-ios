@@ -147,10 +147,6 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         Tracker.trackEvent(.ownerKeyDetails)
     }
 
-    @IBAction func removeButtonTouched(_ sender: UIButton) {
-        removeKey()
-    }
-
     @objc private func didTapExportButton() {
         let exportViewController = ExportViewController()
 
@@ -250,11 +246,16 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         completion?()
     }
 
-    private func removeKey() {
+    private func removeKey(sourceIndexPath: IndexPath) {
         let alertController = UIAlertController(
             title: nil,
             message: "Removing the owner key only removes it from this app. It doesn’t delete any Safes from this app or from blockchain. Transactions for Safes controlled by this key will no longer be available for signing in this app.",
             preferredStyle: .multiplatformActionSheet)
+        
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.sourceView = tableView
+            popoverPresentationController.sourceRect = tableView.rectForRow(at: sourceIndexPath)
+        }
 
         let remove = UIAlertAction(title: "Remove", style: .destructive) { _ in
             OwnerKeyController.remove(keyInfo: self.keyInfo)
@@ -304,7 +305,7 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
                                 indexPath: indexPath)
         case Section.Advanced.remove:
             return tableView.removeCell(indexPath: indexPath, title: "Remove owner key") { [weak self] in
-                self?.removeKey()
+                self?.removeKey(sourceIndexPath: indexPath)
             }
         default:
             return UITableViewCell()
@@ -349,6 +350,12 @@ class OwnerKeyDetailsViewController: UITableViewController, WebConnectionObserve
         case Section.Connected.connected:
             if keyInfo.connectedAsDapp {
                 let alertController = DisconnectionConfirmationController.create(key: keyInfo)
+                
+                if let popoverPresentationController = alertController.popoverPresentationController {
+                    popoverPresentationController.sourceView = tableView
+                    popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
+                }
+                
                 present(alertController, animated: true)
             } else {
                 self.connect(keyInfo: keyInfo)

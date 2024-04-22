@@ -139,6 +139,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
 
                 if isConnected {
                     let alertController = DisconnectionConfirmationController.create(key: keyInfo)
+                    
                     if let popoverPresentationController = alertController.popoverPresentationController {
                         popoverPresentationController.sourceView = tableView
                         popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
@@ -156,7 +157,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         }
 
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
-            self?.remove(key: keyInfo)
+            self?.remove(key: keyInfo, sourceIndexPath: indexPath)
             completion(true)
         }
         actions.append(deleteAction)
@@ -172,7 +173,7 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         present(vc, animated: true)
     }
 
-    private func remove(key: KeyInfo) {
+    private func remove(key: KeyInfo, sourceIndexPath: IndexPath) {
         let alertController = UIAlertController(
             title: nil,
             message: "Removing the owner key only removes it from this app. It doesn’t delete any Safes from this app or from blockchain. Transactions for Safes controlled by this key will no longer be available for signing in this app.",
@@ -184,6 +185,12 @@ class OwnerKeysListViewController: LoadableViewController, UITableViewDelegate, 
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(remove)
         alertController.addAction(cancel)
+        
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.sourceView = tableView
+            popoverPresentationController.sourceRect = tableView.rectForRow(at: sourceIndexPath)
+        }
+        
         present(alertController, animated: true)
     }
 
