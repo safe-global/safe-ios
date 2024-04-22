@@ -2107,6 +2107,7 @@
 		B38075762B0CFD3A00C62BCF /* TransactionValidationTestCase_AllSignatureTypes_v1_0_0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TransactionValidationTestCase_AllSignatureTypes_v1_0_0.json; sourceTree = "<group>"; };
 		B3B6044E2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertControllerStyle+Multiplatform.swift"; sourceTree = "<group>"; };
 		B3C4D2D82AAF596D0026A8BC /* UIViewController+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Navigation.swift"; sourceTree = "<group>"; };
+		B3FA40E82BD66665008BC688 /* ConfirmationRequestPushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = ConfirmationRequestPushNotificationPayload.apns; sourceTree = "<group>"; };
 		D80B5A022769CEAD00D6E024 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
 		D80B5A042769CF1B00D6E024 /* TooltipSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipSource.swift; sourceTree = "<group>"; };
 		D80B5A062769D05D00D6E024 /* BaseCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCustomView.swift; sourceTree = "<group>"; };
@@ -3699,6 +3700,7 @@
 				0AF2736A24DC57C6007E4012 /* NotificationPayload.swift */,
 				0A616B9826AEFD1D00FCEDB9 /* MultisigNotification+ContentProvider.swift */,
 				0AF2731524DAABDC007E4012 /* NotificationService.swift */,
+				B3FA40E82BD66665008BC688 /* ConfirmationRequestPushNotificationPayload.apns */,
 				0AF2737624DD46EB007E4012 /* Configuration */,
 			);
 			path = NotificationServiceExtension;
@@ -7404,7 +7406,7 @@
 			repositoryURL = "https://github.com/WalletConnect/WalletConnectSwiftV2";
 			requirement = {
 				kind = exactVersion;
-				version = 1.18.4;
+				version = 1.8.7;
 			};
 		};
 		04AECBB52A744B21008D5A35 /* XCRemoteSwiftPackageReference "mobile-sdk-ios" */ = {
