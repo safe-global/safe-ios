@@ -125,7 +125,7 @@ class TransactionViewController: UIViewController {
     }
 
     private func didTapAddressField() {
-        let alertVC = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let alertVC = UIAlertController(title: nil, message: nil, preferredStyle: .multiplatformActionSheet)
 
         if let popoverPresentationController = alertVC.popoverPresentationController {
             popoverPresentationController.sourceView = addressField
@@ -154,6 +154,10 @@ class TransactionViewController: UIViewController {
         }))
 
         alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        if let popoverPresentationController = alertVC.popoverPresentationController {
+            popoverPresentationController.sourceView = addressField
+        }
 
         present(alertVC, animated: true, completion: nil)
     }

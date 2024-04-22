@@ -81,6 +81,11 @@ class ReceiveAddOwnerLinkViewController: UIViewController {
         alertController.addAction(add)
         alertController.addAction(replace)
         alertController.addAction(cancel)
+        
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.sourceView = continueButton
+        }
+        
         present(alertController, animated: true)
     }
 }

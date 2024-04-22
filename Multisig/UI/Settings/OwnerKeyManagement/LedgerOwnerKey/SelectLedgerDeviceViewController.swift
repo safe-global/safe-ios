@@ -137,6 +137,11 @@ extension SelectLedgerDeviceViewController: BluetoothControllerDelegate {
             }
             alertVC.addAction(cancel)
             alertVC.addAction(settings)
+            
+            if let popoverPresentationController = alertVC.popoverPresentationController {
+                popoverPresentationController.sourceView = tableView
+            }
+            
             present(alertVC, animated: true, completion: nil)
         }
     }

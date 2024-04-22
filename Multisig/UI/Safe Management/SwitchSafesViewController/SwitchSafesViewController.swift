@@ -131,6 +131,12 @@ final class SwitchSafesViewController: UITableViewController {
             alertController.addAction(addSafe)
             alertController.addAction(createSafe)
             alertController.addAction(cancel)
+            
+            if let popoverPresentationController = alertController.popoverPresentationController {
+                popoverPresentationController.sourceView = tableView
+                popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
+            }
+            
             self.present(alertController, animated: true)
         } else {
             let safe = chainSafes[indexPath.section - 1].safes[indexPath.row]
@@ -165,7 +171,7 @@ final class SwitchSafesViewController: UITableViewController {
         var actions = [UIContextualAction]()
 
         let deleteAction = UIContextualAction(style: .destructive, title: "Remove") { [weak self] _, _, completion in
-            self?.remove(safe: safe)
+            self?.remove(safe: safe, sourceIndexPath: indexPath)
             completion(true)
         }
         actions.append(deleteAction)
@@ -173,7 +179,7 @@ final class SwitchSafesViewController: UITableViewController {
         return UISwipeActionsConfiguration(actions: actions)
     }
 
-    private func remove(safe: Safe) {
+    private func remove(safe: Safe, sourceIndexPath: IndexPath) {
         let title = safe.safeStatus == .deployed ?
         "Removing a Safe only removes it from this app. It does not delete the Safe from the blockchain. Funds will not get lost." :
         "Are you sure you want to remove this Safe? The transaction fees will not be returned."
@@ -188,6 +194,12 @@ final class SwitchSafesViewController: UITableViewController {
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(remove)
         alertController.addAction(cancel)
+        
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.sourceView = tableView
+            popoverPresentationController.sourceRect = tableView.rectForRow(at: sourceIndexPath)
+        }
+        
         self.present(alertController, animated: true)
     }
 }

@@ -115,6 +115,10 @@ class EnterSafeAddressViewController: UIViewController {
                 self.show(udNameWrapperVC, sender: nil)
             }))
         }
+        
+        if let popoverPresentationController = alertVC.popoverPresentationController {
+            popoverPresentationController.sourceView = addressField
+        }
 
         alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 

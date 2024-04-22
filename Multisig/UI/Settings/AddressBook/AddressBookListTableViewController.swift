@@ -66,7 +66,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         let alertController = UIAlertController(
             title: nil,
             message: nil,
-            preferredStyle: .actionSheet)
+            preferredStyle: .multiplatformActionSheet)
 
         if let popoverPresentationController = alertController.popoverPresentationController {
             popoverPresentationController.barButtonItem = menuButton
@@ -188,7 +188,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         actions.append(editAction)
 
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
-            self?.remove(entry)
+            self?.remove(entry, sourceIndexPath: indexPath)
             completion(true)
         }
         actions.append(deleteAction)
@@ -232,7 +232,7 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         show(ribbonVC, sender: nil)
     }
 
-    private func remove(_ entry: AddressBookEntry) {
+    private func remove(_ entry: AddressBookEntry, sourceIndexPath: IndexPath) {
         let alertController = UIAlertController(
             title: nil,
             message: "Removing the entry key only removes it from this app.",
@@ -245,6 +245,12 @@ class AddressBookListTableViewController: LoadableViewController, UITableViewDel
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(remove)
         alertController.addAction(cancel)
+        
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.sourceView = tableView
+            popoverPresentationController.sourceRect = tableView.rectForRow(at: sourceIndexPath)
+        }
+        
         present(alertController, animated: true)
     }
 }

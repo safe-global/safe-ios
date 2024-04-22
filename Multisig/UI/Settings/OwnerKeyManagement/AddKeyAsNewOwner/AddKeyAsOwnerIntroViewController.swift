@@ -74,6 +74,11 @@ class AddKeyAsOwnerIntroViewController: UIViewController, UIAdaptivePresentation
         alertController.addAction(add)
         alertController.addAction(replace)
         alertController.addAction(cancel)
+        
+        if let popoverPresentationController = alertVC.popoverPresentationController {
+            popoverPresentationController.sourceView = addButton
+        }
+        
         present(alertController, animated: true)
     }
 }

@@ -117,6 +117,11 @@ class EnterPasscodeViewController: PasscodeViewController {
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(remove)
         alertController.addAction(cancel)
+        
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.sourceView = button
+        }
+        
         present(alertController, animated: true)
     }
 

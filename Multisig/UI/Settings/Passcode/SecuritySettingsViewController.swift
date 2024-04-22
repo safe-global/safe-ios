@@ -177,15 +177,15 @@ class SecuritySettingsViewController: UITableViewController {
         }
     }
 
-    private func toggleBiometrics(_ lockMethod: LockMethod) {
+    private func toggleBiometrics(_ lockMethod: LockMethod, sourceIndexPath: IndexPath) {
         if AppConfiguration.FeatureToggles.securityCenter {
             toggleBiometricsSecurityLock(newLockMethod: lockMethod)
         } else {
-            toggleBiometricsKeychainStorage()
+            toggleBiometricsKeychainStorage(sourceIndexPath: sourceIndexPath)
         }
     }
 
-    private func toggleBiometricsKeychainStorage() {
+    private func toggleBiometricsKeychainStorage(sourceIndexPath: IndexPath) {
         withPasscodeAuthentication(for: "Login with biometrics") { [unowned self] success, nav, finish in
             let completion = { [unowned self] in
                 finish()
@@ -200,7 +200,7 @@ class SecuritySettingsViewController: UITableViewController {
             } else if success {
                 App.shared.auth.activateBiometrics { [unowned self] result in
                     if hasFailedBecauseBiometryNotEnabled(result) {
-                        showBiometrySettings(presenter: nav!, completion: completion)
+                        showBiometrySettings(presenter: nav!, sourceIndexPath: sourceIndexPath, completion: completion)
                     } else {
                         completion()
                     }
@@ -262,7 +262,9 @@ class SecuritySettingsViewController: UITableViewController {
         return FAILED_FOR_OTHER_REASON
     }
 
-    private func showBiometrySettings(presenter: UIViewController, completion: @escaping () -> Void) {
+    private func showBiometrySettings(presenter: UIViewController,
+                                      sourceIndexPath: IndexPath, 
+                                      completion: @escaping () -> Void) {
         let alertVC = UIAlertController(title: nil,
                                         message: "To activate biometry, navigate to Settings.",
                                         preferredStyle: .alert)
@@ -281,6 +283,11 @@ class SecuritySettingsViewController: UITableViewController {
         }
         alertVC.addAction(cancel)
         alertVC.addAction(settings)
+        
+        if let popoverPresentationController = alertVC.popoverPresentationController {
+            popoverPresentationController.sourceView = tableView
+            popoverPresentationController.sourceRect = tableView.rectForRow(at: sourceIndexPath)
+        }
 
         presenter.present(alertVC, animated: true, completion: nil)
     }
@@ -354,7 +361,7 @@ class SecuritySettingsViewController: UITableViewController {
                     state: lock == .passcode ? .on : .off
                 ) { [unowned self] action in
                     if lock != .passcode {
-                        toggleBiometrics(.passcode)
+                        toggleBiometrics(.passcode, sourceIndexPath: indexPath)
                     }
                 },
                 UIAction(
@@ -362,14 +369,14 @@ class SecuritySettingsViewController: UITableViewController {
                     state: lock == .userPresence ? .on : .off
                 ) { [unowned self] action in
                     if lock != .userPresence {
-                        toggleBiometrics(.userPresence)
+                        toggleBiometrics(.userPresence, sourceIndexPath: indexPath)
                     }
                 }]
             if AppConfiguration.FeatureToggles.securityCenter {
                 children.append(UIAction(title: detailText(for: .lockMethod, lock: .passcodeAndUserPresence, biometry: biometryType)!,
                                          state: lock == .passcodeAndUserPresence ? .on : .off
                                         ) { [unowned self] action in
-                    toggleBiometrics(.passcodeAndUserPresence)
+                    toggleBiometrics(.passcodeAndUserPresence, sourceIndexPath: indexPath)
                 })
             }
 

@@ -276,6 +276,12 @@ class SafeSettingsViewController: LoadableViewController, UITableViewDelegate, U
                 let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 alertController.addAction(remove)
                 alertController.addAction(cancel)
+                
+                if let popoverPresentationController = alertController.popoverPresentationController {
+                    popoverPresentationController.sourceView = tableView
+                    popoverPresentationController.sourceRect = tableView.rectForRow(at: indexPath)
+                }
+                
                 self.present(alertController, animated: true)
             }
         default:
