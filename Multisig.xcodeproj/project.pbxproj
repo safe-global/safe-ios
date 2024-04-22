@@ -7406,7 +7406,7 @@
 			repositoryURL = "https://github.com/WalletConnect/WalletConnectSwiftV2";
 			requirement = {
 				kind = exactVersion;
-				version = 1.9.9;
+				version = 1.8.7;
 			};
 		};
 		04AECBB52A744B21008D5A35 /* XCRemoteSwiftPackageReference "mobile-sdk-ios" */ = {
