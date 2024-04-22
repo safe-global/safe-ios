@@ -9,6 +9,11 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '30'))
     }
     environment {
+        // this enables ruby gem binaries, such as xcpretty
+        PATH = "$HOME/.rbenv/bin:$HOME/.rbenv/shims:/usr/local/bin:/usr/local/sbin:$PATH"
+        // to enable utf-8 in logs output
+        LC_CTYPE = "en_US.UTF-8"
+
         CONFIG_KEY_STAGING = credentials('CONFIG_KEY_STAGING')
         CONFIG_KEY_PROD = credentials('CONFIG_KEY_PROD')
 
