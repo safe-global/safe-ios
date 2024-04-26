@@ -372,6 +372,9 @@ class TransactionDetailCellBuilder {
             } else {
                 rejectionHeader(nonce: nil, isQueued: tx.txStatus.isInQueue)
             }
+        case .swapOrder(let orderInfo):
+            text("Swap order", title: "Contract Interaction", expandableTitle: nil, copyText: nil)
+            externalURL(text: "Order details", url: orderInfo.explorerUrl)
         case .creation(_):
             // ignore
             fallthrough
@@ -656,6 +659,9 @@ class TransactionDetailCellBuilder {
         case .creation(_):
             type = "Safe Account created"
             icon = UIImage(named: "ico-settings-tx")
+        case .swapOrder(_):
+            type = "Swap order"
+            icon = UIImage(named: "ico-custom-tx")
         case .unknown:
             type = "Unknown operation"
             icon = UIImage(named: "ico-custom-tx")
