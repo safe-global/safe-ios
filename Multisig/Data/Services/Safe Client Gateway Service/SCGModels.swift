@@ -173,6 +173,7 @@ extension SCGModels {
         case custom(Custom)
         case rejection(Rejection)
         case creation(Creation)
+        case swapOrder(SwapOrder)
         case unknown
 
         init(from decoder: Decoder) throws {
@@ -197,6 +198,8 @@ extension SCGModels {
                 }
             case "Creation":
                 self = try .creation(Creation(from: decoder))
+            case "SwapOrder":
+                self = try .swapOrder(SwapOrder(from: decoder))
             case "Unknown":
                 fallthrough
             default:
@@ -372,6 +375,13 @@ extension SCGModels {
             var transactionHash: DataString
             var implementation: AddressInfo?
             var factory: AddressInfo?
+        }
+
+        struct SwapOrder: Decodable {
+            var uid: String
+            var status: String
+            var kind: String
+            var explorerUrl: URL
         }
     }
 
