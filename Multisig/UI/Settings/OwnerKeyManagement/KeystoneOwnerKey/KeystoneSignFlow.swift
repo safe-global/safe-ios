@@ -69,7 +69,7 @@ extension KeystoneSignFlow: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
         guard
             let signature = URRegistry.shared.getSignature(from: code)?.signature,
-            let unmarshaledSignature = SECP256K1.UnmarshaledSignature(
+            let signatureComps = SECP256K1.UnmarshaledSignature.decode(
                 keystoneSignature: signature,
                 isLegacyTx: signInfo.signType == .transaction,
                 chainId: signInfo.chain?.id ?? "0"),
@@ -80,7 +80,7 @@ extension KeystoneSignFlow: QRCodeScannerViewControllerDelegate {
             return
         }
         
-        signCompletion?(unmarshaledSignature)
+        signCompletion?(SECP256K1.UnmarshaledSignature(v: signatureComps.v, r: signatureComps.r, s: signatureComps.s))
         stop(success: true)
     }
     
@@ -94,18 +94,19 @@ extension SECP256K1.UnmarshaledSignature {
         let signature = r + s + Data([v + 4])
         return signature.toHexStringWithPrefix()
     }
-
-    init?(keystoneSignature signature: String, isLegacyTx: Bool, chainId: String) {
+    
+    static func decode(keystoneSignature signature: String, isLegacyTx: Bool, chainId: String) ->
+    (v: UInt8, r: Data, s: Data)? {
         let data: Data = Data(hex: signature)
         guard data.count >= 65 else { return nil }
-
+        
         let r = data[0..<32]
         let s = data[32..<64]
         let v: UInt8
-
+        
         let chainIdInt = UInt64(chainId) ?? 0
         let vBytes: Bytes
-
+        
         // if v was overflown (e.g. chain_id > 109 according to EIP-155)
         if data.count > 65 {
             // max 8 bytes to fit into UInt64
@@ -130,10 +131,10 @@ extension SECP256K1.UnmarshaledSignature {
                 }
             }
         }
-
+        
         // see https://github.com/Boilertalk/secp256k1/blob/d5407179912e8c1f825a212a474aaa86b10f1352/src/ecdsa_impl.h
         assert(v == 0 || v == 1 || v == 2 || v == 3 ||  v == 27 || v == 28 || v == 29 || v == 30)
-
-        self.init(v: v, r: r, s: s)
+        
+        return (v, r, s)
     }
 }
