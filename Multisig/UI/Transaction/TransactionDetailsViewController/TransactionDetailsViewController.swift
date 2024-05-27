@@ -284,7 +284,7 @@ class TransactionDetailsViewController: LoadableViewController, UITableViewDataS
         }
         let descriptionText = "You are about to confirm this transaction. This happens off-chain. Please select which owner key to use."
         let vc = ChooseOwnerKeyViewController(
-            owners: signers,
+            owners: { signers },
             chainID: safe.chain!.id,
             header: .text(description: descriptionText)
         ) {

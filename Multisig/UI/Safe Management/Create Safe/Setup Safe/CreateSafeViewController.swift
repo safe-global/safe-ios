@@ -334,7 +334,7 @@ class CreateSafeViewController: UIViewController, UITableViewDelegate, UITableVi
         }
 
         let keyPickerVC = ChooseOwnerKeyViewController(
-            owners: keys,
+            owners:  { keys },
             chainID: uiModel.chain.id,
             titleText: "Deployer Account",
             header: .text(description: "The selected account will be used to deploy the Safe."),

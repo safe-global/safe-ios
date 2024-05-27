@@ -51,7 +51,7 @@ class OwnerKeyController {
                 break
             }
 
-            NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
+            postNotification(.ownerKeyImported)
             return true
         } catch {
             App.shared.snackbar.show(error: GSError.error(description: "Could not import signing key.", error: error))
@@ -85,7 +85,7 @@ class OwnerKeyController {
                 break
             }
 
-            NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
+            postNotification(.ownerKeyImported)
             return true
         } catch {
             App.shared.snackbar.show(error: GSError.error(description: "Could not import signing key.", error: error))
@@ -101,7 +101,7 @@ class OwnerKeyController {
             guard newKey != nil else { return false }
 
             Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
-            NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
+            postNotification(.ownerKeyImported)
 
             let name = wallet?.name ?? connection.remotePeer?.name ?? "unknown"
             Tracker.trackEvent(.connectInstalledWallet, parameters: ["wallet": name])
@@ -125,7 +125,7 @@ class OwnerKeyController {
             guard updatedKey != nil else { return false }
 
             Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
-            NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
+            postNotification(.ownerKeyUpdated)
 
             let name = wallet?.name ?? connection.remotePeer?.name ?? "unknown"
             Tracker.trackEvent(.connectInstalledWallet, parameters: ["wallet": name])
@@ -148,7 +148,7 @@ class OwnerKeyController {
         do {
             try KeyInfo.import(ledgerDeviceUUID: ledgerDeviceUUID, path: path, address: address, name: name)
             Tracker.setNumKeys(KeyInfo.count(.ledgerNanoX), type: .ledgerNanoX)
-            NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
+            postNotification(.ownerKeyImported)
             Tracker.trackEvent(.ledgerKeyImported)
             return true
         } catch {
@@ -171,7 +171,7 @@ class OwnerKeyController {
             Tracker.setNumKeys(KeyInfo.count(.keystone), type: .keystone)
             Tracker.trackEvent(.keystoneKeyImported)
 
-            NotificationCenter.default.post(name: .ownerKeyImported, object: nil)
+            postNotification(.ownerKeyImported)
             return true
         } catch {
             App.shared.snackbar.show(error: GSError.error(description: "Failed to add Keystone owner", error: error))
@@ -190,7 +190,7 @@ class OwnerKeyController {
                     App.shared.snackbar.show(message: "Owner key removed from this app")
                     Tracker.trackEvent(.ownerKeyRemoved)
                     Tracker.setNumKeys(KeyInfo.count(keyInfo.keyType), type: keyInfo.keyType)
-                    NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
+                    postNotification(.ownerKeyRemoved)
                 } else {
                     App.shared.snackbar.show(error: GSError.error(description: "Failed to remove imported key"))
                 }
@@ -204,7 +204,7 @@ class OwnerKeyController {
     static func edit(keyInfo: KeyInfo, name: String) {
         keyInfo.rename(newName: name)
         App.shared.snackbar.show(message: "Owner key updated")
-        NotificationCenter.default.post(name: .ownerKeyUpdated, object: nil)
+        postNotification(.ownerKeyUpdated)
     }
 
     static var hasPrivateKey: Bool {
@@ -322,6 +322,11 @@ class OwnerKeyController {
         Tracker.setNumKeys(KeyInfo.count(.keystone), type: .keystone)
         Tracker.setNumKeys(KeyInfo.count(.web3AuthApple), type: .web3AuthApple)
         Tracker.setNumKeys(KeyInfo.count(.web3AuthGoogle), type: .web3AuthGoogle)
-        NotificationCenter.default.post(name: .ownerKeyRemoved, object: nil)
+        postNotification(.ownerKeyRemoved)
+    }
+    
+    private static func postNotification(_ name: Notification.Name) {
+        NotificationCenter.default.post(name: name, object: nil)
+        NotificationCenter.default.post(name: .ownerKeyListUpdated, object: nil)
     }
 }

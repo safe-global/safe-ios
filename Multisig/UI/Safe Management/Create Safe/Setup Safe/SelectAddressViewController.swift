@@ -25,6 +25,7 @@ class SelectAddressViewController: UIAlertController {
         addAction(UIAlertAction(title: "Paste from Clipboard", style: .default, handler: handlePaste(_:)))
         addAction(UIAlertAction(title: "Scan QR Code", style: .default, handler: handleScan(_:)))
         addAction(UIAlertAction(title: "Address Book", style: .default, handler: handleAddressBook(_:)))
+        addAction(UIAlertAction(title: "Owner Keys", style: .default, handler: handleOwnerKeys(_:)))
         addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
     }
 
@@ -58,6 +59,37 @@ class SelectAddressViewController: UIAlertController {
             }
         }
         let vc = ViewControllerFactory.modal(viewController: addressBookVC)
+        presenter?.present(vc, animated: true)
+    }
+    
+    func handleOwnerKeys(_ action: UIAlertAction) {
+        let loadSigners = { (try? KeyInfo.all()) ?? [] }
+        let signers = loadSigners()
+        if signers.isEmpty {
+            let addOwnerVC = AddOwnerFirstViewController()
+            let nav = ViewControllerFactory.modal(viewController: addOwnerVC)
+            addOwnerVC.onSuccess = { [unowned self, unowned nav] in
+                nav.dismiss(animated: true) { [unowned self] in
+                    guard let address = try? KeyInfo.all().first?.address else { return }
+                    completion(address)
+                }
+            }
+            
+            presenter?.present(nav, animated: true)
+            return
+        }
+        let chooseOwnerVC = ChooseOwnerKeyViewController(
+            owners: loadSigners,
+            chainID: chain?.id,
+            showsAddOwnerAction: true
+        )
+        chooseOwnerVC.completionHandler = { [unowned self, unowned chooseOwnerVC] keyInfo in
+            guard let address = keyInfo?.address else { return }
+            chooseOwnerVC.dismiss(animated: true) { [unowned self] in
+                completion(address)
+            }
+        }
+        let vc = ViewControllerFactory.modal(viewController: chooseOwnerVC)
         presenter?.present(vc, animated: true)
     }
 

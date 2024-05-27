@@ -294,7 +294,7 @@ class WebConnectionDetailsViewController: UITableViewController, WebConnectionOb
     func changeAccount() {
         let keys = WebConnectionController.shared.accountKeys()
         let accountVC = ChooseOwnerKeyViewController(
-            owners: keys,
+            owners: { keys },
             chainID: chain.id,
             titleText: "Change owner key",
             header: .none,

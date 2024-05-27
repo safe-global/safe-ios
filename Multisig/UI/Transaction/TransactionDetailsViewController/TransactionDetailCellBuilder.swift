@@ -85,10 +85,11 @@ class TransactionDetailCellBuilder {
 
     func buildFactoryUsed(_ creationTx: SCGModels.TxInfo.Creation) {
         if let factory = creationTx.factory?.value.address {
+            let info = NamingPolicy.name(for: factory, chainId: chain.id!)
             address(factory,
-                    label: creationTx.factory?.name,
+                    label: info.name ?? creationTx.factory?.name ?? "Unknown",
                     title: "Factory used",
-                    imageUri: creationTx.factory?.logoUri,
+                    imageUri: info.imageUri ?? creationTx.factory?.logoUri,
                     browseURL: chain.browserURL(address: factory.checksummed),
                     prefix: chain.shortName)
         } else {
@@ -98,11 +99,12 @@ class TransactionDetailCellBuilder {
 
     func buildMasterCopyUsed(_ creationTx: SCGModels.TxInfo.Creation) {
         if let implementation = creationTx.implementation?.value.address {
+            let info = NamingPolicy.name(for: implementation, chainId: chain.id!)
             address(
                 implementation,
-                label: creationTx.implementation?.name ?? "Unknown",
+                label: info.name ?? creationTx.implementation?.name ?? "Unknown",
                 title: "Base contract used",
-                imageUri: creationTx.implementation?.logoUri,
+                imageUri: info.imageUri ?? creationTx.implementation?.logoUri,
                 browseURL: chain.browserURL(address: implementation.checksummed),
                 prefix: chain.shortName)
         } else {

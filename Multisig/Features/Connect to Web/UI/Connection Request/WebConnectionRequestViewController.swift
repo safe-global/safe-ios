@@ -136,7 +136,7 @@ class WebConnectionRequestViewController: WebConnectionContainerViewController, 
 
         let keys = connectionController.accountKeys()
         chooseOwnerKeyVC = ChooseOwnerKeyViewController(
-                owners: keys,
+                owners: { keys} ,
                 chainID: String(connection.chainId!),
                 header: .none,
                 requestsPasscode: false,
