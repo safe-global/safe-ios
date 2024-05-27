@@ -15,6 +15,12 @@ class CreateAddressBookEntryViewController: UIViewController {
 
     var completion: ((Address, String) -> Void)?
     var chain: SCGModels.Chain!
+    var inputAddress: Address?
+    var inputName: String?
+    
+    var actionName: String = "Add"
+    var screenTitle: String = "New Entry"
+    var canEditAddress: Bool = true
 
     lazy var trackingParameters: [String: Any]  = { ["chain_id" : chain.id] }()
     private var debounceTimer: Timer!
@@ -26,16 +32,24 @@ class CreateAddressBookEntryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         assert(chain != nil, "Developer error: expect to have a chain")
         
-        navigationItem.title = "New Entry"
+        if let name = inputName {
+            textField.text = name
+        }
+        
+        navigationItem.title = screenTitle
+        
+        if let address = inputAddress {
+            addressField.setAddress(address, prefix: chain.shortName)
+        }
 
         addressField.setPlaceholderText("Enter entry address")
 
         addressField.onTap = { [weak self] in self?.didTapAddressField() }
 
-        nextButton = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(didTapNextButton(_:)))
+        nextButton = UIBarButtonItem(title: actionName, style: .done, target: self, action: #selector(didTapNextButton(_:)))
         nextButton.isEnabled = false
 
         navigationItem.rightBarButtonItem = nextButton
@@ -56,6 +70,8 @@ class CreateAddressBookEntryViewController: UIViewController {
     }
 
     private func didTapAddressField() {
+        guard canEditAddress else { return }
+
         let alertVC = UIAlertController(title: nil, message: nil, preferredStyle: .multiplatformActionSheet)
 
         alertVC.addAction(UIAlertAction(title: "Paste from Clipboard", style: .default, handler: { [weak self] _ in

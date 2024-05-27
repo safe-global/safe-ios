@@ -174,7 +174,7 @@ class ReviewExecutionViewController: ContainerViewController, PasscodeProtecting
         }
 
         let keyPickerVC = ChooseOwnerKeyViewController(
-            owners: keys,
+            owners: { keys },
             chainID: controller.chainId,
             titleText: "Select an execution key",
             header: .text(description: "The selected key will be used to execute this transaction."),

@@ -31,10 +31,12 @@ class ChooseOwnerKeyViewController: UIViewController, PasscodeProtecting {
 
     private var titleText: String!
     private var owners: [KeyInfo] = []
+    private var loadOwners: (() -> [KeyInfo])!
     private var chainID: String?
     private(set) var selectedKey: KeyInfo? = nil
     private var requestsPassCode: Bool = true
     private var header: Header = .none
+    private var addButtonEnabled: Bool = false
 
     private var balancesLoader: AccountBalanceLoader? = nil
     private var loadingTask: URLSessionTask?
@@ -54,7 +56,7 @@ class ChooseOwnerKeyViewController: UIViewController, PasscodeProtecting {
     var showsCloseButton: Bool = true
 
     convenience init(
-        owners: [KeyInfo],
+        owners: @escaping () -> [KeyInfo],
         chainID: String?,
         titleText: String = "Select owner key",
         header: Header = .none,
@@ -62,16 +64,18 @@ class ChooseOwnerKeyViewController: UIViewController, PasscodeProtecting {
         selectedKey: KeyInfo? = nil,
         // when passed in, then this controller will show account balances.
         balancesLoader: AccountBalanceLoader? = nil,
+        showsAddOwnerAction: Bool = false,
         completionHandler: ((KeyInfo?) -> Void)? = nil
     ) {
         self.init()
-        self.owners = owners
+        self.loadOwners = owners
         self.chainID = chainID
         self.titleText = titleText
         self.header = header
         self.requestsPassCode = requestsPasscode
         self.selectedKey = selectedKey
         self.balancesLoader = balancesLoader
+        self.addButtonEnabled = showsAddOwnerAction
         self.completionHandler = completionHandler
     }
 
@@ -83,10 +87,17 @@ class ChooseOwnerKeyViewController: UIViewController, PasscodeProtecting {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = titleText
+        
+        owners = loadOwners()
 
         if showsCloseButton {
             navigationItem.leftBarButtonItem = UIBarButtonItem(
                     barButtonSystemItem: .close, target: self, action: #selector(didTapCloseButton))
+        }
+        
+        if addButtonEnabled {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(
+                barButtonSystemItem: .add, target: self, action: #selector(didTapAddOwnerButton))
         }
 
         tableView.registerCell(ChooseOwnerTableViewCell.self)
@@ -97,8 +108,9 @@ class ChooseOwnerKeyViewController: UIViewController, PasscodeProtecting {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(reload),
-            name: .ownerKeyUpdated,
-            object: nil)
+            name: .ownerKeyListUpdated,
+            object: nil
+        )
 
         if balancesLoader != nil {
             pullToRefreshControl = UIRefreshControl()
@@ -113,6 +125,7 @@ class ChooseOwnerKeyViewController: UIViewController, PasscodeProtecting {
 
     @objc func reload() {
         DispatchQueue.main.async { [unowned self] in
+            self.owners = loadOwners?() ?? []
             self.tableView.reloadData()
         }
     }
@@ -123,6 +136,13 @@ class ChooseOwnerKeyViewController: UIViewController, PasscodeProtecting {
 
     @objc private func pullToRefreshChanged() {
         reloadBalances()
+    }
+    
+    @objc private func didTapAddOwnerButton() {
+        let vc = ViewControllerFactory.addOwnerViewController { [unowned self] in
+            dismiss(animated: true, completion: nil)
+        }
+        present(vc, animated: true)
     }
 
     private func configureHeader() {

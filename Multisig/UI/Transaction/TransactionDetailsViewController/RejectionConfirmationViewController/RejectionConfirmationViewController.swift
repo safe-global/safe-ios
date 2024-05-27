@@ -79,7 +79,7 @@ class RejectionConfirmationViewController: UIViewController {
 
         let descriptionText = "You are about to create an on-chain rejection transaction. Please select which owner key to use."
         let vc = ChooseOwnerKeyViewController(
-            owners: rejectors,
+            owners: { rejectors },
             chainID: safe.chain!.id,
             header: .text(description: descriptionText)
         ) { [weak self] keyInfo in

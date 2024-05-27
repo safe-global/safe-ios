@@ -104,7 +104,7 @@ class ReviewSafeTransactionViewController: UIViewController {
 
         let descriptionText = "An owner key will be used to confirm this transaction."
         let vc = ChooseOwnerKeyViewController(
-            owners: keys,
+            owners: { keys },
             chainID: self.safe.chain!.id,
             header: .text(description: descriptionText)
         ) { [weak self] keyInfo in
