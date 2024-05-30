@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ImportDataViewController" customModule="Multisig" customModuleProvider="target">
+            <connections>
+                <outlet property="activityView" destination="xr0-x8-x9X" id="F23-SY-1yH"/>
+                <outlet property="filePasswordTextField" destination="ijU-Ow-ouS" id="QVn-Yg-fOg"/>
+                <outlet property="fileSelectionStatusLabel" destination="gFN-LX-CCO" id="H6M-dq-IXR"/>
+                <outlet property="pastePasswordButton" destination="Q1D-ns-txn" id="fPs-wc-Yh9"/>
+                <outlet property="selectFileButton" destination="H2S-L1-Ff8" id="oWA-Rr-iuC"/>
+                <outlet property="startButton" destination="PXa-sP-BnL" id="L9h-yb-yrj"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="f5x-nl-dFP">
+                    <rect key="frame" x="16" y="75.000000000000028" width="361" height="472.66666666666674"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="tZr-lH-NCV">
+                            <rect key="frame" x="0.0" y="0.0" width="361" height="128"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.and.arrow.down.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="U7d-ut-cGj">
+                                    <rect key="frame" x="116.66666666666666" y="-7.1054273576010019e-15" width="128" height="127.66666666666666"/>
+                                    <color key="tintColor" name="primary"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="128" id="4Vw-n8-1n7"/>
+                                        <constraint firstAttribute="width" constant="128" id="hrr-ok-P6A"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Dgv-DU-h8N">
+                            <rect key="frame" x="0.0" y="160" width="361" height="84.333333333333314"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data File Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ebs-LC-qXd">
+                                    <rect key="frame" x="0.0" y="0.0" width="361" height="20.333333333333332"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ztj-BI-ryN">
+                                    <rect key="frame" x="0.0" y="28.333333333333314" width="361" height="56"/>
+                                    <subviews>
+                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ijU-Ow-ouS">
+                                            <rect key="frame" x="0.0" y="11" width="253" height="34"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                        </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q1D-ns-txn">
+                                            <rect key="frame" x="261" y="0.0" width="100" height="56"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="OjX-QE-rHY"/>
+                                                <constraint firstAttribute="height" constant="56" id="brb-aD-9aQ"/>
+                                            </constraints>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain" title="Paste"/>
+                                            <connections>
+                                                <action selector="pastePassword" destination="-1" eventType="touchUpInside" id="gDX-dS-dlt"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No file selected" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFN-LX-CCO">
+                            <rect key="frame" x="0.0" y="276.33333333333331" width="361" height="20.333333333333314"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H2S-L1-Ff8">
+                            <rect key="frame" x="0.0" y="328.66666666666669" width="361" height="56"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" id="GVp-3U-Run"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Select Data File"/>
+                            <connections>
+                                <action selector="selectFile" destination="-1" eventType="touchUpInside" id="qhH-06-3rc"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXa-sP-BnL">
+                            <rect key="frame" x="0.0" y="416.66666666666669" width="361" height="56"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" id="aGo-Vq-AZJ"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Start Data Import"/>
+                            <connections>
+                                <action selector="startImport" destination="-1" eventType="touchUpInside" id="Wsm-eG-eSc"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="xr0-x8-x9X">
+                    <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
+                </activityIndicatorView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="f5x-nl-dFP" secondAttribute="trailing" constant="16" id="3cS-Qt-bmQ"/>
+                <constraint firstItem="xr0-x8-x9X" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="4dN-Nd-xuX"/>
+                <constraint firstItem="xr0-x8-x9X" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="9SI-nE-0sI"/>
+                <constraint firstItem="f5x-nl-dFP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="EdX-Kj-A1V"/>
+                <constraint firstItem="f5x-nl-dFP" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="oIP-q4-T3d"/>
+            </constraints>
+            <point key="canvasLocation" x="138" y="20"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="square.and.arrow.down.fill" catalog="system" width="121" height="128"/>
+        <namedColor name="primary">
+            <color red="0.070588235294117646" green="0.074509803921568626" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

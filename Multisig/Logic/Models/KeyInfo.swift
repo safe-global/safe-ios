@@ -239,6 +239,33 @@ extension KeyInfo {
 
         return item
     }
+    
+    @discardableResult
+    static func `import`(walletEntry wallet: WCAppRegistryEntry, address: Address, name: String) throws -> KeyInfo? {
+        let context = App.shared.coreDataStack.viewContext
+
+        let fr = KeyInfo.fetchRequest().by(address: address)
+        let item: KeyInfo
+
+        if (try context.fetch(fr).first) != nil {
+            throw GSError.DuplicateKey()
+        } else {
+            item = KeyInfo(context: context)
+            item.name = name
+        }
+
+        item.address = address
+        item.keyID = "walletconnect:\(address.checksummed)"
+        item.keyType = .walletConnect
+
+        if let cdRegistryEntry = CDWCAppRegistryEntry.entry(by: wallet.id) {
+            item.wallet = cdRegistryEntry
+        }
+
+        item.save()
+
+        return item
+    }
 
     /// Will save the key info from Ledger device in the persistence store.
     /// - Parameters:
@@ -376,6 +403,18 @@ extension KeyInfo {
                 completion(.success(privateKey))
             } catch {
                 completion(.failure(GSError.KeychainError(reason: error.localizedDescription)))
+            }
+        }
+    }
+    
+    func signingKey() async throws -> PrivateKey? {
+        return try await withCheckedThrowingContinuation { continuation in
+            privateKey { result in
+                do {
+                    try continuation.resume(returning: result.get())
+                } catch {
+                    continuation.resume(throwing: error)
+                }
             }
         }
     }

@@ -94,16 +94,21 @@ class OwnerKeyController {
     }
 
     @discardableResult
-    static func importKey(connection: WebConnection, wallet: WCAppRegistryEntry?, name: String) -> Bool {
+    static func importKey(connection: WebConnection?, wallet: WCAppRegistryEntry?, name: String, address: Address? = nil) -> Bool {
         do {
-            let newKey = try KeyInfo.import(connection: connection, wallet: wallet, name: name)
+            var newKey: KeyInfo? = nil
+            if let connection = connection {
+                 newKey = try KeyInfo.import(connection: connection, wallet: wallet, name: name)
+            } else if let wallet = wallet, let address = address {
+                newKey = try KeyInfo.import(walletEntry: wallet, address: address, name: name)
+            }
 
             guard newKey != nil else { return false }
 
             Tracker.setNumKeys(KeyInfo.count(.walletConnect), type: .walletConnect)
             postNotification(.ownerKeyImported)
 
-            let name = wallet?.name ?? connection.remotePeer?.name ?? "unknown"
+            let name = wallet?.name ?? connection?.remotePeer?.name ?? "unknown"
             Tracker.trackEvent(.connectInstalledWallet, parameters: ["wallet": name])
 
             return true

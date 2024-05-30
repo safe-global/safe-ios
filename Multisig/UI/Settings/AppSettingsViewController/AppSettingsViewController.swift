@@ -47,6 +47,8 @@ class AppSettingsViewController: UITableViewController {
         enum Advanced: SectionItem {
             case advanced(String)
             case toggles(String)
+            case dataExport(String)
+            case dataImport(String)
         }
 
         enum About: SectionItem {
@@ -108,7 +110,9 @@ class AppSettingsViewController: UITableViewController {
             Section.Support.getSupport("Help Center")
         ])
         var advancedSection: (section: AppSettingsViewController.Section, items: [SectionItem]) = (section: .advanced("Advanced"), items: [
-            Section.Advanced.advanced("Advanced")
+            Section.Advanced.advanced("Advanced"),
+            Section.Advanced.dataExport("Export data"),
+            Section.Advanced.dataImport("Import data")
         ])
         
         if App.configuration.services.environment != .production {
@@ -261,6 +265,12 @@ class AppSettingsViewController: UITableViewController {
             
         case Section.Advanced.advanced(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
+            
+        case Section.Advanced.dataExport(let name):
+            return tableView.basicCell(name: name, indexPath: indexPath)
+            
+        case Section.Advanced.dataImport(let name):
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.Advanced.toggles(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
@@ -321,6 +331,14 @@ class AppSettingsViewController: UITableViewController {
             
         case Section.Advanced.advanced:
             navigateToAdvancedAppSettings()
+            
+        case Section.Advanced.dataExport:
+            let exportVC = ExportDataViewController(nibName: nil, bundle: nil)
+            show(exportVC, sender: self)
+            
+        case Section.Advanced.dataImport:
+            let importVC = ImportDataViewController(nibName: nil, bundle: nil)
+            show(importVC, sender: self)
 
         case Section.Advanced.toggles:
             let togglesVC = FeatureToggleTableViewController()
