@@ -10,6 +10,7 @@ import Foundation
 import SwiftUI
 import URRegistry
 import SafeWeb3
+import Solidity
 
 final class KeystoneSignFlow: UIFlow {
     var signCompletion: ((_ unmarshaledSignature: SECP256K1.UnmarshaledSignature) -> Void)?
@@ -108,13 +109,14 @@ extension SECP256K1.UnmarshaledSignature {
         let vBytes: Bytes
         
         // if v was overflown (e.g. chain_id > 109 according to EIP-155)
+        let chainIdTerm = UInt64((Sol.UInt128(chainIdInt) * 2 + 35) % 256)
         if data.count > 65 {
             // max 8 bytes to fit into UInt64
             let vBytes = [UInt8](data.suffix(from: 64).prefix(8))
             let vInt =  UInt64(vBytes)
             // recover V by deducting (chainId * 2 + 35) according to EIP-155
-            let vRecovered = vInt - (chainIdInt * 2 + 35)
-            v = try! UInt8(vRecovered % 256)
+            let vRecovered = vInt % 256 - chainIdTerm
+            v = try! UInt8(vRecovered)
         } else {
             vBytes = [UInt8]([data[64]])
             let vInt = UInt8(vBytes)
@@ -122,10 +124,10 @@ extension SECP256K1.UnmarshaledSignature {
                 // Legacy ethereum (pre-eip-155) adds 27 to v
                 v = vInt - 27
             } else {
-                // v still can be chainId * 2 + 35 for non-legacy transactions (chaiId >=0)
+                // v still can be `{0, 1} + chainId * 2 + 35` for non-legacy transactions (chainId >=0)
                 if vInt >= 35 {
-                    let vRecovered = UInt64(vBytes) - (chainIdInt * 2 + 35)
-                    v = try! UInt8(vRecovered % 256)
+                    let vRecovered = UInt64(vBytes) - chainIdTerm
+                    v = try! UInt8(vRecovered)
                 } else {
                     v = vInt
                 }
@@ -138,3 +140,4 @@ extension SECP256K1.UnmarshaledSignature {
         return (v, r, s)
     }
 }
+
