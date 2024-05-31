@@ -126,8 +126,12 @@ extension SECP256K1.UnmarshaledSignature {
             } else {
                 // v still can be `{0, 1} + chainId * 2 + 35` for non-legacy transactions (chainId >=0)
                 if vInt >= 35 {
-                    let vRecovered = UInt64(vBytes) - chainIdTerm
-                    v = try! UInt8(vRecovered)
+                    if chainIdTerm > UInt64(vBytes) {
+                        v = 0
+                    } else {
+                        let vRecovered = UInt64(vBytes) - chainIdTerm
+                        v = try! UInt8(vRecovered)
+                    }
                 } else {
                     v = vInt
                 }
