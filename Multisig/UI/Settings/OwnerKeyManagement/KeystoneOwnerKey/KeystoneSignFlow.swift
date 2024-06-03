@@ -68,10 +68,11 @@ final class KeystoneSignFlow: UIFlow {
 
 extension KeystoneSignFlow: QRCodeScannerViewControllerDelegate {
     func scannerViewControllerDidScan(_ code: String) {
+        let DEBUG_SIGNATURE = "0x99a7a03e9597e85a0cc4188d270b72b1df2de943de804f144976f4c1e23116ff274d2dec4ee7201b88bdadf08259a5dc8e7e2bbf372347de3470beeab904e5d01b"
         guard
             let signature = URRegistry.shared.getSignature(from: code)?.signature,
-            let signatureComps = SECP256K1.UnmarshaledSignature.decode(
-                keystoneSignature: signature,
+            let signatureComps = SECP256K1.UnmarshaledSignature(
+                keystoneSignature: DEBUG_SIGNATURE,
                 isLegacyTx: signInfo.signType == .transaction,
                 chainId: signInfo.chain?.id ?? "0"),
             let requestId = URRegistry.shared.getSignature(from: code)?.requestId,
@@ -96,8 +97,7 @@ extension SECP256K1.UnmarshaledSignature {
         return signature.toHexStringWithPrefix()
     }
     
-    static func decode(keystoneSignature signature: String, isLegacyTx: Bool, chainId: String) ->
-    (v: UInt8, r: Data, s: Data)? {
+    init?(keystoneSignature signature: String, isLegacyTx: Bool, chainId: String) {
         let data: Data = Data(hex: signature)
         guard data.count >= 65 else { return nil }
         
@@ -139,7 +139,9 @@ extension SECP256K1.UnmarshaledSignature {
         // see https://github.com/Boilertalk/secp256k1/blob/d5407179912e8c1f825a212a474aaa86b10f1352/src/ecdsa_impl.h
         assert(v == 0 || v == 1 || v == 2 || v == 3 ||  v == 27 || v == 28 || v == 29 || v == 30)
         
-        return (v, r, s)
+        self.v = v
+        self.r = r
+        self.s = s
     }
 }
 
