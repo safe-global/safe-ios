@@ -109,14 +109,13 @@ extension SECP256K1.UnmarshaledSignature {
         let vBytes: Bytes
         
         // if v was overflown (e.g. chain_id > 109 according to EIP-155)
-        let chainIdTerm = UInt64((Sol.UInt128(chainIdInt) * 2 + 35) % 256)
+        let chainIdTerm: UInt8 = UInt8((Sol.UInt128(chainIdInt) * 2 + 35) % 256)
         if data.count > 65 {
             // max 8 bytes to fit into UInt64
             let vBytes = [UInt8](data.suffix(from: 64).prefix(8))
             let vInt =  UInt64(vBytes)
             // recover V by deducting (chainId * 2 + 35) according to EIP-155
-            let vRecovered = vInt % 256 - chainIdTerm
-            v = try! UInt8(vRecovered)
+            v = try! UInt8(vInt % 256) - chainIdTerm
         } else {
             vBytes = [UInt8]([data[64]])
             let vInt = UInt8(vBytes)
@@ -126,11 +125,10 @@ extension SECP256K1.UnmarshaledSignature {
             } else {
                 // v still can be `{0, 1} + chainId * 2 + 35` for non-legacy transactions (chainId >=0)
                 if vInt >= 35 {
-                    if chainIdTerm > UInt64(vBytes) {
-                        v = 0
+                    if vInt > chainIdTerm {
+                        v = vInt - chainIdTerm
                     } else {
-                        let vRecovered = UInt64(vBytes) - chainIdTerm
-                        v = try! UInt8(vRecovered)
+                        v = 0
                     }
                 } else {
                     v = vInt
