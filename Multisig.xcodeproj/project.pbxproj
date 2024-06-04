@@ -1047,6 +1047,7 @@
 		B3DB2EAF2C078CEE00133BD6 /* ImportResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DB2EAD2C078CEE00133BD6 /* ImportResultsViewController.swift */; };
 		B3DB2EB02C078CEE00133BD6 /* ImportResultsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3DB2EAE2C078CEE00133BD6 /* ImportResultsViewController.xib */; };
 		B3DB2EB22C08BFFE00133BD6 /* ExportDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3DB2EB12C08BFFE00133BD6 /* ExportDataViewController.xib */; };
+		B3DB2EB42C0E14CB00133BD6 /* ExportDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DB2EB32C0E14CB00133BD6 /* ExportDataFlow.swift */; };
 		D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A022769CEAD00D6E024 /* Tooltip.swift */; };
 		D80B5A052769CF1B00D6E024 /* TooltipSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A042769CF1B00D6E024 /* TooltipSource.swift */; };
 		D80B5A072769D05D00D6E024 /* BaseCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A062769D05D00D6E024 /* BaseCustomView.swift */; };
@@ -2125,6 +2126,7 @@
 		B3DB2EAD2C078CEE00133BD6 /* ImportResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportResultsViewController.swift; sourceTree = "<group>"; };
 		B3DB2EAE2C078CEE00133BD6 /* ImportResultsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportResultsViewController.xib; sourceTree = "<group>"; };
 		B3DB2EB12C08BFFE00133BD6 /* ExportDataViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExportDataViewController.xib; sourceTree = "<group>"; };
+		B3DB2EB32C0E14CB00133BD6 /* ExportDataFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDataFlow.swift; sourceTree = "<group>"; };
 		B3FA40E82BD66665008BC688 /* ConfirmationRequestPushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = ConfirmationRequestPushNotificationPayload.apns; sourceTree = "<group>"; };
 		D80B5A022769CEAD00D6E024 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
 		D80B5A042769CF1B00D6E024 /* TooltipSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipSource.swift; sourceTree = "<group>"; };
@@ -4702,6 +4704,7 @@
 			isa = PBXGroup;
 			children = (
 				B3DB2E9F2C0730F300133BD6 /* ImportExportDataController.swift */,
+				B3DB2EB32C0E14CB00133BD6 /* ExportDataFlow.swift */,
 				B3DB2EA12C07831E00133BD6 /* ExportDataViewController.swift */,
 				B3DB2EB12C08BFFE00133BD6 /* ExportDataViewController.xib */,
 				B3DB2EA52C07897200133BD6 /* ExportResultsViewController.swift */,
@@ -5467,6 +5470,7 @@
 				0468C3472A8E43D9009872C2 /* SecurityStatusTableViewCell.swift in Sources */,
 				0A9E8E7725B9CA4200256AD3 /* BannerTableViewCell.swift in Sources */,
 				0AF8832225A5EC1F00029A43 /* ActionDetailTableViewCell.swift in Sources */,
+				B3DB2EB42C0E14CB00133BD6 /* ExportDataFlow.swift in Sources */,
 				0AADCDB728589DCC00A0139B /* AddOwnerExceptionViewController.swift in Sources */,
 				47039CF228C579CF00081A7A /* KeystoneSignInfo.swift in Sources */,
 				0A3FDAEF26AEB603006A7DC3 /* Chain+Shared.swift in Sources */,
