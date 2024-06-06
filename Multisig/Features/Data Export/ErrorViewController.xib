@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="button" destination="01e-Om-KHD" id="lpS-mc-vS4"/>
                 <outlet property="descriptionLabel" destination="NbO-gg-Tpr" id="lCa-hV-mN2"/>
+                <outlet property="imageView" destination="JBG-XB-2wH" id="qmw-cH-k6g"/>
                 <outlet property="textView" destination="URh-7z-iAr" id="3EC-OI-Adw"/>
                 <outlet property="titleLabel" destination="c1U-1u-Nt2" id="Hb0-sG-zai"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

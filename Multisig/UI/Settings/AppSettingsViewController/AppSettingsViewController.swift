@@ -23,6 +23,7 @@ class AppSettingsViewController: UITableViewController, PasscodeProtecting {
     private typealias SectionItems = (section: Section, items: [SectionItem])
     
     private var exportFlow: ExportDataFlow!
+    private var importFlow: ImportDataFlow!
 
     enum Section {
         case app
@@ -338,8 +339,7 @@ class AppSettingsViewController: UITableViewController, PasscodeProtecting {
             showExport()
 
         case Section.Advanced.dataImport:
-            let importVC = ImportDataViewController(nibName: nil, bundle: nil)
-            show(importVC, sender: self)
+            showImport()
 
         case Section.Advanced.toggles:
             let togglesVC = FeatureToggleTableViewController()
@@ -362,6 +362,17 @@ class AppSettingsViewController: UITableViewController, PasscodeProtecting {
                 self?.exportFlow = nil
             })
             self.present(flow: self.exportFlow, dismissableOnSwipe: false)
+        }
+    }
+    
+    private func showImport() {
+        authenticate(biometry: false) { [weak self] success in
+            guard success, let self = self else { return }
+            
+            self.importFlow = ImportDataFlow(completion: { [weak self] success in
+                self?.importFlow = nil
+            })
+            self.present(flow: self.importFlow, dismissableOnSwipe: false)
         }
     }
 

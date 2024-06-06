@@ -185,15 +185,12 @@ class ImportExportDataController {
             return nil
         }
         do {
-            
             let key = SymmetricKey(data: keyData)
             let input = try JSONEncoder().encode(file)
             let output = try AES.GCM.seal(input, using: key).combined!
-            let keyData = key.withUnsafeBytes { bytes in
-                Data(bytes)
-            }
             let result = SecuredDataFile(version: .v1, algo: .aes256GCM, salt: salt, rounds: rounds, data: output)
             return result
+        
         } catch {
             logs.append("Error during encryption: \(error)")
             return nil
@@ -214,6 +211,9 @@ class ImportExportDataController {
             let output = try AES.GCM.open(AES.GCM.SealedBox(combined: input), using: key)
             let dataFile = try JSONDecoder().decode(SerializedDataFile.self, from: output)
             return dataFile
+        } catch CryptoKitError.authenticationFailure {
+            logs.append("Failed to decrypt: wrong password.")
+            return nil
         } catch {
             logs.append("Error during decryption: \(error)")
             return nil

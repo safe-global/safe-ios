@@ -10,6 +10,7 @@ import UIKit
 
 class ErrorViewController: UIViewController {
     
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
@@ -19,12 +20,13 @@ class ErrorViewController: UIViewController {
     var bodyText = "Error details are below:"
     var errorText = ""
     var buttonTitle = "Done"
+    var imageName = "square.and.arrow.up.trianglebadge.exclamationmark"
     
     var completion: () -> Void = {}
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        imageView.image = UIImage(systemName: imageName)
         titleLabel.text = titleText
         descriptionLabel.text = bodyText
         textView.text = errorText

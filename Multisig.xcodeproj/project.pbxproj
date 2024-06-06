@@ -1025,6 +1025,11 @@
 		B32485D02C10A5700084EE8F /* ExportInProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32485CD2C10A5700084EE8F /* ExportInProgressViewController.swift */; };
 		B32485D32C11E8CB0084EE8F /* ErrorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B32485D22C11E8CB0084EE8F /* ErrorViewController.xib */; };
 		B32485D42C11E8CB0084EE8F /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32485D12C11E8CB0084EE8F /* ErrorViewController.swift */; };
+		B32485D62C11FB670084EE8F /* ImportDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32485D52C11FB670084EE8F /* ImportDataFlow.swift */; };
+		B32485D92C11FFD20084EE8F /* SelectDataFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32485D72C11FFD20084EE8F /* SelectDataFileViewController.swift */; };
+		B32485DA2C11FFD20084EE8F /* SelectDataFileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B32485D82C11FFD20084EE8F /* SelectDataFileViewController.xib */; };
+		B32485DD2C1204DF0084EE8F /* ImportInProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B32485DB2C1204DF0084EE8F /* ImportInProgressViewController.xib */; };
+		B32485DE2C1204DF0084EE8F /* ImportInProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32485DC2C1204DF0084EE8F /* ImportInProgressViewController.swift */; };
 		B32620492A961E690003A2F0 /* AddSafeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32620482A961E690003A2F0 /* AddSafeFlow.swift */; };
 		B34229722BD2B78300B57830 /* MoonPaySdk in Frameworks */ = {isa = PBXBuildFile; productRef = B34229712BD2B78300B57830 /* MoonPaySdk */; };
 		B343BEB32A77DDA1006BF46B /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0491067C28F99246005A4A99 /* DMSans-Bold.ttf */; };
@@ -1045,10 +1050,6 @@
 		B3B6044F2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B6044E2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift */; };
 		B3C4D2D92AAF596D0026A8BC /* UIViewController+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C4D2D82AAF596D0026A8BC /* UIViewController+Navigation.swift */; };
 		B3DB2EA02C0730F300133BD6 /* ImportExportDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DB2E9F2C0730F300133BD6 /* ImportExportDataController.swift */; };
-		B3DB2EAB2C078C1800133BD6 /* ImportDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DB2EA92C078C1800133BD6 /* ImportDataViewController.swift */; };
-		B3DB2EAC2C078C1800133BD6 /* ImportDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3DB2EAA2C078C1800133BD6 /* ImportDataViewController.xib */; };
-		B3DB2EAF2C078CEE00133BD6 /* ImportResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DB2EAD2C078CEE00133BD6 /* ImportResultsViewController.swift */; };
-		B3DB2EB02C078CEE00133BD6 /* ImportResultsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3DB2EAE2C078CEE00133BD6 /* ImportResultsViewController.xib */; };
 		B3DB2EB42C0E14CB00133BD6 /* ExportDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DB2EB32C0E14CB00133BD6 /* ExportDataFlow.swift */; };
 		D80B5A032769CEAD00D6E024 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A022769CEAD00D6E024 /* Tooltip.swift */; };
 		D80B5A052769CF1B00D6E024 /* TooltipSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80B5A042769CF1B00D6E024 /* TooltipSource.swift */; };
@@ -2106,6 +2107,11 @@
 		B32485CE2C10A5700084EE8F /* ExportInProgressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExportInProgressViewController.xib; sourceTree = "<group>"; };
 		B32485D12C11E8CB0084EE8F /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		B32485D22C11E8CB0084EE8F /* ErrorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorViewController.xib; sourceTree = "<group>"; };
+		B32485D52C11FB670084EE8F /* ImportDataFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportDataFlow.swift; sourceTree = "<group>"; };
+		B32485D72C11FFD20084EE8F /* SelectDataFileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDataFileViewController.swift; sourceTree = "<group>"; };
+		B32485D82C11FFD20084EE8F /* SelectDataFileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectDataFileViewController.xib; sourceTree = "<group>"; };
+		B32485DB2C1204DF0084EE8F /* ImportInProgressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImportInProgressViewController.xib; sourceTree = "<group>"; };
+		B32485DC2C1204DF0084EE8F /* ImportInProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportInProgressViewController.swift; sourceTree = "<group>"; };
 		B32620482A961E690003A2F0 /* AddSafeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSafeFlow.swift; sourceTree = "<group>"; };
 		B35BFD0E2A937DC000A9FB15 /* NavigationRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouterTests.swift; sourceTree = "<group>"; };
 		B367AECE2B0CB59700F06B86 /* TransactionValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionValidationTests.swift; sourceTree = "<group>"; };
@@ -2126,10 +2132,6 @@
 		B3B6044E2A850F5E007BDAC0 /* UIAlertControllerStyle+Multiplatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertControllerStyle+Multiplatform.swift"; sourceTree = "<group>"; };
 		B3C4D2D82AAF596D0026A8BC /* UIViewController+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Navigation.swift"; sourceTree = "<group>"; };
 		B3DB2E9F2C0730F300133BD6 /* ImportExportDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExportDataController.swift; sourceTree = "<group>"; };
-		B3DB2EA92C078C1800133BD6 /* ImportDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportDataViewController.swift; sourceTree = "<group>"; };
-		B3DB2EAA2C078C1800133BD6 /* ImportDataViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportDataViewController.xib; sourceTree = "<group>"; };
-		B3DB2EAD2C078CEE00133BD6 /* ImportResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportResultsViewController.swift; sourceTree = "<group>"; };
-		B3DB2EAE2C078CEE00133BD6 /* ImportResultsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportResultsViewController.xib; sourceTree = "<group>"; };
 		B3DB2EB32C0E14CB00133BD6 /* ExportDataFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDataFlow.swift; sourceTree = "<group>"; };
 		B3FA40E82BD66665008BC688 /* ConfirmationRequestPushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = ConfirmationRequestPushNotificationPayload.apns; sourceTree = "<group>"; };
 		D80B5A022769CEAD00D6E024 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
@@ -4715,10 +4717,11 @@
 				B32485CE2C10A5700084EE8F /* ExportInProgressViewController.xib */,
 				B32485D12C11E8CB0084EE8F /* ErrorViewController.swift */,
 				B32485D22C11E8CB0084EE8F /* ErrorViewController.xib */,
-				B3DB2EA92C078C1800133BD6 /* ImportDataViewController.swift */,
-				B3DB2EAA2C078C1800133BD6 /* ImportDataViewController.xib */,
-				B3DB2EAD2C078CEE00133BD6 /* ImportResultsViewController.swift */,
-				B3DB2EAE2C078CEE00133BD6 /* ImportResultsViewController.xib */,
+				B32485D52C11FB670084EE8F /* ImportDataFlow.swift */,
+				B32485D72C11FFD20084EE8F /* SelectDataFileViewController.swift */,
+				B32485D82C11FFD20084EE8F /* SelectDataFileViewController.xib */,
+				B32485DC2C1204DF0084EE8F /* ImportInProgressViewController.swift */,
+				B32485DB2C1204DF0084EE8F /* ImportInProgressViewController.xib */,
 			);
 			path = "Data Export";
 			sourceTree = "<group>";
@@ -5166,6 +5169,7 @@
 				04C5ED3B27878A7F00FF5302 /* EditAdvancedParametersUITableViewCell.xib in Resources */,
 				550FB1B326691D9500C13D54 /* ExternalLinkHeaderFooterView.xib in Resources */,
 				0A573F6E25877586009EF0C1 /* AddressField.xib in Resources */,
+				B32485DD2C1204DF0084EE8F /* ImportInProgressViewController.xib in Resources */,
 				6A9A771128041DA700C229FC /* TipsView.xib in Resources */,
 				0AE46C8D257684DF001DC62B /* LoadSafeViewController.xib in Resources */,
 				04B28F5429C8C0A90072B188 /* safeCreationDark.json in Resources */,
@@ -5180,6 +5184,7 @@
 				0A68869F2588FAFB0045CAB5 /* EnterENSNameViewController.xib in Resources */,
 				0A06533727B6D1070008C5F1 /* ChooseOwnerDetailHeaderView.xib in Resources */,
 				0472B2D3286BD7C60049BA17 /* ClaimedAmountInputCell.xib in Resources */,
+				B32485DA2C11FFD20084EE8F /* SelectDataFileViewController.xib in Resources */,
 				0ADD0FB427C148880099DF7D /* DatePickerViewController.xib in Resources */,
 				0AD0273A25A34FF600886671 /* MultiSendRowTableViewCell.xib in Resources */,
 				04D1323625E43C560032FA03 /* DetailRejectionInfoCell.xib in Resources */,
@@ -5216,7 +5221,6 @@
 				0A5C2DCF25628277009808CB /* SafeInfoViewController.xib in Resources */,
 				550FB1A026691CA300C13D54 /* DappsViewController.xib in Resources */,
 				6A386C6B281ADAFD003FBCB3 /* ValueChangeTableViewCell.xib in Resources */,
-				B3DB2EB02C078CEE00133BD6 /* ImportResultsViewController.xib in Resources */,
 				045769FE27C7DBBF00881206 /* SafeDeployingViewController.xib in Resources */,
 				0AE8C08925793B8C00E62B34 /* DetailArrowPiece.xib in Resources */,
 				6ADEB02827B559370062ADFE /* WebConnectionOwnerView.xib in Resources */,
@@ -5226,7 +5230,6 @@
 				6AD4773028932160004C736D /* GuardianCountTableViewCell.xib in Resources */,
 				0A22E12825E4FA3200D24DE1 /* SwitchTableViewCell.xib in Resources */,
 				04D224BB28C9304600853E34 /* DetailedInfoListViewController.xib in Resources */,
-				B3DB2EAC2C078C1800133BD6 /* ImportDataViewController.xib in Resources */,
 				558835E8255AEA390014E8C7 /* InfoCell.xib in Resources */,
 				6AF6296829C1125B004C034A /* BenefitView.xib in Resources */,
 				0AF1C8312540923C00E28669 /* LoadableViewController.xib in Resources */,
@@ -5425,7 +5428,6 @@
 				0ADDB34E24518F8F0056B284 /* ActivityIndicator.swift in Sources */,
 				5532D4C12449A17D0067505A /* LogService.swift in Sources */,
 				0A9BC32F246022BD00EB9C5D /* ENS.swift in Sources */,
-				B3DB2EAF2C078CEE00133BD6 /* ImportResultsViewController.swift in Sources */,
 				B32485CB2C109C240084EE8F /* CreateExportPasswordViewController.swift in Sources */,
 				0468C3562A93F1A6009872C2 /* TrustedDeviceViewController.swift in Sources */,
 				0A86EE6325CC2B350059876E /* LoadingFooterView.swift in Sources */,
@@ -5549,7 +5551,6 @@
 				550FB1C826691E4A00C13D54 /* ExperimentalViewController.swift in Sources */,
 				0ADD19BF265EA23200EB0F2B /* ExportViewController.swift in Sources */,
 				D88FA81E2770869E0023B77F /* TokenAmountField.swift in Sources */,
-				B3DB2EAB2C078C1800133BD6 /* ImportDataViewController.swift in Sources */,
 				93788EDC29C356F100503C1A /* NullCryptoProvider.swift in Sources */,
 				047588182774D6D2001DD992 /* ReviewSendFundsTransactionViewController.swift in Sources */,
 				0468C32F2A83D1DA009872C2 /* SecurityFactorTableViewCell.swift in Sources */,
@@ -5781,6 +5782,7 @@
 				04CE3F9924B6120F00826AEE /* CollectibleMetaData.swift in Sources */,
 				0A0EFCAA246EB28600D3D8BF /* Pasteboard.swift in Sources */,
 				0AADCDCB2859CAAC00A0139B /* SafeInfoLoader.swift in Sources */,
+				B32485D62C11FB670084EE8F /* ImportDataFlow.swift in Sources */,
 				550FB19E26691CA300C13D54 /* DappsViewController.swift in Sources */,
 				6AF6296429C1117D004C034A /* BenefitsListView.swift in Sources */,
 				0AB5DF8F270DD185005BFB43 /* CreateDelegateRequest.swift in Sources */,
@@ -5816,6 +5818,7 @@
 				0AFA729C24BF361600A370EE /* SlicedString.swift in Sources */,
 				0472B2AC285B5D030049BA17 /* UpdateOwnersFromInviteLinkFlow.swift in Sources */,
 				045769FD27C7DBBF00881206 /* SafeDeployingViewController.swift in Sources */,
+				B32485D92C11FFD20084EE8F /* SelectDataFileViewController.swift in Sources */,
 				550FB1AA26691D2E00C13D54 /* UITableView+Cells.swift in Sources */,
 				0472B2D2286BD7C60049BA17 /* ClaimedAmountInputCell.swift in Sources */,
 				04273E5826AEE06500A14E95 /* BluetoothController.swift in Sources */,
@@ -5865,6 +5868,7 @@
 				04AECBBA2A76B990008D5A35 /* SelectTopUpAddressViewController.swift in Sources */,
 				0472B2BE286A49420049BA17 /* GuardianListViewController.swift in Sources */,
 				0A2F1A6E267A538E00C09F03 /* GSLabel.swift in Sources */,
+				B32485DE2C1204DF0084EE8F /* ImportInProgressViewController.swift in Sources */,
 				0439B29C28048A5F00796F18 /* BackupKeyTableViewCell.swift in Sources */,
 				6A6A105D2889A31200B852D5 /* InstructionStepView.swift in Sources */,
 				0A9366B3278F1EA0001918A9 /* HyperlinkButtonView.swift in Sources */,
