@@ -72,23 +72,23 @@ class ImportDataViewController: UIViewController, UIDocumentPickerDelegate, UITe
         indicateStarted()
         Task { @MainActor in
             do {
-                let data = fileContents
-                let file = try JSONDecoder().decode(SecuredDataFile.self, from: data)
-                await importController.importEncrypted(file: file, key: key)
-                let logs = importController.logs
-                
-                let resultsVC = ImportResultsViewController(nibName: nil, bundle: nil)
-                resultsVC.logs = logs
-                let nav = ViewControllerFactory.modal(viewController: resultsVC)
-                
-                resultsVC.completion = { [weak self] in
-                    self?.dismiss(animated: true, completion: { [weak self] in
-                        self?.navigationController?.popViewController(animated: true)
-                    })
-                }
-                
-                indicateStopped()
-                present(nav, animated: true)
+//                let data = fileContents
+//                let file = try JSONDecoder().decode(SecuredDataFile.self, from: data)
+//                await importController.importEncrypted(file: file, key: key)
+//                let logs = importController.logs
+//                
+//                let resultsVC = ImportResultsViewController(nibName: nil, bundle: nil)
+//                resultsVC.logs = logs
+//                let nav = ViewControllerFactory.modal(viewController: resultsVC)
+//                
+//                resultsVC.completion = { [weak self] in
+//                    self?.dismiss(animated: true, completion: { [weak self] in
+//                        self?.navigationController?.popViewController(animated: true)
+//                    })
+//                }
+//                
+//                indicateStopped()
+//                present(nav, animated: true)
             } catch {
                 LogService.shared.error("Failed to import: \(error)")
             }

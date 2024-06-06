@@ -8,6 +8,7 @@
 
 import Foundation
 import CryptoKit
+import CommonCrypto
 
 struct SecuredDataFile: Codable {
     enum VERSION: String, Codable {
@@ -18,6 +19,8 @@ struct SecuredDataFile: Codable {
     }
     var version: VERSION = .v1
     var algo: CODEC = .aes256GCM
+    var salt: Data
+    var rounds: Int
     var data: Data
 }
 
@@ -70,40 +73,139 @@ class ImportExportDataController {
     private(set) var logs: [String] = []
     private var registryLoader = AppRegistryLoader()
     
-    func exportEncrypted() async -> (file: SecuredDataFile, key: Data)? {
+    static let fileExtension = "safedata"
+    
+    func exportToTemporaryFile(key plaintext: String) async -> URL? {
         logs = []
+        let exported = await exportEncrypted(key: plaintext)
+        guard let result = exported else {
+            return nil
+        }
+        
+        do {
+            let data = try JSONEncoder().encode(result)
+            let temporaryDirectoryURL = FileManager.default.temporaryDirectory
+
+            let currentDate = Date().formatted(Date.ISO8601FormatStyle())
+            let exportID = ProcessInfo().globallyUniqueString
+            
+            let filebase =  exportID + " " + currentDate + " Wallet App Data"
+            let filename = filebase + "." + Self.fileExtension
+            
+            let temporaryFileURL = temporaryDirectoryURL.appendingPathComponent(filename)
+            
+            try data.write(to: temporaryFileURL)
+
+            return temporaryFileURL
+        } catch {
+            logs.append("Failed to export to a file: \(error)")
+            return nil
+        }
+    }
+    
+    static func removeTemporaryFile(_ url: URL) {
+        try? FileManager.default.removeItem(at: url)
+    }
+    
+    func importFromDocumentPicker(url: URL?, key plaintext: String?) async {
+        logs = []
+        guard let url = url, url.startAccessingSecurityScopedResource() else {
+            logs.append("Can't access file")
+            return
+        }
+        defer { url.stopAccessingSecurityScopedResource() }
+
+        var fileContents: Data?
+        var error: NSError? = nil
+        NSFileCoordinator().coordinate(readingItemAt: url, error: &error) { fileURL in
+            
+            guard fileURL.startAccessingSecurityScopedResource() else {
+                logs.append("Can't access file")
+                return
+            }
+            defer { fileURL.stopAccessingSecurityScopedResource() }
+            
+            do {
+                fileContents = try Data(contentsOf: fileURL)
+            } catch {
+                logs.append("Failed to read file: \(error)")
+            }
+        }
+        
+        guard let data = fileContents, let plaintext = plaintext else {
+            return
+        }
+        
+        do {
+            let file = try JSONDecoder().decode(SecuredDataFile.self, from: data)
+            await importEncrypted(file: file, key: plaintext)
+        } catch {
+            logs.append("Failed to import: \(error)")
+        }
+    }
+    
+    func exportEncrypted(key: String) async -> SecuredDataFile? {
         let file = await export()
-        let result = encrypt(file: file)
+        let result = encrypt(file: file, key: key)
         return result
     }
     
     @MainActor
-    func importEncrypted(file: SecuredDataFile, key: Data) async {
-        logs = []
-        if let dataFile = decrypt(file: file, key: key) {
+    func importEncrypted(file: SecuredDataFile, key plaintext: String) async {
+        if let dataFile = decrypt(file: file, key: plaintext) {
             await importData(file: dataFile)
         }
     }
+    
+    func deriveKey(from plaintext: String, salt: Data, rounds: Int) -> Data? {
+        var salt = salt.bytes
+        var derivedKey = [UInt8](repeating: 0, count: 32)
+        let status = CCKeyDerivationPBKDF(
+            CCPBKDFAlgorithm(kCCPBKDF2),
+            plaintext,
+            plaintext.lengthOfBytes(using: .utf8),
+            &salt,
+            salt.count,
+            CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA256),
+            UInt32(rounds),
+            &derivedKey,
+            derivedKey.count)
+        guard status == kCCSuccess else {
+            logs.append("Failed to derive a key. Error code \(status)")
+            return nil
+        }
+        let result = Data(derivedKey)
+        return result
+    }
 
-    func encrypt(file: SerializedDataFile) -> (file: SecuredDataFile, key: Data)? {
+    func encrypt(file: SerializedDataFile, key plaintext: String) -> SecuredDataFile? {
+        let salt = Data.randomBytes(count: 32)
+        let rounds = 100000
+        guard let keyData = deriveKey(from: plaintext, salt: salt, rounds: rounds) else {
+            return nil
+        }
         do {
-            let key = SymmetricKey(size: .bits256)
+            
+            let key = SymmetricKey(data: keyData)
             let input = try JSONEncoder().encode(file)
             let output = try AES.GCM.seal(input, using: key).combined!
             let keyData = key.withUnsafeBytes { bytes in
                 Data(bytes)
             }
-            let result = SecuredDataFile(version: .v1, algo: .aes256GCM, data: output)
-            return (result, keyData)
+            let result = SecuredDataFile(version: .v1, algo: .aes256GCM, salt: salt, rounds: rounds, data: output)
+            return result
         } catch {
             logs.append("Error during encryption: \(error)")
             return nil
         }
     }
     
-    func decrypt(file: SecuredDataFile, key keyData: Data) -> SerializedDataFile? {
+    func decrypt(file: SecuredDataFile, key plaintext: String) -> SerializedDataFile? {
         guard file.version == .v1, file.algo == .aes256GCM else {
             logs.append("Unrecognized file version or encryption algorithm")
+            return nil
+        }
+        guard let keyData = deriveKey(from: plaintext, salt: file.salt, rounds: file.rounds) else {
             return nil
         }
         do {

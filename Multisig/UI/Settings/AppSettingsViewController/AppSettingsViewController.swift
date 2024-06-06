@@ -11,7 +11,7 @@ import SwiftUI
 
 fileprivate protocol SectionItem {}
 
-class AppSettingsViewController: UITableViewController {
+class AppSettingsViewController: UITableViewController, PasscodeProtecting {
     var notificationCenter = NotificationCenter.default
     var app = App.configuration.app
     var legal = App.configuration.legal
@@ -21,6 +21,8 @@ class AppSettingsViewController: UITableViewController {
     private var sections = [SectionItems]()
 
     private typealias SectionItems = (section: Section, items: [SectionItem])
+    
+    private var exportFlow: ExportDataFlow!
 
     enum Section {
         case app
@@ -333,9 +335,8 @@ class AppSettingsViewController: UITableViewController {
             navigateToAdvancedAppSettings()
             
         case Section.Advanced.dataExport:
-            let exportVC = ExportDataViewController(nibName: nil, bundle: nil)
-            show(exportVC, sender: self)
-            
+            showExport()
+
         case Section.Advanced.dataImport:
             let importVC = ImportDataViewController(nibName: nil, bundle: nil)
             show(importVC, sender: self)
@@ -350,6 +351,17 @@ class AppSettingsViewController: UITableViewController {
 
         default:
             break
+        }
+    }
+    
+    private func showExport() {
+        authenticate(biometry: false) { [weak self] success in
+            guard success, let self = self else { return }
+            
+            self.exportFlow = ExportDataFlow(completion: { [weak self] success in
+                self?.exportFlow = nil
+            })
+            self.present(flow: self.exportFlow, dismissableOnSwipe: false)
         }
     }
 
