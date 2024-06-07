@@ -41,7 +41,7 @@ class CreateExportPasswordViewController: UIViewController {
         textField.textField.isSecureTextEntry = true
         textField.textField.delegate = self
         textField.textField.clearButtonMode = .always
-        textField.textField.becomeFirstResponder()
+
         if let value = plainTextPassword {
             textField.textField.text = value
         }

@@ -361,7 +361,7 @@ class AppSettingsViewController: UITableViewController, PasscodeProtecting {
             self.exportFlow = ExportDataFlow(completion: { [weak self] success in
                 self?.exportFlow = nil
             })
-            self.present(flow: self.exportFlow, dismissableOnSwipe: false)
+            self.present(flow: self.exportFlow)
         }
     }
     
@@ -372,7 +372,7 @@ class AppSettingsViewController: UITableViewController, PasscodeProtecting {
             self.importFlow = ImportDataFlow(completion: { [weak self] success in
                 self?.importFlow = nil
             })
-            self.present(flow: self.importFlow, dismissableOnSwipe: false)
+            self.present(flow: self.importFlow)
         }
     }
 
