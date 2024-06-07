@@ -471,6 +471,14 @@ enum TrackingEvent: String, Trackable {
     case screenStartCreatePassword                 = "screen_set_pw_start"
     case screenCreatePassword                      = "screen_set_pw_create"
     case screenCreatePasswordSuccess               = "screen_set_pw_sucess"
+    
+    // Export and Import Data
+    case screenExportInstructions                  = "screen_export_instructions"
+    case screenExportSuccess                       = "screen_exportdata_success"
+    
+    case screenImportInstructions                  = "screen_import_instructions"
+    case screenImportSuccess                       = "screen_importdata_success"
+    
 }
 
 extension TrackingEvent {
