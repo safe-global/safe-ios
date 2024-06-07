@@ -18,6 +18,7 @@ class ImportDataFlow: UIFlow {
     func instructions() {
         let vc = CommonInstructionsViewController()
         vc.title = "Import Data"
+        vc.trackingEvent = .screenImportInstructions
         
         vc.steps = [
             .header,
@@ -79,6 +80,7 @@ class ImportDataFlow: UIFlow {
                 secondaryAction: nil
             )
             vc.reenablesNavBar = false
+            vc.setTrackingData(trackingEvent: .screenImportSuccess)
             
             vc.onDone = { [weak self] _ in
                 self?.stop(success: true)

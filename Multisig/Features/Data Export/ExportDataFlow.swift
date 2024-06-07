@@ -19,6 +19,8 @@ class ExportDataFlow: UIFlow {
         let vc = CommonInstructionsViewController()
         vc.title = "Export Data"
         
+        vc.trackingEvent = .screenExportInstructions
+        
         vc.steps = [
             .header,
             .step(number: "1", title: "Create a file password", description: "Enter a strong password for locking the export file."),
@@ -84,6 +86,7 @@ class ExportDataFlow: UIFlow {
                 secondaryAction: "Done"
             )
             vc.reenablesNavBar = false
+            vc.setTrackingData(trackingEvent: .screenExportSuccess)
             
             vc.onDone = { [weak self, unowned vc] isPrimary in
                 if isPrimary {
@@ -115,12 +118,20 @@ class ExportDataFlow: UIFlow {
 
 class CommonInstructionsViewController: InstructionsViewController {
     var onStart: (() -> Void)?
-    
+    var trackingEvent: TrackingEvent?
+
     convenience init() {
         self.init(namedClass: InstructionsViewController.self)
     }
     
     override func didTapButton(_ sender: Any) {
         onStart?()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let trackingEvent = trackingEvent {
+            Tracker.trackEvent(trackingEvent)
+        }
     }
 }
