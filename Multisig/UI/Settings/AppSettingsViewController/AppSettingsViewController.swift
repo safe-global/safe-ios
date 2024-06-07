@@ -11,7 +11,7 @@ import SwiftUI
 
 fileprivate protocol SectionItem {}
 
-class AppSettingsViewController: UITableViewController {
+class AppSettingsViewController: UITableViewController, PasscodeProtecting {
     var notificationCenter = NotificationCenter.default
     var app = App.configuration.app
     var legal = App.configuration.legal
@@ -21,6 +21,9 @@ class AppSettingsViewController: UITableViewController {
     private var sections = [SectionItems]()
 
     private typealias SectionItems = (section: Section, items: [SectionItem])
+    
+    private var exportFlow: ExportDataFlow!
+    private var importFlow: ImportDataFlow!
 
     enum Section {
         case app
@@ -47,6 +50,8 @@ class AppSettingsViewController: UITableViewController {
         enum Advanced: SectionItem {
             case advanced(String)
             case toggles(String)
+            case dataExport(String)
+            case dataImport(String)
         }
 
         enum About: SectionItem {
@@ -108,7 +113,9 @@ class AppSettingsViewController: UITableViewController {
             Section.Support.getSupport("Help Center")
         ])
         var advancedSection: (section: AppSettingsViewController.Section, items: [SectionItem]) = (section: .advanced("Advanced"), items: [
-            Section.Advanced.advanced("Advanced")
+            Section.Advanced.advanced("Advanced"),
+            Section.Advanced.dataExport("Export data"),
+            Section.Advanced.dataImport("Import data")
         ])
         
         if App.configuration.services.environment != .production {
@@ -261,6 +268,12 @@ class AppSettingsViewController: UITableViewController {
             
         case Section.Advanced.advanced(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
+            
+        case Section.Advanced.dataExport(let name):
+            return tableView.basicCell(name: name, indexPath: indexPath)
+            
+        case Section.Advanced.dataImport(let name):
+            return tableView.basicCell(name: name, indexPath: indexPath)
 
         case Section.Advanced.toggles(let name):
             return tableView.basicCell(name: name, indexPath: indexPath)
@@ -321,6 +334,12 @@ class AppSettingsViewController: UITableViewController {
             
         case Section.Advanced.advanced:
             navigateToAdvancedAppSettings()
+            
+        case Section.Advanced.dataExport:
+            showExport()
+
+        case Section.Advanced.dataImport:
+            showImport()
 
         case Section.Advanced.toggles:
             let togglesVC = FeatureToggleTableViewController()
@@ -332,6 +351,28 @@ class AppSettingsViewController: UITableViewController {
 
         default:
             break
+        }
+    }
+    
+    private func showExport() {
+        authenticate(biometry: false) { [weak self] success in
+            guard success, let self = self else { return }
+            
+            self.exportFlow = ExportDataFlow(completion: { [weak self] success in
+                self?.exportFlow = nil
+            })
+            self.present(flow: self.exportFlow)
+        }
+    }
+    
+    private func showImport() {
+        authenticate(biometry: false) { [weak self] success in
+            guard success, let self = self else { return }
+            
+            self.importFlow = ImportDataFlow(completion: { [weak self] success in
+                self?.importFlow = nil
+            })
+            self.present(flow: self.importFlow)
         }
     }
 

@@ -26,6 +26,7 @@ class SuccessViewController: UIViewController {
     private var trackingEvent: TrackingEvent?
     private var trackingParams: [String: Any]? = nil
 
+    var reenablesNavBar: Bool = true
     var onDone: (_ didTapPrimary: Bool) -> Void = { _ in }
     
     convenience init(
@@ -92,12 +93,16 @@ class SuccessViewController: UIViewController {
     }
 
     @IBAction func didTapDone(_ sender: Any) {
-        navigationController?.isNavigationBarHidden = wasNavBarHidden
+        if reenablesNavBar {
+            navigationController?.isNavigationBarHidden = wasNavBarHidden
+        }
         onDone(false)
     }
 
     @IBAction func viewDetailsClicked(_ sender: Any) {
-        navigationController?.isNavigationBarHidden = wasNavBarHidden
+        if reenablesNavBar {
+            navigationController?.isNavigationBarHidden = wasNavBarHidden
+        }
         onDone(true)
     }
 }
