@@ -14,6 +14,7 @@ class CreateExportPasswordViewController: UIViewController {
     var prompt: String = ""
     var placeholder: String = ""
     var plainTextPassword: String?
+    var passwordMeterEnabled: Bool = false
     var completion: (String) -> Void = { _ in }
     var validateValue: (String) -> Error? = { _ in nil }
 
@@ -22,7 +23,8 @@ class CreateExportPasswordViewController: UIViewController {
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var buttonBottomConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var passwordMeter: UIProgressView!
+
     private var debounceTimer: Timer!
     private let debounceDuration: TimeInterval = 0.250
     private var isValid: Bool = false
@@ -50,6 +52,8 @@ class CreateExportPasswordViewController: UIViewController {
         descriptionLabel.setStyle(.body)
 
         continueButton.setText("Continue", .filled)
+        
+        passwordMeter.isHidden = !passwordMeterEnabled
 
         validateText()
 
@@ -106,16 +110,47 @@ class CreateExportPasswordViewController: UIViewController {
             self?.view?.layoutIfNeeded()
         }
     }
+    
+    /*
+     Password Strength Function
+     
+     Factors:
+        Length: 1 L = 10/14 = 8
+        Numbers 1 N = 3
+        Symbols 1 S = 3
+        Capitals 1 C = 3
+        
+     P = 8 * L * (1 + 0,1 N + 0,1 S + 0,1 C)
+     P > 100 ? P = 100
+     
+     Req: P >= P(L=8) = 64
+     */
+    
+    func passwordScore(_ text: String) -> Double {
+        let L = Double(text.count) * 8
+        let N = text.rangeOfCharacter(from: .decimalDigits) == nil ? 0 : 0.1
+        let S = text.rangeOfCharacter(from: .symbols) == nil ? 0 : 0.1
+        let C = text.rangeOfCharacter(from: .capitalizedLetters) == nil ? 0 : 0.1
+        var P = L < 64 ? L : L * (1 + N + S + C)
+        P = (P > 100) ? 100 : P
+        return P
+    }
 
-    private func validateText() {
+    fileprivate func resetText() {
         isValid = false
         continueButton.isEnabled = false
         textField.setError(nil)
+        passwordMeter.progress = 0
+    }
+    
+    private func validateText() {
+        resetText()
         guard let text = textField.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
               !text.isEmpty else {
             self.plainTextPassword = nil
             return
         }
+        passwordMeter.progress = Float(passwordScore(text) / 100)
         if let error = validateValue(text) {
             textField.setError(error)
             return
@@ -134,6 +169,11 @@ extension CreateExportPasswordViewController: UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         keyboardBehavior.activeTextField = textField
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        self.resetText()
+        return true
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

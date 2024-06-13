@@ -27,7 +27,7 @@ class ImportDataFlow: UIFlow {
             .step(number: "2", title: "Enter file password",
                   description: "Enter the password to access the data from the file"),
             .step(number: "3", title: "Import the data",
-                  description: "The imported data includes owner keys, safes and address book. Duplicates will be skipped."),
+                  description: "The imported data includes private keys, safes and address book. Duplicates will be skipped."),
             .finalStep(title: "Import of data completed!")
         ]
         
