@@ -110,29 +110,22 @@ class CreateExportPasswordViewController: UIViewController {
             self?.view?.layoutIfNeeded()
         }
     }
-    
-    /*
-     Password Strength Function
-     
-     Factors:
-        Length: 1 L = 10/14 = 8
-        Numbers 1 N = 3
-        Symbols 1 S = 3
-        Capitals 1 C = 3
-        
-     P = 8 * L * (1 + 0,1 N + 0,1 S + 0,1 C)
-     P > 100 ? P = 100
-     
-     Req: P >= P(L=8) = 64
-     */
-    
+
     func passwordScore(_ text: String) -> Double {
-        let L = Double(text.count) * 8
-        let N = text.rangeOfCharacter(from: .decimalDigits) == nil ? 0 : 0.1
-        let S = text.rangeOfCharacter(from: .symbols) == nil ? 0 : 0.1
-        let C = text.rangeOfCharacter(from: .capitalizedLetters) == nil ? 0 : 0.1
-        var P = L < 64 ? L : L * (1 + N + S + C)
-        P = (P > 100) ? 100 : P
+        // We define score P as:
+        // P[ L >= 8 ] = 8 * L * (1 + 0.1 * N + 0.1 * S + 0.1 * C)
+        // P[ L < 8 ] = 8 * L
+        //   where L = length of the password text string
+        //      N = 1 if password contains numbers, 0 otherwise
+        //      S = 1 if password contains symbols, 0 otherwise
+        //      C = 1 if password contains capital letters, 0 otherwise
+        // Maximum P value equals 100, i.e.:
+        // P = min(P, 100)
+        let L = Double(text.count)
+        let N = text.rangeOfCharacter(from: .decimalDigits) == nil ? 0 : 1.0
+        let S = text.rangeOfCharacter(from: .symbols) == nil ? 0 : 1.0
+        let C = text.rangeOfCharacter(from: .capitalizedLetters) == nil ? 0 : 1.0
+        let P = min(100, (L < 8) ? (8 * L) : (8 * L * (1 + 0.1 * N + 0.1 * S + 0.1 * C)) )
         return P
     }
 
