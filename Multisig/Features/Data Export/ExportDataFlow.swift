@@ -24,7 +24,7 @@ class ExportDataFlow: UIFlow {
         vc.steps = [
             .header,
             .step(number: "1", title: "Create a file password", description: "Enter a strong password for locking the export file."),
-            .step(number: "2", title: "Export the data", description: "Data includes the owner keys, safes and address book in an encrypted file format."),
+            .step(number: "2", title: "Export the data", description: "Data includes private keys, safes and address book in an encrypted file format."),
             .step(number: "3", title: "Save the data file", description: "Store the export file in Files on your device or a secure location of your choice."),
             .finalStep(title: "Export of data completed!")
         ]
@@ -43,8 +43,16 @@ class ExportDataFlow: UIFlow {
     func createPassword() {
         let vc = CreateExportPasswordViewController(nibName: nil, bundle: nil)
         vc.title = "Create password"
-        vc.prompt = "Choose a password for protecting the exported data."
+        vc.prompt = "Your password protects the data, including private keys.\n• At least 8 characters long.\n• Use numbers, symbols, and capital letters.\n• Use a password manager like 1Password or iCloud Keychain."
         vc.placeholder = "Enter password"
+        vc.passwordMeterEnabled = true
+        vc.validateValue = { [unowned vc] value in
+            let score = vc.passwordScore(value)
+            if score < 64 {
+                return "Password must be at least 8 characters long."
+            }
+            return nil
+        }
         vc.completion = { [unowned self] plainTextPassword in
             repeatPassword(plainTextPassword)
         }
@@ -81,7 +89,7 @@ class ExportDataFlow: UIFlow {
         if let url = tempFileURL {
             let vc = SuccessViewController(
                 titleText: "Export completed",
-                bodyText: "Exported data is encrypted and includes owner keys, list of safes and address book",
+                bodyText: "Exported data is encrypted and includes private keys, list of safes and address book.\n\nSave it to Files - On My iPhone.",
                 primaryAction: "Save",
                 secondaryAction: "Done"
             )

@@ -384,8 +384,8 @@
         "repositoryURL": "https://github.com/KeystoneHQ/ur-registry-ios",
         "state": {
           "branch": null,
-          "revision": "10511be95146e8dfa2063e3ea21cceb9e6536fa1",
-          "version": "1.0.0"
+          "revision": "cafed3d8d3f73417c148d4a0b00046a45ef1ed30",
+          "version": "1.1.0"
         }
       },
       {
