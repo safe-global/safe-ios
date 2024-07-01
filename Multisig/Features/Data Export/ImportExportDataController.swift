@@ -326,7 +326,27 @@ class ImportExportDataController {
         
         let MAX_NAME_LENGTH = 500
         
+        // chains
+
+        func loadChains() async -> [SCGModels.Chain] {
+            await withCheckedContinuation { continuation in
+                App.shared.clientGatewayService.asyncChains { result in
+                    do {
+                        let results = try result.get()
+                        continuation.resume(returning: results.results)
+                    } catch {
+                        continuation.resume(returning: [])
+                    }
+                }
+            }
+        }
         
+        let chains = await loadChains()
+        for chain in chains {
+            Chain.createOrUpdate(chain)
+        }
+        NotificationCenter.default.post(name: .chainInfoChanged, object: nil)
+
         
         // safes
         let safes: [SerializedDataFile.SerializedSafe] = file.data.safes
@@ -373,7 +393,11 @@ class ImportExportDataController {
             
             let name = str(safe.name, MAX_NAME_LENGTH)
             
-            Safe.create(address: address.checksummed, version: version, name: name, chain: chain)
+            let cdSafe = Safe.create(address: address.checksummed, version: version, name: name, chain: chain)
+            cdSafe.update(from: info)
+
+            App.shared.notificationHandler.safeAdded(address: address)
+
         }
         
         // keys
