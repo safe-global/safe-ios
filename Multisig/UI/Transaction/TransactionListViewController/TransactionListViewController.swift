@@ -368,6 +368,12 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         case .swapOrder(_):
             image = UIImage(named: "ico-custom-tx")
             title = "Swap order"
+        case .swapTransfer(_):
+            image = UIImage(named: "ico-custom-tx")
+            title = "Swap transfer"
+        case .twapOrder(_):
+            image = UIImage(named: "ico-custom-tx")
+            title = "Twap order"
         case .unknown:
             image = UIImage(named: "ico-custom-tx")
             title = "Unknown operation"

@@ -128,7 +128,7 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
         case .settingsChange(let settingsChangeInfo):
             name = settingsChangeInfo.dataDecoded.method
             imageName = "ico-settings-tx"
-        case .custom(let _):
+        case .custom(_):
             name = "Contract interaction"
             imageName = "ico-custom-tx"
         case .rejection(_):
@@ -140,6 +140,12 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
         case .swapOrder(_):
             imageName = "ico-custom-tx"
             name = "Swap order"
+        case .swapTransfer(_):
+            imageName = "ico-custom-tx"
+            name = "Swap transfer"
+        case .twapOrder(_):
+            imageName = "ico-custom-tx"
+            name = "Twap transfer"
         case .unknown:
             imageName = "ico-custom-tx"
             name = "Unknown operation"
