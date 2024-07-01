@@ -174,6 +174,8 @@ extension SCGModels {
         case rejection(Rejection)
         case creation(Creation)
         case swapOrder(SwapOrder)
+        case swapTransfer(SwapOrder)
+        case twapOrder(TwapOrder)
         case unknown
 
         init(from decoder: Decoder) throws {
@@ -200,6 +202,10 @@ extension SCGModels {
                 self = try .creation(Creation(from: decoder))
             case "SwapOrder":
                 self = try .swapOrder(SwapOrder(from: decoder))
+            case "SwapTransfer":
+                self = try .swapTransfer(SwapOrder(from: decoder))
+            case "TwapOrder":
+                self = try .twapOrder(TwapOrder(from: decoder))
             case "Unknown":
                 fallthrough
             default:
@@ -379,9 +385,12 @@ extension SCGModels {
 
         struct SwapOrder: Decodable {
             var uid: String
-            var status: String
-            var kind: String
             var explorerUrl: URL
+        }
+        
+        struct TwapOrder: Codable {
+            var kind: String
+            var status: String
         }
     }
 
