@@ -365,15 +365,15 @@ class TransactionListViewController: LoadableViewController, UITableViewDelegate
         case .creation(_):
             image = UIImage(named: "ico-settings-tx")
             title = "Safe Account created"
-        case .swapOrder(_):
+        case .swapOrder(let order):
             image = UIImage(named: "ico-custom-tx")
-            title = "Swap order"
-        case .swapTransfer(_):
+            title = order.swapOrderDisplayName
+        case .swapTransfer(let order):
             image = UIImage(named: "ico-custom-tx")
-            title = "Swap transfer"
-        case .twapOrder(_):
+            title = order.swapTransferDisplayName
+        case .twapOrder(let order):
             image = UIImage(named: "ico-custom-tx")
-            title = "Twap order"
+            title = order.displayName
         case .unknown:
             image = UIImage(named: "ico-custom-tx")
             title = "Unknown operation"

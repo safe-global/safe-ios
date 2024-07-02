@@ -375,13 +375,13 @@ class TransactionDetailCellBuilder {
                 rejectionHeader(nonce: nil, isQueued: tx.txStatus.isInQueue)
             }
         case .swapOrder(let orderInfo):
-            text("Swap order", title: "Contract Interaction", expandableTitle: nil, copyText: nil)
+            text(orderInfo.swapOrderDisplayName, title: "Contract Interaction", expandableTitle: nil, copyText: nil)
             externalURL(text: "Order details", url: orderInfo.explorerUrl)
         case .swapTransfer(let orderInfo):
-            text("Swap transfer", title: "Contract Interaction", expandableTitle: nil, copyText: nil)
+            text(orderInfo.swapTransferDisplayName, title: "Contract Interaction", expandableTitle: nil, copyText: nil)
             externalURL(text: "Order details", url: orderInfo.explorerUrl)
-        case .twapOrder(_):
-            text("Twap order", title: "Contract Interaction", expandableTitle: nil, copyText: nil)
+        case .twapOrder(let order):
+            text(order.displayName, title: "Contract Interaction", expandableTitle: nil, copyText: nil)
         case .creation(_):
             // ignore
             fallthrough
@@ -666,14 +666,14 @@ class TransactionDetailCellBuilder {
         case .creation(_):
             type = "Safe Account created"
             icon = UIImage(named: "ico-settings-tx")
-        case .swapOrder(_):
-            type = "Swap order"
+        case .swapOrder(let order):
+            type = order.swapOrderDisplayName
             icon = UIImage(named: "ico-custom-tx")
-        case .swapTransfer(_):
-            type = "Swap transfer"
+        case .swapTransfer(let order):
+            type = order.swapTransferDisplayName
             icon = UIImage(named: "ico-custom-tx")
-        case .twapOrder(_):
-            type = "Twap order"
+        case .twapOrder(let order):
+            type = order.displayName
             icon = UIImage(named: "ico-custom-tx")
         case .unknown:
             type = "Unknown operation"
