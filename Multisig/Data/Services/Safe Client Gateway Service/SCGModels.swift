@@ -423,6 +423,7 @@ extension SCGModels {
         struct TwapOrder: Codable {
             var kind: String
             var status: String
+            var displayName: String { "Twap order" }
         }
     }
 

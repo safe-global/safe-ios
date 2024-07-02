@@ -380,8 +380,8 @@ class TransactionDetailCellBuilder {
         case .swapTransfer(let orderInfo):
             text(orderInfo.swapTransferDisplayName, title: "Contract Interaction", expandableTitle: nil, copyText: nil)
             externalURL(text: "Order details", url: orderInfo.explorerUrl)
-        case .twapOrder(_):
-            text("Twap order", title: "Contract Interaction", expandableTitle: nil, copyText: nil)
+        case .twapOrder(let order):
+            text(order.displayName, title: "Contract Interaction", expandableTitle: nil, copyText: nil)
         case .creation(_):
             // ignore
             fallthrough
@@ -672,8 +672,8 @@ class TransactionDetailCellBuilder {
         case .swapTransfer(let order):
             type = order.swapTransferDisplayName
             icon = UIImage(named: "ico-custom-tx")
-        case .twapOrder(_):
-            type = "Twap order"
+        case .twapOrder(let order):
+            type = order.displayName
             icon = UIImage(named: "ico-custom-tx")
         case .unknown:
             type = "Unknown operation"

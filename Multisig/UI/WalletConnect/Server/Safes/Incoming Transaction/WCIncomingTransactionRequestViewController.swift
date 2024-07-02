@@ -143,9 +143,9 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
         case .swapTransfer(let order):
             imageName = "ico-custom-tx"
             name = order.swapTransferDisplayName
-        case .twapOrder(_):
+        case .twapOrder(let order):
             imageName = "ico-custom-tx"
-            name = "Twap transfer"
+            name = order.displayName
         case .unknown:
             imageName = "ico-custom-tx"
             name = "Unknown operation"
