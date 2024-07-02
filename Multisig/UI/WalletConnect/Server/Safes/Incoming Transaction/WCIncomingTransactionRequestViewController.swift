@@ -137,12 +137,12 @@ class WCIncomingTransactionRequestViewController: ReviewSafeTransactionViewContr
         case .creation(_):
             imageName = "ico-settings-tx"
             name = "Safe Account created"
-        case .swapOrder(_):
+        case .swapOrder(let order):
             imageName = "ico-custom-tx"
-            name = "Swap order"
-        case .swapTransfer(_):
+            name = order.swapOrderDisplayName
+        case .swapTransfer(let order):
             imageName = "ico-custom-tx"
-            name = "Swap transfer"
+            name = order.swapTransferDisplayName
         case .twapOrder(_):
             imageName = "ico-custom-tx"
             name = "Twap transfer"

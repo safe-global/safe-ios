@@ -386,6 +386,38 @@ extension SCGModels {
         struct SwapOrder: Decodable {
             var uid: String
             var explorerUrl: URL
+            var fullAppData: AppData?
+            
+            // limit, twap, market
+            var orderType: String {
+                fullAppData?.metadata?.orderClass?.orderClass ?? "market"
+            }
+            
+            var swapOrderDisplayName: String {
+                orderType == "limit" ? "Limit order" : "Swap order"
+            }
+            
+            var swapTransferDisplayName: String {
+                switch orderType {
+                case "limit": return "Limit order settlement"
+                case "twap": return "TWAP order settlement"
+                case "liquidity": return "Liquidity order settlement"
+                case "market": return "Swap order settlement"
+                default: return "Swap order settlement"
+                }
+            }
+            
+            struct AppData: Codable {
+                var metadata: Metadata?
+            }
+            
+            struct Metadata: Codable {
+                var orderClass: OrderClass?
+            }
+            
+            struct OrderClass: Codable {
+                var orderClass: String?
+            }
         }
         
         struct TwapOrder: Codable {
