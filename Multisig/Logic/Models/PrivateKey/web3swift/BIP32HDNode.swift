@@ -193,7 +193,7 @@ extension HDNode {
                     newPath = self.path! + "/"
                     newPath += try! String(newNode.index % HDNode.hardenedIndexPrefix) + "'"
                 } else {
-                    newPath = try! self.path! + "/" + String(newNode.index)
+                    newPath = try! (self.path! + "/" + String(newNode.index))
                 }
                 newNode.path = newPath
                 return newNode
@@ -246,7 +246,7 @@ extension HDNode {
                 newPath = self.path! + "/"
                 newPath += try! String(newNode.index % HDNode.hardenedIndexPrefix) + "'"
             } else {
-                newPath = try! self.path! + "/" + String(newNode.index)
+                newPath = try! (self.path! + "/" + String(newNode.index))
             }
             newNode.path = newPath
             return newNode
