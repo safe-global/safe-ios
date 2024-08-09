@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  SafeDeployments.swift
 //
 //
 //  Created by Dmitry Bespalov on 04.01.22.
@@ -11,21 +11,22 @@ import Solidity
 public enum Safe {}
 
 extension Safe {
+    // NOTE: after updating jsons, remember to patch the assets with the script in `bin/patch_safe_deployments.rb`
     public struct Deployment: Codable {
-        public var defaultAddress: String
         public var version: String
         public var abi: Sol.Json.Contract
-        public var networkAddresses: [String: String]
+        public var networkAddresses: [String: [String]]
         public var contractName: String
         public var released: Bool
+        public var deployments: [String: [String: String]]
 
-        public init(defaultAddress: String, version: String, abi: Sol.Json.Contract, networkAddresses: [String: String], contractName: String, released: Bool) {
-            self.defaultAddress = defaultAddress
+        public init(defaultAddress: String, version: String, abi: Sol.Json.Contract, networkAddresses: [String: [String]], contractName: String, released: Bool, deployments: [String: [String: String]]) {
             self.version = version
             self.abi = abi
             self.networkAddresses = networkAddresses
             self.contractName = contractName
             self.released = released
+            self.deployments = deployments
         }
     }
 
@@ -100,9 +101,26 @@ extension Safe.Deployment {
     }
 
     public func address(for chainId: String) -> Sol.Address? {
-        let networkAddress = networkAddresses[chainId] ?? defaultAddress
-        let result = Sol.Address(hex: networkAddress)
-        return result
+        guard let defaultAddress = deployments["canonical"]?["address"] else { return nil }
+        let defaultResult = Sol.Address(hex: defaultAddress)
+        
+        guard let addressTypes = networkAddresses[chainId] else {
+            return defaultResult
+        }
+        
+        // find and return an address corresponding to the search type
+        let searchTypes = ["canonical", "eip155", "zksync"]
+        
+        for addressType in searchTypes {
+            if addressTypes.contains(addressType),
+               let address = deployments[addressType]?["address"] {
+                let result = Sol.Address(hex: address)
+                return result
+            }
+        }
+        
+        // not found
+        return defaultResult
     }
 }
 
