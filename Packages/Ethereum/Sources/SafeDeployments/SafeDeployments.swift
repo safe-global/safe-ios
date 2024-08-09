@@ -20,7 +20,7 @@ extension Safe {
         public var released: Bool
         public var deployments: [String: [String: String]]
 
-        public init(defaultAddress: String, version: String, abi: Sol.Json.Contract, networkAddresses: [String: [String]], contractName: String, released: Bool, deployments: [String: [String: String]]) {
+        public init(version: String, abi: Sol.Json.Contract, networkAddresses: [String: [String]], contractName: String, released: Bool, deployments: [String: [String: String]]) {
             self.version = version
             self.abi = abi
             self.networkAddresses = networkAddresses
