@@ -1,21 +1,44 @@
 {
-  "defaultAddress": "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F",
   "released": true,
   "contractName": "GnosisSafe",
   "version": "1.1.1",
+  "deployments": {
+    "canonical": {
+      "address": "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F",
+      "codeHash": "0x56b8be58b5ad629a621593a2e5e5e8e9a28408dc06e95597497b303902772e45"
+    }
+  },
   "networkAddresses": {
-    "1": "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F",
-    "4": "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F",
-    "5": "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F",
-    "42": "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F",
-    "88": "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F",
-    "100": "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F",
-    "246": "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F",
-    "73799": "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F"
+    "1": [
+      "canonical"
+    ],
+    "4": [
+      "canonical"
+    ],
+    "5": [
+      "canonical"
+    ],
+    "42": [
+      "canonical"
+    ],
+    "88": [
+      "canonical"
+    ],
+    "100": [
+      "canonical"
+    ],
+    "246": [
+      "canonical"
+    ],
+    "73799": [
+      "canonical"
+    ]
   },
   "abi": [
     {
-      "inputs": [],
+      "inputs": [
+
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "constructor"
@@ -201,7 +224,9 @@
     },
     {
       "constant": true,
-      "inputs": [],
+      "inputs": [
+
+      ],
       "name": "NAME",
       "outputs": [
         {
@@ -216,7 +241,9 @@
     },
     {
       "constant": true,
-      "inputs": [],
+      "inputs": [
+
+      ],
       "name": "VERSION",
       "outputs": [
         {
@@ -244,7 +271,9 @@
         }
       ],
       "name": "addOwnerWithThreshold",
-      "outputs": [],
+      "outputs": [
+
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -285,7 +314,9 @@
         }
       ],
       "name": "changeMasterCopy",
-      "outputs": [],
+      "outputs": [
+
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -300,7 +331,9 @@
         }
       ],
       "name": "changeThreshold",
-      "outputs": [],
+      "outputs": [
+
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -320,14 +353,18 @@
         }
       ],
       "name": "disableModule",
-      "outputs": [],
+      "outputs": [
+
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "constant": true,
-      "inputs": [],
+      "inputs": [
+
+      ],
       "name": "domainSeparator",
       "outputs": [
         {
@@ -350,7 +387,9 @@
         }
       ],
       "name": "enableModule",
-      "outputs": [],
+      "outputs": [
+
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -434,7 +473,9 @@
     },
     {
       "constant": true,
-      "inputs": [],
+      "inputs": [
+
+      ],
       "name": "getModules",
       "outputs": [
         {
@@ -480,7 +521,9 @@
     },
     {
       "constant": true,
-      "inputs": [],
+      "inputs": [
+
+      ],
       "name": "getOwners",
       "outputs": [
         {
@@ -495,7 +538,9 @@
     },
     {
       "constant": true,
-      "inputs": [],
+      "inputs": [
+
+      ],
       "name": "getThreshold",
       "outputs": [
         {
@@ -531,7 +576,9 @@
     },
     {
       "constant": true,
-      "inputs": [],
+      "inputs": [
+
+      ],
       "name": "nonce",
       "outputs": [
         {
@@ -564,7 +611,9 @@
         }
       ],
       "name": "removeOwner",
-      "outputs": [],
+      "outputs": [
+
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -579,7 +628,9 @@
         }
       ],
       "name": "setFallbackHandler",
-      "outputs": [],
+      "outputs": [
+
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -625,7 +676,9 @@
         }
       ],
       "name": "swapOwner",
-      "outputs": [],
+      "outputs": [
+
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -675,7 +728,9 @@
         }
       ],
       "name": "setup",
-      "outputs": [],
+      "outputs": [
+
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -792,7 +847,9 @@
         }
       ],
       "name": "approveHash",
-      "outputs": [],
+      "outputs": [
+
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
@@ -807,7 +864,9 @@
         }
       ],
       "name": "signMessage",
-      "outputs": [],
+      "outputs": [
+
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"

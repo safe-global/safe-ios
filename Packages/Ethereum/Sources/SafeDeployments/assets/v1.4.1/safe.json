@@ -1,62 +1,27 @@
 {
   "released": true,
-  "contractName": "GnosisSafeL2",
-  "version": "1.3.0",
+  "contractName": "Safe",
+  "version": "1.4.1",
   "deployments": {
     "canonical": {
-      "address": "0x3E5c63644E683549055b9Be8653de26E0B4CD36E",
-      "codeHash": "0x21842597390c4c6e3c1239e434a682b054bd9548eee5e9b1d6a4482731023c0f"
-    },
-    "eip155": {
-      "address": "0xfb1bffC9d739B8D520DaF37dF666da4C687191EA",
-      "codeHash": "0x21842597390c4c6e3c1239e434a682b054bd9548eee5e9b1d6a4482731023c0f"
-    },
-    "zksync": {
-      "address": "0x1727c2c531cf966f902E5927b98490fDFb3b2b70",
-      "codeHash": "0xe2ca068330339d608367d83a0b25545efe39e619098597699ab8ff828cb1ddd8"
+      "address": "0x41675C099F32341bf84BFc5382aF534df5C7461a",
+      "codeHash": "0x1fe2df852ba3299d6534ef416eefa406e56ced995bca886ab7a553e6d0c5e1c4"
     }
   },
   "networkAddresses": {
     "1": [
-      "canonical",
-      "eip155"
-    ],
-    "3": [
-      "canonical"
-    ],
-    "4": [
       "canonical"
     ],
     "5": [
       "canonical"
     ],
     "10": [
-      "eip155",
       "canonical"
-    ],
-    "11": [
-      "canonical"
-    ],
-    "12": [
-      "canonical"
-    ],
-    "18": [
-      "eip155"
     ],
     "25": [
-      "eip155",
-      "canonical"
-    ],
-    "28": [
-      "eip155"
-    ],
-    "30": [
       "canonical"
     ],
     "31": [
-      "canonical"
-    ],
-    "39": [
       "canonical"
     ],
     "40": [
@@ -65,230 +30,74 @@
     "41": [
       "canonical"
     ],
-    "42": [
-      "canonical"
-    ],
-    "43": [
-      "eip155",
-      "canonical"
-    ],
-    "44": [
-      "eip155",
-      "canonical"
-    ],
-    "46": [
-      "eip155",
-      "canonical"
-    ],
-    "50": [
-      "canonical"
-    ],
-    "51": [
-      "canonical"
-    ],
     "56": [
-      "canonical",
-      "eip155"
-    ],
-    "57": [
-      "eip155"
-    ],
-    "61": [
-      "eip155"
-    ],
-    "63": [
-      "eip155"
-    ],
-    "69": [
-      "eip155"
+      "canonical"
     ],
     "71": [
-      "canonical"
-    ],
-    "81": [
-      "eip155"
-    ],
-    "82": [
-      "eip155"
-    ],
-    "83": [
-      "eip155",
       "canonical"
     ],
     "97": [
       "canonical"
     ],
     "100": [
-      "canonical",
-      "eip155"
-    ],
-    "106": [
-      "eip155"
-    ],
-    "108": [
-      "eip155"
-    ],
-    "109": [
-      "eip155"
-    ],
-    "111": [
-      "eip155"
-    ],
-    "122": [
-      "canonical"
-    ],
-    "123": [
       "canonical"
     ],
     "137": [
       "canonical"
     ],
-    "148": [
-      "eip155"
-    ],
     "155": [
-      "eip155"
+      "canonical"
     ],
     "169": [
       "canonical"
     ],
-    "179": [
-      "eip155"
-    ],
-    "195": [
-      "eip155"
-    ],
-    "196": [
-      "eip155",
-      "canonical"
-    ],
-    "204": [
-      "eip155",
-      "canonical"
-    ],
-    "246": [
-      "canonical"
-    ],
     "250": [
-      "canonical",
-      "eip155"
+      "canonical"
     ],
     "252": [
-      "eip155",
       "canonical"
     ],
     "255": [
-      "eip155"
-    ],
-    "280": [
-      "zksync"
-    ],
-    "288": [
-      "eip155"
-    ],
-    "291": [
       "canonical"
-    ],
-    "300": [
-      "canonical"
-    ],
-    "321": [
-      "canonical"
-    ],
-    "322": [
-      "canonical"
-    ],
-    "324": [
-      "zksync"
     ],
     "336": [
-      "canonical",
-      "eip155"
-    ],
-    "338": [
-      "eip155"
-    ],
-    "369": [
       "canonical"
     ],
-    "420": [
-      "eip155"
+    "338": [
+      "canonical"
     ],
-    "424": [
+    "369": [
       "canonical"
     ],
     "480": [
       "canonical"
     ],
-    "570": [
-      "eip155"
-    ],
-    "588": [
-      "eip155"
+    "530": [
+      "canonical"
     ],
     "592": [
       "canonical"
     ],
-    "595": [
-      "eip155"
-    ],
-    "599": [
-      "eip155"
-    ],
-    "686": [
-      "eip155"
-    ],
     "690": [
-      "eip155",
       "canonical"
-    ],
-    "787": [
-      "eip155"
     ],
     "919": [
-      "canonical",
-      "eip155"
-    ],
-    "943": [
-      "canonical"
-    ],
-    "1001": [
-      "eip155"
-    ],
-    "1008": [
       "canonical"
     ],
     "1030": [
       "canonical"
     ],
-    "1088": [
-      "eip155"
-    ],
     "1101": [
-      "canonical",
-      "eip155"
-    ],
-    "1111": [
-      "eip155"
-    ],
-    "1112": [
-      "eip155"
-    ],
-    "1115": [
       "canonical"
     ],
-    "1116": [
+    "1111": [
+      "canonical"
+    ],
+    "1112": [
       "canonical"
     ],
     "1135": [
-      "canonical",
-      "eip155"
-    ],
-    "1230": [
-      "eip155"
-    ],
-    "1231": [
-      "eip155"
+      "canonical"
     ],
     "1284": [
       "canonical"
@@ -299,84 +108,37 @@
     "1287": [
       "canonical"
     ],
-    "1294": [
-      "eip155"
-    ],
     "1329": [
       "canonical"
     ],
     "1337": [
-      "eip155"
+      "canonical"
     ],
     "1442": [
-      "eip155"
+      "canonical"
     ],
-    "1559": [
-      "eip155"
-    ],
-    "1663": [
-      "eip155"
+    "1625": [
+      "canonical"
     ],
     "1729": [
       "canonical"
     ],
-    "1807": [
-      "canonical"
-    ],
-    "1890": [
-      "canonical"
-    ],
-    "1891": [
-      "canonical"
-    ],
-    "1984": [
-      "canonical"
-    ],
-    "1998": [
-      "canonical"
-    ],
-    "2001": [
-      "canonical"
-    ],
-    "2002": [
-      "canonical"
-    ],
-    "2008": [
-      "canonical"
-    ],
-    "2019": [
-      "canonical"
-    ],
-    "2020": [
-      "canonical"
-    ],
-    "2021": [
+    "2000": [
       "canonical"
     ],
     "2039": [
       "canonical"
     ],
-    "2221": [
-      "canonical",
-      "eip155"
-    ],
-    "2222": [
-      "canonical",
-      "eip155"
-    ],
-    "2331": [
+    "2358": [
       "canonical"
     ],
-    "2358": [
-      "eip155"
-    ],
     "2810": [
-      "eip155"
+      "canonical"
     ],
     "3338": [
       "canonical"
     ],
-    "3737": [
+    "3636": [
       "canonical"
     ],
     "3776": [
@@ -385,11 +147,8 @@
     "4002": [
       "canonical"
     ],
-    "4078": [
-      "canonical"
-    ],
     "4157": [
-      "eip155"
+      "canonical"
     ],
     "4202": [
       "canonical"
@@ -397,450 +156,224 @@
     "4337": [
       "canonical"
     ],
-    "4460": [
-      "canonical"
-    ],
     "4653": [
-      "eip155"
-    ],
-    "4689": [
-      "eip155"
-    ],
-    "4918": [
-      "canonical"
-    ],
-    "4919": [
       "canonical"
     ],
     "5000": [
-      "eip155",
       "canonical"
-    ],
-    "5001": [
-      "eip155"
     ],
     "5003": [
-      "eip155",
-      "canonical"
-    ],
-    "5700": [
-      "eip155",
       "canonical"
     ],
     "6001": [
       "canonical"
     ],
-    "6102": [
-      "eip155"
+    "6321": [
+      "canonical"
+    ],
+    "6322": [
+      "canonical"
     ],
     "7000": [
-      "eip155",
       "canonical"
     ],
     "7001": [
-      "eip155"
+      "canonical"
     ],
-    "7332": [
-      "eip155"
-    ],
-    "7341": [
+    "7171": [
       "canonical"
     ],
     "7560": [
-      "canonical",
-      "eip155"
+      "canonical"
     ],
-    "7700": [
-      "eip155"
+    "7771": [
+      "canonical"
     ],
     "8192": [
-      "eip155"
+      "canonical"
     ],
     "8194": [
-      "eip155"
-    ],
-    "8217": [
-      "eip155"
-    ],
-    "8329": [
       "canonical"
     ],
     "8453": [
-      "eip155",
       "canonical"
     ],
-    "8822": [
-      "eip155"
-    ],
-    "9000": [
-      "canonical",
-      "eip155"
-    ],
     "9001": [
-      "canonical",
-      "eip155"
-    ],
-    "9728": [
-      "eip155"
-    ],
-    "10000": [
-      "eip155"
-    ],
-    "10001": [
-      "eip155"
-    ],
-    "10081": [
-      "eip155"
-    ],
-    "10200": [
       "canonical"
     ],
     "10242": [
-      "eip155"
-    ],
-    "10243": [
-      "eip155"
-    ],
-    "10849": [
       "canonical"
     ],
-    "11111": [
+    "10243": [
       "canonical"
     ],
     "11235": [
       "canonical"
     ],
-    "11437": [
-      "canonical"
-    ],
-    "11891": [
-      "canonical"
-    ],
-    "12324": [
-      "canonical"
-    ],
-    "12325": [
-      "canonical"
-    ],
-    "12357": [
-      "canonical"
-    ],
-    "12553": [
-      "canonical"
-    ],
     "13337": [
       "canonical"
     ],
-    "13371": [
-      "eip155"
-    ],
-    "13473": [
-      "eip155"
-    ],
     "17000": [
-      "canonical",
-      "eip155"
-    ],
-    "17069": [
-      "eip155",
       "canonical"
     ],
-    "17172": [
-      "eip155"
-    ],
-    "18231": [
+    "17069": [
       "canonical"
     ],
     "18233": [
       "canonical"
     ],
-    "22776": [
+    "23294": [
       "canonical"
     ],
-    "23294": [
-      "eip155"
-    ],
     "23295": [
-      "eip155"
+      "canonical"
     ],
-    "28979": [
+    "32769": [
+      "canonical"
+    ],
+    "33101": [
       "canonical"
     ],
     "34443": [
-      "canonical",
-      "eip155"
+      "canonical"
     ],
     "42161": [
       "canonical"
     ],
-    "42170": [
-      "canonical"
-    ],
     "42220": [
-      "eip155",
       "canonical"
-    ],
-    "42793": [
-      "eip155"
-    ],
-    "43113": [
-      "canonical",
-      "eip155"
     ],
     "43114": [
-      "eip155",
-      "canonical"
-    ],
-    "43288": [
-      "eip155"
-    ],
-    "44787": [
-      "canonical"
-    ],
-    "45000": [
-      "canonical"
-    ],
-    "47763": [
-      "canonical"
-    ],
-    "47805": [
-      "canonical"
-    ],
-    "48899": [
-      "eip155"
-    ],
-    "53457": [
       "canonical"
     ],
     "54211": [
-      "eip155"
-    ],
-    "56288": [
-      "eip155"
-    ],
-    "57000": [
-      "eip155"
-    ],
-    "58008": [
       "canonical"
     ],
     "59140": [
-      "canonical",
-      "eip155"
+      "canonical"
+    ],
+    "59141": [
+      "canonical"
     ],
     "59144": [
-      "canonical",
-      "eip155"
-    ],
-    "71401": [
-      "eip155"
-    ],
-    "71402": [
-      "eip155"
-    ],
-    "73799": [
       "canonical"
     ],
     "80001": [
       "canonical"
     ],
-    "80002": [
-      "canonical"
-    ],
-    "80084": [
-      "canonical"
-    ],
     "80085": [
-      "canonical",
-      "eip155"
+      "canonical"
     ],
     "81457": [
       "canonical"
     ],
-    "83291": [
-      "canonical"
-    ],
     "84531": [
-      "eip155"
+      "canonical"
     ],
     "84532": [
-      "eip155",
       "canonical"
     ],
-    "103454": [
-      "eip155"
+    "90001": [
+      "canonical"
+    ],
+    "105105": [
+      "canonical"
     ],
     "111188": [
       "canonical"
     ],
-    "128123": [
-      "eip155",
-      "canonical"
-    ],
     "167000": [
-      "eip155",
-      "canonical"
-    ],
-    "167008": [
       "canonical"
     ],
     "167009": [
-      "eip155",
       "canonical"
     ],
-    "200101": [
-      "canonical"
-    ],
-    "200202": [
-      "canonical"
-    ],
-    "200810": [
-      "canonical"
-    ],
-    "333999": [
-      "canonical"
-    ],
-    "421611": [
-      "canonical"
-    ],
-    "421613": [
+    "205205": [
       "canonical"
     ],
     "421614": [
       "canonical"
     ],
-    "490000": [
-      "canonical",
-      "eip155"
+    "444444": [
+      "canonical"
     ],
     "534351": [
-      "canonical",
-      "eip155"
+      "canonical"
     ],
     "534352": [
       "canonical"
     ],
-    "534353": [
-      "eip155"
-    ],
     "555666": [
       "canonical"
     ],
-    "622277": [
-      "canonical"
-    ],
-    "656476": [
-      "eip155",
-      "canonical"
-    ],
-    "660279": [
-      "canonical"
-    ],
     "713715": [
-      "eip155",
-      "canonical"
-    ],
-    "764984": [
-      "canonical"
-    ],
-    "810180": [
-      "zksync"
-    ],
-    "978657": [
       "canonical"
     ],
     "6038361": [
-      "eip155",
       "canonical"
     ],
     "7225878": [
-      "eip155"
+      "canonical"
     ],
     "7777777": [
-      "canonical",
-      "eip155"
+      "canonical"
     ],
     "11155111": [
-      "eip155",
       "canonical"
     ],
     "11155420": [
-      "eip155"
-    ],
-    "12227332": [
       "canonical"
     ],
     "94204209": [
-      "canonical",
-      "eip155"
+      "canonical"
     ],
     "111557560": [
-      "canonical",
-      "eip155"
+      "canonical"
     ],
     "123420111": [
-      "canonical",
-      "eip155"
-    ],
-    "161221135": [
       "canonical"
     ],
     "168587773": [
       "canonical"
     ],
-    "222000222": [
-      "canonical"
-    ],
-    "245022926": [
-      "eip155"
-    ],
-    "245022934": [
-      "eip155"
-    ],
-    "333000333": [
+    "476462898": [
       "canonical"
     ],
     "666666666": [
-      "canonical",
-      "eip155"
+      "canonical"
     ],
     "999999999": [
-      "canonical",
-      "eip155"
+      "canonical"
     ],
     "1313161554": [
-      "canonical",
-      "eip155"
+      "canonical"
     ],
     "1313161555": [
       "canonical"
     ],
     "1666600000": [
-      "eip155"
+      "canonical"
     ],
     "1666700000": [
-      "eip155"
-    ],
-    "11297108099": [
-      "canonical"
-    ],
-    "11297108109": [
-      "canonical"
-    ],
-    "37714555429": [
       "canonical"
     ],
     "88153591557": [
-      "canonical",
-      "eip155"
+      "canonical"
     ]
   },
   "abi": [
     {
+      "inputs": [
+
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
           "name": "owner",
           "type": "address"
@@ -872,7 +405,7 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
           "name": "handler",
           "type": "address"
@@ -885,7 +418,7 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
           "name": "guard",
           "type": "address"
@@ -911,7 +444,7 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
           "name": "module",
           "type": "address"
@@ -924,7 +457,7 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
           "name": "module",
           "type": "address"
@@ -937,7 +470,7 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "bytes32",
           "name": "txHash",
           "type": "bytes32"
@@ -982,7 +515,7 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "bytes32",
           "name": "txHash",
           "type": "bytes32"
@@ -1001,123 +534,13 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
           "name": "owner",
           "type": "address"
         }
       ],
       "name": "RemovedOwner",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "module",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "value",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "bytes",
-          "name": "data",
-          "type": "bytes"
-        },
-        {
-          "indexed": false,
-          "internalType": "enum Enum.Operation",
-          "name": "operation",
-          "type": "uint8"
-        }
-      ],
-      "name": "SafeModuleTransaction",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "value",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "bytes",
-          "name": "data",
-          "type": "bytes"
-        },
-        {
-          "indexed": false,
-          "internalType": "enum Enum.Operation",
-          "name": "operation",
-          "type": "uint8"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "safeTxGas",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "baseGas",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "gasPrice",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "gasToken",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "address payable",
-          "name": "refundReceiver",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "bytes",
-          "name": "signatures",
-          "type": "bytes"
-        },
-        {
-          "indexed": false,
-          "internalType": "bytes",
-          "name": "additionalInfo",
-          "type": "bytes"
-        }
-      ],
-      "name": "SafeMultiSigTransaction",
       "type": "event"
     },
     {
@@ -1508,7 +931,7 @@
       "outputs": [
         {
           "internalType": "bool",
-          "name": "",
+          "name": "success",
           "type": "bool"
         }
       ],
@@ -1824,40 +1247,6 @@
       "name": "removeOwner",
       "outputs": [
 
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "value",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bytes",
-          "name": "data",
-          "type": "bytes"
-        },
-        {
-          "internalType": "enum Enum.Operation",
-          "name": "operation",
-          "type": "uint8"
-        }
-      ],
-      "name": "requiredTxGas",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
       ],
       "stateMutability": "nonpayable",
       "type": "function"
