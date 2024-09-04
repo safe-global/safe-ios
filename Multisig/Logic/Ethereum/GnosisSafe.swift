@@ -18,7 +18,7 @@ class GnosisSafe {
     }
 
     var minimumSupportedVersionValue = "1.0.0"
-    var maximumSupportedVersionValue = "1.3.0"
+    var maximumSupportedVersionValue = "1.4.1"
     private var minimumSupportedVersion: Version { Version(minimumSupportedVersionValue)! }
     private var maximumSupportedVersion: Version { Version(maximumSupportedVersionValue)! }
 
