@@ -176,6 +176,7 @@ extension SCGModels {
         case swapOrder(SwapOrder)
         case swapTransfer(SwapOrder)
         case twapOrder(TwapOrder)
+        case stake(Stake)
         case unknown
 
         init(from decoder: Decoder) throws {
@@ -206,6 +207,8 @@ extension SCGModels {
                 self = try .swapTransfer(SwapOrder(from: decoder))
             case "TwapOrder":
                 self = try .twapOrder(TwapOrder(from: decoder))
+            case "NativeStakingDeposit", "NativeStakingValidatorsExit", "NativeStakingWithdraw":
+                self = try .stake(Stake(from: decoder))
             case "Unknown":
                 fallthrough
             default:
@@ -381,6 +384,31 @@ extension SCGModels {
             var transactionHash: DataString
             var implementation: AddressInfo?
             var factory: AddressInfo?
+        }
+        
+        struct Stake: Decodable {
+            let type: StakeType
+            
+            var displayName: String {
+                return type.displayName
+            }
+        }
+        
+        enum StakeType: String, Decodable {
+            case deposit = "NativeStakingDeposit"
+            case validatorsExit = "NativeStakingValidatorsExit"
+            case withdraw = "NativeStakingWithdraw"
+
+            var displayName: String {
+                switch self {
+                case .deposit:
+                    return "Stake"
+                case .validatorsExit:
+                    return "Withdraw request"
+                case .withdraw:
+                    return "Claim"
+                }
+            }
         }
 
         struct SwapOrder: Decodable {
