@@ -25,7 +25,7 @@ set -o pipefail && \
 xcrun xcodebuild test \
     -project Multisig.xcodeproj \
     -scheme "$XCODE_SCHEME" \
-    -destination "platform=iOS Simulator,name=iPhone 15 Pro" \
+    -destination "platform=iOS Simulator,name=iPhone 16 Pro" \
     -resultBundlePath "$TEST_BUNDLE_PATH" \
 | tee "$OUTPUT_DIR/xcodebuild-test.log" | xcpretty -c -r junit
 
