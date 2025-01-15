@@ -41,7 +41,7 @@ The tool outputs the encryption key with which the configuration was encrypted. 
 
 Then, repeat the same for the production environment (in that case the files would be named `apis-prod.example.json` and `apis-prod.enc.json`, and the environment variable is `CONFIG_KEY_PROD`).
 
-**NOTE: Do not commit unencrypted files with real API keys `apis-staging.exmaple.json` or `apis-prod.example.json` to git! Otherwise you will compromise them.**
+**NOTE: Do not commit unencrypted files with real API keys `apis-staging.example.json` or `apis-prod.example.json` to git! Otherwise you will compromise them.**
 
 You can find more details about the `secconfig` tool in the script `Pakcages/SecureConfig/Sources/secconfig/main.swift`
 
