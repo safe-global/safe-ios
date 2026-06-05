@@ -1,3 +1,6 @@
+> [!WARNING]
+> **This repository is archived and no longer maintained.** Native iOS/Android development has moved to a unified React Native app. Please visit [safe-monorepo](https://github.com/safe-global/safe-wallet-monorepo/) for the latest development and to report issues.
+
 # Safe{Wallet} iOS app
 Safe Multisig iOS app.
 
